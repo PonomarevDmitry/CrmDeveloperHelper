@@ -1,0 +1,104 @@
+﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExportPluginType"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+        Title="Export Plugin Type Description" Height="538.662" Width="717" WindowStartupLocation="Manual">
+    <src:WindowBase.Resources>
+        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+            <MenuItem Header="Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+            <Separator />
+            <MenuItem x:Uid="contMnAddPluginTypeStepsIntoSolutionLast" Header="Add Steps for PluginType into Last Crm Solution" VerticalAlignment="Center"  />
+            <MenuItem Header="Add Steps for PluginType into Crm Solution" VerticalAlignment="Center" Click="mIAddPluginTypeStepsIntoSolution_Click" />
+            <Separator />
+            <MenuItem x:Uid="contMnAddPluginAssemblyIntoSolutionLast" Header="Add PluginAssembly into Last Crm Solution" VerticalAlignment="Center"  />
+            <MenuItem Header="Add PluginAssembly into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
+            <Separator />
+            <MenuItem x:Uid="contMnAddIntoSolutionStepsLast" Header="Add Steps for PluginAssembly into Last Crm Solution" VerticalAlignment="Center"  />
+            <MenuItem Header="Add Steps for PluginAssembly into Crm Solution" VerticalAlignment="Center" Click="mIAddAssemblyStepsIntoSolution_Click" />
+            <Separator/>
+            <MenuItem Header="Plugin Type Description" VerticalAlignment="Center" Click="mICreatePluginTypeDescription_Click"/>
+            <Separator/>
+            <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+            <Separator/>
+            <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+            <Separator/>
+            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+            <Separator/>
+            <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportPlugiTypeDependentComponents_Click" />
+            <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportPlugiTypeRequiredComponents_Click" />
+            <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center"  Click="mIExportPlugiTypeDependenciesForDelete_Click" />
+            <Separator/>
+            <MenuItem Header="Export all Plugin Type Information" Click="btnExportAll_Click"/>
+        </ContextMenu>
+    </src:WindowBase.Resources>
+    <Grid>
+        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23" Padding="0" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="48,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" />
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFilter" Height="23" Margin="48,38,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        <DataGrid x:Name="lstVwPluginTypes" AutoGenerateColumns="False" Margin="10,66,10,99" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                </Style>
+            </DataGrid.ItemContainerStyle>
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Plugin Type Name" Width="500" Binding="{Binding PluginTypeName}" />
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="25" Width="53"/>
+        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Height="25" Width="254" />
+        <ToolBar x:Name="toolStrip" Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
+            <ToolBar.Resources>
+                <Style TargetType="{x:Type ToolBarPanel}">
+                    <Setter Property="Orientation" Value="Vertical"/>
+                </Style>
+            </ToolBar.Resources>
+            <DockPanel>
+                <DockPanel.Resources>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                        <Setter Property="Margin" Value="6,2" />
+                        <Setter Property="Padding" Value="3" />
+                    </Style>
+                </DockPanel.Resources>
+                <ToolBarPanel Orientation="Horizontal" >
+                    <Button x:Name="btnExportAll" Content="Export all Plugin Type Info" Click="btnExportAll_Click" />
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBExportPluginType" Header="Export Plugin Type Information" VerticalAlignment="Center">
+                            <MenuItem x:Name="mICreateEntityDescription" Header="Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                            <Separator/>
+                            <MenuItem x:Name="mICreatePluginTypeDescription" Header="Plugin Type Description" VerticalAlignment="Center" Click="mICreatePluginTypeDescription_Click"/>
+                            <Separator/>
+                            <MenuItem x:Name="mIOpenDependentComponentsInWeb" Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                            <Separator/>
+                            <MenuItem x:Name="mIOpenDependentComponentsInWindow" Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                            <Separator/>
+                            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+                            <Separator/>
+                            <MenuItem x:Name="mIExportPlugiTypeDependentComponents" Header="Dependent Components" VerticalAlignment="Center" Click="mIExportPlugiTypeDependentComponents_Click" />
+                            <MenuItem x:Name="mIExportPlugiTypeRequiredComponents" Header="Required Components" VerticalAlignment="Center" Click="mIExportPlugiTypeRequiredComponents_Click" />
+                            <MenuItem x:Name="mIExportPlugiTypeDependenciesForDelete" Header="Dependencies For Delete" VerticalAlignment="Center"  Click="mIExportPlugiTypeDependenciesForDelete_Click" />
+                        </MenuItem>
+                    </Menu>
+                </ToolBarPanel>
+                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+            </DockPanel>
+        </ToolBar>
+        <StatusBar x:Name="statusBar" VerticalAlignment="Bottom">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
+            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="tSSLStatusMessage" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        </StatusBar>
+    </Grid>
+</src:WindowBase>

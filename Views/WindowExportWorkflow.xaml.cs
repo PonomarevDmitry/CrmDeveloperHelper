@@ -1,0 +1,1580 @@
+﻿using Microsoft.Xrm.Sdk.Metadata;
+using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
+using System.Xml.Linq;
+
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
+{
+    public partial class WindowExportWorkflow : WindowBase
+    {
+        private readonly object sysObjectConnections = new object();
+
+        private IWriteToOutput _iWriteToOutput;
+
+        private CommonConfiguration _commonConfig;
+        private ConnectionConfiguration _connectionConfig;
+
+        private string _filterEntity;
+
+        private bool _controlsEnabled = true;
+
+        private ObservableCollection<EntityViewItem> _itemsSource;
+
+        private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
+
+        private int _init = 0;
+
+        public WindowExportWorkflow(
+             IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntity
+            , string selection
+            )
+        {
+            BeginLoadConfig();
+
+            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+
+            this._iWriteToOutput = iWriteToOutput;
+            this._commonConfig = commonConfig;
+            this._connectionConfig = service.ConnectionData.ConnectionConfiguration;
+            this._filterEntity = filterEntity;
+
+            _connectionCache[service.ConnectionData.ConnectionId] = service;
+            _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+
+            BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
+
+            InitializeComponent();
+
+            var attribute = _descriptorCache[service.ConnectionData.ConnectionId].GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.category);
+
+            FillComboBoxCategory(attribute);
+
+            LoadFromConfig();
+
+            LoadConfiguration();
+
+            if (!string.IsNullOrEmpty(selection))
+            {
+                txtBFilter.Text = selection;
+            }
+
+            if (string.IsNullOrEmpty(_filterEntity))
+            {
+                btnClearEntityFilter.IsEnabled = sepClearEntityFilter.IsEnabled = false;
+                btnClearEntityFilter.Visibility = sepClearEntityFilter.Visibility = Visibility.Collapsed;
+            }
+
+            txtBFilter.SelectionLength = 0;
+            txtBFilter.SelectionStart = txtBFilter.Text.Length;
+
+            txtBFilter.Focus();
+
+            this._itemsSource = new ObservableCollection<EntityViewItem>();
+
+            this.lstVwWorkflows.ItemsSource = _itemsSource;
+
+            EndLoadConfig();
+
+            cmBCurrentConnection.ItemsSource = _connectionConfig.Connections;
+            cmBCurrentConnection.SelectedItem = service.ConnectionData;
+
+            if (service != null)
+            {
+                ShowExistingWorkflows();
+            }
+        }
+
+        private void BeginLoadConfig()
+        {
+            ++_init;
+        }
+
+        private void EndLoadConfig()
+        {
+            --_init;
+        }
+
+        private void FillComboBoxCategory(AttributeMetadata attribute)
+        {
+            cmBCategory.Items.Clear();
+
+            cmBCategory.Items.Add(string.Empty);
+
+            if (attribute == null)
+            {
+                return;
+            }
+
+            if (attribute is PicklistAttributeMetadata picklist)
+            {
+                foreach (var item in picklist.OptionSet.Options.Where(o => o.Value.HasValue))
+                {
+                    var value = new ComboBoxItem()
+                    {
+                        Tag = item.Value.Value,
+
+                        Content = item.Label.UserLocalizedLabel.Label
+                    };
+
+                    cmBCategory.Items.Add(value);
+                }
+            }
+        }
+
+        private void LoadFromConfig()
+        {
+            cmBFileAction.DataContext = _commonConfig;
+
+            txtBFolder.DataContext = _commonConfig;
+        }
+
+        private const string paramCategory = "Category";
+
+        private void LoadConfiguration()
+        {
+            WindowSettings winConfig = this.GetWindowsSettings();
+
+            var categoryValue = winConfig.GetValueInt(paramCategory);
+
+            if (categoryValue != -1)
+            {
+                var item = cmBCategory.Items.OfType<ComboBoxItem>().FirstOrDefault(e => (int)e.Tag == categoryValue);
+                if (item != null)
+                {
+                    cmBCategory.SelectedItem = item;
+                }
+            }
+        }
+
+        protected override void SaveConfigurationInternal(WindowSettings winConfig)
+        {
+            base.SaveConfigurationInternal(winConfig);
+
+            var categoryValue = -1;
+
+            if (cmBCategory.SelectedItem is ComboBoxItem comboBoxItem
+                    && comboBoxItem.Tag is int value
+                    )
+            {
+                categoryValue = value;
+            }
+
+            winConfig.DictInt[paramCategory] = categoryValue;
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            _commonConfig.Save();
+            _connectionConfig.Save();
+
+            BindingOperations.ClearAllBindings(cmBCurrentConnection);
+
+            cmBCurrentConnection.Items.DetachFromSourceCollection();
+
+            cmBCurrentConnection.ItemsSource = null;
+
+            base.OnClosed(e);
+        }
+
+        private async Task<IOrganizationServiceExtented> GetService()
+        {
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            if (connectionData != null)
+            {
+                if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
+                {
+                    _iWriteToOutput.WriteToOutput("Connection to CRM.");
+                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    var service = await QuickConnection.ConnectAsync(connectionData);
+                    _iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+
+                    _connectionCache[connectionData.ConnectionId] = service;
+                }
+
+                return _connectionCache[connectionData.ConnectionId];
+            }
+
+            return null;
+        }
+
+        private async Task<SolutionComponentDescriptor> GetDescriptor()
+        {
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
+            {
+                var service = await GetService();
+
+                _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+            }
+
+            return _descriptorCache[connectionData.ConnectionId];
+        }
+
+        private async void ShowExistingWorkflows()
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            if (_init > 0)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            UpdateStatus("Loading workflows...");
+
+            this._itemsSource.Clear();
+
+            string textName = string.Empty;
+
+            txtBFilter.Dispatcher.Invoke(() =>
+            {
+                textName = txtBFilter.Text.Trim().ToLower();
+            });
+
+            int? category = null;
+
+            cmBCategory.Dispatcher.Invoke(() =>
+            {
+                if (cmBCategory.SelectedItem is ComboBoxItem comboBoxItem
+                    && comboBoxItem.Tag is int value
+                    )
+                {
+                    category = value;
+                }
+            });
+
+            IEnumerable<Workflow> list = Enumerable.Empty<Workflow>();
+
+            try
+            {
+                var service = await GetService();
+
+                if (service != null)
+                {
+                    WorkflowRepository repository = new WorkflowRepository(service);
+                    list = await repository.GetListAsync(this._filterEntity, category
+                        , new ColumnSet(
+                            Workflow.Schema.Attributes.category
+                            , Workflow.Schema.Attributes.name
+                            , Workflow.Schema.Attributes.uniquename
+                            , Workflow.Schema.Attributes.primaryentity
+                        ));
+                }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
+
+            list = FilterList(list, textName);
+
+            LoadWorkflows(list);
+        }
+
+        private static IEnumerable<Workflow> FilterList(IEnumerable<Workflow> list, string textName)
+        {
+            if (!string.IsNullOrEmpty(textName))
+            {
+                textName = textName.ToLower();
+
+                if (Guid.TryParse(textName, out Guid tempGuid))
+                {
+                    list = list.Where(ent => ent.Id == tempGuid || ent.WorkflowIdUnique == tempGuid);
+                }
+                else
+                {
+                    list = list.Where(ent =>
+                    {
+                        var type = ent.PrimaryEntity?.ToLower() ?? string.Empty;
+                        var name = ent.Name?.ToLower() ?? string.Empty;
+                        var nameUnique = ent.UniqueName?.ToLower() ?? string.Empty;
+
+                        return type.Contains(textName) || name.Contains(textName) || nameUnique.Contains(textName);
+                    });
+                }
+            }
+
+            return list;
+        }
+
+        private class EntityViewItem
+        {
+            public string EntityName { get; private set; }
+
+            public string Category { get; private set; }
+
+            public string WorkflowName { get; private set; }
+
+            public Workflow Workflow { get; private set; }
+
+            public EntityViewItem(string entityName, string workflowName, string category, Workflow workflow)
+            {
+                this.EntityName = entityName;
+                this.WorkflowName = workflowName;
+                this.Category = category;
+                this.Workflow = workflow;
+            }
+        }
+
+        private void LoadWorkflows(IEnumerable<Workflow> results)
+        {
+            this._iWriteToOutput.WriteToOutput("Found {0} workflows.", results.Count());
+
+            this.lstVwWorkflows.Dispatcher.Invoke(() =>
+            {
+                foreach (var entity in results
+                    .OrderBy(ent => ent.PrimaryEntity)
+                    .ThenBy(ent => ent.Category?.Value)
+                    .ThenBy(ent => ent.Name)
+                )
+                {
+                    string name = entity.Name;
+
+                    var uniqueName = entity.UniqueName;
+
+                    if (!string.IsNullOrEmpty(uniqueName))
+                    {
+                        name += string.Format("    (UniqueName \"{0}\")", uniqueName);
+                    }
+
+                    string category = entity.FormattedValues[Workflow.Schema.Attributes.category];
+
+                    var item = new EntityViewItem(entity.PrimaryEntity, name, category, entity);
+
+                    this._itemsSource.Add(item);
+                }
+
+                if (this.lstVwWorkflows.Items.Count == 1)
+                {
+                    this.lstVwWorkflows.SelectedItem = this.lstVwWorkflows.Items[0];
+                }
+            });
+
+            UpdateStatus(string.Format("{0} workflows loaded.", results.Count()));
+
+            ToggleControls(true);
+        }
+
+        private void UpdateStatus(string msg)
+        {
+            this.statusBar.Dispatcher.Invoke(() =>
+            {
+                this.tSSLStatusMessage.Content = msg;
+            });
+        }
+
+        private void ToggleControls(bool enabled)
+        {
+            this._controlsEnabled = enabled;
+
+            ToggleControl(this.toolStrip, enabled);
+
+            ToggleControl(cmBCurrentConnection, enabled);
+
+            ToggleProgressBar(enabled);
+
+            if (enabled)
+            {
+                UpdateButtonsEnable();
+            }
+        }
+
+        private void ToggleProgressBar(bool enabled)
+        {
+            if (tSProgressBar == null)
+            {
+                return;
+            }
+
+            this.tSProgressBar.Dispatcher.Invoke(() =>
+            {
+                tSProgressBar.IsIndeterminate = !enabled;
+            });
+        }
+
+        private void ToggleControl(Control c, bool enabled)
+        {
+            c.Dispatcher.Invoke(() =>
+            {
+                if (c is TextBox)
+                {
+                    ((TextBox)c).IsReadOnly = !enabled;
+                }
+                else
+                {
+                    c.IsEnabled = enabled;
+                }
+            });
+        }
+
+        private void UpdateButtonsEnable()
+        {
+            this.lstVwWorkflows.Dispatcher.Invoke(() =>
+            {
+                try
+                {
+                    bool enabled = this.lstVwWorkflows.SelectedItems.Count > 0;
+
+                    UIElement[] list = { tSDDBExportWorkflow, btnExportAll };
+
+                    foreach (var button in list)
+                    {
+                        button.IsEnabled = enabled;
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            });
+        }
+
+        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ShowExistingWorkflows();
+            }
+        }
+
+        private Workflow GetSelectedEntity()
+        {
+            Workflow result = null;
+
+            if (this.lstVwWorkflows.SelectedItems.Count == 1
+                && this.lstVwWorkflows.SelectedItems[0] != null
+                && this.lstVwWorkflows.SelectedItems[0] is EntityViewItem
+                )
+            {
+                result = (this.lstVwWorkflows.SelectedItems[0] as EntityViewItem).Workflow;
+            }
+
+            return result;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                var item = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
+
+                if (item != null)
+                {
+                    ExecuteAction(item.Workflow.Id, item.Workflow.PrimaryEntity, item.Workflow.Name, item.Workflow.FormattedValues[Workflow.Schema.Attributes.category], PerformExportMouseDoubleClick);
+                }
+            }
+        }
+
+        private async Task PerformExportMouseDoubleClick(string folder, Guid idWorkflow, string entityName, string name, string category)
+        {
+            await PerformExportXmlToFile(folder, idWorkflow, entityName, name, category, Workflow.Schema.Attributes.xaml, "Xaml");
+
+            await PerformExportXmlToFile(folder, idWorkflow, entityName, name, category, Workflow.Schema.Attributes.inputparameters, "InputParameters");
+
+            await PerformExportXmlToFile(folder, idWorkflow, entityName, name, category, Workflow.Schema.Attributes.clientdata, "ClientData");
+        }
+
+        private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateButtonsEnable();
+        }
+
+        private async void ExecuteAction(Guid idWorkflow, string entityName, string name, string category, Func<string, Guid, string, string, string, Task> action)
+        {
+            string folder = txtBFolder.Text.Trim();
+
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(folder))
+            {
+                return;
+            }
+
+            await action(folder, idWorkflow, entityName, name, category);
+        }
+
+        private Task<string> CreateFileAsync(string folder, string entityName, string category, string name, string fieldName, string xmlContent)
+        {
+            return Task.Run(() => CreateFile(folder, entityName, category, name, fieldName, xmlContent));
+        }
+
+        private string CreateFile(string folder, string entityName, string category, string name, string fieldName, string xmlContent)
+        {
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            string fileName = EntityFileNameFormatter.GetWorkflowFileName(connectionData.Name, entityName, category, name, fieldName, "xml");
+            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+            if (!string.IsNullOrEmpty(xmlContent))
+            {
+                try
+                {
+                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    {
+                        xmlContent = doc.ToString();
+                    }
+
+                    File.WriteAllText(filePath, xmlContent, Encoding.UTF8);
+
+                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", connectionData.Name, name, fieldName, filePath);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                }
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldName);
+                this._iWriteToOutput.ActivateOutputWindow();
+            }
+
+            return filePath;
+        }
+
+        private async Task<string> CreateCorrectedFileAsync(string folder, string entityName, string category, string name, string fieldName, string xmlContent)
+        {
+            var service = await GetService();
+
+            string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldName, "xml");
+            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+            if (!string.IsNullOrEmpty(xmlContent))
+            {
+                try
+                {
+                    var replacer = new LabelReplacer(await TranslationRepository.GetDefaultTranslationFromCacheAsync(service.ConnectionData.ConnectionId, service));
+
+                    xmlContent = ContentCoparerHelper.ClearXml(xmlContent, replacer.FullfillLabelsForWorkflow, ContentCoparerHelper.RenameClasses, WorkflowUsedEntitiesHandler.ReplaceGuids);
+
+                    File.WriteAllText(filePath, xmlContent, Encoding.UTF8);
+
+                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldName, filePath);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                }
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldName);
+                this._iWriteToOutput.ActivateOutputWindow();
+            }
+
+            return filePath;
+        }
+
+        private void btnExportAll_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformExportAllXml);
+        }
+
+        private async Task PerformExportAllXml(string folder, Guid idWorkflow, string entityName, string name, string category)
+        {
+            await PerformExportEntityDescription(folder, idWorkflow, entityName, name, category);
+
+            await PerformExportXmlToFile(folder, idWorkflow, entityName, name, category, Workflow.Schema.Attributes.xaml, "Xaml");
+
+            await PerformExportXmlToFile(folder, idWorkflow, entityName, name, category, Workflow.Schema.Attributes.inputparameters, "InputParameters");
+
+            await PerformExportXmlToFile(folder, idWorkflow, entityName, name, category, Workflow.Schema.Attributes.clientdata, "ClientData");
+
+            //await PerformExportCorrectedXmlToFile(folder, workflow, Workflow.Schema.Attributes.xaml, "CorrectedXaml);
+        }
+
+        private async void ExecuteActionEntity(Guid idWorkflow, string entityName, string name, string category, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, string, string, Task> action)
+        {
+            string folder = txtBFolder.Text.Trim();
+
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(folder))
+            {
+                return;
+            }
+
+            await action(folder, idWorkflow, entityName, name, category, fieldName, fieldTitle);
+        }
+
+        private async Task PerformExportXmlToFile(string folder, Guid idWorkflow, string entityName, string name, string category, string fieldName, string fieldTitle)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            var service = await GetService();
+
+            WorkflowRepository repository = new WorkflowRepository(service);
+
+            Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
+
+            string xmlContent = workflow.GetAttributeValue<string>(fieldName);
+
+            string filePath = await CreateFileAsync(folder, entityName, category, name, fieldTitle, xmlContent);
+
+            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+            ToggleControls(true);
+        }
+
+        private async Task PerformExportCorrectedXmlToFile(string folder, Guid idWorkflow, string entityName, string name, string category, string fieldName, string fieldTitle)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            var service = await GetService();
+
+            WorkflowRepository repository = new WorkflowRepository(service);
+
+            Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
+
+            string xmlContent = workflow.GetAttributeValue<string>(fieldName);
+
+            string filePath = await CreateCorrectedFileAsync(folder, entityName, category, name, fieldTitle, xmlContent);
+
+            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+            ToggleControls(true);
+        }
+
+        private async Task PerformExportUsedEntitesToFile(string folder, Guid idWorkflow, string entityName, string name, string category, string fieldName, string fieldTitle)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            var service = await GetService();
+
+            WorkflowRepository repository = new WorkflowRepository(service);
+
+            Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
+
+            string xmlContent = workflow.GetAttributeValue<string>(fieldName);
+
+            if (!string.IsNullOrEmpty(xmlContent) && ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+            {
+                string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldName, "txt");
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(_iWriteToOutput, service, true));
+
+                await workflowDescriptor.CreateFileUsedEntitiesInWorkflowAsync(filePath, idWorkflow);
+
+                this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldName, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldName);
+                this._iWriteToOutput.ActivateOutputWindow();
+            }
+
+            ToggleControls(true);
+        }
+
+        private async Task PerformExportUsedNotExistsEntitesToFile(string folder, Guid idWorkflow, string entityName, string name, string category, string fieldName, string fieldTitle)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            var service = await GetService();
+
+            WorkflowRepository repository = new WorkflowRepository(service);
+
+            Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
+
+            string xmlContent = workflow.GetAttributeValue<string>(fieldName);
+
+            if (!string.IsNullOrEmpty(xmlContent) && ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+            {
+                string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldName, "txt");
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(_iWriteToOutput, service, true));
+
+                await workflowDescriptor.CreateFileUsedNotExistsEntitiesInWorkflowAsync(filePath, idWorkflow);
+
+                this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldName, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldName);
+                this._iWriteToOutput.ActivateOutputWindow();
+            }
+
+            ToggleControls(true);
+        }
+
+        private void mIExportWorkflowXaml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.xaml, "Xaml", PerformExportXmlToFile);
+        }
+
+        private void mIExportWorkflowCorrectedXaml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.xaml, "CorrectedXaml", PerformExportCorrectedXmlToFile);
+        }
+
+        private void mIExportWorkflowUsedEntities_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.xaml, "UsedEntities", PerformExportUsedEntitesToFile);
+        }
+
+        private void mIExportWorkflowUsedNotExistsEntities_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.xaml, "UsedNotExistsEntities", PerformExportUsedNotExistsEntitesToFile);
+        }
+
+        private void mIExportWorkflowInputParameters_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.inputparameters, "InputParameters", PerformExportXmlToFile);
+        }
+
+        private void mIExportWorkflowClientData_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.clientdata, "ClientData", PerformExportXmlToFile);
+        }
+
+        private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformExportEntityDescription);
+        }
+
+        private async void mIExportWorkflowShowDifferenceXamlAndCorrectedXaml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            string folder = txtBFolder.Text.Trim();
+
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(folder))
+            {
+                return;
+            }
+
+            await PerformDifferenceXamlAndCorrectedXaml(folder, entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.xaml, "Xaml", "CorrectedXaml");
+        }
+
+        private async Task PerformDifferenceXamlAndCorrectedXaml(string folder, Guid idWorkflow, string entityName, string name, string category, string fieldName, string fieldTitle1, string fieldTitle2)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            var service = await GetService();
+
+            WorkflowRepository repository = new WorkflowRepository(service);
+
+            Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
+
+            string xmlContent = workflow.GetAttributeValue<string>(fieldName);
+
+            string filePath1 = await CreateFileAsync(folder, entityName, category, name, fieldTitle1, xmlContent);
+            string filePath2 = await CreateCorrectedFileAsync(folder, entityName, category, name, fieldTitle2, xmlContent);
+
+            if (File.Exists(filePath1) && File.Exists(filePath2))
+            {
+                this._iWriteToOutput.ProcessStartProgramComparer(_commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+            }
+            else
+            {
+                this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+
+                this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+            }
+
+            ToggleControls(true);
+        }
+
+        private async Task PerformExportEntityDescription(string folder, Guid idWorkflow, string entityName, string name, string category)
+        {
+            ToggleControls(false);
+
+            var service = await GetService();
+
+            string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, "EntityDescription", "txt");
+            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+            WorkflowRepository repository = new WorkflowRepository(service);
+
+            Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
+
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, workflow, EntityFileNameFormatter.WorkflowIgnoreFields);
+
+            this._iWriteToOutput.WriteToOutput("Workflow Entity Description exported to {0}", filePath);
+
+            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+            this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+
+            UpdateStatus("Operation is completed.");
+
+            ToggleControls(true);
+        }
+
+        private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
+        {
+            this._filterEntity = null;
+
+            btnClearEntityFilter.IsEnabled = sepClearEntityFilter.IsEnabled = false;
+            btnClearEntityFilter.Visibility = sepClearEntityFilter.Visibility = Visibility.Collapsed;
+
+            ShowExistingWorkflows();
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.F5)
+            {
+                e.Handled = true;
+
+                ShowExistingWorkflows();
+            }
+
+            base.OnKeyDown(e);
+        }
+
+        private void mIExportWorkflowDependentComponents_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformCreatingFileWithDependentComponents);
+        }
+
+        private void mIExportWorkflowRequiredComponents_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformCreatingFileWithRequiredComponents);
+        }
+
+        private void mIExportWorkflowDependenciesForDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformCreatingFileWithDependenciesForDelete);
+        }
+
+        private async Task PerformCreatingFileWithDependentComponents(string folder, Guid idWorkflow, string entityName, string name, string category)
+        {
+            this._iWriteToOutput.WriteToOutput("Starting downloading {0}", name);
+
+            var removeWrongFromName = FileOperations.RemoveWrongSymbols(name);
+
+            var service = await GetService();
+            var descriptor = await GetDescriptor();
+
+            var dependencyRepository = new DependencyRepository(service);
+
+            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
+
+            var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.Workflow, idWorkflow);
+
+            string description = await descriptorHandler.GetDescriptionDependentAsync(coll);
+
+            if (!string.IsNullOrEmpty(description))
+            {
+                string fileName = EntityFileNameFormatter.GetWorkflowFileName(
+                    service.ConnectionData.Name
+                    , entityName
+                    , category
+                    , removeWrongFromName
+                    , "Dependent Components"
+                    , "txt"
+                    );
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(filePath, description, Encoding.UTF8);
+
+                this._iWriteToOutput.WriteToOutput("Workflow {0} Dependent Components exported to {1}", name, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput("Workflow {0} has no Dependent Components.", name);
+                this._iWriteToOutput.ActivateOutputWindow();
+            }
+        }
+
+        private async Task PerformCreatingFileWithRequiredComponents(string folder, Guid idWorkflow, string entityName, string name, string category)
+        {
+            this._iWriteToOutput.WriteToOutput("Starting downloading {0}", name);
+
+            var removeWrongFromName = FileOperations.RemoveWrongSymbols(name);
+
+            var service = await GetService();
+            var descriptor = await GetDescriptor();
+
+            var dependencyRepository = new DependencyRepository(service);
+
+            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
+
+            var coll = await dependencyRepository.GetRequiredComponentsAsync((int)ComponentType.Workflow, idWorkflow);
+
+            string description = await descriptorHandler.GetDescriptionRequiredAsync(coll);
+
+            if (!string.IsNullOrEmpty(description))
+            {
+                string fileName = EntityFileNameFormatter.GetWorkflowFileName(
+                    service.ConnectionData.Name
+                    , entityName
+                    , category
+                    , removeWrongFromName
+                    , "Required Components"
+                    , "txt"
+                    );
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(filePath, description, Encoding.UTF8);
+
+                this._iWriteToOutput.WriteToOutput("Workflow {0} Required Components exported to {1}", name, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput("Workflow {0} has no Required Components.", name);
+                this._iWriteToOutput.ActivateOutputWindow();
+            }
+        }
+
+        private async Task PerformCreatingFileWithDependenciesForDelete(string folder, Guid idWorkflow, string entityName, string name, string category)
+        {
+            this._iWriteToOutput.WriteToOutput("Starting downloading {0}", name);
+
+            var removeWrongFromName = FileOperations.RemoveWrongSymbols(name);
+
+            var service = await GetService();
+            var descriptor = await GetDescriptor();
+
+            var dependencyRepository = new DependencyRepository(service);
+
+            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
+
+            var coll = await dependencyRepository.GetDependenciesForDeleteAsync((int)ComponentType.Workflow, idWorkflow);
+
+            string description = await descriptorHandler.GetDescriptionDependentAsync(coll);
+
+            if (!string.IsNullOrEmpty(description))
+            {
+                string fileName = EntityFileNameFormatter.GetWorkflowFileName(
+                    service.ConnectionData.Name
+                    , entityName
+                    , category
+                    , removeWrongFromName
+                    , "Dependencies For Delete"
+                    , "txt"
+                    );
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(filePath, description, Encoding.UTF8);
+
+                this._iWriteToOutput.WriteToOutput("Workflow {0} Dependencies For Delete exported to {1}", name, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput("Workflow {0} has no Dependencies For Delete.", name);
+                this._iWriteToOutput.ActivateOutputWindow();
+            }
+        }
+
+        private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            if (connectionData != null)
+            {
+                connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.Workflow, entity.Id);
+            }
+        }
+
+        private void mIOpenInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            if (connectionData != null)
+            {
+                connectionData.OpenSolutionComponentInWeb(ComponentType.Workflow, entity.WorkflowId.Value, null, null);
+            }
+        }
+
+        private void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        {
+            AddIntoSolution(true, null);
+        }
+
+        private void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+               )
+            {
+                AddIntoSolution(false, solutionUniqueName);
+            }
+        }
+
+        private void AddIntoSolution(bool withSelect, string solutionUniqueName)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            if (connectionData != null)
+            {
+                var backWorker = new Thread(() =>
+                {
+                    try
+                    {
+                        this._iWriteToOutput.ActivateOutputWindow();
+
+                        var contr = new SolutionController(this._iWriteToOutput);
+
+                        contr.ExecuteAddingComponentesIntoSolution(connectionData, _commonConfig, solutionUniqueName, ComponentType.Workflow, new[] { entity.WorkflowId.Value }, null, withSelect);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                });
+
+                backWorker.Start();
+            }
+        }
+
+        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (sender is ContextMenu contextMenu)
+            {
+                var items = contextMenu.Items.OfType<MenuItem>();
+
+                ConnectionData connectionData = null;
+
+                cmBCurrentConnection.Dispatcher.Invoke(() =>
+                {
+                    connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+                });
+
+                var lastSoluiton = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
+
+                if (lastSoluiton != null)
+                {
+                    lastSoluiton.Items.Clear();
+
+                    lastSoluiton.IsEnabled = false;
+                    lastSoluiton.Visibility = Visibility.Collapsed;
+
+                    if (connectionData != null)
+                    {
+                        bool addIntoSolutionLast = connectionData.LastSelectedSolutionsUniqueName.Any();
+
+                        lastSoluiton.IsEnabled = addIntoSolutionLast;
+                        lastSoluiton.Visibility = addIntoSolutionLast ? Visibility.Visible : Visibility.Collapsed;
+
+                        foreach (var uniqueName in connectionData.LastSelectedSolutionsUniqueName)
+                        {
+                            var menuItem = new MenuItem()
+                            {
+                                Header = uniqueName.Replace("_", "__"),
+                                Tag = uniqueName,
+                            };
+
+                            menuItem.Click += AddIntoCrmSolutionLast_Click;
+
+                            lastSoluiton.Items.Add(menuItem);
+                        }
+                    }
+                }
+            }
+        }
+
+        #region Кнопки открытия других форм с информация о сущности.
+
+        private async void btnCreateMetadataFile_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity, null, null);
+        }
+
+        private async void btnExportRibbon_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntityRibbonWindow(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity, null);
+        }
+
+        private async void btnSystemForms_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity, string.Empty);
+        }
+
+        private async void btnSavedQuery_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity, string.Empty);
+        }
+
+        private async void btnSavedChart_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity, string.Empty);
+        }
+
+        private async void btnAttributesDependentComponent_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenAttributesDependentComponentWindow(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity, null);
+        }
+
+        private async void btnPluginTree_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity);
+        }
+
+        private async void btnMessageTree_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity);
+        }
+
+        private async void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity);
+        }
+
+        private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig);
+        }
+
+        private async void btnCompareMetadataFile_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
+        }
+
+        private async void btnCompareRibbon_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenOrganizationComparerRibbonWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
+        }
+
+        private async void btnCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
+        }
+
+        private async void btnCompareSystemForms_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.PrimaryEntity);
+        }
+
+        private async void btnCompareSavedQuery_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.PrimaryEntity);
+        }
+
+        private async void btnCompareSavedChart_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.PrimaryEntity);
+        }
+
+        private async void btnCompareWorkflows_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.PrimaryEntity);
+        }
+
+        #endregion Кнопки открытия других форм с информация о сущности.
+
+        private void cmBCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (_init > 0)
+            {
+                return;
+            }
+
+            ShowExistingWorkflows();
+        }
+
+        private async void mIOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+            var descriptor = await GetDescriptor();
+
+            WindowHelper.OpenSolutionComponentDependenciesWindow(
+                _iWriteToOutput
+                , service
+                , descriptor
+                , _commonConfig
+                , (int)ComponentType.Workflow
+                , entity.Id
+                , null
+                );
+        }
+
+        private async void mIOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenExplorerSolutionWindow(
+                _iWriteToOutput
+                , service
+                , _commonConfig
+                , (int)ComponentType.Workflow
+                , entity.Id
+            );
+        }
+
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (_init > 0)
+            {
+                return;
+            }
+
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource.Clear();
+            });
+
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            if (connectionData != null)
+            {
+                var descriptor = await GetDescriptor();
+
+                var attribute = descriptor.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.category);
+
+                FillComboBoxCategory(attribute);
+
+                ShowExistingWorkflows();
+            }
+        }
+    }
+}

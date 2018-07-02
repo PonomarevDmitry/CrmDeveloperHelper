@@ -1,0 +1,10 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\devenv.exe
+
+C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe
+
+/rootsuffix Exp
+
+"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe" /rootsuffix Exp /updateconfiguration
+
+
+"C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\devenv.exe" /rootsuffix Exp /updateconfiguration

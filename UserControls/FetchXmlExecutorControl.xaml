@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.FetchXmlExecutorControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" d:DesignWidth="850" d:DesignHeight="418">
+    <UserControl.Resources>
+        <ContextMenu x:Key="listContextMenuEntity">
+            <MenuItem Header="Open Fetch Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
+            <Separator />
+            <MenuItem Header="Open Fetch Entity Metadata Window" Click="mIOpenEntityMetadataWindow_Click"/>
+            <Separator />
+            <MenuItem Header="Copy Fetch Entity Id" Click="mICopyEntityId_Click"/>
+            <MenuItem Header="Copy Fetch Entity Name" Click="mICopyEntityName_Click"/>
+            <MenuItem Header="Copy Fetch Entity Url" Click="mICopyEntityUrl_Click"/>
+        </ContextMenu>
+        <ContextMenu x:Key="listContextMenuEntityReference">
+            <MenuItem Header="Open Fetch Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
+            <Separator />
+            <MenuItem Header="Open Fetch Entity Metadata Window" Click="mIOpenEntityMetadataWindow_Click"/>
+            <Separator />
+            <MenuItem Header="Open EntityReference Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityReferenceCustomizationInWeb_Click" />
+            <Separator />
+            <MenuItem Header="Open EntityReference Metadata Window" Click="mIOpenEntityReferenceMetadataWindow_Click"/>
+            <Separator />
+            <MenuItem Header="Copy Fetch Entity Id" Click="mICopyEntityId_Click"/>
+            <MenuItem Header="Copy Fetch Entity Name" Click="mICopyEntityName_Click"/>
+            <MenuItem Header="Copy Fetch Entity Url" Click="mICopyEntityUrl_Click"/>
+            <Separator />
+            <MenuItem Header="Copy EntityReference Id" Click="mICopyEntityReferenceId_Click"/>
+            <MenuItem Header="Copy EntityReference Name" Click="mICopyEntityReferenceName_Click"/>
+            <MenuItem Header="Copy EntityReference Url" Click="mICopyEntityReferenceUrl_Click"/>
+        </ContextMenu>
+        <ContextMenu x:Key="contextMenuTabItem">
+            <MenuItem Header="Close" VerticalAlignment="Center" Click="mICloseTabItem_Click" />
+        </ContextMenu>
+    </UserControl.Resources>
+    <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True">
+        <StatusBar x:Name="statusBar" VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
+            <ComboBox x:Name="cmBCurrentConnection" Height="20" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="tSSLStatusMessage" Content="" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        </StatusBar>
+        <TabControl x:Name="tabControl" DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <TabItem x:Name="tbFetchXml" Header="Fetch Xml">
+                <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Bottom" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition x:Name="columnParameters" Width="50*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition x:Name="columnFetchText" Width="50*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox x:Name="grBParameters" Grid.Column="0" Header="Parameters">
+                        <DataGrid x:Name="dGrParameters" ColumnHeaderHeight="30" ItemsSource="{Binding Path=SelectedItem.FetchXmlRequestParameterList}" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Width="Auto" Binding="{Binding Name}"/>
+
+                                <DataGridTextColumn Header="Value" Width="10*" Binding="{Binding Value}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                    <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                    <GroupBox Grid.Column="2" Header="Fetch Xml Text">
+                        <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true">
+                            <ToolBar x:Name="toolStrip" VerticalAlignment="Top" Height="30" DockPanel.Dock="Top">
+                                <Button x:Name="btnExecuteFetchXml" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click"/>
+                                <Separator />
+                                <Button x:Name="btnConvertToJavaScriptCode" Content="Convert To JavaScript Code" Click="btnConvertToJavaScriptCode_Click"/>
+                            </ToolBar>
+                            <TextBox x:Name="txtBFetchXml" IsReadOnly="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+                        </DockPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tbErrorText" IsEnabled="False" Header="Error Text">
+                <TextBox x:Name="txtBErrorText" Margin="5" IsReadOnly="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+            </TabItem>
+            <TabItem x:Name="tbResults" IsEnabled="False" Header="Results">
+                <DataGrid x:Name="dGrResults" Margin="5" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="dGrResults_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+                    <DataGrid.Resources>
+                        <Style TargetType="Hyperlink">
+                            <EventSetter Event="Click" Handler="dGrResults_Hyperlink_Click"/>
+                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntityReference}"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="{x:Type DataGridRow}">
+                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntity}"/>
+                        </Style>
+                    </DataGrid.ItemContainerStyle>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</UserControl>

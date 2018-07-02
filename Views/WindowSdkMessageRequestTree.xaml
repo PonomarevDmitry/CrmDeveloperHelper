@@ -1,0 +1,120 @@
+﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowSdkMessageRequestTree"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+        Title="Sdk Message Request Tree" Height="538.662" Width="717" WindowStartupLocation="Manual">
+    <src:WindowBase.Resources>
+        <BitmapImage x:Key="ImageEntity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Entity.png" />
+        <BitmapImage x:Key="ImageMessage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/message.gif" />
+        <BitmapImage x:Key="ImageField" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Field.png" />
+        <BitmapImage x:Key="ImageRequest" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Request.png" />
+        <BitmapImage x:Key="ImageResponse" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Response.png" />
+        <BitmapImage x:Key="ImageNamespace" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Namespace.png" />
+    </src:WindowBase.Resources>
+    <Grid>
+        <Grid Margin="10,10,10,0" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Entity Name" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+            <TextBox x:Name="txtBEntityName" Height="23"  TextWrapping="NoWrap"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center"/>
+            <Label Content="Message" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
+            <TextBox x:Name="txtBMessageFilter" Height="23"  TextWrapping="NoWrap"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center"/>
+        </Grid>
+        <GroupBox Header="Sdk Message Request Tree" Margin="10,41,10,69">
+            <DockPanel LastChildFill="True">
+                <ToolBar VerticalAlignment="Top" DockPanel.Dock="Top" >
+                    <ToolBarPanel Orientation="Horizontal">
+                        <ToolBarPanel.Resources>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                <Setter Property="Margin" Value="2" />
+                                <Setter Property="Padding" Value="4" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                            <Style TargetType="{x:Type MenuItem}">
+                                <Setter Property="Margin" Value="2" />
+                                <Setter Property="Padding" Value="4" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                            <Style TargetType="{x:Type Menu}" BasedOn="{StaticResource {x:Static ToolBar.MenuStyleKey}}">
+                                <Setter Property="Margin" Value="2" />
+                                <Setter Property="Padding" Value="4" />
+                                <Setter Property="Background" Value="{x:Null}" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </ToolBarPanel.Resources>
+                        <Menu x:Name="menuView" IsEnabled="False">
+                            <MenuItem Header="View" HorizontalAlignment="Left" >
+                                <RadioButton x:Name="rBViewByEntityMessageNamespace" GroupName="View" Content="Display By Entity -> Message -> Namespace" Checked="rBViewByEntityMessageNamespace_Checked" IsChecked="True"/>
+                                <RadioButton x:Name="rBViewByMessageEntityNamespace" GroupName="View" Content="Display By Message -> Entity -> Namespace" Checked="rBViewByMessageEntityNamespace_Checked"/>
+                                <RadioButton x:Name="rBViewByNamespaceEntityMessage" GroupName="View" Content="Display By Namespace -> Entity -> Message" Checked="rBViewByNamespaceEntityMessage_Checked" />
+                                <RadioButton x:Name="rBViewByNamespaceMessageEntity" GroupName="View" Content="Display By Namespace -> Message -> Entity" Checked="rBViewByNamespaceMessageEntity_Checked"/>
+                            </MenuItem>
+                        </Menu>
+                        <Button x:Name="tSBCreateDescription" HorizontalAlignment="Left" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False"  />
+                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                        <Button x:Name="tSBCollapseAll" HorizontalAlignment="Left" Content="Collapse All" Click="tSBCollapseAll_Click" IsEnabled="False" />
+                        <Button x:Name="tSBExpandAll" HorizontalAlignment="Left" Content="Expand All" Click="tSBExpandAll_Click" IsEnabled="False" />
+                    </ToolBarPanel>
+                </ToolBar>
+                <TreeView x:Name="trVSdkMessageRequestTree" SelectedItemChanged="trVSdkMessageRequestTree_SelectedItemChanged">
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type model:SdkMessageRequestTreeViewItem}" ItemsSource="{Binding Path=Items}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Image Width="16" Height="16" Grid.Column="0" Source="{Binding Image}" Margin="5,2,5,2" />
+                                <TextBlock Grid.Column="1" Text="{Binding Path=Name}" Margin="5,2,5,2" Padding="2" />
+                            </Grid>
+                        </HierarchicalDataTemplate>
+                    </TreeView.Resources>
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="TreeViewItem">
+                            <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                            <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
+                            <Setter Property="ToolTip" Value="{Binding Tooltip}" />
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+                </TreeView>
+            </DockPanel>
+        </GroupBox>
+        <ToolBar x:Name="toolStrip" Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
+            <ToolBar.Resources>
+                <Style TargetType="{x:Type ToolBarPanel}">
+                    <Setter Property="Orientation" Value="Vertical"/>
+                </Style>
+            </ToolBar.Resources>
+            <DockPanel>
+                <DockPanel.Resources>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                        <Setter Property="Margin" Value="6,2" />
+                        <Setter Property="Padding" Value="3" />
+                    </Style>
+                    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Static ToolBar.ComboBoxStyleKey}}">
+                    </Style>
+                </DockPanel.Resources>
+                <ToolBarPanel Orientation="Horizontal" >
+                    <Label Content="Action" HorizontalAlignment="Left" Padding="10,0"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
+                    <ComboBox x:Name="cmBFileAction"  SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" VerticalAlignment="Stretch" Padding="10,0" IsReadOnly="True" Width="260" SelectedIndex="0" HorizontalAlignment="Left"  VerticalContentAlignment="Center" />
+                </ToolBarPanel>
+                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+            </DockPanel>
+        </ToolBar>
+        <StatusBar x:Name="statusBar" VerticalAlignment="Bottom">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
+            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="tSSLStatusMessage" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        </StatusBar>
+    </Grid>
+</src:WindowBase>

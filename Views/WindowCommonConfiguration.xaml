@@ -1,0 +1,159 @@
+﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowCommonConfiguration"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+        Title="Common Configuration" Height="488" Width="816.985" WindowStartupLocation="Manual">
+    <src:WindowBase.Resources>
+        <BitmapImage x:Key="ImageAdd" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Add.png" />
+        <BitmapImage x:Key="ImageUp" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/IndexUp.png" />
+        <BitmapImage x:Key="ImageDown" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/IndexDown.png" />
+        <BitmapImage x:Key="ImageDelete" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Delete.png" />
+    </src:WindowBase.Resources>
+    <Grid>
+        <TabControl Margin="10,10,10,68">
+            <TabItem Header="Configuration">
+                <Grid>
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                    </Grid.Resources>
+                    <CheckBox x:Name="chBDoNotPromtPublishMessage" Content="Do not promt Publish Message" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <CheckBox x:Name="chBClearOutputWindow" Content="Clear Output Window before CRM Operation" Margin="210,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Label Content="Folder for Export" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtBFolderForExport" Height="23" Margin="10,51,127,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647"/>
+                    <Button x:Name="btnSelectFolderForExport" Content="Select Folder" Margin="0,51,10,0"  Height="23" VerticalAlignment="Top" HorizontalAlignment="Right" IsTabStop="False" Padding="2" Width="103" Click="btnSelectFolderForExport_Click"/>
+                    <Label Content="Plugin Configuration File Name" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtBFileNamePluginConfiguration" Height="23" Margin="10,100,0,0" TextWrapping="Wrap" Text="Plugins Configuration" VerticalAlignment="Top" TabIndex="2147483647" HorizontalAlignment="Left" Width="283"/>
+                    <Label Content="Forms Events File Name" HorizontalAlignment="Left" Margin="308,74,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtBFileNameFormsEvents" Height="23" Margin="308,100,0,0" TextWrapping="Wrap" Text="System Forms Events" VerticalAlignment="Top" TabIndex="2147483647" HorizontalAlignment="Left" Width="283"/>
+                    <Grid Margin="10,128,10,0" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50*"/>
+                            <RowDefinition Height="50*"/>
+                            <RowDefinition Height="50*"/>
+                            <RowDefinition Height="50*"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Program for edit text" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+                        <TextBox x:Name="txtBTextEditorProgram" Height="23"  TextWrapping="Wrap"  HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+                        
+                        <Label Content="Program for Difference operation" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="1"/>
+                        <TextBox x:Name="txtBCompareProgram" Height="23"  TextWrapping="Wrap"  HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+
+                        <Label Content="Difference two files arguments format" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="2"/>
+                        <TextBox x:Name="txtBCompareArgumentsFormat" Height="23"  TextWrapping="Wrap"  HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="2"/>
+
+                        <Label Content="Difference three files arguments format" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="3"/>
+                        <TextBox x:Name="txtBCompareArgumentsThreeWayFormat" Height="23"  TextWrapping="Wrap"  HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="3"/>
+                    </Grid>
+                    <Label HorizontalAlignment="Left" Margin="10,237,0,0" VerticalAlignment="Top">
+                        <StackPanel>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left">Parameters for difference two files:</TextBlock>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left">%f1 - path to local file</TextBlock>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left">%ft1 - title of local file</TextBlock>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left">%f2 - path to temporary local file of CRM web resource</TextBlock>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left">%ft2 - title of temporary local file of CRM web resource</TextBlock>
+                        </StackPanel>
+                    </Label>
+                    <Label HorizontalAlignment="Left" Margin="412,237,0,0" VerticalAlignment="Top">
+                        <StackPanel>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left">Parameters for difference three files:</TextBlock>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left">Connection 1: %f1 - path to temporary file, %ft1 - title</TextBlock>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left">Local WebResource: %fl - path to local file, %flt - title</TextBlock>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left">Connection 2: %f2 - path to temporary file, %ft2 - title</TextBlock>
+                        </StackPanel>
+                    </Label>
+                </Grid>
+            </TabItem>
+            <TabItem Header="CRM Svc Utils">
+                <DockPanel LastChildFill="True">
+                    <ToolBar VerticalAlignment="Top" DockPanel.Dock="Top" >
+                        <ToolBar.Resources>
+                            <Style TargetType="{x:Type ToolBarPanel}">
+                                <Setter Property="Orientation" Value="Vertical"/>
+                            </Style>
+                        </ToolBar.Resources>
+                        <DockPanel>
+                            <DockPanel.Resources>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                    <Setter Property="Margin" Value="3" />
+                                    <Setter Property="Padding" Value="5" />
+                                </Style>
+                            </DockPanel.Resources>
+                            <ToolBarPanel Orientation="Horizontal" >
+                                <Button x:Name="tSBCreate" HorizontalAlignment="Left" Click="tSBCreate_Click">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Create</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                                <Button x:Name="tSBUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUp_Click">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageUp}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="tSBDown" HorizontalAlignment="Left" IsEnabled="False" Click="tSBDown_Click">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageDown}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                            </ToolBarPanel>
+                            <Button x:Name="tSBDelete" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBDelete_Click">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Delete</TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </DockPanel>
+                    </ToolBar>
+                    <ListView x:Name="lstVwUtils" SelectionMode="Single" SelectionChanged="lstVwUtils_SelectionChanged" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Right" Height="Auto" Width="Auto"  >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalContentAlignment"  Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Path" Width="600">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding Path}" Margin="6,3"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Version" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding Version}" Margin="6,3"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+        <Button x:Name="btnOpenConfigFolder" Content="Open Config Folder" Margin="10,0,0,38" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="142" Click="btnOpenConfigFolder_Click"/>
+        <Button x:Name="btnSave" Content="Save" Margin="0,0,127,38" Click="btnSave_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89"/>
+        <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,38" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+        <Button x:Name="btnClearCacheTranslations" Content="Clear Cache Translations" Margin="335,0,0,38" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="142" Click="btnClearCacheTranslations_Click"/>
+        <StatusBar Height="24" VerticalAlignment="Bottom">
+            <StatusBarItem x:Name="stBIStatus" Content="" Height="24" VerticalAlignment="Top"/>
+        </StatusBar>
+    </Grid>
+</src:WindowBase>

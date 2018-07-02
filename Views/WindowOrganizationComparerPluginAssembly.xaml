@@ -1,0 +1,128 @@
+﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowOrganizationComparerPluginAssembly"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+        xmlns:clr="clr-namespace:System;assembly=mscorlib"
+        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+        Title="Plugin Assembly Comparer" Height="538.662" Width="752" WindowStartupLocation="Manual">
+    <src:WindowBase.Resources>
+        <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
+        <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
+        <ContextMenu x:Key="listContextMenu">
+            <MenuItem Header="Show Difference">
+                <MenuItem Header="Assembly Description" Click="mIShowDifferenceAssemblyDescription_Click" />
+                <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                <Separator/>
+                <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+            </MenuItem>
+            
+            <Separator/>
+            <MenuItem Header="{DynamicResource ConnectionName1}">
+                <MenuItem Header="Plugin Assembly Description" Click="mIExportPluginAssembly1AssemblyDescription_Click" />
+                <MenuItem Header="Entity Description" Click="mIExportPluginAssembly1EntityDescription_Click"/>
+                <MenuItem Header="Binary Content" Click="mIExportPluginAssembly1BinaryContent_Click"/>
+                <Separator/>
+                <MenuItem Header="Pluing Assembly Window" Click="btnExportPluginAssembly1_Click"/>
+            </MenuItem>
+            
+            <Separator/>
+            <MenuItem Header="{DynamicResource ConnectionName2}">
+                <MenuItem Header="Plugin Assembly Description" Click="mIExportPluginAssembly2AssemblyDescription_Click" />
+                <MenuItem Header="Entity Description" Click="mIExportPluginAssembly2EntityDescription_Click"/>
+                <MenuItem Header="Binary Content" Click="mIExportPluginAssembly2BinaryContent_Click"/>
+                <Separator/>
+                <MenuItem Header="Pluing Assembly Window" Click="btnExportPluginAssembly2_Click"/>
+            </MenuItem>
+            
+        </ContextMenu>
+    </src:WindowBase.Resources>
+    <Grid>
+        <Grid Height="25" Margin="10,10,10,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Connection 1 to CRM:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="0"/>
+            <ComboBox x:Name="cmBConnection1" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0"  Grid.Row="0" Grid.Column="1"/>
+            <Label Content="Connection 2 to CRM:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="2"/>
+            <ComboBox x:Name="cmBConnection2" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0"  Grid.Row="0" Grid.Column="3"/>
+        </Grid>
+
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Height="23"/>
+        <TextBox x:Name="txtBFilter" Height="23" Margin="51,40,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        <DataGrid x:Name="lstVwPluginAssemblies" AutoGenerateColumns="False" Margin="10,68,10,93" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                </Style>
+            </DataGrid.ItemContainerStyle>
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Assembly Name" Width="500" Binding="{Binding AssemblyName}" />
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,62" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="26" Width="53"/>
+        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,62" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="254" Height="26" />
+        <ToolBar x:Name="toolStrip" Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
+            <ToolBar.Resources>
+                <Style TargetType="{x:Type ToolBarPanel}">
+                    <Setter Property="Orientation" Value="Vertical"/>
+                </Style>
+            </ToolBar.Resources>
+            <DockPanel>
+                <DockPanel.Resources>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                        <Setter Property="Margin" Value="6,2" />
+                        <Setter Property="Padding" Value="3" />
+                    </Style>
+                </DockPanel.Resources>
+                <ToolBarPanel Orientation="Horizontal" >
+                    <Button x:Name="btnShowDifferenceAll" Content="Show difference for All" Click="btnShowDifferenceAll_Click"/>
+                    <Separator Margin="10,0,10,0" />
+                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
+                            <MenuItem x:Name="mIShowDifferenceAssemblyDescription" Header="Assembly Description" Click="mIShowDifferenceAssemblyDescription_Click"/>
+                            <Separator/>
+                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                        </MenuItem>
+                    </Menu>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
+                            <MenuItem x:Name="mIExportPluginAssembly1AssemblyDescription" Header="Plugin Assembly Description" Click="mIExportPluginAssembly1AssemblyDescription_Click"/>
+                            <Separator/>
+                            <MenuItem x:Name="mIExportPluginAssembly1EntityDescription" Header="Entity Description" Click="mIExportPluginAssembly1EntityDescription_Click"/>
+                            <Separator/>
+                            <MenuItem x:Name="mIExportPluginAssembly1BinaryContent" Header="Binary Content" Click="mIExportPluginAssembly1BinaryContent_Click"/>
+                        </MenuItem>
+                    </Menu>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
+                            <MenuItem x:Name="mIExportPluginAssembly2AssemblyDescription" Header="Plugin Assembly Description" Click="mIExportPluginAssembly2AssemblyDescription_Click"/>
+                            <Separator/>
+                            <MenuItem x:Name="mIExportPluginAssembly2EntityDescription" Header="Entity Description" Click="mIExportPluginAssembly2EntityDescription_Click"/>
+                            <Separator/>
+                            <MenuItem x:Name="mIExportPluginAssembly2BinaryContent" Header="Binary Content" Click="mIExportPluginAssembly2BinaryContent_Click"/>
+                        </MenuItem>
+                    </Menu>
+                </ToolBarPanel>
+                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+            </DockPanel>
+        </ToolBar>
+        <StatusBar x:Name="statusBar" Height="24" VerticalAlignment="Bottom">
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+            <StatusBarItem x:Name="tSSLStatusMessage" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        </StatusBar>
+    </Grid>
+</src:WindowBase>

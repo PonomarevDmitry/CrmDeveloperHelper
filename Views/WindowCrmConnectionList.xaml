@@ -1,0 +1,494 @@
+﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowCrmConnectionList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+        Title="Connection Manager" Height="488" Width="850.985" WindowStartupLocation="Manual">
+    <src:WindowBase.Resources>
+        <BitmapImage x:Key="ImageAdd" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Add.png" />
+        <BitmapImage x:Key="ImageUp" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/IndexUp.png" />
+        <BitmapImage x:Key="ImageDown" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/IndexDown.png" />
+        <BitmapImage x:Key="ImageDelete" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Delete.png" />
+        <BitmapImage x:Key="ImageEdit" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Edit.png" />
+        <BitmapImage x:Key="ImageOpenFolder" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/OpenFolder.png" />
+        <BitmapImage x:Key="ImageCopy" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Copy.png" />
+        <BitmapImage x:Key="ImageSelect" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Select.png" />
+        <BitmapImage x:Key="ImageCheck" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Check.png" />
+
+        <ContextMenu x:Key="listContextMenu">
+            <MenuItem Header="Test Connection" VerticalAlignment="Center" Click="tSBTestConnection_Click">
+                <MenuItem.Icon>
+                    <Image Width="16" Height="16" Source="{StaticResource ImageCheck}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator/>
+            <MenuItem Header="Edit" VerticalAlignment="Center" Click="tSBEdit_Click">
+                <MenuItem.Icon>
+                    <Image Width="16" Height="16" Source="{StaticResource ImageEdit}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Create Copy" VerticalAlignment="Center" Click="tSBCreateCopy_Click">
+                <MenuItem.Icon>
+                    <Image Source="{StaticResource ImageCopy}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator/>
+            <MenuItem Header="Select Connection" VerticalAlignment="Center" Click="tSBSelectConnection_Click">
+                <MenuItem.Icon>
+                    <Image Width="16" Height="16" Source="{StaticResource ImageSelect}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator/>
+            <MenuItem Header="Move to Archive" VerticalAlignment="Center" Click="tSBMoveToArchive_Click">
+                <MenuItem.Icon>
+                    <Image Width="16" Height="16" Source="{StaticResource ImageDelete}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+
+        <ContextMenu x:Key="listContextMenuArchive">
+            <MenuItem Header="Edit" VerticalAlignment="Center" Click="tSBArchiveEdit_Click"/>
+            <Separator/>
+            <MenuItem Header="Test Connection" VerticalAlignment="Center" Click="tSBArchiveTestConnection_Click"/>
+            <Separator/>
+            <MenuItem Header="Return To Connection List" VerticalAlignment="Center" Click="tSBArchiveReturnToConnectionList_Click"/>
+        </ContextMenu>
+    </src:WindowBase.Resources>
+    <Grid>
+        <Label Content="Currnet Connection" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="24"/>
+        <TextBox x:Name="txtBCurrentConnection" Height="24" Margin="129,10,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2147483647" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+        <TabControl Margin="10,41,10,63">
+            <TabItem Header="Connection List">
+                <DockPanel LastChildFill="True">
+                    <ToolBar VerticalAlignment="Top" DockPanel.Dock="Top" >
+                        <ToolBar.Resources>
+                            <Style TargetType="{x:Type ToolBarPanel}">
+                                <Setter Property="Orientation" Value="Vertical"/>
+                            </Style>
+                        </ToolBar.Resources>
+                        <DockPanel>
+                            <DockPanel.Resources>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                    <Setter Property="Margin" Value="3" />
+                                    <Setter Property="Padding" Value="2" />
+                                </Style>
+                                <Style TargetType="{x:Type MenuItem}">
+                                    <Setter Property="Margin" Value="3" />
+                                    <Setter Property="Padding" Value="2" />
+                                </Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="5,0,0,0" />
+                                </Style>
+                                <Style TargetType="{x:Type StackPanel}">
+                                    <Setter Property="Orientation" Value="Horizontal" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                                <Style TargetType="{x:Type Separator}" BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
+                                    <Setter Property="Margin" Value="10,0,10,0" />
+                                </Style>
+                            </DockPanel.Resources>
+                            <ToolBarPanel Orientation="Horizontal" >
+                                <Button x:Name="tSBCreate" HorizontalAlignment="Left" Click="tSBCreate_Click">
+                                    <StackPanel>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Create</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="tSBEdit" HorizontalAlignment="Left" IsEnabled="False" Click="tSBEdit_Click">
+                                    <StackPanel>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageEdit}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Edit</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="tSBCreateCopy" HorizontalAlignment="Left" IsEnabled="False" Click="tSBCreateCopy_Click">
+                                    <StackPanel>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageCopy}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Create Copy</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                                <Separator />
+                                <Button x:Name="tSBTestConnection" HorizontalAlignment="Left" IsEnabled="False" Click="tSBTestConnection_Click">
+                                    <StackPanel>
+                                        <Image  Width="16" Height="16"  Source="{StaticResource ImageCheck}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Test Connection</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                                <Separator />
+                                <Button x:Name="tSBUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUp_Click">
+                                    <StackPanel>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageUp}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="tSBDown" HorizontalAlignment="Left" IsEnabled="False" Click="tSBDown_Click">
+                                    <StackPanel>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageDown}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Separator />
+                                <Button x:Name="tSBOpenFolder" HorizontalAlignment="Left" Click="tSBOpenFolder_Click" >
+                                    <StackPanel>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageOpenFolder}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Open Folder</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </ToolBarPanel>
+                            <Button x:Name="tSBMoveToArchive" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBMoveToArchive_Click" >
+                                <StackPanel>
+                                    <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Move to Archive</TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </DockPanel>
+                    </ToolBar>
+                    <ListView x:Name="lstVwConnections" SelectionMode="Single" SelectionChanged="lstVwConnections_SelectionChanged" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Right" Height="Auto" Width="Auto" MouseDoubleClick="lstVwConnections_MouseDoubleClick"  >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalContentAlignment"  Value="Stretch"/>
+                                <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsCurrentConnection}" Value="True">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <SolidColorBrush Color="Lime"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="Auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <CheckBox IsChecked="{Binding IsReadOnly}" Margin="6,3" ToolTip="{Binding ToolTip}" IsEnabled="False"  />
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Name" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding Name}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="GroupName" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding GroupName}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="Auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <Button ToolTip="Select Connection" Margin="6,3" VerticalAlignment="Center" Click="bntSelect_Click" Background="{x:Null}" BorderThickness="0">
+                                                    <Button.Content>
+                                                        <Image Width="16" Height="16" Source="{StaticResource ImageSelect}"/>
+                                                    </Button.Content>
+                                                </Button>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="PublicUrl" Width="300">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding PublicUrl}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="User" Width="180">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding GetUsername}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Ver" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding OrganizationVersion}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Lang" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding DefaultLanguage}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Currency" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding BaseCurrency}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="Connection User List">
+                <DockPanel LastChildFill="True">
+                    <ToolBar VerticalAlignment="Top" DockPanel.Dock="Top" >
+                        <ToolBar.Resources>
+                            <Style TargetType="{x:Type ToolBarPanel}">
+                                <Setter Property="Orientation" Value="Vertical"/>
+                            </Style>
+                        </ToolBar.Resources>
+                        <DockPanel>
+                            <DockPanel.Resources>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                    <Setter Property="Margin" Value="3" />
+                                    <Setter Property="Padding" Value="2" />
+                                </Style>
+                                <Style TargetType="{x:Type MenuItem}">
+                                    <Setter Property="Margin" Value="3" />
+                                    <Setter Property="Padding" Value="2" />
+                                </Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="5,0,0,0" />
+                                </Style>
+                                <Style TargetType="{x:Type StackPanel}">
+                                    <Setter Property="Orientation" Value="Horizontal" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                                <Style TargetType="{x:Type Separator}" BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
+                                    <Setter Property="Margin" Value="10,0,10,0" />
+                                </Style>
+                            </DockPanel.Resources>
+                            <ToolBarPanel Orientation="Horizontal" >
+                                <Button x:Name="tSBCreateUser" HorizontalAlignment="Left" Click="tSBCreateUser_Click">
+                                    <StackPanel>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Create User</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="tSBEditUser" HorizontalAlignment="Left" IsEnabled="False" Click="tSBEditUser_Click" >
+                                    <StackPanel>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageEdit}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Edit User</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                                <Separator />
+                                <Button x:Name="tSBUserUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUserUp_Click" >
+                                    <StackPanel>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageUp}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="tSBUserDown" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUserDown_Click" >
+                                    <StackPanel>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageDown}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                            </ToolBarPanel>
+                            <Button x:Name="tSBDeleteUser" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBDeleteUser_Click" >
+                                <StackPanel>
+                                    <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Delete User</TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </DockPanel>
+                    </ToolBar>
+                    <ListView x:Name="lstVwUsers" SelectionMode="Single" SelectionChanged="lstVwUsers_SelectionChanged" MouseDoubleClick="lstVwUsers_MouseDoubleClick" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Right" Height="Auto" Width="Auto"  >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalContentAlignment"  Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="User" Width="600">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding Username}" Margin="6,3"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="Archive Connection List">
+                <DockPanel LastChildFill="True">
+                    <ToolBar VerticalAlignment="Top" DockPanel.Dock="Top" >
+                        <ToolBar.Resources>
+                            <Style TargetType="{x:Type ToolBarPanel}">
+                                <Setter Property="Orientation" Value="Vertical"/>
+                            </Style>
+                        </ToolBar.Resources>
+                        <DockPanel>
+                            <DockPanel.Resources>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                    <Setter Property="Margin" Value="3" />
+                                    <Setter Property="Padding" Value="2" />
+                                </Style>
+                                <Style TargetType="{x:Type MenuItem}">
+                                    <Setter Property="Margin" Value="3" />
+                                    <Setter Property="Padding" Value="2" />
+                                </Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="5,0,0,0" />
+                                </Style>
+                                <Style TargetType="{x:Type StackPanel}">
+                                    <Setter Property="Orientation" Value="Horizontal" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                                <Style TargetType="{x:Type Separator}" BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
+                                    <Setter Property="Margin" Value="10,0,10,0" />
+                                </Style>
+                            </DockPanel.Resources>
+                            <ToolBarPanel Orientation="Horizontal" >
+                                <Button x:Name="tSBArchiveEdit" HorizontalAlignment="Left" IsEnabled="False" Click="tSBArchiveEdit_Click" >
+                                    <StackPanel>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageEdit}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Edit</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                                <Separator />
+                                <Button x:Name="tSBArchiveTestConnection" HorizontalAlignment="Left" IsEnabled="False" Click="tSBArchiveTestConnection_Click" >
+                                    <StackPanel>
+                                        <Image   Width="16" Height="16" Source="{StaticResource ImageCheck}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Test Connection</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                                <Separator />
+                                <Button x:Name="tSBArchiveUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBArchiveUp_Click" >
+                                    <StackPanel>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageUp}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="tSBArchiveDown" HorizontalAlignment="Left" IsEnabled="False" Click="tSBArchiveDown_Click" >
+                                    <StackPanel>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageDown}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Separator />
+                                <Button x:Name="tSBArchiveReturnToConnectionList" HorizontalAlignment="Left" IsEnabled="False" Click="tSBArchiveReturnToConnectionList_Click" >
+                                    <StackPanel>
+                                        <Image   Width="16" Height="16" Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Return to Connection List</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </ToolBarPanel>
+                            <Button x:Name="tSBArchiveDelete" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBArchiveDelete_Click">
+                                <StackPanel>
+                                    <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Delete</TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </DockPanel>
+                    </ToolBar>
+                    <ListView x:Name="lstVwArchiveConnections" SelectionMode="Single" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Right" Height="Auto" Width="Auto" SelectionChanged="lstVwArchiveConnections_SelectionChanged" MouseDoubleClick="lstVwArchiveConnections_MouseDoubleClick" >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalContentAlignment"  Value="Stretch"/>
+                                <Setter Property="ContextMenu" Value="{StaticResource listContextMenuArchive}"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="30">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <CheckBox IsChecked="{Binding IsReadOnly}" Margin="6,3" ToolTip="{Binding ToolTip}" IsEnabled="False" />
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Name" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding Name}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="PublicUrl" Width="300">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding PublicUrl}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="User" Width="180">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding GetUsername}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Ver" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding OrganizationVersion}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Lang" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding DefaultLanguage}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Currency" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding BaseCurrency}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+
+        <Button Content="Close" Margin="0,0,10,38" Click="btnClose_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+        <StatusBar Height="24" VerticalAlignment="Bottom">
+            <StatusBarItem x:Name="stBIStatus" Content="" Height="24" VerticalAlignment="Top"/>
+        </StatusBar>
+    </Grid>
+</src:WindowBase>

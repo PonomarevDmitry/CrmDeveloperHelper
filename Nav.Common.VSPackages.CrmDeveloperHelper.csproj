@@ -1,0 +1,1366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.VSSDK.BuildTools.15.6.152\build\Microsoft.VSSDK.BuildTools.props" Condition="Exists('..\packages\Microsoft.VSSDK.BuildTools.15.6.152\build\Microsoft.VSSDK.BuildTools.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <UseCodebase>true</UseCodebase>
+    <IncludeCopyLocalReferencesInVSIXContainer Condition="'$(IncludeCopyLocalReferencesInVSIXContainer)'==''">true</IncludeCopyLocalReferencesInVSIXContainer>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>sign.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{4892ACF4-61F3-4DEC-827A-EF1C29680250}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nav.Common.VSPackages.CrmDeveloperHelper</RootNamespace>
+    <AssemblyName>Nav.Common.VSPackages.CrmDeveloperHelper</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <GeneratePkgDefFile>true</GeneratePkgDefFile>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>true</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
+    <StartAction>Program</StartAction>
+    <StartProgram Condition="'$(DevEnvDir)' != ''">$(DevEnvDir)devenv.exe</StartProgram>
+    <StartArguments>/rootsuffix Exp</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DeployExtension>True</DeployExtension>
+    <CreateVsixContainer>True</CreateVsixContainer>
+    <CopyVsixExtensionFiles>False</CopyVsixExtensionFiles>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+    <CopyVsixExtensionLocation>C:\Users\dponomarev\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\CrmDeveloperHelper</CopyVsixExtensionLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Commands\AbstractCommand.Generic.cs" />
+    <Compile Include="Commands\AddFilesIntoListForPublishCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectCompareToCrmAssemblyInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\CodeReportShowDifferenceInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\CodeReportShowDifferenceThreeFileCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\CodeCSharpPluginAssemblyDescriptionCommand.cs" />
+    <Compile Include="Commands\CodeCSharpPluginTypeDescriptionCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectCompareToCrmAssemblyCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectPluginAssemblyAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectPluginTypeStepsAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceOpenInWebCommand.cs" />
+    <Compile Include="Commands\CodePublishListAddCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceCheckEncodingCommand.cs" />
+    <Compile Include="Commands\CodeReportLinkClearCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceLinkClearCommand.cs" />
+    <Compile Include="Commands\CodeReportLinkCreateCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceLinkCreateCommand.cs" />
+    <Compile Include="Commands\CodePublishListRemoveCommand.cs" />
+    <Compile Include="Commands\CodeReportAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\CodeReportAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\CodeReportOpenInWebCommand.cs" />
+    <Compile Include="Commands\CodeReportUpdateCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceShowDifferenceCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceShowDifferenceCustomCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceDownloadCommand.cs" />
+    <Compile Include="Commands\CodeReportShowDifferenceCommand.cs" />
+    <Compile Include="Commands\CodeReportShowDifferenceCustomCommand.cs" />
+    <Compile Include="Commands\CodeReportDownloadCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceShowDependentComponentsCommand.cs" />
+    <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileCommand.cs" />
+    <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileWithEntitySelectCommand.cs" />
+    <Compile Include="Commands\CodeCSharpUpdateGlobalOptionSetsFileCommand.cs" />
+    <Compile Include="Commands\CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand.cs" />
+    <Compile Include="Commands\CodeCSharpUpdateProxyClassesCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceShowDifferenceInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceShowDifferenceThreeFileCommand.cs" />
+    <Compile Include="Commands\CodeXmlConvertFetchXmlToJavaScriptCodeCommand.cs" />
+    <Compile Include="Commands\CodeXmlExecuteFetchXmlRequestCommand.cs" />
+    <Compile Include="Commands\CommonCheckComponentTypeEnumCommand.cs" />
+    <Compile Include="Commands\CommonCheckEntitiesNamesAndShowDependentComponentsCommand.cs" />
+    <Compile Include="Commands\CommonCheckEntitiesNamesCommand.cs" />
+    <Compile Include="Commands\CommonCheckEntitiesOwnerShipsCommand.cs" />
+    <Compile Include="Commands\CommonCheckGlobalOptionSetDuplicateCommand.cs" />
+    <Compile Include="Commands\CommonCheckManagedElementsCommand.cs" />
+    <Compile Include="Commands\CommonCheckMarkedToDeleteAndShowDependentComponentsCommand.cs" />
+    <Compile Include="Commands\CommonCheckPluginImagesCommand.cs" />
+    <Compile Include="Commands\CommonCheckPluginImagesRequiredComponentsCommand.cs" />
+    <Compile Include="Commands\CommonCheckPluginStepsCommand.cs" />
+    <Compile Include="Commands\CommonCheckPluginStepsRequiredComponentsCommand.cs" />
+    <Compile Include="Commands\CommonConfigCommand.cs" />
+    <Compile Include="Commands\CommonCreateAllDependencyNodeDescriptionCommand.cs" />
+    <Compile Include="Commands\CommonCrmConnectionTestCommand.cs" />
+    <Compile Include="Commands\CommonExportOpenLastSelectedSolutionCommand.cs" />
+    <Compile Include="Commands\CommonExportSolutionCommand.cs" />
+    <Compile Include="Commands\CommonFindEntityObjectsByIdCommand.cs" />
+    <Compile Include="Commands\CommonFindEntityObjectsByUniqueidentifierCommand.cs" />
+    <Compile Include="Commands\CommonOpenCrmWebSiteCommand.cs" />
+    <Compile Include="Commands\CommonOpenCurrentConnectionCrmInWebCommand.cs" />
+    <Compile Include="Commands\CommonPluginConfigurationCreateCommand.cs" />
+    <Compile Include="Commands\CommonCrmConnectionCommand.cs" />
+    <Compile Include="Commands\CommonExportAttributesAndDependentComponentsCommand.cs" />
+    <Compile Include="Commands\CommonExportEntityMetadataCommand.cs" />
+    <Compile Include="Commands\CommonExportFormEventsCommand.cs" />
+    <Compile Include="Commands\CommonExportGlobalOptionSetsCommand.cs" />
+    <Compile Include="Commands\CommonExportOrganizationCommand.cs" />
+    <Compile Include="Commands\CommonExportReportCommand.cs" />
+    <Compile Include="Commands\CommonExportRibbonXmlCommand.cs" />
+    <Compile Include="Commands\CommonExportSiteMapCommand.cs" />
+    <Compile Include="Commands\CommonExportSolutionComponentsCommand.cs" />
+    <Compile Include="Commands\CommonExportSystemFormXmlCommand.cs" />
+    <Compile Include="Commands\CommonExportSystemSavedQueryVisualizationXmlCommand.cs" />
+    <Compile Include="Commands\CommonExportSystemSavedQueryXmlCommand.cs" />
+    <Compile Include="Commands\CommonExportWebResourceCommand.cs" />
+    <Compile Include="Commands\CommonExportWorkflowCommand.cs" />
+    <Compile Include="Commands\CommonFindEntityObjectsByNameCommand.cs" />
+    <Compile Include="Commands\CommonFindEntityObjectsContainsStringCommand.cs" />
+    <Compile Include="Commands\CommonSdkMessageRequestTreeCommand.cs" />
+    <Compile Include="Commands\CommonSdkMessageTreeCommand.cs" />
+    <Compile Include="Commands\CommonSelectCrmConnectionCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceCheckEncodingCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceCheckEncodingCompareFilesCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceCheckEncodingCompareWithDetailsFilesCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceCompareCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceCompareWithDetailsCommand.cs" />
+    <Compile Include="Commands\DocumentsReportLinkClearCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceLinkClearCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceLinkCreateCommand.cs" />
+    <Compile Include="Commands\DocumentsReportAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\DocumentsReportAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceShowDependentComponentsCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceUpdateContentPublishCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceUpdateContentPublishEqualByTextCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpUpdateEntityMetadataFileCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpUpdateGlobalOptionSetsFileCommand.cs" />
+    <Compile Include="Commands\FileCSharpPluginAssemblyDescriptionCommand.cs" />
+    <Compile Include="Commands\FileCSharpPluginTypeDescriptionCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectCompareToCrmAssemblyCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectCompareToCrmAssemblyInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectPluginAssemblyAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectPluginTypeStepsAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\FileReportAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\FileReportAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\FileReportOpenInWebCommand.cs" />
+    <Compile Include="Commands\FileReportUpdateCommand.cs" />
+    <Compile Include="Commands\FileWebResourceAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\FileWebResourceAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\FileWebResourceOpenInWebCommand.cs" />
+    <Compile Include="Commands\FileWebResourceShowDifferenceInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\FileWebResourceShowDifferenceThreeFileCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\FolderAddPluginConfigurationFileCommand.cs" />
+    <Compile Include="Commands\FolderAddSolutionFileCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceCheckEncodingCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceCheckEncodingCompareFilesCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceCheckEncodingCompareWithDetailsFilesCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceCheckEncodingOpenFilesCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceCompareCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceCompareWithDetailsCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceLinkClearCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceLinkCreateCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceShowDependentComponentsCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceUpdateContentPublishCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceUpdateContentPublishEqualByTextCommand.cs" />
+    <Compile Include="Commands\FolderCSharpUpdateEntityMetadataFileCommand.cs" />
+    <Compile Include="Commands\FolderCSharpUpdateGlobalOptionSetsFileCommand.cs" />
+    <Compile Include="Commands\AbstractCommand.cs" />
+    <Compile Include="Commands\ListForPublishAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\ListForPublishAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\ListForPublishPerformPublishEqualByTextCommand.cs" />
+    <Compile Include="Commands\MultiDifferenceCommand.cs" />
+    <Compile Include="Commands\CommonOpenAdvancedFindCommand.cs" />
+    <Compile Include="Commands\OpenFilesCommand.cs" />
+    <Compile Include="Commands\ProjectCompareToCrmAssemblyInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\ProjectPluginAssemblyAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\ProjectCompareToCrmAssemblyCommand.cs" />
+    <Compile Include="Commands\ProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\ProjectPluginAssemblyStepsAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\ProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Controllers\LinkController.cs" />
+    <Compile Include="Controllers\OpenFilesController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Entities\AppModuleRoles.cs" />
+    <Compile Include="Entities\AppModuleRoles.Generated.cs" />
+    <Compile Include="Entities\ChannelAccessProfile.cs" />
+    <Compile Include="Entities\ChannelAccessProfile.Generated.cs" />
+    <Compile Include="Entities\ChannelAccessProfileEntityAccessLevel.cs" />
+    <Compile Include="Entities\ChannelAccessProfileEntityAccessLevel.Generated.cs" />
+    <Compile Include="Entities\ChannelAccessProfileRule.cs" />
+    <Compile Include="Entities\ChannelAccessProfileRule.Generated.cs" />
+    <Compile Include="Entities\ChannelAccessProfileRuleItem.cs" />
+    <Compile Include="Entities\ChannelAccessProfileRuleItem.Generated.cs" />
+    <Compile Include="Entities\ChannelProperty.cs" />
+    <Compile Include="Entities\ChannelProperty.Generated.cs" />
+    <Compile Include="Entities\ChannelPropertyGroup.cs" />
+    <Compile Include="Entities\ChannelPropertyGroup.Generated.cs" />
+    <Compile Include="Entities\CustomControlResource.cs" />
+    <Compile Include="Entities\CustomControlResource.Generated.cs" />
+    <Compile Include="Entities\DependencyNode.Additional.cs" />
+    <Compile Include="Entities\DependencyNode.cs" />
+    <Compile Include="Entities\DependencyNode.Generated.cs" />
+    <Compile Include="Entities\InvalidDependency.Additional.cs" />
+    <Compile Include="Entities\InvalidDependency.cs" />
+    <Compile Include="Entities\InvalidDependency.Generated.cs" />
+    <Compile Include="Entities\ProcessTrigger.cs" />
+    <Compile Include="Entities\ProcessTrigger.Generated.cs" />
+    <Compile Include="Entities\SdkMessage.Additional.cs" />
+    <Compile Include="Entities\SdkMessagePair.cs" />
+    <Compile Include="Entities\SdkMessagePair.Generated.cs" />
+    <Compile Include="Entities\SdkMessageRequest.Additional.cs" />
+    <Compile Include="Entities\SdkMessageRequest.cs" />
+    <Compile Include="Entities\SdkMessageRequest.Generated.cs" />
+    <Compile Include="Entities\SdkMessageRequestField.cs" />
+    <Compile Include="Entities\SdkMessageRequestField.Generated.cs" />
+    <Compile Include="Entities\SdkMessageResponse.cs" />
+    <Compile Include="Entities\SdkMessageResponse.Generated.cs" />
+    <Compile Include="Entities\SdkMessageResponseField.cs" />
+    <Compile Include="Entities\SdkMessageResponseField.Generated.cs" />
+    <Compile Include="Helpers\BoolToOppositeBoolConverter.cs" />
+    <Compile Include="Helpers\CommonHandlers.cs" />
+    <Compile Include="Commands\CodeWebResourceCompareWithDetailsCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceUpdateContentPublishCommand.cs" />
+    <Compile Include="Commands\CommonOrganizationComparerCommand.cs" />
+    <Compile Include="Commands\CommonExportPluginAssemblyDescriptionCommand.cs" />
+    <Compile Include="Commands\CommonPluginConfigurationPluginAssemblyCommand.cs" />
+    <Compile Include="Commands\CommonPluginConfigurationComparerPluginAssemblyCommand.cs" />
+    <Compile Include="Commands\CommonPluginConfigurationPluginTypeCommand.cs" />
+    <Compile Include="Commands\CommonPluginConfigurationPluginTreeCommand.cs" />
+    <Compile Include="Commands\CommonPluginTreeCommand.cs" />
+    <Compile Include="Commands\CommonExportPluginTypeDescriptionCommand.cs" />
+    <Compile Include="Commands\FileWebResourceCheckEncodingCommand.cs" />
+    <Compile Include="Commands\FileWebResourceCheckEncodingCompareFilesCommand.cs" />
+    <Compile Include="Commands\FileWebResourceCheckEncodingCompareWithDetailsFilesCommand.cs" />
+    <Compile Include="Commands\FileWebResourceCheckEncodingOpenFilesCommand.cs" />
+    <Compile Include="Commands\FileWebResourceCompareCommand.cs" />
+    <Compile Include="Commands\FileWebResourceCompareWithDetailsCommand.cs" />
+    <Compile Include="Commands\FileReportDownloadCommand.cs" />
+    <Compile Include="Commands\FileWebResourceDownloadCommand.cs" />
+    <Compile Include="Commands\FileReportLinkClearCommand.cs" />
+    <Compile Include="Commands\FileReportLinkCreateCommand.cs" />
+    <Compile Include="Commands\FileWebResourceLinkClearCommand.cs" />
+    <Compile Include="Commands\FileWebResourceLinkCreateCommand.cs" />
+    <Compile Include="Commands\FileWebResourceShowDependentComponentsCommand.cs" />
+    <Compile Include="Commands\FileWebResourceShowDifferenceCommand.cs" />
+    <Compile Include="Commands\FileWebResourceShowDifferenceCustromCommand.cs" />
+    <Compile Include="Commands\FileWebResourceUpdateContentPublishCommand.cs" />
+    <Compile Include="Commands\FileWebResourceUpdateContentPublishEqualByTextCommand.cs" />
+    <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileCommand.cs" />
+    <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileWithEntitySelectCommand.cs" />
+    <Compile Include="Commands\FileCSharpUpdateGlobalOptionSetsFileCommand.cs" />
+    <Compile Include="Commands\FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand.cs" />
+    <Compile Include="Commands\FileCSharpUpdateProxyClassesCommand.cs" />
+    <Compile Include="Commands\ListForPublishClearListCommand.cs" />
+    <Compile Include="Commands\ListForPublishFilesAddCommand.cs" />
+    <Compile Include="Commands\ListForPublishCompareCommand.cs" />
+    <Compile Include="Commands\ListForPublishCompareWithDetailsCommand.cs" />
+    <Compile Include="Commands\ListForPublishPerformPublishCommand.cs" />
+    <Compile Include="Commands\ListForPublishFilesRemoveCommand.cs" />
+    <Compile Include="Commands\ListForPublishShowListCommand.cs" />
+    <Compile Include="Controllers\CheckController.cs" />
+    <Compile Include="Controllers\CheckManagedEntitiesController.cs" />
+    <Compile Include="Controllers\CheckPluginController.cs" />
+    <Compile Include="Controllers\CompareController.cs" />
+    <Compile Include="Controllers\CrmSvcUtilController.cs" />
+    <Compile Include="Controllers\DifferenceController.cs" />
+    <Compile Include="Controllers\DownloadController.cs" />
+    <Compile Include="Controllers\EntityMetadataController.cs" />
+    <Compile Include="Controllers\ExportPluginConfigurationController.cs" />
+    <Compile Include="Controllers\ExportSolutionController.cs" />
+    <Compile Include="Controllers\ExportXmlController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\PluginTreeController.cs" />
+    <Compile Include="Controllers\PluginTypeDescriptionController.cs" />
+    <Compile Include="Controllers\PublishController.cs" />
+    <Compile Include="Controllers\SolutionController.cs" />
+    <Compile Include="CrmDeveloperHelperPackage.cs" />
+    <Compile Include="CrmDeveloperHelperPackageCommandTable.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrmDeveloperHelperPackageCommandTable.vsct</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ActivityMimeAttachment.cs" />
+    <Compile Include="Entities\ActivityMimeAttachment.Generated.cs" />
+    <Compile Include="Entities\AdvancedSimilarityRule.cs" />
+    <Compile Include="Entities\AdvancedSimilarityRule.Generated.cs" />
+    <Compile Include="Entities\AppModule.cs" />
+    <Compile Include="Entities\AppModule.Generated.cs" />
+    <Compile Include="Entities\AppModuleComponent.cs" />
+    <Compile Include="Entities\AppModuleComponent.Generated.cs" />
+    <Compile Include="Entities\AttributeMap.Additional.cs" />
+    <Compile Include="Entities\AttributeMap.cs" />
+    <Compile Include="Entities\AttributeMap.Generated.cs" />
+    <Compile Include="Entities\BusinessUnit.cs" />
+    <Compile Include="Entities\BusinessUnit.Generated.cs" />
+    <Compile Include="Entities\ComponentState.cs" />
+    <Compile Include="Entities\ComponentType.cs" />
+    <Compile Include="Entities\ConnectionRole.cs" />
+    <Compile Include="Entities\ConnectionRole.Generated.cs" />
+    <Compile Include="Entities\ConnectionRoleAssociation.Additional.cs" />
+    <Compile Include="Entities\ConnectionRoleAssociation.cs" />
+    <Compile Include="Entities\ConnectionRoleAssociation.Generated.cs" />
+    <Compile Include="Entities\ConnectionRoleObjectTypeCode.cs" />
+    <Compile Include="Entities\ConnectionRoleObjectTypeCode.Generated.cs" />
+    <Compile Include="Entities\ContractTemplate.cs" />
+    <Compile Include="Entities\ContractTemplate.Generated.cs" />
+    <Compile Include="Entities\ConvertRule.cs" />
+    <Compile Include="Entities\ConvertRule.Generated.cs" />
+    <Compile Include="Entities\ConvertRuleItem.cs" />
+    <Compile Include="Entities\ConvertRuleItem.Generated.cs" />
+    <Compile Include="Entities\CustomControl.cs" />
+    <Compile Include="Entities\CustomControl.Generated.cs" />
+    <Compile Include="Entities\CustomControlDefaultConfig.cs" />
+    <Compile Include="Entities\CustomControlDefaultConfig.Generated.cs" />
+    <Compile Include="Entities\Dependency.Additional.cs" />
+    <Compile Include="Entities\Dependency.cs" />
+    <Compile Include="Entities\Dependency.Generated.cs" />
+    <Compile Include="Entities\DisplayString.cs" />
+    <Compile Include="Entities\DisplayString.Generated.cs" />
+    <Compile Include="Entities\DisplayStringMap.cs" />
+    <Compile Include="Entities\DisplayStringMap.Generated.cs" />
+    <Compile Include="Entities\DuplicateRule.cs" />
+    <Compile Include="Entities\DuplicateRule.Generated.cs" />
+    <Compile Include="Entities\DuplicateRuleCondition.cs" />
+    <Compile Include="Entities\DuplicateRuleCondition.Generated.cs" />
+    <Compile Include="Entities\EntityExtensions.cs" />
+    <Compile Include="Entities\EntityMap.cs" />
+    <Compile Include="Entities\EntityMap.Generated.cs" />
+    <Compile Include="Entities\FieldPermission.cs" />
+    <Compile Include="Entities\FieldPermission.Generated.cs" />
+    <Compile Include="Entities\FieldSecurityProfile.cs" />
+    <Compile Include="Entities\FieldSecurityProfile.Generated.cs" />
+    <Compile Include="Entities\HierarchyRule.cs" />
+    <Compile Include="Entities\HierarchyRule.Generated.cs" />
+    <Compile Include="Entities\KbArticleTemplate.cs" />
+    <Compile Include="Entities\KbArticleTemplate.Generated.cs" />
+    <Compile Include="Entities\LanguageLocale.Additional.cs" />
+    <Compile Include="Entities\LanguageLocale.cs" />
+    <Compile Include="Entities\LanguageLocale.Generated.cs" />
+    <Compile Include="Entities\MailMergeTemplate.cs" />
+    <Compile Include="Entities\MailMergeTemplate.Generated.cs" />
+    <Compile Include="Entities\MobileOfflineProfile.cs" />
+    <Compile Include="Entities\MobileOfflineProfile.Generated.cs" />
+    <Compile Include="Entities\MobileOfflineProfileItem.cs" />
+    <Compile Include="Entities\MobileOfflineProfileItem.Generated.cs" />
+    <Compile Include="Entities\Organization.cs" />
+    <Compile Include="Entities\Organization.Generated.cs" />
+    <Compile Include="Entities\PluginAssembly.cs" />
+    <Compile Include="Entities\PluginAssembly.Generated.cs" />
+    <Compile Include="Entities\PluginType.cs" />
+    <Compile Include="Entities\PluginType.Generated.cs" />
+    <Compile Include="Entities\Privilege.cs" />
+    <Compile Include="Entities\Privilege.Generated.cs" />
+    <Compile Include="Entities\PrivilegeObjectTypeCodes.cs" />
+    <Compile Include="Entities\PrivilegeObjectTypeCodes.Generated.cs" />
+    <Compile Include="Entities\Publisher.cs" />
+    <Compile Include="Entities\Publisher.Generated.cs" />
+    <Compile Include="Entities\Report.cs" />
+    <Compile Include="Entities\Report.Generated.cs" />
+    <Compile Include="Entities\ReportCategory.cs" />
+    <Compile Include="Entities\ReportCategory.Generated.cs" />
+    <Compile Include="Entities\ReportEntity.cs" />
+    <Compile Include="Entities\ReportEntity.Generated.cs" />
+    <Compile Include="Entities\ReportLink.cs" />
+    <Compile Include="Entities\ReportLink.Generated.cs" />
+    <Compile Include="Entities\ReportVisibility.cs" />
+    <Compile Include="Entities\ReportVisibility.Generated.cs" />
+    <Compile Include="Entities\RibbonCommand.cs" />
+    <Compile Include="Entities\RibbonCommand.Generated.cs" />
+    <Compile Include="Entities\RibbonContextGroup.cs" />
+    <Compile Include="Entities\RibbonContextGroup.Generated.cs" />
+    <Compile Include="Entities\RibbonCustomization.cs" />
+    <Compile Include="Entities\RibbonCustomization.Generated.cs" />
+    <Compile Include="Entities\RibbonDiff.cs" />
+    <Compile Include="Entities\RibbonDiff.Generated.cs" />
+    <Compile Include="Entities\RibbonRule.cs" />
+    <Compile Include="Entities\RibbonRule.Generated.cs" />
+    <Compile Include="Entities\RibbonTabToCommandMap.cs" />
+    <Compile Include="Entities\RibbonTabToCommandMap.Generated.cs" />
+    <Compile Include="Entities\Role.Additional.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\Role.Generated.cs" />
+    <Compile Include="Entities\RolePrivileges.cs" />
+    <Compile Include="Entities\RolePrivileges.Generated.cs" />
+    <Compile Include="Entities\RootComponentBehavior.cs" />
+    <Compile Include="Entities\RoutingRule.cs" />
+    <Compile Include="Entities\RoutingRule.Generated.cs" />
+    <Compile Include="Entities\RoutingRuleItem.cs" />
+    <Compile Include="Entities\RoutingRuleItem.Generated.cs" />
+    <Compile Include="Entities\SavedQuery.cs" />
+    <Compile Include="Entities\SavedQuery.Generated.cs" />
+    <Compile Include="Entities\SavedQueryVisualization.cs" />
+    <Compile Include="Entities\SavedQueryVisualization.Generated.cs" />
+    <Compile Include="Entities\SdkMessage.cs" />
+    <Compile Include="Entities\SdkMessage.Generated.cs" />
+    <Compile Include="Entities\SdkMessageFilter.cs" />
+    <Compile Include="Entities\SdkMessageFilter.Generated.cs" />
+    <Compile Include="Entities\SdkMessageProcessingStep.Additional.cs" />
+    <Compile Include="Entities\SdkMessageProcessingStep.cs" />
+    <Compile Include="Entities\SdkMessageProcessingStep.Generated.cs" />
+    <Compile Include="Entities\SdkMessageProcessingStepImage.Additional.cs" />
+    <Compile Include="Entities\SdkMessageProcessingStepImage.cs" />
+    <Compile Include="Entities\SdkMessageProcessingStepImage.Generated.cs" />
+    <Compile Include="Entities\SdkMessageProcessingStepSecureConfig.cs" />
+    <Compile Include="Entities\SdkMessageProcessingStepSecureConfig.Generated.cs" />
+    <Compile Include="Entities\ServiceEndpoint.cs" />
+    <Compile Include="Entities\ServiceEndpoint.Generated.cs" />
+    <Compile Include="Entities\SimilarityRule.cs" />
+    <Compile Include="Entities\SimilarityRule.Generated.cs" />
+    <Compile Include="Entities\SiteMap.cs" />
+    <Compile Include="Entities\SiteMap.Generated.cs" />
+    <Compile Include="Entities\SLA.cs" />
+    <Compile Include="Entities\SLA.Generated.cs" />
+    <Compile Include="Entities\SLAItem.cs" />
+    <Compile Include="Entities\SLAItem.Generated.cs" />
+    <Compile Include="Entities\Solution.Additional.cs" />
+    <Compile Include="Entities\Solution.cs" />
+    <Compile Include="Entities\Solution.Generated.cs" />
+    <Compile Include="Entities\SolutionComponent.Additional.cs" />
+    <Compile Include="Entities\SolutionComponent.cs" />
+    <Compile Include="Entities\SolutionComponent.Generated.cs" />
+    <Compile Include="Entities\StringMap.cs" />
+    <Compile Include="Entities\StringMap.Generated.cs" />
+    <Compile Include="Entities\SystemForm.cs" />
+    <Compile Include="Entities\SystemForm.Generated.cs" />
+    <Compile Include="Entities\SystemUser.cs" />
+    <Compile Include="Entities\SystemUser.Generated.cs" />
+    <Compile Include="Entities\Team.cs" />
+    <Compile Include="Entities\Team.Generated.cs" />
+    <Compile Include="Entities\Template.cs" />
+    <Compile Include="Entities\Template.Generated.cs" />
+    <Compile Include="Entities\WebResource.cs" />
+    <Compile Include="Entities\WebResource.Generated.cs" />
+    <Compile Include="Entities\Workflow.cs" />
+    <Compile Include="Entities\Workflow.Generated.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\ContentCoparerHelper.cs" />
+    <Compile Include="Helpers\CreateFileHandler.cs" />
+    <Compile Include="Helpers\CreateFileWithEntityMetadataCSharpConfiguration.cs" />
+    <Compile Include="Helpers\CreateFileWithEntityMetadataCSharpHandler.cs" />
+    <Compile Include="Helpers\CreateFileWithEntityMetadataJavaScriptConfiguration.cs" />
+    <Compile Include="Helpers\CreateFileWithEntityMetadataJavaScriptHandler.cs" />
+    <Compile Include="Helpers\CreateFormTabsJavaScriptHandler.cs" />
+    <Compile Include="Helpers\CreateGlobalOptionSetsFileCSharpHandler.cs" />
+    <Compile Include="Helpers\CreateGlobalOptionSetsFileJavaScriptHandler.cs" />
+    <Compile Include="Helpers\DependencyDescriptionHandler.cs" />
+    <Compile Include="Helpers\DeviceIdManager.cs" />
+    <Compile Include="Helpers\DiffMatchPatch.cs" />
+    <Compile Include="Helpers\DTEHelper.cs" />
+    <Compile Include="Helpers\Encryption.cs" />
+    <Compile Include="Helpers\EntityAttributesDependentComponentsHandler.cs" />
+    <Compile Include="Helpers\EntityDescriptionHandler.cs" />
+    <Compile Include="Helpers\EntityFileNameFormatter.cs" />
+    <Compile Include="Helpers\EntityLabelComparer.cs" />
+    <Compile Include="Helpers\EntityMetadataComparer.cs" />
+    <Compile Include="Helpers\EnumBindingSourceExtension.cs" />
+    <Compile Include="Helpers\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="Helpers\EnumToBooleanConverter.cs" />
+    <Compile Include="Helpers\ExportSolutionHelper.cs" />
+    <Compile Include="Helpers\FileOperations.cs" />
+    <Compile Include="Helpers\FormatTextTableHandler.cs" />
+    <Compile Include="Helpers\FormDescriptionHandler.cs" />
+    <Compile Include="Helpers\LabelComparer.cs" />
+    <Compile Include="Helpers\LabelReplacer.cs" />
+    <Compile Include="Helpers\OptionSetComparer.cs" />
+    <Compile Include="Helpers\OrganizationComparer.ConnectionRole.cs" />
+    <Compile Include="Helpers\OrganizationComparer.cs" />
+    <Compile Include="Helpers\OrganizationComparer.Entities.cs" />
+    <Compile Include="Helpers\OrganizationComparer.EntityObjects.cs" />
+    <Compile Include="Helpers\OrganizationComparer.Plugins.cs" />
+    <Compile Include="Helpers\OrganizationComparer.Security.cs" />
+    <Compile Include="Helpers\OrganizationComparer.Templates.cs" />
+    <Compile Include="Helpers\OrganizationComparer.Translations.cs" />
+    <Compile Include="Helpers\PluginAssemblyDescriptionHandler.cs" />
+    <Compile Include="Helpers\PluginConfigurationAssemblyDescriptionHandler.cs" />
+    <Compile Include="Helpers\PluginsAndWorkflowLoader.cs" />
+    <Compile Include="Helpers\PluginTypeConfigurationDescriptionHandler.cs" />
+    <Compile Include="Helpers\PluginTypeDescriptionHandler.cs" />
+    <Compile Include="Helpers\ProgressReporter.cs" />
+    <Compile Include="Helpers\PublishManager.cs" />
+    <Compile Include="Helpers\QuickConnection.cs" />
+    <Compile Include="Helpers\RegistrerPluginHelper.cs" />
+    <Compile Include="Helpers\SolutionComponentConverter.cs" />
+    <Compile Include="Helpers\SolutionComponentDescriptor.Cache.cs" />
+    <Compile Include="Helpers\SolutionComponentDescriptor.ConnectionRole.cs" />
+    <Compile Include="Helpers\SolutionComponentDescriptor.cs" />
+    <Compile Include="Helpers\SolutionComponentDescriptor.EntityObjects.cs" />
+    <Compile Include="Helpers\SolutionComponentDescriptor.Metadata.cs" />
+    <Compile Include="Helpers\SolutionComponentDescriptor.Plugins.cs" />
+    <Compile Include="Helpers\SolutionComponentDescriptor.Report.cs" />
+    <Compile Include="Helpers\SolutionComponentDescriptor.Ribbon.cs" />
+    <Compile Include="Helpers\SolutionComponentDescriptor.Rules.cs" />
+    <Compile Include="Helpers\SolutionComponentDescriptor.Security.cs" />
+    <Compile Include="Helpers\SolutionComponentDescriptor.Templates.cs" />
+    <Compile Include="Helpers\SolutionDescriptor.cs" />
+    <Compile Include="Helpers\WorkflowUsedEntitiesDescriptor.cs" />
+    <Compile Include="Helpers\WorkflowUsedEntitiesHandler.cs" />
+    <Compile Include="Intellisense\CrmCompletion.cs" />
+    <Compile Include="Intellisense\CrmCompletionCommandHandler.cs" />
+    <Compile Include="Intellisense\CrmCompletionSet.cs" />
+    <Compile Include="Intellisense\FetchXmlCompletionSource.cs" />
+    <Compile Include="Intellisense\FetchXmlCompletionSourceProvider.cs" />
+    <Compile Include="Intellisense\CrmTextViewCreationListener.cs" />
+    <Compile Include="Intellisense\Model\AttributeIntellisenseData.cs" />
+    <Compile Include="Intellisense\Model\ConnectionIntellisenseData.cs" />
+    <Compile Include="Intellisense\Model\EntityIntellisenseData.cs" />
+    <Compile Include="Intellisense\Model\ManyToManyRelationshipIntellisenseData.cs" />
+    <Compile Include="Intellisense\Model\ManyToOneRelationshipIntellisenseData.cs" />
+    <Compile Include="Intellisense\Model\OneToManyRelationshipIntellisenseData.cs" />
+    <Compile Include="Intellisense\Model\OptionSetIntellisenseData.cs" />
+    <Compile Include="Interfaces\IOrganizationServiceExtented.cs" />
+    <Compile Include="Model\ActionOpenComponent.cs" />
+    <Compile Include="Model\AssemblyMapping.cs" />
+    <Compile Include="Model\CommonConfiguration.cs" />
+    <Compile Include="Model\ConnectionConfiguration.cs" />
+    <Compile Include="Model\ConnectionData.cs" />
+    <Compile Include="Model\ConnectionUserData.cs" />
+    <Compile Include="Model\ConstantType.cs" />
+    <Compile Include="Model\ContentCopareResult.cs" />
+    <Compile Include="Model\CrmSvcUtil.cs" />
+    <Compile Include="Model\ElementForPublish.cs" />
+    <Compile Include="Model\EntityMetadataListViewItem.cs" />
+    <Compile Include="Model\EntityTreeViewItem.cs" />
+    <Compile Include="Model\ExportSolutionConfig.cs" />
+    <Compile Include="Model\ExportSolutionOverrideInformation.cs" />
+    <Compile Include="Model\FetchXmlRequestParameter.cs" />
+    <Compile Include="Model\FileAction.cs" />
+    <Compile Include="Model\FileMapping.cs" />
+    <Compile Include="Model\FormControl.cs" />
+    <Compile Include="Model\FormSection.cs" />
+    <Compile Include="Model\FormTab.cs" />
+    <Compile Include="Model\IndentType.cs" />
+    <Compile Include="Interfaces\IWriteToOutputAndPublishList.cs" />
+    <Compile Include="Interfaces\IServiceProviderOwner.cs" />
+    <Compile Include="Interfaces\IWriteToOutput.cs" />
+    <Compile Include="Model\LabelDifferenceResult.cs" />
+    <Compile Include="Model\LabelString.cs" />
+    <Compile Include="Model\LabelStringDifference.cs" />
+    <Compile Include="Model\LinkedEntities.cs" />
+    <Compile Include="Model\LinkedEntityMetadata.cs" />
+    <Compile Include="Model\LinkedOptionSetMetadata.cs" />
+    <Compile Include="Model\LocaleComparer.cs" />
+    <Compile Include="Model\LocalizedLabel.cs" />
+    <Compile Include="Model\MessageComparer.cs" />
+    <Compile Include="Model\OpenFilesType.cs" />
+    <Compile Include="Model\OptionItem.cs" />
+    <Compile Include="Model\OptionSetExportType.cs" />
+    <Compile Include="Model\OptionSetMetadataListViewItem.cs" />
+    <Compile Include="Model\OrganizationServiceExtentedProxy.cs" />
+    <Compile Include="Model\PluginSearchResult.cs" />
+    <Compile Include="Model\PluginStage.cs" />
+    <Compile Include="Model\PluginTreeViewItem.cs" />
+    <Compile Include="Model\SdkMessageRequestTreeViewItem.cs" />
+    <Compile Include="Model\SdkMessageSearchResult.cs" />
+    <Compile Include="Model\SelectedFile.cs" />
+    <Compile Include="Model\ShowComponentsInList.cs" />
+    <Compile Include="Model\ShowDifferenceThreeFileType.cs" />
+    <Compile Include="Model\SolutionComponentViewItem.cs" />
+    <Compile Include="Model\Translation.cs" />
+    <Compile Include="Model\TranslationDisplayString.cs" />
+    <Compile Include="Model\TreeNodeEntity.cs" />
+    <Compile Include="Model\TupleList.cs" />
+    <Compile Include="Model\UserControlSettings.cs" />
+    <Compile Include="Model\VSSolutionConfiguration.cs" />
+    <Compile Include="Model\WindowSettings.cs" />
+    <Compile Include="PluginExtraction\PluginAssembly.cs" />
+    <Compile Include="PluginExtraction\PluginDescription.cs" />
+    <Compile Include="PluginExtraction\PluginImage.cs" />
+    <Compile Include="PluginExtraction\PluginStep.cs" />
+    <Compile Include="PluginExtraction\PluginType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AttributeMapRepository.cs" />
+    <Compile Include="Repository\ConnectionIntellisenseDataRepository.cs" />
+    <Compile Include="Repository\ConnectionRoleAssociationRepository.cs" />
+    <Compile Include="Repository\ConnectionRoleObjectTypeCodeRepository.cs" />
+    <Compile Include="Repository\ConnectionRoleRepository.cs" />
+    <Compile Include="Repository\ContractTemplateRepository.cs" />
+    <Compile Include="Repository\DependencyNodeRepository.cs" />
+    <Compile Include="Repository\DependencyRepository.cs" />
+    <Compile Include="Repository\DisplayStringMapRepository.cs" />
+    <Compile Include="Repository\DisplayStringRepository.cs" />
+    <Compile Include="Repository\EntityMapRepository.cs" />
+    <Compile Include="Repository\EntityMetadataRepository.cs" />
+    <Compile Include="Repository\FieldPermissionRepository.cs" />
+    <Compile Include="Repository\FieldSecurityProfileRepository.cs" />
+    <Compile Include="Repository\GenericRepository.cs" />
+    <Compile Include="Repository\InvalidDependencyRepository.cs" />
+    <Compile Include="Repository\KbArticleTemplateRepository.cs" />
+    <Compile Include="Repository\LanguageLocaleRepository.cs" />
+    <Compile Include="Repository\MailMergeTemplateRepository.cs" />
+    <Compile Include="Repository\OptionSetRepository.cs" />
+    <Compile Include="Repository\OrganizationRepository.cs" />
+    <Compile Include="Repository\PluginAssemblyRepository.cs" />
+    <Compile Include="Repository\PluginSearchRepository.cs" />
+    <Compile Include="Repository\PluginTypeRepository.cs" />
+    <Compile Include="Repository\PublisherRepository.cs" />
+    <Compile Include="Repository\ReportRepository.cs" />
+    <Compile Include="Repository\RibbonCustomizationRepository.cs" />
+    <Compile Include="Repository\SavedQueryRepository.cs" />
+    <Compile Include="Repository\SavedQueryVisualizationRepository.cs" />
+    <Compile Include="Repository\SdkMessageFilterRepository.cs" />
+    <Compile Include="Repository\SdkMessageProcessingStepImageRepository.cs" />
+    <Compile Include="Repository\SdkMessageProcessingStepRepository.cs" />
+    <Compile Include="Repository\SdkMessageProcessingStepSecureConfigRepository.cs" />
+    <Compile Include="Repository\SdkMessageRepository.cs" />
+    <Compile Include="Repository\SdkMessageRequestFieldRepository.cs" />
+    <Compile Include="Repository\SdkMessageRequestRepository.cs" />
+    <Compile Include="Repository\SdkMessageResponseFieldRepository.cs" />
+    <Compile Include="Repository\SdkMessageResponseRepository.cs" />
+    <Compile Include="Repository\SecurityPrivilegesRepository.cs" />
+    <Compile Include="Repository\SecurityRolePrivilegesRepository.cs" />
+    <Compile Include="Repository\SecurityRoleRepository.cs" />
+    <Compile Include="Repository\SitemapRepository.cs" />
+    <Compile Include="Repository\SolutionComponentRepository.cs" />
+    <Compile Include="Repository\SolutionRepository.cs" />
+    <Compile Include="Repository\StringMapRepository.cs" />
+    <Compile Include="Repository\SystemFormRepository.cs" />
+    <Compile Include="Repository\SystemUserRepository.cs" />
+    <Compile Include="Repository\TemplateRepository.cs" />
+    <Compile Include="Repository\TranslationRepository.cs" />
+    <Compile Include="Repository\WebResourceRepository.cs" />
+    <Compile Include="Repository\WorkflowRepository.cs" />
+    <Compile Include="ToolWindowPanes\FetchXmlExecutorToolWindowPane.cs" />
+    <Compile Include="UserControls\FetchXmlExecutorControl.xaml.cs">
+      <DependentUpon>FetchXmlExecutorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowBase.cs" />
+    <Compile Include="Views\WindowCommonConfiguration.xaml.cs">
+      <DependentUpon>WindowCommonConfiguration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowConfirmPublish.xaml.cs">
+      <DependentUpon>WindowConfirmPublish.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowCreateProxyClasses.xaml.cs">
+      <DependentUpon>WindowCreateProxyClasses.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowCrmConnectionCard.xaml.cs">
+      <DependentUpon>WindowCrmConnectionCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowCrmConnectionList.xaml.cs">
+      <DependentUpon>WindowCrmConnectionList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowCrmConnectionUserCard.xaml.cs">
+      <DependentUpon>WindowCrmConnectionUserCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExplorerSolutionComponentDependencies.xaml.cs">
+      <DependentUpon>WindowExplorerSolutionComponentDependencies.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExplorerSolutionComponents.xaml.cs">
+      <DependentUpon>WindowExplorerSolutionComponents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportEntityAttributesDependentComponents.xaml.cs">
+      <DependentUpon>WindowExportEntityAttributesDependentComponents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportEntityMetadata.xaml.cs">
+      <DependentUpon>WindowExportEntityMetadata.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportFormEvents.xaml.cs">
+      <DependentUpon>WindowExportFormEvents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportGlobalOptionSets.xaml.cs">
+      <DependentUpon>WindowExportGlobalOptionSets.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportOrganization.xaml.cs">
+      <DependentUpon>WindowExportOrganization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportPluginAssembly.xaml.cs">
+      <DependentUpon>WindowExportPluginAssembly.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportPluginType.xaml.cs">
+      <DependentUpon>WindowExportPluginType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportReport.xaml.cs">
+      <DependentUpon>WindowExportReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportRibbon.xaml.cs">
+      <DependentUpon>WindowExportRibbon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportSavedQuery.xaml.cs">
+      <DependentUpon>WindowExportSavedQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportSavedQueryVisualization.xaml.cs">
+      <DependentUpon>WindowExportSavedQueryVisualization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportSiteMap.xaml.cs">
+      <DependentUpon>WindowExportSiteMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportSolution.xaml.cs">
+      <DependentUpon>WindowExportSolution.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExplorerSolution.xaml.cs">
+      <DependentUpon>WindowExplorerSolution.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportSystemForm.xaml.cs">
+      <DependentUpon>WindowExportSystemForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportWebResource.xaml.cs">
+      <DependentUpon>WindowExportWebResource.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportWorkflow.xaml.cs">
+      <DependentUpon>WindowExportWorkflow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowHelper.cs" />
+    <Compile Include="Views\WindowOrganizationComparer.xaml.cs">
+      <DependentUpon>WindowOrganizationComparer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowOrganizationComparerEntityMetadata.xaml.cs">
+      <DependentUpon>WindowOrganizationComparerEntityMetadata.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowOrganizationComparerGlobalOptionSets.xaml.cs">
+      <DependentUpon>WindowOrganizationComparerGlobalOptionSets.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowOrganizationComparerPluginAssembly.xaml.cs">
+      <DependentUpon>WindowOrganizationComparerPluginAssembly.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowOrganizationComparerReport.xaml.cs">
+      <DependentUpon>WindowOrganizationComparerReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowOrganizationComparerRibbon.xaml.cs">
+      <DependentUpon>WindowOrganizationComparerRibbon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowOrganizationComparerSavedQuery.xaml.cs">
+      <DependentUpon>WindowOrganizationComparerSavedQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowOrganizationComparerSavedQueryVisualization.xaml.cs">
+      <DependentUpon>WindowOrganizationComparerSavedQueryVisualization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowOrganizationComparerSiteMap.xaml.cs">
+      <DependentUpon>WindowOrganizationComparerSiteMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowOrganizationComparerSystemForm.xaml.cs">
+      <DependentUpon>WindowOrganizationComparerSystemForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowOrganizationComparerWebResources.xaml.cs">
+      <DependentUpon>WindowOrganizationComparerWebResources.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowOrganizationComparerWorkflow.xaml.cs">
+      <DependentUpon>WindowOrganizationComparerWorkflow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowPluginConfiguration.xaml.cs">
+      <DependentUpon>WindowPluginConfiguration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowPluginConfigurationComparerPluginAssembly.xaml.cs">
+      <DependentUpon>WindowPluginConfigurationComparerPluginAssembly.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowPluginConfigurationPluginAssembly.xaml.cs">
+      <DependentUpon>WindowPluginConfigurationPluginAssembly.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowPluginConfigurationPluginTree.xaml.cs">
+      <DependentUpon>WindowPluginConfigurationPluginTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowPluginConfigurationPluginType.xaml.cs">
+      <DependentUpon>WindowPluginConfigurationPluginType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowSdkMessageRequestTree.xaml.cs">
+      <DependentUpon>WindowSdkMessageRequestTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowSdkMessageTree.xaml.cs">
+      <DependentUpon>WindowSdkMessageTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowPluginTree.xaml.cs">
+      <DependentUpon>WindowPluginTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowReportSelect.xaml.cs">
+      <DependentUpon>WindowReportSelect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowSelectEntityIdToFind.xaml.cs">
+      <DependentUpon>WindowSelectEntityIdToFind.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowSelectFolderAndText.xaml.cs">
+      <DependentUpon>WindowSelectFolderAndText.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowSelectFolderForExport.xaml.cs">
+      <DependentUpon>WindowSelectFolderForExport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowSelectPrefix.xaml.cs">
+      <DependentUpon>WindowSelectPrefix.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowSolutionSelect.xaml.cs">
+      <DependentUpon>WindowSolutionSelect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowWebResourceCreate.xaml.cs">
+      <DependentUpon>WindowWebResourceCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowWebResourceSelectOrCreate.xaml.cs">
+      <DependentUpon>WindowWebResourceSelectOrCreate.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app.config">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <None Include="packages.config" />
+    <Resource Include="Schemas\CustomizationsSolution.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Schemas\fetch.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Schemas\FormXml.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Schemas\isv.config.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Schemas\ParameterXml.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Schemas\reports.config.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Schemas\RibbonCore.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Schemas\RibbonTypes.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Schemas\RibbonWSS.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Schemas\SiteMap.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Schemas\SiteMapType.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Schemas\VisualizationDataDescription.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <None Include="sign.snk" />
+    <None Include="source.extension.vsixmanifest">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Namespace.png" />
+    <Resource Include="Resources\Response.png" />
+    <Resource Include="Resources\Request.png" />
+    <Resource Include="Resources\Field.png" />
+    <VSCTCompile Include="CrmDeveloperHelperPackageCommandTable.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+      <SubType>Designer</SubType>
+      <Generator>VsctGenerator</Generator>
+      <LastGenOutput>CrmDeveloperHelperPackageCommandTable.cs</LastGenOutput>
+    </VSCTCompile>
+    <Resource Include="Resources\16x16_refresh.ico" />
+    <Resource Include="Resources\Add.png" />
+    <Resource Include="Resources\assembly.gif" />
+    <Resource Include="Resources\Check.png" />
+    <Resource Include="Resources\Copy.png" />
+    <Resource Include="Resources\Delete.png" />
+    <Resource Include="Resources\Edit.png" />
+    <Resource Include="Resources\Entity.png" />
+    <Resource Include="Resources\Icons\16x16_css.ico" />
+    <Resource Include="Resources\Icons\16x16_folder.ico" />
+    <Resource Include="Resources\Icons\16x16_html.ico" />
+    <Resource Include="Resources\Icons\16x16_images.ico" />
+    <Resource Include="Resources\Icons\16x16_js.ico" />
+    <Resource Include="Resources\Icons\16x16_refresh.ico" />
+    <Resource Include="Resources\Icons\16x16_silverlight.ico" />
+    <Resource Include="Resources\Icons\16x16_xml.ico" />
+    <Resource Include="Resources\image.gif" />
+    <Resource Include="Resources\IndexDown.png" />
+    <Resource Include="Resources\IndexUp.png" />
+    <Resource Include="Resources\message.gif" />
+    <Resource Include="Resources\OpenFolder.png" />
+    <Resource Include="Resources\plugin.gif" />
+    <Resource Include="Resources\Refresh_16.png" />
+    <Resource Include="Resources\Refresh_16x16.bmp" />
+    <Resource Include="Resources\Select.png" />
+    <Resource Include="Resources\Stage.gif" />
+    <Resource Include="Resources\step.gif" />
+    <Resource Include="Resources\stepdisabled.gif" />
+    <None Include="DebugConfiguration.txt" />
+    <Content Include="Resources\CrmDeveloperHelperPackage.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="envdte, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="envdte100, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="envdte80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="envdte90, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="envdte90a, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="extensibility, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.3\lib\net452\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.CommandBars, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.CoreUtility, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\VSSDK.CoreUtility.12.0.4\lib\net45\Microsoft.VisualStudio.CoreUtility.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Editor, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\VSSDK.Editor.12.0.4\lib\net45\Microsoft.VisualStudio.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Editor.Implementation, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Microsoft.VisualStudio.Editor.Implementation\v4.0_12.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.Editor.Implementation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.GraphModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\VSSDK.GraphModel.12.0.4\lib\net45\Microsoft.VisualStudio.GraphModel.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.ImageCatalog, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Imaging, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Language.Intellisense, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Microsoft.VisualStudio.Language.Intellisense\v4.0_12.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.Language.Intellisense.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Language.StandardClassification, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Microsoft.VisualStudio.Language.StandardClassification\v4.0_12.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.Language.StandardClassification.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.OLE.Interop.7.10.6071\lib\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Package.LanguageService.14.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Microsoft.VisualStudio.Package.LanguageService.14.0\v4.0_14.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.Package.LanguageService.14.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.7.10.6071\lib\Microsoft.VisualStudio.Shell.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.10.0.10.0.30319\lib\Microsoft.VisualStudio.Shell.Interop.10.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.11.0.11.0.61030\lib\Microsoft.VisualStudio.Shell.Interop.11.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.12.0.12.0.30110\lib\Microsoft.VisualStudio.Shell.Interop.12.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.8.0.8.0.50727\lib\Microsoft.VisualStudio.Shell.Interop.8.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.9.0.9.0.30729\lib\Microsoft.VisualStudio.Shell.Interop.9.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Text.Data, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\VSSDK.Text.12.0.4\lib\net45\Microsoft.VisualStudio.Text.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Text.Logic, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\VSSDK.Text.12.0.4\lib\net45\Microsoft.VisualStudio.Text.Logic.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Text.UI, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\VSSDK.Text.12.0.4\lib\net45\Microsoft.VisualStudio.Text.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Text.UI.Wpf, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\VSSDK.Text.12.0.4\lib\net45\Microsoft.VisualStudio.Text.UI.Wpf.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TextManager.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.Threading, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Threading.15.0.240\lib\net45\Microsoft.VisualStudio.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Utilities, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Validation, Version=15.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Microsoft.VisualStudio.Validation\v4.0_14.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.3\lib\net452\Microsoft.Xrm.Sdk.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NLog.4.5.6\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Composition.Registration" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Ude, Version=0.1.1.0, Culture=neutral, PublicKeyToken=dd537652db4726a9, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ude.Signed.0.1.1\lib\net40\Ude.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="UserControls\FetchXmlExecutorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowCommonConfiguration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowConfirmPublish.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowCreateProxyClasses.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowCrmConnectionCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowCrmConnectionList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowCrmConnectionUserCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExplorerSolutionComponentDependencies.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExplorerSolutionComponents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportEntityAttributesDependentComponents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportEntityMetadata.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportFormEvents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportGlobalOptionSets.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportOrganization.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportPluginAssembly.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportPluginType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportRibbon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportSavedQuery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportSavedQueryVisualization.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportSiteMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportSolution.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExplorerSolution.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportSystemForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportWebResource.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportWorkflow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowOrganizationComparer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowOrganizationComparerEntityMetadata.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowOrganizationComparerGlobalOptionSets.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowOrganizationComparerPluginAssembly.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowOrganizationComparerReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowOrganizationComparerRibbon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowOrganizationComparerSavedQuery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowOrganizationComparerSavedQueryVisualization.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowOrganizationComparerSiteMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowOrganizationComparerSystemForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowOrganizationComparerWebResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowOrganizationComparerWorkflow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowPluginConfiguration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowPluginConfigurationComparerPluginAssembly.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowPluginConfigurationPluginAssembly.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowPluginConfigurationPluginTree.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowPluginConfigurationPluginType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowSdkMessageRequestTree.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowSdkMessageTree.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowPluginTree.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowReportSelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowSelectEntityIdToFind.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowSelectFolderAndText.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowSelectFolderForExport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowSelectPrefix.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowSolutionSelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowWebResourceCreate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowWebResourceSelectOrCreate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VSPackage.resx">
+      <MergeWithCTO>true</MergeWithCTO>
+      <ManifestResourceName>VSPackage</ManifestResourceName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\Microsoft.VisualStudio.SDK.Analyzers.15.7.11\analyzers\cs\Microsoft.VisualStudio.SDK.Analyzers.dll" />
+    <Analyzer Include="..\..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.7.21\analyzers\cs\Microsoft.VisualStudio.Threading.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.10\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.10\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.10\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.10\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.VSSDK.BuildTools.15.6.152\build\Microsoft.VSSDK.BuildTools.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VSSDK.BuildTools.15.6.152\build\Microsoft.VSSDK.BuildTools.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.VSSDK.BuildTools.15.6.152\build\Microsoft.VSSDK.BuildTools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VSSDK.BuildTools.15.6.152\build\Microsoft.VSSDK.BuildTools.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.7.21\build\Microsoft.VisualStudio.Threading.Analyzers.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.7.21\build\Microsoft.VisualStudio.Threading.Analyzers.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.VSSDK.BuildTools.15.6.152\build\Microsoft.VSSDK.BuildTools.targets" Condition="Exists('..\packages\Microsoft.VSSDK.BuildTools.15.6.152\build\Microsoft.VSSDK.BuildTools.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) == Release (
+  xcopy "$(TargetDir)*.vsix" "$(TargetDir)/../../../CompiledVSIXPackages" /F /Y
+)</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>del /s/q "$(TargetDir)\..\..\..\CompiledVSIXPackages\$(TargetName).vsix"</PreBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.7.21\build\Microsoft.VisualStudio.Threading.Analyzers.targets" Condition="Exists('..\..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.7.21\build\Microsoft.VisualStudio.Threading.Analyzers.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,144 @@
+﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExportEntityAttributesDependentComponents"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+        Title="Export Entity Attributes Dependent Components" Height="538.662" Width="635" WindowStartupLocation="Manual">
+    <src:WindowBase.Resources>
+        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+            <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
+            <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+            <Separator />
+            <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+            <Separator/>
+            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+            <Separator/>
+            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
+            <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
+            <Separator/>
+            <MenuItem Header="Create File with Attributes Dependent Components" Click="btnCreateFile_Click"/>
+            <Separator/>
+            <MenuItem Header="Get Other Entity Information">
+                <MenuItem Header="Metadata" Click="btnCreateMetadataFile_Click"/>
+                <Separator/>
+                <MenuItem Header="Ribbon" Click="btnRibbon_Click"/>
+                <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click"/>
+                <Separator/>
+                <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
+                <MenuItem Header="Views" Click="btnSavedQuery_Click"/>
+                <MenuItem Header="Charts" Click="btnSavedChart_Click"/>
+                <Separator/>
+                <MenuItem Header="Workflows" Click="btnWorkflows_Click"/>
+                <Separator/>
+                <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click"/>
+                <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
+                <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
+            </MenuItem>
+            <Separator/>
+            <MenuItem Header="Compare Information with other Organization">
+                <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                <Separator/>
+                <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                <Separator/>
+                <MenuItem Header="Entity Ribbon" Click="btnCompareRibbon_Click"/>
+                <Separator/>
+                <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
+                <Separator/>
+                <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
+                <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
+                <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                <Separator/>
+                <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+            </MenuItem>
+        </ContextMenu>
+        <helpers:BoolToOppositeBoolConverter x:Key="BoolInverter"/>
+    </src:WindowBase.Resources>
+    <Grid>
+        <ToolBar Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                <MenuItem Header="Open Entity Information Windows" VerticalAlignment="Center">
+                    <MenuItem x:Name="btnCreateMetadataFile" Header="Metadata" Click="btnCreateMetadataFile_Click" />
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <MenuItem x:Name="btnRibbon" Header="Ribbon" Click="btnRibbon_Click" />
+                    <MenuItem x:Name="btnGlobalOptionSets" Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <MenuItem x:Name="btnSystemForms" Header="Forms" Click="btnSystemForms_Click" />
+                    <MenuItem x:Name="btnSavedQuery" Header="Views" Click="btnSavedQuery_Click" />
+                    <MenuItem x:Name="btnSavedChart" Header="Charts" Click="btnSavedChart_Click" />
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <MenuItem x:Name="btnWorkflows" Header="Workflows" Click="btnWorkflows_Click" />
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <MenuItem x:Name="btnPluginTree" Header="Plugin Tree" Click="btnPluginTree_Click" />
+                    <MenuItem x:Name="btnMessageTree" Header="Message Tree" Click="btnMessageTree_Click"/>
+                    <MenuItem x:Name="btnMessageRequestTree" Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
+                </MenuItem>
+                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                <MenuItem Header="Compare Information with other Organization">
+                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <MenuItem Header="Entity Ribbon" Click="btnCompareRibbon_Click"/>
+                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
+                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                </MenuItem>
+            </Menu>
+        </ToolBar>
+        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="23" Padding="0" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="48,38,10,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" />
+        <RadioButton x:Name="rBAllcomponents" IsChecked="{Binding Path=AllDependentComponents}" Content="All components" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="rBWorkflowPlugin" IsChecked="{Binding Path=AllDependentComponents, Converter={StaticResource BoolInverter}}" Content="Only Workflow, Plugin Step, Plugin Step Image" HorizontalAlignment="Left" Margin="117,66,0,0" VerticalAlignment="Top"/>
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" Padding="0" VerticalContentAlignment="Center" Height="23"/>
+        <TextBox x:Name="txtBFilterEnitity" Height="23" Margin="48,86,10,0" TextWrapping="Wrap" VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        <DataGrid x:Name="lstVwEntities" AutoGenerateColumns="False" Margin="10,114,10,96" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                </Style>
+            </DataGrid.ItemContainerStyle>
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding EntityLogicalName}" />
+
+                <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName}" />
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" VerticalAlignment="Bottom" Height="22" VerticalContentAlignment="Center" Padding="10,0"/>
+        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="69,0,0,69" Padding="10,0" VerticalAlignment="Bottom" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="254" VerticalContentAlignment="Center" Height="22" />
+        <ToolBar x:Name="toolStrip" Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
+            <ToolBar.Resources>
+                <Style TargetType="{x:Type ToolBarPanel}">
+                    <Setter Property="Orientation" Value="Vertical"/>
+                </Style>
+            </ToolBar.Resources>
+            <DockPanel>
+                <DockPanel.Resources>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                        <Setter Property="Margin" Value="6,2" />
+                        <Setter Property="Padding" Value="3" />
+                    </Style>
+                </DockPanel.Resources>
+                <ToolBarPanel Orientation="Horizontal" >
+                    <Button x:Name="btnCreateFile" Content="Create File with Attributes Dependent Components" Click="btnCreateFile_Click" />
+                </ToolBarPanel>
+                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+            </DockPanel>
+        </ToolBar>
+        <StatusBar x:Name="statusBar" VerticalAlignment="Bottom">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
+            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+            <StatusBarItem x:Name="tSSLStatusMessage" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        </StatusBar>
+    </Grid>
+</src:WindowBase>

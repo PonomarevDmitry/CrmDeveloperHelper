@@ -1,0 +1,81 @@
+﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowPluginConfigurationComparerPluginAssembly"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+        Title="Plugin Configuration PluginAssembly Comparer" Height="538.662" Width="717" WindowStartupLocation="Manual">
+    <Grid>
+        <Label Content="Loaded File 1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFilePath1" Height="26" Margin="95,0,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" VerticalContentAlignment="Center" />
+        <Label Content="Loaded File 2" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtBFilePath2" Height="26" Margin="95,31,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="26" Margin="58,62,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFilter" Height="26" Margin="58,93,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        <DataGrid x:Name="lstVwPluginAssemblies" AutoGenerateColumns="False" Margin="10,124,10,93" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Plugin Assembly Name" Width="500" Binding="{Binding AssemblyName}" />
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,62" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="26" Width="53"/>
+        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,62" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="254" Height="26" />
+        <ToolBar x:Name="toolStrip" Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
+            <ToolBar.Resources>
+                <Style TargetType="{x:Type ToolBarPanel}">
+                    <Setter Property="Orientation" Value="Vertical"/>
+                </Style>
+            </ToolBar.Resources>
+            <DockPanel>
+                <DockPanel.Resources>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                        <Setter Property="Margin" Value="3" />
+                        <Setter Property="Padding" Value="2" />
+                    </Style>
+                    <Style TargetType="{x:Type MenuItem}">
+                        <Setter Property="Margin" Value="3" />
+                        <Setter Property="Padding" Value="2" />
+                    </Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Margin" Value="5,0,0,0" />
+                    </Style>
+                    <Style TargetType="{x:Type StackPanel}">
+                        <Setter Property="Orientation" Value="Horizontal" />
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                    </Style>
+                    <Style TargetType="{x:Type Separator}" BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
+                        <Setter Property="Margin" Value="10,0,10,0" />
+                    </Style>
+                </DockPanel.Resources>
+                <ToolBarPanel Orientation="Horizontal" >
+                    <Button x:Name="tSBLoadPluginConfiguration1" Content="Load Plugin Configuration 1" Click="tSBLoadPluginConfiguration1_Click" />
+                    <Separator />
+                    <Button x:Name="tSBLoadPluginConfiguration2" Content="Load Plugin Configuration 2" Click="tSBLoadPluginConfiguration2_Click" />
+                    <Separator />
+                    <Menu x:Name="menuActions" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBActions" Header="Actions">
+                            <MenuItem x:Name="tSMIShowDifferencePluginAssemblyDescription" Header="Show Difference PluginAssembly Description" Click="tSMIShowDifferencePluginAssemblyDescription_Click" />
+                            <Separator/>
+                            <MenuItem x:Name="tSMIExportPluginConfiguration1PluginAssemblyDescription" Header="Export Plugin Configuration 1 PluginAssembly Description" Click="tSMIExportPluginConfiguration1PluginAssemblyDescription_Click" />
+                            <MenuItem x:Name="tSMIExportPluginConfiguration2PluginAssemblyDescription" Header="Export Plugin Configuration 2 PluginAssembly Description" Click="tSMIExportPluginConfiguration2PluginAssemblyDescription_Click" />
+                        </MenuItem>
+                    </Menu>
+                </ToolBarPanel>
+                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+            </DockPanel>
+        </ToolBar>
+        <StatusBar x:Name="statusBar" Height="24" VerticalAlignment="Bottom">
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+            <StatusBarItem x:Name="tSSLStatusMessage" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        </StatusBar>
+    </Grid>
+</src:WindowBase>

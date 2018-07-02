@@ -1,0 +1,49 @@
+﻿using Microsoft.Xrm.Sdk;
+
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
+{
+    public partial class AttributeMap
+    {
+        public static partial class Schema
+        {
+            public static partial class EntityAliasFields
+            {
+                public const string EntityMapIdSourceEntityName = Attributes.entitymapid + "." + EntityMap.Schema.Attributes.sourceentityname;
+
+                public const string EntityMapIdTargetEntityName = Attributes.entitymapid + "." + EntityMap.Schema.Attributes.targetentityname;
+            }
+        }
+
+        public string EntityMapIdSourceEntityName
+        {
+            get
+            {
+                if (this.Attributes.ContainsKey(Schema.EntityAliasFields.EntityMapIdSourceEntityName)
+                    && this.Attributes[Schema.EntityAliasFields.EntityMapIdSourceEntityName] != null
+                    && this.Attributes[Schema.EntityAliasFields.EntityMapIdSourceEntityName] is AliasedValue
+                    )
+                {
+                    return (string)this.GetAttributeValue<AliasedValue>(Schema.EntityAliasFields.EntityMapIdSourceEntityName).Value;
+                }
+
+                return "none";
+            }
+        }
+
+        public string EntityMapIdTargetEntityName
+        {
+            get
+            {
+                if (this.Attributes.ContainsKey(Schema.EntityAliasFields.EntityMapIdTargetEntityName)
+                    && this.Attributes[Schema.EntityAliasFields.EntityMapIdTargetEntityName] != null
+                    && this.Attributes[Schema.EntityAliasFields.EntityMapIdTargetEntityName] is AliasedValue
+                    )
+                {
+                    return (string)this.GetAttributeValue<AliasedValue>(Schema.EntityAliasFields.EntityMapIdTargetEntityName).Value;
+                }
+
+                return "none";
+            }
+        }
+    }
+}

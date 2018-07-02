@@ -1,0 +1,467 @@
+﻿using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Xrm.Sdk;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using System;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
+{
+    public class RegistrerPluginHelper
+    {
+        private IOrganizationServiceExtented _service;
+
+        public RegistrerPluginHelper(IOrganizationServiceExtented service)
+        {
+            this._service = service;
+        }
+
+        public async Task<string> RegisterPluginsForAssemblyAsync(string folder, Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginAssembly assembly)
+        {
+            string fileName = string.Format("{0}.Plugin Register Operation at {1}.txt"
+                , _service.ConnectionData.Name
+                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                );
+
+            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+            StringBuilder log = new StringBuilder();
+
+            if (_service.ConnectionData.IsReadOnly)
+            {
+                log.AppendFormat("Connection {0} is ReadOnly.", _service.ConnectionData.Name);
+
+                File.WriteAllText(filePath, log.ToString(), Encoding.UTF8);
+
+                return filePath;
+            }
+
+            var repositoryAssembly = new PluginAssemblyRepository(_service);
+            var repositoryType = new PluginTypeRepository(_service);
+            var repositoryMessage = new SdkMessageRepository(_service);
+            var repositoryFilter = new SdkMessageFilterRepository(_service);
+            var repositorySystemUser = new SystemUserRepository(_service);
+
+            var entAssembly = await repositoryAssembly.FindAssemblyAsync(assembly.Name);
+
+            if (entAssembly != null)
+            {
+                log.AppendFormat("Assembly {0} founded in CRM with ID {1}", assembly.Name, entAssembly.Id).AppendLine();
+
+                foreach (var pluginType in assembly.PluginTypes)
+                {
+                    var entPluginType = repositoryType.FindPluginType(pluginType.TypeName);
+
+                    if (entPluginType != null)
+                    {
+                        log.AppendFormat("Plugin Type {0} founded in CRM with ID {1}", pluginType.TypeName, entPluginType.Id).AppendLine();
+
+                        foreach (var step in pluginType.PluginSteps)
+                        {
+                            var entMessage = await repositoryMessage.FindMessageAsync(step.Message);
+
+                            if (entMessage != null)
+                            {
+                                var refMessageFilter = await repositoryFilter.FindFilterAsync(entMessage.Id, step.PrimaryEntity, step.SecondaryEntity);
+
+                                EntityReference refSecure = null;
+                                EntityReference refSystemUser = null;
+
+                                if (!string.IsNullOrEmpty(step.SecureConfiguration))
+                                {
+                                    var entSecure = new Entity(Entities.SdkMessageProcessingStepSecureConfig.EntityLogicalName);
+                                    entSecure.Attributes["secureconfig"] = step.SecureConfiguration;
+
+                                    entSecure.Id = _service.Create(entSecure);
+
+                                    refSecure = entSecure.ToEntityReference();
+                                }
+
+                                if (!string.IsNullOrEmpty(step.RunInUserContext) && step.RunInUserContext != "Calling User")
+                                {
+                                    refSystemUser = repositorySystemUser.FindUser(step.RunInUserContext);
+                                }
+
+                                var entStep = new Entity(Entities.SdkMessageProcessingStep.EntityLogicalName);
+
+                                entStep.Id = step.Id;
+
+                                entStep.Attributes["asyncautodelete"] = step.AsyncAutoDelete.GetValueOrDefault();
+                                entStep.Attributes["name"] = step.Name;
+                                entStep.Attributes["description"] = step.Description;
+                                entStep.Attributes["rank"] = step.ExecutionOrder;
+
+                                entStep.Attributes["stage"] = new OptionSetValue((int)step.Stage);
+                                entStep.Attributes["mode"] = new OptionSetValue((int)step.ExecutionMode);
+
+                                entStep.Attributes["supporteddeployment"] = new OptionSetValue((int)step.SupportedDeploymentCode);
+
+                                entStep.Attributes["configuration"] = step.UnsecureConfiguration;
+
+                                entStep.Attributes["filteringattributes"] = string.Join(",", step.FilteringAttributes.OrderBy(s => s));
+
+                                entStep.Attributes["plugintypeid"] = entPluginType.ToEntityReference();
+
+                                entStep.Attributes["eventhandler"] = entPluginType.ToEntityReference();
+
+                                entStep.Attributes["sdkmessageid"] = entMessage.ToEntityReference();
+
+                                entStep.Attributes["sdkmessagefilterid"] = refMessageFilter;
+
+                                entStep.Attributes["sdkmessageprocessingstepsecureconfigid"] = refSecure;
+
+                                entStep.Attributes["impersonatinguserid"] = refSystemUser;
+
+                                entStep.Id = _service.Create(entStep);
+
+                                foreach (var image in step.PluginImages)
+                                {
+                                    var entImage = new Entity(Entities.SdkMessageProcessingStepImage.EntityLogicalName);
+
+                                    entImage.Id = image.Id;
+
+                                    entImage.Attributes["sdkmessageprocessingstepid"] = entStep.ToEntityReference();
+
+                                    entImage.Attributes["imagetype"] = new OptionSetValue(image.ImageType.Value);
+
+                                    entImage.Attributes["name"] = image.Name;
+                                    entImage.Attributes["entityalias"] = image.EntityAlias;
+
+                                    entImage.Attributes["customizationlevel"] = image.CustomizationLevel;
+                                    entImage.Attributes["relatedattributename"] = image.RelatedAttributeName;
+                                    entImage.Attributes["messagepropertyname"] = image.MessagePropertyName;
+
+                                    entImage.Attributes["attributes"] = string.Join(",", image.Attributes.OrderBy(s => s));
+
+                                    _service.Create(entImage);
+                                }
+
+                                _service.Execute(new SetStateRequest()
+                                {
+                                    EntityMoniker = entStep.ToEntityReference(),
+
+                                    State = new OptionSetValue(step.StateCode.Value),
+                                    Status = new OptionSetValue(step.StatusCode.Value),
+                                }
+                                );
+                            }
+                            else
+                            {
+                                log.AppendFormat("Message {0} not founded in CRM.", step.Message).AppendLine();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        log.AppendFormat("Plugin Type {0} not founded in CRM.", pluginType.TypeName).AppendLine();
+                    }
+                }
+            }
+            else
+            {
+                log.AppendFormat("Assembly {0} not founded in CRM.", assembly.Name).AppendLine();
+            }
+
+            File.WriteAllText(filePath, log.ToString(), Encoding.UTF8);
+
+            return filePath;
+        }
+
+        public async Task<string> RegisterPluginsForPluginTypeAsync(string folder, string assemblyName, Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginType pluginType)
+        {
+            string fileName = string.Format("{0}.Plugin Register Operation at {1}.txt"
+                , _service.ConnectionData.Name
+                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                );
+
+            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+            StringBuilder log = new StringBuilder();
+
+            if (_service.ConnectionData.IsReadOnly)
+            {
+                log.AppendFormat("Connection {0} is ReadOnly.", _service.ConnectionData.Name);
+
+                File.WriteAllText(filePath, log.ToString(), Encoding.UTF8);
+
+                return filePath;
+            }
+
+            var repositoryAssembly = new PluginAssemblyRepository(_service);
+            var repositoryType = new PluginTypeRepository(_service);
+            var repositoryMessage = new SdkMessageRepository(_service);
+            var repositoryFilter = new SdkMessageFilterRepository(_service);
+            var repositorySystemUser = new SystemUserRepository(_service);
+
+            var entAssembly = await repositoryAssembly.FindAssemblyAsync(assemblyName);
+
+            if (entAssembly != null)
+            {
+                log.AppendFormat("Assembly {0} founded in CRM with ID {1}", assemblyName, entAssembly.Id).AppendLine();
+
+                var entPluginType = repositoryType.FindPluginType(pluginType.TypeName);
+
+                if (entPluginType != null)
+                {
+                    log.AppendFormat("Plugin Type {0} founded in CRM with ID {1}", pluginType.TypeName, entPluginType.Id).AppendLine();
+
+                    foreach (var step in pluginType.PluginSteps)
+                    {
+                        var entMessage = await repositoryMessage.FindMessageAsync(step.Message);
+
+                        if (entMessage != null)
+                        {
+                            var refMessageFilter = await repositoryFilter.FindFilterAsync(entMessage.Id, step.PrimaryEntity, step.SecondaryEntity);
+
+                            EntityReference refSecure = null;
+                            EntityReference refSystemUser = null;
+
+                            if (!string.IsNullOrEmpty(step.SecureConfiguration))
+                            {
+                                var entSecure = new Entity(Entities.SdkMessageProcessingStepSecureConfig.EntityLogicalName);
+                                entSecure.Attributes["secureconfig"] = step.SecureConfiguration;
+
+                                entSecure.Id = _service.Create(entSecure);
+
+                                refSecure = entSecure.ToEntityReference();
+                            }
+
+                            if (!string.IsNullOrEmpty(step.RunInUserContext) && step.RunInUserContext != "Calling User")
+                            {
+                                refSystemUser = repositorySystemUser.FindUser(step.RunInUserContext);
+                            }
+
+                            var entStep = new Entity(Entities.SdkMessageProcessingStep.EntityLogicalName);
+
+                            entStep.Id = step.Id;
+
+                            entStep.Attributes["asyncautodelete"] = step.AsyncAutoDelete.GetValueOrDefault();
+                            entStep.Attributes["name"] = step.Name;
+                            entStep.Attributes["description"] = step.Description;
+                            entStep.Attributes["rank"] = step.ExecutionOrder;
+
+                            entStep.Attributes["stage"] = new OptionSetValue((int)step.Stage);
+                            entStep.Attributes["mode"] = new OptionSetValue((int)step.ExecutionMode);
+
+                            entStep.Attributes["supporteddeployment"] = new OptionSetValue((int)step.SupportedDeploymentCode);
+
+                            entStep.Attributes["configuration"] = step.UnsecureConfiguration;
+
+                            entStep.Attributes["filteringattributes"] = string.Join(",", step.FilteringAttributes.OrderBy(s => s));
+
+                            entStep.Attributes["plugintypeid"] = entPluginType.ToEntityReference();
+
+                            entStep.Attributes["eventhandler"] = entPluginType.ToEntityReference();
+
+                            entStep.Attributes["sdkmessageid"] = entMessage.ToEntityReference();
+
+                            entStep.Attributes["sdkmessagefilterid"] = refMessageFilter;
+
+                            entStep.Attributes["sdkmessageprocessingstepsecureconfigid"] = refSecure;
+
+                            entStep.Attributes["impersonatinguserid"] = refSystemUser;
+
+                            entStep.Id = _service.Create(entStep);
+
+                            foreach (var image in step.PluginImages)
+                            {
+                                var entImage = new Entity(Entities.SdkMessageProcessingStepImage.EntityLogicalName);
+
+                                entImage.Id = image.Id;
+
+                                entImage.Attributes["sdkmessageprocessingstepid"] = entStep.ToEntityReference();
+
+                                entImage.Attributes["imagetype"] = new OptionSetValue(image.ImageType.Value);
+
+                                entImage.Attributes["name"] = image.Name;
+                                entImage.Attributes["entityalias"] = image.EntityAlias;
+
+                                entImage.Attributes["customizationlevel"] = image.CustomizationLevel;
+                                entImage.Attributes["relatedattributename"] = image.RelatedAttributeName;
+                                entImage.Attributes["messagepropertyname"] = image.MessagePropertyName;
+
+                                entImage.Attributes["attributes"] = string.Join(",", image.Attributes.OrderBy(s => s));
+
+                                _service.Create(entImage);
+                            }
+
+                            _service.Execute(new SetStateRequest()
+                            {
+                                EntityMoniker = entStep.ToEntityReference(),
+
+                                State = new OptionSetValue(step.StateCode.Value),
+                                Status = new OptionSetValue(step.StatusCode.Value),
+                            }
+                            );
+                        }
+                        else
+                        {
+                            log.AppendFormat("Message {0} not founded in CRM.", step.Message).AppendLine();
+                        }
+                    }
+                }
+                else
+                {
+                    log.AppendFormat("Plugin Type {0} not founded in CRM.", pluginType.TypeName).AppendLine();
+                }
+            }
+            else
+            {
+                log.AppendFormat("Assembly {0} not founded in CRM.", assemblyName).AppendLine();
+            }
+
+            File.WriteAllText(filePath, log.ToString(), Encoding.UTF8);
+
+            return filePath;
+        }
+
+        public async Task<string> RegisterPluginsForPluginStepAsync(string folder, string assemblyName, string pluginType, Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginStep step)
+        {
+            string fileName = string.Format("{0}.Plugin Register Operation at {1}.txt"
+                , _service.ConnectionData.Name
+                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                );
+
+            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+            StringBuilder log = new StringBuilder();
+
+            if (_service.ConnectionData.IsReadOnly)
+            {
+                log.AppendFormat("Connection {0} is ReadOnly.", _service.ConnectionData.Name);
+
+                File.WriteAllText(filePath, log.ToString(), Encoding.UTF8);
+
+                return filePath;
+            }
+
+            var repositoryAssembly = new PluginAssemblyRepository(_service);
+            var repositoryType = new PluginTypeRepository(_service);
+            var repositoryMessage = new SdkMessageRepository(_service);
+            var repositoryFilter = new SdkMessageFilterRepository(_service);
+            var repositorySystemUser = new SystemUserRepository(_service);
+
+            var entAssembly = await repositoryAssembly.FindAssemblyAsync(assemblyName);
+
+            if (entAssembly != null)
+            {
+                log.AppendFormat("Assembly {0} founded in CRM with ID {1}", assemblyName, entAssembly.Id).AppendLine();
+
+                var entPluginType = repositoryType.FindPluginType(pluginType);
+
+                if (entPluginType != null)
+                {
+                    log.AppendFormat("Plugin Type {0} founded in CRM with ID {1}", pluginType, entPluginType.Id).AppendLine();
+
+                    var entMessage = await repositoryMessage.FindMessageAsync(step.Message);
+
+                    if (entMessage != null)
+                    {
+                        var refMessageFilter = await repositoryFilter.FindFilterAsync(entMessage.Id, step.PrimaryEntity, step.SecondaryEntity);
+
+                        EntityReference refSecure = null;
+                        EntityReference refSystemUser = null;
+
+                        if (!string.IsNullOrEmpty(step.SecureConfiguration))
+                        {
+                            var entSecure = new Entity(Entities.SdkMessageProcessingStepSecureConfig.EntityLogicalName);
+                            entSecure.Attributes["secureconfig"] = step.SecureConfiguration;
+
+                            entSecure.Id = _service.Create(entSecure);
+
+                            refSecure = entSecure.ToEntityReference();
+                        }
+
+                        if (!string.IsNullOrEmpty(step.RunInUserContext) && step.RunInUserContext != "Calling User")
+                        {
+                            refSystemUser = repositorySystemUser.FindUser(step.RunInUserContext);
+                        }
+
+                        var entStep = new Entity(Entities.SdkMessageProcessingStep.EntityLogicalName);
+
+                        entStep.Id = step.Id;
+
+                        entStep.Attributes["asyncautodelete"] = step.AsyncAutoDelete.GetValueOrDefault();
+                        entStep.Attributes["name"] = step.Name;
+                        entStep.Attributes["description"] = step.Description;
+                        entStep.Attributes["rank"] = step.ExecutionOrder;
+
+                        entStep.Attributes["stage"] = new OptionSetValue((int)step.Stage);
+                        entStep.Attributes["mode"] = new OptionSetValue((int)step.ExecutionMode);
+
+                        entStep.Attributes["supporteddeployment"] = new OptionSetValue((int)step.SupportedDeploymentCode);
+
+                        entStep.Attributes["configuration"] = step.UnsecureConfiguration;
+
+                        entStep.Attributes["filteringattributes"] = string.Join(",", step.FilteringAttributes.OrderBy(s => s));
+
+                        entStep.Attributes["plugintypeid"] = entPluginType.ToEntityReference();
+
+                        entStep.Attributes["eventhandler"] = entPluginType.ToEntityReference();
+
+                        entStep.Attributes["sdkmessageid"] = entMessage.ToEntityReference();
+
+                        entStep.Attributes["sdkmessagefilterid"] = refMessageFilter;
+
+                        entStep.Attributes["sdkmessageprocessingstepsecureconfigid"] = refSecure;
+
+                        entStep.Attributes["impersonatinguserid"] = refSystemUser;
+
+                        entStep.Id = _service.Create(entStep);
+
+                        foreach (var image in step.PluginImages)
+                        {
+                            var entImage = new Entity(Entities.SdkMessageProcessingStepImage.EntityLogicalName);
+
+                            entImage.Id = image.Id;
+
+                            entImage.Attributes["sdkmessageprocessingstepid"] = entStep.ToEntityReference();
+
+                            entImage.Attributes["imagetype"] = new OptionSetValue(image.ImageType.Value);
+
+                            entImage.Attributes["name"] = image.Name;
+                            entImage.Attributes["entityalias"] = image.EntityAlias;
+
+                            entImage.Attributes["customizationlevel"] = image.CustomizationLevel;
+                            entImage.Attributes["relatedattributename"] = image.RelatedAttributeName;
+                            entImage.Attributes["messagepropertyname"] = image.MessagePropertyName;
+
+                            entImage.Attributes["attributes"] = string.Join(",", image.Attributes.OrderBy(s => s));
+
+                            _service.Create(entImage);
+                        }
+
+                        _service.Execute(new SetStateRequest()
+                        {
+                            EntityMoniker = entStep.ToEntityReference(),
+
+                            State = new OptionSetValue(step.StateCode.Value),
+                            Status = new OptionSetValue(step.StatusCode.Value),
+                        }
+                        );
+                    }
+                    else
+                    {
+                        log.AppendFormat("Message {0} not founded in CRM.", step.Message).AppendLine();
+                    }
+                }
+                else
+                {
+                    log.AppendFormat("Plugin Type {0} not founded in CRM.", pluginType).AppendLine();
+                }
+            }
+            else
+            {
+                log.AppendFormat("Assembly {0} not founded in CRM.", assemblyName).AppendLine();
+            }
+
+            File.WriteAllText(filePath, log.ToString(), Encoding.UTF8);
+
+            return filePath;
+        }
+    }
+}

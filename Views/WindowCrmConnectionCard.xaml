@@ -1,0 +1,124 @@
+﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowCrmConnectionCard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+        Title="Connect to CRM" Height="501" Width="572" WindowStartupLocation="Manual">
+    <Grid>
+        <TabControl Margin="10,10,10,59">
+            <TabItem Header="Connection Parameters">
+                <Grid>
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                    </Grid.Resources>
+                    <CheckBox x:Name="chBIsReadOnly" Content="Is Read Only" Margin="0,16,241,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                    <Label Content="Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtBName" Height="23" Margin="10,36,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647"/>
+                    <Label Content="GroupName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,59,0,0"/>
+                    <TextBox x:Name="txtBGroupName" Height="23" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647" Margin="10,81,10,0"/>
+                    <Label Content="Discovery Service Url" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtBDiscoveryUrl" Height="23" Margin="10,130,90,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647"/>
+                    <Button x:Name="btnTemplateDiscovery" Content="Create" Margin="0,130,10,0" Click="btnTemplateDiscovery_Click" Height="23" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" IsTabStop="False"/>
+                    <Label Content="Unique Organization Name" HorizontalAlignment="Left" Margin="10,153,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtBUniqueOrganizationName" Height="23" Margin="10,179,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647"/>
+                    <Label Content="Organization Service Url" HorizontalAlignment="Left" Margin="10,202,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtBOrganizationServiceUrl" Height="23" Margin="10,228,90,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647"/>
+                    <Button x:Name="btnTemplateOrganization" Content="Create" Margin="0,228,10,0" Click="btnTemplateOrganization_Click" Height="23" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" IsTabStop="False"/>
+                    <Label Content="User" HorizontalAlignment="Left" Margin="10,253,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="cmBUser" Margin="59,257,133,0" VerticalAlignment="Top" IsReadOnly="True" SelectionChanged="cmBUser_SelectionChanged"/>
+                    <Button x:Name="btnNewUser" Content="New" Margin="0,256,72,0" Click="btnNewUser_Click" Height="23" VerticalAlignment="Top" IsTabStop="False" HorizontalAlignment="Right" Width="56"/>
+                    <Button x:Name="btnEditUser" Content="Edit" Margin="0,256,11,0" Click="btnEditUser_Click" Height="23" VerticalAlignment="Top" IsTabStop="False" HorizontalAlignment="Right" Width="56"/>
+                    <Label Content="User for CRM Connection. If empty, Current Windows User Credentials will be used." HorizontalAlignment="Left" Margin="10,284,0,0" VerticalAlignment="Top"/>
+                    <Grid Margin="10,315,10,0" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Namespace Classes" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+                        <TextBox x:Name="txtBNameSpaceClasses" Height="23"  TextWrapping="Wrap"  HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+                        <Label Content="Namespace OptionSets" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="1"/>
+                        <TextBox x:Name="txtBNameSpaceOptionSets" Height="23"  TextWrapping="Wrap"  HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Connection Information">
+                <Grid Margin="0,0,0,35">
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Setter Property="IsReadOnly" Value="True"/>
+                            <Setter Property="IsTabStop" Value="True"/>
+                            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="5"/>
+                        </Style>
+                        <Style TargetType="{x:Type Label}">
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Public Service Url" Grid.Row="0" Grid.Column="0" />
+                    <TextBox x:Name="txtBPublicUrl" Grid.Row="0" Grid.Column="1" />
+
+                    <Label Content="Version" Grid.Row="1" Grid.Column="0" />
+                    <TextBox x:Name="txtBVersion" Grid.Row="1" Grid.Column="1"  />
+
+                    <Label Content="FriendlyName" Grid.Row="2" Grid.Column="0"/>
+                    <TextBox x:Name="txtBFriendlyName"  Grid.Row="2" Grid.Column="1" />
+
+                    <Label Content="OrganizationId"  Grid.Row="3" Grid.Column="0"/>
+                    <TextBox x:Name="txtBOrganizationId"  Grid.Row="3" Grid.Column="1" />
+
+                    <Label Content="OrganizationState"  Grid.Row="4" Grid.Column="0"/>
+                    <TextBox x:Name="txtBOrganizationState"  Grid.Row="4" Grid.Column="1" />
+
+                    <Label Content="UrlName"  Grid.Row="5" Grid.Column="0"/>
+                    <TextBox x:Name="txtBUrlName"  Grid.Row="5" Grid.Column="1" />
+
+                    <Label Content="Base Currency"  Grid.Row="6" Grid.Column="0"/>
+                    <TextBox x:Name="txtBBaseCurrency"  Grid.Row="6" Grid.Column="1" />
+
+                    <Label Content="Default Language"  Grid.Row="7" Grid.Column="0"/>
+                    <TextBox x:Name="txtBDefaultLanguage"  Grid.Row="7" Grid.Column="1" />
+
+                    <Label Content="Installed LanguagePacks"  Grid.Row="8" Grid.Column="0"/>
+                    <TextBox x:Name="txtBInstalledLanguagePacks"  Grid.Row="8" Grid.Column="1" />
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+        <Button x:Name="btnTestConnection" Content="Test Connection" Margin="10,0,0,29" Click="btnTestConnection_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="142"/>
+        <Button x:Name="btnSave" Content="Save" Margin="0,0,127,29" Click="btnSave_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89"/>
+        <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,29" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+        <StatusBar Height="24" VerticalAlignment="Bottom">
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" Content="" VerticalAlignment="Top"/>
+        </StatusBar>
+    </Grid>
+</src:WindowBase>
