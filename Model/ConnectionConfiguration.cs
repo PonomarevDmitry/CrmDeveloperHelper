@@ -70,6 +70,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public ObservableCollection<ConnectionUserData> Users { get; private set; }
 
         [DataMember]
+        public VSSolutionConfiguration VSSolutionConfigurationWhenNoSolutionLoaded { get; private set; }
+
+        [DataMember]
         public ObservableCollection<VSSolutionConfiguration> Solutions { get; private set; }
 
         /// <summary>
@@ -77,10 +80,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         /// </summary>
         public ConnectionConfiguration()
         {
+            this.VSSolutionConfigurationWhenNoSolutionLoaded = new VSSolutionConfiguration();
+
             this.Connections = new ObservableCollection<ConnectionData>();
             this.ArchiveConnections = new ObservableCollection<ConnectionData>();
             this.Users = new ObservableCollection<ConnectionUserData>();
             this.Solutions = new ObservableCollection<VSSolutionConfiguration>();
+        }
+
+        [OnDeserialized]
+        private void AfterDeserialize(StreamingContext context)
+        {
+            if (this.VSSolutionConfigurationWhenNoSolutionLoaded == null)
+            {
+                this.VSSolutionConfigurationWhenNoSolutionLoaded = new VSSolutionConfiguration();
+            }
+
+            if (this.Connections == null)
+            {
+                this.Connections = new ObservableCollection<ConnectionData>();
+            }
+
+            if (this.ArchiveConnections == null)
+            {
+                this.ArchiveConnections = new ObservableCollection<ConnectionData>();
+            }
+
+            if (this.Users == null)
+            {
+                this.Users = new ObservableCollection<ConnectionUserData>();
+            }
+
+            if (this.Solutions == null)
+            {
+                this.Solutions = new ObservableCollection<VSSolutionConfiguration>();
+            }
         }
 
         /// <summary>
@@ -228,11 +262,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.Save(this.Path);
         }
 
-        public void SetCurrentSolution(string solutionPath)
+        private void SetCurrentSolution(string solutionPath)
         {
             if (string.IsNullOrEmpty(solutionPath))
             {
-                this._currentSolutionConfiguration = null;
+                this.VSSolutionConfigurationWhenNoSolutionLoaded = this.VSSolutionConfigurationWhenNoSolutionLoaded ?? new VSSolutionConfiguration();
+                this._currentSolutionConfiguration = this.VSSolutionConfigurationWhenNoSolutionLoaded;
                 return;
             }
 
@@ -267,7 +302,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             if (_currentSolutionConfiguration == null)
             {
-                return;
+                this.VSSolutionConfigurationWhenNoSolutionLoaded = this.VSSolutionConfigurationWhenNoSolutionLoaded ?? new VSSolutionConfiguration();
+
+                _currentSolutionConfiguration = this.VSSolutionConfigurationWhenNoSolutionLoaded;
             }
 
             var connection = this.Connections.FirstOrDefault(c => c.ConnectionId == selectedConnection);

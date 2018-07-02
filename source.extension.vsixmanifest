@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="Nav.Common.VSPackages.CrmDeveloperHelper.8ca870d8-491f-445b-9251-1b6528b4fdeb" Version="1.0.0.166" Language="en-US" Publisher="Navicon (Ponomarev Dmitry)" />
+        <Identity Id="Nav.Common.VSPackages.CrmDeveloperHelper.8ca870d8-491f-445b-9251-1b6528b4fdeb" Version="1.0.0.168" Language="en-US" Publisher="Navicon (Ponomarev Dmitry)" />
         <DisplayName>CrmDeveloperHelper</DisplayName>
         <Description xml:space="preserve">Many Tools for work with Microsoft Dynamics CRM.
 - work with webresources directly from Visual Studio (create, edit, publish)
@@ -17,6 +17,7 @@
 - ribbons
 - solutions
 - work with solutions (copy components from one to another, create solution descriptions, export solutions)</Description>
+        <MoreInfo>https://marketplace.visualstudio.com/items?itemName=NaviconPonomarevDmitry.CrmDeveloperHelper</MoreInfo>
         <Icon>Resources\CrmDeveloperHelperPackage.ico</Icon>
         <Tags>Microsoft Dynamics 365, Dynamics CRM 2011, Dynamics CRM 2013, Dynamics CRM 2015, Dynamics CRM 2016</Tags>
     </Metadata>

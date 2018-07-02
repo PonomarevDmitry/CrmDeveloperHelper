@@ -61,29 +61,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return Tuple.Create(assemblyPlugins, assemblyWorkflow);
         }
 
+        private static readonly string[] _knownCrmAssemblies = { "Microsoft.Xrm.Sdk", "Microsoft.Xrm.Sdk.Workflow", "Microsoft.Crm.Sdk.Proxy", "Microsoft.Xrm.Sdk.Data", "Microsoft.Xrm.Sdk.Deployment" };
+
         private Assembly Domain_ReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args)
         {
-            Assembly result = null;
-
-            if (args.Name.Contains("Microsoft.Xrm.Sdk"))
+            foreach (var assemblyName in _knownCrmAssemblies)
             {
-                var temp = Assembly.Load("Microsoft.Xrm.Sdk, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL");
+                if (args.Name.IndexOf(assemblyName, StringComparison.InvariantCultureIgnoreCase) > -1)
+                {
+                    var temp = Assembly.Load(assemblyName + ", Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL");
 
-                result = Assembly.ReflectionOnlyLoadFrom(temp.CodeBase);
+                    return Assembly.ReflectionOnlyLoadFrom(temp.CodeBase);
+                }
             }
-            else if (args.Name.Contains("Microsoft.Xrm.Sdk.Workflow"))
-            {
-                var temp = Assembly.Load("Microsoft.Xrm.Sdk.Workflow, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL");
 
-                result = Assembly.ReflectionOnlyLoadFrom(temp.CodeBase);
-            }
-            else if (args.Name.Contains("Microsoft.Crm.Sdk.Proxy"))
-            {
-                var temp = Assembly.Load("Microsoft.Crm.Sdk.Proxy, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL");
-
-                result = Assembly.ReflectionOnlyLoadFrom(temp.CodeBase);
-            }
-            else
             {
                 var assemblyName = new AssemblyName(args.Name);
 
@@ -91,19 +82,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (File.Exists(filePath))
                 {
-                    result = Assembly.ReflectionOnlyLoadFrom(filePath);
+                    return Assembly.ReflectionOnlyLoadFrom(filePath);
                 }
             }
 
-
-            if (result == null)
-            {
-                var temp = Assembly.Load(args.Name);
-
-                result = Assembly.ReflectionOnlyLoadFrom(temp.CodeBase);
-            }
-
-            return result;
+            return Assembly.ReflectionOnlyLoadFrom(Assembly.Load(args.Name).CodeBase);
         }
 
         private bool IsSubClassOfCodeActivity(Type item)

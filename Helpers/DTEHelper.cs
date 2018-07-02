@@ -394,16 +394,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 && ApplicationObject.ActiveWindow.Document != null
                 )
             {
-                if (!string.IsNullOrEmpty(ApplicationObject?.Solution?.FullName))
+                string path = ApplicationObject.ActiveWindow.Document.FullName;
+
+                if (checkerFunction(path))
                 {
-                    string solutionPath = Path.GetDirectoryName(ApplicationObject.Solution.FullName);
-
-                    string path = ApplicationObject.ActiveWindow.Document.FullName;
-
-                    if (checkerFunction(path))
-                    {
-                        selectedFiles.Add(new SelectedFile(path, GetFriendlyPath(solutionPath, path)));
-                    }
+                    selectedFiles.Add(new SelectedFile(path, GetFriendlyPath(path)));
                 }
             }
 
@@ -419,8 +414,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 && ApplicationObject.ActiveWindow.Document != null
                 )
             {
-                string solutionPath = Path.GetDirectoryName(ApplicationObject.Solution.FullName);
-
                 string path = ApplicationObject.ActiveWindow.Document.FullName;
 
                 if (checkerFunction(path))
@@ -441,26 +434,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 && ApplicationObject.ActiveWindow.Document != null
                 )
             {
-                if (!string.IsNullOrEmpty(ApplicationObject?.Solution?.FullName))
+                foreach (var document in ApplicationObject.Documents.OfType<EnvDTE.Document>())
                 {
-                    string solutionPath = Path.GetDirectoryName(ApplicationObject.Solution.FullName);
-
-                    foreach (var document in ApplicationObject.Documents.OfType<EnvDTE.Document>())
-                    {
-                        if (document.ProjectItem != null
-                            &&
-                            (
-                                document.ProjectItem.IsOpen[EnvDTE.Constants.vsViewKindTextView]
-                                || document.ProjectItem.IsOpen[EnvDTE.Constants.vsViewKindCode]
-                            )
+                    if (document.ProjectItem != null
+                        &&
+                        (
+                            document.ProjectItem.IsOpen[EnvDTE.Constants.vsViewKindTextView]
+                            || document.ProjectItem.IsOpen[EnvDTE.Constants.vsViewKindCode]
                         )
-                        {
-                            string path = document.FullName;
+                    )
+                    {
+                        string path = document.FullName;
 
-                            if (checkerFunction(path))
-                            {
-                                selectedFiles.Add(new SelectedFile(path, GetFriendlyPath(solutionPath, path)));
-                            }
+                        if (checkerFunction(path))
+                        {
+                            selectedFiles.Add(new SelectedFile(path, GetFriendlyPath(path)));
                         }
                     }
                 }
@@ -478,41 +466,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                && ApplicationObject.SelectedItems != null
             )
             {
-                if (!string.IsNullOrEmpty(ApplicationObject?.Solution?.FullName))
+                var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().ToList();
+
+                HashSet<string> hash = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+                items.ForEach(item =>
                 {
-                    var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().ToList();
-
-                    HashSet<string> hash = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-                    items.ForEach(item =>
+                    if (item.ProjectItem != null)
                     {
-                        if (item.ProjectItem != null)
+                        string path = item.ProjectItem.FileNames[1];
+
+                        if (!string.IsNullOrEmpty(path) && checkerFunction(path) && !hash.Contains(path))
                         {
-                            string path = item.ProjectItem.FileNames[1];
-
-                            if (!string.IsNullOrEmpty(path) && checkerFunction(path) && !hash.Contains(path))
-                            {
-                                hash.Add(path);
-                            }
-
-                            if (recursive)
-                            {
-                                FillListProjectItems(hash, item.ProjectItem.ProjectItems, checkerFunction);
-                            }
+                            hash.Add(path);
                         }
 
-                        if (recursive && item.Project != null)
+                        if (recursive)
                         {
-                            FillListProjectItems(hash, item.Project.ProjectItems, checkerFunction);
+                            FillListProjectItems(hash, item.ProjectItem.ProjectItems, checkerFunction);
                         }
-                    });
+                    }
 
-                    string solutionPath = Path.GetDirectoryName(ApplicationObject.Solution.FullName);
+                    if (recursive && item.Project != null)
+                    {
+                        FillListProjectItems(hash, item.Project.ProjectItems, checkerFunction);
+                    }
+                });
 
-                    hash.OrderBy(path => path).ToList().ForEach(
-                        path => selectedFiles.Add(new SelectedFile(path, GetFriendlyPath(solutionPath, path)))
-                    );
-                }
+                hash.OrderBy(path => path).ToList().ForEach(
+                    path => selectedFiles.Add(new SelectedFile(path, GetFriendlyPath(path)))
+                );
             }
 
             return selectedFiles;
@@ -527,30 +510,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                && ApplicationObject.SelectedItems != null
             )
             {
-                if (!string.IsNullOrEmpty(ApplicationObject?.Solution?.FullName))
+                var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().ToList();
+
+                var filtered = items.Where(a =>
                 {
-                    var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().ToList();
-
-                    var filtered = items.Where(a =>
+                    try
                     {
-                        try
-                        {
-                            string file = a.Name.ToLower();
+                        string file = a.Name.ToLower();
 
-                            return checkerFunction(file);
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(ex);
-
-                            return false;
-                        }
-                    });
-
-                    if (filtered.Count() == 1)
-                    {
-                        result = filtered.FirstOrDefault();
+                        return checkerFunction(file);
                     }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(ex);
+
+                        return false;
+                    }
+                });
+
+                if (filtered.Count() == 1)
+                {
+                    result = filtered.FirstOrDefault();
                 }
             }
 
@@ -571,9 +551,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return selectedFiles;
         }
 
-        private string GetFriendlyPath(string solutionPath, string filePath)
+        private string GetFriendlyPath(string filePath)
         {
-            return filePath.Replace(solutionPath, string.Empty);
+            string solutionPath = ApplicationObject?.Solution?.FullName;
+
+            if (!string.IsNullOrEmpty(solutionPath))
+            {
+                return filePath.Replace(solutionPath, string.Empty);
+            }
+
+            return filePath;
         }
 
         private SelectedItem GetSelectedProjectItem()
@@ -647,12 +634,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             List<SelectedFile> selectedFiles = new List<SelectedFile>();
 
-            if (!string.IsNullOrEmpty(ApplicationObject?.Solution?.FullName))
-            {
-                string solutionPath = Path.GetDirectoryName(ApplicationObject.Solution.FullName);
-
-                selectedFiles.AddRange(_ListForPublish.OrderBy(s => s).Select(path => new SelectedFile(path, GetFriendlyPath(solutionPath, path))));
-            }
+            selectedFiles.AddRange(_ListForPublish.OrderBy(s => s).Select(path => new SelectedFile(path, GetFriendlyPath(path))));
 
             return selectedFiles;
         }
@@ -918,14 +900,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 WriteToOutput("Publish List: {0}", _ListForPublish.Count.ToString());
 
-                if (!string.IsNullOrEmpty(ApplicationObject?.Solution?.FullName))
+                foreach (var path in _ListForPublish.OrderBy(s => s))
                 {
-                    string solutionPath = Path.GetDirectoryName(ApplicationObject.Solution.FullName);
-
-                    foreach (var path in _ListForPublish.OrderBy(s => s))
-                    {
-                        WriteToOutput(GetFriendlyPath(solutionPath, path));
-                    }
+                    WriteToOutput(GetFriendlyPath(path));
                 }
             }
             else
