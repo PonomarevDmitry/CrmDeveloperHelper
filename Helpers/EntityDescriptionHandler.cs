@@ -152,7 +152,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (value is DateTime dateTime)
             {
-                return dateTime.ToLocalTime().ToString("dd.MM.yyyy HH:mm:ss");
+                return dateTime.ToLocalTime().ToString("G", System.Globalization.CultureInfo.CurrentCulture);
             }
 
             if (value is AliasedValue aliasedValue)
@@ -199,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (value is DateTime dateTime)
             {
-                return dateTime.ToLocalTime().ToString("dd.MM.yyyy HH:mm:ss");
+                return dateTime.ToLocalTime().ToString("G", System.Globalization.CultureInfo.CurrentCulture);
             }
 
             if (value is AliasedValue aliasedValue)
@@ -251,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (value is DateTime dateTime)
             {
-                return dateTime.ToLocalTime().ToString("dd.MM.yyyy HH:mm:ss");
+                return dateTime.ToLocalTime().ToString("G", System.Globalization.CultureInfo.CurrentCulture);
             }
 
             if (value is AliasedValue aliasedValue)
@@ -298,7 +298,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (value is DateTime dateTime)
             {
-                return dateTime.ToLocalTime().ToString("dd.MM.yyyy HH:mm:ss");
+                return dateTime.ToLocalTime().ToString("G", System.Globalization.CultureInfo.CurrentCulture);
             }
 
             if (value is AliasedValue aliasedValue)

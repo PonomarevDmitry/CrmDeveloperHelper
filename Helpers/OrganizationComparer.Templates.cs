@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Mail Merge Templates started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking Mail Merge Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var repository1 = new MailMergeTemplateRepository(_service1);
             var repository2 = new MailMergeTemplateRepository(_service2);
@@ -264,7 +264,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Mail Merge Templates.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Mail Merge Templates ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Mail Merge Templates ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Mail Merge Templates.txt"
                 , this._OrgOrgName
@@ -288,7 +288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking E-Mail Templates started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking E-Mail Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var repository1 = new TemplateRepository(_service1);
             var repository2 = new TemplateRepository(_service2);
@@ -517,7 +517,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in E-Mail Templates.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking E-Mail Templates ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking E-Mail Templates ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} E-Mail Templates.txt"
                 , this._OrgOrgName
@@ -541,7 +541,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking KB Article Templates started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking KB Article Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var repository1 = new KbArticleTemplateRepository(_service1);
             var repository2 = new KbArticleTemplateRepository(_service2);
@@ -737,7 +737,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in KB Article Templates.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking KB Article Templates ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking KB Article Templates ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} KB Article Templates.txt"
                 , this._OrgOrgName
@@ -761,7 +761,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Contract Templates started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking Contract Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var repository1 = new ContractTemplateRepository(_service1);
             var repository2 = new ContractTemplateRepository(_service2);
@@ -980,7 +980,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Contract Templates.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Contract Templates ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Contract Templates ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Contract Templates.txt"
                 , this._OrgOrgName

@@ -36,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             prefix = string.Format("{0}_", prefix);
 
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Objects names for prefix '{1}' at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), prefix);
+            this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Objects names for prefix '{1}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), prefix);
 
             try
             {
@@ -48,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking CRM Objects names for prefix '{1}' at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), prefix);
+                this._iWriteToOutput.WriteToOutput("*********** End Checking CRM Objects names for prefix '{1}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), prefix);
             }
         }
 
@@ -208,7 +208,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             prefix = prefix.TrimEnd(' ', '_');
             prefix = string.Format("{0}_", prefix);
 
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Objects names for prefix '{1}' and show dependent components at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), prefix);
+            this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Objects names for prefix '{1}' and show dependent components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), prefix);
 
             try
             {
@@ -220,7 +220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking CRM Objects names for prefix '{1}' and show dependent components at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), prefix);
+                this._iWriteToOutput.WriteToOutput("*********** End Checking CRM Objects names for prefix '{1}' and show dependent components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), prefix);
             }
         }
 
@@ -400,7 +400,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteCheckingMarkedToDelete(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Objects marked to delete by '{1}' and show dependent components at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), prefix);
+            this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Objects marked to delete by '{1}' and show dependent components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), prefix);
 
             try
             {
@@ -412,7 +412,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking CRM Objects marked to delete by '{1}' and show dependent components at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), prefix);
+                this._iWriteToOutput.WriteToOutput("*********** End Checking CRM Objects marked to delete by '{1}' and show dependent components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), prefix);
             }
         }
 
@@ -582,7 +582,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteCheckingEntitiesOwnership(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Entity Ownership at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Entity Ownership at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -594,7 +594,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking CRM Entity Ownership at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Checking CRM Entity Ownership at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -670,7 +670,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         internal void ExecuteCheckingFilesEncoding(List<SelectedFile> selectedFiles)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking Files Encoding at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Checking Files Encoding at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -682,7 +682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking Files Encoding at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Checking Files Encoding at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -837,7 +837,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public void ExecuteOpenFilesWithoutUTF8Encoding(IEnumerable<SelectedFile> selectedFiles)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Opening Files without UTF8 Encoding at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Opening Files without UTF8 Encoding at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -857,7 +857,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Opening Files without UTF8 Encoding at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Opening Files without UTF8 Encoding at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -867,7 +867,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteShowingWebResourcesDependentComponents(ConnectionConfiguration crmConfig, ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Objects names and show dependent components at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Objects names and show dependent components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -889,7 +889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking CRM Objects names and show dependent components at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Checking CRM Objects names and show dependent components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -1044,7 +1044,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteCheckingGlobalOptionSetDuplicates(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking Global OptionSet Duplicates on Entity at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Checking Global OptionSet Duplicates on Entity at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -1056,7 +1056,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking Global OptionSet Duplicates on Entity at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Checking Global OptionSet Duplicates on Entity at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -1158,7 +1158,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteFindEntityElementsByName(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects names for '{1}' at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), name);
+            this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects names for '{1}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), name);
 
             try
             {
@@ -1170,7 +1170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Finding CRM Objects names for '{1}' at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), name);
+                this._iWriteToOutput.WriteToOutput("*********** End Finding CRM Objects names for '{1}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), name);
             }
         }
 
@@ -1296,7 +1296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteFindEntityElementsContainsString(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects names contains '{1}' at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), name);
+            this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects names contains '{1}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), name);
 
             try
             {
@@ -1308,7 +1308,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Finding CRM Objects names contains '{1}' at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), name);
+                this._iWriteToOutput.WriteToOutput("*********** End Finding CRM Objects names contains '{1}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), name);
             }
         }
 
@@ -1434,7 +1434,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteFindEntityById(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects by Id '{1}', entityName '{2}', entityTypeCode '{3}' at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), entityId, entityName, entityTypeCode);
+            this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects by Id '{1}', entityName '{2}', entityTypeCode '{3}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), entityId, entityName, entityTypeCode);
 
             try
             {
@@ -1446,7 +1446,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Finding CRM Objects by Id '{1}', entityName '{2}', entityTypeCode '{3}' at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), entityId, entityName, entityTypeCode);
+                this._iWriteToOutput.WriteToOutput("*********** End Finding CRM Objects by Id '{1}', entityName '{2}', entityTypeCode '{3}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), entityId, entityName, entityTypeCode);
             }
         }
 
@@ -1535,7 +1535,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteFindEntityByUniqueidentifier(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects by Uniqueidentifier '{1}', entityName '{2}', entityTypeCode '{3}' at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), entityId, entityName, entityTypeCode);
+            this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects by Uniqueidentifier '{1}', entityName '{2}', entityTypeCode '{3}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), entityId, entityName, entityTypeCode);
 
             try
             {
@@ -1547,7 +1547,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Finding CRM Objects by Uniqueidentifier '{1}', entityName '{2}', entityTypeCode '{3}' at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), entityId, entityName, entityTypeCode);
+                this._iWriteToOutput.WriteToOutput("*********** End Finding CRM Objects by Uniqueidentifier '{1}', entityName '{2}', entityTypeCode '{3}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), entityId, entityName, entityTypeCode);
             }
         }
 
@@ -1637,7 +1637,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteCheckingComponentTypeEnum(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking ComponentType Enum at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Checking ComponentType Enum at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -1649,7 +1649,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking ComponentType Enum at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Checking ComponentType Enum at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -1773,7 +1773,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteCreatingAllDependencyNodesDescription(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Creating all Dependency Nodes Description at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Creating all Dependency Nodes Description at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -1785,7 +1785,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Creating all Dependency Nodes Description at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Creating all Dependency Nodes Description at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 

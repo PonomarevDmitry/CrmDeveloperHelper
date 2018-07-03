@@ -58,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     return;
                 }
 
-                var visible = CommonHandlers.CheckInSolutionExplorerProjectSingle(applicationObject);
+                var visible = CommonHandlers.CheckInSolutionExplorerProjectAny(applicationObject);
 
                 if (visible)
                 {
@@ -109,9 +109,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    var project = helper.GetSelectedProject();
+                    var projects = helper.GetSelectedProjects();
 
-                    helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(project, false, solutionUniqueName);
+                    if (projects.Any())
+                    {
+                        helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(solutionUniqueName, false, projects.Select(p => p.Name).ToArray());
+                    }
                 }
             }
         }

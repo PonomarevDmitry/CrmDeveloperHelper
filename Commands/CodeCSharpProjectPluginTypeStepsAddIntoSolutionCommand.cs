@@ -38,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             {
                 string selection = file.Name.Split('.').FirstOrDefault();
 
-                helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(selection, true, null);
+                helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, true, selection);
             }
         }
     }

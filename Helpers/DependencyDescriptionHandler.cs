@@ -14,8 +14,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         private SolutionComponentDescriptor _descriptor;
 
-        private const string formatDateTime = "dd.MM.yyyy HH:mm:ss";
-
         public DependencyDescriptionHandler(SolutionComponentDescriptor descriptor)
         {
             this._descriptor = descriptor;
@@ -202,7 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             StringBuilder content = new StringBuilder();
 
             content.AppendLine(connectionInfo).AppendLine();
-            content.AppendFormat("Dependent Components for {0} '{1}' at {2}", componentType.ToString(), componentName, DateTime.Now.ToString(formatDateTime)).AppendLine();
+            content.AppendFormat("Dependent Components for {0} '{1}' at {2}", componentType.ToString(), componentName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)).AppendLine();
 
             content.Append(description);
 

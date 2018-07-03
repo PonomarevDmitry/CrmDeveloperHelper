@@ -111,7 +111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Entities started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking Entities started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var listEntityMetadata1 = this.EntityMetadataCollection1;
 
@@ -269,7 +269,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Entities.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Entities ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Entities ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Entities.txt"
                 , this._OrgOrgName
@@ -293,7 +293,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Entity Labels started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking Entity Labels started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var listEntityMetadata1 = this.EntityMetadataCollection1;
 
@@ -449,7 +449,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Entities.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Entity Labels ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Entity Labels ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Entity Labels.txt"
                 , this._OrgOrgName
@@ -473,7 +473,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entity Maps started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Entity Maps started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var list1 = await new EntityMapRepository(_service1).GetListAsync();
 
@@ -674,7 +674,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Entity Maps.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Entity Maps ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Entity Maps ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Entity Maps.txt"
                 , this._OrgOrgName
@@ -791,7 +791,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking Ribbons{0} started at {1}"
                 , withDetailsName
-                , DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"))
+                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture))
                 );
 
             var repositoryRibbon1 = new RibbonCustomizationRepository(_service1);
@@ -1014,7 +1014,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Ribbons{0} ended at {1}"
                 , withDetailsName
-                , DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"))
+                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture))
                 );
 
             string fileName = string.Format("OrgCompare {0} at {1} Ribbons{2}.txt"

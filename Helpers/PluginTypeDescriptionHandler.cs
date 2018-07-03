@@ -14,8 +14,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         private const string tabSpacer = "    ";
 
-        private const string formatDateTime = "dd.MM.yyyy HH:mm:ss";
-
         public static Task<string> CreateDescriptionAsync(
            Guid idPluginType
            , IEnumerable<SdkMessageProcessingStep> allSteps
@@ -289,7 +287,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     description.Append(splitter);
                 }
 
-                description.AppendFormat("CreatedOn: {0}", createdOn.Value.ToString(formatDateTime));
+                description.AppendFormat("CreatedOn: {0}", createdOn.Value.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
 
             if (modifiedBy != null)
@@ -309,7 +307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     description.Append(splitter);
                 }
 
-                description.AppendFormat("ModifiedOn: {0}", modifiedOn.Value.ToString(formatDateTime));
+                description.AppendFormat("ModifiedOn: {0}", modifiedOn.Value.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
 
             if (overwriteTime.HasValue)
@@ -319,7 +317,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     description.Append(splitter);
                 }
 
-                description.AppendFormat("OverwriteTime: {0}", overwriteTime.Value.ToString(formatDateTime));
+                description.AppendFormat("OverwriteTime: {0}", overwriteTime.Value.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
 
             return description.ToString();
@@ -342,7 +340,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             StringBuilder content = new StringBuilder();
 
             content.AppendLine(connectionInfo).AppendLine();
-            content.AppendFormat("Plugin Steps for PluginType '{0}' at {1}", pluginTypeName, DateTime.Now.ToString(formatDateTime)).AppendLine();
+            content.AppendFormat("Plugin Steps for PluginType '{0}' at {1}", pluginTypeName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)).AppendLine();
 
             content.Append(description);
 

@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteDifferenceWebResources(SelectedFile selectedFile, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Difference WebResource at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Difference WebResource at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -48,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Difference WebResource at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Difference WebResource at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -246,7 +246,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteThreeFileDifferenceWebResources(SelectedFile selectedFile, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start {3} Difference Local File, WebResources in {1} and {2} at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), connectionData1?.Name, connectionData2?.Name, differenceType);
+            this._iWriteToOutput.WriteToOutput("*********** Start {3} Difference Local File, WebResources in {1} and {2} at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), connectionData1?.Name, connectionData2?.Name, differenceType);
 
             try
             {
@@ -268,7 +268,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End {3} Difference Local File, WebResources in {1} and {2} at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), connectionData1?.Name, connectionData2?.Name, differenceType);
+                this._iWriteToOutput.WriteToOutput("*********** End {3} Difference Local File, WebResources in {1} and {2} at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), connectionData1?.Name, connectionData2?.Name, differenceType);
             }
         }
 
@@ -505,7 +505,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Multi Difference {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Multi Difference {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -527,7 +527,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Multi Difference {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Multi Difference {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -595,7 +595,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteDifferenceReport(SelectedFile selectedFile, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Difference Report at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Difference Report at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -607,7 +607,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Difference Report at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Difference Report at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -818,7 +818,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteThreeFileDifferenceReport(SelectedFile selectedFile, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start {3} Difference Local File, Reports in {1} and {2} at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), connectionData1?.Name, connectionData2?.Name, differenceType);
+            this._iWriteToOutput.WriteToOutput("*********** Start {3} Difference Local File, Reports in {1} and {2} at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), connectionData1?.Name, connectionData2?.Name, differenceType);
 
             try
             {
@@ -830,7 +830,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End {3} Difference Local File, Reports in {1} and {2} at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), connectionData1?.Name, connectionData2?.Name, differenceType);
+                this._iWriteToOutput.WriteToOutput("*********** End {3} Difference Local File, Reports in {1} and {2} at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), connectionData1?.Name, connectionData2?.Name, differenceType);
             }
         }
 

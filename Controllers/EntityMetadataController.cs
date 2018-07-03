@@ -31,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteCreatingFileWithEntityMetadata(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Creating File with Entity Metadata at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Creating File with Entity Metadata at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -43,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Creating File with Entity Metadata at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Creating File with Entity Metadata at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -73,7 +73,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteCreatingFileWithGlobalOptionSets(ConnectionConfiguration crmConfig, ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Creating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Creating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -85,7 +85,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Creating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Creating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -122,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteUpdateFileWithEntityMetadata(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Updating File with Entity Metadata at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Updating File with Entity Metadata at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -134,7 +134,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Updating File with Entity Metadata at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Updating File with Entity Metadata at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -203,7 +203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             EntityMetadata = metadata
                         };
 
-                        this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata for {0} at {1}", config.EntityName, DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                        this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata for {0} at {1}", config.EntityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                         using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
                         {
@@ -214,7 +214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
 
-                        this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata for {0} at {1}", config.EntityName, DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                        this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata for {0} at {1}", config.EntityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                         continue;
                     }
@@ -239,7 +239,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteUpdatingFileWithGlobalOptionSets(ConnectionConfiguration crmConfig, ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Updating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Updating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -251,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Updating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Updating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -295,7 +295,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (metadata != null)
                     {
-                        this._iWriteToOutput.WriteToOutput("Start creating file with OptionSet Metadata for {0} at {1}", metadata.Name, DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                        this._iWriteToOutput.WriteToOutput("Start creating file with OptionSet Metadata for {0} at {1}", metadata.Name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                         string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
 
@@ -315,7 +315,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             this._iWriteToOutput.WriteToOutput("For OptionSet '{0}' created file with Metadata: {1}", metadata.Name, filePath);
                         }
 
-                        this._iWriteToOutput.WriteToOutput("End creating file with OptionSet Metadata for {0} at {1}", metadata.Name, DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                        this._iWriteToOutput.WriteToOutput("End creating file with OptionSet Metadata for {0} at {1}", metadata.Name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                         continue;
                     }

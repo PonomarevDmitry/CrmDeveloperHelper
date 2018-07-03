@@ -710,7 +710,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(false);
             UpdateStatus("Creating File...");
 
-            this._iWriteToOutput.WriteToOutput("Start extracting information at {0} for entity '{1}'", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), entityName);
+            this._iWriteToOutput.WriteToOutput("Start extracting information at {0} for entity '{1}'", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), entityName);
 
             string folder = txtBFolder.Text.Trim();
             bool allComponents = rBAllcomponents.IsChecked.GetValueOrDefault();
@@ -737,7 +737,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            this._iWriteToOutput.WriteToOutput("End extracting information at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("End extracting information at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             UpdateStatus("File is created.");
 

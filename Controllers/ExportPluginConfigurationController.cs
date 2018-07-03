@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteExportingPluginConfigurationXml(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Exporting Plugin Configuration Xml at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Exporting Plugin Configuration Xml at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -39,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Exporting Plugin Configuration Xml at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Exporting Plugin Configuration Xml at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -202,7 +202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteExportingPluginConfigurationIntoFolder(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Exporting Plugin Configuration Xml into Folder at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Exporting Plugin Configuration Xml into Folder at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -214,7 +214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Exporting Plugin Configuration Xml into Folder at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Exporting Plugin Configuration Xml into Folder at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 

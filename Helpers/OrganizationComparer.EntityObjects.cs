@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking System Forms started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking System Forms started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             FormDescriptionHandler handler1 = new FormDescriptionHandler(_descriptor1, new DependencyRepository(_service1));
             FormDescriptionHandler handler2 = new FormDescriptionHandler(_descriptor2, new DependencyRepository(_service2));
@@ -292,7 +292,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput(
                 "Checking System Forms ended at {0}"
-                , DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")
+                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
                 ));
 
             string fileName = string.Format("OrgCompare {0} at {1} System Forms.txt"
@@ -319,7 +319,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             await InitializeConnection(content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking System Saved Queries started at {0}"
-                , DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")
+                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
                 ));
 
             var repository1 = new SavedQueryRepository(_service1);
@@ -591,7 +591,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in System Saved Queries.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking System Saved Queries ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking System Saved Queries ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} System Saved Queries.txt"
                 , this._OrgOrgName
@@ -615,7 +615,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking System Saved Query Visualizations (Charts) started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking System Saved Query Visualizations (Charts) started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var repository1 = new SavedQueryVisualizationRepository(_service1);
             var repository2 = new SavedQueryVisualizationRepository(_service2);
@@ -844,7 +844,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in System Saved Query Visualizations (Charts).");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking System Saved Query Visualizations (Charts) ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking System Saved Query Visualizations (Charts) ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Saved Query Visualizations (Charts).txt"
                 , this._OrgOrgName

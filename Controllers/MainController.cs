@@ -963,13 +963,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartAddingPluginAssemblyIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, string projectName, bool withSelect)
+        public void StartAddingPluginAssemblyIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._solutionController.ExecuteAddingPluginAssemblyIntoSolution(connectionData, commonConfig, solutionUniqueName, projectName, withSelect);
+                    this._solutionController.ExecuteAddingPluginAssemblyIntoSolution(connectionData, commonConfig, solutionUniqueName, projectNames, withSelect);
                 }
                 catch (Exception ex)
                 {
@@ -980,13 +980,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartAddingPluginAssemblyProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, string projectName, bool withSelect)
+        public void StartAddingPluginAssemblyProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._solutionController.ExecuteAddingPluginAssemblyProcessingStepsIntoSolution(connectionData, commonConfig, solutionUniqueName, projectName, withSelect);
+                    this._solutionController.ExecuteAddingPluginAssemblyProcessingStepsIntoSolution(connectionData, commonConfig, solutionUniqueName, projectNames, withSelect);
                 }
                 catch (Exception ex)
                 {
@@ -997,13 +997,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartAddingPluginTypeProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, string pluginTypeName, bool withSelect)
+        public void StartAddingPluginTypeProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._solutionController.ExecuteAddingPluginTypeProcessingStepsIntoSolution(connectionData, commonConfig, solutionUniqueName, pluginTypeName, withSelect);
+                    this._solutionController.ExecuteAddingPluginTypeProcessingStepsIntoSolution(connectionData, commonConfig, solutionUniqueName, pluginTypeNames, withSelect);
                 }
                 catch (Exception ex)
                 {

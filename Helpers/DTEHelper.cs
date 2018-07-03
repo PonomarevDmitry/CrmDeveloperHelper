@@ -537,6 +537,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
+        public List<SelectedItem> GetListSelectedItemInSolutionExplorer(Func<string, bool> checkerFunction)
+        {
+            List<SelectedItem> result = new List<SelectedItem>();
+
+            if (ApplicationObject.ActiveWindow != null
+               && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeSolutionExplorer
+               && ApplicationObject.SelectedItems != null
+            )
+            {
+                var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().ToList();
+
+                var filtered = items.Where(a =>
+                {
+                    try
+                    {
+                        return a.ProjectItem != null && a.ProjectItem.ContainingProject != null && checkerFunction(a.Name.ToLower());
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(ex);
+
+                        return false;
+                    }
+                });
+
+                result.AddRange(filtered);
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Файл в окне редактирования или выделенные файлы в Solution Explorer.
         /// </summary>
@@ -602,6 +633,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return null;
+        }
+
+        public IEnumerable<EnvDTE.Project> GetSelectedProjects()
+        {
+            if (ApplicationObject.ActiveWindow != null
+                   && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
+                   && ApplicationObject.SelectedItems != null)
+            {
+                var items = ApplicationObject
+                    .SelectedItems
+                    .Cast<EnvDTE.SelectedItem>()
+                    .Where(e => e.Project != null)
+                    .Select(e => e.Project)
+                    .Distinct()
+                    .ToList();
+
+                return items;
+            }
+
+            return Enumerable.Empty<EnvDTE.Project>();
         }
 
         private void FillListProjectItems(HashSet<string> hash, ProjectItems projectItems, Func<string, bool> checkerFunction)
@@ -1013,14 +1064,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleAddingPluginAssemblyIntoSolutionByProjectCommand(EnvDTE.Project project, bool withSelect, string solutionUniqueName)
+        public void HandleAddingPluginAssemblyIntoSolutionByProjectCommand(string solutionUniqueName, bool withSelect, params string[] projectNames)
         {
-            if (project == null)
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(project.Name))
+            if (projectNames == null || !projectNames.Any())
             {
                 return;
             }
@@ -1039,7 +1085,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartAddingPluginAssemblyIntoSolution(crmConfig.CurrentConnectionData, commonConfig, solutionUniqueName, project.Name, withSelect);
+                    Controller.StartAddingPluginAssemblyIntoSolution(crmConfig.CurrentConnectionData, commonConfig, solutionUniqueName, projectNames, withSelect);
                 }
                 catch (Exception xE)
                 {
@@ -1048,14 +1094,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleAddingPluginAssemblyProcessingStepsByProjectCommand(EnvDTE.Project project, bool withSelect, string solutionUniqueName)
+        public void HandleAddingPluginAssemblyProcessingStepsByProjectCommand(string solutionUniqueName, bool withSelect, params string[] projectNames)
         {
-            if (project == null)
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(project.Name))
+            if (projectNames == null || !projectNames.Any())
             {
                 return;
             }
@@ -1074,7 +1115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartAddingPluginAssemblyProcessingStepsIntoSolution(crmConfig.CurrentConnectionData, commonConfig, solutionUniqueName, project.Name, withSelect);
+                    Controller.StartAddingPluginAssemblyProcessingStepsIntoSolution(crmConfig.CurrentConnectionData, commonConfig, solutionUniqueName, projectNames, withSelect);
                 }
                 catch (Exception xE)
                 {
@@ -1083,9 +1124,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleAddingPluginTypeProcessingStepsByProjectCommand(string pluginTypeName, bool withSelect, string solutionUniqueName)
+        public void HandleAddingPluginTypeProcessingStepsByProjectCommand(string solutionUniqueName, bool withSelect, params string[] pluginTypeNames)
         {
-            if (string.IsNullOrEmpty(pluginTypeName))
+            if (pluginTypeNames == null || !pluginTypeNames.Any())
             {
                 return;
             }
@@ -1104,7 +1145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartAddingPluginTypeProcessingStepsIntoSolution(crmConfig.CurrentConnectionData, commonConfig, solutionUniqueName, pluginTypeName, withSelect);
+                    Controller.StartAddingPluginTypeProcessingStepsIntoSolution(crmConfig.CurrentConnectionData, commonConfig, solutionUniqueName, pluginTypeNames, withSelect);
                 }
                 catch (Exception xE)
                 {

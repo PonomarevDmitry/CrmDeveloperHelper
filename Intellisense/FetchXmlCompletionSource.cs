@@ -902,7 +902,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
                 else
                 {
-                    lines.Add(string.Format("Targets Count: {0}", entityDescription));
+                    lines.Add(string.Format("Targets Count: {0}", attribute.Targets.Length));
                 }
             }
 

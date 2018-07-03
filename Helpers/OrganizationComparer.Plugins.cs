@@ -23,7 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Assemblies started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Assemblies started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var list1 = await new PluginAssemblyRepository(_service1).GetPluginAssembliesAsync();
 
@@ -204,7 +204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Assemblies.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Assemblies ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Assemblies ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Plugin Assemblies.txt"
                 , this._OrgOrgName
@@ -228,7 +228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Types started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Types started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var list1 = await new PluginTypeRepository(_service1).GetPluginTypesAsync(string.Empty);
 
@@ -309,7 +309,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Types.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Types ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Types ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Plugin Types.txt"
                 , this._OrgOrgName
@@ -355,7 +355,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Steps by Plugin Type Names started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Steps by Plugin Type Names started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var listSteps1 = await new SdkMessageProcessingStepRepository(_service1).GetAllSdkMessageProcessingStepAsync(null, string.Empty, string.Empty);
 
@@ -856,7 +856,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Steps by Plugin Type Names.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Steps by Plugin Type Names ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Steps by Plugin Type Names ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Plugin Steps by Plugin Type Names.txt"
                 , this._OrgOrgName
@@ -997,7 +997,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Steps by Ids started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Steps by Ids started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var listSteps1 = await new SdkMessageProcessingStepRepository(_service1).GetAllSdkMessageProcessingStepAsync(null, string.Empty, string.Empty);
 
@@ -1372,7 +1372,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Steps by Ids.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Steps by Ids ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Steps by Ids ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Plugin Steps by Ids.txt"
                 , this._OrgOrgName

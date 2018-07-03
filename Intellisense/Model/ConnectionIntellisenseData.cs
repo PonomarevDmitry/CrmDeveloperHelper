@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public Guid ConnectionId { get; set; }
 
         [DataMember]
-        public Dictionary<string, EntityIntellisenseData> Entities { get; set; }
+        public Dictionary<string, EntityIntellisenseData> Entities { get; private set; }
 
         public bool _deserializedProcessExit = false;
 

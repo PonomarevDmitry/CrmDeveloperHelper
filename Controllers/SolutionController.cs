@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteOpeningSolutionComponentWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Solution Component Explorer at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Solution Component Explorer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -39,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Solution Component Explorer at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Solution Component Explorer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -75,7 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteOpeningExportSolutionWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Export Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Export Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -87,7 +87,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Export Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Export Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -117,7 +117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteAddingWebResourcesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Adding WebResources into Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Adding WebResources into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -129,7 +129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Adding WebResources into Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Adding WebResources into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -320,7 +320,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteAddingReportsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Adding Reports into Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Adding Reports into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -332,7 +332,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Adding Reports into Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Adding Reports into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -501,7 +501,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteAddingComponentesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ComponentType componentType, IEnumerable<Guid> selectedObjects, RootComponentBehavior? rootComponentBehavior, bool withSelect)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -513,7 +513,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -672,7 +672,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteAddingComponentesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SolutionComponent> components, bool withSelect)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -684,7 +684,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -856,13 +856,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление сборки в решение по имени.
 
-        public async void ExecuteAddingPluginAssemblyIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, string projectName, bool withSelect)
+        public async void ExecuteAddingPluginAssemblyIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Adding PluginAssembly into Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Adding PluginAssembly into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
-                await AddingPluginAssemblyIntoSolution(connectionData, commonConfig, solutionUniqueName, projectName, withSelect);
+                await AddingPluginAssemblyIntoSolution(connectionData, commonConfig, solutionUniqueName, projectNames, withSelect);
             }
             catch (Exception xE)
             {
@@ -870,11 +870,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Adding PluginAssembly into Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Adding PluginAssembly into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
-        private async Task AddingPluginAssemblyIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, string projectName, bool withSelect)
+        private async Task AddingPluginAssemblyIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
             if (connectionData == null)
             {
@@ -882,9 +882,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            if (string.IsNullOrEmpty(projectName))
+            if (projectNames == null || !projectNames.Any())
             {
-                this._iWriteToOutput.WriteToOutput("Project Name is empty.");
+                this._iWriteToOutput.WriteToOutput("No Project Names.");
                 return;
             }
 
@@ -899,116 +899,141 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repository = new PluginAssemblyRepository(service);
 
-            var assembly = await repository.FindAssemblyAsync(projectName);
+            Dictionary<Guid, PluginAssembly> dictForAdding = new Dictionary<Guid, PluginAssembly>();
 
-            if (assembly == null)
+            List<string> unknownProjectNames = new List<string>();
+
+            foreach (var projectName in projectNames)
             {
-                this._iWriteToOutput.WriteToOutput("PluginAssembly not founded by name {0}.", projectName);
+                var assembly = await repository.FindAssemblyAsync(projectName);
 
-                WindowHelper.OpenPluginAssemblyWindow(
-                    this._iWriteToOutput
-                    , service
-                    , commonConfig
-                    , projectName
-                    );
-
-                return;
-            }
-
-            Solution solution = null;
-
-            if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
-            {
-                var repositorySolution = new SolutionRepository(service);
-
-                solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
-
-                if (solution != null && solution.IsManaged.GetValueOrDefault())
+                if (assembly != null)
                 {
-                    solution = null;
+                    if (!dictForAdding.ContainsKey(assembly.Id))
+                    {
+                        dictForAdding.Add(assembly.Id, assembly);
+                    }
+                }
+                else
+                {
+                    unknownProjectNames.Add(projectName);
                 }
             }
 
-            if (solution == null)
+            if (!dictForAdding.Any() && !unknownProjectNames.Any())
             {
-                var t = new Thread((ThreadStart)(() =>
+                this._iWriteToOutput.WriteToOutput("No Plugin Assemblies to add.");
+                return;
+            }
+
+            if (dictForAdding.Any())
+            {
+                Solution solution = null;
+
+                if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
                 {
-                    try
+                    var repositorySolution = new SolutionRepository(service);
+
+                    solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
+
+                    if (solution != null && solution.IsManaged.GetValueOrDefault())
                     {
-                        var formSelectSolution = new WindowSolutionSelect(_iWriteToOutput, service);
-
-                        formSelectSolution.ShowDialog().GetValueOrDefault();
-
-                        solution = formSelectSolution.SelectedSolution;
+                        solution = null;
                     }
-                    catch (Exception ex)
+                }
+
+                if (solution == null)
+                {
+                    var t = new Thread((ThreadStart)(() =>
                     {
-                        DTEHelper.WriteExceptionToOutput(ex);
+                        try
+                        {
+                            var formSelectSolution = new WindowSolutionSelect(_iWriteToOutput, service);
+
+                            formSelectSolution.ShowDialog().GetValueOrDefault();
+
+                            solution = formSelectSolution.SelectedSolution;
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(ex);
+                        }
+                    }));
+                    t.SetApartmentState(ApartmentState.STA);
+                    t.Start();
+
+                    t.Join();
+                }
+
+                if (solution == null)
+                {
+                    this._iWriteToOutput.WriteToOutput("Solution not selected.");
+                    return;
+                }
+
+                this._iWriteToOutput.WriteToOutput("Selected Solution - {0}", solution.UniqueName);
+
+                this._iWriteToOutput.WriteToOutput(connectionData.GetSolutionUrl(solution.Id));
+
+                connectionData.AddLastSelectedSolution(solution?.UniqueName);
+                connectionData.ConnectionConfiguration.Save();
+
+                var solutionRep = new SolutionComponentRepository(service);
+
+                var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.PluginAssembly);
+
+                foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
+                {
+                    if (dictForAdding.ContainsKey(item))
+                    {
+                        dictForAdding.Remove(item);
                     }
-                }));
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
+                }
 
-                t.Join();
+                if (!dictForAdding.Any())
+                {
+                    this._iWriteToOutput.WriteToOutput("No PluginAssembly to add. All PluginAssemblies already in Solution {0}", solution.UniqueName);
+
+                    OpenWindowForUnknownProjects(commonConfig, service, unknownProjectNames);
+
+                    return;
+                }
+
+                var componentsToAdd = dictForAdding.Select(e => new SolutionComponent(new
+                {
+                    ObjectId = e.Key,
+                    ComponentType = new OptionSetValue((int)ComponentType.PluginAssembly),
+                    //RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                })).ToList();
+
+                var solutionDesciptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+
+                this._iWriteToOutput.WriteToOutput("PluginAssemblies to add into Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
+
+                var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
+
+                if (!string.IsNullOrEmpty(desc))
+                {
+                    _iWriteToOutput.WriteToOutput(desc);
+                }
+
+                await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
             }
 
-            if (solution == null)
-            {
-                this._iWriteToOutput.WriteToOutput("Solution not selected.");
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput("Selected Solution - {0}", solution.UniqueName);
-
-            this._iWriteToOutput.WriteToOutput(connectionData.GetSolutionUrl(solution.Id));
-
-            connectionData.AddLastSelectedSolution(solution?.UniqueName);
-            connectionData.ConnectionConfiguration.Save();
-
-            var solutionRep = new SolutionComponentRepository(service);
-
-            var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.PluginAssembly);
-
-            var contains = components.Any(s => s.ObjectId == assembly.Id);
-
-            if (contains)
-            {
-                this._iWriteToOutput.WriteToOutput("No PluginAssembly to add. All PluginAssemblies already in Solution {0}", solution.UniqueName);
-                return;
-            }
-
-            var componentsToAdd = new List<SolutionComponent>() { new SolutionComponent(new
-            {
-                ObjectId = assembly.Id,
-                ComponentType = new OptionSetValue((int)ComponentType.PluginAssembly),
-                //RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
-            }) };
-
-            var solutionDesciptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
-
-            this._iWriteToOutput.WriteToOutput("PluginAssemblies to add into Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
-
-            var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
-
-            if (!string.IsNullOrEmpty(desc))
-            {
-                _iWriteToOutput.WriteToOutput(desc);
-            }
-
-            await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
+            OpenWindowForUnknownProjects(commonConfig, service, unknownProjectNames);
         }
 
         #endregion Добавление сборки в решение по имени.
 
         #region Добавление шагов плагинов сборки в решение по имени.
 
-        public async void ExecuteAddingPluginAssemblyProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, string projectName, bool withSelect)
+        public async void ExecuteAddingPluginAssemblyProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Adding PluginAssembly Processing Steps into Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Adding PluginAssembly Processing Steps into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
-                await AddingPluginAssemblyProcessingStepsIntoSolution(connectionData, commonConfig, solutionUniqueName, projectName, withSelect);
+                await AddingPluginAssemblyProcessingStepsIntoSolution(connectionData, commonConfig, solutionUniqueName, projectNames, withSelect);
             }
             catch (Exception xE)
             {
@@ -1016,11 +1041,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Adding PluginAssembly Processing Steps into Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Adding PluginAssembly Processing Steps into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
-        private async Task AddingPluginAssemblyProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, string projectName, bool withSelect)
+        private async Task AddingPluginAssemblyProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
             if (connectionData == null)
             {
@@ -1028,9 +1053,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            if (string.IsNullOrEmpty(projectName))
+            if (projectNames == null || !projectNames.Any())
             {
-                this._iWriteToOutput.WriteToOutput("Project Name is empty.");
+                this._iWriteToOutput.WriteToOutput("No Project Names.");
                 return;
             }
 
@@ -1044,37 +1069,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
 
             var repository = new PluginAssemblyRepository(service);
+            var stepRepository = new SdkMessageProcessingStepRepository(service);
 
-            var assembly = await repository.FindAssemblyAsync(projectName);
+            Dictionary<Guid, PluginAssembly> knownAssemblies = new Dictionary<Guid, PluginAssembly>();
 
-            if (assembly == null)
+            List<string> unknownProjectNames = new List<string>();
+
+            foreach (var projectName in projectNames)
             {
-                this._iWriteToOutput.WriteToOutput("PluginAssembly not founded by name {0}.", projectName);
+                var assembly = await repository.FindAssemblyAsync(projectName);
 
-                WindowHelper.OpenPluginAssemblyWindow(
-                    this._iWriteToOutput
-                    , service
-                    , commonConfig
-                    , projectName
-                    );
+                if (assembly != null)
+                {
+                    if (!knownAssemblies.ContainsKey(assembly.Id))
+                    {
+                        knownAssemblies.Add(assembly.Id, assembly);
+                    }
+                }
+                else
+                {
+                    unknownProjectNames.Add(projectName);
+                }
+            }
 
+            if (!knownAssemblies.Any() && !unknownProjectNames.Any())
+            {
+                this._iWriteToOutput.WriteToOutput("No Plugin Assemblies founded.");
                 return;
             }
 
             var dictForAdding = new Dictionary<Guid, SdkMessageProcessingStep>();
 
-            var stepRepository = new SdkMessageProcessingStepRepository(service);
-
-            var pluginSteps = await stepRepository.GetAllStepsByPluginAssemblyAsync(assembly.Id);
-
-            foreach (var step in pluginSteps)
+            foreach (var assembly in knownAssemblies.Values)
             {
-                dictForAdding.Add(step.Id, step);
+                var pluginSteps = await stepRepository.GetAllStepsByPluginAssemblyAsync(assembly.Id);
+
+                foreach (var step in pluginSteps)
+                {
+                    dictForAdding.Add(step.Id, step);
+                }
             }
 
             if (!dictForAdding.Any())
             {
                 this._iWriteToOutput.WriteToOutput("No Processing Steps to add.");
+
+                OpenWindowForUnknownProjects(commonConfig, service, unknownProjectNames);
+
                 return;
             }
 
@@ -1143,6 +1184,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (!dictForAdding.Any())
             {
                 this._iWriteToOutput.WriteToOutput("No Processing Steps to add. All Processing Steps already in Solution {0}", solution.UniqueName);
+
+                OpenWindowForUnknownProjects(commonConfig, service, unknownProjectNames);
+
                 return;
             }
 
@@ -1165,19 +1209,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
+
+            OpenWindowForUnknownProjects(commonConfig, service, unknownProjectNames);
+        }
+
+        private void OpenWindowForUnknownProjects(CommonConfiguration commonConfig, IOrganizationServiceExtented service, List<string> unknownProjectNames)
+        {
+            if (unknownProjectNames.Any())
+            {
+                this._iWriteToOutput.WriteToOutput("PluginAssemblies not founded by name {0}.", unknownProjectNames.Count);
+
+                foreach (var projectName in unknownProjectNames)
+                {
+                    this._iWriteToOutput.WriteToOutput("       {0}", projectName);
+                }
+
+                WindowHelper.OpenPluginAssemblyWindow(
+                    this._iWriteToOutput
+                    , service
+                    , commonConfig
+                    , unknownProjectNames.FirstOrDefault()
+                    );
+            }
         }
 
         #endregion Добавление шагов плагинов сборки в решение по имени.
 
         #region Добавление в решение шагов плагинов типа плагина по имени.
 
-        public async void ExecuteAddingPluginTypeProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, string pluginTypeName, bool withSelect)
+        public async void ExecuteAddingPluginTypeProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Adding PluginType Processing Steps into Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("*********** Start Adding PluginType Processing Steps into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
-                await AddingPluginTypeProcessingStepsIntoSolution(connectionData, commonConfig, solutionUniqueName, pluginTypeName, withSelect);
+                await AddingPluginTypeProcessingStepsIntoSolution(connectionData, commonConfig, solutionUniqueName, pluginTypeNames, withSelect);
             }
             catch (Exception xE)
             {
@@ -1185,11 +1251,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Adding PluginType Processing Steps into Solution at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutput.WriteToOutput("*********** End Adding PluginType Processing Steps into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
-        private async Task AddingPluginTypeProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, string pluginTypeName, bool withSelect)
+        private async Task AddingPluginTypeProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
         {
             if (connectionData == null)
             {
@@ -1197,9 +1263,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            if (string.IsNullOrEmpty(pluginTypeName))
+            if (pluginTypeNames == null || !pluginTypeNames.Any())
             {
-                this._iWriteToOutput.WriteToOutput("PluginTypeName is empty.");
+                this._iWriteToOutput.WriteToOutput("No Project Names.");
                 return;
             }
 
@@ -1214,36 +1280,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repository = new PluginTypeRepository(service);
 
-            var pluginType = await repository.FindPluginTypeByLikeNameAsync(pluginTypeName);
+            Dictionary<Guid, PluginType> knownPluginTypes = new Dictionary<Guid, PluginType>();
 
-            if (pluginType == null)
+            List<string> unknownPluginTypes = new List<string>();
+
+            foreach (var pluginTypeName in pluginTypeNames)
             {
-                this._iWriteToOutput.WriteToOutput("PluginType not founded by name {0}.", pluginTypeName);
+                var pluginType = await repository.FindPluginTypeByLikeNameAsync(pluginTypeName);
 
-                WindowHelper.OpenPluginTypeWindow(
-                    this._iWriteToOutput
-                    , service
-                    , commonConfig
-                    , pluginTypeName
-                    );
+                if (pluginType != null)
+                {
+                    if (!knownPluginTypes.ContainsKey(pluginType.Id))
+                    {
+                        knownPluginTypes.Add(pluginType.Id, pluginType);
+                    }
+                }
+                else
+                {
+                    unknownPluginTypes.Add(pluginTypeName);
+                }
+            }
 
+            if (!unknownPluginTypes.Any() && !unknownPluginTypes.Any())
+            {
+                this._iWriteToOutput.WriteToOutput("No Plugin Types founded.");
                 return;
             }
 
-            var dictForAdding = new Dictionary<Guid, SdkMessageProcessingStep>();
-
             var stepRepository = new SdkMessageProcessingStepRepository(service);
 
-            var pluginSteps = await stepRepository.GetAllStepsByPluginTypeAsync(pluginType.Id);
+            var dictForAdding = new Dictionary<Guid, SdkMessageProcessingStep>();
 
-            foreach (var step in pluginSteps)
+            foreach (var pluginType in knownPluginTypes.Values)
             {
-                dictForAdding.Add(step.Id, step);
+                var pluginSteps = await stepRepository.GetAllStepsByPluginTypeAsync(pluginType.Id);
+
+                foreach (var step in pluginSteps)
+                {
+                    dictForAdding.Add(step.Id, step);
+                }
             }
 
             if (!dictForAdding.Any())
             {
                 this._iWriteToOutput.WriteToOutput("No Processing Steps to add.");
+
+                OpenWindowForUnknownPluginTypes(commonConfig, service, unknownPluginTypes);
+
                 return;
             }
 
@@ -1312,6 +1395,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (!dictForAdding.Any())
             {
                 this._iWriteToOutput.WriteToOutput("No Processing Steps to add. All Processing Steps already in Solution {0}", solution.UniqueName);
+
+                OpenWindowForUnknownPluginTypes(commonConfig, service, unknownPluginTypes);
+
                 return;
             }
 
@@ -1334,6 +1420,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
+
+            OpenWindowForUnknownPluginTypes(commonConfig, service, unknownPluginTypes);
+        }
+
+        private void OpenWindowForUnknownPluginTypes(CommonConfiguration commonConfig, IOrganizationServiceExtented service, List<string> unknownPluginTypes)
+        {
+            if (unknownPluginTypes.Any())
+            {
+                this._iWriteToOutput.WriteToOutput("PluginTypes not founded by name {0}.", unknownPluginTypes.Count);
+
+                foreach (var pluginTypeName in unknownPluginTypes)
+                {
+                    this._iWriteToOutput.WriteToOutput("       {0}", pluginTypeName);
+                }
+
+                WindowHelper.OpenPluginTypeWindow(
+                    this._iWriteToOutput
+                    , service
+                    , commonConfig
+                    , unknownPluginTypes.FirstOrDefault()
+                );
+            }
         }
 
         #endregion Добавление в решение шагов плагинов типа плагина по имени.

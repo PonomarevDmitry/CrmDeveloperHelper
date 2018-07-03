@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using EnvDTE;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -64,9 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(this, menuCommand);
-
-                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType);
+                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType);
                     }
                 }
             }
@@ -98,25 +97,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    EnvDTE.SelectedItem item = helper.GetSingleSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
+                    var list = helper.GetListSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType)
+                                        .Select(i => GetName(i))
+                                        .Where(s => !string.IsNullOrEmpty(s))
+                                        ;
 
-                    if (item != null)
+                    if (list.Any())
                     {
-                        string selection = string.Empty;
-
-                        if (item.ProjectItem != null && item.ProjectItem.FileCount > 0)
-                        {
-                            selection = item.ProjectItem.Name.Split('.').FirstOrDefault();
-                        }
-                        else if (!string.IsNullOrEmpty(item.Name))
-                        {
-                            selection = item.Name;
-                        }
-
-                        helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(selection, false, solutionUniqueName);
+                        helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(solutionUniqueName, false, list.ToArray());
                     }
                 }
             }
+        }
+
+        private static string GetName(SelectedItem item)
+        {
+            string selection = string.Empty;
+
+            if (item.ProjectItem != null && item.ProjectItem.FileCount > 0)
+            {
+                selection = item.ProjectItem.Name.Split('.').FirstOrDefault();
+            }
+            else if (!string.IsNullOrEmpty(item.Name))
+            {
+                selection = item.Name;
+            }
+
+            return selection;
         }
     }
 }

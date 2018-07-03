@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Security Roles started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking Security Roles started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var list1 = await new SecurityRoleRepository(_service1).GetListParentRolesAsync();
 
@@ -325,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Security Roles.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Security Roles ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Security Roles ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Security Roles.txt"
                 , this._OrgOrgName
@@ -509,7 +509,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Field Security Profiles started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking Field Security Profiles started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var list1 = await new FieldSecurityProfileRepository(_service1).GetListAsync();
 
@@ -688,7 +688,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Field Security Profiles.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Field Security Profiles ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Field Security Profiles ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Field Security Profiles.txt"
                 , this._OrgOrgName

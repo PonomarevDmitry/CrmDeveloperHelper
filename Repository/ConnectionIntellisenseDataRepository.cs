@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
-    public class ConnectionIntellisenseDataRepository
+    public class ConnectionIntellisenseDataRepository : IDisposable
     {
         private object syncObjectService = new object();
         private object syncObjectTaskListEntityHeader = new object();
@@ -612,5 +612,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return result;
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    if (!_cancellationTokenSource.IsCancellationRequested)
+                    {
+                        _cancellationTokenSource.Cancel();
+                    }
+
+                    _cancellationTokenSource.Dispose();
+                    (_cacheTaskGettingEntity as IDisposable).Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+        #endregion
     }
 }

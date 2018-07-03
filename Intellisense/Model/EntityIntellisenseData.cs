@@ -46,16 +46,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         private object _syncObjectManyToManyRelationships = new object();
 
         [DataMember]
-        public Dictionary<string, AttributeIntellisenseData> Attributes { get; set; }
+        public Dictionary<string, AttributeIntellisenseData> Attributes { get; private set; }
 
         [DataMember]
-        public Dictionary<string, ManyToOneRelationshipIntellisenseData> ManyToOneRelationships { get; set; }
+        public Dictionary<string, ManyToOneRelationshipIntellisenseData> ManyToOneRelationships { get; private set; }
 
         [DataMember]
-        public Dictionary<string, OneToManyRelationshipIntellisenseData> OneToManyRelationships { get; set; }
+        public Dictionary<string, OneToManyRelationshipIntellisenseData> OneToManyRelationships { get; private set; }
 
         [DataMember]
-        public Dictionary<string, ManyToManyRelationshipIntellisenseData> ManyToManyRelationships { get; set; }
+        public Dictionary<string, ManyToManyRelationshipIntellisenseData> ManyToManyRelationships { get; private set; }
 
         public EntityIntellisenseData()
         {

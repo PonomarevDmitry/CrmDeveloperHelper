@@ -30,8 +30,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._repSecure = new SdkMessageProcessingStepSecureConfigRepository(service);
         }
 
-        private const string formatDateTime = "dd.MM.yyyy HH:mm:ss";
-
         public async Task<string> CreateDescriptionAsync(Guid idPluginAssembly, string name, DateTime now)
         {
             var content = new StringBuilder();
@@ -42,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var allSecure = await _repSecure.GetAllSdkMessageProcessingStepSecureConfigAsync();
 
             content.AppendLine(_connectionInfo).AppendLine();
-            content.AppendFormat("Description for PluginAssembly '{0}' at {1}", name, now.ToString(formatDateTime)).AppendLine();
+            content.AppendFormat("Description for PluginAssembly '{0}' at {1}", name, now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)).AppendLine();
 
             content
                 .AppendLine()

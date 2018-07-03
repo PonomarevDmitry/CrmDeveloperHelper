@@ -65,19 +65,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private Assembly Domain_ReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args)
         {
-            foreach (var assemblyName in _knownCrmAssemblies)
+            var assemblyName = new AssemblyName(args.Name);
+
+            foreach (var knownedAssemblyName in _knownCrmAssemblies)
             {
-                if (args.Name.IndexOf(assemblyName, StringComparison.InvariantCultureIgnoreCase) > -1)
+                if (string.Equals(assemblyName.Name, knownedAssemblyName, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var temp = Assembly.Load(assemblyName + ", Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL");
+                    var temp = Assembly.Load(knownedAssemblyName + ", Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL");
 
                     return Assembly.ReflectionOnlyLoadFrom(temp.CodeBase);
                 }
             }
 
             {
-                var assemblyName = new AssemblyName(args.Name);
-
                 var filePath = Path.Combine(_assemblyDirectory, assemblyName.Name + ".dll");
 
                 if (File.Exists(filePath))

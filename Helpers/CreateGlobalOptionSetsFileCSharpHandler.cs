@@ -16,7 +16,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     public class CreateGlobalOptionSetsFileCSharpHandler : CreateFileHandler
     {
         private IOrganizationServiceExtented _service;
-        private string _tabSpacer;
         private bool _withDependentComponents;
 
         private readonly bool _withManagedInfo;
@@ -46,7 +45,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             ) : base(tabSpacer, allDescriptions)
         {
             this._service = service;
-            this._tabSpacer = tabSpacer;
             this._сonstantType = contantType;
             this._withDependentComponents = withDependentComponents;
             this._optionSetExportType = optionSetExportType;

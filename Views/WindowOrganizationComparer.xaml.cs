@@ -2085,13 +2085,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus("Analizing organizations...");
 
-            this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             OrganizationComparer comparer = new OrganizationComparer(connection1, connection2, this._iWriteToOutput, folder);
 
             await function(comparer);
 
-            this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             UpdateStatus("Operation is completed.");
 
@@ -2297,13 +2297,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus("Analizing organizations...");
 
-            this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             OrganizationComparer comparer = new OrganizationComparer(connection1, connection2, this._iWriteToOutput, folder);
 
             await MultipleAnalize(functions, comparer);
 
-            this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             UpdateStatus("Operation is completed.");
 

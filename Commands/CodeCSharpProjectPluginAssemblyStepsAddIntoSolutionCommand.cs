@@ -33,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             {
                 if (document.ProjectItem != null && document.ProjectItem.ContainingProject != null)
                 {
-                    helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(document.ProjectItem.ContainingProject, true, null);
+                    helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(null, true, document.ProjectItem.ContainingProject.Name);
                 }
             }
         }

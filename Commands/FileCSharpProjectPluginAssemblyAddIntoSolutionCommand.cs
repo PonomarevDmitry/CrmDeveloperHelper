@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -18,23 +19,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(command, menuCommand);
-
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(command, menuCommand, FileOperations.SupportsCSharpType);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(command, menuCommand, FileOperations.SupportsCSharpType);
 
             CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, "Add PluginAssembly into Crm Solution");
         }
 
         private static void ActionExecute(DTEHelper helper)
         {
-            EnvDTE.SelectedItem item = helper.GetSingleSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
+            var list = helper.GetListSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType)
+                                .Where(i => i.ProjectItem?.ContainingProject != null && !string.IsNullOrEmpty(i.ProjectItem?.ContainingProject?.Name))
+                                .Select(i => i.ProjectItem.ContainingProject.Name);
 
-            if (item != null)
+            if (list.Any())
             {
-                if (item.ProjectItem != null && item.ProjectItem.ContainingProject != null)
-                {
-                    helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(item.ProjectItem.ContainingProject, true, null);
-                }
+                helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, true, list.ToArray());
             }
         }
     }

@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteComparingFilesAndWebResources(List<SelectedFile> selectedFiles, ConnectionConfiguration crmConfig, bool withDetails)
         {
-            this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Comparing Files and WebResources at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Comparing Files and WebResources at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutputAndPublishList.WriteToOutput("*********** End Comparing Files and WebResources at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutputAndPublishList.WriteToOutput("*********** End Comparing Files and WebResources at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -679,7 +679,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteAddingIntoPublishListFilesByType(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Adding into Publish List Files {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Adding into Publish List Files {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -701,7 +701,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutputAndPublishList.WriteToOutput("*********** End Adding into Publish List Files {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutputAndPublishList.WriteToOutput("*********** End Adding into Publish List Files {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -733,7 +733,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async void ExecuteComparingFilesWithWrongEncoding(List<SelectedFile> selectedFiles, ConnectionConfiguration crmConfig, bool withDetails)
         {
-            this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Comparing Files with Wrong Encoding and WebResources at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Comparing Files with Wrong Encoding and WebResources at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -749,7 +749,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutputAndPublishList.WriteToOutput("*********** End Comparing Files with Wrong Encoding and WebResources at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutputAndPublishList.WriteToOutput("*********** End Comparing Files with Wrong Encoding and WebResources at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
@@ -757,7 +757,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public void ExecuteOrganizationComparer(ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Showing Organization Comparer at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+            this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Showing Organization Comparer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -769,7 +769,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutputAndPublishList.WriteToOutput("*********** End Showing Organization Comparer at {0} *******************************************************", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                this._iWriteToOutputAndPublishList.WriteToOutput("*********** End Showing Organization Comparer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 

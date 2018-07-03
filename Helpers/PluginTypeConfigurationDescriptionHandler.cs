@@ -10,8 +10,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         private const string formatIndent = "    {0}";
 
-        private const string formatDateTime = "dd.MM.yyyy HH:mm:ss";
-
         public Task<string> CreateDescriptionAsync(PluginType pluginType)
         {
             return Task.Run(() => CreateDescription(pluginType));
@@ -220,7 +218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     description.Append(splitter);
                 }
 
-                description.AppendFormat("CreatedOn: {0}", createdOn.Value.ToString(formatDateTime));
+                description.AppendFormat("CreatedOn: {0}", createdOn.Value.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
 
             if (modifiedBy != null)
@@ -240,7 +238,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     description.Append(splitter);
                 }
 
-                description.AppendFormat("ModifiedOn: {0}", modifiedOn.Value.ToString(formatDateTime));
+                description.AppendFormat("ModifiedOn: {0}", modifiedOn.Value.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
 
             //if (overwriteTime.HasValue)
@@ -250,7 +248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             //        description.Append(splitter);
             //    }
 
-            //    description.AppendFormat("OverwriteTime: {0}", overwriteTime.Value.ToString(formatDateTime));
+            //    description.AppendFormat("OverwriteTime: {0}", overwriteTime.Value.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             //}
 
             return description.ToString();

@@ -51,7 +51,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput(string.Empty);
 
-                strFile.AppendLine(this._iWriteToOutput.WriteToOutput("Analyzing Solution Workflows '{0}' at {1}.", solution.UniqueName, DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutput("Analyzing Solution Workflows '{0}' at {1}.", solution.UniqueName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
 
@@ -335,7 +335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput(string.Empty);
 
-                strFile.AppendLine(this._iWriteToOutput.WriteToOutput("Analyzing Solution Workflows '{0}' at {1}.", solution.UniqueName, DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutput("Analyzing Solution Workflows '{0}' at {1}.", solution.UniqueName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
 

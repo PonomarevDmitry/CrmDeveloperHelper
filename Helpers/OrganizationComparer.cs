@@ -152,7 +152,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Global OptionSets started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking Global OptionSets started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var request = new RetrieveAllOptionSetsRequest();
 
@@ -371,7 +371,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Global OptionSets.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Global OptionSets ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Global OptionSets ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Global OptionSets.txt"
                 , this._OrgOrgName
@@ -399,7 +399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking WebResources{0} started at {1}"
                 , withDetailsName
-                , DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")
+                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
                 ));
 
             var repository1 = new WebResourceRepository(_service1);
@@ -756,7 +756,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking WebResources{0} ended at {1}"
                 , withDetailsName
-                , DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")
+                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
                 ));
 
             string fileName = string.Format("OrgCompare {0} at {1} WebResources{2}.txt"
@@ -783,7 +783,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Sitemaps started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking Sitemaps started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var repository1 = new SitemapRepository(_service1);
             var repository2 = new SitemapRepository(_service2);
@@ -834,7 +834,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Sitemaps ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Sitemaps ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Sitemaps.txt"
                 , this._OrgOrgName
@@ -858,7 +858,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Organizations started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking Organizations started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var repository1 = new OrganizationRepository(_service1);
             var repository2 = new OrganizationRepository(_service2);
@@ -992,7 +992,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Organizations ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Organizations ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Organizations.txt"
                 , this._OrgOrgName
@@ -1016,7 +1016,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Reports started at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine(_writeToOutput.WriteToOutput("Checking Reports started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             var repository1 = new ReportRepository(_service1);
             var repository2 = new ReportRepository(_service2);
@@ -1277,7 +1277,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Reports.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Reports ended at {0}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")));
+            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Reports ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Reports.txt"
                 , this._OrgOrgName
@@ -1400,7 +1400,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking Workflows{0} started at {1}"
                 , withDetailsName
-                , DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"))
+                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture))
                 );
 
             var repository1 = new WorkflowRepository(_service1);
@@ -1680,7 +1680,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Workflows{0} ended at {1}"
                 , withDetailsName
-                , DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"))
+                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture))
                 );
 
             string fileName = string.Format("OrgCompare {0} at {1} Workflows{2}.txt"

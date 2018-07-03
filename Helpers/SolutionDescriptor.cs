@@ -48,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 StringBuilder strFile = new StringBuilder();
                 string message = null;
 
-                message = string.Format("Analyzing Solution Components '{0}' at {1}.", solution.UniqueName, DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                message = string.Format("Analyzing Solution Components '{0}' at {1}.", solution.UniqueName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput(string.Empty);
@@ -90,7 +90,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 string message = null;
 
-                message = string.Format("Analyzing Solution '{0}' {1} at {2}.", solution.UniqueName, showString, DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                message = string.Format("Analyzing Solution '{0}' {1} at {2}.", solution.UniqueName, showString, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput(string.Empty);
@@ -141,7 +141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 string message = null;
 
-                message = string.Format("Analyzing Solution '{0}' {1} at {2}.", solution.UniqueName, showString, DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                message = string.Format("Analyzing Solution '{0}' {1} at {2}.", solution.UniqueName, showString, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput(string.Empty);
@@ -298,7 +298,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 StringBuilder strFile = new StringBuilder();
                 string message = null;
 
-                message = string.Format("Analyzing Solution Components '{0}' and '{1}' as {2}.", sourceName, solutionTargetUniqueName, DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                message = string.Format("Analyzing Solution Components '{0}' and '{1}' as {2}.", sourceName, solutionTargetUniqueName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput(string.Empty);

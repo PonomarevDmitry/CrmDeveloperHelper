@@ -349,6 +349,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        internal static void ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(IServiceProviderOwner command, OleMenuCommand menuCommand, Func<string, bool> checker)
+        {
+            bool visible = false;
+
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                var helper = DTEHelper.Create(applicationObject);
+
+                var list = helper.GetListSelectedItemInSolutionExplorer(checker);
+
+                visible = list.Any(item => item.ProjectItem != null && item.ProjectItem.ContainingProject != null);
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
         internal static void ActionBeforeQueryStatusOpenedDocumentsWebResourceText(IServiceProviderOwner command, OleMenuCommand menuCommand)
         {
             bool visible = false;
@@ -634,13 +653,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        internal static void ActiveSolutionExplorerProjectAny(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            bool visible = false;
+
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                visible = CheckInSolutionExplorerProjectAny(applicationObject);
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
         internal static bool CheckInSolutionExplorerProjectSingle(EnvDTE80.DTE2 applicationObject)
         {
             bool visible = false;
 
             if (applicationObject.ActiveWindow != null
-                               && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
-                               && applicationObject.SelectedItems != null)
+                && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
+                && applicationObject.SelectedItems != null)
             {
                 var items = applicationObject.SelectedItems.Cast<EnvDTE.SelectedItem>();
 
@@ -656,6 +690,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return visible;
+        }
+
+        internal static bool CheckInSolutionExplorerProjectAny(EnvDTE80.DTE2 applicationObject)
+        {
+            if (applicationObject.ActiveWindow != null
+                && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
+                && applicationObject.SelectedItems != null)
+            {
+                var items = applicationObject.SelectedItems.Cast<EnvDTE.SelectedItem>();
+
+                return items.All(i => i.Project != null) && items.Any(i => i.Project != null);
+            }
+
+            return false;
         }
 
         private static bool CheckInPublishListSingle(EnvDTE80.DTE2 applicationObject, IServiceProvider serviceProvider, Func<string, bool> checker)
