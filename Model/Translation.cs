@@ -38,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToLog(ex);
+                    DTEHelper.WriteExceptionToOutput(ex);
                 }
             }
 

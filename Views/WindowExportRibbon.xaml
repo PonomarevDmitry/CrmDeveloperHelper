@@ -11,7 +11,6 @@
             <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
             <Separator />
             <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-            <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
@@ -91,6 +90,7 @@
         <CheckBox x:Name="chBForm" IsChecked="{Binding Path=ExportRibbonXmlForm}" Content="Form" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" />
         <CheckBox x:Name="chBHomepageGrid" IsChecked="{Binding Path=ExportRibbonXmlHomepageGrid}" Content="HomepageGrid" HorizontalAlignment="Left" Margin="62,66,0,0" VerticalAlignment="Top" />
         <CheckBox x:Name="chBSubGrid" IsChecked="{Binding Path=ExportRibbonXmlSubGrid}" Content="SubGrid" HorizontalAlignment="Left" Margin="168,66,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding Path=ExportRibbonXmlXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" HorizontalAlignment="Left" Margin="293,66,0,0" VerticalAlignment="Top"/>
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="0" Height="23"/>
         <TextBox x:Name="txtBFilterEnitity" Height="23" Margin="51,86,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
         <DataGrid x:Name="lstVwEntities" AutoGenerateColumns="False" Margin="10,114,10,99" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">

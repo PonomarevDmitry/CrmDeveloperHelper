@@ -1087,7 +1087,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string name = workflow.Name;
                 string category = workflow.FormattedValues[Workflow.Schema.Attributes.category];
 
-                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(workflow, EntityFileNameFormatter.WorkflowIgnoreFields);
+                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(workflow, EntityFileNameFormatter.WorkflowIgnoreFields, service.ConnectionData);
 
                 string filePath = await CreateDescriptionFileAsync(service.ConnectionData.Name, entityName, category, name, "Description", description);
 
@@ -1324,7 +1324,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, string.Empty);
+            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, string.Empty);
         }
 
         private async void btnWorkflows1_Click(object sender, RoutedEventArgs e)
@@ -1452,7 +1452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, string.Empty);
+            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, string.Empty);
         }
 
         private async void btnWorkflows2_Click(object sender, RoutedEventArgs e)

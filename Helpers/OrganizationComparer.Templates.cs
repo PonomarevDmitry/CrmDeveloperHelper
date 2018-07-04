@@ -140,8 +140,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                         {
-                            var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName);
-                            var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName);
+                            var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _service1.ConnectionData);
+                            var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _service2.ConnectionData);
 
                             tabDiff.AddLine(fieldName, Connection1.Name, str1);
                             tabDiff.AddLine(fieldName, Connection2.Name, str2);
@@ -392,8 +392,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                         {
-                            var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName);
-                            var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName);
+                            var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _service1.ConnectionData);
+                            var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _service2.ConnectionData);
 
                             tabDiff.AddLine(fieldName, Connection1.Name, str1);
                             tabDiff.AddLine(fieldName, Connection2.Name, str2);
@@ -625,8 +625,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                     {
-                        var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName);
-                        var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName);
+                        var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _service1.ConnectionData);
+                        var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _service2.ConnectionData);
 
                         tabDiff.AddLine(fieldName, Connection1.Name, str1);
                         tabDiff.AddLine(fieldName, Connection2.Name, str2);
@@ -868,8 +868,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                     {
-                        var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName);
-                        var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName);
+                        var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _service1.ConnectionData);
+                        var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _service2.ConnectionData);
 
                         tabDiff.AddLine(fieldName, Connection1.Name, str1);
                         tabDiff.AddLine(fieldName, Connection2.Name, str2);

@@ -17,8 +17,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private StringMapRepository _rep1;
         private StringMapRepository _rep2;
 
-        private Dictionary<string, List<StringMap>> _cache1 = new Dictionary<string, List<StringMap>>();
-        private Dictionary<string, List<StringMap>> _cache2 = new Dictionary<string, List<StringMap>>();
+        private Dictionary<string, List<StringMap>> _cache1 = new Dictionary<string, List<StringMap>>(StringComparer.InvariantCultureIgnoreCase);
+        private Dictionary<string, List<StringMap>> _cache2 = new Dictionary<string, List<StringMap>>(StringComparer.InvariantCultureIgnoreCase);
 
         public OptionSetComparer(string tabSpacer, string connectionName1, string connectionName2, StringMapRepository rep1, StringMapRepository rep2)
         {
@@ -361,7 +361,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             {
-                Dictionary<string, List<string>> optionValueDifferent = new Dictionary<string, List<string>>();
+                Dictionary<string, List<string>> optionValueDifferent = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
                 {
                     List<string> optionDiff = await GetDifferenceOptionSetValue(optionSet1.FalseOption, optionSet2.FalseOption, entityName, attributeName);

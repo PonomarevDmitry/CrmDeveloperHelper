@@ -891,7 +891,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var report = await repository.GetByIdAsync(idReport, new ColumnSet(true));
 
-                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(report, EntityFileNameFormatter.ReportIgnoreFields);
+                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(report, EntityFileNameFormatter.ReportIgnoreFields, service.ConnectionData);
 
                 string filePath = await CreateDescriptionFileAsync(service.ConnectionData.Name, report.Name, report.Id, "Description", description);
 

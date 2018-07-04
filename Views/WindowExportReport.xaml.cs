@@ -552,7 +552,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var report = await repository.GetByIdAsync(idReport);
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, report, EntityFileNameFormatter.ReportIgnoreFields);
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, report, EntityFileNameFormatter.ReportIgnoreFields, service.ConnectionData);
 
             this._iWriteToOutput.WriteToOutput("Report Entity Description exported to {0}", filePath);
 

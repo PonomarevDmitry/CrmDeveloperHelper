@@ -147,8 +147,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (ContentCoparerHelper.IsEntityDifferentInField(displayString1, displayString2, fieldName))
                     {
-                        var str1 = EntityDescriptionHandler.GetAttributeString(displayString1, fieldName);
-                        var str2 = EntityDescriptionHandler.GetAttributeString(displayString2, fieldName);
+                        var str1 = EntityDescriptionHandler.GetAttributeString(displayString1, fieldName, _service1.ConnectionData);
+                        var str2 = EntityDescriptionHandler.GetAttributeString(displayString2, fieldName, _service2.ConnectionData);
 
                         tabDiff.AddLine(fieldName, Connection1.Name, str1);
                         tabDiff.AddLine(fieldName, Connection2.Name, str2);

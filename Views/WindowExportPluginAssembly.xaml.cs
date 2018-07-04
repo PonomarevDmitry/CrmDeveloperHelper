@@ -485,7 +485,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, name, "EntityDescription", "txt");
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, assembly, EntityFileNameFormatter.PluginAssemblyIgnoreFields);
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, assembly, EntityFileNameFormatter.PluginAssemblyIgnoreFields, service.ConnectionData);
 
             this._iWriteToOutput.WriteToOutput("Assembly {0} Entity Description exported to {1}", name, filePath);
 

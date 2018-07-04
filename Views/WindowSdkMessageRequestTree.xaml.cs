@@ -904,7 +904,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 result.AppendLine(service.ConnectionData.GetConnectionInfo());
 
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(request, null);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(request, null, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -921,7 +921,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     foreach (var field in queryFields.OrderBy(f => f.Position).ThenBy(f => f.Name))
                     {
-                        var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(field, null);
+                        var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(field, null, service.ConnectionData);
 
                         if (!string.IsNullOrEmpty(desc))
                         {
@@ -948,7 +948,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 result.AppendLine(service.ConnectionData.GetConnectionInfo());
 
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(Response, null);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(Response, null, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -965,7 +965,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     foreach (var field in queryFields.OrderBy(f => f.Position).ThenBy(f => f.Name))
                     {
-                        var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(field, null);
+                        var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(field, null, service.ConnectionData);
 
                         if (!string.IsNullOrEmpty(desc))
                         {
@@ -993,7 +993,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 foreach (var message in listMessages)
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, null);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, null, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {

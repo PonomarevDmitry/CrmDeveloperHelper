@@ -524,7 +524,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string fileName = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, name, "EntityDescription", "txt");
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webresource, EntityFileNameFormatter.WebResourceIgnoreFields);
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webresource, EntityFileNameFormatter.WebResourceIgnoreFields, service.ConnectionData);
 
             this._iWriteToOutput.WriteToOutput("WebResource Entity Description exported to {0}", filePath);
 

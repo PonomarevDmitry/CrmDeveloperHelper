@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 
@@ -114,6 +115,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        [OnSerializing]
+        private void BeforeSerializing(StreamingContext context)
+        {
+            this.Password = Encryption.Encrypt(this.Password, Encryption.EncryptionKey);
+
+            if (this.UserId == Guid.Empty)
+            {
+                this.UserId = Guid.NewGuid();
+            }
+        }
+
+        [OnSerialized]
+        private void AfterSerialize(StreamingContext context)
+        {
+            this.Password = Encryption.Decrypt(this.Password, Encryption.EncryptionKey);
+        }
+
         [OnDeserialized]
         private void AfterDeserialize(StreamingContext context)
         {
@@ -121,6 +139,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 this.UserId = Guid.NewGuid();
             }
+
+            this.Password = Encryption.Decrypt(this.Password, Encryption.EncryptionKey);
         }
     }
 }

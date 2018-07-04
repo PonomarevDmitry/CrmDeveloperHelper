@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,17 +11,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public static class EntityDescriptionHandler
     {
-        public static Task<string> GetEntityDescriptionAsync(Entity entity, ICollection<string> attributeToIgnore)
+        public static Task<string> GetEntityDescriptionAsync(Entity entity, ICollection<string> attributeToIgnore, ConnectionData connectionData = null)
         {
-            return Task.Run(() => GetEntityDescription(entity, attributeToIgnore));
+            return Task.Run(() => GetEntityDescription(entity, attributeToIgnore, connectionData));
         }
 
-        private static string GetEntityDescription(Entity entity, ICollection<string> attributeToIgnore)
+        private static string GetEntityDescription(Entity entity, ICollection<string> attributeToIgnore, ConnectionData connectionData)
         {
             StringBuilder result = new StringBuilder();
 
             result.AppendFormat("Entity: {0}", entity.LogicalName).AppendLine();
             result.AppendFormat("Id: {0}", entity.Id).AppendLine();
+
+            if (connectionData != null)
+            {
+                var url = connectionData.GetEntityUrl(entity.LogicalName, entity.Id);
+
+                if (!string.IsNullOrEmpty(url))
+                {
+                    result.AppendFormat("Url: {0}", url).AppendLine();
+                }
+            }
 
             result.AppendLine();
 
@@ -37,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
-                table.AddLine(attr.Key, GetAttributeType(attr.Value), GetAttributeString(entity, attr.Key));
+                table.AddLine(attr.Key, GetAttributeType(attr.Value), GetAttributeString(entity, attr.Key, connectionData));
             }
 
             table.GetFormatedLines(false).ForEach(s => result.AppendLine(s));
@@ -85,7 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return value;
         }
 
-        private static string GetAttributeStringInternal(Entity entity, string key, Func<FormattedValueCollection, string, object, string> getterString)
+        private static string GetAttributeStringInternal(Entity entity, string key, Func<FormattedValueCollection, string, object, ConnectionData, string> getterString, ConnectionData connectionData)
         {
             if (!entity.Attributes.Contains(key))
             {
@@ -110,20 +121,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return string.Empty;
             }
 
-            return getterString(entity.FormattedValues, key, value);
+            return getterString(entity.FormattedValues, key, value, connectionData);
         }
 
-        public static string GetAttributeString(Entity entity, string key)
+        public static string GetAttributeString(Entity entity, string key, ConnectionData connectionData = null)
         {
-            return GetAttributeStringInternal(entity, key, GetValueStringFull);
+            return GetAttributeStringInternal(entity, key, GetValueStringFull, connectionData);
         }
 
-        public static string GetAttributeStringShortEntityReferenceAndPicklist(Entity entity, string key)
+        public static string GetAttributeStringShortEntityReferenceAndPicklist(Entity entity, string key, ConnectionData connectionData = null)
         {
-            return GetAttributeStringInternal(entity, key, GetValueStringShortEntityReferenceAndPicklist);
+            return GetAttributeStringInternal(entity, key, GetValueStringShortEntityReferenceAndPicklist, connectionData);
         }
 
-        private static string GetValueStringFull(FormattedValueCollection formattedValues, string key, object value)
+        private static string GetValueStringFull(FormattedValueCollection formattedValues, string key, object value, ConnectionData connectionData)
         {
             if (value == null)
             {
@@ -132,12 +143,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (value is EntityReference entityReference)
             {
-                return string.Format("{0} - {1} - {2}", entityReference.LogicalName, entityReference.Name, entityReference.Id.ToString());
+                StringBuilder result = new StringBuilder();
+
+                if (!string.IsNullOrEmpty(entityReference.Name))
+                {
+                    result.AppendFormat("{0} - ", entityReference.Name);
+                }
+
+                result.AppendFormat("{0} - {1}", entityReference.LogicalName, entityReference.Id.ToString());
+
+                if (connectionData != null)
+                {
+                    var url = connectionData.GetEntityUrl(entityReference.LogicalName, entityReference.Id);
+
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        result.AppendFormat(" - {0}", url);
+                    }
+                }
+
+                return result.ToString();
             }
 
             if (value is BooleanManagedProperty booleanManaged)
             {
-                return string.Format("{0}    CanBeChanged = {1}", booleanManaged.Value, booleanManaged.CanBeChanged);
+                return string.Format("{0}        CanBeChanged = {1}", booleanManaged.Value, booleanManaged.CanBeChanged);
             }
 
             if (value is OptionSetValue optionSetValue)
@@ -157,13 +187,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (value is AliasedValue aliasedValue)
             {
-                return GetValueStringFull(formattedValues, key, aliasedValue.Value);
+                return GetValueStringFull(formattedValues, key, aliasedValue.Value, connectionData);
             }
 
             return value.ToString();
         }
 
-        private static string GetValueStringShortEntityReferenceAndPicklist(FormattedValueCollection formattedValues, string key, object value)
+        private static string GetValueStringShortEntityReferenceAndPicklist(FormattedValueCollection formattedValues, string key, object value, ConnectionData connectionData)
         {
             if (value == null)
             {
@@ -204,7 +234,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (value is AliasedValue aliasedValue)
             {
-                return GetValueStringShortEntityReferenceAndPicklist(formattedValues, key, aliasedValue.Value);
+                return GetValueStringShortEntityReferenceAndPicklist(formattedValues, key, aliasedValue.Value, connectionData);
             }
 
             return value.ToString();
@@ -212,10 +242,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static string GetAttributeStringShortEntityReference(Entity entity, string key)
         {
-            return GetAttributeStringInternal(entity, key, GetValueStringShortEntityReference);
+            return GetAttributeStringInternal(entity, key, GetValueStringShortEntityReference, null);
         }
 
-        private static string GetValueStringShortEntityReference(FormattedValueCollection formattedValues, string key, object value)
+        private static string GetValueStringShortEntityReference(FormattedValueCollection formattedValues, string key, object value, ConnectionData connectionData)
         {
             if (value == null)
             {
@@ -256,67 +286,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (value is AliasedValue aliasedValue)
             {
-                return GetValueStringShortEntityReference(formattedValues, key, aliasedValue.Value);
+                return GetValueStringShortEntityReference(formattedValues, key, aliasedValue.Value, connectionData);
             }
 
             return value.ToString();
         }
 
-        public static string GetValueStringShortEntityReferenceAndInversePicklist(FormattedValueCollection formattedValues, string key, object value)
+        public static Task ExportEntityDescriptionAsync(string filePath, Entity entity, ICollection<string> list, ConnectionData connectionData = null)
         {
-            if (value == null)
-            {
-                return string.Empty;
-            }
-
-            if (value is EntityReference entityReference)
-            {
-                if (!string.IsNullOrEmpty(entityReference.Name))
-                {
-                    return entityReference.Name;
-                }
-                else
-                {
-                    return string.Format("{0} - {1}", entityReference.LogicalName, entityReference.Id.ToString());
-                }
-            }
-
-            if (value is BooleanManagedProperty booleanManagedboolean)
-            {
-                return string.Format("{0}    CanBeChanged = {1}", booleanManagedboolean.Value, booleanManagedboolean.CanBeChanged);
-            }
-
-            if (value is OptionSetValue optionSetValue)
-            {
-                return (formattedValues != null && formattedValues.ContainsKey(key) ? string.Format("{0} - ", formattedValues[key]) : string.Empty) + optionSetValue.Value.ToString();
-            }
-
-            if (value is Money money)
-            {
-                return money.Value.ToString();
-            }
-
-            if (value is DateTime dateTime)
-            {
-                return dateTime.ToLocalTime().ToString("G", System.Globalization.CultureInfo.CurrentCulture);
-            }
-
-            if (value is AliasedValue aliasedValue)
-            {
-                return GetValueStringShortEntityReferenceAndInversePicklist(formattedValues, key, aliasedValue.Value);
-            }
-
-            return value.ToString();
+            return Task.Run(() => ExportEntityDescription(filePath, entity, list, connectionData));
         }
 
-        public static Task ExportEntityDescriptionAsync(string filePath, Entity entity, ICollection<string> list)
+        private static void ExportEntityDescription(string filePath, Entity entity, ICollection<string> list, ConnectionData connectionData)
         {
-            return Task.Run(() => ExportEntityDescription(filePath, entity, list));
-        }
-
-        private static void ExportEntityDescription(string filePath, Entity entity, ICollection<string> list)
-        {
-            string content = EntityDescriptionHandler.GetEntityDescription(entity, list);
+            string content = EntityDescriptionHandler.GetEntityDescription(entity, list, connectionData);
 
             File.WriteAllText(filePath, content, Encoding.UTF8);
         }

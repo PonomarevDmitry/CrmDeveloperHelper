@@ -130,7 +130,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             listRelOnlyIn1.SetHeader("SchemaName", "ReferencingEntity", "ReferencingAttribute", "ReferencedEntity", "ReferencedAttribute", "IsCustomRelationship", "IsManaged");
             listRelOnlyIn2.SetHeader("SchemaName", "ReferencingEntity", "ReferencingAttribute", "ReferencedEntity", "ReferencedAttribute", "IsCustomRelationship", "IsManaged");
 
-            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var rel2 in listRel2.OrderBy(s => s.SchemaName))
             {
@@ -335,7 +335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             listRelOnlyIn1.SetHeader("SchemaName", "IntersectEntityName", "Entity1LogicalName", "Entity1IntersectAttribute", "Entity2LogicalName", "Entity2IntersectAttribute", "IsCustomRelationship", "IsManaged");
             listRelOnlyIn2.SetHeader("SchemaName", "IntersectEntityName", "Entity1LogicalName", "Entity1IntersectAttribute", "Entity2LogicalName", "Entity2IntersectAttribute", "IsCustomRelationship", "IsManaged");
 
-            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var rel2 in listRel2.OrderBy(s => s.SchemaName))
             {
@@ -553,7 +553,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             listKeysOnlyIn1.SetHeader("LogicalName", "SchemaName", "IsManaged", "KeyAttributes");
             listKeysOnlyIn2.SetHeader("LogicalName", "SchemaName", "IsManaged", "KeyAttributes");
 
-            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var key2 in keys2.OrderBy(s => s.LogicalName))
             {
@@ -678,7 +678,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             listAttributesOnlyIn1.SetHeader("LogicalName", "TypeName", "AttributeType", "IsCustomAttribute", "IsManaged", "Target");
             listAttributesOnlyIn2.SetHeader("LogicalName", "TypeName", "AttributeType", "IsCustomAttribute", "IsManaged", "Target");
 
-            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var attr2 in attributes2.OrderBy(s => s.LogicalName))
             {

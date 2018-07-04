@@ -87,8 +87,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             SaveIntellisenseDataByTime();
         }
 
-        [OnDeserialized]
-        private void AfterDeserialize(StreamingContext context)
+        [OnDeserializing]
+        private void BeforeDeserialize(StreamingContext context)
         {
             if (_syncObjectEntities == null)
             {
@@ -137,7 +137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     }
                     catch (Exception ex)
                     {
-                        DTEHelper.WriteExceptionToLog(ex);
+                        DTEHelper.WriteExceptionToOutput(ex);
                     }
                 }
             }

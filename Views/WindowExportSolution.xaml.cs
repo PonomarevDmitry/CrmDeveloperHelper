@@ -254,7 +254,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     SolutionRepository repository = new SolutionRepository(service);
 
-                    list = await repository.GetSolutionsAllAsync(textName);
+                    list = await repository.GetListSolutionsUnmanagedAsync(textName);
                 }
                 else
                 {
@@ -452,7 +452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBExportFolder.Dispatcher.Invoke(() =>
             {
-                exportFolder = cmBExportFolder.Text.Trim();
+                exportFolder = cmBExportFolder.Text?.Trim();
             });
 
             if (string.IsNullOrEmpty(exportFolder))
@@ -469,11 +469,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var overrideSolutionDescription = chBOverrideSolutionDescription.IsChecked.GetValueOrDefault();
 
-            var uniqueName = cmBUniqueName.Text.Trim();
-            var displayName = cmBDisplayName.Text.Trim();
-            var version = cmBVersion.Text.Trim();
+            var uniqueName = cmBUniqueName.Text?.Trim();
+            var displayName = cmBDisplayName.Text?.Trim();
+            var version = cmBVersion.Text?.Trim();
 
-            var description = txtBDescription.Text.Trim();
+            var description = txtBDescription.Text?.Trim();
 
             if (overrideSolutionNameAndVersion)
             {

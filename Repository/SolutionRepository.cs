@@ -350,5 +350,83 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return result;
         }
+
+        public Task<List<Solution>> GetListSolutionsUnmanagedAsync(string name = null)
+        {
+            return Task.Run(() => GetListSolutionsUnmanaged(name));
+        }
+
+        private List<Solution> GetListSolutionsUnmanaged(string name)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+                EntityName = Solution.EntityLogicalName,
+                ColumnSet = new ColumnSet(true),
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Solution.Schema.Attributes.ismanaged, ConditionOperator.Equal, false),
+                    }
+                },
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        EntityAlias = Publisher.EntityLogicalName,
+
+                        LinkFromEntityName = Solution.EntityLogicalName,
+                        LinkFromAttributeName = Solution.Schema.Attributes.publisherid,
+                        LinkToEntityName = Publisher.EntityLogicalName,
+                        LinkToAttributeName = Publisher.PrimaryIdAttribute,
+
+                        Columns = new ColumnSet(Publisher.Schema.Attributes.customizationprefix)
+                    }
+                },
+                Orders =
+                {
+                    new OrderExpression(Solution.Schema.Attributes.installedon, OrderType.Descending),
+                },
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                var filter = query.Criteria.AddFilter(LogicalOperator.Or);
+                filter.Conditions.Add(new ConditionExpression(Solution.Schema.Attributes.uniquename, ConditionOperator.Like, "%" + name + "%"));
+                filter.Conditions.Add(new ConditionExpression(Solution.Schema.Attributes.friendlyname, ConditionOperator.Like, "%" + name + "%"));
+            }
+
+            var result = new List<Solution>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _Service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Solution>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
     }
 }

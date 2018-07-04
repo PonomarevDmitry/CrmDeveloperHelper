@@ -91,6 +91,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             chBSubGrid.DataContext = _commonConfig;
 
             cmBFileAction.DataContext = _commonConfig;
+
+            chBXmlAttributeOnNewLine.DataContext = _commonConfig;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -612,8 +614,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository1 = new RibbonCustomizationRepository(service1);
                 var repository2 = new RibbonCustomizationRepository(service2);
 
-                var task1 = repository1.ExportEntityRibbon(entityName, filter, filePath1);
-                var task2 = repository2.ExportEntityRibbon(entityName, filter, filePath2);
+                var task1 = repository1.ExportEntityRibbon(entityName, filter, filePath1, _commonConfig);
+                var task2 = repository2.ExportEntityRibbon(entityName, filter, filePath2, _commonConfig);
 
                 await task1;
                 await task2;
@@ -764,7 +766,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new RibbonCustomizationRepository(service);
 
-                await repository.ExportEntityRibbon(entityName, filters, filePath);
+                await repository.ExportEntityRibbon(entityName, filters, filePath, _commonConfig);
 
                 this._iWriteToOutput.WriteToOutput("Ribbon Xml exported to {0}", filePath);
 
@@ -1011,7 +1013,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
+            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
         }
 
         private async void btnWorkflows1_Click(object sender, RoutedEventArgs e)
@@ -1179,7 +1181,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
+            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
         }
 
         private async void btnWorkflows2_Click(object sender, RoutedEventArgs e)

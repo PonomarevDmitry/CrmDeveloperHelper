@@ -788,7 +788,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 foreach (var message in listMessages)
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, null);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, null, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -812,7 +812,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 foreach (var message in listMessages)
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, null);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, null, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {

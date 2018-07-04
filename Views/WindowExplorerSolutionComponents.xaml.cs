@@ -606,7 +606,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var stringBuilder = new StringBuilder();
 
-            var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(solutionComponentViewItem.SolutionComponent, null);
+            var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(solutionComponentViewItem.SolutionComponent, null, _service.ConnectionData);
 
             if (!string.IsNullOrEmpty(desc))
             {
@@ -619,7 +619,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (entity != null)
             {
-                desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null);
+                desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null, _service.ConnectionData);
 
                 if (!string.IsNullOrEmpty(desc))
                 {

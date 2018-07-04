@@ -1506,16 +1506,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.IntellisenseData.Save();
         }
 
-        private Dictionary<string, bool> _knownRequests = new Dictionary<string, bool>();
+        private Dictionary<string, bool> _knownRequests = new Dictionary<string, bool>(StringComparer.InvariantCultureIgnoreCase);
 
-        [OnDeserialized]
-        private void AfterDeserialize(StreamingContext context)
+        [OnDeserializing]
+        private void BeforeDeserialize(StreamingContext context)
         {
-            if (this.ConnectionId == Guid.Empty)
-            {
-                this.ConnectionId = Guid.NewGuid();
-            }
-
             if (_syncObjectAttributes == null) { _syncObjectAttributes = new object(); }
             if (_syncObjectIntellisense == null) { _syncObjectIntellisense = new object(); }
             if (_syncObjectRequests == null) { _syncObjectRequests = new object(); }
@@ -1524,13 +1519,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 if (_knownRequests == null)
                 {
-                    _knownRequests = new Dictionary<string, bool>();
+                    _knownRequests = new Dictionary<string, bool>(StringComparer.InvariantCultureIgnoreCase);
                 }
             }
 
             if (this.FetchXmlRequestParameterList == null)
             {
                 this.FetchXmlRequestParameterList = new ObservableCollection<FetchXmlRequestParameter>();
+            }
+        }
+
+        [OnSerializing]
+        private void BeforeSerializing(StreamingContext context)
+        {
+            if (this.ConnectionId == Guid.Empty)
+            {
+                this.ConnectionId = Guid.NewGuid();
+            }
+        }
+
+        [OnDeserialized]
+        private void AfterDeserialize(StreamingContext context)
+        {
+            if (this.ConnectionId == Guid.Empty)
+            {
+                this.ConnectionId = Guid.NewGuid();
             }
 
             var data = ConnectionIntellisenseData.Get(this.ConnectionId);
@@ -1541,72 +1554,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
 
             IntellisenseData.ConnectionId = this.ConnectionId;
-        }
-
-        public static Tuple<string, string> GetDescriptions(ConnectionData connection1, ConnectionData connection2)
-        {
-            string[] arr1 = null;
-
-            {
-                string user1 = connection1.GetUsername;
-                string publicUrl1 = connection1.GetPublicUrl();
-                string version1 = connection1.OrganizationVersion;
-                string readOnly1 = string.Empty;
-
-                if (connection1.IsReadOnly)
-                {
-                    readOnly1 = "ReadOnly";
-                }
-
-                if (string.IsNullOrEmpty(version1))
-                {
-                    version1 = "unknown";
-                }
-
-                arr1 = new string[]
-                {
-                    string.Format("Name: {0}", connection1.Name)
-                    , string.Format("{0}", publicUrl1)
-                    , string.Format("User: {0}", user1)
-                    , string.Format("Version: {0}", version1)
-                    , readOnly1
-                };
-            }
-
-            string[] arr2 = null;
-
-            {
-                string user2 = connection2.GetUsername;
-                string publicUrl2 = connection2.GetPublicUrl();
-                string version2 = connection2.OrganizationVersion;
-                string readOnly2 = string.Empty;
-
-                if (connection2.IsReadOnly)
-                {
-                    readOnly2 = "ReadOnly";
-                }
-
-                if (string.IsNullOrEmpty(version2))
-                {
-                    version2 = "unknown";
-                }
-
-                arr2 = new string[]
-                {
-                    string.Format("Name: {0}", connection2.Name)
-                    , string.Format("{0}", publicUrl2)
-                    , string.Format("User: {0}", user2)
-                    , string.Format("Version: {0}", version2)
-                    , readOnly2
-                };
-            }
-
-            var table = new FormatTextTableHandler();
-
-            table.CalculateLineLengths(arr1);
-            table.CalculateLineLengths(arr2);
-
-            return Tuple.Create(table.FormatLine(arr1), table.FormatLine(arr2));
         }
 
         #region Генерация url-адресов.
@@ -1703,7 +1650,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             if (componentType.HasValue)
             {
-                return GetSolutionComponentUrl(componentType.Value, entityId, null, null);
+                var url = GetSolutionComponentUrl(componentType.Value, entityId, null, null);
+
+                if (!string.IsNullOrEmpty(url))
+                {
+                    return url;
+                }
             }
 
             return string.Format(GetEntityUrlFormat(), entityName, entityId);
@@ -1828,14 +1780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     return $"/tools/vieweditor/viewManager.aspx?id={objectId}";
 
                 case ComponentType.SavedQueryVisualization:
-                    if (linkedEntityObjectCode.HasValue)
-                    {
-                        return $"/main.aspx?extraqs=etc={linkedEntityObjectCode.Value}id={objectId}&pagetype=vizdesigner";
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                    return $"/main.aspx?extraqs=etc={linkedEntityObjectCode}&id={objectId}&pagetype=vizdesigner";
 
                 case ComponentType.SystemForm:
                     break;
@@ -1991,10 +1936,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 default:
                     break;
             }
-
-            //SolutionComponentDescriptor.GetEntityName((int)componentType, out string entityName, out string _);
-
-            //return string.Format("/main.aspx?etn={0}&pagetype=entityrecord&id={1}", entityName, objectId);
 
             return null;
         }

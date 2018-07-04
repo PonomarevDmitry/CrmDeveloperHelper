@@ -127,7 +127,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var entityMetadataOnlyExistsIn2 = new FormatTextTableHandler();
             entityMetadataOnlyExistsIn2.SetHeader("EntityName", "IsManaged");
 
-            Dictionary<string, List<string>> entityMetadataDifference = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> entityMetadataDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
             var commonEntityMetadata = new List<LinkedEntities<EntityMetadata>>();
 
@@ -309,7 +309,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var entityMetadataOnlyExistsIn2 = new FormatTextTableHandler();
             entityMetadataOnlyExistsIn2.SetHeader("EntityName", "IsManaged");
 
-            Dictionary<string, List<string>> entityMetadataDifference = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> entityMetadataDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
             var commonEntityMetadata = new List<LinkedEntities<EntityMetadata>>();
 

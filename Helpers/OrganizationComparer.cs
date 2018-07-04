@@ -174,7 +174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var optionSetOnlyIn2 = new FormatTextTableHandler();
             optionSetOnlyIn2.SetHeader("Name", "IsCustomOptionSet", "IsManaged");
 
-            Dictionary<string, List<string>> optionSetDifference = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> optionSetDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var optionSet1 in optionSetMetadata1.OrderBy(e => e.Name))
             {
@@ -911,7 +911,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.CalculateLineLengths("Attribute", "Organization", "Value");
 
-                var dict = new Dictionary<string, List<Tuple<string, string>>>();
+                var dict = new Dictionary<string, List<Tuple<string, string>>>(StringComparer.InvariantCultureIgnoreCase);
 
                 foreach (var fieldName in fieldsToCompare.OrderBy(s => s))
                 {
@@ -922,8 +922,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (ContentCoparerHelper.IsEntityDifferentInField(organization1, organization2, fieldName))
                     {
-                        var str1 = EntityDescriptionHandler.GetAttributeString(organization1, fieldName);
-                        var str2 = EntityDescriptionHandler.GetAttributeString(organization2, fieldName);
+                        var str1 = EntityDescriptionHandler.GetAttributeString(organization1, fieldName, _service1.ConnectionData);
+                        var str2 = EntityDescriptionHandler.GetAttributeString(organization2, fieldName, _service2.ConnectionData);
 
                         tableDifference.CalculateLineLengths(fieldName, Connection1.Name, str1);
                         tableDifference.CalculateLineLengths(fieldName, Connection2.Name, str2);
@@ -1329,8 +1329,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             }
                             else
                             {
-                                var str1 = EntityDescriptionHandler.GetAttributeString(commonItem.Entity1, fieldName);
-                                var str2 = EntityDescriptionHandler.GetAttributeString(commonItem.Entity2, fieldName);
+                                var str1 = EntityDescriptionHandler.GetAttributeString(commonItem.Entity1, fieldName, _service1.ConnectionData);
+                                var str2 = EntityDescriptionHandler.GetAttributeString(commonItem.Entity2, fieldName, _service2.ConnectionData);
 
                                 tabDiff.AddLine(fieldName, Connection1.Name, str1);
                                 tabDiff.AddLine(fieldName, Connection2.Name, str2);
@@ -1529,8 +1529,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (ContentCoparerHelper.IsEntityDifferentInField(workflow.Entity1, workflow.Entity2, fieldName))
                             {
-                                var str1 = EntityDescriptionHandler.GetAttributeString(workflow.Entity1, fieldName);
-                                var str2 = EntityDescriptionHandler.GetAttributeString(workflow.Entity2, fieldName);
+                                var str1 = EntityDescriptionHandler.GetAttributeString(workflow.Entity1, fieldName, _service1.ConnectionData);
+                                var str2 = EntityDescriptionHandler.GetAttributeString(workflow.Entity2, fieldName, _service2.ConnectionData);
 
                                 tabDiff.AddLine(fieldName, Connection1.Name, str1);
                                 tabDiff.AddLine(fieldName, Connection2.Name, str2);

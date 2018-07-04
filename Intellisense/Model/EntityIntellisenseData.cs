@@ -60,13 +60,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public EntityIntellisenseData()
         {
             this.Attributes = new Dictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-            this.ManyToOneRelationships = new Dictionary<string, ManyToOneRelationshipIntellisenseData>();
-            this.OneToManyRelationships = new Dictionary<string, OneToManyRelationshipIntellisenseData>();
-            this.ManyToManyRelationships = new Dictionary<string, ManyToManyRelationshipIntellisenseData>();
+            this.ManyToOneRelationships = new Dictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+            this.OneToManyRelationships = new Dictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+            this.ManyToManyRelationships = new Dictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
         }
 
-        [OnDeserialized]
-        private void AfterDeserialize(StreamingContext context)
+        [OnDeserializing]
+        private void BeforeDeserialize(StreamingContext context)
         {
             if (_syncObjectAttributes == null) { _syncObjectAttributes = new object(); }
             if (_syncObjectManyToOneRelationships == null) { _syncObjectManyToOneRelationships = new object(); }
@@ -85,7 +85,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 if (ManyToOneRelationships == null)
                 {
-                    this.ManyToOneRelationships = new Dictionary<string, ManyToOneRelationshipIntellisenseData>();
+                    this.ManyToOneRelationships = new Dictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
             }
 
@@ -93,7 +93,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 if (OneToManyRelationships == null)
                 {
-                    this.OneToManyRelationships = new Dictionary<string, OneToManyRelationshipIntellisenseData>();
+                    this.OneToManyRelationships = new Dictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
             }
 
@@ -101,7 +101,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 if (ManyToManyRelationships == null)
                 {
-                    this.ManyToManyRelationships = new Dictionary<string, ManyToManyRelationshipIntellisenseData>();
+                    this.ManyToManyRelationships = new Dictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
             }
         }

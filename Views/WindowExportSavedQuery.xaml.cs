@@ -677,7 +677,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(true));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, savedQuery, EntityFileNameFormatter.SavedQueryIgnoreFields);
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, savedQuery, EntityFileNameFormatter.SavedQueryIgnoreFields, service.ConnectionData);
 
             this._iWriteToOutput.WriteToOutput("SavedQuery Entity Description exported to {0}", filePath);
 
@@ -1063,7 +1063,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.ReturnedTypeCode, string.Empty);
+            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, entity?.ReturnedTypeCode, string.Empty);
         }
 
         private async void btnWorkflows_Click(object sender, RoutedEventArgs e)

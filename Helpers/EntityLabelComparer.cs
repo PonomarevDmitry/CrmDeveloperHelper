@@ -171,7 +171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void CompareOneToMany(List<string> strDifference, string className, string relationTypeName, IEnumerable<OneToManyRelationshipMetadata> listRel1, IEnumerable<OneToManyRelationshipMetadata> listRel2)
         {
-            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var rel1 in listRel1.OrderBy(s => s.SchemaName))
             {
@@ -236,7 +236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void CompareManyToMany(List<string> strDifference, IEnumerable<ManyToManyRelationshipMetadata> listRel1, IEnumerable<ManyToManyRelationshipMetadata> listRel2)
         {
-            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var rel1 in listRel1.OrderBy(s => s.SchemaName))
             {
@@ -355,7 +355,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void CompareKeys(List<string> strDifference, IEnumerable<EntityKeyMetadata> keys1, IEnumerable<EntityKeyMetadata> keys2)
         {
-            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var key1 in keys1.OrderBy(s => s.LogicalName))
             {
@@ -445,7 +445,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async void CompareAttributes(List<string> strDifference, IEnumerable<AttributeMetadata> attributes1, IEnumerable<AttributeMetadata> attributes2)
         {
-            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var attr1 in attributes1.OrderBy(s => s.LogicalName))
             {

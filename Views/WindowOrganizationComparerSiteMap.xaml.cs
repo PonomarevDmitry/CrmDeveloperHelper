@@ -798,7 +798,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string name = !string.IsNullOrEmpty(sitemap.SiteMapName) ? " " + sitemap.SiteMapName : string.Empty;
 
-                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(sitemap, EntityFileNameFormatter.SiteMapIgnoreFields);
+                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(sitemap, EntityFileNameFormatter.SiteMapIgnoreFields, service.ConnectionData);
 
                 string filePath = await CreateDescriptionFileAsync(service.ConnectionData.Name, name, sitemap.Id, "EntityDescription", description);
 

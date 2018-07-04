@@ -545,7 +545,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(true));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, sitemap, EntityFileNameFormatter.SiteMapIgnoreFields);
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, sitemap, EntityFileNameFormatter.SiteMapIgnoreFields, service.ConnectionData);
 
             this._iWriteToOutput.WriteToOutput("SiteMap Entity Description exported to {0}", filePath);
 

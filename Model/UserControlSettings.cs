@@ -39,8 +39,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.GridViewColumnsWidths = new Dictionary<string, double>(StringComparer.InvariantCultureIgnoreCase);
         }
 
-        [OnDeserialized]
-        private void AfterDeserialize(StreamingContext context)
+        [OnDeserializing]
+        private void BeforeDeserialize(StreamingContext context)
         {
             if (this.DictBool == null)
             {
@@ -85,7 +85,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToLog(ex);
+                    DTEHelper.WriteExceptionToOutput(ex);
 
                     result = new UserControlSettings();
                 }

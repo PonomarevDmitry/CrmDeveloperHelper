@@ -227,7 +227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                                 if (entity != null)
                                 {
-                                    var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null);
+                                    var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null, _service.ConnectionData);
 
                                     strFile
                                         .AppendLine(desc)
@@ -648,7 +648,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         var entity = _service.Retrieve(item.LogicalName, item.Id, new ColumnSet(true));
 
-                        var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null);
+                        var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null, _service.ConnectionData);
 
                         stringBuider
                             .AppendLine()

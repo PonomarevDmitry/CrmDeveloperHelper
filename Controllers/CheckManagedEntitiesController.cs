@@ -1225,7 +1225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return hasInfo;
         }
 
-        private static Dictionary<string, string[]> _dictionary = new Dictionary<string, string[]>
+        private static Dictionary<string, string[]> _dictionary = new Dictionary<string, string[]>(StringComparer.InvariantCultureIgnoreCase)
         {
             { "activitymimeattachment", new string[] { "objecttypecode", "objectid", "mimetype", "activitysubject", "filename", "subject", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
             , { "advancedsimilarityrule", new string[] { "entity", "name", "advancedsimilarityruleid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Runtime.Serialization;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
@@ -105,6 +107,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             if ((this.PropertyChanging != null))
             {
                 this.PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+            }
+        }
+
+        [OnDeserialized]
+        private void AfterDeserialize(StreamingContext context)
+        {
+            if (!string.IsNullOrEmpty(this.Path) && File.Exists(this.Path))
+            {
+                FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(this.Path);
+                this.Version = string.Format("{0}.{1}.{2}.{3}", versionInfo.ProductMajorPart, versionInfo.ProductMinorPart, versionInfo.ProductPrivatePart, versionInfo.ProductBuildPart);
             }
         }
     }

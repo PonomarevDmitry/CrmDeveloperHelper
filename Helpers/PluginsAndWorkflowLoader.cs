@@ -28,12 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 foreach (var assemblyType in loadedAssemblyTypes)
                 {
-                    if (assemblyType.IsAbstract)
-                    {
-                        continue;
-                    }
-
-                    if (assemblyType.FullName.Contains("<>c"))
+                    if (assemblyType.IsAbstract || !assemblyType.IsVisible || assemblyType.FullName.Contains("<>c"))
                     {
                         continue;
                     }

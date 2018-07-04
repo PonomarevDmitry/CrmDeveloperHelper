@@ -242,6 +242,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private bool _ExportRibbonXmlAttributeOnNewLine;
+        [DataMember]
+        public bool ExportRibbonXmlXmlAttributeOnNewLine
+        {
+            get
+            {
+                return _ExportRibbonXmlAttributeOnNewLine;
+            }
+            set
+            {
+                this.OnPropertyChanging(nameof(ExportRibbonXmlXmlAttributeOnNewLine));
+                this._ExportRibbonXmlAttributeOnNewLine = value;
+                this.OnPropertyChanged(nameof(ExportRibbonXmlXmlAttributeOnNewLine));
+            }
+        }
+
         private bool _GenerateAttributes;
         /// <summary>
         /// Генерировать атрибуты в файле с метаданными сущности
@@ -714,227 +730,227 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _ExportAutoNumberingSettings;
+        private bool _ExportSolutionExportAutoNumberingSettings;
         /// <summary>
         /// Экспортировать в решении настройки AutoNumbering
         /// </summary>
-        public bool ExportAutoNumberingSettings
+        public bool ExportSolutionExportAutoNumberingSettings
         {
             get
             {
-                return _ExportAutoNumberingSettings;
+                return _ExportSolutionExportAutoNumberingSettings;
             }
             set
             {
-                this.OnPropertyChanging(nameof(ExportAutoNumberingSettings));
-                this._ExportAutoNumberingSettings = value;
-                this.OnPropertyChanged(nameof(ExportAutoNumberingSettings));
+                this.OnPropertyChanging(nameof(ExportSolutionExportAutoNumberingSettings));
+                this._ExportSolutionExportAutoNumberingSettings = value;
+                this.OnPropertyChanged(nameof(ExportSolutionExportAutoNumberingSettings));
             }
         }
 
-        private bool _ExportCalendarSettings;
+        private bool _ExportSolutionExportCalendarSettings;
         /// <summary>
         /// Экспортировать в решении настройки Calendar
         /// </summary>
         [DataMember]
-        public bool ExportCalendarSettings
+        public bool ExportSolutionExportCalendarSettings
         {
             get
             {
-                return _ExportCalendarSettings;
+                return _ExportSolutionExportCalendarSettings;
             }
             set
             {
-                this.OnPropertyChanging(nameof(ExportCalendarSettings));
-                this._ExportCalendarSettings = value;
-                this.OnPropertyChanged(nameof(ExportCalendarSettings));
+                this.OnPropertyChanging(nameof(ExportSolutionExportCalendarSettings));
+                this._ExportSolutionExportCalendarSettings = value;
+                this.OnPropertyChanged(nameof(ExportSolutionExportCalendarSettings));
             }
         }
 
-        private bool _ExportCustomizationSettings;
+        private bool _ExportSolutionExportCustomizationSettings;
         /// <summary>
         /// Экспортировать в решении настройки Customization
         /// </summary>
         [DataMember]
-        public bool ExportCustomizationSettings
+        public bool ExportSolutionExportCustomizationSettings
         {
             get
             {
-                return _ExportCustomizationSettings;
+                return _ExportSolutionExportCustomizationSettings;
             }
             set
             {
-                this.OnPropertyChanging(nameof(ExportCustomizationSettings));
-                this._ExportCustomizationSettings = value;
-                this.OnPropertyChanged(nameof(ExportCustomizationSettings));
+                this.OnPropertyChanging(nameof(ExportSolutionExportCustomizationSettings));
+                this._ExportSolutionExportCustomizationSettings = value;
+                this.OnPropertyChanged(nameof(ExportSolutionExportCustomizationSettings));
             }
         }
 
-        private bool _ExportEmailTrackingSettings;
+        private bool _ExportSolutionExportEmailTrackingSettings;
         /// <summary>
         /// Экспортировать в решении настройки EmailTracking
         /// </summary>
         [DataMember]
-        public bool ExportEmailTrackingSettings
+        public bool ExportSolutionExportEmailTrackingSettings
         {
             get
             {
-                return _ExportEmailTrackingSettings;
+                return _ExportSolutionExportEmailTrackingSettings;
             }
             set
             {
-                this.OnPropertyChanging(nameof(ExportEmailTrackingSettings));
-                this._ExportEmailTrackingSettings = value;
-                this.OnPropertyChanged(nameof(ExportEmailTrackingSettings));
+                this.OnPropertyChanging(nameof(ExportSolutionExportEmailTrackingSettings));
+                this._ExportSolutionExportEmailTrackingSettings = value;
+                this.OnPropertyChanged(nameof(ExportSolutionExportEmailTrackingSettings));
             }
         }
 
-        private bool _ExportExternalApplications;
+        private bool _ExportSolutionExportExternalApplications;
         /// <summary>
         /// Экспортировать в решении настройки ExternalApplications
         /// </summary>
         [DataMember]
-        public bool ExportExternalApplications
+        public bool ExportSolutionExportExternalApplications
         {
             get
             {
-                return _ExportExternalApplications;
+                return _ExportSolutionExportExternalApplications;
             }
             set
             {
-                this.OnPropertyChanging(nameof(ExportExternalApplications));
-                this._ExportExternalApplications = value;
-                this.OnPropertyChanged(nameof(ExportExternalApplications));
+                this.OnPropertyChanging(nameof(ExportSolutionExportExternalApplications));
+                this._ExportSolutionExportExternalApplications = value;
+                this.OnPropertyChanged(nameof(ExportSolutionExportExternalApplications));
             }
         }
 
-        private bool _ExportGeneralSettings;
+        private bool _ExportSolutionExportGeneralSettings;
         /// <summary>
         /// Экспортировать в решении настройки General
         /// </summary>
         [DataMember]
-        public bool ExportGeneralSettings
+        public bool ExportSolutionExportGeneralSettings
         {
             get
             {
-                return _ExportGeneralSettings;
+                return _ExportSolutionExportGeneralSettings;
             }
             set
             {
-                this.OnPropertyChanging(nameof(ExportGeneralSettings));
-                this._ExportGeneralSettings = value;
-                this.OnPropertyChanged(nameof(ExportGeneralSettings));
+                this.OnPropertyChanging(nameof(ExportSolutionExportGeneralSettings));
+                this._ExportSolutionExportGeneralSettings = value;
+                this.OnPropertyChanged(nameof(ExportSolutionExportGeneralSettings));
             }
         }
 
-        private bool _ExportIsvConfig;
+        private bool _ExportSolutionExportIsvConfig;
         /// <summary>
         /// Экспортировать в решении настройки IsvConfig
         /// </summary>
         [DataMember]
-        public bool ExportIsvConfig
+        public bool ExportSolutionExportIsvConfig
         {
             get
             {
-                return _ExportIsvConfig;
+                return _ExportSolutionExportIsvConfig;
             }
             set
             {
-                this.OnPropertyChanging(nameof(ExportIsvConfig));
-                this._ExportIsvConfig = value;
-                this.OnPropertyChanged(nameof(ExportIsvConfig));
+                this.OnPropertyChanging(nameof(ExportSolutionExportIsvConfig));
+                this._ExportSolutionExportIsvConfig = value;
+                this.OnPropertyChanged(nameof(ExportSolutionExportIsvConfig));
             }
         }
 
-        private bool _ExportMarketingSettings;
+        private bool _ExportSolutionExportMarketingSettings;
         /// <summary>
         /// Экспортировать в решении настройки Marketing
         /// </summary>
         [DataMember]
-        public bool ExportMarketingSettings
+        public bool ExportSolutionExportMarketingSettings
         {
             get
             {
-                return _ExportMarketingSettings;
+                return _ExportSolutionExportMarketingSettings;
             }
             set
             {
-                this.OnPropertyChanging(nameof(ExportMarketingSettings));
-                this._ExportMarketingSettings = value;
-                this.OnPropertyChanged(nameof(ExportMarketingSettings));
+                this.OnPropertyChanging(nameof(ExportSolutionExportMarketingSettings));
+                this._ExportSolutionExportMarketingSettings = value;
+                this.OnPropertyChanged(nameof(ExportSolutionExportMarketingSettings));
             }
         }
 
-        private bool _ExportOutlookSynchronizationSettings;
+        private bool _ExportSolutionExportOutlookSynchronizationSettings;
         /// <summary>
         /// Экспортировать в решении настройки OutlookSynchronization
         /// </summary>
         [DataMember]
-        public bool ExportOutlookSynchronizationSettings
+        public bool ExportSolutionExportOutlookSynchronizationSettings
         {
             get
             {
-                return _ExportOutlookSynchronizationSettings;
+                return _ExportSolutionExportOutlookSynchronizationSettings;
             }
             set
             {
-                this.OnPropertyChanging(nameof(ExportOutlookSynchronizationSettings));
-                this._ExportOutlookSynchronizationSettings = value;
-                this.OnPropertyChanged(nameof(ExportOutlookSynchronizationSettings));
+                this.OnPropertyChanging(nameof(ExportSolutionExportOutlookSynchronizationSettings));
+                this._ExportSolutionExportOutlookSynchronizationSettings = value;
+                this.OnPropertyChanged(nameof(ExportSolutionExportOutlookSynchronizationSettings));
             }
         }
 
-        private bool _ExportRelationshipRoles;
+        private bool _ExportSolutionExportRelationshipRoles;
         /// <summary>
         /// Экспортировать в решении настройки RelationshipRoles
         /// </summary>
         [DataMember]
-        public bool ExportRelationshipRoles
+        public bool ExportSolutionExportRelationshipRoles
         {
             get
             {
-                return _ExportRelationshipRoles;
+                return _ExportSolutionExportRelationshipRoles;
             }
             set
             {
-                this.OnPropertyChanging(nameof(ExportRelationshipRoles));
-                this._ExportRelationshipRoles = value;
-                this.OnPropertyChanged(nameof(ExportRelationshipRoles));
+                this.OnPropertyChanging(nameof(ExportSolutionExportRelationshipRoles));
+                this._ExportSolutionExportRelationshipRoles = value;
+                this.OnPropertyChanged(nameof(ExportSolutionExportRelationshipRoles));
             }
         }
 
-        private bool _ExportSales;
+        private bool _ExportSolutionExportSales;
         /// <summary>
         /// Экспортировать в решении настройки Sales
         /// </summary>
         [DataMember]
-        public bool ExportSales
+        public bool ExportSolutionExportSales
         {
             get
             {
-                return _ExportSales;
+                return _ExportSolutionExportSales;
             }
             set
             {
-                this.OnPropertyChanging(nameof(ExportSales));
-                this._ExportSales = value;
-                this.OnPropertyChanged(nameof(ExportSales));
+                this.OnPropertyChanging(nameof(ExportSolutionExportSales));
+                this._ExportSolutionExportSales = value;
+                this.OnPropertyChanged(nameof(ExportSolutionExportSales));
             }
         }
 
-        private bool _Managed;
+        private bool _SolutionExportManaged;
         [DataMember]
-        public bool Managed
+        public bool SolutionExportManaged
         {
             get
             {
-                return _Managed;
+                return _SolutionExportManaged;
             }
             set
             {
-                this.OnPropertyChanging(nameof(Managed));
-                this._Managed = value;
-                this.OnPropertyChanged(nameof(Managed));
+                this.OnPropertyChanging(nameof(SolutionExportManaged));
+                this._SolutionExportManaged = value;
+                this.OnPropertyChanged(nameof(SolutionExportManaged));
             }
         }
 
@@ -1005,7 +1021,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                         }
                         catch (Exception ex)
                         {
-                            DTEHelper.WriteExceptionToLog(ex);
+                            DTEHelper.WriteExceptionToOutput(ex);
 
                             result = null;
                         }
@@ -1015,18 +1031,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 result = result ?? new CommonConfiguration();
 
                 result.Path = filePath;
-
-                var notExists = result.Utils.Where(e => !File.Exists(e.Path)).ToList();
-                if (notExists.Any())
-                {
-                    notExists.ForEach(e => result.Utils.Remove(e));
-                }
-
-                foreach (var item in result.Utils)
-                {
-                    FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(item.Path);
-                    item.Version = string.Format("{0}.{1}.{2}.{3}", versionInfo.ProductMajorPart, versionInfo.ProductMinorPart, versionInfo.ProductPrivatePart, versionInfo.ProductBuildPart);
-                }
 
                 if (string.IsNullOrEmpty(result.PluginConfigurationFileName))
                 {
@@ -1041,6 +1045,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 _singleton = result;
 
                 return _singleton;
+            }
+        }
+
+        [OnDeserializing]
+        private void BeforeDeserialize(StreamingContext context)
+        {
+            if (this.Utils == null)
+            {
+                this.Utils = new ObservableCollection<CrmSvcUtil>();
+            }
+        }
+
+        [OnDeserialized]
+        private void AfterDeserialize(StreamingContext context)
+        {
+            var notExists = this.Utils.Where(e => !File.Exists(e.Path)).ToList();
+            if (notExists.Any())
+            {
+                notExists.ForEach(e => this.Utils.Remove(e));
             }
         }
 

@@ -132,8 +132,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (ContentCoparerHelper.IsEntityDifferentInField(form.Entity1, form.Entity2, fieldName))
                             {
-                                var str1 = EntityDescriptionHandler.GetAttributeString(form.Entity1, fieldName);
-                                var str2 = EntityDescriptionHandler.GetAttributeString(form.Entity2, fieldName);
+                                var str1 = EntityDescriptionHandler.GetAttributeString(form.Entity1, fieldName, _service1.ConnectionData);
+                                var str2 = EntityDescriptionHandler.GetAttributeString(form.Entity2, fieldName, _service2.ConnectionData);
 
                                 tabDiff.AddLine(fieldName, Connection1.Name, str1);
                                 tabDiff.AddLine(fieldName, Connection2.Name, str2);
@@ -452,8 +452,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (ContentCoparerHelper.IsEntityDifferentInField(query.Entity1, query.Entity2, fieldName))
                             {
-                                var str1 = EntityDescriptionHandler.GetAttributeString(query.Entity1, fieldName);
-                                var str2 = EntityDescriptionHandler.GetAttributeString(query.Entity2, fieldName);
+                                var str1 = EntityDescriptionHandler.GetAttributeString(query.Entity1, fieldName, _service1.ConnectionData);
+                                var str2 = EntityDescriptionHandler.GetAttributeString(query.Entity2, fieldName, _service2.ConnectionData);
 
                                 tabDiff.AddLine(fieldName, Connection1.Name, str1);
                                 tabDiff.AddLine(fieldName, Connection2.Name, str2);
@@ -717,8 +717,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (ContentCoparerHelper.IsEntityDifferentInField(chart1, chart2, fieldName))
                             {
-                                var str1 = EntityDescriptionHandler.GetAttributeString(chart1, fieldName);
-                                var str2 = EntityDescriptionHandler.GetAttributeString(chart2, fieldName);
+                                var str1 = EntityDescriptionHandler.GetAttributeString(chart1, fieldName, _service1.ConnectionData);
+                                var str2 = EntityDescriptionHandler.GetAttributeString(chart2, fieldName, _service2.ConnectionData);
 
                                 tabDiff.AddLine(fieldName, Connection1.Name, str1);
                                 tabDiff.AddLine(fieldName, Connection2.Name, str2);

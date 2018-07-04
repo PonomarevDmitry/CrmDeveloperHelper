@@ -47,7 +47,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             FormatTextTableHandler tableOnlyExistsIn2 = new FormatTextTableHandler();
             tableOnlyExistsIn2.SetHeader("Name", "IsHidden", "IsManaged");
 
-            Dictionary<string, List<string>> assemblyDifference = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> assemblyDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var assem1 in list1)
             {
@@ -1182,8 +1182,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (ContentCoparerHelper.IsEntityDifferentInField(commonStep.Entity1, commonStep.Entity2, fieldName))
                         {
-                            var str1 = EntityDescriptionHandler.GetAttributeString(commonStep.Entity1, fieldName);
-                            var str2 = EntityDescriptionHandler.GetAttributeString(commonStep.Entity2, fieldName);
+                            var str1 = EntityDescriptionHandler.GetAttributeString(commonStep.Entity1, fieldName, _service1.ConnectionData);
+                            var str2 = EntityDescriptionHandler.GetAttributeString(commonStep.Entity2, fieldName, _service2.ConnectionData);
 
                             tabDiff.AddLine(fieldName, Connection1.Name, str1);
                             tabDiff.AddLine(fieldName, Connection2.Name, str2);
@@ -1472,8 +1472,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (ContentCoparerHelper.IsEntityDifferentInField(commonImage.Entity1, commonImage.Entity2, fieldName))
                         {
-                            var str1 = EntityDescriptionHandler.GetAttributeString(commonImage.Entity1, fieldName);
-                            var str2 = EntityDescriptionHandler.GetAttributeString(commonImage.Entity2, fieldName);
+                            var str1 = EntityDescriptionHandler.GetAttributeString(commonImage.Entity1, fieldName, _service1.ConnectionData);
+                            var str2 = EntityDescriptionHandler.GetAttributeString(commonImage.Entity2, fieldName, _service2.ConnectionData);
 
                             tabDiff.AddLine(fieldName, Connection1.Name, str1);
                             tabDiff.AddLine(fieldName, Connection2.Name, str2);

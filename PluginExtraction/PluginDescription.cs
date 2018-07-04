@@ -95,7 +95,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToLog(ex);
+                    DTEHelper.WriteExceptionToOutput(ex);
 
                     result = null;
                 }

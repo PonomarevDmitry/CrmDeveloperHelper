@@ -107,6 +107,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             chBHomepageGrid.DataContext = _commonConfig;
             chBSubGrid.DataContext = _commonConfig;
 
+            chBXmlAttributeOnNewLine.DataContext = _commonConfig;
+
             cmBFileAction.DataContext = _commonConfig;
 
             txtBFolder.DataContext = _commonConfig;
@@ -486,11 +488,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var entity = GetSelectedEntity();
 
-            if (entity == null)
-            {
-                return;
-            }
-
             _commonConfig.Save();
 
             var service = await GetService();
@@ -501,11 +498,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async void btnSavedQuery_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
 
             _commonConfig.Save();
 
@@ -522,17 +514,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty);
+            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty);
         }
 
         private async void btnWorkflows_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
 
             _commonConfig.Save();
 
@@ -814,7 +801,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new RibbonCustomizationRepository(service);
 
-                await repository.ExportEntityRibbon(entityName, filter, filePath);
+                await repository.ExportEntityRibbon(entityName, filter, filePath, _commonConfig);
 
                 this._iWriteToOutput.WriteToOutput("Ribbon Xml exported to {0}", filePath);
 

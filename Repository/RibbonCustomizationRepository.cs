@@ -4,11 +4,15 @@ using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
@@ -110,12 +114,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             File.WriteAllBytes(filePath, array);
         }
 
-        public Task ExportEntityRibbon(string entityName, RibbonLocationFilters filter, string filePath)
+        public Task ExportEntityRibbon(string entityName, RibbonLocationFilters filter, string filePath, CommonConfiguration commonConfig)
         {
-            return Task.Run(() => ExportingEntityRibbon(entityName, filter, filePath));
+            return Task.Run(() => ExportingEntityRibbon(entityName, filter, filePath, commonConfig));
         }
 
-        private void ExportingEntityRibbon(string entityName, RibbonLocationFilters filter, string filePath)
+        private void ExportingEntityRibbon(string entityName, RibbonLocationFilters filter, string filePath, CommonConfiguration commonConfig)
         {
             RetrieveEntityRibbonRequest entRibReq = new RetrieveEntityRibbonRequest()
             {
@@ -125,7 +129,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             RetrieveEntityRibbonResponse entRibResp = (RetrieveEntityRibbonResponse)_service.Execute(entRibReq);
 
-            File.WriteAllBytes(filePath, FileOperations.UnzipRibbon(entRibResp.CompressedEntityXml));
+            var byteXml = FileOperations.UnzipRibbon(entRibResp.CompressedEntityXml);
+
+            if (commonConfig != null && commonConfig.ExportRibbonXmlXmlAttributeOnNewLine)
+            {
+                XElement doc = null;
+
+                using (MemoryStream memStream = new MemoryStream())
+                {
+                    memStream.Write(byteXml, 0, byteXml.Length);
+
+                    memStream.Position = 0;
+
+                    doc = XElement.Load(memStream);
+                }
+
+                XmlWriterSettings settings = new XmlWriterSettings();
+                settings.OmitXmlDeclaration = true;
+                settings.Indent = true;
+                settings.NewLineOnAttributes = true;
+                settings.Encoding = Encoding.UTF8;
+
+                using (MemoryStream memStream = new MemoryStream())
+                {
+                    using (XmlWriter xmlWriter = XmlWriter.Create(memStream, settings))
+                    {
+                        doc.Save(xmlWriter);
+                    }
+
+                    memStream.Position = 0;
+
+                    byteXml = memStream.ToArray();
+                }
+            }
+
+            File.WriteAllBytes(filePath, byteXml);
         }
     }
 }

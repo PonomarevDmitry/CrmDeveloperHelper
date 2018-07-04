@@ -243,12 +243,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
 
-            Dictionary<string, string> wrongEntityNames = new Dictionary<string, string>();
-            Dictionary<string, string> wrongEntityAttributes = new Dictionary<string, string>();
-            Dictionary<string, string> wrongEntityRelationshipsManyToOne = new Dictionary<string, string>();
-            Dictionary<string, string> wrongEntityRelationshipsManyToMany = new Dictionary<string, string>();
+            Dictionary<string, string> wrongEntityNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+            Dictionary<string, string> wrongEntityAttributes = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+            Dictionary<string, string> wrongEntityRelationshipsManyToOne = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+            Dictionary<string, string> wrongEntityRelationshipsManyToMany = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
-            Dictionary<string, string> wrongWebResourceNames = new Dictionary<string, string>();
+            Dictionary<string, string> wrongWebResourceNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
             SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
 
@@ -435,12 +435,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
 
-            Dictionary<string, string> wrongEntityNames = new Dictionary<string, string>();
-            Dictionary<string, string> wrongEntityAttributes = new Dictionary<string, string>();
-            Dictionary<string, string> wrongEntityRelationshipsManyToOne = new Dictionary<string, string>();
-            Dictionary<string, string> wrongEntityRelationshipsManyToMany = new Dictionary<string, string>();
+            Dictionary<string, string> wrongEntityNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+            Dictionary<string, string> wrongEntityAttributes = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+            Dictionary<string, string> wrongEntityRelationshipsManyToOne = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+            Dictionary<string, string> wrongEntityRelationshipsManyToMany = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
-            Dictionary<string, string> wrongWebResourceNames = new Dictionary<string, string>();
+            Dictionary<string, string> wrongWebResourceNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
             var descriptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
 
@@ -924,7 +924,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             List<string> listNotFoundedInCRMNoLink = new List<string>();
             List<string> listLastLinkEqualByContent = new List<string>();
 
-            Dictionary<string, string> webResourceDescriptions = new Dictionary<string, string>();
+            Dictionary<string, string> webResourceDescriptions = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
             WebResourceRepository repositoryWebResource = new WebResourceRepository(service);
 
@@ -1495,7 +1495,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             .AppendLine(new string('-', 150))
                             .AppendLine()
                             .AppendLine()
-                            .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null))
+                            .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null, connectionData))
                             ;
                     }
                 }
@@ -1596,7 +1596,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 .AppendLine(new string('-', 150))
                                 .AppendLine()
                                 .AppendLine()
-                                .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null))
+                                .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null, connectionData))
                                 ;
                         }
                     }

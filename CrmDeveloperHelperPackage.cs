@@ -290,7 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             //Repository.ConnectionIntellisenseDataRepository.LoadIntellisenseCache();
         }
 
-        internal async void ExecuteFetchXmlQueryAsync(string filePath, ConnectionData connectionData)
+        internal void ExecuteFetchXmlQueryAsync(string filePath, ConnectionData connectionData)
         {
             FetchXmlExecutorToolWindowPane paneForFileAndConnection = FindOrCreateFetchXmlExecutorToolWindowPane(filePath, connectionData);
 
@@ -298,21 +298,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             {
                 paneForFileAndConnection.Execute();
 
-                await new JoinableTaskFactory(new JoinableTaskContext()).SwitchToMainThreadAsync();
-
                 ErrorHandler.ThrowOnFailure((paneForFileAndConnection.Frame as IVsWindowFrame).Show());
             }
         }
 
-        internal async void ExecuteConvertFetchXmlToJavaScriptCodeAsync(string filePath, ConnectionData connectionData)
+        internal void ExecuteConvertFetchXmlToJavaScriptCodeAsync(string filePath, ConnectionData connectionData)
         {
             FetchXmlExecutorToolWindowPane paneForFileAndConnection = FindOrCreateFetchXmlExecutorToolWindowPane(filePath, connectionData);
 
             if (paneForFileAndConnection != null)
             {
                 paneForFileAndConnection.LoadFileAndConvertFetchXmlToJavaScriptCode();
-
-                await new JoinableTaskFactory(new JoinableTaskContext()).SwitchToMainThreadAsync();
 
                 ErrorHandler.ThrowOnFailure((paneForFileAndConnection.Frame as IVsWindowFrame).Show());
             }

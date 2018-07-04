@@ -109,11 +109,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    var project = helper.GetSelectedProject();
+                    var projects = helper.GetSelectedProjects();
 
-                    if (project != null)
+                    if (projects.Any())
                     {
-                        helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(solutionUniqueName, false, project.Name);
+                        helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(solutionUniqueName, false, projects.Select(p => p.Name).ToArray());
                     }
                 }
             }

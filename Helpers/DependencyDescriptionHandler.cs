@@ -74,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 var groupsObject = grComp
                       .GroupBy(d => new { RequiredComponentType = d.RequiredComponentType.Value, RequiredComponentObjectId = d.RequiredComponentObjectId.Value });
 
-                Dictionary<string, string> dict = new Dictionary<string, string>();
+                Dictionary<string, string> dict = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
                 foreach (var grObj in groupsObject)
                 {
@@ -137,7 +137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 var groupsObject = grComp
                      .GroupBy(d => new { d.DependentComponentType, DependentComponentObjectId = d.DependentComponentObjectId.Value });
 
-                Dictionary<string, string> dict = new Dictionary<string, string>();
+                Dictionary<string, string> dict = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
                 foreach (var grObj in groupsObject)
                 {

@@ -733,7 +733,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var assembly = await repository.GetAssemblyByIdAsync(pluginAssemblyId, new ColumnSet(true));
 
-                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly, EntityFileNameFormatter.PluginAssemblyIgnoreFields);
+                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly, EntityFileNameFormatter.PluginAssemblyIgnoreFields, service.ConnectionData);
 
                 string filePath = await CreateDescriptionFileAsync(service.ConnectionData.Name, assembly.Name, "EntityDescription", description);
 

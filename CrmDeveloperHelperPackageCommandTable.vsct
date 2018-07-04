@@ -28,7 +28,6 @@
       <Group guid="guidGroupAndMenuSet" id="mainGroup" priority="0x6000" />
       <Group guid="guidGroupAndMenuSet" id="mainGroupCode" priority="0x6000" />
       <Group guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" priority="0x6000" />
-      <Group guid="guidGroupAndMenuSet" id="mainGroupProject" priority="0x6000" />
       <Group guid="guidGroupAndMenuSet" id="mainGroupTools" priority="0x6000" />
 
 
@@ -3789,6 +3788,9 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="mainGroup" priority="0x6000">
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_FINDALLREF" />
     </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="mainGroup" priority="0x6000">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE" />
+    </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="FileWebResourceUpdateContentPublishCommandId" priority="0x101">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
@@ -3809,6 +3811,9 @@
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp" priority="0x0208">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject" priority="0x0209">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x020A">
@@ -4099,43 +4104,7 @@
 
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="mainGroupProject" priority="0x6000">
-      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceUpdateContentPublishCommandId" priority="0x101">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupProject" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceUpdateContentPublishCommandId" priority="0x102">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupProject" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource" priority="0x0204">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupProject" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport" priority="0x0205">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupProject" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp" priority="0x0206">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupProject" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource" priority="0x0207">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupProject" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp" priority="0x0208">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupProject" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject" priority="0x0209">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupProject" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x020A">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupProject" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonOpenCurrentConnectionCrmInWebCommandId" priority="0x020B">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupProject" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x020C">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupProject" />
-    </CommandPlacement>
+    
 
 
 
@@ -6099,7 +6068,6 @@
       <IDSymbol name="mainGroup" value="0x10200" />
       <IDSymbol name="mainGroupCode" value="0x10201" />
       <IDSymbol name="mainGroupSolutionFolder" value="0x10202" />
-      <IDSymbol name="mainGroupProject" value="0x10203" />
       <IDSymbol name="mainGroupTools" value="0x10204" />
 
       <IDSymbol name="codeMenuWebResource" value="0x1000" />

@@ -569,7 +569,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, systemForm, EntityFileNameFormatter.SystemFormIgnoreFields);
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, systemForm, EntityFileNameFormatter.SystemFormIgnoreFields, service.ConnectionData);
 
             this._iWriteToOutput.WriteToOutput("SystemForm Entity Description exported to {0}", filePath);
 
@@ -1207,7 +1207,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.ObjectTypeCode, string.Empty);
+            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, entity?.ObjectTypeCode, string.Empty);
         }
 
         private async void btnWorkflows_Click(object sender, RoutedEventArgs e)

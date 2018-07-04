@@ -1194,7 +1194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(pluginAssembly, null);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(pluginAssembly, null, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -1241,7 +1241,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(pluginType, null);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(pluginType, null, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -1287,7 +1287,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(step, null);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(step, null, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -1321,7 +1321,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(stepImage, null);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(stepImage, null, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -1345,7 +1345,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 foreach (var message in listMessages)
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, null);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, null, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -1369,7 +1369,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 foreach (var message in listMessages)
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, null);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, null, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {

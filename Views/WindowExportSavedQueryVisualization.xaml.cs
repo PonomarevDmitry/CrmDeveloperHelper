@@ -584,7 +584,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var savedQueryVisualization = await repository.GetByIdAsync(idSavedQueryVisualization, new ColumnSet(true));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, savedQueryVisualization, EntityFileNameFormatter.SavedQueryVisualizationIgnoreFields);
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, savedQueryVisualization, EntityFileNameFormatter.SavedQueryVisualizationIgnoreFields, service.ConnectionData);
 
             this._iWriteToOutput.WriteToOutput("SystemChart Entity Description exported to {0}", filePath);
 

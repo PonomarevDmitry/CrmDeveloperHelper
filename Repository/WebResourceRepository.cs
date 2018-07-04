@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// <summary>
         /// Маппинг расширений файла
         /// </summary>
-        private static Dictionary<string, int> Types = new Dictionary<string, int>()
+        private static Dictionary<string, int> Types = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase)
         {
             {".html", 1},
             {".htm", 1},
@@ -162,7 +162,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             var webResourceCollection = SearchByName(type, list.ToArray(), columnSet);
 
-            Dictionary<string, WebResource> result = new Dictionary<string, WebResource>();
+            Dictionary<string, WebResource> result = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var ent in webResourceCollection)
             {

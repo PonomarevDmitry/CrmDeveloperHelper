@@ -88,8 +88,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.Solutions = new ObservableCollection<VSSolutionConfiguration>();
         }
 
-        [OnDeserialized]
-        private void AfterDeserialize(StreamingContext context)
+        [OnDeserializing]
+        private void BeforeDeserialize(StreamingContext context)
         {
             if (this.VSSolutionConfigurationWhenNoSolutionLoaded == null)
             {
@@ -114,6 +114,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             if (this.Solutions == null)
             {
                 this.Solutions = new ObservableCollection<VSSolutionConfiguration>();
+            }
+        }
+
+        [OnDeserialized]
+        private void AfterDeserialize(StreamingContext context)
+        {
+            foreach (ConnectionData connectionData in this.Connections)
+            {
+                connectionData.ConnectionConfiguration = this;
+
+                connectionData.User = this.Users.FirstOrDefault(u => u.UserId == connectionData.UserId);
+            }
+
+            foreach (ConnectionData connectionData in this.ArchiveConnections)
+            {
+                connectionData.ConnectionConfiguration = this;
+
+                connectionData.User = this.Users.FirstOrDefault(u => u.UserId == connectionData.UserId);
             }
         }
 
@@ -151,7 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     }
                     catch (Exception ex)
                     {
-                        DTEHelper.WriteExceptionToLog(ex);
+                        DTEHelper.WriteExceptionToOutput(ex);
 
                         result = null;
                     }
@@ -160,25 +178,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 result = result ?? new ConnectionConfiguration();
 
                 result.Path = filePath;
-
-                foreach (ConnectionData connectionData in result.Connections)
-                {
-                    connectionData.ConnectionConfiguration = result;
-
-                    connectionData.User = result.Users.FirstOrDefault(u => u.UserId == connectionData.UserId);
-                }
-
-                foreach (ConnectionData connectionData in result.ArchiveConnections)
-                {
-                    connectionData.ConnectionConfiguration = result;
-
-                    connectionData.User = result.Users.FirstOrDefault(u => u.UserId == connectionData.UserId);
-                }
-
-                foreach (var user in result.Users)
-                {
-                    user.Password = Encryption.Decrypt(user.Password, Encryption.EncryptionKey);
-                }
 
                 if (_singleton == null)
                 {
@@ -200,36 +199,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             this.Path = filePath;
 
-            foreach (ConnectionData connectionData in this.Connections)
-            {
-                connectionData.ConnectionConfiguration = this;
-
-                if (connectionData.ConnectionId == Guid.Empty)
-                {
-                    connectionData.ConnectionId = Guid.NewGuid();
-                }
-            }
-
-            foreach (ConnectionData connectionData in this.ArchiveConnections)
-            {
-                connectionData.ConnectionConfiguration = this;
-
-                if (connectionData.ConnectionId == Guid.Empty)
-                {
-                    connectionData.ConnectionId = Guid.NewGuid();
-                }
-            }
-
-            foreach (var user in this.Users)
-            {
-                user.Password = Encryption.Encrypt(user.Password, Encryption.EncryptionKey);
-
-                if (user.UserId == Guid.Empty)
-                {
-                    user.UserId = Guid.NewGuid();
-                }
-            }
-
             DataContractSerializer ser = new DataContractSerializer(typeof(ConnectionConfiguration));
 
             try
@@ -249,11 +218,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             catch (Exception ex)
             {
                 DTEHelper.WriteExceptionToLog(ex);
-            }
-
-            foreach (var user in this.Users)
-            {
-                user.Password = Encryption.Decrypt(user.Password, Encryption.EncryptionKey);
             }
         }
 

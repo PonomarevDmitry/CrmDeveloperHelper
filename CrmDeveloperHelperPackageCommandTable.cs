@@ -38,7 +38,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int mainGroup = 0x10200;
         public const int mainGroupCode = 0x10201;
         public const int mainGroupSolutionFolder = 0x10202;
-        public const int mainGroupProject = 0x10203;
         public const int mainGroupTools = 0x10204;
         public const int codeMenuWebResource = 0x1000;
         public const int codeMenuWebResource_GroupPublish = 0x1001;

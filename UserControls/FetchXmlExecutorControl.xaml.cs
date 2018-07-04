@@ -667,9 +667,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                         value = dateTime.ToLocalTime();
                     }
 
-                    if (value is OptionSetValue)
+                    if (value is OptionSetValue optionSetValue)
                     {
-                        value = EntityDescriptionHandler.GetValueStringShortEntityReferenceAndInversePicklist(entity.FormattedValues, attributeName, value);
+                        value = (entity.FormattedValues != null && entity.FormattedValues.ContainsKey(attributeName) ? string.Format("{0} - ", entity.FormattedValues[attributeName]) : string.Empty) + optionSetValue.Value.ToString();
                     }
 
                     if (dataTable.Columns.IndexOf(columnName) == -1)

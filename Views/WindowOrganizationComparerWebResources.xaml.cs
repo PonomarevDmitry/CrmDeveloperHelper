@@ -639,7 +639,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
 
-                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(webresource, EntityFileNameFormatter.WebResourceIgnoreFields);
+                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(webresource, EntityFileNameFormatter.WebResourceIgnoreFields, service.ConnectionData);
 
                 string filePath = await CreateDescriptionFileAsync(service.ConnectionData.Name, webresource.Name, "EntityDescription", description);
 
