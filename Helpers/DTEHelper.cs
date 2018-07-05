@@ -1244,29 +1244,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleConvertingFetchXmlToJavaScriptCode(ConnectionData connectionData, SelectedFile selectedFile)
-        {
-            if (selectedFile == null || !File.Exists(selectedFile.FilePath))
-            {
-                return;
-            }
-
-            if (connectionData == null)
-            {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null)
-            {
-                CrmDeveloperHelperPackage.Singleton?.ExecuteConvertFetchXmlToJavaScriptCodeAsync(selectedFile.FilePath, connectionData);
-            }
-        }
-
         public string GetOutputPath(Project proj)
         {
             var prjPath = GetProjectPath(proj);
@@ -3373,37 +3350,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleOpenAdvancedFind(ConnectionData connectionData)
         {
-            if (connectionData == null)
+            try
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (connectionData == null)
                 {
-                    return;
+                    if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                    {
+                        return;
+                    }
+
+                    connectionData = crmConfig.CurrentConnectionData;
                 }
 
-                connectionData = crmConfig.CurrentConnectionData;
+                if (connectionData != null)
+                {
+                    connectionData.OpenAdvancedFindInWeb();
+                }
             }
-
-            if (connectionData != null)
+            catch (Exception ex)
             {
-                connectionData.OpenAdvancedFindInWeb();
+                this.WriteErrorToOutput(ex);
             }
         }
 
         public void HandleOpenCrmInWeb(ConnectionData connectionData)
         {
-            if (connectionData == null)
+            try
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (connectionData == null)
                 {
-                    return;
+                    if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                    {
+                        return;
+                    }
+
+                    connectionData = crmConfig.CurrentConnectionData;
                 }
 
-                connectionData = crmConfig.CurrentConnectionData;
+                if (connectionData != null)
+                {
+                    connectionData.OpenCrmInWeb();
+                }
             }
-
-            if (connectionData != null)
+            catch (Exception ex)
             {
-                connectionData.OpenCrmInWeb();
+                this.WriteErrorToOutput(ex);
             }
         }
 

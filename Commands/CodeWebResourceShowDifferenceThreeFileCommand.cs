@@ -62,9 +62,61 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
-            if (sender is OleMenuCommand menuCommand)
+            try
             {
-                menuCommand.Enabled = menuCommand.Visible = false;
+                if (sender is OleMenuCommand menuCommand)
+                {
+                    menuCommand.Enabled = menuCommand.Visible = false;
+
+                    if (this._differenceType == ShowDifferenceThreeFileType.ThreeWay)
+                    {
+                        var commonConfig = Model.CommonConfiguration.Get();
+
+                        if (!commonConfig.DifferenceThreeWayAvaliable())
+                        {
+                            return;
+                        }
+                    }
+
+                    var index = menuCommand.CommandID.ID - _baseIdStart;
+
+                    var connectionConfig = Model.ConnectionConfiguration.Get();
+
+                    var list = connectionConfig.GetConnectionPairsByGroup();
+
+                    if (0 <= index && index < list.Count)
+                    {
+                        var connectionDataPair = list[index];
+
+                        menuCommand.Text = string.Format(_formatButtonName, connectionDataPair.Item1.Name, connectionDataPair.Item2.Name);
+
+                        menuCommand.Enabled = menuCommand.Visible = true;
+
+                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResourceText(this, menuCommand);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(ex);
+            }
+        }
+
+        private void menuItemCallback(object sender, EventArgs e)
+        {
+            try
+            {
+                OleMenuCommand menuCommand = sender as OleMenuCommand;
+                if (menuCommand == null)
+                {
+                    return;
+                }
+
+                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+                if (applicationObject == null)
+                {
+                    return;
+                }
 
                 if (this._differenceType == ShowDifferenceThreeFileType.ThreeWay)
                 {
@@ -84,54 +136,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 if (0 <= index && index < list.Count)
                 {
-                    var connectionDataPair = list[index];
+                    var connectionPair = list[index];
 
-                    menuCommand.Text = string.Format(_formatButtonName, connectionDataPair.Item1.Name, connectionDataPair.Item2.Name);
+                    var helper = DTEHelper.Create(applicationObject);
 
-                    menuCommand.Enabled = menuCommand.Visible = true;
-
-                    CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResourceText(this, menuCommand);
+                    helper.HandleWebResourceThreeFileDifferenceCommand(connectionPair.Item1, connectionPair.Item2, _differenceType);
                 }
             }
-        }
-
-        private void menuItemCallback(object sender, EventArgs e)
-        {
-            OleMenuCommand menuCommand = sender as OleMenuCommand;
-            if (menuCommand == null)
+            catch (Exception ex)
             {
-                return;
-            }
-
-            var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-            if (applicationObject == null)
-            {
-                return;
-            }
-
-            if (this._differenceType == ShowDifferenceThreeFileType.ThreeWay)
-            {
-                var commonConfig = Model.CommonConfiguration.Get();
-
-                if (!commonConfig.DifferenceThreeWayAvaliable())
-                {
-                    return;
-                }
-            }
-
-            var index = menuCommand.CommandID.ID - _baseIdStart;
-
-            var connectionConfig = Model.ConnectionConfiguration.Get();
-
-            var list = connectionConfig.GetConnectionPairsByGroup();
-
-            if (0 <= index && index < list.Count)
-            {
-                var connectionPair = list[index];
-
-                var helper = DTEHelper.Create(applicationObject);
-
-                helper.HandleWebResourceThreeFileDifferenceCommand(connectionPair.Item1, connectionPair.Item2, _differenceType);
+                DTEHelper.WriteExceptionToOutput(ex);
             }
         }
     }

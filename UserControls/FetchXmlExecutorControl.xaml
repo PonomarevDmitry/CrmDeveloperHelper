@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" d:DesignWidth="850" d:DesignHeight="418">
+             mc:Ignorable="d" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" d:DesignHeight="418" d:DesignWidth="882">
     <UserControl.Resources>
         <ContextMenu x:Key="listContextMenuEntity">
             <MenuItem Header="Open Fetch Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
@@ -30,9 +30,6 @@
             <MenuItem Header="Copy EntityReference Id" Click="mICopyEntityReferenceId_Click"/>
             <MenuItem Header="Copy EntityReference Name" Click="mICopyEntityReferenceName_Click"/>
             <MenuItem Header="Copy EntityReference Url" Click="mICopyEntityReferenceUrl_Click"/>
-        </ContextMenu>
-        <ContextMenu x:Key="contextMenuTabItem">
-            <MenuItem Header="Close" VerticalAlignment="Center" Click="mICloseTabItem_Click" />
         </ContextMenu>
     </UserControl.Resources>
     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True">
@@ -65,7 +62,7 @@
                             <ToolBar x:Name="toolStrip" VerticalAlignment="Top" Height="30" DockPanel.Dock="Top">
                                 <Button x:Name="btnExecuteFetchXml" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click"/>
                                 <Separator />
-                                <Button x:Name="btnConvertToJavaScriptCode" Content="Convert To JavaScript Code" Click="btnConvertToJavaScriptCode_Click"/>
+                                <Button x:Name="btnCopyJavaScriptToClipboardCode" Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
                             </ToolBar>
                             <TextBox x:Name="txtBFetchXml" IsReadOnly="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
                         </DockPanel>

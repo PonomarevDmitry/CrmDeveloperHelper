@@ -287,33 +287,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
-            if (sender is OleMenuCommand menuCommand)
+            try
             {
-                _actionBeforeQueryStatus?.Invoke(this, menuCommand);
+                if (sender is OleMenuCommand menuCommand)
+                {
+                    _actionBeforeQueryStatus?.Invoke(this, menuCommand);
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(ex);
             }
         }
 
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            OleMenuCommand menuCommand = sender as OleMenuCommand;
-            if (menuCommand == null)
+            try
             {
-                return;
+                OleMenuCommand menuCommand = sender as OleMenuCommand;
+                if (menuCommand == null)
+                {
+                    return;
+                }
+
+                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+                if (applicationObject == null)
+                {
+                    return;
+                }
+
+                var helper = DTEHelper.Create(applicationObject);
+
+                List<SelectedFile> selectedFiles = _listGetter(helper);
+
+                if (selectedFiles.Count > 0)
+                {
+                    helper.HandleOpenFilesCommand(selectedFiles, _openFilesType, _inTextEditor);
+                }
             }
-
-            var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-            if (applicationObject == null)
+            catch (Exception ex)
             {
-                return;
-            }
-
-            var helper = DTEHelper.Create(applicationObject);
-
-            List<SelectedFile> selectedFiles = _listGetter( helper);
-
-            if (selectedFiles.Count > 0)
-            {
-                helper.HandleOpenFilesCommand(selectedFiles, _openFilesType, _inTextEditor);
+                DTEHelper.WriteExceptionToOutput(ex);
             }
         }
     }

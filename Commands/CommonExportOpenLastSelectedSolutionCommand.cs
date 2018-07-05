@@ -55,9 +55,52 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
-            if (sender is OleMenuCommand menuCommand)
+            try
             {
-                menuCommand.Enabled = menuCommand.Visible = false;
+                if (sender is OleMenuCommand menuCommand)
+                {
+                    menuCommand.Enabled = menuCommand.Visible = false;
+
+                    var connectionConfig = ConnectionConfiguration.Get();
+
+                    if (connectionConfig.CurrentConnectionData != null)
+                    {
+                        var connectionData = connectionConfig.CurrentConnectionData;
+
+                        var index = menuCommand.CommandID.ID - _baseIdStart;
+
+                        if (0 <= index && index < connectionData.LastSelectedSolutionsUniqueName.Count)
+                        {
+                            menuCommand.Text = connectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
+
+                            menuCommand.Enabled = menuCommand.Visible = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(ex);
+            }
+        }
+
+        private void menuItemCallback(object sender, EventArgs e)
+        {
+            try
+            {
+                OleMenuCommand menuCommand = sender as OleMenuCommand;
+                if (menuCommand == null)
+                {
+                    return;
+                }
+
+                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+                if (applicationObject == null)
+                {
+                    return;
+                }
+
+                var index = menuCommand.CommandID.ID - _baseIdStart;
 
                 var connectionConfig = ConnectionConfiguration.Get();
 
@@ -65,48 +108,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 {
                     var connectionData = connectionConfig.CurrentConnectionData;
 
-                    var index = menuCommand.CommandID.ID - _baseIdStart;
-
                     if (0 <= index && index < connectionData.LastSelectedSolutionsUniqueName.Count)
                     {
-                        menuCommand.Text = connectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
+                        string solutionUniqueName = connectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
 
-                        menuCommand.Enabled = menuCommand.Visible = true;
+                        var helper = DTEHelper.Create(applicationObject);
+
+                        helper.HandleOpenLastSelectedSolution(solutionUniqueName, this._actionOpen);
                     }
                 }
             }
-        }
-
-        private void menuItemCallback(object sender, EventArgs e)
-        {
-            OleMenuCommand menuCommand = sender as OleMenuCommand;
-            if (menuCommand == null)
+            catch (Exception ex)
             {
-                return;
-            }
-
-            var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-            if (applicationObject == null)
-            {
-                return;
-            }
-
-            var index = menuCommand.CommandID.ID - _baseIdStart;
-
-            var connectionConfig = ConnectionConfiguration.Get();
-
-            if (connectionConfig.CurrentConnectionData != null)
-            {
-                var connectionData = connectionConfig.CurrentConnectionData;
-
-                if (0 <= index && index < connectionData.LastSelectedSolutionsUniqueName.Count)
-                {
-                    string solutionUniqueName = connectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
-
-                    var helper = DTEHelper.Create(applicationObject);
-
-                    helper.HandleOpenLastSelectedSolution(solutionUniqueName, this._actionOpen);
-                }
+                DTEHelper.WriteExceptionToOutput(ex);
             }
         }
     }

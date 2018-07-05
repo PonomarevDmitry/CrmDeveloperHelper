@@ -203,6 +203,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             connectionData.OrganizationUrl = txtBOrganizationServiceUrl.Text.Trim();
             connectionData.UniqueOrgName = txtBUniqueOrganizationName.Text.Trim();
 
+            connectionData.PublicUrl = txtBPublicUrl.Text.Trim();
+
             connectionData.User = cmBUser.SelectedItem as ConnectionUserData;
 
             connectionData.NameSpaceClasses = this.txtBNameSpaceClasses.Text.Trim();
@@ -231,7 +233,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             txtBPublicUrl.Dispatcher.Invoke(() =>
             {
-                txtBPublicUrl.Text = connectionData.PublicUrl;
+                if (string.IsNullOrEmpty(txtBPublicUrl.Text)
+                    && !string.IsNullOrEmpty(connectionData.PublicUrl)
+                )
+                {
+                    txtBPublicUrl.Text = connectionData.PublicUrl;
+                }
+
                 txtBVersion.Text = connectionData.OrganizationVersion;
                 txtBFriendlyName.Text = connectionData.FriendlyName;
                 txtBOrganizationId.Text = connectionData.OrganizationId.ToString();

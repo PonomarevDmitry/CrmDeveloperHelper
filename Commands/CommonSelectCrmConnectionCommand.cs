@@ -46,9 +46,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
-            if (sender is OleMenuCommand menuCommand)
+            try
             {
-                menuCommand.Enabled = menuCommand.Visible = false;
+                if (sender is OleMenuCommand menuCommand)
+                {
+                    menuCommand.Enabled = menuCommand.Visible = false;
+
+                    var index = menuCommand.CommandID.ID - _baseIdStart;
+
+                    var connectionConfig = Model.ConnectionConfiguration.Get();
+
+                    if (0 <= index && index < connectionConfig.Connections.Count)
+                    {
+                        var connectionData = connectionConfig.Connections[index];
+
+                        menuCommand.Text = connectionData.Name + (connectionData.IsCurrentConnection ? " (Current)" : string.Empty);
+
+                        menuCommand.Enabled = menuCommand.Visible = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(ex);
+            }
+        }
+
+        private void menuItemCallback(object sender, EventArgs e)
+        {
+            try
+            {
+                OleMenuCommand menuCommand = sender as OleMenuCommand;
+                if (menuCommand == null)
+                {
+                    return;
+                }
+
+                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+                if (applicationObject == null)
+                {
+                    return;
+                }
 
                 var index = menuCommand.CommandID.ID - _baseIdStart;
 
@@ -58,42 +96,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 {
                     var connectionData = connectionConfig.Connections[index];
 
-                    menuCommand.Text = connectionData.Name + (connectionData.IsCurrentConnection ? " (Current)" : string.Empty);
+                    connectionConfig.SetCurrentConnection(connectionData.ConnectionId);
 
-                    menuCommand.Enabled = menuCommand.Visible = true;
+                    connectionConfig.Save();
+
+                    var helper = DTEHelper.Create(applicationObject);
+                    helper.WriteToOutput("Current Connection: {0}", connectionData.Name);
+                    helper.ActivateOutputWindow();
                 }
             }
-        }
-
-        private void menuItemCallback(object sender, EventArgs e)
-        {
-            OleMenuCommand menuCommand = sender as OleMenuCommand;
-            if (menuCommand == null)
+            catch (Exception ex)
             {
-                return;
-            }
-
-            var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-            if (applicationObject == null)
-            {
-                return;
-            }
-
-            var index = menuCommand.CommandID.ID - _baseIdStart;
-
-            var connectionConfig = Model.ConnectionConfiguration.Get();
-
-            if (0 <= index && index < connectionConfig.Connections.Count)
-            {
-                var connectionData = connectionConfig.Connections[index];
-
-                connectionConfig.SetCurrentConnection(connectionData.ConnectionId);
-
-                connectionConfig.Save();
-
-                var helper = DTEHelper.Create(applicationObject);
-                helper.WriteToOutput("Current Connection: {0}", connectionData.Name);
-                helper.ActivateOutputWindow();
+                DTEHelper.WriteExceptionToOutput(ex);
             }
         }
     }

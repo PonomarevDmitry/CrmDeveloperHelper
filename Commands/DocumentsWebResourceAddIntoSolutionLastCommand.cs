@@ -49,9 +49,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
-            if (sender is OleMenuCommand menuCommand)
+            try
             {
-                menuCommand.Enabled = menuCommand.Visible = false;
+                if (sender is OleMenuCommand menuCommand)
+                {
+                    menuCommand.Enabled = menuCommand.Visible = false;
+
+                    var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+                    if (applicationObject == null)
+                    {
+                        return;
+                    }
+
+                    var visible = CommonHandlers.CheckOpenedDocumentsExtension(applicationObject, FileOperations.SupportsWebResourceType);
+
+                    if (visible)
+                    {
+                        var connectionConfig = ConnectionConfiguration.Get();
+
+                        if (connectionConfig.CurrentConnectionData != null)
+                        {
+                            var connectionData = connectionConfig.CurrentConnectionData;
+
+                            var index = menuCommand.CommandID.ID - _baseIdStart;
+
+                            if (0 <= index && index < connectionData.LastSelectedSolutionsUniqueName.Count)
+                            {
+                                menuCommand.Text = connectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
+
+                                menuCommand.Enabled = menuCommand.Visible = true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(ex);
+            }
+        }
+
+        private void menuItemCallback(object sender, EventArgs e)
+        {
+            try
+            {
+                OleMenuCommand menuCommand = sender as OleMenuCommand;
+                if (menuCommand == null)
+                {
+                    return;
+                }
 
                 var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
                 if (applicationObject == null)
@@ -59,61 +105,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     return;
                 }
 
-                var visible = CommonHandlers.CheckOpenedDocumentsExtension(applicationObject, FileOperations.SupportsWebResourceType);
+                var index = menuCommand.CommandID.ID - _baseIdStart;
 
-                if (visible)
+                var connectionConfig = ConnectionConfiguration.Get();
+
+                if (connectionConfig.CurrentConnectionData != null)
                 {
-                    var connectionConfig = ConnectionConfiguration.Get();
+                    var connectionData = connectionConfig.CurrentConnectionData;
 
-                    if (connectionConfig.CurrentConnectionData != null)
+                    if (0 <= index && index < connectionData.LastSelectedSolutionsUniqueName.Count)
                     {
-                        var connectionData = connectionConfig.CurrentConnectionData;
+                        string solutionUniqueName = connectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
 
-                        var index = menuCommand.CommandID.ID - _baseIdStart;
+                        var helper = DTEHelper.Create(applicationObject);
 
-                        if (0 <= index && index < connectionData.LastSelectedSolutionsUniqueName.Count)
-                        {
-                            menuCommand.Text = connectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
+                        List<SelectedFile> selectedFiles = helper.GetOpenedDocuments(FileOperations.SupportsWebResourceType);
 
-                            menuCommand.Enabled = menuCommand.Visible = true;
-                        }
+                        helper.HandleAddingWebResourcesIntoSolutionCommand(selectedFiles, false, solutionUniqueName);
                     }
                 }
             }
-        }
-
-        private void menuItemCallback(object sender, EventArgs e)
-        {
-            OleMenuCommand menuCommand = sender as OleMenuCommand;
-            if (menuCommand == null)
+            catch (Exception ex)
             {
-                return;
-            }
-
-            var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-            if (applicationObject == null)
-            {
-                return;
-            }
-
-            var index = menuCommand.CommandID.ID - _baseIdStart;
-
-            var connectionConfig = ConnectionConfiguration.Get();
-
-            if (connectionConfig.CurrentConnectionData != null)
-            {
-                var connectionData = connectionConfig.CurrentConnectionData;
-
-                if (0 <= index && index < connectionData.LastSelectedSolutionsUniqueName.Count)
-                {
-                    string solutionUniqueName = connectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
-
-                    var helper = DTEHelper.Create(applicationObject);
-
-                    List<SelectedFile> selectedFiles = helper.GetOpenedDocuments(FileOperations.SupportsWebResourceType);
-
-                    helper.HandleAddingWebResourcesIntoSolutionCommand(selectedFiles, false, solutionUniqueName);
-                }
+                DTEHelper.WriteExceptionToOutput(ex);
             }
         }
     }

@@ -196,7 +196,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         private string _OrganizationUrl;
         /// <summary>
         /// Url для сервиса Organization
-        /// Пример https://CRM-host/CRMOrganization/XRMServices/2011/Organization.svc
         /// </summary>
         [DataMember]
         public string OrganizationUrl
@@ -1558,31 +1557,62 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         #region Генерация url-адресов.
 
-        private static bool IsValidUri(string uri)
+        private static bool IsValidUri(string url)
         {
-            if (!Uri.IsWellFormedUriString(uri, UriKind.Absolute))
+            if (string.IsNullOrEmpty(url))
+            {
                 return false;
+            }
+
+            if (!Uri.IsWellFormedUriString(url, UriKind.Absolute))
+            {
+                return false;
+            }
 
             Uri tmp;
 
-            if (!Uri.TryCreate(uri, UriKind.Absolute, out tmp))
+            if (!Uri.TryCreate(url, UriKind.Absolute, out tmp))
+            {
                 return false;
+            }
 
             return tmp.Scheme == Uri.UriSchemeHttp || tmp.Scheme == Uri.UriSchemeHttps;
         }
 
+        private bool TryGetPublicUrl(out string uri)
+        {
+            uri = null;
+
+            if (string.IsNullOrEmpty(this.PublicUrl))
+            {
+                return false;
+            }
+
+            uri = this.PublicUrl.TrimEnd('/');
+
+            return true;
+        }
+
         public void OpenCrmInWeb()
         {
-            string uri = this.PublicUrl.TrimEnd('/');
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return;
+            }
 
-            if (!IsValidUri(uri)) return;
+            if (!IsValidUri(publicUrl)) return;
 
-            System.Diagnostics.Process.Start(uri);
+            System.Diagnostics.Process.Start(publicUrl);
         }
 
         public void OpenAdvancedFindInWeb()
         {
-            string uri = this.PublicUrl.TrimEnd('/') + "/main.aspx?pagetype=advancedfind";
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return;
+            }
+
+            string uri = publicUrl + "/main.aspx?pagetype=advancedfind";
 
             if (!IsValidUri(uri)) return;
 
@@ -1600,12 +1630,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string GetSolutionUrl(Guid idSolution)
         {
-            return this.PublicUrl.TrimEnd('/') + string.Format("/tools/solution/edit.aspx?id={0}", idSolution);
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return null;
+            }
+
+            return publicUrl + string.Format("/tools/solution/edit.aspx?id={0}", idSolution);
         }
 
         public void OpenSolutionCreateInWeb()
         {
-            string uri = this.PublicUrl.TrimEnd('/') + "/tools/solution/edit.aspx";
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return;
+            }
+
+            string uri = publicUrl + "/tools/solution/edit.aspx";
 
             if (!IsValidUri(uri)) return;
 
@@ -1614,7 +1654,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public void OpenReportCreateInWeb()
         {
-            string uri = this.PublicUrl.TrimEnd('/') + "/CRMReports/reportproperty.aspx";
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return;
+            }
+
+            string uri = publicUrl + "/CRMReports/reportproperty.aspx";
 
             if (!IsValidUri(uri)) return;
 
@@ -1632,7 +1677,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string GetEntityListUrl(string entityName)
         {
-            return this.PublicUrl.TrimEnd('/') + string.Format("/main.aspx?etn={0}&pagetype=entitylist", entityName);
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return null;
+            }
+
+            return publicUrl + string.Format("/main.aspx?etn={0}&pagetype=entitylist", entityName);
         }
 
         public void OpenEntityInWeb(string entityName, Guid entityId)
@@ -1663,7 +1713,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string GetEntityUrlFormat()
         {
-            return this.PublicUrl.TrimEnd('/') + "/main.aspx?etn={0}&pagetype=entityrecord&id={1}";
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return null;
+            }
+
+            return publicUrl + "/main.aspx?etn={0}&pagetype=entityrecord&id={1}";
         }
 
         private static ComponentType? GetSolutionComponentType(string entityName)
@@ -1694,7 +1749,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public void OpenEntityMetadataInWeb(string entityName)
         {
-            if (this.IntellisenseData.Entities != null 
+            if (this.IntellisenseData.Entities != null
                 && this.IntellisenseData.Entities.ContainsKey(entityName)
                 && this.IntellisenseData.Entities[entityName].MetadataId.HasValue
                 )
@@ -1705,7 +1760,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string GetEntityMetadataUrl(Guid entityId)
         {
-            return this.PublicUrl.TrimEnd('/') + GetSolutionComponentRelativeUrl(ComponentType.Entity, entityId, null, null);
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return null;
+            }
+
+            return publicUrl + GetSolutionComponentRelativeUrl(ComponentType.Entity, entityId, null, null);
         }
 
         public void OpenAttributeMetadataInWeb(Guid entityId, Guid attributeId)
@@ -1719,7 +1779,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string GetAttributeMetadataUrl(Guid entityId, Guid attributeId)
         {
-            return this.PublicUrl.TrimEnd('/') + $"/tools/systemcustomization/attributes/manageAttribute.aspx?attributeId={attributeId}&entityId={entityId}";
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return null;
+            }
+
+            return publicUrl + $"/tools/systemcustomization/attributes/manageAttribute.aspx?attributeId={attributeId}&entityId={entityId}";
         }
 
         public void OpenRelationshipMetadataInWeb(Guid entityId, Guid relationId)
@@ -1733,7 +1798,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string GetRelationshipMetadataUrl(Guid entityId, Guid relationId)
         {
-            return this.PublicUrl.TrimEnd('/') + $"/tools/systemcustomization/relationships/manageRelationship.aspx?entityId={entityId}&entityRelationshipId={relationId}";
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return null;
+            }
+
+            return publicUrl + $"/tools/systemcustomization/relationships/manageRelationship.aspx?entityId={entityId}&entityRelationshipId={relationId}";
         }
 
         public void OpenGlobalOptionSetInWeb(Guid idGlobalOptionSet)
@@ -1747,7 +1817,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string GetGlobalOptionSetUrl(Guid idGlobalOptionSet)
         {
-            return this.PublicUrl.TrimEnd('/') + GetSolutionComponentRelativeUrl(ComponentType.OptionSet, idGlobalOptionSet, null, null);
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return null;
+            }
+
+            return publicUrl + GetSolutionComponentRelativeUrl(ComponentType.OptionSet, idGlobalOptionSet, null, null);
         }
 
         public void OpenSolutionComponentInWeb(ComponentType componentType, Guid objectId, string linkedEntityName, int? linkedEntityObjectCode)
@@ -1768,7 +1843,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 return null;
             }
 
-            var uri = this.PublicUrl.TrimEnd('/') + "/" + uriEnd.TrimStart('/');
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return null;
+            }
+
+            var uri = publicUrl + "/" + uriEnd.TrimStart('/');
             return uri;
         }
 
@@ -1942,9 +2022,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         internal void OpenSolutionComponentDependentComponentsInWeb(ComponentType componentType, Guid objectId)
         {
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return;
+            }
+
             int entityTypeCode = SolutionComponent.GetComponentTypeObjectTypeCode(componentType);
 
-            var uri = this.PublicUrl.TrimEnd('/') + $"/tools/dependency/dependencyviewdialog.aspx?dType=1&objectid={objectId}&objecttype={entityTypeCode}&operationtype=showdependency";
+            var uri = publicUrl + $"/tools/dependency/dependencyviewdialog.aspx?dType=1&objectid={objectId}&objecttype={entityTypeCode}&operationtype=showdependency";
 
             if (!IsValidUri(uri)) { return; }
 

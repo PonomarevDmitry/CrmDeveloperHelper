@@ -47,8 +47,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.ToolWindowPanes
 
         public void Execute() => this._control.Execute();
 
-        public void LoadFileAndConvertFetchXmlToJavaScriptCode() => this._control.LoadFileAndConvertFetchXmlToJavaScriptCode();
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

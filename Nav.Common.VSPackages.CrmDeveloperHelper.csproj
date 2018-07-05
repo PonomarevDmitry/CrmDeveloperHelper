@@ -236,8 +236,10 @@
     <Compile Include="Commands\ProjectPluginAssemblyAddIntoSolutionCommand.cs" />
     <Compile Include="Commands\ProjectCompareToCrmAssemblyCommand.cs" />
     <Compile Include="Commands\ProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\ProjectPluginAssemblyDescriptionCommand.cs" />
     <Compile Include="Commands\ProjectPluginAssemblyStepsAddIntoSolutionCommand.cs" />
     <Compile Include="Commands\ProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\ProjectPluginTypeDescriptionCommand.cs" />
     <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Controllers\OpenFilesController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
@@ -850,9 +852,7 @@
     <Content Include="app.config">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
     <Resource Include="Schemas\CustomizationsSolution.xsd">
       <SubType>Designer</SubType>
     </Resource>

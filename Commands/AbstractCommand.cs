@@ -40,31 +40,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         protected void menuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
-            if (sender is OleMenuCommand menuCommand)
+            try
             {
-                menuCommand.Enabled = menuCommand.Visible = true;
+                if (sender is OleMenuCommand menuCommand)
+                {
+                    menuCommand.Enabled = menuCommand.Visible = true;
 
-                _actionBeforeQueryStatus?.Invoke(this, menuCommand);
+                    _actionBeforeQueryStatus?.Invoke(this, menuCommand);
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(ex);
             }
         }
 
         protected void menuItemCallback(object sender, EventArgs e)
         {
-            OleMenuCommand menuCommand = sender as OleMenuCommand;
-            if (menuCommand == null)
+            try
             {
-                return;
-            }
+                OleMenuCommand menuCommand = sender as OleMenuCommand;
+                if (menuCommand == null)
+                {
+                    return;
+                }
 
-            var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-            if (applicationObject == null)
+                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+                if (applicationObject == null)
+                {
+                    return;
+                }
+
+                var helper = DTEHelper.Create(applicationObject);
+
+                _action?.Invoke(helper);
+            }
+            catch (Exception ex)
             {
-                return;
+                DTEHelper.WriteExceptionToOutput(ex);
             }
-
-            var helper = DTEHelper.Create(applicationObject);
-
-            _action?.Invoke(helper);
+           
         }
     }
 }

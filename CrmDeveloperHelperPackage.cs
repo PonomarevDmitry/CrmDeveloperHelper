@@ -199,6 +199,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ProjectPluginAssemblyAddIntoSolutionLastCommand.Initialize(this);
             ProjectPluginAssemblyStepsAddIntoSolutionCommand.Initialize(this);
             ProjectPluginAssemblyStepsAddIntoSolutionLastCommand.Initialize(this);
+            ProjectPluginAssemblyDescriptionCommand.Initialize(this);
+            ProjectPluginTypeDescriptionCommand.Initialize(this);
 
 
 
@@ -297,18 +299,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             if (paneForFileAndConnection != null)
             {
                 paneForFileAndConnection.Execute();
-
-                ErrorHandler.ThrowOnFailure((paneForFileAndConnection.Frame as IVsWindowFrame).Show());
-            }
-        }
-
-        internal void ExecuteConvertFetchXmlToJavaScriptCodeAsync(string filePath, ConnectionData connectionData)
-        {
-            FetchXmlExecutorToolWindowPane paneForFileAndConnection = FindOrCreateFetchXmlExecutorToolWindowPane(filePath, connectionData);
-
-            if (paneForFileAndConnection != null)
-            {
-                paneForFileAndConnection.LoadFileAndConvertFetchXmlToJavaScriptCode();
 
                 ErrorHandler.ThrowOnFailure((paneForFileAndConnection.Frame as IVsWindowFrame).Show());
             }

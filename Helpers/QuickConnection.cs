@@ -102,19 +102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async static Task<IOrganizationServiceExtented> Connect(ConnectionData connectionData)
         {
-            bool withDiscoveryRequest = false;
-
-            if (connectionData.OrganizationInformationExpirationDate.HasValue)
-            {
-                if (connectionData.OrganizationInformationExpirationDate.Value < DateTime.Now)
-                {
-                    withDiscoveryRequest = true;
-                }
-            }
-            else
-            {
-                withDiscoveryRequest = true;
-            }
+            bool withDiscoveryRequest = !connectionData.OrganizationInformationExpirationDate.HasValue || connectionData.OrganizationInformationExpirationDate.Value < DateTime.Now;
 
             try
             {
@@ -190,98 +178,130 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static async Task LoadOrganizationDataAsync(OrganizationServiceExtentedProxy service, OrganizationDetail organizationDetail)
         {
-            if (organizationDetail == null)
-            {
-                return;
-            }
-
-            service.ConnectionData.OrganizationInformationExpirationDate = DateTime.Now.AddHours(_hoursOrganizationInformation);
-
-            service.ConnectionData.FriendlyName = organizationDetail.FriendlyName;
-            service.ConnectionData.OrganizationId = organizationDetail.OrganizationId;
-            service.ConnectionData.OrganizationVersion = organizationDetail.OrganizationVersion;
-            service.ConnectionData.OrganizationState = organizationDetail.State.ToString();
-            service.ConnectionData.UniqueOrgName = organizationDetail.UniqueName;
-            service.ConnectionData.UrlName = organizationDetail.UrlName;
-
-            if (organizationDetail.Endpoints.ContainsKey(EndpointType.OrganizationService))
-            {
-                var organizationUrlEndpoint = organizationDetail.Endpoints[EndpointType.OrganizationService];
-
-                if (string.IsNullOrEmpty(service.ConnectionData.OrganizationUrl)
-                    && !string.IsNullOrEmpty(organizationUrlEndpoint)
-                    )
-                {
-                    service.ConnectionData.OrganizationUrl = organizationUrlEndpoint;
-                }
-            }
-
-            if (organizationDetail.Endpoints.ContainsKey(EndpointType.WebApplication))
-            {
-                var publicUrl = organizationDetail.Endpoints[EndpointType.WebApplication];
-
-                service.ConnectionData.PublicUrl = publicUrl;
-            }
-
-            service.ConnectionData.DefaultLanguage = string.Empty;
-            service.ConnectionData.BaseCurrency = string.Empty;
-
-            var organization = service
-                .Retrieve(Organization.EntityLogicalName, organizationDetail.OrganizationId, new ColumnSet(Organization.Schema.Attributes.languagecode, Organization.Schema.Attributes.basecurrencyid))
-                .ToEntity<Organization>();
-
-            if (organization.BaseCurrencyId != null)
-            {
-                service.ConnectionData.BaseCurrency = organization.BaseCurrencyId.Name;
-            }
-
-            service.ConnectionData.DefaultLanguage = string.Empty;
-            service.ConnectionData.InstalledLanguagePacks = string.Empty;
-
             try
             {
-                var request = new RetrieveInstalledLanguagePacksRequest();
-                var response = (RetrieveInstalledLanguagePacksResponse)service.Execute(request);
+                Guid? idOrganization = null;
 
-                var rep = new EntityMetadataRepository(service);
-
-                var isEntityExists = rep.IsEntityExists(LanguageLocale.EntityLogicalName);
-
-                if (isEntityExists)
+                if (organizationDetail != null)
                 {
-                    var repository = new LanguageLocaleRepository(service);
+                    idOrganization = organizationDetail.OrganizationId;
 
-                    if (organization.LanguageCode.HasValue)
+                    service.ConnectionData.OrganizationInformationExpirationDate = DateTime.Now.AddHours(_hoursOrganizationInformation);
+
+                    service.ConnectionData.FriendlyName = organizationDetail.FriendlyName;
+                    service.ConnectionData.OrganizationId = organizationDetail.OrganizationId;
+                    service.ConnectionData.OrganizationVersion = organizationDetail.OrganizationVersion;
+                    service.ConnectionData.OrganizationState = organizationDetail.State.ToString();
+                    service.ConnectionData.UniqueOrgName = organizationDetail.UniqueName;
+                    service.ConnectionData.UrlName = organizationDetail.UrlName;
+
+                    if (organizationDetail.Endpoints.ContainsKey(EndpointType.OrganizationService))
                     {
-                        var lang = (await repository.GetListAsync(organization.LanguageCode.Value)).FirstOrDefault();
+                        var organizationUrlEndpoint = organizationDetail.Endpoints[EndpointType.OrganizationService];
 
-                        if (lang != null)
+                        if (string.IsNullOrEmpty(service.ConnectionData.OrganizationUrl)
+                            && !string.IsNullOrEmpty(organizationUrlEndpoint)
+                            )
                         {
-                            service.ConnectionData.DefaultLanguage = lang.ToString();
+                            service.ConnectionData.OrganizationUrl = organizationUrlEndpoint;
                         }
-                        else
+                    }
+
+                    if (organizationDetail.Endpoints.ContainsKey(EndpointType.WebApplication))
+                    {
+                        var publicUrl = organizationDetail.Endpoints[EndpointType.WebApplication];
+
+                        if (string.IsNullOrEmpty(service.ConnectionData.PublicUrl)
+                            && !string.IsNullOrEmpty(publicUrl)
+                            )
+                        {
+                            service.ConnectionData.PublicUrl = publicUrl;
+                        }
+                    }
+                }
+
+                if (!idOrganization.HasValue)
+                {
+                    WhoAmIResponse whoresponse = (WhoAmIResponse)service.Execute(new WhoAmIRequest());
+
+                    idOrganization = whoresponse.OrganizationId;
+                }
+
+                service.ConnectionData.DefaultLanguage = string.Empty;
+                service.ConnectionData.BaseCurrency = string.Empty;
+                service.ConnectionData.DefaultLanguage = string.Empty;
+                service.ConnectionData.InstalledLanguagePacks = string.Empty;
+
+                if (idOrganization.HasValue)
+                {
+                    var organization = service
+                        .Retrieve(Organization.EntityLogicalName, idOrganization.Value, new ColumnSet(Organization.Schema.Attributes.languagecode, Organization.Schema.Attributes.basecurrencyid))
+                        .ToEntity<Organization>();
+
+                    if (organization.BaseCurrencyId != null)
+                    {
+                        service.ConnectionData.BaseCurrency = organization.BaseCurrencyId.Name;
+                    }
+
+                    var request = new RetrieveInstalledLanguagePacksRequest();
+                    var response = (RetrieveInstalledLanguagePacksResponse)service.Execute(request);
+
+                    var rep = new EntityMetadataRepository(service);
+
+                    var isEntityExists = rep.IsEntityExists(LanguageLocale.EntityLogicalName);
+
+                    if (isEntityExists)
+                    {
+                        var repository = new LanguageLocaleRepository(service);
+
+                        if (organization.LanguageCode.HasValue)
+                        {
+                            var lang = (await repository.GetListAsync(organization.LanguageCode.Value)).FirstOrDefault();
+
+                            if (lang != null)
+                            {
+                                service.ConnectionData.DefaultLanguage = lang.ToString();
+                            }
+                            else
+                            {
+                                service.ConnectionData.DefaultLanguage = LanguageLocale.GetLocaleName(organization.LanguageCode.Value);
+                            }
+                        }
+
+                        if (response.RetrieveInstalledLanguagePacks != null && response.RetrieveInstalledLanguagePacks.Any())
+                        {
+                            var list = await repository.GetListAsync(response.RetrieveInstalledLanguagePacks);
+
+                            service.ConnectionData.InstalledLanguagePacks = string.Join(",", list.OrderBy(s => s.LocaleId.Value, new LocaleComparer()).Select(l => l.ToString()));
+                        }
+                    }
+                    else
+                    {
+                        if (organization.LanguageCode.HasValue)
                         {
                             service.ConnectionData.DefaultLanguage = LanguageLocale.GetLocaleName(organization.LanguageCode.Value);
                         }
-                    }
 
-                    if (response.RetrieveInstalledLanguagePacks != null && response.RetrieveInstalledLanguagePacks.Any())
-                    {
-                        var list = await repository.GetListAsync(response.RetrieveInstalledLanguagePacks);
-
-                        service.ConnectionData.InstalledLanguagePacks = string.Join(",", list.OrderBy(s => s.LocaleId.Value, new LocaleComparer()).Select(l => l.ToString()));
+                        if (response.RetrieveInstalledLanguagePacks != null && response.RetrieveInstalledLanguagePacks.Any())
+                        {
+                            service.ConnectionData.InstalledLanguagePacks = string.Join(",", response.RetrieveInstalledLanguagePacks.OrderBy(s => s, new LocaleComparer()).Select(l => LanguageLocale.GetLocaleName(l)));
+                        }
                     }
                 }
-                else
-                {
-                    if (organization.LanguageCode.HasValue)
-                    {
-                        service.ConnectionData.DefaultLanguage = LanguageLocale.GetLocaleName(organization.LanguageCode.Value);
-                    }
 
-                    if (response.RetrieveInstalledLanguagePacks != null && response.RetrieveInstalledLanguagePacks.Any())
+                if (string.IsNullOrEmpty(service.ConnectionData.PublicUrl)
+                    && !string.IsNullOrEmpty(service.ConnectionData.OrganizationUrl)
+                    )
+                {
+                    var orgUrl = service.ConnectionData.OrganizationUrl.TrimEnd('/');
+
+                    if (orgUrl.EndsWith("/XRMServices/2011/Organization.svc", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        service.ConnectionData.InstalledLanguagePacks = string.Join(",", response.RetrieveInstalledLanguagePacks.OrderBy(s => s, new LocaleComparer()).Select(l => LanguageLocale.GetLocaleName(l)));
+                        var lastIndex = orgUrl.LastIndexOf("/XRMServices/2011/Organization.svc", StringComparison.InvariantCultureIgnoreCase);
+
+                        var publicUrl = orgUrl.Substring(0, lastIndex + 1).TrimEnd('/');
+
+                        service.ConnectionData.PublicUrl = publicUrl;
                     }
                 }
             }

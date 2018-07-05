@@ -1147,17 +1147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             return true;
         }
 
-        public void LoadFileAndConvertFetchXmlToJavaScriptCode()
-        {
-            if (!TryLoadFileText())
-            {
-                return;
-            }
-
-            ConvertFetchXmlToJavaScriptCodeInternal();
-        }
-
-        private void btnConvertToJavaScriptCode_Click(object sender, RoutedEventArgs e)
+        private void btnCopyJavaScriptToClipboardCode_Click(object sender, RoutedEventArgs e)
         {
             ConvertFetchXmlToJavaScriptCodeInternal();
         }
@@ -1168,67 +1158,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             var jsCode = ContentCoparerHelper.FormatToJavaScript("fetchXml", fileText);
 
-            var textBox = new TextBox()
-            {
-                Text = jsCode,
-                IsReadOnly = true,
-                AcceptsReturn = true,
-                AcceptsTab = true,
-                HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
-                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-
-                Margin = new Thickness(5),
-            };
-
-            var label = new System.Windows.Controls.Label()
-            {
-                Content = "FetchXml in JavaScript",
-                Margin = new Thickness(0),
-                Padding = new Thickness(0),
-            };
-
-            if (this.Resources.Contains("contextMenuTabItem")
-               && this.Resources["contextMenuTabItem"] is ContextMenu contextMenu
-               )
-            {
-                label.ContextMenu = contextMenu;
-            }
-
-            var tabItem = new TabItem()
-            {
-                Header = label,
-                Content = textBox,
-            };
-
-            tabControl.Items.Add(tabItem);
-
-            tabControl.SelectedItem = tabItem;
-
-            tabItem.IsSelected = true;
-            tabItem.Focus();
-        }
-
-        private void mICloseTabItem_Click(object sender, RoutedEventArgs e)
-        {
-            MenuItem menuItem = e.OriginalSource as MenuItem;
-
-            if (menuItem == null)
-            {
-                return;
-            }
-
-            ContextMenu contextMenu = ItemsControl.ItemsControlFromItemContainer(menuItem) as ContextMenu;
-
-            if (contextMenu == null
-                || contextMenu.PlacementTarget == null
-                || !(contextMenu.PlacementTarget is System.Windows.Controls.Label label)
-                || !(label.Parent is TabItem tabItem)
-                )
-            {
-                return;
-            }
-
-            tabControl.Items.Remove(tabItem);
+            Clipboard.SetText(jsCode);
         }
     }
 }

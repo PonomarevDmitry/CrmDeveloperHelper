@@ -49,9 +49,52 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
-            if (sender is OleMenuCommand menuCommand)
+            try
             {
-                menuCommand.Enabled = menuCommand.Visible = false;
+                if (sender is OleMenuCommand menuCommand)
+                {
+                    menuCommand.Enabled = menuCommand.Visible = false;
+
+                    var connectionConfig = ConnectionConfiguration.Get();
+
+                    if (connectionConfig.CurrentConnectionData != null)
+                    {
+                        var index = menuCommand.CommandID.ID - _baseIdStart;
+
+                        if (0 <= index && index < connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.Count)
+                        {
+                            menuCommand.Text = connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
+
+                            menuCommand.Enabled = menuCommand.Visible = true;
+
+                            CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(this, menuCommand);
+
+                            CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(this, menuCommand, FileOperations.SupportsCSharpType);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(ex);
+            }
+        }
+
+        private void menuItemCallback(object sender, EventArgs e)
+        {
+            try
+            {
+                OleMenuCommand menuCommand = sender as OleMenuCommand;
+                if (menuCommand == null)
+                {
+                    return;
+                }
+
+                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+                if (applicationObject == null)
+                {
+                    return;
+                }
 
                 var connectionConfig = ConnectionConfiguration.Get();
 
@@ -61,55 +104,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     if (0 <= index && index < connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.Count)
                     {
-                        menuCommand.Text = connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
+                        string solutionUniqueName = connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
 
-                        menuCommand.Enabled = menuCommand.Visible = true;
+                        var helper = DTEHelper.Create(applicationObject);
 
-                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(this, menuCommand);
+                        List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsCSharpType);
 
-                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(this, menuCommand, FileOperations.SupportsCSharpType);
+                        var file = selectedFiles.FirstOrDefault();
+
+                        if (file != null)
+                        {
+                            string selection = file.Name.Split('.').FirstOrDefault();
+
+                            helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(solutionUniqueName, false, selection);
+                        }
                     }
                 }
             }
-        }
-
-        private void menuItemCallback(object sender, EventArgs e)
-        {
-            OleMenuCommand menuCommand = sender as OleMenuCommand;
-            if (menuCommand == null)
+            catch (Exception ex)
             {
-                return;
-            }
-
-            var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-            if (applicationObject == null)
-            {
-                return;
-            }
-
-            var connectionConfig = ConnectionConfiguration.Get();
-
-            if (connectionConfig.CurrentConnectionData != null)
-            {
-                var index = menuCommand.CommandID.ID - _baseIdStart;
-
-                if (0 <= index && index < connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.Count)
-                {
-                    string solutionUniqueName = connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
-
-                    var helper = DTEHelper.Create(applicationObject);
-
-                    List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsCSharpType);
-
-                    var file = selectedFiles.FirstOrDefault();
-
-                    if (file != null)
-                    {
-                        string selection = file.Name.Split('.').FirstOrDefault();
-
-                        helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(solutionUniqueName, false, selection);
-                    }
-                }
+                DTEHelper.WriteExceptionToOutput(ex);
             }
         }
     }

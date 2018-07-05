@@ -513,6 +513,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int ProjectCompareToCrmAssemblyCommandId = 0x2126;
         public const int ProjectPluginAssemblyAddIntoSolutionCommandId = 0x2125;
         public const int ProjectPluginAssemblyStepsAddIntoSolutionCommandId = 0x2127;
+        public const int ProjectPluginTypeDescriptionCommandId = 0x2163;
+        public const int ProjectPluginAssemblyDescriptionCommandId = 0x2164;
         public const int CodePublishListAddCommandId = 0x2070;
         public const int CodePublishListRemoveCommandId = 0x2071;
         public const int ListForPublishOpenFilesAllCommandId = 0x2013;
