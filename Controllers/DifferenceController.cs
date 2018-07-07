@@ -503,7 +503,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Сравнение файлов и веб-ресурсов по разным параметрам.
 
-        public async void ExecuteMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
+        public async void ExecuteMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Multi Difference {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -519,7 +519,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     this._iWriteToOutput.WriteToOutput(string.Empty);
                 }
 
-                await MultiDifferenceFiles(selectedFiles, openFilesType, crmConfig, commonConfig);
+                await MultiDifferenceFiles(selectedFiles, openFilesType, connectionData, commonConfig);
             }
             catch (Exception xE)
             {
@@ -531,10 +531,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task MultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
+        private async Task MultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            ConnectionData connectionData = crmConfig.CurrentConnectionData;
-
             if (connectionData == null)
             {
                 this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
@@ -547,7 +545,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            var compareResult = await CompareController.GetWebResourcesWithType(this._iWriteToOutput, selectedFiles, openFilesType, crmConfig);
+            var compareResult = await CompareController.GetWebResourcesWithType(this._iWriteToOutput, selectedFiles, openFilesType, connectionData);
 
             var listFilesToDifference = compareResult.Item2.Where(f => f.Item2 != null);
 

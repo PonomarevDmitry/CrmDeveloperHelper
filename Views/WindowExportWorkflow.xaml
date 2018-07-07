@@ -7,9 +7,9 @@
         Title="Export Workflow's Xml" Height="538.662" Width="717" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
+            <MenuItem Header="Open Workflow in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
             <Separator/>
-            <MenuItem Header="Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+            <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
             <Separator />
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center"  />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
@@ -20,7 +20,7 @@
             <Separator/>
             <MenuItem Header="Corrected Xaml" VerticalAlignment="Center" Click="mIExportWorkflowCorrectedXaml_Click"/>
             <Separator/>
-            <MenuItem Header="Show Difference Xaml And Corrected Xaml" VerticalAlignment="Center" Click="mIExportWorkflowShowDifferenceXamlAndCorrectedXaml_Click" />
+            <MenuItem Header="Show Difference Xaml and Corrected Xaml" VerticalAlignment="Center" Click="mIExportWorkflowShowDifferenceXamlAndCorrectedXaml_Click" />
             <Separator/>
             <MenuItem Header="Used Entities" VerticalAlignment="Center" Click="mIExportWorkflowUsedEntities_Click"/>
             <MenuItem Header="Used Not Exists Entities" VerticalAlignment="Center" Click="mIExportWorkflowUsedNotExistsEntities_Click"/>
@@ -120,7 +120,7 @@
                         <MenuItem x:Name="tSDDBExportWorkflow" Header="Export Workflow Information" VerticalAlignment="Center">
                             <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mICreateEntityDescription" Header="Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIExportWorkflowXaml" Header="Xaml" VerticalAlignment="Center" Click="mIExportWorkflowXaml_Click"/>
                             <MenuItem x:Name="mIExportWorkflowInputParameters" Header="InputParameters" VerticalAlignment="Center" Click="mIExportWorkflowInputParameters_Click"/>

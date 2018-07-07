@@ -23,7 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput = iWriteToOutput;
         }
 
-        public async void ExecuteOpenFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool inTextEditor, ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
+        public async void ExecuteOpenFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool inTextEditor, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Opening Files {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -39,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     this._iWriteToOutput.WriteToOutput(string.Empty);
                 }
 
-                await OpenFiles(selectedFiles, openFilesType, inTextEditor, crmConfig, commonConfig);
+                await OpenFiles(selectedFiles, openFilesType, inTextEditor, connectionData, commonConfig);
             }
             catch (Exception xE)
             {
@@ -51,17 +51,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpenFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool inTextEditor, ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
+        private async Task OpenFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool inTextEditor, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            ConnectionData connectionData = crmConfig.CurrentConnectionData;
-
             if (connectionData == null)
             {
                 this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
                 return;
             }
 
-            var compareResult = await CompareController.GetWebResourcesWithType(this._iWriteToOutput, selectedFiles, openFilesType, crmConfig);
+            var compareResult = await CompareController.GetWebResourcesWithType(this._iWriteToOutput, selectedFiles, openFilesType, connectionData);
 
             var filesToOpen = compareResult.Item2;
 

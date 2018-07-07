@@ -7,7 +7,7 @@
         Title="Export Plugin Type Description" Height="538.662" Width="717" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+            <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
             <Separator />
             <MenuItem x:Uid="contMnAddPluginTypeStepsIntoSolutionLast" Header="Add Steps for PluginType into Last Crm Solution" VerticalAlignment="Center"  />
             <MenuItem Header="Add Steps for PluginType into Crm Solution" VerticalAlignment="Center" Click="mIAddPluginTypeStepsIntoSolution_Click" />
@@ -75,7 +75,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportPluginType" Header="Export Plugin Type Information" VerticalAlignment="Center">
-                            <MenuItem x:Name="mICreateEntityDescription" Header="Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mICreatePluginTypeDescription" Header="Plugin Type Description" VerticalAlignment="Center" Click="mICreatePluginTypeDescription_Click"/>
                             <Separator/>

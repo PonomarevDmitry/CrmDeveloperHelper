@@ -140,14 +140,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
+            if (connectionData != null)
             {
-                var service = await GetService();
+                if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
+                {
+                    var service = await GetService();
 
-                _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                }
+
+                return _descriptorCache[connectionData.ConnectionId];
             }
 
-            return _descriptorCache[connectionData.ConnectionId];
+            return null;
         }
 
         private async void ShowExistingSiteMaps()
@@ -421,6 +426,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
+            if (connectionData == null)
+            {
+                return null;
+            }
+
             string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, name, id, fieldTitle, "xml");
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -536,26 +546,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
 
-            var service = await GetService();
+            try
+            {
+                var service = await GetService();
 
-            string fileName = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, name, idSiteMap, "EntityDescription", "txt");
-            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                string fileName = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, name, idSiteMap, "EntityDescription", "txt");
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            var repository = new SitemapRepository(service);
+                var repository = new SitemapRepository(service);
 
-            var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(true));
+                var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(true));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, sitemap, EntityFileNameFormatter.SiteMapIgnoreFields, service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, sitemap, EntityFileNameFormatter.SiteMapIgnoreFields, service.ConnectionData);
 
-            this._iWriteToOutput.WriteToOutput("SiteMap Entity Description exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput("SiteMap Entity Description exported to {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
+                UpdateStatus("Operation is completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            ToggleControls(true);
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void mIExportSiteMapXml_Click(object sender, RoutedEventArgs e)
@@ -568,6 +589,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ExecuteActionEntity(entity.Id, entity.SiteMapName, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml", PerformExportXmlToFile);
+        }
+
+        private void btnPublishSiteMap_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.SiteMapName, PerformPublishSiteMap);
+        }
+
+        private async Task PerformPublishSiteMap(string folder, Guid idSiteMap, string name)
+        {
+            ToggleControls(false);
+
+            name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new PublishActionsRepository(service);
+
+                this._iWriteToOutput.WriteToOutput("Start publishing SiteMap{0} {1} at {2}", name, idSiteMap, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                await repository.PublishSiteMapsAsync(new[] { idSiteMap });
+
+                this._iWriteToOutput.WriteToOutput("End publishing SiteMap{0} {1} at {2}", name, idSiteMap, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                UpdateStatus("Operation is completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -835,21 +900,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
                 });
 
-                var lastSoluiton = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
+                var lastSolution = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
 
-                if (lastSoluiton != null)
+                if (lastSolution != null)
                 {
-                    lastSoluiton.Items.Clear();
+                    lastSolution.Items.Clear();
 
-                    lastSoluiton.IsEnabled = false;
-                    lastSoluiton.Visibility = Visibility.Collapsed;
+                    lastSolution.IsEnabled = false;
+                    lastSolution.Visibility = Visibility.Collapsed;
 
-                    if (connectionData != null)
+                    if (connectionData != null
+                          && connectionData.LastSelectedSolutionsUniqueName != null
+                          && connectionData.LastSelectedSolutionsUniqueName.Any()
+                          )
                     {
-                        bool addIntoSolutionLast = connectionData.LastSelectedSolutionsUniqueName.Any();
-
-                        lastSoluiton.IsEnabled = addIntoSolutionLast;
-                        lastSoluiton.Visibility = addIntoSolutionLast ? Visibility.Visible : Visibility.Collapsed;
+                        lastSolution.IsEnabled = true;
+                        lastSolution.Visibility = Visibility.Visible;
 
                         foreach (var uniqueName in connectionData.LastSelectedSolutionsUniqueName)
                         {
@@ -861,7 +927,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             menuItem.Click += AddIntoCrmSolutionLast_Click;
 
-                            lastSoluiton.Items.Add(menuItem);
+                            lastSolution.Items.Add(menuItem);
                         }
                     }
                 }

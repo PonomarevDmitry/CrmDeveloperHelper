@@ -12,16 +12,17 @@
             <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
             <Separator />
             <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-            <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
             <Separator/>
-            <MenuItem Header="Export Entity Xml" Click="btnExportEntityXml_Click"/>
-            <Separator/>
             <MenuItem Header="Create C# Metadata File" Click="btnCreateCSharpFile_Click"/>
             <MenuItem Header="Create JavaScript Metadata File" Click="btnCreateJavaScriptFile_Click"/>
+            <Separator/>
+            <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+            <Separator/>
+            <MenuItem Header="Export Entity Xml" Click="btnExportEntityXml_Click"/>
             <Separator/>
             <MenuItem Header="Get Other Entity Information">
                 <MenuItem Header="Ribbon" Click="btnExportRibbon_Click"/>

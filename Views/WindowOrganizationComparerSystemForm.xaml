@@ -12,7 +12,7 @@
         <ContextMenu x:Key="listContextMenu">
             
             <MenuItem Header="Show Difference">
-                <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                 <MenuItem Header="Form Description" Click="mIShowDifferenceFormDescription_Click" />
                 <MenuItem Header="Form XML" Click="mIShowDifferenceFormXml_Click" />
                 <MenuItem Header="Form WebResouces" Click="mIShowDifferenceWebResouces_Click" />
@@ -33,7 +33,7 @@
             
             <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName1}">
-                <MenuItem Header="Entity Description" Click="mIExportSystemForm1EntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIExportSystemForm1EntityDescription_Click"/>
                 <MenuItem Header="Form Description" Click="mIExportSystemForm1FormDescription_Click" />
                 <MenuItem Header="Form XML" Click="mIExportSystemForm1FormXml_Click" />
                 <MenuItem Header="Download Form WebResouces" Click="mIExportSystemForm1DownloadWebResouces_Click" />
@@ -58,7 +58,7 @@
             
             <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName2}">
-                <MenuItem Header="Entity Description" Click="mIExportSystemForm2EntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIExportSystemForm2EntityDescription_Click"/>
                 <MenuItem Header="Form Description" Click="mIExportSystemForm2FormDescription_Click" />
                 <MenuItem Header="Form XML" Click="mIExportSystemForm2FormXml_Click" />
                 <MenuItem Header="Download Form WebResouces" Click="mIExportSystemForm2DownloadWebResouces_Click" />
@@ -142,7 +142,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIShowDifferenceFormDescription" Header="Form Description" Click="mIShowDifferenceFormDescription_Click" />
                             <MenuItem x:Name="mIShowDifferenceFormXml" Header="Form XML" Click="mIShowDifferenceFormXml_Click" />
@@ -153,7 +153,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
-                            <MenuItem x:Name="mIExportSystemForm1EntityDescription" Header="Entity Description" Click="mIExportSystemForm1EntityDescription_Click"/>
+                            <MenuItem x:Name="mIExportSystemForm1EntityDescription" Header="Create Entity Description" Click="mIExportSystemForm1EntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIExportSystemForm1FormDescription" Header="Form Description" Click="mIExportSystemForm1FormDescription_Click" />
                             <MenuItem x:Name="mIExportSystemForm1FormXml" Header="Form XML" Click="mIExportSystemForm1FormXml_Click" />
@@ -164,7 +164,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
-                            <MenuItem x:Name="mIExportSystemForm2EntityDescription" Header="Entity Description" Click="mIExportSystemForm2EntityDescription_Click"/>
+                            <MenuItem x:Name="mIExportSystemForm2EntityDescription" Header="Create Entity Description" Click="mIExportSystemForm2EntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIExportSystemForm2FormDescription" Header="Form Description" Click="mIExportSystemForm2FormDescription_Click" />
                             <MenuItem x:Name="mIExportSystemForm2FormXml" Header="Form XML" Click="mIExportSystemForm2FormXml_Click" />

@@ -12,7 +12,7 @@
         <ContextMenu x:Key="listContextMenu">
             
             <MenuItem Header="Show Difference">
-                <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                 <MenuItem Header="Xaml" Click="mIShowDifferenceXaml_Click"/>
                 <MenuItem Header="InputParameters" Click="mIShowDifferenceInputParameters_Click"/>
                 <MenuItem Header="ClientData" Click="mIShowDifferenceClientData_Click"/>
@@ -33,7 +33,7 @@
 
             <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName1}">
-                <MenuItem Header="Entity Description" Click="mIExportWorkflow1EntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIExportWorkflow1EntityDescription_Click"/>
                 <MenuItem Header="Xaml" Click="mIExportWorkflow1Xaml_Click"/>
                 <MenuItem Header="InputParameters" Click="mIExportWorkflow1InputParameters_Click"/>
                 <MenuItem Header="ClientData" Click="mIExportWorkflow1ClientData_Click"/>
@@ -59,7 +59,7 @@
 
             <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName2}">
-                <MenuItem Header="Entity Description" Click="mIExportWorkflow2EntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIExportWorkflow2EntityDescription_Click"/>
                 <MenuItem Header="Xaml" Click="mIExportWorkflow2Xaml_Click"/>
                 <MenuItem Header="InputParameters" Click="mIExportWorkflow2InputParameters_Click"/>
                 <MenuItem Header="ClientData" Click="mIExportWorkflow2ClientData_Click"/>
@@ -145,7 +145,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIShowDifferenceXaml" Header="Xaml" Click="mIShowDifferenceXaml_Click"/>
                             <MenuItem x:Name="mIShowDifferenceInputParameters" Header="InputParameters" Click="mIShowDifferenceInputParameters_Click"/>
@@ -157,7 +157,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
-                            <MenuItem x:Name="mIExportWorkflow1EntityDescription" Header="Entity Description" Click="mIExportWorkflow1EntityDescription_Click"/>
+                            <MenuItem x:Name="mIExportWorkflow1EntityDescription" Header="Create Entity Description" Click="mIExportWorkflow1EntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIExportWorkflow1Xaml" Header="Xaml" Click="mIExportWorkflow1Xaml_Click"/>
                             <MenuItem x:Name="mIExportWorkflow1InputParameters" Header="InputParameters" Click="mIExportWorkflow1InputParameters_Click"/>
@@ -169,7 +169,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
-                            <MenuItem x:Name="mIExportWorkflow2EntityDescription" Header="Entity Description" Click="mIExportWorkflow2EntityDescription_Click"/>
+                            <MenuItem x:Name="mIExportWorkflow2EntityDescription" Header="Create Entity Description" Click="mIExportWorkflow2EntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIExportWorkflow2Xaml" Header="Xaml" Click="mIExportWorkflow2Xaml_Click"/>
                             <MenuItem x:Name="mIExportWorkflow2InputParameters" Header="InputParameters" Click="mIExportWorkflow2InputParameters_Click"/>

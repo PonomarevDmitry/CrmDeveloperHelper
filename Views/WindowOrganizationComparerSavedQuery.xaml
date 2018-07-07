@@ -12,7 +12,7 @@
         <ContextMenu x:Key="listContextMenu">
 
             <MenuItem Header="Show Difference">
-                <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                 <MenuItem Header="Fetch XML" Click="mIShowDifferenceFetchXml_Click"/>
                 <MenuItem Header="Layout XML" Click="mIShowDifferenceLayoutXml_Click"/>
                 <MenuItem Header="ColumnSet XML" Click="mIShowDifferenceColumnSetXml_Click"/>
@@ -33,7 +33,7 @@
             
             <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName1}">
-                <MenuItem Header="Entity Description" Click="mIExportSavedQuery1EntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIExportSavedQuery1EntityDescription_Click"/>
                 <MenuItem Header="Fetch XML" Click="mIExportSavedQuery1FetchXml_Click"/>
                 <MenuItem Header="Layout XML" Click="mIExportSavedQuery1LayoutXml_Click"/>
                 <MenuItem Header="ColumnSet XML" Click="mIExportSavedQuery1ColumnSetXml_Click"/>
@@ -58,7 +58,7 @@
             
             <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName2}">
-                <MenuItem Header="Entity Description" Click="mIExportSavedQuery2EntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIExportSavedQuery2EntityDescription_Click"/>
                 <MenuItem Header="Fetch XML" Click="mIExportSavedQuery2FetchXml_Click"/>
                 <MenuItem Header="Layout XML" Click="mIExportSavedQuery2LayoutXml_Click"/>
                 <MenuItem Header="ColumnSet XML" Click="mIExportSavedQuery2ColumnSetXml_Click"/>
@@ -142,7 +142,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIShowDifferenceFetchXml" Header="Fetch XML" Click="mIShowDifferenceFetchXml_Click"/>
                             <MenuItem x:Name="mIShowDifferenceLayoutXml" Header="Layout XML" Click="mIShowDifferenceLayoutXml_Click"/>
@@ -152,7 +152,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
-                            <MenuItem x:Name="mIExportSavedQuery1EntityDescription" Header="Entity Description" Click="mIExportSavedQuery1EntityDescription_Click"/>
+                            <MenuItem x:Name="mIExportSavedQuery1EntityDescription" Header="Create Entity Description" Click="mIExportSavedQuery1EntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIExportSavedQuery1FetchXml" Header="Fetch XML" Click="mIExportSavedQuery1FetchXml_Click"/>
                             <MenuItem x:Name="mIExportSavedQuery1LayoutXml" Header="Layout XML" Click="mIExportSavedQuery1LayoutXml_Click"/>
@@ -162,7 +162,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
-                            <MenuItem x:Name="mIExportSavedQuery2EntityDescription" Header="Entity Description" Click="mIExportSavedQuery2EntityDescription_Click"/>
+                            <MenuItem x:Name="mIExportSavedQuery2EntityDescription" Header="Create Entity Description" Click="mIExportSavedQuery2EntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIExportSavedQuery2FetchXml" Header="Fetch XML" Click="mIExportSavedQuery2FetchXml_Click"/>
                             <MenuItem x:Name="mIExportSavedQuery2LayoutXml" Header="Layout XML" Click="mIExportSavedQuery2LayoutXml_Click"/>

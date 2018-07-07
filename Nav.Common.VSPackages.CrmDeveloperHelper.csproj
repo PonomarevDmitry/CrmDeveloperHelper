@@ -169,6 +169,7 @@
     <Compile Include="Commands\CommonExportWorkflowCommand.cs" />
     <Compile Include="Commands\CommonFindEntityObjectsByNameCommand.cs" />
     <Compile Include="Commands\CommonFindEntityObjectsContainsStringCommand.cs" />
+    <Compile Include="Commands\CommonPublishAllInCrmConnectionCommand.cs" />
     <Compile Include="Commands\CommonSdkMessageRequestTreeCommand.cs" />
     <Compile Include="Commands\CommonSdkMessageTreeCommand.cs" />
     <Compile Include="Commands\CommonSelectCrmConnectionCommand.cs" />
@@ -655,6 +656,7 @@
     <Compile Include="Repository\PluginAssemblyRepository.cs" />
     <Compile Include="Repository\PluginSearchRepository.cs" />
     <Compile Include="Repository\PluginTypeRepository.cs" />
+    <Compile Include="Repository\PublishActionsRepository.cs" />
     <Compile Include="Repository\PublisherRepository.cs" />
     <Compile Include="Repository\ReportRepository.cs" />
     <Compile Include="Repository\RibbonCustomizationRepository.cs" />
@@ -852,6 +854,7 @@
     <Content Include="app.config">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="Schemas\Examples\PublishXmlExample.xml" />
     <None Include="packages.config" />
     <Resource Include="Schemas\CustomizationsSolution.xsd">
       <SubType>Designer</SubType>

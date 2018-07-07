@@ -2,6 +2,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -19,15 +20,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
     {
         internal const int CountConnectionToQuickList = 40;
 
+        internal const int CountLastSolutions = 10;
+
+        internal const int CountLastItems = 20;
+
         private object _syncObjectAttributes = new object();
 
         private object _syncObjectIntellisense = new object();
 
         private object _syncObjectRequests = new object();
 
-        private bool _IsCurrentConnection;
-
         public ConnectionConfiguration ConnectionConfiguration { get; set; }
+
+        private bool _IsCurrentConnection;
 
         public bool IsCurrentConnection
         {
@@ -55,7 +60,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public Guid ConnectionId { get; set; }
 
         private bool _IsReadOnly;
-
         /// <summary>
         /// Подключение только для чтения
         /// </summary>
@@ -80,7 +84,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         }
 
         private string _Name;
-
         /// <summary>
         /// Название
         /// </summary>
@@ -110,7 +113,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         }
 
         private string _GroupName;
-
         /// <summary>
         /// Название
         /// </summary>
@@ -914,10 +916,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public List<AssemblyMapping> AssemblyMappings { get; private set; }
 
-        internal const int CountLastSolutions = 10;
-
-        internal const int CountLastItems = 20;
-
         [DataMember]
         public ObservableCollection<string> LastSelectedSolutionsUniqueName { get; private set; }
 
@@ -935,6 +933,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         [DataMember]
         public ObservableCollection<FetchXmlRequestParameter> FetchXmlRequestParameterList { get; private set; }
+
+        private ConcurrentDictionary<string, bool> _knownRequests = new ConcurrentDictionary<string, bool>(StringComparer.InvariantCultureIgnoreCase);
 
         /// <summary>
         /// Конструктор данных
@@ -954,6 +954,89 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.NameSpaceClasses = nameof(NameSpaceClasses);
             this.NameSpaceOptionSets = nameof(NameSpaceOptionSets);
             this.ServiceContextName = "XrmServiceContext";
+        }
+
+        [OnSerializing]
+        private void BeforeSerializing(StreamingContext context)
+        {
+            if (this.ConnectionId == Guid.Empty)
+            {
+                this.ConnectionId = Guid.NewGuid();
+            }
+        }
+
+        [OnDeserializing]
+        private void BeforeDeserialize(StreamingContext context)
+        {
+            if (_syncObjectAttributes == null) { _syncObjectAttributes = new object(); }
+            if (_syncObjectIntellisense == null) { _syncObjectIntellisense = new object(); }
+            if (_syncObjectRequests == null) { _syncObjectRequests = new object(); }
+
+            lock (_syncObjectRequests)
+            {
+                if (_knownRequests == null)
+                {
+                    _knownRequests = new ConcurrentDictionary<string, bool>(StringComparer.InvariantCultureIgnoreCase);
+                }
+            }
+
+            if (this.Mappings == null)
+            {
+                this.Mappings = new List<FileMapping>();
+            }
+
+            if (this.AssemblyMappings == null)
+            {
+                this.AssemblyMappings = new List<AssemblyMapping>();
+            }
+
+            if (this.LastSelectedSolutionsUniqueName == null)
+            {
+                this.LastSelectedSolutionsUniqueName = new ObservableCollection<string>();
+            }
+
+            if (this.LastSolutionExportFolders == null)
+            {
+                this.LastSolutionExportFolders = new ObservableCollection<string>();
+            }
+
+            if (this.LastExportSolutionOverrideUniqueName == null)
+            {
+                this.LastExportSolutionOverrideUniqueName = new ObservableCollection<string>();
+            }
+
+            if (this.LastExportSolutionOverrideDisplayName == null)
+            {
+                this.LastExportSolutionOverrideDisplayName = new ObservableCollection<string>();
+            }
+
+            if (this.LastExportSolutionOverrideVersion == null)
+            {
+                this.LastExportSolutionOverrideVersion = new ObservableCollection<string>();
+            }
+
+            if (this.FetchXmlRequestParameterList == null)
+            {
+                this.FetchXmlRequestParameterList = new ObservableCollection<FetchXmlRequestParameter>();
+            }
+        }
+
+        [OnDeserialized]
+        private void AfterDeserialize(StreamingContext context)
+        {
+            if (this.ConnectionId == Guid.Empty)
+            {
+                this.ConnectionId = Guid.NewGuid();
+            }
+
+            var data = ConnectionIntellisenseData.Get(this.ConnectionId);
+
+            if (data != null)
+            {
+                this.IntellisenseData.MergeDataFromDisk(data);
+            }
+
+            IntellisenseData.ConnectionId = this.ConnectionId;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -1503,56 +1586,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
             this.IntellisenseData.Save();
-        }
-
-        private Dictionary<string, bool> _knownRequests = new Dictionary<string, bool>(StringComparer.InvariantCultureIgnoreCase);
-
-        [OnDeserializing]
-        private void BeforeDeserialize(StreamingContext context)
-        {
-            if (_syncObjectAttributes == null) { _syncObjectAttributes = new object(); }
-            if (_syncObjectIntellisense == null) { _syncObjectIntellisense = new object(); }
-            if (_syncObjectRequests == null) { _syncObjectRequests = new object(); }
-
-            lock (_syncObjectRequests)
-            {
-                if (_knownRequests == null)
-                {
-                    _knownRequests = new Dictionary<string, bool>(StringComparer.InvariantCultureIgnoreCase);
-                }
-            }
-
-            if (this.FetchXmlRequestParameterList == null)
-            {
-                this.FetchXmlRequestParameterList = new ObservableCollection<FetchXmlRequestParameter>();
-            }
-        }
-
-        [OnSerializing]
-        private void BeforeSerializing(StreamingContext context)
-        {
-            if (this.ConnectionId == Guid.Empty)
-            {
-                this.ConnectionId = Guid.NewGuid();
-            }
-        }
-
-        [OnDeserialized]
-        private void AfterDeserialize(StreamingContext context)
-        {
-            if (this.ConnectionId == Guid.Empty)
-            {
-                this.ConnectionId = Guid.NewGuid();
-            }
-
-            var data = ConnectionIntellisenseData.Get(this.ConnectionId);
-
-            if (data != null)
-            {
-                this.IntellisenseData.MergeDataFromDisk(data);
-            }
-
-            IntellisenseData.ConnectionId = this.ConnectionId;
         }
 
         #region Генерация url-адресов.

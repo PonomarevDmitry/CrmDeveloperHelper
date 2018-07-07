@@ -7,9 +7,10 @@
         Title="Export SavedQuery's Xml" Height="538.662" Width="717" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
-            <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
+            <MenuItem Header="Open SavedQuery in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
             <Separator />
+            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+            <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
             <Separator/>
@@ -17,9 +18,9 @@
             <MenuItem Header="Layout XML in JavaScript" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
             <MenuItem Header="ColumnSet XML in JavaScript" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
             <Separator/>
-            <MenuItem Header="Fetch XML" Click="mIExportSavedQueryFetchXml_Click"/>
-            <MenuItem Header="Layout XML" Click="mIExportSavedQueryLayoutXml_Click"/>
-            <MenuItem Header="ColumnSet XML" Click="mIExportSavedQueryColumnSetXml_Click"/>
+            <MenuItem Header="Fetch XML" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXml_Click"/>
+            <MenuItem Header="Layout XML" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXml_Click"/>
+            <MenuItem Header="ColumnSet XML" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXml_Click"/>
             <Separator/>
             <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
             <Separator/>

@@ -71,13 +71,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Создание файла с глобальными OptionSet-ами.
 
-        public async void ExecuteCreatingFileWithGlobalOptionSets(ConnectionConfiguration crmConfig, ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public async void ExecuteCreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Creating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
-                await CreatingFileWithGlobalOptionSets(crmConfig, connectionData, commonConfig, selection);
+                await CreatingFileWithGlobalOptionSets(connectionData, commonConfig, selection);
             }
             catch (Exception xE)
             {
@@ -89,7 +89,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task CreatingFileWithGlobalOptionSets(ConnectionConfiguration crmConfig, ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        private async Task CreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             if (connectionData == null)
             {
@@ -237,13 +237,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Обновление файла с глобальными OptionSet-ами.
 
-        public async void ExecuteUpdatingFileWithGlobalOptionSets(ConnectionConfiguration crmConfig, ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        public async void ExecuteUpdatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Updating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
-                await UpdatingFileWithGlobalOptionSets(crmConfig, connectionData, commonConfig, selectedFiles, withSelect);
+                await UpdatingFileWithGlobalOptionSets(connectionData, commonConfig, selectedFiles, withSelect);
             }
             catch (Exception xE)
             {
@@ -255,7 +255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdatingFileWithGlobalOptionSets(ConnectionConfiguration crmConfig, ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        private async Task UpdatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
             if (connectionData == null)
             {

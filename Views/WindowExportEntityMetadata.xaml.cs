@@ -202,14 +202,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
+            if (connectionData != null)
             {
-                var service = await GetService();
+                if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
+                {
+                    var service = await GetService();
 
-                _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                }
+
+                return _descriptorCache[connectionData.ConnectionId];
             }
 
-            return _descriptorCache[connectionData.ConnectionId];
+            return null;
         }
 
         private async void ShowExistingEntities()
@@ -827,11 +832,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnExportEntityXml_Click(object sender, RoutedEventArgs e)
         {
             if (this.lstVwEntities.SelectedItems.Count == 1
-             && this.lstVwEntities.SelectedItems[0] != null
-             && this.lstVwEntities.SelectedItems[0] is EntityMetadataListViewItem item
-             )
+                && this.lstVwEntities.SelectedItems[0] != null
+                && this.lstVwEntities.SelectedItems[0] is EntityMetadataListViewItem item
+            )
             {
                 ExecuteActionAsync(item.EntityLogicalName, CreateEntityXmlFileAsync);
+            }
+        }
+
+        private void btnPublishEntity_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.lstVwEntities.SelectedItems.Count == 1
+                && this.lstVwEntities.SelectedItems[0] != null
+                && this.lstVwEntities.SelectedItems[0] is EntityMetadataListViewItem item
+            )
+            {
+                ExecuteActionAsync(item.EntityLogicalName, PublishEntityAsync);
             }
         }
 
@@ -868,6 +884,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateStatus("File is created.");
 
             ToggleControls(true);
+        }
+
+        private async Task PublishEntityAsync(string entityName)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            UpdateStatus(string.Format("Publishing Entity {0}...", entityName));
+
+            this._iWriteToOutput.WriteToOutput("Start publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new PublishActionsRepository(service);
+
+                await repository.PublishEntitiesAsync(new[] { entityName });
+
+                this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                UpdateStatus(string.Format("Entity {0} published", entityName));
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus(string.Format("Publish Entity {0} failed", entityName));
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1002,21 +1055,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
                 });
 
-                var lastSoluiton = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
+                var lastSolution = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
 
-                if (lastSoluiton != null)
+                if (lastSolution != null)
                 {
-                    lastSoluiton.Items.Clear();
+                    lastSolution.Items.Clear();
 
-                    lastSoluiton.IsEnabled = false;
-                    lastSoluiton.Visibility = Visibility.Collapsed;
+                    lastSolution.IsEnabled = false;
+                    lastSolution.Visibility = Visibility.Collapsed;
 
-                    if (connectionData != null)
+                    if (connectionData != null
+                        && connectionData.LastSelectedSolutionsUniqueName != null
+                        && connectionData.LastSelectedSolutionsUniqueName.Any()
+                        )
                     {
-                        bool addIntoSolutionLast = connectionData.LastSelectedSolutionsUniqueName.Any();
-
-                        lastSoluiton.IsEnabled = addIntoSolutionLast;
-                        lastSoluiton.Visibility = addIntoSolutionLast ? Visibility.Visible : Visibility.Collapsed;
+                        lastSolution.IsEnabled = true;
+                        lastSolution.Visibility = Visibility.Visible;
 
                         foreach (var uniqueName in connectionData.LastSelectedSolutionsUniqueName)
                         {
@@ -1028,7 +1082,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             menuItem.Click += AddIntoCrmSolutionLast_Click;
 
-                            lastSoluiton.Items.Add(menuItem);
+                            lastSolution.Items.Add(menuItem);
                         }
                     }
                 }

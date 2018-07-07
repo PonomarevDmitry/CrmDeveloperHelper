@@ -163,14 +163,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
+            if (connectionData != null)
             {
-                var service = await GetService();
+                if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
+                {
+                    var service = await GetService();
 
-                _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                }
+
+                return _descriptorCache[connectionData.ConnectionId];
             }
 
-            return _descriptorCache[connectionData.ConnectionId];
+            return null;
         }
 
         private async void ShowExistingSolutions()
@@ -459,7 +464,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         bool enabled = this._controlsEnabled;
 
-                        menuCopyComponents.IsEnabled = tSDDBCopyComponents.IsEnabled = enabled;
+                        tSDDBCopyComponents.IsEnabled = enabled;
 
                         tSDDBCopyComponents.Items.Clear();
 
@@ -480,18 +485,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             {
                                 FillCopyComponentsMenuItems(tSDDBCopyComponents, listFrom, listTo);
                             }
-
-                            if (tSDDBCopyComponents.Items.Count == 0)
-                            {
-                                menuCopyComponents.IsEnabled = tSDDBCopyComponents.IsEnabled = false;
-                            }
                         }
+
+                        tSDDBCopyComponents.IsEnabled = tSDDBCopyComponents.Items.Count > 0;
+
+                        menuItemCopyComponents.IsEnabled = tSDDBCopyComponents.Items.Count > 0 || tSDDBCopyComponentsLastSolution.Items.Count > 0;
                     }
 
                     {
                         bool enabled = this._controlsEnabled;
 
-                        menuClearUnmanagedSolution.IsEnabled = tSDDBClearUnmanagedSolution.IsEnabled = enabled;
+                        tSDDBClearUnmanagedSolution.IsEnabled = enabled;
 
                         tSDDBClearUnmanagedSolution.Items.Clear();
 
@@ -524,12 +528,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                     tSDDBClearUnmanagedSolution.Items.Add(menuItem);
                                 }
                             }
-
-                            if (tSDDBClearUnmanagedSolution.Items.Count == 0)
-                            {
-                                menuClearUnmanagedSolution.IsEnabled = tSDDBClearUnmanagedSolution.IsEnabled = false;
-                            }
                         }
+
+                        tSDDBClearUnmanagedSolution.IsEnabled = tSDDBClearUnmanagedSolution.Items.Count > 0;
                     }
 
                     FillCopyComponentsToLastSelectedSolutions();
@@ -545,7 +546,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             bool enabled = this._controlsEnabled;
 
-            menuCopyComponentsLastSolution.IsEnabled = tSDDBCopyComponentsLastSolution.IsEnabled = enabled;
+            tSDDBCopyComponentsLastSolution.IsEnabled = enabled;
 
             tSDDBCopyComponentsLastSolution.Items.Clear();
 
@@ -553,41 +554,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
-                var listSolutionNames = connectionData.LastSelectedSolutionsUniqueName.ToList();
-
-                var listFrom = lstVwSolutions.SelectedItems
-                        .OfType<EntityViewItem>()
-                        .Where(e => e.Solution != null)
-                        .Select(e => e.Solution)
-                        .OrderBy(e => e.UniqueName)
-                        .ToList();
-
-                if (listSolutionNames.Any() && listFrom.Any())
+                if (connectionData != null
+                    && connectionData.LastSelectedSolutionsUniqueName != null
+                    )
                 {
-                    var serviceTask = GetService();
+                    var listSolutionNames = connectionData.LastSelectedSolutionsUniqueName.ToList();
 
-                    serviceTask.Wait();
+                    var listFrom = lstVwSolutions.SelectedItems
+                            .OfType<EntityViewItem>()
+                            .Where(e => e.Solution != null)
+                            .Select(e => e.Solution)
+                            .OrderBy(e => e.UniqueName)
+                            .ToList();
 
-                    var service = serviceTask.Result;
+                    if (listSolutionNames.Any() && listFrom.Any())
+                    {
+                        var serviceTask = GetService();
 
-                    SolutionRepository repository = new SolutionRepository(service);
+                        serviceTask.Wait();
 
-                    var solutionsTask = repository.GetSolutionsVisibleUnmanagedAsync(listSolutionNames);
+                        var service = serviceTask.Result;
 
-                    solutionsTask.Wait();
+                        SolutionRepository repository = new SolutionRepository(service);
 
-                    var lastSolutions = solutionsTask.Result.ToDictionary(s => s.UniqueName, StringComparer.InvariantCultureIgnoreCase);
+                        var solutionsTask = repository.GetSolutionsVisibleUnmanagedAsync(listSolutionNames);
 
-                    var listTo = listSolutionNames.Where(s => lastSolutions.ContainsKey(s)).Select(s => lastSolutions[s]).ToList();
+                        solutionsTask.Wait();
 
-                    FillCopyComponentsMenuItems(tSDDBCopyComponentsLastSolution, listFrom, listTo);
-                }
+                        var lastSolutions = solutionsTask.Result.ToDictionary(s => s.UniqueName, StringComparer.InvariantCultureIgnoreCase);
 
-                if (tSDDBCopyComponentsLastSolution.Items.Count == 0)
-                {
-                    menuCopyComponentsLastSolution.IsEnabled = tSDDBCopyComponentsLastSolution.IsEnabled = false;
+                        var listTo = listSolutionNames.Where(s => lastSolutions.ContainsKey(s)).Select(s => lastSolutions[s]).ToList();
+
+                        FillCopyComponentsMenuItems(tSDDBCopyComponentsLastSolution, listFrom, listTo);
+                    }
                 }
             }
+
+            tSDDBCopyComponentsLastSolution.IsEnabled = tSDDBCopyComponentsLastSolution.Items.Count > 0;
+
+            menuItemCopyComponents.IsEnabled = tSDDBCopyComponents.Items.Count > 0 || tSDDBCopyComponentsLastSolution.Items.Count > 0;
         }
 
         private void FillCopyComponentsMenuItems(MenuItem parentMenuItem, List<Solution> listFrom, List<Solution> listTo)
@@ -1439,7 +1444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void tSBExportSolution_Click(object sender, RoutedEventArgs e)
+        private async void miExportSolution_Click(object sender, RoutedEventArgs e)
         {
             string name = lstVwSolutions.SelectedItems
                 .OfType<EntityViewItem>()
@@ -1459,6 +1464,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , null
                 , name
                 );
+        }
+
+        private void miCreateNewSolution_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            if (connectionData != null)
+            {
+                connectionData.OpenSolutionCreateInWeb();
+            }
         }
 
         private void mIClearUnmanagedSolution_Click(object sender, RoutedEventArgs e)
@@ -1747,19 +1767,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
-                if (!_syncCacheObjects.ContainsKey(connectionData.ConnectionId))
+                if (connectionData != null)
                 {
-                    var syncObject = new object();
+                    if (!_syncCacheObjects.ContainsKey(connectionData.ConnectionId))
+                    {
+                        var syncObject = new object();
 
-                    _syncCacheObjects.Add(connectionData.ConnectionId, syncObject);
+                        _syncCacheObjects.Add(connectionData.ConnectionId, syncObject);
 
-                    BindingOperations.EnableCollectionSynchronization(connectionData.LastSelectedSolutionsUniqueName, syncObject);
+                        BindingOperations.EnableCollectionSynchronization(connectionData.LastSelectedSolutionsUniqueName, syncObject);
+                    }
                 }
             });
 
             if (connectionData != null)
             {
                 ShowExistingSolutions();
+            }
+        }
+
+        private void lstVwSolutions_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                var item = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
+
+                if (item != null && item.Solution != null)
+                {
+                    ExecuteActionOnSingleSolution(item.Solution, PerformOpenSolutionComponentsInWindow);
+                }
             }
         }
     }

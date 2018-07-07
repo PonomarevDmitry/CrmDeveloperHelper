@@ -11,7 +11,7 @@
         <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
         <ContextMenu x:Key="listContextMenu">
             <MenuItem Header="Show Difference">
-                <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                 <Separator/>
                 <MenuItem Header="Body Text" VerticalAlignment="Center" Click="mIShowDifferenceBodyText_Click"/>
                 <MenuItem Header="Original Body Text" VerticalAlignment="Center" Click="mIShowDifferenceOriginalBodyText_Click"/>
@@ -25,7 +25,7 @@
 
             <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName1}">
-                <MenuItem Header="Entity Description" Click="mIExportReport1EntityDescription_Click" />
+                <MenuItem Header="Create Entity Description" Click="mIExportReport1EntityDescription_Click" />
                 <Separator/>
                 <MenuItem Header="Body Text" VerticalAlignment="Center" Click="mIExportReport1BodyText_Click"/>
                 <MenuItem Header="Original Body Text" VerticalAlignment="Center" Click="mIExportReport1OriginalBodyText_Click"/>
@@ -41,7 +41,7 @@
 
             <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName2}">
-                <MenuItem Header="Entity Description" Click="mIExportReport2EntityDescription_Click" />
+                <MenuItem Header="Create Entity Description" Click="mIExportReport2EntityDescription_Click" />
                 <Separator/>
                 <MenuItem Header="Body Text" VerticalAlignment="Center" Click="mIExportReport2BodyText_Click"/>
                 <MenuItem Header="Original Body Text" VerticalAlignment="Center" Click="mIExportReport2OriginalBodyText_Click"/>
@@ -111,7 +111,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIShowDifferenceBodyText" Header="Body Text" VerticalAlignment="Center" Click="mIShowDifferenceBodyText_Click"/>
                             <MenuItem x:Name="mIShowDifferenceOriginalBodyText" Header="Original Body Text" VerticalAlignment="Center" Click="mIShowDifferenceOriginalBodyText_Click"/>
@@ -124,7 +124,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
-                            <MenuItem x:Name="mIExportReport1EntityDescription" Header="Entity Description" Click="mIExportReport1EntityDescription_Click" />
+                            <MenuItem x:Name="mIExportReport1EntityDescription" Header="Create Entity Description" Click="mIExportReport1EntityDescription_Click" />
                             <Separator/>
                             <MenuItem x:Name="mIExportReport1BodyText" Header="Body Text" VerticalAlignment="Center" Click="mIExportReport1BodyText_Click"/>
                             <MenuItem x:Name="mIExportReport1OriginalBodyText" Header="Original Body Text" VerticalAlignment="Center" Click="mIExportReport1OriginalBodyText_Click"/>
@@ -139,7 +139,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
-                            <MenuItem x:Name="mIExportReport2EntityDescription" Header="Entity Description" Click="mIExportReport2EntityDescription_Click" />
+                            <MenuItem x:Name="mIExportReport2EntityDescription" Header="Create Entity Description" Click="mIExportReport2EntityDescription_Click" />
                             <Separator/>
                             <MenuItem x:Name="mIExportReport2BodyText" Header="Body Text" VerticalAlignment="Center" Click="mIExportReport2BodyText_Click"/>
                             <MenuItem x:Name="mIExportReport2OriginalBodyText" Header="Original Body Text" VerticalAlignment="Center" Click="mIExportReport2OriginalBodyText_Click"/>

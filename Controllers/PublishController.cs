@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// </summary>
         /// <param name="selectedFiles"></param>
         /// <param name="config"></param>
-        public async void ExecuteUpdateContentAndPublish(List<SelectedFile> selectedFiles, ConnectionConfiguration config)
+        public async void ExecuteUpdateContentAndPublish(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Updating Content and Publishing at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -50,7 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     this._iWriteToOutput.WriteToOutput(string.Empty);
                 }
 
-                await UpdateContentAndPublish(selectedFiles, config);
+                await UpdateContentAndPublish(selectedFiles, connectionData);
             }
             catch (Exception xE)
             {
@@ -62,10 +62,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdateContentAndPublish(List<SelectedFile> selectedFiles, ConnectionConfiguration config)
+        private async Task UpdateContentAndPublish(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
-            ConnectionData connectionData = config.CurrentConnectionData;
-
             if (connectionData == null)
             {
                 this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
@@ -158,7 +156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 allForOther = false;
                             }
 
-                            config.Save();
+                            connectionData.ConnectionConfiguration.Save();
 
                             if (dialogResult.GetValueOrDefault())
                             {
@@ -194,7 +192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             //Сохранение настроек после публикации
-            config.Save();
+            connectionData.ConnectionConfiguration.Save();
 
             publishHelper.UpdateContentAndPublish();
         }
@@ -208,7 +206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// </summary>
         /// <param name="selectedFiles"></param>
         /// <param name="config"></param>
-        public async void ExecuteUpdateContentAndPublishEqualByText(List<SelectedFile> selectedFiles, ConnectionConfiguration config)
+        public async void ExecuteUpdateContentAndPublishEqualByText(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Updating Content Web Resources equal by Text and Publishing at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -224,7 +222,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     this._iWriteToOutput.WriteToOutput(string.Empty);
                 }
 
-                await UpdateContentAndPublishEqualByText(selectedFiles, config);
+                await UpdateContentAndPublishEqualByText(selectedFiles, connectionData);
             }
             catch (Exception xE)
             {
@@ -243,17 +241,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// 2. по имени веб-ресурса
         /// 3. ручное связывание
         /// </summary>
-        private async Task UpdateContentAndPublishEqualByText(List<SelectedFile> selectedFiles, ConnectionConfiguration crmConfig)
+        private async Task UpdateContentAndPublishEqualByText(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
-            ConnectionData connectionData = crmConfig.CurrentConnectionData;
-
             if (connectionData == null)
             {
                 this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
                 return;
             }
 
-            var compareResult = await CompareController.GetWebResourcesWithType(this._iWriteToOutput, selectedFiles, OpenFilesType.EqualByText, crmConfig);
+            var compareResult = await CompareController.GetWebResourcesWithType(this._iWriteToOutput, selectedFiles, OpenFilesType.EqualByText, connectionData);
 
             var filesToPublish = compareResult.Item2.Where(f => f.Item2 != null);
 
@@ -275,5 +271,59 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Публикация веб-ресурсов разных по содержанию, но одинаковых по тексту.
+
+        #region Публикация всего.
+
+        public async void ExecutePublishingAll(ConnectionData connectionData)
+        {
+            this._iWriteToOutput.WriteToOutput("*********** Start Publishing All at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
+            {
+                await PublishingAllAsync(connectionData);
+            }
+            catch (Exception xE)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(xE);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutput("*********** End Publishing All at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            }
+        }
+
+        private async Task PublishingAllAsync(ConnectionData connectionData)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+
+            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+
+            try
+            {
+                var repository = new PublishActionsRepository(service);
+
+                await repository.PublishAllXmlAsync();
+
+                _iWriteToOutput.WriteToOutput("Published All successfully.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                _iWriteToOutput.WriteToOutput("Publishing All failed.");
+            }
+        }
+
+        #endregion Публикация всего.
     }
 }

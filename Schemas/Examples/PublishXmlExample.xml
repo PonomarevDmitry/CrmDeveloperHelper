@@ -1,0 +1,20 @@
+<importexportxml>
+  <entities>
+    <entity>{name}</entity>
+  </entities>
+  <ribbons>
+    <ribbon>{not used, publish only application ribbon}</ribbon>
+  </ribbons>
+  <dashboards>
+    <dashboard>{guid}</dashboard>
+  </dashboards>
+  <optionsets>
+    <optionset>{name}</optionset>
+  </optionsets>
+  <sitemaps>
+    <sitemap>{guid or not used, publish default sitemap}</sitemap>
+  </sitemaps>
+  <webresources>
+    <webresource>{guid}</webresource>
+  </webresources>
+</importexportxml>

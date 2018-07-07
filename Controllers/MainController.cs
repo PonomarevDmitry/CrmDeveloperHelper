@@ -66,13 +66,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// </summary>
         /// <param name="selectedFiles"></param>
         /// <param name="config"></param>
-        public void StartUpdateContentAndPublish(List<SelectedFile> selectedFiles, ConnectionConfiguration config)
+        public void StartUpdateContentAndPublish(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._publishController.ExecuteUpdateContentAndPublish(selectedFiles, config);
+                    this._publishController.ExecuteUpdateContentAndPublish(selectedFiles, connectionData);
                 }
                 catch (Exception ex)
                 {
@@ -88,11 +88,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// </summary>
         /// <param name="selectedFiles"></param>
         /// <param name="config"></param>
-        public void StartUpdateContentAndPublishEqualByText(List<SelectedFile> selectedFiles, ConnectionConfiguration config)
+        public void StartUpdateContentAndPublishEqualByText(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
             var worker = new Thread(() =>
             {
-                try { this._publishController.ExecuteUpdateContentAndPublishEqualByText(selectedFiles, config); }
+                try { this._publishController.ExecuteUpdateContentAndPublishEqualByText(selectedFiles, connectionData); }
                 catch (Exception ex)
                 {
                     DTEHelper.WriteExceptionToOutput(ex);
@@ -107,13 +107,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// </summary>
         /// <param name="selectedFiles"></param>
         /// <param name="config"></param>
-        public void StartComparing(List<SelectedFile> selectedFiles, ConnectionConfiguration config, bool withDetails)
+        public void StartComparing(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._compareController.ExecuteComparingFilesAndWebResources(selectedFiles, config, withDetails);
+                    this._compareController.ExecuteComparingFilesAndWebResources(selectedFiles, connectionData, withDetails);
                 }
                 catch (Exception ex)
                 {
@@ -124,13 +124,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void ShowingWebResourcesDependentComponents(List<SelectedFile> selectedFiles, ConnectionConfiguration crmConfig, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void ShowingWebResourcesDependentComponents(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._checkController.ExecuteShowingWebResourcesDependentComponents(crmConfig, connectionData, commonConfig, selectedFiles);
+                    this._checkController.ExecuteShowingWebResourcesDependentComponents(connectionData, commonConfig, selectedFiles);
                 }
                 catch (Exception ex)
                 {
@@ -141,13 +141,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartComparingFilesWithWrongEncoding(List<SelectedFile> selectedFiles, ConnectionConfiguration config, bool withDetails)
+        public void StartComparingFilesWithWrongEncoding(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._compareController.ExecuteComparingFilesWithWrongEncoding(selectedFiles, config, withDetails);
+                    this._compareController.ExecuteComparingFilesWithWrongEncoding(selectedFiles, connectionData, withDetails);
                 }
                 catch (Exception ex)
                 {
@@ -199,13 +199,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartAddingIntoPublishListFilesByType(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
+        public void StartAddingIntoPublishListFilesByType(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._compareController.ExecuteAddingIntoPublishListFilesByType(selectedFiles, openFilesType, crmConfig, commonConfig);
+                    this._compareController.ExecuteAddingIntoPublishListFilesByType(selectedFiles, openFilesType, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -216,13 +216,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
+        public void StartMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._differenceController.ExecuteMultiDifferenceFiles(selectedFiles, openFilesType, crmConfig, commonConfig);
+                    this._differenceController.ExecuteMultiDifferenceFiles(selectedFiles, openFilesType, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -330,13 +330,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// </summary>
         /// <param name="selectedFiles"></param>
         /// <param name="config"></param>
-        public void StartClearingLastLink(List<SelectedFile> selectedFiles, ConnectionConfiguration config)
+        public void StartClearingLastLink(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._linkController.ExecuteClearingLastLink(selectedFiles, config);
+                    this._linkController.ExecuteClearingLastLink(selectedFiles, connectionData);
                 }
                 catch (Exception ex)
                 {
@@ -759,13 +759,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartCreatingFileWithGlobalOptionSets(ConnectionConfiguration crmConfig, ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public void StartCreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteCreatingFileWithGlobalOptionSets(crmConfig, connectionData, commonConfig, selection);
+                    this._entityMetadataController.ExecuteCreatingFileWithGlobalOptionSets(connectionData, commonConfig, selection);
                 }
                 catch (Exception ex)
                 {
@@ -776,13 +776,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingFileWithGlobalOptionSets(ConnectionConfiguration crmConfig, ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        public void StartUpdatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSets(crmConfig, connectionData, commonConfig, selectedFiles, withSelect);
+                    this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSets(connectionData, commonConfig, selectedFiles, withSelect);
                 }
                 catch (Exception ex)
                 {
@@ -1252,13 +1252,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void UpdateProxyClasses(string filePath, ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
+        public void UpdateProxyClasses(string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._crmSvcUtilController.ExecuteUpdatingProxyClasses(filePath, crmConfig, commonConfig);
+                    this._crmSvcUtilController.ExecuteUpdatingProxyClasses(filePath, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -1286,13 +1286,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpeningFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool isTextEditor, ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
+        public void StartOpeningFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool isTextEditor, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._openFilesController.ExecuteOpenFiles(selectedFiles, openFilesType, isTextEditor, crmConfig, commonConfig);
+                    this._openFilesController.ExecuteOpenFiles(selectedFiles, openFilesType, isTextEditor, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -1344,6 +1344,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._linkController.ExecuteOpeningWebResource(commonConfig, connectionData, selectedFile, action);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartPublishAll(ConnectionData connectionData)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._publishController.ExecutePublishingAll(connectionData);
                 }
                 catch (Exception ex)
                 {

@@ -558,49 +558,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
-
-            string folder = txtBFolder.Text.Trim();
-            string nameSpace = txtBNameSpace.Text.Trim();
-
-            bool withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
-
-            string filePath = null;
-
-            var service = await GetService();
-
-            if (optionSets.Count() == 1)
+            try
             {
-                string fileName = string.Format("{0}.{1}.Generated.js", service.ConnectionData.Name, optionSets.First().Name);
-                filePath = Path.Combine(folder, fileName);
+                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
+
+                string folder = txtBFolder.Text.Trim();
+                string nameSpace = txtBNameSpace.Text.Trim();
+
+                bool withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
+
+                string filePath = null;
+
+                var service = await GetService();
+
+                if (optionSets.Count() == 1)
+                {
+                    string fileName = string.Format("{0}.{1}.Generated.js", service.ConnectionData.Name, optionSets.First().Name);
+                    filePath = Path.Combine(folder, fileName);
+                }
+                else
+                {
+                    string fileName = string.Format("{0}.GlobalOptionSets.js", service.ConnectionData.Name);
+                    filePath = Path.Combine(folder, fileName);
+                }
+
+                service.ConnectionData.NameSpaceOptionSets = nameSpace;
+
+                using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
+                    service
+                    , _iWriteToOutput
+                    , tabSpacer
+                    , withDependentComponents
+                    ))
+                {
+                    await handler.CreateFileAsync(filePath, optionSets);
+                }
+
+                this._iWriteToOutput.WriteToOutput("Created file with Global OptionSets: {0}", filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                UpdateStatus("File is created.");
             }
-            else
+            catch (Exception ex)
             {
-                string fileName = string.Format("{0}.GlobalOptionSets.js", service.ConnectionData.Name);
-                filePath = Path.Combine(folder, fileName);
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
             }
-
-            service.ConnectionData.NameSpaceOptionSets = nameSpace;
-
-            using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
-                service
-                , _iWriteToOutput
-                , tabSpacer
-                , withDependentComponents
-                ))
+            finally
             {
-                await handler.CreateFileAsync(filePath, optionSets);
+                ToggleControls(true);
             }
-
-            this._iWriteToOutput.WriteToOutput("Created file with Global OptionSets: {0}", filePath);
-
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-            this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            UpdateStatus("File is created.");
-
-            ToggleControls(true);
         }
 
         private async void lstVwOptionSets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -670,6 +681,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             await CreateJavaScriptFile(new[] { entity.OptionSetMetadata });
+        }
+
+        private async void btnPublishOptionSet_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            await PublishOptionSetAsync(entity.OptionSetMetadata.Name);
+        }
+
+        private async Task PublishOptionSetAsync(string optionSetName)
+        {
+            if (string.IsNullOrEmpty(optionSetName))
+            {
+                return;
+            }
+
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            UpdateStatus(string.Format("Publishing OptionSet {0}...", optionSetName));
+
+            this._iWriteToOutput.WriteToOutput("Start publishing OptionSet {0} at {1}", optionSetName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new PublishActionsRepository(service);
+
+                await repository.PublishOptionSetsAsync(new[] { optionSetName });
+
+                this._iWriteToOutput.WriteToOutput("End publishing OptionSet {0} at {1}", optionSetName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                UpdateStatus(string.Format("OptionSet {0} published.", optionSetName));
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus(string.Format("Publishing OptionSet {0} failed.", optionSetName));
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
@@ -788,14 +853,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var items = contextMenu.Items.OfType<MenuItem>();
 
-                var lastSoluiton = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
+                var lastSolution = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
 
-                if (lastSoluiton != null)
+                if (lastSolution != null)
                 {
-                    lastSoluiton.Items.Clear();
+                    lastSolution.Items.Clear();
 
-                    lastSoluiton.IsEnabled = false;
-                    lastSoluiton.Visibility = Visibility.Collapsed;
+                    lastSolution.IsEnabled = false;
+                    lastSolution.Visibility = Visibility.Collapsed;
 
                     ConnectionData connectionData = null;
 
@@ -804,12 +869,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
                     });
 
-                    if (connectionData != null)
+                    if (connectionData != null
+                        && connectionData.LastSelectedSolutionsUniqueName != null
+                        && connectionData.LastSelectedSolutionsUniqueName.Any()
+                        )
                     {
-                        bool addIntoSolutionLast = connectionData.LastSelectedSolutionsUniqueName.Any();
-
-                        lastSoluiton.IsEnabled = addIntoSolutionLast;
-                        lastSoluiton.Visibility = addIntoSolutionLast ? Visibility.Visible : Visibility.Collapsed;
+                        lastSolution.IsEnabled = true;
+                        lastSolution.Visibility = Visibility.Visible;
 
                         foreach (var uniqueName in connectionData.LastSelectedSolutionsUniqueName)
                         {
@@ -821,7 +887,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             menuItem.Click += AddIntoCrmSolutionLast_Click;
 
-                            lastSoluiton.Items.Add(menuItem);
+                            lastSolution.Items.Add(menuItem);
                         }
                     }
                 }

@@ -54,6 +54,7 @@
             <CheckBox x:Name="chBISVConfig" IsChecked="{Binding Path=ExportSolutionExportIsvConfig}" Grid.Column="2" Grid.Row="2" Content="ISV Config" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center" Height="15"  />
             <CheckBox x:Name="chBSales" IsChecked="{Binding Path=ExportSolutionExportSales}" Grid.Column="3" Grid.Row="0" Content="Sales" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center" Height="14"  />
             <CheckBox x:Name="chBExternalApplications" IsChecked="{Binding Path=ExportSolutionExportExternalApplications}" Grid.Column="3" Grid.Row="1" Content="External Applications" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center" Height="14"  />
+            
             <RadioButton x:Name="rBUnmanaged" IsChecked="{Binding Path=SolutionExportManaged, Converter={StaticResource BoolInverter}}" Grid.Column="4" Grid.Row="0" Content="Unmanaged" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center" Height="14"  />
             <RadioButton x:Name="rBManaged" IsChecked="{Binding Path=SolutionExportManaged}" Grid.Row="1" Grid.Column="4" Content="Managed" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center" Height="14" />
 
@@ -117,8 +118,10 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnExportSolution" Content="Export Solution" Click="btnExportSolution_Click" />
-                    <Separator/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Button x:Name="btnOpenSolutionInWeb" Content="Open Solution in Web" Click="btnOpenSolutionInWeb_Click" />
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Button Content="Create New Solution" Click="mICreateNewSolution_Click" />
                 </ToolBarPanel>
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>

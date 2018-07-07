@@ -37,27 +37,31 @@
                             <Menu x:Name="menuShow" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" IsEnabled="False" >
                                 <MenuItem x:Name="tSDDBShow" Header="Show" VerticalAlignment="Center" Padding="3" Margin="6,2" IsEnabled="False" />
                             </Menu>
-                            <Button x:Name="tSBExportSolution" HorizontalAlignment="Left" Content="Export Solution" Click="tSBExportSolution_Click" />
+
+                            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
+                                <MenuItem Header="Solution Actions" VerticalAlignment="Center" Padding="3" Margin="6,2">
+                                    <MenuItem HorizontalAlignment="Left" Header="Export Solution" Click="miExportSolution_Click" />
+                                    <Separator/>
+                                    <MenuItem HorizontalAlignment="Left" Header="Create New Solution" Click="miCreateNewSolution_Click" />
+                                </MenuItem>
+                            </Menu>
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                            <Menu x:Name="menuAnalyzeSolutions" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" >
+                            <Menu x:Name="menuAnalyzeSolutions" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}">
                                 <MenuItem x:Name="tSDDBAnalyzeSolutions" Header="Analyze Solutions" VerticalAlignment="Center" Padding="3" Margin="6,2" IsEnabled="False" />
                             </Menu>
                         </ToolBarPanel>
-                        <Menu x:Name="menuCopyComponents" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False">
-                            <MenuItem x:Name="tSDDBCopyComponents" Header="Copy Components" VerticalAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Padding="3" Margin="2" IsEnabled="False"/>
-                        </Menu>
-                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-                        <Menu x:Name="menuCopyComponentsLastSolution" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False">
-                            <MenuItem x:Name="tSDDBCopyComponentsLastSolution" Header="Copy Components to Last Selected" VerticalAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Padding="3" Margin="2" IsEnabled="False"/>
-                        </Menu>
-                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-                        <Menu x:Name="menuClearUnmanagedSolution" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False">
+                        <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                            <MenuItem x:Name="menuItemCopyComponents" Header="Copy Components" VerticalAlignment="Center" Padding="3" Margin="6,2">
+                                <MenuItem x:Name="tSDDBCopyComponents" Header="Copy Components to Selected Solutions" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Padding="3" Margin="2" IsEnabled="False"/>
+                                <Separator/>
+                                <MenuItem x:Name="tSDDBCopyComponentsLastSolution" Header="Copy Components to Last Selected Solutions" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Padding="3" Margin="2" IsEnabled="False"/>
+                            </MenuItem>
+                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
                             <MenuItem x:Name="tSDDBClearUnmanagedSolution" Header="Clear Unmanaged Solution" VerticalAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Padding="3" Margin="2" IsEnabled="False"/>
-
                         </Menu>
                     </DockPanel>
                 </ToolBar>
-                <DataGrid x:Name="lstVwSolutions" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Right" Height="Auto" Width="Auto" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+                <DataGrid x:Name="lstVwSolutions" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" SelectionChanged="lstVwEntities_SelectionChanged" MouseDoubleClick="lstVwSolutions_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Right" Height="Auto" Width="Auto" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>

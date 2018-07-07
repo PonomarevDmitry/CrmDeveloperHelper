@@ -14,6 +14,8 @@
             <Separator/>
             <MenuItem Header="SiteMap XML" VerticalAlignment="Center" Click="mIExportSiteMapXml_Click"/>
             <Separator/>
+            <MenuItem Header="Publish SiteMap" Click="btnPublishSiteMap_Click"/>
+            <Separator/>
             <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
             <Separator/>
             <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />

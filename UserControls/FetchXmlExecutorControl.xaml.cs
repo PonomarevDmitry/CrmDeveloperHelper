@@ -912,9 +912,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
-
-            this.ConnectionData.OpenEntityMetadataInWeb(entity.LogicalName);
+            this.ConnectionData?.OpenEntityMetadataInWeb(entity.LogicalName);
         }
 
         private async void mIOpenEntityMetadataWindow_Click(object sender, RoutedEventArgs e)
@@ -924,13 +922,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
-
-            var commonConfig = CommonConfiguration.Get();
-
-            if (DTEHelper.Singleton != null)
+            if (this.ConnectionData != null)
             {
-                Views.WindowHelper.OpenEntityMetadataWindow(DTEHelper.Singleton, service, commonConfig, entity.LogicalName, null, null);
+                var service = await GetServiceAsync(this.ConnectionData);
+
+                if (DTEHelper.Singleton != null)
+                {
+                    var commonConfig = CommonConfiguration.Get();
+
+                    Views.WindowHelper.OpenEntityMetadataWindow(DTEHelper.Singleton, service, commonConfig, entity.LogicalName, null, null);
+                }
             }
         }
 
@@ -961,9 +962,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var url = this.ConnectionData.GetEntityUrl(entity.LogicalName, entity.Id);
+            var url = this.ConnectionData?.GetEntityUrl(entity.LogicalName, entity.Id);
 
             Clipboard.SetText(url);
+        }
+
+        private async void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            if (this.ConnectionData != null)
+            {
+                var service = await GetServiceAsync(this.ConnectionData);
+
+                var entityFull = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet(true));
+
+                var commonConfig = CommonConfiguration.Get();
+
+                string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, "EntityDescription", "txt");
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, null, service.ConnectionData);
+
+                DTEHelper.Singleton?.PerformAction(filePath, commonConfig);
+            }
         }
 
         private bool TryFindEntityFromDataRowView(RoutedEventArgs e, out Entity entity)
@@ -1005,9 +1030,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
-
-            this.ConnectionData.OpenEntityMetadataInWeb(entityName);
+            this.ConnectionData?.OpenEntityMetadataInWeb(entityName);
         }
 
         private async void mIOpenEntityReferenceMetadataWindow_Click(object sender, RoutedEventArgs e)
@@ -1017,11 +1040,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
+            if (this.ConnectionData != null)
+            {
+                var service = await GetServiceAsync(this.ConnectionData);
 
-            var commonConfig = CommonConfiguration.Get();
+                if (DTEHelper.Singleton != null)
+                {
+                    var commonConfig = CommonConfiguration.Get();
 
-            Views.WindowHelper.OpenEntityMetadataWindow(DTEHelper.Singleton, service, commonConfig, entityName, null, null);
+                    Views.WindowHelper.OpenEntityMetadataWindow(DTEHelper.Singleton, service, commonConfig, entityName, null, null);
+                }
+            }
         }
 
         private void mICopyEntityReferenceId_Click(object sender, RoutedEventArgs e)
@@ -1052,6 +1081,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             Clipboard.SetText(navigateUri.AbsoluteUri);
+        }
+
+        private async void mICreateEntityReferenceDescription_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityIdFromHyperlink(e, out var entityId))
+            {
+                return;
+            }
+
+            if (!TryFindEntityNameFromHyperlink(e, out string entityName))
+            {
+                return;
+            }
+
+            if (this.ConnectionData != null)
+            {
+                var service = await GetServiceAsync(this.ConnectionData);
+
+                var entityFull = service.Retrieve(entityName, entityId, new ColumnSet(true));
+
+                var commonConfig = CommonConfiguration.Get();
+
+                string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, "EntityDescription", "txt");
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, null, service.ConnectionData);
+
+                DTEHelper.Singleton?.PerformAction(filePath, commonConfig);
+            }
         }
 
         private bool TryFindEntityNameFromHyperlink(RoutedEventArgs e, out string entityName)

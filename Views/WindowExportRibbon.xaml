@@ -8,6 +8,7 @@
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
+            <Separator />
             <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
             <Separator />
             <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
@@ -132,7 +133,13 @@
                 </ToolBarPanel>
                 <Button Content="Close" Click="Button_Click"  HorizontalAlignment="Right" DockPanel.Dock="Right"/>
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0"  HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-                <Button x:Name="btnExportApplicationRibbon" Content="Export Application Ribbon" Click="btnExportApplicationRibbon_Click"  HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                    <MenuItem Header="Application Ribbon" VerticalAlignment="Center">
+                        <MenuItem Header="Export Application Ribbon" Click="btnExportApplicationRibbon_Click"/>
+                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                        <MenuItem Header="Publish Application Ribbon" Click="btnPublishApplicationRibbon_Click"/>
+                    </MenuItem>
+                </Menu>
             </DockPanel>
         </ToolBar>
         <StatusBar x:Name="statusBar" VerticalAlignment="Bottom">

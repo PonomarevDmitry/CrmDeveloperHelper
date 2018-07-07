@@ -13,6 +13,8 @@
             <MenuItem Header="Copy Fetch Entity Id" Click="mICopyEntityId_Click"/>
             <MenuItem Header="Copy Fetch Entity Name" Click="mICopyEntityName_Click"/>
             <MenuItem Header="Copy Fetch Entity Url" Click="mICopyEntityUrl_Click"/>
+            <Separator />
+            <MenuItem Header="Create Fetch Entity Description" Click="mICreateEntityDescription_Click"/>
         </ContextMenu>
         <ContextMenu x:Key="listContextMenuEntityReference">
             <MenuItem Header="Open Fetch Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
@@ -27,9 +29,13 @@
             <MenuItem Header="Copy Fetch Entity Name" Click="mICopyEntityName_Click"/>
             <MenuItem Header="Copy Fetch Entity Url" Click="mICopyEntityUrl_Click"/>
             <Separator />
+            <MenuItem Header="Create Fetch Entity Description" Click="mICreateEntityDescription_Click"/>
+            <Separator />
             <MenuItem Header="Copy EntityReference Id" Click="mICopyEntityReferenceId_Click"/>
             <MenuItem Header="Copy EntityReference Name" Click="mICopyEntityReferenceName_Click"/>
             <MenuItem Header="Copy EntityReference Url" Click="mICopyEntityReferenceUrl_Click"/>
+            <Separator />
+            <MenuItem Header="Create EntityReference Description" Click="mICreateEntityReferenceDescription_Click"/>
         </ContextMenu>
     </UserControl.Resources>
     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True">

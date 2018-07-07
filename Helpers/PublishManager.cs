@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Crm.Sdk.Messages;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -111,14 +112,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private const string _formatPublishAll =
-@"<importexportxml>
-    <webresources>
-        {0}
-    </webresources>
-</importexportxml>";
-
-        private const string _formatSingleWebResource = "<webresource>{0}</webresource>";
 
         /// <summary>
         /// Публикация обновленных веб-ресурсов
@@ -126,18 +119,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         /// <returns></returns>
         private void PublishResources()
         {
-            var content = string.Join("", _Elements.Keys.Select(a => string.Format(_formatSingleWebResource, a)));
+            PublishActionsRepository repository = new PublishActionsRepository(_Service);
 
-            OrganizationRequest request = new OrganizationRequest
-            {
-                RequestName = "PublishXml",
-                Parameters =
-                {
-                    { "ParameterXml", string.Format(_formatPublishAll, content) },
-                }
-            };
-
-            _Service.Execute(request);
+            repository.PublishWebResources(_Elements.Keys);
         }
     }
 }

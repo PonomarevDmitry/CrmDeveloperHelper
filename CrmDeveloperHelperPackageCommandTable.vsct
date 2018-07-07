@@ -34,9 +34,10 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupPublish" priority="0x0600"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuConnectionGroup_GroupConnectionGroup" priority="0x0601"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuTwoConnections_GroupConnectionGroup" priority="0x0601"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuOneByOne_GroupConnectionGroup" priority="0x0601"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuThreeWay_GroupConnectionGroup" priority="0x0601"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple" priority="0x0601"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" priority="0x0601"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup" priority="0x0601"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDependentComponents" priority="0x0602"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile" priority="0x0603"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" priority="0x0604"/>
@@ -53,9 +54,10 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupUpdate" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuConnectionGroup_GroupConnectionGroup" priority="0x0601"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuTwoConnections_GroupConnectionGroup" priority="0x0601"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuOneByOne_GroupConnectionGroup" priority="0x0601"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuThreeWay_GroupConnectionGroup" priority="0x0601"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple" priority="0x0601" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" priority="0x0601"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup" priority="0x0601"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupDownload" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenInWeb_GroupConnections" priority="0x0605"/>
@@ -124,9 +126,10 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuConnectionGroup_GroupConnectionGroup" priority="0x0601"/>
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuTwoConnections_GroupConnectionGroup" priority="0x0601"/>
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuOneByOne_GroupConnectionGroup" priority="0x0601"/>
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuThreeWay_GroupConnectionGroup" priority="0x0601"/>
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple" priority="0x0601"/>
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" priority="0x0601"/>
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup" priority="0x0601"/>
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDependentComponents" priority="0x0603" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile" priority="0x0604" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" priority="0x0605" />
@@ -304,6 +307,10 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport_GroupSolutionComponents_MenuOpenInWindow_GroupLastSolution" priority="0x0610" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupOrganizationComparer" priority="0x0605" />
+
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll" priority="0x0605" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnections_GroupConnections" priority="0x0605" />
+
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" priority="0x0606" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite" priority="0x0606" />
@@ -572,6 +579,13 @@
         </Strings>
       </Menu>
 
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnections" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Publish All in Connection</ButtonText>
+          <MenuText>Publish All in Connection</MenuText>
+        </Strings>
+      </Menu>
+
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Open Crm WebSites</ButtonText>
@@ -725,19 +739,19 @@
           <MenuText>Show Difference in Connection Group</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuTwoConnections" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Show Difference in Two Connections</ButtonText>
           <MenuText>Show Difference in Two Connections</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuOneByOne" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Show Difference Local File and Two Connections One by One</ButtonText>
           <MenuText>Show Difference Local File and Two Connections One by One</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuThreeWay" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Show Three Way Difference</ButtonText>
           <MenuText>Show Three Way Difference</MenuText>
@@ -749,7 +763,7 @@
           <MenuText>Show Difference in Connection Group</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuTwoConnections" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuTwoConnections" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Show Difference in Two Connections</ButtonText>
           <MenuText>Show Difference in Two Connections</MenuText>
@@ -761,7 +775,7 @@
           <MenuText>Show Difference Local File and Two Connections One by One</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuThreeWay" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuThreeWay" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Show Three Way Difference</ButtonText>
           <MenuText>Show Three Way Difference</MenuText>
@@ -773,19 +787,19 @@
           <MenuText>Show Difference in Connection Group</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuTwoConnections" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Show Difference in Two Connections</ButtonText>
           <MenuText>Show Difference in Two Connections</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuOneByOne" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Show Difference Local File and Two Connections One by One</ButtonText>
           <MenuText>Show Difference Local File and Two Connections One by One</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuThreeWay" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Show Three Way Difference</ButtonText>
           <MenuText>Show Three Way Difference</MenuText>
@@ -3451,7 +3465,15 @@
         </Strings>
       </Button>
 
-
+      <Button guid="guidCommandSet" id="CommonPublishAllInCrmConnectionCommandId" priority="0x012E" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Publish All In Connection Placeholder</ButtonText>
+        </Strings>
+      </Button>
 
       <Button guid="guidCommandSet" id="CommonCrmConnectionTestCommandId" priority="0x012F" type="Button">
         <CommandFlag>TextChanges</CommandFlag>
@@ -3600,6 +3622,9 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" priority="0x0601">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple" priority="0x0601">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
+    </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDependentComponents" priority="0x0602">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
@@ -3628,6 +3653,9 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference" priority="0x0601">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple" priority="0x0601">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupDownload" priority="0x0602">
@@ -3844,6 +3872,9 @@
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" priority="0x0602">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple" priority="0x0602">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDependentComponents" priority="0x0603">
@@ -4483,7 +4514,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupOrganizationComparer" priority="0x0605">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" priority="0x0606">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll" priority="0x0606">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" priority="0x0607">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
 
@@ -4509,10 +4543,19 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CommonOrganizationComparerCommandId" priority="0x012D">
+    <CommandPlacement guid="guidCommandSet" id="CommonOrganizationComparerCommandId" priority="0x0108">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupOrganizationComparer" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnections" priority="0x0109">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnections_GroupConnections" priority="0x0109">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnections" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonPublishAllInCrmConnectionCommandId" priority="0x0109">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnections_GroupConnections" />
+    </CommandPlacement>
 
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite" priority="0x012D">
@@ -4824,34 +4867,35 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuConnectionGroup_GroupConnectionGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuTwoConnections" priority="0x0104">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" />
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections" priority="0x0104">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuTwoConnections_GroupConnectionGroup" priority="0x0104">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuTwoConnections" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" priority="0x0104">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceTwoConnectionsCommandId" priority="0x0104">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuTwoConnections_GroupConnectionGroup" />
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuOneByOne" priority="0x0105">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne" priority="0x0105">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuOneByOne_GroupConnectionGroup" priority="0x0105">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuOneByOne" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup" priority="0x0105">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceOneByOneCommandId" priority="0x0105">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuOneByOne_GroupConnectionGroup" />
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuThreeWay" priority="0x0106">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay" priority="0x0106">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuThreeWay_GroupConnectionGroup" priority="0x0106">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuThreeWay" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" priority="0x0106">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceThreeWayCommandId" priority="0x0106">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuThreeWay_GroupConnectionGroup" />
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDependentComponentsCommandId" priority="0x0102">
@@ -4955,34 +4999,34 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuConnectionGroup_GroupConnectionGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuTwoConnections" priority="0x0104">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuTwoConnections" priority="0x0104">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuTwoConnections_GroupConnectionGroup" priority="0x0104">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuTwoConnections" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" priority="0x0104">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuTwoConnections" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CodeReportShowDifferenceTwoConnectionsCommandId" priority="0x0104">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuTwoConnections_GroupConnectionGroup" />
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuOneByOne" priority="0x0105">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuOneByOne" priority="0x0105">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuOneByOne_GroupConnectionGroup" priority="0x0105">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuOneByOne" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup" priority="0x0105">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuOneByOne" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CodeReportShowDifferenceOneByOneCommandId" priority="0x0105">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuOneByOne_GroupConnectionGroup" />
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuThreeWay" priority="0x0106">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuThreeWay" priority="0x0106">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuThreeWay_GroupConnectionGroup" priority="0x0106">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuThreeWay" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" priority="0x0106">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuThreeWay" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CodeReportShowDifferenceThreeWayCommandId" priority="0x0106">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifference_MenuThreeWay_GroupConnectionGroup" />
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="CodeReportDownloadCommandId" priority="0x0102">
@@ -5354,34 +5398,34 @@
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuConnectionGroup_GroupConnectionGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuTwoConnections" priority="0x0113">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuTwoConnections_GroupConnectionGroup" priority="0x0113">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuTwoConnections" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDifferenceTwoConnectionsCommandId" priority="0x0113">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuTwoConnections_GroupConnectionGroup" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuOneByOne" priority="0x0114">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne" priority="0x0114">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuOneByOne_GroupConnectionGroup" priority="0x0114">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuOneByOne" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup" priority="0x0114">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDifferenceOneByOneCommandId" priority="0x0114">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuOneByOne_GroupConnectionGroup" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuThreeWay" priority="0x0115">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay" priority="0x0115">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuThreeWay_GroupConnectionGroup" priority="0x0115">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuThreeWay" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" priority="0x0115">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDifferenceThreeWayCommandId" priority="0x0115">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuThreeWay_GroupConnectionGroup" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDependentComponentsCommandId" priority="0x0110">
@@ -6090,14 +6134,16 @@
       <IDSymbol name="codeMenuWebResource_GroupShowDifference_MenuConnectionGroup" value="0x1130" />
       <IDSymbol name="codeMenuWebResource_GroupShowDifference_MenuConnectionGroup_GroupConnectionGroup" value="0x1131" />
 
-      <IDSymbol name="codeMenuWebResource_GroupShowDifference_MenuTwoConnections" value="0x116C" />
-      <IDSymbol name="codeMenuWebResource_GroupShowDifference_MenuTwoConnections_GroupConnectionGroup" value="0x116D" />
+      <IDSymbol name="codeMenuWebResource_GroupShowDifferenceMultiple" value="0x1193" />
 
-      <IDSymbol name="codeMenuWebResource_GroupShowDifference_MenuOneByOne" value="0x118D" />
-      <IDSymbol name="codeMenuWebResource_GroupShowDifference_MenuOneByOne_GroupConnectionGroup" value="0x118E" />
+      <IDSymbol name="codeMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections" value="0x116C" />
+      <IDSymbol name="codeMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" value="0x116D" />
 
-      <IDSymbol name="codeMenuWebResource_GroupShowDifference_MenuThreeWay" value="0x1162" />
-      <IDSymbol name="codeMenuWebResource_GroupShowDifference_MenuThreeWay_GroupConnectionGroup" value="0x1163" />
+      <IDSymbol name="codeMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne" value="0x118D" />
+      <IDSymbol name="codeMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup" value="0x118E" />
+
+      <IDSymbol name="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay" value="0x1162" />
+      <IDSymbol name="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" value="0x1163" />
 
       <IDSymbol name="codeMenuWebResource_GroupShowDependentComponents" value="0x1003" />
       <IDSymbol name="codeMenuWebResource_GroupCompareFile" value="0x1004" />
@@ -6132,14 +6178,16 @@
       <IDSymbol name="codeMenuReport_GroupShowDifference_MenuConnectionGroup" value="0x1132" />
       <IDSymbol name="codeMenuReport_GroupShowDifference_MenuConnectionGroup_GroupConnectionGroup" value="0x1133" />
 
-      <IDSymbol name="codeMenuReport_GroupShowDifference_MenuTwoConnections" value="0x116A" />
-      <IDSymbol name="codeMenuReport_GroupShowDifference_MenuTwoConnections_GroupConnectionGroup" value="0x116B" />
+      <IDSymbol name="codeMenuReport_GroupShowDifferenceMultiple" value="0x1194" />
 
-      <IDSymbol name="codeMenuReport_GroupShowDifference_MenuOneByOne" value="0x118F" />
-      <IDSymbol name="codeMenuReport_GroupShowDifference_MenuOneByOne_GroupConnectionGroup" value="0x1190" />
+      <IDSymbol name="codeMenuReport_GroupShowDifferenceMultiple_MenuTwoConnections" value="0x116A" />
+      <IDSymbol name="codeMenuReport_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" value="0x116B" />
 
-      <IDSymbol name="codeMenuReport_GroupShowDifference_MenuThreeWay" value="0x1166" />
-      <IDSymbol name="codeMenuReport_GroupShowDifference_MenuThreeWay_GroupConnectionGroup" value="0x1167" />
+      <IDSymbol name="codeMenuReport_GroupShowDifferenceMultiple_MenuOneByOne" value="0x118F" />
+      <IDSymbol name="codeMenuReport_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup" value="0x1190" />
+
+      <IDSymbol name="codeMenuReport_GroupShowDifferenceMultiple_MenuThreeWay" value="0x1166" />
+      <IDSymbol name="codeMenuReport_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" value="0x1167" />
 
       <IDSymbol name="codeMenuReport_GroupLastLink" value="0x100D" />
       <IDSymbol name="codeMenuReport_GroupDownload" value="0x100E" />
@@ -6264,14 +6312,16 @@
       <IDSymbol name="fileMenuWebResource_GroupShowDifference_MenuConnectionGroup" value="0x1134" />
       <IDSymbol name="fileMenuWebResource_GroupShowDifference_MenuConnectionGroup_GroupConnectionGroup" value="0x1135" />
 
-      <IDSymbol name="fileMenuWebResource_GroupShowDifference_MenuTwoConnections" value="0x1168" />
-      <IDSymbol name="fileMenuWebResource_GroupShowDifference_MenuTwoConnections_GroupConnectionGroup" value="0x1169" />
+      <IDSymbol name="fileMenuWebResource_GroupShowDifferenceMultiple" value="0x1195" />
 
-      <IDSymbol name="fileMenuWebResource_GroupShowDifference_MenuOneByOne" value="0x1191" />
-      <IDSymbol name="fileMenuWebResource_GroupShowDifference_MenuOneByOne_GroupConnectionGroup" value="0x1192" />
+      <IDSymbol name="fileMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections" value="0x1168" />
+      <IDSymbol name="fileMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" value="0x1169" />
 
-      <IDSymbol name="fileMenuWebResource_GroupShowDifference_MenuThreeWay" value="0x1164" />
-      <IDSymbol name="fileMenuWebResource_GroupShowDifference_MenuThreeWay_GroupConnectionGroup" value="0x1165" />
+      <IDSymbol name="fileMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne" value="0x1191" />
+      <IDSymbol name="fileMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup" value="0x1192" />
+
+      <IDSymbol name="fileMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay" value="0x1164" />
+      <IDSymbol name="fileMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" value="0x1165" />
 
       <IDSymbol name="fileMenuWebResource_GroupShowDependentComponents" value="0x1012" />
       <IDSymbol name="fileMenuWebResource_GroupCompareFile" value="0x1013" />
@@ -6537,6 +6587,10 @@
 
       <IDSymbol name="commonMenu_GroupOrganizationComparer" value="0x10F0" />
 
+      <IDSymbol name="commonMenu_GroupPublishAll" value="0x1196" />
+      <IDSymbol name="commonMenu_GroupPublishAll_MenuConnections" value="0x1197" />
+      <IDSymbol name="commonMenu_GroupPublishAll_MenuConnections_GroupConnections" value="0x1198" />
+
       <IDSymbol name="commonMenu_GroupConfiguration" value="0x10F1" />
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite" value="0x115C" />
@@ -6554,7 +6608,7 @@
 
 
 
-      <!--0x1193-->
+      <!--0x1199-->
 
 
     </GuidSymbol>
@@ -6668,6 +6722,7 @@
 
       <IDSymbol name="CodeReportShowDifferenceOneByOneCommandId" value="2150" />
 
+      <IDSymbol name="CommonPublishAllInCrmConnectionCommandId" value="2200" />
 
 
 

@@ -53,7 +53,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         public static void Initialize(Package package)
         {
-            InstanceOneByOne = new CodeReportShowDifferenceThreeFileCommand(package, PackageIds.CodeReportShowDifferenceOneByOneCommandId, ShowDifferenceThreeFileType.OneByOne, "Local File <-> {0}     Local File <-> {1}     {0} <-> {1}");
+            InstanceOneByOne = new CodeReportShowDifferenceThreeFileCommand(package, PackageIds.CodeReportShowDifferenceOneByOneCommandId, ShowDifferenceThreeFileType.OneByOne, "Local File <-> {0}      Local File <-> {1}      {0} <-> {1}");
 
             InstanceTwoConnections = new CodeReportShowDifferenceThreeFileCommand(package, PackageIds.CodeReportShowDifferenceTwoConnectionsCommandId, ShowDifferenceThreeFileType.TwoConnections, "{0} <-> {1}");
 

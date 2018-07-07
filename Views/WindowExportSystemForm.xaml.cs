@@ -160,14 +160,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
+            if (connectionData != null)
             {
-                var service = await GetService();
+                if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
+                {
+                    var service = await GetService();
 
-                _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                }
+
+                return _descriptorCache[connectionData.ConnectionId];
             }
 
-            return _descriptorCache[connectionData.ConnectionId];
+            return null;
         }
 
         private async void ShowExistingSystemForms()
@@ -441,6 +446,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
+            if (connectionData == null)
+            {
+                return null;
+            }
+
             string fileName = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, entityName, name, fieldTitle, "xml");
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -580,6 +590,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateStatus("Operation is completed.");
 
             ToggleControls(true);
+        }
+
+        private void mIPublishSystemForm_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformPublishSystemFormAsync);
+        }
+
+        private async Task PerformPublishSystemFormAsync(string folder, Guid idSystemForm, string entityName, string name)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            UpdateStatus(string.Format("Publishing SystemForm {0} - {1}...", entityName, name));
+
+            this._iWriteToOutput.WriteToOutput("Start publishing SystemForm {0} - {1} at {2}", entityName, name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new PublishActionsRepository(service);
+
+                await repository.PublishDashboardsAsync(new[] { idSystemForm });
+
+                this._iWriteToOutput.WriteToOutput("End publishing SystemForm {0} - {1} at {2}", entityName, name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                UpdateStatus(string.Format("SystemForm {0} - {1} published", entityName, name));
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus(string.Format("Publish SystemForm {0} - {1} failed", entityName, name));
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void mIExportSystemFormDescription_Click(object sender, RoutedEventArgs e)
@@ -1120,21 +1179,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
                 });
 
-                var lastSoluiton = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
+                var lastSolution = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
 
-                if (lastSoluiton != null)
+                if (lastSolution != null)
                 {
-                    lastSoluiton.Items.Clear();
+                    lastSolution.Items.Clear();
 
-                    lastSoluiton.IsEnabled = false;
-                    lastSoluiton.Visibility = Visibility.Collapsed;
+                    lastSolution.IsEnabled = false;
+                    lastSolution.Visibility = Visibility.Collapsed;
 
-                    if (connectionData != null)
+                    if (connectionData != null
+                         && connectionData.LastSelectedSolutionsUniqueName != null
+                         && connectionData.LastSelectedSolutionsUniqueName.Any()
+                         )
                     {
-                        bool addIntoSolutionLast = connectionData.LastSelectedSolutionsUniqueName.Any();
-
-                        lastSoluiton.IsEnabled = addIntoSolutionLast;
-                        lastSoluiton.Visibility = addIntoSolutionLast ? Visibility.Visible : Visibility.Collapsed;
+                        lastSolution.IsEnabled = true;
+                        lastSolution.Visibility = Visibility.Visible;
 
                         foreach (var uniqueName in connectionData.LastSelectedSolutionsUniqueName)
                         {
@@ -1146,7 +1206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             menuItem.Click += AddIntoCrmSolutionLast_Click;
 
-                            lastSoluiton.Items.Add(menuItem);
+                            lastSolution.Items.Add(menuItem);
                         }
                     }
                 }

@@ -19,13 +19,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput = iWriteToOutput;
         }
 
-        public async void ExecuteUpdatingProxyClasses(string filePath, ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
+        public async void ExecuteUpdatingProxyClasses(string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Updating Proxy Classes at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
-                await UpdatingProxyClasses(filePath, crmConfig, commonConfig);
+                await UpdatingProxyClasses(filePath, connectionData, commonConfig);
             }
             catch (Exception xE)
             {
@@ -37,10 +37,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdatingProxyClasses(string filePath, ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
+        private async Task UpdatingProxyClasses(string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            ConnectionData connectionData = crmConfig.CurrentConnectionData;
-
             if (connectionData == null)
             {
                 this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
@@ -58,7 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (crmSvcUtil == null)
             {
                 connectionData.SelectedCrmSvcUtil = null;
-                crmConfig.Save();
+                connectionData.ConnectionConfiguration.Save();
 
                 this._iWriteToOutput.WriteToOutput("No Crm Svc Util is selected.");
                 return;
@@ -69,7 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 commonConfig.Utils.Remove(crmSvcUtil);
 
                 connectionData.SelectedCrmSvcUtil = null;
-                crmConfig.Save();
+                connectionData.ConnectionConfiguration.Save();
 
                 this._iWriteToOutput.WriteToOutput("Crm Svc Util not exists.");
                 return;

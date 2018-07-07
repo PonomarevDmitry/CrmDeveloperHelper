@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Очищение связей.
 
-        internal void ExecuteClearingLastLink(List<SelectedFile> selectedFiles, ConnectionConfiguration config)
+        internal void ExecuteClearingLastLink(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Clearing Last Link at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -45,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     this._iWriteToOutput.WriteToOutput(string.Empty);
                 }
 
-                ClearingWebResourcesLinks(selectedFiles, config);
+                ClearingWebResourcesLinks(selectedFiles, connectionData);
             }
             catch (Exception xE)
             {
@@ -57,10 +57,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private void ClearingWebResourcesLinks(List<SelectedFile> selectedFiles, ConnectionConfiguration config)
+        private void ClearingWebResourcesLinks(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
-            ConnectionData connectionData = config.CurrentConnectionData;
-
             if (connectionData == null)
             {
                 this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
@@ -85,7 +83,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (count > 0)
             {
                 //Сохранение настроек после публикации
-                config.Save();
+                connectionData.ConnectionConfiguration.Save();
             }
 
             this._iWriteToOutput.WriteToOutput("Deleted Last Links: {0}", count);

@@ -954,7 +954,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         _commonConfig.Save();
 
-                        contr.ExecuteCreatingFileWithGlobalOptionSets(_crmConfig, connection1, _commonConfig, null);
+                        contr.ExecuteCreatingFileWithGlobalOptionSets(connection1, _commonConfig, null);
                     }
                     catch (Exception ex)
                     {

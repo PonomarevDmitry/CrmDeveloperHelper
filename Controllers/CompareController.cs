@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Сравнение с веб-ресурсами.
 
-        public async void ExecuteComparingFilesAndWebResources(List<SelectedFile> selectedFiles, ConnectionConfiguration crmConfig, bool withDetails)
+        public async void ExecuteComparingFilesAndWebResources(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
         {
             this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Comparing Files and WebResources at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     this._iWriteToOutputAndPublishList.WriteToOutput(string.Empty);
                 }
 
-                var compareResult = await ComparingFilesAndWebResourcesAsync(this._iWriteToOutputAndPublishList, selectedFiles, crmConfig, withDetails);
+                var compareResult = await ComparingFilesAndWebResourcesAsync(this._iWriteToOutputAndPublishList, selectedFiles, connectionData, withDetails);
             }
             catch (Exception xE)
             {
@@ -58,9 +58,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 , List<Tuple<SelectedFile, WebResource>>
                 , List<Tuple<SelectedFile, WebResource, ContentCopareResult>>
                 >>
-            ComparingFilesAndWebResourcesAsync(IWriteToOutput _iWriteToOutput, List<SelectedFile> selectedFiles, ConnectionConfiguration crmConfig, bool withDetails)
+            ComparingFilesAndWebResourcesAsync(IWriteToOutput _iWriteToOutput, List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
         {
-            return Task.Run(() => ComparingFilesAndWebResources(_iWriteToOutput, selectedFiles, crmConfig, withDetails));
+            return Task.Run(() => ComparingFilesAndWebResources(_iWriteToOutput, selectedFiles, connectionData, withDetails));
         }
 
         private static async Task<Tuple<IOrganizationServiceExtented
@@ -69,19 +69,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 >> ComparingFilesAndWebResources(
             IWriteToOutput _iWriteToOutput
             , List<SelectedFile> selectedFiles
-            , ConnectionConfiguration crmConfig
+            , ConnectionData connectionData
             , bool withDetails)
         {
-            var dictFilesEqualByTextNotContent = new List<Tuple<SelectedFile, WebResource>>();
-            var dictFilesNotEqualByText = new List<Tuple<SelectedFile, WebResource, ContentCopareResult>>();
-
-            ConnectionData connectionData = crmConfig.CurrentConnectionData;
-
             if (connectionData == null)
             {
                 _iWriteToOutput.WriteToOutput("No current CRM Connection.");
                 return null;
             }
+
+            var dictFilesEqualByTextNotContent = new List<Tuple<SelectedFile, WebResource>>();
+            var dictFilesNotEqualByText = new List<Tuple<SelectedFile, WebResource, ContentCopareResult>>();
 
             _iWriteToOutput.WriteToOutput("Connect to CRM.");
 
@@ -401,7 +399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (isconnectionDataDirty)
             {
                 //Сохранение настроек после публикации
-                crmConfig.Save();
+                connectionData.ConnectionConfiguration.Save();
             }
 
             var tabSpacer = "    ";
@@ -582,7 +580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Сравнение с веб-ресурсами.
 
-        public static async Task<Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>>> GetWebResourcesWithType(IWriteToOutput _iWriteToOutput, List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionConfiguration crmConfig)
+        public static async Task<Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>>> GetWebResourcesWithType(IWriteToOutput _iWriteToOutput, List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData)
         {
             IOrganizationServiceExtented service = null;
 
@@ -599,7 +597,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     || openFilesType == OpenFilesType.NotExistsInCrmWithLink
             )
             {
-                var compareResult = await FindFilesNotExistsInCrmAsync(_iWriteToOutput, selectedFiles, crmConfig);
+                var compareResult = await FindFilesNotExistsInCrmAsync(_iWriteToOutput, selectedFiles, connectionData);
 
                 service = compareResult.Item1;
 
@@ -616,7 +614,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     || openFilesType == OpenFilesType.NotEqualByText
             )
             {
-                var compareResult = await ComparingFilesAndWebResourcesAsync(_iWriteToOutput, selectedFiles, crmConfig, false);
+                var compareResult = await ComparingFilesAndWebResourcesAsync(_iWriteToOutput, selectedFiles, connectionData, false);
 
                 service = compareResult.Item1;
 
@@ -638,7 +636,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     || openFilesType == OpenFilesType.WithMirrorComplex
                 )
             {
-                var compareResult = await CompareController.ComparingFilesAndWebResourcesAsync(_iWriteToOutput, selectedFiles, crmConfig, true);
+                var compareResult = await CompareController.ComparingFilesAndWebResourcesAsync(_iWriteToOutput, selectedFiles, connectionData, true);
 
                 service = compareResult.Item1;
 
@@ -677,7 +675,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление в список на публикацию идентичных по тексту, но не по содержанию файлов.
 
-        public async void ExecuteAddingIntoPublishListFilesByType(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
+        public async void ExecuteAddingIntoPublishListFilesByType(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Adding into Publish List Files {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -693,7 +691,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     this._iWriteToOutputAndPublishList.WriteToOutput(string.Empty);
                 }
 
-                await AddingIntoPublishListFilesByType(selectedFiles, openFilesType, crmConfig, commonConfig);
+                await AddingIntoPublishListFilesByType(selectedFiles, openFilesType, connectionData, commonConfig);
             }
             catch (Exception xE)
             {
@@ -705,17 +703,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task AddingIntoPublishListFilesByType(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
+        private async Task AddingIntoPublishListFilesByType(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            ConnectionData connectionData = crmConfig.CurrentConnectionData;
-
             if (connectionData == null)
             {
                 this._iWriteToOutputAndPublishList.WriteToOutput("No current CRM Connection.");
                 return;
             }
 
-            var compareResult = await GetWebResourcesWithType(this._iWriteToOutputAndPublishList, selectedFiles, openFilesType, crmConfig);
+            var compareResult = await GetWebResourcesWithType(this._iWriteToOutputAndPublishList, selectedFiles, openFilesType, connectionData);
 
             var listFilesToDifference = compareResult.Item2;
 
@@ -731,7 +727,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Добавление в список на публикацию идентичных по тексту, но не по содержанию файлов.
 
-        public async void ExecuteComparingFilesWithWrongEncoding(List<SelectedFile> selectedFiles, ConnectionConfiguration crmConfig, bool withDetails)
+        public async void ExecuteComparingFilesWithWrongEncoding(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
         {
             this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Comparing Files with Wrong Encoding and WebResources at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -741,7 +737,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutputAndPublishList.WriteToOutput(string.Empty);
 
-                await ComparingFilesAndWebResourcesAsync(this._iWriteToOutputAndPublishList, filesWithoutUTF8Encoding, crmConfig, withDetails);
+                await ComparingFilesAndWebResourcesAsync(this._iWriteToOutputAndPublishList, filesWithoutUTF8Encoding, connectionData, withDetails);
             }
             catch (Exception xE)
             {
@@ -780,9 +776,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 , List<SelectedFile>
                 , List<Tuple<SelectedFile, WebResource>>
                 >>
-            FindFilesNotExistsInCrmAsync(IWriteToOutput _iWriteToOutput, List<SelectedFile> selectedFiles, ConnectionConfiguration crmConfig)
+            FindFilesNotExistsInCrmAsync(IWriteToOutput _iWriteToOutput, List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
-            return Task.Run(() => FindFilesNotExistsInCrm(_iWriteToOutput, selectedFiles, crmConfig));
+            return Task.Run(() => FindFilesNotExistsInCrm(_iWriteToOutput, selectedFiles, connectionData));
         }
 
         private static async Task<Tuple<IOrganizationServiceExtented
@@ -791,10 +787,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 >> FindFilesNotExistsInCrm(
             IWriteToOutput _iWriteToOutput
             , List<SelectedFile> selectedFiles
-            , ConnectionConfiguration crmConfig)
+            , ConnectionData connectionData)
         {
-            ConnectionData connectionData = crmConfig.CurrentConnectionData;
-
             if (connectionData == null)
             {
                 _iWriteToOutput.WriteToOutput("No current CRM Connection.");
@@ -884,7 +878,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (isconnectionDataDirty)
             {
                 //Сохранение настроек после публикации
-                crmConfig.Save();
+                connectionData.ConnectionConfiguration.Save();
             }
 
             var tabSpacer = "    ";

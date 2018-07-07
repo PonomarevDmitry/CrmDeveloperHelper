@@ -12,7 +12,7 @@
         <ContextMenu x:Key="listContextMenu">
 
             <MenuItem Header="Show Difference">
-                <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                 <MenuItem Header="Data Description" Click="mIShowDifferenceDataDescription_Click"/>
                 <MenuItem Header="Presentation Description" Click="mIShowDifferencePresentationDescription_Click"/>
                 <Separator/>
@@ -32,7 +32,7 @@
             
             <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName1}">
-                <MenuItem Header="Entity Description" Click="mIExportSystemChart1EntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIExportSystemChart1EntityDescription_Click"/>
                 <MenuItem Header="Data Description" Click="mIExportSystemChart1DataDescription_Click"/>
                 <MenuItem Header="Presentation Description" Click="mIExportSystemChart1PresentationDescription_Click"/>
                 <Separator/>
@@ -56,7 +56,7 @@
             
             <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName2}">
-                <MenuItem Header="Entity Description" Click="mIExportSystemChart2EntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIExportSystemChart2EntityDescription_Click"/>
                 <MenuItem Header="Data Description" Click="mIExportSystemChart2DataDescription_Click"/>
                 <MenuItem Header="Presentation Description" Click="mIExportSystemChart2PresentationDescription_Click"/>
                 <Separator/>
@@ -137,7 +137,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIShowDifferenceDataDescription" Header="Data Description" Click="mIShowDifferenceDataDescription_Click"/>
                             <MenuItem x:Name="mIShowDifferencePresentationDescription" Header="Presentation Description" Click="mIShowDifferencePresentationDescription_Click"/>
@@ -146,7 +146,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
-                            <MenuItem x:Name="mIExportSystemChart1EntityDescription" Header="Entity Description" Click="mIExportSystemChart1EntityDescription_Click"/>
+                            <MenuItem x:Name="mIExportSystemChart1EntityDescription" Header="Create Entity Description" Click="mIExportSystemChart1EntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIExportSystemChart1DataDescription" Header="Data Description" Click="mIExportSystemChart1DataDescription_Click"/>
                             <MenuItem x:Name="mIExportSystemChart1PresentationDescription" Header="Presentation Description" Click="mIExportSystemChart1PresentationDescription_Click"/>
@@ -155,7 +155,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
-                            <MenuItem x:Name="mIExportSystemChart2EntityDescription" Header="Entity Description" Click="mIExportSystemChart2EntityDescription_Click"/>
+                            <MenuItem x:Name="mIExportSystemChart2EntityDescription" Header="Create Entity Description" Click="mIExportSystemChart2EntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIExportSystemChart2DataDescription" Header="Data Description" Click="mIExportSystemChart2DataDescription_Click"/>
                             <MenuItem x:Name="mIExportSystemChart2PresentationDescription" Header="Presentation Description" Click="mIExportSystemChart2PresentationDescription_Click"/>

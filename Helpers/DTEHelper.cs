@@ -15,6 +15,7 @@ using System.ServiceModel;
 using System.Text;
 using NLog.Targets;
 using NLog.Config;
+using System.Windows;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -980,7 +981,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartComparing(selectedFiles, crmConfig, withDetails);
+                    Controller.StartComparing(selectedFiles, crmConfig.CurrentConnectionData, withDetails);
                 }
                 catch (Exception xE)
                 {
@@ -1029,7 +1030,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     try
                     {
-                        Controller.StartUpdateContentAndPublish(selectedFiles, crmConfig);
+                        Controller.StartUpdateContentAndPublish(selectedFiles, crmConfig.CurrentConnectionData);
                     }
                     catch (Exception xE)
                     {
@@ -1356,7 +1357,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartUpdatingFileWithGlobalOptionSets(crmConfig, crmConfig.CurrentConnectionData, commonConfig, selectedFiles, withSelect);
+                    Controller.StartUpdatingFileWithGlobalOptionSets(crmConfig.CurrentConnectionData, commonConfig, selectedFiles, withSelect);
                 }
                 catch (Exception xE)
                 {
@@ -1414,7 +1415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     try
                     {
-                        Controller.UpdateProxyClasses(filePath, crmConfig, commonConfig);
+                        Controller.UpdateProxyClasses(filePath, crmConfig.CurrentConnectionData, commonConfig);
                     }
                     catch (Exception xE)
                     {
@@ -1652,7 +1653,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartClearingLastLink(selectedFiles, crmConfig);
+                    Controller.StartClearingLastLink(selectedFiles, crmConfig.CurrentConnectionData);
                 }
                 catch (Exception xE)
                 {
@@ -1842,7 +1843,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     try
                     {
-                        Controller.ShowingWebResourcesDependentComponents(selectedFiles, crmConfig, crmConfig.CurrentConnectionData, commonConfig);
+                        Controller.ShowingWebResourcesDependentComponents(selectedFiles, crmConfig.CurrentConnectionData, commonConfig);
                     }
                     catch (Exception xE)
                     {
@@ -1871,7 +1872,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 ActivateOutputWindow();
                 WriteToOutputEmptyLines(commonConfig);
 
-                Controller.StartOpeningFiles(selectedFiles, openFilesType, inTextEditor, crmConfig, commonConfig);
+                Controller.StartOpeningFiles(selectedFiles, openFilesType, inTextEditor, crmConfig.CurrentConnectionData, commonConfig);
             }
         }
 
@@ -1908,7 +1909,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartMultiDifferenceFiles(selectedFiles, openFilesType, crmConfig, commonConfig);
+                    Controller.StartMultiDifferenceFiles(selectedFiles, openFilesType, crmConfig.CurrentConnectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {
@@ -2784,7 +2785,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartCreatingFileWithGlobalOptionSets(crmConfig, crmConfig.CurrentConnectionData, commonConfig, selection);
+                    Controller.StartCreatingFileWithGlobalOptionSets(crmConfig.CurrentConnectionData, commonConfig, selection);
                 }
                 catch (Exception xE)
                 {
@@ -3179,7 +3180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     try
                     {
-                        Controller.StartUpdateContentAndPublishEqualByText(selectedFiles, crmConfig);
+                        Controller.StartUpdateContentAndPublishEqualByText(selectedFiles, crmConfig.CurrentConnectionData);
                     }
                     catch (Exception xE)
                     {
@@ -3205,7 +3206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartAddingIntoPublishListFilesByType(selectedFiles, openFilesType, crmConfig, commonConfig);
+                    Controller.StartAddingIntoPublishListFilesByType(selectedFiles, openFilesType, crmConfig.CurrentConnectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {
@@ -3250,7 +3251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartComparingFilesWithWrongEncoding(selectedFiles, crmConfig, withDetails);
+                    Controller.StartComparingFilesWithWrongEncoding(selectedFiles, crmConfig.CurrentConnectionData, withDetails);
                 }
                 catch (Exception xE)
                 {
@@ -3395,6 +3396,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             catch (Exception ex)
             {
                 this.WriteErrorToOutput(ex);
+            }
+        }
+
+        public void HandlePublishAll(ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null)
+            {
+                string message = string.Format("Publish all in {0}?", connectionData.Name);
+
+                if (MessageBox.Show(message, "Question", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                {
+                    ActivateOutputWindow();
+                    WriteToOutputEmptyLines(commonConfig);
+
+                    try
+                    {
+                        this.Controller.StartPublishAll(connectionData);
+                    }
+                    catch (Exception ex)
+                    {
+                        this.WriteErrorToOutput(ex);
+                    }
+                }
             }
         }
 
@@ -3654,8 +3690,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     var commandService = CrmDeveloperHelperPackage.ServiceProvider?.GetService(typeof(System.ComponentModel.Design.IMenuCommandService)) as Microsoft.VisualStudio.Shell.OleMenuCommandService;
                     if (commandService != null)
                     {
-                        this.WriteToOutput("Cannot get OleMenuCommandService.");
-
                         //Tools.DiffFiles
                         var args = $"\"{filePath1}\" \"{filePath2}\" \"{fileTitle1}\" \"{fileTitle2}\"";
                         diffExecuted = commandService.GlobalInvoke(new System.ComponentModel.Design.CommandID(ToolsDiffCommandGuid, ToolsDiffCommandId), args);
@@ -3664,6 +3698,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             this.ActivateVisualStudioWindow();
                         }
+                    }
+                    else
+                    {
+                        this.WriteToOutput("Cannot get OleMenuCommandService.");
                     }
 
                     if (!diffExecuted)

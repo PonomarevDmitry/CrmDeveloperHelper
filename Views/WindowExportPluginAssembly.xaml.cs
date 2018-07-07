@@ -145,14 +145,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
+            if (connectionData != null)
             {
-                var service = await GetService();
+                if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
+                {
+                    var service = await GetService();
 
-                _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                }
+
+                return _descriptorCache[connectionData.ConnectionId];
             }
 
-            return _descriptorCache[connectionData.ConnectionId];
+            return null;
         }
 
         private async void ShowExistingPluginAssemblies()
@@ -880,14 +885,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 for (int index = 0; index < commands.Length; index++)
                 {
-                    var lastSoluiton = items.FirstOrDefault(i => string.Equals(i.Uid, commands[index], StringComparison.InvariantCultureIgnoreCase));
+                    var lastSolution = items.FirstOrDefault(i => string.Equals(i.Uid, commands[index], StringComparison.InvariantCultureIgnoreCase));
 
-                    if (lastSoluiton != null)
+                    if (lastSolution != null)
                     {
-                        lastSoluiton.Items.Clear();
+                        lastSolution.Items.Clear();
 
-                        lastSoluiton.IsEnabled = false;
-                        lastSoluiton.Visibility = Visibility.Collapsed;
+                        lastSolution.IsEnabled = false;
+                        lastSolution.Visibility = Visibility.Collapsed;
 
                         ConnectionData connectionData = null;
 
@@ -896,12 +901,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
                         });
 
-                        if (connectionData != null)
+                        if (connectionData != null
+                            && connectionData.LastSelectedSolutionsUniqueName != null
+                            && connectionData.LastSelectedSolutionsUniqueName.Any()
+                            )
                         {
-                            bool addIntoSolutionLast = connectionData.LastSelectedSolutionsUniqueName.Any();
-
-                            lastSoluiton.IsEnabled = addIntoSolutionLast;
-                            lastSoluiton.Visibility = addIntoSolutionLast ? Visibility.Visible : Visibility.Collapsed;
+                            lastSolution.IsEnabled = true;
+                            lastSolution.Visibility = Visibility.Visible;
 
                             foreach (var uniqueName in connectionData.LastSelectedSolutionsUniqueName)
                             {
@@ -913,7 +919,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                                 menuItem.Click += new RoutedEventHandler(actions[index]);
 
-                                lastSoluiton.Items.Add(menuItem);
+                                lastSolution.Items.Add(menuItem);
                             }
                         }
                     }

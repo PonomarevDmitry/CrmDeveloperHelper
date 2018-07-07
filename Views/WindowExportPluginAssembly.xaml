@@ -7,7 +7,7 @@
         Title="Export Plugin Assembly Description" Height="538.662" Width="717" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+            <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
             <Separator />
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add PluginAssembly into Last Crm Solution" VerticalAlignment="Center"  />
             <MenuItem Header="Add PluginAssembly into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
@@ -81,7 +81,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportPluginAssembly" Header="Export Plugin Assembly Information" VerticalAlignment="Center">
-                            <MenuItem x:Name="mICreateEntityDescription" Header="Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mICompareWithLocalAssembly"  Header="Compare with Local Assembly" VerticalAlignment="Center" Click="mICompareWithLocalAssembly_Click" />
                             <Separator/>

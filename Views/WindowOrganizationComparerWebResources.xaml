@@ -11,7 +11,7 @@
         <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
         <ContextMenu x:Key="listContextMenu">
             <MenuItem Header="Show Difference">
-                <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                 <MenuItem Header="Content" Click="mIShowDifferenceContent_Click"/>
                 <Separator/>
                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
@@ -21,7 +21,7 @@
             
             <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName1}">
-                <MenuItem Header="Entity Description" Click="mIExportWebResource1EntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIExportWebResource1EntityDescription_Click"/>
                 <MenuItem Header="Content" Click="mIExportWebResource1Content_Click"/>
                 <Separator/>
                 <MenuItem Header="WebResources" Click="btnExportWebResources1_Click"/>
@@ -29,7 +29,7 @@
             
             <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName2}">
-                <MenuItem Header="Entity Description" Click="mIExportWebResource2EntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIExportWebResource2EntityDescription_Click"/>
                 <MenuItem Header="Content" Click="mIExportWebResource2Content_Click"/>
                 <Separator/>
                 <MenuItem Header="WebResources" Click="btnExportWebResources2_Click"/>
@@ -96,7 +96,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIShowDifferenceContent" Header="Content" Click="mIShowDifferenceContent_Click"/>
                         </MenuItem>
@@ -104,7 +104,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
-                            <MenuItem x:Name="mIExportWebResource1EntityDescription" Header="Entity Description" Click="mIExportWebResource1EntityDescription_Click"/>
+                            <MenuItem x:Name="mIExportWebResource1EntityDescription" Header="Create Entity Description" Click="mIExportWebResource1EntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIExportWebResource1Content" Header="Content" Click="mIExportWebResource1Content_Click"/>
                         </MenuItem>
@@ -112,7 +112,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
-                            <MenuItem x:Name="mIExportWebResource2EntityDescription" Header="Entity Description" Click="mIExportWebResource2EntityDescription_Click"/>
+                            <MenuItem x:Name="mIExportWebResource2EntityDescription" Header="Create Entity Description" Click="mIExportWebResource2EntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIExportWebResource2Content" Header="Content" Click="mIExportWebResource2Content_Click"/>
                         </MenuItem>

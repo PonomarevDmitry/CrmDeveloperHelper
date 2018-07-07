@@ -12,7 +12,7 @@
         <ContextMenu x:Key="listContextMenu">
             <MenuItem Header="Show Difference">
                 <MenuItem Header="Assembly Description" Click="mIShowDifferenceAssemblyDescription_Click" />
-                <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                 <Separator/>
                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
             </MenuItem>
@@ -20,7 +20,7 @@
             <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName1}">
                 <MenuItem Header="Plugin Assembly Description" Click="mIExportPluginAssembly1AssemblyDescription_Click" />
-                <MenuItem Header="Entity Description" Click="mIExportPluginAssembly1EntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIExportPluginAssembly1EntityDescription_Click"/>
                 <MenuItem Header="Binary Content" Click="mIExportPluginAssembly1BinaryContent_Click"/>
                 <Separator/>
                 <MenuItem Header="Pluing Assembly Window" Click="btnExportPluginAssembly1_Click"/>
@@ -29,7 +29,7 @@
             <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName2}">
                 <MenuItem Header="Plugin Assembly Description" Click="mIExportPluginAssembly2AssemblyDescription_Click" />
-                <MenuItem Header="Entity Description" Click="mIExportPluginAssembly2EntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mIExportPluginAssembly2EntityDescription_Click"/>
                 <MenuItem Header="Binary Content" Click="mIExportPluginAssembly2BinaryContent_Click"/>
                 <Separator/>
                 <MenuItem Header="Pluing Assembly Window" Click="btnExportPluginAssembly2_Click"/>
@@ -93,7 +93,7 @@
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
                             <MenuItem x:Name="mIShowDifferenceAssemblyDescription" Header="Assembly Description" Click="mIShowDifferenceAssemblyDescription_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                         </MenuItem>
                     </Menu>
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
@@ -101,7 +101,7 @@
                         <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
                             <MenuItem x:Name="mIExportPluginAssembly1AssemblyDescription" Header="Plugin Assembly Description" Click="mIExportPluginAssembly1AssemblyDescription_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIExportPluginAssembly1EntityDescription" Header="Entity Description" Click="mIExportPluginAssembly1EntityDescription_Click"/>
+                            <MenuItem x:Name="mIExportPluginAssembly1EntityDescription" Header="Create Entity Description" Click="mIExportPluginAssembly1EntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIExportPluginAssembly1BinaryContent" Header="Binary Content" Click="mIExportPluginAssembly1BinaryContent_Click"/>
                         </MenuItem>
@@ -111,7 +111,7 @@
                         <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
                             <MenuItem x:Name="mIExportPluginAssembly2AssemblyDescription" Header="Plugin Assembly Description" Click="mIExportPluginAssembly2AssemblyDescription_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIExportPluginAssembly2EntityDescription" Header="Entity Description" Click="mIExportPluginAssembly2EntityDescription_Click"/>
+                            <MenuItem x:Name="mIExportPluginAssembly2EntityDescription" Header="Create Entity Description" Click="mIExportPluginAssembly2EntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIExportPluginAssembly2BinaryContent" Header="Binary Content" Click="mIExportPluginAssembly2BinaryContent_Click"/>
                         </MenuItem>

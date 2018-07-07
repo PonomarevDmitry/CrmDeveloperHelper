@@ -353,7 +353,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     break;
             }
 
-            return string.Format("{0}.Entity {1} - {2} - {3}.{4}", connectionName, entity.LogicalName, entity.Id, fieldTitle, extension);
+            return string.Format("{0}.Entity {1} - {2} - {3} at {4}.{5}", connectionName, entity.LogicalName, entity.Id, fieldTitle, GetDateString(), extension);
         }
     }
 }

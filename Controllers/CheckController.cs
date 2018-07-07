@@ -865,7 +865,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Отображение зависимых компонентов веб-ресурсов.
 
-        public async void ExecuteShowingWebResourcesDependentComponents(ConnectionConfiguration crmConfig, ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        public async void ExecuteShowingWebResourcesDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Objects names and show dependent components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -881,7 +881,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     this._iWriteToOutput.WriteToOutput(string.Empty);
                 }
 
-                await ShowingWebResourcesDependentComponents(crmConfig, connectionData, commonConfig, selectedFiles);
+                await ShowingWebResourcesDependentComponents(connectionData, commonConfig, selectedFiles);
             }
             catch (Exception xE)
             {
@@ -893,7 +893,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ShowingWebResourcesDependentComponents(ConnectionConfiguration crmConfig, ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        private async Task ShowingWebResourcesDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             if (connectionData == null)
             {
@@ -1002,7 +1002,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (isconnectionDataDirty)
             {
                 //Сохранение настроек после публикации
-                crmConfig.Save();
+                connectionData.ConnectionConfiguration.Save();
             }
 
             WriteToContentList(listNotFoundedInCRMNoLink, content, "File NOT FOUNDED in CRM: {0}");

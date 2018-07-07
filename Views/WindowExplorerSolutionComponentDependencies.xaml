@@ -9,7 +9,7 @@
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
             <Separator/>
-            <MenuItem Header="Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+            <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
@@ -96,7 +96,7 @@
                         <MenuItem x:Name="tSDDBExportSolutionComponent" Header="Export Solution Component Information" VerticalAlignment="Center">
                             <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mICreateEntityDescription" Header="Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIOpenDependentComponentsInWeb" Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                             <Separator/>
