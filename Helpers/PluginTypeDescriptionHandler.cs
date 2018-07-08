@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var sortedSteps = allSteps
                 .Where(s => s.EventHandler.Id == idPluginType)
                 .OrderBy(ent => ent.PrimaryObjectTypeCodeName)
-                .ThenBy(ent => ent.SdkMessageId?.Name ?? "Unknown", new Nav.Common.VSPackages.CrmDeveloperHelper.Model.MessageComparer())
+                .ThenBy(ent => ent.SdkMessageId?.Name ?? "Unknown", new MessageComparer())
                 .ThenBy(s => s.Mode.Value)
                 .ThenBy(s => s.Rank)
                 .ThenBy(s => s.Name)

@@ -14,13 +14,21 @@
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
             <Separator/>
-            <MenuItem Header="Fetch XML in JavaScript" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />
-            <MenuItem Header="Layout XML in JavaScript" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
-            <MenuItem Header="ColumnSet XML in JavaScript" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
+            <MenuItem Header="Copy Fetch XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />
+            <MenuItem Header="Copy Layout XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
+            <MenuItem Header="Copy ColumnSet XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
             <Separator/>
             <MenuItem Header="Fetch XML" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXml_Click"/>
             <MenuItem Header="Layout XML" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXml_Click"/>
             <MenuItem Header="ColumnSet XML" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXml_Click"/>
+            <Separator/>
+            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                <MenuItem Header="Fetch XML" VerticalAlignment="Center" Click="mIUpdateSavedQueryFetchXml_Click"/>
+                <MenuItem Header="Layout XML" VerticalAlignment="Center" Click="mIUpdateSavedQueryLayoutXml_Click"/>
+                <MenuItem Header="ColumnSet XML" VerticalAlignment="Center" Click="mIUpdateSavedQueryColumnSetXml_Click"/>
+            </MenuItem>
+            <Separator/>
+            <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
             <Separator/>
             <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
             <Separator/>
@@ -114,26 +122,35 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSavedQuery" Header="Export Saved Query Information" VerticalAlignment="Center">
-                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
-                            <MenuItem x:Name="mIOpenInWeb" Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
+                            <MenuItem Header="Open SavedQuery in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
+                            <Separator />
+                            <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIExportSavedQueryFetchXmlIntoJavaScript" Header="Fetch XML in JavaScript" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />
-                            <MenuItem x:Name="mIExportSavedQueryLayoutXmlIntoJavaScript" Header="Layout XML in JavaScript" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
-                            <MenuItem x:Name="mIExportSavedQueryColumnSetXmlIntoJavaScript" Header="ColumnSet XML in JavaScript" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
+                            <MenuItem Header="Copy Fetch XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />
+                            <MenuItem Header="Copy Layout XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
+                            <MenuItem Header="Copy ColumnSet XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mIExportSavedQueryFetchXml" Header="Fetch XML" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXml_Click"/>
-                            <MenuItem x:Name="mIExportSavedQueryLayoutXml" Header="Layout XML" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXml_Click"/>
-                            <MenuItem x:Name="mIExportSavedQueryColumnSetXml" Header="ColumnSet XML" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXml_Click"/>
+                            <MenuItem Header="Fetch XML" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXml_Click"/>
+                            <MenuItem Header="Layout XML" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXml_Click"/>
+                            <MenuItem Header="ColumnSet XML" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXml_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIOpenDependentComponentsInWeb" Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                                <MenuItem Header="Fetch XML" VerticalAlignment="Center" Click="mIUpdateSavedQueryFetchXml_Click"/>
+                                <MenuItem Header="Layout XML" VerticalAlignment="Center" Click="mIUpdateSavedQueryLayoutXml_Click"/>
+                                <MenuItem Header="ColumnSet XML" VerticalAlignment="Center" Click="mIUpdateSavedQueryColumnSetXml_Click"/>
+                            </MenuItem>
                             <Separator/>
-                            <MenuItem x:Name="mIOpenDependentComponentsInWindow" Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                            <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                            <Separator/>
+                            <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
                             <Separator/>
                             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mIExportSavedQueryDependentComponents" Header="Dependent Components" VerticalAlignment="Center" Click="mIExportSavedQueryDependentComponents_Click" />
-                            <MenuItem x:Name="mIExportSavedQueryRequiredComponents" Header="Required Components" VerticalAlignment="Center" Click="mIExportSavedQueryRequiredComponents_Click" />
-                            <MenuItem x:Name="mIExportSavedQueryDependenciesForDelete" Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportSavedQueryDependenciesForDelete_Click" />
+                            <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportSavedQueryDependentComponents_Click" />
+                            <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportSavedQueryRequiredComponents_Click" />
+                            <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportSavedQueryDependenciesForDelete_Click" />
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>

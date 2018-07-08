@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
@@ -19,7 +20,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             return localeId.ToString();
         }
 
-        private static Dictionary<int, string> _knownLocales = new Dictionary<int, string>()
+        public static ReadOnlyDictionary<int, string> KnownLocales => _knownLocales;
+
+        private static ReadOnlyDictionary<int, string> _knownLocales = new ReadOnlyDictionary<int, string>(new Dictionary<int, string>()
         {
             { 1078  , "Afrikaans" }
             , { 1052    , "Albanian" }
@@ -206,6 +209,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             , { 1076    , "Xhosa" }
             , { 1085    , "Yiddish" }
             , { 1077    , "Zulu" }
-        };
+        });
     }
 }

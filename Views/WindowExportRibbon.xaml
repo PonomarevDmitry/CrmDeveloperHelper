@@ -17,6 +17,10 @@
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
             <Separator/>
+            <MenuItem Header="Export Entity Ribbon" Click="btnExportEntityRibbon_Click" />
+            <Separator/>
+            <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+            <Separator/>
             <MenuItem Header="Get Other Entity Information">
                 <MenuItem Header="Metadata" Click="btnCreateMetadataFile_Click"/>
                 <Separator/>

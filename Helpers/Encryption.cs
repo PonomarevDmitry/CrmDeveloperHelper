@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
-    public class Encryption
+    public static class Encryption
     {
         public static string EncryptionKey = "#$RTYJKxchjkTHFpoDF";
 
@@ -79,10 +79,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             SHA256 = 2,
             SHA512 = 3,
             MD5 = 4
-        }
-
-        private Encryption()
-        {
         }
 
         public static string ComputeHash(string text, Algorithm algo)

@@ -7,7 +7,7 @@
         Title="Export Report Information" Height="538.662" Width="922.5" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
+            <MenuItem Header="Open Report in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
             <Separator/>
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
             <Separator/>
@@ -24,6 +24,12 @@
             <MenuItem Header="Query Info" VerticalAlignment="Center" Click="mIExportReportQueryInfo_Click"/>
             <Separator/>
             <MenuItem Header="Body Binary" VerticalAlignment="Center" Click="mIExportReportBodyBinary_Click"/>
+            <Separator/>
+            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                <MenuItem Header="Default Filter" VerticalAlignment="Center" Click="mIUpdateReportDefaultFilter_Click"/>
+                <MenuItem Header="Custom Report Xml" VerticalAlignment="Center" Click="mIUpdateReportCustomReportXml_Click"/>
+                <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIUpdateReportScheduleXml_Click"/>
+            </MenuItem>
             <Separator/>
             <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
             <Separator/>
@@ -94,28 +100,34 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportReport" Header="Export Report Information" VerticalAlignment="Center">
-                            <MenuItem x:Name="mIOpenInWeb" Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
+                            <MenuItem Header="Open Report in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIExportReportBodyText" Header="Body Text" VerticalAlignment="Center" Click="mIExportReportBodyText_Click"/>
-                            <MenuItem x:Name="mIExportReportOriginalBodyText" Header="Original Body Text" VerticalAlignment="Center" Click="mIExportReportOriginalBodyText_Click"/>
-                            <MenuItem x:Name="mIExportReportDefaultFilter" Header="Default Filter" VerticalAlignment="Center" Click="mIExportReportDefaultFilter_Click"/>
-                            <MenuItem x:Name="mIExportReportCustomReportXml" Header="Custom Report Xml" VerticalAlignment="Center" Click="mIExportReportCustomReportXml_Click"/>
-                            <MenuItem x:Name="mIExportReportScheduleXml" Header="ScheduleXml" VerticalAlignment="Center" Click="mIExportReportScheduleXml_Click"/>
-                            <MenuItem x:Name="mIExportReportQueryInfo" Header="Query Info" VerticalAlignment="Center" Click="mIExportReportQueryInfo_Click"/>
+                            <MenuItem Header="Body Text" VerticalAlignment="Center" Click="mIExportReportBodyText_Click"/>
+                            <MenuItem Header="Original Body Text" VerticalAlignment="Center" Click="mIExportReportOriginalBodyText_Click"/>
+                            <MenuItem Header="Default Filter" VerticalAlignment="Center" Click="mIExportReportDefaultFilter_Click"/>
+                            <MenuItem Header="Custom Report Xml" VerticalAlignment="Center" Click="mIExportReportCustomReportXml_Click"/>
+                            <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIExportReportScheduleXml_Click"/>
+                            <MenuItem Header="Query Info" VerticalAlignment="Center" Click="mIExportReportQueryInfo_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIExportReportBodyBinary" Header="Body Binary" VerticalAlignment="Center" Click="mIExportReportBodyBinary_Click"/>
+                            <MenuItem Header="Body Binary" VerticalAlignment="Center" Click="mIExportReportBodyBinary_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIOpenDependentComponentsInWeb" Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                                <MenuItem Header="Default Filter" VerticalAlignment="Center" Click="mIUpdateReportDefaultFilter_Click"/>
+                                <MenuItem Header="Custom Report Xml" VerticalAlignment="Center" Click="mIUpdateReportCustomReportXml_Click"/>
+                                <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIUpdateReportScheduleXml_Click"/>
+                            </MenuItem>
                             <Separator/>
-                            <MenuItem x:Name="mIOpenDependentComponentsInWindow" Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                            <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                            <Separator/>
+                            <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
                             <Separator/>
                             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mIExportReportDependentComponents" Header="Dependent Components" VerticalAlignment="Center" Click="mIExportReportDependentComponents_Click" />
-                            <MenuItem x:Name="mIExportReportRequiredComponents" Header="Required Components" VerticalAlignment="Center"  Click="mIExportReportRequiredComponents_Click"/>
-                            <MenuItem x:Name="mIExportReportDependenciesForDelete" Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportReportDependenciesForDelete_Click" />
+                            <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportReportDependentComponents_Click" />
+                            <MenuItem Header="Required Components" VerticalAlignment="Center"  Click="mIExportReportRequiredComponents_Click"/>
+                            <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportReportDependenciesForDelete_Click" />
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>

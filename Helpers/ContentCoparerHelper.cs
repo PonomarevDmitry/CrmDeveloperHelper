@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using Ude;
+using System.Xml;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -349,6 +351,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 RemoveEmptyXMLText(doc);
+                SortAttributes(doc);
 
                 if (actions != null)
                 {
@@ -423,6 +426,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 RemoveEmptyXMLText(doc1);
                 RemoveEmptyXMLText(doc2);
+
+                SortAttributes(doc1);
+                SortAttributes(doc2);
 
                 if (action != null)
                 {
@@ -571,6 +577,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 xml = RemoveDiacritics(xml);
 
                 doc = XElement.Parse(xml);
+
                 return true;
             }
             catch
@@ -594,12 +601,95 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 doc = null;
                 exception = ex;
 
                 return false;
+            }
+        }
+
+        public static byte[] FormatXmlWithXmlAttributeOnNewLine(byte[] byteXml)
+        {
+            byte[] result = new byte[0];
+
+            XElement doc = null;
+
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                memStream.Write(byteXml, 0, byteXml.Length);
+
+                memStream.Position = 0;
+
+                doc = XElement.Load(memStream);
+            }
+
+            SortAttributes(doc);
+
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.OmitXmlDeclaration = true;
+            settings.Indent = true;
+            settings.NewLineOnAttributes = true;
+            settings.Encoding = Encoding.UTF8;
+
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                using (XmlWriter xmlWriter = XmlWriter.Create(memStream, settings))
+                {
+                    doc.Save(xmlWriter);
+                }
+
+                memStream.Position = 0;
+
+                result = memStream.ToArray();
+            }
+
+            return result;
+        }
+
+        public static string FormatXml(string xml, bool xmlAttributeOnNewLine)
+        {
+            if (!TryParseXml(xml, out var doc))
+            {
+                return xml;
+            }
+
+            if (!xmlAttributeOnNewLine)
+            {
+                return doc.ToString();
+            }
+
+            SortAttributes(doc);
+
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.OmitXmlDeclaration = true;
+            settings.Indent = true;
+            settings.NewLineOnAttributes = true;
+            settings.Encoding = Encoding.UTF8;
+
+            var result = new StringBuilder();
+
+            using (XmlWriter xmlWriter = XmlWriter.Create(result, settings))
+            {
+                doc.Save(xmlWriter);
+            }
+
+            return result.ToString();
+        }
+
+        private static void SortAttributes(XElement doc)
+        {
+            foreach (var element in doc.DescendantsAndSelf())
+            {
+                var attributes = element.Attributes().ToList();
+
+                element.RemoveAttributes();
+
+                foreach (var attr in attributes.OrderBy(a => a.Name, new XNameComparer()))
+                {
+                    element.Add(attr);
+                }
             }
         }
 

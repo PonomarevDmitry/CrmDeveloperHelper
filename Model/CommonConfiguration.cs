@@ -258,6 +258,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private bool _ExportOrganizationXmlAttributeOnNewLine;
+        [DataMember]
+        public bool ExportOrganizationXmlAttributeOnNewLine
+        {
+            get
+            {
+                return _ExportOrganizationXmlAttributeOnNewLine;
+            }
+            set
+            {
+                this.OnPropertyChanging(nameof(ExportOrganizationXmlAttributeOnNewLine));
+                this._ExportOrganizationXmlAttributeOnNewLine = value;
+                this.OnPropertyChanged(nameof(ExportOrganizationXmlAttributeOnNewLine));
+            }
+        }
+
+        private bool _ExportSiteMapXmlAttributeOnNewLine;
+        [DataMember]
+        public bool ExportSiteMapXmlAttributeOnNewLine
+        {
+            get
+            {
+                return _ExportSiteMapXmlAttributeOnNewLine;
+            }
+            set
+            {
+                this.OnPropertyChanging(nameof(ExportSiteMapXmlAttributeOnNewLine));
+                this._ExportSiteMapXmlAttributeOnNewLine = value;
+                this.OnPropertyChanged(nameof(ExportSiteMapXmlAttributeOnNewLine));
+            }
+        }
+
         private bool _GenerateAttributes;
         /// <summary>
         /// Генерировать атрибуты в файле с метаданными сущности

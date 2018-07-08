@@ -6,7 +6,7 @@
     <Grid>
         <Label x:Name="lblText"  Content="" Margin="10,10,10,0" VerticalAlignment="Top" Height="113" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <CheckBox x:Name="chBDoNotPromtPublishMessage" Content="Do not promt Publish Message" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnConfirm" Content="Confirm" Margin="0,0,126,10" Click="btnConfirm_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
-        <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,10" Click="btnCancel_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+        <Button x:Name="btnConfirm" Content="Confirm" Margin="0,0,126,10" Click="btnConfirm_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+        <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,10" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
     </Grid>
 </src:WindowBase>

@@ -347,10 +347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControl(cmBCurrentConnection, enabled);
 
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
+            UpdateButtonsEnable();
         }
 
         private void ToggleProgressBar(bool enabled)
@@ -387,7 +384,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwEntities.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
 
                     UIElement[] list =
                     {
@@ -729,7 +726,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new RibbonCustomizationRepository(service);
 
-                await repository.ExportApplicationRibbon(filter, filePath);
+                await repository.ExportApplicationRibbon(filter, filePath, _commonConfig);
 
                 this._iWriteToOutput.WriteToOutput("Application Ribbon Xml exported to {0}", filePath);
 
@@ -790,6 +787,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 SelectEntityAndFolder((this.lstVwEntities.SelectedItems[0] as EntityMetadataListViewItem).EntityLogicalName);
             }
         }
+
         private void SelectEntityAndFolder(string entityName)
         {
             bool allGood = false;
@@ -1108,6 +1106,52 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (connectionData != null)
             {
                 ShowExistingEntities();
+            }
+        }
+
+        private async void btnPublishEntity_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            var entityName = entity.EntityLogicalName;
+
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            UpdateStatus(string.Format("Publishing Entity {0}...", entityName));
+
+            this._iWriteToOutput.WriteToOutput("Start publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new PublishActionsRepository(service);
+
+                await repository.PublishEntitiesAsync(new[] { entityName });
+
+                this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                UpdateStatus(string.Format("Entity {0} published", entityName));
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus(string.Format("Publish Entity {0} failed", entityName));
+            }
+            finally
+            {
+                ToggleControls(true);
             }
         }
     }

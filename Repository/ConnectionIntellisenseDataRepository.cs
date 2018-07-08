@@ -19,6 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         private object syncObjectService = new object();
         private object syncObjectTaskListEntityHeader = new object();
         private object syncObjectTaskGettingEntity = new object();
+        private object syncObjectTaskGettingEntityObjectTypeCode = new object();
 
         private IOrganizationServiceExtented _service;
 
@@ -30,6 +31,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         private CancellationTokenSource _cancellationTokenSource;
 
         private ConcurrentDictionary<string, Task> _cacheTaskGettingEntity = new ConcurrentDictionary<string, Task>();
+
+        private ConcurrentDictionary<int, Task> _cacheTaskGettingEntityObjectTypeCode = new ConcurrentDictionary<int, Task>();
 
         private ConnectionIntellisenseDataRepository(ConnectionData connectionData)
         {
@@ -106,7 +109,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return null;
             }
 
-            if (_connectionData.IntellisenseData != null && _connectionData.IntellisenseData.Entities != null && _connectionData.IntellisenseData.Entities.ContainsKey(entityName))
+            if (_connectionData.IntellisenseData != null
+                && _connectionData.IntellisenseData.Entities != null
+                && _connectionData.IntellisenseData.Entities.ContainsKey(entityName)
+                )
             {
                 var entityData = _connectionData.IntellisenseData.Entities[entityName];
 
@@ -116,22 +122,61 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            Task.Run(() => GetConnectionEntityIntellisenseDataFromCache(new[] { entityName }), _cancellationTokenSource.Token);
+            Task.Run(() => GetEntityDataForNames(new[] { entityName }), _cancellationTokenSource.Token);
 
             return null;
         }
 
-        public Task GetConnectionEntityIntellisenseDataFromCacheAsync(IEnumerable<string> entityCollection)
+        public EntityIntellisenseData GetEntityAttributeIntellisense(int entityTypeCode)
         {
             if (_cancellationTokenSource.IsCancellationRequested)
             {
                 return null;
             }
 
-            return Task.Run(() => GetConnectionEntityIntellisenseDataFromCache(entityCollection), _cancellationTokenSource.Token);
+            if (_connectionData.IntellisenseData != null
+                && _connectionData.IntellisenseData.Entities != null
+                && _connectionData.IntellisenseData.Entities.Values != null
+                )
+            {
+                var list = _connectionData.IntellisenseData.Entities.Values.ToList();
+
+                var entityData = list.FirstOrDefault(e => e.ObjectTypeCode.HasValue && e.ObjectTypeCode == entityTypeCode);
+
+                if (entityData != null
+                    && entityData.Attributes != null
+                    )
+                {
+                    return entityData;
+                }
+            }
+
+            Task.Run(() => GetEntityDataForObjectTypeCodes(new[] { entityTypeCode }), _cancellationTokenSource.Token);
+
+            return null;
         }
 
-        private async Task GetListEntityHeaderAsync(HashSet<string> hashEntities)
+        public Task GetEntityDataForNamesAsync(IEnumerable<string> entityCollection)
+        {
+            if (_cancellationTokenSource.IsCancellationRequested)
+            {
+                return null;
+            }
+
+            return Task.Run(() => GetEntityDataForNames(entityCollection), _cancellationTokenSource.Token);
+        }
+
+        public Task GetEntityDataForObjectTypeCodesAsync(IEnumerable<int> entityObjectTypeCodes)
+        {
+            if (_cancellationTokenSource.IsCancellationRequested)
+            {
+                return null;
+            }
+
+            return Task.Run(() => GetEntityDataForObjectTypeCodes(entityObjectTypeCodes), _cancellationTokenSource.Token);
+        }
+
+        private async Task GetListEntityHeaderDataAsync(HashSet<string> hashEntities)
         {
             if (_cancellationTokenSource.IsCancellationRequested)
             {
@@ -279,7 +324,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         //    }
         //}
 
-        private async Task GetConnectionEntityIntellisenseDataFromCache(IEnumerable<string> entityCollection)
+        private async Task GetEntityDataForNames(IEnumerable<string> entityCollection)
         {
             if (_cancellationTokenSource.IsCancellationRequested)
             {
@@ -307,7 +352,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     if (!_cacheTaskGettingEntity.ContainsKey(entityName))
                     {
-                        task = Task.Run(async () => await GetEntityFullInfoAsync(entityName), _cancellationTokenSource.Token);
+                        task = Task.Run(async () => await GetEntityFullDataForNameAsync(entityName), _cancellationTokenSource.Token);
                         _cacheTaskGettingEntity.TryAdd(entityName, task);
                     }
 
@@ -355,7 +400,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     if (!_cacheTaskGettingEntity.ContainsKey(entityName))
                     {
-                        _cacheTaskGettingEntity.TryAdd(entityName, Task.Run(() => GetEntityFullInfoAsync(entityName), _cancellationTokenSource.Token));
+                        _cacheTaskGettingEntity.TryAdd(entityName, Task.Run(() => GetEntityFullDataForNameAsync(entityName), _cancellationTokenSource.Token));
                     }
 
                     task = _cacheTaskGettingEntity[entityName];
@@ -373,7 +418,95 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
         }
 
-        private async Task GetEntityFullInfoAsync(string entityName)
+        private async Task GetEntityDataForObjectTypeCodes(IEnumerable<int> entityObjectTypeCodes)
+        {
+            if (_cancellationTokenSource.IsCancellationRequested)
+            {
+                return;
+            }
+
+            var hash = new HashSet<int>(entityObjectTypeCodes);
+
+            foreach (var entityObjectTypeCode in hash)
+            {
+                Task task = null;
+
+                lock (syncObjectTaskGettingEntityObjectTypeCode)
+                {
+                    if (!_cacheTaskGettingEntityObjectTypeCode.ContainsKey(entityObjectTypeCode))
+                    {
+                        task = Task.Run(async () => await GetEntityFullDataForObjectTypeCodeAsync(entityObjectTypeCode), _cancellationTokenSource.Token);
+                        _cacheTaskGettingEntityObjectTypeCode.TryAdd(entityObjectTypeCode, task);
+                    }
+
+                    task = _cacheTaskGettingEntityObjectTypeCode[entityObjectTypeCode];
+                }
+
+                if (task != null)
+                {
+                    await task;
+                }
+
+                if (_cancellationTokenSource.IsCancellationRequested)
+                {
+                    return;
+                }
+            }
+
+            var hashRelatedEntities = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var entityObjectTypeCode in hash)
+            {
+                var entityData = _connectionData.IntellisenseData?.Entities?.Values?.FirstOrDefault(e => e.ObjectTypeCode.HasValue && e.ObjectTypeCode == entityObjectTypeCode);
+
+                if (entityData != null)
+                {
+                    var related = entityData.GetRelatedEntities();
+
+                    foreach (var item in related)
+                    {
+                        hashRelatedEntities.Add(item);
+                    }
+                }
+            }
+
+            foreach (var entityObjectTypeCode in hash)
+            {
+                var entityData = _connectionData.IntellisenseData?.Entities?.Values?.FirstOrDefault(e => e.ObjectTypeCode.HasValue && e.ObjectTypeCode == entityObjectTypeCode);
+
+                if (entityData != null)
+                {
+                    hashRelatedEntities.Remove(entityData.EntityLogicalName);
+                }
+            }
+
+            foreach (var entityName in hashRelatedEntities)
+            {
+                Task task = null;
+
+                lock (syncObjectTaskGettingEntity)
+                {
+                    if (!_cacheTaskGettingEntity.ContainsKey(entityName))
+                    {
+                        _cacheTaskGettingEntity.TryAdd(entityName, Task.Run(() => GetEntityFullDataForNameAsync(entityName), _cancellationTokenSource.Token));
+                    }
+
+                    task = _cacheTaskGettingEntity[entityName];
+                }
+
+                if (task != null)
+                {
+                    await task;
+                }
+
+                if (_cancellationTokenSource.IsCancellationRequested)
+                {
+                    return;
+                }
+            }
+        }
+
+        private async Task GetEntityFullDataForNameAsync(string entityName)
         {
             if (_cancellationTokenSource.IsCancellationRequested)
             {
@@ -420,7 +553,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
         }
-        
+
+        private async Task GetEntityFullDataForObjectTypeCodeAsync(int objectTypeCode)
+        {
+            if (_cancellationTokenSource.IsCancellationRequested)
+            {
+                return;
+            }
+
+            var service = await GetServiceAsync();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            EntityQueryExpression entityQueryExpression = GetEntityQueryExpression();
+
+            entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression("ObjectTypeCode", MetadataConditionOperator.Equals, objectTypeCode));
+
+            RetrieveMetadataChangesRequest request = new RetrieveMetadataChangesRequest()
+            {
+                Query = entityQueryExpression,
+            };
+
+            try
+            {
+                var response = (RetrieveMetadataChangesResponse)service.Execute(request);
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToLog(ex);
+
+                _service = null;
+            }
+
+            lock (syncObjectTaskGettingEntityObjectTypeCode)
+            {
+                if (_cacheTaskGettingEntityObjectTypeCode.ContainsKey(objectTypeCode))
+                {
+                    _cacheTaskGettingEntityObjectTypeCode.TryRemove(objectTypeCode, out _);
+                }
+            }
+        }
+
         private void StartGettingListEntityHeader()
         {
             if (_cancellationTokenSource.IsCancellationRequested)
@@ -453,12 +629,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         {
                             DTEHelper.WriteExceptionToLog(_taskListEntityHeader.Exception);
 
-                            _taskListEntityHeader = Task.Run(() => GetListEntityHeaderAsync(hashEntities), _cancellationTokenSource.Token);
+                            _taskListEntityHeader = Task.Run(() => GetListEntityHeaderDataAsync(hashEntities), _cancellationTokenSource.Token);
                         }
                     }
                     else
                     {
-                        _taskListEntityHeader = Task.Run(() => GetListEntityHeaderAsync(hashEntities), _cancellationTokenSource.Token);
+                        _taskListEntityHeader = Task.Run(() => GetListEntityHeaderDataAsync(hashEntities), _cancellationTokenSource.Token);
                     }
                 }
             }

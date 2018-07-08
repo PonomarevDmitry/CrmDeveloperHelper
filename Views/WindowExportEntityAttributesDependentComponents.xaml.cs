@@ -305,16 +305,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._controlsEnabled = enabled;
 
-            ToggleControl(this.toolStrip, enabled);
-
             ToggleControl(cmBCurrentConnection, enabled);
 
             ToggleProgressBar(enabled);
 
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
+            UpdateButtonsEnable();
         }
 
         private void ToggleProgressBar(bool enabled)
@@ -351,7 +346,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwEntities.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
 
                     UIElement[] list = { btnGlobalOptionSets, btnSystemForms, btnSavedQuery, btnSavedChart, btnWorkflows, btnCreateFile };
 
@@ -640,7 +635,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    SelectEntityAndFolder(item.EntityLogicalName);
+                    ExecuteActionAsync(item.EntityLogicalName, StartCreateFileWithAttibuteDependentAsync);
                 }
             }
         }
@@ -659,53 +654,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            SelectEntityAndFolder(entity.EntityLogicalName);
+            ExecuteActionAsync(entity.EntityLogicalName, StartCreateFileWithAttibuteDependentAsync);
         }
 
-        private void SelectEntityAndFolder(string entityName)
+        private void btnPublishEntity_Click(object sender, RoutedEventArgs e)
         {
-            bool allGood = true;
-            StringBuilder message = new StringBuilder();
+            var entity = GetSelectedEntity();
 
-            string folder = txtBFolder.Text.Trim();
-
-            if (!string.IsNullOrEmpty(folder))
+            if (entity == null)
             {
-                if (!Directory.Exists(folder))
-                {
-                    allGood = false;
-
-                    if (message.Length > 0)
-                    {
-                        message.AppendLine();
-                    }
-
-                    message.Append("Folder does not exists.");
-                }
-            }
-            else
-            {
-                allGood = false;
-
-                if (message.Length > 0)
-                {
-                    message.AppendLine();
-                }
-
-                message.Append("Folder does not exists.");
+                return;
             }
 
-            if (allGood)
-            {
-                StartCreateFileWithAttibuteDependent(entityName);
-            }
-            else
-            {
-                MessageBox.Show(message.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            ExecuteActionAsync(entity.EntityLogicalName, PublishEntityAsync);
         }
 
-        private async void StartCreateFileWithAttibuteDependent(string entityName)
+        private async Task PublishEntityAsync(string entityName)
         {
             if (!_controlsEnabled)
             {
@@ -713,40 +677,111 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ToggleControls(false);
+
+            UpdateStatus(string.Format("Publishing Entity {0}...", entityName));
+
+            this._iWriteToOutput.WriteToOutput("Start publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new PublishActionsRepository(service);
+
+                await repository.PublishEntitiesAsync(new[] { entityName });
+
+                this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                UpdateStatus(string.Format("Entity {0} published", entityName));
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus(string.Format("Publish Entity {0} failed", entityName));
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
+        }
+
+        private async void ExecuteActionAsync(string entityName, Func<string, Task> action)
+        {
+            string folder = txtBFolder.Text.Trim();
+
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(folder))
+            {
+                return;
+            }
+
+            await action(entityName);
+        }
+
+        private async Task StartCreateFileWithAttibuteDependentAsync(string entityName)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
             UpdateStatus("Creating File...");
 
             this._iWriteToOutput.WriteToOutput("Start extracting information at {0} for entity '{1}'", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), entityName);
 
-            string folder = txtBFolder.Text.Trim();
-            bool allComponents = rBAllcomponents.IsChecked.GetValueOrDefault();
-
-            var service = await GetService();
-
-            string fileName = string.Format("{0}.{1} attributes dependent components at {2}.txt", service.ConnectionData.Name, entityName, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-            if (!Directory.Exists(folder))
+            try
             {
-                Directory.CreateDirectory(folder);
+                string folder = txtBFolder.Text.Trim();
+                bool allComponents = rBAllcomponents.IsChecked.GetValueOrDefault();
+
+                var service = await GetService();
+
+                string fileName = string.Format("{0}.{1} attributes dependent components at {2}.txt", service.ConnectionData.Name, entityName, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                var dependencyRepository = new DependencyRepository(service);
+                var descriptor = new SolutionComponentDescriptor(this._iWriteToOutput, service, true);
+                var descriptorHandler = new DependencyDescriptionHandler(descriptor);
+
+                var handler = new EntityAttributesDependentComponentsHandler(dependencyRepository, descriptor, descriptorHandler);
+
+                string message = await handler.CreateFileAsync(entityName, filePath, allComponents);
+
+                this._iWriteToOutput.WriteToOutput(message);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                this._iWriteToOutput.WriteToOutput("End extracting information at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                UpdateStatus("File is created.");
             }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            var dependencyRepository = new DependencyRepository(service);
-            var descriptor = new SolutionComponentDescriptor(this._iWriteToOutput, service, true);
-            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
-            var handler = new EntityAttributesDependentComponentsHandler(dependencyRepository, descriptor, descriptorHandler);
-
-            string message = await handler.CreateFileAsync(entityName, filePath, allComponents);
-
-            this._iWriteToOutput.WriteToOutput(message);
-
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-            this._iWriteToOutput.WriteToOutput("End extracting information at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            UpdateStatus("File is created.");
-
-            ToggleControls(true);
+                UpdateStatus("File creation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

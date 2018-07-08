@@ -410,16 +410,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._controlsEnabled = enabled;
 
-            ToggleControl(this.toolStrip, enabled);
-
             ToggleControl(cmBCurrentConnection, enabled);
 
             ToggleProgressBar(enabled);
 
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
+            UpdateButtonsEnable();
         }
 
         private void ToggleProgressBar(bool enabled)
@@ -456,7 +451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwWorkflows.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwWorkflows.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSDDBExportWorkflow, btnExportAll };
 
@@ -686,19 +681,102 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false);
 
-            var service = await GetService();
+            try
+            {
+                var service = await GetService();
 
-            WorkflowRepository repository = new WorkflowRepository(service);
+                WorkflowRepository repository = new WorkflowRepository(service);
 
-            Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
+                Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
 
-            string xmlContent = workflow.GetAttributeValue<string>(fieldName);
+                string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-            string filePath = await CreateFileAsync(folder, entityName, category, name, fieldTitle, xmlContent);
+                string filePath = await CreateFileAsync(folder, entityName, category, name, fieldTitle, xmlContent);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            ToggleControls(true);
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
+        }
+
+        private async Task PerformUpdateEntityField(string folder, Guid idWorkflow, string entityName, string name, string category, string fieldName, string fieldTitle)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            try
+            {
+                var service = await GetService();
+
+                WorkflowRepository repository = new WorkflowRepository(service);
+
+                Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
+
+                string xmlContent = workflow.GetAttributeValue<string>(fieldName);
+
+                {
+                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    {
+                        xmlContent = doc.ToString();
+                    }
+                }
+
+                string filePath = await CreateFileAsync(folder, entityName, category, name, fieldTitle + " BackUp", xmlContent);
+
+                var newText = string.Empty;
+                bool? dialogResult = false;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    var form = new WindowTextField("Enter " + fieldTitle, fieldTitle, xmlContent);
+
+                    dialogResult = form.ShowDialog();
+
+                    newText = form.FieldText;
+                });
+
+                if (dialogResult.GetValueOrDefault())
+                {
+                    {
+                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                        {
+                            newText = doc.ToString(SaveOptions.DisableFormatting);
+                        }
+                    }
+
+                    var updateEntity = new Workflow();
+                    updateEntity.Id = idWorkflow;
+                    updateEntity.Attributes[fieldName] = newText;
+
+                    service.Update(updateEntity);
+                }
+
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private async Task PerformExportCorrectedXmlToFile(string folder, Guid idWorkflow, string entityName, string name, string category, string fieldName, string fieldTitle)
@@ -710,19 +788,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false);
 
-            var service = await GetService();
+            try
+            {
+                var service = await GetService();
 
-            WorkflowRepository repository = new WorkflowRepository(service);
+                WorkflowRepository repository = new WorkflowRepository(service);
 
-            Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
+                Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
 
-            string xmlContent = workflow.GetAttributeValue<string>(fieldName);
+                string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-            string filePath = await CreateCorrectedFileAsync(folder, entityName, category, name, fieldTitle, xmlContent);
+                string filePath = await CreateCorrectedFileAsync(folder, entityName, category, name, fieldTitle, xmlContent);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            ToggleControls(true);
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private async Task PerformExportUsedEntitesToFile(string folder, Guid idWorkflow, string entityName, string name, string category, string fieldName, string fieldTitle)
@@ -734,34 +825,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false);
 
-            var service = await GetService();
-
-            WorkflowRepository repository = new WorkflowRepository(service);
-
-            Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
-
-            string xmlContent = workflow.GetAttributeValue<string>(fieldName);
-
-            if (!string.IsNullOrEmpty(xmlContent) && ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+            try
             {
-                string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldName, "txt");
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                var service = await GetService();
 
-                WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(_iWriteToOutput, service, true));
+                WorkflowRepository repository = new WorkflowRepository(service);
 
-                await workflowDescriptor.CreateFileUsedEntitiesInWorkflowAsync(filePath, idWorkflow);
+                Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
 
-                this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldName, filePath);
+                string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                if (!string.IsNullOrEmpty(xmlContent) && ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                {
+                    string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldName, "txt");
+                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                    WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(_iWriteToOutput, service, true));
+
+                    await workflowDescriptor.CreateFileUsedEntitiesInWorkflowAsync(filePath, idWorkflow);
+
+                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldName, filePath);
+
+                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldName);
+                    this._iWriteToOutput.ActivateOutputWindow();
+                }
+
+                UpdateStatus("Operation completed.");
             }
-            else
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldName);
-                this._iWriteToOutput.ActivateOutputWindow();
-            }
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            ToggleControls(true);
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private async Task PerformExportUsedNotExistsEntitesToFile(string folder, Guid idWorkflow, string entityName, string name, string category, string fieldName, string fieldTitle)
@@ -773,34 +877,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false);
 
-            var service = await GetService();
-
-            WorkflowRepository repository = new WorkflowRepository(service);
-
-            Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
-
-            string xmlContent = workflow.GetAttributeValue<string>(fieldName);
-
-            if (!string.IsNullOrEmpty(xmlContent) && ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+            try
             {
-                string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldName, "txt");
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                var service = await GetService();
 
-                WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(_iWriteToOutput, service, true));
+                WorkflowRepository repository = new WorkflowRepository(service);
 
-                await workflowDescriptor.CreateFileUsedNotExistsEntitiesInWorkflowAsync(filePath, idWorkflow);
+                Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
 
-                this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldName, filePath);
+                string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                if (!string.IsNullOrEmpty(xmlContent) && ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                {
+                    string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldName, "txt");
+                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                    WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(_iWriteToOutput, service, true));
+
+                    await workflowDescriptor.CreateFileUsedNotExistsEntitiesInWorkflowAsync(filePath, idWorkflow);
+
+                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldName, filePath);
+
+                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldName);
+                    this._iWriteToOutput.ActivateOutputWindow();
+                }
+
+                UpdateStatus("Operation completed.");
             }
-            else
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldName);
-                this._iWriteToOutput.ActivateOutputWindow();
-            }
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            ToggleControls(true);
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void mIExportWorkflowXaml_Click(object sender, RoutedEventArgs e)
@@ -954,26 +1071,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ToggleControls(false);
 
-            var service = await GetService();
+            try
+            {
+                var service = await GetService();
 
-            string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, "EntityDescription", "txt");
-            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, "EntityDescription", "txt");
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            WorkflowRepository repository = new WorkflowRepository(service);
+                WorkflowRepository repository = new WorkflowRepository(service);
 
-            Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
+                Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, workflow, EntityFileNameFormatter.WorkflowIgnoreFields, service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, workflow, EntityFileNameFormatter.WorkflowIgnoreFields, service.ConnectionData);
 
-            this._iWriteToOutput.WriteToOutput("Workflow Entity Description exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput("Workflow Entity Description exported to {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            ToggleControls(true);
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
@@ -1586,6 +1714,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ShowExistingWorkflows();
             }
+        }
+
+        private void mIUpdateWorkflowXaml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.xaml, "Xaml", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateWorkflowInputParameters_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.inputparameters, "InputParameters", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateWorkflowClientData_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.clientdata, "ClientData", PerformUpdateEntityField);
         }
     }
 }

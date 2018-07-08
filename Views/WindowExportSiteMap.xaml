@@ -14,6 +14,10 @@
             <Separator/>
             <MenuItem Header="SiteMap XML" VerticalAlignment="Center" Click="mIExportSiteMapXml_Click"/>
             <Separator/>
+            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                <MenuItem Header="SiteMap XML" VerticalAlignment="Center" Click="mIUpdateSiteMapXml_Click"/>
+            </MenuItem>
+            <Separator/>
             <MenuItem Header="Publish SiteMap" Click="btnPublishSiteMap_Click"/>
             <Separator/>
             <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
@@ -64,6 +68,7 @@
         </DataGrid>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" Padding="10,0" VerticalAlignment="Bottom" Height="25" VerticalContentAlignment="Center"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="59,0,0,69" Padding="10,0" VerticalAlignment="Bottom" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Height="25" Width="254" VerticalContentAlignment="Center" />
+        <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding ExportSiteMapXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" HorizontalAlignment="Left" Margin="377,0,0,74" Height="15" VerticalAlignment="Bottom"/>
         <ToolBar x:Name="toolStrip" Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
@@ -82,19 +87,25 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSiteMap" Header="Export SiteMap Information" VerticalAlignment="Center">
-                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIExportSiteMapXml" Header="SiteMap XML" VerticalAlignment="Center" Click="mIExportSiteMapXml_Click"/>
+                            <MenuItem Header="SiteMap XML" VerticalAlignment="Center" Click="mIExportSiteMapXml_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIOpenDependentComponentsInWeb" Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                                <MenuItem Header="SiteMap XML" VerticalAlignment="Center" Click="mIUpdateSiteMapXml_Click"/>
+                            </MenuItem>
                             <Separator/>
-                            <MenuItem x:Name="mIOpenDependentComponentsInWindow" Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                            <MenuItem Header="Publish SiteMap" Click="btnPublishSiteMap_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                            <Separator/>
+                            <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
                             <Separator/>
                             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mIExportSiteMapDependentComponents" Header="Dependent Components" VerticalAlignment="Center" Click="mIExportSiteMapDependentComponents_Click" />
-                            <MenuItem x:Name="mIExportSiteMapRequiredComponents" Header="Required Components" VerticalAlignment="Center" Click="mIExportSiteMapRequiredComponents_Click" />
-                            <MenuItem x:Name="mIExportSiteMapDependenciesForDelete" Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportSiteMapDependenciesForDelete_Click" />
+                            <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportSiteMapDependentComponents_Click" />
+                            <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportSiteMapRequiredComponents_Click" />
+                            <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportSiteMapDependenciesForDelete_Click" />
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>

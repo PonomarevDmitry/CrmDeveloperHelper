@@ -249,16 +249,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._controlsEnabled = enabled;
 
-            ToggleControl(this.toolStrip, enabled);
-
             ToggleControl(cmBCurrentConnection, enabled);
 
             ToggleProgressBar(enabled);
 
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
+            UpdateButtonsEnable();
         }
 
         private void ToggleProgressBar(bool enabled)
@@ -295,7 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwPluginTypes.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwPluginTypes.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSDDBExportPluginType, btnExportAll };
 

@@ -301,8 +301,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._controlsEnabled = enabled;
 
-            ToggleControl(this.toolStrip, enabled);
-
             ToggleControl(cmBCurrentConnection, enabled);
 
             ToggleProgressBar(enabled);
@@ -344,7 +342,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwSystemForms.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwSystemForms.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSDDBExportSystemForm, btnExportAll };
 
@@ -533,23 +531,105 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false);
 
-            UpdateStatus(string.Format("Start export Form xml field {0}.", fieldName));
+            try
+            {
+                UpdateStatus(string.Format("Start export Form xml field {0}.", fieldName));
 
-            var service = await GetService();
+                var service = await GetService();
 
-            var repository = new SystemFormRepository(service);
+                var repository = new SystemFormRepository(service);
 
-            var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(fieldName));
+                var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(fieldName));
 
-            string xmlContent = systemForm.GetAttributeValue<string>(fieldName);
+                string xmlContent = systemForm.GetAttributeValue<string>(fieldName);
 
-            string filePath = await CreateFileAsync(folder, entityName, name, fieldTitle, xmlContent);
+                string filePath = await CreateFileAsync(folder, entityName, name, fieldTitle, xmlContent);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            UpdateStatus("Operation is completed.");
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            ToggleControls(true);
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
+        }
+
+        private async Task PerformUpdateEntityField(string folder, Guid idSystemForm, string entityName, string name, string fieldName, string fieldTitle)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new SystemFormRepository(service);
+
+                var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(fieldName));
+
+                string xmlContent = systemForm.GetAttributeValue<string>(fieldName);
+
+                {
+                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    {
+                        xmlContent = doc.ToString();
+                    }
+                }
+
+
+                string filePath = await CreateFileAsync(folder, entityName, name, fieldTitle + " BackUp", xmlContent);
+
+                var newText = string.Empty;
+                bool? dialogResult = false;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    var form = new WindowTextField("Enter " + fieldTitle, fieldTitle, xmlContent);
+
+                    dialogResult = form.ShowDialog();
+
+                    newText = form.FieldText;
+                });
+
+                if (dialogResult.GetValueOrDefault())
+                {
+                    {
+                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                        {
+                            newText = doc.ToString(SaveOptions.DisableFormatting);
+                        }
+                    }
+
+                    var updateEntity = new SystemForm();
+                    updateEntity.Id = idSystemForm;
+                    updateEntity.Attributes[fieldName] = newText;
+
+                    service.Update(updateEntity);
+                }
+
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -570,26 +650,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus("Start export Entity Description.");
 
-            var service = await GetService();
+            try
+            {
+                var service = await GetService();
 
-            string fileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, entityName, name, "EntityDescription", "txt");
-            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                string fileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, entityName, name, "EntityDescription", "txt");
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            var repository = new SystemFormRepository(service);
+                var repository = new SystemFormRepository(service);
 
-            var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
+                var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, systemForm, EntityFileNameFormatter.SystemFormIgnoreFields, service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, systemForm, EntityFileNameFormatter.SystemFormIgnoreFields, service.ConnectionData);
 
-            this._iWriteToOutput.WriteToOutput("SystemForm Entity Description exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput("SystemForm Entity Description exported to {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            ToggleControls(true);
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void mIPublishSystemForm_Click(object sender, RoutedEventArgs e)
@@ -634,6 +725,58 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
                 UpdateStatus(string.Format("Publish SystemForm {0} - {1} failed", entityName, name));
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
+        }
+
+        private void btnPublishEntity_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null 
+                && !string.IsNullOrEmpty(entity.ObjectTypeCode) 
+                && !string.Equals(entity.ObjectTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
+                )
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformPublishEntityAsync);
+        }
+
+        private async Task PerformPublishEntityAsync(string folder, Guid idSystemForm, string entityName, string name)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            UpdateStatus(string.Format("Publishing Entity {0}...", entityName));
+
+            this._iWriteToOutput.WriteToOutput("Start publishing Entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new PublishActionsRepository(service);
+
+                await repository.PublishEntitiesAsync(new[] { entityName });
+
+                this._iWriteToOutput.WriteToOutput("End publishing Entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                UpdateStatus(string.Format("Entity {0} published", entityName));
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus(string.Format("Publish Entity {0} failed", entityName));
             }
             finally
             {
@@ -1475,6 +1618,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingSystemForms();
             }
+        }
+
+        private void mIUpdateSystemFormFormXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formxml, "FormXml", PerformUpdateEntityField);
         }
     }
 }

@@ -85,6 +85,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFileAction.DataContext = commonConfig;
 
             txtBFolder.DataContext = commonConfig;
+
+            chBXmlAttributeOnNewLine.DataContext = commonConfig;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -239,16 +241,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._controlsEnabled = enabled;
 
-            ToggleControl(this.toolStrip, enabled);
-
             ToggleControl(cmBCurrentConnection, enabled);
 
             ToggleProgressBar(enabled);
 
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
+            UpdateButtonsEnable();
         }
 
         private void ToggleProgressBar(bool enabled)
@@ -285,7 +282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwOrganizations.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwOrganizations.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSDDBExportOrganization, btnExportAll };
 
@@ -389,10 +386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
-                    {
-                        xmlContent = doc.ToString();
-                    }
+                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportOrganizationXmlAttributeOnNewLine);
 
                     File.WriteAllText(filePath, xmlContent, Encoding.UTF8);
 
@@ -480,13 +474,86 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false);
 
-            string xmlContent = organization.GetAttributeValue<string>(fieldName);
+            try
+            {
+                string xmlContent = organization.GetAttributeValue<string>(fieldName);
 
-            string filePath = await CreateFileAsync(folder, organization.Name, fieldTitle, xmlContent);
+                string filePath = await CreateFileAsync(folder, organization.Name, fieldTitle, xmlContent);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            ToggleControls(true);
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
+        }
+
+        private async Task PerformUpdateEntityField(string folder, Organization organization, string fieldName, string fieldTitle)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            try
+            {
+                string xmlContent = organization.GetAttributeValue<string>(fieldName);
+
+                xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportOrganizationXmlAttributeOnNewLine);
+
+                string filePath = await CreateFileAsync(folder, organization.Name, fieldTitle + " BackUp", xmlContent);
+
+                var newText = string.Empty;
+                bool? dialogResult = false;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    var form = new WindowTextField("Enter " + fieldTitle, fieldTitle, xmlContent);
+
+                    dialogResult = form.ShowDialog();
+
+                    newText = form.FieldText;
+                });
+
+                if (dialogResult.GetValueOrDefault())
+                {
+                    {
+                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                        {
+                            newText = doc.ToString(SaveOptions.DisableFormatting);
+                        }
+                    }
+
+                    var updateEntity = new Organization();
+                    updateEntity.Id = organization.Id;
+                    updateEntity.Attributes[fieldName] = newText;
+
+                    var service = await GetService();
+                    service.Update(updateEntity);
+
+                    organization.Attributes[fieldName] = newText;
+                }
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -505,22 +572,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ToggleControls(false);
 
-            var service = await GetService();
+            try
+            {
+                var service = await GetService();
 
-            string fileName = EntityFileNameFormatter.GetOrganizationFileName(service.ConnectionData.Name, organization.Name, "EntityDescription", "txt");
-            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                string fileName = EntityFileNameFormatter.GetOrganizationFileName(service.ConnectionData.Name, organization.Name, "EntityDescription", "txt");
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, organization, EntityFileNameFormatter.OrganizationIgnoreFields, service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, organization, EntityFileNameFormatter.OrganizationIgnoreFields, service.ConnectionData);
 
-            this._iWriteToOutput.WriteToOutput("Organization Entity Description exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput("Organization Entity Description exported to {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
+                UpdateStatus("Operation is completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            ToggleControls(true);
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void mIExportOrganizationDefaultEmailSettings_Click(object sender, RoutedEventArgs e)
@@ -779,6 +857,126 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingOrganizations();
             }
+        }
+
+        private void mIUpdateOrganizationDefaultEmailSettings_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.defaultemailsettings, "DefaultEmailSettings", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateOrganizationExternalPartyCorrelationKeys_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.externalpartycorrelationkeys, "ExternalPartyCorrelationKeys", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateOrganizationExternalPartyEntitySettings_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.externalpartyentitysettings, "ExternalPartyEntitySettings", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateOrganizationFeatureSet_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.featureset, "FeatureSet", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateOrganizationKMSettings_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.kmsettings, "KMSettings", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateOrganizationReferenceSiteMapXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.referencesitemapxml, "ReferenceSiteMapXml", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateOrganizationSiteMapXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.sitemapxml, "SiteMapXml", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateOrganizationDefaultThemeData_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.defaultthemedata, "DefaultThemeData", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateOrganizationHighContrastThemeData_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.highcontrastthemedata, "HighContrastThemeData", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateOrganizationSlaPauseStates_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.slapausestates, "SlaPauseStates", PerformUpdateEntityField);
         }
     }
 }

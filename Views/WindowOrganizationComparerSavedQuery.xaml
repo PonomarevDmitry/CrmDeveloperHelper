@@ -9,9 +9,9 @@
     <src:WindowBase.Resources>
         <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
         <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
-        <ContextMenu x:Key="listContextMenu">
+        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-            <MenuItem Header="Show Difference">
+            <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
                 <MenuItem Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                 <MenuItem Header="Fetch XML" Click="mIShowDifferenceFetchXml_Click"/>
                 <MenuItem Header="Layout XML" Click="mIShowDifferenceLayoutXml_Click"/>
@@ -30,8 +30,8 @@
                 <Separator/>
                 <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
             </MenuItem>
+            <Separator x:Uid="menuContextDifference"/>
             
-            <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName1}">
                 <MenuItem Header="Create Entity Description" Click="mIExportSavedQuery1EntityDescription_Click"/>
                 <MenuItem Header="Fetch XML" Click="mIExportSavedQuery1FetchXml_Click"/>
@@ -55,9 +55,9 @@
                 <MenuItem Header="Message Tree" Click="btnMessageTree1_Click"/>
                 <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree1_Click"/>
             </MenuItem>
-            
-            <Separator/>
-            <MenuItem Header="{DynamicResource ConnectionName2}">
+
+            <Separator x:Uid="menuContextConnection2"/>
+            <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}">
                 <MenuItem Header="Create Entity Description" Click="mIExportSavedQuery2EntityDescription_Click"/>
                 <MenuItem Header="Fetch XML" Click="mIExportSavedQuery2FetchXml_Click"/>
                 <MenuItem Header="Layout XML" Click="mIExportSavedQuery2LayoutXml_Click"/>

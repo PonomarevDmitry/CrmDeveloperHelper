@@ -369,14 +369,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._controlsEnabled = enabled;
 
-            ToggleControl(this.toolStrip, enabled);
-
             ToggleProgressBar(enabled);
 
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
+            UpdateButtonsEnable();
         }
 
         private void ToggleProgressBar(bool enabled)
@@ -413,7 +408,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwEntities.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
 
                     var item = (this.lstVwEntities.SelectedItems[0] as LinkedEntityMetadata);
 
@@ -519,26 +514,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var service1 = await GetService1();
                 var service2 = await GetService2();
 
+                var filter = GetRibbonLocationFilters();
+
                 string fileName1 = EntityFileNameFormatter.GetApplicationRibbonFileName(service1.ConnectionData.Name);
                 string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
 
-                string fileName2 = EntityFileNameFormatter.GetApplicationRibbonFileName(service2.ConnectionData.Name);
-                string filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
-
-                var filter = GetRibbonLocationFilters();
+                string filePath2 = string.Empty;
 
                 var repository1 = new RibbonCustomizationRepository(service1);
-                var repository2 = new RibbonCustomizationRepository(service2);
 
-                var task1 = repository1.ExportApplicationRibbon(filter, filePath1);
-                var task2 = repository2.ExportApplicationRibbon(filter, filePath2);
+                var task1 = repository1.ExportApplicationRibbon(filter, filePath1, _commonConfig);
 
+                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                {
+                    var repository2 = new RibbonCustomizationRepository(service2);
+
+                    string fileName2 = EntityFileNameFormatter.GetApplicationRibbonFileName(service2.ConnectionData.Name);
+                    filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
+
+                    var task2 = repository2.ExportApplicationRibbon(filter, filePath2, _commonConfig);
+
+                    await task2;
+                }
+                
                 await task1;
-                await task2;
 
                 this._iWriteToOutput.WriteToOutput("{0} ApplicationRibbon Xml exported to {1}", service1.ConnectionData.Name, filePath1);
 
-                this._iWriteToOutput.WriteToOutput("{0} ApplicationRibbon Xml exported to {1}", service2.ConnectionData.Name, filePath2);
+                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                {
+                    this._iWriteToOutput.WriteToOutput("{0} ApplicationRibbon Xml exported to {1}", service2.ConnectionData.Name, filePath2);
+                }
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
                 {
@@ -606,22 +612,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string fileName1 = EntityFileNameFormatter.GetEntityRibbonFileName(service1.ConnectionData.Name, entityName);
                 string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
 
-                string fileName2 = EntityFileNameFormatter.GetEntityRibbonFileName(service2.ConnectionData.Name, entityName);
-                string filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
+                string filePath2 = string.Empty;
 
                 var filter = GetRibbonLocationFilters();
 
                 var repository1 = new RibbonCustomizationRepository(service1);
-                var repository2 = new RibbonCustomizationRepository(service2);
 
                 var task1 = repository1.ExportEntityRibbon(entityName, filter, filePath1, _commonConfig);
-                var task2 = repository2.ExportEntityRibbon(entityName, filter, filePath2, _commonConfig);
+
+                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                {
+                    var repository2 = new RibbonCustomizationRepository(service2);
+
+                    string fileName2 = EntityFileNameFormatter.GetEntityRibbonFileName(service2.ConnectionData.Name, entityName);
+                    filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
+
+                    var task2 = repository2.ExportEntityRibbon(entityName, filter, filePath2, _commonConfig);
+
+                    await task2;
+                }
 
                 await task1;
-                await task2;
 
                 this._iWriteToOutput.WriteToOutput("{0} Entity {1} Ribbon Xml exported to {2}", service1.ConnectionData.Name, entityName, filePath1);
-                this._iWriteToOutput.WriteToOutput("{0} Entity {1} Ribbon Xml exported to {2}", service2.ConnectionData.Name, entityName, filePath2);
+                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                {
+                    this._iWriteToOutput.WriteToOutput("{0} Entity {1} Ribbon Xml exported to {2}", service2.ConnectionData.Name, entityName, filePath2);
+                }
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
                 {
@@ -690,7 +707,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new RibbonCustomizationRepository(service);
 
-                await repository.ExportApplicationRibbon(filters, filePath);
+                await repository.ExportApplicationRibbon(filters, filePath, _commonConfig);
 
                 this._iWriteToOutput.WriteToOutput("{0} Application Ribbon Xml exported to {1}", service.ConnectionData.Name, filePath);
 
@@ -784,11 +801,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(true);
         }
 
-        private void chBAllEntities_Checked(object sender, RoutedEventArgs e)
-        {
-            ShowExistingEntities();
-        }
-
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.F5)
@@ -812,11 +824,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._itemsSource.Clear();
 
-                if (!_controlsEnabled)
-                {
-                    return;
-                }
-
                 ConnectionData connection1 = cmBConnection1.SelectedItem as ConnectionData;
                 ConnectionData connection2 = cmBConnection2.SelectedItem as ConnectionData;
 
@@ -827,6 +834,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this.Resources["ConnectionName1"] = string.Format("Create from {0}", connection1.Name);
                     this.Resources["ConnectionName2"] = string.Format("Create from {0}", connection2.Name);
+
+                    UpdateButtonsEnable();
 
                     ShowExistingEntities();
                 }
@@ -1244,6 +1253,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService2();
 
             WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity);
+        }
+
+        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is ContextMenu contextMenu))
+            {
+                return;
+            }
+
+            var linkedEntityMetadata = ((FrameworkElement)e.OriginalSource).DataContext as LinkedEntityMetadata;
+
+            var items = contextMenu.Items.OfType<Control>();
+
+            foreach (var menuContextDifference in items.Where(i => string.Equals(i.Uid, "menuContextDifference", StringComparison.InvariantCultureIgnoreCase)))
+            {
+                menuContextDifference.IsEnabled = false;
+                menuContextDifference.Visibility = Visibility.Collapsed;
+
+                if (linkedEntityMetadata != null
+                     && linkedEntityMetadata.EntityMetadata1 != null
+                     && linkedEntityMetadata.EntityMetadata2 != null
+                     )
+                {
+                    menuContextDifference.IsEnabled = true;
+                    menuContextDifference.Visibility = Visibility.Visible;
+                }
+            }
+
+            foreach (var menuContextConnection2 in items.Where(i => string.Equals(i.Uid, "menuContextConnection2", StringComparison.InvariantCultureIgnoreCase)))
+            {
+                menuContextConnection2.IsEnabled = false;
+                menuContextConnection2.Visibility = Visibility.Collapsed;
+
+                if (linkedEntityMetadata != null
+                     && linkedEntityMetadata.EntityMetadata2 != null
+                     )
+                {
+                    menuContextConnection2.IsEnabled = true;
+                    menuContextConnection2.Visibility = Visibility.Visible;
+                }
+            }
         }
     }
 }

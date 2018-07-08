@@ -279,16 +279,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._controlsEnabled = enabled;
 
-            ToggleControl(this.toolStrip, enabled);
-
             ToggleControl(cmBCurrentConnection, enabled);
 
             ToggleProgressBar(enabled);
 
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
+            UpdateButtonsEnable();
         }
 
         private void ToggleProgressBar(bool enabled)
@@ -325,7 +320,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwReports.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwReports.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSDDBExportReport, btnExportAll };
 
@@ -522,19 +517,102 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false);
 
-            var service = await GetService();
+            try
+            {
+                var service = await GetService();
 
-            var repository = new ReportRepository(service);
+                var repository = new ReportRepository(service);
 
-            var report = await repository.GetByIdAsync(idReport, new ColumnSet(fieldName));
+                var report = await repository.GetByIdAsync(idReport, new ColumnSet(fieldName));
 
-            string xmlContent = report.GetAttributeValue<string>(fieldName);
+                string xmlContent = report.GetAttributeValue<string>(fieldName);
 
-            string filePath = await CreateFileAsync(folder, name, idReport, fieldTitle, xmlContent);
+                string filePath = await CreateFileAsync(folder, name, idReport, fieldTitle, xmlContent);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            ToggleControls(true);
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
+        }
+
+        private async Task PerformUpdateEntityField(string folder, Guid idReport, string name, string filename, string fieldName, string fieldTitle)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new ReportRepository(service);
+
+                var report = await repository.GetByIdAsync(idReport, new ColumnSet(fieldName));
+
+                string xmlContent = report.GetAttributeValue<string>(fieldName);
+
+                {
+                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    {
+                        xmlContent = doc.ToString();
+                    }
+                }
+
+                string filePath = await CreateFileAsync(folder, name, idReport, fieldTitle + " BackUp", xmlContent);
+
+                var newText = string.Empty;
+                bool? dialogResult = false;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    var form = new WindowTextField("Enter " + fieldTitle, fieldTitle, xmlContent);
+
+                    dialogResult = form.ShowDialog();
+
+                    newText = form.FieldText;
+                });
+
+                if (dialogResult.GetValueOrDefault())
+                {
+                    {
+                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                        {
+                            newText = doc.ToString(SaveOptions.DisableFormatting);
+                        }
+                    }
+
+                    var updateEntity = new Report();
+                    updateEntity.Id = idReport;
+                    updateEntity.Attributes[fieldName] = newText;
+
+                    service.Update(updateEntity);
+                }
+
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -553,26 +631,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ToggleControls(false);
 
-            var service = await GetService();
+            try
+            {
+                var service = await GetService();
 
-            string fileName = EntityFileNameFormatter.GetReportFileName(service.ConnectionData.Name, name, idReport, "EntityDescription", "txt");
-            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                string fileName = EntityFileNameFormatter.GetReportFileName(service.ConnectionData.Name, name, idReport, "EntityDescription", "txt");
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            var repository = new ReportRepository(service);
+                var repository = new ReportRepository(service);
 
-            var report = await repository.GetByIdAsync(idReport);
+                var report = await repository.GetByIdAsync(idReport);
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, report, EntityFileNameFormatter.ReportIgnoreFields, service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, report, EntityFileNameFormatter.ReportIgnoreFields, service.ConnectionData);
 
-            this._iWriteToOutput.WriteToOutput("Report Entity Description exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput("Report Entity Description exported to {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
+                UpdateStatus("Operation is completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            ToggleControls(true);
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void mIExportReportBodyText_Click(object sender, RoutedEventArgs e)
@@ -1136,6 +1225,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingReports();
             }
+        }
+
+        private void mIUpdateReportDefaultFilter_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.defaultfilter, "DefaultFilter", PerformExportXmlToFile);
+        }
+
+        private void mIUpdateReportCustomReportXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.customreportxml, "CustomReportXml", PerformExportXmlToFile);
+        }
+
+        private void mIUpdateReportScheduleXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.schedulexml, "ScheduleXml", PerformExportXmlToFile);
         }
     }
 }

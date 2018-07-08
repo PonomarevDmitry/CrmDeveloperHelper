@@ -99,19 +99,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
-        public Task ExportApplicationRibbon(RibbonLocationFilters filter, string filePath)
+        public Task ExportApplicationRibbon(RibbonLocationFilters filter, string filePath, CommonConfiguration commonConfig)
         {
-            return Task.Run(() => ExportingApplicationRibbon(filter, filePath));
+            return Task.Run(() => ExportingApplicationRibbon(filter, filePath, commonConfig));
         }
 
-        private void ExportingApplicationRibbon(RibbonLocationFilters filter, string filePath)
+        private void ExportingApplicationRibbon(RibbonLocationFilters filter, string filePath, CommonConfiguration commonConfig)
         {
             RetrieveApplicationRibbonRequest appribReq = new RetrieveApplicationRibbonRequest();
             RetrieveApplicationRibbonResponse appribResp = (RetrieveApplicationRibbonResponse)_service.Execute(appribReq);
 
-            var array = FileOperations.UnzipRibbon(appribResp.CompressedApplicationRibbonXml);
+            var byteXml = FileOperations.UnzipRibbon(appribResp.CompressedApplicationRibbonXml);
 
-            File.WriteAllBytes(filePath, array);
+            if (commonConfig != null && commonConfig.ExportRibbonXmlXmlAttributeOnNewLine)
+            {
+                byteXml = ContentCoparerHelper.FormatXmlWithXmlAttributeOnNewLine(byteXml);
+            }
+
+            File.WriteAllBytes(filePath, byteXml);
         }
 
         public Task ExportEntityRibbon(string entityName, RibbonLocationFilters filter, string filePath, CommonConfiguration commonConfig)
@@ -133,34 +138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (commonConfig != null && commonConfig.ExportRibbonXmlXmlAttributeOnNewLine)
             {
-                XElement doc = null;
-
-                using (MemoryStream memStream = new MemoryStream())
-                {
-                    memStream.Write(byteXml, 0, byteXml.Length);
-
-                    memStream.Position = 0;
-
-                    doc = XElement.Load(memStream);
-                }
-
-                XmlWriterSettings settings = new XmlWriterSettings();
-                settings.OmitXmlDeclaration = true;
-                settings.Indent = true;
-                settings.NewLineOnAttributes = true;
-                settings.Encoding = Encoding.UTF8;
-
-                using (MemoryStream memStream = new MemoryStream())
-                {
-                    using (XmlWriter xmlWriter = XmlWriter.Create(memStream, settings))
-                    {
-                        doc.Save(xmlWriter);
-                    }
-
-                    memStream.Position = 0;
-
-                    byteXml = memStream.ToArray();
-                }
+                byteXml = ContentCoparerHelper.FormatXmlWithXmlAttributeOnNewLine(byteXml);
             }
 
             File.WriteAllBytes(filePath, byteXml);

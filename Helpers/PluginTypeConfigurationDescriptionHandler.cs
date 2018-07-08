@@ -19,7 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             var sortedSteps = pluginType.PluginSteps
                 .OrderBy(ent => ent.PrimaryEntity)
-                .ThenBy(ent => ent.Message, new Nav.Common.VSPackages.CrmDeveloperHelper.Model.MessageComparer())
+                .ThenBy(ent => ent.Message, new MessageComparer())
                 .ThenBy(s => s.ExecutionMode.Value)
                 .ThenBy(s => s.ExecutionOrder)
                 .ThenBy(s => s.Name)

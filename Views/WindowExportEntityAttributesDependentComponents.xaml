@@ -19,6 +19,8 @@
             <Separator/>
             <MenuItem Header="Create File with Attributes Dependent Components" Click="btnCreateFile_Click"/>
             <Separator/>
+            <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+            <Separator/>
             <MenuItem Header="Get Other Entity Information">
                 <MenuItem Header="Metadata" Click="btnCreateMetadataFile_Click"/>
                 <Separator/>

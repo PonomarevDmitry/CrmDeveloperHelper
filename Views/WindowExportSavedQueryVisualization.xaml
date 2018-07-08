@@ -15,6 +15,13 @@
             <MenuItem Header="Data Description" VerticalAlignment="Center" Click="mIExportSystemChartDataDescription_Click"/>
             <MenuItem Header="Presentation Description" VerticalAlignment="Center" Click="mIExportSystemChartPresentationDescription_Click"/>
             <Separator/>
+            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                <MenuItem Header="Data Description" VerticalAlignment="Center" Click="mIUpdateSystemChartDataDescription_Click"/>
+                <MenuItem Header="Presentation Description" VerticalAlignment="Center" Click="mIUpdateSystemChartPresentationDescription_Click"/>
+            </MenuItem>
+            <Separator/>
+            <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+            <Separator/>
             <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
             <Separator/>
             <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
@@ -105,20 +112,27 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportChart" Header="Export Chart Information" VerticalAlignment="Center">
-                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIExportSystemChartDataDescription" Header="Data Description" VerticalAlignment="Center" Click="mIExportSystemChartDataDescription_Click"/>
-                            <MenuItem x:Name="mIExportSystemChartPresentationDescription" Header="Presentation Description" VerticalAlignment="Center" Click="mIExportSystemChartPresentationDescription_Click"/>
+                            <MenuItem Header="Data Description" VerticalAlignment="Center" Click="mIExportSystemChartDataDescription_Click"/>
+                            <MenuItem Header="Presentation Description" VerticalAlignment="Center" Click="mIExportSystemChartPresentationDescription_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIOpenDependentComponentsInWeb" Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                                <MenuItem Header="Data Description" VerticalAlignment="Center" Click="mIUpdateSystemChartDataDescription_Click"/>
+                                <MenuItem Header="Presentation Description" VerticalAlignment="Center" Click="mIUpdateSystemChartPresentationDescription_Click"/>
+                            </MenuItem>
                             <Separator/>
-                            <MenuItem x:Name="mIOpenDependentComponentsInWindow" Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                            <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                            <Separator/>
+                            <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
                             <Separator/>
                             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mIExportSystemChartDependentComponents" Header="Dependent Components" VerticalAlignment="Center" Click="mIExportSystemChartDependentComponents_Click" />
-                            <MenuItem x:Name="mIExportSystemChartRequiredComponents" Header="Required Components" VerticalAlignment="Center" Click="mIExportSystemChartRequiredComponents_Click" />
-                            <MenuItem x:Name="mIExportSystemChartDependenciesForDelete" Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportSystemChartDependenciesForDelete_Click" />
+                            <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportSystemChartDependentComponents_Click" />
+                            <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportSystemChartRequiredComponents_Click" />
+                            <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportSystemChartDependenciesForDelete_Click" />
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>

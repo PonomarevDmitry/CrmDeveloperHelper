@@ -604,7 +604,7 @@
     <Compile Include="Model\LinkedOptionSetMetadata.cs" />
     <Compile Include="Model\LocaleComparer.cs" />
     <Compile Include="Model\LocalizedLabel.cs" />
-    <Compile Include="Model\MessageComparer.cs" />
+    <Compile Include="Helpers\MessageComparer.cs" />
     <Compile Include="Model\OpenFilesType.cs" />
     <Compile Include="Model\OptionItem.cs" />
     <Compile Include="Model\OptionSetExportType.cs" />
@@ -626,6 +626,7 @@
     <Compile Include="Model\UserControlSettings.cs" />
     <Compile Include="Model\VSSolutionConfiguration.cs" />
     <Compile Include="Model\WindowSettings.cs" />
+    <Compile Include="Helpers\XNameComparer.cs" />
     <Compile Include="PluginExtraction\PluginAssembly.cs" />
     <Compile Include="PluginExtraction\PluginDescription.cs" />
     <Compile Include="PluginExtraction\PluginImage.cs" />
@@ -842,6 +843,9 @@
     </Compile>
     <Compile Include="Views\WindowSolutionSelect.xaml.cs">
       <DependentUpon>WindowSolutionSelect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowTextField.xaml.cs">
+      <DependentUpon>WindowTextField.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowWebResourceCreate.xaml.cs">
       <DependentUpon>WindowWebResourceCreate.xaml</DependentUpon>
@@ -1338,6 +1342,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowSolutionSelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowTextField.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

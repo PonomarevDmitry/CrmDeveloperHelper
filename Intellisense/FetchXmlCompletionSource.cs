@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -63,10 +64,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return;
             }
 
-            //IVsCodeWindow
-
-            var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
-
             ITextSnapshot snapshot = _buffer.CurrentSnapshot;
             var triggerPoint = session.GetTriggerPoint(snapshot);
 
@@ -82,11 +79,282 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return;
             }
 
+            if (string.Equals(doc.Name.LocalName, "fetch", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+
+                FillSessionForFetchXml(session, completionSets, snapshot, doc, repository);
+            }
+            else if (string.Equals(doc.Name.LocalName, "grid", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+
+                FillSessionForGridXml(session, completionSets, snapshot, doc, repository);
+            }
+            else if (string.Equals(doc.Name.LocalName, "savedquery", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+
+                FillSessionForFetchXml(session, completionSets, snapshot, doc, repository);
+
+                FillSessionForGridXml(session, completionSets, snapshot, doc, repository);
+            }
+            else if (string.Equals(doc.Name.LocalName, "SiteMap", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+
+                FillSessionForSiteMap(session, completionSets, snapshot, doc, repository);
+            }
+        }
+
+        private void FillSessionForSiteMap(ICompletionSession session, IList<CompletionSet> completionSets, ITextSnapshot snapshot, XElement doc, ConnectionIntellisenseDataRepository repository)
+        {
+            SnapshotSpan extent = FindTokenSpanAtPosition(session).GetSpan(snapshot);
+
+            var currentXmlNode = GetCurrentXmlNode(doc, extent);
+
+            if (currentXmlNode == null)
+            {
+                return;
+            }
+
+            var spans = _classifier.GetClassificationSpans(new SnapshotSpan(extent.Snapshot, 0, extent.Snapshot.Length));
+
+            bool isQuotes = false;
+
+            var containingAttributeValue = spans
+                .Where(s => s.Span.Contains(extent.Start)
+                && s.Span.Contains(extent)
+                && s.ClassificationType.IsOfType("XML Attribute Value"))
+                .OrderByDescending(s => s.Span.Start.Position)
+                .FirstOrDefault();
+
+            if (containingAttributeValue == null)
+            {
+                containingAttributeValue = spans
+                    .Where(s => s.Span.Contains(extent.Start)
+                    && s.Span.Contains(extent)
+                    && s.ClassificationType.IsOfType("XML Attribute Quotes")
+                    && s.Span.GetText() == "\"\""
+                    )
+                    .OrderByDescending(s => s.Span.Start.Position)
+                    .FirstOrDefault();
+
+                if (containingAttributeValue != null)
+                {
+                    isQuotes = true;
+                }
+            }
+
+            if (containingAttributeValue == null)
+            {
+                return;
+            }
+
+            ClassificationSpan currentAttr = GetCurrentXmlAttributeName(snapshot, containingAttributeValue, spans);
+
+            if (currentAttr == null)
+            {
+                return;
+            }
+
+            string currentNodeName = currentXmlNode.Name.LocalName;
+
+            string currentAttributeName = currentAttr.Span.GetText();
+
+            ITrackingSpan applicableTo = snapshot.CreateTrackingSpan(extent, SpanTrackingMode.EdgeInclusive);
+
+            if (isQuotes)
+            {
+                applicableTo = snapshot.CreateTrackingSpan(extent.Start.Position + 1, 0, SpanTrackingMode.EdgeInclusive);
+            }
+
+            try
+            {
+                if (string.Equals(currentNodeName, "SubArea", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (string.Equals(currentAttributeName, "Entity", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillEntityNamesInList(completionSets, applicableTo, repository, false);
+                    }
+                    //else if (string.Equals(currentAttributeName, "Sku", StringComparison.InvariantCultureIgnoreCase))
+                    //{
+                    //    //FillEntityNamesInList(completionSets, repository);
+                    //}
+                    //else if (string.Equals(currentAttributeName, "Client", StringComparison.InvariantCultureIgnoreCase))
+                    //{
+                    //    //FillEntityNamesInList(completionSets, repository);
+                    //}
+                }
+                else if (string.Equals(currentNodeName, "Privilege", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (string.Equals(currentAttributeName, "Entity", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillEntityNamesInList(completionSets, applicableTo, repository, false);
+                    }
+                    //else if (string.Equals(currentAttributeName, "Privilege", StringComparison.InvariantCultureIgnoreCase))
+                    //{
+                    //    //FillEntityNamesInList(completionSets, repository);
+                    //}
+                }
+                else if (string.Equals(currentNodeName, "Title", StringComparison.InvariantCultureIgnoreCase)
+                    || string.Equals(currentNodeName, "Description", StringComparison.InvariantCultureIgnoreCase)
+                    )
+                {
+                    if (string.Equals(currentAttributeName, "LCID", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillLCID(completionSets, applicableTo);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(ex);
+            }
+        }
+
+        private void FillLCID(IList<CompletionSet> completionSets, ITrackingSpan applicableTo)
+        {
+            List<CrmCompletion> list = new List<CrmCompletion>();
+
+            var keys = LanguageLocale.KnownLocales.Keys;
+
+            foreach (var lcid in keys)
+            {
+                string entityDescription = string.Format("{0} - {1}", LanguageLocale.KnownLocales[lcid], lcid);
+
+                List<string> compareValues = new List<string>();
+
+                compareValues.Add(LanguageLocale.KnownLocales[lcid]);
+                compareValues.Add(lcid.ToString());
+
+                var insertionText = lcid.ToString();
+
+                list.Add(CreateCompletion(entityDescription, insertionText, null, _defaultGlyph, compareValues));
+            }
+
+            if (list.Count > 0)
+            {
+                list = list.OrderBy(a => a.DisplayText).ToList();
+
+                completionSets.Add(new CrmCompletionSet(SourceNameMoniker, "All LCID", applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            }
+        }
+
+        private void FillSessionForGridXml(ICompletionSession session, IList<CompletionSet> completionSets, ITextSnapshot snapshot, XElement doc, ConnectionIntellisenseDataRepository repository)
+        {
+            HashSet<int> usedEntityCodes = GetUsedEntityObjectTypeCodes(doc);
+
+            if (usedEntityCodes.Any())
+            {
+                repository.GetEntityDataForObjectTypeCodesAsync(usedEntityCodes);
+            }
+
+            SnapshotSpan extent = FindTokenSpanAtPosition(session).GetSpan(snapshot);
+
+            var currentXmlNode = GetCurrentXmlNode(doc, extent);
+
+            if (currentXmlNode == null)
+            {
+                return;
+            }
+
+            var spans = _classifier.GetClassificationSpans(new SnapshotSpan(extent.Snapshot, 0, extent.Snapshot.Length));
+
+            bool isQuotes = false;
+
+            var containingAttributeValue = spans
+                .Where(s => s.Span.Contains(extent.Start)
+                && s.Span.Contains(extent)
+                && s.ClassificationType.IsOfType("XML Attribute Value"))
+                .OrderByDescending(s => s.Span.Start.Position)
+                .FirstOrDefault();
+
+            if (containingAttributeValue == null)
+            {
+                containingAttributeValue = spans
+                    .Where(s => s.Span.Contains(extent.Start)
+                    && s.Span.Contains(extent)
+                    && s.ClassificationType.IsOfType("XML Attribute Quotes")
+                    && s.Span.GetText() == "\"\""
+                    )
+                    .OrderByDescending(s => s.Span.Start.Position)
+                    .FirstOrDefault();
+
+                if (containingAttributeValue != null)
+                {
+                    isQuotes = true;
+                }
+            }
+
+            if (containingAttributeValue == null)
+            {
+                return;
+            }
+
+            ClassificationSpan currentAttr = GetCurrentXmlAttributeName(snapshot, containingAttributeValue, spans);
+
+            if (currentAttr == null)
+            {
+                return;
+            }
+
+            string currentNodeName = currentXmlNode.Name.LocalName;
+
+            string currentAttributeName = currentAttr.Span.GetText();
+
+            ITrackingSpan applicableTo = snapshot.CreateTrackingSpan(extent, SpanTrackingMode.EdgeInclusive);
+
+            if (isQuotes)
+            {
+                applicableTo = snapshot.CreateTrackingSpan(extent.Start.Position + 1, 0, SpanTrackingMode.EdgeInclusive);
+            }
+
+            try
+            {
+                if (string.Equals(currentNodeName, "grid", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (string.Equals(currentAttributeName, "object", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillEntityNamesInList(completionSets, applicableTo, repository, true);
+                    }
+                    else if (string.Equals(currentAttributeName, "jump", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillEntityPrimaryAttributeForGrid(completionSets, applicableTo, repository, currentXmlNode, true);
+
+                        FillEntityAttributesInListForGrid(completionSets, applicableTo, repository, currentXmlNode);
+                    }
+                }
+                else if (string.Equals(currentNodeName, "row", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (string.Equals(currentAttributeName, "id", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillEntityPrimaryAttributeForGrid(completionSets, applicableTo, repository, currentXmlNode, false);
+
+                        FillEntityAttributesInListForGrid(completionSets, applicableTo, repository, currentXmlNode);
+                    }
+                }
+                else if (string.Equals(currentNodeName, "cell", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillEntityAttributesInListForGrid(completionSets, applicableTo, repository, currentXmlNode);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(ex);
+            }
+        }
+
+        private void FillSessionForFetchXml(ICompletionSession session, IList<CompletionSet> completionSets, ITextSnapshot snapshot, XElement doc, ConnectionIntellisenseDataRepository repository)
+        {
             HashSet<string> usedEntities = GetUsedEntities(doc);
 
             if (usedEntities.Any())
             {
-                repository.GetConnectionEntityIntellisenseDataFromCacheAsync(usedEntities);
+                repository.GetEntityDataForNamesAsync(usedEntities);
             }
 
             Dictionary<string, string> aliases = GetEntityAliases(doc);
@@ -99,12 +367,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 return;
             }
-
-            //ITextSnapshotLine containgLine = triggerPoint.Value.GetContainingLine();
-
-            //SnapshotSpan line = containgLine.Extent;
-
-            //var spans = _classifier.GetClassificationSpans(line);
 
             var spans = _classifier.GetClassificationSpans(new SnapshotSpan(extent.Snapshot, 0, extent.Snapshot.Length));
 
@@ -160,7 +422,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            FillEntityNamesInList(completionSets, applicableTo, repository);
+                            FillEntityNamesInList(completionSets, applicableTo, repository, false);
                         }
                     }
                     else if (string.Equals(currentNodeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
@@ -198,7 +460,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         {
                             FillLinkedEntityNames(completionSets, applicableTo, repository, currentXmlNode);
 
-                            FillEntityNamesInList(completionSets, applicableTo, repository);
+                            FillEntityNamesInList(completionSets, applicableTo, repository, false);
                         }
                         else if (string.Equals(currentAttributeName, "from", StringComparison.InvariantCultureIgnoreCase))
                         {
@@ -280,6 +542,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             FillPrimaryEntityAttributes(completionSets, applicableTo, repository, linkEntityName, parentEntityName);
         }
+
         private void FillLinkedEntityToField(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, ConnectionIntellisenseDataRepository repository, XElement currentXmlNode)
         {
             var parentEntityName = GetParentEntityName(currentXmlNode);
@@ -333,19 +596,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                                     string attributeDescription = GetDisplayTextAttribute(primaryEntityData.EntityLogicalName, attribute);
 
-                                    List<string> displayNames = GetDisplayNames(attribute.DisplayName);
+                                    List<string> compareValues = GetCompareValuesForAttribute(attribute);
 
-                                    if (attribute.AttributeType.HasValue)
-                                    {
-                                        displayNames.Add(attribute.AttributeType.ToString());
-                                    }
-
-                                    if (attribute.Targets != null && attribute.Targets.Length > 0)
-                                    {
-                                        displayNames.AddRange(attribute.Targets);
-                                    }
-
-                                    list.Add(CreateCompletion(attributeDescription.ToString(), attribute.LogicalName, CreateAttributeDescription(entityDescription, attribute), _defaultGlyph, displayNames));
+                                    list.Add(CreateCompletion(attributeDescription.ToString(), attribute.LogicalName, CreateAttributeDescription(entityDescription, attribute), _defaultGlyph, compareValues));
                                 }
                             }
 
@@ -379,19 +632,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         string attributeDescription = GetDisplayTextAttribute(primaryEntityData.EntityLogicalName, attribute);
 
-                        List<string> displayNames = GetDisplayNames(attribute.DisplayName);
+                        List<string> compareValues = GetCompareValuesForAttribute(attribute);
 
-                        if (attribute.AttributeType.HasValue)
-                        {
-                            displayNames.Add(attribute.AttributeType.ToString());
-                        }
-
-                        if (attribute.Targets != null && attribute.Targets.Length > 0)
-                        {
-                            displayNames.AddRange(attribute.Targets);
-                        }
-
-                        list.Add(CreateCompletion(attributeDescription.ToString(), attribute.LogicalName, CreateAttributeDescription(entityDescription, attribute), _defaultGlyph, displayNames));
+                        list.Add(CreateCompletion(attributeDescription.ToString(), attribute.LogicalName, CreateAttributeDescription(entityDescription, attribute), _defaultGlyph, compareValues));
                     }
                 }
 
@@ -523,9 +766,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                     string entityDescription = GetDisplayTextEntity(linkedEntityData);
 
-                    List<string> displayNames = GetDisplayNames(linkedEntityData.DisplayName);
+                    List<string> compareValues = GetCompareValuesForEntity(linkedEntityData);
 
-                    list.Add(CreateCompletion(entityDescription, linkedEntityData.EntityLogicalName, CreateEntityDescription(linkedEntityData), _defaultGlyph, displayNames));
+                    list.Add(CreateCompletion(entityDescription, linkedEntityData.EntityLogicalName, CreateEntityDescription(linkedEntityData), _defaultGlyph, compareValues));
                 }
             }
 
@@ -554,42 +797,84 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private void FillEntityNamesInList(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, ConnectionIntellisenseDataRepository repository)
+        private void FillEntityNamesInList(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, ConnectionIntellisenseDataRepository repository, bool isObjectTypeCode)
         {
             var connectionIntellisense = repository.GetEntitiesIntellisenseData();
 
-            if (connectionIntellisense != null && connectionIntellisense.Entities != null)
+            if (connectionIntellisense == null || connectionIntellisense.Entities == null)
             {
-                List<CrmCompletion> list = new List<CrmCompletion>();
+                return;
+            }
 
-                var keys = connectionIntellisense.Entities.Keys.ToList();
+            List<CrmCompletion> list = new List<CrmCompletion>();
 
-                foreach (var entityName in keys)
+            var keys = connectionIntellisense.Entities.Keys.ToList();
+
+            foreach (var entityName in keys)
+            {
+                var entityData = connectionIntellisense.Entities[entityName];
+
+                string entityDescription = GetDisplayTextEntity(entityData);
+
+                List<string> compareValues = GetCompareValuesForEntity(entityData);
+
+                var insertionText = entityData.EntityLogicalName;
+
+                if (isObjectTypeCode)
                 {
-                    var entityData = connectionIntellisense.Entities[entityName];
-
-                    string entityDescription = GetDisplayTextEntity(entityData);
-
-                    List<string> displayNames = GetDisplayNames(entityData.DisplayName);
-
-                    if (entityData.IsIntersectEntity)
-                    {
-                        displayNames.Add("IntersectEntity");
-                    }
-
-                    list.Add(CreateCompletion(entityDescription, entityData.EntityLogicalName, CreateEntityDescription(entityData), _defaultGlyph, displayNames));
+                    insertionText = entityData.ObjectTypeCode.ToString();
                 }
 
-                if (list.Count > 0)
-                {
-                    list = list.OrderBy(a => a.DisplayText).ToList();
+                list.Add(CreateCompletion(entityDescription, insertionText, CreateEntityDescription(entityData), _defaultGlyph, compareValues));
+            }
 
-                    completionSets.Add(new CrmCompletionSet(SourceNameMoniker, "All Entities", applicableTo, list, Enumerable.Empty<CrmCompletion>()));
-                }
+            if (list.Count > 0)
+            {
+                list = list.OrderBy(a => a.DisplayText).ToList();
+
+                completionSets.Add(new CrmCompletionSet(SourceNameMoniker, "All Entities", applicableTo, list, Enumerable.Empty<CrmCompletion>()));
             }
         }
 
-        private List<string> GetDisplayNames(Label label)
+        private List<string> GetCompareValuesForEntity(EntityIntellisenseData entityData)
+        {
+            List<string> result = GetCompareValues(entityData.DisplayName);
+
+            result.Add(entityData.EntityLogicalName);
+
+            if (entityData.IsIntersectEntity)
+            {
+                result.Add("IntersectEntity");
+            }
+
+            if (entityData.ObjectTypeCode.HasValue)
+            {
+                result.Add(entityData.ObjectTypeCode.Value.ToString());
+            }
+
+            return result;
+        }
+
+        private List<string> GetCompareValuesForAttribute(AttributeIntellisenseData attribute)
+        {
+            List<string> result = GetCompareValues(attribute.DisplayName);
+
+            result.Add(attribute.LogicalName);
+
+            if (attribute.AttributeType.HasValue)
+            {
+                result.Add(attribute.AttributeType.ToString());
+            }
+
+            if (attribute.Targets != null && attribute.Targets.Length > 0)
+            {
+                result.AddRange(attribute.Targets);
+            }
+
+            return result;
+        }
+
+        private List<string> GetCompareValues(Label label)
         {
             List<string> result = new List<string>();
 
@@ -605,47 +890,141 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         {
             var entityName = GetParentEntityName(currentXmlNode);
 
-            if (!string.IsNullOrEmpty(entityName))
+            if (string.IsNullOrEmpty(entityName))
             {
-                List<CrmCompletion> list = new List<CrmCompletion>();
+                return;
+            }
 
-                var entityData = repository.GetEntityAttributeIntellisense(entityName);
+            var entityData = repository.GetEntityAttributeIntellisense(entityName);
 
-                if (entityData != null && entityData.Attributes != null)
+            if (entityData == null
+                || entityData.Attributes == null
+                )
+            {
+                return;
+            }
+
+            FillEntityIntellisenseDataAttributes(completionSets, applicableTo, entityData);
+        }
+
+        private void FillEntityAttributesInListForGrid(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, ConnectionIntellisenseDataRepository repository, XElement currentXmlNode)
+        {
+            int? entityTypeCode = GetParentEntityObjectTypeCode(currentXmlNode);
+
+            if (!entityTypeCode.HasValue)
+            {
+                return;
+            }
+
+            var entityData = repository.GetEntityAttributeIntellisense(entityTypeCode.Value);
+
+            if (entityData == null
+               || entityData.Attributes == null
+               )
+            {
+                return;
+            }
+
+            FillEntityIntellisenseDataAttributes(completionSets, applicableTo, entityData);
+        }
+
+        private void FillEntityIntellisenseDataAttributes(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, EntityIntellisenseData entityData)
+        {
+            if (entityData == null
+                || entityData.Attributes == null
+                )
+            {
+                return;
+            }
+
+            List<CrmCompletion> list = new List<CrmCompletion>();
+
+            string entityDescription = GetDisplayTextEntity(entityData);
+
+            var keys = entityData.Attributes.Keys.ToList();
+
+            foreach (var attrName in keys)
+            {
+                var attribute = entityData.Attributes[attrName];
+
+                string attributeDescription = GetDisplayTextAttribute(entityData.EntityLogicalName, attribute);
+
+                List<string> compareValues = GetCompareValuesForAttribute(attribute);
+
+                list.Add(CreateCompletion(attributeDescription, attribute.LogicalName, CreateAttributeDescription(entityDescription, attribute), _defaultGlyph, compareValues));
+            }
+
+            if (list.Count > 0)
+            {
+                list = list.OrderBy(a => a.DisplayText).ToList();
+
+                completionSets.Add(new CrmCompletionSet(SourceNameMoniker, string.Format("{0} Attributes", entityData.EntityLogicalName), applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            }
+        }
+
+        private void FillEntityPrimaryAttributeForGrid(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, ConnectionIntellisenseDataRepository repository, XElement currentXmlNode, bool isNameAttribute)
+        {
+            int? entityTypeCode = GetParentEntityObjectTypeCode(currentXmlNode);
+
+            if (!entityTypeCode.HasValue)
+            {
+                return;
+            }
+
+            var entityData = repository.GetEntityAttributeIntellisense(entityTypeCode.Value);
+
+            if (entityData == null
+               || entityData.Attributes == null
+               )
+            {
+                return;
+            }
+
+            if (isNameAttribute && string.IsNullOrEmpty(entityData.EntityPrimaryNameAttribute))
+            {
+                return;
+            }
+
+            AttributeIntellisenseData attribute = null;
+
+            if (isNameAttribute)
+            {
+                if (entityData.Attributes.ContainsKey(entityData.EntityPrimaryNameAttribute))
                 {
-                    string entityDescription = GetDisplayTextEntity(entityData);
-
-                    var keys = entityData.Attributes.Keys.ToList();
-
-                    foreach (var attrName in keys)
-                    {
-                        var attribute = entityData.Attributes[attrName];
-
-                        string attributeDescription = GetDisplayTextAttribute(entityName, attribute);
-
-                        List<string> displayNames = GetDisplayNames(attribute.DisplayName);
-
-                        if (attribute.AttributeType.HasValue)
-                        {
-                            displayNames.Add(attribute.AttributeType.ToString());
-                        }
-
-                        if (attribute.Targets != null && attribute.Targets.Length > 0)
-                        {
-                            displayNames.AddRange(attribute.Targets);
-                        }
-
-                        list.Add(CreateCompletion(attributeDescription, attribute.LogicalName, CreateAttributeDescription(entityDescription, attribute), _defaultGlyph, displayNames));
-                    }
-                }
-
-                if (list.Count > 0)
-                {
-                    list = list.OrderBy(a => a.DisplayText).ToList();
-
-                    completionSets.Add(new CrmCompletionSet(SourceNameMoniker, string.Format("{0} Attributes", entityName), applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+                    attribute = entityData.Attributes[entityData.EntityPrimaryNameAttribute];
                 }
             }
+            else
+            {
+                if (entityData.Attributes.ContainsKey(entityData.EntityPrimaryIdAttribute))
+                {
+                    attribute = entityData.Attributes[entityData.EntityPrimaryIdAttribute];
+                }
+            }
+
+            if (attribute == null)
+            {
+                return;
+            }
+
+            string entityDescription = GetDisplayTextEntity(entityData);
+
+            string attributeDescription = GetDisplayTextAttribute(entityData.EntityLogicalName, attribute);
+
+            List<CrmCompletion> list = new List<CrmCompletion>();
+
+            List<string> compareValues = GetCompareValuesForAttribute(attribute);
+
+            list.Add(CreateCompletion(attributeDescription, attribute.LogicalName, CreateAttributeDescription(entityDescription, attribute), _defaultGlyph, compareValues));
+
+            var displayName = string.Format("{0} PrimaryIdAttribute", entityData.EntityLogicalName);
+
+            if (isNameAttribute)
+            {
+                displayName = string.Format("{0} PrimaryNameAttribute", entityData.EntityLogicalName);
+            }
+
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerAll, displayName, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
         private string GetDisplayTextEntity(EntityIntellisenseData entityData)
@@ -738,18 +1117,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                                 {
                                     string displayText = GetDisplayTextOptionSetValue(entityData.EntityLogicalName, attributeData.LogicalName, boolOptionSet.FalseOption);
 
-                                    List<string> displayNames = GetDisplayNames(boolOptionSet.FalseOption.Label);
+                                    List<string> compareValues = GetCompareValues(boolOptionSet.FalseOption.Label);
 
-                                    list.Add(CreateCompletion(displayText, boolOptionSet.FalseOption.Value.ToString(), CreateOptionValueDescription(entityDescription, attributeDescription, boolOptionSet.FalseOption), _defaultGlyph, displayNames));
+                                    list.Add(CreateCompletion(displayText, boolOptionSet.FalseOption.Value.ToString(), CreateOptionValueDescription(entityDescription, attributeDescription, boolOptionSet.FalseOption), _defaultGlyph, compareValues));
                                 }
 
                                 if (boolOptionSet.TrueOption != null)
                                 {
                                     string displayText = GetDisplayTextOptionSetValue(entityData.EntityLogicalName, attributeData.LogicalName, boolOptionSet.TrueOption);
 
-                                    List<string> displayNames = GetDisplayNames(boolOptionSet.TrueOption.Label);
+                                    List<string> compareValues = GetCompareValues(boolOptionSet.TrueOption.Label);
 
-                                    list.Add(CreateCompletion(displayText, boolOptionSet.TrueOption.Value.ToString(), CreateOptionValueDescription(entityDescription, attributeDescription, boolOptionSet.TrueOption), _defaultGlyph, displayNames));
+                                    list.Add(CreateCompletion(displayText, boolOptionSet.TrueOption.Value.ToString(), CreateOptionValueDescription(entityDescription, attributeDescription, boolOptionSet.TrueOption), _defaultGlyph, compareValues));
                                 }
                             }
 
@@ -757,7 +1136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         }
                         else if (attributeData.IsEntityNameAttribute)
                         {
-                            FillEntityNamesInList(completionSets, applicableTo, repository);
+                            FillEntityNamesInList(completionSets, applicableTo, repository, false);
                         }
                         else if (attributeData.OptionSet != null)
                         {
@@ -772,9 +1151,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                                 {
                                     string displayText = GetDisplayTextOptionSetValue(entityData.EntityLogicalName, attributeData.LogicalName, item);
 
-                                    List<string> displayNames = GetDisplayNames(item.Label);
+                                    List<string> compareValues = GetCompareValues(item.Label);
 
-                                    list.Add(CreateCompletion(displayText, item.Value.ToString(), CreateOptionValueDescription(entityDescription, attributeDescription, item), _defaultGlyph, displayNames));
+                                    list.Add(CreateCompletion(displayText, item.Value.ToString(), CreateOptionValueDescription(entityDescription, attributeDescription, item), _defaultGlyph, compareValues));
                                 }
 
                                 if (list.Count > 0)
@@ -827,6 +1206,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             return result;
         }
 
+        private HashSet<int> GetUsedEntityObjectTypeCodes(XElement doc)
+        {
+            HashSet<int> result = new HashSet<int>();
+
+            var entityElements = doc.DescendantsAndSelf().Where(IsGridElement);
+
+            foreach (var entity in entityElements)
+            {
+                var attrName = entity.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "object", StringComparison.InvariantCultureIgnoreCase));
+
+                if (attrName != null
+                    && !string.IsNullOrEmpty(attrName.Value)
+                    && int.TryParse(attrName.Value, out int tempInt)
+                    )
+                {
+                    result.Add(tempInt);
+                }
+            }
+
+            return result;
+        }
+
         private Dictionary<string, string> GetEntityAliases(XElement doc)
         {
             Dictionary<string, string> result = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
@@ -857,6 +1258,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         {
             return string.Equals(element.Name.LocalName, "entity", StringComparison.OrdinalIgnoreCase)
                 || string.Equals(element.Name.LocalName, "link-entity", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool IsGridElement(XElement element)
+        {
+            return string.Equals(element.Name.LocalName, "grid", StringComparison.OrdinalIgnoreCase);
         }
 
         private string CreateEntityDescription(EntityIntellisenseData entity)
@@ -1017,6 +1423,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             return null;
         }
 
+        private int? GetParentEntityObjectTypeCode(XElement currentXmlNode)
+        {
+            var entityElement = currentXmlNode.AncestorsAndSelf().FirstOrDefault(IsGridElement);
+
+            if (entityElement != null)
+            {
+                var attrObject = entityElement.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "object", StringComparison.InvariantCultureIgnoreCase));
+
+                if (attrObject != null
+                    && !string.IsNullOrEmpty(attrObject.Value)
+                    && int.TryParse(attrObject.Value, out int tempInt)
+                    )
+                {
+                    return tempInt;
+                }
+            }
+
+            return null;
+        }
+
         private static bool IsEntityOrLinkEntity(XElement element)
         {
             return string.Equals(element.Name.LocalName, "entity", StringComparison.InvariantCultureIgnoreCase)
@@ -1046,12 +1472,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private CrmCompletion CreateCompletion(string displayText, string insertionText, string description, ImageSource glyph, IEnumerable<string> displayNames)
+        private CrmCompletion CreateCompletion(string displayText, string insertionText, string description, ImageSource glyph, IEnumerable<string> compareValues)
         {
             if (glyph == null)
                 glyph = _defaultGlyph;
 
-            return new CrmCompletion(displayText, insertionText, description, glyph, null, displayNames);
+            return new CrmCompletion(displayText, insertionText, description, glyph, null, compareValues);
         }
 
         public void Dispose()

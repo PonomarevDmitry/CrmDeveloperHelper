@@ -331,14 +331,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._controlsEnabled = enabled;
 
-            ToggleControl(this.toolStrip, enabled);
+            ToggleControl(this.tSDDBShowDifference, enabled);
+            ToggleControl(this.tSDDBConnection1, enabled);
+            ToggleControl(this.tSDDBConnection2, enabled);
 
             ToggleProgressBar(enabled);
 
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
+            UpdateButtonsEnable();
         }
 
         private void ToggleProgressBar(bool enabled)
@@ -375,7 +374,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwReports.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwReports.SelectedItems.Count > 0;
 
                     var item = (this.lstVwReports.SelectedItems[0] as EntityViewItem);
 
@@ -925,11 +924,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionDescription(link.Link.Entity2.Id, GetService2, PerformExportDescriptionToFile);
         }
 
-        private void chBAllEntities_Checked(object sender, RoutedEventArgs e)
-        {
-            ShowExistingReports();
-        }
-
         private void mIExportReport1BodyText_Click(object sender, RoutedEventArgs e)
         {
             var link = GetSelectedEntity();
@@ -1121,11 +1115,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._itemsSource.Clear();
 
-                if (!_controlsEnabled)
-                {
-                    return;
-                }
-
                 ConnectionData connection1 = cmBConnection1.SelectedItem as ConnectionData;
                 ConnectionData connection2 = cmBConnection2.SelectedItem as ConnectionData;
 
@@ -1136,6 +1125,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this.Resources["ConnectionName1"] = string.Format("Create from {0}", connection1.Name);
                     this.Resources["ConnectionName2"] = string.Format("Create from {0}", connection2.Name);
+
+                    UpdateButtonsEnable();
 
                     ShowExistingReports();
                 }
@@ -1167,6 +1158,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService2();
 
             WindowHelper.OpenExportReportWindow(this._iWriteToOutput, service, _commonConfig, string.Empty);
+        }
+
+        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is ContextMenu contextMenu))
+            {
+                return;
+            }
+
+            var linkedEntityMetadata = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
+
+            var items = contextMenu.Items.OfType<Control>();
+
+            foreach (var menuContextDifference in items.Where(i => string.Equals(i.Uid, "menuContextDifference", StringComparison.InvariantCultureIgnoreCase)))
+            {
+                menuContextDifference.IsEnabled = false;
+                menuContextDifference.Visibility = Visibility.Collapsed;
+
+                if (linkedEntityMetadata != null
+                     && linkedEntityMetadata.Link != null
+                     && linkedEntityMetadata.Link.Entity1 != null
+                     && linkedEntityMetadata.Link.Entity2 != null
+                )
+                {
+                    menuContextDifference.IsEnabled = true;
+                    menuContextDifference.Visibility = Visibility.Visible;
+                }
+            }
+
+            foreach (var menuContextConnection2 in items.Where(i => string.Equals(i.Uid, "menuContextConnection2", StringComparison.InvariantCultureIgnoreCase)))
+            {
+                menuContextConnection2.IsEnabled = false;
+                menuContextConnection2.Visibility = Visibility.Collapsed;
+
+                if (linkedEntityMetadata != null
+                    && linkedEntityMetadata.Link != null
+                    && linkedEntityMetadata.Link.Entity2 != null
+                )
+                {
+                    menuContextConnection2.IsEnabled = true;
+                    menuContextConnection2.Visibility = Visibility.Visible;
+                }
+            }
         }
     }
 }

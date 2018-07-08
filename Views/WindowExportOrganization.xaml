@@ -20,6 +20,19 @@
             <MenuItem Header="High Contrast Theme Data" VerticalAlignment="Center" Click="mIExportOrganizationHighContrastThemeData_Click" />
             <MenuItem Header="Sla Pause States" VerticalAlignment="Center" Click="mIExportOrganizationSlaPauseStates_Click" />
             <Separator/>
+            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                <MenuItem Header="Default Email Settings" VerticalAlignment="Center" Click="mIUpdateOrganizationDefaultEmailSettings_Click"/>
+                <MenuItem Header="External Party Correlation Keys" VerticalAlignment="Center" Click="mIUpdateOrganizationExternalPartyCorrelationKeys_Click"/>
+                <MenuItem Header="External Party Entity Settings" VerticalAlignment="Center" Click="mIUpdateOrganizationExternalPartyEntitySettings_Click"/>
+                <MenuItem Header="Feature Set" VerticalAlignment="Center" Click="mIUpdateOrganizationFeatureSet_Click"/>
+                <MenuItem Header="KM Settings" VerticalAlignment="Center" Click="mIUpdateOrganizationKMSettings_Click"/>
+                <MenuItem Header="Reference SiteMap Xml" VerticalAlignment="Center" Click="mIUpdateOrganizationReferenceSiteMapXml_Click"/>
+                <MenuItem Header="SiteMap Xml" VerticalAlignment="Center" Click="mIUpdateOrganizationSiteMapXml_Click"/>
+                <MenuItem Header="Default ThemeData" VerticalAlignment="Center" Click="mIUpdateOrganizationDefaultThemeData_Click" />
+                <MenuItem Header="High Contrast Theme Data" VerticalAlignment="Center" Click="mIUpdateOrganizationHighContrastThemeData_Click" />
+                <MenuItem Header="Sla Pause States" VerticalAlignment="Center" Click="mIUpdateOrganizationSlaPauseStates_Click" />
+            </MenuItem>
+            <Separator/>
             <MenuItem Header="Show Difference SiteMap Xml And Reference SiteMap Xml" VerticalAlignment="Center" Click="mIExportOrganizationShowDifferenceSiteMapXmlAndReferenceSiteMapXml_Click" />
             <MenuItem Header="Show Difference Default ThemeData And High Contrast ThemeData" VerticalAlignment="Center" Click="mIExportOrganizationShowDifferenceDefaultThemeDataAndHighContrastThemeData_Click" />
             <Separator/>
@@ -52,6 +65,7 @@
         </DataGrid>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="25" Width="53"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Height="25" Width="254" />
+        <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding ExportOrganizationXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" HorizontalAlignment="Left" Margin="377,0,0,74" Height="15" VerticalAlignment="Bottom"/>
         <ToolBar x:Name="toolStrip" Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
@@ -72,19 +86,32 @@
                         <MenuItem x:Name="tSDDBExportOrganization" Header="Export Organization Information" VerticalAlignment="Center">
                             <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIExportOrganizationDefaultEmailSettings" Header="Default Email Settings" VerticalAlignment="Center" Click="mIExportOrganizationDefaultEmailSettings_Click"/>
-                            <MenuItem x:Name="mIExportOrganizationExternalPartyCorrelationKeys" Header="External Party Correlation Keys" VerticalAlignment="Center" Click="mIExportOrganizationExternalPartyCorrelationKeys_Click"/>
-                            <MenuItem x:Name="mIExportOrganizationExternalPartyEntitySettings" Header="External Party Entity Settings" VerticalAlignment="Center" Click="mIExportOrganizationExternalPartyEntitySettings_Click"/>
-                            <MenuItem x:Name="mIExportOrganizationFeatureSet" Header="Feature Set" VerticalAlignment="Center" Click="mIExportOrganizationFeatureSet_Click"/>
-                            <MenuItem x:Name="mIExportOrganizationKMSettings" Header="KM Settings" VerticalAlignment="Center" Click="mIExportOrganizationKMSettings_Click"/>
-                            <MenuItem x:Name="mIExportOrganizationReferenceSiteMapXml" Header="Reference SiteMap Xml" VerticalAlignment="Center" Click="mIExportOrganizationReferenceSiteMapXml_Click"/>
-                            <MenuItem x:Name="mIExportOrganizationSiteMapXml" Header="SiteMap Xml" VerticalAlignment="Center" Click="mIExportOrganizationSiteMapXml_Click"/>
-                            <MenuItem x:Name="mIExportOrganizationDefaultThemeData" Header="Default ThemeData" VerticalAlignment="Center" Click="mIExportOrganizationDefaultThemeData_Click" />
-                            <MenuItem x:Name="mIExportOrganizationHighContrastThemeData" Header="High Contrast Theme Data" VerticalAlignment="Center" Click="mIExportOrganizationHighContrastThemeData_Click" />
-                            <MenuItem x:Name="mIExportOrganizationSlaPauseStates" Header="Sla Pause States" VerticalAlignment="Center" Click="mIExportOrganizationSlaPauseStates_Click" />
+                            <MenuItem Header="Default Email Settings" VerticalAlignment="Center" Click="mIExportOrganizationDefaultEmailSettings_Click"/>
+                            <MenuItem Header="External Party Correlation Keys" VerticalAlignment="Center" Click="mIExportOrganizationExternalPartyCorrelationKeys_Click"/>
+                            <MenuItem Header="External Party Entity Settings" VerticalAlignment="Center" Click="mIExportOrganizationExternalPartyEntitySettings_Click"/>
+                            <MenuItem Header="Feature Set" VerticalAlignment="Center" Click="mIExportOrganizationFeatureSet_Click"/>
+                            <MenuItem Header="KM Settings" VerticalAlignment="Center" Click="mIExportOrganizationKMSettings_Click"/>
+                            <MenuItem Header="Reference SiteMap Xml" VerticalAlignment="Center" Click="mIExportOrganizationReferenceSiteMapXml_Click"/>
+                            <MenuItem Header="SiteMap Xml" VerticalAlignment="Center" Click="mIExportOrganizationSiteMapXml_Click"/>
+                            <MenuItem Header="Default ThemeData" VerticalAlignment="Center" Click="mIExportOrganizationDefaultThemeData_Click" />
+                            <MenuItem Header="High Contrast Theme Data" VerticalAlignment="Center" Click="mIExportOrganizationHighContrastThemeData_Click" />
+                            <MenuItem Header="Sla Pause States" VerticalAlignment="Center" Click="mIExportOrganizationSlaPauseStates_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mIExportOrganizationShowDifferenceSiteMapXmlAndReferenceSiteMapXml" Header="Show Difference SiteMap Xml And Reference SiteMap Xml" VerticalAlignment="Center" Click="mIExportOrganizationShowDifferenceSiteMapXmlAndReferenceSiteMapXml_Click" />
-                            <MenuItem x:Name="mIExportOrganizationShowDifferenceDefaultThemeDataAndHighContrastThemeData" Header="Show Difference Default ThemeData And High Contrast ThemeData" VerticalAlignment="Center" Click="mIExportOrganizationShowDifferenceDefaultThemeDataAndHighContrastThemeData_Click" />
+                            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                                <MenuItem Header="Default Email Settings" VerticalAlignment="Center" Click="mIUpdateOrganizationDefaultEmailSettings_Click"/>
+                                <MenuItem Header="External Party Correlation Keys" VerticalAlignment="Center" Click="mIUpdateOrganizationExternalPartyCorrelationKeys_Click"/>
+                                <MenuItem Header="External Party Entity Settings" VerticalAlignment="Center" Click="mIUpdateOrganizationExternalPartyEntitySettings_Click"/>
+                                <MenuItem Header="Feature Set" VerticalAlignment="Center" Click="mIUpdateOrganizationFeatureSet_Click"/>
+                                <MenuItem Header="KM Settings" VerticalAlignment="Center" Click="mIUpdateOrganizationKMSettings_Click"/>
+                                <MenuItem Header="Reference SiteMap Xml" VerticalAlignment="Center" Click="mIUpdateOrganizationReferenceSiteMapXml_Click"/>
+                                <MenuItem Header="SiteMap Xml" VerticalAlignment="Center" Click="mIUpdateOrganizationSiteMapXml_Click"/>
+                                <MenuItem Header="Default ThemeData" VerticalAlignment="Center" Click="mIUpdateOrganizationDefaultThemeData_Click" />
+                                <MenuItem Header="High Contrast Theme Data" VerticalAlignment="Center" Click="mIUpdateOrganizationHighContrastThemeData_Click" />
+                                <MenuItem Header="Sla Pause States" VerticalAlignment="Center" Click="mIUpdateOrganizationSlaPauseStates_Click" />
+                            </MenuItem>
+                            <Separator/>
+                            <MenuItem Header="Show Difference SiteMap Xml And Reference SiteMap Xml" VerticalAlignment="Center" Click="mIExportOrganizationShowDifferenceSiteMapXmlAndReferenceSiteMapXml_Click" />
+                            <MenuItem Header="Show Difference Default ThemeData And High Contrast ThemeData" VerticalAlignment="Center" Click="mIExportOrganizationShowDifferenceDefaultThemeDataAndHighContrastThemeData_Click" />
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>

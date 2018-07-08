@@ -293,16 +293,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._controlsEnabled = enabled;
 
-            ToggleControl(this.toolStrip, enabled);
-
             ToggleControl(cmBCurrentConnection, enabled);
 
             ToggleProgressBar(enabled);
 
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
+            UpdateButtonsEnable();
         }
 
         private void ToggleProgressBar(bool enabled)
@@ -339,7 +334,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwCharts.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwCharts.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSDDBExportChart, btnExportAll };
 
@@ -530,19 +525,102 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false);
 
-            var service = await GetService();
+            try
+            {
+                var service = await GetService();
 
-            var repository = new SavedQueryVisualizationRepository(service);
+                var repository = new SavedQueryVisualizationRepository(service);
 
-            var savedQueryVisualization = await repository.GetByIdAsync(idSavedQueryVisualization, new ColumnSet(fieldName));
+                var savedQueryVisualization = await repository.GetByIdAsync(idSavedQueryVisualization, new ColumnSet(fieldName));
 
-            string xmlContent = savedQueryVisualization.GetAttributeValue<string>(fieldName);
+                string xmlContent = savedQueryVisualization.GetAttributeValue<string>(fieldName);
 
-            string filePath = await CreateFileAsync(folder, entityName, name, fieldTitle, xmlContent);
+                string filePath = await CreateFileAsync(folder, entityName, name, fieldTitle, xmlContent);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            ToggleControls(true);
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
+        }
+
+        private async Task PerformUpdateEntityField(string folder, Guid idSavedQueryVisualization, string entityName, string name, string fieldName, string fieldTitle)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new SavedQueryVisualizationRepository(service);
+
+                var savedQueryVisualization = await repository.GetByIdAsync(idSavedQueryVisualization, new ColumnSet(fieldName));
+
+                string xmlContent = savedQueryVisualization.GetAttributeValue<string>(fieldName);
+
+                {
+                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    {
+                        xmlContent = doc.ToString();
+                    }
+                }
+
+                string filePath = await CreateFileAsync(folder, entityName, name, fieldTitle + " BackUp", xmlContent);
+
+                var newText = string.Empty;
+                bool? dialogResult = false;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    var form = new WindowTextField("Enter " + fieldTitle, fieldTitle, xmlContent);
+
+                    dialogResult = form.ShowDialog();
+
+                    newText = form.FieldText;
+                });
+
+                if (dialogResult.GetValueOrDefault())
+                {
+                    {
+                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                        {
+                            newText = doc.ToString(SaveOptions.DisableFormatting);
+                        }
+                    }
+
+                    var updateEntity = new SavedQueryVisualization();
+                    updateEntity.Id = idSavedQueryVisualization;
+                    updateEntity.Attributes[fieldName] = newText;
+
+                    service.Update(updateEntity);
+                }
+
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void mIExportSystemChartDataDescription_Click(object sender, RoutedEventArgs e)
@@ -585,26 +663,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ToggleControls(false);
 
-            var service = await GetService();
+            try
+            {
+                var service = await GetService();
 
-            string fileName = EntityFileNameFormatter.GetSavedQueryVisualizationFileName(service.ConnectionData.Name, entityName, name, "EntityDescription", "txt");
-            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                string fileName = EntityFileNameFormatter.GetSavedQueryVisualizationFileName(service.ConnectionData.Name, entityName, name, "EntityDescription", "txt");
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            var repository = new SavedQueryVisualizationRepository(service);
+                var repository = new SavedQueryVisualizationRepository(service);
 
-            var savedQueryVisualization = await repository.GetByIdAsync(idSavedQueryVisualization, new ColumnSet(true));
+                var savedQueryVisualization = await repository.GetByIdAsync(idSavedQueryVisualization, new ColumnSet(true));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, savedQueryVisualization, EntityFileNameFormatter.SavedQueryVisualizationIgnoreFields, service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, savedQueryVisualization, EntityFileNameFormatter.SavedQueryVisualizationIgnoreFields, service.ConnectionData);
 
-            this._iWriteToOutput.WriteToOutput("SystemChart Entity Description exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput("SystemChart Entity Description exported to {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            ToggleControls(true);
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
@@ -1175,6 +1264,82 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (connectionData != null)
             {
                 ShowExistingCharts();
+            }
+        }
+
+        private void mIUpdateSystemChartDataDescription_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.datadescription, "DataDescription", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateSystemChartPresentationDescription_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.presentationdescription, "PresentationDescription", PerformUpdateEntityField);
+        }
+
+        private void btnPublishEntity_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null
+                && !string.IsNullOrEmpty(entity.PrimaryEntityTypeCode)
+                && !string.Equals(entity.PrimaryEntityTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
+                )
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformPublishEntityAsync);
+        }
+
+        private async Task PerformPublishEntityAsync(string folder, Guid idSavedQueryVisualization, string entityName, string name)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            UpdateStatus(string.Format("Publishing Entity {0}...", entityName));
+
+            this._iWriteToOutput.WriteToOutput("Start publishing Entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new PublishActionsRepository(service);
+
+                await repository.PublishEntitiesAsync(new[] { entityName });
+
+                this._iWriteToOutput.WriteToOutput("End publishing Entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                UpdateStatus(string.Format("Entity {0} published", entityName));
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus(string.Format("Publish Entity {0} failed", entityName));
+            }
+            finally
+            {
+                ToggleControls(true);
             }
         }
     }

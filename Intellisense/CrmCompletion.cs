@@ -9,12 +9,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 {
     public class CrmCompletion : Completion
     {
-        public IEnumerable<string> DisplayNames { get; private set; }
+        public IEnumerable<string> CompareValues { get; private set; }
 
-        public CrmCompletion(string displayText, string insertionText, string description, ImageSource iconSource, string iconAutomationText, IEnumerable<string> displayNames)
+        public CrmCompletion(string displayText, string insertionText, string description, ImageSource iconSource, string iconAutomationText, IEnumerable<string> compareValues)
             : base(displayText, insertionText, description, iconSource, iconAutomationText)
         {
-            this.DisplayNames = displayNames;
+            this.CompareValues = compareValues;
         }
 
         public bool IsMatch(string typedText)
@@ -34,9 +34,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
             }
 
-            if (this.DisplayNames != null)
+            if (this.CompareValues != null)
             {
-                foreach (var item in this.DisplayNames)
+                foreach (var item in this.CompareValues)
                 {
                     if (!string.IsNullOrEmpty(item))
                     {

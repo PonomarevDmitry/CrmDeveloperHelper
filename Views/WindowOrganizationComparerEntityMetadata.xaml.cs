@@ -371,14 +371,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._controlsEnabled = enabled;
 
-            ToggleControl(this.toolStrip, enabled);
-
             ToggleProgressBar(enabled);
 
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
+            UpdateButtonsEnable();
         }
 
         private void ToggleProgressBar(bool enabled)
@@ -415,7 +410,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwEntities.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
 
                     var item = (this.lstVwEntities.SelectedItems[0] as LinkedEntityMetadata);
 
@@ -539,11 +534,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service1.ConnectionData.Name, config.EntityName, filePath1);
             }
 
-            using (var handler2 = new CreateFileWithEntityMetadataCSharpHandler(config, service2, _iWriteToOutput))
+            if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
             {
-                filePath2 = await handler2.CreateFileAsync();
+                using (var handler2 = new CreateFileWithEntityMetadataCSharpHandler(config, service2, _iWriteToOutput))
+                {
+                    filePath2 = await handler2.CreateFileAsync();
 
-                this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service2.ConnectionData.Name, config.EntityName, filePath2);
+                    this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service2.ConnectionData.Name, config.EntityName, filePath2);
+                }
             }
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -639,11 +637,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service1.ConnectionData.Name, config.EntityName, filePath1);
             }
 
-            using (var handler2 = new CreateFileWithEntityMetadataJavaScriptHandler(config, service2, _iWriteToOutput))
+            if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
             {
-                filePath2 = await handler2.CreateFileAsync();
+                using (var handler2 = new CreateFileWithEntityMetadataJavaScriptHandler(config, service2, _iWriteToOutput))
+                {
+                    filePath2 = await handler2.CreateFileAsync();
 
-                this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service2.ConnectionData.Name, config.EntityName, filePath2);
+                    this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service2.ConnectionData.Name, config.EntityName, filePath2);
+                }
             }
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -833,11 +834,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._itemsSource.Clear();
 
-                if (!_controlsEnabled)
-                {
-                    return;
-                }
-
                 ConnectionData connection1 = cmBConnection1.SelectedItem as ConnectionData;
                 ConnectionData connection2 = cmBConnection2.SelectedItem as ConnectionData;
 
@@ -848,6 +844,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this.Resources["ConnectionName1"] = string.Format("Create from {0}", connection1.Name);
                     this.Resources["ConnectionName2"] = string.Format("Create from {0}", connection2.Name);
+
+                    UpdateButtonsEnable();
 
                     ShowExistingEntities();
                 }
@@ -1267,6 +1265,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService2();
 
             WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity);
+        }
+
+        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is ContextMenu contextMenu))
+            {
+                return;
+            }
+
+            var linkedEntityMetadata = ((FrameworkElement)e.OriginalSource).DataContext as LinkedEntityMetadata;
+
+            var items = contextMenu.Items.OfType<Control>();
+
+            foreach (var menuContextDifference in items.Where(i => string.Equals(i.Uid, "menuContextDifference", StringComparison.InvariantCultureIgnoreCase)))
+            {
+                menuContextDifference.IsEnabled = false;
+                menuContextDifference.Visibility = Visibility.Collapsed;
+
+                if (linkedEntityMetadata != null
+                     && linkedEntityMetadata.EntityMetadata1 != null
+                     && linkedEntityMetadata.EntityMetadata2 != null
+                     )
+                {
+                    menuContextDifference.IsEnabled = true;
+                    menuContextDifference.Visibility = Visibility.Visible;
+                }
+            }
+
+            foreach (var menuContextConnection2 in items.Where(i => string.Equals(i.Uid, "menuContextConnection2", StringComparison.InvariantCultureIgnoreCase)))
+            {
+                menuContextConnection2.IsEnabled = false;
+                menuContextConnection2.Visibility = Visibility.Collapsed;
+
+                if (linkedEntityMetadata != null
+                     && linkedEntityMetadata.EntityMetadata2 != null
+                     )
+                {
+                    menuContextConnection2.IsEnabled = true;
+                    menuContextConnection2.Visibility = Visibility.Visible;
+                }
+            }
         }
     }
 }

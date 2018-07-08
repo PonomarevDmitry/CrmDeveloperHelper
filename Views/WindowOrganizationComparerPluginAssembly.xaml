@@ -9,15 +9,15 @@
     <src:WindowBase.Resources>
         <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
         <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
-        <ContextMenu x:Key="listContextMenu">
-            <MenuItem Header="Show Difference">
+        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+            <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
                 <MenuItem Header="Assembly Description" Click="mIShowDifferenceAssemblyDescription_Click" />
                 <MenuItem Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                 <Separator/>
                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
             </MenuItem>
+            <Separator x:Uid="menuContextDifference"/>
             
-            <Separator/>
             <MenuItem Header="{DynamicResource ConnectionName1}">
                 <MenuItem Header="Plugin Assembly Description" Click="mIExportPluginAssembly1AssemblyDescription_Click" />
                 <MenuItem Header="Create Entity Description" Click="mIExportPluginAssembly1EntityDescription_Click"/>
@@ -25,9 +25,9 @@
                 <Separator/>
                 <MenuItem Header="Pluing Assembly Window" Click="btnExportPluginAssembly1_Click"/>
             </MenuItem>
-            
-            <Separator/>
-            <MenuItem Header="{DynamicResource ConnectionName2}">
+
+            <Separator x:Uid="menuContextConnection2"/>
+            <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}">
                 <MenuItem Header="Plugin Assembly Description" Click="mIExportPluginAssembly2AssemblyDescription_Click" />
                 <MenuItem Header="Create Entity Description" Click="mIExportPluginAssembly2EntityDescription_Click"/>
                 <MenuItem Header="Binary Content" Click="mIExportPluginAssembly2BinaryContent_Click"/>
@@ -88,7 +88,7 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnShowDifferenceAll" Content="Show difference for All" Click="btnShowDifferenceAll_Click"/>
-                    <Separator Margin="10,0,10,0" />
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
                             <MenuItem x:Name="mIShowDifferenceAssemblyDescription" Header="Assembly Description" Click="mIShowDifferenceAssemblyDescription_Click"/>

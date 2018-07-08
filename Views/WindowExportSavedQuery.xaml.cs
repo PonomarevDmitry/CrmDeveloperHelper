@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk.Query;
+﻿using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
@@ -301,16 +302,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._controlsEnabled = enabled;
 
-            ToggleControl(this.toolStrip, enabled);
-
             ToggleControl(cmBCurrentConnection, enabled);
 
             ToggleProgressBar(enabled);
 
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
+            UpdateButtonsEnable();
         }
 
         private void ToggleProgressBar(bool enabled)
@@ -347,7 +343,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwSavedQueries.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwSavedQueries.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSDDBExportSavedQuery, btnExportAll };
 
@@ -544,22 +540,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false);
 
-            var service = await GetService();
+            try
+            {
+                var service = await GetService();
 
-            var repository = new SavedQueryRepository(service);
+                var repository = new SavedQueryRepository(service);
 
-            var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(fieldName));
+                var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(fieldName));
 
-            string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
+                string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
 
-            string filePath = await CreateFileAsync(folder, entityName, name, fieldTitle, xmlContent, "xml");
+                string filePath = await CreateFileAsync(folder, entityName, name, fieldTitle, xmlContent, "xml");
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            ToggleControls(true);
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
-        private async Task PerformExportXmlToFileJavaScript(string folder, Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle)
+        private async Task PerformCopyToClipboardXmlToFileJavaScript(string folder, Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle)
         {
             if (!_controlsEnabled)
             {
@@ -568,26 +577,118 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false);
 
-            var service = await GetService();
-
-            var repository = new SavedQueryRepository(service);
-
-            var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(fieldName));
-
-            string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
-
-            if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+            try
             {
-                xmlContent = doc.ToString();
+                var service = await GetService();
 
-                xmlContent = ContentCoparerHelper.FormatToJavaScript(fieldName, xmlContent);
+                var repository = new SavedQueryRepository(service);
+
+                var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(fieldName));
+
+                string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
+
+                if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                {
+                    xmlContent = doc.ToString();
+
+                    xmlContent = ContentCoparerHelper.FormatToJavaScript(fieldName, xmlContent);
+                }
+
+                Clipboard.SetText(xmlContent);
+
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
+        }
+
+        private async Task PerformUpdateEntityField(string folder, Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
             }
 
-            string filePath = await CreateFileAsync(folder, entityName, name, fieldTitle, xmlContent, "js");
+            ToggleControls(false);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+            try
+            {
+                var service = await GetService();
 
-            ToggleControls(true);
+                var repository = new SavedQueryRepository(service);
+
+                var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(fieldName, SavedQuery.Schema.Attributes.querytype));
+
+                string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
+
+                {
+                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    {
+                        xmlContent = doc.ToString();
+                    }
+                }
+
+                string filePath = await CreateFileAsync(folder, entityName, name, fieldTitle + " BackUp", xmlContent, "xml");
+
+                var newText = string.Empty;
+                bool? dialogResult = false;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    var form = new WindowTextField("Enter " + fieldTitle, fieldTitle, xmlContent);
+
+                    dialogResult = form.ShowDialog();
+
+                    newText = form.FieldText;
+                });
+
+                if (dialogResult.GetValueOrDefault())
+                {
+                    {
+                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                        {
+                            newText = doc.ToString(SaveOptions.DisableFormatting);
+                        }
+                    }
+
+                    if (string.Equals(fieldName, SavedQuery.Schema.Attributes.fetchxml, StringComparison.InvariantCulture))
+                    {
+                        var request = new ValidateSavedQueryRequest()
+                        {
+                            FetchXml = newText,
+                            QueryType = savedQuery.QueryType.GetValueOrDefault()
+                        };
+
+                        service.Execute(request);
+                    }
+
+                    var updateEntity = new SavedQuery();
+                    updateEntity.Id = idSavedQuery;
+                    updateEntity.Attributes[fieldName] = newText;
+
+                    service.Update(updateEntity);
+                }
+
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void mIExportSavedQueryFetchXml_Click(object sender, RoutedEventArgs e)
@@ -611,7 +712,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, "FetchXml", PerformExportXmlToFileJavaScript);
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, "FetchXml", PerformCopyToClipboardXmlToFileJavaScript);
         }
 
         private void mIExportSavedQueryLayoutXml_Click(object sender, RoutedEventArgs e)
@@ -635,7 +736,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, "LayoutXml", PerformExportXmlToFileJavaScript);
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, "LayoutXml", PerformCopyToClipboardXmlToFileJavaScript);
         }
 
         private void mIExportSavedQueryColumnSetXml_Click(object sender, RoutedEventArgs e)
@@ -659,7 +760,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, "ColumnSetXml", PerformExportXmlToFileJavaScript);
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, "ColumnSetXml", PerformCopyToClipboardXmlToFileJavaScript);
         }
 
         private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -678,26 +779,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ToggleControls(false);
 
-            var service = await GetService();
+            try
+            {
+                var service = await GetService();
 
-            string fileName = EntityFileNameFormatter.GetSavedQueryFileName(service.ConnectionData.Name, entityName, name, "EntityDescription", "txt");
-            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                string fileName = EntityFileNameFormatter.GetSavedQueryFileName(service.ConnectionData.Name, entityName, name, "EntityDescription", "txt");
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            var repository = new SavedQueryRepository(service);
+                var repository = new SavedQueryRepository(service);
 
-            var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(true));
+                var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(true));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, savedQuery, EntityFileNameFormatter.SavedQueryIgnoreFields, service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, savedQuery, EntityFileNameFormatter.SavedQueryIgnoreFields, service.ConnectionData);
 
-            this._iWriteToOutput.WriteToOutput("SavedQuery Entity Description exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput("SavedQuery Entity Description exported to {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
+                UpdateStatus("Operation is completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            ToggleControls(true);
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
@@ -1292,6 +1404,94 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (connectionData != null)
             {
                 ShowExistingSavedQueries();
+            }
+        }
+
+        private void mIUpdateSavedQueryFetchXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, "FetchXml", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateSavedQueryLayoutXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, "LayoutXml", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateSavedQueryColumnSetXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, "ColumnSetXml", PerformUpdateEntityField);
+        }
+
+        private void btnPublishEntity_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null
+                && !string.IsNullOrEmpty(entity.ReturnedTypeCode)
+                && !string.Equals(entity.ReturnedTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
+                )
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.ReturnedTypeCode, entity.Name, PerformPublishEntityAsync);
+        }
+
+        private async Task PerformPublishEntityAsync(string folder, Guid idSavedQuery, string entityName, string name)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            UpdateStatus(string.Format("Publishing Entity {0}...", entityName));
+
+            this._iWriteToOutput.WriteToOutput("Start publishing Entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new PublishActionsRepository(service);
+
+                await repository.PublishEntitiesAsync(new[] { entityName });
+
+                this._iWriteToOutput.WriteToOutput("End publishing Entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                UpdateStatus(string.Format("Entity {0} published", entityName));
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus(string.Format("Publish Entity {0} failed", entityName));
+            }
+            finally
+            {
+                ToggleControls(true);
             }
         }
     }

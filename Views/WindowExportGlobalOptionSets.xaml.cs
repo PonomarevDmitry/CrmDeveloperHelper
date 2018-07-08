@@ -170,7 +170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 try
                 {
                     {
-                        bool enabled = _controlsEnabled && this.lstVwOptionSets.SelectedItems.Count > 0;
+                        bool enabled = this._controlsEnabled && this.lstVwOptionSets.SelectedItems.Count > 0;
 
                         UIElement[] list = { tSDDBSingleOptionSet, btnCreateJavaScriptFileForSingleOptionSet, btnCreateCSharpFileForSingleOptionSet };
 

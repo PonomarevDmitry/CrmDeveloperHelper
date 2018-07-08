@@ -337,13 +337,13 @@
                                             type="xs:string"
                                             use="optional" />
                               <xs:attribute name="ishidden"
-                                            type="xs:integer"
+                                            type="xs:boolean"
                                             use="optional" />
                               <xs:attribute name="disableSorting"
-                                            type="xs:integer"
+                                            type="xs:boolean"
                                             use="optional" />
                               <xs:attribute name="disableMetaDataBinding"
-                                            type="xs:integer"
+                                            type="xs:boolean"
                                             use="optional" />
                               <xs:attribute name="cellType"
                                             type ="xs:string" />
@@ -386,7 +386,7 @@
                                 type="xs:integer"
                                 use="required" />
                   <xs:attribute name="disableInlineEditing"
-                                type="xs:integer"
+                                type="xs:boolean"
                                 use="optional" />
                   <xs:attribute name="iconrenderer"
                                 type="xs:string" />

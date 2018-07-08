@@ -88,6 +88,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFileAction.DataContext = _commonConfig;
 
             txtBFolder.DataContext = _commonConfig;
+
+            chBXmlAttributeOnNewLine.DataContext = _commonConfig;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -278,16 +280,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._controlsEnabled = enabled;
 
-            ToggleControl(this.toolStrip, enabled);
-
             ToggleControl(cmBCurrentConnection, enabled);
 
             ToggleProgressBar(enabled);
 
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
+            UpdateButtonsEnable();
         }
 
         private void ToggleProgressBar(bool enabled)
@@ -324,7 +321,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwSiteMaps.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwSiteMaps.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSDDBExportSiteMap, btnExportAll };
 
@@ -438,10 +435,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
-                    {
-                        xmlContent = doc.ToString();
-                    }
+                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportSiteMapXmlAttributeOnNewLine);
 
                     File.WriteAllText(filePath, xmlContent, Encoding.UTF8);
 
@@ -513,19 +507,99 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
 
-            var service = await GetService();
+            try
+            {
+                var service = await GetService();
 
-            var repository = new SitemapRepository(service);
+                var repository = new SitemapRepository(service);
 
-            var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(fieldName));
+                var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(fieldName));
 
-            string xmlContent = sitemap.GetAttributeValue<string>(fieldName);
+                string xmlContent = sitemap.GetAttributeValue<string>(fieldName);
 
-            string filePath = await CreateFileAsync(folder, name, idSiteMap, fieldTitle, xmlContent);
+                string filePath = await CreateFileAsync(folder, name, idSiteMap, fieldTitle, xmlContent);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            ToggleControls(true);
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
+        }
+
+        private async Task PerformUpdateEntityField(string folder, Guid idSiteMap, string name, string fieldName, string fieldTitle)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new SitemapRepository(service);
+
+                var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(fieldName));
+
+                string xmlContent = sitemap.GetAttributeValue<string>(fieldName);
+
+                xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportSiteMapXmlAttributeOnNewLine);
+
+                string filePath = await CreateFileAsync(folder, name, idSiteMap, fieldTitle + " BackUp", xmlContent);
+
+                var newText = string.Empty;
+                bool? dialogResult = false;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    var form = new WindowTextField("Enter " + fieldTitle, fieldTitle, xmlContent);
+
+                    dialogResult = form.ShowDialog();
+
+                    newText = form.FieldText;
+                });
+
+                if (dialogResult.GetValueOrDefault())
+                {
+                    {
+                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                        {
+                            newText = doc.ToString(SaveOptions.DisableFormatting);
+                        }
+                    }
+
+                    var updateEntity = new SiteMap();
+                    updateEntity.Id = idSiteMap;
+                    updateEntity.Attributes[fieldName] = newText;
+
+                    service.Update(updateEntity);
+                }
+
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -1032,6 +1106,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingSiteMaps();
             }
+        }
+
+        private void mIUpdateSiteMapXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.SiteMapName, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml", PerformUpdateEntityField);
         }
     }
 }

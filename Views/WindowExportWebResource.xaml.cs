@@ -347,16 +347,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._controlsEnabled = enabled;
 
-            ToggleControl(this.toolStrip, enabled);
-
             ToggleControl(cmBCurrentConnection, enabled);
 
             ToggleProgressBar(enabled);
 
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
+            UpdateButtonsEnable();
         }
 
         private void ToggleProgressBar(bool enabled)
@@ -393,7 +388,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.trVWebResources.SelectedItem != null
+                    bool enabled = this._controlsEnabled
+                                        && this.trVWebResources.SelectedItem != null
                                         && this.trVWebResources.SelectedItem is EntityTreeViewItem
                                         && (this.trVWebResources.SelectedItem as EntityTreeViewItem).WebResourceId != null;
 
@@ -520,26 +516,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus("Exporting WebResource Entity Description...");
 
-            var service = await GetService();
+            try
+            {
+                var service = await GetService();
 
-            WebResourceRepository webResourceRepository = new WebResourceRepository(service);
+                WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-            var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
+                var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
 
-            string fileName = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, name, "EntityDescription", "txt");
-            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                string fileName = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, name, "EntityDescription", "txt");
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webresource, EntityFileNameFormatter.WebResourceIgnoreFields, service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webresource, EntityFileNameFormatter.WebResourceIgnoreFields, service.ConnectionData);
 
-            this._iWriteToOutput.WriteToOutput("WebResource Entity Description exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput("WebResource Entity Description exported to {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            ToggleControls(true);
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void trVWebResources_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -575,41 +582,52 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus("Exporting WebResource Content...");
 
-            var service = await GetService();
-
-            WebResourceRepository webResourceRepository = new WebResourceRepository(service);
-
-            var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(WebResource.Schema.Attributes.content, WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.webresourcetype));
-
-            if (webresource != null && !string.IsNullOrEmpty(webresource.Content))
+            try
             {
-                this._iWriteToOutput.WriteToOutput("Starting downloading {0}", name);
+                var service = await GetService();
 
-                string webResourceFileName = WebResourceRepository.GetWebResourceFileName(webresource);
+                WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-                var contentWebResource = webresource.Content ?? string.Empty;
+                var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(WebResource.Schema.Attributes.content, WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.webresourcetype));
 
-                var array = Convert.FromBase64String(contentWebResource);
+                if (webresource != null && !string.IsNullOrEmpty(webresource.Content))
+                {
+                    this._iWriteToOutput.WriteToOutput("Starting downloading {0}", name);
 
-                string fileName = string.Format("{0}.{1}", service.ConnectionData.Name, webResourceFileName);
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                    string webResourceFileName = WebResourceRepository.GetWebResourceFileName(webresource);
 
-                File.WriteAllBytes(filePath, array);
+                    var contentWebResource = webresource.Content ?? string.Empty;
 
-                this._iWriteToOutput.WriteToOutput("Web-resource '{0}' has downloaded to {1}.", name, filePath);
+                    var array = Convert.FromBase64String(contentWebResource);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    string fileName = string.Format("{0}.{1}", service.ConnectionData.Name, webResourceFileName);
+                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllBytes(filePath, array);
+
+                    this._iWriteToOutput.WriteToOutput("Web-resource '{0}' has downloaded to {1}.", name, filePath);
+
+                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput("Web-resource not founded in CRM: {0}", name);
+                }
+
+                this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                UpdateStatus("Operation completed.");
             }
-            else
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteToOutput("Web-resource not founded in CRM: {0}", name);
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
             }
-
-            this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void mIExportWebResourceDependencyXml_Click(object sender, RoutedEventArgs e)
@@ -633,23 +651,131 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false);
 
-            UpdateStatus(string.Format("Exporting WebResource {0}...", fieldTitle));
+            try
+            {
+                UpdateStatus(string.Format("Exporting WebResource {0}...", fieldTitle));
 
-            var service = await GetService();
+                var service = await GetService();
 
-            WebResourceRepository webResourceRepository = new WebResourceRepository(service);
+                WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-            var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(fieldName));
+                var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(fieldName));
 
-            string xmlContent = webresource.GetAttributeValue<string>(fieldName);
+                string xmlContent = webresource.GetAttributeValue<string>(fieldName);
 
-            string filePath = await CreateFileAsync(folder, name, fieldTitle, xmlContent);
+                string filePath = await CreateFileAsync(folder, name, fieldTitle, xmlContent);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            UpdateStatus("Operation is completed.");
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            ToggleControls(true);
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
+        }
+
+        private async Task PerformUpdateEntityField(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false);
+
+            try
+            {
+                var service = await GetService();
+
+                WebResourceRepository webResourceRepository = new WebResourceRepository(service);
+
+                var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
+
+                string xmlContent = webresource.GetAttributeValue<string>(fieldName);
+
+                if (string.Equals(fieldName, WebResource.Schema.Attributes.content, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    string webResourceFileName = WebResourceRepository.GetWebResourceFileName(webresource);
+
+                    var contentWebResource = webresource.Content ?? string.Empty;
+
+                    var array = Convert.FromBase64String(contentWebResource);
+
+                    string fileName = string.Format("{0}.{1} BackUp at {2}{3}", service.ConnectionData.Name, Path.GetFileNameWithoutExtension(webResourceFileName), DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"), Path.GetExtension(webResourceFileName));
+                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllBytes(filePath, array);
+
+                    var encodings = ContentCoparerHelper.GetFileEncoding(array);
+
+                    xmlContent = encodings.First().GetString(array);
+                }
+                else
+                {
+                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    {
+                        xmlContent = doc.ToString();
+                    }
+
+                    string filePath = await CreateFileAsync(folder, name, fieldTitle + " BackUp", xmlContent);
+                }
+
+                var newText = string.Empty;
+                bool? dialogResult = false;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    var form = new WindowTextField("Enter " + fieldTitle, fieldTitle, xmlContent);
+
+                    dialogResult = form.ShowDialog();
+
+                    newText = form.FieldText;
+                });
+
+                if (dialogResult.GetValueOrDefault())
+                {
+                    if (string.Equals(fieldName, WebResource.Schema.Attributes.content, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        var encoding = new UTF8Encoding(false);
+
+                        var bytes = encoding.GetBytes(newText);
+
+                        newText = Convert.ToBase64String(bytes);
+                    }
+                    else
+                    {
+                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                        {
+                            newText = doc.ToString(SaveOptions.DisableFormatting);
+                        }
+                    }
+
+                    var updateEntity = new WebResource();
+                    updateEntity.Id = idWebResource;
+                    updateEntity.Attributes[fieldName] = newText;
+
+                    service.Update(updateEntity);
+                }
+
+                UpdateStatus("Operation completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private Task<string> CreateFileAsync(string folder, string name, string fieldTitle, string xmlContent)
@@ -1130,6 +1256,72 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (connectionData != null)
             {
                 ShowExistingWebResources();
+            }
+        }
+
+        private void mIUpdateWebResourceDependencyXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, "DependencyXml", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateWebResourceContent_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, "Content", PerformUpdateEntityField);
+        }
+
+        private void btnPublishWebResource_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformPublishWebResource);
+        }
+
+        private async Task PerformPublishWebResource(string folder, Guid idWebResource, string name)
+        {
+            ToggleControls(false);
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new PublishActionsRepository(service);
+
+                this._iWriteToOutput.WriteToOutput("Start publishing WebResource {0} at {1}", name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                await repository.PublishWebResourcesAsync(new[] { idWebResource });
+
+                this._iWriteToOutput.WriteToOutput("End publishing WebResource {0} at {1}", name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                UpdateStatus("Operation is completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                UpdateStatus("Operation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
             }
         }
     }

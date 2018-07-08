@@ -9,9 +9,9 @@
     <src:WindowBase.Resources>
         <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
         <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
-        <ContextMenu x:Key="listContextMenu">
-            
-            <MenuItem Header="Show Difference">
+        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+
+            <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
                 <MenuItem Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                 <MenuItem Header="Form Description" Click="mIShowDifferenceFormDescription_Click" />
                 <MenuItem Header="Form XML" Click="mIShowDifferenceFormXml_Click" />
@@ -30,8 +30,8 @@
                 <Separator/>
                 <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
             </MenuItem>
-            
-            <Separator/>
+            <Separator x:Uid="menuContextDifference"/>
+
             <MenuItem Header="{DynamicResource ConnectionName1}">
                 <MenuItem Header="Create Entity Description" Click="mIExportSystemForm1EntityDescription_Click"/>
                 <MenuItem Header="Form Description" Click="mIExportSystemForm1FormDescription_Click" />
@@ -55,9 +55,9 @@
                 <MenuItem Header="Message Tree" Click="btnMessageTree1_Click"/>
                 <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree1_Click"/>
             </MenuItem>
-            
-            <Separator/>
-            <MenuItem Header="{DynamicResource ConnectionName2}">
+
+            <Separator x:Uid="menuContextConnection2"/>
+            <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}">
                 <MenuItem Header="Create Entity Description" Click="mIExportSystemForm2EntityDescription_Click"/>
                 <MenuItem Header="Form Description" Click="mIExportSystemForm2FormDescription_Click" />
                 <MenuItem Header="Form XML" Click="mIExportSystemForm2FormXml_Click" />

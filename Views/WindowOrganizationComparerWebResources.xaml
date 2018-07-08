@@ -9,8 +9,8 @@
     <src:WindowBase.Resources>
         <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
         <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
-        <ContextMenu x:Key="listContextMenu">
-            <MenuItem Header="Show Difference">
+        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+            <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
                 <MenuItem Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                 <MenuItem Header="Content" Click="mIShowDifferenceContent_Click"/>
                 <Separator/>
@@ -18,17 +18,17 @@
                 <Separator/>
                 <MenuItem Header="WebResources" Click="btnCompareWebResources_Click"/>
             </MenuItem>
-            
-            <Separator/>
+            <Separator x:Uid="menuContextDifference"/>
+
             <MenuItem Header="{DynamicResource ConnectionName1}">
                 <MenuItem Header="Create Entity Description" Click="mIExportWebResource1EntityDescription_Click"/>
                 <MenuItem Header="Content" Click="mIExportWebResource1Content_Click"/>
                 <Separator/>
                 <MenuItem Header="WebResources" Click="btnExportWebResources1_Click"/>
             </MenuItem>
-            
-            <Separator/>
-            <MenuItem Header="{DynamicResource ConnectionName2}">
+
+            <Separator x:Uid="menuContextConnection2"/>
+            <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}">
                 <MenuItem Header="Create Entity Description" Click="mIExportWebResource2EntityDescription_Click"/>
                 <MenuItem Header="Content" Click="mIExportWebResource2Content_Click"/>
                 <Separator/>

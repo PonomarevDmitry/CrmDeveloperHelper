@@ -11,7 +11,7 @@
         <TextBox x:Name="txtBFolder" Height="23" Margin="10,36,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647"/>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,64,0,0" Padding="10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="26" Width="53"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,64,305,0" Padding="10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" Height="26" />
-        <Button x:Name="btnExport" Content="Export Files" Margin="0,0,127,12" Click="btnExport_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="103"/>
-        <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,12" Click="btnCancel_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+        <Button x:Name="btnExport" Content="Export Files" Margin="0,0,127,12" Click="btnExport_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="103"/>
+        <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,12" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
     </Grid>
 </src:WindowBase>

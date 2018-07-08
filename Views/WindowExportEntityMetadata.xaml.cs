@@ -11,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -346,16 +345,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._controlsEnabled = enabled;
 
-            ToggleControl(this.toolStrip, enabled);
-
             ToggleControl(cmBCurrentConnection, enabled);
 
             ToggleProgressBar(enabled);
 
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
+            UpdateButtonsEnable();
         }
 
         private void ToggleProgressBar(bool enabled)
@@ -392,7 +386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwEntities.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
 
                     UIElement[] list = { btnSystemForms, btnSavedQuery, btnSavedChart, btnWorkflows, btnCreateCSharpFile, btnCreateJavaScriptFile, btnGlobalOptionSets };
 
@@ -673,13 +667,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnCreateCSharpFile_Click(object sender, RoutedEventArgs e)
         {
-            if (this.lstVwEntities.SelectedItems.Count == 1
-               && this.lstVwEntities.SelectedItems[0] != null
-               && this.lstVwEntities.SelectedItems[0] is EntityMetadataListViewItem item
-               )
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
             {
-                ExecuteActionAsync(item.EntityLogicalName, CreateEntityMetadataFileAsync);
+                return;
             }
+
+            ExecuteActionAsync(entity.EntityLogicalName, CreateEntityMetadataFileAsync);
         }
 
         private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -778,13 +773,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnCreateJavaScriptFile_Click(object sender, RoutedEventArgs e)
         {
-            if (this.lstVwEntities.SelectedItems.Count == 1
-                && this.lstVwEntities.SelectedItems[0] != null
-                && this.lstVwEntities.SelectedItems[0] is EntityMetadataListViewItem item
-                )
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
             {
-                ExecuteActionAsync(item.EntityLogicalName, CreateEntityMetadataFileJSAsync);
+                return;
             }
+
+            ExecuteActionAsync(entity.EntityLogicalName, CreateEntityMetadataFileJSAsync);
         }
 
         private async Task CreateEntityMetadataFileJSAsync(string entityName)
@@ -809,46 +805,59 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            var service = await GetService();
-
-            using (var handler = new CreateFileWithEntityMetadataJavaScriptHandler(config, service, _iWriteToOutput))
+            try
             {
-                string filePath = await handler.CreateFileAsync();
+                var service = await GetService();
 
-                this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
+                using (var handler = new CreateFileWithEntityMetadataJavaScriptHandler(config, service, _iWriteToOutput))
+                {
+                    string filePath = await handler.CreateFileAsync();
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
+
+                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                }
+
+                this._iWriteToOutput.WriteToOutput(string.Empty);
+
+                this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                UpdateStatus("File is created.");
             }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            this._iWriteToOutput.WriteToOutput(string.Empty);
-
-            this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            UpdateStatus("File is created.");
-
-            ToggleControls(true);
+                UpdateStatus("File creation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private void btnExportEntityXml_Click(object sender, RoutedEventArgs e)
         {
-            if (this.lstVwEntities.SelectedItems.Count == 1
-                && this.lstVwEntities.SelectedItems[0] != null
-                && this.lstVwEntities.SelectedItems[0] is EntityMetadataListViewItem item
-            )
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
             {
-                ExecuteActionAsync(item.EntityLogicalName, CreateEntityXmlFileAsync);
+                return;
             }
+
+            ExecuteActionAsync(entity.EntityLogicalName, CreateEntityXmlFileAsync);
         }
 
         private void btnPublishEntity_Click(object sender, RoutedEventArgs e)
         {
-            if (this.lstVwEntities.SelectedItems.Count == 1
-                && this.lstVwEntities.SelectedItems[0] != null
-                && this.lstVwEntities.SelectedItems[0] is EntityMetadataListViewItem item
-            )
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
             {
-                ExecuteActionAsync(item.EntityLogicalName, PublishEntityAsync);
+                return;
             }
+
+            ExecuteActionAsync(entity.EntityLogicalName, PublishEntityAsync);
         }
 
         private async Task CreateEntityXmlFileAsync(string entityName)
@@ -864,26 +873,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("Start getting file with Entity Xml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            var service = await GetService();
+            try
+            {
+                var service = await GetService();
 
-            var repository = new EntityMetadataRepository(service);
+                var repository = new EntityMetadataRepository(service);
 
-            var fileName = string.Format("{0}.{1} - EntityXml at {2}.xml", service.ConnectionData.Name, entityName, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-            string filePath = Path.Combine(txtBFolder.Text.Trim(), FileOperations.RemoveWrongSymbols(fileName));
+                var fileName = string.Format("{0}.{1} - EntityXml at {2}.xml", service.ConnectionData.Name, entityName, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                string filePath = Path.Combine(txtBFolder.Text.Trim(), FileOperations.RemoveWrongSymbols(fileName));
 
-            await repository.ExportEntityXmlAsync(entityName, filePath);
+                await repository.ExportEntityXmlAsync(entityName, filePath);
 
-            this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with EntityXml: {1}", entityName, filePath);
+                this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with EntityXml: {1}", entityName, filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            this._iWriteToOutput.WriteToOutput(string.Empty);
+                this._iWriteToOutput.WriteToOutput(string.Empty);
 
-            this._iWriteToOutput.WriteToOutput("End getting file with Entity Xml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutput("End getting file with Entity Xml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("File is created.");
+                UpdateStatus("File is created.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            ToggleControls(true);
+                UpdateStatus("File creation failed.");
+            }
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private async Task PublishEntityAsync(string entityName)
@@ -1154,6 +1174,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
+                UpdateButtonsEnable();
+
                 ShowExistingEntities();
             }
         }
