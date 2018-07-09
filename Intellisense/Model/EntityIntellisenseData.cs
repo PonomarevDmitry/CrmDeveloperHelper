@@ -165,11 +165,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
                 foreach (var attr in entityMetadata.Attributes)
                 {
-                    if (!string.IsNullOrEmpty(attr.AttributeOf))
-                    {
-                        continue;
-                    }
-
                     lock (_syncObjectAttributes)
                     {
                         if (!this.Attributes.ContainsKey(attr.LogicalName))

@@ -213,24 +213,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             List<int> listLocale = new List<int>();
 
-            foreach (var item in displayName.LocalizedLabels)
+            if (displayName != null && displayName.LocalizedLabels != null)
             {
-                if (!string.IsNullOrEmpty(item.Label))
+                foreach (var item in displayName.LocalizedLabels)
                 {
-                    if (!listLocale.Contains(item.LanguageCode))
+                    if (!string.IsNullOrEmpty(item.Label))
                     {
-                        listLocale.Add(item.LanguageCode);
+                        if (!listLocale.Contains(item.LanguageCode))
+                        {
+                            listLocale.Add(item.LanguageCode);
+                        }
                     }
                 }
             }
 
-            foreach (var item in description.LocalizedLabels)
+            if (description != null && description.LocalizedLabels != null)
             {
-                if (!string.IsNullOrEmpty(item.Label))
+                foreach (var item in description.LocalizedLabels)
                 {
-                    if (!listLocale.Contains(item.LanguageCode))
+                    if (!string.IsNullOrEmpty(item.Label))
                     {
-                        listLocale.Add(item.LanguageCode);
+                        if (!listLocale.Contains(item.LanguageCode))
+                        {
+                            listLocale.Add(item.LanguageCode);
+                        }
                     }
                 }
             }
@@ -241,57 +247,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 HashSet<string> hashShowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-                var sortedDisplay = displayName.LocalizedLabels.Where(l => listLocale.Contains(l.LanguageCode) && !string.IsNullOrEmpty(l.Label) && !hashShowed.Contains(l.Label));
-
-                if (sortedDisplay.Any())
+                if (displayName != null && displayName.LocalizedLabels != null)
                 {
-                    if (listStrings.Count > 0)
+                    var sortedDisplay = displayName.LocalizedLabels.Where(l => listLocale.Contains(l.LanguageCode) && !string.IsNullOrEmpty(l.Label) && !hashShowed.Contains(l.Label));
+
+                    if (sortedDisplay.Any())
                     {
-                        listStrings.Add(string.Empty);
-                    }
-
-                    listStrings.Add("DisplayName:");
-
-                    foreach (var localeId in listLocale)
-                    {
-                        var locLabel = sortedDisplay.FirstOrDefault(l => l.LanguageCode == localeId);
-
-                        if (locLabel != null && !string.IsNullOrEmpty(locLabel.Label) && !hashShowed.Contains(locLabel.Label))
+                        if (listStrings.Count > 0)
                         {
-                            var str = string.Format("({0}): {1}", LanguageLocale.GetLocaleName(localeId), locLabel.Label);
+                            listStrings.Add(string.Empty);
+                        }
 
-                            listStrings.Add(tabSpacer + str);
+                        listStrings.Add("DisplayName:");
 
-                            hashShowed.Add(locLabel.Label);
+                        foreach (var localeId in listLocale)
+                        {
+                            var locLabel = sortedDisplay.FirstOrDefault(l => l.LanguageCode == localeId);
+
+                            if (locLabel != null && !string.IsNullOrEmpty(locLabel.Label) && !hashShowed.Contains(locLabel.Label))
+                            {
+                                var str = string.Format("({0}): {1}", LanguageLocale.GetLocaleName(localeId), locLabel.Label);
+
+                                listStrings.Add(tabSpacer + str);
+
+                                hashShowed.Add(locLabel.Label);
+                            }
                         }
                     }
                 }
 
-                var sortedDescription = description.LocalizedLabels.Where(l => listLocale.Contains(l.LanguageCode) && !string.IsNullOrEmpty(l.Label) && !hashShowed.Contains(l.Label));
-
-                if (sortedDescription.Any())
+                if (description != null && description.LocalizedLabels != null)
                 {
-                    if (listStrings.Count > 0)
+                    var sortedDescription = description.LocalizedLabels.Where(l => listLocale.Contains(l.LanguageCode) && !string.IsNullOrEmpty(l.Label) && !hashShowed.Contains(l.Label));
+
+                    if (sortedDescription.Any())
                     {
-                        listStrings.Add(string.Empty);
-                    }
-
-                    listStrings.Add("Description:");
-
-                    foreach (var localeId in listLocale)
-                    {
-                        var locLabel = sortedDescription.FirstOrDefault(l => l.LanguageCode == localeId);
-
-                        if (locLabel != null && !string.IsNullOrEmpty(locLabel.Label) && !hashShowed.Contains(locLabel.Label))
+                        if (listStrings.Count > 0)
                         {
-                            string[] split = string.Format("({0}): {1}", LanguageLocale.GetLocaleName(localeId), locLabel.Label).Split(new string[] { "\r", "\n" }, StringSplitOptions.None);
+                            listStrings.Add(string.Empty);
+                        }
 
-                            foreach (var item in split)
+                        listStrings.Add("Description:");
+
+                        foreach (var localeId in listLocale)
+                        {
+                            var locLabel = sortedDescription.FirstOrDefault(l => l.LanguageCode == localeId);
+
+                            if (locLabel != null && !string.IsNullOrEmpty(locLabel.Label) && !hashShowed.Contains(locLabel.Label))
                             {
-                                listStrings.Add(tabSpacer + item);
-                            }
+                                string[] split = string.Format("({0}): {1}", LanguageLocale.GetLocaleName(localeId), locLabel.Label).Split(new string[] { "\r", "\n" }, StringSplitOptions.None);
 
-                            hashShowed.Add(locLabel.Label);
+                                foreach (var item in split)
+                                {
+                                    listStrings.Add(tabSpacer + item);
+                                }
+
+                                hashShowed.Add(locLabel.Label);
+                            }
                         }
                     }
                 }
@@ -302,13 +314,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             List<int> listLocale = new List<int>();
 
-            foreach (var item in displayName.LocalizedLabels)
+            if (displayName != null && displayName.LocalizedLabels != null)
             {
-                if (!string.IsNullOrEmpty(item.Label))
+                foreach (var item in displayName.LocalizedLabels)
                 {
-                    if (!listLocale.Contains(item.LanguageCode))
+                    if (!string.IsNullOrEmpty(item.Label))
                     {
-                        listLocale.Add(item.LanguageCode);
+                        if (!listLocale.Contains(item.LanguageCode))
+                        {
+                            listLocale.Add(item.LanguageCode);
+                        }
                     }
                 }
             }
@@ -328,6 +343,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 HashSet<string> hashShowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+                if (displayName != null && displayName.LocalizedLabels != null)
                 {
                     var locLabel = displayName.LocalizedLabels.FirstOrDefault(lbl => lbl.LanguageCode == localeId && !hashShowed.Contains(lbl.Label));
 
@@ -344,6 +360,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
+                if (description != null && description.LocalizedLabels != null)
                 {
                     var locLabel = description.LocalizedLabels.FirstOrDefault(lbl => lbl.LanguageCode == localeId && !hashShowed.Contains(lbl.Label));
 
@@ -800,35 +817,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             List<int> listLocale = new List<int>();
 
-            foreach (var item in displayName.LocalizedLabels)
+            if (displayName != null && displayName.LocalizedLabels != null)
             {
-                if (!string.IsNullOrEmpty(item.Label))
+                foreach (var item in displayName.LocalizedLabels)
                 {
-                    if (!listLocale.Contains(item.LanguageCode))
+                    if (!string.IsNullOrEmpty(item.Label))
                     {
-                        listLocale.Add(item.LanguageCode);
+                        if (!listLocale.Contains(item.LanguageCode))
+                        {
+                            listLocale.Add(item.LanguageCode);
+                        }
                     }
                 }
             }
 
-            foreach (var item in description.LocalizedLabels)
+            if (description != null && description.LocalizedLabels != null)
             {
-                if (!string.IsNullOrEmpty(item.Label))
+                foreach (var item in description.LocalizedLabels)
                 {
-                    if (!listLocale.Contains(item.LanguageCode))
+                    if (!string.IsNullOrEmpty(item.Label))
                     {
-                        listLocale.Add(item.LanguageCode);
+                        if (!listLocale.Contains(item.LanguageCode))
+                        {
+                            listLocale.Add(item.LanguageCode);
+                        }
                     }
                 }
             }
 
-            foreach (var item in displayCollectionName.LocalizedLabels)
+            if (displayCollectionName != null && displayCollectionName.LocalizedLabels != null)
             {
-                if (!string.IsNullOrEmpty(item.Label))
+                foreach (var item in displayCollectionName.LocalizedLabels)
                 {
-                    if (!listLocale.Contains(item.LanguageCode))
+                    if (!string.IsNullOrEmpty(item.Label))
                     {
-                        listLocale.Add(item.LanguageCode);
+                        if (!listLocale.Contains(item.LanguageCode))
+                        {
+                            listLocale.Add(item.LanguageCode);
+                        }
                     }
                 }
             }
@@ -839,6 +865,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 HashSet<string> hashShowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+                if (displayName != null && displayName.LocalizedLabels != null)
                 {
                     var sortedDisplay = displayName.LocalizedLabels.Where(l => listLocale.Contains(l.LanguageCode) && !string.IsNullOrEmpty(l.Label) && !hashShowed.Contains(l.Label));
 
@@ -867,6 +894,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
+                if (displayCollectionName != null && displayCollectionName.LocalizedLabels != null)
                 {
                     var sortedDisplayCollectionName = displayCollectionName.LocalizedLabels.Where(l => listLocale.Contains(l.LanguageCode) && !string.IsNullOrEmpty(l.Label) && !hashShowed.Contains(l.Label));
 
@@ -898,6 +926,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
+                if (description != null && description.LocalizedLabels != null)
                 {
                     var sortedDescription = description.LocalizedLabels.Where(l => listLocale.Contains(l.LanguageCode) && !string.IsNullOrEmpty(l.Label) && !hashShowed.Contains(l.Label));
 
@@ -935,13 +964,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             List<int> listLocale = new List<int>();
 
-            foreach (var item in displayName.LocalizedLabels)
+            if (displayName != null && displayName.LocalizedLabels != null)
             {
-                if (!string.IsNullOrEmpty(item.Label))
+                foreach (var item in displayName.LocalizedLabels)
                 {
-                    if (!listLocale.Contains(item.LanguageCode))
+                    if (!string.IsNullOrEmpty(item.Label))
                     {
-                        listLocale.Add(item.LanguageCode);
+                        if (!listLocale.Contains(item.LanguageCode))
+                        {
+                            listLocale.Add(item.LanguageCode);
+                        }
                     }
                 }
             }
@@ -961,6 +993,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 HashSet<string> hashShowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+                if (displayName != null && displayName.LocalizedLabels != null)
                 {
                     var locLabel = displayName.LocalizedLabels.FirstOrDefault(lbl => lbl.LanguageCode == localeId && !hashShowed.Contains(lbl.Label));
 
@@ -977,6 +1010,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
+                if (displayCollectionName != null && displayCollectionName.LocalizedLabels != null)
                 {
                     var locLabel = displayCollectionName.LocalizedLabels.FirstOrDefault(lbl => lbl.LanguageCode == localeId && !hashShowed.Contains(lbl.Label));
 
@@ -993,6 +1027,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
+                if (description != null && description.LocalizedLabels != null)
                 {
                     var locLabel = description.LocalizedLabels.FirstOrDefault(lbl => lbl.LanguageCode == localeId && !hashShowed.Contains(lbl.Label));
 
