@@ -20,15 +20,17 @@
             <Separator/>
             <MenuItem Header="Plugin Type Description" VerticalAlignment="Center" Click="mICreatePluginTypeDescription_Click"/>
             <Separator/>
-            <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
-            <Separator/>
-            <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-            <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
             <Separator/>
-            <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportPlugiTypeDependentComponents_Click" />
-            <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportPlugiTypeRequiredComponents_Click" />
-            <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center"  Click="mIExportPlugiTypeDependenciesForDelete_Click" />
+            <MenuItem Header="Dependent Components">
+                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                <Separator/>
+                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                <Separator/>
+                <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportPlugiTypeDependentComponents_Click" />
+                <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportPlugiTypeRequiredComponents_Click" />
+                <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportPlugiTypeDependenciesForDelete_Click" />
+            </MenuItem>
             <Separator/>
             <MenuItem Header="Export all Plugin Type Information" Click="btnExportAll_Click"/>
         </ContextMenu>
@@ -79,15 +81,17 @@
                             <Separator/>
                             <MenuItem x:Name="mICreatePluginTypeDescription" Header="Plugin Type Description" VerticalAlignment="Center" Click="mICreatePluginTypeDescription_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIOpenDependentComponentsInWeb" Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
-                            <Separator/>
-                            <MenuItem x:Name="mIOpenDependentComponentsInWindow" Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-                            <Separator/>
                             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mIExportPlugiTypeDependentComponents" Header="Dependent Components" VerticalAlignment="Center" Click="mIExportPlugiTypeDependentComponents_Click" />
-                            <MenuItem x:Name="mIExportPlugiTypeRequiredComponents" Header="Required Components" VerticalAlignment="Center" Click="mIExportPlugiTypeRequiredComponents_Click" />
-                            <MenuItem x:Name="mIExportPlugiTypeDependenciesForDelete" Header="Dependencies For Delete" VerticalAlignment="Center"  Click="mIExportPlugiTypeDependenciesForDelete_Click" />
+                            <MenuItem Header="Dependent Components">
+                                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                                <Separator/>
+                                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                                <Separator/>
+                                <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportPlugiTypeDependentComponents_Click" />
+                                <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportPlugiTypeRequiredComponents_Click" />
+                                <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportPlugiTypeDependenciesForDelete_Click" />
+                            </MenuItem>
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>

@@ -173,11 +173,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         bool enabled = this._controlsEnabled && connection1 != null && connection2 != null;
 
-                        UIElement[] list = { tSDDBCompareOrganizations };
+                        UIElement[] list = { tSDDBCompareOrganizations, tSDDBTransfer };
 
                         foreach (var button in list)
                         {
                             button.IsEnabled = enabled;
+                        }
+
+                        if (enabled)
+                        {
+                            tSMITransferAuditFrom1To2.Header = string.Format("Audit from {0} to {1}", connection1.Name, connection2.Name);
+                            tSMITransferAuditFrom2To1.Header = string.Format("Audit from {1} to {0}", connection1.Name, connection2.Name);
                         }
                     }
 
@@ -1012,6 +1018,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _commonConfig.Save();
 
                         contr.ExecuteCreatingFileWithEntityMetadata(string.Empty, connection1, _commonConfig);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                });
+                backWorker.Start();
+            }
+        }
+
+        private void tSMIEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connection1 = null;
+            ConnectionData connection2 = null;
+
+            GetSelectedConnections(out connection1, out connection2);
+
+            if (connection1 != null && connection2 == null)
+            {
+                var backWorker = new Thread(() =>
+                {
+                    try
+                    {
+                        var contr = new EntityMetadataController(this._iWriteToOutput);
+
+                        _commonConfig.Save();
+
+                        contr.ExecuteOpeningEntityAttributeExplorer(string.Empty, connection1, _commonConfig);
                     }
                     catch (Exception ex)
                     {
@@ -2043,7 +2077,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #endregion Формы сравнения.
 
-        private async void ExecuteOperation(Func<OrganizationComparer, Task> function)
+        private async Task ExecuteOperation(Func<OrganizationComparer, Task> function)
         {
             if (!_controlsEnabled)
             {
@@ -2255,7 +2289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteListOperation(functions);
         }
 
-        private async void ExecuteListOperation(List<Func<OrganizationComparer, Task>> functions)
+        private async Task ExecuteListOperation(List<Func<OrganizationComparer, Task>> functions)
         {
             if (!_controlsEnabled)
             {
@@ -3045,5 +3079,134 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         #endregion Кнопки сравнения сред.
+
+        private async Task ExecuteOperationFrom1To2Async(Func<OrganizationCustomizationTransfer, Task> function)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ConnectionData connection1 = null;
+            ConnectionData connection2 = null;
+
+            GetSelectedConnections(out connection1, out connection2);
+
+            if (connection1 == null || connection2 == null)
+            {
+                return;
+            }
+
+            if (MessageBox.Show("Execute transfer operation?", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel) != MessageBoxResult.OK)
+            {
+                return;
+            }
+
+            string folder = string.Empty;
+            txtBFolder.Dispatcher.Invoke(() =>
+            {
+                folder = txtBFolder.Text.Trim();
+            });
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(folder))
+            {
+                return;
+            }
+
+            await ExecuteTrasnferOperation(function, connection1, connection2, folder);
+        }
+
+        private async Task ExecuteOperationFrom2To1Async(Func<OrganizationCustomizationTransfer, Task> function)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ConnectionData connection1 = null;
+            ConnectionData connection2 = null;
+
+            GetSelectedConnections(out connection1, out connection2);
+
+            if (connection1 == null || connection2 == null)
+            {
+                return;
+            }
+
+            if (MessageBox.Show("Execute transfer operation?", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel) != MessageBoxResult.OK)
+            {
+                return;
+            }
+
+            string folder = string.Empty;
+            txtBFolder.Dispatcher.Invoke(() =>
+            {
+                folder = txtBFolder.Text.Trim();
+            });
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(folder))
+            {
+                return;
+            }
+
+            await ExecuteTrasnferOperation(function, connection2, connection1, folder);
+        }
+
+        private async Task ExecuteTrasnferOperation(Func<OrganizationCustomizationTransfer, Task> function, ConnectionData connectionSource, ConnectionData connectionTarget, string folder)
+        {
+            ToggleControls(false);
+
+            UpdateStatus("Analizing organizations...");
+
+            this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            var trasnferHandler = new OrganizationCustomizationTransfer(connectionSource, connectionTarget, this._iWriteToOutput, folder);
+
+            await function(trasnferHandler);
+
+            this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            UpdateStatus("Operation is completed.");
+
+            ToggleControls(true);
+        }
+
+        private void tSMITransferAuditFrom1To2_Click(object sender, RoutedEventArgs e)
+        {
+            ExecuteOperationFrom1To2Async(TrasnferAudit);
+        }
+
+        private void tSMITransferAuditFrom2To1_Click(object sender, RoutedEventArgs e)
+        {
+            ExecuteOperationFrom2To1Async(TrasnferAudit);
+        }
+
+        private async Task TrasnferAudit(OrganizationCustomizationTransfer handler)
+        {
+            try
+            {
+                UpdateStatus("Transfer Audit...");
+
+                string filePath = await handler.TrasnferAuditAsync();
+
+                this._iWriteToOutput.WriteToOutput("Transfer Audit Log from {0} to {1} exported into file {2}", handler.ConnectionSource.Name, handler.ConnectionTarget.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
+        }
     }
 }

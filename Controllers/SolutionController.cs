@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Копирование компонентов из одного в другое.
 
-        public async void ExecuteOpeningSolutionComponentWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningSolutionComponentWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Solution Component Explorer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -73,7 +73,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование решения.
 
-        public async void ExecuteOpeningExportSolutionWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningExportSolutionWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Export Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -115,7 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление веб-ресурса в решение.
 
-        public async void ExecuteAddingWebResourcesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        public async Task ExecuteAddingWebResourcesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Adding WebResources into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -318,7 +318,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление отчета в решение.
 
-        public async void ExecuteAddingReportsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        public async Task ExecuteAddingReportsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Adding Reports into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -499,7 +499,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление компонентов в решение.
 
-        public async void ExecuteAddingComponentesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ComponentType componentType, IEnumerable<Guid> selectedObjects, RootComponentBehavior? rootComponentBehavior, bool withSelect)
+        public async Task ExecuteAddingComponentesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ComponentType componentType, IEnumerable<Guid> selectedObjects, RootComponentBehavior? rootComponentBehavior, bool withSelect)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -670,7 +670,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление компонентов в решение.
 
-        public async void ExecuteAddingComponentesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SolutionComponent> components, bool withSelect)
+        public async Task ExecuteAddingComponentesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SolutionComponent> components, bool withSelect)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -856,7 +856,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление сборки в решение по имени.
 
-        public async void ExecuteAddingPluginAssemblyIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
+        public async Task ExecuteAddingPluginAssemblyIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Adding PluginAssembly into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1027,7 +1027,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление шагов плагинов сборки в решение по имени.
 
-        public async void ExecuteAddingPluginAssemblyProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
+        public async Task ExecuteAddingPluginAssemblyProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Adding PluginAssembly Processing Steps into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1237,7 +1237,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление в решение шагов плагинов типа плагина по имени.
 
-        public async void ExecuteAddingPluginTypeProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
+        public async Task ExecuteAddingPluginTypeProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Adding PluginType Processing Steps into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 

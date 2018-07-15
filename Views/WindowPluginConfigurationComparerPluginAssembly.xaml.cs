@@ -95,7 +95,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._handler2 = new PluginConfigurationAssemblyDescriptionHandler(pluginDescription.GetConnectionInfo());
         }
 
-        private async void LoadPluginConfiguration(string filePath, Action<PluginDescription> setter, TextBox textBox)
+        private async Task LoadPluginConfiguration(string filePath, Action<PluginDescription> setter, TextBox textBox)
         {
             if (!_controlsEnabled)
             {
@@ -343,7 +343,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private async void ExecuteAction(LinkedEntities<PluginAssembly> link, Func<string, LinkedEntities<PluginAssembly>, Task> action)
+        private async Task ExecuteAction(LinkedEntities<PluginAssembly> link, Func<string, LinkedEntities<PluginAssembly>, Task> action)
         {
             if (!_controlsEnabled)
             {
@@ -527,7 +527,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionPluginAssemblyDescription(_handler2, this._pluginDescription2, link.Entity2, PerformExportDescriptionToFile);
         }
 
-        private async void ExecuteActionPluginAssemblyDescription(
+        private async Task ExecuteActionPluginAssemblyDescription(
             PluginConfigurationAssemblyDescriptionHandler handler
             , PluginDescription pluginDescription
             , PluginAssembly pluginAssembly

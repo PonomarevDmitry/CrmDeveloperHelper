@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Сравнение с веб-ресурсами.
 
-        public async void ExecuteComparingFilesAndWebResources(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
+        public async Task ExecuteComparingFilesAndWebResources(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
         {
             this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Comparing Files and WebResources at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -675,7 +675,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление в список на публикацию идентичных по тексту, но не по содержанию файлов.
 
-        public async void ExecuteAddingIntoPublishListFilesByType(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteAddingIntoPublishListFilesByType(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Adding into Publish List Files {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -727,7 +727,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Добавление в список на публикацию идентичных по тексту, но не по содержанию файлов.
 
-        public async void ExecuteComparingFilesWithWrongEncoding(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
+        public async Task ExecuteComparingFilesWithWrongEncoding(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
         {
             this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Comparing Files with Wrong Encoding and WebResources at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 

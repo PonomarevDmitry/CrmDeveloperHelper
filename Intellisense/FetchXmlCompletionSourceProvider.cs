@@ -7,9 +7,13 @@ using System.ComponentModel.Composition;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 {
-    [Export(typeof(ICompletionSourceProvider))]
     [Name("FetchXml")]
+    [Export(typeof(ICompletionSourceProvider))]
     [ContentType("XML")]
+    [Order(Before = "default")]
+    [Order(Before = "high")]
+    [Order(Before = Priority.High)]
+    [Order(Before = Priority.Default)]
     public class FetchXmlCompletionSourceProvider : ICompletionSourceProvider
     {
         [Import(typeof(ITextStructureNavigatorSelectorService))]

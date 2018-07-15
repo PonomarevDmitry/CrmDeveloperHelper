@@ -106,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Проверка образов шагов плагинов на дубликаты.
 
-        public async void ExecuteCheckingPluginImages(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteCheckingPluginImages(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Checking Plugin Images Duplicates at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -244,7 +244,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Проверка шагов плагинов на дубликаты.
 
-        public async void ExecuteCheckingPluginSteps(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteCheckingPluginSteps(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Checking Plugin Steps Duplicates at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -392,7 +392,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Проверка шагов плагинов на необходимые компоненты.
 
-        public async void ExecuteCheckingPluginStepsRequiredComponents(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteCheckingPluginStepsRequiredComponents(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Checking Plugin Steps Required Components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -651,7 +651,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Проверка образов шагов плагинов на необходимые компоненты.
 
-        public async void ExecuteCheckingPluginImagesRequiredComponents(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteCheckingPluginImagesRequiredComponents(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Checking Plugin Images Required Components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 

@@ -232,7 +232,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingOptionSets()
+        private async Task ShowExistingOptionSets()
         {
             if (!_controlsEnabled)
             {
@@ -614,7 +614,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void lstVwOptionSets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void lstVwOptionSets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -622,7 +622,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    await CreateCSharpFile(new[] { item.OptionSetMetadata });
+                    CreateCSharpFile(new[] { item.OptionSetMetadata });
                 }
             }
         }
@@ -756,12 +756,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
@@ -778,12 +773,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
@@ -1031,12 +1021,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {

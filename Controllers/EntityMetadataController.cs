@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Создание файла с мета-данными сущности.
 
-        public async void ExecuteCreatingFileWithEntityMetadata(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteCreatingFileWithEntityMetadata(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Creating File with Entity Metadata at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -69,9 +69,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Создание файла с мета-данными сущности.
 
+        #region Открытие Entity Attribute Explorer.
+
+        public async Task ExecuteOpeningEntityAttributeExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            this._iWriteToOutput.WriteToOutput("*********** Start Opening Entity Attribute Explorer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
+            {
+                await OpeningEntityAttributeExplorer(selection, connectionData, commonConfig);
+            }
+            catch (Exception xE)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(xE);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutput("*********** End Opening Entity Attribute Explorer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            }
+        }
+
+        private async Task OpeningEntityAttributeExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+
+            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+
+            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, commonConfig, selection, null);
+        }
+
+        #endregion Открытие Entity Attribute Explorer.
+
         #region Создание файла с глобальными OptionSet-ами.
 
-        public async void ExecuteCreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public async Task ExecuteCreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Creating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -120,7 +162,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Обновление файла с мета-данными сущности.
 
-        public async void ExecuteUpdateFileWithEntityMetadata(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        public async Task ExecuteUpdateFileWithEntityMetadata(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Updating File with Entity Metadata at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -237,7 +279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Обновление файла с глобальными OptionSet-ами.
 
-        public async void ExecuteUpdatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        public async Task ExecuteUpdatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Updating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 

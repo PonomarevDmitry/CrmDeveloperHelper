@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Дерево плагинов.
 
-        public async void ExecuteShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public async Task ExecuteShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Showing Plugin Tree at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Дерево сообщений.
 
-        public async void ExecuteShowingSdkMessageTree(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public async Task ExecuteShowingSdkMessageTree(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Showing Sdk Message Tree at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -106,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Дерево запросов.
 
-        public async void ExecuteShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public async Task ExecuteShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Showing Sdk Message Request Tree at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 

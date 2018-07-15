@@ -216,7 +216,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingEntities()
+        private async Task ShowExistingEntities()
         {
             if (!_controlsEnabled)
             {
@@ -388,7 +388,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     bool enabled = this._controlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
 
-                    UIElement[] list = { btnSystemForms, btnSavedQuery, btnSavedChart, btnWorkflows, btnCreateCSharpFile, btnCreateJavaScriptFile, btnGlobalOptionSets };
+                    UIElement[] list = { btnCreateCSharpFile, btnCreateJavaScriptFile };
 
                     foreach (var button in list)
                     {
@@ -442,6 +442,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             WindowHelper.OpenEntityRibbonWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, entityMetadataList);
+        }
+
+        private async void btnEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            IEnumerable<EntityMetadata> entityMetadataList = null;
+
+            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
+            {
+                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
+            }
+
+            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, entityMetadataList);
         }
 
         private async void btnGlobalOptionSets_Click(object sender, RoutedEventArgs e)
@@ -690,7 +708,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void ExecuteActionAsync(string entityName, Func<string, Task> action)
+        private async Task ExecuteActionAsync(string entityName, Func<string, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -971,16 +989,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
                 connectionData.OpenEntityMetadataInWeb(entity.EntityMetadata.MetadataId.Value);
+            }
+        }
+
+        private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenEntityListInWeb(entity.EntityLogicalName);
             }
         }
 
@@ -993,12 +1023,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
@@ -1165,12 +1190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {

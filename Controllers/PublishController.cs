@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// </summary>
         /// <param name="selectedFiles"></param>
         /// <param name="config"></param>
-        public async void ExecuteUpdateContentAndPublish(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        public async Task ExecuteUpdateContentAndPublish(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Updating Content and Publishing at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -206,7 +206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// </summary>
         /// <param name="selectedFiles"></param>
         /// <param name="config"></param>
-        public async void ExecuteUpdateContentAndPublishEqualByText(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        public async Task ExecuteUpdateContentAndPublishEqualByText(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Updating Content Web Resources equal by Text and Publishing at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -274,7 +274,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Публикация всего.
 
-        public async void ExecutePublishingAll(ConnectionData connectionData)
+        public async Task ExecutePublishingAll(ConnectionData connectionData)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Publishing All at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 

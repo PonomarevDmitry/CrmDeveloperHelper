@@ -216,7 +216,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return _сacheDescription[connectionData.ConnectionId];
         }
 
-        private async void ShowExistingSystemForms()
+        private async Task ShowExistingSystemForms()
         {
             if (!_controlsEnabled)
             {

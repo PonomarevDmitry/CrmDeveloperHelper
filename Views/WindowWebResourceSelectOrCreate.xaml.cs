@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -115,7 +116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._folderImage = this.Resources["ImageFolder"] as BitmapImage;
         }
 
-        private async void ShowExistingWebResources(Guid? lastLinkedWebResource = null)
+        private async Task ShowExistingWebResources(Guid? lastLinkedWebResource = null)
         {
             if (!_controlsEnabled)
             {

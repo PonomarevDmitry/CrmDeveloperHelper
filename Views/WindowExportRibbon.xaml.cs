@@ -210,7 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingEntities()
+        private async Task ShowExistingEntities()
         {
             if (!_controlsEnabled)
             {
@@ -388,11 +388,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     UIElement[] list =
                     {
-                        btnGlobalOptionSets
-                        , btnSystemForms
-                        , btnSavedQuery
-                        , btnSavedChart
-                        , btnWorkflows
+                        btnExportEntityRibbon
                     };
 
                     foreach (var button in list)
@@ -706,7 +702,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void PerformExportApplicationRibbon(string folder)
+        private async Task PerformExportApplicationRibbon(string folder)
         {
             if (!_controlsEnabled)
             {
@@ -894,16 +890,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
                 connectionData.OpenEntityMetadataInWeb(entity.EntityMetadata.MetadataId.Value);
+            }
+        }
+
+        private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenEntityListInWeb(entity.EntityLogicalName);
             }
         }
 
@@ -916,12 +924,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
@@ -1096,12 +1099,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {

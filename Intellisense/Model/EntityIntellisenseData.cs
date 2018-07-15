@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using System;
-using System.Linq;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
@@ -46,23 +47,62 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         private object _syncObjectManyToManyRelationships = new object();
 
         [DataMember]
-        public Dictionary<string, AttributeIntellisenseData> Attributes { get; private set; }
+        public ConcurrentDictionary<string, AttributeIntellisenseData> Attributes { get; private set; }
 
         [DataMember]
-        public Dictionary<string, ManyToOneRelationshipIntellisenseData> ManyToOneRelationships { get; private set; }
+        public ConcurrentDictionary<string, ManyToOneRelationshipIntellisenseData> ManyToOneRelationships { get; private set; }
 
         [DataMember]
-        public Dictionary<string, OneToManyRelationshipIntellisenseData> OneToManyRelationships { get; private set; }
+        public ConcurrentDictionary<string, OneToManyRelationshipIntellisenseData> OneToManyRelationships { get; private set; }
 
         [DataMember]
-        public Dictionary<string, ManyToManyRelationshipIntellisenseData> ManyToManyRelationships { get; private set; }
+        public ConcurrentDictionary<string, ManyToManyRelationshipIntellisenseData> ManyToManyRelationships { get; private set; }
 
         public EntityIntellisenseData()
         {
-            this.Attributes = new Dictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-            this.ManyToOneRelationships = new Dictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-            this.OneToManyRelationships = new Dictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-            this.ManyToManyRelationships = new Dictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+            this.Attributes = new ConcurrentDictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+            this.ManyToOneRelationships = new ConcurrentDictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+            this.OneToManyRelationships = new ConcurrentDictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+            this.ManyToManyRelationships = new ConcurrentDictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+        }
+
+        public IEnumerable<AttributeIntellisenseData> AttributesOrdered()
+        {
+            if (this.Attributes == null)
+            {
+                yield break;
+            }
+
+            if (!string.IsNullOrEmpty(this.EntityPrimaryIdAttribute))
+            {
+                if (this.Attributes.ContainsKey(this.EntityPrimaryIdAttribute))
+                {
+                    yield return this.Attributes[this.EntityPrimaryIdAttribute];
+                }
+            }
+
+            if (!string.IsNullOrEmpty(this.EntityPrimaryNameAttribute))
+            {
+                if (this.Attributes.ContainsKey(this.EntityPrimaryNameAttribute))
+                {
+                    yield return this.Attributes[this.EntityPrimaryNameAttribute];
+                }
+            }
+
+            foreach (var attribute in this.Attributes.Values.OrderBy(e => e.LogicalName))
+            {
+                if (string.Equals(attribute.LogicalName, this.EntityPrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    continue;
+                }
+
+                if (string.Equals(attribute.LogicalName, this.EntityPrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    continue;
+                }
+
+                yield return attribute;
+            }
         }
 
         [OnDeserializing]
@@ -77,7 +117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 if (Attributes == null)
                 {
-                    this.Attributes = new Dictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                    this.Attributes = new ConcurrentDictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
             }
 
@@ -85,7 +125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 if (ManyToOneRelationships == null)
                 {
-                    this.ManyToOneRelationships = new Dictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                    this.ManyToOneRelationships = new ConcurrentDictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
             }
 
@@ -93,7 +133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 if (OneToManyRelationships == null)
                 {
-                    this.OneToManyRelationships = new Dictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                    this.OneToManyRelationships = new ConcurrentDictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
             }
 
@@ -101,7 +141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 if (ManyToManyRelationships == null)
                 {
-                    this.ManyToManyRelationships = new Dictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                    this.ManyToManyRelationships = new ConcurrentDictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
             }
         }
@@ -159,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 {
                     if (this.Attributes == null)
                     {
-                        this.Attributes = new Dictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                        this.Attributes = new ConcurrentDictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                     }
                 }
 
@@ -169,11 +209,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     {
                         if (!this.Attributes.ContainsKey(attr.LogicalName))
                         {
-                            this.Attributes.Add(attr.LogicalName, new AttributeIntellisenseData());
+                            this.Attributes.TryAdd(attr.LogicalName, new AttributeIntellisenseData());
                         }
                     }
 
-                    this.Attributes[attr.LogicalName].LoadData(attr);
+                    this.Attributes[attr.LogicalName].LoadData(attr
+                        , string.Equals(attr.LogicalName, entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase)
+                        , string.Equals(attr.LogicalName, entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase)
+                        );
                 }
             }
 
@@ -183,7 +226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 {
                     if (this.OneToManyRelationships == null)
                     {
-                        this.OneToManyRelationships = new Dictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                        this.OneToManyRelationships = new ConcurrentDictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                     }
                 }
 
@@ -193,7 +236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     {
                         if (!this.OneToManyRelationships.ContainsKey(item.SchemaName))
                         {
-                            this.OneToManyRelationships.Add(item.SchemaName, new OneToManyRelationshipIntellisenseData());
+                            this.OneToManyRelationships.TryAdd(item.SchemaName, new OneToManyRelationshipIntellisenseData());
                         }
                     }
 
@@ -207,7 +250,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 {
                     if (this.ManyToOneRelationships == null)
                     {
-                        this.ManyToOneRelationships = new Dictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                        this.ManyToOneRelationships = new ConcurrentDictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                     }
                 }
 
@@ -217,7 +260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     {
                         if (!this.ManyToOneRelationships.ContainsKey(item.SchemaName))
                         {
-                            this.ManyToOneRelationships.Add(item.SchemaName, new ManyToOneRelationshipIntellisenseData());
+                            this.ManyToOneRelationships.TryAdd(item.SchemaName, new ManyToOneRelationshipIntellisenseData());
                         }
                     }
 
@@ -231,7 +274,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 {
                     if (this.ManyToManyRelationships == null)
                     {
-                        this.ManyToManyRelationships = new Dictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                        this.ManyToManyRelationships = new ConcurrentDictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                     }
                 }
 
@@ -241,7 +284,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     {
                         if (!this.ManyToManyRelationships.ContainsKey(item.SchemaName))
                         {
-                            this.ManyToManyRelationships.Add(item.SchemaName, new ManyToManyRelationshipIntellisenseData());
+                            this.ManyToManyRelationships.TryAdd(item.SchemaName, new ManyToManyRelationshipIntellisenseData());
                         }
                     }
 
@@ -316,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 {
                     if (this.Attributes == null)
                     {
-                        this.Attributes = new Dictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                        this.Attributes = new ConcurrentDictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                     }
                 }
 
@@ -326,7 +369,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     {
                         if (!this.Attributes.ContainsKey(attr.LogicalName))
                         {
-                            this.Attributes.Add(attr.LogicalName, attr);
+                            this.Attributes.TryAdd(attr.LogicalName, attr);
                         }
                         else
                         {
@@ -342,7 +385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 {
                     if (this.OneToManyRelationships == null)
                     {
-                        this.OneToManyRelationships = new Dictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                        this.OneToManyRelationships = new ConcurrentDictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                     }
                 }
 
@@ -352,7 +395,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     {
                         if (!this.OneToManyRelationships.ContainsKey(item.SchemaName))
                         {
-                            this.OneToManyRelationships.Add(item.SchemaName, item);
+                            this.OneToManyRelationships.TryAdd(item.SchemaName, item);
                         }
                         else
                         {
@@ -368,7 +411,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 {
                     if (this.ManyToOneRelationships == null)
                     {
-                        this.ManyToOneRelationships = new Dictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                        this.ManyToOneRelationships = new ConcurrentDictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                     }
                 }
 
@@ -378,7 +421,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     {
                         if (!this.ManyToOneRelationships.ContainsKey(item.SchemaName))
                         {
-                            this.ManyToOneRelationships.Add(item.SchemaName, item);
+                            this.ManyToOneRelationships.TryAdd(item.SchemaName, item);
                         }
                         else
                         {
@@ -394,7 +437,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 {
                     if (this.ManyToManyRelationships == null)
                     {
-                        this.ManyToManyRelationships = new Dictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                        this.ManyToManyRelationships = new ConcurrentDictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                     }
                 }
 
@@ -402,7 +445,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 {
                     if (!this.ManyToManyRelationships.ContainsKey(item.SchemaName))
                     {
-                        this.ManyToManyRelationships.Add(item.SchemaName, item);
+                        this.ManyToManyRelationships.TryAdd(item.SchemaName, item);
                     }
                     else
                     {

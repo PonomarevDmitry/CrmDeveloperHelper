@@ -178,7 +178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingSolutions()
+        private async Task ShowExistingSolutions()
         {
             if (!_controlsEnabled)
             {
@@ -703,6 +703,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
 
             itemCollection.Add(mIOpenComponentsInWindow);
+            itemCollection.Add(new Separator());
             itemCollection.Add(mIOpenSolutionInWeb);
 
             if (solution.IsManaged.GetValueOrDefault() == false)
@@ -769,7 +770,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private void ExecuteActionOnSingleSolution(Solution solution, Action<string, Solution> action)
+        private void ExecuteActionOnSingleSolution(Solution solution, Func<string, Solution, Task> action)
         {
             if (!_controlsEnabled)
             {
@@ -843,7 +844,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void PerformCreateFileWithSolutionComponents(string folder, Solution solution)
+        private async Task PerformCreateFileWithSolutionComponents(string folder, Solution solution)
         {
             try
             {
@@ -884,7 +885,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void PerformOpenSolutionComponentsInWindow(string folder, Solution solution)
+        private async Task PerformOpenSolutionComponentsInWindow(string folder, Solution solution)
         {
             try
             {
@@ -912,7 +913,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void PerformShowingMissingDependencies(string folder, Solution solution)
+        private async Task PerformShowingMissingDependencies(string folder, Solution solution)
         {
             try
             {
@@ -968,7 +969,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void PerformShowingDependenciesForUninstall(string folder, Solution solution)
+        private async Task PerformShowingDependenciesForUninstall(string folder, Solution solution)
         {
             try
             {
@@ -1052,7 +1053,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void ExecuteActionOnSolutionPair(Solution solution1, Solution solution2, Action<string, Solution, Solution> action)
+        private void ExecuteActionOnSolutionPair(Solution solution1, Solution solution2, Func<string, Solution, Solution, Task> action)
         {
             if (!_controlsEnabled)
             {
@@ -1086,7 +1087,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void ExecuteActionOnSolutionAndSolutionCollection(Solution[] solutions, Solution solution, Action<string, Solution[], Solution> action)
+        private void ExecuteActionOnSolutionAndSolutionCollection(Solution[] solutions, Solution solution, Func<string, Solution[], Solution, Task> action)
         {
             if (!_controlsEnabled)
             {
@@ -1120,7 +1121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void PerformAnalizeSolutions(string folder, Solution solution1, Solution solution2)
+        private async Task PerformAnalizeSolutions(string folder, Solution solution1, Solution solution2)
         {
             try
             {
@@ -1153,7 +1154,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void PerformAnalizeSolutionsAndShowUnique(string folder, Solution solution1, Solution solution2)
+        private async Task PerformAnalizeSolutionsAndShowUnique(string folder, Solution solution1, Solution solution2)
         {
             try
             {
@@ -1246,7 +1247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void PerformCopyFromSolution1ToSolution2(string folder, Solution solutionSource, Solution solutionTarget)
+        private async Task PerformCopyFromSolution1ToSolution2(string folder, Solution solutionSource, Solution solutionTarget)
         {
             try
             {
@@ -1332,7 +1333,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true);
             }
         }
-        private async void PerformCopyFromSolutionCollectionToSolution(string folder, Solution[] solutionSourceCollection, Solution solutionTarget)
+        private async Task PerformCopyFromSolutionCollectionToSolution(string folder, Solution[] solutionSourceCollection, Solution solutionTarget)
         {
             try
             {
@@ -1468,16 +1469,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void miCreateNewSolution_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
                 connectionData.OpenSolutionCreateInWeb();
+            }
+        }
+
+        private void mIOpenSolutionListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenCrmWebSite(OpenCrmWebSiteType.Solutions);
+            }
+        }
+
+        private void mIOpenCustomizationInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenCrmWebSite(OpenCrmWebSiteType.Customization);
             }
         }
 
@@ -1499,7 +1515,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void PerformClearUnmanagedSolution(string folder, Solution solution)
+        private async Task PerformClearUnmanagedSolution(string folder, Solution solution)
         {
             try
             {
@@ -1559,15 +1575,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnKeyDown(e);
         }
 
-        private async void mIOpenSolutionInWeb_Click(object sender, RoutedEventArgs e)
+        private void mIOpenSolutionInWeb_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag is Solution solution
                 )
             {
-                var service = await GetService();
+                ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
-                service.ConnectionData.OpenSolutionInWeb(solution.Id);
+                if (connectionData != null)
+                {
+                    connectionData.OpenSolutionInWeb(solution.Id);
+                }
             }
         }
 
@@ -1591,7 +1610,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void PerformCreateFileWithUsedEntitiesInWorkflows(string folder, Solution solution)
+        private async Task PerformCreateFileWithUsedEntitiesInWorkflows(string folder, Solution solution)
         {
             try
             {
@@ -1632,7 +1651,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void PerformCreateFileWithUsedNotExistsEntitiesInWorkflows(string folder, Solution solution)
+        private async Task PerformCreateFileWithUsedNotExistsEntitiesInWorkflows(string folder, Solution solution)
         {
             try
             {

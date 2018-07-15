@@ -184,7 +184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingOptionSets()
+        private async Task ShowExistingOptionSets()
         {
             if (!_controlsEnabled)
             {
@@ -681,7 +681,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             CreateGlobalOptionSetsCSharpFile(GetService2, txtBNameSpace2.Text.Trim(), optionSets);
         }
 
-        private async void CreateGlobalOptionSetsCSharpFile(Func<Task<IOrganizationServiceExtented>> getService, string nameSpace, IEnumerable<OptionSetMetadata> optionSets)
+        private async Task CreateGlobalOptionSetsCSharpFile(Func<Task<IOrganizationServiceExtented>> getService, string nameSpace, IEnumerable<OptionSetMetadata> optionSets)
         {
             if (!_controlsEnabled)
             {
@@ -861,7 +861,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnKeyDown(e);
         }
 
-        private async void lstVwOptionSets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void lstVwOptionSets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -872,7 +872,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var optionSets1 = new[] { item.OptionSetMetadata1 };
                     var optionSets2 = new[] { item.OptionSetMetadata2 };
 
-                    await PerformComparingCSharpFiles(optionSets1, optionSets2);
+                    PerformComparingCSharpFiles(optionSets1, optionSets2);
                 }
             }
         }

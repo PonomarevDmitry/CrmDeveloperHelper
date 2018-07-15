@@ -6,6 +6,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,21 +26,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// <summary>
         /// Маппинг расширений файла
         /// </summary>
-        private static Dictionary<string, int> Types = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase)
-        {
-            {".html", 1},
-            {".htm", 1},
-            {".css", 2},
-            {".js", 3},
-            {".xml", 4},
-            {".png", 5},
-            {".jpg", 6},
-            {".gif", 7},
-            {".xap", 8},
-            {".xslt", 9},
-            {".xsl", 9},
-            {".ico", 10}
-        };
+        private static ConcurrentDictionary<string, int> Types = new ConcurrentDictionary<string, int>
+        (
+            new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                {".html", 1},
+                {".htm", 1},
+                {".css", 2},
+                {".js", 3},
+                {".xml", 4},
+                {".png", 5},
+                {".jpg", 6},
+                {".gif", 7},
+                {".xap", 8},
+                {".xslt", 9},
+                {".xsl", 9},
+                {".ico", 10}
+            }
+            , StringComparer.InvariantCultureIgnoreCase
+        );
 
 
         /// <summary>

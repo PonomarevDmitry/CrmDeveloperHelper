@@ -93,7 +93,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Создание связи отчета.
 
-        public async void ExecuteCreatingLastLinkReport(SelectedFile selectedFile, ConnectionData connectionData)
+        public async Task ExecuteCreatingLastLinkReport(SelectedFile selectedFile, ConnectionData connectionData)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Creating Last Link for Report at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -221,7 +221,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Создание связи веб-ресурсов.
 
-        public async void ExecuteCreatingLastLinkWebResourceMultiple(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        public async Task ExecuteCreatingLastLinkWebResourceMultiple(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Creating Last Link for WebResources at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -342,7 +342,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Открытие отчетов.
 
-        public async void ExecuteOpeningReport(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOpenComponent action)
+        public async Task ExecuteOpeningReport(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOpenComponent action)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Opening Report at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -511,7 +511,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Открытие веб-ресурсов.
 
-        public async void ExecuteOpeningWebResource(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOpenComponent action)
+        public async Task ExecuteOpeningWebResource(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOpenComponent action)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Opening WebResource at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -688,7 +688,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Открытие веб-ресурсов.
 
-        public async void ExecuteOpeningSolutionAsync(CommonConfiguration commonConfig, ConnectionData connectionData, string solutionUniqueName, ActionOpenComponent action)
+        public async Task ExecuteOpeningSolutionAsync(CommonConfiguration commonConfig, ConnectionData connectionData, string solutionUniqueName, ActionOpenComponent action)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Opening Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 

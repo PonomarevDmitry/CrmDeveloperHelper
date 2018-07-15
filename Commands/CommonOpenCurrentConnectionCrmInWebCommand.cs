@@ -18,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static void ActionExecute(DTEHelper helper)
         {
-            helper.HandleOpenCrmInWeb(null);
+            helper.HandleOpenCrmInWeb(null, Model.OpenCrmWebSiteType.CrmWebApplication);
         }
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)

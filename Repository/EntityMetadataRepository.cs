@@ -32,6 +32,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _Service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
+        public Task<List<EntityMetadata>> GetEntitiesDisplayNameAsync()
+        {
+            return Task<List<EntityMetadata>>.Run(() => GetEntitiesDisplayName());
+        }
+
         private List<EntityMetadata> GetEntitiesDisplayName()
         {
             //RetrieveAllEntitiesRequest raer = new RetrieveAllEntitiesRequest() { EntityFilters = flags };
@@ -58,11 +63,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_Service.Execute(request);
 
             return response.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
-        }
-
-        public Task<List<EntityMetadata>> GetEntitiesDisplayNameAsync()
-        {
-            return Task<List<EntityMetadata>>.Run(() => GetEntitiesDisplayName());
         }
 
         public Task<List<EntityMetadata>> GetEntitiesWithAttributesAndRelationshipsAsync()
@@ -228,6 +228,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
         }
 
+        public Task<List<EntityMetadata>> GetEntitiesPropertiesAsync(string entityName, int? entityTypeCode, params string[] properties)
+        {
+            return Task<List<EntityMetadata>>.Run(() => GetEntitiesProperties(entityName, entityTypeCode, properties));
+        }
+
         private List<EntityMetadata> GetEntitiesProperties(string entityName, int? entityTypeCode, params string[] properties)
         {
             MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression(properties)
@@ -281,11 +286,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return new List<EntityMetadata>();
         }
 
-        public Task<List<EntityMetadata>> GetEntitiesPropertiesAsync(string entityName, int? entityTypeCode, params string[] properties)
-        {
-            return Task<List<EntityMetadata>>.Run(() => GetEntitiesProperties(entityName, entityTypeCode, properties));
-        }
-
         public Task ExportEntityXmlAsync(string entityName, string filePath)
         {
             return Task.Run(() => ExportEntityXml(entityName, filePath));
@@ -309,6 +309,168 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 File.WriteAllText(filePath, text, Encoding.UTF8);
             }
+        }
+
+        public Task<EntityMetadata> GetEntityMetadataAttributesAsync(string entityName, EntityFilters filters)
+        {
+            return Task.Run(() => GetEntityMetadataAttributes(entityName, filters));
+        }
+
+        private EntityMetadata GetEntityMetadataAttributes(string entityName, EntityFilters filters)
+        {
+            try
+            {
+                RetrieveEntityRequest request = new RetrieveEntityRequest()
+                {
+                    LogicalName = entityName,
+                    EntityFilters = filters,
+                };
+
+                var response = (RetrieveEntityResponse)_Service.Execute(request);
+
+                return response.EntityMetadata;
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+
+                return null;
+            }
+        }
+
+        public Task<AttributeMetadata> GetAttributeMetadataAsync(Guid idAttributeMetadata)
+        {
+            return Task.Run(() => GetAttributeMetadata(idAttributeMetadata));
+        }
+
+        private AttributeMetadata GetAttributeMetadata(Guid idAttributeMetadata)
+        {
+            try
+            {
+                RetrieveAttributeRequest request = new RetrieveAttributeRequest()
+                {
+                    MetadataId = idAttributeMetadata,
+                };
+
+                var response = (RetrieveAttributeResponse)_Service.Execute(request);
+
+                return response.AttributeMetadata;
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+
+                return null;
+            }
+        }
+
+        public Task<EntityMetadata> GetEntityMetadataAttributesAsync(Guid idEntityMetadata, EntityFilters filters)
+        {
+            return Task.Run(() => GetEntityMetadataAttributes(idEntityMetadata, filters));
+        }
+
+        private EntityMetadata GetEntityMetadataAttributes(Guid idEntityMetadata, EntityFilters filters)
+        {
+            try
+            {
+                RetrieveEntityRequest request = new RetrieveEntityRequest()
+                {
+                    MetadataId = idEntityMetadata,
+                    EntityFilters = filters,
+                };
+
+                var response = (RetrieveEntityResponse)_Service.Execute(request);
+
+                return response.EntityMetadata;
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+
+                return null;
+            }
+        }
+
+        public Task<List<EntityMetadata>> GetEntitiesForEntityAttributeExplorerAsync(EntityFilters filters)
+        {
+            return Task<List<EntityMetadata>>.Run(() => GetEntitiesForEntityAttributeExplorer(filters));
+        }
+
+        private List<EntityMetadata> GetEntitiesForEntityAttributeExplorer(EntityFilters filters)
+        {
+            RetrieveAllEntitiesRequest raer = new RetrieveAllEntitiesRequest() { EntityFilters = filters };
+
+            RetrieveAllEntitiesResponse resp = (RetrieveAllEntitiesResponse)_Service.Execute(raer);
+
+            return resp.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
+        }
+
+        public Task UpdateAttributeMetadataAsync(AttributeMetadata attributeMetadata)
+        {
+            return Task.Run(() => UpdateAttributeMetadata(attributeMetadata));
+        }
+
+        private void UpdateAttributeMetadata(AttributeMetadata attributeMetadata)
+        {
+            var request = new UpdateAttributeRequest()
+            {
+                Attribute = attributeMetadata,
+                EntityName = attributeMetadata.EntityLogicalName,
+            };
+
+            var response = (UpdateAttributeResponse)_Service.Execute(request);
+        }
+
+        public Task UpdateEntityMetadataAsync(EntityMetadata entityMetadata)
+        {
+            return Task.Run(() => UpdateEntityMetadata(entityMetadata));
+        }
+
+        private void UpdateEntityMetadata(EntityMetadata entityMetadata)
+        {
+            var request = new UpdateEntityRequest()
+            {
+                Entity = entityMetadata,
+            };
+
+            var response = (UpdateEntityResponse)_Service.Execute(request);
+        }
+
+        public Task<List<EntityMetadata>> GetEntitiesWithAttributesForAuditAsync()
+        {
+            return Task.Run(() => GetEntitiesWithAttributesForAudit());
+        }
+
+        private List<EntityMetadata> GetEntitiesWithAttributesForAudit()
+        {
+            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression("LogicalName", "IsAuditEnabled", "Attributes")
+            {
+                AllProperties = false
+            };
+
+            MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression("AttributeOf", "EntityLogicalName", "LogicalName", "IsAuditEnabled")
+            {
+                AllProperties = false
+            };
+
+            EntityQueryExpression entityQueryExpression = new EntityQueryExpression()
+            {
+                Properties = entityProperties,
+
+                AttributeQuery = new AttributeQueryExpression()
+                {
+                    Properties = attributeProperties
+                },
+            };
+
+            RetrieveMetadataChangesRequest request = new RetrieveMetadataChangesRequest()
+            {
+                Query = entityQueryExpression,
+            };
+
+            RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_Service.Execute(request);
+
+            return response.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
         }
     }
 }

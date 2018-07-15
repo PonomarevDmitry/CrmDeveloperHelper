@@ -3,6 +3,7 @@ using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public partial class SolutionComponentDescriptor
     {
-        private Dictionary<int, Dictionary<Guid, Entity>> _cache = new Dictionary<int, Dictionary<Guid, Entity>>();
+        private ConcurrentDictionary<int, ConcurrentDictionary<Guid, Entity>> _cache = new ConcurrentDictionary<int, ConcurrentDictionary<Guid, Entity>>();
 
         public List<T> GetEntities<T>(int componentType, IEnumerable<Guid?> components) where T : Entity
         {
@@ -1558,7 +1559,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void CacheEntities(int componentType, List<Entity> listEntities)
         {
-            Dictionary<Guid, Entity> componentCache = null;
+            ConcurrentDictionary<Guid, Entity> componentCache = null;
 
             lock (_syncObjectEntityCache)
             {
@@ -1568,9 +1569,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 else
                 {
-                    componentCache = new Dictionary<Guid, Entity>();
+                    componentCache = new ConcurrentDictionary<Guid, Entity>();
 
-                    _cache.Add(componentType, componentCache);
+                    _cache.TryAdd(componentType, componentCache);
                 }
             }
 
@@ -1578,7 +1579,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 foreach (var entity in listEntities)
                 {
-                    componentCache.Add(entity.Id, entity);
+                    componentCache.TryAdd(entity.Id, entity);
                 }
             }
         }

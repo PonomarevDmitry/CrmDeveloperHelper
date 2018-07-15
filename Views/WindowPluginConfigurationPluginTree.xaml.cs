@@ -211,7 +211,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnKeyDown(e);
         }
 
-        private async void LoadPluginConfiguration(string filePath)
+        private async Task LoadPluginConfiguration(string filePath)
         {
             if (!_controlsEnabled)
             {

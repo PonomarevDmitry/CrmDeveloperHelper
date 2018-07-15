@@ -77,7 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
         }
 
-        private async void LoadPluginConfiguration(string filePath)
+        private async Task LoadPluginConfiguration(string filePath)
         {
             if (!_controlsEnabled)
             {
@@ -304,7 +304,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private async void ExecuteAction(PluginTypeFullInfo entity, Func<string, PluginTypeFullInfo, Task> action)
+        private async Task ExecuteAction(PluginTypeFullInfo entity, Func<string, PluginTypeFullInfo, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -360,7 +360,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return Task.Run(() => PerformPluginTypeDescription(folder, pluginType));
         }
 
-        private async void PerformPluginTypeDescription(string folder, PluginTypeFullInfo pluginType)
+        private async Task PerformPluginTypeDescription(string folder, PluginTypeFullInfo pluginType)
         {
             var handler = new PluginTypeConfigurationDescriptionHandler();
 

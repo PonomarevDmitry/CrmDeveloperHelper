@@ -163,7 +163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingReports()
+        private async Task ShowExistingReports()
         {
             if (!_controlsEnabled)
             {

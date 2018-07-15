@@ -1053,6 +1053,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                         }
                         catch (Exception ex)
                         {
+                            File.Delete(filePath);
+
                             DTEHelper.WriteExceptionToOutput(ex);
 
                             result = null;
@@ -1119,25 +1121,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             DataContractSerializer ser = new DataContractSerializer(typeof(CommonConfiguration));
 
-            lock (_syncObjectFile)
+            byte[] fileBody = null;
+
+            using (var memoryStream = new MemoryStream())
             {
                 try
                 {
-                    using (var stream = File.Create(filePath))
-                    {
-                        XmlWriterSettings settings = new XmlWriterSettings();
-                        settings.Indent = true;
-                        settings.Encoding = Encoding.UTF8;
+                    XmlWriterSettings settings = new XmlWriterSettings();
+                    settings.Indent = true;
+                    settings.Encoding = Encoding.UTF8;
 
-                        using (XmlWriter xmlWriter = XmlWriter.Create(stream, settings))
-                        {
-                            ser.WriteObject(xmlWriter, this);
-                        }
+                    using (XmlWriter xmlWriter = XmlWriter.Create(memoryStream, settings))
+                    {
+                        ser.WriteObject(xmlWriter, this);
                     }
+
+                    fileBody = memoryStream.ToArray();
                 }
                 catch (Exception ex)
                 {
                     DTEHelper.WriteExceptionToLog(ex);
+
+                    fileBody = null;
+                }
+            }
+
+            if (fileBody != null)
+            {
+                lock (_syncObjectFile)
+                {
+                    try
+                    {
+                        try
+                        {
+
+                        }
+                        finally
+                        {
+                            File.WriteAllBytes(filePath, fileBody);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToLog(ex);
+                    }
                 }
             }
         }

@@ -8,6 +8,7 @@ using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -108,7 +109,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             , { PackageIds.FolderMultiDifferenceFilesWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplex }
         };
 
-        private static Dictionary<Tuple<Func<DTEHelper, List<SelectedFile>>, OpenFilesType>, MultiDifferenceCommand> _instances = new Dictionary<Tuple<Func<DTEHelper, List<SelectedFile>>, OpenFilesType>, MultiDifferenceCommand>();
+        private static ConcurrentDictionary<Tuple<Func<DTEHelper, List<SelectedFile>>, OpenFilesType>, MultiDifferenceCommand> _instances = new ConcurrentDictionary<Tuple<Func<DTEHelper, List<SelectedFile>>, OpenFilesType>, MultiDifferenceCommand>();
 
         public static MultiDifferenceCommand Instance(Func<DTEHelper, List<SelectedFile>> listGetter, OpenFilesType openFilesType)
         {
@@ -128,28 +129,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             {
                 var command = new MultiDifferenceCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFilesInListForPublish, item.Item2, ActionBeforeQueryStatusListForPublishWebResourceTextAnyDifferenceProgramm);
 
-                _instances.Add(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetSelectedFilesInListForPublish, item.Item2), command);
+                _instances.TryAdd(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetSelectedFilesInListForPublish, item.Item2), command);
             }
 
             foreach (var item in _commandsDocuments)
             {
                 var command = new MultiDifferenceCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetOpenedDocuments, item.Item2, ActionBeforeQueryStatusOpenedDocumentsWebResourceTextDifferenceProgramm);
 
-                _instances.Add(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetOpenedDocuments, item.Item2), command);
+                _instances.TryAdd(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetOpenedDocuments, item.Item2), command);
             }
 
             foreach (var item in _commandsFile)
             {
                 var command = new MultiDifferenceCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFiles, item.Item2, ActionBeforeQueryStatusSolutionExplorerWebResourceTextAnyDifferenceProgramm);
 
-                _instances.Add(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetSelectedFiles, item.Item2), command);
+                _instances.TryAdd(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetSelectedFiles, item.Item2), command);
             }
 
             foreach (var item in _commandsFolder)
             {
                 var command = new MultiDifferenceCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFilesRecursive, item.Item2, ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursiveDifferenceProgramm);
 
-                _instances.Add(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetSelectedFilesRecursive, item.Item2), command);
+                _instances.TryAdd(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetSelectedFilesRecursive, item.Item2), command);
             }
         }
 

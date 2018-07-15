@@ -249,7 +249,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingPlugins()
+        private async Task ShowExistingPlugins()
         {
             if (!_controlsEnabled)
             {

@@ -227,7 +227,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonCheckPluginImagesRequiredComponentsCommand.Initialize(this);
             CommonCheckPluginStepsCommand.Initialize(this);
             CommonCheckPluginStepsRequiredComponentsCommand.Initialize(this);
-            CommonOpenAdvancedFindCommand.Initialize(this);
             CommonOpenCrmWebSiteCommand.Initialize(this);
             CommonOpenCurrentConnectionCrmInWebCommand.Initialize(this);
             CommonConfigCommand.Initialize(this);
@@ -236,6 +235,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonCrmConnectionTestCommand.Initialize(this);
             CommonExportAttributesAndDependentComponentsCommand.Initialize(this);
             CommonExportEntityMetadataCommand.Initialize(this);
+            CommonEntityAttributeExplorerCommand.Initialize(this);
             CommonExportFormEventsCommand.Initialize(this);
             CommonExportGlobalOptionSetsCommand.Initialize(this);
             CommonExportOrganizationCommand.Initialize(this);

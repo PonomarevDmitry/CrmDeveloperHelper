@@ -11,6 +11,10 @@
             <Separator/>
             <MenuItem Header="Open Solution in Web" Click="btnOpenSolutionInWeb_Click"/>
             <Separator />
+            <MenuItem Header="Open Solution List in Web" VerticalAlignment="Center" Click="mIOpenSolutionListInWeb_Click" />
+            <Separator />
+            <MenuItem Header="Open Customization in Web" VerticalAlignment="Center" Click="mIOpenCustomizationInWeb_Click" />
+            <Separator />
             <MenuItem Header="Select Solution as Last Selected" Click="miSelectSolutionAsLast_Click"/>
             <Separator />
             <MenuItem Header="Clear Unmanaged Solution" Click="ClearUnmanagedSolution_Click"/>

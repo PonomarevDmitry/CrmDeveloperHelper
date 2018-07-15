@@ -173,7 +173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingCharts()
+        private async Task ShowExistingCharts()
         {
             if (!_controlsEnabled)
             {

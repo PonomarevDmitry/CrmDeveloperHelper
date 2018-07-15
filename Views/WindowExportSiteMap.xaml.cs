@@ -157,7 +157,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingSiteMaps()
+        private async Task ShowExistingSiteMaps()
         {
             if (!_controlsEnabled)
             {
@@ -387,7 +387,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private async void ExecuteAction(Guid idSiteMap, string name, Func<string, Guid, string, Task> action)
+        private async Task ExecuteAction(Guid idSiteMap, string name, Func<string, Guid, string, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -474,7 +474,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await PerformExportXmlToFile(folder, idSiteMap, name, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml");
         }
 
-        private async void ExecuteActionEntity(Guid idSiteMap, string name, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, Task> action)
+        private async Task ExecuteActionEntity(Guid idSiteMap, string name, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -892,12 +892,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
@@ -1095,12 +1090,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {

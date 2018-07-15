@@ -38,34 +38,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
                 catch (Exception ex)
                 {
+                    File.Delete(dataPath);
+
                     DTEHelper.WriteExceptionToOutput(ex);
+
+                    result = null;
                 }
             }
 
             return result;
         }
 
-        public static void Save(string dataPath, Translation translation)
+        public static void Save(string filePath, Translation translation)
         {
-            string directory = Path.GetDirectoryName(dataPath);
+            string directory = Path.GetDirectoryName(filePath);
 
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
             }
 
-            try
-            {
-                DataContractSerializer ser = new DataContractSerializer(typeof(Translation));
+            DataContractSerializer ser = new DataContractSerializer(typeof(Translation));
 
-                using (var sw = File.Create(dataPath))
+            byte[] fileBody = null;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                try
                 {
-                    ser.WriteObject(sw, translation);
+                    ser.WriteObject(memoryStream, translation);
+
+                    fileBody = memoryStream.ToArray();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToLog(ex);
+
+                    fileBody = null;
                 }
             }
-            catch (Exception ex)
+
+            if (fileBody != null)
             {
-                DTEHelper.WriteExceptionToLog(ex);
+                try
+                {
+                    try
+                    {
+
+                    }
+                    finally
+                    {
+                        File.WriteAllBytes(filePath, fileBody);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToLog(ex);
+                }
             }
         }
     }

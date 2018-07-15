@@ -175,7 +175,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingSystemForms()
+        private async Task ShowExistingSystemForms()
         {
             if (!_controlsEnabled)
             {
@@ -408,7 +408,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private async void ExecuteActionAsync(Guid idSystemForm, string entityName, string name, Func<string, Guid, string, string, Task> action)
+        private async Task ExecuteActionAsync(Guid idSystemForm, string entityName, string name, Func<string, Guid, string, string, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -500,7 +500,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await PerformExportXmlToFileAsync(folder, idSystemForm, entityName, name, SystemForm.Schema.Attributes.formxml, "FormXml");
         }
 
-        private async void ExecuteActionEntityAsync(Guid idSystemForm, string entityName, string name, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, string, Task> action)
+        private async Task ExecuteActionEntityAsync(Guid idSystemForm, string entityName, string name, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, string, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -1240,12 +1240,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
@@ -1607,12 +1602,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
@@ -1630,6 +1620,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formxml, "FormXml", PerformUpdateEntityField);
+        }
+
+        private void mIOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null
+                || string.IsNullOrEmpty(entity.ObjectTypeCode)
+                || string.Equals(entity.ObjectTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
+                )
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenEntityMetadataInWeb(entity.ObjectTypeCode);
+            }
+        }
+
+        private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null
+                || string.IsNullOrEmpty(entity.ObjectTypeCode)
+                || string.Equals(entity.ObjectTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
+                )
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenEntityListInWeb(entity.ObjectTypeCode);
+            }
         }
     }
 }

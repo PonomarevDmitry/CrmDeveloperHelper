@@ -16,7 +16,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     public class CreateGlobalOptionSetsFileJavaScriptHandler : CreateFileHandler
     {
         private IOrganizationServiceExtented _service;
-        private string _tabSpacer;
         private bool _withDependentComponents;
 
         SolutionComponentDescriptor _descriptor;
@@ -36,7 +35,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             this._service = service;
             this._iWriteToOutput = iWriteToOutput;
-            this._tabSpacer = tabSpacer;
             this._withDependentComponents = withDependentComponents;
 
             this._descriptor = new SolutionComponentDescriptor(this._iWriteToOutput, _service, false);

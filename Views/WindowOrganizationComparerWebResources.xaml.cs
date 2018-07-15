@@ -150,7 +150,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingWebResources()
+        private async Task ShowExistingWebResources()
         {
             if (!_controlsEnabled)
             {
@@ -852,16 +852,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService1();
 
             WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig);
-        }
-
-        private async void btnCompareWebResources_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            WindowHelper.OpenOrganizationComparerWebResourcesWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
         }
 
         private async void btnExportWebResources1_Click(object sender, RoutedEventArgs e)

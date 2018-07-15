@@ -4,6 +4,7 @@ using Microsoft.Xrm.Sdk.Metadata.Query;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,21 +28,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private readonly object _syncObjectManagedPropertyMetadata = new object();
 
-        private Dictionary<Guid, EntityMetadata> _dictEntity = new Dictionary<Guid, EntityMetadata>();
+        private ConcurrentDictionary<Guid, EntityMetadata> _dictEntity = new ConcurrentDictionary<Guid, EntityMetadata>();
 
-        private Dictionary<Guid, AttributeMetadata> _dictAttribute = new Dictionary<Guid, AttributeMetadata>();
+        private ConcurrentDictionary<Guid, AttributeMetadata> _dictAttribute = new ConcurrentDictionary<Guid, AttributeMetadata>();
 
-        private Dictionary<Guid, EntityKeyMetadata> _dictKey = new Dictionary<Guid, EntityKeyMetadata>();
+        private ConcurrentDictionary<Guid, EntityKeyMetadata> _dictKey = new ConcurrentDictionary<Guid, EntityKeyMetadata>();
 
-        private Dictionary<Guid, RelationshipMetadataBase> _dictRelashionship = new Dictionary<Guid, RelationshipMetadataBase>();
+        private ConcurrentDictionary<Guid, RelationshipMetadataBase> _dictRelashionship = new ConcurrentDictionary<Guid, RelationshipMetadataBase>();
 
-        private Dictionary<Guid, ManagedPropertyMetadata> _allManagedProperties;
+        private ConcurrentDictionary<Guid, ManagedPropertyMetadata> _allManagedProperties;
 
-        private Dictionary<Guid, OptionSetMetadataBase> _allOptionSetMetadata;
+        private ConcurrentDictionary<Guid, OptionSetMetadataBase> _allOptionSetMetadata;
 
         private bool _allMetadataDownloaded = false;
 
-        private Dictionary<Guid, OptionSetMetadataBase> AllOptionSetMetadata
+        private ConcurrentDictionary<Guid, OptionSetMetadataBase> AllOptionSetMetadata
         {
             get
             {
@@ -52,13 +53,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         var request = new RetrieveAllOptionSetsRequest();
                         var response = (RetrieveAllOptionSetsResponse)this._service.Execute(request);
 
-                        _allOptionSetMetadata = new Dictionary<Guid, OptionSetMetadataBase>();
+                        _allOptionSetMetadata = new ConcurrentDictionary<Guid, OptionSetMetadataBase>();
 
                         foreach (var item in response.OptionSetMetadata)
                         {
                             if (!_allOptionSetMetadata.ContainsKey(item.MetadataId.Value))
                             {
-                                _allOptionSetMetadata.Add(item.MetadataId.Value, item);
+                                _allOptionSetMetadata.TryAdd(item.MetadataId.Value, item);
                             }
                         }
                     }
@@ -68,7 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private Dictionary<Guid, ManagedPropertyMetadata> AllManagedProperties
+        private ConcurrentDictionary<Guid, ManagedPropertyMetadata> AllManagedProperties
         {
             get
             {
@@ -79,13 +80,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         var request = new RetrieveAllManagedPropertiesRequest();
                         var response = (RetrieveAllManagedPropertiesResponse)this._service.Execute(request);
 
-                        _allManagedProperties = new Dictionary<Guid, ManagedPropertyMetadata>();
+                        _allManagedProperties = new ConcurrentDictionary<Guid, ManagedPropertyMetadata>();
 
                         foreach (var item in response.ManagedPropertyMetadata)
                         {
                             if (!_allManagedProperties.ContainsKey(item.MetadataId.Value))
                             {
-                                _allManagedProperties.Add(item.MetadataId.Value, item);
+                                _allManagedProperties.TryAdd(item.MetadataId.Value, item);
                             }
                         }
                     }
@@ -227,7 +228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (!_dictEntity.ContainsKey(metaEntity.MetadataId.Value))
                 {
-                    _dictEntity.Add(metaEntity.MetadataId.Value, metaEntity);
+                    _dictEntity.TryAdd(metaEntity.MetadataId.Value, metaEntity);
                 }
             }
 
@@ -240,7 +241,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (!_dictAttribute.ContainsKey(metaAttribute.MetadataId.Value))
                         {
-                            _dictAttribute.Add(metaAttribute.MetadataId.Value, metaAttribute);
+                            _dictAttribute.TryAdd(metaAttribute.MetadataId.Value, metaAttribute);
                         }
                     }
 
@@ -252,7 +253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (!this.AllOptionSetMetadata.ContainsKey(statusAttributeMetadata.OptionSet.MetadataId.Value))
                             {
-                                this.AllOptionSetMetadata.Add(statusAttributeMetadata.OptionSet.MetadataId.Value, statusAttributeMetadata.OptionSet);
+                                this.AllOptionSetMetadata.TryAdd(statusAttributeMetadata.OptionSet.MetadataId.Value, statusAttributeMetadata.OptionSet);
                             }
                         }
                     }
@@ -265,7 +266,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (!this.AllOptionSetMetadata.ContainsKey(stateAttributeMetadata.OptionSet.MetadataId.Value))
                             {
-                                this.AllOptionSetMetadata.Add(stateAttributeMetadata.OptionSet.MetadataId.Value, stateAttributeMetadata.OptionSet);
+                                this.AllOptionSetMetadata.TryAdd(stateAttributeMetadata.OptionSet.MetadataId.Value, stateAttributeMetadata.OptionSet);
                             }
                         }
                     }
@@ -278,7 +279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (!this.AllOptionSetMetadata.ContainsKey(booleanAttributeMetadata.OptionSet.MetadataId.Value))
                             {
-                                this.AllOptionSetMetadata.Add(booleanAttributeMetadata.OptionSet.MetadataId.Value, booleanAttributeMetadata.OptionSet);
+                                this.AllOptionSetMetadata.TryAdd(booleanAttributeMetadata.OptionSet.MetadataId.Value, booleanAttributeMetadata.OptionSet);
                             }
                         }
                     }
@@ -291,7 +292,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (!this.AllOptionSetMetadata.ContainsKey(picklistAttributeMetadata.OptionSet.MetadataId.Value))
                             {
-                                this.AllOptionSetMetadata.Add(picklistAttributeMetadata.OptionSet.MetadataId.Value, picklistAttributeMetadata.OptionSet);
+                                this.AllOptionSetMetadata.TryAdd(picklistAttributeMetadata.OptionSet.MetadataId.Value, picklistAttributeMetadata.OptionSet);
                             }
                         }
                     }
@@ -306,7 +307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (!_dictRelashionship.ContainsKey(metaRelationship.MetadataId.Value))
                         {
-                            _dictRelashionship.Add(metaRelationship.MetadataId.Value, metaRelationship);
+                            _dictRelashionship.TryAdd(metaRelationship.MetadataId.Value, metaRelationship);
                         }
                     }
                 }
@@ -320,7 +321,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (!_dictRelashionship.ContainsKey(metaRelationship.MetadataId.Value))
                         {
-                            _dictRelashionship.Add(metaRelationship.MetadataId.Value, metaRelationship);
+                            _dictRelashionship.TryAdd(metaRelationship.MetadataId.Value, metaRelationship);
                         }
                     }
                 }
@@ -334,7 +335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (!_dictRelashionship.ContainsKey(metaRelationship.MetadataId.Value))
                         {
-                            _dictRelashionship.Add(metaRelationship.MetadataId.Value, metaRelationship);
+                            _dictRelashionship.TryAdd(metaRelationship.MetadataId.Value, metaRelationship);
                         }
                     }
                 }
@@ -348,7 +349,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (!_dictKey.ContainsKey(metaKey.MetadataId.Value))
                         {
-                            _dictKey.Add(metaKey.MetadataId.Value, metaKey);
+                            _dictKey.TryAdd(metaKey.MetadataId.Value, metaKey);
                         }
                     }
                 }
@@ -590,7 +591,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (!_dictAttribute.ContainsKey(metaAttribute.MetadataId.Value))
                     {
-                        _dictAttribute.Add(metaAttribute.MetadataId.Value, metaAttribute);
+                        _dictAttribute.TryAdd(metaAttribute.MetadataId.Value, metaAttribute);
                     }
                 }
 
@@ -643,7 +644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (!_dictAttribute.ContainsKey(metaAttribute.MetadataId.Value))
                     {
-                        _dictAttribute.Add(metaAttribute.MetadataId.Value, metaAttribute);
+                        _dictAttribute.TryAdd(metaAttribute.MetadataId.Value, metaAttribute);
                     }
                 }
 
@@ -655,7 +656,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (!this.AllOptionSetMetadata.ContainsKey(statusAttributeMetadata.OptionSet.MetadataId.Value))
                         {
-                            this.AllOptionSetMetadata.Add(statusAttributeMetadata.OptionSet.MetadataId.Value, statusAttributeMetadata.OptionSet);
+                            this.AllOptionSetMetadata.TryAdd(statusAttributeMetadata.OptionSet.MetadataId.Value, statusAttributeMetadata.OptionSet);
                         }
                     }
                 }
@@ -668,7 +669,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (!this.AllOptionSetMetadata.ContainsKey(stateAttributeMetadata.OptionSet.MetadataId.Value))
                         {
-                            this.AllOptionSetMetadata.Add(stateAttributeMetadata.OptionSet.MetadataId.Value, stateAttributeMetadata.OptionSet);
+                            this.AllOptionSetMetadata.TryAdd(stateAttributeMetadata.OptionSet.MetadataId.Value, stateAttributeMetadata.OptionSet);
                         }
                     }
                 }
@@ -681,7 +682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (!this.AllOptionSetMetadata.ContainsKey(booleanAttributeMetadata.OptionSet.MetadataId.Value))
                         {
-                            this.AllOptionSetMetadata.Add(booleanAttributeMetadata.OptionSet.MetadataId.Value, booleanAttributeMetadata.OptionSet);
+                            this.AllOptionSetMetadata.TryAdd(booleanAttributeMetadata.OptionSet.MetadataId.Value, booleanAttributeMetadata.OptionSet);
                         }
                     }
                 }
@@ -694,7 +695,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (!this.AllOptionSetMetadata.ContainsKey(picklistAttributeMetadata.OptionSet.MetadataId.Value))
                         {
-                            this.AllOptionSetMetadata.Add(picklistAttributeMetadata.OptionSet.MetadataId.Value, picklistAttributeMetadata.OptionSet);
+                            this.AllOptionSetMetadata.TryAdd(picklistAttributeMetadata.OptionSet.MetadataId.Value, picklistAttributeMetadata.OptionSet);
                         }
                     }
                 }
@@ -742,7 +743,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (!_dictKey.ContainsKey(metaKey.MetadataId.Value))
                     {
-                        _dictKey.Add(metaKey.MetadataId.Value, metaKey);
+                        _dictKey.TryAdd(metaKey.MetadataId.Value, metaKey);
                     }
                 }
 
@@ -789,7 +790,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (!_dictRelashionship.ContainsKey(metaRelation.MetadataId.Value))
                     {
-                        _dictRelashionship.Add(metaRelation.MetadataId.Value, metaRelation);
+                        _dictRelashionship.TryAdd(metaRelation.MetadataId.Value, metaRelation);
                     }
                 }
 

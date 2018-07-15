@@ -92,7 +92,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             var worker = new Thread(() =>
             {
-                try { this._publishController.ExecuteUpdateContentAndPublishEqualByText(selectedFiles, connectionData); }
+                try
+                {
+                    this._publishController.ExecuteUpdateContentAndPublishEqualByText(selectedFiles, connectionData);
+                }
                 catch (Exception ex)
                 {
                     DTEHelper.WriteExceptionToOutput(ex);
@@ -749,6 +752,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._entityMetadataController.ExecuteCreatingFileWithEntityMetadata(selection, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartOpenEntityAttributeExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteOpeningEntityAttributeExplorer(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

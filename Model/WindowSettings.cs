@@ -33,6 +33,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public Dictionary<string, int> DictInt { get; private set; }
 
         [DataMember]
+        public Dictionary<string, double> DictDouble { get; private set; }
+
+        [DataMember]
         public Dictionary<string, bool> DictBool { get; private set; }
 
         [DataMember]
@@ -46,6 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.DictBool = new Dictionary<string, bool>(StringComparer.InvariantCultureIgnoreCase);
             this.DictInt = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
             this.DictString = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+            this.DictDouble = new Dictionary<string, double>(StringComparer.InvariantCultureIgnoreCase);
 
             this.GridViewColumnsWidths = new Dictionary<string, double>(StringComparer.InvariantCultureIgnoreCase);
         }
@@ -61,6 +65,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             if (this.DictInt == null)
             {
                 this.DictInt = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
+            }
+
+            if (this.DictDouble == null)
+            {
+                this.DictDouble = new Dictionary<string, double>(StringComparer.InvariantCultureIgnoreCase);
             }
 
             if (this.DictString == null)
@@ -91,6 +100,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
                 catch (Exception ex)
                 {
+                    File.Delete(filePath);
+
                     DTEHelper.WriteExceptionToOutput(ex);
 
                     result = new WindowSettings();
@@ -116,23 +127,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             DataContractSerializer ser = new DataContractSerializer(typeof(WindowSettings));
 
-            try
+            byte[] fileBody = null;
+
+            using (var memoryStream = new MemoryStream())
             {
-                using (var stream = File.Create(filePath))
+                try
                 {
                     XmlWriterSettings settings = new XmlWriterSettings();
                     settings.Indent = true;
                     settings.Encoding = Encoding.UTF8;
 
-                    using (XmlWriter xmlWriter = XmlWriter.Create(stream, settings))
+                    using (XmlWriter xmlWriter = XmlWriter.Create(memoryStream, settings))
                     {
                         ser.WriteObject(xmlWriter, this);
                     }
+
+                    fileBody = memoryStream.ToArray();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToLog(ex);
+
+                    fileBody = null;
                 }
             }
-            catch (Exception ex)
+
+            if (fileBody != null)
             {
-                DTEHelper.WriteExceptionToLog(ex);
+                try
+                {
+                    try
+                    {
+
+                    }
+                    finally
+                    {
+                        File.WriteAllBytes(filePath, fileBody);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToLog(ex);
+                }
             }
         }
 
@@ -166,6 +202,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             if (this.DictInt.ContainsKey(key))
             {
                 return this.DictInt[key];
+            }
+
+            return null;
+        }
+
+        public double? GetValueDouble(string key)
+        {
+            if (this.DictDouble.ContainsKey(key))
+            {
+                return this.DictDouble[key];
             }
 
             return null;

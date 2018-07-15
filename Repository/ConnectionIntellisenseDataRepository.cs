@@ -269,7 +269,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return Task.Run(() => LoadPackEntities(pack), _cancellationTokenSource.Token);
         }
 
-        private async void LoadPackEntities(string[] pack)
+        private async Task LoadPackEntities(string[] pack)
         {
             if (_cancellationTokenSource.IsCancellationRequested)
             {
@@ -689,6 +689,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             , "Description"
             , "OptionSet"
             , "Targets"
+            , "IsPrimaryId"
+            , "IsPrimaryName"
         };
 
         private static readonly string[] _relationshipFieldsToQuery = new string[]

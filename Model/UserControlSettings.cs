@@ -85,6 +85,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
                 catch (Exception ex)
                 {
+                    File.Delete(filePath);
+
                     DTEHelper.WriteExceptionToOutput(ex);
 
                     result = new UserControlSettings();
@@ -110,23 +112,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             DataContractSerializer ser = new DataContractSerializer(typeof(UserControlSettings));
 
-            try
+            byte[] fileBody = null;
+
+            using (var memoryStream = new MemoryStream())
             {
-                using (var stream = File.Create(filePath))
+                try
                 {
                     XmlWriterSettings settings = new XmlWriterSettings();
                     settings.Indent = true;
                     settings.Encoding = Encoding.UTF8;
 
-                    using (XmlWriter xmlWriter = XmlWriter.Create(stream, settings))
+                    using (XmlWriter xmlWriter = XmlWriter.Create(memoryStream, settings))
                     {
                         ser.WriteObject(xmlWriter, this);
                     }
+
+                    fileBody = memoryStream.ToArray();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToLog(ex);
+
+                    fileBody = null;
                 }
             }
-            catch (Exception ex)
+
+            if (fileBody != null)
             {
-                DTEHelper.WriteExceptionToLog(ex);
+                try
+                {
+                    try
+                    {
+
+                    }
+                    finally
+                    {
+                        File.WriteAllBytes(filePath, fileBody);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToLog(ex);
+                }
             }
         }
 

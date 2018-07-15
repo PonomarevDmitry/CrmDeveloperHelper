@@ -24,9 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-
-            if (commandService != null)
+            if (this.ServiceProvider.GetService(typeof(IMenuCommandService)) is OleMenuCommandService commandService)
             {
                 for (int i = 0; i < Model.ConnectionData.CountConnectionToQuickList; i++)
                 {

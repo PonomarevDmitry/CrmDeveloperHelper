@@ -443,7 +443,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return strDifference;
         }
 
-        private async void CompareAttributes(List<string> strDifference, IEnumerable<AttributeMetadata> attributes1, IEnumerable<AttributeMetadata> attributes2)
+        private async Task CompareAttributes(List<string> strDifference, IEnumerable<AttributeMetadata> attributes1, IEnumerable<AttributeMetadata> attributes2)
         {
             Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 

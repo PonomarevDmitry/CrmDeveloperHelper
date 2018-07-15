@@ -32,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование Sitemap Xml.
 
-        public async void ExecuteExportingSitemapXml(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingSitemapXml(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Exporting Sitemap Xml at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -74,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование RibbonXml.
 
-        public async void ExecuteExportingRibbonXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingRibbonXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Exporting Ribbon Xml at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -116,7 +116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование System View (Saved Query) LayoutXml and FethcXml.
 
-        public async void ExecuteExportingSystemSavedQueryXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingSystemSavedQueryXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Exporting System View (Saved Query) Xml at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -158,7 +158,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование System Form FormXml.
 
-        public async void ExecuteExportingSystemFormXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingSystemFormXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Exporting System Form FormXml at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -200,7 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование System Chart (Saved Query Visualization) Xml.
 
-        public async void ExecuteExportingSystemSavedQueryVisualizationXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingSystemSavedQueryVisualizationXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Exporting System Chart (Saved Query Visualization) Xml at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -242,7 +242,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование списка событий форм.
 
-        public async void ExecuteExportingFormsEvents(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingFormsEvents(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Exporting System Forms Events at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -316,7 +316,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (!string.IsNullOrEmpty(events))
                     {
-                        string desc = handler.GetWebResourcesDescription(doc);
+                        string desc = handler.GetFormLibrariesDescription(doc);
 
                         if (onlyWithFormLibraries && string.IsNullOrEmpty(desc))
                         {
@@ -380,7 +380,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование зависимостей атрибутов.
 
-        public async void ExecuteExportingEntityAttributesDependentComponents(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingEntityAttributesDependentComponents(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Exporting Entity Attributes Dependent Components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -422,7 +422,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование Workflow.
 
-        public async void ExecuteExportingWorkflow(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingWorkflow(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Exporting Workflow at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -464,7 +464,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование информации об организации.
 
-        public async void ExecuteExportingOrganizationInformation(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingOrganizationInformation(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Exporting Organization Information at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 

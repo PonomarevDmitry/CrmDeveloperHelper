@@ -19,7 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput = iWriteToOutput;
         }
 
-        public async void ExecuteUpdatingProxyClasses(string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteUpdatingProxyClasses(string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Updating Proxy Classes at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 

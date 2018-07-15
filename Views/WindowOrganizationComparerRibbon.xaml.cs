@@ -187,7 +187,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingEntities()
+        private async Task ShowExistingEntities()
         {
             if (!_controlsEnabled)
             {
@@ -486,7 +486,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteDifferenceApplicationRibbon();
         }
 
-        private async void ExecuteDifferenceApplicationRibbon()
+        private async Task ExecuteDifferenceApplicationRibbon()
         {
             if (!_controlsEnabled)
             {
@@ -581,7 +581,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteDifferenceEntityRibbon(entityName);
         }
 
-        private async void ExecuteDifferenceEntityRibbon(string entityName)
+        private async Task ExecuteDifferenceEntityRibbon(string entityName)
         {
             if (!_controlsEnabled)
             {
@@ -673,7 +673,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteCreatingApplicationRibbon(GetService2);
         }
 
-        private async void ExecuteCreatingApplicationRibbon(Func<Task<IOrganizationServiceExtented>> getService)
+        private async Task ExecuteCreatingApplicationRibbon(Func<Task<IOrganizationServiceExtented>> getService)
         {
             if (!_controlsEnabled)
             {
@@ -749,7 +749,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteCreatingEntityRibbon(GetService2, entityName);
         }
 
-        private async void ExecuteCreatingEntityRibbon(Func<Task<IOrganizationServiceExtented>> getService, string entityName)
+        private async Task ExecuteCreatingEntityRibbon(Func<Task<IOrganizationServiceExtented>> getService, string entityName)
         {
             if (!_controlsEnabled)
             {

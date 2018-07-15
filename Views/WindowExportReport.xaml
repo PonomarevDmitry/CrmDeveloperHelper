@@ -9,6 +9,8 @@
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open Report in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
             <Separator/>
+            <MenuItem Header="Open Report List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
+            <Separator />
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
             <Separator/>
             <MenuItem Header="Create New Report" VerticalAlignment="Center" Click="mICreateNewReport_Click" />
@@ -31,15 +33,17 @@
                 <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIUpdateReportScheduleXml_Click"/>
             </MenuItem>
             <Separator/>
-            <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
-            <Separator/>
-            <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-            <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
             <Separator/>
-            <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportReportDependentComponents_Click" />
-            <MenuItem Header="Required Components" VerticalAlignment="Center"  Click="mIExportReportRequiredComponents_Click"/>
-            <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportReportDependenciesForDelete_Click" />
+            <MenuItem Header="Dependent Components">
+                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                <Separator/>
+                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                <Separator/>
+                <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportReportDependentComponents_Click" />
+                <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportReportRequiredComponents_Click" />
+                <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportReportDependenciesForDelete_Click" />
+            </MenuItem>
             <Separator/>
             <MenuItem Header="Compare Information with other Organization">
                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
@@ -119,15 +123,17 @@
                                 <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIUpdateReportScheduleXml_Click"/>
                             </MenuItem>
                             <Separator/>
-                            <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
-                            <Separator/>
-                            <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-                            <Separator/>
                             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
                             <Separator/>
-                            <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportReportDependentComponents_Click" />
-                            <MenuItem Header="Required Components" VerticalAlignment="Center"  Click="mIExportReportRequiredComponents_Click"/>
-                            <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportReportDependenciesForDelete_Click" />
+                            <MenuItem Header="Dependent Components">
+                                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                                <Separator/>
+                                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                                <Separator/>
+                                <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportReportDependentComponents_Click" />
+                                <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportReportRequiredComponents_Click" />
+                                <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportReportDependenciesForDelete_Click" />
+                            </MenuItem>
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>

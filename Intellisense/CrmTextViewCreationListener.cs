@@ -12,6 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
     [Export(typeof(IVsTextViewCreationListener))]
     [Name("FetchXmlHandler")]
     [ContentType("XML")]
+    [ContentType(CrmPathContentTypeDefinition.CrmPathContentType)]
     [TextViewRole(PredefinedTextViewRoles.Editable)]
     public class CrmTextViewCreationListener : IVsTextViewCreationListener
     {

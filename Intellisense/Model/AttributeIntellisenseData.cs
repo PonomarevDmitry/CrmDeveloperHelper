@@ -24,7 +24,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public Label Description { get; private set; }
 
         [DataMember]
-        public bool IsBooleanAttribute { get; private set; }
+        public bool? IsPrimaryIdAttribute { get; private set; }
+
+        [DataMember]
+        public bool? IsPrimaryNameAttribute { get; private set; }
 
         [DataMember]
         public bool IsEntityNameAttribute { get; private set; }
@@ -40,8 +43,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         }
 
-        public void LoadData(AttributeMetadata attr)
+        public void LoadData(AttributeMetadata attr, bool isPrimaryIdAttribute, bool isPrimaryNameAttribute)
         {
+            this.IsPrimaryIdAttribute = isPrimaryIdAttribute;
+            this.IsPrimaryNameAttribute = isPrimaryNameAttribute;
+
             if (attr.MetadataId.HasValue)
             {
                 this.MetadataId = attr.MetadataId;
@@ -51,14 +57,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 this.LogicalName = attr.LogicalName;
             }
+
             if (attr.DisplayName != null)
             {
                 this.DisplayName = attr.DisplayName;
             }
+
             if (attr.Description != null)
             {
                 this.Description = attr.Description;
             }
+
             if (attr.AttributeType.HasValue)
             {
                 this.AttributeType = attr.AttributeType;
@@ -114,13 +123,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 this.LogicalName = attr.LogicalName;
             }
 
-            if (this.DisplayName == null 
+            if (this.DisplayName == null
                 && attr.DisplayName != null)
             {
                 this.DisplayName = attr.DisplayName;
             }
 
-            if (this.Description == null 
+            if (this.Description == null
                 && attr.Description != null)
             {
                 this.Description = attr.Description;
@@ -132,12 +141,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 this.AttributeType = attr.AttributeType;
             }
 
+            if (!this.IsPrimaryIdAttribute.HasValue
+                && attr.IsPrimaryIdAttribute.HasValue)
+            {
+                this.IsPrimaryIdAttribute = attr.IsPrimaryIdAttribute;
+            }
+
+            if (!this.IsPrimaryNameAttribute.HasValue
+                && attr.IsPrimaryNameAttribute.HasValue)
+            {
+                this.IsPrimaryNameAttribute = attr.IsPrimaryNameAttribute;
+            }
+
             if (attr.IsEntityNameAttribute)
             {
                 this.IsEntityNameAttribute = attr.IsEntityNameAttribute;
             }
 
-            if (this.OptionSet == null 
+            if (this.OptionSet == null
                 && attr.OptionSet != null)
             {
                 this.OptionSet = attr.OptionSet;

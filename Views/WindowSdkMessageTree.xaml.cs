@@ -217,7 +217,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingMessages()
+        private async Task ShowExistingMessages()
         {
             if (!_controlsEnabled)
             {

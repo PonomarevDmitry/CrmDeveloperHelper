@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
@@ -12,10 +14,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.CommonOpenCrmWebSiteCommandId;
+        private readonly OpenCrmWebSiteType _crmWebSiteType;
 
-        private CommonOpenCrmWebSiteCommand(Package package)
+        private readonly int _baseIdStart;
+
+        private CommonOpenCrmWebSiteCommand(Package package, int baseIdStart, OpenCrmWebSiteType crmWebSiteType)
         {
+            this._crmWebSiteType = crmWebSiteType;
+            this._baseIdStart = baseIdStart;
+
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
             OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
@@ -37,11 +44,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static CommonOpenCrmWebSiteCommand Instance { get; private set; }
+        public static List<CommonOpenCrmWebSiteCommand> Instances { get; private set; } = new List<CommonOpenCrmWebSiteCommand>();
 
         public static void Initialize(Package package)
         {
-            Instance = new CommonOpenCrmWebSiteCommand(package);
+            Instances.AddRange(new[]
+            {
+                new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenCrmWebSiteCommandId, OpenCrmWebSiteType.CrmWebApplication)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenAdvancedFindCommandId, OpenCrmWebSiteType.AdvancedFind)
+
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenSolutionsCommandId, OpenCrmWebSiteType.Solutions)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenWorkflowsCommandId, OpenCrmWebSiteType.Workflows)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenSystemJobsCommandId, OpenCrmWebSiteType.SystemJobs)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenCustomizationCommandId, OpenCrmWebSiteType.Customization)
+
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenSystemUsersCommandId, OpenCrmWebSiteType.SystemUsers)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenTeamsCommandId, OpenCrmWebSiteType.Teams)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenRolesCommandId, OpenCrmWebSiteType.Roles)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenSecurityCommandId, OpenCrmWebSiteType.Security)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenAdministrationCommandId, OpenCrmWebSiteType.Administration)
+
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenEngagementHubCommandId, OpenCrmWebSiteType.EngagementHub)
+
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenBusinessCommandId, OpenCrmWebSiteType.Business)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenTemplatesCommandId, OpenCrmWebSiteType.Templates)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenProductCatalogCommandId, OpenCrmWebSiteType.ProductCatalog)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenServiceManagementCommandId, OpenCrmWebSiteType.ServiceManagement)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenDataManagementCommandId, OpenCrmWebSiteType.DataManagement)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenSocialCommandId, OpenCrmWebSiteType.Social)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenAuditCommandId, OpenCrmWebSiteType.Audit)
+
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenMobileOfflineCommandId, OpenCrmWebSiteType.MobileOffline)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenExternAppManagementCommandId, OpenCrmWebSiteType.ExternAppManagement)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenAppsForCrmCommandId, OpenCrmWebSiteType.AppsForCrm)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenRelationshipIntelligenceCommandId, OpenCrmWebSiteType.RelationshipIntelligence)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenMicrosoftFlowCommandId, OpenCrmWebSiteType.MicrosoftFlow)
+                , new CommonOpenCrmWebSiteCommand(package, PackageIds.CommonOpenAppModuleCommandId, OpenCrmWebSiteType.AppModule)
+            });
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -98,7 +137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    helper.HandleOpenCrmInWeb(connectionData);
+                    helper.HandleOpenCrmInWeb(connectionData, _crmWebSiteType);
                 }
             }
             catch (Exception ex)

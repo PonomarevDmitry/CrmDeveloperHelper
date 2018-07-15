@@ -161,7 +161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingReports()
+        private async Task ShowExistingReports()
         {
             if (!_controlsEnabled)
             {
@@ -386,7 +386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private async void ExecuteAction(Guid idReport, string name, string filename, Func<string, Guid, string, string, Task> action)
+        private async Task ExecuteAction(Guid idReport, string name, string filename, Func<string, Guid, string, string, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -486,7 +486,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await PerformExportXmlToFile(folder, idReport, name, filename, Report.Schema.Attributes.queryinfo, "QueryInfo");
         }
 
-        private async void ExecuteActionEntity(Guid idReport, string name, string filename, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, string, Task> action)
+        private async Task ExecuteActionEntity(Guid idReport, string name, string filename, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, string, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -974,12 +974,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
@@ -996,16 +991,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
                 connectionData.OpenSolutionComponentInWeb(ComponentType.Report, entity.Id, null, null);
+            }
+        }
+
+        private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenEntityListInWeb(Report.EntityLogicalName);
             }
         }
 
@@ -1067,12 +1074,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mICreateNewReport_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
@@ -1214,12 +1216,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {

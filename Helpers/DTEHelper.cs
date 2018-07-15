@@ -2738,6 +2738,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleOpenEntityAttributeExplorer()
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            string selection = GetSelectedText();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow();
+                WriteToOutputEmptyLines(commonConfig);
+
+                try
+                {
+                    Controller.StartOpenEntityAttributeExplorer(selection, crmConfig.CurrentConnectionData, commonConfig);
+                }
+                catch (Exception xE)
+                {
+                    WriteErrorToOutput(xE);
+                }
+            }
+        }
+
         public void HandleExportFormEvents()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
@@ -3349,7 +3375,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleOpenAdvancedFind(ConnectionData connectionData)
+        public void HandleOpenCrmInWeb(ConnectionData connectionData, OpenCrmWebSiteType crmWebSiteType)
         {
             try
             {
@@ -3365,32 +3391,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (connectionData != null)
                 {
-                    connectionData.OpenAdvancedFindInWeb();
-                }
-            }
-            catch (Exception ex)
-            {
-                this.WriteErrorToOutput(ex);
-            }
-        }
-
-        public void HandleOpenCrmInWeb(ConnectionData connectionData)
-        {
-            try
-            {
-                if (connectionData == null)
-                {
-                    if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
-                    {
-                        return;
-                    }
-
-                    connectionData = crmConfig.CurrentConnectionData;
-                }
-
-                if (connectionData != null)
-                {
-                    connectionData.OpenCrmInWeb();
+                    connectionData.OpenCrmWebSite(crmWebSiteType);
                 }
             }
             catch (Exception ex)
@@ -3436,75 +3437,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public OutputWindowPane GetOutputWindow()
         {
-            OutputWindow outputWindow = ApplicationObject?.ToolWindows?.OutputWindow;
-
-            if (outputWindow != null
-                && outputWindow.OutputWindowPanes != null
-                )
+            try
             {
-                for (int i = 1; i <= outputWindow.OutputWindowPanes.Count; i++)
-                {
-                    var result = outputWindow.OutputWindowPanes.Item(i);
+                OutputWindow outputWindow = ApplicationObject?.ToolWindows?.OutputWindow;
 
-                    if (result != null)
+                if (outputWindow != null
+                    && outputWindow.OutputWindowPanes != null
+                    )
+                {
+                    for (int i = 1; i <= outputWindow.OutputWindowPanes.Count; i++)
                     {
-                        if (string.Equals(result.Name, _outputWindowName, StringComparison.InvariantCultureIgnoreCase))
+                        var result = outputWindow.OutputWindowPanes.Item(i);
+
+                        if (result != null)
                         {
-                            return result;
+                            if (string.Equals(result.Name, _outputWindowName, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                return result;
+                            }
                         }
                     }
-                }
 
-                return outputWindow.OutputWindowPanes.Add(_outputWindowName);
+                    return outputWindow.OutputWindowPanes.Add(_outputWindowName);
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteExceptionToLog(ex);
             }
 
             return null;
-        }
-
-        public static string OpenFile(string filePath)
-        {
-            StringBuilder result = new StringBuilder();
-
-            if (File.Exists(filePath))
-            {
-                result.AppendFormat("Opening file {0}", filePath);
-
-                ProcessStartInfo info = new ProcessStartInfo();
-
-                info.FileName = filePath;
-
-                info.UseShellExecute = true;
-                info.WindowStyle = ProcessWindowStyle.Normal;
-
-                try
-                {
-                    System.Diagnostics.Process process = System.Diagnostics.Process.Start(info);
-
-                    if (process != null)
-                    {
-                        if (!process.HasExited)
-                        {
-                            process.WaitForInputIdle();
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    result.AppendLine().Append(GetExceptionDescription(ex));
-
-#if DEBUG
-                    if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
-#endif
-                }
-            }
-
-            return result.ToString();
         }
 
         public void SelectFileInFolder(string filePath)
         {
             if (File.Exists(filePath))
             {
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
+
                 this.WriteToOutput("Selecting file in folder {0}", filePath);
                 this.WriteToOutputFilePathUri(filePath);
 
@@ -3571,14 +3544,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 else
                 {
-                    if (ApplicationObject != null)
-                    {
-                        this.WriteToOutput("Opening in Visual Studio file {0}", filePath);
-                        this.WriteToOutputFilePathUri(filePath);
-
-                        ApplicationObject.ItemOperations.OpenFile(filePath);
-                        ApplicationObject.MainWindow.Activate();
-                    }
+                    OpenFileInVisualStudio(filePath);
                 }
             }
         }
@@ -3589,6 +3555,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (ApplicationObject != null)
                 {
+                    this.WriteToOutput(string.Empty);
+                    this.WriteToOutput(string.Empty);
+                    this.WriteToOutput(string.Empty);
+                    this.WriteToOutput(string.Empty);
+
                     this.WriteToOutput("Opening in Visual Studio file {0}", filePath);
                     this.WriteToOutputFilePathUri(filePath);
 
@@ -3602,6 +3573,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             if (File.Exists(filePath) && File.Exists(commonConfig.TextEditorProgram))
             {
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
+
                 this.WriteToOutput("Opening in Text Editor file {0}", filePath);
                 this.WriteToOutputFilePathUri(filePath);
 
@@ -3636,6 +3612,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             if (File.Exists(filePath1) && File.Exists(filePath2))
             {
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
+
                 this.WriteToOutput("Starting Difference Programm for files:");
                 this.WriteToOutput(filePath1);
                 this.WriteToOutputFilePathUri(filePath1);
@@ -3728,6 +3709,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (File.Exists(filePath1) && File.Exists(filePath2) && File.Exists(fileLocalPath))
             {
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
+
                 this.WriteToOutput("Starting ThreeWay Difference Programm for files:");
 
                 this.WriteToOutput(fileLocalPath);

@@ -9,10 +9,7 @@
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
             <Separator />
-            <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
-            <Separator />
-            <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+            <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
@@ -20,6 +17,14 @@
             <MenuItem Header="Export Entity Ribbon" Click="btnExportEntityRibbon_Click" />
             <Separator/>
             <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+            <Separator/>
+            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+            <Separator/>
+            <MenuItem Header="Dependent Components">
+                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                <Separator/>
+                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+            </MenuItem>
             <Separator/>
             <MenuItem Header="Get Other Entity Information">
                 <MenuItem Header="Metadata" Click="btnCreateMetadataFile_Click"/>
@@ -60,32 +65,32 @@
         <ToolBar Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem Header="Open Entity Information Windows" VerticalAlignment="Center">
-                    <MenuItem x:Name="btnCreateMetadataFile" Header="Metadata" Click="btnCreateMetadataFile_Click" />
-                    <MenuItem x:Name="btnGlobalOptionSets" Header="Global OptionSets" Click="btnGlobalOptionSets_Click"/>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                    <MenuItem x:Name="btnSystemForms" Header="Forms" Click="btnSystemForms_Click" />
-                    <MenuItem x:Name="btnSavedQuery" Header="Views" Click="btnSavedQuery_Click" />
-                    <MenuItem x:Name="btnSavedChart" Header="Charts" Click="btnSavedChart_Click" />
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                    <MenuItem x:Name="btnWorkflows" Header="Workflows" Click="btnWorkflows_Click" />
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                    <MenuItem x:Name="btnAttributesDependentComponent" Header="Attributes Dependencies" Click="btnAttributesDependentComponent_Click" />
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                    <MenuItem x:Name="btnPluginTree" Header="Plugin Tree" Click="btnPluginTree_Click" />
-                    <MenuItem x:Name="btnMessageTree" Header="Message Tree" Click="btnMessageTree_Click"/>
-                    <MenuItem x:Name="btnMessageRequestTree" Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
+                    <MenuItem Header="Metadata" Click="btnCreateMetadataFile_Click" />
+                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnSystemForms_Click" />
+                    <MenuItem Header="Views" Click="btnSavedQuery_Click" />
+                    <MenuItem Header="Charts" Click="btnSavedChart_Click" />
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnWorkflows_Click" />
+                    <Separator/>
+                    <MenuItem Header="Attributes Dependencies" Click="btnAttributesDependentComponent_Click" />
+                    <Separator/>
+                    <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click" />
+                    <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
+                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
                 </MenuItem>
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                 <MenuItem Header="Compare Information with other Organization">
                     <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Separator/>
                     <MenuItem Header="Entity Ribbon" Click="btnCompareRibbon_Click"/>
                     <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Separator/>
                     <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
                     <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
                     <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Separator/>
                     <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
                 </MenuItem>
             </Menu>
@@ -140,7 +145,7 @@
                 <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" HorizontalAlignment="Right" DockPanel.Dock="Right">
                     <MenuItem Header="Application Ribbon" VerticalAlignment="Center">
                         <MenuItem Header="Export Application Ribbon" Click="btnExportApplicationRibbon_Click"/>
-                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                        <Separator/>
                         <MenuItem Header="Publish Application Ribbon" Click="btnPublishApplicationRibbon_Click"/>
                     </MenuItem>
                 </Menu>

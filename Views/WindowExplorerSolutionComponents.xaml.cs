@@ -210,7 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return result;
         }
 
-        private async void ShowExistingSolutionComponents(string solutionUniqueName = null)
+        private async Task ShowExistingSolutionComponents(string solutionUniqueName = null)
         {
             if (!_controlsEnabled)
             {
@@ -545,7 +545,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private async void ExecuteAction(SolutionComponentViewItem item, Func<string, SolutionComponentViewItem, Task> action)
+        private async Task ExecuteAction(SolutionComponentViewItem item, Func<string, SolutionComponentViewItem, Task> action)
         {
             string folder = _commonConfig.FolderForExport;
 
@@ -1244,5 +1244,114 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _service.ConnectionData.AddLastSelectedSolution(_solution.UniqueName);
         }
+
+        #region Кнопки открытия других форм с информация о сущности.
+
+        private void btnCreateMetadataFile_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, _service, _commonConfig, null, null, null);
+        }
+
+        private void btnGlobalOptionSets_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenGlobalOptionSetsWindow(
+                this._iWriteToOutput
+                , _service
+                , _commonConfig
+                , null
+                , string.Empty
+                , string.Empty
+                );
+        }
+
+        private void btnSystemForms_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, _service, _commonConfig, null, string.Empty);
+        }
+
+        private void btnSavedQuery_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, _service, _commonConfig, null, string.Empty);
+        }
+
+        private void btnSavedChart_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, _service, _commonConfig, null, string.Empty);
+        }
+
+        private void btnWorkflows_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, _service, _commonConfig, null, string.Empty);
+        }
+
+        private void btnPluginTree_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, _service, _commonConfig, null);
+        }
+
+        private void btnMessageTree_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, _service, _commonConfig, null);
+        }
+
+        private void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, _service, _commonConfig, null);
+        }
+
+        private void btnSiteMap_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenExportSiteMapWindow(this._iWriteToOutput, _service, _commonConfig);
+        }
+
+        private void btnWebResources_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenExportWebResourcesWindow(this._iWriteToOutput, _service, _commonConfig, string.Empty);
+        }
+
+        private void btnExportReport_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenExportReportWindow(this._iWriteToOutput, _service, _commonConfig, string.Empty);
+        }
+
+        private void btnPluginAssembly_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenPluginAssemblyWindow(this._iWriteToOutput, _service, _commonConfig, null);
+        }
+
+        private void btnPluginType_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenPluginTypeWindow(this._iWriteToOutput, _service, _commonConfig, null);
+        }
+
+        #endregion Кнопки открытия других форм с информация о сущности.
     }
 }

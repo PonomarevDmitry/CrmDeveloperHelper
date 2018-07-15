@@ -30,7 +30,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Проверка имена на префикс.
 
-        public async void ExecuteCheckingEntitiesNames(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
+        public async Task ExecuteCheckingEntitiesNames(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
             prefix = prefix.TrimEnd(' ', '_').Trim();
 
@@ -203,7 +203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Проверка имена на префикс и показ зависимых объектов.
 
-        public async void ExecuteCheckingEntitiesNamesAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
+        public async Task ExecuteCheckingEntitiesNamesAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
             prefix = prefix.TrimEnd(' ', '_');
             prefix = string.Format("{0}_", prefix);
@@ -398,7 +398,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Проверка сущностей помеченных на удаление.
 
-        public async void ExecuteCheckingMarkedToDelete(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
+        public async Task ExecuteCheckingMarkedToDelete(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Objects marked to delete by '{1}' and show dependent components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), prefix);
 
@@ -580,7 +580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Проверка уровня собственности сущностей.
 
-        public async void ExecuteCheckingEntitiesOwnership(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteCheckingEntitiesOwnership(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Entity Ownership at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -865,7 +865,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Отображение зависимых компонентов веб-ресурсов.
 
-        public async void ExecuteShowingWebResourcesDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        public async Task ExecuteShowingWebResourcesDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Objects names and show dependent components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1042,7 +1042,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Проверка глобальных OptionSet на дубликаты на сущности.
 
-        public async void ExecuteCheckingGlobalOptionSetDuplicates(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteCheckingGlobalOptionSetDuplicates(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Checking Global OptionSet Duplicates on Entity at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1156,7 +1156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Поиск элементов сущности с именем.
 
-        public async void ExecuteFindEntityElementsByName(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
+        public async Task ExecuteFindEntityElementsByName(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects names for '{1}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), name);
 
@@ -1294,7 +1294,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Поиск элементов, содержащих строку.
 
-        public async void ExecuteFindEntityElementsContainsString(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
+        public async Task ExecuteFindEntityElementsContainsString(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects names contains '{1}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), name);
 
@@ -1432,7 +1432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Поиск элементов по идентификатору.
 
-        public async void ExecuteFindEntityById(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
+        public async Task ExecuteFindEntityById(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects by Id '{1}', entityName '{2}', entityTypeCode '{3}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), entityId, entityName, entityTypeCode);
 
@@ -1533,7 +1533,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Поиск элементов по любому Guid.
 
-        public async void ExecuteFindEntityByUniqueidentifier(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
+        public async Task ExecuteFindEntityByUniqueidentifier(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects by Uniqueidentifier '{1}', entityName '{2}', entityTypeCode '{3}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), entityId, entityName, entityTypeCode);
 
@@ -1635,7 +1635,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Поиск неизвестных типов компонентов.
 
-        public async void ExecuteCheckingComponentTypeEnum(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteCheckingComponentTypeEnum(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Checking ComponentType Enum at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1771,7 +1771,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Описание всех dependencynode.
 
-        public async void ExecuteCreatingAllDependencyNodesDescription(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteCreatingAllDependencyNodesDescription(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Creating all Dependency Nodes Description at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 

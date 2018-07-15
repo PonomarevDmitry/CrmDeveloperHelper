@@ -215,7 +215,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return result;
         }
 
-        private async void ShowExistingSolutionComponents()
+        private async Task ShowExistingSolutionComponents()
         {
             if (!_controlsEnabled)
             {
@@ -518,7 +518,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private async void ExecuteAction(SolutionComponentViewItem item, Func<string, SolutionComponentViewItem, Task> action)
+        private async Task ExecuteAction(SolutionComponentViewItem item, Func<string, SolutionComponentViewItem, Task> action)
         {
             string folder = _commonConfig.FolderForExport;
 

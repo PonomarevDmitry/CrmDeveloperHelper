@@ -1,5 +1,4 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
 using System;
 using System.Collections.Concurrent;
@@ -1045,18 +1044,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private void OnPropertyChanged(string propertyName)
         {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void OnPropertyChanging(string propertyName)
         {
-            if ((this.PropertyChanging != null))
-            {
-                this.PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
-            }
+            this.PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
         }
 
         public ConnectionData CreateCopy()
@@ -1321,7 +1314,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     && intellisense.Entities[entityName].Attributes.Any()
                     )
                 {
-                    return new HashSet<string>(intellisense.Entities[entityName].Attributes.Keys);
+                    var keys = intellisense.Entities[entityName].Attributes.Keys.ToList();
+
+                    return new HashSet<string>(keys);
                 }
             }
 
@@ -1626,30 +1621,117 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             return true;
         }
 
-        public void OpenCrmInWeb()
+        public void OpenCrmWebSite(OpenCrmWebSiteType crmWebSiteType)
         {
             if (!TryGetPublicUrl(out string publicUrl))
             {
                 return;
             }
 
-            if (!IsValidUri(publicUrl)) return;
+            string relativeUrl = string.Empty;
 
-            System.Diagnostics.Process.Start(publicUrl);
-        }
-
-        public void OpenAdvancedFindInWeb()
-        {
-            if (!TryGetPublicUrl(out string publicUrl))
+            if (crmWebSiteType != OpenCrmWebSiteType.CrmWebApplication)
             {
-                return;
+                relativeUrl = GetRelativeUrl(crmWebSiteType);
+
+                if (!string.IsNullOrEmpty(relativeUrl))
+                {
+                    relativeUrl = '/' + relativeUrl.TrimStart('/');
+                }
             }
 
-            string uri = publicUrl + "/main.aspx?pagetype=advancedfind";
+            var uri = publicUrl.TrimEnd('/') + relativeUrl;
 
             if (!IsValidUri(uri)) return;
 
             System.Diagnostics.Process.Start(uri);
+        }
+
+        private string GetRelativeUrl(OpenCrmWebSiteType crmWebSiteType)
+        {
+            switch (crmWebSiteType)
+            {
+                case OpenCrmWebSiteType.AdvancedFind:
+                    return "/main.aspx?pagetype=advancedfind";
+
+                case OpenCrmWebSiteType.Solutions:
+                    //return "/tools/systemcustomization/systemCustomization.aspx?pid=11&web=true";
+                    return "/tools/Solution/home_solution.aspx?etc=7100";
+
+                case OpenCrmWebSiteType.Customization:
+                    return "/tools/systemcustomization/systemCustomization.aspx";
+
+                case OpenCrmWebSiteType.SystemUsers:
+                    return GetEntityListRelativeUrl(SystemUser.EntityLogicalName);
+
+                case OpenCrmWebSiteType.Teams:
+                    return GetEntityListRelativeUrl(Team.EntityLogicalName);
+
+                case OpenCrmWebSiteType.Roles:
+                    return GetEntityListRelativeUrl(Role.EntityLogicalName);
+
+                case OpenCrmWebSiteType.Security:
+                    return "/tools/AdminSecurity/adminsecurity_area.aspx";
+
+                case OpenCrmWebSiteType.Workflows:
+                    return GetEntityListRelativeUrl(Workflow.EntityLogicalName);
+
+                case OpenCrmWebSiteType.SystemJobs:
+                    return "/tools/business/home_asyncoperation.aspx";
+
+                case OpenCrmWebSiteType.Audit:
+                    return "/tools/audit/audit_area.aspx";
+
+                case OpenCrmWebSiteType.Administration:
+                    return "/tools/Admin/admin.aspx";
+
+                case OpenCrmWebSiteType.EngagementHub:
+                    return "/engagementhub.aspx";
+
+                case OpenCrmWebSiteType.Business:
+                    return "/tools/business/business.aspx";
+
+                case OpenCrmWebSiteType.Templates:
+                    return "/tools/templates/templates.aspx";
+
+                case OpenCrmWebSiteType.ProductCatalog:
+                    return "/tools/productcatalog/productcatalog.aspx";
+
+                case OpenCrmWebSiteType.ServiceManagement:
+                    return "/tools/servicemanagement/servicemanagement.aspx";
+
+                case OpenCrmWebSiteType.DataManagement:
+                    return "/tools/DataManagement/datamanagement.aspx";
+
+                case OpenCrmWebSiteType.Social:
+                    return "/tools/social/social_area.aspx";
+
+                case OpenCrmWebSiteType.Calendar:
+                    return "/workplace/home_calendar.aspx";
+
+                case OpenCrmWebSiteType.MobileOffline:
+                    return "/tools/mobileoffline/mobileoffline.aspx";
+
+                case OpenCrmWebSiteType.ExternAppManagement:
+                    return "/tools/externappmanagement/externappmanagement.aspx";
+
+                case OpenCrmWebSiteType.AppsForCrm:
+                    return "/tools/appsforcrm/AppForOutlookAdminSettings.aspx";
+
+                case OpenCrmWebSiteType.RelationshipIntelligence:
+                    return "/_static/tools/RelationshipIntelligenceConfig/UnifiedConfig.html";
+
+                case OpenCrmWebSiteType.MicrosoftFlow:
+                    return "/tools/MicrosoftFlow/FlowTemplatesPage.aspx";
+
+                case OpenCrmWebSiteType.AppModule:
+                    return "/tools/AppModuleContainer/applandingtilepage.aspx";
+
+                case OpenCrmWebSiteType.AppointmentBook:
+                    return "/sm/home_apptbook.aspx";
+            }
+
+            return null;
         }
 
         public void OpenSolutionInWeb(Guid idSolution)
@@ -1699,6 +1781,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             System.Diagnostics.Process.Start(uri);
         }
 
+        public void OpenEntityInWeb(string entityName, Guid entityId)
+        {
+            string uri = GetEntityUrl(entityName, entityId);
+
+            if (!IsValidUri(uri)) return;
+
+            System.Diagnostics.Process.Start(uri);
+        }
+
         public void OpenEntityListInWeb(string entityName)
         {
             string uri = GetEntityListUrl(entityName);
@@ -1710,21 +1801,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string GetEntityListUrl(string entityName)
         {
+            //var componentType = GetSolutionComponentType(entityName);
+
+            //if (componentType.HasValue)
+            //{
+            //    var url = GetSolutionComponentUrl(componentType.Value, entityId, null, null);
+
+            //    if (!string.IsNullOrEmpty(url))
+            //    {
+            //        return url;
+            //    }
+            //}
+
+            return string.Format(GetEntityListUrlFormat(), entityName);
+        }
+
+        public string GetEntityListUrlFormat()
+        {
             if (!TryGetPublicUrl(out string publicUrl))
             {
                 return null;
             }
 
-            return publicUrl + string.Format("/main.aspx?etn={0}&pagetype=entitylist", entityName);
+            return publicUrl + "/main.aspx?etn={0}&pagetype=entitylist";
         }
 
-        public void OpenEntityInWeb(string entityName, Guid entityId)
+        public string GetEntityListRelativeUrl(string entityName)
         {
-            string uri = GetEntityUrl(entityName, entityId);
-
-            if (!IsValidUri(uri)) return;
-
-            System.Diagnostics.Process.Start(uri);
+            return string.Format("/main.aspx?etn={0}&pagetype=entitylist", entityName);
         }
 
         public string GetEntityUrl(string entityName, Guid entityId)

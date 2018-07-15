@@ -165,7 +165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingSiteMaps()
+        private async Task ShowExistingSiteMaps()
         {
             if (!_controlsEnabled)
             {
@@ -901,16 +901,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService1();
 
             WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig);
-        }
-
-        private async void btnCompareSiteMaps_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            WindowHelper.OpenOrganizationComparerSiteMapWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
         }
 
         private async void btnExportSiteMap1_Click(object sender, RoutedEventArgs e)

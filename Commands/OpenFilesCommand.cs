@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Collections.Concurrent;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -169,7 +170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             , { PackageIds.FolderOpenFilesWithMirrorComplexInTextEditorCommandId, OpenFilesType.WithMirrorComplex, true }
         };
 
-        private static Dictionary<Tuple<Func<DTEHelper, List<SelectedFile>>, OpenFilesType, bool>, OpenFilesCommand> _instances = new Dictionary<Tuple<Func<DTEHelper, List<SelectedFile>>, OpenFilesType, bool>, OpenFilesCommand>();
+        private static ConcurrentDictionary<Tuple<Func<DTEHelper, List<SelectedFile>>, OpenFilesType, bool>, OpenFilesCommand> _instances = new ConcurrentDictionary<Tuple<Func<DTEHelper, List<SelectedFile>>, OpenFilesType, bool>, OpenFilesCommand>();
 
         public static OpenFilesCommand Instance(Func<DTEHelper, List<SelectedFile>> listGetter, OpenFilesType openFilesType, bool inTextEditor)
         {
@@ -245,7 +246,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var command = new OpenFilesCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFilesInListForPublish, item.Item2, actionBeforeQueryStatus, item.Item3);
 
-                _instances.Add(Tuple.Create<Func<DTEHelper, List<SelectedFile>>, OpenFilesType, bool>(CommonHandlers.GetSelectedFilesInListForPublish, item.Item2, item.Item3), command);
+                _instances.TryAdd(Tuple.Create<Func<DTEHelper, List<SelectedFile>>, OpenFilesType, bool>(CommonHandlers.GetSelectedFilesInListForPublish, item.Item2, item.Item3), command);
             }
 
             foreach (var item in _commandsFile)
@@ -263,7 +264,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var command = new OpenFilesCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFiles, item.Item2, actionBeforeQueryStatus, item.Item3);
 
-                _instances.Add(Tuple.Create<Func<DTEHelper, List<SelectedFile>>, OpenFilesType, bool>(CommonHandlers.GetSelectedFiles, item.Item2, item.Item3), command);
+                _instances.TryAdd(Tuple.Create<Func<DTEHelper, List<SelectedFile>>, OpenFilesType, bool>(CommonHandlers.GetSelectedFiles, item.Item2, item.Item3), command);
             }
 
             foreach (var item in _commandsFolder)
@@ -281,7 +282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var command = new OpenFilesCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFilesRecursive, item.Item2, actionBeforeQueryStatus, item.Item3);
 
-                _instances.Add(Tuple.Create<Func<DTEHelper, List<SelectedFile>>, OpenFilesType, bool>(CommonHandlers.GetSelectedFilesRecursive, item.Item2, item.Item3), command);
+                _instances.TryAdd(Tuple.Create<Func<DTEHelper, List<SelectedFile>>, OpenFilesType, bool>(CommonHandlers.GetSelectedFilesRecursive, item.Item2, item.Item3), command);
             }
         }
 

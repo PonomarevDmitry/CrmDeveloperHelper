@@ -15,8 +15,6 @@
                 <MenuItem Header="Content" Click="mIShowDifferenceContent_Click"/>
                 <Separator/>
                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                <Separator/>
-                <MenuItem Header="WebResources" Click="btnCompareWebResources_Click"/>
             </MenuItem>
             <Separator x:Uid="menuContextDifference"/>
 

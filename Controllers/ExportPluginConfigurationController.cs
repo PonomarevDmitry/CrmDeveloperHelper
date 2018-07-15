@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput = iWriteToOutput;
         }
 
-        public async void ExecuteExportingPluginConfigurationXml(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingPluginConfigurationXml(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Exporting Plugin Configuration Xml at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -200,7 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return result;
         }
 
-        public async void ExecuteExportingPluginConfigurationIntoFolder(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingPluginConfigurationIntoFolder(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Exporting Plugin Configuration Xml into Folder at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 

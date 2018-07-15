@@ -181,7 +181,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingWebResources()
+        private async Task ShowExistingWebResources()
         {
             if (!_controlsEnabled)
             {
@@ -433,7 +433,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private async void ExecuteAction(Guid idWebResource, string name, Func<string, Guid, string, Task> action)
+        private async Task ExecuteAction(Guid idWebResource, string name, Func<string, Guid, string, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -476,7 +476,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await PerformExportXmlToFile(folder, idWebResource, name, WebResource.Schema.Attributes.dependencyxml, "DependencyXml");
         }
 
-        private async void ExecuteActionEntity(Guid idWebResource, string name, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, Task> action)
+        private async Task ExecuteActionEntity(Guid idWebResource, string name, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -1063,12 +1063,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
@@ -1090,12 +1085,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {

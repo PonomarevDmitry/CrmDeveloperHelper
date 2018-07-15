@@ -14,15 +14,17 @@
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
             <Separator/>
-            <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
-            <Separator/>
-            <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-            <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
             <Separator/>
-            <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportDependentComponents_Click" />
-            <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportRequiredComponents_Click" />
-            <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportDependenciesForDelete_Click" />
+            <MenuItem Header="Dependent Components">
+                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                <Separator/>
+                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                <Separator/>
+                <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportDependentComponents_Click" />
+                <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportRequiredComponents_Click" />
+                <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportDependenciesForDelete_Click" />
+            </MenuItem>
         </ContextMenu>
     </src:WindowBase.Resources>
     <Grid>
@@ -98,15 +100,17 @@
                             <Separator/>
                             <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIOpenDependentComponentsInWeb" Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
-                            <Separator/>
-                            <MenuItem x:Name="mIOpenDependentComponentsInWindow" Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-                            <Separator/>
                             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mIExportDependentComponents" Header="Dependent Components" VerticalAlignment="Center" Click="mIExportDependentComponents_Click" />
-                            <MenuItem x:Name="mIExportRequiredComponents" Header="Required Components" VerticalAlignment="Center" Click="mIExportRequiredComponents_Click" />
-                            <MenuItem x:Name="mIExportDependenciesForDelete" Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportDependenciesForDelete_Click" />
+                            <MenuItem Header="Dependent Components">
+                                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                                <Separator/>
+                                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                                <Separator/>
+                                <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportDependentComponents_Click" />
+                                <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportRequiredComponents_Click" />
+                                <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportDependenciesForDelete_Click" />
+                            </MenuItem>
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>

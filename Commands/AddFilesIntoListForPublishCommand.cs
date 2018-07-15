@@ -3,6 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 
@@ -99,7 +100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             , { PackageIds.FolderAddIntoPublishListFilesWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplex }
         };
 
-        private static Dictionary<Tuple<Func<DTEHelper, List<SelectedFile>>, OpenFilesType>, AddFilesIntoListForPublishCommand> _instances = new Dictionary<Tuple<Func<DTEHelper, List<SelectedFile>>, OpenFilesType>, AddFilesIntoListForPublishCommand>();
+        private static ConcurrentDictionary<Tuple<Func<DTEHelper, List<SelectedFile>>, OpenFilesType>, AddFilesIntoListForPublishCommand> _instances = new ConcurrentDictionary<Tuple<Func<DTEHelper, List<SelectedFile>>, OpenFilesType>, AddFilesIntoListForPublishCommand>();
 
         public static AddFilesIntoListForPublishCommand Instance(Func<DTEHelper, List<SelectedFile>> listGetter, OpenFilesType openFilesType)
         {
@@ -119,21 +120,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             {
                 var command = new AddFilesIntoListForPublishCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetOpenedDocuments, item.Item2, ActionBeforeQueryStatusActionBeforeQueryStatusOpenedDocumentsWebResourceConnectionIsNotReadOnly);
 
-                _instances.Add(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetOpenedDocuments, item.Item2), command);
+                _instances.TryAdd(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetOpenedDocuments, item.Item2), command);
             }
 
             foreach (var item in _commandsFile)
             {
                 var command = new AddFilesIntoListForPublishCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFiles, item.Item2, ActionBeforeQueryStatusSolutionExplorerWebResourceAnyConnectionIsNotReadOnly);
 
-                _instances.Add(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetSelectedFiles, item.Item2), command);
+                _instances.TryAdd(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetSelectedFiles, item.Item2), command);
             }
 
             foreach (var item in _commandsFolder)
             {
                 var command = new AddFilesIntoListForPublishCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFilesRecursive, item.Item2, ActionBeforeQueryStatusSolutionExplorerWebResourceRecursiveConnectionIsNotReadOnly);
 
-                _instances.Add(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetSelectedFilesRecursive, item.Item2), command);
+                _instances.TryAdd(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetSelectedFilesRecursive, item.Item2), command);
             }
         }
 

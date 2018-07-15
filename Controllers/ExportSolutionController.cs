@@ -20,7 +20,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput = iWriteToOutput;
         }
 
-        public async void ExecuteExportingSolution(EnvDTE.SelectedItem selectedItem, string filter, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingSolution(EnvDTE.SelectedItem selectedItem, string filter, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Exporting CRM Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 

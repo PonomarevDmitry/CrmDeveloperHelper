@@ -8,6 +8,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -131,7 +132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Проверка управляемых сущностей на неуправляемые изменения.
 
-        public async void ExecuteCheckingManagedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteCheckingManagedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Checking Managed Entities at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1225,35 +1226,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return hasInfo;
         }
 
-        private static Dictionary<string, string[]> _dictionary = new Dictionary<string, string[]>(StringComparer.InvariantCultureIgnoreCase)
-        {
-            { "activitymimeattachment", new string[] { "objecttypecode", "objectid", "mimetype", "activitysubject", "filename", "subject", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-            , { "advancedsimilarityrule", new string[] { "entity", "name", "advancedsimilarityruleid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+        private static ConcurrentDictionary<string, string[]> _dictionary = new ConcurrentDictionary<string, string[]>
+        (
+            new Dictionary<string, string[]>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "activitymimeattachment", new string[] { "objecttypecode", "objectid", "mimetype", "activitysubject", "filename", "subject", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "advancedsimilarityrule", new string[] { "entity", "name", "advancedsimilarityruleid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
 
-            , { "appmodule", new string[] { "uniquename", "name", "url", "appmoduleversion", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-            , { "appmoduleroles", new string[] { "appmoduleid", "roleid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "appmodule", new string[] { "uniquename", "name", "url", "appmoduleversion", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "appmoduleroles", new string[] { "appmoduleid", "roleid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
 
-            , { "channelaccessprofile", new string[] { "name", "channelaccessprofileid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-            , { "channelaccessprofileentityaccesslevel", new string[] { "channelaccessprofileid", "channelaccessprofileentityaccesslevelid", "entityaccessleveldepthmask", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-            , { "channelaccessprofilerule", new string[] { "name", "workflowid", "channelaccessprofileruleid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-            , { "channelaccessprofileruleitem", new string[] { "associatedchannelaccessprofile", "channelaccessprofileruleid", "name", "sequencenumber", "channelaccessprofileruleitemid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "channelaccessprofile", new string[] { "name", "channelaccessprofileid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "channelaccessprofileentityaccesslevel", new string[] { "channelaccessprofileid", "channelaccessprofileentityaccesslevelid", "entityaccessleveldepthmask", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "channelaccessprofilerule", new string[] { "name", "workflowid", "channelaccessprofileruleid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "channelaccessprofileruleitem", new string[] { "associatedchannelaccessprofile", "channelaccessprofileruleid", "name", "sequencenumber", "channelaccessprofileruleitemid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
 
-            , { "channelproperty", new string[] { "applicationsource", "datatype", "name", "regardingobjectid", "statecode", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-            , { "channelpropertygroup", new string[] { "regardingtypecode", "name", "statecode", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "channelproperty", new string[] { "applicationsource", "datatype", "name", "regardingobjectid", "statecode", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "channelpropertygroup", new string[] { "regardingtypecode", "name", "statecode", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
 
-            , { "customcontrolresource", new string[] { "customcontrol.name", "name", "webresource.name", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "customcontrolresource", new string[] { "customcontrol.name", "name", "webresource.name", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
 
-            , { "knowledgesearchmodel", new string[] { "entity", "sourceentity", "name", "statecode", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-            , { "mobileofflineprofileitemassociation", new string[] { "mobileofflineprofileitemid", "name", "relationshipname", "selectedrelationshipsschema", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-            , { "organizationui", new string[] { "objecttypecode", "fieldxml", "formid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-            , { "processtrigger", new string[] { "primaryentitytypecode", "controltype", "controlname", "formid", "event", "processtriggerid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "knowledgesearchmodel", new string[] { "entity", "sourceentity", "name", "statecode", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "mobileofflineprofileitemassociation", new string[] { "mobileofflineprofileitemid", "name", "relationshipname", "selectedrelationshipsschema", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "organizationui", new string[] { "objecttypecode", "fieldxml", "formid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "processtrigger", new string[] { "primaryentitytypecode", "controltype", "controlname", "formid", "event", "processtriggerid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
 
-            , { "recommendationmodel", new string[] { "name", "productcatalogname", "statecode", "recommendationmodelid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-            , { "recommendationmodelmapping", new string[] { "entity", "accountfield", "mappingtype", "productfield", "entitydisplayname", "recommendationmodelmappingid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "recommendationmodel", new string[] { "name", "productcatalogname", "statecode", "recommendationmodelid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "recommendationmodelmapping", new string[] { "entity", "accountfield", "mappingtype", "productfield", "entitydisplayname", "recommendationmodelmappingid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
 
-            , { "textanalyticsentitymapping", new string[] { "advancedsimilarityruleid", "similarityruleid", "entity", "field", "relationshipname", "textanalyticsentitymappingid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-            , { "topicmodelconfiguration", new string[] { "sourceentity", "name", "topicmodelconfigurationid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-        };
+                , { "textanalyticsentitymapping", new string[] { "advancedsimilarityruleid", "similarityruleid", "entity", "field", "relationshipname", "textanalyticsentitymappingid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { "topicmodelconfiguration", new string[] { "sourceentity", "name", "topicmodelconfigurationid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+            }
+            , StringComparer.InvariantCultureIgnoreCase
+        );
 
         private string GetOtherEntityDescription(List<Entity> entitiesList, string entityName, EntityMetadata entityMetadata)
         {

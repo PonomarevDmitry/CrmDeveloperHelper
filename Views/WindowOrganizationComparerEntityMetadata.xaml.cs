@@ -190,7 +190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingEntities()
+        private async Task ShowExistingEntities()
         {
             if (!_controlsEnabled)
             {
@@ -496,7 +496,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteDifferenceCSharp(entityName);
         }
 
-        private async void ExecuteDifferenceCSharp(string entityName)
+        private async Task ExecuteDifferenceCSharp(string entityName)
         {
             if (!_controlsEnabled)
             {
@@ -599,7 +599,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteDifferenceJavaScript(entityName);
         }
 
-        private async void ExecuteDifferenceJavaScript(string entityName)
+        private async Task ExecuteDifferenceJavaScript(string entityName)
         {
             if (!_controlsEnabled)
             {
@@ -701,7 +701,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             CreateEntityMetadataFileCSharp(GetService2, entityName, txtBNameSpace2.Text.Trim());
         }
 
-        private async void CreateEntityMetadataFileCSharp(Func<Task<IOrganizationServiceExtented>> getService, string entityName, string nameSpace)
+        private async Task CreateEntityMetadataFileCSharp(Func<Task<IOrganizationServiceExtented>> getService, string entityName, string nameSpace)
         {
             if (!_controlsEnabled)
             {
@@ -768,7 +768,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             CreateEntityMetadataFileJavaScript(GetService2, entityName, txtBNameSpace2.Text.Trim());
         }
 
-        private async void CreateEntityMetadataFileJavaScript(Func<Task<IOrganizationServiceExtented>> getService, string entityName, string nameSpace)
+        private async Task CreateEntityMetadataFileJavaScript(Func<Task<IOrganizationServiceExtented>> getService, string entityName, string nameSpace)
         {
             if (!_controlsEnabled)
             {

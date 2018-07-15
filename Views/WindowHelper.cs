@@ -10,7 +10,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public static class WindowHelper
     {
-        public static void OpenEntityMetadataWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, CommonConfiguration commonConfig, string entityName, IEnumerable<EntityMetadata> entityMetadataList, string filePath)
+        public static void OpenEntityMetadataWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string entityName
+            , IEnumerable<EntityMetadata> entityMetadataList
+            , string filePath
+            )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -38,7 +45,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenEntityRibbonWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, CommonConfiguration commonConfig, string entityName, IEnumerable<EntityMetadata> entityMetadataList)
+        public static void OpenEntityAttributeExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string entityName
+            , IEnumerable<EntityMetadata> entityMetadataList
+            )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowEntityAttributeExplorer(
+                        iWriteToOutput
+                        , service
+                        , commonConfig
+                        , entityName
+                        , entityMetadataList
+                        );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        public static void OpenEntityRibbonWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string entityName
+            , IEnumerable<EntityMetadata> entityMetadataList
+            )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -65,7 +111,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenAttributesDependentComponentWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, CommonConfiguration commonConfig, string entityName, IEnumerable<EntityMetadata> entityMetadataList)
+        public static void OpenAttributesDependentComponentWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string entityName
+            , IEnumerable<EntityMetadata> entityMetadataList
+            )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -92,7 +144,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSystemFormWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, CommonConfiguration commonConfig, string filterEntityName, string selection)
+        public static void OpenSystemFormWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntityName
+            , string selection
+            )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -119,7 +177,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSavedQueryWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, CommonConfiguration commonConfig, string filterEntityName, string selection)
+        public static void OpenSavedQueryWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntityName
+            , string selection
+            )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -146,7 +210,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSavedQueryVisualizationWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, CommonConfiguration commonConfig, string filterEntityName, string selection)
+        public static void OpenSavedQueryVisualizationWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntityName
+            , string selection
+            )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -173,7 +243,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenWorkflowWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, CommonConfiguration commonConfig, string filterEntityName, string selection)
+        public static void OpenWorkflowWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntityName
+            , string selection
+            )
         {
 
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -201,7 +277,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenPluginTreeWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, CommonConfiguration commonConfig, string selection)
+        public static void OpenPluginTreeWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string selection
+            )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -227,7 +308,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSdkMessageTreeWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, CommonConfiguration commonConfig, string selection)
+        public static void OpenSdkMessageTreeWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string selection
+            )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -253,7 +339,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSdkMessageRequestTreeWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, CommonConfiguration commonConfig, string selection)
+        public static void OpenSdkMessageRequestTreeWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string selection
+            )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -279,7 +370,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSolutionComponentDependenciesWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, int componentType, Guid objectId, string selection)
+        public static void OpenSolutionComponentDependenciesWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , SolutionComponentDescriptor descriptor
+            , CommonConfiguration commonConfig
+            , int componentType
+            , Guid objectId
+            , string selection
+            )
         {
             var worker = new Thread(() =>
             {
@@ -308,7 +407,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenExplorerSolutionWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, CommonConfiguration commonConfig, int? componentType, Guid? objectId)
+        public static void OpenExplorerSolutionWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , int? componentType
+            , Guid? objectId
+            )
         {
             var worker = new Thread(() =>
             {
@@ -335,7 +440,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSolutionComponentDependenciesWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, string selection)
+        public static void OpenSolutionComponentDependenciesWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , SolutionComponentDescriptor descriptor
+            , CommonConfiguration commonConfig
+            , string solutionUniqueName
+            , string selection
+            )
         {
             var worker = new Thread(() =>
             {
@@ -356,7 +468,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenGlobalOptionSetsWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, CommonConfiguration commonConfig, IEnumerable<OptionSetMetadata> optionSets, string filePath, string selection)
+        public static void OpenGlobalOptionSetsWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , IEnumerable<OptionSetMetadata> optionSets
+            , string filePath
+            , string selection
+            )
         {
 
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -385,7 +504,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenExportReportWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, CommonConfiguration commonConfig, string selection)
+        public static void OpenExportReportWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string selection
+            )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -411,7 +535,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenExportSiteMapWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, CommonConfiguration commonConfig)
+        public static void OpenExportSiteMapWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -436,7 +564,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenExportWebResourcesWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, CommonConfiguration commonConfig, string selection)
+        public static void OpenExportWebResourcesWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string selection
+            )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {

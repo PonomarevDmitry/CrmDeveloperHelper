@@ -1,11 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers

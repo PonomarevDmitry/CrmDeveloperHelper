@@ -171,7 +171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingCharts()
+        private async Task ShowExistingCharts()
         {
             if (!_controlsEnabled)
             {
@@ -402,7 +402,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private async void ExecuteAction(Guid idSavedQueryVisualization, string entityName, string name, Func<string, Guid, string, string, Task> action)
+        private async Task ExecuteAction(Guid idSavedQueryVisualization, string entityName, string name, Func<string, Guid, string, string, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -494,7 +494,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await PerformExportXmlToFile(folder, idSavedQueryVisualization, entityName, name, SavedQueryVisualization.Schema.Attributes.presentationdescription, "PresentationDescription");
         }
 
-        private async void ExecuteActionEntity(Guid idSavedQueryVisualization, string entityName, string name, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, string, Task> action)
+        private async Task ExecuteActionEntity(Guid idSavedQueryVisualization, string entityName, string name, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, string, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -889,12 +889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
@@ -1254,12 +1249,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
             if (connectionData != null)
             {
@@ -1340,6 +1330,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             finally
             {
                 ToggleControls(true);
+            }
+        }
+
+        private void mIOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null
+                || string.IsNullOrEmpty(entity.PrimaryEntityTypeCode)
+                || string.Equals(entity.PrimaryEntityTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
+                )
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenEntityMetadataInWeb(entity.PrimaryEntityTypeCode);
+            }
+        }
+
+        private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null
+                || string.IsNullOrEmpty(entity.PrimaryEntityTypeCode)
+                || string.Equals(entity.PrimaryEntityTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
+                )
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenEntityListInWeb(entity.PrimaryEntityTypeCode);
             }
         }
     }

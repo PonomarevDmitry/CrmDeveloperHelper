@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Скачивание любого веб-ресурса.
 
-        public async void ExecuteDownloadCustomWebResources(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public async Task ExecuteDownloadCustomWebResources(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Downloading WebResource at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Скачивание любого отчета.
 
-        public async void ExecuteDownloadCustomReport(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public async Task ExecuteDownloadCustomReport(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Downloading Custom Report at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 

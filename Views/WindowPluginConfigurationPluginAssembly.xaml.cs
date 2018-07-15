@@ -76,7 +76,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
         }
 
-        private async void LoadPluginConfiguration(string filePath)
+        private async Task LoadPluginConfiguration(string filePath)
         {
             if (!_controlsEnabled)
             {
@@ -284,7 +284,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private async void ExecuteAction(PluginAssembly entity, Func<string, PluginDescription, PluginAssembly, Task> action)
+        private async Task ExecuteAction(PluginAssembly entity, Func<string, PluginDescription, PluginAssembly, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -311,7 +311,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return Task.Run(() => PerformAssemblyDescription(folder, pluginDescription, pluginAssembly));
         }
 
-        private async void PerformAssemblyDescription(string folder, PluginDescription pluginDescription, PluginAssembly pluginAssembly)
+        private async Task PerformAssemblyDescription(string folder, PluginDescription pluginDescription, PluginAssembly pluginAssembly)
         {
             string fileName = string.Format(
                 _formatFileTxt

@@ -61,15 +61,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             result.AppendFormat("Form Name: {0}", name).AppendLine();
             result.AppendFormat("FormId: {0}", formId).AppendLine();
 
+            SaveInfoFormLibraries(result, doc);
+
+            SaveInfoEvents(result, doc);
+
             SaveInfoTabSection(result, doc);
 
             SaveInfoHiddenAttributes(result, doc);
 
             SaveInfoControlsWithoutAttributes(result, doc);
-
-            SaveInfoWebResources(result, doc);
-
-            SaveInfoEvents(result, doc);
 
             SaveInfoAttributes(result, doc);
 
@@ -170,9 +170,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private void SaveInfoWebResources(StringBuilder result, XElement doc)
+        private void SaveInfoFormLibraries(StringBuilder result, XElement doc)
         {
-            string desc = GetWebResourcesDescription(doc);
+            string desc = GetFormLibrariesDescription(doc);
 
             if (!string.IsNullOrEmpty(desc))
             {
@@ -1044,7 +1044,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result.ToString();
         }
 
-        public string GetWebResourcesDescription(XElement doc)
+        public string GetFormLibrariesDescription(XElement doc)
         {
             StringBuilder result = new StringBuilder();
 

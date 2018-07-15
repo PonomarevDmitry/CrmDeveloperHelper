@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
@@ -39,7 +40,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         public event EventHandler<EventArgs> ConnectionChanged;
 
-        private ContentEntityReferenceMultiValueConverter _contentConverter = new ContentEntityReferenceMultiValueConverter();
         private NavigateUriMultiValueConverter _navigateUriConverter = new NavigateUriMultiValueConverter();
 
         private void OnConnectionChanged()
@@ -324,7 +324,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             var urlFormat = connectionData.GetEntityUrlFormat();
 
-            var dataTable = EntityCollectionToDataTable(entityCollection, out columnMapping);
+            var dataTable = EntityCollectionToDataTable(connectionData, entityCollection, out columnMapping);
 
             this.Dispatcher.Invoke(() =>
             {
@@ -378,25 +378,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             var dataColumn = dataTable.Columns[dataColumnName];
 
-            if (dataColumn.DataType == typeof(EntityReference))
+            if (dataColumn.DataType == typeof(EntityReferenceView) || dataColumn.DataType == typeof(PrimaryGuidView))
             {
                 var columnDGT = new DataGridHyperlinkColumn()
                 {
                     Header = attributeName.Replace("_", "__"),
                     Width = DataGridLength.Auto,
 
-                    ContentBinding = new MultiBinding()
+                    SortMemberPath = dataColumnName,
+
+                    ContentBinding = new Binding("[" + dataColumnName + "]")
                     {
                         Mode = BindingMode.OneTime,
-
-                        Converter = _contentConverter,
-
-                        Bindings =
-                        {
-                            new Binding("[" + dataColumnName + "].Name"),
-                            new Binding("[" + dataColumnName + "].LogicalName"),
-                            new Binding("[" + dataColumnName + "].Id"),
-                        },
                     },
 
                     Binding = new MultiBinding()
@@ -436,6 +429,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     Header = attributeName.Replace("_", "__"),
                     Width = DataGridLength.Auto,
 
+                    SortMemberPath = dataColumnName,
+
                     Binding = new Binding(dataColumnName)
                     {
                         Mode = BindingMode.OneTime,
@@ -456,36 +451,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             if (link != null && link.NavigateUri != null && !string.IsNullOrEmpty(link.NavigateUri.AbsoluteUri))
             {
                 System.Diagnostics.Process.Start(link.NavigateUri.AbsoluteUri);
-            }
-        }
-
-        private class ContentEntityReferenceMultiValueConverter : IMultiValueConverter
-        {
-            public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-            {
-                if (values == null || values.Length != 3)
-                {
-                    return Binding.DoNothing;
-                }
-
-                var name = values[0] as string;
-
-                if (!string.IsNullOrEmpty(name))
-                {
-                    return name;
-                }
-
-                if (values[1] is string entityName && values[2] is Guid id)
-                {
-                    return string.Format("{0} - {1}", entityName, id);
-                }
-
-                return null;
-            }
-
-            public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
-            {
-                return new object[] { Binding.DoNothing };
             }
         }
 
@@ -623,9 +588,103 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             return string.Equals(element.Name.LocalName, "link-entity", StringComparison.OrdinalIgnoreCase);
         }
 
+        private class PrimaryGuidView : IComparable, IComparable<PrimaryGuidView>, IEquatable<PrimaryGuidView>
+        {
+            public string LogicalName { get; private set; }
+
+            public Guid Id { get; private set; }
+
+            public PrimaryGuidView(string logicalName, Guid idValue)
+            {
+                this.LogicalName = logicalName;
+                this.Id = idValue;
+            }
+
+            public int CompareTo(PrimaryGuidView other)
+            {
+                if (other == null)
+                {
+                    return -1;
+                }
+
+                return this.Id.CompareTo(other.Id);
+            }
+
+            public int CompareTo(object obj)
+            {
+                return this.CompareTo(obj as PrimaryGuidView);
+            }
+
+            public bool Equals(PrimaryGuidView other)
+            {
+                if (other == null)
+                {
+                    return false;
+                }
+
+                return this.Id == other.Id;
+            }
+
+            public override string ToString()
+            {
+                return this.Id.ToString();
+            }
+        }
+
+        private class EntityReferenceView : IComparable, IComparable<EntityReferenceView>, IEquatable<EntityReferenceView>
+        {
+            public string LogicalName { get; private set; }
+
+            public Guid Id { get; private set; }
+
+            public string Name { get; private set; }
+
+            public EntityReferenceView(string logicalName, Guid idValue, string name)
+            {
+                this.LogicalName = logicalName;
+                this.Id = idValue;
+                this.Name = name;
+
+                if (string.IsNullOrEmpty(name))
+                {
+                    this.Name = string.Format("{0} - {1}", LogicalName, Id);
+                }
+            }
+
+            public int CompareTo(EntityReferenceView other)
+            {
+                if (other == null)
+                {
+                    return -1;
+                }
+
+                return this.Name.CompareTo(other.Name);
+            }
+
+            public int CompareTo(object obj)
+            {
+                return this.CompareTo(obj as EntityReferenceView);
+            }
+
+            public bool Equals(EntityReferenceView other)
+            {
+                if (other == null)
+                {
+                    return false;
+                }
+
+                return this.Id == other.Id && string.Equals(this.LogicalName, other.LogicalName, StringComparison.InvariantCultureIgnoreCase);
+            }
+
+            public override string ToString()
+            {
+                return this.Name;
+            }
+        }
+
         private const string _columnOriginalEntity = "columnOriginalEntity______";
 
-        private static DataTable EntityCollectionToDataTable(EntityCollection entityCollection, out Dictionary<string, string> columnMapping)
+        private static DataTable EntityCollectionToDataTable(ConnectionData connectionData, EntityCollection entityCollection, out Dictionary<string, string> columnMapping)
         {
             DataTable dataTable = new DataTable();
 
@@ -648,14 +707,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                         continue;
                     }
 
+                    if (connectionData.IntellisenseData != null
+                        && connectionData.IntellisenseData.Entities != null
+                        && connectionData.IntellisenseData.Entities.ContainsKey(entity.LogicalName)
+                        && value is Guid idValue
+                        && string.Equals(connectionData.IntellisenseData.Entities[entity.LogicalName].EntityPrimaryIdAttribute, attributeName, StringComparison.InvariantCultureIgnoreCase)
+                        )
+                    {
+                        value = new PrimaryGuidView(entity.LogicalName, idValue);
+                    }
+
                     string columnName = string.Format("{0}___{1}", entity.LogicalName, attributeName.Replace(".", "_"));
 
                     if (value is AliasedValue aliasedValue)
                     {
                         columnName = string.Format("{0}___{1}___{2}", attributeName.Replace(".", "_"), aliasedValue.EntityLogicalName, aliasedValue.AttributeLogicalName);
+
+                        if (connectionData.IntellisenseData != null
+                            && connectionData.IntellisenseData.Entities != null
+                            && connectionData.IntellisenseData.Entities.ContainsKey(aliasedValue.EntityLogicalName)
+                            && aliasedValue.Value is Guid refIdValue
+                            && string.Equals(connectionData.IntellisenseData.Entities[aliasedValue.EntityLogicalName].EntityPrimaryIdAttribute, aliasedValue.AttributeLogicalName, StringComparison.InvariantCultureIgnoreCase)
+                        )
+                        {
+                            value = new PrimaryGuidView(aliasedValue.EntityLogicalName, refIdValue);
+                        }
                     }
 
                     value = EntityDescriptionHandler.GetUnderlyingValue(value);
+
+                    if (value is EntityReference entityReference)
+                    {
+                        value = new EntityReferenceView(entityReference.LogicalName, entityReference.Id, entityReference.Name);
+                    }
 
                     if (value is Money money)
                     {
@@ -905,7 +989,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             });
         }
 
-        private async void mIOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
+        private void mIOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
         {
             if (!TryFindEntityFromDataRowView(e, out var entity))
             {
@@ -1023,7 +1107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             return false;
         }
 
-        private async void mIOpenEntityReferenceCustomizationInWeb_Click(object sender, RoutedEventArgs e)
+        private void mIOpenEntityReferenceCustomizationInWeb_Click(object sender, RoutedEventArgs e)
         {
             if (!TryFindEntityNameFromHyperlink(e, out string entityName))
             {
@@ -1217,6 +1301,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             var jsCode = ContentCoparerHelper.FormatToJavaScript("fetchXml", fileText);
 
             Clipboard.SetText(jsCode);
+        }
+
+        private void dGrResults_Sorting(object sender, DataGridSortingEventArgs e)
+        {
+            //DataView dataView = e.Column.SortMemberPath
         }
     }
 }

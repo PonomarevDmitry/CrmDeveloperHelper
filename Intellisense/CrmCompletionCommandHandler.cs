@@ -30,7 +30,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
         public int QueryStatus(ref Guid pguidCmdGroup, uint cCmds, OLECMD[] prgCmds, IntPtr pCmdText)
         {
-            return _nextCommandHandler.QueryStatus(ref pguidCmdGroup, cCmds, prgCmds, pCmdText);
+            var ret = _nextCommandHandler.QueryStatus(ref pguidCmdGroup, cCmds, prgCmds, pCmdText);
+
+            if (pguidCmdGroup == VSConstants.VSStd2K)
+            {
+                var any = prgCmds.Any(e =>
+                    e.cmdID == (uint)VSConstants.VSStd2KCmdID.AUTOCOMPLETE
+                    || e.cmdID == (uint)VSConstants.VSStd2KCmdID.COMPLETEWORD
+                    || e.cmdID == (uint)VSConstants.VSStd2KCmdID.SHOWMEMBERLIST
+                    || e.cmdID == (uint)VSConstants.VSStd2KCmdID.NavigateForward
+                    || e.cmdID == (uint)VSConstants.VSStd2KCmdID.COMPLETION_HIDE_ADVANCED
+                    || e.cmdID == (uint)VSConstants.VSStd2KCmdID.QUICKINFO
+                );
+
+                if (any)
+                {
+                    return VSConstants.S_OK;
+                }
+            }
+
+            return ret;
         }
 
         public int Exec(ref Guid pguidCmdGroup, uint nCmdID, uint nCmdexecopt, IntPtr pvaIn, IntPtr pvaOut)
@@ -81,7 +100,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             if (nCmdID == (uint)VSConstants.VSStd2KCmdID.AUTOCOMPLETE
                 || nCmdID == (uint)VSConstants.VSStd2KCmdID.COMPLETEWORD
                 || nCmdID == (uint)VSConstants.VSStd2KCmdID.SHOWMEMBERLIST
-                || (!typedChar.Equals(char.MinValue) && (char.IsLetterOrDigit(typedChar) || typedChar == ' ' || typedChar == '_' || typedChar == '-'))
+                || nCmdID == (uint)VSConstants.VSStd2KCmdID.COMPLETION_HIDE_ADVANCED
+                || nCmdID == (uint)VSConstants.VSStd2KCmdID.QUICKINFO
+                || (!typedChar.Equals(char.MinValue) && (char.IsLetterOrDigit(typedChar) || typedChar == ' ' || typedChar == '_' || typedChar == '-' || typedChar == '.' || typedChar == ','))
                 )
             {
                 if (_session == null && _provider.CompletionBroker.IsCompletionActive(_textView))

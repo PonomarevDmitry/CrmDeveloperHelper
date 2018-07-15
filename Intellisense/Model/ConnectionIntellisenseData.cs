@@ -5,6 +5,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Collections.Concurrent;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 {
@@ -15,7 +16,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         private static object _syncCacheObject = new object();
 
-        private static Dictionary<Guid, object> _cacheSyncObjectFile = new Dictionary<Guid, object>();
+        private static ConcurrentDictionary<Guid, object> _cacheSyncObjectFile = new ConcurrentDictionary<Guid, object>();
 
         private static object GetFileSyncObject(Guid connectionId)
         {
@@ -23,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 if (!_cacheSyncObjectFile.ContainsKey(connectionId))
                 {
-                    _cacheSyncObjectFile.Add(connectionId, new object());
+                    _cacheSyncObjectFile.TryAdd(connectionId, new object());
                 }
             }
 
@@ -40,13 +41,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public Guid ConnectionId { get; set; }
 
         [DataMember]
-        public Dictionary<string, EntityIntellisenseData> Entities { get; private set; }
-
-        public bool _deserializedProcessExit = false;
+        public ConcurrentDictionary<string, EntityIntellisenseData> Entities { get; private set; }
 
         public ConnectionIntellisenseData()
         {
-            this.Entities = new Dictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+            this.Entities = new ConcurrentDictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
         }
 
         public void LoadFullData(IEnumerable<EntityMetadata> entityMetadataList)
@@ -57,7 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 {
                     if (!this.Entities.ContainsKey(entityMetadata.LogicalName))
                     {
-                        this.Entities.Add(entityMetadata.LogicalName, new EntityIntellisenseData());
+                        this.Entities.TryAdd(entityMetadata.LogicalName, new EntityIntellisenseData());
                     }
 
                     this.Entities[entityMetadata.LogicalName].LoadData(entityMetadata);
@@ -78,7 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 if (!this.Entities.ContainsKey(entityMetadata.LogicalName))
                 {
-                    this.Entities.Add(entityMetadata.LogicalName, new EntityIntellisenseData());
+                    this.Entities.TryAdd(entityMetadata.LogicalName, new EntityIntellisenseData());
                 }
 
                 this.Entities[entityMetadata.LogicalName].LoadData(entityMetadata);
@@ -99,7 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 if (Entities == null)
                 {
-                    this.Entities = new Dictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                    this.Entities = new ConcurrentDictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
             }
         }
@@ -137,6 +136,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     }
                     catch (Exception ex)
                     {
+                        File.Delete(filePath);
+
                         DTEHelper.WriteExceptionToOutput(ex);
                     }
                 }
@@ -203,7 +204,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     {
                         try
                         {
-                            File.WriteAllBytes(filePath, fileBody);
+                            try
+                            {
+
+                            }
+                            finally
+                            {
+                                File.WriteAllBytes(filePath, fileBody);
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -236,7 +244,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 {
                     if (this.Entities == null)
                     {
-                        this.Entities = new Dictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                        this.Entities = new ConcurrentDictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                     }
                 }
 
@@ -246,7 +254,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     {
                         if (!this.Entities.ContainsKey(entityData.EntityLogicalName))
                         {
-                            this.Entities.Add(entityData.EntityLogicalName, entityData);
+                            this.Entities.TryAdd(entityData.EntityLogicalName, entityData);
                         }
                         else
                         {

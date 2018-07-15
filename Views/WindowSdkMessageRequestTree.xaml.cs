@@ -238,7 +238,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingSdkMessageRequests()
+        private async Task ShowExistingSdkMessageRequests()
         {
             if (!_controlsEnabled)
             {

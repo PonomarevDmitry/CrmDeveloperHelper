@@ -43,6 +43,10 @@
                                     <MenuItem HorizontalAlignment="Left" Header="Export Solution" Click="miExportSolution_Click" />
                                     <Separator/>
                                     <MenuItem HorizontalAlignment="Left" Header="Create New Solution" Click="miCreateNewSolution_Click" />
+                                    <Separator />
+                                    <MenuItem Header="Open Solution List in Web" Click="mIOpenSolutionListInWeb_Click" />
+                                    <Separator />
+                                    <MenuItem Header="Open Customization in Web" Click="mIOpenCustomizationInWeb_Click" />
                                 </MenuItem>
                             </Menu>
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />

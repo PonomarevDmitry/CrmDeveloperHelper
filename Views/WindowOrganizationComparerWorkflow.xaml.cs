@@ -172,7 +172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingWorkflows()
+        private async Task ShowExistingWorkflows()
         {
             if (!_controlsEnabled)
             {

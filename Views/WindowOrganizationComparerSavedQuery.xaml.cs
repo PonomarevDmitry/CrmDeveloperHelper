@@ -173,7 +173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async void ShowExistingSavedQueries()
+        private async Task ShowExistingSavedQueries()
         {
             if (!_controlsEnabled)
             {

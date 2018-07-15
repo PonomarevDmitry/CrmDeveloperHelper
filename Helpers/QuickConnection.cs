@@ -15,6 +15,7 @@ using System.ServiceModel.Description;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -26,8 +27,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static object _syncObjectDiscoveryService = new object();
         private static object _syncObjectOrganizationService = new object();
 
-        private static Dictionary<Uri, IServiceManagement<IDiscoveryService>> _cacheDiscoveryServiceManagement = new Dictionary<Uri, IServiceManagement<IDiscoveryService>>();
-        private static Dictionary<Uri, IServiceManagement<IOrganizationService>> _cacheOrganizationServiceManagement = new Dictionary<Uri, IServiceManagement<IOrganizationService>>();
+        private static ConcurrentDictionary<Uri, IServiceManagement<IDiscoveryService>> _cacheDiscoveryServiceManagement = new ConcurrentDictionary<Uri, IServiceManagement<IDiscoveryService>>();
+        private static ConcurrentDictionary<Uri, IServiceManagement<IOrganizationService>> _cacheOrganizationServiceManagement = new ConcurrentDictionary<Uri, IServiceManagement<IOrganizationService>>();
 
         private static IServiceManagement<IDiscoveryService> GetDiscoveryServiceConfiguration(Uri uri)
         {
@@ -47,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (!_cacheDiscoveryServiceManagement.ContainsKey(uri))
                     {
-                        _cacheDiscoveryServiceManagement.Add(uri, management);
+                        _cacheDiscoveryServiceManagement.TryAdd(uri, management);
                     }
 
                     return _cacheDiscoveryServiceManagement[uri];
@@ -79,7 +80,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (!_cacheOrganizationServiceManagement.ContainsKey(uri))
                     {
-                        _cacheOrganizationServiceManagement.Add(uri, management);
+                        _cacheOrganizationServiceManagement.TryAdd(uri, management);
                     }
 
                     return _cacheOrganizationServiceManagement[uri];

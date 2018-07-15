@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -83,7 +84,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnClosed(e);
         }
 
-        private async void ShowExistingSolutions(string lastSolutionUniqueName = null)
+        private async Task ShowExistingSolutions(string lastSolutionUniqueName = null)
         {
             if (!_controlsEnabled)
             {
@@ -377,6 +378,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             this._service.ConnectionData.OpenSolutionInWeb(entity.Id);
+        }
+
+        private void mIOpenSolutionListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            this._service.ConnectionData.OpenCrmWebSite(OpenCrmWebSiteType.Solutions);
+        }
+
+        private void mIOpenCustomizationInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            this._service.ConnectionData.OpenCrmWebSite(OpenCrmWebSiteType.Customization);
         }
 
         private void btnOpenComponentsInWindow_Click(object sender, RoutedEventArgs e)
