@@ -580,12 +580,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             AttributeMetadataViewItem result = null;
 
-            if (this.lstVwEntities.SelectedItems.Count > 0
-                && this.lstVwEntities.SelectedItems[0] != null
-                && this.lstVwEntities.SelectedItems[0] is AttributeMetadataViewItem
+            if (this.lstVwAttributes.SelectedItems.Count > 0
+                && this.lstVwAttributes.SelectedItems[0] != null
+                && this.lstVwAttributes.SelectedItems[0] is AttributeMetadataViewItem
                 )
             {
-                result = (this.lstVwEntities.SelectedItems[0] as AttributeMetadataViewItem);
+                result = (this.lstVwAttributes.SelectedItems[0] as AttributeMetadataViewItem);
             }
 
             return result;
@@ -593,7 +593,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private List<AttributeMetadataViewItem> GetSelectedAttributes()
         {
-            List<AttributeMetadataViewItem> result = this.lstVwEntities.SelectedItems.OfType<AttributeMetadataViewItem>().ToList();
+            List<AttributeMetadataViewItem> result = this.lstVwAttributes.SelectedItems.OfType<AttributeMetadataViewItem>().ToList();
 
             return result;
         }

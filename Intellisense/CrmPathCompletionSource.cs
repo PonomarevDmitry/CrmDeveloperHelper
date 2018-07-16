@@ -210,7 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
             else
             {
-                if (intellisenseData.Entities.ContainsKey(sourceEntityName))
+                if (!string.IsNullOrEmpty(sourceEntityName) && intellisenseData.Entities.ContainsKey(sourceEntityName))
                 {
                     var sourceEntity = intellisenseData.Entities[sourceEntityName];
 
@@ -392,7 +392,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
             else
             {
-                if (intellisenseData.Entities.ContainsKey(sourceEntityName))
+                if (!string.IsNullOrEmpty(sourceEntityName) && intellisenseData.Entities.ContainsKey(sourceEntityName))
                 {
                     var sourceEntity = intellisenseData.Entities[sourceEntityName];
 
@@ -429,6 +429,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                                     GetUsedEntitiesByRelativePathRecursive(result, rel.Entity1Name, fields, intellisenseData);
 
                                     GetUsedEntitiesByRelativePathRecursive(result, rel.Entity2Name, fields, intellisenseData);
+
+                                    return;
                                 }
                             }
 
