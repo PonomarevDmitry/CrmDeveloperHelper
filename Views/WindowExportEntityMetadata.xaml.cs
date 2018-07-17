@@ -452,14 +452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            IEnumerable<EntityMetadata> entityMetadataList = null;
-
-            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
-            }
-
-            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, entityMetadataList);
+            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName);
         }
 
         private async void btnGlobalOptionSets_Click(object sender, RoutedEventArgs e)

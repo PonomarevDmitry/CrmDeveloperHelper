@@ -32,9 +32,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<RibbonCustomization>> GetListAsync()
+        public Task<HashSet<string>> GetEntitiesWithRibbonCustomizationAsync()
         {
-            return Task.Run(() => GetList());
+            return Task.Run(() => GetEntitiesWithRibbonCustomization());
         }
 
         /// <summary>
@@ -42,15 +42,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private List<RibbonCustomization> GetList()
+        internal HashSet<string> GetEntitiesWithRibbonCustomization()
         {
             QueryExpression query = new QueryExpression()
             {
                 NoLock = true,
 
+                Distinct = true,
+
                 EntityName = RibbonCustomization.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = new ColumnSet(RibbonCustomization.Schema.Attributes.entity),
 
                 Criteria =
                 {
@@ -72,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            var result = new List<RibbonCustomization>();
+            var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
             try
             {
@@ -80,7 +82,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     var coll = _service.RetrieveMultiple(query);
 
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<RibbonCustomization>()));
+                    foreach (var item in coll.Entities.Select(e => e.ToEntity<RibbonCustomization>()))
+                    {
+                        if (!string.IsNullOrEmpty(item.Entity))
+                        {
+                            result.Add(item.Entity);
+                        }
+                    }
 
                     if (!coll.MoreRecords)
                     {
@@ -142,6 +150,58 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
 
             File.WriteAllBytes(filePath, byteXml);
+        }
+
+        public Task<RibbonCustomization> FindApplicationRibbonCustomizationAsync()
+        {
+            return Task.Run(() => FindApplicationRibbonCustomization());
+        }
+
+        public RibbonCustomization FindApplicationRibbonCustomization()
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = RibbonCustomization.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(RibbonCustomization.Schema.Attributes.entity, ConditionOperator.Null),
+                    },
+                },
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = RibbonCustomization.EntityLogicalName,
+                        LinkFromAttributeName = RibbonCustomization.Schema.Attributes.solutionid,
+
+                        LinkToEntityName = Solution.Schema.EntityLogicalName,
+                        LinkToAttributeName = Solution.Schema.EntityPrimaryIdAttribute,
+
+                        LinkCriteria =
+                        {
+                            Conditions =
+                            {
+                                new ConditionExpression(Solution.Schema.Attributes.uniquename, ConditionOperator.Equal, Solution.InstancesUniqueNames.Active),
+                            },
+                        },
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(RibbonCustomization.Schema.Attributes.publishedon, OrderType.Ascending),
+                },
+            };
+
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<RibbonCustomization>()).FirstOrDefault();
         }
     }
 }

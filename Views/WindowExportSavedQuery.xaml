@@ -47,7 +47,9 @@
             </MenuItem>
             <Separator/>
             <MenuItem Header="Get Other Entity Information">
-                <MenuItem Header="Metadata" Click="btnCreateMetadataFile_Click"/>
+                <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
+                <Separator/>
+                <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
                 <Separator/>
                 <MenuItem Header="Ribbon" Click="btnExportRibbon_Click"/>
                 <Separator/>

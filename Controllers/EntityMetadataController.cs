@@ -106,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, commonConfig, selection, null);
+            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, commonConfig, selection);
         }
 
         #endregion Открытие Entity Attribute Explorer.

@@ -209,11 +209,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service1 != null && service2 != null)
                 {
-                    var temp = new List<LinkedEntityMetadata>();
-
-                    List<EntityMetadata> list1;
-                    List<EntityMetadata> list2;
-
                     if (!_cacheEntityMetadata.ContainsKey(service1.ConnectionData.ConnectionId))
                     {
                         EntityMetadataRepository repository1 = new EntityMetadataRepository(service1);
@@ -232,8 +227,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _cacheEntityMetadata.Add(service2.ConnectionData.ConnectionId, await task2);
                     }
 
-                    list1 = _cacheEntityMetadata[service1.ConnectionData.ConnectionId];
-                    list2 = _cacheEntityMetadata[service2.ConnectionData.ConnectionId];
+                    List<EntityMetadata> list1 = _cacheEntityMetadata[service1.ConnectionData.ConnectionId];
+                    List<EntityMetadata> list2 = _cacheEntityMetadata[service2.ConnectionData.ConnectionId];
+
+                    var temp = new List<LinkedEntityMetadata>();
 
                     if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                     {
@@ -536,7 +533,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     await task2;
                 }
-                
+
                 await task1;
 
                 this._iWriteToOutput.WriteToOutput("{0} ApplicationRibbon Xml exported to {1}", service1.ConnectionData.Name, filePath1);
@@ -917,6 +914,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service2 = await GetService2();
 
             WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity);
+        }
+
+        private async void btnEntityAttributeExplorer1_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService1();
+
+            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity);
+        }
+
+        private async void btnEntityAttributeExplorer2_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService2();
+
+            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity);
         }
 
         private async void btnCreateMetadataFile1_Click(object sender, RoutedEventArgs e)

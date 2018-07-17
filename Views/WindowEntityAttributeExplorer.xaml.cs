@@ -50,7 +50,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string filterEntity
-            , IEnumerable<EntityMetadata> allEntities
         )
         {
             _init++;
@@ -63,11 +62,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
             _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
-
-            if (allEntities != null)
-            {
-                _cacheEntityMetadata[service.ConnectionData.ConnectionId] = allEntities.Select(e => new EntityMetadataViewItem(e)).ToList();
-            }
 
             BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
 
@@ -94,18 +88,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _init--;
 
-            if (allEntities != null)
-            {
-                var list = _cacheEntityMetadata[service.ConnectionData.ConnectionId].AsEnumerable();
-
-                list = FilterEntityList(list, filterEntity);
-
-                LoadEntities(list);
-            }
-            else if (service != null)
-            {
-                ShowExistingEntities();
-            }
+            ShowExistingEntities();
         }
 
         private void LoadFromConfig()

@@ -36,8 +36,10 @@
         <ToolBar Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem Header="Open Solution Component Windows" VerticalAlignment="Center">
-                    <MenuItem Header="Metadata" Click="btnCreateMetadataFile_Click" />
+                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click" />
                     <Separator />
+                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                    <Separator/>
                     <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
                     <Separator />
                     <MenuItem Header="Forms" Click="btnSystemForms_Click" />

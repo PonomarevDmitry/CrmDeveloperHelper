@@ -646,7 +646,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     foreach (var item in orderedList)
                     {
-                        var entity = _service.Retrieve(item.LogicalName, item.Id, new ColumnSet(true));
+                        var entity = _service.RetrieveByQuery<Entity>(item.LogicalName, item.Id, new ColumnSet(true));
 
                         var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null, _service.ConnectionData);
 

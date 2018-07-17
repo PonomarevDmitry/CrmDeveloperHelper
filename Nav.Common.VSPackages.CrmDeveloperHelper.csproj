@@ -246,6 +246,7 @@
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Entities\AppModuleRoles.cs" />
     <Compile Include="Entities\AppModuleRoles.Generated.cs" />
+    <Compile Include="Entities\Attachment.Generated.cs" />
     <Compile Include="Entities\ChannelAccessProfile.cs" />
     <Compile Include="Entities\ChannelAccessProfile.Generated.cs" />
     <Compile Include="Entities\ChannelAccessProfileEntityAccessLevel.cs" />
@@ -258,11 +259,17 @@
     <Compile Include="Entities\ChannelProperty.Generated.cs" />
     <Compile Include="Entities\ChannelPropertyGroup.cs" />
     <Compile Include="Entities\ChannelPropertyGroup.Generated.cs" />
+    <Compile Include="Entities\ComplexControl.Generated.cs" />
     <Compile Include="Entities\CustomControlResource.cs" />
     <Compile Include="Entities\CustomControlResource.Generated.cs" />
+    <Compile Include="Entities\DependencyFeature.Generated.cs" />
     <Compile Include="Entities\DependencyNode.Additional.cs" />
     <Compile Include="Entities\DependencyNode.cs" />
     <Compile Include="Entities\DependencyNode.Generated.cs" />
+    <Compile Include="Entities\ImportEntityMapping.cs" />
+    <Compile Include="Entities\ImportEntityMapping.Generated.cs" />
+    <Compile Include="Entities\ImportMap.cs" />
+    <Compile Include="Entities\ImportMap.Generated.cs" />
     <Compile Include="Entities\InvalidDependency.Additional.cs" />
     <Compile Include="Entities\InvalidDependency.cs" />
     <Compile Include="Entities\InvalidDependency.Generated.cs" />
@@ -280,6 +287,7 @@
     <Compile Include="Entities\SdkMessageResponse.Generated.cs" />
     <Compile Include="Entities\SdkMessageResponseField.cs" />
     <Compile Include="Entities\SdkMessageResponseField.Generated.cs" />
+    <Compile Include="Entities\WebWizard.Generated.cs" />
     <Compile Include="Helpers\BoolToOppositeBoolConverter.cs" />
     <Compile Include="Helpers\CommonHandlers.cs" />
     <Compile Include="Commands\CodeWebResourceCompareWithDetailsCommand.cs" />

@@ -28,7 +28,7 @@
             <TextBox x:Name="txtBEntityTypeCode" Height="23"  TextWrapping="Wrap"  Grid.Column="3" Margin="0,3" Grid.RowSpan="2" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
         <Label x:Name="lblText" Content="EntityUrl" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Height="26"/>
-        <TextBox x:Name="txtBEntityUrl" Margin="10,158,10,48" TextWrapping="Wrap" TabIndex="2147483647"/>
+        <TextBox x:Name="txtBEntityUrl" Margin="10,158,10,48" TextWrapping="Wrap" TabIndex="2147483647" AcceptsReturn="True"/>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,12" VerticalContentAlignment="Center" Padding="10,0" Width="53" Height="31" VerticalAlignment="Bottom"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,12" Padding="10,0" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" Height="31" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="254" />
         <Button x:Name="btnCreateFile" Content="Create File" Margin="0,0,127,12" Click="btnCreateFile_Click" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="103" Height="25"/>

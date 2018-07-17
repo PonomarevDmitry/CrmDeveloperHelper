@@ -50,7 +50,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string entityName
-            , IEnumerable<EntityMetadata> entityMetadataList
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -62,7 +61,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , service
                         , commonConfig
                         , entityName
-                        , entityMetadataList
                         );
 
                     form.ShowDialog();

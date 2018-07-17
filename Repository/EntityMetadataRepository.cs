@@ -39,12 +39,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<EntityMetadata> GetEntitiesDisplayName()
         {
-            //RetrieveAllEntitiesRequest raer = new RetrieveAllEntitiesRequest() { EntityFilters = flags };
-
-            //RetrieveAllEntitiesResponse resp = (RetrieveAllEntitiesResponse)_Service.Execute(raer);
-
-            //return resp.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
-
             MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression("LogicalName", "DisplayName", "Description", "DisplayCollectionName", "OwnershipType", "IsIntersect", "ObjectTypeCode")
             {
                 AllProperties = false

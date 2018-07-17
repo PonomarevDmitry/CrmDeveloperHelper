@@ -32,6 +32,12 @@
                 <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportPlugiTypeDependenciesForDelete_Click" />
             </MenuItem>
             <Separator/>
+            <MenuItem Header="Compare Information with other Organization">
+                <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                <Separator/>
+                <MenuItem Header="Plugin Assemblies" Click="btnComparePluginAssemblies_Click"/>
+            </MenuItem>
+            <Separator/>
             <MenuItem Header="Export all Plugin Type Information" Click="btnExportAll_Click"/>
         </ContextMenu>
     </src:WindowBase.Resources>

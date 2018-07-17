@@ -1062,7 +1062,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 var service = await GetServiceAsync(this.ConnectionData);
 
-                var entityFull = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet(true));
+                var entityFull = service.RetrieveByQuery<Entity>(entity.LogicalName, entity.Id, new ColumnSet(true));
 
                 var commonConfig = CommonConfiguration.Get();
 
@@ -1183,7 +1183,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 var service = await GetServiceAsync(this.ConnectionData);
 
-                var entityFull = service.Retrieve(entityName, entityId, new ColumnSet(true));
+                var entityFull = service.RetrieveByQuery<Entity>(entityName, entityId, new ColumnSet(true));
 
                 var commonConfig = CommonConfiguration.Get();
 

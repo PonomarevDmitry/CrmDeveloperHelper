@@ -41,6 +41,8 @@
             <MenuItem Header="Get Other Entity Information">
                 <MenuItem Header="Metadata" Click="btnCreateMetadataFile_Click"/>
                 <Separator/>
+                <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                <Separator/>
                 <MenuItem Header="Ribbon" Click="btnExportRibbon_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnSystemForms_Click"/>

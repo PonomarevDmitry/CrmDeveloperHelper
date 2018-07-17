@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 {
@@ -10,5 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         ConnectionData ConnectionData { get; }
 
         bool IsRequestExists(string requestName);
+
+        T RetrieveByQuery<T>(string entityName, Guid id, ColumnSet columnSet) where T : Entity;
     }
 }

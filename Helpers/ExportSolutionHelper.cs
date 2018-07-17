@@ -228,5 +228,114 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return result.ToString();
         }
+
+        public Task<string> ExportSolutionAndGetRibbonDiffAsync(string solutionUniqueName, string entityName)
+        {
+            return Task.Run(() => ExportSolutionAndGetRibbonDiff(solutionUniqueName, entityName));
+        }
+
+        private string ExportSolutionAndGetRibbonDiff(string solutionUniqueName, string entityName)
+        {
+            ExportSolutionRequest request = new ExportSolutionRequest()
+            {
+                SolutionName = solutionUniqueName,
+                Managed = false,
+            };
+
+            var response = (ExportSolutionResponse)_service.Execute(request);
+
+            var fileBody = response.ExportSolutionFile;
+
+            string result = string.Empty;
+
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                memStream.Write(fileBody, 0, fileBody.Length);
+
+                using (ZipPackage package = (ZipPackage)ZipPackage.Open(memStream, FileMode.Open, FileAccess.ReadWrite))
+                {
+                    ZipPackagePart part = (ZipPackagePart)package.GetPart(new Uri("/customizations.xml", UriKind.Relative));
+
+                    if (part != null)
+                    {
+                        XDocument doc = null;
+
+                        using (Stream streamPart = part.GetStream(FileMode.Open, FileAccess.Read))
+                        {
+                            doc = XDocument.Load(streamPart);
+                        }
+
+                        var nodes = doc.XPathSelectElements("ImportExportXml/Entities/Entity");
+
+                        foreach (var item in nodes)
+                        {
+                            var elementName = item.Element("Name");
+
+                            if (elementName != null && string.Equals(elementName.Value, entityName, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                var ribbonDiffXml = item.Element("RibbonDiffXml");
+
+                                if (ribbonDiffXml != null)
+                                {
+                                    result = ribbonDiffXml.ToString();
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public Task<string> ExportSolutionAndGetApplicationRibbonDiffAsync(string solutionUniqueName)
+        {
+            return Task.Run(() => ExportSolutionAndGetApplicationRibbonDiff(solutionUniqueName));
+        }
+
+        private string ExportSolutionAndGetApplicationRibbonDiff(string solutionUniqueName)
+        {
+            ExportSolutionRequest request = new ExportSolutionRequest()
+            {
+                SolutionName = solutionUniqueName,
+                Managed = false,
+            };
+
+            var response = (ExportSolutionResponse)_service.Execute(request);
+
+            var fileBody = response.ExportSolutionFile;
+
+            string result = string.Empty;
+
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                memStream.Write(fileBody, 0, fileBody.Length);
+
+                using (ZipPackage package = (ZipPackage)ZipPackage.Open(memStream, FileMode.Open, FileAccess.ReadWrite))
+                {
+                    ZipPackagePart part = (ZipPackagePart)package.GetPart(new Uri("/customizations.xml", UriKind.Relative));
+
+                    if (part != null)
+                    {
+                        XDocument doc = null;
+
+                        using (Stream streamPart = part.GetStream(FileMode.Open, FileAccess.Read))
+                        {
+                            doc = XDocument.Load(streamPart);
+                        }
+
+                        var node = doc.XPathSelectElement("ImportExportXml/RibbonDiffXml");
+
+                        if (node != null)
+                        {
+                            result = node.ToString();
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }

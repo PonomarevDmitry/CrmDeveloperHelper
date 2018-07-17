@@ -1323,6 +1323,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             return null;
         }
 
+        public EntityIntellisenseData GetEntityIntellisenseData(string entityName)
+        {
+            lock (_syncObjectAttributes)
+            {
+                var intellisense = this.IntellisenseData;
+
+                if (intellisense.Entities != null
+                    && intellisense.Entities.ContainsKey(entityName)
+                    && intellisense.Entities[entityName].Attributes != null
+                    && intellisense.Entities[entityName].Attributes.Any()
+                    )
+                {
+                    return intellisense.Entities[entityName];
+                }
+            }
+
+            return null;
+        }
+
         public bool? IsRequestExists(string requestName)
         {
             lock (_syncObjectRequests)
@@ -2164,7 +2183,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 return;
             }
 
-            int entityTypeCode = SolutionComponent.GetComponentTypeObjectTypeCode(componentType);
+            var entityTypeCode = SolutionComponent.GetComponentTypeObjectTypeCode(componentType);
+
+            if (!entityTypeCode.HasValue)
+            {
+                return;
+            }
 
             var uri = publicUrl + $"/tools/dependency/dependencyviewdialog.aspx?dType=1&objectid={objectId}&objecttype={entityTypeCode}&operationtype=showdependency";
 

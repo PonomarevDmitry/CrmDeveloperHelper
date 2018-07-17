@@ -975,5 +975,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ShowExistingPluginTypes();
             }
         }
+
+        private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig);
+        }
+
+        private async void btnComparePluginAssemblies_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenOrganizationComparerPluginAssemblyWindow(
+                _iWriteToOutput
+                , _commonConfig
+                , service.ConnectionData
+                , service.ConnectionData
+            );
+        }
     }
 }

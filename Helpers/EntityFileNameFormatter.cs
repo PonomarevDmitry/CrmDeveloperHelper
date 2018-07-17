@@ -94,6 +94,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(ApplicationRibbonFormatFileFieldTitle, connectionName, fieldTitle, GetDateString(), extension);
         }
 
+        private const string ApplicationRibbonDiffXmlFormatFile = "{0}.ApplicationRibbonDiffXml at {1}.xml";
+
+        internal static string GetApplicationRibbonDiffXmlFileName(string connectionName)
+        {
+            return string.Format(ApplicationRibbonDiffXmlFormatFile, connectionName, GetDateString());
+        }
+
+        private const string ApplicationRibbonDiffXmlFormatFileFieldTitle = "{0}.ApplicationRibbonDiffXml - {1} at {2}.{3}";
+
+        internal static string GetApplicationRibbonDiffXmlFileName(string connectionName, string fieldTitle, string extension)
+        {
+            return string.Format(ApplicationRibbonDiffXmlFormatFileFieldTitle, connectionName, fieldTitle, GetDateString(), extension);
+        }
+
         private const string EntityRibbonFormatFile = "{0}.{1}.Ribbon at {2}.xml";
 
         internal static string GetEntityRibbonFileName(string connectionName, string entityName)
@@ -106,6 +120,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         internal static string GetEntityRibbonFileName(string connectionName, string entityName, string fieldTitle, string extension)
         {
             return string.Format(EntityRibbonFormatFileFieldTitle, connectionName, entityName, fieldTitle, GetDateString(), extension);
+        }
+
+        private const string EntityRibbonDiffXmlFormatFile = "{0}.{1}.RibbonDiffXml at {2}.xml";
+
+        internal static string GetEntityRibbonDiffXmlFileName(string connectionName, string entityName)
+        {
+            return string.Format(EntityRibbonDiffXmlFormatFile, connectionName, entityName, GetDateString());
+        }
+
+        private const string EntityRibbonDiffXmlFormatFileFieldTitle = "{0}.{1}.RibbonDiffXml - {2} at {3}.{4}";
+
+        internal static string GetEntityRibbonDiffXmlFileName(string connectionName, string entityName, string fieldTitle, string extension)
+        {
+            return string.Format(EntityRibbonDiffXmlFormatFileFieldTitle, connectionName, entityName, fieldTitle, GetDateString(), extension);
         }
 
         private const string ReportFormatFile = "{0}.Report {1} - {2} - {3} at {4}.{5}";

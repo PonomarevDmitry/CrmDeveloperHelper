@@ -1013,6 +1013,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntityTypeCode, null, null);
         }
 
+        private async void btnEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntityTypeCode);
+        }
+
         private async void btnExportRibbon_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();

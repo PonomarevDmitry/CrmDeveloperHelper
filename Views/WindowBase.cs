@@ -62,6 +62,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this.WindowStartupLocation = WindowStartupLocation.Manual;
             }
 
+            if (winConfig.WindowState != WindowState.Minimized)
+            {
+                this.WindowState = winConfig.WindowState;
+            }
+
             if (this.ResizeMode != System.Windows.ResizeMode.CanMinimize
                 && this.ResizeMode != System.Windows.ResizeMode.NoResize
             )
@@ -79,7 +84,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            foreach (var item in FindChildren< ListView>(this))
+            foreach (var item in FindChildren<ListView>(this))
             {
                 LoadListViewColumnsWidths(item, winConfig);
             }
@@ -139,6 +144,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void SaveConfiguration()
         {
             var winConfig = this.GetWindowsSettings();
+
+            winConfig.WindowState = this.WindowState;
 
             if (this.WindowState == System.Windows.WindowState.Normal)
             {

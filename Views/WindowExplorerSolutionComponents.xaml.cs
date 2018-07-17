@@ -1254,6 +1254,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, _service, _commonConfig, null, null, null);
         }
 
+        private void btnEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, _service, _commonConfig, null);
+        }
+
         private void btnGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();

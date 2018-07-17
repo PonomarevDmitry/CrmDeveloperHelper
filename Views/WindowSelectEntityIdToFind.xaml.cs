@@ -95,81 +95,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             int? entityTypeCode = null;
             Guid? entityId = null;
 
-            string url = txtBEntityUrl.Text.Trim();
-            string textEntityName = txtBEntityTypeName.Text.Trim();
-            string textEntityTypeCode = txtBEntityTypeCode.Text.Trim();
-            string textEntityId = txtBEntityId.Text.Trim();
+            TryParseUrl(out var urlEntityName, out var urlObjectTypeCode, out var urlEntityId);
+
+            string textEntityName = txtBEntityTypeName.Text.Trim(' ', '<', '>');
+            string textEntityTypeCode = txtBEntityTypeCode.Text.Trim(' ', '<', '>');
+            string textEntityId = txtBEntityId.Text.Trim(' ', '<', '>');
 
             if (!string.IsNullOrEmpty(textEntityName))
             {
                 entityName = textEntityName;
             }
-            else if (!string.IsNullOrEmpty(url))
+            else if (!string.IsNullOrEmpty(urlEntityName))
             {
-                try
-                {
-                    Uri uri = new Uri(url);
-
-                    var query = HttpUtility.ParseQueryString(uri.Query);
-                    if (query.AllKeys.Contains("etn", StringComparer.InvariantCultureIgnoreCase))
-                    {
-                        if (!string.IsNullOrEmpty(query.Get("etn")))
-                        {
-                            entityName = query.Get("etn");
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                }
+                entityName = urlEntityName;
             }
 
             if (!string.IsNullOrEmpty(textEntityTypeCode) && int.TryParse(textEntityTypeCode, out int tempInt))
             {
                 entityTypeCode = tempInt;
             }
-            else if (!string.IsNullOrEmpty(url))
+            else if (urlObjectTypeCode.HasValue)
             {
-                try
-                {
-                    Uri uri = new Uri(url);
-
-                    var query = HttpUtility.ParseQueryString(uri.Query);
-                    if (query.AllKeys.Contains("etc", StringComparer.InvariantCultureIgnoreCase))
-                    {
-                        if (!string.IsNullOrEmpty(query.Get("etc")) && int.TryParse(query.Get("etc"), out int temp))
-                        {
-                            entityTypeCode = temp;
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                }
+                entityTypeCode = urlObjectTypeCode;
             }
 
             if (!string.IsNullOrEmpty(textEntityId) && Guid.TryParse(textEntityId, out Guid tempGuid))
             {
                 entityId = tempGuid;
             }
-            else if (!string.IsNullOrEmpty(url))
+            else if (urlEntityId.HasValue)
             {
-                try
-                {
-                    Uri uri = new Uri(url);
-
-                    var query = HttpUtility.ParseQueryString(uri.Query);
-                    if (query.AllKeys.Contains("id", StringComparer.InvariantCultureIgnoreCase))
-                    {
-                        if (!string.IsNullOrEmpty(query.Get("id")) && Guid.TryParse(query.Get("id"), out Guid guid))
-                        {
-                            entityId = guid;
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                }
+                entityId = urlEntityId;
             }
 
             if (!entityId.HasValue)
@@ -192,6 +148,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DialogResult = true;
             this.Close();
+        }
+
+        private void TryParseUrl(out string urlEntityName, out int? urlObjectTypeCode, out Guid? urlEntityId)
+        {
+            urlObjectTypeCode = null;
+            urlEntityName = string.Empty;
+            urlEntityId = null;
+
+            var textUrl = txtBEntityUrl.Text.Trim();
+
+            var split = textUrl.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var url in split)
+            {
+                if (string.IsNullOrEmpty(url))
+                {
+                    continue;
+                }
+
+                var temp = url;
+
+                temp = temp.Trim(' ', '<', '>');
+
+                if (string.IsNullOrEmpty(temp))
+                {
+                    continue;
+                }
+
+                if (Uri.TryCreate(temp, UriKind.Absolute, out var uri))
+                {
+                    var query = HttpUtility.ParseQueryString(uri.Query);
+
+                    if (query.AllKeys.Contains("id", StringComparer.InvariantCultureIgnoreCase))
+                    {
+                        if (!string.IsNullOrEmpty(query.Get("id")) && Guid.TryParse(query.Get("id"), out Guid guid))
+                        {
+                            urlEntityId = guid;
+                        }
+                    }
+
+                    if (query.AllKeys.Contains("etn", StringComparer.InvariantCultureIgnoreCase))
+                    {
+                        if (!string.IsNullOrEmpty(query.Get("etn")))
+                        {
+                            urlEntityName = query.Get("etn");
+                        }
+                    }
+
+                    if (query.AllKeys.Contains("etc", StringComparer.InvariantCultureIgnoreCase))
+                    {
+                        if (!string.IsNullOrEmpty(query.Get("etc")) && int.TryParse(query.Get("etc"), out int tempInt))
+                        {
+                            urlObjectTypeCode = tempInt;
+                        }
+                    }
+
+                    return;
+                }
+            }
         }
 
         private void btnCreateFile_Click(object sender, RoutedEventArgs e)

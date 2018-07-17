@@ -16,6 +16,8 @@
             <Separator/>
             <MenuItem Header="Export Entity Ribbon" Click="btnExportEntityRibbon_Click" />
             <Separator/>
+            <MenuItem Header="Export Entity RibbonDiffXml" Click="btnExportEntityRibbonDiffXml_Click" />
+            <Separator/>
             <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
             <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
@@ -28,6 +30,8 @@
             <Separator/>
             <MenuItem Header="Get Other Entity Information">
                 <MenuItem Header="Metadata" Click="btnCreateMetadataFile_Click"/>
+                <Separator/>
+                <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click"/>
                 <Separator/>
@@ -143,10 +147,23 @@
                 <Button Content="Close" Click="Button_Click"  HorizontalAlignment="Right" DockPanel.Dock="Right"/>
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0"  HorizontalAlignment="Right" DockPanel.Dock="Right"/>
                 <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" HorizontalAlignment="Right" DockPanel.Dock="Right">
-                    <MenuItem Header="Application Ribbon" VerticalAlignment="Center">
+                    <MenuItem Header="Application Ribbon" VerticalAlignment="Center" SubmenuOpened="mIApplicationRibbon_SubmenuOpened">
                         <MenuItem Header="Export Application Ribbon" Click="btnExportApplicationRibbon_Click"/>
                         <Separator/>
+                        <MenuItem Header="Export Application RibbonDiffXml" Click="btnExportApplicationRibbonDiffXml_Click"/>
+                        <Separator/>
                         <MenuItem Header="Publish Application Ribbon" Click="btnPublishApplicationRibbon_Click"/>
+                        <Separator/>
+                        <MenuItem x:Name="mIAddApplicationIntoLastSolution" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
+                        <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddApplicationRibbonIntoCrmSolution_Click" />
+                        <Separator/>
+                        <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIApplicationRibbonOpenSolutionsContainingComponentInWindow_Click" />
+                        <Separator/>
+                        <MenuItem Header="Dependent Components">
+                            <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIApplicationRibbonOpenDependentComponentsInWeb_Click" />
+                            <Separator/>
+                            <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIApplicationRibbonOpenDependentComponentsInWindow_Click" />
+                        </MenuItem>
                     </MenuItem>
                 </Menu>
             </DockPanel>

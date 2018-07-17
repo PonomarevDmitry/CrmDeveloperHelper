@@ -88,5 +88,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return result;
         }
+
+        public Task<Publisher> GetDefaultPublisherAsync()
+        {
+            return Task.Run(() => GetDefaultPublisher());
+        }
+
+        private Publisher GetDefaultPublisher()
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = Publisher.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Publisher.Schema.Attributes.uniquename, ConditionOperator.Like, "DefaultPublisher%"),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(Publisher.Schema.Attributes.createdon, OrderType.Ascending),
+                },
+            };
+
+            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Publisher>()).FirstOrDefault();
+        }
     }
 }

@@ -39,9 +39,11 @@
                 <MenuItem Header="ClientData" Click="mIExportWorkflow1ClientData_Click"/>
                 <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow1CorrectedXaml_Click"/>
                 <Separator/>
-                <MenuItem Header="Metadata" Click="btnCreateMetadataFile1_Click"/>
+                <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
                 <Separator/>
+                <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer1_Click"/>
                 <MenuItem Header="Ribbon" Click="btnExportRibbon1_Click"/>
+                <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets1_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnSystemForms1_Click"/>
@@ -65,9 +67,11 @@
                 <MenuItem Header="ClientData" Click="mIExportWorkflow2ClientData_Click"/>
                 <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow2CorrectedXaml_Click"/>
                 <Separator/>
-                <MenuItem Header="Metadata" Click="btnCreateMetadataFile2_Click"/>
+                <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
                 <Separator/>
+                <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer2_Click"/>
                 <MenuItem Header="Ribbon" Click="btnExportRibbon2_Click"/>
+                <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets2_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnSystemForms2_Click"/>

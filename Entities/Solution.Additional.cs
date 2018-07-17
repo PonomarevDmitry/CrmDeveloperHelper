@@ -14,6 +14,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             }
         }
 
+        public static partial class InstancesUniqueNames
+        {
+            public const string Default = "Default";
+
+            public const string Active = "Active";
+        }
+
         public string UniqueNameEscapeUnderscore
         {
             get

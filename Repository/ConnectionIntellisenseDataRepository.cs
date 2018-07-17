@@ -771,7 +771,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
         }
 
-        private static EntityQueryExpression GetEntityQueryExpression()
+        public static EntityQueryExpression GetEntityQueryExpression()
         {
             EntityQueryExpression result = new EntityQueryExpression()
             {

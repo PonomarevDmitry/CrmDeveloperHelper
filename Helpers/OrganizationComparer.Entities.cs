@@ -797,11 +797,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var repositoryRibbon1 = new RibbonCustomizationRepository(_service1);
             var repositoryRibbon2 = new RibbonCustomizationRepository(_service2);
 
-            var listRibbon1 = (await repositoryRibbon1.GetListAsync()).Select(e => e.Entity);
+            var listRibbon1 = await repositoryRibbon1.GetEntitiesWithRibbonCustomizationAsync();
 
             content.AppendLine(_writeToOutput.WriteToOutput("Ribbons in {0}: {1}", Connection1.Name, listRibbon1.Count()));
 
-            var listRibbon2 = (await repositoryRibbon2.GetListAsync()).Select(e => e.Entity);
+            var listRibbon2 = await repositoryRibbon2.GetEntitiesWithRibbonCustomizationAsync();
 
             content.AppendLine(_writeToOutput.WriteToOutput("Ribbons in {0}: {1}", Connection2.Name, listRibbon2.Count()));
 

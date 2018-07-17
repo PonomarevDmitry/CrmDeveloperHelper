@@ -3,6 +3,7 @@ using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata.Query;
 using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
@@ -58,6 +59,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        public T RetrieveByQuery<T>(string entityName, Guid id, ColumnSet columnSet) where T : Entity
+        {
+            try
+            {
+                var entityData = GetEntityIntellisenseData(entityName);
+
+                if (entityData != null && !string.IsNullOrEmpty(entityData.EntityPrimaryIdAttribute))
+                {
+                    var query = new QueryExpression()
+                    {
+                        NoLock = true,
+
+                        EntityName = entityName,
+
+                        ColumnSet = columnSet,
+
+                        Criteria =
+                        {
+                            Conditions =
+                            {
+                                new ConditionExpression(entityData.EntityPrimaryIdAttribute, ConditionOperator.Equal, id),
+                            },
+                        },
+                    };
+
+                    return this.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<T>()).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToLog(ex);
+                throw;
+            }
+
+            return null;
+        }
+
         public void Update(Entity entity)
         {
             try
@@ -77,7 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             try
             {
-                Delete(entityName, id);
+                _service.Delete(entityName, id);
             }
             catch (Exception ex)
             {
@@ -339,16 +377,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 return result;
             }
 
-            MetadataFilterExpression entityFilter = new MetadataFilterExpression(LogicalOperator.And);
-            entityFilter.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, entityName));
+            EntityQueryExpression entityQueryExpression = ConnectionIntellisenseDataRepository.GetEntityQueryExpression();
 
-            var entityQueryExpression = new EntityQueryExpression()
-            {
-                Properties = new MetadataPropertiesExpression("LogicalName", "ObjectTypeCode", "Attributes"),
-                AttributeQuery = new AttributeQueryExpression() { Properties = new MetadataPropertiesExpression() { PropertyNames = { "LogicalName", "AttributeOf", "AttributeType" } } },
-
-                Criteria = entityFilter,
-            };
+            entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, entityName));
 
             var response = (RetrieveMetadataChangesResponse)this.ExecuteWithSyncMetadataHandling(
                 new RetrieveMetadataChangesRequest()
@@ -359,6 +390,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             );
 
             return this.ConnectionData.GetEntityAttributes(entityName);
+        }
+
+        private EntityIntellisenseData GetEntityIntellisenseData(string entityName)
+        {
+            var result = this.ConnectionData.GetEntityIntellisenseData(entityName);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            EntityQueryExpression entityQueryExpression = ConnectionIntellisenseDataRepository.GetEntityQueryExpression();
+
+            entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, entityName));
+
+            var response = (RetrieveMetadataChangesResponse)this.ExecuteWithSyncMetadataHandling(
+                new RetrieveMetadataChangesRequest()
+                {
+                    ClientVersionStamp = null,
+                    Query = entityQueryExpression,
+                }
+            );
+
+            return this.ConnectionData.GetEntityIntellisenseData(entityName);
         }
 
         private void FilterColumns(string entityName, ColumnSet columnSet)
