@@ -21,8 +21,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
     {
         private static string[] _fields = null;
 
-        private static readonly string[] _TypeMapping = { ".htm, .html", ".css", ".js", ".xml", ".png", ".jpg", ".gif", ".xap", ".xsl, .xslt", ".ico" };
-
         /// <summary>
         /// Маппинг расширений файла
         /// </summary>
@@ -30,18 +28,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         (
             new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase)
             {
-                {".html", 1},
-                {".htm", 1},
-                {".css", 2},
-                {".js", 3},
-                {".xml", 4},
-                {".png", 5},
-                {".jpg", 6},
-                {".gif", 7},
-                {".xap", 8},
-                {".xslt", 9},
-                {".xsl", 9},
-                {".ico", 10}
+                {".html", (int)WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1},
+                {".htm",  (int)WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1},
+                {".css",  (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_CSS_2},
+                {".js",   (int)WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3},
+                {".xml",  (int)WebResource.Schema.OptionSets.webresourcetype.Data_XML_4},
+                {".png",  (int)WebResource.Schema.OptionSets.webresourcetype.PNG_format_5},
+                {".jpg",  (int)WebResource.Schema.OptionSets.webresourcetype.JPG_format_6},
+                {".gif",  (int)WebResource.Schema.OptionSets.webresourcetype.GIF_format_7},
+                {".xap",  (int)WebResource.Schema.OptionSets.webresourcetype.Silverlight_XAP_8},
+                {".xslt", (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_XSL_9},
+                {".xsl",  (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_XSL_9},
+                {".ico",  (int)WebResource.Schema.OptionSets.webresourcetype.ICO_format_10},
+                {".svg",  (int)WebResource.Schema.OptionSets.webresourcetype.SVG_format_11}
             }
             , StringComparer.InvariantCultureIgnoreCase
         );
@@ -310,7 +309,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return Task.Run(() => GetListSupportsText(name, columnSet));
         }
 
-        private List<WebResource> GetListSupportsText(string name = null, ColumnSet columnSet = null)
+        private List<WebResource> GetListSupportsText(string name, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -324,7 +323,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(WebResource.Schema.Attributes.webresourcetype, ConditionOperator.In, 1, 2, 3, 4, 9),
+                        new ConditionExpression(WebResource.Schema.Attributes.webresourcetype, ConditionOperator.In
+                            , (int)WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1
+                            , (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_CSS_2
+                            , (int)WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3
+                            , (int)WebResource.Schema.OptionSets.webresourcetype.Data_XML_4
+                            , (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_XSL_9
+                        ),
                     }
                 },
 
@@ -435,6 +440,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             if (!string.IsNullOrEmpty(name))
             {
                 query.Criteria.AddCondition(WebResource.Schema.Attributes.name, ConditionOperator.Like, "%" + name + "%");
+            }
+
+            List<WebResource> result = new List<WebResource>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _Service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<WebResource>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
+        public Task<List<WebResource>> GetListByTypesAsync(IEnumerable<int> types, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListByTypes(types, columnSet));
+        }
+
+        private List<WebResource> GetListByTypes(IEnumerable<int> types, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = WebResource.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_Service)),
+
+                PageInfo =
+                {
+                    Count = 5000,
+                    PageNumber = 1,
+                },
+
+                Orders =
+                {
+                    new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
+                },
+            };
+
+            if (types != null && types.Any())
+            {
+                query.Criteria.AddCondition(new ConditionExpression(WebResource.Schema.Attributes.webresourcetype, ConditionOperator.In, types.ToArray()));
             }
 
             List<WebResource> result = new List<WebResource>();

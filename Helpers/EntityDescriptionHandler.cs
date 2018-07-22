@@ -301,7 +301,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             string content = EntityDescriptionHandler.GetEntityDescription(entity, list, connectionData);
 
-            File.WriteAllText(filePath, content, Encoding.UTF8);
+            File.WriteAllText(filePath, content, new UTF8Encoding(false));
         }
     }
 }

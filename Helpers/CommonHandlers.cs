@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using EnvDTE;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
@@ -23,6 +24,95 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     string file = applicationObject.ActiveWindow.Document.FullName.ToString().ToLower();
 
                     result = checker(file);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
+        internal static bool CheckActiveDocumentIsFetchRequest(EnvDTE80.DTE2 applicationObject)
+        {
+            bool result = false;
+
+            if (applicationObject.ActiveWindow != null
+                && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
+                && applicationObject.ActiveWindow.Document != null
+                )
+            {
+                try
+                {
+                    string file = applicationObject.ActiveWindow.Document.FullName.ToString().ToLower();
+
+                    if (FileOperations.SupportsXmlType(file))
+                    {
+                        var objTextDoc = applicationObject.ActiveWindow.Document.Object("TextDocument");
+                        if (objTextDoc != null
+                            && objTextDoc is TextDocument textDocument
+                            )
+                        {
+                            string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
+
+                            if (!string.IsNullOrEmpty(text))
+                            {
+                                if (ContentCoparerHelper.TryParseXml(text, out var doc))
+                                {
+                                    result = doc.Name == "fetch";
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
+        internal static bool CheckActiveDocumentIsFetchOrGrid(EnvDTE80.DTE2 applicationObject)
+        {
+            bool result = false;
+
+            if (applicationObject.ActiveWindow != null
+                && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
+                && applicationObject.ActiveWindow.Document != null
+                )
+            {
+                try
+                {
+                    string file = applicationObject.ActiveWindow.Document.FullName.ToString().ToLower();
+
+                    if (FileOperations.SupportsXmlType(file))
+                    {
+                        var objTextDoc = applicationObject.ActiveWindow.Document.Object("TextDocument");
+                        if (objTextDoc != null
+                            && objTextDoc is TextDocument textDocument
+                            )
+                        {
+                            string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
+
+                            if (!string.IsNullOrEmpty(text))
+                            {
+                                if (ContentCoparerHelper.TryParseXml(text, out var doc))
+                                {
+                                    result = string.Equals(doc.Name.ToString(), "fetch", StringComparison.InvariantCultureIgnoreCase)
+                                        || string.Equals(doc.Name.ToString(), "grid", StringComparison.InvariantCultureIgnoreCase)
+                                        || string.Equals(doc.Name.ToString(), "savedquery", StringComparison.InvariantCultureIgnoreCase)
+                                        ;
+                                }
+                            }
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -261,6 +351,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
             {
                 visible = CheckActiveDocumentExtension(applicationObject, FileOperations.SupportsXmlType);
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        internal static void ActionBeforeQueryStatusActiveDocumentIsFetchRequest(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            bool visible = false;
+
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                visible = CheckActiveDocumentIsFetchRequest(applicationObject);
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        internal static void ActionBeforeQueryStatusActiveDocumentIsFetchOrGrid(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            bool visible = false;
+
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                visible = CheckActiveDocumentIsFetchOrGrid(applicationObject);
             }
 
             if (visible == false)

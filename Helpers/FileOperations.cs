@@ -102,13 +102,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #region Проверка расширений файлов.
 
-        private static readonly HashSet<string> _SupportedFileTypes = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        private static readonly HashSet<string> _SupportedExtensionsWebResource = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             ".html", ".htm", ".js", ".css",
-            ".gif", ".jpg", ".png", ".ico",
+            ".gif", ".jpg", ".png", ".ico", ".svg",
             ".xml", ".xsl", ".xslt",
             ".xap"
         };
+
+        private static HashSet<string> _SupportedExtensionsWebResourceText = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".htm", ".html", ".css", ".js", ".xml", ".xsl, .xslt", ".svg" };
 
         private const string _SupportedReportType = ".rdl";
         private const string _SupportedCSharpFile = ".cs";
@@ -127,7 +129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 string ext = Path.GetExtension(path);
 
-                result = _SupportedFileTypes.Contains(ext);
+                result = _SupportedExtensionsWebResource.Contains(ext);
             }
 
             return result;
@@ -141,7 +143,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 string ext = Path.GetExtension(path.ToLower());
 
-                result = ContentCoparerHelper.SupportsText(ext);
+                result = _SupportedExtensionsWebResourceText.Contains(ext);
             }
 
             return result;
@@ -353,6 +355,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return directory;
+        }
+
+        public static void CreateBackUpFile(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
+            var folder = Path.GetDirectoryName(filePath);
+            var fileName = Path.GetFileNameWithoutExtension(filePath);
+            var extension = Path.GetExtension(filePath);
+
+            var fileNewName = string.Format("{0} DataContractReadObject Crush at {1:yyyy.MM.dd HH-mm-ss}{2}", fileName, DateTime.Now, extension);
+            var fileNewPath = Path.Combine(folder, fileNewName);
+
+            File.Move(filePath, fileNewPath);
         }
     }
 }

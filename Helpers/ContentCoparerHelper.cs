@@ -195,11 +195,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return false;
         }
 
-        private static HashSet<string> _TextSupportedExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".htm", ".html", ".css", ".js", ".xml", ".xsl, .xslt" };
-
         public static ContentCopareResult CompareByteArrays(string ext, byte[] array1, byte[] array2, bool withDetails = false)
         {
-            bool supportExtension = SupportsText(ext);
+            bool supportExtension = FileOperations.SupportsWebResourceTextType(ext);
 
             if (!supportExtension)
             {
@@ -259,11 +257,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return selected;
-        }
-
-        public static bool SupportsText(string ext)
-        {
-            return _TextSupportedExtensions.Contains(ext);
         }
 
         public static void RemoveLayoutObjectCode(XElement doc)
@@ -577,6 +570,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 xml = RemoveDiacritics(xml);
 
                 doc = XElement.Parse(xml);
+
+                return true;
+            }
+            catch
+            {
+                doc = null;
+
+                return false;
+            }
+        }
+
+        public static bool TryParseXmlDocument(string xml, out XDocument doc)
+        {
+            doc = null;
+
+            try
+            {
+                xml = RemoveDiacritics(xml);
+
+                doc = XDocument.Parse(xml);
 
                 return true;
             }

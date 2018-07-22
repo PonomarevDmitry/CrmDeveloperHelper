@@ -67,7 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 strFile.AppendLine(message);
 
-                File.WriteAllText(filePath, strFile.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, strFile.ToString(), new UTF8Encoding(false));
             }
             catch (Exception ex)
             {
@@ -118,7 +118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 strFile.AppendLine(message);
 
-                File.WriteAllText(filePath, strFile.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, strFile.ToString(), new UTF8Encoding(false));
             }
             catch (Exception ex)
             {
@@ -169,7 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 strFile.AppendLine(message);
 
-                File.WriteAllText(filePath, strFile.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, strFile.ToString(), new UTF8Encoding(false));
             }
             catch (Exception ex)
             {
@@ -325,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 strFile.AppendLine(message);
 
-                File.WriteAllText(filePath, strFile.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, strFile.ToString(), new UTF8Encoding(false));
             }
             catch (Exception ex)
             {

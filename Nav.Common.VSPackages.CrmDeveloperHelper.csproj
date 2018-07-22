@@ -85,6 +85,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Commands\AbstractCommand.Generic.cs" />
@@ -574,6 +575,10 @@
     <Compile Include="Intellisense\CrmPathCompletionSource.cs" />
     <Compile Include="Intellisense\CrmPathCompletionSourceProvider.cs" />
     <Compile Include="Intellisense\CrmPathContentTypeDefinition.cs" />
+    <Compile Include="Intellisense\CustomUrlClassifier.cs" />
+    <Compile Include="Intellisense\CustomUrlClassifierProvider.cs" />
+    <Compile Include="Intellisense\CustomUrlTagger.cs" />
+    <Compile Include="Intellisense\CustomUrlTagProvider.cs" />
     <Compile Include="Intellisense\FetchXmlCompletionSource.cs" />
     <Compile Include="Intellisense\FetchXmlCompletionSourceProvider.cs" />
     <Compile Include="Intellisense\CrmTextViewCreationListener.cs" />
@@ -584,6 +589,9 @@
     <Compile Include="Intellisense\Model\ManyToOneRelationshipIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\OneToManyRelationshipIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\OptionSetIntellisenseData.cs" />
+    <Compile Include="Intellisense\Model\SiteMapIntellisenseData.cs" />
+    <Compile Include="Intellisense\UrlCommandFilter.cs" />
+    <Compile Include="Intellisense\UrlCommandFilterProvider.cs" />
     <Compile Include="Interfaces\IOrganizationServiceExtented.cs" />
     <Compile Include="Model\ActionOpenComponent.cs" />
     <Compile Include="Model\AssemblyMapping.cs" />
@@ -691,6 +699,7 @@
     <Compile Include="Repository\SecurityPrivilegesRepository.cs" />
     <Compile Include="Repository\SecurityRolePrivilegesRepository.cs" />
     <Compile Include="Repository\SecurityRoleRepository.cs" />
+    <Compile Include="Repository\SiteMapIntellisenseDataRepository.cs" />
     <Compile Include="Repository\SitemapRepository.cs" />
     <Compile Include="Repository\SolutionComponentRepository.cs" />
     <Compile Include="Repository\SolutionRepository.cs" />
@@ -877,6 +886,13 @@
     <Content Include="app.config">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Resources\SiteMaps\SiteMap.2011.xml" />
+    <Resource Include="Resources\SiteMaps\SiteMap.2013.xml" />
+    <Resource Include="Resources\SiteMaps\SiteMap.2015.xml" />
+    <Resource Include="Resources\SiteMaps\SiteMap.2015SP1.xml" />
+    <Resource Include="Resources\SiteMaps\SiteMap.2016.xml" />
+    <Resource Include="Resources\SiteMaps\SiteMap.2016SP1.xml" />
+    <Resource Include="Resources\SiteMaps\SiteMap.365.8.2.xml" />
     <None Include="Schemas\Examples\PublishXmlExample.xml" />
     <None Include="packages.config" />
     <Resource Include="Schemas\CustomizationsSolution.xsd">

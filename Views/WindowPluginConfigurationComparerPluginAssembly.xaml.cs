@@ -413,7 +413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    File.WriteAllText(filePath, description, Encoding.UTF8);
+                    File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput(filePathConfiguration);
                     this._iWriteToOutput.WriteToOutput("Plugin Assembly {0} Description exported to {1}", name, filePath);

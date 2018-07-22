@@ -572,7 +572,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, description, Encoding.UTF8);
+                File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("PluginType {0} Dependent Components exported to {1}", name, filePath);
 
@@ -612,7 +612,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, description, Encoding.UTF8);
+                File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("PluginType {0} Required Components exported to {1}", name, filePath);
 
@@ -654,7 +654,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, description, Encoding.UTF8);
+                File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("PluginType {0} Dependencies For Delete exported to {1}", name, filePath);
 

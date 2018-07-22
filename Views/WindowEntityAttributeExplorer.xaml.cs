@@ -106,25 +106,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         private const string paramColumnEntityWidth = "ColumnEntityWidth";
-        private const string paramColumnAttributeWidth = "ColumnAttributeWidth";
 
         private void LoadFormSettings(WindowSettings winConfig)
         {
-            if (winConfig.DictDouble.ContainsKey(paramColumnEntityWidth)
-                && winConfig.DictDouble.ContainsKey(paramColumnAttributeWidth)
-                )
+            if (winConfig.DictDouble.ContainsKey(paramColumnEntityWidth))
             {
-                var widthEntity = winConfig.DictDouble[paramColumnEntityWidth];
-                var widthAttribute = winConfig.DictDouble[paramColumnAttributeWidth];
-
-                if (widthEntity + widthAttribute > 0)
-                {
-                    var tempParamerts = widthEntity * 100 / (widthEntity + widthAttribute);
-                    var tempFetchText = widthAttribute * 100 / (widthEntity + widthAttribute);
-
-                    columnEntity.Width = new GridLength(tempParamerts, GridUnitType.Star);
-                    columnAttribute.Width = new GridLength(tempFetchText, GridUnitType.Star);
-                }
+                columnEntity.Width = new GridLength(winConfig.DictDouble[paramColumnEntityWidth]);
             }
         }
 
@@ -133,7 +120,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.SaveConfigurationInternal(winConfig);
 
             winConfig.DictDouble[paramColumnEntityWidth] = columnEntity.Width.Value;
-            winConfig.DictDouble[paramColumnAttributeWidth] = columnAttribute.Width.Value;
         }
 
         protected override void OnClosed(EventArgs e)

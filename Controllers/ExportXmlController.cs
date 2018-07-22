@@ -364,7 +364,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     Directory.CreateDirectory(fileFolder);
                 }
 
-                File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("System Forms Events were exported to {0}", filePath);
             }

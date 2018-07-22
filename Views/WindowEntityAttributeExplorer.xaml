@@ -127,9 +127,9 @@
         </StatusBar>
         <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="columnEntity" Width="50*"/>
+                <ColumnDefinition x:Name="columnEntity" Width="600"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition x:Name="columnAttribute" Width="50*"/>
+                <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
 
             <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true" Grid.Column="0">

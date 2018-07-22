@@ -277,7 +277,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
             return filePath;
         }
@@ -457,7 +457,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
             return filePath;
         }
@@ -682,7 +682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
             return filePath;
         }
@@ -1025,7 +1025,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
             return filePath;
         }

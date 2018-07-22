@@ -187,7 +187,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     Directory.CreateDirectory(commonConfig.FolderForExport);
                 }
 
-                File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("Objects in CRM were exported to {0}", filePath);
 
@@ -382,7 +382,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("Created file with CRM Objects names for prefix '{0}' and show dependent components: {1}", prefix, filePath);
 
@@ -543,7 +543,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("Created file with CRM Objects marked to delete by '{0}' and show dependent components: {1}", prefix, filePath);
 
@@ -652,7 +652,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("Created file with Entities with Ownership: {0}", filePath);
 
@@ -847,6 +847,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     foreach (var item in filesWithoutUTF8Encoding)
                     {
+                        this._iWriteToOutput.WriteToOutputFilePathUri(item.FilePath);
                         this._iWriteToOutput.OpenFileInVisualStudio(item.FilePath);
                     }
                 }
@@ -1026,7 +1027,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("Created file with web-resources dependent components: {0}", filePath);
 
@@ -1144,7 +1145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("Created file with Checking Global OptionSet Duplicates on Entity: {0}", filePath);
 
@@ -1278,7 +1279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     Directory.CreateDirectory(commonConfig.FolderForExport);
                 }
 
-                File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("Objects in CRM were exported to {0}", filePath);
 
@@ -1416,7 +1417,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     Directory.CreateDirectory(commonConfig.FolderForExport);
                 }
 
-                File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("Objects in CRM were exported to {0}", filePath);
 
@@ -1516,7 +1517,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     Directory.CreateDirectory(commonConfig.FolderForExport);
                 }
 
-                File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("Objects in CRM were exported to {0}", filePath);
 
@@ -1618,7 +1619,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     Directory.CreateDirectory(commonConfig.FolderForExport);
                 }
 
-                File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("Objects in CRM were exported to {0}", filePath);
 
@@ -1754,7 +1755,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     Directory.CreateDirectory(commonConfig.FolderForExport);
                 }
 
-                File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("New ComponentTypes were exported to {0}", filePath);
 
@@ -1852,7 +1853,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     Directory.CreateDirectory(commonConfig.FolderForExport);
                 }
 
-                File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("Dependency Nodes Description were exported to {0}", filePath);
 

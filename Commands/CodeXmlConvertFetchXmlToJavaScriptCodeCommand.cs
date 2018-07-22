@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     class CodeXmlConvertFetchXmlToJavaScriptCodeCommand : AbstractCommand
     {
         private CodeXmlConvertFetchXmlToJavaScriptCodeCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlConvertFetchXmlToJavaScriptCodeCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusActiveDocumentXml) { }
+            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlConvertFetchXmlToJavaScriptCodeCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsFetchRequest) { }
 
         public static CodeXmlConvertFetchXmlToJavaScriptCodeCommand Instance { get; private set; }
 

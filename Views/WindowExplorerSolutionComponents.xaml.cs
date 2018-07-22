@@ -629,7 +629,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            File.WriteAllText(filePath, stringBuilder.ToString(), Encoding.UTF8);
+            File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
             this._iWriteToOutput.WriteToOutput("{0} {1} Entity Description exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 
@@ -708,7 +708,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, description, Encoding.UTF8);
+                File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("{0} {1} Dependent Components exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 
@@ -739,7 +739,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, description, Encoding.UTF8);
+                File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("{0} {1} Required Components exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 
@@ -770,7 +770,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, description, Encoding.UTF8);
+                File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("{0} {1} Dependencies For Delete exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 

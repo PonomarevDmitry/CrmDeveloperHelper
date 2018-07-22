@@ -314,9 +314,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(connection.Name, assemblyName, "Comparing", "txt");
             filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
             this._iWriteToOutput.WriteToOutput("Assembly {0} Comparing exported to {1}", assemblyName, filePath);
+            this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
 
             return filePath;
         }

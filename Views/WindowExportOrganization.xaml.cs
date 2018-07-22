@@ -388,7 +388,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportOrganizationXmlAttributeOnNewLine);
 
-                    File.WriteAllText(filePath, xmlContent, Encoding.UTF8);
+                    File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput("{0} Organization {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldTitle, filePath);
                 }

@@ -1,0 +1,319 @@
+﻿<SiteMap IntroducedVersion="7.0.0.0">
+  <Area Id="SFA" ResourceId="Area_Sales" DescriptionResourceId="Sales_Description" Icon="/_imgs/sales_24x24.gif" ShowGroups="true" IntroducedVersion="7.0.0.0">
+    <Group Id="MyWork" ResourceId="Group_MyWork" DescriptionResourceId="My_Work_Description" ToolTipResourseId="My_Work_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_dashboards" ResourceId="Homepage_Dashboards" DescriptionResourceId="Dashboards_Description" ToolTipResourseId="Dashboards_ToolTip" Icon="/_imgs/area/18_home.gif" Url="/workplace/home_dashboards.aspx" GetStartedPanePath="Dashboards_Web_User_Visor.html" GetStartedPanePathAdmin="Dashboards_Web_Admin_Visor.html" GetStartedPanePathOutlook="Dashboards_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Dashboards_Outlook_Admin_Visor.html" DefaultDashboard="2701de60-8f2a-48a4-8262-4a35ca7441fa" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_personalwall" ResourceId="Whats_New_Label" DescriptionResourceId="Whats_New_Description" ToolTipResourseId="Whats_New_ToolTip" Icon="$webresource:msdyn_/Images/Wall_16.png" OutlookShortcutIcon="$webresource:msdyn_/Images/Wall_16.png" AvailableOffline="false" Url="$webresource:msdyn_/PersonalWall.htm?data=HideUserProfile%3D0" GetStartedPanePath="Dashboards_Web_User_Visor.html" GetStartedPanePathAdmin="Dashboards_Web_Admin_Visor.html" GetStartedPanePathOutlook="Dashboards_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Dashboards_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0">
+        <Privilege Entity="post" Privilege="Read" />
+      </SubArea>
+      <SubArea Id="nav_activities" DescriptionResourceId="Activities_SubArea_Description" ToolTipResourseId="Activities_SubArea_ToolTip" Url="/_root/homepage.aspx?etc=4200" Entity="activitypointer" GetStartedPanePath="Activities_Web_User_Visor.html" GetStartedPanePathAdmin="Activities_Web_Admin_Visor.html" GetStartedPanePathOutlook="Activities_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Activities_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+    </Group>
+    <Group Id="Customers" ResourceId="Group_Customers" DescriptionResourceId="Customers_Description" ToolTipResourseId="Customers_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_accts" DescriptionResourceId="Account_SubArea_Description" Entity="account" ToolTipResourseId="Account_SubArea_ToolTip" GetStartedPanePath="Accounts_Web_User_Visor.html" GetStartedPanePathAdmin="Accounts_Web_Admin_Visor.html" GetStartedPanePathOutlook="Accounts_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Accounts_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_conts" DescriptionResourceId="Contact_SubArea_Description" Entity="contact" ToolTipResourseId="Contact_SubArea_ToolTip" GetStartedPanePath="Contacts_Web_User_Visor.html" GetStartedPanePathAdmin="Contacts_Web_Admin_Visor.html" GetStartedPanePathOutlook="Contacts_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Contacts_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+    </Group>
+    <Group Id="SFA" ResourceId="Area_Sales" DescriptionResourceId="Sales_Description" ToolTipResourseId="Sales_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_leads" DescriptionResourceId="Lead_SubArea_Description" ToolTipResourseId="Lead_SubArea_ToolTip" Entity="lead" GetStartedPanePath="Leads_Web_User_Visor.html" GetStartedPanePathAdmin="Leads_Web_Admin_Visor.html" GetStartedPanePathOutlook="Leads_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Leads_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_oppts" DescriptionResourceId="Opportunity_SubArea_Description" ToolTipResourseId="Opportunity_SubArea_ToolTip" Entity="opportunity" GetStartedPanePath="Opportunities_Web_User_Visor.html" GetStartedPanePathAdmin="Opportunities_Web_Admin_Visor.html" GetStartedPanePathOutlook="Opportunities_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Opportunities_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_comps" DescriptionResourceId="Competitor_SubArea_Description" ToolTipResourseId="Competitor_SubArea_ToolTip" Entity="competitor" IntroducedVersion="7.0.0.0" />
+    </Group>
+    <Group Id="Collateral" ResourceId="Area_Collateral" DescriptionResourceId="Area_Collateral_Description" ToolTipResourseId="Area_Collateral_Sales_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_quotes" DescriptionResourceId="Quote_SubArea_Description" ToolTipResourseId="Quote_SubArea_ToolTip" Entity="quote" GetStartedPanePath="Quotes_Web_User_Visor.html" GetStartedPanePathAdmin="Quotes_Web_Admin_Visor.html" GetStartedPanePathOutlook="Quotes_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Quotes_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_orders" DescriptionResourceId="Orders_SubArea_Description" ToolTipResourseId="Orders_SubArea_ToolTip" Entity="salesorder" GetStartedPanePath="Orders_Web_User_Visor.html" GetStartedPanePathAdmin="Orders_Web_Admin_Visor.html" GetStartedPanePathOutlook="Orders_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Orders_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_invoices" DescriptionResourceId="Invoice_SubArea_Description" ToolTipResourseId="Invoice_SubArea_ToolTip" Entity="invoice" GetStartedPanePath="Invoices_Web_User_Visor.html" GetStartedPanePathAdmin="Invoices_Web_Admin_Visor.html" GetStartedPanePathOutlook="Invoices_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Invoices_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_products" DescriptionResourceId="Product_SubArea_Description" ToolTipResourseId="Product_SubArea_ToolTip" Entity="product" GetStartedPanePath="Products_Web_User_Visor.html" GetStartedPanePathAdmin="Products_Web_Admin_Visor.html" GetStartedPanePathOutlook="Products_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Products_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_saleslit" DescriptionResourceId="SalesLit_SubArea_Description" ToolTipResourseId="SalesLit_SubArea_ToolTip" Entity="salesliterature" IntroducedVersion="7.0.0.0" />
+    </Group>
+    <Group Id="MA" ResourceId="Area_Marketing" DescriptionResourceId="Marketing_Description" ToolTipResourseId="Marketing_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_lists" DescriptionResourceId="MarketingList_SubArea_Description" ToolTipResourseId="MarketingList_SubArea_ToolTip" Entity="list" GetStartedPanePath="Marketing-Lists_Web_User_Visor.html" GetStartedPanePathAdmin="Marketing-Lists_Web_Admin_Visor.html" GetStartedPanePathOutlook="Marketing-Lists_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Marketing-Lists_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_minicamps" DescriptionResourceId="Quick_Campaign_Description" ToolTipResourseId="Quick_Campaign_ToolTip" Icon="/_imgs/ico_18_minicamps.gif" Entity="bulkoperation" GetStartedPanePath="Quick-Campaigns_Web_User_Visor.html" GetStartedPanePathAdmin="Quick-Campaigns_Web_Admin_Visor.html" GetStartedPanePathOutlook="Quick-Campaigns_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Quick-Campaigns_Outlook_Admin_Visor.html" OutlookShortcutIcon="/_imgs/olk_4400.ico" IntroducedVersion="7.0.0.0">
+        <Privilege Privilege="AllowQuickCampaign" />
+      </SubArea>
+    </Group>
+    <Group Id="Goals" ResourceId="Area_Goals" DescriptionResourceId="Area_Goals_Description" ToolTipResourseId="Area_Goals_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_goals" DescriptionResourceId="Goals_SubArea_Description" ToolTipResourseId="Goals_SubArea_ToolTip" Icon="/_imgs/ico_18_9600.png" Entity="goal" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_metric" DescriptionResourceId="Metrics_SubArea_Description" ToolTipResourseId="Metrics_SubArea_ToolTip" Entity="metric" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_goalrollupqueries" DescriptionResourceId="GoalQueries_SubArea_Description" ToolTipResourseId="GoalQueries_SubArea_ToolTip" Icon="/_imgs/ico_18_9602.png" Entity="goalrollupquery" IntroducedVersion="7.0.0.0" />
+    </Group>
+    <Group Id="Tools" ResourceId="Area_Tools" IsProfile="true" DescriptionResourceId="Area_Tools_Description" ToolTipResourseId="Area_Tools_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_reports" Entity="report" DescriptionResourceId="Reports_Description" ToolTipResourseId="Reports_ToolTip" IntroducedVersion="7.0.0.0">
+        <Privilege Entity="report" Privilege="Read" />
+      </SubArea>
+      <SubArea Id="nav_traces" Icon="/_imgs/area/18_alerts.png" Url="/_root/tracewall.aspx" ResourceId="Homepage_Alerts" ToolTipResourseId="Homepage_Alerts_ToolTip" AvailableOffline="false" DescriptionResourceId="Alerts_SubArea_Description" IntroducedVersion="7.0.0.0">
+        <Privilege Entity="tracelog" Privilege="Read" />
+      </SubArea>
+      <SubArea Id="nav_calendar" ResourceId="Homepage_Calendar" ToolTipResourseId="Homepage_Calendar_ToolTip" Icon="/_imgs/area/18_calendar.gif" Url="/workplace/home_calendar.aspx" Client="Web" IntroducedVersion="7.0.0.0">
+        <Privilege Entity="activitypointer" Privilege="Read" />
+      </SubArea>
+    </Group>
+  </Area>
+  <Area Id="CS" ResourceId="Area_Service" DescriptionResourceId="Customer_Service_Description" Icon="/_imgs/services_24x24.gif" ShowGroups="true" IntroducedVersion="7.0.0.0">
+    <Group Id="MyWork" ResourceId="Group_MyWork" DescriptionResourceId="My_Work_Description" ToolTipResourseId="My_Work_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_dashboards" ResourceId="Homepage_Dashboards" DescriptionResourceId="Dashboards_Description" ToolTipResourseId="Dashboards_ToolTip" Icon="/_imgs/area/18_home.gif" Url="/workplace/home_dashboards.aspx" GetStartedPanePath="Dashboards_Web_User_Visor.html" GetStartedPanePathAdmin="Dashboards_Web_Admin_Visor.html" GetStartedPanePathOutlook="Dashboards_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Dashboards_Outlook_Admin_Visor.html" DefaultDashboard="063e7659-05d9-4030-960d-10fe269a5a8b" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_activities" DescriptionResourceId="Activities_SubArea_Description" ToolTipResourseId="Activities_SubArea_ToolTip" Url="/_root/homepage.aspx?etc=4200" Entity="activitypointer" GetStartedPanePath="Activities_Web_User_Visor.html" GetStartedPanePathAdmin="Activities_Web_Admin_Visor.html" GetStartedPanePathOutlook="Activities_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Activities_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+    </Group>
+    <Group Id="Customers" ResourceId="Group_Customers" DescriptionResourceId="Customers_Description" ToolTipResourseId="Customers_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_accts" DescriptionResourceId="Account_SubArea_Description" ToolTipResourseId="Account_SubArea_ToolTip" Entity="account" GetStartedPanePath="Accounts_Web_User_Visor.html" GetStartedPanePathAdmin="Accounts_Web_Admin_Visor.html" GetStartedPanePathOutlook="Accounts_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Accounts_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_contacts" DescriptionResourceId="Contact_SubArea_Description" ToolTipResourseId="Contact_SubArea_ToolTip" Entity="contact" GetStartedPanePath="Contacts_Web_User_Visor.html" GetStartedPanePathAdmin="Contacts_Web_Admin_Visor.html" GetStartedPanePathOutlook="Contacts_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Contacts_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_socialprofiles" DescriptionResourceId="SocialProfile_SubArea_Description" ToolTipResourseId="SocialProfile_SubArea_ToolTip" Entity="socialprofile" IntroducedVersion="7.0.0.0" />
+    </Group>
+    <Group Id="CS" ResourceId="Area_Service" DescriptionResourceId="Customer_Service_Description" ToolTipResourseId="Customer_Service_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_cases" DescriptionResourceId="Cases_SubArea_Description" ToolTipResourseId="Cases_SubArea_ToolTip" Entity="incident" GetStartedPanePath="Cases_Web_User_Visor.html" GetStartedPanePathAdmin="Cases_Web_Admin_Visor.html" GetStartedPanePathOutlook="Cases_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Cases_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_apptbook" ResourceId="Homepage_AppointmentBook" DescriptionResourceId="AppointmentBook_SubArea_Description" ToolTipResourseId="AppointmentBook_SubArea_ToolTip" Icon="/_imgs/ico_18_servicecal.gif" Url="/sm/home_apptbook.aspx" AvailableOffline="false" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_queues" ResourceId="Homepage_Queues" Entity="queueitem" DescriptionResourceId="Queues_SubArea_Description" ToolTipResourseId="Queues_SubArea_ToolTip" Icon="/_imgs/ico_18_2020.gif" Url="/_root/homepage.aspx?etc=2029" GetStartedPanePath="Queues_Web_User_Visor.html" GetStartedPanePathAdmin="Queues_Web_Admin_Visor.html" GetStartedPanePathOutlook="Queues_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Queues_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0">
+        <Privilege Entity="queue" Privilege="Read" />
+      </SubArea>
+      <SubArea Id="nav_KnowledgeArticles" DescriptionResourceId="KnowledgeArticles_SubArea_Description" Entity="knowledgearticle" IntroducedVersion="8.0.0.0" />
+    </Group>
+    <Group Id="Collateral" ResourceId="Area_Collateral" DescriptionResourceId="Area_Collateral_Description" ToolTipResourseId="Area_Collateral_Service_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_answers" DescriptionResourceId="Article_SubArea_Description" ToolTipResourseId="Article_SubArea_ToolTip" Entity="kbarticle" GetStartedPanePath="KB_Web_User_Visor.html" GetStartedPanePathAdmin="KB_Web_Admin_Visor.html" GetStartedPanePathOutlook="KB_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="KB_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0">
+        <Privilege Entity="kbarticle" Privilege="Create,Read,Write" />
+      </SubArea>
+      <SubArea Id="nav_contracts" DescriptionResourceId="Contract_SubArea_Description" ToolTipResourseId="Contract_SubArea_ToolTip" Entity="contract" GetStartedPanePath="Contracts_Web_User_Visor.html" GetStartedPanePathAdmin="Contracts_Web_Admin_Visor.html" GetStartedPanePathOutlook="Contracts_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Contracts_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_products" DescriptionResourceId="Product_SubArea_Description" ToolTipResourseId="Product_SubArea_ToolTip" Entity="product" GetStartedPanePath="Products_Web_User_Visor.html" GetStartedPanePathAdmin="Products_Web_Admin_Visor.html" GetStartedPanePathOutlook="Products_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Products_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_services" DescriptionResourceId="Service_SubArea_Description" ToolTipResourseId="Service_SubArea_ToolTip" Entity="service" GetStartedPanePath="Services_Web_User_Visor.html" GetStartedPanePathAdmin="Services_Web_Admin_Visor.html" GetStartedPanePathOutlook="Services_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Services_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+    </Group>
+    <Group Id="Goals" ResourceId="Area_Goals" DescriptionResourceId="Area_Goals_Description" ToolTipResourseId="Area_Goals_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_goals" DescriptionResourceId="Goals_SubArea_Description" ToolTipResourseId="Goals_SubArea_ToolTip" Icon="/_imgs/ico_18_9600.png" Entity="goal" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_metric" DescriptionResourceId="Metrics_SubArea_Description" ToolTipResourseId="Metrics_SubArea_ToolTip" Entity="metric" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_goalrollupqueries" DescriptionResourceId="GoalQueries_SubArea_Description" ToolTipResourseId="GoalQueries_SubArea_ToolTip" Icon="/_imgs/ico_18_9602.png" Entity="goalrollupquery" IntroducedVersion="7.0.0.0" />
+    </Group>
+    <Group Id="Tools" ResourceId="Area_Tools" IsProfile="true" DescriptionResourceId="Area_Tools_Description" ToolTipResourseId="Area_Tools_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_reports" Entity="report" DescriptionResourceId="Reports_Description" ToolTipResourseId="Reports_ToolTip" IntroducedVersion="7.0.0.0">
+        <Privilege Entity="report" Privilege="Read" />
+      </SubArea>
+      <SubArea Id="nav_traces" Icon="/_imgs/area/18_alerts.png" Url="/_root/tracewall.aspx" ResourceId="Homepage_Alerts" AvailableOffline="false" DescriptionResourceId="Alerts_SubArea_Description" ToolTipResourseId="Alerts_SubArea_ToolTip" IntroducedVersion="7.0.0.0">
+        <Privilege Entity="tracelog" Privilege="Read" />
+      </SubArea>
+      <SubArea Id="nav_calendar" ResourceId="Homepage_Calendar" ToolTipResourseId="Homepage_Calendar_ToolTip" Icon="/_imgs/area/18_calendar.gif" Url="/workplace/home_calendar.aspx" Client="Web" IntroducedVersion="7.0.0.0">
+        <Privilege Entity="activitypointer" Privilege="Read" />
+      </SubArea>
+    </Group>
+  </Area>
+  <Area Id="MA" ResourceId="Area_Marketing" DescriptionResourceId="Marketing_Description" Icon="/_imgs/marketing_24x24.gif" ShowGroups="true" IntroducedVersion="7.0.0.0">
+    <Group Id="MyWork" ResourceId="Group_MyWork" DescriptionResourceId="My_Work_Description" ToolTipResourseId="My_Work_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_dashboards" ResourceId="Homepage_Dashboards" DescriptionResourceId="Dashboards_Description" ToolTipResourseId="Dashboards_ToolTip" Icon="/_imgs/area/18_home.gif" Url="/workplace/home_dashboards.aspx" GetStartedPanePath="Dashboards_Web_User_Visor.html" GetStartedPanePathAdmin="Dashboards_Web_Admin_Visor.html" GetStartedPanePathOutlook="Dashboards_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Dashboards_Outlook_Admin_Visor.html" DefaultDashboard="B46AEB74-BF0C-44FB-8158-9575588D1B57" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_activities" DescriptionResourceId="Activities_SubArea_Description" ToolTipResourseId="Activities_SubArea_ToolTip" Url="/_root/homepage.aspx?etc=4200" Entity="activitypointer" GetStartedPanePath="Activities_Web_User_Visor.html" GetStartedPanePathAdmin="Activities_Web_Admin_Visor.html" GetStartedPanePathOutlook="Activities_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Activities_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+    </Group>
+    <Group Id="Customers" ResourceId="Group_Customers" DescriptionResourceId="Customers_Description" ToolTipResourseId="Customers_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_accts" DescriptionResourceId="Account_SubArea_Description" ToolTipResourseId="Account_SubArea_ToolTip" Entity="account" GetStartedPanePath="Accounts_Web_User_Visor.html" GetStartedPanePathAdmin="Accounts_Web_Admin_Visor.html" GetStartedPanePathOutlook="Accounts_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Accounts_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_conts" DescriptionResourceId="Contact_SubArea_Description" ToolTipResourseId="Contact_SubArea_ToolTip" Entity="contact" GetStartedPanePath="Contacts_Web_User_Visor.html" GetStartedPanePathAdmin="Contacts_Web_Admin_Visor.html" GetStartedPanePathOutlook="Contacts_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Contacts_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+    </Group>
+    <Group Id="MA" ResourceId="Area_Marketing" DescriptionResourceId="Marketing_Description" ToolTipResourseId="Marketing_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_leads" Entity="lead" DescriptionResourceId="Lead_SubArea_Description" ToolTipResourseId="Lead_SubArea_ToolTip" GetStartedPanePath="Leads_Web_User_Visor.html" GetStartedPanePathAdmin="Leads_Web_Admin_Visor.html" GetStartedPanePathOutlook="Leads_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Leads_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_lists" DescriptionResourceId="MarketingList_SubArea_Description" ToolTipResourseId="MarketingList_SubArea_ToolTip" Entity="list" GetStartedPanePath="Marketing-Lists_Web_User_Visor.html" GetStartedPanePathAdmin="Marketing-Lists_Web_Admin_Visor.html" GetStartedPanePathOutlook="Marketing-Lists_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Marketing-Lists_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_campaigns" DescriptionResourceId="Campaign_SubArea_Description" ToolTipResourseId="Campaign_SubArea_ToolTip" Entity="campaign" GetStartedPanePath="Campaigns_Web_User_Visor.html" GetStartedPanePathAdmin="Campaigns_Web_Admin_Visor.html" GetStartedPanePathOutlook="Campaigns_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Campaigns_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_minicamps" DescriptionResourceId="Quick_Campaign_Description" ToolTipResourseId="Quick_Campaign_ToolTip" Icon="/_imgs/ico_18_minicamps.gif" Entity="bulkoperation" GetStartedPanePath="Quick-Campaigns_Web_User_Visor.html" GetStartedPanePathAdmin="Quick-Campaigns_Web_Admin_Visor.html" GetStartedPanePathOutlook="Quick-Campaigns_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Quick-Campaigns_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+    </Group>
+    <Group Id="Collateral" ResourceId="Area_Collateral" DescriptionResourceId="Area_Collateral_Description" ToolTipResourseId="Area_Collateral_Marketing_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_products" DescriptionResourceId="Product_SubArea_Description" ToolTipResourseId="Product_SubArea_ToolTip" Entity="product" GetStartedPanePath="Products_Web_User_Visor.html" GetStartedPanePathAdmin="Products_Web_Admin_Visor.html" GetStartedPanePathOutlook="Products_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Products_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_saleslit" DescriptionResourceId="SalesLit_SubArea_Description" ToolTipResourseId="SalesLit_SubArea_ToolTip" Entity="salesliterature" IntroducedVersion="7.0.0.0" />
+    </Group>
+    <Group Id="Tools" ResourceId="Area_Tools" IsProfile="true" DescriptionResourceId="Area_Tools_Description" ToolTipResourseId="Area_Tools_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_reports" Entity="report" DescriptionResourceId="Reports_Description" ToolTipResourseId="Reports_ToolTip" IntroducedVersion="7.0.0.0">
+        <Privilege Entity="report" Privilege="Read" />
+      </SubArea>
+      <SubArea Id="nav_traces" Icon="/_imgs/area/18_alerts.png" Url="/_root/tracewall.aspx" ResourceId="Homepage_Alerts" ToolTipResourseId="Homepage_Alerts_ToolTip" AvailableOffline="false" DescriptionResourceId="Alerts_SubArea_Description" IntroducedVersion="7.0.0.0">
+        <Privilege Entity="tracelog" Privilege="Read" />
+      </SubArea>
+      <SubArea Id="nav_calendar" ResourceId="Homepage_Calendar" ToolTipResourseId="Homepage_Calendar_ToolTip" Icon="/_imgs/area/18_calendar.gif" Url="/workplace/home_calendar.aspx" Client="Web" IntroducedVersion="7.0.0.0">
+        <Privilege Entity="activitypointer" Privilege="Read" />
+      </SubArea>
+    </Group>
+  </Area>
+  <Area Id="Settings" ResourceId="Area_Settings" ShowGroups="true" Icon="/_imgs/settings_24x24.gif" ToolTipResourseId="Settings_Area_ToolTip" DescriptionResourceId="Settings_Area_Description" IntroducedVersion="7.0.0.0">
+    <Group Id="Business_Setting" ResourceId="Menu_Label_Business" DescriptionResourceId="Menu_Label_Business" ToolTipResourseId="Menu_Label_Business_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_businessmanagement" ResourceId="Homepage_BusinessManagement" DescriptionResourceId="BizManagement_SubArea_Description" ToolTipResourseId="BizManagement_SubArea_ToolTip" Icon="/_imgs/ico_18_busmanagement.gif" Url="/tools/business/business.aspx" AvailableOffline="false" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_template" ResourceId="Homepage_Template" DescriptionResourceId="Template_SubArea_Description" ToolTipResourseId="Template_SubArea_ToolTip" Icon="/_imgs/ico_18_templates.gif" Url="/tools/templates/templates.aspx" AvailableOffline="false" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_productcatalog" ResourceId="Homepage_ProductCatalog" DescriptionResourceId="ProductCatalog_SubArea_Description" ToolTipResourseId="ProductCatalog_SubArea_ToolTip" Icon="/_imgs/ico_18_productcatalog.gif" Url="/tools/productcatalog/productcatalog.aspx" AvailableOffline="false" IntroducedVersion="7.0.0.0">
+        <Privilege Entity="product" Privilege="Read" />
+      </SubArea>
+      <SubArea Id="nav_externAppmanagement" ResourceId="Homepage_ExternAppManagement" DescriptionResourceId="ExternAppManagement_SubArea_Description" Icon="/_imgs/ExternalAppManagement_16.png" Url="/tools/externappmanagement/externappmanagement.aspx" AvailableOffline="false" IntroducedVersion="8.0.0.0" />
+      <SubArea Id="nav_servicemanagement" ResourceId="Homepage_ServiceManagement" DescriptionResourceId="ServiceManagement_SubArea_Description" ToolTipResourseId="ServiceManagement_SubArea_ToolTip" Url="/tools/servicemanagement/servicemanagement.aspx" AvailableOffline="false" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_mocaoffline" ResourceId="Homepage_MobileOffline" DescriptionResourceId="MobileOffline_SubArea_Description" Icon="/_imgs/ico_18_mobileoffline.gif" Url="/tools/mobileoffline/mobileoffline.aspx" AvailableOffline="false" IntroducedVersion="8.0.0.0" />
+      <SubArea Id="nav_syncerror" ResourceId="Homepage_SyncError" DescriptionResourceId="SyncError_SubArea_Description=" ToolTipResourseId="SyncError_SubArea_ToolTip" Icon="/_imgs/ico_18_syncerror.gif" Entity="syncerror" AvailableOffline="false" IntroducedVersion="8.1.0.0" />
+    </Group>
+    <Group Id="Customizations" ResourceId="Homepage_SystemCustomization" DescriptionResourceId="Homepage_SystemCustomization" ToolTipResourseId="Homepage_SystemCustomization_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_syscust" ResourceId="Menu_Label_Customizations" DescriptionResourceId="Customization_SubArea_Description" ToolTipResourseId="Customization_SubArea_ToolTip" Icon="/_imgs/area/18_syscust.gif" Url="/tools/systemcustomization/systemcustomization.aspx" AvailableOffline="false" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_solution" Entity="solution" ResourceId="Web.Tools.Solution.map_xml.aspx_1" ToolTipResourseId="Solution_SubArea_ToolTip" AvailableOffline="false" GetStartedPanePath="Solutions_Web_Admin_Visor.html" GetStartedPanePathAdmin="Solutions_Web_Admin_Visor.html" GetStartedPanePathOutlook="Solutions_Outlook_Admin_Visor.html" GetStartedPanePathAdminOutlook="Solutions_Outlook_Admin_Visor.html" DescriptionResourceId="Web.Tools.Solution.map_xml.aspx_2" Url="/tools/Solution/home_solution.aspx?etc=7100" IntroducedVersion="7.0.0.0">
+        <Privilege Entity="solution" Privilege="Read" />
+      </SubArea>
+      <SubArea Id="nav_marketplace" ResourceId="Homepage_Marketplace" DescriptionResourceId="Marketplace_SubArea_Description" ToolTipResourseId="Marketplace_SubArea_ToolTip" Icon="/_imgs/SystemCustomization/ico_18_marketplace.png" Url="/tools/SystemCustomization/SolutionsMarketplace/SolutionsMarketplace.aspx" Client="Web" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_plugintrace" ResourceId="Homepage_PluginTraceLog" Icon="/_imgs/area/Plugin_TraceLog_32.png" Entity="plugintracelog" Client="Web" IntroducedVersion="7.1.0.0">
+        <Privilege Entity="plugintracelog" Privilege="Read" />
+      </SubArea>
+    </Group>
+    <Group Id="System_Setting" ResourceId="Menu_Label_System" DescriptionResourceId="Menu_Label_System" ToolTipResourseId="Menu_Label_System_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_administration" ResourceId="Homepage_Administration" DescriptionResourceId="Administration_SubArea_Description" ToolTipResourseId="Administration_SubArea_ToolTip" Icon="/_imgs/ico_18_administration.gif" Url="/tools/Admin/admin.aspx" AvailableOffline="false" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_security" ResourceId="AdminSecurity_SubArea_Title" DescriptionResourceId="AdminSecurity_SubArea_Description" ToolTipResourseId="AdminSecurity_SubArea_ToolTip" Icon="/_imgs/area/Security_32.png" Url="/tools/AdminSecurity/adminsecurity_area.aspx" AvailableOffline="false" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_datamanagement" ResourceId="Homepage_DataManagement" DescriptionResourceId="DataManagement_SubArea_Description" ToolTipResourseId="DataManagement_SubArea_ToolTip" Icon="/_imgs/ico_18_datamanagement.gif" Url="/tools/DataManagement/datamanagement.aspx" AvailableOffline="false" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_systemjobs" ResourceId="Homepage_SystemJobs" DescriptionResourceId="SystemJobs_SubArea_Description" ToolTipResourseId="SystemJobs_SubArea_ToolTip" Entity="asyncoperation" Url="/tools/business/home_asyncoperation.aspx" AvailableOffline="false" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_documentmanagement" ResourceId="DocumentManagement.SettingsArea.Heading" DescriptionResourceId="DocumentManagement.SettingsArea.Description" ToolTipResourseId="DocumentManagement_SettingsArea_ToolTip" Icon="/_imgs/DocumentManagement_16.png" Url="/tools/documentmanagement/documentmanagement.aspx" AvailableOffline="false" IntroducedVersion="7.0.0.0">
+        <Privilege Entity="sharepointsite" Privilege="Read" />
+        <Privilege Entity="sharepointdocumentlocation" Privilege="Read" />
+      </SubArea>
+      <SubArea Id="nav_audit" ResourceId="Audit_SubArea_Title" DescriptionResourceId="Audit_SubArea_Description" ToolTipResourseId="Audit_SubArea_ToolTip" Icon="/_imgs/area/16_audit.png" Url="/tools/audit/audit_area.aspx" AvailableOffline="false" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="nav_social" ResourceId="Social_SubArea_Title" DescriptionResourceId="Social_SubArea_Description" ToolTipResourseId="Social_SubArea_ToolTip" Icon="/_imgs/area/16_social.png" Url="/tools/social/social_area.aspx" AvailableOffline="false" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="msdyn_postconfig" ResourceId="Activity_Feed_Configuration" ToolTipResourseId="Activity_Feed_ToolTip" Entity="msdyn_postconfig" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="msdyn_postruleconfig" ResourceId="Activity_Feed_Rules_Configuration" ToolTipResourseId="Activity_Feed_Rules_Configuration_ToolTip" Entity="msdyn_postruleconfig" IntroducedVersion="7.0.0.0" />
+      <SubArea Id="crmapp_outlook" ResourceId="MailApp_SubArea_Title" DescriptionResourceId="MailApp_SubArea_Description" Icon="/_imgs/area/crm_apps_16x16.png" Url="/tools/appsforcrm/AppForOutlookAdminSettings.aspx" AvailableOffline="false" IntroducedVersion="8.0.0.0" />
+      <SubArea Id="nav_orginsightspage" Icon="$webresource:msdyn_/OrgInsights/App/Images/OrgInsights32Icon.png" Url="$webresource:msdyn_/OrgInsights/Index.html" AvailableOffline="false" Sku="Live">
+        <Titles>
+          <Title Title="Organization Insights" LCID="1033" />
+          <Title Title="المعارف الثابتة المؤسسة" LCID="1025" />
+          <Title Title="Аналитични данни за организация" LCID="1026" />
+          <Title Title="Informació detallada de l'organització" LCID="1027" />
+          <Title Title="Organization Insights" LCID="1029" />
+          <Title Title="Organisationsindsigt" LCID="1030" />
+          <Title Title="Organisations-Insights" LCID="1031" />
+          <Title Title="Πληροφορίες οργανισμού" LCID="1032" />
+          <Title Title="Información de la organización" LCID="3082" />
+          <Title Title="Organisatsiooni ülevaated" LCID="1061" />
+          <Title Title="Erakundearen xehetasunak" LCID="1069" />
+          <Title Title="Organisaationäkemykset" LCID="1035" />
+          <Title Title="Aperçus de l'organisation" LCID="1036" />
+          <Title Title="Información sobre a organización" LCID="1110" />
+          <Title Title="תובנות ארגון" LCID="1037" />
+          <Title Title="संगठन इनसाइट्स" LCID="1081" />
+          <Title Title="Uvidi tvrtke ili ustanove" LCID="1050" />
+          <Title Title="Szervezeti információk" LCID="1038" />
+          <Title Title="Wawasan Organisasi" LCID="1057" />
+          <Title Title="Analisi dell'organizzazione" LCID="1040" />
+          <Title Title="組織インサイト" LCID="1041" />
+          <Title Title="Ұйым түсініктері" LCID="1087" />
+          <Title Title="조직 인사이트" LCID="1042" />
+          <Title Title="Organizacijos įžvalgos" LCID="1063" />
+          <Title Title="Organizācijas ieskati" LCID="1062" />
+          <Title Title="Wawasan Organisasi" LCID="1086" />
+          <Title Title="Organisasjonsinnsikt" LCID="1044" />
+          <Title Title="Organisatie-inzichten" LCID="1043" />
+          <Title Title="Wgląd w dane organizacji" LCID="1045" />
+          <Title Title="Insights da Organização" LCID="1046" />
+          <Title Title="Conhecimentos da Organização" LCID="2070" />
+          <Title Title="Detalii organizație" LCID="1048" />
+          <Title Title="Сведения об организации" LCID="1049" />
+          <Title Title="Prehľady o organizácii" LCID="1051" />
+          <Title Title="Organizacijski vpogledi" LCID="1060" />
+          <Title Title="Увиди организације" LCID="3098" />
+          <Title Title="Uvidi organizacije" LCID="2074" />
+          <Title Title="Organisationsinsikter" LCID="1053" />
+          <Title Title="ข้อมูลเชิงลึกขององค์กร" LCID="1054" />
+          <Title Title="Kuruluş Öngörüleri" LCID="1055" />
+          <Title Title="Аналітичні огляди організації" LCID="1058" />
+          <Title Title="Hiểu biết Tổ chức" LCID="1066" />
+          <Title Title="组织见解" LCID="2052" />
+          <Title Title="組織探索" LCID="3076" />
+          <Title Title="組織探索" LCID="1028" />
+        </Titles>
+        <Descriptions>
+          <Description Description="Insights into usage and activities for your Microsoft Dynamics 365 (online) organization." LCID="1033" />
+          <Description Description="المعارف الثابتة عن الاستخدام والأنشطة لمؤسسة Microsoft Dynamics 365 ‏(online)." LCID="1025" />
+          <Description Description="Аналитични данни за използването и дейностите за вашата организация в Microsoft Dynamics 365 (online)." LCID="1026" />
+          <Description Description="Informació detallada sobre l'ús i les activitats de l'organització del Microsoft Dynamics 365 (Online)." LCID="1027" />
+          <Description Description="Poznatky o využití a aktivitách vaší organizace Microsoft Dynamics 365 (Online)" LCID="1029" />
+          <Description Description="Indsigt i din Microsoft Dynamics 365 (Online)-organisations brug og aktiviteter." LCID="1030" />
+          <Description Description="Nutzungs- und Aktivitätsinformationen zu Ihrer Microsoft Dynamics 365 (Online)-Organisation." LCID="1031" />
+          <Description Description="Πληροφορίες για τη χρήση και τις δραστηριότητες του οργανισμού Microsoft Dynamics 365 Online." LCID="1032" />
+          <Description Description="Información sobre las actividades y el uso de su organización de Microsoft Dynamics 365 (online)." LCID="3082" />
+          <Description Description="Microsoft Dynamics 365 (Online) organisatsiooni kasutuse ja tegevuste ülevaated." LCID="1061" />
+          <Description Description="Microsoft Dynamics 365 (Online) erakundearen erabilerari eta jarduerei buruzko xehetasunak." LCID="1069" />
+          <Description Description="Microsoft Dynamics 365 (Online) -organisaation käyttö- ja aktiviteettitiedot." LCID="1035" />
+          <Description Description="Aperçus de l'utilisation et des activités de votre organisation Microsoft Dynamics 365 (Online)." LCID="1036" />
+          <Description Description="Información acerca do uso e as actividades da organización de Microsoft Dynamics 365 (Online)." LCID="1110" />
+          <Description Description="תובנות לגבי השימוש והפעילויות של ארגון Microsoft Dynamics 365‏ (Online) שלך." LCID="1037" />
+          <Description Description="आपके Microsoft Dynamics 365 (online) संगठन के लिए उपयोग और गतिविधियों संबंधी जानकारी." LCID="1081" />
+          <Description Description="Uvidi u korištenje i aktivnosti za vašu organizaciju sustava Microsoft Dynamics 365 (online)." LCID="1050" />
+          <Description Description="Betekintés a Microsoft Dynamics 365 (online) szervezete használatába és tevékenységeibe." LCID="1038" />
+          <Description Description="Wawasan tentang penggunaan dan aktivitas untuk organisasi Microsoft Dynamics 365 (online) Anda." LCID="1057" />
+          <Description Description="Analisi dell'utilizzo e degli impegni della tua organizzazione Microsoft Dynamics 365 (online)." LCID="1040" />
+          <Description Description="Microsoft Dynamics 365 (Online) 組織の使用率と活動に関する洞察です。" LCID="1041" />
+          <Description Description="Microsoft Dynamics 365 (Online) ұйымының пайдалану түсініктері және әрекеттері." LCID="1087" />
+          <Description Description="Microsoft Dynamics 365(Online) 조직의 사용 및 활동에 대한 인사이트입니다." LCID="1042" />
+          <Description Description="Įžvalgos apie „Microsoft Dynamics 365 (online)“ organizacijos naudojimą ir veiklą." LCID="1063" />
+          <Description Description="Ieskati par jūsu Microsoft Dynamics 365 (online) organizācijas lietojumu un darbībām." LCID="1062" />
+          <Description Description="Wawasan ke dalam penggunaan dan aktiviti untuk organisasi Microsoft Dynamics 365 (online) anda." LCID="1086" />
+          <Description Description="Innsikt i bruk og aktiviteter for Microsoft Dynamics 365 (Online)-organisasjonen." LCID="1044" />
+          <Description Description="Inzichten in het gebruik en de activiteiten voor uw organisatie van Microsoft Dynamics 365 (online)." LCID="1043" />
+          <Description Description="Wgląd w dane dotyczące użycia i działań organizacji usługi Microsoft Dynamics 365 (online)." LCID="1045" />
+          <Description Description="Insights de uso e atividades para sua organização do Microsoft Dynamics 365 (online)." LCID="1046" />
+          <Description Description="Conhecimentos aprofundados sobre a utilização e as atividades da sua organização do Microsoft Dynamics 365 (online)." LCID="2070" />
+          <Description Description="Perspective asupra utilizării și activităților organizației dvs. Microsoft Dynamics 365 (online)." LCID="1048" />
+          <Description Description="Анализ использования и действий организации Microsoft Dynamics 365 (Online)." LCID="1049" />
+          <Description Description="Prehľady využitia a aktivít vašej organizácie v systéme Microsoft Dynamics 365 (online)." LCID="1051" />
+          <Description Description="Vpogledi v uporabo in dejavnosti vaše organizacije Microsoft Dynamics 365 (Online)." LCID="1060" />
+          <Description Description="Увиди у коришћење и активности за вашу Microsoft Dynamics 365 (Online) организацију." LCID="3098" />
+          <Description Description="Uvidi u korišćenje i aktivnosti za vašu Microsoft Dynamics 365 (Online) organizaciju." LCID="2074" />
+          <Description Description="Insikter i användning och aktiviteter för Microsoft Dynamics 365 (online)-organisationen." LCID="1053" />
+          <Description Description="ข้อมูลเชิงลึกเกี่ยวกับการใช้งานและกิจกรรมสำหรับองค์กร Microsoft Dynamics 365 (online) ของคุณ" LCID="1054" />
+          <Description Description="Microsoft Dynamics 365 (Online) kuruluşunuz için kullanım ve etkinliklere ilişkin öngörüler." LCID="1055" />
+          <Description Description="Аналітичні огляди використання та справ для організації Microsoft Dynamics 365 Online." LCID="1058" />
+          <Description Description="Thông tin chi tiết về việc sử dụng và hoạt động cho tổ chức Microsoft Dynamics 365 (Online) của bạn." LCID="1066" />
+          <Description Description="对 Microsoft Dynamics 365 (Online)组织的使用和活动的见解。" LCID="2052" />
+          <Description Description="探索您的 Microsoft Dynamics 365 (Online) 組織的使用和活動。" LCID="3076" />
+          <Description Description="探索您的 Microsoft Dynamics 365 (Online) 組織的使用和活動。" LCID="1028" />
+        </Descriptions>
+        <Privilege Entity="savedorginsightsconfiguration" Privilege="Read" />
+      </SubArea>
+    </Group>
+    <Group Id="ProcessCenter" ResourceId="Menu_Label_ProcessCenter" DescriptionResourceId="Menu_Label_ProcessCenter" ToolTipResourseId="Menu_Label_ProcessCenter_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="nav_workflow" Entity="workflow" DescriptionResourceId="Workflow_SubArea_Description" ToolTipResourseId="Workflow_SubArea_ToolTip" AvailableOffline="false" GetStartedPanePath="Workflows_Web_User_Visor.html" GetStartedPanePathAdmin="Workflows_Web_Admin_Visor.html" GetStartedPanePathOutlook="Workflows_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Workflows_Outlook_Admin_Visor.html" IntroducedVersion="7.0.0.0" />
+    </Group>
+    <Group Id="Application" ResourceId="Menu_Label_Application" DescriptionResourceId="Menu_Label_Application" ToolTipResourseId="Menu_Label_Application_ToolTip" IntroducedVersion="8.1.0.0">
+      <SubArea Id="nav_interactive_service_hub" ResourceId="Interactive_Service_Hub_SubArea_Title" DescriptionResourceId="Interactive_Service_Hub_SubArea_Description" ToolTipResourseId="Interactive_Service_Hub_SubArea_ToolTip" Icon="/_imgs/InteractiveServiceHub_32.png" Url="/engagementhub.aspx" AvailableOffline="false" IntroducedVersion="8.1.0.0" />
+      <SubArea Id="nav_app_modules" ResourceId="App_Modules_SubArea_Title" DescriptionResourceId="App_Modules_SubArea_Description" ToolTipResourseId="App_Modules_SubArea_ToolTip" Icon="/_imgs/AppModules_32.png" Url="/tools/AppModuleContainer/applandingtilepage.aspx" AvailableOffline="false" IntroducedVersion="8.1.0.0" />
+    </Group>
+  </Area>
+  <Area Id="HLP" ResourceId="Area_Help" ShowGroups="true" Icon="/_imgs/icn_help16.png" DescriptionResourceId="Help_Area_Description" IntroducedVersion="7.0.0.0">
+    <Group Id="HLP_GRP" ResourceId="Group_Help" DescriptionResourceId="Help_Description" ToolTipResourseId="Help_ToolTip" IntroducedVersion="7.0.0.0">
+      <SubArea Id="Help_Resource_Center" Url="http://go.microsoft.com/fwlink/?LinkId=296269&amp;clcid=0x409" ResourceId="Area_CustomerCenter" DescriptionResourceId="ResourceCenter_Area_Description" ToolTipResourseId="ResourceCenter_Area_ToolTip" AvailableOffline="false" IntroducedVersion="7.0.0.0" />
+    </Group>
+    <Group Id="LearningPath" IsProfile="false">
+      <Titles>
+        <Title LCID="1033" Title="Learning Path" />
+        <Title LCID="1025" Title="مسار التعلم" />
+        <Title LCID="1026" Title="Път за обучение" />
+        <Title LCID="1027" Title="Ruta d'aprenentatge" />
+        <Title LCID="1028" Title="學習路徑" />
+        <Title LCID="1029" Title="Studijní program" />
+        <Title LCID="1030" Title="Læringssti" />
+        <Title LCID="1031" Title="Lernpfad" />
+        <Title LCID="1032" Title="Διαδρομή εκμάθησης" />
+        <Title LCID="1035" Title="Oppimispolku" />
+        <Title LCID="1036" Title="Parcours d'apprentissage" />
+        <Title LCID="1037" Title="מסלול לימוד" />
+        <Title LCID="1038" Title="képzési terv" />
+        <Title LCID="1040" Title="percorso di apprendimento" />
+        <Title LCID="1041" Title="ラーニング パス" />
+        <Title LCID="1042" Title="학습 경로" />
+        <Title LCID="1043" Title="Leertraject" />
+        <Title LCID="1044" Title="Læringsbane" />
+        <Title LCID="1045" Title="Ścieżka szkoleniowa" />
+        <Title LCID="1046" Title="Roteiro de Aprendizagem" />
+        <Title LCID="1048" Title="Cale de învățare" />
+        <Title LCID="1049" Title="схема обучения" />
+        <Title LCID="1050" Title="Vođeno učenje" />
+        <Title LCID="1051" Title="séria školení" />
+        <Title LCID="1053" Title="Utbildningsväg" />
+        <Title LCID="1054" Title="เส้นทางการเรียนรู้" />
+        <Title LCID="1055" Title="Öğrenme Yolu" />
+        <Title LCID="1057" Title="Jalur Pembelajaran" />
+        <Title LCID="1058" Title="Навчальний шлях" />
+        <Title LCID="1060" Title="Vodeno učenje" />
+        <Title LCID="1061" Title="Õppeteekond" />
+        <Title LCID="1062" Title="Mācību materiāli" />
+        <Title LCID="1063" Title="Mokomoji medžiaga" />
+        <Title LCID="1066" Title="Con đường Học tập" />
+        <Title LCID="1069" Title="Ikasketa-txokoa" />
+        <Title LCID="1081" Title="लर्निंग पाथ" />
+        <Title LCID="1086" Title="Laluan Pembelajaran" />
+        <Title LCID="1087" Title="Оқыту жолы" />
+        <Title LCID="1110" Title="Camiño de aprendizaxe" />
+        <Title LCID="2052" Title="学习路径" />
+        <Title LCID="2070" Title="Percurso de Aprendizagem" />
+        <Title LCID="2074" Title="Vođeno učenje" />
+        <Title LCID="3076" Title="學習路徑" />
+        <Title LCID="3082" Title="Ruta de aprendizaje" />
+        <Title LCID="3098" Title="Вођено учење" />
+      </Titles>
+    </Group>
+  </Area>
+</SiteMap>

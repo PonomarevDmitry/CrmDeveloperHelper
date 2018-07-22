@@ -382,7 +382,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("PluginType {0} description exported to {1}", pluginType.PluginType.TypeName, filePath);
 

@@ -80,7 +80,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (content.Length > 0)
             {
-                File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
                 message = string.Format("For entity '{0}' created file with attributes dependent components: {1}", entityName, filePath);
             }

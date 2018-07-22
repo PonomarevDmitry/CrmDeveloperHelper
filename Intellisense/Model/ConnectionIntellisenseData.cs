@@ -136,9 +136,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     }
                     catch (Exception ex)
                     {
-                        File.Delete(filePath);
-
                         DTEHelper.WriteExceptionToOutput(ex);
+
+                        FileOperations.CreateBackUpFile(filePath);
                     }
                 }
             }
@@ -160,13 +160,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         private void Save(string filePath)
         {
-            var data = Get(this.ConnectionId);
-
-            if (data != null)
-            {
-                this.MergeDataFromDisk(data);
-            }
-
             string directory = Path.GetDirectoryName(filePath);
 
             if (!Directory.Exists(directory))

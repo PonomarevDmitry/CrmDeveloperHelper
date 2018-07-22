@@ -14,6 +14,8 @@
             <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
                 <MenuItem Header="Show Difference Entity Ribbon" Click="mIDifferenceEntityRibbon_Click" />
                 <Separator/>
+                <MenuItem Header="Show Difference Entity RibbonDiffXml" Click="mIDifferenceEntityRibbonDiffXml_Click" />
+                <Separator/>
                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
@@ -30,6 +32,8 @@
 
             <MenuItem Header="{DynamicResource ConnectionName1}">
                 <MenuItem Header="Export Entity Ribbon" Click="mIConnection1EntityRibbon_Click" />
+                <Separator/>
+                <MenuItem Header="Export Entity RibbonDiffXml" Click="mIConnection1EntityRibbonDiffXml_Click" />
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
                 <Separator/>
@@ -54,6 +58,8 @@
             <Separator x:Uid="menuContextConnection2" />
             <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}">
                 <MenuItem Header="Export Entity Ribbon" Click="mIConnection2EntityRibbon_Click" />
+                <Separator/>
+                <MenuItem Header="Export Entity RibbonDiffXml" Click="mIConnection2EntityRibbonDiffXml_Click" />
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
                 <Separator/>
@@ -134,25 +140,37 @@
                 <ToolBarPanel Orientation="Horizontal" >
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem x:Name="mIDifferenceEntityRibbon" Header="Entity Ribbon" Click="mIDifferenceEntityRibbon_Click" />
+                            <MenuItem Header="Entity Ribbon" Click="mIDifferenceEntityRibbon_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mIDifferenceApplicationRibbon" Header="Application Ribbon" Click="mIDifferenceApplicationRibbon_Click" />
+                            <MenuItem Header="Entity RibbonDiffXml" Click="mIDifferenceEntityRibbonDiffXml_Click" />
+                            <Separator/>
+                            <MenuItem Header="Application Ribbon" Click="mIDifferenceApplicationRibbon_Click" />
+                            <Separator/>
+                            <MenuItem Header="Application RibbonDiffXml" Click="mIDifferenceApplicationRibbonDiffXml_Click" />
                         </MenuItem>
                     </Menu>
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
-                            <MenuItem x:Name="mIConnection1EntityRibbon" Header="Export Entity Ribbon" Click="mIConnection1EntityRibbon_Click" />
+                            <MenuItem Header="Export Entity Ribbon" Click="mIConnection1EntityRibbon_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mIConnection1ApplicationRibbon" Header="Export Application Ribbon" Click="mIConnection1ApplicationRibbon_Click"  />
+                            <MenuItem Header="Export Entity RibbonDiffXml" Click="mIConnection1EntityRibbonDiffXml_Click" />
+                            <Separator/>
+                            <MenuItem Header="Export Application Ribbon" Click="mIConnection1ApplicationRibbon_Click"  />
+                            <Separator/>
+                            <MenuItem Header="Export Application RibbonDiffXml" Click="mIConnection1ApplicationRibbonDiffXml_Click"  />
                         </MenuItem>
                     </Menu>
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
-                            <MenuItem x:Name="mIConnection2EntityRibbon" Header="Export Entity Ribbon" Click="mIConnection2EntityRibbon_Click" />
+                            <MenuItem Header="Export Entity Ribbon" Click="mIConnection2EntityRibbon_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mIConnection2ApplicationRibbon" Header="Export Application Ribbon" Click="mIConnection2ApplicationRibbon_Click" />
+                            <MenuItem Header="Export Entity RibbonDiffXml" Click="mIConnection2EntityRibbonDiffXml_Click" />
+                            <Separator/>
+                            <MenuItem Header="Export Application Ribbon" Click="mIConnection2ApplicationRibbon_Click" />
+                            <Separator/>
+                            <MenuItem Header="Export Application RibbonDiffXml" Click="mIConnection2ApplicationRibbonDiffXml_Click" />
                         </MenuItem>
                     </Menu>
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />

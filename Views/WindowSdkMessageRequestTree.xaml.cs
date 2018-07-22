@@ -267,10 +267,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 search.Requests = await new SdkMessageRequestRepository(service).GetListAsync(entityName, messageName, new ColumnSet(SdkMessageRequest.Schema.Attributes.name, SdkMessageRequest.Schema.Attributes.primaryobjecttypecode));
-                search.RequestFields = await new SdkMessageRequestFieldRepository(service).GetListAsync(new ColumnSet(SdkMessageRequestField.Schema.Attributes.name, SdkMessageRequestField.Schema.Attributes.sdkmessagerequestid, SdkMessageRequestField.Schema.Attributes.clrparser));
+                search.RequestFields = await new SdkMessageRequestFieldRepository(service).GetListAsync(new ColumnSet(SdkMessageRequestField.Schema.Attributes.name, SdkMessageRequestField.Schema.Attributes.sdkmessagerequestid, SdkMessageRequestField.Schema.Attributes.clrparser, SdkMessageRequestField.Schema.Attributes.position));
 
                 search.Responses = await new SdkMessageResponseRepository(service).GetListAsync(new ColumnSet(SdkMessageResponse.Schema.Attributes.sdkmessagerequestid));
-                search.ResponseFields = await new SdkMessageResponseFieldRepository(service).GetListAsync(new ColumnSet(SdkMessageResponseField.Schema.Attributes.name, SdkMessageResponseField.Schema.Attributes.sdkmessageresponseid, SdkMessageResponseField.Schema.Attributes.clrformatter));
+                search.ResponseFields = await new SdkMessageResponseFieldRepository(service).GetListAsync(new ColumnSet(SdkMessageResponseField.Schema.Attributes.name, SdkMessageResponseField.Schema.Attributes.sdkmessageresponseid, SdkMessageResponseField.Schema.Attributes.clrformatter, SdkMessageResponseField.Schema.Attributes.position));
             }
             catch (Exception ex)
             {
@@ -559,7 +559,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var node = new SdkMessageRequestTreeViewItem()
             {
-                Name = string.Format("{1}      ({0})", field.ClrFormatter, field.Name),
+                Name = string.Format("{0}. {1}      ({2})", field.Position, field.Name, field.ClrFormatter),
                 Image = _imageField,
                 SdkMessageResponse = field.SdkMessageResponseId?.Id
             };
@@ -583,7 +583,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var node = new SdkMessageRequestTreeViewItem()
             {
-                Name = string.Format("{1}      ({0})", field.ClrParser, field.Name),
+                Name = string.Format("{0}. {1}      ({2})", field.Position, field.Name, field.ClrParser),
                 Image = _imageField,
                 SdkMessageRequest = field.SdkMessageRequestId?.Id
             };
@@ -1008,7 +1008,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, result.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, result.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 

@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -33,7 +34,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
         private Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
+
         private Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
+        private Dictionary<Guid, HashSet<string>> _cacheRibbonCustomization = new Dictionary<Guid, HashSet<string>>();
 
         private ObservableCollection<EntityMetadataListViewItem> _itemsSource;
 
@@ -215,6 +218,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             IEnumerable<EntityMetadata> list = Enumerable.Empty<EntityMetadata>();
 
+            HashSet<string> hash = new HashSet<string>();
+
             try
             {
                 var service = await GetService();
@@ -231,6 +236,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
 
                     list = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
+
+                    if (!_cacheRibbonCustomization.ContainsKey(service.ConnectionData.ConnectionId))
+                    {
+                        var repository = new RibbonCustomizationRepository(service);
+
+                        var task = repository.GetEntitiesWithRibbonCustomizationAsync();
+
+                        _cacheRibbonCustomization.Add(service.ConnectionData.ConnectionId, await task);
+                    }
+
+                    hash = _cacheRibbonCustomization[service.ConnectionData.ConnectionId];
                 }
             }
             catch (Exception ex)
@@ -245,14 +261,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 textName = txtBFilterEnitity.Text.Trim().ToLower();
             });
 
-            list = FilterList(list, textName);
+            list = FilterList(list, textName, hash);
 
             LoadEntities(list);
         }
 
-        private static IEnumerable<EntityMetadata> FilterList(IEnumerable<EntityMetadata> list, string textName)
+        private static IEnumerable<EntityMetadata> FilterList(IEnumerable<EntityMetadata> list, string textName, HashSet<string> hash)
         {
             list = list.Where(e => !e.IsIntersect.GetValueOrDefault());
+
+            if (hash != null && hash.Any())
+            {
+                list = list.Where(e => hash.Contains(e.LogicalName));
+            }
 
             if (!string.IsNullOrEmpty(textName))
             {
@@ -785,7 +806,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string fileName = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(service.ConnectionData.Name);
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                    File.WriteAllText(filePath, ribbonDiffXml);
+                    File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
 
                     _iWriteToOutput.WriteToOutput("Deleting solution {0}.", uniqueName);
 
@@ -806,8 +827,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 UpdateStatus("Export ApplicationRibbonDiffXml failed.");
             }
-
-            ToggleControls(true);
+            finally
+            {
+                ToggleControls(true);
+            }
         }
 
         private async Task ExecuteActionOnEntityAsync(EntityMetadataListViewItem entityName, Func<EntityMetadataListViewItem, Task> action)
@@ -1017,7 +1040,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string fileName = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service.ConnectionData.Name, entity.EntityLogicalName);
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                    File.WriteAllText(filePath, ribbonDiffXml);
+                    File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
 
                     _iWriteToOutput.WriteToOutput("Deleting solution {0}.", uniqueName);
 

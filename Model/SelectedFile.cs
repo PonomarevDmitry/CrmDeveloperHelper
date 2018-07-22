@@ -1,4 +1,6 @@
 ﻿
+using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense;
+using System;
 using System.IO;
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
@@ -32,6 +34,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         /// </summary>
         public string FriendlyFilePath { get; private set; }
 
+        public string UrlFriendlyFilePath { get; private set; }
+
         /// <summary>
         /// Конструктор выбранного файла
         /// </summary>
@@ -43,6 +47,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.FileName = Path.GetFileName(filePath);
             this.Name = Path.GetFileNameWithoutExtension(filePath);
             this.FriendlyFilePath = friendlyFilePath;
+
+            UrlFriendlyFilePath = string.Format("{0}:///{1}", UrlCommandFilter.PrefixOpenInVisualStudioRelativePath, friendlyFilePath.Replace('\\', '/').TrimStart('/'));
 
             this.Extension = Path.GetExtension(filePath).ToLower();
         }

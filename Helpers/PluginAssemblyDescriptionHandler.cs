@@ -78,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             string content = await CreateDescriptionAsync(idPluginAssembly, name, now);
 
-            File.WriteAllText(filePath, content, Encoding.UTF8);
+            File.WriteAllText(filePath, content, new UTF8Encoding(false));
         }
     }
 }

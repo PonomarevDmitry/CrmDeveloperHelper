@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -189,6 +190,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         continue;
                     }
 
+                    string urlShowDifference = string.Format("{0}:///{1}?ConnectionId={2}", UrlCommandFilter.PrefixShowDifference, selectedFile.FilePath.Replace('\\', '/'), connectionData.ConnectionId.ToString());
+
                     string name = selectedFile.FriendlyFilePath.ToLower();
 
                     var webresource = WebResourceRepository.FindWebResourceInDictionary(dict, name, gr.Key);
@@ -219,7 +222,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             if (compare.IsEqual)
                             {
-                                tableEqualByText.AddLine(selectedFile.FriendlyFilePath, nameWebResource);
+                                tableEqualByText.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource);
 
                                 dictFilesEqualByTextNotContent.Add(Tuple.Create(selectedFile, webresource));
                             }
@@ -231,29 +234,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 {
                                     string[] values = new string[]
                                     {
-                                            selectedFile.FriendlyFilePath, nameWebResource
+                                            selectedFile.UrlFriendlyFilePath, nameWebResource
                                                 , string.Format("+{0}", compare.Inserts)
                                                 , string.Format("(+{0})", compare.InsertLength)
                                                 , string.Format("-{0}", compare.Deletes)
                                                 , string.Format("(-{0})", compare.DeleteLength)
+                                                , urlShowDifference
                                     };
 
                                     tableDifferent.AddLine(values);
 
                                     if (compare.IsOnlyInserts)
                                     {
-                                        tableDifferentOnlyInserts.AddLine(selectedFile.FriendlyFilePath
+                                        tableDifferentOnlyInserts.AddLine(selectedFile.UrlFriendlyFilePath
                                             , string.Format("+{0}", compare.Inserts)
                                             , string.Format("(+{0})", compare.InsertLength)
-                                            );
+                                            , urlShowDifference
+                                        );
                                     }
 
                                     if (compare.IsOnlyDeletes)
                                     {
-                                        tableDifferentOnlyDeletes.AddLine(selectedFile.FriendlyFilePath
+                                        tableDifferentOnlyDeletes.AddLine(selectedFile.UrlFriendlyFilePath
                                             , string.Format("-{0}", compare.Deletes)
                                             , string.Format("(-{0})", compare.DeleteLength)
-                                            );
+                                            , urlShowDifference
+                                        );
                                     }
 
                                     if (compare.IsComplexChanges)
@@ -278,7 +284,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 }
                                 else
                                 {
-                                    tableDifferent.AddLine(selectedFile.FriendlyFilePath, nameWebResource);
+                                    tableDifferent.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource, urlShowDifference);
                                 }
                             }
                         }
@@ -306,7 +312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                                 if (string.Equals(contentFile, contentWebResource))
                                 {
-                                    tableLastLinkEqualByContent.AddLine(selectedFile.FriendlyFilePath, nameWebResource);
+                                    tableLastLinkEqualByContent.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource);
                                 }
                                 else
                                 {
@@ -316,7 +322,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                                     if (compare.IsEqual)
                                     {
-                                        listLastLinkEqualByText.AddLine(selectedFile.FriendlyFilePath, nameWebResource);
+                                        listLastLinkEqualByText.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource);
 
                                         dictFilesEqualByTextNotContent.Add(Tuple.Create(selectedFile, webresource));
                                     }
@@ -328,11 +334,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                         {
                                             string[] values = new string[]
                                             {
-                                                    selectedFile.FriendlyFilePath, nameWebResource
+                                                    selectedFile.UrlFriendlyFilePath, nameWebResource
                                                         , string.Format("+{0}", compare.Inserts)
                                                         , string.Format("(+{0})", compare.InsertLength)
                                                         , string.Format("-{0}", compare.Deletes)
                                                         , string.Format("(-{0})", compare.DeleteLength)
+                                                        , urlShowDifference
                                             };
 
                                             tableLastLinkDifferent.AddLine(values);
@@ -340,17 +347,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                                             if (compare.IsOnlyInserts)
                                             {
-                                                tableLastLinkDifferentOnlyInserts.AddLine(selectedFile.FriendlyFilePath, nameWebResource
+                                                tableLastLinkDifferentOnlyInserts.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource
                                                     , string.Format("+{0}", compare.Inserts)
                                                     , string.Format("(+{0})", compare.InsertLength)
+                                                    , urlShowDifference
                                                     );
                                             }
 
                                             if (compare.IsOnlyDeletes)
                                             {
-                                                tableLastLinkDifferentOnlyDeletes.AddLine(selectedFile.FriendlyFilePath, nameWebResource
+                                                tableLastLinkDifferentOnlyDeletes.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource
                                                     , string.Format("-{0}", compare.Deletes)
                                                     , string.Format("(-{0})", compare.DeleteLength)
+                                                    , urlShowDifference
                                                     );
                                             }
 
@@ -376,7 +385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                         }
                                         else
                                         {
-                                            tableLastLinkDifferent.AddLine(selectedFile.FriendlyFilePath, nameWebResource);
+                                            tableLastLinkDifferent.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource, urlShowDifference);
                                         }
                                     }
                                 }
@@ -385,12 +394,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             {
                                 connectionData.RemoveMapping(selectedFile.FriendlyFilePath);
 
-                                listNotFoundedInCRMNoLink.Add(selectedFile.FriendlyFilePath);
+                                listNotFoundedInCRMNoLink.Add(selectedFile.UrlFriendlyFilePath);
                             }
                         }
                         else
                         {
-                            listNotFoundedInCRMNoLink.Add(selectedFile.FriendlyFilePath);
+                            listNotFoundedInCRMNoLink.Add(selectedFile.UrlFriendlyFilePath);
                         }
                     }
                 }

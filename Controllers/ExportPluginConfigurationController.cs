@@ -93,6 +93,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 , (!string.IsNullOrEmpty(connectionDataName) ? connectionDataName + "." : string.Empty)
                 , fileNameFormat.Trim()
                 , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
             string filePath = Path.Combine(fileFolder, fileName);
 
             if (!Directory.Exists(fileFolder))
@@ -103,6 +104,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             description.Save(filePath);
 
             this._iWriteToOutput.WriteToOutput("Plugin Description exported to {0}", filePath);
+            this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
 
             return filePath;
         }

@@ -37,12 +37,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return Task.Run(() => GetEntitiesWithRibbonCustomization());
         }
 
-        /// <summary>
-        /// Получить все представления
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        internal HashSet<string> GetEntitiesWithRibbonCustomization()
+        private HashSet<string> GetEntitiesWithRibbonCustomization()
+        {
+            var result = GetEntitiesInRibbonCustomization();
+
+            foreach (var item in GetEntitiesInRibbonCommand())
+            {
+                result.Add(item);
+            }
+
+            foreach (var item in GetEntitiesInRibbonContextGroup())
+            {
+                result.Add(item);
+            }
+
+            foreach (var item in GetEntitiesInRibbonDiff())
+            {
+                result.Add(item);
+            }
+
+            foreach (var item in GetEntitiesInRibbonRule())
+            {
+                result.Add(item);
+            }
+
+            foreach (var item in GetEntitiesInRibbonTabToCommandMap())
+            {
+                result.Add(item);
+            }
+
+            return result;
+        }
+
+        private HashSet<string> GetEntitiesInRibbonCustomization()
         {
             QueryExpression query = new QueryExpression()
             {
@@ -83,6 +110,331 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     var coll = _service.RetrieveMultiple(query);
 
                     foreach (var item in coll.Entities.Select(e => e.ToEntity<RibbonCustomization>()))
+                    {
+                        if (!string.IsNullOrEmpty(item.Entity))
+                        {
+                            result.Add(item.Entity);
+                        }
+                    }
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
+        private HashSet<string> GetEntitiesInRibbonCommand()
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                Distinct = true,
+
+                EntityName = RibbonCommand.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(RibbonCommand.Schema.Attributes.entity),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(RibbonCommand.Schema.Attributes.entity, ConditionOperator.NotNull),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(RibbonCommand.Schema.Attributes.entity, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    foreach (var item in coll.Entities.Select(e => e.ToEntity<RibbonCommand>()))
+                    {
+                        if (!string.IsNullOrEmpty(item.Entity))
+                        {
+                            result.Add(item.Entity);
+                        }
+                    }
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
+        private HashSet<string> GetEntitiesInRibbonContextGroup()
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                Distinct = true,
+
+                EntityName = RibbonContextGroup.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(RibbonContextGroup.Schema.Attributes.entity),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(RibbonContextGroup.Schema.Attributes.entity, ConditionOperator.NotNull),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(RibbonContextGroup.Schema.Attributes.entity, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    foreach (var item in coll.Entities.Select(e => e.ToEntity<RibbonContextGroup>()))
+                    {
+                        if (!string.IsNullOrEmpty(item.Entity))
+                        {
+                            result.Add(item.Entity);
+                        }
+                    }
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
+        private HashSet<string> GetEntitiesInRibbonDiff()
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                Distinct = true,
+
+                EntityName = RibbonDiff.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(RibbonDiff.Schema.Attributes.entity),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(RibbonDiff.Schema.Attributes.entity, ConditionOperator.NotNull),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(RibbonDiff.Schema.Attributes.entity, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    foreach (var item in coll.Entities.Select(e => e.ToEntity<RibbonDiff>()))
+                    {
+                        if (!string.IsNullOrEmpty(item.Entity))
+                        {
+                            result.Add(item.Entity);
+                        }
+                    }
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
+        private HashSet<string> GetEntitiesInRibbonRule()
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                Distinct = true,
+
+                EntityName = RibbonRule.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(RibbonRule.Schema.Attributes.entity),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(RibbonRule.Schema.Attributes.entity, ConditionOperator.NotNull),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(RibbonRule.Schema.Attributes.entity, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    foreach (var item in coll.Entities.Select(e => e.ToEntity<RibbonRule>()))
+                    {
+                        if (!string.IsNullOrEmpty(item.Entity))
+                        {
+                            result.Add(item.Entity);
+                        }
+                    }
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
+        private HashSet<string> GetEntitiesInRibbonTabToCommandMap()
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                Distinct = true,
+
+                EntityName = RibbonTabToCommandMap.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(RibbonTabToCommandMap.Schema.Attributes.entity),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(RibbonTabToCommandMap.Schema.Attributes.entity, ConditionOperator.NotNull),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(RibbonTabToCommandMap.Schema.Attributes.entity, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    foreach (var item in coll.Entities.Select(e => e.ToEntity<RibbonTabToCommandMap>()))
                     {
                         if (!string.IsNullOrEmpty(item.Entity))
                         {

@@ -437,7 +437,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportSiteMapXmlAttributeOnNewLine);
 
-                    File.WriteAllText(filePath, xmlContent, Encoding.UTF8);
+                    File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput("{0} SiteMap {1} {2} exported to {3}", connectionData.Name, name, fieldTitle, filePath);
                 }
@@ -786,7 +786,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, description, Encoding.UTF8);
+                File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("PluginAssembly {0} Dependent Components exported to {1}", name, filePath);
 
@@ -828,7 +828,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, description, Encoding.UTF8);
+                File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("PluginAssembly {0} Required Components exported to {1}", name, filePath);
 
@@ -870,7 +870,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, description, Encoding.UTF8);
+                File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("PluginAssembly {0} Dependencies For Delete exported to {1}", name, filePath);
 

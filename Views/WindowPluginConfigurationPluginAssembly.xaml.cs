@@ -325,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string content = await handler.CreateDescriptionAsync(pluginAssembly);
 
-            File.WriteAllText(filePath, content, Encoding.UTF8);
+            File.WriteAllText(filePath, content, new UTF8Encoding(false));
 
             this._iWriteToOutput.WriteToOutput("Assembly {0} Description exported to {1}", pluginAssembly.Name, filePath);
 

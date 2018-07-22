@@ -497,7 +497,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         xmlContent = doc.ToString();
                     }
 
-                    File.WriteAllText(filePath, xmlContent, Encoding.UTF8);
+                    File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput("{0} SystemChart {1} {2} exported to {3}", connectionName, name, fieldTitle, filePath);
                 }
@@ -529,7 +529,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    File.WriteAllText(filePath, description, Encoding.UTF8);
+                    File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput("{0} SystemChart Entity Description {1} {2} exported to {3}", connectionName, name, fieldName, filePath);
                 }

@@ -758,7 +758,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    File.WriteAllText(filePath, description, Encoding.UTF8);
+                    File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput("{0} Plugin Assembly Entity Description {1} {2} exported to {3}", connectionName, name, fieldName, filePath);
                 }

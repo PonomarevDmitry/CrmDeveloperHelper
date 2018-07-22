@@ -461,7 +461,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         xmlContent = doc.ToString();
                     }
 
-                    File.WriteAllText(filePath, xmlContent, Encoding.UTF8);
+                    File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput("{0} SystemForm {1} {2} exported to {3}", connectionData.Name, name, fieldTitle, filePath);
                 }
@@ -823,7 +823,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string desc = await handler.GetFormDescriptionAsync(doc, entityName, idSystemForm, name, systemForm.FormattedValues[SystemForm.Schema.Attributes.type]);
 
-                    File.WriteAllText(filePath, desc, Encoding.UTF8);
+                    File.WriteAllText(filePath, desc, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput("SystemForm {0} Form Description exported to {0}", name, filePath);
 
@@ -1134,7 +1134,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, description, Encoding.UTF8);
+                File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("SystemForm {0} Dependent Components exported to {1}", name, filePath);
 
@@ -1176,7 +1176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, description, Encoding.UTF8);
+                File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("SystemForm {0} Required Components exported to {1}", name, filePath);
 
@@ -1218,7 +1218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, description, Encoding.UTF8);
+                File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("SystemForm {0} Dependencies For Delete exported to {1}", name, filePath);
 

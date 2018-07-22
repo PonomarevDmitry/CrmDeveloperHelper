@@ -72,7 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             //check for a commit character
             if (nCmdID == (uint)VSConstants.VSStd2KCmdID.RETURN
                 || nCmdID == (uint)VSConstants.VSStd2KCmdID.TAB
-                || ((char.IsPunctuation(typedChar) && typedChar != '_' && typedChar != '-'))
+                || ((char.IsPunctuation(typedChar) && typedChar != '_' && typedChar != '-' && typedChar != '/' && typedChar != '\\'))
                 )
             {
                 //check for a a selection
@@ -102,7 +102,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 || nCmdID == (uint)VSConstants.VSStd2KCmdID.SHOWMEMBERLIST
                 || nCmdID == (uint)VSConstants.VSStd2KCmdID.COMPLETION_HIDE_ADVANCED
                 || nCmdID == (uint)VSConstants.VSStd2KCmdID.QUICKINFO
-                || (!typedChar.Equals(char.MinValue) && (char.IsLetterOrDigit(typedChar) || typedChar == ' ' || typedChar == '_' || typedChar == '-' || typedChar == '.' || typedChar == ','))
+                || (!typedChar.Equals(char.MinValue) 
+                    && (char.IsLetterOrDigit(typedChar) 
+                            || typedChar == ' ' 
+                            || typedChar == '_' 
+                            || typedChar == '-' 
+                            || typedChar == '.' 
+                            || typedChar == ','
+                            || typedChar == '/'
+                            || typedChar == '\\'
+                            ))
                 )
             {
                 if (_session == null && _provider.CompletionBroker.IsCompletionActive(_textView))

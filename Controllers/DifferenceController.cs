@@ -491,10 +491,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (total == 1)
             {
+                _iWriteToOutput.WriteToOutputFilePathUri(fileLocalPath);
                 _iWriteToOutput.OpenFile(fileLocalPath, commonConfig);
 
+                _iWriteToOutput.WriteToOutputFilePathUri(fileLocalPath);
                 _iWriteToOutput.OpenFile(filePath1, commonConfig);
 
+                _iWriteToOutput.WriteToOutputFilePathUri(fileLocalPath);
                 _iWriteToOutput.OpenFile(filePath2, commonConfig);
             }
         }
@@ -774,7 +777,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     var textReport = reportEntity.OriginalBodyText;
 
-                    File.WriteAllText(temporaryFilePath, textReport, Encoding.UTF8);
+                    File.WriteAllText(temporaryFilePath, textReport, new UTF8Encoding(false));
 
                     //DownloadReportDefinitionRequest rdlRequest = new DownloadReportDefinitionRequest
                     //{
@@ -965,7 +968,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 filePath1 = FileOperations.RemoveWrongSymbols(FileOperations.GetNewTempFile(reportEntity1.Name, selectedFile.Extension));
                 fileTitle1 = connectionData1.Name + "." + selectedFile.FileName + " - " + filePath1;
 
-                File.WriteAllText(filePath1, textReport, Encoding.UTF8);
+                File.WriteAllText(filePath1, textReport, new UTF8Encoding(false));
             }
 
             if (reportEntity2 != null)
@@ -975,7 +978,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 filePath2 = FileOperations.RemoveWrongSymbols(FileOperations.GetNewTempFile(reportEntity2.Name, selectedFile.Extension));
                 fileTitle1 = connectionData1.Name + "." + selectedFile.FileName + " - " + filePath2;
 
-                File.WriteAllText(filePath2, textReport, Encoding.UTF8);
+                File.WriteAllText(filePath2, textReport, new UTF8Encoding(false));
             }
 
             switch (differenceType)

@@ -35,7 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 log.AppendFormat("Connection {0} is ReadOnly.", _service.ConnectionData.Name);
 
-                File.WriteAllText(filePath, log.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, log.ToString(), new UTF8Encoding(false));
 
                 return filePath;
             }
@@ -166,7 +166,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 log.AppendFormat("Assembly {0} not founded in CRM.", assembly.Name).AppendLine();
             }
 
-            File.WriteAllText(filePath, log.ToString(), Encoding.UTF8);
+            File.WriteAllText(filePath, log.ToString(), new UTF8Encoding(false));
 
             return filePath;
         }
@@ -186,7 +186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 log.AppendFormat("Connection {0} is ReadOnly.", _service.ConnectionData.Name);
 
-                File.WriteAllText(filePath, log.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, log.ToString(), new UTF8Encoding(false));
 
                 return filePath;
             }
@@ -314,7 +314,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 log.AppendFormat("Assembly {0} not founded in CRM.", assemblyName).AppendLine();
             }
 
-            File.WriteAllText(filePath, log.ToString(), Encoding.UTF8);
+            File.WriteAllText(filePath, log.ToString(), new UTF8Encoding(false));
 
             return filePath;
         }
@@ -334,7 +334,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 log.AppendFormat("Connection {0} is ReadOnly.", _service.ConnectionData.Name);
 
-                File.WriteAllText(filePath, log.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, log.ToString(), new UTF8Encoding(false));
 
                 return filePath;
             }
@@ -459,7 +459,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 log.AppendFormat("Assembly {0} not founded in CRM.", assemblyName).AppendLine();
             }
 
-            File.WriteAllText(filePath, log.ToString(), Encoding.UTF8);
+            File.WriteAllText(filePath, log.ToString(), new UTF8Encoding(false));
 
             return filePath;
         }

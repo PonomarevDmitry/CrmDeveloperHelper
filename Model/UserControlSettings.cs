@@ -85,9 +85,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
                 catch (Exception ex)
                 {
-                    File.Delete(filePath);
-
                     DTEHelper.WriteExceptionToOutput(ex);
+
+                    FileOperations.CreateBackUpFile(filePath);
 
                     result = new UserControlSettings();
                 }

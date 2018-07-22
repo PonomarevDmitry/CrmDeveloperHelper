@@ -301,7 +301,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     text = doc.ToString();
                 }
 
-                File.WriteAllText(filePath, text, Encoding.UTF8);
+                File.WriteAllText(filePath, text, new UTF8Encoding(false));
             }
         }
 

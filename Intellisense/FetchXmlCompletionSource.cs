@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.Language.Intellisense;
+using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Operations;
@@ -10,8 +10,11 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -43,8 +46,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             _glyphService = glyphService;
             _defaultGlyph = glyphService.GetGlyph(StandardGlyphGroup.GlyphGroupField, StandardGlyphItem.GlyphItemPublic);
             _builtInGlyph = glyphService.GetGlyph(StandardGlyphGroup.GlyphGroupProperty, StandardGlyphItem.TotalGlyphItems);
-
-            //_imageService = ExtensibilityToolsPackage.GetGlobalService(typeof(SVsImageService)) as IVsImageService2;
         }
 
         public void AugmentCompletionSession(ICompletionSession session, IList<CompletionSet> completionSets)
@@ -96,24 +97,74 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
             else if (string.Equals(doc.Name.LocalName, "SiteMap", StringComparison.InvariantCultureIgnoreCase))
             {
-                var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                var repositorySiteMap = SiteMapIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
 
-                FillSessionForSiteMap(triggerPoint.Value, session, completionSets, snapshot, doc, repository);
+                FillSessionForSiteMap(triggerPoint.Value, session, completionSets, snapshot, doc, repositoryEntities, repositorySiteMap);
             }
         }
 
-        private void FillSessionForSiteMap(SnapshotPoint triggerPoint, ICompletionSession session, IList<CompletionSet> completionSets, ITextSnapshot snapshot, XElement doc, ConnectionIntellisenseDataRepository repository)
+        private void FillSessionForSiteMap(
+            SnapshotPoint triggerPoint
+            , ICompletionSession session
+            , IList<CompletionSet> completionSets
+            , ITextSnapshot snapshot
+            , XElement doc
+            , ConnectionIntellisenseDataRepository repositoryEntities
+            , SiteMapIntellisenseDataRepository repositorySiteMap
+            )
         {
             {
                 HashSet<string> usedEntities = GetUsedEntities(doc);
 
                 if (usedEntities.Any())
                 {
-                    repository.GetEntityDataForNamesAsync(usedEntities);
+                    repositoryEntities.GetEntityDataForNamesAsync(usedEntities);
                 }
             }
 
-            SnapshotSpan extent = FindTokenSpanAtPosition(session).GetSpan(snapshot);
+            SnapshotPoint currentPoint = (session.TextView.Caret.Position.BufferPosition) - 1;
+
+            var spans = _classifier.GetClassificationSpans(new SnapshotSpan(snapshot, 0, snapshot.Length));
+
+            var firstSpans = spans.Where(s =>
+                    s.Span.Start <= currentPoint.Position
+                    )
+                    .OrderByDescending(s => s.Span.Start.Position)
+                    .ToList();
+
+            var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
+
+            var lastSpans = spans.Where(s =>
+                    s.Span.Start > currentPoint.Position
+                    )
+                    .OrderBy(s => s.Span.Start.Position)
+                    .ToList();
+
+            var lastDelimiter = lastSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
+
+            if (firstDelimiter == null || lastDelimiter == null)
+            {
+                return;
+            }
+
+            SnapshotSpan? extentTemp = null;
+
+            if (firstDelimiter.Span.GetText() == "\"\"")
+            {
+                extentTemp = new SnapshotSpan(firstDelimiter.Span.Start.Add(1), firstDelimiter.Span.Start.Add(1));
+            }
+            else if (firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
+            {
+                extentTemp = new SnapshotSpan(firstDelimiter.Span.End, lastDelimiter.Span.Start);
+            }
+
+            if (!extentTemp.HasValue)
+            {
+                return;
+            }
+
+            var extent = extentTemp.Value;
 
             {
                 var extentText = extent.GetText();
@@ -130,10 +181,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 return;
             }
-
-            var spans = _classifier.GetClassificationSpans(new SnapshotSpan(extent.Snapshot, 0, extent.Snapshot.Length));
-
-            bool isQuotes = false;
 
             var containingAttributeSpans = spans
                 .Where(s => s.Span.Contains(extent.Start)
@@ -154,11 +201,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     )
                     .OrderByDescending(s => s.Span.Start.Position)
                     .FirstOrDefault();
-
-                if (containingAttributeValue != null)
-                {
-                    isQuotes = true;
-                }
             }
 
             if (containingAttributeValue == null)
@@ -179,41 +221,157 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             ITrackingSpan applicableTo = snapshot.CreateTrackingSpan(extent, SpanTrackingMode.EdgeInclusive);
 
-            if (isQuotes)
-            {
-                applicableTo = snapshot.CreateTrackingSpan(extent.Start.Position + 1, 0, SpanTrackingMode.EdgeInclusive);
-            }
-
             try
             {
-                if (string.Equals(currentNodeName, "SubArea", StringComparison.InvariantCultureIgnoreCase))
+                if (string.Equals(currentNodeName, "SiteMap", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (string.Equals(currentAttributeName, "Url", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
+
+                        FillWebResourcesHtml(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
+                    }
+                }
+                else if (string.Equals(currentNodeName, "Area", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (string.Equals(currentAttributeName, "Url", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
+
+                        FillWebResourcesHtml(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
+                    }
+                    else if (string.Equals(currentAttributeName, "Icon", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Icons, "Icons");
+
+                        FillWebResourcesIcons(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+                    }
+                    else if (string.Equals(currentAttributeName, "ResourceId", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().ResourceIds, "Resources");
+                    }
+                    else if (string.Equals(currentAttributeName, "DescriptionResourceId", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().DescriptionResourceIds, "Resources");
+                    }
+                    else if (string.Equals(currentAttributeName, "ToolTipResourseId", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().ToolTipResourseIds, "Resources");
+                    }
+                }
+                else if (string.Equals(currentNodeName, "Group", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (string.Equals(currentAttributeName, "Url", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
+
+                        FillWebResourcesHtml(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
+                    }
+                    else if (string.Equals(currentAttributeName, "Icon", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Icons, "Icons");
+
+                        FillWebResourcesIcons(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+                    }
+                    else if (string.Equals(currentAttributeName, "ResourceId", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().ResourceIds, "Resources");
+                    }
+                    else if (string.Equals(currentAttributeName, "DescriptionResourceId", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().DescriptionResourceIds, "Resources");
+                    }
+                    else if (string.Equals(currentAttributeName, "ToolTipResourseId", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().ToolTipResourseIds, "Resources");
+                    }
+                }
+                else if (string.Equals(currentNodeName, "SubArea", StringComparison.InvariantCultureIgnoreCase))
                 {
                     if (string.Equals(currentAttributeName, "Entity", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillEntityNamesInList(completionSets, applicableTo, repository, false);
+                        FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, false);
                     }
                     else if (string.Equals(currentAttributeName, "Sku", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        applicableTo = SkipComma(snapshot, extent, isQuotes, applicableTo);
+                        applicableTo = SkipComma(snapshot, extent, applicableTo);
 
                         FillSku(completionSets, applicableTo);
                     }
                     else if (string.Equals(currentAttributeName, "Client", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        applicableTo = SkipComma(snapshot, extent, isQuotes, applicableTo);
+                        applicableTo = SkipComma(snapshot, extent, applicableTo);
 
                         FillClient(completionSets, applicableTo);
+                    }
+
+                    else if (string.Equals(currentAttributeName, "Url", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
+
+                        FillWebResourcesHtml(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
+                    }
+                    else if (string.Equals(currentAttributeName, "Icon", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Icons, "Icons");
+
+                        FillWebResourcesIcons(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+                    }
+                    else if (string.Equals(currentAttributeName, "OutlookShortcutIcon", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Icons, "Icons");
+
+                        FillWebResourcesIcons(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+                    }
+
+                    else if (string.Equals(currentAttributeName, "DefaultDashboard", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillDashboards(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData()?.Dashboards?.Values?.ToList(), "Dashboards");
+                    }
+                    else if (string.Equals(currentAttributeName, "ResourceId", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().ResourceIds, "Resources");
+                    }
+                    else if (string.Equals(currentAttributeName, "DescriptionResourceId", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().DescriptionResourceIds, "Resources");
+                    }
+                    else if (string.Equals(currentAttributeName, "ToolTipResourseId", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().ToolTipResourseIds, "Resources");
+                    }
+
+                    else if (string.Equals(currentAttributeName, "GetStartedPanePath", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().GetStartedPanePaths, "Panes");
+                    }
+                    else if (string.Equals(currentAttributeName, "GetStartedPanePathOutlook", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().GetStartedPanePathOutlooks, "Panes");
+                    }
+                    else if (string.Equals(currentAttributeName, "GetStartedPanePathAdmin", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().GetStartedPanePathAdmins, "Panes");
+                    }
+                    else if (string.Equals(currentAttributeName, "GetStartedPanePathAdminOutlook", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().GetStartedPanePathAdminOutlooks, "Panes");
+                    }
+
+                    else if (string.Equals(currentAttributeName, "CheckExtensionProperty", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().CheckExtensionProperties, "Properties");
                     }
                 }
                 else if (string.Equals(currentNodeName, "Privilege", StringComparison.InvariantCultureIgnoreCase))
                 {
                     if (string.Equals(currentAttributeName, "Entity", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillEntityNamesInList(completionSets, applicableTo, repository, false);
+                        FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, false);
                     }
                     else if (string.Equals(currentAttributeName, "Privilege", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        applicableTo = SkipComma(snapshot, extent, isQuotes, applicableTo);
+                        applicableTo = SkipComma(snapshot, extent, applicableTo);
 
                         FillPrivileges(completionSets, applicableTo);
                     }
@@ -234,20 +392,172 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private static ITrackingSpan SkipComma(ITextSnapshot snapshot, SnapshotSpan extent, bool isQuotes, ITrackingSpan applicableTo)
+        private void FillDashboards(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<SystemForm> dashboards, string name)
         {
-            if (!isQuotes)
+            if (dashboards == null || !dashboards.Any())
             {
-                var value = extent.GetText();
+                return;
+            }
 
-                var indexComma = value.LastIndexOf(',');
+            List<CrmCompletion> list = new List<CrmCompletion>();
 
-                if (indexComma > -1)
+            foreach (var dashboard in dashboards.OrderBy(s => s.Name))
+            {
+                StringBuilder str = new StringBuilder();
+
+                if (!string.Equals(dashboard.ObjectTypeCode, "none", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    indexComma++;
-
-                    applicableTo = snapshot.CreateTrackingSpan(extent.Start + indexComma, extent.Length - indexComma, SpanTrackingMode.EdgeInclusive);
+                    str.AppendFormat("{0} - ", dashboard.ObjectTypeCode);
                 }
+
+                str.Append(dashboard.Name);
+
+                List<string> compareValues = new List<string>() { dashboard.Name, dashboard.ObjectTypeCode };
+
+                list.Add(CreateCompletion(str.ToString(), dashboard.Id.ToString().ToLower(), dashboard.Description, _defaultGlyph, compareValues));
+            }
+
+            completionSets.Add(new CrmCompletionSet(SourceNameMoniker, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+        }
+
+        private void FillWebResourcesHtml(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, string name)
+        {
+            if (webResources == null || !webResources.Any())
+            {
+                return;
+            }
+
+            List<CrmCompletion> list = new List<CrmCompletion>();
+
+            foreach (var resource in webResources.OrderBy(s => s.Name))
+            {
+                StringBuilder str = new StringBuilder(resource.Name);
+
+                List<string> compareValues = new List<string>() { resource.Name };
+
+                if (!string.IsNullOrEmpty(resource.DisplayName))
+                {
+                    compareValues.Add(resource.DisplayName);
+
+                    str.AppendFormat(" - {0}", resource.DisplayName);
+                }
+
+                string insertText = string.Format("$webresource:{0}", resource.Name);
+
+                list.Add(CreateCompletion(str.ToString(), insertText, resource.Description, _defaultGlyph, compareValues));
+            }
+
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerAll, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+        }
+
+        private void FillWebResourcesIcons(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, string name)
+        {
+            if (webResources == null || !webResources.Any())
+            {
+                return;
+            }
+
+            List<CrmCompletion> list = new List<CrmCompletion>();
+
+            foreach (var resource in webResources.OrderBy(s => s.Name))
+            {
+                StringBuilder str = new StringBuilder(resource.Name);
+
+                List<string> compareValues = new List<string>() { resource.Name };
+
+                if (!string.IsNullOrEmpty(resource.DisplayName))
+                {
+                    compareValues.Add(resource.DisplayName);
+
+                    str.AppendFormat(" - {0}", resource.DisplayName);
+                }
+
+                ImageSource image = _defaultGlyph;
+
+                if (!string.IsNullOrEmpty(resource.Content))
+                {
+                    try
+                    {
+                        var array = Convert.FromBase64String(resource.Content);
+
+                        if (array != null && array.Length > 0)
+                        {
+                            MemoryStream ms = new MemoryStream(array);
+
+                            if (resource.WebResourceType?.Value == (int)WebResource.Schema.OptionSets.webresourcetype.PNG_format_5)
+                            {
+                                PngBitmapDecoder decoder = new PngBitmapDecoder(ms, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+
+                                if (decoder.Frames.Count > 0)
+                                {
+                                    var bitmapSource = decoder.Frames[0];
+
+                                    image = bitmapSource;
+                                }
+                            }
+                            else
+                            {
+                                BitmapImage biImg = new BitmapImage();
+
+                                biImg.DecodePixelHeight = biImg.DecodePixelWidth = 16;
+
+                                biImg.BeginInit();
+                                biImg.StreamSource = ms;
+                                biImg.EndInit();
+
+                                image = biImg;
+                            }
+
+                            if (image != null)
+                            {
+                                str.AppendFormat(" - {0}x{1}", Convert.ToInt32(image.Width), Convert.ToInt32(image.Height));
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToLog(ex);
+
+                        image = _defaultGlyph;
+                    }
+                }
+
+                string insertText = string.Format("$webresource:{0}", resource.Name);
+
+                list.Add(CreateCompletion(str.ToString(), insertText, resource.Description, image, compareValues));
+            }
+
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerAll, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+        }
+
+        private void FillIntellisenseBySet(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, SortedSet<string> values, string name)
+        {
+            if (values == null || !values.Any())
+            {
+                return;
+            }
+
+            List<CrmCompletion> list = new List<CrmCompletion>();
+
+            foreach (var value in values)
+            {
+                list.Add(CreateCompletion(value, value, null, _defaultGlyph, Enumerable.Empty<string>()));
+            }
+
+            completionSets.Add(new CrmCompletionSet(SourceNameMoniker, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+        }
+
+        private static ITrackingSpan SkipComma(ITextSnapshot snapshot, SnapshotSpan extent, ITrackingSpan applicableTo)
+        {
+            var value = extent.GetText();
+
+            var indexComma = value.LastIndexOf(',');
+
+            if (indexComma > -1)
+            {
+                indexComma++;
+
+                applicableTo = snapshot.CreateTrackingSpan(extent.Start + indexComma, extent.Length - indexComma, SpanTrackingMode.EdgeInclusive);
             }
 
             return applicableTo;
@@ -332,7 +642,57 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
             }
 
-            SnapshotSpan extent = FindTokenSpanAtPosition(session).GetSpan(snapshot);
+            SnapshotPoint currentPoint = (session.TextView.Caret.Position.BufferPosition) - 1;
+
+            var spans = _classifier.GetClassificationSpans(new SnapshotSpan(snapshot, 0, snapshot.Length));
+
+            var firstSpans = spans.Where(s =>
+                    s.Span.Start <= currentPoint.Position
+                    )
+                    .OrderByDescending(s => s.Span.Start.Position)
+                    .ToList();
+
+            var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
+
+            var lastSpans = spans.Where(s =>
+                    s.Span.Start > currentPoint.Position
+                    )
+                    .OrderBy(s => s.Span.Start.Position)
+                    .ToList();
+
+            var lastDelimiter = lastSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
+
+            if (firstDelimiter == null || lastDelimiter == null)
+            {
+                return;
+            }
+
+            SnapshotSpan? extentTemp = null;
+
+            if (firstDelimiter.Span.GetText() == "\"\"")
+            {
+                extentTemp = new SnapshotSpan(firstDelimiter.Span.Start.Add(1), firstDelimiter.Span.Start.Add(1));
+            }
+            else if (firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
+            {
+                extentTemp = new SnapshotSpan(firstDelimiter.Span.End, lastDelimiter.Span.Start);
+            }
+
+            if (!extentTemp.HasValue)
+            {
+                return;
+            }
+
+            var extent = extentTemp.Value;
+
+            {
+                var extentText = extent.GetText();
+
+                if (extentText == ",\"")
+                {
+                    extent = new SnapshotSpan(extent.Snapshot, extent.Start, extent.Length - 1);
+                }
+            }
 
             var currentXmlNode = GetCurrentXmlNode(doc, extent);
 
@@ -341,16 +701,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return;
             }
 
-            var spans = _classifier.GetClassificationSpans(new SnapshotSpan(extent.Snapshot, 0, extent.Snapshot.Length));
-
-            bool isQuotes = false;
-
-            var containingAttributeValue = spans
+            var containingAttributeSpans = spans
                 .Where(s => s.Span.Contains(extent.Start)
                 && s.Span.Contains(extent)
                 && s.ClassificationType.IsOfType("XML Attribute Value"))
                 .OrderByDescending(s => s.Span.Start.Position)
-                .FirstOrDefault();
+                .ToList();
+
+            var containingAttributeValue = containingAttributeSpans.FirstOrDefault();
 
             if (containingAttributeValue == null)
             {
@@ -362,11 +720,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     )
                     .OrderByDescending(s => s.Span.Start.Position)
                     .FirstOrDefault();
-
-                if (containingAttributeValue != null)
-                {
-                    isQuotes = true;
-                }
             }
 
             if (containingAttributeValue == null)
@@ -386,11 +739,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             string currentAttributeName = currentAttr.Span.GetText();
 
             ITrackingSpan applicableTo = snapshot.CreateTrackingSpan(extent, SpanTrackingMode.EdgeInclusive);
-
-            if (isQuotes)
-            {
-                applicableTo = snapshot.CreateTrackingSpan(extent.Start.Position + 1, 0, SpanTrackingMode.EdgeInclusive);
-            }
 
             try
             {
@@ -441,9 +789,57 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
             }
 
-            Dictionary<string, string> aliases = GetEntityAliases(doc);
+            SnapshotPoint currentPoint = (session.TextView.Caret.Position.BufferPosition) - 1;
 
-            SnapshotSpan extent = FindTokenSpanAtPosition(session).GetSpan(snapshot);
+            var spans = _classifier.GetClassificationSpans(new SnapshotSpan(snapshot, 0, snapshot.Length));
+
+            var firstSpans = spans.Where(s =>
+                    s.Span.Start <= currentPoint.Position
+                    )
+                    .OrderByDescending(s => s.Span.Start.Position)
+                    .ToList();
+
+            var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
+
+            var lastSpans = spans.Where(s =>
+                    s.Span.Start > currentPoint.Position
+                    )
+                    .OrderBy(s => s.Span.Start.Position)
+                    .ToList();
+
+            var lastDelimiter = lastSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
+
+            if (firstDelimiter == null || lastDelimiter == null)
+            {
+                return;
+            }
+
+            SnapshotSpan? extentTemp = null;
+
+            if (firstDelimiter.Span.GetText() == "\"\"")
+            {
+                extentTemp = new SnapshotSpan(firstDelimiter.Span.Start.Add(1), firstDelimiter.Span.Start.Add(1));
+            }
+            else if (firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
+            {
+                extentTemp = new SnapshotSpan(firstDelimiter.Span.End, lastDelimiter.Span.Start);
+            }
+
+            if (!extentTemp.HasValue)
+            {
+                return;
+            }
+
+            var extent = extentTemp.Value;
+
+            {
+                var extentText = extent.GetText();
+
+                if (extentText == ",\"")
+                {
+                    extent = new SnapshotSpan(extent.Snapshot, extent.Start, extent.Length - 1);
+                }
+            }
 
             var currentXmlNode = GetCurrentXmlNode(doc, extent);
 
@@ -452,16 +848,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return;
             }
 
-            var spans = _classifier.GetClassificationSpans(new SnapshotSpan(extent.Snapshot, 0, extent.Snapshot.Length));
-
-            bool isQuotes = false;
-
-            var containingAttributeValue = spans
+            var containingAttributeSpans = spans
                 .Where(s => s.Span.Contains(extent.Start)
                 && s.Span.Contains(extent)
                 && s.ClassificationType.IsOfType("XML Attribute Value"))
                 .OrderByDescending(s => s.Span.Start.Position)
-                .FirstOrDefault();
+                .ToList();
+
+            var containingAttributeValue = containingAttributeSpans.FirstOrDefault();
 
             if (containingAttributeValue == null)
             {
@@ -473,11 +867,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     )
                     .OrderByDescending(s => s.Span.Start.Position)
                     .FirstOrDefault();
-
-                if (containingAttributeValue != null)
-                {
-                    isQuotes = true;
-                }
             }
 
             if (containingAttributeValue != null)
@@ -494,11 +883,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 string currentAttributeName = currentAttr.Span.GetText();
 
                 ITrackingSpan applicableTo = snapshot.CreateTrackingSpan(extent, SpanTrackingMode.EdgeInclusive);
-
-                if (isQuotes)
-                {
-                    applicableTo = snapshot.CreateTrackingSpan(extent.Start.Position + 1, 0, SpanTrackingMode.EdgeInclusive);
-                }
 
                 try
                 {
@@ -531,10 +915,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         }
                         else if (string.Equals(currentAttributeName, "value", StringComparison.InvariantCultureIgnoreCase))
                         {
+                            Dictionary<string, string> aliases = GetEntityAliases(doc);
+
                             FillEntityAttributeValuesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
                         }
                         else if (string.Equals(currentAttributeName, "entityname", StringComparison.InvariantCultureIgnoreCase))
                         {
+                            Dictionary<string, string> aliases = GetEntityAliases(doc);
+
                             FillAliases(completionSets, applicableTo, aliases);
                         }
                     }
@@ -586,6 +974,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     .OrderByDescending(s => s.Span.Start.Position)
                     .FirstOrDefault();
 
+                bool isQuotes = false;
+
                 if (containingXmlText == null)
                 {
                     containingXmlText = listContainingSpans
@@ -613,6 +1003,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 {
                     applicableTo = snapshot.CreateTrackingSpan(containingXmlText.Span.Start.Position + 1, 0, SpanTrackingMode.EdgeInclusive);
                 }
+
+                Dictionary<string, string> aliases = GetEntityAliases(doc);
 
                 FillEntityAttributeValuesInList(completionSets, applicableTo, repository, nodeCondition, aliases);
             }
@@ -881,7 +1273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private void FillEntityNamesInList(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, ConnectionIntellisenseDataRepository repository, bool isObjectTypeCode)
+        private void FillEntityNamesInList(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, ConnectionIntellisenseDataRepository repository, bool isObjectTypeCode, bool withNone = false)
         {
             var connectionIntellisense = repository.GetEntitiesIntellisenseData();
 
@@ -891,6 +1283,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
 
             List<CrmCompletion> list = new List<CrmCompletion>();
+
+            if (withNone)
+            {
+                list.Add(CreateCompletion("none - 0", "0", "none", _defaultGlyph, new[] { "none", "0" }));
+            }
 
             var keys = connectionIntellisense.Entities.Keys.ToList();
 
@@ -1117,7 +1514,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         }
                         else if (attributeData.IsEntityNameAttribute)
                         {
-                            FillEntityNamesInList(completionSets, applicableTo, repository, false);
+                            FillEntityNamesInList(completionSets, applicableTo, repository, true, true);
                         }
                         else if (attributeData.OptionSet != null)
                         {

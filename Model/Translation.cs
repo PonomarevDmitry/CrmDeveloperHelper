@@ -38,9 +38,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
                 catch (Exception ex)
                 {
-                    File.Delete(dataPath);
-
                     DTEHelper.WriteExceptionToOutput(ex);
+
+                    FileOperations.CreateBackUpFile(dataPath);
 
                     result = null;
                 }

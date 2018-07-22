@@ -3,16 +3,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
     ///<summary>
     /// DisplayName:
-    /// (English - United States - 1033): Web Resource
-    /// (Russian - 1049): Веб-ресурс
+    ///     (English - United States - 1033): Web Resource
+    ///     (Russian - 1049): Веб-ресурс
     /// 
     /// DisplayCollectionName:
-    /// (English - United States - 1033): Web Resources
-    /// (Russian - 1049): Веб-ресурсы
+    ///     (English - United States - 1033): Web Resources
+    ///     (Russian - 1049): Веб-ресурсы
     /// 
     /// Description:
-    /// (English - United States - 1033): Data equivalent to files used in Web development. Web resources provide client-side components that are used to provide custom user interface elements.
-    /// (Russian - 1049): Данные, эквивалентные файлам, используемым в разработке веб-контента. Веб-ресурсы обеспечивают компоненты на стороне клиента, которые используются для создания настраиваемых элементов интерфейса пользователя.
+    ///     (English - United States - 1033): Data equivalent to files used in Web development. Web resources provide client-side components that are used to provide custom user interface elements.
+    ///     (Russian - 1049): Данные, эквивалентные файлам, используемым в разработке веб-контента. Веб-ресурсы обеспечивают компоненты на стороне клиента, которые используются для создания настраиваемых элементов интерфейса пользователя.
     /// 
     /// PropertyName                          Value                  CanBeChanged
     /// ActivityTypeMask                      0
@@ -131,6 +131,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// Global System  OptionSet componentstate
                 /// DefaultFormValue = -1
+                /// 
+                ///         DisplayName:
+                ///             (English - United States - 1033): Component State
+                ///             (Russian - 1049): Состояние компонента
+                ///         
+                ///         Description:
+                ///             (English - United States - 1033): The state of this component.
+                ///             (Russian - 1049): Состояние этого компонента.
                 ///</summary>
                 public const string componentstate = "componentstate";
 
@@ -165,16 +173,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public const string createdby = "createdby";
 
@@ -213,16 +221,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public const string createdonbehalfby = "createdonbehalfby";
 
@@ -437,16 +445,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public const string modifiedby = "modifiedby";
 
@@ -485,16 +493,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
@@ -533,16 +541,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///     Target organization    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///         (English - United States - 1033): Organization
-                ///         (Russian - 1049): Предприятие
+                ///             (English - United States - 1033): Organization
+                ///             (Russian - 1049): Предприятие
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Organizations
-                ///         (Russian - 1049): Предприятия
+                ///             (English - United States - 1033): Organizations
+                ///             (Russian - 1049): Предприятия
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
-                ///         (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
+                ///             (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///             (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 ///</summary>
                 public const string organizationid = "organizationid";
 
@@ -809,6 +817,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     ICO_format_10 = 10,
+
+                    ///<summary>
+                    /// 11
+                    /// DisplayOrder: 11
+                    /// 
+                    /// DisplayName:
+                    ///     (English - United States - 1033): SVG format
+                    ///     (Russian - 1049): Формат SVG
+                    ///</summary>
+                    [System.Runtime.Serialization.EnumMemberAttribute()]
+                    SVG_format_11 = 11,
                 }
 
                 #endregion Picklist OptionSets.
@@ -844,16 +863,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// ReferencedEntity systemuser:
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public static partial class lk_webresourcebase_createdonbehalfby
                 {
@@ -894,16 +913,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// ReferencedEntity systemuser:
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public static partial class lk_webresourcebase_modifiedonbehalfby
                 {
@@ -944,16 +963,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// ReferencedEntity systemuser:
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public static partial class webresource_createdby
                 {
@@ -994,16 +1013,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// ReferencedEntity systemuser:
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public static partial class webresource_modifiedby
                 {
@@ -1044,16 +1063,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// ReferencedEntity organization:
                 ///     DisplayName:
-                ///     (English - United States - 1033): Organization
-                ///     (Russian - 1049): Предприятие
+                ///         (English - United States - 1033): Organization
+                ///         (Russian - 1049): Предприятие
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Organizations
-                ///     (Russian - 1049): Предприятия
+                ///         (English - United States - 1033): Organizations
+                ///         (Russian - 1049): Предприятия
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
-                ///     (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
+                ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///         (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 ///</summary>
                 public static partial class webresource_organization
                 {
@@ -1101,16 +1120,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// ReferencingEntity theme:
                 ///     DisplayName:
-                ///     (English - United States - 1033): Theme
-                ///     (Russian - 1049): Тема
+                ///         (English - United States - 1033): Theme
+                ///         (Russian - 1049): Тема
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Themes
-                ///     (Russian - 1049): Темы
+                ///         (English - United States - 1033): Themes
+                ///         (Russian - 1049): Темы
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Information that's used to set custom visual theme options for client applications.
-                ///     (Russian - 1049): Сведения, используемые для задания параметров пользовательской визуальной темы для клиентских приложений.
+                ///         (English - United States - 1033): Information that's used to set custom visual theme options for client applications.
+                ///         (Russian - 1049): Сведения, используемые для задания параметров пользовательской визуальной темы для клиентских приложений.
                 ///</summary>
                 public static partial class lk_theme_logoid
                 {
@@ -1151,16 +1170,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// ReferencingEntity solution:
                 ///     DisplayName:
-                ///     (English - United States - 1033): Solution
-                ///     (Russian - 1049): Решение
+                ///         (English - United States - 1033): Solution
+                ///         (Russian - 1049): Решение
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Solutions
-                ///     (Russian - 1049): Решения
+                ///         (English - United States - 1033): Solutions
+                ///         (Russian - 1049): Решения
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): A solution which contains CRM customizations.
-                ///     (Russian - 1049): Решение, содержащее настройки CRM.
+                ///         (English - United States - 1033): A solution which contains CRM customizations.
+                ///         (Russian - 1049): Решение, содержащее настройки CRM.
                 ///</summary>
                 public static partial class solution_configuration_webresource
                 {
@@ -1201,14 +1220,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// ReferencingEntity userentityinstancedata:
                 ///     DisplayName:
-                ///     (English - United States - 1033): User Entity Instance Data
-                ///     (Russian - 1049): Данные экземпляра сущности пользователя
-                ///     
-                ///     DisplayCollectionName:
+                ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Per User item instance data
-                ///     (Russian - 1049): Данные экземпляра позиции "на пользователя"
+                ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
                 public static partial class userentityinstancedata_webresource
                 {
@@ -1247,16 +1264,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// ReferencingEntity savedqueryvisualization:
                 ///     DisplayName:
-                ///     (English - United States - 1033): System Chart
-                ///     (Russian - 1049): Системная диаграмма
+                ///         (English - United States - 1033): System Chart
+                ///         (Russian - 1049): Системная диаграмма
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): System Charts
-                ///     (Russian - 1049): Системные диаграммы
+                ///         (English - United States - 1033): System Charts
+                ///         (Russian - 1049): Системные диаграммы
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): System chart attached to an entity.
-                ///     (Russian - 1049): Системная диаграмма, присоединенная к сущности.
+                ///         (English - United States - 1033): System chart attached to an entity.
+                ///         (Russian - 1049): Системная диаграмма, присоединенная к сущности.
                 ///</summary>
                 public static partial class webresource_savedqueryvisualizations
                 {
@@ -1297,16 +1314,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// ReferencingEntity userqueryvisualization:
                 ///     DisplayName:
-                ///     (English - United States - 1033): User Chart
-                ///     (Russian - 1049): Диаграмма пользователя
+                ///         (English - United States - 1033): User Chart
+                ///         (Russian - 1049): Диаграмма пользователя
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): User Charts
-                ///     (Russian - 1049): Диаграммы пользователя
+                ///         (English - United States - 1033): User Charts
+                ///         (Russian - 1049): Диаграммы пользователя
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Chart attached to an entity.
-                ///     (Russian - 1049): Диаграмма, присоединенная к сущности.
+                ///         (English - United States - 1033): Chart attached to an entity.
+                ///         (Russian - 1049): Диаграмма, присоединенная к сущности.
                 ///</summary>
                 public static partial class webresource_userqueryvisualizations
                 {

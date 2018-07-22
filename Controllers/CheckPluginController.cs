@@ -233,7 +233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-            File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
             this._iWriteToOutput.WriteToOutput("Created file with Checking Plugin Images Duplicates: {0}", filePath);
 
@@ -381,7 +381,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-            File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
             this._iWriteToOutput.WriteToOutput("Created file with Checking Plugin Steps Duplicates: {0}", filePath);
 
@@ -590,7 +590,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-            File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
             this._iWriteToOutput.WriteToOutput("Created file with Checking Plugin Steps Required Components: {0}", filePath);
 
@@ -865,7 +865,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-            File.WriteAllText(filePath, content.ToString(), Encoding.UTF8);
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
             this._iWriteToOutput.WriteToOutput("Created file with Checking Plugin Images Required Components: {0}", filePath);
 

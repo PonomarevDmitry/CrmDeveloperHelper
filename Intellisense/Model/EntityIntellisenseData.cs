@@ -197,10 +197,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 lock (_syncObjectAttributes)
                 {
-                    if (this.Attributes == null)
-                    {
-                        this.Attributes = new ConcurrentDictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                    }
+                    this.Attributes = new ConcurrentDictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+
+                    this.Attributes.Clear();
                 }
 
                 foreach (var attr in entityMetadata.Attributes)
@@ -224,10 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 lock (_syncObjectOneToManyRelationships)
                 {
-                    if (this.OneToManyRelationships == null)
-                    {
-                        this.OneToManyRelationships = new ConcurrentDictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                    }
+                    this.OneToManyRelationships.Clear();
                 }
 
                 foreach (var item in entityMetadata.OneToManyRelationships)
@@ -248,10 +244,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 lock (_syncObjectManyToOneRelationships)
                 {
-                    if (this.ManyToOneRelationships == null)
-                    {
-                        this.ManyToOneRelationships = new ConcurrentDictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                    }
+                    this.ManyToOneRelationships = new ConcurrentDictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
 
                 foreach (var item in entityMetadata.ManyToOneRelationships)
@@ -272,10 +265,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 lock (_syncObjectManyToManyRelationships)
                 {
-                    if (this.ManyToManyRelationships == null)
-                    {
-                        this.ManyToManyRelationships = new ConcurrentDictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                    }
+                    this.ManyToManyRelationships = new ConcurrentDictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
 
                 foreach (var item in entityMetadata.ManyToManyRelationships)

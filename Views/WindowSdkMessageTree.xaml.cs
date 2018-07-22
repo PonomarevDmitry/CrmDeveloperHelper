@@ -827,7 +827,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, result.ToString(), Encoding.UTF8);
+                File.WriteAllText(filePath, result.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 

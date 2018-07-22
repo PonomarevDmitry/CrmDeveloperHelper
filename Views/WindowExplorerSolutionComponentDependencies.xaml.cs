@@ -540,43 +540,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, item);
         }
 
-        private Task<string> CreateFileAsync(string folder, string entityName, string category, string name, string fieldName, string xmlContent)
-        {
-            return Task.Run(() => CreateFile(folder, entityName, category, name, fieldName, xmlContent));
-        }
-
-        private string CreateFile(string folder, string entityName, string category, string name, string fieldName, string xmlContent)
-        {
-            string fileName = EntityFileNameFormatter.GetWorkflowFileName(_service.ConnectionData.Name, entityName, category, name, fieldName, "xml");
-            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-            if (!string.IsNullOrEmpty(xmlContent))
-            {
-                try
-                {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
-                    {
-                        xmlContent = doc.ToString();
-                    }
-
-                    File.WriteAllText(filePath, xmlContent, Encoding.UTF8);
-
-                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", _service.ConnectionData.Name, name, fieldName, filePath);
-                }
-                catch (Exception ex)
-                {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
-                }
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldName);
-                this._iWriteToOutput.ActivateOutputWindow();
-            }
-
-            return filePath;
-        }
-
         private void btnExportAll_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -639,7 +602,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            File.WriteAllText(filePath, stringBuilder.ToString(), Encoding.UTF8);
+            File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
             this._iWriteToOutput.WriteToOutput("{0} {1} Entity Description exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 
@@ -718,7 +681,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, description, Encoding.UTF8);
+                File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("{0} {1} Dependent Components exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 
@@ -749,7 +712,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, description, Encoding.UTF8);
+                File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("{0} {1} Required Components exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 
@@ -780,7 +743,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                File.WriteAllText(filePath, description, Encoding.UTF8);
+                File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("{0} {1} Dependencies For Delete exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 

@@ -129,5 +129,78 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SystemForm>()).FirstOrDefault();
         }
+
+        public Task<List<SystemForm>> GetListByTypeAsync(int formType, ColumnSet columnSet )
+        {
+            return Task.Run(() => GetListByType(formType, columnSet));
+        }
+
+        /// <summary>
+        /// Получить все представления
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private List<SystemForm> GetListByType(int formType, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = SystemForm.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SystemForm.Schema.Attributes.componentstate, ConditionOperator.In, 0, 1),
+                        new ConditionExpression(SystemForm.Schema.Attributes.type, ConditionOperator.Equal, formType),
+                        new ConditionExpression(SystemForm.Schema.Attributes.formactivationstate, ConditionOperator.Equal, (int)SystemForm.Schema.OptionSets.formactivationstate.Active_1),
+
+                        
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(SystemForm.Schema.Attributes.objecttypecode, OrderType.Ascending),
+                    new OrderExpression(SystemForm.Schema.Attributes.type, OrderType.Ascending),
+                    new OrderExpression(SystemForm.Schema.Attributes.name, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<SystemForm>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _Service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SystemForm>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
     }
 }

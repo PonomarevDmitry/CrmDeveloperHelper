@@ -16,6 +16,7 @@ using System.Text;
 using NLog.Targets;
 using NLog.Config;
 using System.Windows;
+using System.Runtime.CompilerServices;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -35,6 +36,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private HashSet<string> _ListForPublish = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         private static DTEHelper _singleton;
+
+        private static ConditionalWeakTable<Exception, object> _logExceptions = new ConditionalWeakTable<Exception, object>();
+
+        private static ConditionalWeakTable<Exception, object> _outputExceptions = new ConditionalWeakTable<Exception, object>();
 
         public static DTEHelper Singleton
         {
@@ -69,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         //}
 
         //var result = new StringBuilder();
-        //File.WriteAllLines(@"C:\Temp\Commands.txt", table.GetFormatedLines(true), Encoding.UTF8);
+        //File.WriteAllLines(@"C:\Temp\Commands.txt", table.GetFormatedLines(true), new UTF8Encoding(false));
 
         public static DTEHelper Create(DTE2 applicationObject)
         {
@@ -192,9 +197,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static void WriteExceptionToLog(Exception ex)
         {
-            var description = GetExceptionDescription(ex);
+            if (!_logExceptions.TryGetValue(ex, out _))
+            {
+                _logExceptions.Add(ex, new object());
 
-            Log.Error(ex, description);
+                var description = GetExceptionDescription(ex);
+
+                Log.Error(ex, description);
+            }
         }
 
         public static string GetExceptionDescription(Exception ex)
@@ -589,7 +599,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (!string.IsNullOrEmpty(solutionPath))
             {
-                return filePath.Replace(solutionPath, string.Empty);
+                return filePath.Replace(Path.GetDirectoryName(solutionPath), string.Empty);
             }
 
             return filePath;
@@ -766,16 +776,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             var description = GetExceptionDescription(ex);
 
-            Log.Error(ex, description);
+            if (!_logExceptions.TryGetValue(ex, out _))
+            {
+                _logExceptions.Add(ex, new object());
 
-            this.WriteToOutput(string.Empty);
-            this.WriteToOutput(description);
+                Log.Error(ex, description);
+            }
 
-            this.ActivateOutputWindow();
+            if (!_outputExceptions.TryGetValue(ex, out _))
+            {
+                _outputExceptions.Add(ex, new object());
+
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(description);
+
+                this.ActivateOutputWindow();
 
 #if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
+                if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
 #endif
+            }
         }
 
         public void WriteToOutputFilePathUri(string filePath)
@@ -785,20 +805,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
+            var commonConfig = CommonConfiguration.Get();
+
+            var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
+            var uriFolder = new Uri(Path.GetDirectoryName(filePath), UriKind.Absolute).AbsoluteUri;
+
+            this.WriteToOutput("File Uri                       :    {0}", uriFile);
+            this.WriteToOutput("Open File in Visual Studio Uri :    {0}", uriFile.Replace("file:", "openinvisualstudio:"));
+            if (File.Exists(commonConfig.TextEditorProgram))
             {
-                var uri = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
-                this.WriteToOutput("File Uri        : {0}", uri);
+                this.WriteToOutput("Open File in TextEditor        :    {0}", uriFile.Replace("file:", "openintexteditor:"));
             }
-
-            {
-                var uri = new Uri(Path.GetDirectoryName(filePath), UriKind.Absolute).AbsoluteUri;
-                this.WriteToOutput("File Folder Uri : {0}", uri);
-            }
-        }
-
-        private void WriteExceptionDescriptionToOutput(string description)
-        {
-
+            this.WriteToOutput("File Folder Uri                :    {0}", uriFolder);
         }
 
         /// <summary>
@@ -3473,13 +3491,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             if (File.Exists(filePath))
             {
-                this.WriteToOutput(string.Empty);
-                this.WriteToOutput(string.Empty);
-                this.WriteToOutput(string.Empty);
-                this.WriteToOutput(string.Empty);
-
                 this.WriteToOutput("Selecting file in folder {0}", filePath);
-                this.WriteToOutputFilePathUri(filePath);
 
                 ProcessStartInfo info = new ProcessStartInfo();
 
@@ -3519,6 +3531,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
+            this.WriteToOutput(string.Empty);
+            this.WriteToOutput(string.Empty);
+            this.WriteToOutput(string.Empty);
+
+            this.WriteToOutputFilePathUri(filePath);
+
             if (commonConfig.AfterCreateFileAction == FileAction.OpenFileInTextEditor || commonConfig.AfterCreateFileAction == FileAction.OpenFileInVisualStudio)
             {
                 OpenFile(filePath, commonConfig);
@@ -3526,11 +3544,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             else if (commonConfig.AfterCreateFileAction == FileAction.SelectFileInFolder)
             {
                 SelectFileInFolder(filePath);
-            }
-            else
-            {
-                this.WriteToOutput("No Action on file {0}", filePath);
-                this.WriteToOutputFilePathUri(filePath);
             }
         }
 
@@ -3555,16 +3568,103 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (ApplicationObject != null)
                 {
-                    this.WriteToOutput(string.Empty);
-                    this.WriteToOutput(string.Empty);
-                    this.WriteToOutput(string.Empty);
-                    this.WriteToOutput(string.Empty);
-
                     this.WriteToOutput("Opening in Visual Studio file {0}", filePath);
-                    this.WriteToOutputFilePathUri(filePath);
 
                     ApplicationObject.ItemOperations.OpenFile(filePath);
                     ApplicationObject.MainWindow.Activate();
+                }
+            }
+        }
+
+        public void OpenFileInVisualStudioRelativePath(string filePath)
+        {
+            if (ApplicationObject == null || string.IsNullOrEmpty(filePath))
+            {
+                return;
+            }
+
+            filePath = filePath.Replace("/", "\\").Trim('\\', '/');
+
+            string solutionPath = ApplicationObject?.Solution?.FullName;
+
+            if (!string.IsNullOrEmpty(solutionPath))
+            {
+                var pathFolder = Path.GetDirectoryName(solutionPath).TrimEnd('\\', '/');
+
+                if (!filePath.StartsWith(pathFolder))
+                {
+                    filePath = Path.Combine(pathFolder, filePath);
+                }
+            }
+
+            if (File.Exists(filePath))
+            {
+                this.WriteToOutput("Opening in Visual Studio file {0}", filePath);
+
+                ApplicationObject.ItemOperations.OpenFile(filePath);
+                ApplicationObject.MainWindow.Activate();
+            }
+        }
+
+        public void ShowDifference(Uri uri)
+        {
+            if (!File.Exists(uri.LocalPath))
+            {
+                return;
+            }
+
+            ConnectionData connectionData = null;
+
+            if (!string.IsNullOrEmpty(uri.Query))
+            {
+                var queryDictionary = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+                if (!string.IsNullOrEmpty(queryDictionary["ConnectionId"]))
+                {
+                    var idStr = queryDictionary["ConnectionId"];
+
+                    if (Guid.TryParse(idStr, out var tempGuid))
+                    {
+                        var connectionConfig = Model.ConnectionConfiguration.Get();
+
+                        connectionData = connectionConfig.Connections.FirstOrDefault(c => c.ConnectionId == tempGuid);
+                    }
+                }
+            }
+
+            if (connectionData == null)
+            {
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            SelectedFile selectedFile = new SelectedFile(uri.LocalPath, GetFriendlyPath(uri.LocalPath));
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow();
+                WriteToOutputEmptyLines(commonConfig);
+
+                try
+                {
+                    if (FileOperations.SupportsWebResourceTextType(uri.LocalPath))
+                    {
+                        Controller.StartWebResourceDifference(selectedFile, false, connectionData, commonConfig);
+                    }
+                    else if (FileOperations.SupportsReportType(uri.LocalPath))
+                    {
+                        Controller.StartReportDifference(selectedFile, false, connectionData, commonConfig);
+                    }
+                }
+                catch (Exception xE)
+                {
+                    WriteErrorToOutput(xE);
                 }
             }
         }
@@ -3573,13 +3673,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             if (File.Exists(filePath) && File.Exists(commonConfig.TextEditorProgram))
             {
-                this.WriteToOutput(string.Empty);
-                this.WriteToOutput(string.Empty);
-                this.WriteToOutput(string.Empty);
-                this.WriteToOutput(string.Empty);
-
                 this.WriteToOutput("Opening in Text Editor file {0}", filePath);
-                this.WriteToOutputFilePathUri(filePath);
 
                 ProcessStartInfo info = new ProcessStartInfo();
 
@@ -3615,11 +3709,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.WriteToOutput(string.Empty);
                 this.WriteToOutput(string.Empty);
                 this.WriteToOutput(string.Empty);
-                this.WriteToOutput(string.Empty);
 
                 this.WriteToOutput("Starting Difference Programm for files:");
                 this.WriteToOutput(filePath1);
                 this.WriteToOutputFilePathUri(filePath1);
+                this.WriteToOutput(string.Empty);
                 this.WriteToOutput(string.Empty);
                 this.WriteToOutput(filePath2);
                 this.WriteToOutputFilePathUri(filePath2);
@@ -3712,15 +3806,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.WriteToOutput(string.Empty);
                 this.WriteToOutput(string.Empty);
                 this.WriteToOutput(string.Empty);
-                this.WriteToOutput(string.Empty);
 
                 this.WriteToOutput("Starting ThreeWay Difference Programm for files:");
 
                 this.WriteToOutput(fileLocalPath);
                 this.WriteToOutputFilePathUri(fileLocalPath);
                 this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
                 this.WriteToOutput(filePath1);
                 this.WriteToOutputFilePathUri(filePath1);
+                this.WriteToOutput(string.Empty);
                 this.WriteToOutput(string.Empty);
                 this.WriteToOutput(filePath2);
                 this.WriteToOutputFilePathUri(filePath2);
