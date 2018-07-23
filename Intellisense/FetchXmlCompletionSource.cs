@@ -143,18 +143,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             var lastDelimiter = lastSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
 
-            if (firstDelimiter == null || lastDelimiter == null)
-            {
-                return;
-            }
-
             SnapshotSpan? extentTemp = null;
 
-            if (firstDelimiter.Span.GetText() == "\"\"")
+            if (firstDelimiter != null && firstDelimiter.Span.GetText() == "\"\"")
             {
                 extentTemp = new SnapshotSpan(firstDelimiter.Span.Start.Add(1), firstDelimiter.Span.Start.Add(1));
             }
-            else if (firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
+            else if (firstDelimiter != null && lastDelimiter != null && firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
             {
                 extentTemp = new SnapshotSpan(firstDelimiter.Span.End, lastDelimiter.Span.Start);
             }
@@ -662,18 +657,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             var lastDelimiter = lastSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
 
-            if (firstDelimiter == null || lastDelimiter == null)
-            {
-                return;
-            }
-
             SnapshotSpan? extentTemp = null;
 
-            if (firstDelimiter.Span.GetText() == "\"\"")
+            if (firstDelimiter != null && firstDelimiter.Span.GetText() == "\"\"")
             {
                 extentTemp = new SnapshotSpan(firstDelimiter.Span.Start.Add(1), firstDelimiter.Span.Start.Add(1));
             }
-            else if (firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
+            else if (firstDelimiter != null && lastDelimiter != null && firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
             {
                 extentTemp = new SnapshotSpan(firstDelimiter.Span.End, lastDelimiter.Span.Start);
             }
@@ -809,18 +799,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             var lastDelimiter = lastSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
 
-            if (firstDelimiter == null || lastDelimiter == null)
-            {
-                return;
-            }
-
             SnapshotSpan? extentTemp = null;
 
-            if (firstDelimiter.Span.GetText() == "\"\"")
+            if (firstDelimiter != null && firstDelimiter.Span.GetText() == "\"\"")
             {
                 extentTemp = new SnapshotSpan(firstDelimiter.Span.Start.Add(1), firstDelimiter.Span.Start.Add(1));
             }
-            else if (firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
+            else if (firstDelimiter != null && lastDelimiter != null && firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
             {
                 extentTemp = new SnapshotSpan(firstDelimiter.Span.End, lastDelimiter.Span.Start);
             }

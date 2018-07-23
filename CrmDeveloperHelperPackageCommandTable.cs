@@ -14,6 +14,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
     {
         public const string guidCrmDeveloperHelperPackageString = "828df455-62c3-4d0c-93f5-f86f52bdf0a8";
         public const string guidCrmDeveloperHelperPackageFetchXmlExecutorToolWindowPaneString = "15e2cb01-363d-4780-9326-dea98ca656e6";
+        public const string guidXmlUiCmdsString = "fb87333b-16c8-400e-bc8f-f6b890410582";
         public const string guid1String = "64da400e-b4ad-4d67-aa92-4b7acb01ecd5";
         public const string guid2String = "78f03954-2fb8-4087-8ce7-59d71710b3bb";
         public const string guid3String = "4c87b692-1202-46aa-b64c-ef01faec53da";
@@ -21,6 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const string guidCommandSetString = "15ffcbd5-0856-4bda-b6c8-e6e0b635761d";
         public static Guid guidCrmDeveloperHelperPackage = new Guid(guidCrmDeveloperHelperPackageString);
         public static Guid guidCrmDeveloperHelperPackageFetchXmlExecutorToolWindowPane = new Guid(guidCrmDeveloperHelperPackageFetchXmlExecutorToolWindowPaneString);
+        public static Guid guidXmlUiCmds = new Guid(guidXmlUiCmdsString);
         public static Guid guid1 = new Guid(guid1String);
         public static Guid guid2 = new Guid(guid2String);
         public static Guid guid3 = new Guid(guid3String);

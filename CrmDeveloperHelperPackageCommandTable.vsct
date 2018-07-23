@@ -6894,10 +6894,16 @@
 
   </CommandPlacements>
 
+  <KeyBindings>
+    <KeyBinding guid="guidCommandSet" id="CodeXmlExecuteFetchXmlRequestCommandId" editor="guidVSStd97" mod1="Alt" key1="VK_F9" />
+  </KeyBindings>
+
   <Symbols>
     <GuidSymbol name="guidCrmDeveloperHelperPackage" value="{828df455-62c3-4d0c-93f5-f86f52bdf0a8}" />
 
     <GuidSymbol name="guidCrmDeveloperHelperPackageFetchXmlExecutorToolWindowPane" value="{15E2CB01-363D-4780-9326-DEA98CA656E6}" />
+
+    <GuidSymbol name="guidXmlUiCmds" value="{fb87333b-16c8-400e-bc8f-f6b890410582}"/>
 
     <GuidSymbol name="guid1" value="{64DA400E-B4AD-4D67-AA92-4B7ACB01ECD5}">
       <IDSymbol name="guid1sym1" value="2" />
