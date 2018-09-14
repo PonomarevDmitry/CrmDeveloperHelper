@@ -48,10 +48,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new LinkEntity()
                     {
-                        EntityAlias = Publisher.EntityLogicalName,
+                        EntityAlias = Solution.Schema.Attributes.publisherid,
 
                         LinkFromEntityName = Solution.EntityLogicalName,
                         LinkFromAttributeName = Solution.Schema.Attributes.publisherid,
+
                         LinkToEntityName = Publisher.EntityLogicalName,
                         LinkToAttributeName = Publisher.PrimaryIdAttribute,
 
@@ -131,10 +132,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     {
                         JoinOperator = JoinOperator.LeftOuter,
 
-                        EntityAlias = Publisher.EntityLogicalName,
+                        EntityAlias = Solution.Schema.Attributes.publisherid,
 
                         LinkFromEntityName = Solution.EntityLogicalName,
                         LinkFromAttributeName = Solution.Schema.Attributes.publisherid,
+
                         LinkToEntityName = Publisher.EntityLogicalName,
                         LinkToAttributeName = Publisher.PrimaryIdAttribute,
 
@@ -174,10 +176,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     {
                         JoinOperator = JoinOperator.LeftOuter,
 
-                        EntityAlias = Publisher.EntityLogicalName,
+                        EntityAlias = Solution.Schema.Attributes.publisherid,
 
                         LinkFromEntityName = Solution.EntityLogicalName,
                         LinkFromAttributeName = Solution.Schema.Attributes.publisherid,
+
                         LinkToEntityName = Publisher.EntityLogicalName,
                         LinkToAttributeName = Publisher.PrimaryIdAttribute,
 
@@ -219,10 +222,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     {
                         JoinOperator = JoinOperator.LeftOuter,
 
-                        EntityAlias = Publisher.EntityLogicalName,
+                        EntityAlias = Solution.Schema.Attributes.publisherid,
 
                         LinkFromEntityName = Solution.EntityLogicalName,
                         LinkFromAttributeName = Solution.Schema.Attributes.publisherid,
+
                         LinkToEntityName = Publisher.EntityLogicalName,
                         LinkToAttributeName = Publisher.PrimaryIdAttribute,
 
@@ -374,10 +378,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new LinkEntity()
                     {
-                        EntityAlias = Publisher.EntityLogicalName,
+                        EntityAlias = Solution.Schema.Attributes.publisherid,
 
                         LinkFromEntityName = Solution.EntityLogicalName,
                         LinkFromAttributeName = Solution.Schema.Attributes.publisherid,
+
                         LinkToEntityName = Publisher.EntityLogicalName,
                         LinkToAttributeName = Publisher.PrimaryIdAttribute,
 

@@ -297,7 +297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus(string.Format("{0} entities loaded.", results.Count()));
+            UpdateStatus("{0} entities loaded.", results.Count());
 
             ToggleControls(true);
 
@@ -433,17 +433,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus(string.Format("{0} attributes loaded.", results.Count()));
+            UpdateStatus("{0} attributes loaded.", results.Count());
 
             ToggleControls(true);
         }
 
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -869,7 +876,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                UpdateStatus(string.Format("Publishing Entity {0}...", entityNames.Count()));
+                UpdateStatus("Publishing Entity {0}...", entityNames.Count());
 
                 this._iWriteToOutput.WriteToOutput("Start publishing entities {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -881,13 +888,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus(string.Format("Entities {0} published", entityNamesOrdered));
+                UpdateStatus("Entities {0} published", entityNamesOrdered);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus(string.Format("Publish Entity {0} failed", entityNamesOrdered));
+                UpdateStatus("Publish Entity {0} failed", entityNamesOrdered);
             }
             finally
             {
@@ -1437,7 +1444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var entityNamesOrdered = string.Join(",", listForPublish.OrderBy(s => s));
 
-                        UpdateStatus(string.Format("Publishing Entity {0}...", listForPublish.Count()));
+                        UpdateStatus("Publishing Entity {0}...", listForPublish.Count());
 
                         this._iWriteToOutput.WriteToOutput("Start publishing entities {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 

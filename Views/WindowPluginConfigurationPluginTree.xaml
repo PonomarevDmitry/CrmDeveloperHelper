@@ -17,7 +17,7 @@
     </src:WindowBase.Resources>
     <Grid>
         <Label Content="Loaded File" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFilePath" VerticalContentAlignment="Center" Height="23" Margin="10,26,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+        <TextBox x:Name="txtBFilePath" VerticalContentAlignment="Center" Height="23" Margin="10,26,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
         <Grid Margin="10,54,10,0" VerticalAlignment="Top">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -142,11 +142,11 @@
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar x:Name="statusBar" VerticalAlignment="Bottom">
+        <StatusBar VerticalAlignment="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
             <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-            <StatusBarItem x:Name="tSSLStatusMessage" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
 
     </Grid>

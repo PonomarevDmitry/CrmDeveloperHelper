@@ -200,7 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+                    var openFileDialog1 = new Microsoft.Win32.OpenFileDialog();
 
                     openFileDialog1.Filter = "Plugin Assebmly (.dll)|*.dll";
                     openFileDialog1.FilterIndex = 1;
@@ -216,7 +216,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         openFileDialog1.InitialDirectory = defaultFolder;
                     }
 
-                    if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    if (openFileDialog1.ShowDialog() == true)
                     {
                         showDialog = true;
                         assemblyPath = openFileDialog1.FileName;

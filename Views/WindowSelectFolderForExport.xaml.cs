@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             txtBFolder.Text = folder;
 
-            cmBFileAction.SelectedIndex = (int)fileAction;
+            cmBFileAction.SelectedItem = fileAction;
 
             txtBFolder.Focus();
         }
@@ -52,7 +52,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (cmBFileAction.SelectedIndex != -1)
             {
-                return (FileAction)cmBFileAction.SelectedIndex;
+                return (FileAction)cmBFileAction.SelectedItem;
             }
 
             return FileAction.None;

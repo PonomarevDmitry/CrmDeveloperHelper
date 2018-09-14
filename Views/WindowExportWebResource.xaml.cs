@@ -222,7 +222,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadWebResources(list);
 
-            UpdateStatus(string.Format("{0} webresources loaded.", list.Count()));
+            UpdateStatus("{0} webresources loaded.", list.Count());
 
             ToggleControls(true);
         }
@@ -335,11 +335,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -653,7 +660,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                UpdateStatus(string.Format("Exporting WebResource {0}...", fieldTitle));
+                UpdateStatus("Exporting WebResource {0}...", fieldTitle);
 
                 var service = await GetService();
 

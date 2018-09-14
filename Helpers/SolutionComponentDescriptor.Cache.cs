@@ -13,6 +13,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         private ConcurrentDictionary<int, ConcurrentDictionary<Guid, Entity>> _cache = new ConcurrentDictionary<int, ConcurrentDictionary<Guid, Entity>>();
 
+        public List<T> GetEntities<T>(int componentType, IEnumerable<Guid> components) where T : Entity
+        {
+            return GetEntities<T>(componentType, components.Select(id => (Guid?)id));
+        }
+
         public List<T> GetEntities<T>(int componentType, IEnumerable<Guid?> components) where T : Entity
         {
             List<Guid> idsNotCached = components.Where(c => c.HasValue).Select(comp => comp.Value).ToList();

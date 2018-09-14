@@ -152,9 +152,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     iWriteToOutput.WriteToOutput("WhoAmIRequest executed successfully.");
 
-                    iWriteToOutput.WriteToOutput("OrganizationId:    {0}", whoresponse.OrganizationId);
-                    iWriteToOutput.WriteToOutput("BusinessUnitId:    {0}", whoresponse.BusinessUnitId);
-                    iWriteToOutput.WriteToOutput("UserId:            {0}", whoresponse.UserId);
+                    iWriteToOutput.WriteToOutput("OrganizationId :    {0}", whoresponse.OrganizationId);
+                    iWriteToOutput.WriteToOutput("BusinessUnitId :    {0}", whoresponse.BusinessUnitId);
+                    iWriteToOutput.WriteToOutput("UserId         :    {0}", whoresponse.UserId);
                 }
 
                 var result = new OrganizationServiceExtentedProxy(service, connectionData);

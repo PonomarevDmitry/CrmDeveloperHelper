@@ -39,14 +39,14 @@
         </ContextMenu>
     </UserControl.Resources>
     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True">
-        <StatusBar x:Name="statusBar" VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
+        <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
             <ComboBox x:Name="cmBCurrentConnection" Height="20" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-            <StatusBarItem x:Name="tSSLStatusMessage" Content="" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" Content="" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
         <TabControl x:Name="tabControl" DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <TabItem x:Name="tbFetchXml" Header="Fetch Xml">
+            <TabItem x:Name="tbFetchXml" IsSelected="False" Header="Fetch Xml" >
                 <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Bottom" Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition x:Name="columnParameters" Width="50*"/>
@@ -70,16 +70,16 @@
                                 <Separator />
                                 <Button x:Name="btnCopyJavaScriptToClipboardCode" Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
                             </ToolBar>
-                            <TextBox x:Name="txtBFetchXml" IsReadOnly="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+                            <TextBox x:Name="txtBFetchXml" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
                         </DockPanel>
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="tbErrorText" IsEnabled="False" Header="Error Text">
-                <TextBox x:Name="txtBErrorText" Margin="5" IsReadOnly="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+            <TabItem x:Name="tbErrorText" IsEnabled="False" Visibility="Collapsed" IsSelected="False" Header="Error Text">
+                <TextBox x:Name="txtBErrorText" Margin="5" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
             </TabItem>
-            <TabItem x:Name="tbResults" IsEnabled="False" Header="Results">
-                <DataGrid x:Name="dGrResults" Margin="5" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="dGrResults_MouseDoubleClick" Sorting="dGrResults_Sorting" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+            <TabItem x:Name="tbResults" IsEnabled="False" Visibility="Collapsed" IsSelected="False" Header="Results">
+                <DataGrid x:Name="dGrResults" Margin="5" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="Cell" MouseDoubleClick="dGrResults_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
                     <DataGrid.Resources>
                         <Style TargetType="Hyperlink">
                             <EventSetter Event="Click" Handler="dGrResults_Hyperlink_Click"/>

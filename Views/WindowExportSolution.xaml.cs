@@ -73,12 +73,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(filter))
             {
-                cmBFilter.Text = filter;
+                service.ConnectionData.ExportSolutionFilter = filter;
             }
-            else
-            {
-                cmBFilter.Text = service.ConnectionData.ExportSolutionFilter;
-            }
+
+            cmBFilter.Text = service.ConnectionData.ExportSolutionFilter;
 
             cmBExportFolder.Text = service.ConnectionData.ExportSolutionFolder;
 
@@ -272,30 +270,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSolutions(list);
 
-            UpdateStatus(string.Format("{0} solutions loaded.", list.Count()));
+            UpdateStatus("{0} solutions loaded.", list.Count());
 
             ToggleControls(true);
         }
 
         private class EntityViewItem
         {
-            public string SolutionName { get; private set; }
-
-            public string DisplayName { get; private set; }
-
-            public string SolutionType { get; private set; }
-
-            public DateTime? InstalledOn { get; private set; }
-
             public Solution Solution { get; private set; }
 
-            public EntityViewItem(string solutionName, string displayName, string solutionType, DateTime? installedOn, Solution Solution)
+            public string SolutionName => Solution.UniqueName;
+
+            public string DisplayName => Solution.FriendlyName;
+
+            public string SolutionType => Solution.FormattedValues[Solution.Schema.Attributes.ismanaged];
+
+            public string Visible => Solution.FormattedValues[Solution.Schema.Attributes.isvisible];
+
+            public DateTime? InstalledOn => Solution.InstalledOn?.ToLocalTime();
+
+            public string PublisherName => Solution.PublisherId?.Name;
+
+            public string Prefix => Solution.PublisherCustomizationPrefix;
+
+            public EntityViewItem(Solution Solution)
             {
-                this.SolutionName = solutionName;
-                this.DisplayName = displayName;
-                this.SolutionType = solutionType;
                 this.Solution = Solution;
-                this.InstalledOn = installedOn;
             }
         }
 
@@ -305,7 +305,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var entity in results.OrderByDescending(ent => ent.InstalledOn).ThenBy(ent => ent.UniqueName))
                 {
-                    var item = new EntityViewItem(entity.UniqueName, entity.FriendlyName, entity.FormattedValues[Solution.Schema.Attributes.ismanaged], entity.InstalledOn?.ToLocalTime(), entity);
+                    var item = new EntityViewItem(entity);
 
                     this._itemsSource.Add(item);
                 }
@@ -317,11 +317,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -426,7 +433,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteAction(item.Solution, PerformExportSolution);
+                    string message = string.Format("Export solution {0}?", item.SolutionName);
+
+                    if (MessageBox.Show(message, "Question", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                    {
+                        ExecuteAction(item.Solution, PerformExportSolution);
+                    }
                 }
             }
         }
@@ -584,6 +596,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service != null)
                 {
+                    _iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData.ConnectionId, solution.UniqueName, service.ConnectionData.GetSolutionUrl(solution.Id));
+
                     if (solutionInfo.OverrideNameAndVersion)
                     {
                         this.Dispatcher.Invoke(() =>
@@ -858,6 +872,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var text = cmBFilter.Text;
 
                 connectionData.AddLastSelectedSolution(solution.UniqueName);
+
+                _iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
 
                 cmBFilter.Text = text;
             }

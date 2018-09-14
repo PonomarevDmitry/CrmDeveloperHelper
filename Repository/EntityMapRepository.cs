@@ -28,7 +28,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         public Task<List<EntityMap>> GetListAsync()
         {
             return Task.Run(() => GetList());
-
         }
 
         private List<EntityMap> GetList()

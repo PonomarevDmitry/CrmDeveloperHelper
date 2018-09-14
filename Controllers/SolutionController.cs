@@ -261,16 +261,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 t.Join();
             }
+            else
+            {
+                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
+            }
 
             if (solution == null)
             {
                 this._iWriteToOutput.WriteToOutput("Solution not selected.");
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput("Selected Solution - {0}", solution.UniqueName);
-
-            this._iWriteToOutput.WriteToOutput(connectionData.GetSolutionUrl(solution.Id));
 
             connectionData.AddLastSelectedSolution(solution?.UniqueName);
             connectionData.ConnectionConfiguration.Save();
@@ -442,16 +442,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 t.Join();
             }
+            else
+            {
+                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
+            }
 
             if (solution == null)
             {
                 this._iWriteToOutput.WriteToOutput("Solution not selected.");
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput("Selected Solution - {0}", solution.UniqueName);
-
-            this._iWriteToOutput.WriteToOutput(connectionData.GetSolutionUrl(solution.Id));
 
             connectionData.AddLastSelectedSolution(solution?.UniqueName);
             connectionData.ConnectionConfiguration.Save();
@@ -608,16 +608,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 t.Join();
             }
+            else
+            {
+                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
+            }
 
             if (solution == null)
             {
                 this._iWriteToOutput.WriteToOutput("Solution not selected.");
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput("Selected Solution - {0}", solution.UniqueName);
-
-            this._iWriteToOutput.WriteToOutput(connectionData.GetSolutionUrl(solution.Id));
 
             connectionData.AddLastSelectedSolution(solution.UniqueName);
             connectionData.ConnectionConfiguration.Save();
@@ -805,16 +805,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 t.Join();
             }
+            else
+            {
+                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
+            }
 
             if (solution == null)
             {
                 this._iWriteToOutput.WriteToOutput("Solution not selected.");
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput("Selected Solution - {0}", solution.UniqueName);
-
-            this._iWriteToOutput.WriteToOutput(connectionData.GetSolutionUrl(solution.Id));
 
             connectionData.AddLastSelectedSolution(solution?.UniqueName);
             connectionData.ConnectionConfiguration.Save();
@@ -899,7 +899,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repository = new PluginAssemblyRepository(service);
 
-            Dictionary<Guid, PluginAssembly> dictForAdding = new Dictionary<Guid, PluginAssembly>();
+            Dictionary<Guid, PluginAssembly> knownAssemblies = new Dictionary<Guid, PluginAssembly>();
 
             List<string> unknownProjectNames = new List<string>();
 
@@ -909,9 +909,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (assembly != null)
                 {
-                    if (!dictForAdding.ContainsKey(assembly.Id))
+                    if (!knownAssemblies.ContainsKey(assembly.Id))
                     {
-                        dictForAdding.Add(assembly.Id, assembly);
+                        knownAssemblies.Add(assembly.Id, assembly);
                     }
                 }
                 else
@@ -920,13 +920,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            if (!dictForAdding.Any() && !unknownProjectNames.Any())
+            if (!knownAssemblies.Any() && !unknownProjectNames.Any())
             {
                 this._iWriteToOutput.WriteToOutput("No Plugin Assemblies to add.");
                 return;
             }
 
-            if (dictForAdding.Any())
+            if (knownAssemblies.Any())
             {
                 Solution solution = null;
 
@@ -964,16 +964,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     t.Join();
                 }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
+                }
 
                 if (solution == null)
                 {
                     this._iWriteToOutput.WriteToOutput("Solution not selected.");
                     return;
                 }
-
-                this._iWriteToOutput.WriteToOutput("Selected Solution - {0}", solution.UniqueName);
-
-                this._iWriteToOutput.WriteToOutput(connectionData.GetSolutionUrl(solution.Id));
 
                 connectionData.AddLastSelectedSolution(solution?.UniqueName);
                 connectionData.ConnectionConfiguration.Save();
@@ -984,13 +984,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
                 {
-                    if (dictForAdding.ContainsKey(item))
+                    if (knownAssemblies.ContainsKey(item))
                     {
-                        dictForAdding.Remove(item);
+                        knownAssemblies.Remove(item);
                     }
                 }
 
-                if (!dictForAdding.Any())
+                if (!knownAssemblies.Any())
                 {
                     this._iWriteToOutput.WriteToOutput("No PluginAssembly to add. All PluginAssemblies already in Solution {0}", solution.UniqueName);
 
@@ -999,7 +999,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
 
-                var componentsToAdd = dictForAdding.Select(e => new SolutionComponent(new
+                var componentsToAdd = knownAssemblies.Select(e => new SolutionComponent(new
                 {
                     ObjectId = e.Key,
                     ComponentType = new OptionSetValue((int)ComponentType.PluginAssembly),
@@ -1155,16 +1155,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 t.Join();
             }
+            else
+            {
+                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
+            }
 
             if (solution == null)
             {
                 this._iWriteToOutput.WriteToOutput("Solution not selected.");
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput("Selected Solution - {0}", solution.UniqueName);
-
-            this._iWriteToOutput.WriteToOutput(connectionData.GetSolutionUrl(solution.Id));
 
             connectionData.AddLastSelectedSolution(solution?.UniqueName);
             connectionData.ConnectionConfiguration.Save();
@@ -1301,7 +1301,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            if (!unknownPluginTypes.Any() && !unknownPluginTypes.Any())
+            if (!knownPluginTypes.Any() && !unknownPluginTypes.Any())
             {
                 this._iWriteToOutput.WriteToOutput("No Plugin Types founded.");
                 return;
@@ -1366,16 +1366,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 t.Join();
             }
+            else
+            {
+                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
+            }
 
             if (solution == null)
             {
                 this._iWriteToOutput.WriteToOutput("Solution not selected.");
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput("Selected Solution - {0}", solution.UniqueName);
-
-            this._iWriteToOutput.WriteToOutput(connectionData.GetSolutionUrl(solution.Id));
 
             connectionData.AddLastSelectedSolution(solution?.UniqueName);
             connectionData.ConnectionConfiguration.Save();

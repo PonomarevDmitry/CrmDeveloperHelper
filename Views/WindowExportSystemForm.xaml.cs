@@ -18,7 +18,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Resources;
+using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Schema;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -218,7 +221,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("Found {0} forms.", list.Count());
 
-            UpdateStatus(string.Format("{0} forms loaded.", list.Count()));
+            UpdateStatus("{0} forms loaded.", list.Count());
 
             ToggleControls(true);
         }
@@ -289,11 +292,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -533,7 +543,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                UpdateStatus(string.Format("Start export Form xml field {0}.", fieldName));
+                UpdateStatus("Start export Form xml field {0}.", fieldName);
 
                 var service = await GetService();
 
@@ -561,6 +571,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private string[] _formXmlXsdSchemas = new string[]
+        {
+            "pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/FormXml.xsd"
+            , "pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/RibbonCore.xsd"
+            , "pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/RibbonTypes.xsd"
+            , "pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/RibbonWSS.xsd"
+        };
+
         private async Task PerformUpdateEntityField(string folder, Guid idSystemForm, string entityName, string name, string fieldName, string fieldTitle)
         {
             if (!_controlsEnabled)
@@ -581,16 +599,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string xmlContent = systemForm.GetAttributeValue<string>(fieldName);
 
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var tempDoc))
                     {
-                        xmlContent = doc.ToString();
+                        xmlContent = tempDoc.ToString();
                     }
                 }
-
 
                 string filePath = await CreateFileAsync(folder, entityName, name, fieldTitle + " BackUp", xmlContent);
 
                 var newText = string.Empty;
+
                 bool? dialogResult = false;
 
                 this.Dispatcher.Invoke(() =>
@@ -602,21 +620,70 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     newText = form.FieldText;
                 });
 
-                if (dialogResult.GetValueOrDefault())
+                if (dialogResult.GetValueOrDefault() == false)
                 {
+                    UpdateStatus("Operation canceled.");
+                    return;
+                }
+
+                _iWriteToOutput.WriteToOutput("Validating FormXml...");
+                UpdateStatus("Validating FormXml.");
+
+                if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
+                {
+                    _iWriteToOutput.WriteToOutput("Text is not valid xml.");
+                    UpdateStatus("Operation failed.");
+
+                    _iWriteToOutput.ActivateOutputWindow();
+                    return;
+                }
+
+                XmlSchemaSet schemas = new XmlSchemaSet();
+
+
+                foreach (var item in _formXmlXsdSchemas)
+                {
+                    Uri uri = new Uri(item);
+                    StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                    using (StreamReader reader = new StreamReader(info.Stream))
                     {
-                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
-                        {
-                            newText = doc.ToString(SaveOptions.DisableFormatting);
-                        }
+                        schemas.Add("", XmlReader.Create(reader));
+                    }
+                }
+
+                List<ValidationEventArgs> errors = new List<ValidationEventArgs>();
+
+                doc.Validate(schemas, (o, e) =>
+                {
+                    errors.Add(e);
+                });
+
+                if (errors.Count > 0)
+                {
+                    _iWriteToOutput.WriteToOutput("FormXml is not valid.");
+
+                    foreach (var item in errors)
+                    {
+                        _iWriteToOutput.WriteToOutput(string.Empty);
+                        _iWriteToOutput.WriteToOutput(string.Empty);
+                        _iWriteToOutput.WriteToOutput("Severity: {0}      Message: {1}", item.Severity, item.Message);
+                        _iWriteToOutput.WriteErrorToOutput(item.Exception);
                     }
 
-                    var updateEntity = new SystemForm();
-                    updateEntity.Id = idSystemForm;
-                    updateEntity.Attributes[fieldName] = newText;
+                    _iWriteToOutput.ActivateOutputWindow();
+                    UpdateStatus("Operation failed.");
 
-                    service.Update(updateEntity);
+                    return;
                 }
+
+                newText = doc.ToString(SaveOptions.DisableFormatting);
+
+                var updateEntity = new SystemForm();
+                updateEntity.Id = idSystemForm;
+                updateEntity.Attributes[fieldName] = newText;
+
+                service.Update(updateEntity);
 
                 UpdateStatus("Operation completed.");
             }
@@ -704,7 +771,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false);
 
-            UpdateStatus(string.Format("Publishing SystemForm {0} - {1}...", entityName, name));
+            UpdateStatus("Publishing SystemForm {0} - {1}...", entityName, name);
 
             this._iWriteToOutput.WriteToOutput("Start publishing SystemForm {0} - {1} at {2}", entityName, name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -718,13 +785,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing SystemForm {0} - {1} at {2}", entityName, name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus(string.Format("SystemForm {0} - {1} published", entityName, name));
+                UpdateStatus("SystemForm {0} - {1} published", entityName, name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus(string.Format("Publish SystemForm {0} - {1} failed", entityName, name));
+                UpdateStatus("Publish SystemForm {0} - {1} failed", entityName, name);
             }
             finally
             {
@@ -736,8 +803,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var entity = GetSelectedEntity();
 
-            if (entity == null 
-                && !string.IsNullOrEmpty(entity.ObjectTypeCode) 
+            if (entity == null
+                && !string.IsNullOrEmpty(entity.ObjectTypeCode)
                 && !string.Equals(entity.ObjectTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
                 )
             {
@@ -756,7 +823,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false);
 
-            UpdateStatus(string.Format("Publishing Entity {0}...", entityName));
+            UpdateStatus("Publishing Entity {0}...", entityName);
 
             this._iWriteToOutput.WriteToOutput("Start publishing Entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -770,13 +837,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing Entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus(string.Format("Entity {0} published", entityName));
+                UpdateStatus("Entity {0} published", entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus(string.Format("Publish Entity {0} failed", entityName));
+                UpdateStatus("Publish Entity {0} failed", entityName);
             }
             finally
             {

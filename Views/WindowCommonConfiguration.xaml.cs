@@ -106,11 +106,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
+            string message = format;
+
+            if (args != null && args.Length > 0)
+            {
+                message = string.Format(format, args);
+            }
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
-                this.stBIStatus.Content = msg;
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -298,13 +305,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBCreate_Click(object sender, RoutedEventArgs e)
         {
-            var openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            var openFileDialog1 = new Microsoft.Win32.OpenFileDialog();
 
             openFileDialog1.Filter = "Crm Scv Util (CrmScvUtil.exe)|*.exe";
             openFileDialog1.FilterIndex = 1;
             openFileDialog1.RestoreDirectory = true;
 
-            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (openFileDialog1.ShowDialog().GetValueOrDefault())
             {
                 try
                 {

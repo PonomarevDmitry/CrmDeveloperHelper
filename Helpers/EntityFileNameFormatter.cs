@@ -18,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static string GetWorkflowFileName(string connectionName, string entityName, string category, string name, string fieldTitle, string extension)
         {
-            return string.Format(WorkflowFormatFile, connectionName, entityName, category, name, fieldTitle, GetDateString(), extension);
+            return string.Format(WorkflowFormatFile, connectionName, entityName, category, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         internal static ReadOnlyCollection<string> WebResourceIgnoreFields = new ReadOnlyCollection<string>(new[] { WebResource.Schema.Attributes.content, WebResource.Schema.Attributes.dependencyxml });
@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static string GetWebResourceFileName(string connectionName, string name, string fieldTitle, string extension)
         {
-            return string.Format(WebResourceFormatFile, connectionName, name, fieldTitle, GetDateString(), extension);
+            return string.Format(WebResourceFormatFile, connectionName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         internal static ReadOnlyCollection<string> SystemFormIgnoreFields = new ReadOnlyCollection<string>(new[] { SystemForm.Schema.Attributes.formxml });
@@ -36,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static string GetSystemFormFileName(string connectionName, string entityName, string name, string fieldTitle, string extension)
         {
-            return string.Format(SystemFormFormatFile, connectionName, entityName, name, fieldTitle, GetDateString(), extension);
+            return string.Format(SystemFormFormatFile, connectionName, entityName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         private const string SolutionFormatFile = "{0}.Solution {1} - {2} at {3}.txt";
@@ -59,7 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static string GetSiteMapFileName(string connectionName, string name, Guid id, string fieldTitle, string extension)
         {
-            return string.Format(SiteMapFormatFile, connectionName, name, id, fieldTitle, GetDateString(), extension);
+            return string.Format(SiteMapFormatFile, connectionName, name, id, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         private const string SavedQueryVisualizationFormatFile = "{0}.{1} SystemChart {2} - {3} at {4}.{5}";
@@ -68,7 +68,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static string GetSavedQueryVisualizationFileName(string connectionName, string entityName, string name, string fieldTitle, string extension)
         {
-            return string.Format(SavedQueryVisualizationFormatFile, connectionName, entityName, name, fieldTitle, GetDateString(), extension);
+            return string.Format(SavedQueryVisualizationFormatFile, connectionName, entityName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         private const string SavedQueryFormatFile = "{0}.{1} SavedQuery {2} - {3} at {4}.{5}";
@@ -77,7 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static string GetSavedQueryFileName(string connectionName, string entityName, string name, string fieldTitle, string extension)
         {
-            return string.Format(SavedQueryFormatFile, connectionName, entityName, name, fieldTitle, GetDateString(), extension);
+            return string.Format(SavedQueryFormatFile, connectionName, entityName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         private const string ApplicationRibbonFormatFile = "{0}.ApplicationRibbon at {1}.xml";
@@ -91,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static string GetApplicationRibbonFileName(string connectionName, string fieldTitle, string extension)
         {
-            return string.Format(ApplicationRibbonFormatFileFieldTitle, connectionName, fieldTitle, GetDateString(), extension);
+            return string.Format(ApplicationRibbonFormatFileFieldTitle, connectionName, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         private const string ApplicationRibbonDiffXmlFormatFile = "{0}.ApplicationRibbonDiffXml at {1}.xml";
@@ -105,7 +105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static string GetApplicationRibbonDiffXmlFileName(string connectionName, string fieldTitle, string extension)
         {
-            return string.Format(ApplicationRibbonDiffXmlFormatFileFieldTitle, connectionName, fieldTitle, GetDateString(), extension);
+            return string.Format(ApplicationRibbonDiffXmlFormatFileFieldTitle, connectionName, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         private const string EntityRibbonFormatFile = "{0}.{1}.Ribbon at {2}.xml";
@@ -119,7 +119,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static string GetEntityRibbonFileName(string connectionName, string entityName, string fieldTitle, string extension)
         {
-            return string.Format(EntityRibbonFormatFileFieldTitle, connectionName, entityName, fieldTitle, GetDateString(), extension);
+            return string.Format(EntityRibbonFormatFileFieldTitle, connectionName, entityName, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         private const string EntityRibbonDiffXmlFormatFile = "{0}.{1}.RibbonDiffXml at {2}.xml";
@@ -133,7 +133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static string GetEntityRibbonDiffXmlFileName(string connectionName, string entityName, string fieldTitle, string extension)
         {
-            return string.Format(EntityRibbonDiffXmlFormatFileFieldTitle, connectionName, entityName, fieldTitle, GetDateString(), extension);
+            return string.Format(EntityRibbonDiffXmlFormatFileFieldTitle, connectionName, entityName, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         private const string ReportFormatFile = "{0}.Report {1} - {2} - {3} at {4}.{5}";
@@ -151,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static string GetReportFileName(string connectionName, string name, Guid id, string fieldTitle, string extension)
         {
-            return string.Format(ReportFormatFile, connectionName, name, id.ToString(), fieldTitle, GetDateString(), extension);
+            return string.Format(ReportFormatFile, connectionName, name, id.ToString(), fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         private const string PluginTypeFormatFileTxt = "{0}.PluginType {1} - {2} at {3}.txt";
@@ -167,7 +167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static string GetPluginAssemblyFileName(string connectionName, string name, string fieldTitle, string extension)
         {
-            return string.Format(PluginAssemblyFormatFileTxt, connectionName, name, fieldTitle, GetDateString(), extension);
+            return string.Format(PluginAssemblyFormatFileTxt, connectionName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         private const string OrganizationFormatFile = "{0}.Organization {1} - {2} at {3}.{4}";
@@ -188,14 +188,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static string GetOrganizationFileName(string connectionName, string name, string fieldTitle, string extension)
         {
-            return string.Format(OrganizationFormatFile, connectionName, name, fieldTitle, GetDateString(), extension);
+            return string.Format(OrganizationFormatFile, connectionName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         private const string PluginConfigurationFormatFileTxt = "{0} {1} - Description.{2}";
 
         internal static string GetPluginConfigurationFileName(string fileName, string fieldTitle, string extension)
         {
-            return string.Format(PluginConfigurationFormatFileTxt, fileName, fieldTitle, extension);
+            return string.Format(PluginConfigurationFormatFileTxt, fileName, fieldTitle, extension.Trim('.'));
         }
 
         private const string MessageFormatFileTxt = "{0}.Message {1} - {2} at {3}.txt";
@@ -248,21 +248,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         var ent = entity.ToEntity<Workflow>();
 
-                        return GetWorkflowFileName(connectionName, ent.PrimaryEntity, ent.FormattedValues[Workflow.Schema.Attributes.category], ent.Name, fieldTitle, extension);
+                        return GetWorkflowFileName(connectionName, ent.PrimaryEntity, ent.FormattedValues[Workflow.Schema.Attributes.category], ent.Name, fieldTitle, extension.Trim('.'));
                     }
 
                 case WebResource.EntityLogicalName:
                     {
                         var ent = entity.ToEntity<WebResource>();
 
-                        return GetWebResourceFileName(connectionName, ent.Name, fieldTitle, extension);
+                        return GetWebResourceFileName(connectionName, ent.Name, fieldTitle, extension.Trim('.'));
                     }
 
                 case Report.EntityLogicalName:
                     {
                         var ent = entity.ToEntity<Report>();
 
-                        return GetReportFileName(connectionName, ent.Name, ent.Id, fieldTitle, extension);
+                        return GetReportFileName(connectionName, ent.Name, ent.Id, fieldTitle, extension.Trim('.'));
                     }
 
                 case SdkMessageProcessingStep.EntityLogicalName:
@@ -285,11 +285,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (string.IsNullOrEmpty(ent.Entity))
                         {
-                            return GetApplicationRibbonFileName(connectionName, fieldTitle, extension);
+                            return GetApplicationRibbonFileName(connectionName, fieldTitle, extension.Trim('.'));
                         }
                         else
                         {
-                            return GetEntityRibbonFileName(connectionName, ent.Entity, fieldTitle, extension);
+                            return GetEntityRibbonFileName(connectionName, ent.Entity, fieldTitle, extension.Trim('.'));
                         }
                     }
 
@@ -297,7 +297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         var ent = entity.ToEntity<PluginAssembly>();
 
-                        return GetPluginAssemblyFileName(connectionName, ent.Name, fieldTitle, extension);
+                        return GetPluginAssemblyFileName(connectionName, ent.Name, fieldTitle, extension.Trim('.'));
                     }
 
                 case PluginType.EntityLogicalName:
@@ -311,21 +311,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         var ent = entity.ToEntity<SystemForm>();
 
-                        return GetSystemFormFileName(connectionName, ent.ObjectTypeCode, ent.Name, fieldTitle, extension);
+                        return GetSystemFormFileName(connectionName, ent.ObjectTypeCode, ent.Name, fieldTitle, extension.Trim('.'));
                     }
 
                 case SavedQuery.EntityLogicalName:
                     {
                         var ent = entity.ToEntity<SavedQuery>();
 
-                        return GetSavedQueryFileName(connectionName, ent.ReturnedTypeCode, ent.Name, fieldTitle, extension);
+                        return GetSavedQueryFileName(connectionName, ent.ReturnedTypeCode, ent.Name, fieldTitle, extension.Trim('.'));
                     }
 
                 case SavedQueryVisualization.EntityLogicalName:
                     {
                         var ent = entity.ToEntity<SavedQueryVisualization>();
 
-                        return GetSavedQueryFileName(connectionName, ent.PrimaryEntityTypeCode, ent.Name, fieldTitle, extension);
+                        return GetSavedQueryFileName(connectionName, ent.PrimaryEntityTypeCode, ent.Name, fieldTitle, extension.Trim('.'));
                     }
 
                 case SdkMessage.EntityLogicalName:
@@ -346,14 +346,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         var ent = entity.ToEntity<Organization>();
 
-                        return GetOrganizationFileName(connectionName, ent.Name, fieldTitle, extension);
+                        return GetOrganizationFileName(connectionName, ent.Name, fieldTitle, extension.Trim('.'));
                     }
 
                 case SiteMap.EntityLogicalName:
                     {
                         var ent = entity.ToEntity<SiteMap>();
 
-                        return GetSiteMapFileName(connectionName, ent.SiteMapName, ent.Id, fieldTitle, extension);
+                        return GetSiteMapFileName(connectionName, ent.SiteMapName, ent.Id, fieldTitle, extension.Trim('.'));
                     }
 
                 case SdkMessageRequest.EntityLogicalName:
@@ -381,7 +381,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     break;
             }
 
-            return string.Format("{0}.Entity {1} - {2} - {3} at {4}.{5}", connectionName, entity.LogicalName, entity.Id, fieldTitle, GetDateString(), extension);
+            return string.Format("{0}.Entity {1} - {2} - {3} at {4}.{5}", connectionName, entity.LogicalName, entity.Id, fieldTitle, GetDateString(), extension.Trim('.'));
         }
     }
 }

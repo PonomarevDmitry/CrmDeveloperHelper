@@ -67,8 +67,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput("Connect to CRM.");
 
-            this._iWriteToOutput.WriteToOutput("Connection to CRM: {0}", connectionData.GetDescription());
-            this._iWriteToOutput.WriteToOutput("DiscoveryService: {0}", connectionData.DiscoveryUrl);
+            this._iWriteToOutput.WriteToOutput("Connection to CRM:        {0}", connectionData.GetDescription());
+            this._iWriteToOutput.WriteToOutput("DiscoveryService:         {0}", connectionData.DiscoveryUrl);
 
             int count = 0;
 

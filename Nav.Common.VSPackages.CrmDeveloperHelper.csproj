@@ -120,7 +120,6 @@
     <Compile Include="Commands\CodeWebResourceShowDifferenceCustomCommand.cs" />
     <Compile Include="Commands\CodeWebResourceDownloadCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceCommand.cs" />
-    <Compile Include="Commands\CodeReportShowDifferenceCustomCommand.cs" />
     <Compile Include="Commands\CodeReportDownloadCommand.cs" />
     <Compile Include="Commands\CodeWebResourceShowDependentComponentsCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileCommand.cs" />
@@ -130,6 +129,7 @@
     <Compile Include="Commands\CodeCSharpUpdateProxyClassesCommand.cs" />
     <Compile Include="Commands\CodeWebResourceShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeWebResourceShowDifferenceThreeFileCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
     <Compile Include="Commands\CodeXmlConvertFetchXmlToJavaScriptCodeCommand.cs" />
     <Compile Include="Commands\CodeXmlExecuteFetchXmlRequestCommand.cs" />
     <Compile Include="Commands\CommonCheckComponentTypeEnumCommand.cs" />
@@ -143,6 +143,8 @@
     <Compile Include="Commands\CommonCheckPluginImagesRequiredComponentsCommand.cs" />
     <Compile Include="Commands\CommonCheckPluginStepsCommand.cs" />
     <Compile Include="Commands\CommonCheckPluginStepsRequiredComponentsCommand.cs" />
+    <Compile Include="Commands\CommonCheckWorkflowsUsedEntitiesCommand.cs" />
+    <Compile Include="Commands\CommonCheckWorkflowsUsedNotExistsEntitiesCommand.cs" />
     <Compile Include="Commands\CommonConfigCommand.cs" />
     <Compile Include="Commands\CommonCreateAllDependencyNodeDescriptionCommand.cs" />
     <Compile Include="Commands\CommonCrmConnectionTestCommand.cs" />
@@ -175,6 +177,13 @@
     <Compile Include="Commands\CommonSdkMessageRequestTreeCommand.cs" />
     <Compile Include="Commands\CommonSdkMessageTreeCommand.cs" />
     <Compile Include="Commands\CommonSelectCrmConnectionCommand.cs" />
+    <Compile Include="Commands\CommonTraceReaderCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceAddIntoSolutionCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceCheckEncodingCommand.cs" />
@@ -188,10 +197,10 @@
     <Compile Include="Commands\DocumentsReportAddIntoSolutionCommand.cs" />
     <Compile Include="Commands\DocumentsReportAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceShowDependentComponentsCommand.cs" />
-    <Compile Include="Commands\DocumentsWebResourceUpdateContentPublishCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceUpdateContentPublishEqualByTextCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpUpdateGlobalOptionSetsFileCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
     <Compile Include="Commands\FileCSharpPluginAssemblyDescriptionCommand.cs" />
     <Compile Include="Commands\FileCSharpPluginTypeDescriptionCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectCompareToCrmAssemblyCommand.cs" />
@@ -211,6 +220,7 @@
     <Compile Include="Commands\FileWebResourceOpenInWebCommand.cs" />
     <Compile Include="Commands\FileWebResourceShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\FileWebResourceShowDifferenceThreeFileCommand.cs" />
+    <Compile Include="Commands\FileWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
     <Compile Include="Commands\FolderWebResourceAddIntoSolutionCommand.cs" />
     <Compile Include="Commands\FolderWebResourceAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FolderAddPluginConfigurationFileCommand.cs" />
@@ -229,9 +239,11 @@
     <Compile Include="Commands\FolderCSharpUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\FolderCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\AbstractCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
     <Compile Include="Commands\ListForPublishAddIntoSolutionCommand.cs" />
     <Compile Include="Commands\ListForPublishAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\ListForPublishPerformPublishEqualByTextCommand.cs" />
+    <Compile Include="Commands\ListForPublishPerformPublishGroupConnectionCommand.cs" />
     <Compile Include="Commands\MultiDifferenceCommand.cs" />
     <Compile Include="Commands\OpenFilesCommand.cs" />
     <Compile Include="Commands\ProjectCompareToCrmAssemblyInConnectionGroupCommand.cs" />
@@ -327,7 +339,6 @@
     <Compile Include="Commands\ListForPublishFilesAddCommand.cs" />
     <Compile Include="Commands\ListForPublishCompareCommand.cs" />
     <Compile Include="Commands\ListForPublishCompareWithDetailsCommand.cs" />
-    <Compile Include="Commands\ListForPublishPerformPublishCommand.cs" />
     <Compile Include="Commands\ListForPublishFilesRemoveCommand.cs" />
     <Compile Include="Commands\ListForPublishShowListCommand.cs" />
     <Compile Include="Controllers\CheckController.cs" />
@@ -515,6 +526,7 @@
     <Compile Include="Helpers\CreateFormTabsJavaScriptHandler.cs" />
     <Compile Include="Helpers\CreateGlobalOptionSetsFileCSharpHandler.cs" />
     <Compile Include="Helpers\CreateGlobalOptionSetsFileJavaScriptHandler.cs" />
+    <Compile Include="Helpers\CSharpCodeHelper.cs" />
     <Compile Include="Helpers\DependencyDescriptionHandler.cs" />
     <Compile Include="Helpers\DeviceIdManager.cs" />
     <Compile Include="Helpers\DiffMatchPatch.cs" />
@@ -543,6 +555,7 @@
     <Compile Include="Helpers\OrganizationComparer.Security.cs" />
     <Compile Include="Helpers\OrganizationComparer.Templates.cs" />
     <Compile Include="Helpers\OrganizationComparer.Translations.cs" />
+    <Compile Include="Helpers\OrganizationComparerSource.cs" />
     <Compile Include="Helpers\OrganizationCustomizationTransfer.cs" />
     <Compile Include="Helpers\PluginAssemblyDescriptionHandler.cs" />
     <Compile Include="Helpers\PluginConfigurationAssemblyDescriptionHandler.cs" />
@@ -550,6 +563,7 @@
     <Compile Include="Helpers\PluginTypeConfigurationDescriptionHandler.cs" />
     <Compile Include="Helpers\PluginTypeDescriptionHandler.cs" />
     <Compile Include="Helpers\ProgressReporter.cs" />
+    <Compile Include="Helpers\PropertiesHelper.cs" />
     <Compile Include="Helpers\PublishManager.cs" />
     <Compile Include="Helpers\QuickConnection.cs" />
     <Compile Include="Helpers\RegistrerPluginHelper.cs" />
@@ -592,6 +606,7 @@
     <Compile Include="Intellisense\Model\SiteMapIntellisenseData.cs" />
     <Compile Include="Intellisense\UrlCommandFilter.cs" />
     <Compile Include="Intellisense\UrlCommandFilterProvider.cs" />
+    <Compile Include="Interfaces\IOrganizationComparerSource.cs" />
     <Compile Include="Interfaces\IOrganizationServiceExtented.cs" />
     <Compile Include="Model\ActionOpenComponent.cs" />
     <Compile Include="Model\AssemblyMapping.cs" />
@@ -643,6 +658,8 @@
     <Compile Include="Model\ShowComponentsInList.cs" />
     <Compile Include="Model\ShowDifferenceThreeFileType.cs" />
     <Compile Include="Model\SolutionComponentViewItem.cs" />
+    <Compile Include="Model\TraceFile.cs" />
+    <Compile Include="Model\TraceRecord.cs" />
     <Compile Include="Model\Translation.cs" />
     <Compile Include="Model\TranslationDisplayString.cs" />
     <Compile Include="Model\TreeNodeEntity.cs" />
@@ -875,6 +892,9 @@
     <Compile Include="Views\WindowTextField.xaml.cs">
       <DependentUpon>WindowTextField.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowTraceReader.xaml.cs">
+      <DependentUpon>WindowTraceReader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowWebResourceCreate.xaml.cs">
       <DependentUpon>WindowWebResourceCreate.xaml</DependentUpon>
     </Compile>
@@ -893,6 +913,7 @@
     <Resource Include="Resources\SiteMaps\SiteMap.2016.xml" />
     <Resource Include="Resources\SiteMaps\SiteMap.2016SP1.xml" />
     <Resource Include="Resources\SiteMaps\SiteMap.365.8.2.xml" />
+    <Compile Include="Entities\SystemUser.Additional.cs" />
     <None Include="Schemas\Examples\PublishXmlExample.xml" />
     <None Include="packages.config" />
     <Resource Include="Schemas\CustomizationsSolution.xsd">
@@ -1138,6 +1159,9 @@
     <Reference Include="System" />
     <Reference Include="System.Activities" />
     <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.Collections.Immutable, Version=1.1.37.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.1.37\lib\dotnet\System.Collections.Immutable.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.Composition.Registration" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -1150,6 +1174,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Reflection.Metadata, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.1.2.0\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel">
@@ -1168,6 +1195,18 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Ude, Version=0.1.1.0, Culture=neutral, PublicKeyToken=dd537652db4726a9, processorArchitecture=MSIL">
       <HintPath>..\packages\Ude.Signed.0.1.1\lib\net40\Ude.dll</HintPath>
+    </Reference>
+    <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="VSLangProj100, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="VSLangProj80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="VSLangProj90, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -1388,6 +1427,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\WindowTraceReader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\WindowWebResourceCreate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1405,6 +1448,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.VisualStudio.SDK.Analyzers.15.7.11\analyzers\cs\Microsoft.VisualStudio.SDK.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.7.21\analyzers\cs\Microsoft.VisualStudio.Threading.Analyzers.dll" />
   </ItemGroup>

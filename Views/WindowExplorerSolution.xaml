@@ -88,6 +88,10 @@
 
                         <DataGridTextColumn Header="Installed On" Width="150" Binding="{Binding InstalledOn, StringFormat={}{0:dd.MM.yyyy HH:mm:ss}}" />
 
+                        <DataGridTextColumn Header="Publisher Name" Width="200" Binding="{Binding PublisherName}" />
+
+                        <DataGridTextColumn Header="Prefix" Width="70" Binding="{Binding Prefix}" />
+
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>
@@ -118,11 +122,11 @@
                 <Button x:Name="btnClearSolutionComponentFilter" Content="Clear Solution Component Filter" Click="btnClearSolutionComponentFilter_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar x:Name="statusBar" VerticalAlignment="Bottom">
+        <StatusBar VerticalAlignment="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
             <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalContentAlignment="Center" VerticalAlignment="Center" />
-            <StatusBarItem x:Name="tSSLStatusMessage" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>
 </src:WindowBase>

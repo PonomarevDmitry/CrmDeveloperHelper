@@ -272,7 +272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntities(list);
 
-            UpdateStatus(string.Format("{0} optionsets loaded.", list.Count()));
+            UpdateStatus("{0} optionsets loaded.", list.Count());
 
             ToggleControls(true);
         }
@@ -367,11 +367,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -728,8 +735,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service.ConnectionData.Name, filePath);
-
-            var message = string.Empty;
 
             this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 

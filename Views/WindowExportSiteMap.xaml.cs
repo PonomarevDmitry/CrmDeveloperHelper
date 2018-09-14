@@ -18,7 +18,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Resources;
+using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Schema;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -263,16 +266,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus(string.Format("{0} sitemaps loaded.", results.Count()));
+            UpdateStatus("{0} sitemaps loaded.", results.Count());
 
             ToggleControls(true);
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -572,21 +582,78 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     newText = form.FieldText;
                 });
 
-                if (dialogResult.GetValueOrDefault())
+                if (dialogResult.GetValueOrDefault() == false)
                 {
+                    UpdateStatus("Operation canceled.");
+                    return;
+                }
+
+                _iWriteToOutput.WriteToOutput("Validating SiteMapXml...");
+                UpdateStatus("Validating SiteMapXml.");
+
+                if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
+                {
+                    _iWriteToOutput.WriteToOutput("Text is not valid xml.");
+                    UpdateStatus("Operation failed.");
+
+                    _iWriteToOutput.ActivateOutputWindow();
+                    return;
+                }
+
+                XmlSchemaSet schemas = new XmlSchemaSet();
+
+                {
+                    Uri uri = new Uri("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/SiteMap.xsd");
+                    StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                    using (StreamReader reader = new StreamReader(info.Stream))
                     {
-                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
-                        {
-                            newText = doc.ToString(SaveOptions.DisableFormatting);
-                        }
+                        schemas.Add("", XmlReader.Create(reader));
+                    }
+                }
+
+                {
+                    Uri uri = new Uri("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/SiteMapType.xsd");
+                    StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                    using (StreamReader reader = new StreamReader(info.Stream))
+                    {
+                        schemas.Add("", XmlReader.Create(reader));
+                    }
+                }
+
+                List<ValidationEventArgs> errors = new List<ValidationEventArgs>();
+
+                doc.Validate(schemas, (o, e) =>
+                {
+                    errors.Add(e);
+                });
+
+                if (errors.Count > 0)
+                {
+                    _iWriteToOutput.WriteToOutput("SiteMapXml is not valid.");
+
+                    foreach (var item in errors)
+                    {
+                        _iWriteToOutput.WriteToOutput(string.Empty);
+                        _iWriteToOutput.WriteToOutput(string.Empty);
+                        _iWriteToOutput.WriteToOutput("Severity: {0}      Message: {1}", item.Severity, item.Message);
+                        _iWriteToOutput.WriteErrorToOutput(item.Exception);
                     }
 
-                    var updateEntity = new SiteMap();
-                    updateEntity.Id = idSiteMap;
-                    updateEntity.Attributes[fieldName] = newText;
+                    _iWriteToOutput.ActivateOutputWindow();
+                    UpdateStatus("Operation failed.");
 
-                    service.Update(updateEntity);
+                    return;
                 }
+
+                newText = doc.ToString(SaveOptions.DisableFormatting);
+
+                var updateEntity = new SiteMap();
+                updateEntity.Id = idSiteMap;
+                updateEntity.Attributes[fieldName] = newText;
+
+                service.Update(updateEntity);
 
                 UpdateStatus("Operation completed.");
             }

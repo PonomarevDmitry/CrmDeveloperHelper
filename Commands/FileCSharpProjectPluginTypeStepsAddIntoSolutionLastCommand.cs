@@ -1,9 +1,9 @@
-﻿using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 
@@ -78,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        private void menuItemCallback(object sender, EventArgs e)
+        private async void menuItemCallback(object sender, EventArgs e)
         {
             try
             {
@@ -106,14 +106,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         var helper = DTEHelper.Create(applicationObject);
 
-                        var list = helper.GetListSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType)
-                                            .Select(i => GetName(i))
-                                            .Where(s => !string.IsNullOrEmpty(s))
-                                            ;
+                        var list = helper.GetListSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
 
-                        if (list.Any())
+                        var files = new List<string>();
+
+                        foreach (var item in list)
                         {
-                            helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(solutionUniqueName, false, list.ToArray());
+                            var typeNam = await PropertiesHelper.GetTypeFullNameAsync(item);
+
+                            if (!string.IsNullOrEmpty(typeNam))
+                            {
+                                files.Add(typeNam);
+                            }
+                        }
+
+                        if (files.Any())
+                        {
+                            helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(solutionUniqueName, false, files.ToArray());
                         }
                     }
                 }
@@ -122,22 +131,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             {
                 DTEHelper.WriteExceptionToOutput(ex);
             }
-        }
-
-        private static string GetName(SelectedItem item)
-        {
-            string selection = string.Empty;
-
-            if (item.ProjectItem != null && item.ProjectItem.FileCount > 0)
-            {
-                selection = item.ProjectItem.Name.Split('.').FirstOrDefault();
-            }
-            else if (!string.IsNullOrEmpty(item.Name))
-            {
-                selection = item.Name;
-            }
-
-            return selection;
         }
     }
 }

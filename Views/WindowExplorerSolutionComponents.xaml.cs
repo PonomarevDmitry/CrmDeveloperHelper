@@ -418,16 +418,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus(string.Format("{0} solution components loaded.", results.Count()));
+            UpdateStatus("{0} solution components loaded.", results.Count());
 
             ToggleControls(true);
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -1243,6 +1250,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             _service.ConnectionData.AddLastSelectedSolution(_solution.UniqueName);
+
+            _iWriteToOutput.WriteToOutputSolutionUri(_service.ConnectionData.ConnectionId, _solution.UniqueName, _service.ConnectionData.GetSolutionUrl(_solution.Id));
         }
 
         #region Кнопки открытия других форм с информация о сущности.

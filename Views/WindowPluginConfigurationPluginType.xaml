@@ -7,7 +7,7 @@
         Title="Plugin Configuration PluginType Description" Height="538.662" Width="717" WindowStartupLocation="Manual">
     <Grid>
         <Label Content="Loaded File" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFilePath" Height="23" Margin="10,26,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+        <TextBox x:Name="txtBFilePath" Height="23" Margin="10,26,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="10,75,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" />
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top"/>
@@ -47,9 +47,9 @@
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar x:Name="statusBar" Height="24" VerticalAlignment="Bottom">
+        <StatusBar Height="24" VerticalAlignment="Bottom">
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="tSSLStatusMessage" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>
 </src:WindowBase>

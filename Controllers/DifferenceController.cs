@@ -594,13 +594,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Различия отчета и файла.
 
-        public async Task ExecuteDifferenceReport(SelectedFile selectedFile, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceReport(SelectedFile selectedFile, string fieldName, string fieldTitle, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Difference Report at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
-                await DifferenceReport(selectedFile, isCustom, connectionData, commonConfig);
+                await DifferenceReport(selectedFile, fieldName, fieldTitle, isCustom, connectionData, commonConfig);
             }
             catch (Exception xE)
             {
@@ -612,12 +612,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceReport(SelectedFile selectedFile, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task DifferenceReport(SelectedFile selectedFile, string fieldName, string fieldTitle, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             if (connectionData == null)
             {
                 this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
                 return;
+            }
+
+            if (string.IsNullOrEmpty(fieldName))
+            {
+                fieldName = Report.Schema.Attributes.originalbodytext;
+                fieldTitle = "OriginalBodyText";
             }
 
             this._iWriteToOutput.WriteToOutput("Connect to CRM.");
@@ -638,7 +644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (isCustom)
                 {
-                    Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+                    Guid? reportId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
                     bool? dialogResult = null;
                     Guid? selectedReportId = null;
@@ -648,7 +654,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         try
                         {
-                            var form = new Views.WindowReportSelect(this._iWriteToOutput, service, selectedFile, webId);
+                            var form = new Views.WindowReportSelect(this._iWriteToOutput, service, selectedFile, reportId);
 
                             dialogResult = form.ShowDialog();
                             selectedReportId = form.SelectedReportId;
@@ -700,11 +706,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     else
                     {
-                        Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+                        Guid? reportId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
-                        if (webId.HasValue)
+                        if (reportId.HasValue)
                         {
-                            reportEntity = await reportRepository.GetByIdAsync(webId.Value);
+                            reportEntity = await reportRepository.GetByIdAsync(reportId.Value);
                         }
 
                         if (reportEntity != null)
@@ -728,7 +734,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             {
                                 try
                                 {
-                                    var form = new Views.WindowReportSelect(this._iWriteToOutput, service, selectedFile, webId);
+                                    var form = new Views.WindowReportSelect(this._iWriteToOutput, service, selectedFile, reportId);
 
                                     dialogResult = form.ShowDialog();
                                     selectedReportId = form.SelectedReportId;
@@ -771,11 +777,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (reportEntity != null)
                 {
-                    var reportName = reportEntity.Name;
+                    var reportName = EntityFileNameFormatter.GetReportFileName(connectionData.Name, reportEntity.Name, reportEntity.Id, fieldTitle, selectedFile.Extension);
 
-                    string temporaryFilePath = FileOperations.RemoveWrongSymbols(FileOperations.GetNewTempFile(reportName, selectedFile.Extension));
+                    string temporaryFilePath = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(reportName), selectedFile.Extension);
 
-                    var textReport = reportEntity.OriginalBodyText;
+                    var textReport = reportEntity.GetAttributeValue<string>(fieldName);
+
+                    if (ContentCoparerHelper.TryParseXml(textReport, out var doc))
+                    {
+                        textReport = doc.ToString();
+                    }
 
                     File.WriteAllText(temporaryFilePath, textReport, new UTF8Encoding(false));
 
@@ -817,13 +828,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Различия трех файлов отчетов.
 
-        public async Task ExecuteThreeFileDifferenceReport(SelectedFile selectedFile, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
+        public async Task ExecuteThreeFileDifferenceReport(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start {3} Difference Local File, Reports in {1} and {2} at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), connectionData1?.Name, connectionData2?.Name, differenceType);
 
             try
             {
-                await ThreeFileDifferenceReport(selectedFile, connectionData1, connectionData2, differenceType, commonConfig);
+                await ThreeFileDifferenceReport(selectedFile, fieldName, fieldTitle, connectionData1, connectionData2, differenceType, commonConfig);
             }
             catch (Exception xE)
             {
@@ -835,7 +846,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ThreeFileDifferenceReport(SelectedFile selectedFile, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
+        private async Task ThreeFileDifferenceReport(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
         {
             if (connectionData1 == null)
             {
@@ -856,6 +867,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     this._iWriteToOutput.WriteToOutput("File not exists: {0}", selectedFile.FilePath);
                     return;
                 }
+            }
+
+            if (string.IsNullOrEmpty(fieldName))
+            {
+                fieldName = Report.Schema.Attributes.originalbodytext;
+                fieldTitle = "OriginalBodyText";
             }
 
             this._iWriteToOutput.WriteToOutput("Connect to CRM.");
@@ -965,7 +982,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 var textReport = reportEntity1.OriginalBodyText;
 
-                filePath1 = FileOperations.RemoveWrongSymbols(FileOperations.GetNewTempFile(reportEntity1.Name, selectedFile.Extension));
+                if (ContentCoparerHelper.TryParseXml(textReport, out var doc))
+                {
+                    textReport = doc.ToString();
+                }
+
+                var reportName = EntityFileNameFormatter.GetReportFileName(connectionData1.Name, reportEntity1.Name, reportEntity1.Id, fieldTitle, selectedFile.Extension);
+
+                filePath1 = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(reportName), selectedFile.Extension);
                 fileTitle1 = connectionData1.Name + "." + selectedFile.FileName + " - " + filePath1;
 
                 File.WriteAllText(filePath1, textReport, new UTF8Encoding(false));
@@ -975,8 +999,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 var textReport = reportEntity2.OriginalBodyText;
 
-                filePath2 = FileOperations.RemoveWrongSymbols(FileOperations.GetNewTempFile(reportEntity2.Name, selectedFile.Extension));
-                fileTitle1 = connectionData1.Name + "." + selectedFile.FileName + " - " + filePath2;
+                if (ContentCoparerHelper.TryParseXml(textReport, out var doc))
+                {
+                    textReport = doc.ToString();
+                }
+
+                var reportName = EntityFileNameFormatter.GetReportFileName(connectionData2.Name, reportEntity2.Name, reportEntity2.Id, fieldTitle, selectedFile.Extension);
+
+                filePath2 = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(reportName), selectedFile.Extension);
+                fileTitle1 = connectionData2.Name + "." + selectedFile.FileName + " - " + filePath2;
 
                 File.WriteAllText(filePath2, textReport, new UTF8Encoding(false));
             }

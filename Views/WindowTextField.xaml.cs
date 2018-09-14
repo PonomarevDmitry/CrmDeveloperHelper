@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         public string FieldText { get; private set; }
 
-        public WindowTextField(string windowTitle, string labelTitle, string fieldText)
+        public WindowTextField(string windowTitle, string labelTitle, string fieldText, bool isReadOnly = false)
         {
             InitializeComponent();
 
@@ -18,6 +18,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Title = windowTitle;
             lblText.Content = labelTitle;
             txtBFieldText.Text = fieldText;
+
+            if (isReadOnly)
+            {
+                txtBFieldText.IsReadOnly = true;
+                txtBFieldText.IsReadOnlyCaretVisible = true;
+
+                btnOk.Visibility = Visibility.Collapsed;
+                btnOk.IsEnabled = false;
+
+                btnCancel.Content = "Close";
+            }
 
             txtBFieldText.Focus();
         }

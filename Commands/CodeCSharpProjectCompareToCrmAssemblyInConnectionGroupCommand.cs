@@ -62,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     {
                         var connectionData = list[index];
 
-                        menuCommand.Text = connectionData.Name;
+                        menuCommand.Text = connectionData.NameWithCurrentMark;
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
@@ -108,12 +108,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
 
-                    if (document != null)
+                    if (document != null
+                        && document.ProjectItem != null
+                        && document.ProjectItem.ContainingProject != null
+                        )
                     {
-                        if (document.ProjectItem != null && document.ProjectItem.ContainingProject != null)
-                        {
-                            helper.HandleComparingPluginAssemblyAndLocalAssemblyCommand(connectionData, document.ProjectItem.ContainingProject);
-                        }
+                        helper.HandleComparingPluginAssemblyAndLocalAssemblyCommand(connectionData, document.ProjectItem.ContainingProject);
                     }
                 }
             }

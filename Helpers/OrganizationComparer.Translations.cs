@@ -21,25 +21,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking Display Strings started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var list1 = await new DisplayStringRepository(_service1).GetListAsync();
+            var task1 = _comparerSource.GetDisplayString1Async();
+            var task2 = _comparerSource.GetDisplayString2Async();
+            var taskMap1 = _comparerSource.GetDisplayStringMap1Async();
+            var taskMap2 = _comparerSource.GetDisplayStringMap2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Display Strings in {0}: {1}", Connection1.Name, list1.Count()));
+            var list1 = await task1;
 
-            var list2 = await new DisplayStringRepository(_service2).GetListAsync();
+            content.AppendLine(_writeToOutput.WriteToOutput("Display Strings in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Display Strings in {0}: {1}", Connection2.Name, list2.Count()));
+            var list2 = await task2;
 
-            var listMap1 = await new DisplayStringMapRepository(_service1).GetListAsync();
+            content.AppendLine(_writeToOutput.WriteToOutput("Display Strings in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Display Strings Maps in {0}: {1}", Connection1.Name, listMap1.Count()));
+            var listMap1 = await taskMap1;
 
-            var listMap2 = await new DisplayStringMapRepository(_service2).GetListAsync();
+            content.AppendLine(_writeToOutput.WriteToOutput("Display Strings Maps in {0}: {1}", _comparerSource.Connection1.Name, listMap1.Count()));
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Display Strings Maps in {0}: {1}", Connection1.Name, listMap2.Count()));
+            var listMap2 = await taskMap2;
+
+            content.AppendLine(_writeToOutput.WriteToOutput("Display Strings Maps in {0}: {1}", _comparerSource.Connection1.Name, listMap2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Key", "LanguageCode", "Published", "Custom", "CustomComment", "FormatParameters");
@@ -131,8 +136,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (temp1.SequenceEqual(temp2))
                 {
-                    tabDiff.AddLine("DisplayStringMap", Connection1.Name, "Differs");
-                    tabDiff.AddLine("DisplayStringMap", Connection2.Name, "Differs");
+                    tabDiff.AddLine("DisplayStringMap", _comparerSource.Connection1.Name, "Differs");
+                    tabDiff.AddLine("DisplayStringMap", _comparerSource.Connection2.Name, "Differs");
                 }
 
                 List<string> fieldsToCompare = new List<string>()
@@ -147,11 +152,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (ContentCoparerHelper.IsEntityDifferentInField(displayString1, displayString2, fieldName))
                     {
-                        var str1 = EntityDescriptionHandler.GetAttributeString(displayString1, fieldName, _service1.ConnectionData);
-                        var str2 = EntityDescriptionHandler.GetAttributeString(displayString2, fieldName, _service2.ConnectionData);
+                        var str1 = EntityDescriptionHandler.GetAttributeString(displayString1, fieldName, _comparerSource.Connection1);
+                        var str2 = EntityDescriptionHandler.GetAttributeString(displayString2, fieldName, _comparerSource.Connection2);
 
-                        tabDiff.AddLine(fieldName, Connection1.Name, str1);
-                        tabDiff.AddLine(fieldName, Connection2.Name, str2);
+                        tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
+                        tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
                     }
                 }
 
@@ -171,7 +176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Display Strings ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("Display Strings ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -186,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Display Strings ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("Display Strings ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -201,7 +206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Display Strings DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("Display Strings DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
 
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("Key", "LanguageCode");
@@ -255,24 +260,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking Default Translations started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var translation1 = await TranslationRepository.GetDefaultTranslationFromCacheAsync(Connection1.ConnectionId, _service1);
+            var translation1 = await TranslationRepository.GetDefaultTranslationFromCacheAsync(_comparerSource.Connection1.ConnectionId, _comparerSource.Service1);
 
             if (translation1 != null)
             {
-                content.AppendLine(_writeToOutput.WriteToOutput("Display Strings in {0}: {1}", Connection1.Name, translation1.DisplayStrings.Count()));
-                content.AppendLine(_writeToOutput.WriteToOutput("Localized Labels in {0}: {1}", Connection1.Name, translation1.LocalizedLabels.Count()));
+                content.AppendLine(_writeToOutput.WriteToOutput("Display Strings in {0}: {1}", _comparerSource.Connection1.Name, translation1.DisplayStrings.Count()));
+                content.AppendLine(_writeToOutput.WriteToOutput("Localized Labels in {0}: {1}", _comparerSource.Connection1.Name, translation1.LocalizedLabels.Count()));
             }
 
-            var translation2 = await TranslationRepository.GetDefaultTranslationFromCacheAsync(Connection2.ConnectionId, _service2);
+            var translation2 = await TranslationRepository.GetDefaultTranslationFromCacheAsync(_comparerSource.Connection2.ConnectionId, _comparerSource.Service2);
 
             if (translation2 != null)
             {
-                content.AppendLine(_writeToOutput.WriteToOutput("Display Strings in {0}: {1}", Connection2.Name, translation2.DisplayStrings.Count()));
-                content.AppendLine(_writeToOutput.WriteToOutput("Localized Labels in {0}: {1}", Connection2.Name, translation2.LocalizedLabels.Count()));
+                content.AppendLine(_writeToOutput.WriteToOutput("Display Strings in {0}: {1}", _comparerSource.Connection2.Name, translation2.DisplayStrings.Count()));
+                content.AppendLine(_writeToOutput.WriteToOutput("Localized Labels in {0}: {1}", _comparerSource.Connection2.Name, translation2.LocalizedLabels.Count()));
             }
 
             if (translation1 != null && translation2 != null)
@@ -304,32 +309,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking Field Translations started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var translation1 = await TranslationRepository.GetFieldTranslationFromCacheAsync(Connection1.ConnectionId, _service1);
+            var translation1 = await TranslationRepository.GetFieldTranslationFromCacheAsync(_comparerSource.Connection1.ConnectionId, _comparerSource.Service1);
 
             if (translation1 != null)
             {
-                content.AppendLine(_writeToOutput.WriteToOutput("Display Strings in {0}: {1}", Connection1.Name, translation1.DisplayStrings.Count()));
-                content.AppendLine(_writeToOutput.WriteToOutput("Localized Labels in {0}: {1}", Connection1.Name, translation1.LocalizedLabels.Count()));
+                content.AppendLine(_writeToOutput.WriteToOutput("Display Strings in {0}: {1}", _comparerSource.Connection1.Name, translation1.DisplayStrings.Count()));
+                content.AppendLine(_writeToOutput.WriteToOutput("Localized Labels in {0}: {1}", _comparerSource.Connection1.Name, translation1.LocalizedLabels.Count()));
             }
             else
             {
-                content.AppendLine(_writeToOutput.WriteToOutput("Field Translations not finded in {0}: {1}", Connection1.Name));
+                content.AppendLine(_writeToOutput.WriteToOutput("Field Translations not finded in {0}", _comparerSource.Connection1.Name));
             }
 
-            var translation2 = await TranslationRepository.GetFieldTranslationFromCacheAsync(Connection2.ConnectionId, _service2);
+            var translation2 = await TranslationRepository.GetFieldTranslationFromCacheAsync(_comparerSource.Connection2.ConnectionId, _comparerSource.Service2);
 
             if (translation2 != null)
             {
-                content.AppendLine(_writeToOutput.WriteToOutput("Display Strings in {0}: {1}", Connection2.Name, translation2.DisplayStrings.Count()));
-                content.AppendLine(_writeToOutput.WriteToOutput("Localized Labels in {0}: {1}", Connection2.Name, translation2.LocalizedLabels.Count()));
+                content.AppendLine(_writeToOutput.WriteToOutput("Display Strings in {0}: {1}", _comparerSource.Connection2.Name, translation2.DisplayStrings.Count()));
+                content.AppendLine(_writeToOutput.WriteToOutput("Localized Labels in {0}: {1}", _comparerSource.Connection2.Name, translation2.LocalizedLabels.Count()));
             }
             else
             {
-                content.AppendLine(_writeToOutput.WriteToOutput("Field Translations not finded in {0}: {1}", Connection2.Name));
+                content.AppendLine(_writeToOutput.WriteToOutput("Field Translations not finded in {0}", _comparerSource.Connection2.Name));
             }
 
             if (translation1 != null && translation2 != null)
@@ -420,18 +425,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         foreach (var item in diff.LabelsOnlyIn1)
                         {
-                            displayStringsDifference.AddLine(displayString1.EntityName, displayString1.StringKey, LanguageLocale.GetLocaleName(item.LanguageCode), Connection1.Name, item.Value);
+                            displayStringsDifference.AddLine(displayString1.EntityName, displayString1.StringKey, LanguageLocale.GetLocaleName(item.LanguageCode), _comparerSource.Connection1.Name, item.Value);
                         }
 
                         foreach (var item in diff.LabelsOnlyIn2)
                         {
-                            displayStringsDifference.AddLine(displayString1.EntityName, displayString1.StringKey, LanguageLocale.GetLocaleName(item.LanguageCode), Connection2.Name, item.Value);
+                            displayStringsDifference.AddLine(displayString1.EntityName, displayString1.StringKey, LanguageLocale.GetLocaleName(item.LanguageCode), _comparerSource.Connection2.Name, item.Value);
                         }
 
                         foreach (var item in diff.LabelDifference)
                         {
-                            displayStringsDifference.AddLine(displayString1.EntityName, displayString1.StringKey, LanguageLocale.GetLocaleName(item.LanguageCode), Connection1.Name, item.Value1);
-                            displayStringsDifference.AddLine(displayString1.EntityName, displayString1.StringKey, LanguageLocale.GetLocaleName(item.LanguageCode), Connection2.Name, item.Value2);
+                            displayStringsDifference.AddLine(displayString1.EntityName, displayString1.StringKey, LanguageLocale.GetLocaleName(item.LanguageCode), _comparerSource.Connection1.Name, item.Value1);
+                            displayStringsDifference.AddLine(displayString1.EntityName, displayString1.StringKey, LanguageLocale.GetLocaleName(item.LanguageCode), _comparerSource.Connection2.Name, item.Value2);
                         }
                     }
                 }
@@ -446,7 +451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                    content.AppendLine().AppendLine().AppendFormat("Display Strings ONLY EXISTS in {0}: {1}", Connection1.Name, displayStringsOnlyExistsIn1.Count);
+                    content.AppendLine().AppendLine().AppendFormat("Display Strings ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, displayStringsOnlyExistsIn1.Count);
 
                     displayStringsOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
                 }
@@ -461,7 +466,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                    content.AppendLine().AppendLine().AppendFormat("Display Strings ONLY EXISTS in {0}: {1}", Connection2.Name, displayStringsOnlyExistsIn2.Count);
+                    content.AppendLine().AppendLine().AppendFormat("Display Strings ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, displayStringsOnlyExistsIn2.Count);
 
                     displayStringsOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
                 }
@@ -476,7 +481,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                    content.AppendLine().AppendLine().AppendFormat("Display Strings DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, displayStringsDifference.Count);
+                    content.AppendLine().AppendLine().AppendFormat("Display Strings DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, displayStringsDifference.Count);
 
                     displayStringsDifference.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()).AppendLine());
                 }
@@ -561,18 +566,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         foreach (var item in diff.LabelsOnlyIn1)
                         {
-                            localizedLabelsDifference.AddLine(locLabel1.EntityName, locLabel1.ObjectId.ToString(), locLabel1.ColumnName, LanguageLocale.GetLocaleName(item.LanguageCode), Connection1.Name, item.Value);
+                            localizedLabelsDifference.AddLine(locLabel1.EntityName, locLabel1.ObjectId.ToString(), locLabel1.ColumnName, LanguageLocale.GetLocaleName(item.LanguageCode), _comparerSource.Connection1.Name, item.Value);
                         }
 
                         foreach (var item in diff.LabelsOnlyIn2)
                         {
-                            localizedLabelsDifference.AddLine(locLabel1.EntityName, locLabel1.ObjectId.ToString(), locLabel1.ColumnName, LanguageLocale.GetLocaleName(item.LanguageCode), Connection2.Name, item.Value);
+                            localizedLabelsDifference.AddLine(locLabel1.EntityName, locLabel1.ObjectId.ToString(), locLabel1.ColumnName, LanguageLocale.GetLocaleName(item.LanguageCode), _comparerSource.Connection2.Name, item.Value);
                         }
 
                         foreach (var item in diff.LabelDifference)
                         {
-                            localizedLabelsDifference.AddLine(locLabel1.EntityName, locLabel1.ObjectId.ToString(), locLabel1.ColumnName, LanguageLocale.GetLocaleName(item.LanguageCode), Connection1.Name, item.Value1);
-                            localizedLabelsDifference.AddLine(locLabel1.EntityName, locLabel1.ObjectId.ToString(), locLabel1.ColumnName, LanguageLocale.GetLocaleName(item.LanguageCode), Connection2.Name, item.Value2);
+                            localizedLabelsDifference.AddLine(locLabel1.EntityName, locLabel1.ObjectId.ToString(), locLabel1.ColumnName, LanguageLocale.GetLocaleName(item.LanguageCode), _comparerSource.Connection1.Name, item.Value1);
+                            localizedLabelsDifference.AddLine(locLabel1.EntityName, locLabel1.ObjectId.ToString(), locLabel1.ColumnName, LanguageLocale.GetLocaleName(item.LanguageCode), _comparerSource.Connection2.Name, item.Value2);
                         }
                     }
                 }
@@ -587,7 +592,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                    content.AppendLine().AppendLine().AppendFormat("Localized Labels ONLY EXISTS in {0}: {1}", Connection1.Name, localizedLabelsOnlyExistsIn1.Count);
+                    content.AppendLine().AppendLine().AppendFormat("Localized Labels ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, localizedLabelsOnlyExistsIn1.Count);
 
                     localizedLabelsOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
                 }
@@ -602,7 +607,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                    content.AppendLine().AppendLine().AppendFormat("Localized Labels ONLY EXISTS in {0}: {1}", Connection2.Name, localizedLabelsOnlyExistsIn2.Count);
+                    content.AppendLine().AppendLine().AppendFormat("Localized Labels ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, localizedLabelsOnlyExistsIn2.Count);
 
                     localizedLabelsOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
                 }
@@ -617,7 +622,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                    content.AppendLine().AppendLine().AppendFormat("Localized Labels DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, localizedLabelsDifference.Count);
+                    content.AppendLine().AppendLine().AppendFormat("Localized Labels DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, localizedLabelsDifference.Count);
 
                     localizedLabelsDifference.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()).AppendLine());
                 }

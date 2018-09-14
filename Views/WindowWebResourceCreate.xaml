@@ -4,7 +4,7 @@
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         Title="Create Web Resource" Height="535" Width="540" WindowStartupLocation="Manual">
     <Grid>
-        <TextBox x:Name="txtBFilePath" Height="23" Margin="10,10,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFilePath" Height="23" Margin="10,10,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" VerticalContentAlignment="Center"/>
         <Label Content="Web Resource Name" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtBName" Height="23" Margin="10,59,10,0" TextWrapping="Wrap"  VerticalAlignment="Top"  TextChanged="txtBName_TextChanged" VerticalContentAlignment="Center"/>
         <Label Content="Display Name" HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top"/>
@@ -12,9 +12,9 @@
         <Label Content="Web Resource Final Name" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
         <TextBox x:Name="txtBFinalName" Height="26" Margin="164,136,10,0" TextWrapping="Wrap"  VerticalAlignment="Top"  IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" VerticalContentAlignment="Center"/>
         <Label Content="Solution Name" HorizontalAlignment="Left" Margin="10,167,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBSolutionName" Height="26" Margin="164,167,10,0" TextWrapping="Wrap"  VerticalAlignment="Top"  IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBSolutionName" Height="26" Margin="164,167,10,0" TextWrapping="Wrap"  VerticalAlignment="Top"  IsReadOnlyCaretVisible="True" IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" VerticalContentAlignment="Center"/>
         <Label Content="Publisher Prefix" HorizontalAlignment="Left" Margin="10,198,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBPublisherPrefix" Height="26" Margin="164,198,10,0" TextWrapping="Wrap"  VerticalAlignment="Top"  IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBPublisherPrefix" Height="26" Margin="164,198,10,0" TextWrapping="Wrap"  VerticalAlignment="Top"  IsReadOnlyCaretVisible="True" IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" VerticalContentAlignment="Center"/>
         <Label Content="Web Resource Description" HorizontalAlignment="Left" Margin="10,224,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtBDescription" Margin="10,250,10,35" TextWrapping="Wrap"  AcceptsReturn="True" AutoWordSelection="True" />
         <Button x:Name="btnCreate" Content="Create" Margin="0,0,127,10" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89" Click="btnCreate_Click"/>

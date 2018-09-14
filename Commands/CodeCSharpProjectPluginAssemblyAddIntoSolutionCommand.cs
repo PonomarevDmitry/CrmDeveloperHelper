@@ -29,12 +29,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
 
-            if (document != null)
+            if (document != null
+                && document.ProjectItem != null 
+                && document.ProjectItem.ContainingProject != null
+                )
             {
-                if (document.ProjectItem != null && document.ProjectItem.ContainingProject != null)
-                {
-                    helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, true, document.ProjectItem.ContainingProject.Name);
-                }
+                helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, true, document.ProjectItem.ContainingProject.Name);
             }
         }
     }

@@ -14,7 +14,7 @@
         <BitmapImage x:Key="ImageFolder" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_folder.ico" />
     </src:WindowBase.Resources>
     <Grid>
-        <TextBox x:Name="txtBCurrentFile" Height="49" Margin="10,10,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+        <TextBox x:Name="txtBCurrentFile" Height="49" Margin="10,10,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
         <TextBox x:Name="txtBFilter" Height="26" Margin="58,64,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
         <TreeView x:Name="trVWebResources" Margin="10,95,10,93" SelectedItemChanged="trVWebResources_SelectedItemChanged" MouseDoubleClick="trVWebResources_MouseDoubleClick">
@@ -40,7 +40,7 @@
             </TreeView.ItemContainerStyle>
         </TreeView>
         <Label x:Name="lblLastLink" Content="Last Link" HorizontalAlignment="Left" Margin="10,0,0,62" VerticalAlignment="Bottom" IsEnabled="False" Visibility="Collapsed" />
-        <TextBox x:Name="txtBLastLink" Height="26" Margin="71,0,10,62" TextWrapping="Wrap"  VerticalAlignment="Bottom" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" IsEnabled="False" Visibility="Collapsed" />
+        <TextBox x:Name="txtBLastLink" Height="26" Margin="71,0,10,62" TextWrapping="Wrap"  VerticalAlignment="Bottom" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" IsEnabled="False" Visibility="Collapsed" />
         <ToolBar x:Name="toolStrip" Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
@@ -66,10 +66,10 @@
                 <Button x:Name="btnSkipFile" Content="Skip File" HorizontalContentAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Visibility="Collapsed" Click="btnSkipFile_Click"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar x:Name="statusBar" Height="24" VerticalAlignment="Bottom">
+        <StatusBar Height="24" VerticalAlignment="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="tSSLStatusMessage" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>
 </src:WindowBase>

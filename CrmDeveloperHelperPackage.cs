@@ -61,6 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceLinkCreateCommand.Initialize(this);
             CodeWebResourceShowDependentComponentsCommand.Initialize(this);
             CodeWebResourceUpdateContentPublishCommand.Initialize(this);
+            CodeWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(this);
             CodeWebResourceAddIntoSolutionCommand.Initialize(this);
             CodeWebResourceAddIntoSolutionLastCommand.Initialize(this);
 
@@ -74,7 +75,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeReportLinkCreateCommand.Initialize(this);
             CodeReportUpdateCommand.Initialize(this);
             CodeReportShowDifferenceCommand.Initialize(this);
-            CodeReportShowDifferenceCustomCommand.Initialize(this);
             CodeReportShowDifferenceInConnectionGroupCommand.Initialize(this);
             CodeReportShowDifferenceThreeFileCommand.Initialize(this);
             CodeReportDownloadCommand.Initialize(this);
@@ -119,6 +119,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceShowDifferenceThreeFileCommand.Initialize(this);
             FileWebResourceUpdateContentPublishCommand.Initialize(this);
             FileWebResourceUpdateContentPublishEqualByTextCommand.Initialize(this);
+            FileWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(this);
             FileWebResourceAddIntoSolutionCommand.Initialize(this);
             FileWebResourceAddIntoSolutionLastCommand.Initialize(this);
 
@@ -156,15 +157,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             DocumentsWebResouceLinkClearCommand.Initialize(this);
             DocumentsWebResouceLinkCreateCommand.Initialize(this);
             DocumentsWebResourceShowDependentComponentsCommand.Initialize(this);
-            DocumentsWebResourceUpdateContentPublishCommand.Initialize(this);
             DocumentsWebResourceUpdateContentPublishEqualByTextCommand.Initialize(this);
+            DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(this);
             DocumentsWebResourceAddIntoSolutionCommand.Initialize(this);
             DocumentsWebResourceAddIntoSolutionLastCommand.Initialize(this);
             DocumentsReportLinkClearCommand.Initialize(this);
             DocumentsReportAddIntoSolutionCommand.Initialize(this);
             DocumentsReportAddIntoSolutionLastCommand.Initialize(this);
+
             DocumentsCSharpUpdateEntityMetadataFileCommand.Initialize(this);
             DocumentsCSharpUpdateGlobalOptionSetsFileCommand.Initialize(this);
+            DocumentsCSharpProjectPluginAssemblyAddIntoSolutionCommand.Initialize(this);
+            DocumentsCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.Initialize(this);
+            DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand.Initialize(this);
+            DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.Initialize(this);
+            DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionCommand.Initialize(this);
+            DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.Initialize(this);
 
 
 
@@ -187,6 +195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderWebResourceShowDependentComponentsCommand.Initialize(this);
             FolderWebResourceUpdateContentPublishCommand.Initialize(this);
             FolderWebResourceUpdateContentPublishEqualByTextCommand.Initialize(this);
+            FolderWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(this);
             FolderWebResourceAddIntoSolutionCommand.Initialize(this);
             FolderWebResourceAddIntoSolutionLastCommand.Initialize(this);
             FolderCSharpUpdateEntityMetadataFileCommand.Initialize(this);
@@ -209,8 +218,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ListForPublishCompareWithDetailsCommand.Initialize(this);
             ListForPublishFilesAddCommand.Initialize(this);
             ListForPublishFilesRemoveCommand.Initialize(this);
-            ListForPublishPerformPublishCommand.Initialize(this);
             ListForPublishPerformPublishEqualByTextCommand.Initialize(this);
+            ListForPublishPerformPublishGroupConnectionCommand.Initialize(this);
             ListForPublishShowListCommand.Initialize(this);
             ListForPublishAddIntoSolutionCommand.Initialize(this);
             ListForPublishAddIntoSolutionLastCommand.Initialize(this);
@@ -220,6 +229,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonCheckEntitiesNamesAndShowDependentComponentsCommand.Initialize(this);
             CommonCheckEntitiesNamesCommand.Initialize(this);
             CommonCheckEntitiesOwnerShipsCommand.Initialize(this);
+            CommonCheckWorkflowsUsedEntitiesCommand.Initialize(this);
+            CommonCheckWorkflowsUsedNotExistsEntitiesCommand.Initialize(this);
             CommonCheckGlobalOptionSetDuplicateCommand.Initialize(this);
             CommonCheckManagedElementsCommand.Initialize(this);
             CommonCheckMarkedToDeleteAndShowDependentComponentsCommand.Initialize(this);
@@ -256,6 +267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonFindEntityObjectsByIdCommand.Initialize(this);
             CommonFindEntityObjectsByUniqueidentifierCommand.Initialize(this);
             CommonOrganizationComparerCommand.Initialize(this);
+            CommonTraceReaderCommand.Initialize(this);
             CommonPluginConfigurationComparerPluginAssemblyCommand.Initialize(this);
             CommonPluginConfigurationCreateCommand.Initialize(this);
             CommonPluginConfigurationPluginAssemblyCommand.Initialize(this);
@@ -301,47 +313,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             {
                 paneForFileAndConnection.Execute();
 
-                ErrorHandler.ThrowOnFailure((paneForFileAndConnection.Frame as IVsWindowFrame).Show());
+                (paneForFileAndConnection.Frame as IVsWindowFrame).Show();
             }
         }
 
+        private const int countPanes = 100;
+
         private FetchXmlExecutorToolWindowPane FindOrCreateFetchXmlExecutorToolWindowPane(string filePath, ConnectionData connectionData)
         {
-            FetchXmlExecutorToolWindowPane paneForFileAndConnection = null;
-
-            int num = 0;
+            int? num = null;
 
             List<FetchXmlExecutorToolWindowPane> panes = new List<FetchXmlExecutorToolWindowPane>();
 
-            while (true)
+            for (int i = 0; i < countPanes; i++)
             {
-                var pane = FindToolWindow(typeof(FetchXmlExecutorToolWindowPane), num, false) as FetchXmlExecutorToolWindowPane;
+                var pane = FindToolWindow(typeof(FetchXmlExecutorToolWindowPane), i, false) as FetchXmlExecutorToolWindowPane;
 
                 if (pane == null)
                 {
-                    break;
+                    if (!num.HasValue)
+                    {
+                        num = i;
+                    }
+
+                    continue;
                 }
 
                 if (pane.Frame != null)
                 {
-                    panes.Add(pane);
+                    if (string.Equals(pane.FilePath, filePath, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        return pane;
+                    }
                 }
-
-                num++;
             }
 
+            if (num.HasValue)
             {
-                paneForFileAndConnection = panes.FirstOrDefault(p => string.Equals(p.FilePath, filePath, StringComparison.InvariantCultureIgnoreCase) && p.ConnectionId == connectionData.ConnectionId);
+                FetchXmlExecutorToolWindowPane paneForFileAndConnection = FindToolWindow(typeof(FetchXmlExecutorToolWindowPane), num.Value, true) as FetchXmlExecutorToolWindowPane;
 
-                if (paneForFileAndConnection == null)
-                {
-                    paneForFileAndConnection = FindToolWindow(typeof(FetchXmlExecutorToolWindowPane), num, true) as FetchXmlExecutorToolWindowPane;
+                paneForFileAndConnection.SetSource(filePath, connectionData);
 
-                    paneForFileAndConnection.SetSource(filePath, connectionData);
-                }
+                return paneForFileAndConnection;
             }
 
-            return paneForFileAndConnection;
+            return null;
         }
 
         #endregion

@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -108,12 +109,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBGroupBy.DataContext = _commonConfig;
 
             cmBFilter.DataContext = cmBCurrentConnection;
+
+            cmBFilter.Text = (cmBCurrentConnection.SelectedItem as ConnectionData)?.ExplorerSolutionFilter;
         }
 
         protected override void OnClosed(EventArgs e)
         {
             _commonConfig.Save();
             _connectionConfig.Save();
+
+            cmBCurrentConnection.DataContext = null;
+            cmBFilter.DataContext = null;
 
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
             BindingOperations.ClearAllBindings(cmBFilter);
@@ -220,33 +226,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSolutions(list);
 
-            UpdateStatus(string.Format("{0} solutions loaded.", list.Count()));
+            UpdateStatus("{0} solutions loaded.", list.Count());
 
             ToggleControls(true);
         }
 
         private class EntityViewItem
         {
-            public string SolutionName { get; private set; }
-
-            public string DisplayName { get; private set; }
-
-            public string SolutionType { get; private set; }
-
-            public string Visible { get; private set; }
-
-            public DateTime? InstalledOn { get; private set; }
-
             public Solution Solution { get; private set; }
 
-            public EntityViewItem(string solutionName, string displayName, string solutionType, string visible, DateTime? installedOn, Solution Solution)
+            public string SolutionName => Solution.UniqueName;
+
+            public string DisplayName => Solution.FriendlyName;
+
+            public string SolutionType => Solution.FormattedValues[Solution.Schema.Attributes.ismanaged];
+
+            public string Visible => Solution.FormattedValues[Solution.Schema.Attributes.isvisible];
+
+            public DateTime? InstalledOn => Solution.InstalledOn?.ToLocalTime();
+
+            public string PublisherName => Solution.PublisherId?.Name;
+
+            public string Prefix => Solution.PublisherCustomizationPrefix;
+
+            public EntityViewItem(Solution Solution)
             {
-                this.SolutionName = solutionName;
-                this.DisplayName = displayName;
-                this.SolutionType = solutionType;
-                this.Visible = visible;
                 this.Solution = Solution;
-                this.InstalledOn = installedOn;
             }
         }
 
@@ -256,14 +261,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var entity in results.OrderByDescending(ent => ent.InstalledOn).ThenBy(ent => ent.UniqueName))
                 {
-                    var item = new EntityViewItem(
-                        entity.UniqueName
-                        , entity.FriendlyName
-                        , entity.FormattedValues[Solution.Schema.Attributes.ismanaged]
-                        , entity.FormattedValues[Solution.Schema.Attributes.isvisible]
-                        , entity.InstalledOn?.ToLocalTime()
-                        , entity
-                        );
+                    var item = new EntityViewItem(entity);
 
                     this._itemsSource.Add(item);
                 }
@@ -275,11 +273,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -745,6 +750,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         var text = cmBFilter.Text;
 
                         connectionData.AddLastSelectedSolution(solution.UniqueName);
+
+                        _iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
 
                         cmBFilter.Text = text;
                     }
@@ -1631,7 +1638,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await workflowDescriptor.CreateFileWithUsedEntitiesInSolutionWorkflowsAsync(filePath, solution.Id);
+                var stringBuider = new StringBuilder();
+
+                await workflowDescriptor.GetDescriptionWithUsedEntitiesInSolutionWorkflowsAsync(stringBuider, solution.Id);
+
+                File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("Solution Used Entities was export into file '{0}'", filePath);
 
@@ -1672,7 +1683,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await workflowDescriptor.CreateFileWithUsedNotExistsEntitiesInSolutionWorkflowsAsync(filePath, solution.Id);
+                var stringBuider = new StringBuilder();
+
+                await workflowDescriptor.GetDescriptionWithUsedNotExistsEntitiesInSolutionWorkflowsAsync(stringBuider, solution.Id);
+
+                File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput("Solution Used Not Exists Entities was export into file '{0}'", filePath);
 

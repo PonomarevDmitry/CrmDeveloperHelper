@@ -19,9 +19,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
     {
         internal const int CountConnectionToQuickList = 40;
 
-        internal const int CountLastSolutions = 10;
+        internal const int CountLastSolutions = 15;
 
-        internal const int CountLastItems = 20;
+        private const int CountLastItems = 20;
 
         private object _syncObjectAttributes = new object();
 
@@ -110,6 +110,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.OnPropertyChanged(nameof(Name));
             }
         }
+
+        public string NameWithCurrentMark => Name + (this.IsCurrentConnection ? " (Current)" : string.Empty);
 
         private string _GroupName;
         /// <summary>
@@ -861,6 +863,67 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private string _TraceReaderFilter;
+        [DataMember]
+        public string TraceReaderFilter
+        {
+            get
+            {
+                return _TraceReaderFilter;
+            }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.Trim();
+                }
+
+                if (_TraceReaderFilter == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(TraceReaderFilter));
+                this._TraceReaderFilter = value;
+                this.OnPropertyChanged(nameof(TraceReaderFilter));
+            }
+        }
+
+        private string _TraceReaderFolder;
+        [DataMember]
+        public string TraceReaderFolder
+        {
+            get
+            {
+                return _TraceReaderFolder;
+            }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.Trim();
+                }
+
+                if (_TraceReaderFolder == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(TraceReaderFolder));
+                this._TraceReaderFolder = value;
+                this.OnPropertyChanged(nameof(TraceReaderFolder));
+            }
+        }
+
+        [DataMember]
+        public ObservableCollection<string> TraceReaderLastFilters { get; private set; }
+
+        [DataMember]
+        public ObservableCollection<string> TraceReaderLastFolders { get; private set; }
+
+        [DataMember]
+        public ObservableCollection<string> TraceReaderSelectedFolders { get; private set; }
+
         private Guid? _UserId;
         [DataMember]
         public Guid? UserId
@@ -950,6 +1013,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.LastExportSolutionOverrideVersion = new ObservableCollection<string>();
             this.FetchXmlRequestParameterList = new ObservableCollection<FetchXmlRequestParameter>();
 
+            this.TraceReaderLastFilters = new ObservableCollection<string>();
+            this.TraceReaderLastFolders = new ObservableCollection<string>();
+            this.TraceReaderSelectedFolders = new ObservableCollection<string>();
+
             this.NameSpaceClasses = nameof(NameSpaceClasses);
             this.NameSpaceOptionSets = nameof(NameSpaceOptionSets);
             this.ServiceContextName = "XrmServiceContext";
@@ -1017,6 +1084,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             if (this.FetchXmlRequestParameterList == null)
             {
                 this.FetchXmlRequestParameterList = new ObservableCollection<FetchXmlRequestParameter>();
+            }
+
+            if (this.TraceReaderLastFilters == null)
+            {
+                this.TraceReaderLastFilters = new ObservableCollection<string>();
+            }
+
+            if (this.TraceReaderLastFolders == null)
+            {
+                this.TraceReaderLastFolders = new ObservableCollection<string>();
+            }
+
+            if (this.TraceReaderSelectedFolders == null)
+            {
+                this.TraceReaderSelectedFolders = new ObservableCollection<string>();
             }
         }
 
@@ -1094,6 +1176,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 while (this.LastSelectedSolutionsUniqueName.Count > CountLastSolutions)
                 {
                     this.LastSelectedSolutionsUniqueName.RemoveAt(this.LastSelectedSolutionsUniqueName.Count - 1);
+                }
+            }
+        }
+
+        public void AddTraceFilter(string filter)
+        {
+            if (string.IsNullOrEmpty(filter))
+            {
+                return;
+            }
+
+            if (this.TraceReaderLastFilters.Contains(filter))
+            {
+                this.TraceReaderLastFilters.Move(TraceReaderLastFilters.IndexOf(filter), 0);
+            }
+            else
+            {
+                this.TraceReaderLastFilters.Insert(0, filter);
+
+                while (this.TraceReaderLastFilters.Count > CountLastItems)
+                {
+                    this.TraceReaderLastFilters.RemoveAt(this.TraceReaderLastFilters.Count - 1);
+                }
+            }
+        }
+
+        public void AddTraceLastFolder(string folder)
+        {
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+
+            if (this.TraceReaderLastFolders.Contains(folder))
+            {
+                this.TraceReaderLastFolders.Move(TraceReaderLastFolders.IndexOf(folder), 0);
+            }
+            else
+            {
+                this.TraceReaderLastFolders.Insert(0, folder);
+
+                while (this.TraceReaderLastFolders.Count > CountLastItems)
+                {
+                    this.TraceReaderLastFolders.RemoveAt(this.TraceReaderLastFolders.Count - 1);
                 }
             }
         }
@@ -1475,11 +1601,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             StringBuilder result = new StringBuilder();
 
             result
-                .AppendFormat("Connection to CRM: {0}", this.GetDescription())
+                .AppendFormat("Connection to CRM:        {0}", this.GetDescription())
                 .AppendLine()
-                .AppendFormat("DiscoveryService: {0}", this.DiscoveryUrl)
+                .AppendFormat("DiscoveryService:         {0}", this.DiscoveryUrl)
                 .AppendLine()
-                .AppendFormat("OrganizationService: {0}", this.OrganizationUrl);
+                .AppendFormat("OrganizationService:      {0}", this.OrganizationUrl);
 
             return result.ToString();
         }
@@ -1488,9 +1614,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             StringBuilder connectionInfo = new StringBuilder();
 
-            connectionInfo.AppendFormat("Connection to CRM: {0}", this.GetPublicUrl()).AppendLine();
-            connectionInfo.AppendFormat("DiscoveryService: {0}", this.DiscoveryUrl).AppendLine();
-            connectionInfo.AppendFormat("OrganizationService: {0}", this.OrganizationUrl);
+            connectionInfo.AppendFormat("Connection to CRM:        {0}", this.GetPublicUrl()).AppendLine();
+            connectionInfo.AppendFormat("DiscoveryService:         {0}", this.DiscoveryUrl).AppendLine();
+            connectionInfo.AppendFormat("OrganizationService:      {0}", this.OrganizationUrl);
 
             return connectionInfo.ToString();
         }
@@ -1864,17 +1990,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
             }
 
-            return string.Format(GetEntityUrlFormat(), entityName, entityId);
+            return string.Format(GetEntityUrlFormat(entityName), entityId);
         }
 
-        public string GetEntityUrlFormat()
+        public string GetEntityUrlFormat(string entityName)
         {
             if (!TryGetPublicUrl(out string publicUrl))
             {
                 return null;
             }
 
-            return publicUrl + "/main.aspx?etn={0}&pagetype=entityrecord&id={1}";
+            if (string.Equals(entityName, "asyncoperation", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return publicUrl + "/tools/asyncoperation/edit.aspx?id={0}";
+            }
+
+            if (string.Equals(entityName, BusinessUnit.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return publicUrl + "biz/business/edit.aspx?id={0}";
+            }
+
+            return publicUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord&id={0}";
         }
 
         private static ComponentType? GetSolutionComponentType(string entityName)

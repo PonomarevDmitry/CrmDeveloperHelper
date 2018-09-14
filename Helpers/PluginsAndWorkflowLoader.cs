@@ -18,6 +18,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             HashSet<string> assemblyPlugins = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
             HashSet<string> assemblyWorkflow = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= Domain_ReflectionOnlyAssemblyResolve;
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= Domain_ReflectionOnlyAssemblyResolve;
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += Domain_ReflectionOnlyAssemblyResolve;
 
             var assembly = Assembly.ReflectionOnlyLoadFrom(assemblyPath);
@@ -52,6 +54,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
             }
+
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= Domain_ReflectionOnlyAssemblyResolve;
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= Domain_ReflectionOnlyAssemblyResolve;
 
             return Tuple.Create(assemblyPlugins, assemblyWorkflow);
         }

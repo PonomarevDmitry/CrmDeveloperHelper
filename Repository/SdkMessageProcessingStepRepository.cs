@@ -230,7 +230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SdkMessageProcessingStep.Schema.Attributes.plugintypeid, ConditionOperator.Equal, pluginTypeId),
+                        new ConditionExpression(SdkMessageProcessingStep.Schema.Attributes.eventhandler, ConditionOperator.Equal, pluginTypeId),
                     },
                 },
 
@@ -439,7 +439,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SdkMessageProcessingStep.Schema.Attributes.plugintypeid, ConditionOperator.Equal, pluginTypeId),
+                        new ConditionExpression(SdkMessageProcessingStep.Schema.Attributes.eventhandler, ConditionOperator.Equal, pluginTypeId),
 
                         new ConditionExpression(SdkMessageProcessingStep.Schema.Attributes.stage, ConditionOperator.In
                             , (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Pre_validation_10

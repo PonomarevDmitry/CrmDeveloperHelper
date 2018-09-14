@@ -55,7 +55,7 @@
     </src:WindowBase.Resources>
     <Grid>
         <Label Content="Currnet Connection" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="24"/>
-        <TextBox x:Name="txtBCurrentConnection" Height="24" Margin="129,10,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2147483647" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+        <TextBox x:Name="txtBCurrentConnection" Height="24" Margin="129,10,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2147483647" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
         <TabControl Margin="10,41,10,63">
             <TabItem Header="Connection List">
                 <DockPanel LastChildFill="True">

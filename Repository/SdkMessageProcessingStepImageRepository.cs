@@ -293,7 +293,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         {
                             Conditions =
                             {
-                                new ConditionExpression(SdkMessageProcessingStep.Schema.Attributes.plugintypeid, ConditionOperator.Equal, idPluginType),
+                                new ConditionExpression(SdkMessageProcessingStep.Schema.Attributes.eventhandler, ConditionOperator.Equal, idPluginType),
                             },
                         },
                     },

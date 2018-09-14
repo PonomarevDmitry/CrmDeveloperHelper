@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
@@ -9,14 +10,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     internal sealed class CodeReportShowDifferenceInConnectionGroupCommand : IServiceProviderOwner
     {
         private readonly Package _package;
+        private readonly string _fieldName;
+        private readonly string _fieldTitle;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.CodeReportShowDifferenceInConnectionGroupCommandId;
+        private readonly int _baseIdStart;
 
-        private CodeReportShowDifferenceInConnectionGroupCommand(Package package)
+        private CodeReportShowDifferenceInConnectionGroupCommand(Package package, int baseIdStart, string fieldName, string fieldTitle)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
+            this._baseIdStart = baseIdStart;
+            this._fieldName = fieldName;
+            this._fieldTitle = fieldTitle;
 
             OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
 
@@ -37,11 +43,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static CodeReportShowDifferenceInConnectionGroupCommand Instance { get; private set; }
+        public static CodeReportShowDifferenceInConnectionGroupCommand InstanceOriginalBodyText { get; private set; }
+
+        public static CodeReportShowDifferenceInConnectionGroupCommand InstanceBodyText { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CodeReportShowDifferenceInConnectionGroupCommand(package);
+            InstanceOriginalBodyText = new CodeReportShowDifferenceInConnectionGroupCommand(
+                package
+                , PackageIds.CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId
+                , Report.Schema.Attributes.originalbodytext
+                , "OriginalBodyText"
+                );
+
+            InstanceBodyText = new CodeReportShowDifferenceInConnectionGroupCommand(
+               package
+               , PackageIds.CodeReportShowDifferenceBodyTextInConnectionGroupCommandId
+               , Report.Schema.Attributes.bodytext
+               , "BodyText"
+               );
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -62,7 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     {
                         var connectionData = list[index];
 
-                        menuCommand.Text = connectionData.Name;
+                        menuCommand.Text = connectionData.NameWithCurrentMark;
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
@@ -100,7 +120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     if (applicationObject != null)
                     {
                         var helper = DTEHelper.Create(applicationObject);
-                        helper.HandleReportDifferenceCommand(connectionData, false);
+                        helper.HandleReportDifferenceCommand(connectionData, this._fieldName, this._fieldTitle, false);
                     }
                 }
             }

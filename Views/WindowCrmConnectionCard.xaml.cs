@@ -79,11 +79,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
+            string message = format;
+
+            if (args != null && args.Length > 0)
+            {
+                message = string.Format(format, args);
+            }
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
-                this.stBIStatus.Content = msg;
+                this.stBIStatus.Content = message;
             });
         }
 

@@ -1,9 +1,6 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -28,18 +25,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, "Add Steps for PluginType into Crm Solution");
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        private static async void ActionExecute(DTEHelper helper)
         {
-            List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsCSharpType);
+            var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
 
-            var file = selectedFiles.FirstOrDefault();
+            string fileType = await PropertiesHelper.GetTypeFullNameAsync(document);
 
-            if (file != null)
-            {
-                string selection = file.Name.Split('.').FirstOrDefault();
-
-                helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, true, selection);
-            }
+            helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, true, fileType);
         }
     }
 }

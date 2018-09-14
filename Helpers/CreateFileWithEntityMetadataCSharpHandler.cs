@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
@@ -578,7 +577,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            var attributes = _entityMetadata.Attributes.Where(a => string.IsNullOrEmpty(a.AttributeOf));
+            var attributes = _entityMetadata.Attributes;
 
             if (!attributes.Any())
             {
@@ -600,11 +599,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 await this._taskDownloadMetadata;
 
-                List<string> footers = CreateFileHandler.GetAttributeDescription(attrib, _config.AllDescriptions, _config.WithManagedInfo, this._solutionComponentDescriptor);
+                List<string> footers = GetAttributeDescription(attrib, _config.AllDescriptions, _config.WithManagedInfo, this._solutionComponentDescriptor);
 
                 WriteSummary(attrib.DisplayName, attrib.Description, null, footers);
 
-                WriteLine("public {0} string {1} = \"{2}\";", _fieldHeader, attrib.LogicalName.ToLower(), attrib.LogicalName);
+                string str = string.Format("public {0} string {1} = \"{2}\";", _fieldHeader, attrib.LogicalName.ToLower(), attrib.LogicalName);
+
+                bool ignore = !string.IsNullOrEmpty(attrib.AttributeOf);
+
+                if (ignore)
+                {
+                    str = "//" + str;
+                }
+
+                WriteLine(str);
             }
 
             WriteLine("}");
@@ -676,7 +684,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            var options = CreateFileHandler.GetOptionItems(attrib.EntityLogicalName, attrib.LogicalName, optionSet, await this._listStringMap);
+            var options = GetOptionItems(attrib.EntityLogicalName, attrib.LogicalName, optionSet, await this._listStringMap);
 
             if (!options.Any())
             {
@@ -686,7 +694,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteSummaryStrings(lines);
 
             {
-                bool ignore = CreateFileHandler.IgnoreAttribute(_entityMetadata.LogicalName, attrib.LogicalName);
+                bool ignore = IgnoreAttribute(_entityMetadata.LogicalName, attrib.LogicalName);
 
                 string str = "";
 

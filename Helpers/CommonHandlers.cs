@@ -136,18 +136,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 foreach (var document in applicationObject.Documents.OfType<EnvDTE.Document>())
                 {
-                    if (document == applicationObject.ActiveWindow.Document)
+                    if (document == applicationObject.ActiveWindow.Document
+                        || document.ActiveWindow == null
+                        || document.ActiveWindow.Type != EnvDTE.vsWindowType.vsWindowTypeDocument
+                        || document.ActiveWindow.Visible == false
+                        )
                     {
                         continue;
                     }
 
-                    if (document.ProjectItem != null
-                        &&
-                        (
-                            document.ProjectItem.IsOpen[EnvDTE.Constants.vsViewKindTextView]
-                            || document.ProjectItem.IsOpen[EnvDTE.Constants.vsViewKindCode]
+                    if (applicationObject.ItemOperations.IsFileOpen(document.FullName, EnvDTE.Constants.vsViewKindTextView)
+                        || applicationObject.ItemOperations.IsFileOpen(document.FullName, EnvDTE.Constants.vsViewKindCode)
                         )
-                    )
                     {
                         try
                         {
@@ -429,12 +429,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var document = helper.GetOpenedDocumentInCodeWindow(checker);
 
-                if (document != null)
+                if (document != null
+                    && document.ProjectItem != null
+                    && document.ProjectItem.ContainingProject != null
+                    )
                 {
-                    if (document.ProjectItem != null && document.ProjectItem.ContainingProject != null)
-                    {
-                        visible = true;
-                    }
+                    visible = true;
                 }
             }
 

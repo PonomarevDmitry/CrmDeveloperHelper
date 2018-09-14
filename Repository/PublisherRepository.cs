@@ -34,16 +34,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
+                NoLock = true,
+
                 EntityName = Publisher.EntityLogicalName,
+
                 ColumnSet = new ColumnSet(Publisher.Schema.Attributes.customizationprefix),
+
                 LinkEntities =
                 {
                     new LinkEntity()
                     {
                         LinkFromEntityName = Publisher.EntityLogicalName,
                         LinkFromAttributeName = Publisher.PrimaryIdAttribute,
+
                         LinkToEntityName = Solution.EntityLogicalName,
                         LinkToAttributeName = Solution.Schema.Attributes.publisherid,
+
                         LinkCriteria =
                         {
                             Conditions =
@@ -53,7 +59,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         }
                     }
                 },
-                NoLock = true,
 
                 PageInfo = new PagingInfo()
                 {

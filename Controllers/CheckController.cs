@@ -641,27 +641,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 gr.OrderBy(ent => ent.LogicalName).ToList().ForEach(ent => content.AppendLine(tabSpacer + ent.LogicalName));
             }
 
-            if (content.Length > 0)
+            string fileName = string.Format("{0}.Entities with Ownership at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+            if (!Directory.Exists(commonConfig.FolderForExport))
             {
-                string fileName = string.Format("{0}.Entities with Ownership at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-                if (!Directory.Exists(commonConfig.FolderForExport))
-                {
-                    Directory.CreateDirectory(commonConfig.FolderForExport);
-                }
-
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput("Created file with Entities with Ownership: {0}", filePath);
-
-                this._iWriteToOutput.PerformAction(filePath, commonConfig);
+                Directory.CreateDirectory(commonConfig.FolderForExport);
             }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput("No information about web-resource dependent components.");
-            }
+
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput("Created file with Entities with Ownership: {0}", filePath);
+
+            this._iWriteToOutput.PerformAction(filePath, commonConfig);
         }
 
         #endregion Проверка уровня собственности сущностей.
@@ -1862,6 +1855,124 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Описание всех dependencynode.
+
+        public async Task ExecuteCheckingWorkflowsUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            this._iWriteToOutput.WriteToOutput("*********** Start Checking Workflows Used Entities at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
+            {
+                await CheckingWorkflowsUsedEntities(connectionData, commonConfig);
+            }
+            catch (Exception xE)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(xE);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutput("*********** End Checking Workflows Used Entities at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            }
+        }
+
+        private async Task CheckingWorkflowsUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                return;
+            }
+
+            StringBuilder content = new StringBuilder();
+
+            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+
+            string fileName = string.Format("{0}.Workflows Used Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+            if (!Directory.Exists(commonConfig.FolderForExport))
+            {
+                Directory.CreateDirectory(commonConfig.FolderForExport);
+            }
+
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(_iWriteToOutput, service, true));
+
+            var stringBuider = new StringBuilder();
+
+            await workflowDescriptor.GetDescriptionWithUsedEntitiesInAllWorkflowsAsync(stringBuider);
+
+            File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput("Created file with Workflows Used Entities: {0}", filePath);
+
+            this._iWriteToOutput.PerformAction(filePath, commonConfig);
+        }
+
+        public async Task ExecuteCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            this._iWriteToOutput.WriteToOutput("*********** Start Checking Workflows Used Not Existing Entities at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
+            {
+                await CheckingWorkflowsNotExistingUsedEntities(connectionData, commonConfig);
+            }
+            catch (Exception xE)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(xE);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutput("*********** End Checking Workflows Used Not Existing Entities at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            }
+        }
+
+        private async Task CheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                return;
+            }
+
+            StringBuilder content = new StringBuilder();
+
+            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+
+            string fileName = string.Format("{0}.Workflows Used Not Existing Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+            if (!Directory.Exists(commonConfig.FolderForExport))
+            {
+                Directory.CreateDirectory(commonConfig.FolderForExport);
+            }
+
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(_iWriteToOutput, service, true));
+
+            var stringBuider = new StringBuilder();
+
+            await workflowDescriptor.GetDescriptionWithUsedNotExistsEntitiesInAllWorkflowsAsync(stringBuider);
+
+            File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput("Created file with Workflows Used Not Existing Entities: {0}", filePath);
+
+            this._iWriteToOutput.PerformAction(filePath, commonConfig);
+        }
 
         private void WriteToContentDictionary(StringBuilder content, Dictionary<string, string> dict, string formatList)
         {

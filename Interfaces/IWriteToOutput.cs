@@ -9,6 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         void WriteToOutputFilePathUri(string filePath);
 
+        void WriteToOutputSolutionUri(Guid connectionId, string solutionUniqueName, string solutionUrl);
+
         void WriteErrorToOutput(Exception ex);
 
         void ActivateOutputWindow();

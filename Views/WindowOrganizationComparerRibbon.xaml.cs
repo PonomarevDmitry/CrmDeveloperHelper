@@ -393,16 +393,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus(string.Format("{0} entities loaded.", results.Count()));
+            UpdateStatus("{0} entities loaded.", results.Count());
 
             ToggleControls(true);
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -1441,7 +1448,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     _iWriteToOutput.WriteToOutput("Adding in solution {0} entity {1}.", uniqueName, entity.LogicalName);
 
-                    UpdateStatus(string.Format("Adding in solution entity {0}...", entity.LogicalName));
+                    UpdateStatus("Adding in solution entity {0}...", entity.LogicalName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(service);
@@ -1455,7 +1462,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     _iWriteToOutput.WriteToOutput("Exporting solution {0} and extracting RibbonDiffXml for {1}.", uniqueName, entity.LogicalName);
 
-                    UpdateStatus(string.Format("Exporting solution and extracting RibbonDiffXml for {0}...", entity.LogicalName));
+                    UpdateStatus("Exporting solution and extracting RibbonDiffXml for {0}...", entity.LogicalName);
 
                     var repository = new ExportSolutionHelper(service);
 

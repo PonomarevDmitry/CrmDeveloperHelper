@@ -112,7 +112,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static HashSet<string> _SupportedExtensionsWebResourceText = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".htm", ".html", ".css", ".js", ".xml", ".xsl, .xslt", ".svg" };
 
-        private const string _SupportedReportType = ".rdl";
+        private static HashSet<string> _SupportedReportType = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".rdl", ".rdlc" };
+
         private const string _SupportedCSharpFile = ".cs";
         private const string _SupportedXmlFile = ".xml";
 
@@ -141,7 +142,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (!string.IsNullOrEmpty(path))
             {
-                string ext = Path.GetExtension(path.ToLower());
+                string ext = Path.GetExtension(path);
 
                 result = _SupportedExtensionsWebResourceText.Contains(ext);
             }
@@ -155,7 +156,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (!string.IsNullOrEmpty(path))
             {
-                result = path.EndsWith(_SupportedReportType, StringComparison.OrdinalIgnoreCase);
+                string ext = Path.GetExtension(path);
+
+                result = _SupportedReportType.Contains(ext);
             }
 
             return result;

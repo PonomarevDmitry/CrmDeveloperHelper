@@ -1,15 +1,43 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class DocumentsWebResourceUpdateContentPublishEqualByTextCommand : AbstractCommand
+    internal sealed class DocumentsWebResourceUpdateContentPublishEqualByTextCommand : IServiceProviderOwner
     {
+        private readonly Package _package;
+
+        public IServiceProvider ServiceProvider => this._package;
+
+        private const int _baseIdStart = PackageIds.DocumentsWebResourceUpdateContentPublishEqualByTextCommandId;
+
         private DocumentsWebResourceUpdateContentPublishEqualByTextCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.DocumentsWebResourceUpdateContentPublishEqualByTextCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        {
+            this._package = package ?? throw new ArgumentNullException(nameof(package));
+
+            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
+
+            if (commandService != null)
+            {
+                for (int i = 0; i < Model.ConnectionData.CountConnectionToQuickList; i++)
+                {
+                    var menuCommandID = new CommandID(PackageGuids.guidCommandSet, _baseIdStart + i);
+
+                    var menuCommand = new OleMenuCommand(this.menuItemCallback, menuCommandID);
+
+                    menuCommand.Enabled = menuCommand.Visible = false;
+
+                    menuCommand.BeforeQueryStatus += menuItem_BeforeQueryStatus;
+
+                    commandService.AddCommand(menuCommand);
+                }
+            }
+        }
 
         public static DocumentsWebResourceUpdateContentPublishEqualByTextCommand Instance { get; private set; }
 
@@ -18,20 +46,81 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             Instance = new DocumentsWebResourceUpdateContentPublishEqualByTextCommand(package);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
-            List<SelectedFile> selectedFiles = helper.GetOpenedDocuments(FileOperations.SupportsWebResourceTextType);
+            try
+            {
+                if (sender is OleMenuCommand menuCommand)
+                {
+                    menuCommand.Enabled = menuCommand.Visible = false;
 
-            helper.HandleUpdateContentWebResourcesAndPublishEqualByTextCommand(selectedFiles);
+                    var index = menuCommand.CommandID.ID - _baseIdStart;
+
+                    var connectionConfig = Model.ConnectionConfiguration.Get();
+
+                    var list = connectionConfig.GetConnectionsByGroupWithCurrent();
+
+                    if (0 <= index && index < list.Count)
+                    {
+                        var connectionData = list[index];
+
+                        menuCommand.Text = connectionData.NameWithCurrentMark;
+
+                        if (!connectionData.IsReadOnly)
+                        {
+                            menuCommand.Enabled = menuCommand.Visible = true;
+
+                            CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResourceText(this, menuCommand);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(ex);
+            }
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        private void menuItemCallback(object sender, EventArgs e)
         {
-            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(command, menuCommand);
+            try
+            {
+                OleMenuCommand menuCommand = sender as OleMenuCommand;
+                if (menuCommand == null)
+                {
+                    return;
+                }
 
-            CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResourceText(command, menuCommand);
+                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+                if (applicationObject == null)
+                {
+                    return;
+                }
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, "Publish Files equal by Text");
+                var index = menuCommand.CommandID.ID - _baseIdStart;
+
+                var connectionConfig = Model.ConnectionConfiguration.Get();
+
+                var list = connectionConfig.GetConnectionsByGroupWithCurrent();
+
+                if (0 <= index && index < list.Count)
+                {
+                    var connectionData = list[index];
+
+                    if (!connectionData.IsReadOnly)
+                    {
+                        var helper = DTEHelper.Create(applicationObject);
+
+                        List<SelectedFile> selectedFiles = helper.GetOpenedDocuments(FileOperations.SupportsWebResourceTextType);
+
+                        helper.HandleUpdateContentWebResourcesAndPublishEqualByTextCommand(connectionData, selectedFiles);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(ex);
+            }
         }
     }
 }

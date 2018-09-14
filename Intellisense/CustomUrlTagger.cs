@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
         private char[] _trimChars = "_.,!@#%:;&*()[]{}?'\"".ToArray();
 
-        private const string patternUrl = @"(openinvisualstudio|openinvisualstudiopath|openintexteditor|showdifference)\:\/\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9:;@!=&%#_\*\-\.\,\?\/\\\+\$\(\)\[\]\{\}]*)?";
+        private const string patternUrl = @"(openinvisualstudio|openinvisualstudiopath|openintexteditor|selectfileinfolder|showdifference|opensolution)\:\/\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9:;@!=&%#_\*\-\.\,\?\/\\\+\$\(\)\[\]\{\}]*)?";
 
         private Regex regexUrl = new Regex(patternUrl, RegexOptions.Compiled | RegexOptions.IgnoreCase);
 

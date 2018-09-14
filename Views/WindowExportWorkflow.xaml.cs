@@ -393,16 +393,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus(string.Format("{0} workflows loaded.", results.Count()));
+            UpdateStatus("{0} workflows loaded.", results.Count());
 
             ToggleControls(true);
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -840,9 +847,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldName, "txt");
                     string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                    WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(_iWriteToOutput, service, true));
+                    var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(_iWriteToOutput, service, true));
 
-                    await workflowDescriptor.CreateFileUsedEntitiesInWorkflowAsync(filePath, idWorkflow);
+                    var stringBuider = new StringBuilder();
+
+                    await workflowDescriptor.GetDescriptionUsedEntitiesInWorkflowAsync(stringBuider, idWorkflow);
+
+                    File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldName, filePath);
 
@@ -894,7 +905,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(_iWriteToOutput, service, true));
 
-                    await workflowDescriptor.CreateFileUsedNotExistsEntitiesInWorkflowAsync(filePath, idWorkflow);
+                    var stringBuider = new StringBuilder();
+
+                    await workflowDescriptor.GetDescriptionUsedNotExistsEntitiesInWorkflowAsync(stringBuider, idWorkflow);
+
+                    File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldName, filePath);
 

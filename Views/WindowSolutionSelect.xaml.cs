@@ -149,30 +149,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSolutions(list);
 
-            UpdateStatus(string.Format("{0} solutions loaded.", list.Count()));
+            UpdateStatus("{0} solutions loaded.", list.Count());
 
             ToggleControls(true);
         }
 
         private class EntityViewItem
         {
-            public string SolutionName { get; private set; }
-
-            public string DisplayName { get; private set; }
-
-            public string SolutionType { get; private set; }
-
-            public DateTime? InstalledOn { get; private set; }
-
             public Solution Solution { get; private set; }
 
-            public EntityViewItem(string solutionName, string displayName, string solutionType, DateTime? installedOn, Solution Solution)
+            public string SolutionName => Solution.UniqueName;
+
+            public string DisplayName => Solution.FriendlyName;
+
+            public string SolutionType => Solution.FormattedValues[Solution.Schema.Attributes.ismanaged];
+
+            public string Visible => Solution.FormattedValues[Solution.Schema.Attributes.isvisible];
+
+            public DateTime? InstalledOn => Solution.InstalledOn?.ToLocalTime();
+
+            public string PublisherName => Solution.PublisherId?.Name;
+
+            public string Prefix => Solution.PublisherCustomizationPrefix;
+
+            public EntityViewItem(Solution Solution)
             {
-                this.SolutionName = solutionName;
-                this.DisplayName = displayName;
-                this.SolutionType = solutionType;
                 this.Solution = Solution;
-                this.InstalledOn = installedOn;
             }
         }
 
@@ -182,7 +184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var entity in results)
                 {
-                    _itemsSource.Add(new EntityViewItem(entity.UniqueName, entity.FriendlyName, entity.FormattedValues[Solution.Schema.Attributes.ismanaged], entity.InstalledOn?.ToLocalTime(), entity));
+                    _itemsSource.Add(new EntityViewItem(entity));
                 }
 
                 if (_itemsSource.Count == 1)
@@ -192,11 +194,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -325,6 +334,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._service.ConnectionData.AddLastSelectedSolution(solution.UniqueName);
 
+            _iWriteToOutput.WriteToOutputSolutionUri(_service.ConnectionData.ConnectionId, solution.UniqueName, _service.ConnectionData.GetSolutionUrl(solution.Id));
+
             cmBFilter.Text = text;
 
             this.DialogResult = true;
@@ -363,6 +374,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this.SelectedSolution = this._lastSolution;
 
                 this._service.ConnectionData.AddLastSelectedSolution(this._lastSolution.UniqueName);
+
+                _iWriteToOutput.WriteToOutputSolutionUri(_service.ConnectionData.ConnectionId, _lastSolution.UniqueName, _service.ConnectionData.GetSolutionUrl(_lastSolution.Id));
 
                 this.DialogResult = true;
             }

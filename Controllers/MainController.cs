@@ -144,6 +144,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void ExecuteCheckingWorkflowsUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._checkController.ExecuteCheckingWorkflowsUsedEntities(connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void ExecuteCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._checkController.ExecuteCheckingWorkflowsNotExistingUsedEntities(connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartComparingFilesWithWrongEncoding(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
         {
             var worker = new Thread(() =>
@@ -243,13 +277,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// <param name="isCustom"></param>
         /// <param name="crmConfig"></param>
         /// <param name="commonConfig"></param>
-        public void StartReportDifference(SelectedFile selectedFile, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartReportDifference(SelectedFile selectedFile, string fieldName, string fieldTitle, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._differenceController.ExecuteDifferenceReport(selectedFile, isCustom, connectionData, commonConfig);
+                    this._differenceController.ExecuteDifferenceReport(selectedFile, fieldName, fieldTitle, isCustom, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -260,13 +294,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartReportThreeFileDifference(SelectedFile selectedFile, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
+        public void StartReportThreeFileDifference(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._differenceController.ExecuteThreeFileDifferenceReport(selectedFile, connectionData1, connectionData2, differenceType, commonConfig);
+                    this._differenceController.ExecuteThreeFileDifferenceReport(selectedFile, fieldName, fieldTitle, connectionData1, connectionData2, differenceType, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -1381,6 +1415,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._publishController.ExecutePublishingAll(connectionData);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartTraceReaderWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteShowingTraceReader(connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

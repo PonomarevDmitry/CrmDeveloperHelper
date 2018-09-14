@@ -26,6 +26,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
         private const string SourceNameMonikerAll = "CrmFetchXml.{E438F5CE-FBBD-4754-A2F7-F1AEB6752499}";
 
+        private const string SourceNameMonikerAttributes = "CrmFetchXml.{417B4B2F-EC8A-4EBC-A6CD-A45013171817}";
+        
         private FetchXmlCompletionSourceProvider _sourceProvider;
 
         private ITextBuffer _buffer;
@@ -789,153 +791,208 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     .OrderByDescending(s => s.Span.Start.Position)
                     .ToList();
 
-            var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
-
             var lastSpans = spans.Where(s =>
                     s.Span.Start > currentPoint.Position
                     )
                     .OrderBy(s => s.Span.Start.Position)
                     .ToList();
 
-            var lastDelimiter = lastSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
-
             SnapshotSpan? extentTemp = null;
 
-            if (firstDelimiter != null && firstDelimiter.Span.GetText() == "\"\"")
+            if (!extentTemp.HasValue)
             {
-                extentTemp = new SnapshotSpan(firstDelimiter.Span.Start.Add(1), firstDelimiter.Span.Start.Add(1));
-            }
-            else if (firstDelimiter != null && lastDelimiter != null && firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
-            {
-                extentTemp = new SnapshotSpan(firstDelimiter.Span.End, lastDelimiter.Span.Start);
+                var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
+
+                if (firstDelimiter != null && firstDelimiter.Span.GetText() == "\"\"")
+                {
+                    extentTemp = new SnapshotSpan(firstDelimiter.Span.Start.Add(1), firstDelimiter.Span.Start.Add(1));
+                }
             }
 
             if (!extentTemp.HasValue)
             {
-                return;
-            }
+                var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
+                var lastDelimiter = lastSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
 
-            var extent = extentTemp.Value;
-
-            {
-                var extentText = extent.GetText();
-
-                if (extentText == ",\"")
+                if (firstDelimiter != null && lastDelimiter != null && firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
                 {
-                    extent = new SnapshotSpan(extent.Snapshot, extent.Start, extent.Length - 1);
+                    extentTemp = new SnapshotSpan(firstDelimiter.Span.End, lastDelimiter.Span.Start);
                 }
             }
 
-            var currentXmlNode = GetCurrentXmlNode(doc, extent);
-
-            if (currentXmlNode == null)
+            if (extentTemp.HasValue)
             {
-                return;
-            }
+                var extent = extentTemp.Value;
 
-            var containingAttributeSpans = spans
-                .Where(s => s.Span.Contains(extent.Start)
-                && s.Span.Contains(extent)
-                && s.ClassificationType.IsOfType("XML Attribute Value"))
-                .OrderByDescending(s => s.Span.Start.Position)
-                .ToList();
+                {
+                    var extentText = extent.GetText();
 
-            var containingAttributeValue = containingAttributeSpans.FirstOrDefault();
+                    if (extentText == ",\"")
+                    {
+                        extent = new SnapshotSpan(extent.Snapshot, extent.Start, extent.Length - 1);
+                    }
+                }
 
-            if (containingAttributeValue == null)
-            {
-                containingAttributeValue = spans
-                    .Where(s => s.Span.Contains(extent.Start)
-                    && s.Span.Contains(extent)
-                    && s.ClassificationType.IsOfType("XML Attribute Quotes")
-                    && s.Span.GetText() == "\"\""
-                    )
-                    .OrderByDescending(s => s.Span.Start.Position)
-                    .FirstOrDefault();
-            }
+                var currentXmlNode = GetCurrentXmlNode(doc, extent);
 
-            if (containingAttributeValue != null)
-            {
-                ClassificationSpan currentAttr = GetCurrentXmlAttributeName(snapshot, containingAttributeValue, spans);
-
-                if (currentAttr == null)
+                if (currentXmlNode == null)
                 {
                     return;
                 }
 
-                string currentNodeName = currentXmlNode.Name.LocalName;
+                var containingAttributeSpans = spans
+                    .Where(s => s.Span.Contains(extent.Start)
+                    && s.Span.Contains(extent)
+                    && s.ClassificationType.IsOfType("XML Attribute Value"))
+                    .OrderByDescending(s => s.Span.Start.Position)
+                    .ToList();
 
-                string currentAttributeName = currentAttr.Span.GetText();
+                var containingAttributeValue = containingAttributeSpans.FirstOrDefault();
 
-                ITrackingSpan applicableTo = snapshot.CreateTrackingSpan(extent, SpanTrackingMode.EdgeInclusive);
-
-                try
+                if (containingAttributeValue == null)
                 {
-                    if (string.Equals(currentNodeName, "entity", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            FillEntityNamesInList(completionSets, applicableTo, repository, false);
-                        }
-                    }
-                    else if (string.Equals(currentNodeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode);
-                        }
-                    }
-                    else if (string.Equals(currentNodeName, "order", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        if (string.Equals(currentAttributeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode);
-                        }
-                    }
-                    else if (string.Equals(currentNodeName, "condition", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        if (string.Equals(currentAttributeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode);
-                        }
-                        else if (string.Equals(currentAttributeName, "value", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            Dictionary<string, string> aliases = GetEntityAliases(doc);
-
-                            FillEntityAttributeValuesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
-                        }
-                        else if (string.Equals(currentAttributeName, "entityname", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            Dictionary<string, string> aliases = GetEntityAliases(doc);
-
-                            FillAliases(completionSets, applicableTo, aliases);
-                        }
-                    }
-                    else if (string.Equals(currentNodeName, "link-entity", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            FillLinkedEntityNames(completionSets, applicableTo, repository, currentXmlNode);
-
-                            FillEntityNamesInList(completionSets, applicableTo, repository, false);
-                        }
-                        else if (string.Equals(currentAttributeName, "from", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            FillLinkedEntityFromField(completionSets, applicableTo, repository, currentXmlNode);
-                        }
-                        else if (string.Equals(currentAttributeName, "to", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            FillLinkedEntityToField(completionSets, applicableTo, repository, currentXmlNode);
-                        }
-                    }
+                    containingAttributeValue = spans
+                        .Where(s => s.Span.Contains(extent.Start)
+                        && s.Span.Contains(extent)
+                        && s.ClassificationType.IsOfType("XML Attribute Quotes")
+                        && s.Span.GetText() == "\"\""
+                        )
+                        .OrderByDescending(s => s.Span.Start.Position)
+                        .FirstOrDefault();
                 }
-                catch (Exception ex)
+
+                if (containingAttributeValue != null)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    ClassificationSpan currentAttr = GetCurrentXmlAttributeName(snapshot, containingAttributeValue, spans);
+
+                    if (currentAttr == null)
+                    {
+                        return;
+                    }
+
+                    string currentNodeName = currentXmlNode.Name.LocalName;
+
+                    string currentAttributeName = currentAttr.Span.GetText();
+
+                    ITrackingSpan applicableTo = snapshot.CreateTrackingSpan(extent, SpanTrackingMode.EdgeInclusive);
+
+                    try
+                    {
+                        if (string.Equals(currentNodeName, "entity", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                FillEntityNamesInList(completionSets, applicableTo, repository, false);
+                            }
+                        }
+                        else if (string.Equals(currentNodeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode);
+                            }
+                        }
+                        else if (string.Equals(currentNodeName, "order", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            if (string.Equals(currentAttributeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode);
+                            }
+                        }
+                        else if (string.Equals(currentNodeName, "condition", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            if (string.Equals(currentAttributeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode);
+                            }
+                            else if (string.Equals(currentAttributeName, "value", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                Dictionary<string, string> aliases = GetEntityAliases(doc);
+
+                                FillEntityAttributeValuesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
+                            }
+                            else if (string.Equals(currentAttributeName, "entityname", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                Dictionary<string, string> aliases = GetEntityAliases(doc);
+
+                                FillAliases(completionSets, applicableTo, aliases);
+                            }
+                        }
+                        else if (string.Equals(currentNodeName, "link-entity", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                FillLinkedEntityNames(completionSets, applicableTo, repository, currentXmlNode);
+
+                                FillEntityNamesInList(completionSets, applicableTo, repository, false);
+                            }
+                            else if (string.Equals(currentAttributeName, "from", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                FillLinkedEntityFromField(completionSets, applicableTo, repository, currentXmlNode);
+                            }
+                            else if (string.Equals(currentAttributeName, "to", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                FillLinkedEntityToField(completionSets, applicableTo, repository, currentXmlNode);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(ex);
+                    }
                 }
             }
             else
             {
+                extentTemp = null;
+
+                if (!extentTemp.HasValue)
+                {
+                    var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Delimiter") && s.Span.GetText().EndsWith("></"));
+
+                    if (firstDelimiter != null && firstDelimiter.Span.GetText() == "></")
+                    {
+                        extentTemp = new SnapshotSpan(firstDelimiter.Span.Start.Add(1), firstDelimiter.Span.Start.Add(1));
+                    }
+                }
+
+                if (!extentTemp.HasValue)
+                {
+                    var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Delimiter") && s.Span.GetText().Trim().EndsWith(">"));
+                    var lastDelimiter = lastSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Delimiter") && s.Span.GetText().Trim().StartsWith("</"));
+
+                    if (firstDelimiter != null && lastDelimiter != null)
+                    {
+                        var temp = new SnapshotSpan(firstDelimiter.Span.End, lastDelimiter.Span.Start);
+
+                        if (string.IsNullOrWhiteSpace(temp.GetText()))
+                        {
+                            extentTemp = new SnapshotSpan(firstDelimiter.Span.End, 0);
+                        }
+                        else
+                        {
+                            int spacesStart = temp.GetText().TakeWhile(ch => Char.IsWhiteSpace(ch)).Count();
+                            int spacesEnd = temp.GetText().Reverse().TakeWhile(ch => Char.IsWhiteSpace(ch)).Count();
+
+                            extentTemp = new SnapshotSpan(firstDelimiter.Span.End.Add(spacesStart), lastDelimiter.Span.Start.Add(-spacesEnd));
+                        }
+                    }
+                }
+
+                if (!extentTemp.HasValue)
+                {
+                    return;
+                }
+
+                var extent = extentTemp.Value;
+
+                var currentXmlNode = GetCurrentXmlNode(doc, extent);
+
+                if (currentXmlNode == null)
+                {
+                    return;
+                }
+
                 if (!string.Equals(currentXmlNode.Name.LocalName, "value", StringComparison.InvariantCultureIgnoreCase))
                 {
                     return;
@@ -948,46 +1005,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     return;
                 }
 
-                var listContainingSpans = spans
-                    .Where(s => s.Span.Contains(extent.Start)
-                        && s.Span.Contains(extent)
-                    )
-                    .ToList();
-
-                var containingXmlText = listContainingSpans
-                    .Where(s => s.ClassificationType.IsOfType("XML Text"))
-                    .OrderByDescending(s => s.Span.Start.Position)
-                    .FirstOrDefault();
-
-                bool isQuotes = false;
-
-                if (containingXmlText == null)
-                {
-                    containingXmlText = listContainingSpans
-                        .Where(s => s.ClassificationType.IsOfType("XML Delimiter")
-                            && (s.Span.GetText().StartsWith(">", StringComparison.InvariantCultureIgnoreCase)
-                                || s.Span.GetText().EndsWith("</", StringComparison.InvariantCultureIgnoreCase))
-                        )
-                        .OrderByDescending(s => s.Span.Start.Position)
-                        .FirstOrDefault();
-
-                    if (containingXmlText != null)
-                    {
-                        isQuotes = true;
-                    }
-                }
-
-                if (containingXmlText == null)
-                {
-                    return;
-                }
-
-                ITrackingSpan applicableTo = snapshot.CreateTrackingSpan(containingXmlText.Span, SpanTrackingMode.EdgeInclusive);
-
-                if (isQuotes)
-                {
-                    applicableTo = snapshot.CreateTrackingSpan(containingXmlText.Span.Start.Position + 1, 0, SpanTrackingMode.EdgeInclusive);
-                }
+                ITrackingSpan applicableTo = snapshot.CreateTrackingSpan(extent.Span, SpanTrackingMode.EdgeInclusive);
 
                 Dictionary<string, string> aliases = GetEntityAliases(doc);
 
@@ -1096,6 +1114,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     completionSets.Add(new CrmCompletionSet(SourceNameMonikerAll, string.Format("{0} References", primaryEntityData.EntityLogicalName), applicableTo, list, Enumerable.Empty<CrmCompletion>()));
                 }
             }
+
+            FillEntityIntellisenseDataAttributes(completionSets, applicableTo, primaryEntityData);
         }
 
         private HashSet<string> GetRefererenceAttributes(EntityIntellisenseData entityData, HashSet<string> commonEntities)
@@ -1366,7 +1386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             if (list.Count > 0)
             {
-                completionSets.Add(new CrmCompletionSet(SourceNameMoniker, string.Format("{0} Attributes", entityData.EntityLogicalName), applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+                completionSets.Add(new CrmCompletionSet(SourceNameMonikerAttributes, string.Format("{0} Attributes", entityData.EntityLogicalName), applicableTo, list, Enumerable.Empty<CrmCompletion>()));
             }
         }
 

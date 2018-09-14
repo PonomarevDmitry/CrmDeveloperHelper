@@ -19,7 +19,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Resources;
+using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Schema;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -285,16 +288,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus(string.Format("{0} saved query(ies) loaded.", results.Count()));
+            UpdateStatus("{0} saved query(ies) loaded.", results.Count());
 
             ToggleControls(true);
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -630,9 +640,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
 
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var tempDoc))
                     {
-                        xmlContent = doc.ToString();
+                        xmlContent = tempDoc.ToString();
                     }
                 }
 
@@ -650,32 +660,79 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     newText = form.FieldText;
                 });
 
-                if (dialogResult.GetValueOrDefault())
+                if (dialogResult.GetValueOrDefault() == false)
                 {
-                    {
-                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
-                        {
-                            newText = doc.ToString(SaveOptions.DisableFormatting);
-                        }
-                    }
-
-                    if (string.Equals(fieldName, SavedQuery.Schema.Attributes.fetchxml, StringComparison.InvariantCulture))
-                    {
-                        var request = new ValidateSavedQueryRequest()
-                        {
-                            FetchXml = newText,
-                            QueryType = savedQuery.QueryType.GetValueOrDefault()
-                        };
-
-                        service.Execute(request);
-                    }
-
-                    var updateEntity = new SavedQuery();
-                    updateEntity.Id = idSavedQuery;
-                    updateEntity.Attributes[fieldName] = newText;
-
-                    service.Update(updateEntity);
+                    UpdateStatus("Operation canceled.");
+                    return;
                 }
+
+                _iWriteToOutput.WriteToOutput("Validating {0}...", fieldTitle);
+                UpdateStatus("Validating {0}.", fieldTitle);
+
+                if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
+                {
+                    _iWriteToOutput.WriteToOutput("Text is not valid xml.");
+                    UpdateStatus("Operation failed.");
+
+                    _iWriteToOutput.ActivateOutputWindow();
+                    return;
+                }
+
+                XmlSchemaSet schemas = new XmlSchemaSet();
+
+                {
+                    Uri uri = new Uri("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/fetch.xsd");
+                    StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                    using (StreamReader reader = new StreamReader(info.Stream))
+                    {
+                        schemas.Add("", XmlReader.Create(reader));
+                    }
+                }
+
+                List<ValidationEventArgs> errors = new List<ValidationEventArgs>();
+
+                doc.Validate(schemas, (o, e) =>
+                {
+                    errors.Add(e);
+                });
+
+                if (errors.Count > 0)
+                {
+                    _iWriteToOutput.WriteToOutput("{0} is not valid.", fieldTitle);
+
+                    foreach (var item in errors)
+                    {
+                        _iWriteToOutput.WriteToOutput(string.Empty);
+                        _iWriteToOutput.WriteToOutput(string.Empty);
+                        _iWriteToOutput.WriteToOutput("Severity: {0}      Message: {1}", item.Severity, item.Message);
+                        _iWriteToOutput.WriteErrorToOutput(item.Exception);
+                    }
+
+                    _iWriteToOutput.ActivateOutputWindow();
+                    UpdateStatus("Operation failed.");
+
+                    return;
+                }
+
+                if (string.Equals(fieldName, SavedQuery.Schema.Attributes.fetchxml, StringComparison.InvariantCulture))
+                {
+                    _iWriteToOutput.WriteToOutput("Executing ValidateSavedQueryRequest.");
+
+                    var request = new ValidateSavedQueryRequest()
+                    {
+                        FetchXml = newText,
+                        QueryType = savedQuery.QueryType.GetValueOrDefault()
+                    };
+
+                    service.Execute(request);
+                }
+
+                var updateEntity = new SavedQuery();
+                updateEntity.Id = idSavedQuery;
+                updateEntity.Attributes[fieldName] = newText;
+
+                service.Update(updateEntity);
 
                 UpdateStatus("Operation completed.");
             }
@@ -1503,7 +1560,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false);
 
-            UpdateStatus(string.Format("Publishing Entity {0}...", entityName));
+            UpdateStatus("Publishing Entity {0}...", entityName);
 
             this._iWriteToOutput.WriteToOutput("Start publishing Entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1517,13 +1574,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing Entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus(string.Format("Entity {0} published", entityName));
+                UpdateStatus("Entity {0} published", entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus(string.Format("Publish Entity {0} failed", entityName));
+                UpdateStatus("Publish Entity {0} failed", entityName);
             }
             finally
             {

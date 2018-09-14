@@ -114,7 +114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         var helper = DTEHelper.Create(applicationObject);
 
-                        helper.HandleOpenLastSelectedSolution(solutionUniqueName, this._actionOpen);
+                        helper.HandleOpenLastSelectedSolution(connectionData, solutionUniqueName, this._actionOpen);
                     }
                 }
             }

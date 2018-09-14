@@ -1,9 +1,8 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 
@@ -80,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        private void menuItemCallback(object sender, EventArgs e)
+        private async void menuItemCallback(object sender, EventArgs e)
         {
             try
             {
@@ -108,16 +107,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         var helper = DTEHelper.Create(applicationObject);
 
-                        List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsCSharpType);
+                        var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
 
-                        var file = selectedFiles.FirstOrDefault();
+                        string fileType = await PropertiesHelper.GetTypeFullNameAsync(document);
 
-                        if (file != null)
-                        {
-                            string selection = file.Name.Split('.').FirstOrDefault();
-
-                            helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(solutionUniqueName, false, selection);
-                        }
+                        helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(solutionUniqueName, false, fileType);
                     }
                 }
             }

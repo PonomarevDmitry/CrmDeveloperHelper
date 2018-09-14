@@ -17,6 +17,8 @@ using NLog.Targets;
 using NLog.Config;
 using System.Windows;
 using System.Runtime.CompilerServices;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense;
+using System.Web;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -447,19 +449,59 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 foreach (var document in ApplicationObject.Documents.OfType<EnvDTE.Document>())
                 {
-                    if (document.ProjectItem != null
-                        &&
-                        (
-                            document.ProjectItem.IsOpen[EnvDTE.Constants.vsViewKindTextView]
-                            || document.ProjectItem.IsOpen[EnvDTE.Constants.vsViewKindCode]
+                    if (document.ActiveWindow == null
+                        || document.ActiveWindow.Type != EnvDTE.vsWindowType.vsWindowTypeDocument
+                        || document.ActiveWindow.Visible == false
                         )
-                    )
+                    {
+                        continue;
+                    }
+
+                    if (ApplicationObject.ItemOperations.IsFileOpen(document.FullName, EnvDTE.Constants.vsViewKindTextView)
+                        || ApplicationObject.ItemOperations.IsFileOpen(document.FullName, EnvDTE.Constants.vsViewKindCode)
+                        )
                     {
                         string path = document.FullName;
 
                         if (checkerFunction(path))
                         {
                             selectedFiles.Add(new SelectedFile(path, GetFriendlyPath(path)));
+                        }
+                    }
+                }
+            }
+
+            return selectedFiles;
+        }
+
+        public List<EnvDTE.Document> GetOpenedDocumentsAsDocument(Func<string, bool> checkerFunction)
+        {
+            List<EnvDTE.Document> selectedFiles = new List<EnvDTE.Document>();
+
+            if (ApplicationObject.ActiveWindow != null
+                && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeDocument
+                && ApplicationObject.ActiveWindow.Document != null
+                )
+            {
+                foreach (var document in ApplicationObject.Documents.OfType<EnvDTE.Document>())
+                {
+                    if (document.ActiveWindow == null
+                      || document.ActiveWindow.Type != EnvDTE.vsWindowType.vsWindowTypeDocument
+                      || document.ActiveWindow.Visible == false
+                      )
+                    {
+                        continue;
+                    }
+
+                    if (ApplicationObject.ItemOperations.IsFileOpen(document.FullName, EnvDTE.Constants.vsViewKindTextView)
+                        || ApplicationObject.ItemOperations.IsFileOpen(document.FullName, EnvDTE.Constants.vsViewKindCode)
+                        )
+                    {
+                        string path = document.FullName;
+
+                        if (checkerFunction(path))
+                        {
+                            selectedFiles.Add(document);
                         }
                     }
                 }
@@ -798,27 +840,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void WriteToOutputFilePathUri(string filePath)
-        {
-            if (string.IsNullOrEmpty(filePath))
-            {
-                return;
-            }
-
-            var commonConfig = CommonConfiguration.Get();
-
-            var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
-            var uriFolder = new Uri(Path.GetDirectoryName(filePath), UriKind.Absolute).AbsoluteUri;
-
-            this.WriteToOutput("File Uri                       :    {0}", uriFile);
-            this.WriteToOutput("Open File in Visual Studio Uri :    {0}", uriFile.Replace("file:", "openinvisualstudio:"));
-            if (File.Exists(commonConfig.TextEditorProgram))
-            {
-                this.WriteToOutput("Open File in TextEditor        :    {0}", uriFile.Replace("file:", "openintexteditor:"));
-            }
-            this.WriteToOutput("File Folder Uri                :    {0}", uriFolder);
-        }
-
         /// <summary>
         /// Вывод в Output Window VS пустые строки для разделения операций.
         /// </summary>
@@ -1008,16 +1029,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleUpdateContentWebResourcesAndPublishCommand(List<SelectedFile> selectedFiles)
+        public void HandleUpdateContentWebResourcesAndPublishCommand(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (selectedFiles.Count == 0)
             {
                 return;
             }
 
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null && selectedFiles.Count > 0)
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null && selectedFiles.Count > 0)
             {
                 bool canPublish = false;
 
@@ -1027,7 +1058,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 else
                 {
-                    string message = string.Format("Continue create/update web resources and publish {0} files on\r\n{1}?", selectedFiles.Count, crmConfig.CurrentConnectionData.GetDescriptionColumn());
+                    string message = string.Format("Continue create/update web resources and publish {0} files on\r\n{1}?", selectedFiles.Count, connectionData.GetDescriptionColumn());
 
                     var dialog = new WindowConfirmPublish(message);
 
@@ -1048,7 +1079,67 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     try
                     {
-                        Controller.StartUpdateContentAndPublish(selectedFiles, crmConfig.CurrentConnectionData);
+                        Controller.StartUpdateContentAndPublish(selectedFiles, connectionData);
+                    }
+                    catch (Exception xE)
+                    {
+                        WriteErrorToOutput(xE);
+                    }
+                }
+            }
+        }
+
+        public void HandleUpdateContentWebResourcesAndPublishEqualByTextCommand(ConnectionData connectionData, List<SelectedFile> selectedFiles)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null && selectedFiles.Count > 0)
+            {
+                bool canPublish = false;
+
+                if (commonConfig.DoNotPropmPublishMessage)
+                {
+                    canPublish = true;
+                }
+                else
+                {
+                    string message = string.Format("Seach equal by text among {0} files, update them and publish on\r\n{1}?", selectedFiles.Count, connectionData.GetDescription());
+
+                    var dialog = new WindowConfirmPublish(message);
+
+                    if (dialog.ShowDialog().GetValueOrDefault())
+                    {
+                        commonConfig.DoNotPropmPublishMessage = dialog.DoNotPromtPublishMessage;
+
+                        commonConfig.Save();
+
+                        canPublish = true;
+                    }
+                }
+
+                if (canPublish)
+                {
+                    ActivateOutputWindow();
+                    WriteToOutputEmptyLines(commonConfig);
+
+                    try
+                    {
+                        Controller.StartUpdateContentAndPublishEqualByText(selectedFiles, connectionData);
                     }
                     catch (Exception xE)
                     {
@@ -1227,7 +1318,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 ActivateOutputWindow();
                 WriteToOutputEmptyLines(commonConfig);
 
-                var defaultFolder = GetOutputPath(project);
+                var defaultFolder = PropertiesHelper.GetOutputPath(project);
 
                 try
                 {
@@ -1261,102 +1352,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 CrmDeveloperHelperPackage.Singleton?.ExecuteFetchXmlQueryAsync(selectedFile.FilePath, connectionData);
             }
-        }
-
-        public string GetOutputPath(Project proj)
-        {
-            var prjPath = GetProjectPath(proj);
-            if (string.IsNullOrWhiteSpace(prjPath))
-            {
-                return string.Empty;
-            }
-
-            Properties prop = null;
-
-            string probKey = string.Empty;
-            if (proj.ConfigurationManager.ActiveConfiguration.Properties == null)
-            {
-                if (TryGetPropertyByName(proj.Properties, "ActiveConfiguration", out _) == false)
-                {
-                    return string.Empty;
-                }
-
-                prop = proj.Properties.Item("ActiveConfiguration").Value as Properties;
-                if (TryGetPropertyByName(prop, "PrimaryOutput", out _))
-                {
-                    probKey = "PrimaryOutput";
-                }
-            }
-            else
-            {
-                prop = proj.ConfigurationManager.ActiveConfiguration.Properties;
-                if (TryGetPropertyByName(prop, "OutputPath", out _))
-                {
-                    probKey = "OutputPath";
-                }
-            }
-
-            if (TryGetPropertyByName(prop, probKey, out _) == false)
-            {
-                return string.Empty;
-            }
-
-            var filePath = prop.Item(probKey).Value.ToString();
-            if (Path.IsPathRooted(filePath) == false)
-            {
-                filePath = Path.Combine(prjPath, filePath);
-            }
-
-            var attr = File.GetAttributes(filePath);
-            if (attr.HasFlag(FileAttributes.Directory))
-            {
-                return filePath;
-            }
-            else
-            {
-                return new FileInfo(filePath).Directory.FullName;
-            }
-        }
-
-        public string GetProjectPath(Project proj)
-        {
-            // C# Project has the FullPath property
-            if (TryGetPropertyByName(proj.Properties, "FullPath", out var propertyFullPath))
-            {
-                var filePath = propertyFullPath.Value.ToString();
-                var fullPath = new FileInfo(filePath);
-                return fullPath.Directory.FullName;
-            }
-
-            // C++ Project has the ProjectFile property
-            if (TryGetPropertyByName(proj.Properties, "ProjectFile", out var propertyProjectFile))
-            {
-                var filePath = propertyProjectFile.Value.ToString();
-                var fullPath = new FileInfo(filePath);
-                return fullPath.Directory.FullName;
-            }
-
-            return string.Empty;
-        }
-
-        public static bool TryGetPropertyByName(Properties properties, string propertyName, out Property result)
-        {
-            result = null;
-
-            if (properties != null)
-            {
-                foreach (Property item in properties)
-                {
-                    if (item != null && string.Equals(item.Name, propertyName, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        result = item;
-
-                        return true;
-                    }
-                }
-            }
-
-            return false;
         }
 
         public void HandleUpdateGlobalOptionSetsFile(List<SelectedFile> selectedFiles, bool withSelect)
@@ -1443,7 +1438,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleReportDifferenceCommand(ConnectionData connectionData, bool isCustom)
+        public void HandleReportDifferenceCommand(ConnectionData connectionData, string fieldName, string fieldTitle, bool isCustom)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -1466,7 +1461,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartReportDifference(selectedFiles[0], isCustom, connectionData, commonConfig);
+                    Controller.StartReportDifference(selectedFiles[0], fieldName, fieldTitle, isCustom, connectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {
@@ -1475,7 +1470,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleReportThreeFileDifferenceCommand(ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType)
+        public void HandleReportThreeFileDifferenceCommand(ConnectionData connectionData1, ConnectionData connectionData2, string fieldName, string fieldTitle, ShowDifferenceThreeFileType differenceType)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -1488,7 +1483,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartReportThreeFileDifference(selectedFiles[0], connectionData1, connectionData2, differenceType, commonConfig);
+                    Controller.StartReportThreeFileDifference(selectedFiles[0], fieldName, fieldTitle, connectionData1, connectionData2, differenceType, commonConfig);
                 }
                 catch (Exception xE)
                 {
@@ -1603,23 +1598,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleOpenLastSelectedSolution(string solutionUniqueName, ActionOpenComponent action)
+        public void HandleOpenLastSelectedSolution(ConnectionData connectionData, string solutionUniqueName, ActionOpenComponent action)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
 
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null && !string.IsNullOrEmpty(solutionUniqueName) && commonConfig != null)
+            if (connectionData != null && !string.IsNullOrEmpty(solutionUniqueName) && commonConfig != null)
             {
                 ActivateOutputWindow();
                 WriteToOutputEmptyLines(commonConfig);
 
                 try
                 {
-                    Controller.StartOpeningSolution(commonConfig, crmConfig.CurrentConnectionData, solutionUniqueName, action);
+                    Controller.StartOpeningSolution(commonConfig, connectionData, solutionUniqueName, action);
                 }
                 catch (Exception xE)
                 {
@@ -1862,6 +1862,76 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     try
                     {
                         Controller.ShowingWebResourcesDependentComponents(selectedFiles, crmConfig.CurrentConnectionData, commonConfig);
+                    }
+                    catch (Exception xE)
+                    {
+                        WriteErrorToOutput(xE);
+                    }
+                }
+            }
+        }
+
+        public void HandleCheckingWorkflowsUsedEntities()
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            {
+                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.AfterCreateFileAction);
+
+                if (form.ShowDialog().GetValueOrDefault())
+                {
+                    commonConfig.FolderForExport = form.SelectedFolder;
+                    commonConfig.AfterCreateFileAction = form.GetFileAction();
+
+                    commonConfig.Save();
+
+                    ActivateOutputWindow();
+                    WriteToOutputEmptyLines(commonConfig);
+
+                    try
+                    {
+                        Controller.ExecuteCheckingWorkflowsUsedEntities(crmConfig.CurrentConnectionData, commonConfig);
+                    }
+                    catch (Exception xE)
+                    {
+                        WriteErrorToOutput(xE);
+                    }
+                }
+            }
+        }
+
+        public void HandleCheckingWorkflowsNotExistingUsedEntities()
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            {
+                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.AfterCreateFileAction);
+
+                if (form.ShowDialog().GetValueOrDefault())
+                {
+                    commonConfig.FolderForExport = form.SelectedFolder;
+                    commonConfig.AfterCreateFileAction = form.GetFileAction();
+
+                    commonConfig.Save();
+
+                    ActivateOutputWindow();
+                    WriteToOutputEmptyLines(commonConfig);
+
+                    try
+                    {
+                        Controller.ExecuteCheckingWorkflowsNotExistingUsedEntities(crmConfig.CurrentConnectionData, commonConfig);
                     }
                     catch (Exception xE)
                     {
@@ -2704,6 +2774,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleTraceReaderWindow(ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null)
+            {
+                ActivateOutputWindow();
+                WriteToOutputEmptyLines(commonConfig);
+
+                try
+                {
+                    this.Controller.StartTraceReaderWindow(connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    this.WriteErrorToOutput(ex);
+                }
+            }
+        }
+
         public void HandleExportEntityAttributesDependentComponents()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
@@ -3184,56 +3284,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleUpdateContentWebResourcesAndPublishEqualByTextCommand(List<SelectedFile> selectedFiles)
-        {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
-            {
-                return;
-            }
-
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null && selectedFiles.Count > 0)
-            {
-                bool canPublish = false;
-
-                if (commonConfig.DoNotPropmPublishMessage)
-                {
-                    canPublish = true;
-                }
-                else
-                {
-                    string message = string.Format("Seach equal by text among {0} files, update them and publish on\r\n{1}?", selectedFiles.Count, crmConfig.CurrentConnectionData.GetDescription());
-
-                    var dialog = new WindowConfirmPublish(message);
-
-                    if (dialog.ShowDialog().GetValueOrDefault())
-                    {
-                        commonConfig.DoNotPropmPublishMessage = dialog.DoNotPromtPublishMessage;
-
-                        commonConfig.Save();
-
-                        canPublish = true;
-                    }
-                }
-
-                if (canPublish)
-                {
-                    ActivateOutputWindow();
-                    WriteToOutputEmptyLines(commonConfig);
-
-                    try
-                    {
-                        Controller.StartUpdateContentAndPublishEqualByText(selectedFiles, crmConfig.CurrentConnectionData);
-                    }
-                    catch (Exception xE)
-                    {
-                        WriteErrorToOutput(xE);
-                    }
-                }
-            }
-        }
-
         public void HandleAddingIntoPublishListFilesByTypeCommand(List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
@@ -3487,6 +3537,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return null;
         }
 
+        public void WriteToOutputFilePathUri(string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                return;
+            }
+
+            var commonConfig = CommonConfiguration.Get();
+
+            var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
+
+            this.WriteToOutput("File Uri                   :    {0}", uriFile);
+            this.WriteToOutput("Open File in Visual Studio :    {0}", uriFile.Replace("file:", "openinvisualstudio:"));
+            if (File.Exists(commonConfig.TextEditorProgram))
+            {
+                this.WriteToOutput("Open File in TextEditor    :    {0}", uriFile.Replace("file:", "openintexteditor:"));
+            }
+            this.WriteToOutput("Select File in Folder      :    {0}", uriFile.Replace("file:", "selectfileinfolder:"));
+        }
+
+        public void WriteToOutputSolutionUri(Guid connectionId, string solutionUniqueName, string solutionUrl)
+        {
+            if (string.IsNullOrEmpty(solutionUniqueName))
+            {
+                return;
+            }
+
+            string urlOpenSolution = string.Format("{0}:///crm.com?ConnectionId={1}&SolutionUniqueName={2}"
+                , UrlCommandFilter.PrefixOpenSolution
+                , connectionId.ToString()
+                , HttpUtility.UrlEncode(solutionUniqueName)
+                );
+
+            this.WriteToOutput("Selected Solution        : {0}", solutionUniqueName);
+            this.WriteToOutput("Open Solution in Web     : {0}", solutionUrl);
+            this.WriteToOutput("Open Solution in Windows : {0}", urlOpenSolution);
+        }
+
         public void SelectFileInFolder(string filePath)
         {
             if (File.Exists(filePath))
@@ -3615,11 +3703,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             ConnectionData connectionData = null;
 
+            string fieldName = string.Empty;
+            string fieldTitle = string.Empty;
+
             if (!string.IsNullOrEmpty(uri.Query))
             {
-                var queryDictionary = System.Web.HttpUtility.ParseQueryString(uri.Query);
+                var queryDictionary = HttpUtility.ParseQueryString(uri.Query);
 
-                if (!string.IsNullOrEmpty(queryDictionary["ConnectionId"]))
+                if (queryDictionary.AllKeys.Contains("ConnectionId", StringComparer.InvariantCultureIgnoreCase) 
+                    && !string.IsNullOrEmpty(queryDictionary["ConnectionId"])
+                    )
                 {
                     var idStr = queryDictionary["ConnectionId"];
 
@@ -3629,6 +3722,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         connectionData = connectionConfig.Connections.FirstOrDefault(c => c.ConnectionId == tempGuid);
                     }
+                }
+
+                if (queryDictionary.AllKeys.Contains("fieldName", StringComparer.InvariantCultureIgnoreCase)
+                    && !string.IsNullOrEmpty(queryDictionary["fieldName"])
+                    )
+                {
+                    fieldName = queryDictionary["fieldName"];
+                }
+
+                if (queryDictionary.AllKeys.Contains("fieldTitle", StringComparer.InvariantCultureIgnoreCase)
+                    && !string.IsNullOrEmpty(queryDictionary["fieldTitle"])
+                    )
+                {
+                    fieldTitle = queryDictionary["fieldTitle"];
                 }
             }
 
@@ -3659,13 +3766,56 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                     else if (FileOperations.SupportsReportType(uri.LocalPath))
                     {
-                        Controller.StartReportDifference(selectedFile, false, connectionData, commonConfig);
+                        Controller.StartReportDifference(selectedFile, fieldName, fieldTitle, false, connectionData, commonConfig);
                     }
                 }
                 catch (Exception xE)
                 {
                     WriteErrorToOutput(xE);
                 }
+            }
+        }
+
+        public void OpenSolution(Uri uri)
+        {
+            ConnectionData connectionData = null;
+            string solutionUniqueName = null;
+
+            if (!string.IsNullOrEmpty(uri.Query))
+            {
+                var queryDictionary = HttpUtility.ParseQueryString(uri.Query);
+
+                if (!string.IsNullOrEmpty(queryDictionary["ConnectionId"]))
+                {
+                    var idStr = queryDictionary["ConnectionId"];
+
+                    if (Guid.TryParse(idStr, out var tempGuid))
+                    {
+                        var connectionConfig = Model.ConnectionConfiguration.Get();
+
+                        connectionData = connectionConfig.Connections.FirstOrDefault(c => c.ConnectionId == tempGuid);
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(queryDictionary["SolutionUniqueName"]))
+                {
+                    solutionUniqueName = queryDictionary["SolutionUniqueName"];
+                }
+            }
+
+            if (connectionData == null)
+            {
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && !string.IsNullOrEmpty(solutionUniqueName))
+            {
+                this.HandleOpenLastSelectedSolution(connectionData, solutionUniqueName, ActionOpenComponent.OpenInWindow);
             }
         }
 

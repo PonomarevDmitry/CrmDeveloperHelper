@@ -232,16 +232,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus(string.Format("{0} Plugin Types loaded.", results.Count()));
+            UpdateStatus("{0} Plugin Types loaded.", results.Count());
 
             ToggleControls(true);
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -864,7 +871,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
                 });
 
-                string[] commands = { "contMnAddPluginAssemblyIntoSolutionLast", "contMnAddPluginTypeStepsIntoSolutionLast", "contMnAddPluginAssemblyStepsIntoSolutionLast" };
+                string[] commands = { "contMnAddPluginTypeStepsIntoSolutionLast", "contMnAddPluginAssemblyIntoSolutionLast", "contMnAddPluginAssemblyStepsIntoSolutionLast" };
                 Action<object, RoutedEventArgs>[] actions = { AddIntoCrmSolutionLast_Click, mIAddPluginTypeStepsIntoSolutionLast_Click, mIAddAssemblyStepsIntoSolutionLast_Click };
 
                 for (int index = 0; index < commands.Length; index++)

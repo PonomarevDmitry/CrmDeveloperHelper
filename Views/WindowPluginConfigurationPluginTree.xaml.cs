@@ -1008,11 +1008,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             node.IsExpanded = true;
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -1297,13 +1304,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+                    var openFileDialog1 = new Microsoft.Win32.OpenFileDialog();
 
                     openFileDialog1.Filter = "Plugin Configuration (.xml)|*.xml";
                     openFileDialog1.FilterIndex = 1;
                     openFileDialog1.RestoreDirectory = true;
 
-                    if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    if (openFileDialog1.ShowDialog().GetValueOrDefault())
                     {
                         selectedPath = openFileDialog1.FileName;
                     }

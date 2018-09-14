@@ -103,11 +103,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.tSSLStatusMessage.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -2121,7 +2128,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            OrganizationComparer comparer = new OrganizationComparer(connection1, connection2, this._iWriteToOutput, folder);
+            var source = new OrganizationComparerSource(connection1, connection2);
+
+            OrganizationComparer comparer = new OrganizationComparer(source, this._iWriteToOutput, folder);
 
             await function(comparer);
 
@@ -2333,7 +2342,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            OrganizationComparer comparer = new OrganizationComparer(connection1, connection2, this._iWriteToOutput, folder);
+            var source = new OrganizationComparerSource(connection1, connection2);
+
+            OrganizationComparer comparer = new OrganizationComparer(source, this._iWriteToOutput, folder);
 
             await MultipleAnalize(functions, comparer);
 
@@ -2349,8 +2360,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 this._iWriteToOutput.WriteToOutput("Checking connections...");
-
-                await comparer.InitializeConnection(new StringBuilder());
 
                 foreach (var function in functions)
                 {

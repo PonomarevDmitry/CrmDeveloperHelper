@@ -1,11 +1,10 @@
-﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
@@ -13,7 +12,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -41,6 +39,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         public event EventHandler<EventArgs> ConnectionChanged;
 
         private NavigateUriMultiValueConverter _navigateUriConverter = new NavigateUriMultiValueConverter();
+
+        private TabItem _selectedItem;
 
         private void OnConnectionChanged()
         {
@@ -85,9 +85,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 }
             }
 
-            ClearGridAndTextBox();
+            tabControl.Loaded += TabControl_Loaded;
+        }
 
-            this.dGrParameters.DataContext = cmBCurrentConnection;
+        private void TabControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_selectedItem != null)
+            {
+                tabControl.SelectedItem = _selectedItem;
+            }
         }
 
         private UserControlSettings GetUserControlSettings()
@@ -120,6 +126,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         public void SetSource(string filePath, ConnectionData connectionData)
         {
+            if (!string.IsNullOrEmpty(this.FilePath))
+            {
+                return;
+            }
+
             this.FilePath = filePath;
             this._connectionConfig = connectionData.ConnectionConfiguration;
 
@@ -132,6 +143,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             cmBCurrentConnection.ItemsSource = _connectionConfig.Connections;
             cmBCurrentConnection.SelectedItem = connectionData;
+
+            ClearGridAndTextBox();
+
+            this.dGrParameters.DataContext = cmBCurrentConnection;
         }
 
         private void btnExecuteFetchXml_Click(object sender, RoutedEventArgs e)
@@ -139,11 +154,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             this.Execute();
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -177,6 +199,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 tbErrorText.IsSelected = true;
                 tbErrorText.Focus();
 
+                this._selectedItem = tbErrorText;
+
                 ToggleControls(true);
 
                 UpdateStatus("Connection is not selected.");
@@ -206,6 +230,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 tbErrorText.IsSelected = true;
                 tbErrorText.Focus();
+
+                this._selectedItem = tbErrorText;
 
                 ToggleControls(true);
 
@@ -245,6 +271,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 tbErrorText.IsSelected = true;
                 tbErrorText.Focus();
+
+                this._selectedItem = tbErrorText;
 
                 UpdateStatus("File not exists.");
 
@@ -307,6 +335,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     tbErrorText.IsSelected = true;
                     tbErrorText.Focus();
 
+                    this._selectedItem = tbErrorText;
+
                     ToggleControls(true);
 
                     UpdateStatus("Fetch Execution Error.");
@@ -321,8 +351,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             var columnsInFetch = GetColumns(connectionData, fetchXml);
 
             Dictionary<string, string> columnMapping = null;
-
-            var urlFormat = connectionData.GetEntityUrlFormat();
 
             var dataTable = EntityCollectionToDataTable(connectionData, entityCollection, out columnMapping);
 
@@ -344,7 +372,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                         continue;
                     }
 
-                    AddNewColumnInDataGrid(dataTable, attributeName, dataColumnName, urlFormat);
+                    AddNewColumnInDataGrid(dataTable, attributeName, dataColumnName, connectionData);
                 }
 
                 foreach (var attributeName in columnMapping.Keys)
@@ -361,24 +389,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                         continue;
                     }
 
-                    AddNewColumnInDataGrid(dataTable, attributeName, dataColumnName, urlFormat);
+                    AddNewColumnInDataGrid(dataTable, attributeName, dataColumnName, connectionData);
                 }
 
                 dGrResults.ItemsSource = dataTable.DefaultView;
+
+                tabControl.SelectedItem = tbResults;
 
                 tbResults.IsEnabled = true;
                 tbResults.Visibility = Visibility.Visible;
 
                 tbResults.IsSelected = true;
                 tbResults.Focus();
+
+                this._selectedItem = tbResults;
             });
         }
 
-        private void AddNewColumnInDataGrid(DataTable dataTable, string attributeName, string dataColumnName, string urlFormat)
+        private void AddNewColumnInDataGrid(DataTable dataTable, string attributeName, string dataColumnName, ConnectionData connectionData)
         {
             var dataColumn = dataTable.Columns[dataColumnName];
 
-            if (dataColumn.DataType == typeof(EntityReferenceView) || dataColumn.DataType == typeof(PrimaryGuidView))
+            if (dataColumn.DataType == typeof(EntityReferenceView)
+                || dataColumn.DataType == typeof(PrimaryGuidView)
+                )
             {
                 var columnDGT = new DataGridHyperlinkColumn()
                 {
@@ -397,7 +431,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                         Mode = BindingMode.OneTime,
 
                         Converter = _navigateUriConverter,
-                        ConverterParameter = urlFormat,
+                        ConverterParameter = connectionData,
 
                         Bindings =
                         {
@@ -463,9 +497,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     return Binding.DoNothing;
                 }
 
-                if (values[0] is string entityName && values[1] is Guid id && parameter is string format)
+                if (values[0] is string entityName
+                    && values[1] is Guid id
+                    && parameter is ConnectionData connectionData
+                    )
                 {
-                    var url = string.Format(format, entityName, id);
+                    var url = connectionData.GetEntityUrl(entityName, id);
 
                     if (Uri.TryCreate(url, UriKind.Absolute, out var result))
                     {
@@ -631,49 +668,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private class EntityReferenceView : IComparable, IComparable<EntityReferenceView>, IEquatable<EntityReferenceView>
+        private class EntityReferenceView : PrimaryGuidView
         {
-            public string LogicalName { get; private set; }
-
-            public Guid Id { get; private set; }
-
             public string Name { get; private set; }
 
             public EntityReferenceView(string logicalName, Guid idValue, string name)
+                : base(logicalName, idValue)
             {
-                this.LogicalName = logicalName;
-                this.Id = idValue;
                 this.Name = name;
 
                 if (string.IsNullOrEmpty(name))
                 {
                     this.Name = string.Format("{0} - {1}", LogicalName, Id);
                 }
-            }
-
-            public int CompareTo(EntityReferenceView other)
-            {
-                if (other == null)
-                {
-                    return -1;
-                }
-
-                return this.Name.CompareTo(other.Name);
-            }
-
-            public int CompareTo(object obj)
-            {
-                return this.CompareTo(obj as EntityReferenceView);
-            }
-
-            public bool Equals(EntityReferenceView other)
-            {
-                if (other == null)
-                {
-                    return false;
-                }
-
-                return this.Id == other.Id && string.Equals(this.LogicalName, other.LogicalName, StringComparison.InvariantCultureIgnoreCase);
             }
 
             public override string ToString()
@@ -905,6 +912,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             dGrResults.Items.DetachFromSourceCollection();
             dGrResults.ItemsSource = null;
 
+            this._selectedItem = tbFetchXml;
+
             UpdateStatus(string.Empty);
         }
 
@@ -1114,7 +1123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void mIOpenEntityReferenceCustomizationInWeb_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityNameFromHyperlink(e, out string entityName))
+            if (!TryFindEntityNameFromEntityReference(e, out string entityName, out Guid entityId))
             {
                 return;
             }
@@ -1124,7 +1133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private async void mIOpenEntityReferenceMetadataWindow_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityNameFromHyperlink(e, out string entityName))
+            if (!TryFindEntityNameFromEntityReference(e, out string entityName, out var entityId))
             {
                 return;
             }
@@ -1144,7 +1153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void mICopyEntityReferenceId_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityIdFromHyperlink(e, out var entityId))
+            if (!TryFindEntityNameFromEntityReference(e, out string entityName, out var entityId))
             {
                 return;
             }
@@ -1154,7 +1163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void mICopyEntityReferenceName_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityNameFromHyperlink(e, out string entityName))
+            if (!TryFindEntityNameFromEntityReference(e, out string entityName, out var entityId))
             {
                 return;
             }
@@ -1174,12 +1183,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private async void mICreateEntityReferenceDescription_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityIdFromHyperlink(e, out var entityId))
-            {
-                return;
-            }
-
-            if (!TryFindEntityNameFromHyperlink(e, out string entityName))
+            if (!TryFindEntityNameFromEntityReference(e, out string entityName, out var entityId))
             {
                 return;
             }
@@ -1201,59 +1205,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private bool TryFindEntityNameFromHyperlink(RoutedEventArgs e, out string entityName)
+        private bool TryFindEntityNameFromEntityReference(RoutedEventArgs e, out string entityName, out Guid entityId)
         {
             entityName = null;
-
-            if (!TryFindNavigateUriFromHyperlink(e, out var navigateUri))
-            {
-                return false;
-            }
-
-            var query = HttpUtility.ParseQueryString(navigateUri.Query);
-
-            if (!query.AllKeys.Contains("etn", StringComparer.InvariantCultureIgnoreCase))
-            {
-                return false;
-            }
-
-            entityName = query.Get("etn");
-
-            if (string.IsNullOrEmpty(entityName))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool TryFindEntityIdFromHyperlink(RoutedEventArgs e, out Guid entityId)
-        {
             entityId = Guid.Empty;
 
-            if (!TryFindNavigateUriFromHyperlink(e, out var navigateUri))
+            MenuItem menuItem = e.OriginalSource as MenuItem;
+
+            if (menuItem == null)
             {
                 return false;
             }
 
-            var query = HttpUtility.ParseQueryString(navigateUri.Query);
+            ContextMenu contextMenu = ItemsControl.ItemsControlFromItemContainer(menuItem) as ContextMenu;
 
-            if (!query.AllKeys.Contains("id", StringComparer.InvariantCultureIgnoreCase))
+            if (contextMenu == null
+                || contextMenu.PlacementTarget == null
+                || !(contextMenu.PlacementTarget is TextBlock textBlock)
+                || !(contextMenu.DataContext is DataRowView dataRowView)
+                || !(textBlock.Parent is DataGridCell cell)
+                )
             {
                 return false;
             }
 
-            var entityIdString = query.Get("id");
-
-            if (string.IsNullOrEmpty(entityIdString))
+            if (string.IsNullOrEmpty(cell.Column.SortMemberPath))
             {
                 return false;
             }
 
-            if (!Guid.TryParse(entityIdString, out entityId))
+            if (!dataRowView.Row.Table.Columns.Contains(cell.Column.SortMemberPath))
             {
                 return false;
             }
+
+            var value = dataRowView[cell.Column.SortMemberPath] as PrimaryGuidView;
+
+            if (value == null)
+            {
+                return false;
+            }
+
+            entityName = value.LogicalName;
+            entityId = value.Id;
 
             return true;
         }
@@ -1306,11 +1300,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             var jsCode = ContentCoparerHelper.FormatToJavaScript("fetchXml", fileText);
 
             Clipboard.SetText(jsCode);
-        }
-
-        private void dGrResults_Sorting(object sender, DataGridSortingEventArgs e)
-        {
-            //DataView dataView = e.Column.SortMemberPath
         }
     }
 }

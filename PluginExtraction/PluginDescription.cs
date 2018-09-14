@@ -128,13 +128,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction
 
             return result;
         }
+
         public string GetConnectionInfo()
         {
             StringBuilder result = new StringBuilder();
 
-            result.AppendFormat("Connection to CRM: PublicUrl: {0}", this.PublicUrl).AppendLine();
-            result.AppendFormat("DiscoveryService: {0}", this.DiscoveryService).AppendLine();
-            result.AppendFormat("OrganizationService: {0}", this.OrganizationService);
+            result.AppendFormat("Connection to CRM:        PublicUrl: {0}", this.PublicUrl).AppendLine();
+            result.AppendFormat("DiscoveryService:         {0}", this.DiscoveryService).AppendLine();
+            result.AppendFormat("OrganizationService:      {0}", this.OrganizationService);
 
             if (!string.IsNullOrEmpty(this.FilePath))
             {

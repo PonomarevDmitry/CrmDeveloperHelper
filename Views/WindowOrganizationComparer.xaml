@@ -405,7 +405,7 @@
         <Button x:Name="btnClose" Content="Close" Margin="0,0,10,38" Click="btnClose_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
         <StatusBar Height="24" VerticalAlignment="Bottom">
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="tSSLStatusMessage" Content="" VerticalAlignment="Top"/>
+            <StatusBarItem x:Name="stBIStatus" Content="" VerticalAlignment="Top"/>
         </StatusBar>
     </Grid>
 </src:WindowBase>

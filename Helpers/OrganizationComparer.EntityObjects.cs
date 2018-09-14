@@ -22,23 +22,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking System Forms started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            FormDescriptionHandler handler1 = new FormDescriptionHandler(_descriptor1, new DependencyRepository(_service1));
-            FormDescriptionHandler handler2 = new FormDescriptionHandler(_descriptor2, new DependencyRepository(_service2));
+            var descriptor1 = new SolutionComponentDescriptor(_writeToOutput, this._comparerSource.Service1, false);
+            var descriptor2 = new SolutionComponentDescriptor(_writeToOutput, this._comparerSource.Service2, false);
 
-            var repository1 = new SystemFormRepository(_service1);
-            var repository2 = new SystemFormRepository(_service2);
+            FormDescriptionHandler handler1 = new FormDescriptionHandler(descriptor1, new DependencyRepository(_comparerSource.Service1));
+            FormDescriptionHandler handler2 = new FormDescriptionHandler(descriptor2, new DependencyRepository(_comparerSource.Service2));
 
-            var list1 = await repository1.GetListAsync(string.Empty);
+            var list1 = await _comparerSource.GetSystemForm1Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("System Forms in {0}: {1}", Connection1.Name, list1.Count));
+            content.AppendLine(_writeToOutput.WriteToOutput("System Forms in {0}: {1}", _comparerSource.Connection1.Name, list1.Count));
 
-            var list2 = await repository2.GetListAsync(string.Empty);
+            var list2 = await _comparerSource.GetSystemForm2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("System Forms in {0}: {1}", Connection2.Name, list2.Count));
+            content.AppendLine(_writeToOutput.WriteToOutput("System Forms in {0}: {1}", _comparerSource.Connection2.Name, list2.Count));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Entity", "Type", "Name", "IsManaged", "Id");
@@ -132,11 +132,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (ContentCoparerHelper.IsEntityDifferentInField(form.Entity1, form.Entity2, fieldName))
                             {
-                                var str1 = EntityDescriptionHandler.GetAttributeString(form.Entity1, fieldName, _service1.ConnectionData);
-                                var str2 = EntityDescriptionHandler.GetAttributeString(form.Entity2, fieldName, _service2.ConnectionData);
+                                var str1 = EntityDescriptionHandler.GetAttributeString(form.Entity1, fieldName, _comparerSource.Connection1);
+                                var str2 = EntityDescriptionHandler.GetAttributeString(form.Entity2, fieldName, _comparerSource.Connection2);
 
-                                tabDiff.AddLine(fieldName, Connection1.Name, str1);
-                                tabDiff.AddLine(fieldName, Connection2.Name, str2);
+                                tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
+                                tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
                             }
                         }
                     }
@@ -198,12 +198,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                                 if (!string.IsNullOrEmpty(formReason))
                                 {
-                                    tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, formReason));
+                                    tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, formReason));
                                 }
 
                                 if (!string.IsNullOrEmpty(descReason))
                                 {
-                                    tabDiff.AddLine(fieldName + "Description", string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, descReason));
+                                    tabDiff.AddLine(fieldName + "Description", string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, descReason));
                                 }
                             }
                         }
@@ -226,7 +226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Forms ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Forms ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -241,7 +241,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Forms ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Forms ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -256,7 +256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Forms DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Forms DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
 
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("Entity", "Type", "Name", "Id");
@@ -316,22 +316,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking System Saved Queries started at {0}"
                 , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
                 ));
 
-            var repository1 = new SavedQueryRepository(_service1);
-            var repository2 = new SavedQueryRepository(_service2);
+            var list1 = await _comparerSource.GetSavedQuery1Async();
 
-            var list1 = await repository1.GetListCustomableAsync(string.Empty);
+            content.AppendLine(_writeToOutput.WriteToOutput("System Saved Queries in {0}: {1}", _comparerSource.Connection1.Name, list1.Count));
 
-            content.AppendLine(_writeToOutput.WriteToOutput("System Saved Queries in {0}: {1}", Connection1.Name, list1.Count));
+            var list2 = await _comparerSource.GetSavedQuery2Async();
 
-            var list2 = await repository2.GetListCustomableAsync(string.Empty);
-
-            content.AppendLine(_writeToOutput.WriteToOutput("System Saved Queries in {0}: {1}", Connection2.Name, list2.Count));
+            content.AppendLine(_writeToOutput.WriteToOutput("System Saved Queries in {0}: {1}", _comparerSource.Connection2.Name, list2.Count));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Entity", "Name", "QueryType", "IsUserDefined", "IsManaged", "Id");
@@ -452,11 +449,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (ContentCoparerHelper.IsEntityDifferentInField(query.Entity1, query.Entity2, fieldName))
                             {
-                                var str1 = EntityDescriptionHandler.GetAttributeString(query.Entity1, fieldName, _service1.ConnectionData);
-                                var str2 = EntityDescriptionHandler.GetAttributeString(query.Entity2, fieldName, _service2.ConnectionData);
+                                var str1 = EntityDescriptionHandler.GetAttributeString(query.Entity1, fieldName, _comparerSource.Connection1);
+                                var str2 = EntityDescriptionHandler.GetAttributeString(query.Entity2, fieldName, _comparerSource.Connection2);
 
-                                tabDiff.AddLine(fieldName, Connection1.Name, str1);
-                                tabDiff.AddLine(fieldName, Connection2.Name, str2);
+                                tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
+                                tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
                             }
                         }
                     }
@@ -498,7 +495,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                                 if (!string.IsNullOrEmpty(reason))
                                 {
-                                    tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
+                                    tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, reason));
                                 }
                             }
                         }
@@ -527,7 +524,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Saved Queries ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Saved Queries ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -542,7 +539,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Saved Queries ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Saved Queries ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -557,7 +554,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Saved Queries DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Saved Queries DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
 
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("Entity", "Name", "QueryType", "Id");
@@ -613,20 +610,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking System Saved Query Visualizations (Charts) started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var repository1 = new SavedQueryVisualizationRepository(_service1);
-            var repository2 = new SavedQueryVisualizationRepository(_service2);
+            var list1 = await _comparerSource.GetSavedQueryVisualization1Async();
 
-            var list1 = await repository1.GetListAsync();
+            content.AppendLine(_writeToOutput.WriteToOutput("System Saved Query Visualizations (Charts) in {0}: {1}", _comparerSource.Connection1.Name, list1.Count));
 
-            content.AppendLine(_writeToOutput.WriteToOutput("System Saved Query Visualizations (Charts) in {0}: {1}", Connection1.Name, list1.Count));
+            var list2 = await _comparerSource.GetSavedQueryVisualization2Async();
 
-            var list2 = await repository2.GetListAsync();
-
-            content.AppendLine(_writeToOutput.WriteToOutput("System Saved Query Visualizations (Charts) in {0}: {1}", Connection2.Name, list2.Count));
+            content.AppendLine(_writeToOutput.WriteToOutput("System Saved Query Visualizations (Charts) in {0}: {1}", _comparerSource.Connection2.Name, list2.Count));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Entity", "Name", "IsManaged", "Id");
@@ -717,11 +711,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (ContentCoparerHelper.IsEntityDifferentInField(chart1, chart2, fieldName))
                             {
-                                var str1 = EntityDescriptionHandler.GetAttributeString(chart1, fieldName, _service1.ConnectionData);
-                                var str2 = EntityDescriptionHandler.GetAttributeString(chart2, fieldName, _service2.ConnectionData);
+                                var str1 = EntityDescriptionHandler.GetAttributeString(chart1, fieldName, _comparerSource.Connection1);
+                                var str2 = EntityDescriptionHandler.GetAttributeString(chart2, fieldName, _comparerSource.Connection2);
 
-                                tabDiff.AddLine(fieldName, Connection1.Name, str1);
-                                tabDiff.AddLine(fieldName, Connection2.Name, str2);
+                                tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
+                                tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
                             }
                         }
                     }
@@ -758,7 +752,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                                 if (!string.IsNullOrEmpty(reason))
                                 {
-                                    tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
+                                    tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, reason));
                                 }
                             }
                         }
@@ -781,7 +775,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Saved Query Visualizations (Charts) ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Saved Query Visualizations (Charts) ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -796,7 +790,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Saved Query Visualizations (Charts) ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Saved Query Visualizations (Charts) ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -811,7 +805,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Saved Query Visualizations (Charts) DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Saved Query Visualizations (Charts) DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
 
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("Entity", "Name", "Id");

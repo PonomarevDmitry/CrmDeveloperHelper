@@ -180,7 +180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadWebResources(list);
 
-            UpdateStatus(string.Format("{0} webresources loaded.", list.Count()));
+            UpdateStatus("{0} webresources loaded.", list.Count());
 
             ToggleControls(true);
         }
@@ -293,11 +293,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -480,9 +487,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput("Selected Solution - {0}", solution.UniqueName);
-
-            this._iWriteToOutput.WriteToOutput(_connectionData.GetSolutionUrl(solution.Id));
+            this._iWriteToOutput.WriteToOutputSolutionUri(_connectionData.ConnectionId, solution.UniqueName, _connectionData.GetSolutionUrl(solution.Id));
 
             var formWebResourceInfo = new WindowWebResourceCreate(_file.FileName, _file.FriendlyFilePath, solution.UniqueName, solution.PublisherCustomizationPrefix);
 

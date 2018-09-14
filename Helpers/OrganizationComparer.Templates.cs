@@ -20,20 +20,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking Mail Merge Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var repository1 = new MailMergeTemplateRepository(_service1);
-            var repository2 = new MailMergeTemplateRepository(_service2);
+            var task1 = _comparerSource.GetMailMergeTemplate1Async();
+            var task2 = _comparerSource.GetMailMergeTemplate2Async();
 
-            var list1 = await repository1.GetListAsync();
+            var list1 = await task1;
+            var list2 = await task2;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Mail Merge Templates in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Mail Merge Templates in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
 
-            var list2 = await repository2.GetListAsync();
-
-            content.AppendLine(_writeToOutput.WriteToOutput("Mail Merge Templates in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Mail Merge Templates in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("AssociatedEntity", "Name", "Language", "File Name", "Mail Merge Type", "Viewable By", "Owner", "Id");
@@ -140,11 +139,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                         {
-                            var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _service1.ConnectionData);
-                            var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _service2.ConnectionData);
+                            var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _comparerSource.Connection1);
+                            var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _comparerSource.Connection2);
 
-                            tabDiff.AddLine(fieldName, Connection1.Name, str1);
-                            tabDiff.AddLine(fieldName, Connection2.Name, str2);
+                            tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
+                            tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
                         }
                     }
                 }
@@ -175,7 +174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 reason = compare.GetCompareDescription();
                             }
 
-                            tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
+                            tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, reason));
                         }
                     }
                 }
@@ -200,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Mail Merge Templates ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("Mail Merge Templates ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -215,7 +214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                        .AppendLine()
                        .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Mail Merge Templates ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("Mail Merge Templates ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -230,7 +229,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Mail Merge Templates DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("Mail Merge Templates DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
 
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("AssociatedEntity", "Name", "Language", "Id");
@@ -286,20 +285,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking E-Mail Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var repository1 = new TemplateRepository(_service1);
-            var repository2 = new TemplateRepository(_service2);
+            var task1 = _comparerSource.GetTemplate1Async();
+            var task2 = _comparerSource.GetTemplate2Async();
 
-            var list1 = await repository1.GetListAsync();
+            var list1 = await task1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("E-Mail Templates in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("E-Mail Templates in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
 
-            var list2 = await repository2.GetListAsync();
+            var list2 = await task2;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("E-Mail Templates in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("E-Mail Templates in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("TemplateType", "Title", "ViewableBy", "Owner", "Id");
@@ -392,11 +391,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                         {
-                            var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _service1.ConnectionData);
-                            var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _service2.ConnectionData);
+                            var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _comparerSource.Connection1);
+                            var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _comparerSource.Connection2);
 
-                            tabDiff.AddLine(fieldName, Connection1.Name, str1);
-                            tabDiff.AddLine(fieldName, Connection2.Name, str2);
+                            tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
+                            tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
                         }
                     }
                 }
@@ -430,7 +429,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 reason = compare.GetCompareDescription();
                             }
 
-                            tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
+                            tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, reason));
                         }
                     }
                 }
@@ -454,7 +453,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("E-Mail Templates ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("E-Mail Templates ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -469,7 +468,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("E-Mail Templates ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("E-Mail Templates ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -484,7 +483,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("E-Mail Templates DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("E-Mail Templates DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
 
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("TemplateType", "Title", "Id");
@@ -539,20 +538,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking KB Article Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var repository1 = new KbArticleTemplateRepository(_service1);
-            var repository2 = new KbArticleTemplateRepository(_service2);
+            var task1 = _comparerSource.GetKbArticleTemplate1Async();
+            var task2 = _comparerSource.GetKbArticleTemplate2Async();
 
-            var list1 = await repository1.GetListAsync();
+            var list1 = await task1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("KB Article Templates in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("KB Article Templates in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
 
-            var list2 = await repository2.GetListAsync();
+            var list2 = await task2;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("KB Article Templates in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("KB Article Templates in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
 
             List<string> fieldsToCompare = new List<string>()
             {
@@ -625,11 +624,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                     {
-                        var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _service1.ConnectionData);
-                        var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _service2.ConnectionData);
+                        var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _comparerSource.Connection1);
+                        var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _comparerSource.Connection2);
 
-                        tabDiff.AddLine(fieldName, Connection1.Name, str1);
-                        tabDiff.AddLine(fieldName, Connection2.Name, str2);
+                        tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
+                        tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
                     }
                 }
 
@@ -653,7 +652,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             reason = compare.GetCompareDescription();
                         }
 
-                        tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
+                        tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, reason));
                     }
                 }
 
@@ -675,7 +674,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("KB Article Templates ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("KB Article Templates ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -690,7 +689,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("KB Article Templates ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("KB Article Templates ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -705,7 +704,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("KB Article Templates DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("KB Article Templates DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
 
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("Title", "Id");
@@ -759,20 +758,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking Contract Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var repository1 = new ContractTemplateRepository(_service1);
-            var repository2 = new ContractTemplateRepository(_service2);
+            var task1 = _comparerSource.GetContractTemplate1Async();
+            var task2 = _comparerSource.GetContractTemplate2Async();
 
-            var list1 = await repository1.GetListAsync();
+            var list1 = await task1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Contract Templates in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Contract Templates in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
 
-            var list2 = await repository2.GetListAsync();
+            var list2 = await task2;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Contract Templates in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Contract Templates in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
 
             List<string> fieldsToCompare = new List<string>()
             {
@@ -868,11 +867,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                     {
-                        var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _service1.ConnectionData);
-                        var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _service2.ConnectionData);
+                        var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _comparerSource.Connection1);
+                        var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _comparerSource.Connection2);
 
-                        tabDiff.AddLine(fieldName, Connection1.Name, str1);
-                        tabDiff.AddLine(fieldName, Connection2.Name, str2);
+                        tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
+                        tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
                     }
                 }
 
@@ -896,7 +895,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             reason = compare.GetCompareDescription();
                         }
 
-                        tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
+                        tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, reason));
                     }
                 }
 
@@ -918,7 +917,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Contract Templates ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("Contract Templates ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -933,7 +932,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Contract Templates ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("Contract Templates ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -948,7 +947,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Contract Templates DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("Contract Templates DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
 
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("Title", "Id");

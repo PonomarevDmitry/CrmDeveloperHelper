@@ -21,25 +21,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Assemblies started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var list1 = await new PluginAssemblyRepository(_service1).GetPluginAssembliesAsync();
+            var list1 = await _comparerSource.GetPluginAssembly1Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Assemblies in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Assemblies in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
 
-            var list2 = await new PluginAssemblyRepository(_service2).GetPluginAssembliesAsync();
+            var list2 = await _comparerSource.GetPluginAssembly2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Assemblies in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Assemblies in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
 
-            var listTypes1 = await new PluginTypeRepository(_service1).GetPluginTypesAsync(string.Empty);
+            var listTypes1 = await _comparerSource.GetPluginType1Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Types in {0}: {1}", Connection1.Name, listTypes1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Types in {0}: {1}", _comparerSource.Connection1.Name, listTypes1.Count()));
 
-            var listTypes2 = await new PluginTypeRepository(_service2).GetPluginTypesAsync(string.Empty);
+            var listTypes2 = await _comparerSource.GetPluginType2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Types in {0}: {1}", Connection2.Name, listTypes2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Types in {0}: {1}", _comparerSource.Connection2.Name, listTypes2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Name", "IsHidden", "IsManaged");
@@ -101,7 +101,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (only1.Any())
                     {
-                        diff.Add(string.Format("Plugin Types ONLY EXISTS in {0}: {1}", Connection1.Name, only1.Count()));
+                        diff.Add(string.Format("Plugin Types ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, only1.Count()));
 
                         FormatTextTableHandler table = new FormatTextTableHandler();
                         table.SetHeader("Name", "IsManaged");
@@ -116,7 +116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (only2.Any())
                     {
-                        diff.Add(string.Format("Plugin Types ONLY EXISTS in {0}: {1}", Connection2.Name, only2.Count()));
+                        diff.Add(string.Format("Plugin Types ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, only2.Count()));
 
                         FormatTextTableHandler table = new FormatTextTableHandler();
                         table.SetHeader("Name", "IsManaged");
@@ -135,14 +135,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (tableOnlyExistsIn1.Count > 0)
             {
-                content.AppendLine().AppendLine().AppendFormat("Plugin Assemblies ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("Plugin Assemblies ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
 
             if (tableOnlyExistsIn2.Count > 0)
             {
-                content.AppendLine().AppendLine().AppendFormat("Plugin Assemblies ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("Plugin Assemblies ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -157,7 +157,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                      .AppendLine()
                      .AppendLine();
 
-                content.AppendFormat("Plugin Assemblies DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, assemblyDifference.Count);
+                content.AppendFormat("Plugin Assemblies DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, assemblyDifference.Count);
 
                 foreach (var item in assemblyDifference.OrderBy(s => s.Key))
                 {
@@ -174,7 +174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Plugin Assemblies DIFFERENT Details in {0} and {1}: {2}", Connection1.Name, Connection2.Name, assemblyDifference.Count);
+                content.AppendFormat("Plugin Assemblies DIFFERENT Details in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, assemblyDifference.Count);
 
                 foreach (var item in assemblyDifference.OrderBy(s => s.Key))
                 {
@@ -226,17 +226,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Types started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var list1 = await new PluginTypeRepository(_service1).GetPluginTypesAsync(string.Empty);
+            var list1 = await _comparerSource.GetPluginType1Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Types in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Types in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
 
-            var list2 = await new PluginTypeRepository(_service2).GetPluginTypesAsync(string.Empty);
+            var list2 = await _comparerSource.GetPluginType2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Types in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Types in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Name", "IsManaged");
@@ -282,7 +282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Plugin Types ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("Plugin Types ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -297,7 +297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Plugin Types ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("Plugin Types ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -353,25 +353,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Steps by Plugin Type Names started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var listSteps1 = await new SdkMessageProcessingStepRepository(_service1).GetAllSdkMessageProcessingStepAsync(null, string.Empty, string.Empty);
+            var listSteps1 = await _comparerSource.GetSdkMessageProcessingStep1Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps in {0}: {1}", Connection1.Name, listSteps1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps in {0}: {1}", _comparerSource.Connection1.Name, listSteps1.Count()));
 
-            var listSteps2 = await new SdkMessageProcessingStepRepository(_service2).GetAllSdkMessageProcessingStepAsync(null, string.Empty, string.Empty);
+            var listSteps2 = await _comparerSource.GetSdkMessageProcessingStep2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps in {0}: {1}", Connection2.Name, listSteps2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps in {0}: {1}", _comparerSource.Connection2.Name, listSteps2.Count()));
 
-            var listImages1 = await new SdkMessageProcessingStepImageRepository(_service1).GetAllImagesAsync();
+            var listImages1 = await _comparerSource.GetSdkMessageProcessingStepImage1Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", Connection1.Name, listImages1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", _comparerSource.Connection1.Name, listImages1.Count()));
 
-            var listImages2 = await new SdkMessageProcessingStepImageRepository(_service2).GetAllImagesAsync();
+            var listImages2 = await _comparerSource.GetSdkMessageProcessingStepImage2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", Connection2.Name, listImages2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", _comparerSource.Connection2.Name, listImages2.Count()));
 
             var groups1 = listSteps1.GroupBy(e => new PluginTypeStep()
             {
@@ -574,7 +574,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             , step.Configuration ?? string.Empty
                         );
 
-                        diff.Add(string.Format("Steps ONLY in {0}", Connection1.Name));
+                        diff.Add(string.Format("Steps ONLY in {0}", _comparerSource.Connection1.Name));
                         tableStep.GetFormatedLines(true).ForEach(s => diff.Add(tabSpacer + s));
 
                         var images = listImages1.Where(i => i.SdkMessageProcessingStepId.Id == step.SdkMessageProcessingStepId.Value);
@@ -617,7 +617,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             , step.Configuration ?? string.Empty
                         );
 
-                        diff.Add(string.Format("Steps ONLY in {0}", Connection2.Name));
+                        diff.Add(string.Format("Steps ONLY in {0}", _comparerSource.Connection2.Name));
                         tableStep.GetFormatedLines(true).ForEach(s => diff.Add(tabSpacer + s));
 
                         var images = listImages2.Where(i => i.SdkMessageProcessingStepId.Id == step.SdkMessageProcessingStepId.Value);
@@ -656,7 +656,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         );
 
                         FormatTextTableHandler tableDifference = new FormatTextTableHandler(true);
-                        tableDifference.SetHeader("Property", Connection1.Name, Connection2.Name);
+                        tableDifference.SetHeader("Property", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name);
 
                         if (step1.Rank != step2.Rank)
                         {
@@ -722,7 +722,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Plugin Steps ONLY EXISTS in {0}: {1}", Connection1.Name, stepsOnlyIn1.Count);
+                content.AppendFormat("Plugin Steps ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, stepsOnlyIn1.Count);
 
                 foreach (var step in stepsOnlyIn1)
                 {
@@ -758,7 +758,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Plugin Steps ONLY EXISTS in {0}: {1}", Connection2.Name, stepsOnlyIn2.Count);
+                content.AppendFormat("Plugin Steps ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, stepsOnlyIn2.Count);
 
                 foreach (var step in stepsOnlyIn2)
                 {
@@ -794,7 +794,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Plugin Steps DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, stepDifference.Count);
+                content.AppendFormat("Plugin Steps DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, stepDifference.Count);
 
                 FormatTextTableHandler tableStep = new FormatTextTableHandler();
                 tableStep.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage");
@@ -820,7 +820,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Plugin Steps DIFFERENT Details in {0} and {1}: {2}", Connection1.Name, Connection2.Name, stepDifference.Count);
+                content.AppendFormat("Plugin Steps DIFFERENT Details in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, stepDifference.Count);
 
                 foreach (var item in stepDifference
                     .OrderBy(s => s.Key.PluginTypeName)
@@ -960,7 +960,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     tableImage.AddLine(item.FormattedValues[SdkMessageProcessingStepImage.Schema.Attributes.imagetype], item.Name, item.EntityAlias, item.Attributes1StringsSorted);
                 }
 
-                result.Add(string.Format("Images ONLY EXISTS in {0}: {1}", Connection1.Name, list1.Count()));
+                result.Add(string.Format("Images ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
                 tableImage.GetFormatedLines(true).ForEach(l => result.Add(tabSpacer + l));
             }
 
@@ -979,7 +979,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     tableImage.AddLine(item.FormattedValues[SdkMessageProcessingStepImage.Schema.Attributes.imagetype], item.Name, item.EntityAlias, item.Attributes1StringsSorted);
                 }
 
-                result.Add(string.Format("Images ONLY EXISTS in {0}: {1}", Connection2.Name, list2.Count()));
+                result.Add(string.Format("Images ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
                 tableImage.GetFormatedLines(true).ForEach(l => result.Add(tabSpacer + l));
             }
 
@@ -995,25 +995,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Steps by Ids started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var listSteps1 = await new SdkMessageProcessingStepRepository(_service1).GetAllSdkMessageProcessingStepAsync(null, string.Empty, string.Empty);
+            var listSteps1 = await _comparerSource.GetSdkMessageProcessingStep1Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps in {0}: {1}", Connection1.Name, listSteps1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps in {0}: {1}", _comparerSource.Connection1.Name, listSteps1.Count()));
 
-            var listSteps2 = await new SdkMessageProcessingStepRepository(_service2).GetAllSdkMessageProcessingStepAsync(null, string.Empty, string.Empty);
+            var listSteps2 = await _comparerSource.GetSdkMessageProcessingStep2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps in {0}: {1}", Connection2.Name, listSteps2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps in {0}: {1}", _comparerSource.Connection2.Name, listSteps2.Count()));
 
-            var listImages1 = await new SdkMessageProcessingStepImageRepository(_service1).GetAllImagesAsync();
+            var listImages1 = await _comparerSource.GetSdkMessageProcessingStepImage1Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", Connection1.Name, listImages1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", _comparerSource.Connection1.Name, listImages1.Count()));
 
-            var listImages2 = await new SdkMessageProcessingStepImageRepository(_service2).GetAllImagesAsync();
+            var listImages2 = await _comparerSource.GetSdkMessageProcessingStepImage2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", Connection2.Name, listImages2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", _comparerSource.Connection2.Name, listImages2.Count()));
 
             var stepsOnlyIn1 = new List<LineWithSublines>();
             var stepsOnlyIn2 = new List<LineWithSublines>();
@@ -1053,7 +1053,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , SdkMessageProcessingStepRepository.GetStageName(step1.Stage.Value, step1.Mode.Value)
                     , step1.Rank.ToString()
                     , step1.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
-                    , step1.IsHidden.ToString()
+                    , step1.IsHidden?.Value.ToString()
                     , step1.IsManaged.ToString()
                     , step1.FilteringAttributesStringsSorted
                 };
@@ -1105,7 +1105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , SdkMessageProcessingStepRepository.GetStageName(step2.Stage.Value, step2.Mode.Value)
                     , step2.Rank.ToString()
                     , step2.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
-                    , step2.IsHidden.ToString()
+                    , step2.IsHidden?.Value.ToString()
                     , step2.IsManaged.ToString()
                     , step2.FilteringAttributesStringsSorted
                 };
@@ -1128,7 +1128,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 stepsOnlyIn2.Add(item);
             }
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Common Plugin Steps by Ids in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonStepsList.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Common Plugin Steps by Ids in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, commonStepsList.Count()));
 
             foreach (var commonStep in commonStepsList)
             {
@@ -1182,19 +1182,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (ContentCoparerHelper.IsEntityDifferentInField(commonStep.Entity1, commonStep.Entity2, fieldName))
                         {
-                            var str1 = EntityDescriptionHandler.GetAttributeString(commonStep.Entity1, fieldName, _service1.ConnectionData);
-                            var str2 = EntityDescriptionHandler.GetAttributeString(commonStep.Entity2, fieldName, _service2.ConnectionData);
+                            var str1 = EntityDescriptionHandler.GetAttributeString(commonStep.Entity1, fieldName, _comparerSource.Connection1);
+                            var str2 = EntityDescriptionHandler.GetAttributeString(commonStep.Entity2, fieldName, _comparerSource.Connection2);
 
-                            tabDiff.AddLine(fieldName, Connection1.Name, str1);
-                            tabDiff.AddLine(fieldName, Connection2.Name, str2);
+                            tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
+                            tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
                         }
                     }
                 }
 
                 if (!commonStep.Entity1.FilteringAttributesStrings.SequenceEqual(commonStep.Entity2.FilteringAttributesStrings))
                 {
-                    tabDiff.AddLine(SdkMessageProcessingStep.Schema.Attributes.filteringattributes, Connection1.Name, commonStep.Entity1.FilteringAttributesStringsSorted);
-                    tabDiff.AddLine(SdkMessageProcessingStep.Schema.Attributes.filteringattributes, Connection2.Name, commonStep.Entity2.FilteringAttributesStringsSorted);
+                    tabDiff.AddLine(SdkMessageProcessingStep.Schema.Attributes.filteringattributes, _comparerSource.Connection1.Name, commonStep.Entity1.FilteringAttributesStringsSorted);
+                    tabDiff.AddLine(SdkMessageProcessingStep.Schema.Attributes.filteringattributes, _comparerSource.Connection2.Name, commonStep.Entity2.FilteringAttributesStringsSorted);
                 }
 
                 List<string> diff = new List<string>();
@@ -1231,12 +1231,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Plugin Steps ONLY EXISTS in {0}: {1}", Connection1.Name, stepsOnlyIn1.Count);
+                content.AppendFormat("Plugin Steps ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, stepsOnlyIn1.Count);
 
                 foreach (var step in stepsOnlyIn1)
                 {
                     FormatTextTableHandler tableStep = new FormatTextTableHandler(true);
-                    tableStep.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "FilteringAttributes");
+                    tableStep.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "IsHidden", "IsManaged", "FilteringAttributes");
 
                     tableStep.AddLine(step.Line);
 
@@ -1267,12 +1267,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Plugin Steps ONLY EXISTS in {0}: {1}", Connection2.Name, stepsOnlyIn2.Count);
+                content.AppendFormat("Plugin Steps ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, stepsOnlyIn2.Count);
 
                 foreach (var step in stepsOnlyIn2)
                 {
                     FormatTextTableHandler tableStep = new FormatTextTableHandler(true);
-                    tableStep.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "FilteringAttributes");
+                    tableStep.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "IsHidden", "IsManaged", "FilteringAttributes");
 
                     tableStep.AddLine(step.Line);
 
@@ -1310,7 +1310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Plugin Steps DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, stepDifference.Count);
+                content.AppendFormat("Plugin Steps DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, stepDifference.Count);
 
                 FormatTextTableHandler tableStep = new FormatTextTableHandler();
                 tableStep.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage");
@@ -1336,7 +1336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Plugin Steps DIFFERENT Details in {0} and {1}: {2}", Connection1.Name, Connection2.Name, stepDifference.Count);
+                content.AppendFormat("Plugin Steps DIFFERENT Details in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, stepDifference.Count);
 
                 foreach (var item in order)
                 {
@@ -1434,8 +1434,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (!commonImage.Entity1.Attributes1Strings.SequenceEqual(commonImage.Entity2.Attributes1Strings))
                     {
-                        tabDiff.AddLine(SdkMessageProcessingStepImage.Schema.Attributes.attributes, Connection1.Name, commonImage.Entity1.Attributes1StringsSorted);
-                        tabDiff.AddLine(SdkMessageProcessingStepImage.Schema.Attributes.attributes, Connection2.Name, commonImage.Entity2.Attributes1StringsSorted);
+                        tabDiff.AddLine(SdkMessageProcessingStepImage.Schema.Attributes.attributes, _comparerSource.Connection1.Name, commonImage.Entity1.Attributes1StringsSorted);
+                        tabDiff.AddLine(SdkMessageProcessingStepImage.Schema.Attributes.attributes, _comparerSource.Connection2.Name, commonImage.Entity2.Attributes1StringsSorted);
                     }
 
                     List<string> fieldsToCompare = new List<string>()
@@ -1472,11 +1472,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (ContentCoparerHelper.IsEntityDifferentInField(commonImage.Entity1, commonImage.Entity2, fieldName))
                         {
-                            var str1 = EntityDescriptionHandler.GetAttributeString(commonImage.Entity1, fieldName, _service1.ConnectionData);
-                            var str2 = EntityDescriptionHandler.GetAttributeString(commonImage.Entity2, fieldName, _service2.ConnectionData);
+                            var str1 = EntityDescriptionHandler.GetAttributeString(commonImage.Entity1, fieldName, _comparerSource.Connection1);
+                            var str2 = EntityDescriptionHandler.GetAttributeString(commonImage.Entity2, fieldName, _comparerSource.Connection2);
 
-                            tabDiff.AddLine(fieldName, Connection1.Name, str1);
-                            tabDiff.AddLine(fieldName, Connection2.Name, str2);
+                            tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
+                            tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
                         }
                     }
                 }
@@ -1502,7 +1502,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     tableImage.AddLine(item.FormattedValues[SdkMessageProcessingStepImage.Schema.Attributes.imagetype], item.Name, item.EntityAlias, item.Attributes1StringsSorted);
                 }
 
-                result.Add(string.Format("Images ONLY EXISTS in {0}: {1}", Connection1.Name, imagesOnlyIn1.Count()));
+                result.Add(string.Format("Images ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, imagesOnlyIn1.Count()));
                 tableImage.GetFormatedLines(true).ForEach(l => result.Add(tabSpacer + l));
             }
 
@@ -1521,7 +1521,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     tableImage.AddLine(item.FormattedValues[SdkMessageProcessingStepImage.Schema.Attributes.imagetype], item.Name, item.EntityAlias, item.Attributes1StringsSorted);
                 }
 
-                result.Add(string.Format("Images ONLY EXISTS in {0}: {1}", Connection2.Name, imagesOnlyIn2.Count()));
+                result.Add(string.Format("Images ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, imagesOnlyIn2.Count()));
                 tableImage.GetFormatedLines(true).ForEach(l => result.Add(tabSpacer + l));
             }
 
@@ -1534,7 +1534,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .ThenBy(s => s.Key.Entity1.Id)
                     ;
 
-                result.Add(string.Format("Images DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, imageDifference.Count));
+                result.Add(string.Format("Images DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, imageDifference.Count));
 
                 FormatTextTableHandler tableImage = new FormatTextTableHandler();
                 tableImage.CalculateLineLengths("ImageType1", "ImageType2", "Name1", "Name2", "EntityAlias1", "EntityAlias2");

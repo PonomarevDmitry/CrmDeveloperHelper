@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
@@ -10,11 +10,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.ToolWindowPanes
     [Guid(PackageGuids.guidCrmDeveloperHelperPackageFetchXmlExecutorToolWindowPaneString)]
     public class FetchXmlExecutorToolWindowPane : ToolWindowPane
     {
-        private readonly FetchXmlExecutorControl _control;
+        private FetchXmlExecutorControl _control;
 
         public string FilePath => this._control.FilePath;
-
-        public Guid? ConnectionId => this._control.ConnectionData?.ConnectionId;
 
         public FetchXmlExecutorToolWindowPane()
             : base()

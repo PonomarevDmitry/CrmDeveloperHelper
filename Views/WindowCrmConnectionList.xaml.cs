@@ -70,11 +70,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
+            string message = format;
+
+            if (args != null && args.Length > 0)
+            {
+                message = string.Format(format, args);
+            }
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
-                this.stBIStatus.Content = msg;
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -264,7 +271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
 
-                UpdateStatus(string.Format("Start Testing Connection {0}...", connectionData.Name));
+                UpdateStatus("Start Testing Connection {0}...", connectionData.Name);
 
                 try
                 {
@@ -274,13 +281,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._crmConfig.Save();
 
-                    UpdateStatus(string.Format("Successfully connected to {0}.", connectionData.Name));
+                    UpdateStatus("Successfully connected to {0}.", connectionData.Name);
                 }
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(ex);
 
-                    UpdateStatus(string.Format("Connection to {0} failed. See Error in Output.", connectionData.Name));
+                    UpdateStatus("Connection to {0} failed. See Error in Output.", connectionData.Name);
                 }
             }
         }
@@ -547,7 +554,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
 
-                UpdateStatus(string.Format("Start Testing Connection {0}...", connectionData.Name));
+                UpdateStatus("Start Testing Connection {0}...", connectionData.Name);
 
                 try
                 {
@@ -555,13 +562,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._crmConfig.Save();
 
-                    UpdateStatus(string.Format("Successfully connected to {0}.", connectionData.Name));
+                    UpdateStatus("Successfully connected to {0}.", connectionData.Name);
                 }
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(ex);
 
-                    UpdateStatus(string.Format("Connection to {0} failed. See Error in Output.", connectionData.Name));
+                    UpdateStatus("Connection to {0} failed. See Error in Output.", connectionData.Name);
                 }
             }
         }

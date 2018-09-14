@@ -5,13 +5,13 @@
         Title="Update Proxy Classes" Height="366.5" Width="639" WindowStartupLocation="Manual">
     <Grid>
         <Label Content="File" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="26" Width="141"/>
-        <TextBox x:Name="txtBFileName" Height="23" Margin="10,26,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647" IsReadOnly="True" IsTabStop="False"/>
+        <TextBox x:Name="txtBFileName" Height="23" Margin="10,26,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647" IsReadOnly="True" IsReadOnlyCaretVisible="True" IsTabStop="False"/>
         <Label Content="Organization Service" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Height="26" Width="141"/>
-        <TextBox x:Name="txtBOrganizationService" Height="23" Margin="10,75,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647" IsReadOnly="True" IsTabStop="False"/>
+        <TextBox x:Name="txtBOrganizationService" Height="23" Margin="10,75,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647" IsReadOnly="True" IsReadOnlyCaretVisible="True" IsTabStop="False"/>
         <Label Content="User" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" Height="26" Width="141"/>
-        <TextBox x:Name="txtBUser" Height="23" Margin="10,119,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647" IsReadOnly="True" IsTabStop="False" HorizontalAlignment="Left" Width="176"/>
+        <TextBox x:Name="txtBUser" Height="23" Margin="10,119,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647" IsReadOnly="True" IsReadOnlyCaretVisible="True" IsTabStop="False" HorizontalAlignment="Left" Width="176"/>
         <Label Content="Version" HorizontalAlignment="Left" Margin="191,93,0,0" VerticalAlignment="Top" Height="26" Width="141"/>
-        <TextBox x:Name="txtBVersion" Height="23" Margin="191,119,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647" IsReadOnly="True" IsTabStop="False" HorizontalAlignment="Left" Width="176"/>
+        <TextBox x:Name="txtBVersion" Height="23" Margin="191,119,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647" IsReadOnly="True" IsReadOnlyCaretVisible="True" IsTabStop="False" HorizontalAlignment="Left" Width="176"/>
         <Label Content="Crm Svc Util" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top" Height="26" Width="141"/>
         <ComboBox x:Name="cmBCrmSvcUtil" Margin="10,168,10,0" VerticalAlignment="Top"/>
         <Label Content="Namespace" HorizontalAlignment="Left" Margin="10,195,0,0" VerticalAlignment="Top" Height="26" Width="131"/>

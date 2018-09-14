@@ -524,5 +524,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Экспортирование информации об организации.
+
+        #region Trace Reader.
+
+        public async Task ExecuteShowingTraceReader(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            this._iWriteToOutput.WriteToOutput("*********** Start Trace Reader at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
+            {
+                await ShowingTraceReader(connectionData, commonConfig);
+            }
+            catch (Exception xE)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(xE);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutput("*********** End Trace Reader at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            }
+        }
+
+        private async Task ShowingTraceReader(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+
+            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+
+            WindowHelper.OpenTraceReaderWindow(this._iWriteToOutput, service, commonConfig);
+        }
+
+        #endregion Trace Reader.
     }
 }

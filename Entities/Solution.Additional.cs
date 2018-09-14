@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         {
             public static partial class EntityAliasFields
             {
-                public const string PublisherCustomizationPrefix = Publisher.Schema.EntityLogicalName + "." + Publisher.Schema.Attributes.customizationprefix;
+                public const string PublisherCustomizationPrefix = Attributes.publisherid + "." + Publisher.Schema.Attributes.customizationprefix;
 
                 public const string SupportingSolution = "supporting" + Solution.EntityLogicalName;
             }

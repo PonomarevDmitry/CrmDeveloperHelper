@@ -283,7 +283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntities(list);
 
-            UpdateStatus(string.Format("{0} optionsets loaded.", list.Count()));
+            UpdateStatus("{0} optionsets loaded.", list.Count());
 
             ToggleControls(true);
         }
@@ -422,11 +422,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void UpdateStatus(string msg)
+        private void UpdateStatus(string format, params object[] args)
         {
-            this.statusBar.Dispatcher.Invoke(() =>
+            string message = format;
+
+            if (args != null && args.Length > 0)
             {
-                this.tSSLStatusMessage.Content = msg;
+                message = string.Format(format, args);
+            }
+
+            this.stBIStatus.Dispatcher.Invoke(() =>
+            {
+                this.stBIStatus.Content = message;
             });
         }
 
@@ -709,7 +716,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false);
 
-            UpdateStatus(string.Format("Publishing OptionSet {0}...", optionSetName));
+            UpdateStatus("Publishing OptionSet {0}...", optionSetName);
 
             this._iWriteToOutput.WriteToOutput("Start publishing OptionSet {0} at {1}", optionSetName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -723,13 +730,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing OptionSet {0} at {1}", optionSetName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus(string.Format("OptionSet {0} published.", optionSetName));
+                UpdateStatus("OptionSet {0} published.", optionSetName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus(string.Format("Publishing OptionSet {0} failed.", optionSetName));
+                UpdateStatus("Publishing OptionSet {0} failed.", optionSetName);
             }
             finally
             {

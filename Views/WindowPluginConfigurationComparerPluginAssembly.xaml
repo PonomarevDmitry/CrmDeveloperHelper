@@ -7,9 +7,9 @@
         Title="Plugin Configuration PluginAssembly Comparer" Height="538.662" Width="717" WindowStartupLocation="Manual">
     <Grid>
         <Label Content="Loaded File 1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFilePath1" Height="26" Margin="95,0,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" VerticalContentAlignment="Center" />
+        <TextBox x:Name="txtBFilePath1" Height="26" Margin="95,0,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" VerticalContentAlignment="Center" />
         <Label Content="Loaded File 2" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFilePath2" Height="26" Margin="95,31,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+        <TextBox x:Name="txtBFilePath2" Height="26" Margin="95,31,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
         <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="26" Margin="58,62,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
@@ -73,9 +73,9 @@
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar x:Name="statusBar" Height="24" VerticalAlignment="Bottom">
+        <StatusBar Height="24" VerticalAlignment="Bottom">
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="tSSLStatusMessage" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>
 </src:WindowBase>

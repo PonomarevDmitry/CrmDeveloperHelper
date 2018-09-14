@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.OLE.Interop;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Tagging;
@@ -7,6 +8,8 @@ using Microsoft.VisualStudio.TextManager.Interop;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -19,6 +22,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         public const string PrefixOpenInVisualStudioRelativePath = "openinvisualstudiopath";
         public const string PrefixOpenInTextEditor = "openintexteditor";
         public const string PrefixShowDifference = "showdifference";
+        public const string PrefixSelectFileInFolder = "selectfileinfolder";
+        public const string PrefixOpenSolution = "opensolution";
 
         private IOleCommandTarget _nextCommandHandler;
         private ITextView _textView;
@@ -152,8 +157,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
         private bool OpenUri(Uri uri)
         {
-            if (uri == null)
-                throw new ArgumentNullException("uri");
+            if (uri == null) throw new ArgumentNullException(nameof(uri));
 
             if (string.Equals(uri.Scheme, PrefixOpenInVisualStudio, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -189,6 +193,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 DTEHelper.Singleton?.ShowDifference(uri);
 
                 return true;
+            }
+
+            if (string.Equals(uri.Scheme, PrefixOpenSolution, StringComparison.InvariantCultureIgnoreCase))
+            {
+                DTEHelper.Singleton?.OpenSolution(uri);
+
+                return true;
+            }
+
+            if (string.Equals(uri.Scheme, PrefixSelectFileInFolder, StringComparison.InvariantCultureIgnoreCase))
+            {
+                if (File.Exists(uri.LocalPath))
+                {
+                    DTEHelper.Singleton?.SelectFileInFolder(uri.LocalPath);
+                }
+
+                return true;
+            }
+
+            IVsWebBrowsingService service = _provider.ServiceProvider.GetService(typeof(SVsWebBrowsingService)) as IVsWebBrowsingService;
+            if (service != null)
+            {
+                var createFlags = __VSCREATEWEBBROWSER.VSCWB_AutoShow;
+                var resolution = VSPREVIEWRESOLUTION.PR_Default;
+
+                int result = ErrorHandler.CallWithCOMConvention(() => service.CreateExternalWebBrowser((uint)createFlags, resolution, uri.AbsoluteUri));
+
+                if (ErrorHandler.Succeeded(result))
+                    return true;
+            }
+
+            if (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps)
+                return false;
+
+            try
+            {
+                Process.Start(uri.AbsoluteUri);
+                return true;
+            }
+            catch (Exception)
+            {
             }
 
             return false;

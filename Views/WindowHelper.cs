@@ -275,6 +275,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
+        public static void OpenTraceReaderWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            )
+        {
+
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowTraceReader(
+                        iWriteToOutput
+                        , service
+                        , commonConfig
+                        );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
         public static void OpenPluginTreeWindow(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service

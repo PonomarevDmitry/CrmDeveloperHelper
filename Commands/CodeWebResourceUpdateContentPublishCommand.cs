@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsWebResourceType);
 
-            helper.HandleUpdateContentWebResourcesAndPublishCommand(selectedFiles);
+            helper.HandleUpdateContentWebResourcesAndPublishCommand(null, selectedFiles);
         }
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)

@@ -99,12 +99,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
-        public Task<List<Workflow>> GetListAsync(IEnumerable<Guid> ids, ColumnSet columnSet)
+        public Task<List<Workflow>> GetListByIdListAsync(IEnumerable<Guid> ids, ColumnSet columnSet)
         {
-            return Task.Run(() => GetList(ids, columnSet));
+            return Task.Run(() => GetListByIdList(ids, columnSet));
         }
 
-        private List<Workflow> GetList(IEnumerable<Guid> ids, ColumnSet columnSet)
+        private List<Workflow> GetListByIdList(IEnumerable<Guid> ids, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {

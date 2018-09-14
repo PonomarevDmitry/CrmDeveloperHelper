@@ -1,0 +1,119 @@
+﻿<src:WindowBase
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+        mc:Ignorable="d" 
+        x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowTraceReader"
+        Title="Trace Reader" Height="538.662" Width="803" WindowStartupLocation="Manual">
+    <src:WindowBase.Resources>
+        <ContextMenu x:Key="listContextMenu">
+        </ContextMenu>
+    </src:WindowBase.Resources>
+    <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True">
+        <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
+            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+            <StatusBarItem x:Name="stBIStatus" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        </StatusBar>
+        <ToolBar x:Name="toolStrip" VerticalAlignment="Bottom" Height="Auto" Width="Auto" DockPanel.Dock="Bottom">
+            <ToolBar.Resources>
+                <Style TargetType="{x:Type ToolBarPanel}">
+                    <Setter Property="Orientation" Value="Vertical"/>
+                </Style>
+            </ToolBar.Resources>
+            <DockPanel Margin="0" Height="28" VerticalAlignment="Center" Width="Auto">
+                <DockPanel.Resources>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                        <Setter Property="Margin" Value="6,2" />
+                        <Setter Property="Padding" Value="3" />
+                    </Style>
+                    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Static ToolBar.ComboBoxStyleKey}}">
+                    </Style>
+                </DockPanel.Resources>
+                <ToolBarPanel Orientation="Horizontal" >
+                    <Label Content="Action" HorizontalAlignment="Left" Padding="10,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
+                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" VerticalAlignment="Stretch" IsReadOnly="True" Padding="10,0" Width="170" SelectedIndex="0" HorizontalAlignment="Left"  VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />
+                </ToolBarPanel>
+                <Button Content="Close" Click="Button_Click" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Right" HorizontalContentAlignment="Right" DockPanel.Dock="Right"  />
+            </DockPanel>
+        </ToolBar>
+        <TabControl x:Name="tabControl" DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <TabItem Header="Sources">
+                <Grid>
+                    <Label Content="Add Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                    <ComboBox x:Name="cmBFolder" Height="26" Margin="83,10,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" Text="{Binding Path=SelectedItem.TraceReaderFolder}" ItemsSource="{Binding Path=SelectedItem.TraceReaderLastFolders}" VerticalAlignment="Top" KeyDown="cmBFolder_KeyDown" VerticalContentAlignment="Center" />
+                    <Label Content="File Date Change From" Padding="0" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="24"/>
+                    <DatePicker x:Name="dPFileDate" HorizontalAlignment="Left" Margin="146,41,0,0" VerticalAlignment="Top" Width="199" SelectedDateFormat="Long" KeyDown="cmBFilterEnitity_KeyDown" FirstDayOfWeek="Monday"/>
+                    <GroupBox Header="Sources" Margin="10,70,10,0">
+                        <DockPanel LastChildFill="True">
+                            <ToolBar Height="Auto" Width="Auto" VerticalAlignment="Top" DockPanel.Dock="Top" >
+                                <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
+                                    <MenuItem Header="Open File" VerticalAlignment="Center" Padding="3" Margin="6,2" Click="mIOpenFile_Click" />
+                                    <MenuItem Header="Open Files in Folders" VerticalAlignment="Center" Padding="3" Margin="6,2" Click="mIOpenFilesInFolder_Click" />
+                                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                                    <MenuItem Header="Add Folder in List" VerticalAlignment="Center" Padding="3" Margin="6,2" Click="mIAddFolderInList_Click" />
+                                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                                    <MenuItem x:Name="mIRemoveFolder" Header="Remove Folder from List" VerticalAlignment="Center" Padding="3" Margin="6,2" Click="mIRemoveFolderFromList_Click" />
+                                </Menu>
+                            </ToolBar>
+                            <ListView x:Name="lstVwFolders" SelectionMode="Extended" SelectionChanged="lstVwFolders_SelectionChanged" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" ItemsSource="{Binding Path=SelectedItem.TraceReaderSelectedFolders}" DockPanel.Dock="Right" Height="Auto" Width="Auto">
+                            </ListView>
+                        </DockPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tbITraces" Header="Traces">
+                <Grid>
+                    <Label Content="Filter" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                    <ComboBox x:Name="cmBFilter" Height="26" Margin="58,10,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" Text="{Binding Path=SelectedItem.TraceReaderFilter}" ItemsSource="{Binding Path=SelectedItem.TraceReaderLastFilters}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+                    <Label Content="Date From" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="24"/>
+                    <DatePicker x:Name="dPFilterDate" HorizontalAlignment="Left" Margin="89,41,0,0" VerticalAlignment="Top" Width="199" SelectedDateFormat="Long" KeyDown="cmBFilterEnitity_KeyDown" FirstDayOfWeek="Monday"/>
+                    <GroupBox Header="Trace Records" Margin="10,70,10,0">
+                        <DataGrid x:Name="lstVwTraceRecords" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="Cell" MouseDoubleClick="lstVwTraceRecords_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Right" Height="Auto" Width="Auto" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+                            <DataGrid.Resources>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGrid.Resources>
+                            <DataGrid.ItemContainerStyle>
+                                <Style TargetType="{x:Type DataGridRow}">
+                                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                                </Style>
+                            </DataGrid.ItemContainerStyle>
+                            <DataGrid.Columns>
+
+                                <DataGridTextColumn Header="Num" Width="60" Binding="{Binding RecordNumber, Mode=OneTime}" />
+
+                                <DataGridTextColumn Header="Date" Width="170" Binding="{Binding Date, Mode=OneTime, StringFormat={}{0:yyyy.MM.dd HH:mm:ss.fff}}" />
+
+                                <DataGridTextColumn Header="Operation" Width="270" Binding="{Binding Operation, Mode=OneTime}" />
+
+                                <DataGridTextColumn Header="Request Id" Width="250" Binding="{Binding RequestId, Mode=OneTime, StringFormat={}{0:B}}" />
+
+                                <DataGridTextColumn Header="Process" Width="150" Binding="{Binding Process, Mode=OneTime}" />
+
+                                <DataGridTextColumn Header="Thread" Width="95" Binding="{Binding Thread, Mode=OneTime}" />
+
+                                <DataGridTextColumn Header="Category" Width="150" Binding="{Binding Category, Mode=OneTime}" />
+
+                                <DataGridTextColumn Header="Level" Width="85" Binding="{Binding Level, Mode=OneTime}" />
+
+                                <DataGridTextColumn Header="User" Width="250" Binding="{Binding User, Mode=OneTime}" />
+
+                                <DataGridTextColumn Header="Organization" Width="250" Binding="{Binding Organization, Mode=OneTime, StringFormat={}{0:B}}" />
+
+                                <DataGridTextColumn Header="TraceFile" Width="150" Binding="{Binding TraceFile, Mode=OneTime}" />
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</src:WindowBase>

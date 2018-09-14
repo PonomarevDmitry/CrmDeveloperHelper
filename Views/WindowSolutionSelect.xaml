@@ -44,10 +44,14 @@
 
                 <DataGridTextColumn Header="Installed On" Width="200" Binding="{Binding InstalledOn, StringFormat={}{0:dd.MM.yyyy HH:mm:ss}}" />
 
+                <DataGridTextColumn Header="Publisher Name" Width="200" Binding="{Binding PublisherName}" />
+
+                <DataGridTextColumn Header="Prefix" Width="70" Binding="{Binding Prefix}" />
+
             </DataGrid.Columns>
         </DataGrid>
         <Label x:Name="lblLastLink" Content="Last Selected Solution" HorizontalAlignment="Left" Margin="10,0,0,62" VerticalAlignment="Bottom" IsEnabled="False" Visibility="Visible" Padding="0" Height="22" VerticalContentAlignment="Center" />
-        <TextBox x:Name="txtBLastLink" Margin="131,0,10,62" TextWrapping="Wrap"  VerticalAlignment="Bottom" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" IsEnabled="False" Visibility="Visible" Padding="2" VerticalContentAlignment="Center" />
+        <TextBox x:Name="txtBLastLink" Margin="131,0,10,62" TextWrapping="Wrap"  VerticalAlignment="Bottom" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" IsEnabled="False" Visibility="Visible" Padding="2" VerticalContentAlignment="Center" />
         <ToolBar x:Name="toolStrip" Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
@@ -75,10 +79,10 @@
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar x:Name="statusBar" Height="24" VerticalAlignment="Bottom">
+        <StatusBar Height="24" VerticalAlignment="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="tSSLStatusMessage" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>
 </src:WindowBase>

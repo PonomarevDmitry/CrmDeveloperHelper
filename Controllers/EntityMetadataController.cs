@@ -256,6 +256,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
 
+                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+
                         this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata for {0} at {1}", config.EntityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                         continue;
@@ -353,9 +355,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                    ))
                         {
                             await handler.CreateFileAsync(filePath, new[] { metadata });
-
-                            this._iWriteToOutput.WriteToOutput("For OptionSet '{0}' created file with Metadata: {1}", metadata.Name, filePath);
                         }
+
+                        this._iWriteToOutput.WriteToOutput("For OptionSet '{0}' created file with Metadata: {1}", metadata.Name, filePath);
+
+                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
 
                         this._iWriteToOutput.WriteToOutput("End creating file with OptionSet Metadata for {0} at {1}", metadata.Name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 

@@ -77,12 +77,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
-        public Task<Organization> GetByIdAsync(Guid idSystemForm, ColumnSet columnSet)
+        public Task<Organization> GetByIdAsync(Guid idOrganization, ColumnSet columnSet)
         {
-            return Task.Run(() => GetById(idSystemForm, columnSet));
+            return Task.Run(() => GetById(idOrganization, columnSet));
         }
 
-        private Organization GetById(Guid idSystemForm, ColumnSet columnSet)
+        private Organization GetById(Guid idOrganization, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -96,7 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(Organization.PrimaryIdAttribute, ConditionOperator.Equal, idSystemForm),
+                        new ConditionExpression(Organization.PrimaryIdAttribute, ConditionOperator.Equal, idOrganization),
                     },
                 },
             };

@@ -1496,6 +1496,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public const string JavaScriptCatch =
 @"} catch (e) {
 handleError(e);
+
+throw e;
 }";
 
         public const string JavaScriptCommonConstants =
@@ -1535,12 +1537,22 @@ if (typeof e.description == 'string') { writeToConsoleError(e.description); }
 if (typeof e.stack == 'string') { writeToConsoleError(e.stack); }
 
 e.HandledByConsole = true;
-}
 
 debugger;
+
+if (typeof e.message == 'string' && e.message != '') {
+var message = e.message;
 }
 
-throw e;
+if (typeof e.description == 'string' && e.description != '') {
+var message = e.description;
+}
+
+if (typeof message != 'undefined') {
+Xrm.Utility.alertDialog('Возникла ошибка: ' + message);
+}
+}
+}
 };
 
 var writeToConsoleInfo = function (message) {
@@ -1573,6 +1585,8 @@ return null;
 return attr.getValue();
 } catch (e) {
 handleError(e);
+
+throw e;
 }
 };
 
@@ -1594,6 +1608,8 @@ writeToConsoleInfo(new Error('Не найдено поле ' + attrName).stack);
 }
 } catch (e) {
 handleError(e);
+
+throw e;
 }
 };
 
@@ -1615,6 +1631,8 @@ writeToConsoleInfo(new Error('Не найдено поле ' + attrName).stack);
 }
 } catch (e) {
 handleError(e);
+
+throw e;
 }
 };
 
@@ -1647,6 +1665,8 @@ control.setVisible(visible);
 }
 } catch (e) {
 handleError(e);
+
+throw e;
 }
 };
 
@@ -1699,6 +1719,8 @@ parent.setVisible(visible);
 }
 } catch (e) {
 handleError(e);
+
+throw e;
 }
 };
 
@@ -1729,6 +1751,8 @@ control.setDisabled(disabled);
 }
 } catch (e) {
 handleError(e);
+
+throw e;
 }
 };";
 

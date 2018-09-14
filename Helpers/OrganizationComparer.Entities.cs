@@ -1,7 +1,5 @@
 ﻿using Microsoft.Crm.Sdk.Messages;
-using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
-using Microsoft.Xrm.Sdk.Metadata.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -16,90 +14,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public partial class OrganizationComparer
     {
-        private EntityMetadataCollection _EntityMetadataCollection1;
-        private EntityMetadataCollection EntityMetadataCollection1
-        {
-            get
-            {
-                if (this._EntityMetadataCollection1 == null)
-                {
-                    if (this._service1 == null)
-                    {
-                        Task.WaitAll(InitializeConnection(null));
-                    }
-
-                    var entityQueryExpression = new EntityQueryExpression()
-                    {
-                        Properties = new MetadataPropertiesExpression() { AllProperties = true },
-                        AttributeQuery = new AttributeQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
-                        RelationshipQuery = new RelationshipQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
-                        LabelQuery = new LabelQueryExpression(),
-                    };
-
-                    var isEntityKeyExists = _service1.IsRequestExists(SdkMessageRequest.Instances.RetrieveEntityKeyRequest);
-
-                    if (isEntityKeyExists)
-                    {
-                        entityQueryExpression.KeyQuery = new EntityKeyQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } };
-                    }
-
-                    var response1 = (RetrieveMetadataChangesResponse)_service1.Execute(
-                        new RetrieveMetadataChangesRequest()
-                        {
-                            ClientVersionStamp = null,
-                            Query = entityQueryExpression,
-                        }
-                    );
-
-                    this._EntityMetadataCollection1 = response1.EntityMetadata;
-                }
-
-                return this._EntityMetadataCollection1;
-            }
-        }
-
-        private EntityMetadataCollection _EntityMetadataCollection2;
-        private EntityMetadataCollection EntityMetadataCollection2
-        {
-            get
-            {
-                if (this._EntityMetadataCollection2 == null)
-                {
-                    if (this._service2 == null)
-                    {
-                        Task.WaitAll(InitializeConnection(null));
-                    }
-
-                    var entityQueryExpression = new EntityQueryExpression()
-                    {
-                        Properties = new MetadataPropertiesExpression() { AllProperties = true },
-                        AttributeQuery = new AttributeQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
-                        RelationshipQuery = new RelationshipQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
-                        LabelQuery = new LabelQueryExpression(),
-                    };
-
-                    var isEntityKeyExists = _service2.IsRequestExists(SdkMessageRequest.Instances.RetrieveEntityKeyRequest);
-
-                    if (isEntityKeyExists)
-                    {
-                        entityQueryExpression.KeyQuery = new EntityKeyQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } };
-                    }
-
-                    var response2 = (RetrieveMetadataChangesResponse)_service2.Execute(
-                        new RetrieveMetadataChangesRequest()
-                        {
-                            ClientVersionStamp = null,
-                            Query = entityQueryExpression,
-                        }
-                    );
-
-                    this._EntityMetadataCollection2 = response2.EntityMetadata;
-                }
-
-                return this._EntityMetadataCollection2;
-            }
-        }
-
         public Task<string> CheckEntitiesAsync()
         {
             return Task.Run(() => CheckEntities());
@@ -109,17 +23,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking Entities started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var listEntityMetadata1 = this.EntityMetadataCollection1;
+            var listEntityMetadata1 = _comparerSource.GetEntityMetadataCollection1();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entities in {0}: {1}", Connection1.Name, listEntityMetadata1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Entities in {0}: {1}", _comparerSource.Connection1.Name, listEntityMetadata1.Count()));
 
-            var listEntityMetadata2 = this.EntityMetadataCollection2;
+            var listEntityMetadata2 = _comparerSource.GetEntityMetadataCollection2();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entities in {0}: {1}", Connection2.Name, listEntityMetadata2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Entities in {0}: {1}", _comparerSource.Connection2.Name, listEntityMetadata2.Count()));
 
             var entityMetadataOnlyExistsIn1 = new FormatTextTableHandler();
             entityMetadataOnlyExistsIn1.SetHeader("EntityName", "IsManaged");
@@ -162,9 +76,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listNotExists = new HashSet<string>(listEntityMetadata1.Select(e => e.LogicalName).Union(listEntityMetadata2.Select(e => e.LogicalName)), StringComparer.OrdinalIgnoreCase);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Common Entities in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonEntityMetadata.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Common Entities in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, commonEntityMetadata.Count()));
 
-            EntityMetadataComparer comparer = new EntityMetadataComparer(tabSpacer, Connection1.Name, Connection2.Name, this._optionSetComparer, listNotExists);
+            var optionSetComparer = new OptionSetComparer(tabSpacer, Connection1.Name, Connection2.Name, new StringMapRepository(_comparerSource.Service1), new StringMapRepository(_comparerSource.Service2));
+
+            EntityMetadataComparer comparer = new EntityMetadataComparer(tabSpacer, _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, optionSetComparer, listNotExists);
 
             {
                 var reporter = new ProgressReporter(_writeToOutput, commonEntityMetadata.Count, 5, "Processing Common Entities");
@@ -192,7 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                      .AppendLine()
                      .AppendLine();
 
-                content.AppendFormat("Entities ONLY EXISTS in {0}: {1}", Connection1.Name, entityMetadataOnlyExistsIn1.Count);
+                content.AppendFormat("Entities ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, entityMetadataOnlyExistsIn1.Count);
 
                 entityMetadataOnlyExistsIn1.GetFormatedLines(false).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -207,7 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Entities ONLY EXISTS in {0}: {1}", Connection2.Name, entityMetadataOnlyExistsIn2.Count);
+                content.AppendFormat("Entities ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, entityMetadataOnlyExistsIn2.Count);
 
                 entityMetadataOnlyExistsIn2.GetFormatedLines(false).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -222,7 +138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                      .AppendLine()
                      .AppendLine();
 
-                content.AppendFormat("Entities DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, entityMetadataDifference.Count);
+                content.AppendFormat("Entities DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, entityMetadataDifference.Count);
 
                 foreach (var item in entityMetadataDifference.OrderBy(s => s.Key))
                 {
@@ -239,7 +155,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Entities DIFFERENT Details in {0} and {1}: {2}", Connection1.Name, Connection2.Name, entityMetadataDifference.Count);
+                content.AppendFormat("Entities DIFFERENT Details in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, entityMetadataDifference.Count);
 
                 foreach (var item in entityMetadataDifference.OrderBy(s => s.Key))
                 {
@@ -291,17 +207,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Checking Entity Labels started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var listEntityMetadata1 = this.EntityMetadataCollection1;
+            var listEntityMetadata1 = this._comparerSource.GetEntityMetadataCollection1();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entities in {0}: {1}", Connection1.Name, listEntityMetadata1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Entities in {0}: {1}", _comparerSource.Connection1.Name, listEntityMetadata1.Count()));
 
-            var listEntityMetadata2 = this.EntityMetadataCollection2;
+            var listEntityMetadata2 = this._comparerSource.GetEntityMetadataCollection2();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entities in {0}: {1}", Connection2.Name, listEntityMetadata2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Entities in {0}: {1}", _comparerSource.Connection2.Name, listEntityMetadata2.Count()));
 
             var entityMetadataOnlyExistsIn1 = new FormatTextTableHandler();
             entityMetadataOnlyExistsIn1.SetHeader("EntityName", "IsManaged");
@@ -344,9 +260,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listNotExists = new HashSet<string>(listEntityMetadata1.Select(e => e.LogicalName).Union(listEntityMetadata2.Select(e => e.LogicalName)), StringComparer.OrdinalIgnoreCase);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Common Entities in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonEntityMetadata.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Common Entities in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, commonEntityMetadata.Count()));
 
-            var comparer = new EntityLabelComparer(tabSpacer, Connection1.Name, Connection2.Name, this._optionSetComparer, listNotExists);
+            var optionSetComparer = new OptionSetComparer(tabSpacer, Connection1.Name, Connection2.Name, new StringMapRepository(_comparerSource.Service1), new StringMapRepository(_comparerSource.Service2));
+
+            var comparer = new EntityLabelComparer(tabSpacer, _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, optionSetComparer, listNotExists);
 
             {
                 var reporter = new ProgressReporter(_writeToOutput, commonEntityMetadata.Count, 5, "Processing Common Entities");
@@ -372,7 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                      .AppendLine()
                      .AppendLine();
 
-                content.AppendFormat("Entities ONLY EXISTS in {0}: {1}", Connection1.Name, entityMetadataOnlyExistsIn1.Count);
+                content.AppendFormat("Entities ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, entityMetadataOnlyExistsIn1.Count);
 
                 entityMetadataOnlyExistsIn1.GetFormatedLines(false).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -387,7 +305,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Entities ONLY EXISTS in {0}: {1}", Connection2.Name, entityMetadataOnlyExistsIn2.Count);
+                content.AppendFormat("Entities ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, entityMetadataOnlyExistsIn2.Count);
 
                 entityMetadataOnlyExistsIn2.GetFormatedLines(false).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -402,7 +320,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Entities DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, entityMetadataDifference.Count);
+                content.AppendFormat("Entities DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, entityMetadataDifference.Count);
 
                 foreach (var item in entityMetadataDifference.OrderBy(s => s.Key))
                 {
@@ -419,7 +337,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Entities DIFFERENT Details in {0} and {1}: {2}", Connection1.Name, Connection2.Name, entityMetadataDifference.Count);
+                content.AppendFormat("Entities DIFFERENT Details in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, entityMetadataDifference.Count);
 
                 foreach (var item in entityMetadataDifference.OrderBy(s => s.Key))
                 {
@@ -471,28 +389,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             content.AppendLine(_writeToOutput.WriteToOutput("Entity Maps started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var list1 = await new EntityMapRepository(_service1).GetListAsync();
+            var task1 = _comparerSource.GetEntityMap1Async();
+            var task2 = _comparerSource.GetEntityMap2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entity Maps in {0}: {1}", Connection1.Name, list1.Count()));
+            var taskAttr1 = _comparerSource.GetAttributeMap1Async();
+            var taskAttr2 = _comparerSource.GetAttributeMap2Async();
 
-            var list2 = await new EntityMapRepository(_service2).GetListAsync();
+            var list1 = await task1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entity Maps in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Entity Maps in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
+
+            var list2 = await task2;
+
+            content.AppendLine(_writeToOutput.WriteToOutput("Entity Maps in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
 
             //new OrderExpression("sourceentityname", OrderType.Ascending),
             //new OrderExpression("targetentityname", OrderType.Ascending),
 
-            var listPermission1 = await new AttributeMapRepository(_service1).GetListAsync();
+            var listPermission1 = await taskAttr1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Attribute Maps in {0}: {1}", Connection1.Name, listPermission1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Attribute Maps in {0}: {1}", _comparerSource.Connection1.Name, listPermission1.Count()));
 
-            var listPermission2 = await new AttributeMapRepository(_service2).GetListAsync();
+            var listPermission2 = await taskAttr2;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Attribute Maps in {0}: {1}", Connection2.Name, listPermission2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Attribute Maps in {0}: {1}", _comparerSource.Connection2.Name, listPermission2.Count()));
 
             var group1 = listPermission1.GroupBy(e => e.EntityMapId.Id);
             var group2 = listPermission2.GroupBy(e => e.EntityMapId.Id);
@@ -590,7 +514,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Entity Maps ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("Entity Maps ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -605,7 +529,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Entity Maps ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("Entity Maps ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -622,7 +546,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                      .AppendLine()
                      .AppendLine();
 
-                content.AppendFormat("Entity Maps DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
+                content.AppendFormat("Entity Maps DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
 
                 {
                     var table = new FormatTextTableHandler();
@@ -644,7 +568,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                      .AppendLine()
                      .AppendLine();
 
-                content.AppendFormat("Entity Maps DIFFERENT Details in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
+                content.AppendFormat("Entity Maps DIFFERENT Details in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
 
                 foreach (var item in order)
                 {
@@ -763,13 +687,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (tableOnlyIn1.Count > 0)
             {
-                diff.Add(string.Format("Attribute Maps ONLY in {0}: {1}", Connection1.Name, tableOnlyIn1.Count));
+                diff.Add(string.Format("Attribute Maps ONLY in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyIn1.Count));
                 tableOnlyIn1.GetFormatedLines(true).ForEach(s => diff.Add(tabSpacer + s));
             }
 
             if (tableOnlyIn2.Count > 0)
             {
-                diff.Add(string.Format("Attribute Maps ONLY in {0}: {1}", Connection2.Name, tableOnlyIn2.Count));
+                diff.Add(string.Format("Attribute Maps ONLY in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyIn2.Count));
                 tableOnlyIn2.GetFormatedLines(true).ForEach(s => diff.Add(tabSpacer + s));
             }
 
@@ -785,7 +709,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_writeToOutput, content);
 
             var withDetailsName = withDetails ? " with details" : string.Empty;
 
@@ -794,31 +718,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture))
                 );
 
-            var repositoryRibbon1 = new RibbonCustomizationRepository(_service1);
-            var repositoryRibbon2 = new RibbonCustomizationRepository(_service2);
+            var task1 = _comparerSource.GetEntitiesWithRibbonCustomization1Async();
+            var task2 = _comparerSource.GetEntitiesWithRibbonCustomization2Async();
 
-            var listRibbon1 = await repositoryRibbon1.GetEntitiesWithRibbonCustomizationAsync();
+            var listRibbon1 = await task1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Ribbons in {0}: {1}", Connection1.Name, listRibbon1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Ribbons in {0}: {1}", _comparerSource.Connection1.Name, listRibbon1.Count()));
 
-            var listRibbon2 = await repositoryRibbon2.GetEntitiesWithRibbonCustomizationAsync();
+            var listRibbon2 = await task2;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Ribbons in {0}: {1}", Connection2.Name, listRibbon2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Ribbons in {0}: {1}", _comparerSource.Connection2.Name, listRibbon2.Count()));
 
-            var entities1 = this.EntityMetadataCollection1;
+            var entities1 = this._comparerSource.GetEntityMetadataCollection1();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Enitites in {0}: {1}", Connection1.Name, entities1.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Enitites in {0}: {1}", _comparerSource.Connection1.Name, entities1.Count()));
 
-            var entities2 = this.EntityMetadataCollection2;
+            var entities2 = this._comparerSource.GetEntityMetadataCollection2();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Enitites in {0}: {1}", Connection2.Name, entities2.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Enitites in {0}: {1}", _comparerSource.Connection2.Name, entities2.Count()));
 
             //var list1 = entities1.Select(e => e.LogicalName);
             //var list2 = entities2.Select(e => e.LogicalName);
 
             var list = listRibbon1.Union(listRibbon2).Distinct().OrderBy(s => s).ToList();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Common Ribbons in {0} and {1}: {2}", Connection1.Name, Connection2.Name, list.Count()));
+            content.AppendLine(_writeToOutput.WriteToOutput("Common Ribbons in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, list.Count()));
 
             {
                 var request = new RetrieveApplicationRibbonRequest();
@@ -828,8 +752,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    var response1 = (RetrieveApplicationRibbonResponse)_service1.Execute(request);
-                    var response2 = (RetrieveApplicationRibbonResponse)_service2.Execute(request);
+                    var response1 = (RetrieveApplicationRibbonResponse)_comparerSource.Service1.Execute(request);
+                    var response2 = (RetrieveApplicationRibbonResponse)_comparerSource.Service2.Execute(request);
 
                     var array1 = FileOperations.UnzipRibbon(response1.CompressedApplicationRibbonXml);
                     var array2 = FileOperations.UnzipRibbon(response2.CompressedApplicationRibbonXml);
@@ -919,8 +843,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         try
                         {
-                            var response1 = (RetrieveEntityRibbonResponse)_service1.Execute(request);
-                            var response2 = (RetrieveEntityRibbonResponse)_service2.Execute(request);
+                            var response1 = (RetrieveEntityRibbonResponse)_comparerSource.Service1.Execute(request);
+                            var response2 = (RetrieveEntityRibbonResponse)_comparerSource.Service2.Execute(request);
 
                             var array1 = FileOperations.UnzipRibbon(response1.CompressedEntityXml);
                             var array2 = FileOperations.UnzipRibbon(response2.CompressedEntityXml);
@@ -969,7 +893,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Entity Ribbon ONLY EXISTS in {0}: {1}", Connection1.Name, listOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("Entity Ribbon ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, listOnlyExistsIn1.Count);
 
                 listOnlyExistsIn1.ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -984,7 +908,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Entity Ribbon ONLY EXISTS in {0}: {1}", Connection2.Name, listOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("Entity Ribbon ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, listOnlyExistsIn2.Count);
 
                 listOnlyExistsIn2.ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -999,7 +923,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Entity Ribbon DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, tableDifferent.Count);
+                content.AppendLine().AppendLine().AppendFormat("Entity Ribbon DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, tableDifferent.Count);
 
                 tableDifferent.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
