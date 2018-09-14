@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             {
                 for (int i = 0; i < ConnectionData.CountLastSolutions; i++)
                 {
-                    var menuCommandID = new CommandID(PackageGuids.guidCommandSet, _baseIdStart + i);
+                    var menuCommandID = new CommandID(PackageGuids.guidDynamicCommandSet, _baseIdStart + i);
 
                     var menuCommand = new OleMenuCommand(this.menuItemCallback, menuCommandID);
 

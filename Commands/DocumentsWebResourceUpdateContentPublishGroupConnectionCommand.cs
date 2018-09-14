@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -24,9 +24,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
             if (commandService != null)
             {
-                for (int i = 0; i < Model.ConnectionData.CountConnectionToQuickList; i++)
+                for (int i = 0; i < ConnectionData.CountConnectionToQuickList; i++)
                 {
-                    var menuCommandID = new CommandID(PackageGuids.guidCommandSet, _baseIdStart + i);
+                    var menuCommandID = new CommandID(PackageGuids.guidDynamicCommandSet, _baseIdStart + i);
 
                     var menuCommand = new OleMenuCommand(this.menuItemCallback, menuCommandID);
 

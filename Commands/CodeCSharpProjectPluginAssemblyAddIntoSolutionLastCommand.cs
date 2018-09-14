@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             {
                 for (int i = 0; i < ConnectionData.CountLastSolutions; i++)
                 {
-                    var menuCommandID = new CommandID(PackageGuids.guidCommandSet, _baseIdStart + i);
+                    var menuCommandID = new CommandID(PackageGuids.guidDynamicCommandSet, _baseIdStart + i);
 
                     var menuCommand = new OleMenuCommand(this.menuItemCallback, menuCommandID);
 
@@ -110,7 +110,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                         var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
 
                         if (document != null
-                            && document.ProjectItem != null 
+                            && document.ProjectItem != null
                             && document.ProjectItem.ContainingProject != null
                             )
                         {

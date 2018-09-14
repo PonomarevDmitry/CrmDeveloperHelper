@@ -66,6 +66,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceAddIntoSolutionLastCommand.Initialize(this);
 
             CodeXmlExecuteFetchXmlRequestCommand.Initialize(this);
+            CodeXmlExecuteFetchXmlRequestInConnectionsCommand.Initialize(this);
             CodeXmlConvertFetchXmlToJavaScriptCodeCommand.Initialize(this);
 
             CodePublishListAddCommand.Initialize(this);

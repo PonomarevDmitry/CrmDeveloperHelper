@@ -19,6 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const string guid2String = "78f03954-2fb8-4087-8ce7-59d71710b3bb";
         public const string guid3String = "4c87b692-1202-46aa-b64c-ef01faec53da";
         public const string guidGroupAndMenuSetString = "6a1a85fe-5657-4ae9-80fe-fa1277f6abc6";
+        public const string guidDynamicCommandSetString = "f71ca58c-98fe-4935-a0cb-478a076b9821";
         public const string guidCommandSetString = "15ffcbd5-0856-4bda-b6c8-e6e0b635761d";
         public static Guid guidCrmDeveloperHelperPackage = new Guid(guidCrmDeveloperHelperPackageString);
         public static Guid guidCrmDeveloperHelperPackageFetchXmlExecutorToolWindowPane = new Guid(guidCrmDeveloperHelperPackageFetchXmlExecutorToolWindowPaneString);
@@ -27,6 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public static Guid guid2 = new Guid(guid2String);
         public static Guid guid3 = new Guid(guid3String);
         public static Guid guidGroupAndMenuSet = new Guid(guidGroupAndMenuSetString);
+        public static Guid guidDynamicCommandSet = new Guid(guidDynamicCommandSetString);
         public static Guid guidCommandSet = new Guid(guidCommandSetString);
     }
     /// <summary>
@@ -44,7 +46,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuWebResource = 0x1000;
         public const int codeMenuWebResource_GroupPublish = 0x1001;
         public const int codeMenuWebResource_GroupPublish_MenuPublish = 0x11FD;
-        public const int codeMenuWebResource_GroupPublish_MenuPublish_GroupConnecion = 0x11FE;
+        public const int codeMenuWebResource_GroupPublish_MenuPublish_GroupConnection = 0x11FE;
         public const int codeMenuWebResource_GroupShowDifference = 0x1002;
         public const int codeMenuWebResource_GroupShowDifference_MenuConnectionGroup = 0x1130;
         public const int codeMenuWebResource_GroupShowDifference_MenuConnectionGroup_GroupConnectionGroup = 0x1131;
@@ -72,6 +74,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuWebResource_GroupAddIntoSolution_MenuLastSolution = 0x1106;
         public const int codeMenuWebResource_GroupAddIntoSolution_MenuLastSolution_GroupLastSolution = 0x1107;
         public const int codeMenuWebResource_GroupLastLink = 0x1007;
+        public const int codeMenuXml = 0x1214;
+        public const int codeMenuXml_GroupExecuteFetch = 0x1215;
+        public const int codeMenuXml_GroupExecuteFetch_MenuConnection = 0x1216;
+        public const int codeMenuXml_GroupExecuteFetch_MenuConnection_GroupConnection = 0x1217;
+        public const int codeMenuXml_GroupCopyFetch = 0x1218;
+        public const int codeMenuXml_GroupSelectFetch = 0x1219;
+        public const int codeMenuXml_GroupSelectDefaultSitemap = 0x121A;
         public const int codeMenuReport = 0x100B;
         public const int codeMenuReport_GroupUpdate = 0x10FE;
         public const int codeMenuReport_GroupShowDifferenceOriginalBodyText = 0x100C;
@@ -526,6 +535,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeReportShowDifferenceBodyTextTwoConnectionsCommandId = 0x1004;
         public const int CodeReportShowDifferenceBodyTextOneByOneCommandId = 0x1036;
         public const int CodeReportShowDifferenceBodyTextInConnectionGroupCommandId = 0x1068;
+        public const int CodeXmlExecuteFetchXmlRequestInConnectionsCommandId = 0x109A;
         public const int CodeWebResourceUpdateContentPublishCommandId = 0x2000;
         public const int CodeWebResourceShowDifferenceCommandId = 0x2001;
         public const int CodeWebResourceShowDifferenceCustomCommandId = 0x2002;

@@ -1,21 +1,22 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.ComponentModel.Design;
+using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class ProjectCompareToCrmAssemblyInConnectionGroupCommand : IServiceProviderOwner
+    public sealed class CodeXmlExecuteFetchXmlRequestInConnectionsCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.ProjectCompareToCrmAssemblyInConnectionGroupCommandId;
+        private const int _baseIdStart = PackageIds.CodeXmlExecuteFetchXmlRequestInConnectionsCommandId;
 
-        private ProjectCompareToCrmAssemblyInConnectionGroupCommand(Package package)
+        private CodeXmlExecuteFetchXmlRequestInConnectionsCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -38,11 +39,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static ProjectCompareToCrmAssemblyInConnectionGroupCommand Instance { get; private set; }
+        public static CodeXmlExecuteFetchXmlRequestInConnectionsCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new ProjectCompareToCrmAssemblyInConnectionGroupCommand(package);
+            Instance = new CodeXmlExecuteFetchXmlRequestInConnectionsCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -55,19 +56,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var index = menuCommand.CommandID.ID - _baseIdStart;
 
-                    var connectionConfig = Model.ConnectionConfiguration.Get();
+                    var connectionConfig = ConnectionConfiguration.Get();
 
-                    var list = connectionConfig.GetConnectionsByGroupWithoutCurrent();
+                    var connections = connectionConfig.GetConnectionsWithoutCurrent();
 
-                    if (0 <= index && index < list.Count)
+                    if (0 <= index && index < connections.Count)
                     {
-                        var connectionData = list[index];
+                        var connectionData = connections[index];
 
                         menuCommand.Text = connectionData.NameWithCurrentMark;
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActiveSolutionExplorerProjectSingle(this, menuCommand);
+                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsFetchRequest(this, menuCommand);
                     }
                 }
             }
@@ -95,19 +96,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var index = menuCommand.CommandID.ID - _baseIdStart;
 
-                var connectionConfig = Model.ConnectionConfiguration.Get();
+                var connectionConfig = ConnectionConfiguration.Get();
 
-                var list = connectionConfig.GetConnectionsByGroupWithoutCurrent();
+                var connections = connectionConfig.GetConnectionsWithoutCurrent();
 
-                if (0 <= index && index < list.Count)
+                if (0 <= index && index < connections.Count)
                 {
-                    var connectionData = list[index];
+                    var connectionData = connections[index];
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    var project = helper.GetSelectedProject();
+                    var selectedFile = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).FirstOrDefault();
 
-                    helper.HandleComparingPluginAssemblyAndLocalAssemblyCommand(connectionData, project);
+                    if (selectedFile == null)
+                    {
+                        return;
+                    }
+
+                    if (helper.ApplicationObject.ActiveWindow != null
+                       && helper.ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
+                       && helper.ApplicationObject.ActiveWindow.Document != null
+                       )
+                    {
+                        if (!helper.ApplicationObject.ActiveWindow.Document.Saved)
+                        {
+                            helper.ApplicationObject.ActiveWindow.Document.Save();
+                        }
+                    }
+
+                    helper.HandleExecutingFetchXml(connectionData, selectedFile);
                 }
             }
             catch (Exception ex)

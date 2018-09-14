@@ -132,6 +132,7 @@
     <Compile Include="Commands\CodeWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
     <Compile Include="Commands\CodeXmlConvertFetchXmlToJavaScriptCodeCommand.cs" />
     <Compile Include="Commands\CodeXmlExecuteFetchXmlRequestCommand.cs" />
+    <Compile Include="Commands\CodeXmlExecuteFetchXmlRequestInConnectionsCommand.cs" />
     <Compile Include="Commands\CommonCheckComponentTypeEnumCommand.cs" />
     <Compile Include="Commands\CommonCheckEntitiesNamesAndShowDependentComponentsCommand.cs" />
     <Compile Include="Commands\CommonCheckEntitiesNamesCommand.cs" />
