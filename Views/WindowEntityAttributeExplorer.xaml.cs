@@ -194,9 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading entities...");
+            ToggleControls(false, "Loading entities...");
 
             _itemsSourceEntityList.Clear();
             _itemsSourceAttributeList.Clear();
@@ -297,9 +295,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus("{0} entities loaded.", results.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} entities loaded.", results.Count());
 
             ShowExistingAttributes();
         }
@@ -311,9 +307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading attributes...");
+            ToggleControls(false, "Loading attributes...");
 
             string entityLogicalName = string.Empty;
 
@@ -433,9 +427,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus("{0} attributes loaded.", results.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} attributes loaded.", results.Count());
         }
 
 
@@ -454,9 +446,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(cmBCurrentConnection, enabled);
 
@@ -870,14 +864,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Publishing Entities: {0}...", entityNames.Count());
 
             var entityNamesOrdered = string.Join(",", entityNames.OrderBy(s => s));
 
             try
             {
-                UpdateStatus("Publishing Entity {0}...", entityNames.Count());
-
                 this._iWriteToOutput.WriteToOutput("Start publishing entities {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                 var service = await GetService();
@@ -888,17 +880,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus("Entities {0} published", entityNamesOrdered);
+                ToggleControls(true, "Entities {0} published", entityNamesOrdered);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Publish Entity {0} failed", entityNamesOrdered);
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Publish Entity {0} failed", entityNamesOrdered);
             }
         }
 
@@ -1367,9 +1355,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Saving Changes...");
+            ToggleControls(false, "Saving Changes...");
 
             this._iWriteToOutput.WriteToOutput("Start saving changes at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1486,17 +1472,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput("End saving changes at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
                 }
 
-                UpdateStatus("Changes saved.");
+                ToggleControls(true, "Changes saved.");
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Saving Changes failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Saving Changes failed.");
             }
         }
 

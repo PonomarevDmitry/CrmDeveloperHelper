@@ -79,9 +79,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             //ToggleControl(this.toolStrip, enabled);
 
@@ -277,9 +279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
 
-                ToggleControls(false);
-
-                UpdateStatus("Start Testing Connection...");
+                ToggleControls(false, "Start Testing Connection...");
 
                 try
                 {
@@ -287,17 +287,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._crmConfig.Save();
 
-                    UpdateStatus("Connected.");
+                    ToggleControls(true, "Connected.");
                 }
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(ex);
 
-                    UpdateStatus("Connection failed. See Error in Output.");
-                }
-                finally
-                {
-                    ToggleControls(true);
+                    ToggleControls(true, "Connection failed. See Error in Output.");
                 }
             }
         }
@@ -2190,9 +2186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Analizing organizations...");
+            ToggleControls(false, "Analizing organizations...");
 
             this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -2204,9 +2198,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Analizing organizations completed.");
         }
 
         #region Кнопки сравнения сред.
@@ -2404,9 +2396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Analizing organizations...");
+            ToggleControls(false, "Analizing organizations...");
 
             this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -2418,9 +2408,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Analizing organizations completed.");
         }
 
         private async Task MultipleAnalize(List<Func<OrganizationComparer, Task>> functions, OrganizationComparer comparer)
@@ -3241,9 +3229,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteTrasnferOperation(Func<OrganizationCustomizationTransfer, Task> function, ConnectionData connectionSource, ConnectionData connectionTarget, string folder)
         {
-            ToggleControls(false);
-
-            UpdateStatus("Analizing organizations...");
+            ToggleControls(false, "Analizing organizations...");
 
             this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -3253,9 +3239,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Analizing organizations completed.");
         }
 
         private void tSMITransferAuditFrom1To2_Click(object sender, RoutedEventArgs e)

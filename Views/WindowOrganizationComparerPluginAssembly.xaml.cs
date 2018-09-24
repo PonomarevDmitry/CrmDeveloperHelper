@@ -169,9 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading Plugin Assemblies...");
+            ToggleControls(false, "Loading Plugin Assemblies...");
 
             this._itemsSource.Clear();
 
@@ -275,9 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus("{0} Plugin Assemblies loaded.", results.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} Plugin Assemblies loaded.", results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -295,9 +291,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.tSDDBShowDifference, enabled);
             ToggleControl(this.tSDDBConnection1, enabled);
@@ -443,7 +441,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             await PerformShowingDifferenceAssemblyDescriptionAsync(linked, showAllways);
 
-            await PerformShowingDifferenceEntityDescriptionAsync(linked, showAllways);
+            //await PerformShowingDifferenceEntityDescriptionAsync(linked, showAllways);
         }
 
         private void mIShowDifferenceAssemblyDescription_Click(object sender, RoutedEventArgs e)
@@ -465,7 +463,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Showing Difference Assembly Description...");
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -498,9 +496,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Showing Difference Assembly Description completed.");
         }
 
         private void mIShowDifferenceEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -522,7 +518,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Showing Difference Entity Description...");
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -556,9 +552,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Showing Difference Entity Description completed.");
         }
 
         private void mIExportPluginAssembly1AssemblyDescription_Click(object sender, RoutedEventArgs e)
@@ -615,7 +609,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Creating PluginAssembly Description...");
 
             var service = await getService();
 
@@ -634,9 +628,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "PluginAssembly Description completed.");
         }
 
         private void mIExportPluginAssembly1EntityDescription_Click(object sender, RoutedEventArgs e)
@@ -689,7 +681,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformDownloadBinaryContent(Guid pluginAssemblyId, Func<Task<IOrganizationServiceExtented>> getService)
         {
-            ToggleControls(false);
+            ToggleControls(false, "Exporting PluginAssembly Body Binary...");
 
             var service = await getService();
 
@@ -717,9 +709,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Exporting PluginAssembly Body Binary completed.");
         }
 
         private async Task PerformExportEntityDescriptionToFileAsync(Guid pluginAssemblyId, Func<Task<IOrganizationServiceExtented>> getService)
@@ -729,7 +719,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Creating Entity Description...");
 
             var service = await getService();
 
@@ -746,9 +736,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Entity Description completed.");
         }
 
         private Task<string> CreateDescriptionFileAsync(string connectionName, string name, string fieldName, string description)

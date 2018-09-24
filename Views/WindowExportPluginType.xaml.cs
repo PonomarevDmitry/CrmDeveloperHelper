@@ -167,9 +167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading Plugin Types...");
+            ToggleControls(false, "Loading Plugin Types...");
 
             this._itemsSource.Clear();
 
@@ -232,9 +230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus("{0} Plugin Types loaded.", results.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} Plugin Types loaded.", results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -252,9 +248,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(cmBCurrentConnection, enabled);
 
@@ -401,7 +399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             await PerformExportPluginTypeDescription(folder, idPluginType, name);
 
-            await PerformExportEntityDescription(folder, idPluginType, name);
+            //await PerformExportEntityDescription(folder, idPluginType, name);
         }
 
         private void mICreatePluginTypeDescription_Click(object sender, RoutedEventArgs e)
@@ -430,9 +428,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportPluginTypeDescription(string folder, Guid idPluginType, string name)
         {
-            ToggleControls(false);
-
-            UpdateStatus("Start exporting PluginType Description.");
+            ToggleControls(false, "Creating PluginType Description...");
 
             var service = await GetService();
 
@@ -469,16 +465,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "PluginType Description completed.");
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idPluginType, string name)
         {
-            ToggleControls(false);
-
-            UpdateStatus("Start exporting PluginType Entity Description.");
+            ToggleControls(false, "Creating Entity Description...");
 
             var service = await GetService();
 
@@ -497,9 +489,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Entity Description completed.");
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

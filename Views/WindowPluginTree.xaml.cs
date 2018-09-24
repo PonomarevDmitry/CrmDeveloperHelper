@@ -256,9 +256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading plugins...");
+            ToggleControls(false, "Loading plugins...");
 
             this.trVPluginTree.ItemsSource = null;
 
@@ -308,9 +306,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 });
             }
 
-            UpdateStatus("Loading completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Loading completed.");
         }
 
         public List<PluginStage> GetStages()
@@ -916,9 +912,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.tSBCollapseAll, enabled);
             ToggleControl(this.tSBExpandAll, enabled);
@@ -1172,7 +1170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Creating description...");
 
             var service = await GetService();
 
@@ -1398,9 +1396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Creating description completed.");
         }
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)

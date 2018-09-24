@@ -227,9 +227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading dependent components...");
+            ToggleControls(false, "Loading dependent components...");
 
             this._itemsSource.Clear();
 
@@ -391,9 +389,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus("{0} solution dependent components.", results.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} solution dependent components.", results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -411,9 +407,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.toolStrip, enabled);
             ToggleControl(this.cmBComponentType, enabled);
@@ -580,7 +578,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityDescription(string folder, SolutionComponentViewItem solutionComponentViewItem)
         {
-            ToggleControls(false);
+            ToggleControls(false, "Creating Entity Description...");
 
             string fileName = _descriptor.GetFileName(_service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, "EntityDescription", "txt");
 
@@ -619,9 +617,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Entity Description completed.");
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

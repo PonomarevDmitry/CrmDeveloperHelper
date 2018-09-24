@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,11 +10,11 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -123,9 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading webresources...");
+            ToggleControls(false, "Loading webresources...");
 
             this.trVWebResources.Dispatcher.Invoke(() =>
             {
@@ -180,9 +178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadWebResources(list);
 
-            UpdateStatus("{0} webresources loaded.", list.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} webresources loaded.", list.Count());
         }
 
         private void LoadWebResources(IEnumerable<WebResource> results)
@@ -308,9 +304,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleProgressBar(enabled);
 
@@ -437,13 +435,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Creating new WebResource...");
 
             var extension = _file.Extension;
 
             if (string.IsNullOrEmpty(extension) || !WebResourceRepository.IsSupportedExtension(extension))
             {
-                ToggleControls(true);
+                ToggleControls(true, "Creating new WebResource denied.");
                 MessageBox.Show(string.Format("File Extension {0} is not allowed", extension), "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -469,7 +467,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (!dialogResult)
                 {
                     this.ForAllOther = false;
-                    ToggleControls(true);
+                    ToggleControls(true, "Creating new WebResource canceled.");
                     return;
                 }
 
@@ -482,7 +480,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (solution == null)
             {
                 this.ForAllOther = false;
-                ToggleControls(true);
+                ToggleControls(true, "Solution for creating new WebResource not selected.");
 
                 return;
             }
@@ -496,7 +494,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (!dialogResult)
                 {
-                    ToggleControls(true);
+                    ToggleControls(true, "Creating new WebResource canceled.");
                     return;
                 }
             }
@@ -522,16 +520,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this.DialogResult = true;
 
                 this.Close();
+
+                ToggleControls(true, "Creating new WebResource finished.");
             }
             catch (Exception xE)
             {
-                UpdateStatus("Error.");
+                ToggleControls(true, "Error.");
 
                 this._iWriteToOutput.WriteErrorToOutput(xE);
-            }
-            finally
-            {
-                ToggleControls(true);
             }
         }
 

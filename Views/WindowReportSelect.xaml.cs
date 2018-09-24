@@ -92,9 +92,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading Reports...");
+            ToggleControls(false, "Loading Reports...");
 
             this._itemsSource.Clear();
 
@@ -198,9 +196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus("{0} Reports loaded.", results.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} Reports loaded.", results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -218,9 +214,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.toolStrip, enabled);
 

@@ -98,9 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading Plugin Types...");
+            ToggleControls(false, "Loading Plugin Types...");
 
             try
             {
@@ -141,9 +139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._itemsSource.Clear();
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading Plugin Types...");
+            ToggleControls(false, "Loading Plugin Types...");
 
             IEnumerable<PluginTypeFullInfo> filter = null;
 
@@ -181,9 +177,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _itemsSource.Add(plugintype);
             }
 
-            UpdateStatus("{0} Plugin Types loaded.", filter.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} Plugin Types loaded.", filter.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -201,9 +195,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.tSBLoadPluginConfiguration, enabled);
             ToggleControl(this.tSBCreatePluginTypeDescription, enabled);

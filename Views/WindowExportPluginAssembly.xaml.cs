@@ -167,9 +167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading Plugin Assemblies...");
+            ToggleControls(false, "Loading Plugin Assemblies...");
 
             this._itemsSource.Clear();
 
@@ -201,9 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadPluginAssemblies(list);
 
-            UpdateStatus("{0} Plugin Assemblies loaded.", list.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} Plugin Assemblies loaded.", list.Count());
         }
 
         private class EntityViewItem
@@ -252,9 +248,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(cmBCurrentConnection, enabled);
 
@@ -385,16 +383,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 await action(folder, idAssembly, name);
+
+                ToggleControls(true, "Operation completed.");
             }
             catch (Exception ex)
             {
                 DTEHelper.WriteExceptionToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Operation failed.");
             }
         }
 
@@ -414,7 +410,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             await PerformExportAssemblyDescription(folder, idPluginAssembly, name);
 
-            await PerformExportEntityDescription(folder, idPluginAssembly, name);
+            //await PerformExportEntityDescription(folder, idPluginAssembly, name);
         }
 
         private void mICreatePluginAssemblyDescription_Click(object sender, RoutedEventArgs e)
@@ -455,9 +451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportAssemblyDescription(string folder, Guid idPluginAssembly, string name)
         {
-            ToggleControls(false);
-
-            UpdateStatus("Start exporting PluginAssembly Description.");
+            ToggleControls(false, "Creating PluginAssembly Description...");
 
             var service = await GetService();
 
@@ -472,16 +466,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "PluginAssembly Description completed.");
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idPluginAssembly, string name)
         {
-            ToggleControls(false);
-
-            UpdateStatus("Start exporting PluginAssembly Entity Description.");
+            ToggleControls(false, "Creating Entity Description...");
 
             var service = await GetService();
 
@@ -500,16 +490,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Entity Description completed.");
         }
 
         private async Task ExecuteExportAssembly(string folder, Guid idAssembly, string name)
         {
-            ToggleControls(false);
-
-            UpdateStatus("Start exporting PluginAssembly Body Binary.");
+            ToggleControls(false, "Exporting PluginAssembly Body Binary...");
 
             var service = await GetService();
 
@@ -534,9 +520,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Exporting PluginAssembly Body Binary completed.");
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -854,9 +838,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformComparingAssembly(string folder, Guid idPluginAssembly, string name)
         {
-            ToggleControls(false);
-
-            UpdateStatus("Start comparing PluginAssembly.");
+            ToggleControls(false, "Comparing PluginAssembly...");
 
             var controller = new PluginTypeDescriptionController(_iWriteToOutput);
 
@@ -866,9 +848,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Comparing PluginAssembly completed.");
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

@@ -263,9 +263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading Plugin Configuration...");
+            ToggleControls(false, "Loading Plugin Configuration...");
 
             this.trVPluginTree.ItemsSource = null;
             this.trVPluginTree.Items.Clear();
@@ -284,9 +282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 });
             }
 
-            UpdateStatus("Loading completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Loading completed.");
         }
 
         public List<PluginStage> GetStages()
@@ -1023,9 +1019,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.tSBCollapseAll, enabled);
             ToggleControl(this.tSBExpandAll, enabled);
@@ -1250,7 +1248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Creating description...");
 
             StringBuilder result = new StringBuilder();
 
@@ -1292,9 +1290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Creating description completed.");
         }
 
         private void tSBLoadPluginConfiguraion_Click(object sender, RoutedEventArgs e)
@@ -1376,7 +1372,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Registering Steps...");
 
             ConnectionData connectionData = null;
 
@@ -1419,9 +1415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Registering Steps completed.");
         }
     }
 }

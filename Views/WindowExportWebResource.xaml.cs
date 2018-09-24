@@ -188,9 +188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading webresources...");
+            ToggleControls(false, "Loading webresources...");
 
             this.trVWebResources.ItemsSource = null;
 
@@ -222,9 +220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadWebResources(list);
 
-            UpdateStatus("{0} webresources loaded.", list.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} webresources loaded.", list.Count());
         }
 
         private void LoadWebResources(IEnumerable<WebResource> results)
@@ -350,9 +346,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(cmBCurrentConnection, enabled);
 
@@ -519,9 +517,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityDescription(string folder, Guid idWebResource, string name)
         {
-            ToggleControls(false);
-
-            UpdateStatus("Exporting WebResource Entity Description...");
+            ToggleControls(false, "Creating Entity Description...");
 
             try
             {
@@ -542,17 +538,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus("Operation completed.");
+                ToggleControls(true, "Entity Description completed.");
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Entity Description failed.");
             }
         }
 
@@ -585,9 +577,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportWebResourceContent(string folder, Guid idWebResource, string name)
         {
-            ToggleControls(false);
-
-            UpdateStatus("Exporting WebResource Content...");
+            ToggleControls(false, "Exporting WebResource Content...");
 
             try
             {
@@ -622,18 +612,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-                UpdateStatus("Operation completed.");
+                
+                ToggleControls(true, "Exporting WebResource Content completed.");
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Exporting WebResource Content failed.");
             }
         }
 
@@ -656,11 +642,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Exporting WebResource {0} to File...", fieldName);
 
             try
             {
-                UpdateStatus("Exporting WebResource {0}...", fieldTitle);
 
                 var service = await GetService();
 
@@ -674,17 +659,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                UpdateStatus("Operation completed.");
+                ToggleControls(true, "Exporting Xml {0} to File completed.", fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Exporting Xml {0} to File failed.", fieldName);
             }
         }
 
@@ -695,7 +676,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Updating Field {0}...", fieldName);
 
             try
             {
@@ -771,17 +752,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     service.Update(updateEntity);
                 }
 
-                UpdateStatus("Operation completed.");
+                ToggleControls(true, "Updating Field {0} completed.", fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Updating Field {0} failed.", fieldName);
             }
         }
 
@@ -1294,7 +1271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformPublishWebResource(string folder, Guid idWebResource, string name)
         {
-            ToggleControls(false);
+            ToggleControls(false, "Publishing WebResource ...");
 
             try
             {
@@ -1308,17 +1285,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing WebResource {0} at {1}", name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus("Operation is completed.");
+                ToggleControls(true, "Publishing WebResource completed.");
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Publishing WebResource failed.");
             }
         }
     }

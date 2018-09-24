@@ -95,9 +95,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading Plugin Assemblies...");
+            ToggleControls(false, "Loading Plugin Assemblies...");
 
             try
             {
@@ -129,9 +127,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._itemsSource.Clear();
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading Plugin Assemblies...");
+            ToggleControls(false, "Loading Plugin Assemblies...");
 
             IEnumerable<PluginAssembly> filter = null;
 
@@ -161,9 +157,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _itemsSource.Add(assembly);
             }
 
-            UpdateStatus("{0} Plugin Assemblies loaded.", filter.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} Plugin Assemblies loaded.", filter.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -181,9 +175,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.tSBLoadPluginConfiguration, enabled);
             ToggleControl(this.tSBCreateAssemblyDescription, enabled);

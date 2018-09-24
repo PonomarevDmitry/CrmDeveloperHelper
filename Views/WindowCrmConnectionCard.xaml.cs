@@ -262,9 +262,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnTestConnection_Click(object sender, RoutedEventArgs e)
         {
-            ToggleControls(false);
-
-            UpdateStatus("Start Testing Connection...");
+            ToggleControls(false, "Start Testing Connection...");
 
             try
             {
@@ -274,20 +272,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 LoadConnectionData(this.ConnectionData);
 
-                UpdateStatus("Connected.");
+                ToggleControls(true, "Connected.");
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Connection failed. See Error in Output.");
+                ToggleControls(true, "Connection failed. See Error in Output.");
             }
-
-            ToggleControls(true);
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
+            UpdateStatus(statusFormat, args);
+
             ToggleControl(this.btnSave, enabled);
             ToggleControl(this.btnTestConnection, enabled);
 

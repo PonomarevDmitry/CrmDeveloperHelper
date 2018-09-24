@@ -191,9 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading entities...");
+            ToggleControls(false, "Loading entities...");
 
             this._itemsSource.Clear();
 
@@ -272,9 +270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntities(list);
 
-            UpdateStatus("{0} optionsets loaded.", list.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} optionsets loaded.", list.Count());
         }
 
         private static IEnumerable<LinkedOptionSetMetadata> FilterList(IEnumerable<LinkedOptionSetMetadata> list, string textName)
@@ -326,9 +322,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.tSDDBShowDifference, enabled);
             ToggleControl(this.tSDDBConnection1, enabled);
@@ -462,8 +460,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string filePath1 = CreateFileName(optionSets1, service1.ConnectionData, "cs");
             string filePath2 = CreateFileName(optionSets2, service2.ConnectionData, "cs");
 
-            ToggleControls(false);
-            UpdateStatus("Creating Files...");
+            ToggleControls(false, "Creating Files...");
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -518,9 +515,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Files were created.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Files were created.");
         }
 
         private async void btnDifferenceJavaScriptFile_Click(object sender, RoutedEventArgs e)
@@ -582,8 +577,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string filePath1 = CreateFileName(optionSets1, service1.ConnectionData, "js");
             string filePath2 = CreateFileName(optionSets2, service2.ConnectionData, "js");
 
-            ToggleControls(false);
-            UpdateStatus("Creating Files...");
+            ToggleControls(false, "Creating Files...");
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -635,9 +629,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Files were created.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Files were created.");
         }
 
         private void btnConnection1CSharp_Click(object sender, RoutedEventArgs e)
@@ -710,8 +702,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-            UpdateStatus("Creating File...");
+            ToggleControls(false, "Creating File...");
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -740,9 +731,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("File is created.");
-
-            ToggleControls(true);
+            ToggleControls(true, "File is created.");
         }
 
         private void btnConnection1JavaScript_Click(object sender, RoutedEventArgs e)
@@ -815,8 +804,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-            UpdateStatus("Creating File...");
+            ToggleControls(false, "Creating File...");
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -841,9 +829,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            UpdateStatus("File is created.");
-
-            ToggleControls(true);
+            ToggleControls(true, "File is created.");
         }
 
         private void txtBFilter_KeyDown(object sender, KeyEventArgs e)

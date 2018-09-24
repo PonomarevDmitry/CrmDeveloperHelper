@@ -157,9 +157,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Loading webresources...");
 
-            UpdateStatus("Loading webresources...");
             var textName = string.Empty;
 
             txtBFilter.Dispatcher.Invoke(() =>
@@ -322,9 +321,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus("{0} webresources loaded.", results.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} webresources loaded.", results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -342,9 +339,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.tSDDBShowDifference, enabled);
             ToggleControl(this.tSDDBConnection1, enabled);
@@ -571,7 +570,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Showing Description Entity Description...");
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -605,7 +604,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Showing Description Entity Description complted.");
         }
 
         private void ExecuteActionDescription(Guid idWebResource, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)
@@ -635,7 +634,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Creating Entity Description...");
 
             var service = await getService();
 
@@ -652,7 +651,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Creating Entity Description completed.");
         }
 
         private void mIExportWebResource1EntityDescription_Click(object sender, RoutedEventArgs e)
@@ -710,7 +709,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Downloading WebResource...");
 
             var service = await getService();
 
@@ -729,7 +728,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Downloading WebResource completed.");
         }
 
         private Task<string> CreateFileWithContentAsync(string connectionName, WebResource webresource)
@@ -777,7 +776,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Showing Difference WebResources...");
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -808,7 +807,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Showing Difference WebResources completed.");
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

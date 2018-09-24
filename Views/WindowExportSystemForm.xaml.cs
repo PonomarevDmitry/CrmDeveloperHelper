@@ -185,9 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading forms...");
+            ToggleControls(false, "Loading forms...");
 
             this._itemsSource.Clear();
 
@@ -221,9 +219,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("Found {0} forms.", list.Count());
 
-            UpdateStatus("{0} forms loaded.", list.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} forms loaded.", list.Count());
         }
 
         private static IEnumerable<SystemForm> FilterList(IEnumerable<SystemForm> list, string textName)
@@ -307,9 +303,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(cmBCurrentConnection, enabled);
 
@@ -539,11 +537,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Exporting Xml {0} to File...", fieldName);
 
             try
             {
-                UpdateStatus("Start export Form xml field {0}.", fieldName);
 
                 var service = await GetService();
 
@@ -557,17 +554,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                UpdateStatus("Operation completed.");
+                ToggleControls(true, "Exporting Xml {0} to File completed.", fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Exporting Xml {0} to File failed.", fieldName);
             }
         }
 
@@ -586,7 +579,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Updating Field {0}...", fieldName);
 
             try
             {
@@ -685,17 +678,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 service.Update(updateEntity);
 
-                UpdateStatus("Operation completed.");
+                ToggleControls(true, "Updating Field {0} completed.", fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Updating Field {0} failed.", fieldName);
             }
         }
 
@@ -713,9 +702,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityDescriptionAsync(string folder, Guid idSystemForm, string entityName, string name)
         {
-            ToggleControls(false);
-
-            UpdateStatus("Start export Entity Description.");
+            ToggleControls(false, "Creating Entity Description...");
 
             try
             {
@@ -736,17 +723,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus("Operation completed.");
+                ToggleControls(true, "Entity Description completed.");
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Entity Description failed.");
             }
         }
 
@@ -769,9 +752,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Publishing SystemForm {0} - {1}...", entityName, name);
+            ToggleControls(false, "Publishing SystemForm {0} - {1}...", entityName, name);
 
             this._iWriteToOutput.WriteToOutput("Start publishing SystemForm {0} - {1} at {2}", entityName, name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -785,17 +766,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing SystemForm {0} - {1} at {2}", entityName, name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus("SystemForm {0} - {1} published", entityName, name);
+                ToggleControls(true, "Publishing SystemForm {0} - {1} completed.", entityName, name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Publish SystemForm {0} - {1} failed", entityName, name);
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Publishing SystemForm {0} - {1} failed.", entityName, name);
             }
         }
 
@@ -821,9 +798,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Publishing Entity {0}...", entityName);
+            ToggleControls(false, "Publishing Entity {0}...", entityName);
 
             this._iWriteToOutput.WriteToOutput("Start publishing Entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -837,17 +812,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing Entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus("Entity {0} published", entityName);
+                ToggleControls(true, "Publish Entity {0} completed.", entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Publish Entity {0} failed", entityName);
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Publish Entity {0} failed.", entityName);
             }
         }
 
@@ -865,9 +836,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportFormDescriptionToFileAsync(string folder, Guid idSystemForm, string entityName, string name)
         {
-            ToggleControls(false);
-
-            UpdateStatus("Start export Form Description.");
+            ToggleControls(false, "Creating Form Description...");
 
             var service = await GetService();
             var descriptor = await GetDescriptor();
@@ -909,9 +878,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Creating Form Description completed.");
         }
 
         private void mIExportSystemFormFormXml_Click(object sender, RoutedEventArgs e)
@@ -940,9 +907,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformDownloadWebResources(string folder, Guid idSystemForm, string entityName, string name)
         {
-            ToggleControls(false);
-
-            UpdateStatus("Start download form's web resources.");
+            ToggleControls(false, "Downloading form's WebResources...");
 
             var service = await GetService();
             var descriptor = await GetDescriptor();
@@ -999,9 +964,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Downloading form's WebResources completed.");
         }
 
         private Task<string> CreateWebResourceAsync(string folder, string connectionName, string resName, WebResource webresource)
@@ -1050,9 +1013,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformCreateEntityJavaScriptFileBasedOnForm(string folder, Guid idSystemForm, string entityName, string name)
         {
-            ToggleControls(false);
-
-            UpdateStatus("Start creating entity javascript file.");
+            ToggleControls(false, "Creating entity javascript file...");
 
             var service = await GetService();
             var descriptor = await GetDescriptor();
@@ -1109,9 +1070,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Creating entity javascript file completed.");
         }
 
         private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)

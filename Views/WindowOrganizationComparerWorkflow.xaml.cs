@@ -179,9 +179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading workflows...");
+            ToggleControls(false, "Loading workflows...");
 
             this._itemsSource.Clear();
 
@@ -371,9 +369,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus("{0} workflows loaded.", results.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} workflows loaded.", results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -391,9 +387,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.tSDDBShowDifference, enabled);
             ToggleControl(this.tSDDBConnection1, enabled);
@@ -698,7 +696,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Showing Difference Xml {0}...", fieldName);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -742,7 +740,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Showing Difference for Xml completed.");
         }
 
         private async Task PerformShowingDifferenceCorrectedXamlAsync(LinkedEntities<Workflow> linked, bool showAllways, string fieldName, string fieldTitle)
@@ -752,7 +750,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Showing Difference for Corrected Xaml...");
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -802,7 +800,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Showing Difference for Corrected Xaml completed.");
         }
 
         private void mIExportWorkflow1Xaml_Click(object sender, RoutedEventArgs e)
@@ -928,7 +926,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Exporting Xml {0} to File...", fieldName);
 
             var service = await getService();
 
@@ -949,7 +947,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Exporting Xml {0} to File completed.", fieldName);
         }
 
         private async Task PerformExportCorrectedToFileAsync(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle)
@@ -959,7 +957,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Exporting Corrected Xaml...");
 
             var service = await getService();
 
@@ -984,7 +982,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Exporting Corrected Xaml completed.");
         }
 
         private void mIShowDifferenceEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -1006,7 +1004,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Showing Difference Description...");
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -1049,7 +1047,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Showing Difference Description completed.");
         }
 
         private void ExecuteActionDescription(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)
@@ -1079,7 +1077,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Creating Description...");
 
             var service = await getService();
 
@@ -1100,7 +1098,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Creating Description completed.");
         }
 
         private void mIExportWorkflow1EntityDescription_Click(object sender, RoutedEventArgs e)

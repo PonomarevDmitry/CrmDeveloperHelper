@@ -261,9 +261,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading workflows...");
+            ToggleControls(false, "Loading workflows...");
 
             this._itemsSource.Clear();
 
@@ -393,9 +391,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus("{0} workflows loaded.", results.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} workflows loaded.", results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -413,9 +409,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(cmBCurrentConnection, enabled);
 
@@ -686,7 +684,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Exporting Xml {0} to File...", fieldName);
 
             try
             {
@@ -702,17 +700,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                UpdateStatus("Operation completed.");
+                ToggleControls(true, "Exporting Xml {0} to File completed.", fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Exporting Xml {0} to File failed.", fieldName);
             }
         }
 
@@ -723,7 +717,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Updating Field {0}...", fieldName);
 
             try
             {
@@ -772,17 +766,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     service.Update(updateEntity);
                 }
 
-                UpdateStatus("Operation completed.");
+                ToggleControls(true, "Updating Field {0} completed.", fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Updating Field {0} failed.", fieldName);
             }
         }
 
@@ -793,7 +783,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Exporting Corrected Xml {0} to File...", fieldName);
 
             try
             {
@@ -809,17 +799,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                UpdateStatus("Operation completed.");
+                ToggleControls(true, "Exporting Corrected Xml {0} to File completed.", fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Exporting Corrected Xml {0} to File failed.", fieldName);
             }
         }
 
@@ -830,7 +816,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Analizing Workflow...");
 
             try
             {
@@ -865,17 +851,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.ActivateOutputWindow();
                 }
 
-                UpdateStatus("Operation completed.");
+                ToggleControls(true, "Analizing Workflow completed.");
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Analizing Workflow failed.");
             }
         }
 
@@ -886,7 +868,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Analizing Workflow...");
 
             try
             {
@@ -921,17 +903,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.ActivateOutputWindow();
                 }
 
-                UpdateStatus("Operation completed.");
+                ToggleControls(true, "Analizing Workflow completed.");
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Analizing Workflow failed.");
             }
         }
 
@@ -1055,7 +1033,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Show Difference Xml and Corrected Xml {0}...", fieldName);
 
             var service = await GetService();
 
@@ -1079,12 +1057,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Show Difference Xml and Corrected Xml {0} completed.", fieldName);
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idWorkflow, string entityName, string name, string category)
         {
-            ToggleControls(false);
+            ToggleControls(false, "Creating Entity Description...");
 
             try
             {
@@ -1105,17 +1083,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus("Operation completed.");
+                ToggleControls(true, "Entity Description completed.");
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Entity Description failed.");
             }
         }
 

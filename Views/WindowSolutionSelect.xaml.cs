@@ -91,9 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading solutions...");
+            ToggleControls(false, "Loading solutions...");
 
             this._itemsSource.Clear();
 
@@ -149,9 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSolutions(list);
 
-            UpdateStatus("{0} solutions loaded.", list.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} solutions loaded.", list.Count());
         }
 
         private class EntityViewItem
@@ -209,9 +205,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.toolStrip, enabled);
 
@@ -446,9 +444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(false);
-
-                UpdateStatus("Start clearing solution.");
+                ToggleControls(false, "Start clearing solution...");
 
                 var descriptor = new SolutionComponentDescriptor(_iWriteToOutput, _service, true);
 
@@ -477,17 +473,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
                 await repository.ClearSolutionAsync(solution.UniqueName);
 
-                UpdateStatus("Operation is completed.");
+                ToggleControls(true, "Clearing solution is completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Clearing solution failed.");
             }
         }
     }

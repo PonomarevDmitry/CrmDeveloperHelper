@@ -239,9 +239,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading optionsets...");
+            ToggleControls(false, "Loading optionsets...");
 
             this._itemsSource.Clear();
 
@@ -283,9 +281,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntities(list);
 
-            UpdateStatus("{0} optionsets loaded.", list.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} optionsets loaded.", list.Count());
         }
 
         private static IEnumerable<OptionSetMetadata> FilterList(IEnumerable<OptionSetMetadata> list, string textName)
@@ -380,9 +376,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return result;
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.tSBCreateCSharpFile, enabled);
             ToggleControl(this.tSBCreateJavaScriptFile, enabled);
@@ -466,8 +464,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-            UpdateStatus("Creating File...");
+            ToggleControls(false, "Creating File...");
 
             this._iWriteToOutput.WriteToOutput("Start creating file with OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -526,9 +523,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file with OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("File is created.");
-
-            ToggleControls(true);
+            ToggleControls(true, "File is created.");
         }
 
         private async void btnCreateJavaScriptFile_Click(object sender, RoutedEventArgs e)
@@ -560,8 +555,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-            UpdateStatus("Creating File...");
+            ToggleControls(false ,"Creating File...");
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -607,17 +601,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus("File is created.");
+                ToggleControls(true, "File is created.");
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Operation failed.");
             }
         }
 
@@ -714,9 +704,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Publishing OptionSet {0}...", optionSetName);
+            ToggleControls(false, "Publishing OptionSet {0}...", optionSetName);
 
             this._iWriteToOutput.WriteToOutput("Start publishing OptionSet {0} at {1}", optionSetName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -730,17 +718,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing OptionSet {0} at {1}", optionSetName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus("OptionSet {0} published.", optionSetName);
+                ToggleControls(true, "OptionSet {0} published.", optionSetName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Publishing OptionSet {0} failed.", optionSetName);
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Publishing OptionSet {0} failed.", optionSetName);
             }
         }
 

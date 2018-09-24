@@ -210,9 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading entities...");
+            ToggleControls(false, "Loading entities...");
 
             this._itemsSource.Clear();
 
@@ -337,9 +335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus("{0} entities loaded", results.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} entities loaded", results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -357,9 +353,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleProgressBar(enabled);
 
@@ -709,7 +707,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Exporting Application Ribbon...");
 
             var service = await GetService();
 
@@ -733,7 +731,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(ex);
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Exporting Application Ribbon completed.");
         }
 
         private void btnExportApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -748,7 +746,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Exporting Application RibbonDiffXml...");
 
             var service = await GetService();
 
@@ -825,18 +823,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                    UpdateStatus("Export ApplicationRibbonDiffXml completed.");
+                    ToggleControls(true, "Exporting Application RibbonDiffXml completed.");
                 }
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Export ApplicationRibbonDiffXml failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Exporting Application RibbonDiffXml failed.");
             }
         }
 
@@ -891,9 +885,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Publishing Application Ribbon...");
+            ToggleControls(false, "Publishing Application Ribbon...");
 
             this._iWriteToOutput.WriteToOutput("Start publishing Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -907,17 +899,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus("Application Ribbon published.");
+                ToggleControls(true, "Publishing Application Ribbon completed.");
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Publish Application Ribbon failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Publishing Application Ribbon failed.");
             }
         }
 
@@ -952,7 +940,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Exporting {0} Ribbon...", entity.EntityLogicalName);
 
             var service = await GetService();
 
@@ -976,7 +964,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(ex);
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Exporting {0} Ribbon completed.", entity.EntityLogicalName);
         }
 
         private async Task PerformExportEntityRibbonDiffXml(EntityMetadataListViewItem entity)
@@ -986,7 +974,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Exporting {0} RibbonDiffXml", entity.EntityLogicalName);
 
             var service = await GetService();
 
@@ -1059,17 +1047,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                    UpdateStatus("Export RibbonDiffXml completed.");
+                    ToggleControls(true, "Exporting {0} RibbonDiffXml completed.", entity.EntityLogicalName);
                 }
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Export RibbonDiffXml failed.");
+                ToggleControls(true, "Exporting {0} RibbonDiffXml failed.", entity.EntityLogicalName);
             }
-
-            ToggleControls(true);
         }
 
         private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -1344,9 +1330,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Publishing Entity {0}...", entityName);
+            ToggleControls(false, "Publishing Entity {0}...", entityName);
 
             this._iWriteToOutput.WriteToOutput("Start publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1360,17 +1344,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus("Entity {0} published", entityName);
+                ToggleControls(true, "Publishing Entity {0} completed.", entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Publish Entity {0} failed", entityName);
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Publishing Entity {0} failed.", entityName);
             }
         }
 

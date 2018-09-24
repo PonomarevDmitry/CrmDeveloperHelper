@@ -163,9 +163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._itemsSource.Clear();
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading Plugin Assemblies...");
+            ToggleControls(false, "Loading Plugin Assemblies...");
 
             if (this._pluginDescription1 != null && this._pluginDescription2 != null)
             {
@@ -219,9 +217,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus("{0} Plugin Assemblies loaded.", filter.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} Plugin Assemblies loaded.", filter.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -239,9 +235,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.tSBLoadPluginConfiguration1, enabled);
             ToggleControl(this.tSBLoadPluginConfiguration2, enabled);
@@ -379,7 +377,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Creating descriptions...");
 
             DateTime now = DateTime.Now;
 
@@ -403,7 +401,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Descriptions completed.");
         }
 
         private Task<string> CreateDescriptionFileAsync(string folder, string filePathConfiguration, string name, string description)
@@ -567,7 +565,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Creating description...");
 
             string description = await handler.CreateDescriptionAsync(assembly);
 
@@ -575,7 +573,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            ToggleControls(true);
+            ToggleControls(true, "Description completed.");
         }
 
         private void tSMIShowDifferencePluginAssemblyDescription_Click(object sender, RoutedEventArgs e)

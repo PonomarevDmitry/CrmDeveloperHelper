@@ -177,13 +177,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Excecuting Fetch...");
 
             ClearGridAndTextBox();
 
             if (!TryLoadFileText())
             {
-                ToggleControls(true);
+                ToggleControls(true, "File not exists.");
                 return;
             }
 
@@ -201,9 +201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 this._selectedItem = tbErrorText;
 
-                ToggleControls(true);
-
-                UpdateStatus("Connection is not selected.");
+                ToggleControls(true, "Connection is not selected.");
 
                 return;
             }
@@ -233,9 +231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 this._selectedItem = tbErrorText;
 
-                ToggleControls(true);
-
-                UpdateStatus("File text is not valid xml.");
+                ToggleControls(true, "File text is not valid xml.");
 
                 return;
             }
@@ -244,9 +240,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             if (CheckParametersAndReturnHasNew(doc, connectionData))
             {
-                UpdateStatus("Please, Fill New Parameters.");
-
-                ToggleControls(true);
+                ToggleControls(true, "Please, Fill New Parameters.");
 
                 return;
             }
@@ -310,9 +304,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 LoadData(connectionData, entityCollection, fetchXml);
 
-                ToggleControls(true);
-
-                UpdateStatus("Fetch Query executed successfully.");
+                ToggleControls(true, "Fetch Query executed successfully. Records count: {0}.", entityCollection.TotalRecordCount);
             }
             catch (Exception ex)
             {
@@ -337,9 +329,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                     this._selectedItem = tbErrorText;
 
-                    ToggleControls(true);
-
-                    UpdateStatus("Fetch Execution Error.");
+                    ToggleControls(true, "Fetch Execution Error.");
                 });
 
                 return;
@@ -962,9 +952,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.toolStrip, enabled);
 

@@ -223,9 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading forms...");
+            ToggleControls(false, "Loading forms...");
 
             this._itemsSource.Clear();
 
@@ -302,9 +300,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntities(list);
 
-            UpdateStatus("{0} forms loaded.", list.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} forms loaded.", list.Count());
         }
 
         private static IEnumerable<LinkedEntities<SystemForm>> FilterList(IEnumerable<LinkedEntities<SystemForm>> list, string textName)
@@ -404,9 +400,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.tSDDBShowDifference, enabled);
             ToggleControl(this.tSDDBConnection1, enabled);
@@ -646,7 +644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Showing Difference Entity Description...");
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -680,7 +678,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Showing Difference Entity Description completed.");
         }
 
         private void mIShowDifferenceFormDescription_Click(object sender, RoutedEventArgs e)
@@ -702,7 +700,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Showing Difference Form Description...");
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -742,7 +740,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Showing Difference Form Description completed.");
         }
 
         private void mIShowDifferenceFormXml_Click(object sender, RoutedEventArgs e)
@@ -789,7 +787,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Showing Difference Xml {0}...", fieldName);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -823,7 +821,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Showing Difference Xml {0} completed.", fieldName);
         }
 
         private void mIShowDifferenceWebResouces_Click(object sender, RoutedEventArgs e)
@@ -845,7 +843,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Showing Difference WebResources...");
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -926,7 +924,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Showing Difference WebResources completed.");
         }
 
         private Task<string> CreateWebResourceAsync(string folder, string connectionName, string resName, WebResource webresource)
@@ -988,7 +986,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Exporting Xml {0} to File...", fieldName);
 
             var service = await getService();
 
@@ -1005,7 +1003,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Exporting Xml {0} to File completed.", fieldName);
         }
 
         private void ExecuteActionEntityDescription(Guid idSystemForm, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)
@@ -1035,7 +1033,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Creating Entity Description...");
 
             var service = await getService();
 
@@ -1052,7 +1050,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Entity Description completed.");
         }
 
         private void mIExportSystemForm1EntityDescription_Click(object sender, RoutedEventArgs e)
@@ -1110,7 +1108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Creating Form Description...");
 
             var service = await getService();
             var descriptor = await getDescription();
@@ -1151,7 +1149,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Creating Form Description completed.");
         }
 
         private void mIExportSystemForm1FormXml_Click(object sender, RoutedEventArgs e)
@@ -1224,9 +1222,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformDownloadWebResourcesAsync(Guid systemFormId, Func<Task<IOrganizationServiceExtented>> getService, Func<Task<SolutionComponentDescriptor>> getDescriptor)
         {
-            ToggleControls(false);
-
-            UpdateStatus("Start download form's web resources.");
+            ToggleControls(false, "Downloading form's WebResources.");
 
             var service = await getService();
             var descriptor = await getDescriptor();
@@ -1287,9 +1283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Downloading form's WebResources completed.");
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

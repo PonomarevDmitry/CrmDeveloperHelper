@@ -223,9 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading entities...");
+            ToggleControls(false, "Loading entities...");
 
             _itemsSource.Clear();
 
@@ -328,9 +326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus("{0} entities loaded.", results.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} entities loaded.", results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -348,9 +344,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(cmBCurrentConnection, enabled);
 
@@ -754,9 +752,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig.OptionSetExportType
                 );
 
-            ToggleControls(false);
-
-            UpdateStatus("Creating File...");
+            ToggleControls(false, "Creating File...");
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -784,9 +780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            UpdateStatus("File is created.");
-
-            ToggleControls(true);
+            ToggleControls(true, "File is created.");
         }
 
         private void btnCreateJavaScriptFile_Click(object sender, RoutedEventArgs e)
@@ -817,9 +811,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , chBWithDependentComponents.IsChecked.GetValueOrDefault()
                 );
 
-            ToggleControls(false);
-
-            UpdateStatus("Creating File...");
+            ToggleControls(false, "Creating File...");
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -840,17 +832,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus("File is created.");
+                ToggleControls(true, "File is created.");
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("File creation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "File creation failed.");
             }
         }
 
@@ -885,9 +873,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Creating File...");
+            ToggleControls(false, "Creating File...");
 
             this._iWriteToOutput.WriteToOutput("Start getting file with Entity Xml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -910,17 +896,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End getting file with Entity Xml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus("File is created.");
+                ToggleControls(true, "File is created.");
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("File creation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "File creation failed.");
             }
         }
 
@@ -931,9 +913,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Publishing Entity {0}...", entityName);
+            ToggleControls(false, "Publishing Entity {0}...", entityName);
 
             this._iWriteToOutput.WriteToOutput("Start publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -947,17 +927,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                UpdateStatus("Entity {0} published", entityName);
+                ToggleControls(true, "Entity {0} published", entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Publish Entity {0} failed", entityName);
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Publish Entity {0} failed", entityName);
             }
         }
 

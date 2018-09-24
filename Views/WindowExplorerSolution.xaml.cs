@@ -191,9 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading solutions...");
+            ToggleControls(false, "Loading solutions...");
 
             this._itemsSource.Clear();
 
@@ -226,9 +224,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSolutions(list);
 
-            UpdateStatus("{0} solutions loaded.", list.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} solutions loaded.", list.Count());
         }
 
         private class EntityViewItem
@@ -288,9 +284,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(cmBCurrentConnection, enabled);
 
@@ -855,9 +853,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false);
-
-                UpdateStatus("Start analizing solution.");
+                ToggleControls(false, "Analizing solution...");
 
                 var service = await GetService();
                 var descriptor = await GetDescriptor();
@@ -878,17 +874,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                UpdateStatus("Operation is completed.");
+                ToggleControls(true, "Analizing solution is completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Analizing solution failed.");
             }
         }
 
@@ -896,7 +888,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false);
+                ToggleControls(false, "Analizing solutions...");
 
                 _commonConfig.Save();
 
@@ -906,17 +898,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 WindowHelper.OpenSolutionComponentDependenciesWindow(this._iWriteToOutput, service, descriptor, _commonConfig, solution.UniqueName, null);
 
-                UpdateStatus("Operation is completed.");
+                ToggleControls(true, "Analizing solutions completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Analizing solutions failed.");
             }
         }
 
@@ -924,9 +912,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false);
-
-                UpdateStatus("Start analizing solutions.");
+                ToggleControls(false, "Analizing solutions...");
 
                 var service = await GetService();
                 var descriptor = await GetDescriptor();
@@ -962,17 +948,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                UpdateStatus("Operation is completed.");
+                ToggleControls(true, "Analizing solutions completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Analizing solutions failed.");
             }
         }
 
@@ -980,9 +962,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false);
-
-                UpdateStatus("Start analizing solutions.");
+                ToggleControls(false, "Analizing solutions...");
 
                 var service = await GetService();
                 var descriptor = await GetDescriptor();
@@ -1018,21 +998,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                UpdateStatus("Operation is completed.");
+                ToggleControls(true, "Analizing solutions completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Analizing solutions failed.");
             }
         }
-
-
 
         private void mIAnalyzeSolutions_Click(object sender, RoutedEventArgs e)
         {
@@ -1132,9 +1106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false);
-
-                UpdateStatus("Start analizing solutions.");
+                ToggleControls(false, "Analizing solutions...");
 
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput(string.Empty);
@@ -1147,17 +1119,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.FindUniqueComponentsInSolutionsAsync(solution1.Id, solution2.Id);
 
-                UpdateStatus("Operation is completed.");
+                ToggleControls(true, "Analizing solutions completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Analizing solutions failed.");
             }
         }
 
@@ -1165,9 +1133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false);
-
-                UpdateStatus("Start analizing solutions.");
+                ToggleControls(false, "Analizing solutions...");
 
                 var service = await GetService();
                 var descriptor = await GetDescriptor();
@@ -1189,17 +1155,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                UpdateStatus("Operation is completed.");
+                ToggleControls(true, "Analizing solutions completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Analizing solutions failed.");
             }
         }
 
@@ -1258,9 +1220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false);
-
-                UpdateStatus("Start analizing solutions.");
+                ToggleControls(false, "Coping solution components...");
 
                 var service = await GetService();
                 var descriptor = await GetDescriptor();
@@ -1327,26 +1287,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput("All Solution Components '{0}' already added into '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
                 }
 
-                UpdateStatus("Operation is completed.");
+                ToggleControls(true, "Coping solution components completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Coping solution components failed.");
             }
         }
         private async Task PerformCopyFromSolutionCollectionToSolution(string folder, Solution[] solutionSourceCollection, Solution solutionTarget)
         {
             try
             {
-                ToggleControls(false);
-
-                UpdateStatus("Start analizing solutions.");
+                ToggleControls(false, "Coping solution components...");
 
                 string sourceName = string.Join(",", solutionSourceCollection.Select(e => e.UniqueName).OrderBy(s => s));
 
@@ -1438,17 +1392,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput("All Solution Components '{0}' already added into '{1}'.", sourceName, solutionTarget.UniqueName);
                 }
 
-                UpdateStatus("Operation is completed.");
+                ToggleControls(true, "Coping solution components completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Coping solution components failed.");
             }
         }
 
@@ -1526,9 +1476,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false);
-
-                UpdateStatus("Start clearing solution.");
+                ToggleControls(false, "Clearing solution...");
 
                 var service = await GetService();
                 var descriptor = await GetDescriptor();
@@ -1556,17 +1504,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 SolutionComponentRepository repository = new SolutionComponentRepository(service);
                 await repository.ClearSolutionAsync(solution.UniqueName);
 
-                UpdateStatus("Operation is completed.");
+                ToggleControls(true, "Clearing solution completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Clearing solution failed.");
             }
         }
 
@@ -1621,9 +1565,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false);
-
-                UpdateStatus("Start analizing solution.");
+                ToggleControls(false, "Analizing solution...");
 
                 var service = await GetService();
                 var descriptor = await GetDescriptor();
@@ -1648,17 +1590,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                UpdateStatus("Operation is completed.");
+                ToggleControls(true, "Analizing solutions completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Analizing solutions failed.");
             }
         }
 
@@ -1666,9 +1604,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false);
-
-                UpdateStatus("Start analizing solution.");
+                ToggleControls(false, "Analizing solution...");
 
                 var service = await GetService();
                 var descriptor = await GetDescriptor();
@@ -1693,17 +1629,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                UpdateStatus("Operation is completed.");
+                ToggleControls(true, "Analizing solution completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Operation failed.");
-            }
-            finally
-            {
-                ToggleControls(true);
+                ToggleControls(true, "Analizing solution failed.");
             }
         }
 

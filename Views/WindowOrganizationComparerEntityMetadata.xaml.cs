@@ -197,9 +197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading entities...");
+            ToggleControls(false, "Loading entities...");
 
             this._itemsSource.Clear();
 
@@ -354,9 +352,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus("{0} entities loaded.", results.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} entities loaded.", results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -374,9 +370,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleProgressBar(enabled);
 
@@ -522,9 +520,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             CreateFileWithEntityMetadataCSharpConfiguration config = GetCSharpConfig(entityName);
 
-            ToggleControls(false);
-
-            UpdateStatus("Creating Files...");
+            ToggleControls(false, "Creating Files...");
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -562,9 +558,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
             }
 
-            UpdateStatus("Files are created.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Files are created.");
         }
 
         private CreateFileWithEntityMetadataCSharpConfiguration GetCSharpConfig(string entityName)
@@ -625,9 +619,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             CreateFileWithEntityMetadataJavaScriptConfiguration config = GetJavaScriptConfig(entityName);
 
-            ToggleControls(false);
-
-            UpdateStatus("Creating Files...");
+            ToggleControls(false, "Creating Files...");
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -665,9 +657,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
             }
 
-            UpdateStatus("Files are created.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Files are created.");
         }
 
         private CreateFileWithEntityMetadataJavaScriptConfiguration GetJavaScriptConfig(string entityName)
@@ -729,9 +719,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var config = GetCSharpConfig(entityName);
 
-            ToggleControls(false);
-
-            UpdateStatus("Creating File...");
+            ToggleControls(false, "Creating File...");
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -746,9 +734,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            UpdateStatus("File is created.");
-
-            ToggleControls(true);
+            ToggleControls(true, "File is created.");
         }
 
         private void btnConnection1JavaScript_Click(object sender, RoutedEventArgs e)
@@ -794,9 +780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var config = GetJavaScriptConfig(entityName);
 
-            ToggleControls(false);
-
-            UpdateStatus("Creating File...");
+            ToggleControls(false, "Creating File...");
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -813,9 +797,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            UpdateStatus("File is created.");
-
-            ToggleControls(true);
+            ToggleControls(true, "File is created.");
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

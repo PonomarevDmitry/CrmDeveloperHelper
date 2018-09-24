@@ -3,11 +3,12 @@ using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -15,10 +16,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Xml.Linq;
-using System.Collections.ObjectModel;
-using System.Windows.Data;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -170,9 +170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading Reports...");
+            ToggleControls(false, "Loading Reports...");
 
             this._itemsSource.Clear();
 
@@ -314,9 +312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            UpdateStatus("{0} reports loaded.", results.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} reports loaded.", results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -334,9 +330,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
+
+            UpdateStatus(statusFormat, args);
 
             ToggleControl(this.tSDDBShowDifference, enabled);
             ToggleControl(this.tSDDBConnection1, enabled);
@@ -669,7 +667,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Showing Difference Xml {0}...", fieldName);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -704,7 +702,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Showing Difference Xml {0} completed.", fieldName);
         }
 
         private void ExecuteActionOnEntity(Guid idReport, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, Task> action)
@@ -734,7 +732,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Exporting Xml {0} to File...", fieldName);
 
             var service = await getService();
 
@@ -751,7 +749,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Exporting Xml {0} to File completed.", fieldName);
         }
 
         private async Task PerformExportBodyBinary(Guid idReport, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle)
@@ -761,7 +759,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Exporting BodyBinary {0} to File...", fieldName);
 
             var service = await getService();
 
@@ -799,9 +797,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            UpdateStatus("Operation is completed.");
-
-            ToggleControls(true);
+            ToggleControls(true, "Exporting BodyBinary {0} to File completed.", fieldName);
         }
 
         private void mIShowDifferenceEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -823,7 +819,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Showing Difference Entity Description...");
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -857,7 +853,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Showing Difference Entity Description completed.");
         }
 
         private void ExecuteActionDescription(Guid idReport, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)
@@ -887,7 +883,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
+            ToggleControls(false, "Creating Entity Description...");
 
             var service = await getService();
 
@@ -904,7 +900,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true);
+            ToggleControls(true, "Entity Description completed.");
         }
 
         private void mIExportReport1EntityDescription_Click(object sender, RoutedEventArgs e)
