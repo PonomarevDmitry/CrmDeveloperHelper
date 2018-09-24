@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk.Metadata;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
-    class EntityMetadataComparer
+    internal class EntityMetadataComparer
     {
-        private string _tabSpacer;
-        private string _connectionName1;
-        private string _connectionName2;
+        private readonly string _tabSpacer;
+        private readonly string _connectionName1;
+        private readonly string _connectionName2;
 
         private HashSet<string> _notExising;
 
@@ -18,20 +20,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public EntityMetadataComparer(string tabSpacer, string connectionName1, string connectionName2, OptionSetComparer optionSetComparer, HashSet<string> notExising)
         {
-            this._tabSpacer = tabSpacer;
-            this._connectionName1 = connectionName1;
-            this._connectionName2 = connectionName2;
-            this._notExising = notExising;
+            _tabSpacer = tabSpacer;
+            _connectionName1 = connectionName1;
+            _connectionName2 = connectionName2;
+            _notExising = notExising;
 
-            this._optionSetComparer = optionSetComparer;
+            _optionSetComparer = optionSetComparer;
         }
 
-        public List<string> GetDifference(EntityMetadata entityMetadata1, EntityMetadata entityMetadata2)
+        public async Task<List<string>> GetDifferenceAsync(OrganizationDifferenceImage image, EntityMetadata entityMetadata1, EntityMetadata entityMetadata2)
         {
             List<string> strDifference = new List<string>();
 
             {
-                var table = new FormatTextTableHandler(true);
+                FormatTextTableHandler table = new FormatTextTableHandler(true);
                 table.SetHeader("Property", _connectionName1, _connectionName2);
 
                 table.AddLineIfNotEqual("ActivityTypeMask", entityMetadata1.ActivityTypeMask, entityMetadata2.ActivityTypeMask);
@@ -109,30 +111,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            CompareAttributes(strDifference, entityMetadata1.Attributes, entityMetadata2.Attributes);
+            await CompareAttributesAsync(image, strDifference, entityMetadata1.LogicalName, entityMetadata1.Attributes, entityMetadata2.Attributes);
 
-            CompareKeys(strDifference, entityMetadata1.Keys ?? Enumerable.Empty<EntityKeyMetadata>(), entityMetadata2.Keys ?? Enumerable.Empty<EntityKeyMetadata>());
+            CompareKeys(image, strDifference, entityMetadata1.LogicalName, entityMetadata1.Keys ?? Enumerable.Empty<EntityKeyMetadata>(), entityMetadata2.Keys ?? Enumerable.Empty<EntityKeyMetadata>());
 
-            CompareOneToMany(strDifference, "N:1", "ManyToOne", entityMetadata1.ManyToOneRelationships, entityMetadata2.ManyToOneRelationships);
+            CompareOneToMany(image, strDifference, entityMetadata1.LogicalName, "N:1", "ManyToOne", entityMetadata1.ManyToOneRelationships, entityMetadata2.ManyToOneRelationships);
 
-            CompareOneToMany(strDifference, "1:N", "OneToMany", entityMetadata1.OneToManyRelationships, entityMetadata2.OneToManyRelationships);
+            CompareOneToMany(image, strDifference, entityMetadata1.LogicalName, "1:N", "OneToMany", entityMetadata1.OneToManyRelationships, entityMetadata2.OneToManyRelationships);
 
-            CompareManyToMany(strDifference, entityMetadata1.ManyToManyRelationships, entityMetadata2.ManyToManyRelationships);
+            CompareManyToMany(image, strDifference, entityMetadata1.LogicalName, entityMetadata1.ManyToManyRelationships, entityMetadata2.ManyToManyRelationships);
 
             return strDifference;
         }
 
-        private void CompareOneToMany(List<string> strDifference, string className, string relationTypeName, IEnumerable<OneToManyRelationshipMetadata> listRel1, IEnumerable<OneToManyRelationshipMetadata> listRel2)
+        private void CompareOneToMany(OrganizationDifferenceImage image, List<string> strDifference, string entityName, string className, string relationTypeName, IEnumerable<OneToManyRelationshipMetadata> listRel1, IEnumerable<OneToManyRelationshipMetadata> listRel2)
         {
-            var listRelOnlyIn1 = new FormatTextTableHandler(true);
-            var listRelOnlyIn2 = new FormatTextTableHandler(true);
+            FormatTextTableHandler listRelOnlyIn1 = new FormatTextTableHandler(true);
+            FormatTextTableHandler listRelOnlyIn2 = new FormatTextTableHandler(true);
 
             listRelOnlyIn1.SetHeader("SchemaName", "ReferencingEntity", "ReferencingAttribute", "ReferencedEntity", "ReferencedAttribute", "IsCustomRelationship", "IsManaged");
             listRelOnlyIn2.SetHeader("SchemaName", "ReferencingEntity", "ReferencingAttribute", "ReferencedEntity", "ReferencedAttribute", "IsCustomRelationship", "IsManaged");
 
             Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
-            foreach (var rel2 in listRel2.OrderBy(s => s.SchemaName))
+            foreach (OneToManyRelationshipMetadata rel2 in listRel2.OrderBy(s => s.SchemaName))
             {
                 if (_notExising.Contains(rel2.ReferencedEntity) || _notExising.Contains(rel2.ReferencingEntity))
                 {
@@ -140,7 +142,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 {
-                    var rel1 = listRel1.FirstOrDefault(s => s.SchemaName == rel2.SchemaName);
+                    OneToManyRelationshipMetadata rel1 = listRel1.FirstOrDefault(s => string.Equals(s.SchemaName, rel2.SchemaName, StringComparison.InvariantCultureIgnoreCase));
 
                     if (rel1 != null)
                     {
@@ -157,9 +159,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , rel2.IsCustomRelationship.ToString()
                     , rel2.IsManaged.ToString()
                     );
+
+                image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.EntityRelationship,
+                    SchemaName = rel2.SchemaName,
+                    ParentSchemaName = entityName
+                });
             }
 
-            foreach (var rel1 in listRel1.OrderBy(s => s.SchemaName))
+            foreach (OneToManyRelationshipMetadata rel1 in listRel1.OrderBy(s => s.SchemaName))
             {
                 if (_notExising.Contains(rel1.ReferencedEntity) || _notExising.Contains(rel1.ReferencingEntity))
                 {
@@ -167,7 +176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 {
-                    var rel2 = listRel2.FirstOrDefault(s => s.SchemaName == rel1.SchemaName);
+                    OneToManyRelationshipMetadata rel2 = listRel2.FirstOrDefault(s => string.Equals(s.SchemaName, rel1.SchemaName, StringComparison.InvariantCultureIgnoreCase));
 
                     if (rel2 != null)
                     {
@@ -184,11 +193,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , rel1.IsCustomRelationship.ToString()
                     , rel1.IsManaged.ToString()
                     );
+
+                image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.EntityRelationship,
+                    SchemaName = rel1.SchemaName,
+                    ParentSchemaName = entityName
+                });
             }
 
-            foreach (var rel1 in listRel1.OrderBy(s => s.SchemaName))
+            foreach (OneToManyRelationshipMetadata rel1 in listRel1.OrderBy(s => s.SchemaName))
             {
-                var rel2 = listRel2.FirstOrDefault(s => s.SchemaName == rel1.SchemaName);
+                OneToManyRelationshipMetadata rel2 = listRel2.FirstOrDefault(s => string.Equals(s.SchemaName, rel1.SchemaName, StringComparison.InvariantCultureIgnoreCase));
 
                 if (rel2 == null)
                 {
@@ -210,6 +226,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (diff.Count > 0)
                 {
                     dictDifference.Add(rel1.SchemaName, diff);
+
+                    image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.EntityRelationship,
+                        SchemaName = rel1.SchemaName,
+                        ParentSchemaName = entityName
+                    });
                 }
             }
 
@@ -237,7 +260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 strDifference.Add(string.Format("{0} - {1} DIFFERENT in {2} and {3}: {4}", className, relationTypeName, _connectionName1, _connectionName2, dictDifference.Count));
 
-                foreach (var item in dictDifference.OrderBy(e => e.Key))
+                foreach (KeyValuePair<string, List<string>> item in dictDifference.OrderBy(e => e.Key))
                 {
                     if (strDifference.Count > 0) { strDifference.Add(string.Empty); }
 
@@ -250,7 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private List<string> GetDifferenceOneToMany(OneToManyRelationshipMetadata rel1, OneToManyRelationshipMetadata rel2)
         {
-            var table = new FormatTextTableHandler(true);
+            FormatTextTableHandler table = new FormatTextTableHandler(true);
             table.SetHeader("Property", _connectionName1, _connectionName2);
 
             //public bool? IsHierarchical { get; set; }
@@ -327,17 +350,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private void CompareManyToMany(List<string> strDifference, IEnumerable<ManyToManyRelationshipMetadata> listRel1, IEnumerable<ManyToManyRelationshipMetadata> listRel2)
+        private void CompareManyToMany(OrganizationDifferenceImage image, List<string> strDifference, string entityName, IEnumerable<ManyToManyRelationshipMetadata> listRel1, IEnumerable<ManyToManyRelationshipMetadata> listRel2)
         {
-            var listRelOnlyIn1 = new FormatTextTableHandler(true);
-            var listRelOnlyIn2 = new FormatTextTableHandler(true);
+            FormatTextTableHandler listRelOnlyIn1 = new FormatTextTableHandler(true);
+            FormatTextTableHandler listRelOnlyIn2 = new FormatTextTableHandler(true);
 
             listRelOnlyIn1.SetHeader("SchemaName", "IntersectEntityName", "Entity1LogicalName", "Entity1IntersectAttribute", "Entity2LogicalName", "Entity2IntersectAttribute", "IsCustomRelationship", "IsManaged");
             listRelOnlyIn2.SetHeader("SchemaName", "IntersectEntityName", "Entity1LogicalName", "Entity1IntersectAttribute", "Entity2LogicalName", "Entity2IntersectAttribute", "IsCustomRelationship", "IsManaged");
 
             Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
-            foreach (var rel2 in listRel2.OrderBy(s => s.SchemaName))
+            foreach (ManyToManyRelationshipMetadata rel2 in listRel2.OrderBy(s => s.SchemaName))
             {
                 if (_notExising.Contains(rel2.Entity1LogicalName) || _notExising.Contains(rel2.Entity2LogicalName))
                 {
@@ -345,7 +368,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 {
-                    var rel1 = listRel1.FirstOrDefault(s => s.SchemaName == rel2.SchemaName);
+                    ManyToManyRelationshipMetadata rel1 = listRel1.FirstOrDefault(s => string.Equals(s.SchemaName, rel2.SchemaName, StringComparison.InvariantCultureIgnoreCase));
 
                     if (rel1 != null)
                     {
@@ -363,9 +386,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , rel2.IsCustomRelationship.ToString()
                     , rel2.IsManaged.ToString()
                     );
+
+                image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.EntityRelationship,
+                    SchemaName = rel2.SchemaName,
+                    ParentSchemaName = entityName
+                });
             }
 
-            foreach (var rel1 in listRel1.OrderBy(s => s.SchemaName))
+            foreach (ManyToManyRelationshipMetadata rel1 in listRel1.OrderBy(s => s.SchemaName))
             {
                 if (_notExising.Contains(rel1.Entity1LogicalName) || _notExising.Contains(rel1.Entity2LogicalName))
                 {
@@ -373,7 +403,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 {
-                    var rel2 = listRel2.FirstOrDefault(s => s.SchemaName == rel1.SchemaName);
+                    ManyToManyRelationshipMetadata rel2 = listRel2.FirstOrDefault(s => string.Equals(s.SchemaName, rel1.SchemaName, StringComparison.InvariantCultureIgnoreCase));
 
                     if (rel2 != null)
                     {
@@ -391,11 +421,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , rel1.IsCustomRelationship.ToString()
                     , rel1.IsManaged.ToString()
                     );
+
+                image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.EntityRelationship,
+                    SchemaName = rel1.SchemaName,
+                    ParentSchemaName = entityName
+                });
             }
 
-            foreach (var rel1 in listRel1.OrderBy(s => s.SchemaName))
+            foreach (ManyToManyRelationshipMetadata rel1 in listRel1.OrderBy(s => s.SchemaName))
             {
-                var rel2 = listRel2.FirstOrDefault(s => s.SchemaName == rel1.SchemaName);
+                ManyToManyRelationshipMetadata rel2 = listRel2.FirstOrDefault(s => string.Equals(s.SchemaName, rel1.SchemaName, StringComparison.InvariantCultureIgnoreCase));
 
                 if (rel2 == null)
                 {
@@ -417,6 +454,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (diff.Count > 0)
                 {
                     dictDifference.Add(rel1.SchemaName, diff);
+
+                    image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.EntityRelationship,
+                        SchemaName = rel1.SchemaName,
+                        ParentSchemaName = entityName
+                    });
                 }
             }
 
@@ -444,7 +488,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 strDifference.Add(string.Format("ManyToMany DIFFERENT in {0} and {1}: {2}", _connectionName1, _connectionName2, dictDifference.Count));
 
-                foreach (var item in dictDifference.OrderBy(e => e.Key))
+                foreach (KeyValuePair<string, List<string>> item in dictDifference.OrderBy(e => e.Key))
                 {
                     if (strDifference.Count > 0) { strDifference.Add(string.Empty); }
 
@@ -457,7 +501,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private List<string> GetDifferenceManyToMany(ManyToManyRelationshipMetadata rel1, ManyToManyRelationshipMetadata rel2)
         {
-            var table = new FormatTextTableHandler(true);
+            FormatTextTableHandler table = new FormatTextTableHandler(true);
             table.SetHeader("Property", _connectionName1, _connectionName2);
 
             //public AssociatedMenuConfiguration Entity1AssociatedMenuConfiguration { get; set; }
@@ -545,20 +589,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private void CompareKeys(List<string> strDifference, IEnumerable<EntityKeyMetadata> keys1, IEnumerable<EntityKeyMetadata> keys2)
+        private void CompareKeys(OrganizationDifferenceImage image, List<string> strDifference, string entityName, IEnumerable<EntityKeyMetadata> keys1, IEnumerable<EntityKeyMetadata> keys2)
         {
-            var listKeysOnlyIn1 = new FormatTextTableHandler(true);
-            var listKeysOnlyIn2 = new FormatTextTableHandler(true);
+            FormatTextTableHandler listKeysOnlyIn1 = new FormatTextTableHandler(true);
+            FormatTextTableHandler listKeysOnlyIn2 = new FormatTextTableHandler(true);
 
             listKeysOnlyIn1.SetHeader("LogicalName", "SchemaName", "IsManaged", "KeyAttributes");
             listKeysOnlyIn2.SetHeader("LogicalName", "SchemaName", "IsManaged", "KeyAttributes");
 
             Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
-            foreach (var key2 in keys2.OrderBy(s => s.LogicalName))
+            foreach (EntityKeyMetadata key2 in keys2.OrderBy(s => s.LogicalName))
             {
                 {
-                    var key1 = keys1.FirstOrDefault(s => s.LogicalName == key2.LogicalName);
+                    EntityKeyMetadata key1 = keys1.FirstOrDefault(s => string.Equals(s.LogicalName, key2.LogicalName, StringComparison.InvariantCultureIgnoreCase));
 
                     if (key1 != null)
                     {
@@ -567,12 +611,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 listKeysOnlyIn2.AddLine(key2.LogicalName, key2.SchemaName, key2.IsManaged.ToString(), string.Join(",", key2.KeyAttributes.OrderBy(s => s)));
+
+                image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.EntityKey,
+                    SchemaName = key2.SchemaName,
+                    ParentSchemaName = entityName
+                });
             }
 
-            foreach (var key1 in keys1.OrderBy(s => s.LogicalName))
+            foreach (EntityKeyMetadata key1 in keys1.OrderBy(s => s.LogicalName))
             {
                 {
-                    var key2 = keys2.FirstOrDefault(s => s.LogicalName == key1.LogicalName);
+                    EntityKeyMetadata key2 = keys2.FirstOrDefault(s => string.Equals(s.LogicalName, key1.LogicalName, StringComparison.InvariantCultureIgnoreCase));
 
                     if (key2 != null)
                     {
@@ -581,11 +632,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 listKeysOnlyIn1.AddLine(key1.LogicalName, key1.SchemaName, key1.IsManaged.ToString(), string.Join(",", key1.KeyAttributes.OrderBy(s => s)));
+
+                image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.EntityKey,
+                    SchemaName = key1.SchemaName,
+                    ParentSchemaName = entityName
+                });
             }
 
-            foreach (var key1 in keys1.OrderBy(s => s.LogicalName))
+            foreach (EntityKeyMetadata key1 in keys1.OrderBy(s => s.LogicalName))
             {
-                var key2 = keys2.FirstOrDefault(s => s.LogicalName == key1.LogicalName);
+                EntityKeyMetadata key2 = keys2.FirstOrDefault(s => string.Equals(s.LogicalName, key1.LogicalName, StringComparison.InvariantCultureIgnoreCase));
 
                 if (key2 == null)
                 {
@@ -597,6 +655,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (diff.Count > 0)
                 {
                     dictDifference.Add(key1.LogicalName, diff.Select(s => _tabSpacer + s).ToList());
+
+                    image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.EntityKey,
+                        SchemaName = key1.SchemaName,
+                        ParentSchemaName = entityName
+                    });
                 }
             }
 
@@ -624,7 +689,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 strDifference.Add(string.Format("Keys DIFFERENT in {0} and {1}: {2}", _connectionName1, _connectionName2, dictDifference.Count));
 
-                foreach (var item in dictDifference.OrderBy(e => e.Key))
+                foreach (KeyValuePair<string, List<string>> item in dictDifference.OrderBy(e => e.Key))
                 {
                     if (strDifference.Count > 0) { strDifference.Add(string.Empty); }
 
@@ -640,7 +705,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             List<string> strDifference = new List<string>();
 
             {
-                var table = new FormatTextTableHandler(true);
+                FormatTextTableHandler table = new FormatTextTableHandler(true);
                 table.SetHeader("Property", _connectionName1, _connectionName2);
 
                 //EntityReference AsyncJob { get; }
@@ -670,7 +735,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return strDifference;
         }
 
-        private async Task CompareAttributes(List<string> strDifference, IEnumerable<AttributeMetadata> attributes1, IEnumerable<AttributeMetadata> attributes2)
+        private async Task CompareAttributesAsync(OrganizationDifferenceImage image, List<string> strDifference, string entityName, IEnumerable<AttributeMetadata> attributes1, IEnumerable<AttributeMetadata> attributes2)
         {
             FormatTextTableHandler listAttributesOnlyIn1 = new FormatTextTableHandler(true);
             FormatTextTableHandler listAttributesOnlyIn2 = new FormatTextTableHandler(true);
@@ -680,10 +745,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
-            foreach (var attr2 in attributes2.OrderBy(s => s.LogicalName))
+            foreach (AttributeMetadata attr2 in attributes2.OrderBy(s => s.LogicalName))
             {
                 {
-                    var attr1 = attributes1.FirstOrDefault(s => s.LogicalName == attr2.LogicalName);
+                    AttributeMetadata attr1 = attributes1.FirstOrDefault(s => string.Equals(s.LogicalName, attr2.LogicalName, StringComparison.InvariantCultureIgnoreCase));
 
                     if (attr1 != null)
                     {
@@ -691,21 +756,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
-                var listStr = new List<string>() { attr2.LogicalName, attr2.GetType().Name, attr2.AttributeType.ToString(), attr2.IsManaged.ToString(), attr2.IsCustomAttribute.ToString() };
+                List<string> listStr = new List<string>() { attr2.LogicalName, attr2.GetType().Name, attr2.AttributeType.ToString(), attr2.IsManaged.ToString(), attr2.IsCustomAttribute.ToString() };
 
                 if (attr2 is LookupAttributeMetadata)
                 {
-                    listStr.Add(string.Join(",", (attr2 as LookupAttributeMetadata).Targets.OrderBy(s => s)));
+                    listStr.Add(string.Join(",", (attr2 as LookupAttributeMetadata)?.Targets?.OrderBy(s => s)));
                 }
 
-                listAttributesOnlyIn2.AddLine(listStr.ToArray());
                 listAttributesOnlyIn1.CalculateLineLengths(listStr.ToArray());
+                listAttributesOnlyIn2.AddLine(listStr.ToArray());
+
+                image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.Attribute,
+                    SchemaName = attr2.SchemaName,
+                    ParentSchemaName = entityName
+                });
             }
 
-            foreach (var attr1 in attributes1.OrderBy(s => s.LogicalName))
+            foreach (AttributeMetadata attr1 in attributes1.OrderBy(s => s.LogicalName))
             {
                 {
-                    var attr2 = attributes2.FirstOrDefault(s => s.LogicalName == attr1.LogicalName);
+                    AttributeMetadata attr2 = attributes2.FirstOrDefault(s => string.Equals(s.LogicalName, attr1.LogicalName, StringComparison.InvariantCultureIgnoreCase));
 
                     if (attr2 != null)
                     {
@@ -713,20 +785,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
-                var listStr = new List<string>() { attr1.LogicalName, attr1.GetType().Name, attr1.AttributeType.ToString(), attr1.IsManaged.ToString(), attr1.IsCustomAttribute.ToString() };
+                List<string> listStr = new List<string>() { attr1.LogicalName, attr1.GetType().Name, attr1.AttributeType.ToString(), attr1.IsManaged.ToString(), attr1.IsCustomAttribute.ToString() };
 
                 if (attr1 is LookupAttributeMetadata)
                 {
-                    listStr.Add(string.Join(",", (attr1 as LookupAttributeMetadata).Targets.OrderBy(s => s)));
+                    listStr.Add(string.Join(",", (attr1 as LookupAttributeMetadata)?.Targets?.OrderBy(s => s)));
                 }
 
                 listAttributesOnlyIn1.AddLine(listStr.ToArray());
                 listAttributesOnlyIn2.CalculateLineLengths(listStr.ToArray());
+
+                image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.Attribute,
+                    SchemaName = attr1.SchemaName,
+                    ParentSchemaName = entityName
+                });
             }
 
-            foreach (var attr1 in attributes1.OrderBy(s => s.LogicalName))
+            foreach (AttributeMetadata attr1 in attributes1.OrderBy(s => s.LogicalName))
             {
-                var attr2 = attributes2.FirstOrDefault(s => s.LogicalName == attr1.LogicalName);
+                AttributeMetadata attr2 = attributes2.FirstOrDefault(s => string.Equals(s.LogicalName, attr1.LogicalName, StringComparison.InvariantCultureIgnoreCase));
 
                 if (attr2 == null)
                 {
@@ -738,6 +817,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (diff.Count > 0)
                 {
                     dictDifference.Add(attr1.LogicalName, diff);
+
+                    image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.EntityKey,
+                        SchemaName = attr1.SchemaName,
+                        ParentSchemaName = entityName
+                    });
                 }
             }
 
@@ -765,7 +851,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 strDifference.Add(string.Format("Attributes DIFFERENT in {0} and {1}: {2}", _connectionName1, _connectionName2, dictDifference.Count));
 
-                foreach (var item in dictDifference.OrderBy(e => e.Key))
+                foreach (KeyValuePair<string, List<string>> item in dictDifference.OrderBy(e => e.Key))
                 {
                     if (strDifference.Count > 0) { strDifference.Add(string.Empty); }
 
@@ -781,7 +867,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             List<string> strDifference = new List<string>();
 
             {
-                var table = new FormatTextTableHandler(true);
+                FormatTextTableHandler table = new FormatTextTableHandler(true);
                 table.SetHeader("Property", _connectionName1, _connectionName2);
 
                 //public string AttributeOf { get; internal set; }
@@ -864,8 +950,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.MemoAttributeMetadata)
                     {
-                        var memoAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.MemoAttributeMetadata;
-                        var memoAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.MemoAttributeMetadata;
+                        MemoAttributeMetadata memoAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.MemoAttributeMetadata;
+                        MemoAttributeMetadata memoAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.MemoAttributeMetadata;
 
                         table.AddLineIfNotEqual("MaxLength", memoAttrib1.MaxLength, memoAttrib2.MaxLength);
                         table.AddLineIfNotEqual("Format", memoAttrib1.Format, memoAttrib2.Format);
@@ -875,8 +961,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.StringAttributeMetadata)
                     {
-                        var stringAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.StringAttributeMetadata;
-                        var stringAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.StringAttributeMetadata;
+                        StringAttributeMetadata stringAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.StringAttributeMetadata;
+                        StringAttributeMetadata stringAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.StringAttributeMetadata;
 
                         table.AddLineIfNotEqual("MaxLength", stringAttrib1.MaxLength, stringAttrib2.MaxLength);
                         table.AddLineIfNotEqual("Format", stringAttrib1.Format, stringAttrib2.Format);
@@ -891,8 +977,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.IntegerAttributeMetadata)
                     {
-                        var intAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.IntegerAttributeMetadata;
-                        var intAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.IntegerAttributeMetadata;
+                        IntegerAttributeMetadata intAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.IntegerAttributeMetadata;
+                        IntegerAttributeMetadata intAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.IntegerAttributeMetadata;
 
                         table.AddLineIfNotEqual("MinValue", intAttrib1.MinValue, intAttrib2.MinValue);
                         table.AddLineIfNotEqual("MaxValue", intAttrib1.MaxValue, intAttrib2.MaxValue);
@@ -906,8 +992,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.BigIntAttributeMetadata)
                     {
-                        var bigIntAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.BigIntAttributeMetadata;
-                        var bigIntAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.BigIntAttributeMetadata;
+                        BigIntAttributeMetadata bigIntAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.BigIntAttributeMetadata;
+                        BigIntAttributeMetadata bigIntAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.BigIntAttributeMetadata;
 
                         table.AddLineIfNotEqual("MinValue", bigIntAttrib1.MinValue, bigIntAttrib2.MinValue);
                         table.AddLineIfNotEqual("MaxValue", bigIntAttrib1.MaxValue, bigIntAttrib2.MaxValue);
@@ -915,8 +1001,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.ImageAttributeMetadata)
                     {
-                        var imageAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.ImageAttributeMetadata;
-                        var imageAttrib2 = attr1 as Microsoft.Xrm.Sdk.Metadata.ImageAttributeMetadata;
+                        ImageAttributeMetadata imageAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.ImageAttributeMetadata;
+                        ImageAttributeMetadata imageAttrib2 = attr1 as Microsoft.Xrm.Sdk.Metadata.ImageAttributeMetadata;
 
                         table.AddLineIfNotEqual("IsPrimaryImage", imageAttrib1.IsPrimaryImage, imageAttrib2.IsPrimaryImage);
                         table.AddLineIfNotEqual("MaxHeight", imageAttrib1.MaxHeight, imageAttrib2.MaxHeight);
@@ -925,8 +1011,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.MoneyAttributeMetadata)
                     {
-                        var moneyAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.MoneyAttributeMetadata;
-                        var moneyAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.MoneyAttributeMetadata;
+                        MoneyAttributeMetadata moneyAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.MoneyAttributeMetadata;
+                        MoneyAttributeMetadata moneyAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.MoneyAttributeMetadata;
 
                         table.AddLineIfNotEqual("MinValue", moneyAttrib1.MinValue, moneyAttrib2.MinValue);
                         table.AddLineIfNotEqual("MaxValue", moneyAttrib1.MaxValue, moneyAttrib2.MaxValue);
@@ -944,8 +1030,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.DecimalAttributeMetadata)
                     {
-                        var decimalAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.DecimalAttributeMetadata;
-                        var decimalAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.DecimalAttributeMetadata;
+                        DecimalAttributeMetadata decimalAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.DecimalAttributeMetadata;
+                        DecimalAttributeMetadata decimalAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.DecimalAttributeMetadata;
 
                         table.AddLineIfNotEqual("MinValue", decimalAttrib1.MinValue, decimalAttrib2.MinValue);
                         table.AddLineIfNotEqual("MaxValue", decimalAttrib1.MaxValue, decimalAttrib2.MaxValue);
@@ -960,8 +1046,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.DoubleAttributeMetadata)
                     {
-                        var doubleAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.DoubleAttributeMetadata;
-                        var doubleAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.DoubleAttributeMetadata;
+                        DoubleAttributeMetadata doubleAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.DoubleAttributeMetadata;
+                        DoubleAttributeMetadata doubleAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.DoubleAttributeMetadata;
 
                         table.AddLineIfNotEqual("MinValue", doubleAttrib1.MinValue, doubleAttrib2.MinValue);
                         table.AddLineIfNotEqual("MaxValue", doubleAttrib1.MaxValue, doubleAttrib2.MaxValue);
@@ -971,8 +1057,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.BooleanAttributeMetadata)
                     {
-                        var boolAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.BooleanAttributeMetadata;
-                        var boolAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.BooleanAttributeMetadata;
+                        BooleanAttributeMetadata boolAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.BooleanAttributeMetadata;
+                        BooleanAttributeMetadata boolAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.BooleanAttributeMetadata;
 
                         table.AddLineIfNotEqual("FalseOption", boolAttrib1.OptionSet.FalseOption.Value, boolAttrib2.OptionSet.FalseOption.Value);
                         table.AddLineIfNotEqual("TrueOption", boolAttrib1.OptionSet.TrueOption.Value, boolAttrib2.OptionSet.TrueOption.Value);
@@ -994,7 +1080,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (!CreateFileHandler.IgnoreAttribute(boolAttrib1.EntityLogicalName, boolAttrib1.LogicalName))
                             {
-                                var diffenrenceOptionSet = await _optionSetComparer.GetDifference(boolAttrib1.OptionSet, boolAttrib2.OptionSet, attr1.EntityLogicalName, attr2.LogicalName);
+                                List<string> diffenrenceOptionSet = await _optionSetComparer.GetDifference(boolAttrib1.OptionSet, boolAttrib2.OptionSet, attr1.EntityLogicalName, attr2.LogicalName);
 
                                 if (diffenrenceOptionSet.Count > 0)
                                 {
@@ -1007,8 +1093,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata)
                     {
-                        var picklistAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata;
-                        var picklistAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata;
+                        PicklistAttributeMetadata picklistAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata;
+                        PicklistAttributeMetadata picklistAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata;
 
                         table.AddLineIfNotEqual("DefaultFormValue", picklistAttrib1.DefaultFormValue, picklistAttrib2.DefaultFormValue);
 
@@ -1029,7 +1115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (!CreateFileHandler.IgnoreAttribute(picklistAttrib1.EntityLogicalName, picklistAttrib1.LogicalName))
                             {
-                                var diffenrenceOptionSet = await _optionSetComparer.GetDifference(picklistAttrib1.OptionSet, picklistAttrib2.OptionSet, picklistAttrib1.EntityLogicalName, picklistAttrib1.LogicalName);
+                                List<string> diffenrenceOptionSet = await _optionSetComparer.GetDifference(picklistAttrib1.OptionSet, picklistAttrib2.OptionSet, picklistAttrib1.EntityLogicalName, picklistAttrib1.LogicalName);
 
                                 if (diffenrenceOptionSet.Count > 0)
                                 {
@@ -1046,24 +1132,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.StatusAttributeMetadata)
                     {
-                        var statusAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.StatusAttributeMetadata;
-                        var statusAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.StatusAttributeMetadata;
+                        StatusAttributeMetadata statusAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.StatusAttributeMetadata;
+                        StatusAttributeMetadata statusAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.StatusAttributeMetadata;
 
                         table.AddLineIfNotEqual("DefaultFormValue", statusAttrib1.DefaultFormValue, statusAttrib2.DefaultFormValue);
                     }
 
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.StateAttributeMetadata)
                     {
-                        var stateAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.StateAttributeMetadata;
-                        var stateAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.StateAttributeMetadata;
+                        StateAttributeMetadata stateAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.StateAttributeMetadata;
+                        StateAttributeMetadata stateAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.StateAttributeMetadata;
 
                         table.AddLineIfNotEqual("DefaultFormValue", stateAttrib1.DefaultFormValue, stateAttrib2.DefaultFormValue);
                     }
 
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.EntityNameAttributeMetadata)
                     {
-                        var entityNameAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.EntityNameAttributeMetadata;
-                        var entityNameAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.EntityNameAttributeMetadata;
+                        EntityNameAttributeMetadata entityNameAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.EntityNameAttributeMetadata;
+                        EntityNameAttributeMetadata entityNameAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.EntityNameAttributeMetadata;
 
                         table.AddLineIfNotEqual("DefaultFormValue", entityNameAttrib1.DefaultFormValue, entityNameAttrib2.DefaultFormValue);
 
@@ -1075,16 +1161,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.LookupAttributeMetadata)
                     {
-                        var lookupAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.LookupAttributeMetadata;
-                        var lookupAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.LookupAttributeMetadata;
+                        LookupAttributeMetadata lookupAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.LookupAttributeMetadata;
+                        LookupAttributeMetadata lookupAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.LookupAttributeMetadata;
 
-                        var targets1 = string.Join(",", lookupAttrib1.Targets.OrderBy(s => s));
-                        var targets2 = string.Join(",", lookupAttrib2.Targets.OrderBy(s => s));
+                        string targets1 = string.Join(",", lookupAttrib1.Targets.OrderBy(s => s));
+                        string targets2 = string.Join(",", lookupAttrib2.Targets.OrderBy(s => s));
 
                         if (targets1 != targets2)
                         {
-                            var t1 = string.Join(",", lookupAttrib1.Targets.Except(lookupAttrib2.Targets).OrderBy(s => s));
-                            var t2 = string.Join(",", lookupAttrib2.Targets.Except(lookupAttrib1.Targets).OrderBy(s => s));
+                            string t1 = string.Join(",", lookupAttrib1.Targets.Except(lookupAttrib2.Targets).OrderBy(s => s));
+                            string t2 = string.Join(",", lookupAttrib2.Targets.Except(lookupAttrib1.Targets).OrderBy(s => s));
 
                             table.AddLine("Targets", t1, t2);
                         }
@@ -1092,8 +1178,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.DateTimeAttributeMetadata)
                     {
-                        var dateTimeAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.DateTimeAttributeMetadata;
-                        var dateTimeAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.DateTimeAttributeMetadata;
+                        DateTimeAttributeMetadata dateTimeAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.DateTimeAttributeMetadata;
+                        DateTimeAttributeMetadata dateTimeAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.DateTimeAttributeMetadata;
 
                         table.AddLineIfNotEqual("DateTimeBehavior"
                             , dateTimeAttrib1.DateTimeBehavior != null ? dateTimeAttrib1.DateTimeBehavior.Value : "null"
@@ -1127,18 +1213,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private bool IgnoreTargetsAttr(string entityName, string attributeName)
         {
-            if (attributeName == "regardingobjectid")
+            if (string.Equals(attributeName, "regardingobjectid", StringComparison.InvariantCultureIgnoreCase))
             {
                 return true;
             }
 
-
-            if (attributeName.Equals("objectid", StringComparison.OrdinalIgnoreCase))
+            if (attributeName.Equals("objectid", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (entityName.Equals("queueitem", StringComparison.OrdinalIgnoreCase)
-                    || entityName.Equals("principalobjectattributeaccess", StringComparison.OrdinalIgnoreCase)
-                    || entityName.Equals("annotation", StringComparison.OrdinalIgnoreCase)
-                    || entityName.Equals("userentityinstancedata", StringComparison.OrdinalIgnoreCase)
+                if (entityName.Equals("queueitem", StringComparison.InvariantCultureIgnoreCase)
+                    || entityName.Equals("principalobjectattributeaccess", StringComparison.InvariantCultureIgnoreCase)
+                    || entityName.Equals("annotation", StringComparison.InvariantCultureIgnoreCase)
+                    || entityName.Equals("userentityinstancedata", StringComparison.InvariantCultureIgnoreCase)
 
                     )
                 {
@@ -1146,20 +1231,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            if (entityName.Equals("duplicaterecord", StringComparison.OrdinalIgnoreCase))
+            if (entityName.Equals("duplicaterecord", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (attributeName.Equals("baserecordid", StringComparison.OrdinalIgnoreCase)
-                    || attributeName.Equals("duplicaterecordid", StringComparison.OrdinalIgnoreCase)
+                if (attributeName.Equals("baserecordid", StringComparison.InvariantCultureIgnoreCase)
+                    || attributeName.Equals("duplicaterecordid", StringComparison.InvariantCultureIgnoreCase)
                     )
                 {
                     return true;
                 }
             }
 
-            if (entityName.Equals("connection", StringComparison.OrdinalIgnoreCase))
+            if (entityName.Equals("connection", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (attributeName.Equals("record1id", StringComparison.OrdinalIgnoreCase)
-                    || attributeName.Equals("record2id", StringComparison.OrdinalIgnoreCase)
+                if (attributeName.Equals("record1id", StringComparison.InvariantCultureIgnoreCase)
+                    || attributeName.Equals("record2id", StringComparison.InvariantCultureIgnoreCase)
                     )
                 {
                     return true;

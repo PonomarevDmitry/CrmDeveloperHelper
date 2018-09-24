@@ -119,6 +119,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             chBOverrideSolutionNameAndVersion.DataContext = cmBCurrentConnection;
             chBOverrideSolutionDescription.DataContext = cmBCurrentConnection;
 
+            chBCreateFolderForVersion.DataContext = cmBCurrentConnection;
+            chBCopyFileToClipBoard.DataContext = cmBCurrentConnection;
+
             cmBUniqueName.DataContext = cmBCurrentConnection;
             cmBDisplayName.DataContext = cmBCurrentConnection;
             cmBVersion.DataContext = cmBCurrentConnection;
@@ -472,10 +475,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!Directory.Exists(exportFolder))
-            {
-                Directory.CreateDirectory(exportFolder);
-            }
+            var fileExportFolder = exportFolder;
 
             var overrideSolutionNameAndVersion = chBOverrideSolutionNameAndVersion.IsChecked.GetValueOrDefault();
 
@@ -498,7 +498,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
 
                     version = ver.ToString();
+
+                    if (chBCreateFolderForVersion.IsChecked.GetValueOrDefault())
+                    {
+                        fileExportFolder = Path.Combine(fileExportFolder, version);
+                    }
                 }
+            }
+
+            if (!Directory.Exists(fileExportFolder))
+            {
+                Directory.CreateDirectory(fileExportFolder);
             }
 
             ConnectionData connectionData = null;
@@ -533,7 +543,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     ConnectionName = connectionData.Name,
 
-                    ExportFolder = exportFolder,
+                    ExportFolder = fileExportFolder,
                 };
 
                 action(exportFolder, solution, config, solutionInfo);
@@ -627,6 +637,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var filePath = await helper.ExportAsync(config, solutionInfo);
 
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        if (chBCopyFileToClipBoard.IsChecked.GetValueOrDefault())
+                        {
+                            Clipboard.SetFileDropList(new System.Collections.Specialized.StringCollection() { filePath });
+                        }
+                    });
+
                     this._iWriteToOutput.WriteToOutput("Solution {0} exported to {1}", solution.UniqueName, filePath);
 
                     if (this._selectedItem != null)
@@ -650,7 +668,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             var text = cmBExportFolder.Text;
 
-                            service.ConnectionData.AddLastSolutionExportFolder(config.ExportFolder);
+                            service.ConnectionData.AddLastSolutionExportFolder(folder);
 
                             cmBExportFolder.Text = text;
                         });

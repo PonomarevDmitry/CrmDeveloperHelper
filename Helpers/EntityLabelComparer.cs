@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk.Metadata;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._optionSetComparer = optionSetComparer;
         }
 
-        public List<string> GetDifference(EntityMetadata entityMetadata1, EntityMetadata entityMetadata2)
+        public async Task<List<string>> GetDifference(OrganizationDifferenceImage image, EntityMetadata entityMetadata1, EntityMetadata entityMetadata2)
         {
             List<string> strDifference = new List<string>();
 
@@ -156,20 +158,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            CompareAttributes(strDifference, entityMetadata1.Attributes, entityMetadata2.Attributes);
+            await CompareAttributes(image, strDifference, entityMetadata1.LogicalName, entityMetadata1.Attributes, entityMetadata2.Attributes);
 
-            CompareKeys(strDifference, entityMetadata1.Keys ?? Enumerable.Empty<EntityKeyMetadata>(), entityMetadata2.Keys ?? Enumerable.Empty<EntityKeyMetadata>());
+            CompareKeys(image, strDifference, entityMetadata1.LogicalName, entityMetadata1.Keys ?? Enumerable.Empty<EntityKeyMetadata>(), entityMetadata2.Keys ?? Enumerable.Empty<EntityKeyMetadata>());
 
-            CompareOneToMany(strDifference, "N:1", "ManyToOne", entityMetadata1.ManyToOneRelationships, entityMetadata2.ManyToOneRelationships);
+            CompareOneToMany(image, strDifference, entityMetadata1.LogicalName, "N:1", "ManyToOne", entityMetadata1.ManyToOneRelationships, entityMetadata2.ManyToOneRelationships);
 
-            CompareOneToMany(strDifference, "1:N", "OneToMany", entityMetadata1.OneToManyRelationships, entityMetadata2.OneToManyRelationships);
+            CompareOneToMany(image, strDifference, entityMetadata1.LogicalName, "1:N", "OneToMany", entityMetadata1.OneToManyRelationships, entityMetadata2.OneToManyRelationships);
 
-            CompareManyToMany(strDifference, entityMetadata1.ManyToManyRelationships, entityMetadata2.ManyToManyRelationships);
+            CompareManyToMany(image, strDifference, entityMetadata1.LogicalName, entityMetadata1.ManyToManyRelationships, entityMetadata2.ManyToManyRelationships);
 
             return strDifference;
         }
 
-        private void CompareOneToMany(List<string> strDifference, string className, string relationTypeName, IEnumerable<OneToManyRelationshipMetadata> listRel1, IEnumerable<OneToManyRelationshipMetadata> listRel2)
+        private void CompareOneToMany(OrganizationDifferenceImage image, List<string> strDifference, string entityName, string className, string relationTypeName, IEnumerable<OneToManyRelationshipMetadata> listRel1, IEnumerable<OneToManyRelationshipMetadata> listRel2)
         {
             Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -197,6 +199,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (diff.Count > 0)
                 {
                     dictDifference.Add(rel1.SchemaName, diff);
+
+                    image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.EntityRelationship,
+                        SchemaName = rel1.SchemaName,
+                        ParentSchemaName = entityName
+                    });
                 }
             }
 
@@ -234,7 +243,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        private void CompareManyToMany(List<string> strDifference, IEnumerable<ManyToManyRelationshipMetadata> listRel1, IEnumerable<ManyToManyRelationshipMetadata> listRel2)
+        private void CompareManyToMany(OrganizationDifferenceImage image, List<string> strDifference, string entityName, IEnumerable<ManyToManyRelationshipMetadata> listRel1, IEnumerable<ManyToManyRelationshipMetadata> listRel2)
         {
             Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -262,6 +271,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (diff.Count > 0)
                 {
                     dictDifference.Add(rel1.SchemaName, diff);
+
+                    image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.EntityRelationship,
+                        SchemaName = rel1.SchemaName,
+                        ParentSchemaName = entityName
+                    });
                 }
             }
 
@@ -353,7 +369,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private void CompareKeys(List<string> strDifference, IEnumerable<EntityKeyMetadata> keys1, IEnumerable<EntityKeyMetadata> keys2)
+        private void CompareKeys(OrganizationDifferenceImage image, List<string> strDifference, string entityName, IEnumerable<EntityKeyMetadata> keys1, IEnumerable<EntityKeyMetadata> keys2)
         {
             Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -371,6 +387,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (diff.Count > 0)
                 {
                     dictDifference.Add(key1.LogicalName, diff.Select(s => _tabSpacer + s).ToList());
+
+                    image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.EntityKey,
+                        SchemaName = key1.LogicalName,
+                        ParentSchemaName = entityName
+                    });
                 }
             }
 
@@ -443,7 +466,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return strDifference;
         }
 
-        private async Task CompareAttributes(List<string> strDifference, IEnumerable<AttributeMetadata> attributes1, IEnumerable<AttributeMetadata> attributes2)
+        private async Task CompareAttributes(OrganizationDifferenceImage image, List<string> strDifference, string entityName, IEnumerable<AttributeMetadata> attributes1, IEnumerable<AttributeMetadata> attributes2)
         {
             Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -461,6 +484,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (diff.Count > 0)
                 {
                     dictDifference.Add(attr1.LogicalName, diff);
+
+                    image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.Attribute,
+                        SchemaName = attr1.SchemaName,
+                        ParentSchemaName = entityName
+                    });
                 }
             }
 

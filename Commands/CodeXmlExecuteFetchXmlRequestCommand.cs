@@ -42,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsFetchRequest(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(command, menuCommand, "fetch");
 
             CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, "Execute Fetch Xml");
         }

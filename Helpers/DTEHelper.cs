@@ -1,24 +1,26 @@
 ﻿using EnvDTE;
 using EnvDTE80;
-using NLog;
 using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
+using NLog;
+using NLog.Config;
+using NLog.Targets;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.ServiceModel;
 using System.Text;
-using NLog.Targets;
-using NLog.Config;
-using System.Windows;
-using System.Runtime.CompilerServices;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense;
 using System.Web;
+using System.Windows;
+using System.Windows.Resources;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -61,7 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private static object syncObject = new object();
+        private static readonly object syncObject = new object();
 
         private static Logger _loggerOutput;
 
@@ -111,14 +113,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var config = new LoggingConfiguration();
 
             {
-                FileTarget targetGenFile = new FileTarget(loggerOutput);
-                targetGenFile.Name = loggerOutput;
-                targetGenFile.LineEnding = LineEndingMode.CRLF;
-                targetGenFile.Encoding = Encoding.UTF8;
-                targetGenFile.WriteBom = true;
-                targetGenFile.CreateDirs = true;
-                targetGenFile.FileName = Path.Combine(FileOperations.GetOutputPath(), @"Output ${date:format=yyyy-MM-dd}.log");
-                targetGenFile.Layout = "${message}";
+                FileTarget targetGenFile = new FileTarget(loggerOutput)
+                {
+                    Name = loggerOutput,
+                    LineEnding = LineEndingMode.CRLF,
+                    Encoding = Encoding.UTF8,
+                    WriteBom = true,
+                    CreateDirs = true,
+                    FileName = Path.Combine(FileOperations.GetOutputPath(), @"Output ${date:format=yyyy-MM-dd}.log"),
+                    Layout = "${message}"
+                };
 
                 config.AddTarget(loggerOutput, targetGenFile);
 
@@ -126,14 +130,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             {
-                FileTarget targetGenFile = new FileTarget(loggerErrors);
-                targetGenFile.Name = loggerErrors;
-                targetGenFile.LineEnding = LineEndingMode.CRLF;
-                targetGenFile.Encoding = Encoding.UTF8;
-                targetGenFile.WriteBom = true;
-                targetGenFile.CreateDirs = true;
-                targetGenFile.FileName = Path.Combine(FileOperations.GetLogsPath(), @"Log ${date:format=yyyy-MM-dd}.log");
-                targetGenFile.Layout = "${newline}${newline}${newline}${newline}${newline}${newline}${longdate}|${level}${newline}${message}${newline}${newline}${exception}${newline}${newline}${stacktrace:format=Raw:topFrames=7}";
+                FileTarget targetGenFile = new FileTarget(loggerErrors)
+                {
+                    Name = loggerErrors,
+                    LineEnding = LineEndingMode.CRLF,
+                    Encoding = Encoding.UTF8,
+                    WriteBom = true,
+                    CreateDirs = true,
+                    FileName = Path.Combine(FileOperations.GetLogsPath(), @"Log ${date:format=yyyy-MM-dd}.log"),
+                    Layout = "${newline}${newline}${newline}${newline}${newline}${newline}${longdate}|${level}${newline}${message}${newline}${newline}${exception}${newline}${newline}${stacktrace:format=Raw:topFrames=7}"
+                };
 
                 config.AddTarget(loggerErrors, targetGenFile);
 
@@ -908,7 +914,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void ActivateVisualStudioWindow() => ApplicationObject?.MainWindow?.Activate();
+        public void ActivateVisualStudioWindow()
+        {
+            ApplicationObject?.MainWindow?.Activate();
+        }
 
         #region Методы для работы со списком на публикацию.
 
@@ -2461,7 +2470,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
             {
-                var dialog = new WindowSelectEntityIdToFind(commonConfig, string.Format("Find Entity in {0} by Id", crmConfig.CurrentConnectionData.Name), "Entity Id");
+                var dialog = new WindowSelectEntityIdToFind(commonConfig, string.Format("Find Entity in {0} by Id", crmConfig.CurrentConnectionData.Name));
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
@@ -2495,7 +2504,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
             {
-                var dialog = new WindowSelectEntityIdToFind(commonConfig, string.Format("Find Entity in {0} by Uniqueidentifier", crmConfig.CurrentConnectionData.Name), "Uniqueidentifier");
+                var dialog = new WindowSelectEntityIdToFind(commonConfig, string.Format("Find Entity in {0} by Uniqueidentifier", crmConfig.CurrentConnectionData.Name));
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
@@ -3503,6 +3512,213 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleExportDefaultSitemap(string selectedSitemap)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (commonConfig != null)
+            {
+                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.AfterCreateFileAction);
+
+                if (form.ShowDialog().GetValueOrDefault())
+                {
+                    commonConfig.FolderForExport = form.SelectedFolder;
+                    commonConfig.AfterCreateFileAction = form.GetFileAction();
+
+                    commonConfig.Save();
+
+                    ActivateOutputWindow();
+                    WriteToOutputEmptyLines(commonConfig);
+
+                    try
+                    {
+                        Uri uri = new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/SiteMaps/SiteMap.{0}.xml", selectedSitemap));
+                        StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                        var doc = XDocument.Load(info.Stream);
+                        info.Stream.Dispose();
+
+                        string fileName = string.Format("SiteMap.{0}.xml", selectedSitemap);
+                        var filePath = Path.Combine(commonConfig.FolderForExport, fileName);
+
+                        doc.Save(filePath, SaveOptions.OmitDuplicateNamespaces);
+
+                        this.WriteToOutput(string.Empty);
+                        this.WriteToOutput(string.Empty);
+                        this.WriteToOutput(string.Empty);
+
+                        this.WriteToOutput("{0} exported.", fileName);
+
+                        this.WriteToOutput(string.Empty);
+
+                        this.WriteToOutputFilePathUri(filePath);
+
+                        PerformAction(filePath, commonConfig, true);
+                    }
+                    catch (Exception xE)
+                    {
+                        WriteErrorToOutput(xE);
+                    }
+                }
+            }
+        }
+
+        public void HandleShowDifferenceWithDefaultSitemap(SelectedFile selectedFile, string selectedSitemap)
+        {
+            if (selectedFile == null || !File.Exists(selectedFile.FilePath))
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (commonConfig == null)
+            {
+                return;
+            }
+
+            ActivateOutputWindow();
+            WriteToOutputEmptyLines(commonConfig);
+
+            try
+            {
+                Uri uri = new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/SiteMaps/SiteMap.{0}.xml", selectedSitemap));
+                StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                var doc = XDocument.Load(info.Stream);
+                info.Stream.Dispose();
+
+                string fileName = string.Format("SiteMap.{0}.xml", selectedSitemap);
+
+                var filePath = Path.Combine(FileOperations.GetTempFileFolder(), fileName);
+
+                doc.Save(filePath, SaveOptions.OmitDuplicateNamespaces);
+
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
+
+                this.WriteToOutput("{0} exported.", fileName);
+
+                this.WriteToOutput(string.Empty);
+
+                this.WriteToOutputFilePathUri(filePath);
+
+                this.ProcessStartProgramComparer(commonConfig, selectedFile.FilePath, filePath, selectedFile.FileName, fileName);
+            }
+            catch (Exception xE)
+            {
+                WriteErrorToOutput(xE);
+            }
+        }
+
+        public void HandleExportXsdSchema(string[] fileNamesColl)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (commonConfig != null)
+            {
+                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.AfterCreateFileAction);
+
+                if (form.ShowDialog().GetValueOrDefault())
+                {
+                    commonConfig.FolderForExport = form.SelectedFolder;
+                    commonConfig.AfterCreateFileAction = form.GetFileAction();
+
+                    commonConfig.Save();
+
+                    ActivateOutputWindow();
+                    WriteToOutputEmptyLines(commonConfig);
+
+                    try
+                    {
+                        foreach (var fileName in fileNamesColl)
+                        {
+                            Uri uri = new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/{0}", fileName));
+                            StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                            var doc = XDocument.Load(info.Stream);
+                            info.Stream.Dispose();
+
+                            var filePath = Path.Combine(commonConfig.FolderForExport, fileName);
+
+                            doc.Save(filePath, SaveOptions.OmitDuplicateNamespaces);
+
+                            this.WriteToOutput(string.Empty);
+                            this.WriteToOutput(string.Empty);
+                            this.WriteToOutput(string.Empty);
+
+                            this.WriteToOutput("{0} exported.", fileName);
+
+                            this.WriteToOutput(string.Empty);
+
+                            this.WriteToOutputFilePathUri(filePath);
+
+                            PerformAction(filePath, commonConfig, true);
+                        }
+                    }
+                    catch (Exception xE)
+                    {
+                        WriteErrorToOutput(xE);
+                    }
+                }
+            }
+        }
+
+        public string HandleExportXsdSchemaIntoSchamasFolder(string[] fileNamesColl)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (commonConfig == null)
+            {
+                return null;
+            }
+
+            ActivateOutputWindow();
+            WriteToOutputEmptyLines(commonConfig);
+
+            StringBuilder result = new StringBuilder();
+
+            try
+            {
+                foreach (var fileName in fileNamesColl)
+                {
+                    Uri uri = new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/{0}", fileName));
+                    StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                    var doc = XDocument.Load(info.Stream);
+                    info.Stream.Dispose();
+
+                    var filePath = Path.Combine(FileOperations.GetSchemaXsdFolder(), fileName);
+
+                    doc.Save(filePath, SaveOptions.OmitDuplicateNamespaces);
+
+                    this.WriteToOutput(string.Empty);
+                    this.WriteToOutput(string.Empty);
+                    this.WriteToOutput(string.Empty);
+
+                    this.WriteToOutput("{0} exported.", fileName);
+
+                    this.WriteToOutput(string.Empty);
+
+                    this.WriteToOutputFilePathUri(filePath);
+
+                    if (result.Length> 0)
+                    {
+                        result.Append(" ");
+                    }
+
+                    result.AppendFormat("{0} {1}", Path.GetFileNameWithoutExtension(fileName), new Uri(filePath).ToString());
+                }
+            }
+            catch (Exception xE)
+            {
+                WriteErrorToOutput(xE);
+            }
+
+            return result.ToString();
+        }
+
         public OutputWindowPane GetOutputWindow()
         {
             try
@@ -3581,13 +3797,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 this.WriteToOutput("Selecting file in folder {0}", filePath);
 
-                ProcessStartInfo info = new ProcessStartInfo();
+                ProcessStartInfo info = new ProcessStartInfo
+                {
+                    FileName = "explorer.exe",
+                    Arguments = @"/select, """ + filePath + "\"",
 
-                info.FileName = "explorer.exe";
-                info.Arguments = @"/select, """ + filePath + "\"";
-
-                info.UseShellExecute = true;
-                info.WindowStyle = ProcessWindowStyle.Normal;
+                    UseShellExecute = true,
+                    WindowStyle = ProcessWindowStyle.Normal
+                };
 
                 try
                 {
@@ -3612,18 +3829,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void PerformAction(string filePath, CommonConfiguration commonConfig)
+        public void PerformAction(string filePath, CommonConfiguration commonConfig, bool hideFilePathUri = false)
         {
             if (!File.Exists(filePath))
             {
                 return;
             }
 
-            this.WriteToOutput(string.Empty);
-            this.WriteToOutput(string.Empty);
-            this.WriteToOutput(string.Empty);
+            if (!hideFilePathUri)
+            {
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
+                this.WriteToOutput(string.Empty);
 
-            this.WriteToOutputFilePathUri(filePath);
+                this.WriteToOutputFilePathUri(filePath);
+            }
 
             if (commonConfig.AfterCreateFileAction == FileAction.OpenFileInTextEditor || commonConfig.AfterCreateFileAction == FileAction.OpenFileInVisualStudio)
             {
@@ -3710,7 +3930,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var queryDictionary = HttpUtility.ParseQueryString(uri.Query);
 
-                if (queryDictionary.AllKeys.Contains("ConnectionId", StringComparer.InvariantCultureIgnoreCase) 
+                if (queryDictionary.AllKeys.Contains("ConnectionId", StringComparer.InvariantCultureIgnoreCase)
                     && !string.IsNullOrEmpty(queryDictionary["ConnectionId"])
                     )
                 {
@@ -3825,13 +4045,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 this.WriteToOutput("Opening in Text Editor file {0}", filePath);
 
-                ProcessStartInfo info = new ProcessStartInfo();
+                ProcessStartInfo info = new ProcessStartInfo
+                {
+                    FileName = string.Format("\"{0}\"", commonConfig.TextEditorProgram),
+                    Arguments = string.Format("\"{0}\"", filePath),
 
-                info.FileName = string.Format("\"{0}\"", commonConfig.TextEditorProgram);
-                info.Arguments = string.Format("\"{0}\"", filePath);
-
-                info.UseShellExecute = false;
-                info.WindowStyle = ProcessWindowStyle.Normal;
+                    UseShellExecute = false,
+                    WindowStyle = ProcessWindowStyle.Normal
+                };
 
                 try
                 {
@@ -3870,9 +4091,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (commonConfig.DifferenceProgramExists())
                 {
-                    ProcessStartInfo info = new ProcessStartInfo();
-
-                    info.FileName = string.Format("\"{0}\"", commonConfig.CompareProgram);
+                    ProcessStartInfo info = new ProcessStartInfo
+                    {
+                        FileName = string.Format("\"{0}\"", commonConfig.CompareProgram)
+                    };
 
                     StringBuilder arguments = new StringBuilder(commonConfig.CompareArgumentsFormat);
 
@@ -3970,9 +4192,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.WriteToOutput(filePath2);
                 this.WriteToOutputFilePathUri(filePath2);
 
-                ProcessStartInfo info = new ProcessStartInfo();
-
-                info.FileName = string.Format("\"{0}\"", commonConfig.CompareProgram);
+                ProcessStartInfo info = new ProcessStartInfo
+                {
+                    FileName = string.Format("\"{0}\"", commonConfig.CompareProgram)
+                };
 
                 StringBuilder arguments = new StringBuilder(commonConfig.CompareArgumentsThreeWayFormat);
 

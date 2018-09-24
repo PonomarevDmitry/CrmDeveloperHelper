@@ -21,25 +21,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await _comparerSource.InitializeConnection(_writeToOutput, content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Assemblies started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Assemblies started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var list1 = await _comparerSource.GetPluginAssembly1Async();
+            var task1 = _comparerSource.GetPluginAssembly1Async();
+            var task2 = _comparerSource.GetPluginAssembly2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Assemblies in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
+            var taskTypes1 = _comparerSource.GetPluginType1Async();
+            var taskTypes2 = _comparerSource.GetPluginType2Async();
 
-            var list2 = await _comparerSource.GetPluginAssembly2Async();
+            var list1 = await task1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Assemblies in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Assemblies in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
 
-            var listTypes1 = await _comparerSource.GetPluginType1Async();
+            var list2 = await task2;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Types in {0}: {1}", _comparerSource.Connection1.Name, listTypes1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Assemblies in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
 
-            var listTypes2 = await _comparerSource.GetPluginType2Async();
+            var listTypes1 = await taskTypes1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Types in {0}: {1}", _comparerSource.Connection2.Name, listTypes2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Types in {0}: {1}", _comparerSource.Connection1.Name, listTypes1.Count()));
+
+            var listTypes2 = await taskTypes2;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Types in {0}: {1}", _comparerSource.Connection2.Name, listTypes2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Name", "IsHidden", "IsManaged");
@@ -61,6 +67,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 tableOnlyExistsIn1.AddLine(assem1.Name, assem1.IsHidden.ToString(), assem1.IsManaged.ToString());
+
+                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.PluginAssembly,
+                    SchemaName = string.Format("{0}, Version={1}, Culture={2}, PublicKeyToken={3}", assem1.Name, assem1.Version, assem1.Culture, assem1.PublicKeyToken),
+                });
             }
 
             foreach (var assem2 in list2)
@@ -75,6 +87,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 tableOnlyExistsIn2.AddLine(assem2.Name, assem2.IsHidden.ToString(), assem2.IsManaged.ToString());
+
+                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.PluginAssembly,
+                    SchemaName = string.Format("{0}, Version={1}, Culture={2}, PublicKeyToken={3}", assem2.Name, assem2.Version, assem2.Culture, assem2.PublicKeyToken),
+                });
             }
 
             foreach (var assem1 in list1)
@@ -130,6 +148,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
 
                     assemblyDifference.Add(assem1.Name, diff);
+
+                    this.Image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.PluginAssembly,
+                        SchemaName = string.Format("{0}, Version={1}, Culture={2}, PublicKeyToken={3}", assem1.Name, assem1.Version, assem1.Culture, assem1.PublicKeyToken),
+                    });
                 }
             }
 
@@ -204,7 +228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Assemblies.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Assemblies ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Assemblies ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Plugin Assemblies.txt"
                 , this._OrgOrgName
@@ -213,6 +237,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -226,17 +252,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await _comparerSource.InitializeConnection(_writeToOutput, content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Types started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Types started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var list1 = await _comparerSource.GetPluginType1Async();
+            var task1 = _comparerSource.GetPluginType1Async();
+            var task2 = _comparerSource.GetPluginType2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Types in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
+            var list1 = await task1;
 
-            var list2 = await _comparerSource.GetPluginType2Async();
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Types in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Types in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
+            var list2 = await task2;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Types in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Name", "IsManaged");
@@ -256,6 +285,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 tableOnlyExistsIn1.AddLine(plugType1.TypeName, plugType1.IsManaged.ToString());
+
+                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.PluginAssembly,
+                    SchemaName = string.Format("{0}, {1}, Version={2}, Culture={3}, PublicKeyToken={4}", plugType1.TypeName, plugType1.AssemblyName, plugType1.Version, plugType1.Culture, plugType1.PublicKeyToken),
+                });
             }
 
             foreach (var plugType2 in list2.OrderBy(e => e.TypeName))
@@ -270,6 +305,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 tableOnlyExistsIn2.AddLine(plugType2.TypeName, plugType2.IsManaged.ToString());
+
+                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.PluginAssembly,
+                    SchemaName = string.Format("{0}, {1}, Version={2}, Culture={3}, PublicKeyToken={4}", plugType2.TypeName, plugType2.AssemblyName, plugType2.Version, plugType2.Culture, plugType2.PublicKeyToken),
+                });
             }
 
             if (tableOnlyExistsIn1.Count > 0)
@@ -309,7 +350,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Types.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Types ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Types ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Plugin Types.txt"
                 , this._OrgOrgName
@@ -318,6 +359,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -353,25 +396,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await _comparerSource.InitializeConnection(_writeToOutput, content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Steps by Plugin Type Names started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Steps by Plugin Type Names started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var listSteps1 = await _comparerSource.GetSdkMessageProcessingStep1Async();
+            var task1 = _comparerSource.GetSdkMessageProcessingStep1Async();
+            var task2 = _comparerSource.GetSdkMessageProcessingStep2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps in {0}: {1}", _comparerSource.Connection1.Name, listSteps1.Count()));
+            var taskImages1 = _comparerSource.GetSdkMessageProcessingStepImage1Async();
+            var taskImages2 = _comparerSource.GetSdkMessageProcessingStepImage2Async();
 
-            var listSteps2 = await _comparerSource.GetSdkMessageProcessingStep2Async();
+            var listSteps1 = await task1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps in {0}: {1}", _comparerSource.Connection2.Name, listSteps2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps in {0}: {1}", _comparerSource.Connection1.Name, listSteps1.Count()));
 
-            var listImages1 = await _comparerSource.GetSdkMessageProcessingStepImage1Async();
+            var listSteps2 = await task2;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", _comparerSource.Connection1.Name, listImages1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps in {0}: {1}", _comparerSource.Connection2.Name, listSteps2.Count()));
 
-            var listImages2 = await _comparerSource.GetSdkMessageProcessingStepImage2Async();
+            var listImages1 = await taskImages1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", _comparerSource.Connection2.Name, listImages2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", _comparerSource.Connection1.Name, listImages1.Count()));
+
+            var listImages2 = await taskImages2;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", _comparerSource.Connection2.Name, listImages2.Count()));
 
             var groups1 = listSteps1.GroupBy(e => new PluginTypeStep()
             {
@@ -856,7 +905,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Steps by Plugin Type Names.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Steps by Plugin Type Names ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Steps by Plugin Type Names ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Plugin Steps by Plugin Type Names.txt"
                 , this._OrgOrgName
@@ -995,25 +1044,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await _comparerSource.InitializeConnection(_writeToOutput, content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Steps by Ids started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Steps by Ids started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var listSteps1 = await _comparerSource.GetSdkMessageProcessingStep1Async();
+            var task1 = _comparerSource.GetSdkMessageProcessingStep1Async();
+            var task2 = _comparerSource.GetSdkMessageProcessingStep2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps in {0}: {1}", _comparerSource.Connection1.Name, listSteps1.Count()));
+            var taskImages1 = _comparerSource.GetSdkMessageProcessingStepImage1Async();
+            var taskImages2 = _comparerSource.GetSdkMessageProcessingStepImage2Async();
 
-            var listSteps2 = await _comparerSource.GetSdkMessageProcessingStep2Async();
+            var listSteps1 = await task1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps in {0}: {1}", _comparerSource.Connection2.Name, listSteps2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps in {0}: {1}", _comparerSource.Connection1.Name, listSteps1.Count()));
 
-            var listImages1 = await _comparerSource.GetSdkMessageProcessingStepImage1Async();
+            var listSteps2 = await task2;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", _comparerSource.Connection1.Name, listImages1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps in {0}: {1}", _comparerSource.Connection2.Name, listSteps2.Count()));
 
-            var listImages2 = await _comparerSource.GetSdkMessageProcessingStepImage2Async();
+            var listImages1 = await taskImages1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", _comparerSource.Connection2.Name, listImages2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", _comparerSource.Connection1.Name, listImages1.Count()));
+
+            var listImages2 = await taskImages2;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", _comparerSource.Connection2.Name, listImages2.Count()));
 
             var stepsOnlyIn1 = new List<LineWithSublines>();
             var stepsOnlyIn2 = new List<LineWithSublines>();
@@ -1074,6 +1129,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 stepsOnlyIn1.Add(item);
+
+                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.SDKMessageProcessingStep,
+                    ObjectId = step1.Id
+                });
             }
 
             foreach (var step2 in listSteps2
@@ -1126,9 +1187,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 stepsOnlyIn2.Add(item);
+
+                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.SDKMessageProcessingStep,
+                    ObjectId = step2.Id
+                });
             }
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Common Plugin Steps by Ids in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, commonStepsList.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Plugin Steps by Ids in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, commonStepsList.Count()));
 
             foreach (var commonStep in commonStepsList)
             {
@@ -1218,6 +1285,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (diff.Count > 0)
                 {
                     stepDifference.Add(commonStep, diff);
+
+                    this.Image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.SDKMessageProcessingStep,
+                        ObjectId = commonStep.Entity1.Id,
+                    });
                 }
             }
 
@@ -1372,7 +1445,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Steps by Ids.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Plugin Steps by Ids ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Steps by Ids ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Plugin Steps by Ids.txt"
                 , this._OrgOrgName
@@ -1381,6 +1454,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            SaveOrganizationDifferenceImage();
 
             return filePath;
         }

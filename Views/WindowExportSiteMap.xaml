@@ -36,7 +36,6 @@
                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
                 <Separator/>
                 <MenuItem Header="SiteMaps" Click="btnCompareSiteMaps_Click"/>
-                <Separator/>
             </MenuItem>
             <Separator/>
             <MenuItem Header="Export All SiteMap Information" Click="btnExportAll_Click"/>

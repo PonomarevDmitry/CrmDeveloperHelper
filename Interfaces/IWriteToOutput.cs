@@ -17,7 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         void ActivateVisualStudioWindow();
 
-        void PerformAction(string filePath, CommonConfiguration commonConfig);
+        void PerformAction(string filePath, CommonConfiguration commonConfig, bool hideFilePathUri = false);
 
         void OpenFile(string filePath, CommonConfiguration commonConfig);
 

@@ -23,32 +23,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await _comparerSource.InitializeConnection(_writeToOutput, content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Entities started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Entities started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var listEntityMetadata1 = _comparerSource.GetEntityMetadataCollection1();
+            EntityMetadataCollection listEntityMetadata1 = _comparerSource.GetEntityMetadataCollection1();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entities in {0}: {1}", _comparerSource.Connection1.Name, listEntityMetadata1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Entities in {0}: {1}", _comparerSource.Connection1.Name, listEntityMetadata1.Count()));
 
-            var listEntityMetadata2 = _comparerSource.GetEntityMetadataCollection2();
+            EntityMetadataCollection listEntityMetadata2 = _comparerSource.GetEntityMetadataCollection2();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entities in {0}: {1}", _comparerSource.Connection2.Name, listEntityMetadata2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Entities in {0}: {1}", _comparerSource.Connection2.Name, listEntityMetadata2.Count()));
 
-            var entityMetadataOnlyExistsIn1 = new FormatTextTableHandler();
+            FormatTextTableHandler entityMetadataOnlyExistsIn1 = new FormatTextTableHandler();
             entityMetadataOnlyExistsIn1.SetHeader("EntityName", "IsManaged");
 
-            var entityMetadataOnlyExistsIn2 = new FormatTextTableHandler();
+            FormatTextTableHandler entityMetadataOnlyExistsIn2 = new FormatTextTableHandler();
             entityMetadataOnlyExistsIn2.SetHeader("EntityName", "IsManaged");
 
             Dictionary<string, List<string>> entityMetadataDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
-            var commonEntityMetadata = new List<LinkedEntities<EntityMetadata>>();
+            List<LinkedEntities<EntityMetadata>> commonEntityMetadata = new List<LinkedEntities<EntityMetadata>>();
 
-            foreach (var entityMetadata1 in listEntityMetadata1.OrderBy(e => e.LogicalName))
+            foreach (EntityMetadata entityMetadata1 in listEntityMetadata1.OrderBy(e => e.LogicalName))
             {
                 {
-                    var entityMetadata2 = listEntityMetadata2.FirstOrDefault(e => e.LogicalName == entityMetadata1.LogicalName);
+                    EntityMetadata entityMetadata2 = listEntityMetadata2.FirstOrDefault(e => e.LogicalName == entityMetadata1.LogicalName);
 
                     if (entityMetadata2 != null)
                     {
@@ -58,12 +58,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 entityMetadataOnlyExistsIn1.AddLine(entityMetadata1.LogicalName, entityMetadata1.IsManaged.ToString());
+
+                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.Entity,
+                    SchemaName = entityMetadata1.LogicalName,
+                });
             }
 
-            foreach (var entityMetadata2 in listEntityMetadata2.OrderBy(e => e.LogicalName))
+            foreach (EntityMetadata entityMetadata2 in listEntityMetadata2.OrderBy(e => e.LogicalName))
             {
                 {
-                    var entityMetadata1 = listEntityMetadata1.FirstOrDefault(e => e.LogicalName == entityMetadata2.LogicalName);
+                    EntityMetadata entityMetadata1 = listEntityMetadata1.FirstOrDefault(e => e.LogicalName == entityMetadata2.LogicalName);
 
                     if (entityMetadata1 != null)
                     {
@@ -72,28 +78,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 entityMetadataOnlyExistsIn2.AddLine(entityMetadata2.LogicalName, entityMetadata2.IsManaged.ToString());
+
+                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.Entity,
+                    SchemaName = entityMetadata2.LogicalName,
+                });
             }
 
-            var listNotExists = new HashSet<string>(listEntityMetadata1.Select(e => e.LogicalName).Union(listEntityMetadata2.Select(e => e.LogicalName)), StringComparer.OrdinalIgnoreCase);
+            HashSet<string> listNotExists = new HashSet<string>(listEntityMetadata1.Select(e => e.LogicalName).Union(listEntityMetadata2.Select(e => e.LogicalName)), StringComparer.OrdinalIgnoreCase);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Common Entities in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, commonEntityMetadata.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Entities in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, commonEntityMetadata.Count()));
 
-            var optionSetComparer = new OptionSetComparer(tabSpacer, Connection1.Name, Connection2.Name, new StringMapRepository(_comparerSource.Service1), new StringMapRepository(_comparerSource.Service2));
+            OptionSetComparer optionSetComparer = new OptionSetComparer(tabSpacer, Connection1.Name, Connection2.Name, new StringMapRepository(_comparerSource.Service1), new StringMapRepository(_comparerSource.Service2));
 
             EntityMetadataComparer comparer = new EntityMetadataComparer(tabSpacer, _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, optionSetComparer, listNotExists);
 
             {
-                var reporter = new ProgressReporter(_writeToOutput, commonEntityMetadata.Count, 5, "Processing Common Entities");
+                ProgressReporter reporter = new ProgressReporter(_iWriteToOutput, commonEntityMetadata.Count, 5, "Processing Common Entities");
 
-                foreach (var commonEntity in commonEntityMetadata.OrderBy(e => e.Entity1.LogicalName))
+                foreach (LinkedEntities<EntityMetadata> commonEntity in commonEntityMetadata.OrderBy(e => e.Entity1.LogicalName))
                 {
                     reporter.Increase();
 
-                    List<string> strDifference = comparer.GetDifference(commonEntity.Entity1, commonEntity.Entity2);
+                    List<string> strDifference = await comparer.GetDifferenceAsync(this.Image, commonEntity.Entity1, commonEntity.Entity2);
 
                     if (strDifference.Count > 0)
                     {
                         entityMetadataDifference.Add(commonEntity.Entity1.LogicalName, strDifference.Select(s => tabSpacer + s).ToList());
+
+                        this.Image.DifferentComponents.Add(new SolutionImageComponent()
+                        {
+                            ComponentType = (int)ComponentType.Entity,
+                            SchemaName = commonEntity.Entity1.LogicalName,
+                        });
                     }
                 }
             }
@@ -140,7 +158,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 content.AppendFormat("Entities DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, entityMetadataDifference.Count);
 
-                foreach (var item in entityMetadataDifference.OrderBy(s => s.Key))
+                foreach (KeyValuePair<string, List<string>> item in entityMetadataDifference.OrderBy(s => s.Key))
                 {
                     content
                         .AppendLine()
@@ -157,14 +175,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 content.AppendFormat("Entities DIFFERENT Details in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, entityMetadataDifference.Count);
 
-                foreach (var item in entityMetadataDifference.OrderBy(s => s.Key))
+                foreach (KeyValuePair<string, List<string>> item in entityMetadataDifference.OrderBy(s => s.Key))
                 {
                     content
                         .AppendLine()
                         .AppendLine()
                         .Append((tabSpacer + item.Key).TrimEnd());
 
-                    foreach (var str in item.Value)
+                    foreach (string str in item.Value)
                     {
                         content.AppendLine().Append((tabSpacer + str).TrimEnd());
                     }
@@ -185,7 +203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Entities.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Entities ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Entities ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Entities.txt"
                 , this._OrgOrgName
@@ -194,6 +212,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -207,32 +227,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await _comparerSource.InitializeConnection(_writeToOutput, content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Entity Labels started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Entity Labels started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var listEntityMetadata1 = this._comparerSource.GetEntityMetadataCollection1();
+            EntityMetadataCollection listEntityMetadata1 = this._comparerSource.GetEntityMetadataCollection1();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entities in {0}: {1}", _comparerSource.Connection1.Name, listEntityMetadata1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Entities in {0}: {1}", _comparerSource.Connection1.Name, listEntityMetadata1.Count()));
 
-            var listEntityMetadata2 = this._comparerSource.GetEntityMetadataCollection2();
+            EntityMetadataCollection listEntityMetadata2 = this._comparerSource.GetEntityMetadataCollection2();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entities in {0}: {1}", _comparerSource.Connection2.Name, listEntityMetadata2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Entities in {0}: {1}", _comparerSource.Connection2.Name, listEntityMetadata2.Count()));
 
-            var entityMetadataOnlyExistsIn1 = new FormatTextTableHandler();
+            FormatTextTableHandler entityMetadataOnlyExistsIn1 = new FormatTextTableHandler();
             entityMetadataOnlyExistsIn1.SetHeader("EntityName", "IsManaged");
 
-            var entityMetadataOnlyExistsIn2 = new FormatTextTableHandler();
+            FormatTextTableHandler entityMetadataOnlyExistsIn2 = new FormatTextTableHandler();
             entityMetadataOnlyExistsIn2.SetHeader("EntityName", "IsManaged");
 
             Dictionary<string, List<string>> entityMetadataDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
-            var commonEntityMetadata = new List<LinkedEntities<EntityMetadata>>();
+            List<LinkedEntities<EntityMetadata>> commonEntityMetadata = new List<LinkedEntities<EntityMetadata>>();
 
-            foreach (var entityMetadata1 in listEntityMetadata1.OrderBy(e => e.LogicalName))
+            foreach (EntityMetadata entityMetadata1 in listEntityMetadata1.OrderBy(e => e.LogicalName))
             {
                 {
-                    var entityMetadata2 = listEntityMetadata2.FirstOrDefault(e => e.LogicalName == entityMetadata1.LogicalName);
+                    EntityMetadata entityMetadata2 = listEntityMetadata2.FirstOrDefault(e => e.LogicalName == entityMetadata1.LogicalName);
 
                     if (entityMetadata2 != null)
                     {
@@ -242,12 +262,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 entityMetadataOnlyExistsIn1.AddLine(entityMetadata1.LogicalName, entityMetadata1.IsManaged.ToString());
+
+                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.Entity,
+                    SchemaName = entityMetadata1.LogicalName,
+                });
             }
 
-            foreach (var entityMetadata2 in listEntityMetadata2.OrderBy(e => e.LogicalName))
+            foreach (EntityMetadata entityMetadata2 in listEntityMetadata2.OrderBy(e => e.LogicalName))
             {
                 {
-                    var entityMetadata1 = listEntityMetadata1.FirstOrDefault(e => e.LogicalName == entityMetadata2.LogicalName);
+                    EntityMetadata entityMetadata1 = listEntityMetadata1.FirstOrDefault(e => e.LogicalName == entityMetadata2.LogicalName);
 
                     if (entityMetadata1 != null)
                     {
@@ -256,26 +282,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 entityMetadataOnlyExistsIn2.AddLine(entityMetadata2.LogicalName, entityMetadata2.IsManaged.ToString());
+
+                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.Entity,
+                    SchemaName = entityMetadata2.LogicalName,
+                });
             }
 
-            var listNotExists = new HashSet<string>(listEntityMetadata1.Select(e => e.LogicalName).Union(listEntityMetadata2.Select(e => e.LogicalName)), StringComparer.OrdinalIgnoreCase);
+            HashSet<string> listNotExists = new HashSet<string>(listEntityMetadata1.Select(e => e.LogicalName).Union(listEntityMetadata2.Select(e => e.LogicalName)), StringComparer.OrdinalIgnoreCase);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Common Entities in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, commonEntityMetadata.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Entities in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, commonEntityMetadata.Count()));
 
-            var optionSetComparer = new OptionSetComparer(tabSpacer, Connection1.Name, Connection2.Name, new StringMapRepository(_comparerSource.Service1), new StringMapRepository(_comparerSource.Service2));
+            OptionSetComparer optionSetComparer = new OptionSetComparer(tabSpacer, Connection1.Name, Connection2.Name, new StringMapRepository(_comparerSource.Service1), new StringMapRepository(_comparerSource.Service2));
 
-            var comparer = new EntityLabelComparer(tabSpacer, _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, optionSetComparer, listNotExists);
+            EntityLabelComparer comparer = new EntityLabelComparer(tabSpacer, _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, optionSetComparer, listNotExists);
 
             {
-                var reporter = new ProgressReporter(_writeToOutput, commonEntityMetadata.Count, 5, "Processing Common Entities");
+                ProgressReporter reporter = new ProgressReporter(_iWriteToOutput, commonEntityMetadata.Count, 5, "Processing Common Entities");
 
-                foreach (var commonEntity in commonEntityMetadata.OrderBy(e => e.Entity1.LogicalName))
+                foreach (LinkedEntities<EntityMetadata> commonEntity in commonEntityMetadata.OrderBy(e => e.Entity1.LogicalName))
                 {
-                    List<string> strDifference = comparer.GetDifference(commonEntity.Entity1, commonEntity.Entity2);
+                    List<string> strDifference = await comparer.GetDifference(this.Image, commonEntity.Entity1, commonEntity.Entity2);
 
                     if (strDifference.Count > 0)
                     {
                         entityMetadataDifference.Add(commonEntity.Entity1.LogicalName, strDifference.Select(s => tabSpacer + s).ToList());
+
+                        this.Image.DifferentComponents.Add(new SolutionImageComponent()
+                        {
+                            ComponentType = (int)ComponentType.Entity,
+                            SchemaName = commonEntity.Entity1.LogicalName,
+                        });
                     }
                 }
             }
@@ -322,7 +360,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 content.AppendFormat("Entities DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, entityMetadataDifference.Count);
 
-                foreach (var item in entityMetadataDifference.OrderBy(s => s.Key))
+                foreach (KeyValuePair<string, List<string>> item in entityMetadataDifference.OrderBy(s => s.Key))
                 {
                     content
                         .AppendLine()
@@ -339,14 +377,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 content.AppendFormat("Entities DIFFERENT Details in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, entityMetadataDifference.Count);
 
-                foreach (var item in entityMetadataDifference.OrderBy(s => s.Key))
+                foreach (KeyValuePair<string, List<string>> item in entityMetadataDifference.OrderBy(s => s.Key))
                 {
                     content
                         .AppendLine()
                         .AppendLine()
                         .Append((tabSpacer + item.Key).TrimEnd());
 
-                    foreach (var str in item.Value)
+                    foreach (string str in item.Value)
                     {
                         content.AppendLine().Append((tabSpacer + str).TrimEnd());
                     }
@@ -367,7 +405,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Entities.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Entity Labels ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Entity Labels ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Entity Labels.txt"
                 , this._OrgOrgName
@@ -376,6 +414,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -389,37 +429,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await _comparerSource.InitializeConnection(_writeToOutput, content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entity Maps started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Entity Maps started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var task1 = _comparerSource.GetEntityMap1Async();
-            var task2 = _comparerSource.GetEntityMap2Async();
+            Task<List<EntityMap>> task1 = _comparerSource.GetEntityMap1Async();
+            Task<List<EntityMap>> task2 = _comparerSource.GetEntityMap2Async();
 
-            var taskAttr1 = _comparerSource.GetAttributeMap1Async();
-            var taskAttr2 = _comparerSource.GetAttributeMap2Async();
+            Task<List<AttributeMap>> taskAttr1 = _comparerSource.GetAttributeMap1Async();
+            Task<List<AttributeMap>> taskAttr2 = _comparerSource.GetAttributeMap2Async();
 
-            var list1 = await task1;
+            List<EntityMap> list1 = await task1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entity Maps in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Entity Maps in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
 
-            var list2 = await task2;
+            List<EntityMap> list2 = await task2;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entity Maps in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Entity Maps in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
 
             //new OrderExpression("sourceentityname", OrderType.Ascending),
             //new OrderExpression("targetentityname", OrderType.Ascending),
 
-            var listPermission1 = await taskAttr1;
+            List<AttributeMap> listPermission1 = await taskAttr1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Attribute Maps in {0}: {1}", _comparerSource.Connection1.Name, listPermission1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Attribute Maps in {0}: {1}", _comparerSource.Connection1.Name, listPermission1.Count()));
 
-            var listPermission2 = await taskAttr2;
+            List<AttributeMap> listPermission2 = await taskAttr2;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Attribute Maps in {0}: {1}", _comparerSource.Connection2.Name, listPermission2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Attribute Maps in {0}: {1}", _comparerSource.Connection2.Name, listPermission2.Count()));
 
-            var group1 = listPermission1.GroupBy(e => e.EntityMapId.Id);
-            var group2 = listPermission2.GroupBy(e => e.EntityMapId.Id);
+            IEnumerable<IGrouping<Guid, AttributeMap>> group1 = listPermission1.GroupBy(e => e.EntityMapId.Id);
+            IEnumerable<IGrouping<Guid, AttributeMap>> group2 = listPermission2.GroupBy(e => e.EntityMapId.Id);
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Source", "", "Target", "IsManaged");
@@ -427,18 +467,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             FormatTextTableHandler tableOnlyExistsIn2 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Source", "", "Target", "IsManaged");
 
-            var dictDifference = new Dictionary<Tuple<string, string>, List<string>>();
+            Dictionary<Tuple<string, string>, List<string>> dictDifference = new Dictionary<Tuple<string, string>, List<string>>();
 
-            foreach (var entityMap1 in list1)
+            foreach (EntityMap entityMap1 in list1)
             {
-                var source1 = entityMap1.SourceEntityName;
-                var target1 = entityMap1.TargetEntityName;
+                string source1 = entityMap1.SourceEntityName;
+                string target1 = entityMap1.TargetEntityName;
 
                 {
-                    var entityMap2 = list2.FirstOrDefault(entityMap =>
+                    EntityMap entityMap2 = list2.FirstOrDefault(entityMap =>
                     {
-                        var source2 = entityMap.SourceEntityName;
-                        var target2 = entityMap.TargetEntityName;
+                        string source2 = entityMap.SourceEntityName;
+                        string target2 = entityMap.TargetEntityName;
 
                         return source1 == source2 && target1 == target2;
                     });
@@ -450,18 +490,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 tableOnlyExistsIn1.AddLine(source1, "->", target1, entityMap1.IsManaged.ToString());
+
+                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.EntityMap,
+                    ObjectId = entityMap1.Id,
+                });
             }
 
-            foreach (var entityMap2 in list2)
+            foreach (EntityMap entityMap2 in list2)
             {
-                var source2 = entityMap2.SourceEntityName;
-                var target2 = entityMap2.TargetEntityName;
+                string source2 = entityMap2.SourceEntityName;
+                string target2 = entityMap2.TargetEntityName;
 
                 {
-                    var entityMap1 = list1.FirstOrDefault(entityMap =>
+                    EntityMap entityMap1 = list1.FirstOrDefault(entityMap =>
                     {
-                        var source1 = entityMap.SourceEntityName;
-                        var target1 = entityMap.TargetEntityName;
+                        string source1 = entityMap.SourceEntityName;
+                        string target1 = entityMap.TargetEntityName;
 
                         return source1 == source2 && target1 == target2;
                     });
@@ -473,17 +519,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 tableOnlyExistsIn2.AddLine(source2, "->", target2, entityMap2.IsManaged.ToString());
+
+                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.EntityMap,
+                    ObjectId = entityMap2.Id,
+                });
             }
 
-            foreach (var entityMap1 in list1)
+            foreach (EntityMap entityMap1 in list1)
             {
-                var source1 = entityMap1.SourceEntityName;
-                var target1 = entityMap1.TargetEntityName;
+                string source1 = entityMap1.SourceEntityName;
+                string target1 = entityMap1.TargetEntityName;
 
-                var entityMap2 = list2.FirstOrDefault(entityMap =>
+                EntityMap entityMap2 = list2.FirstOrDefault(entityMap =>
                 {
-                    var source2 = entityMap.SourceEntityName;
-                    var target2 = entityMap.TargetEntityName;
+                    string source2 = entityMap.SourceEntityName;
+                    string target2 = entityMap.TargetEntityName;
 
                     return source1 == source2 && target1 == target2;
                 });
@@ -501,6 +553,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (diff.Count > 0)
                 {
                     dictDifference.Add(Tuple.Create(source1, target1), diff);
+
+                    this.Image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.EntityMap,
+                        ObjectId = entityMap1.Id,
+                    });
                 }
             }
 
@@ -536,7 +594,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (dictDifference.Count > 0)
             {
-                var order = dictDifference.OrderBy(s => s.Key.Item1).ThenBy(s => s.Key.Item2);
+                IOrderedEnumerable<KeyValuePair<Tuple<string, string>, List<string>>> order = dictDifference.OrderBy(s => s.Key.Item1).ThenBy(s => s.Key.Item2);
 
                 content
                      .AppendLine()
@@ -549,9 +607,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendFormat("Entity Maps DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
 
                 {
-                    var table = new FormatTextTableHandler();
+                    FormatTextTableHandler table = new FormatTextTableHandler();
 
-                    foreach (var item in order)
+                    foreach (KeyValuePair<Tuple<string, string>, List<string>> item in order)
                     {
                         table.AddLine(item.Key.Item1, "->", item.Key.Item2);
                     }
@@ -570,14 +628,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 content.AppendFormat("Entity Maps DIFFERENT Details in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
 
-                foreach (var item in order)
+                foreach (KeyValuePair<Tuple<string, string>, List<string>> item in order)
                 {
                     content
                         .AppendLine()
                         .AppendLine()
                         .Append((tabSpacer + string.Format("{0} -> {1}", item.Key.Item1, item.Key.Item2)).TrimEnd());
 
-                    foreach (var str in item.Value)
+                    foreach (string str in item.Value)
                     {
                         content.AppendLine().Append((tabSpacer + tabSpacer + str).TrimEnd());
                     }
@@ -598,7 +656,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Entity Maps.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Entity Maps ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Entity Maps ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Entity Maps.txt"
                 , this._OrgOrgName
@@ -607,6 +665,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -623,14 +683,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (enumerable1 != null)
             {
-                foreach (var item1 in enumerable1)
+                foreach (AttributeMap item1 in enumerable1)
                 {
-                    var source1 = item1.SourceAttributeName;
-                    var target1 = item1.TargetAttributeName;
+                    string source1 = item1.SourceAttributeName;
+                    string target1 = item1.TargetAttributeName;
 
                     if (enumerable2 != null)
                     {
-                        var item2 = enumerable2.FirstOrDefault(i =>
+                        AttributeMap item2 = enumerable2.FirstOrDefault(i =>
                             i.SourceAttributeName == source1
                             && i.TargetAttributeName == target1
                             );
@@ -655,14 +715,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (enumerable2 != null)
             {
-                foreach (var item2 in enumerable2)
+                foreach (AttributeMap item2 in enumerable2)
                 {
-                    var source2 = item2.SourceAttributeName;
-                    var target2 = item2.TargetAttributeName;
+                    string source2 = item2.SourceAttributeName;
+                    string target2 = item2.TargetAttributeName;
 
                     if (enumerable1 != null)
                     {
-                        var item1 = enumerable1.FirstOrDefault(i =>
+                        AttributeMap item1 = enumerable1.FirstOrDefault(i =>
                             i.SourceAttributeName == source2
                             && i.TargetAttributeName == target2
                             );
@@ -709,54 +769,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await _comparerSource.InitializeConnection(_writeToOutput, content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            var withDetailsName = withDetails ? " with details" : string.Empty;
+            string withDetailsName = withDetails ? " with details" : string.Empty;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Ribbons{0} started at {1}"
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Ribbons{0} started at {1}"
                 , withDetailsName
                 , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture))
                 );
 
-            var task1 = _comparerSource.GetEntitiesWithRibbonCustomization1Async();
-            var task2 = _comparerSource.GetEntitiesWithRibbonCustomization2Async();
+            Task<HashSet<string>> task1 = _comparerSource.GetEntitiesWithRibbonCustomization1Async();
+            Task<HashSet<string>> task2 = _comparerSource.GetEntitiesWithRibbonCustomization2Async();
 
-            var listRibbon1 = await task1;
+            HashSet<string> listRibbon1 = await task1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Ribbons in {0}: {1}", _comparerSource.Connection1.Name, listRibbon1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Ribbons in {0}: {1}", _comparerSource.Connection1.Name, listRibbon1.Count()));
 
-            var listRibbon2 = await task2;
+            HashSet<string> listRibbon2 = await task2;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Ribbons in {0}: {1}", _comparerSource.Connection2.Name, listRibbon2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Ribbons in {0}: {1}", _comparerSource.Connection2.Name, listRibbon2.Count()));
 
-            var entities1 = this._comparerSource.GetEntityMetadataCollection1();
+            EntityMetadataCollection entities1 = this._comparerSource.GetEntityMetadataCollection1();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Enitites in {0}: {1}", _comparerSource.Connection1.Name, entities1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Enitites in {0}: {1}", _comparerSource.Connection1.Name, entities1.Count()));
 
-            var entities2 = this._comparerSource.GetEntityMetadataCollection2();
+            EntityMetadataCollection entities2 = this._comparerSource.GetEntityMetadataCollection2();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Enitites in {0}: {1}", _comparerSource.Connection2.Name, entities2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Enitites in {0}: {1}", _comparerSource.Connection2.Name, entities2.Count()));
 
             //var list1 = entities1.Select(e => e.LogicalName);
             //var list2 = entities2.Select(e => e.LogicalName);
 
-            var list = listRibbon1.Union(listRibbon2).Distinct().OrderBy(s => s).ToList();
+            List<string> list = listRibbon1.Union(listRibbon2).Distinct().OrderBy(s => s).ToList();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Common Ribbons in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, list.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Ribbons in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, list.Count()));
 
             {
-                var request = new RetrieveApplicationRibbonRequest();
+                RetrieveApplicationRibbonRequest request = new RetrieveApplicationRibbonRequest();
 
                 string xml1 = string.Empty;
                 string xml2 = string.Empty;
 
                 try
                 {
-                    var response1 = (RetrieveApplicationRibbonResponse)_comparerSource.Service1.Execute(request);
-                    var response2 = (RetrieveApplicationRibbonResponse)_comparerSource.Service2.Execute(request);
+                    RetrieveApplicationRibbonResponse response1 = (RetrieveApplicationRibbonResponse)_comparerSource.Service1.Execute(request);
+                    RetrieveApplicationRibbonResponse response2 = (RetrieveApplicationRibbonResponse)_comparerSource.Service2.Execute(request);
 
-                    var array1 = FileOperations.UnzipRibbon(response1.CompressedApplicationRibbonXml);
-                    var array2 = FileOperations.UnzipRibbon(response2.CompressedApplicationRibbonXml);
+                    byte[] array1 = FileOperations.UnzipRibbon(response1.CompressedApplicationRibbonXml);
+                    byte[] array2 = FileOperations.UnzipRibbon(response2.CompressedApplicationRibbonXml);
 
                     xml1 = Encoding.UTF8.GetString(array1);
                     xml2 = Encoding.UTF8.GetString(array2);
@@ -766,13 +826,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    this._writeToOutput.WriteErrorToOutput(ex);
+                    this._iWriteToOutput.WriteErrorToOutput(ex);
                 }
 
-                var compare = ContentCoparerHelper.CompareXML(xml1, xml2, withDetails);
+                ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1, xml2, withDetails);
 
                 if (!compare.IsEqual)
                 {
+                    this.Image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.RibbonCustomization,
+                        SchemaName = ":RibbonDiffXml",
+                    });
+
                     content.AppendLine().AppendLine("Application Ribbons are DIFFERENT.");
 
                     if (withDetails)
@@ -811,28 +877,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             {
-                var reporter = new ProgressReporter(_writeToOutput, list.Count, 5, "Processing Common Ribbons");
+                ProgressReporter reporter = new ProgressReporter(_iWriteToOutput, list.Count, 5, "Processing Common Ribbons");
 
-                foreach (var entityName in list)
+                foreach (string entityName in list)
                 {
-                    var entity1 = entities1.FirstOrDefault(e => e.LogicalName == entityName);
-                    var entity2 = entities2.FirstOrDefault(e => e.LogicalName == entityName);
+                    EntityMetadata entity1 = entities1.FirstOrDefault(e => e.LogicalName == entityName);
+                    EntityMetadata entity2 = entities2.FirstOrDefault(e => e.LogicalName == entityName);
 
                     if (entity1 == null)
                     {
                         listOnlyExistsIn2.Add(entityName);
+
+                        this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
+                        {
+                            ComponentType = (int)ComponentType.Entity,
+                            SchemaName = entityName,
+                        });
                     }
 
                     if (entity2 == null)
                     {
                         listOnlyExistsIn1.Add(entityName);
+
+                        this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
+                        {
+                            ComponentType = (int)ComponentType.Entity,
+                            SchemaName = entityName,
+                        });
                     }
 
                     if (entity1 != null && entity2 != null)
                     {
                         reporter.Increase();
 
-                        var request = new RetrieveEntityRibbonRequest()
+                        RetrieveEntityRibbonRequest request = new RetrieveEntityRibbonRequest()
                         {
                             RibbonLocationFilter = RibbonLocationFilters.All,
                             EntityName = entityName,
@@ -843,11 +921,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         try
                         {
-                            var response1 = (RetrieveEntityRibbonResponse)_comparerSource.Service1.Execute(request);
-                            var response2 = (RetrieveEntityRibbonResponse)_comparerSource.Service2.Execute(request);
+                            RetrieveEntityRibbonResponse response1 = (RetrieveEntityRibbonResponse)_comparerSource.Service1.Execute(request);
+                            RetrieveEntityRibbonResponse response2 = (RetrieveEntityRibbonResponse)_comparerSource.Service2.Execute(request);
 
-                            var array1 = FileOperations.UnzipRibbon(response1.CompressedEntityXml);
-                            var array2 = FileOperations.UnzipRibbon(response2.CompressedEntityXml);
+                            byte[] array1 = FileOperations.UnzipRibbon(response1.CompressedEntityXml);
+                            byte[] array2 = FileOperations.UnzipRibbon(response2.CompressedEntityXml);
 
                             xml1 = Encoding.UTF8.GetString(array1);
                             xml2 = Encoding.UTF8.GetString(array2);
@@ -857,13 +935,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         }
                         catch (Exception ex)
                         {
-                            this._writeToOutput.WriteErrorToOutput(ex);
+                            this._iWriteToOutput.WriteErrorToOutput(ex);
                         }
 
-                        var compare = ContentCoparerHelper.CompareXML(xml1, xml2, withDetails);
+                        ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1, xml2, withDetails);
 
                         if (!compare.IsEqual)
                         {
+                            this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
+                            {
+                                ComponentType = (int)ComponentType.RibbonCustomization,
+                                SchemaName = entityName + ":RibbonDiffXml",
+                            });
+
                             if (withDetails)
                             {
                                 tableDifferent.AddLine(entityName
@@ -936,7 +1020,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Entity Ribbon.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Ribbons{0} ended at {1}"
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Ribbons{0} ended at {1}"
                 , withDetailsName
                 , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture))
                 );
@@ -950,6 +1034,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            SaveOrganizationDifferenceImage();
 
             return filePath;
         }

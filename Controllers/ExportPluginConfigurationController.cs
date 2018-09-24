@@ -73,7 +73,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 description.CRMConnectionUserName = connectionData.User.Username;
             }
-            else
+            else if (CredentialCache.DefaultNetworkCredentials != null)
             {
                 description.CRMConnectionUserName =
                     (!string.IsNullOrEmpty(CredentialCache.DefaultNetworkCredentials.Domain) ? CredentialCache.DefaultNetworkCredentials.Domain + "\\" : "")

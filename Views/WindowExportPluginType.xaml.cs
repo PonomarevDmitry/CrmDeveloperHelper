@@ -688,23 +688,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.PluginType, entity.Id);
         }
 
-        private void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private void AddAssemblyIntoCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            AddIntoSolution(true, null);
+            AddAssemblyIntoSolution(true, null);
         }
 
-        private void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private void AddAssemblyIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
                 && menuItem.Tag is string solutionUniqueName
                 )
             {
-                AddIntoSolution(false, solutionUniqueName);
+                AddAssemblyIntoSolution(false, solutionUniqueName);
             }
         }
 
-        private void AddIntoSolution(bool withSelect, string solutionUniqueName)
+        private void AddAssemblyIntoSolution(bool withSelect, string solutionUniqueName)
         {
             var entity = GetSelectedEntity();
 
@@ -872,7 +872,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 });
 
                 string[] commands = { "contMnAddPluginTypeStepsIntoSolutionLast", "contMnAddPluginAssemblyIntoSolutionLast", "contMnAddPluginAssemblyStepsIntoSolutionLast" };
-                Action<object, RoutedEventArgs>[] actions = { AddIntoCrmSolutionLast_Click, mIAddPluginTypeStepsIntoSolutionLast_Click, mIAddAssemblyStepsIntoSolutionLast_Click };
+                Action<object, RoutedEventArgs>[] actions = { mIAddPluginTypeStepsIntoSolutionLast_Click, AddAssemblyIntoCrmSolutionLast_Click, mIAddAssemblyStepsIntoSolutionLast_Click };
 
                 for (int index = 0; index < commands.Length; index++)
                 {

@@ -130,9 +130,12 @@
     <Compile Include="Commands\CodeWebResourceShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeWebResourceShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\CodeWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
+    <Compile Include="Commands\CodeXmlClearXsdSchemaCommand.cs" />
     <Compile Include="Commands\CodeXmlConvertFetchXmlToJavaScriptCodeCommand.cs" />
     <Compile Include="Commands\CodeXmlExecuteFetchXmlRequestCommand.cs" />
     <Compile Include="Commands\CodeXmlExecuteFetchXmlRequestInConnectionsCommand.cs" />
+    <Compile Include="Commands\CodeXmlSetXsdSchemaCommand.cs" />
+    <Compile Include="Commands\CodeXmlShowDifferenceWithDefaultSitemapsCommand.cs" />
     <Compile Include="Commands\CommonCheckComponentTypeEnumCommand.cs" />
     <Compile Include="Commands\CommonCheckEntitiesNamesAndShowDependentComponentsCommand.cs" />
     <Compile Include="Commands\CommonCheckEntitiesNamesCommand.cs" />
@@ -150,8 +153,10 @@
     <Compile Include="Commands\CommonCreateAllDependencyNodeDescriptionCommand.cs" />
     <Compile Include="Commands\CommonCrmConnectionTestCommand.cs" />
     <Compile Include="Commands\CommonEntityAttributeExplorerCommand.cs" />
+    <Compile Include="Commands\CommonExportDefaultSitemapsCommand.cs" />
     <Compile Include="Commands\CommonExportOpenLastSelectedSolutionCommand.cs" />
     <Compile Include="Commands\CommonExportSolutionCommand.cs" />
+    <Compile Include="Commands\CommonExportXsdSchemasCommand.cs" />
     <Compile Include="Commands\CommonFindEntityObjectsByIdCommand.cs" />
     <Compile Include="Commands\CommonFindEntityObjectsByUniqueidentifierCommand.cs" />
     <Compile Include="Commands\CommonOpenCrmWebSiteCommand.cs" />
@@ -649,6 +654,7 @@
     <Compile Include="Model\OptionItem.cs" />
     <Compile Include="Model\OptionSetExportType.cs" />
     <Compile Include="Model\OptionSetMetadataListViewItem.cs" />
+    <Compile Include="Model\OrganizationDifferenceImage.cs" />
     <Compile Include="Model\OrganizationServiceExtentedProxy.cs" />
     <Compile Include="Model\PluginSearchResult.cs" />
     <Compile Include="Model\PluginStage.cs" />
@@ -659,6 +665,8 @@
     <Compile Include="Model\ShowComponentsInList.cs" />
     <Compile Include="Model\ShowDifferenceThreeFileType.cs" />
     <Compile Include="Model\SolutionComponentViewItem.cs" />
+    <Compile Include="Model\SolutionImage.cs" />
+    <Compile Include="Model\SolutionImageComponent.cs" />
     <Compile Include="Model\TraceFile.cs" />
     <Compile Include="Model\TraceRecord.cs" />
     <Compile Include="Model\Translation.cs" />
@@ -920,7 +928,7 @@
     <Resource Include="Schemas\CustomizationsSolution.xsd">
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="Schemas\fetch.xsd">
+    <Resource Include="Schemas\Fetch.xsd">
       <SubType>Designer</SubType>
     </Resource>
     <Resource Include="Schemas\FormXml.xsd">

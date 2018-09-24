@@ -1,4 +1,5 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
@@ -16,23 +17,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return Task.Run(() => CheckMailMergeTemplates());
         }
 
+        private static List<string> _fieldsToCompareMailMergeTemplateOrdinal = new List<string>()
+        {
+            MailMergeTemplate.Schema.Attributes.name
+            , MailMergeTemplate.Schema.Attributes.templatetypecode
+            , MailMergeTemplate.Schema.Attributes.languagecode
+            , MailMergeTemplate.Schema.Attributes.description
+            , MailMergeTemplate.Schema.Attributes.mailmergetype
+            , MailMergeTemplate.Schema.Attributes.mimetype
+            , MailMergeTemplate.Schema.Attributes.filename
+            , MailMergeTemplate.Schema.Attributes.filesize
+            , MailMergeTemplate.Schema.Attributes.body
+            , MailMergeTemplate.Schema.Attributes.languagecode
+            , MailMergeTemplate.Schema.Attributes.ispersonal
+            , MailMergeTemplate.Schema.Attributes.statuscode
+            , MailMergeTemplate.Schema.Attributes.iscustomizable
+            //, MailMergeTemplate.Schema.Attributes.ismanaged
+        };
+
+        private static List<string> _fieldsToCompareMailMergeTemplateXml = new List<string>()
+        {
+            MailMergeTemplate.Schema.Attributes.parameterxml
+        };
+
         private async Task<string> CheckMailMergeTemplates()
         {
             StringBuilder content = new StringBuilder();
 
-            await _comparerSource.InitializeConnection(_writeToOutput, content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Mail Merge Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Mail Merge Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var task1 = _comparerSource.GetMailMergeTemplate1Async();
-            var task2 = _comparerSource.GetMailMergeTemplate2Async();
+            Task<List<MailMergeTemplate>> task1 = _comparerSource.GetMailMergeTemplate1Async();
+            Task<List<MailMergeTemplate>> task2 = _comparerSource.GetMailMergeTemplate2Async();
 
-            var list1 = await task1;
-            var list2 = await task2;
+            List<MailMergeTemplate> list1 = await task1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Mail Merge Templates in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Mail Merge Templates in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Mail Merge Templates in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
+            List<MailMergeTemplate> list2 = await task2;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Mail Merge Templates in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("AssociatedEntity", "Name", "Language", "File Name", "Mail Merge Type", "Viewable By", "Owner", "Id");
@@ -40,12 +65,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             FormatTextTableHandler tableOnlyExistsIn2 = new FormatTextTableHandler();
             tableOnlyExistsIn2.SetHeader("AssociatedEntity", "Name", "Language", "File Name", "Mail Merge Type", "Viewable By", "Owner", "Id");
 
-            var dictDifference = new Dictionary<Tuple<string, string, string, string>, List<string>>();
+            Dictionary<Tuple<string, string, string, string>, List<string>> dictDifference = new Dictionary<Tuple<string, string, string, string>, List<string>>();
 
-            foreach (var template1 in list1)
+            foreach (MailMergeTemplate template1 in list1)
             {
                 {
-                    var template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
+                    MailMergeTemplate template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
 
                     if (template2 != null)
                     {
@@ -53,14 +78,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
-                var name1 = template1.Name;
-                var entityName1 = template1.TemplateTypeCode;
-                var language1 = template1.LanguageCode.Value;
+                string name1 = template1.Name;
+                string entityName1 = template1.TemplateTypeCode;
+                int language1 = template1.LanguageCode.Value;
 
                 string filename = template1.FileName;
                 string reportType = template1.FormattedValues.ContainsKey(MailMergeTemplate.Schema.Attributes.mailmergetype) ? template1.FormattedValues[MailMergeTemplate.Schema.Attributes.mailmergetype] : string.Empty;
 
-                var ownerRef = template1.OwnerId;
+                Microsoft.Xrm.Sdk.EntityReference ownerRef = template1.OwnerId;
                 string owner = string.Empty;
 
                 if (ownerRef != null)
@@ -71,12 +96,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 string ispersonal = template1.FormattedValues.ContainsKey(MailMergeTemplate.Schema.Attributes.ispersonal) ? template1.FormattedValues[MailMergeTemplate.Schema.Attributes.ispersonal] : string.Empty;
 
                 tableOnlyExistsIn1.AddLine(entityName1, name1, LanguageLocale.GetLocaleName(language1), filename, reportType, ispersonal, owner, template1.Id.ToString());
+
+                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.MailMergeTemplate,
+                    ObjectId = template1.Id,
+                });
             }
 
-            foreach (var template2 in list2)
+            foreach (MailMergeTemplate template2 in list2)
             {
                 {
-                    var template1 = list1.FirstOrDefault(template => template.Id == template2.Id);
+                    MailMergeTemplate template1 = list1.FirstOrDefault(template => template.Id == template2.Id);
 
                     if (template1 != null)
                     {
@@ -84,14 +115,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
-                var name2 = template2.Name;
-                var entityName2 = template2.TemplateTypeCode;
-                var language2 = template2.LanguageCode.Value;
+                string name2 = template2.Name;
+                string entityName2 = template2.TemplateTypeCode;
+                int language2 = template2.LanguageCode.Value;
 
                 string filename = template2.FileName;
                 string templateType = template2.FormattedValues.ContainsKey(MailMergeTemplate.Schema.Attributes.mailmergetype) ? template2.FormattedValues[MailMergeTemplate.Schema.Attributes.mailmergetype] : string.Empty;
 
-                var ownerRef = template2.OwnerId;
+                Microsoft.Xrm.Sdk.EntityReference ownerRef = template2.OwnerId;
                 string owner = string.Empty;
 
                 if (ownerRef != null)
@@ -102,11 +133,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 string ispersonal = template2.FormattedValues.ContainsKey(MailMergeTemplate.Schema.Attributes.ispersonal) ? template2.FormattedValues[MailMergeTemplate.Schema.Attributes.ispersonal] : string.Empty;
 
                 tableOnlyExistsIn2.AddLine(entityName2, name2, LanguageLocale.GetLocaleName(language2), filename, templateType, ispersonal, owner, template2.Id.ToString());
+
+                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.MailMergeTemplate,
+                    ObjectId = template2.Id,
+                });
             }
 
-            foreach (var template1 in list1)
+            foreach (MailMergeTemplate template1 in list1)
             {
-                var template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
+                MailMergeTemplate template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
 
                 if (template2 == null)
                 {
@@ -116,76 +153,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 FormatTextTableHandler tabDiff = new FormatTextTableHandler();
                 tabDiff.SetHeader("Attribute", "Organization", "Value");
 
+                foreach (string fieldName in _fieldsToCompareMailMergeTemplateOrdinal)
                 {
-                    List<string> fieldsToCompare = new List<string>()
+                    if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                     {
-                        MailMergeTemplate.Schema.Attributes.name
-                        , MailMergeTemplate.Schema.Attributes.templatetypecode
-                        , MailMergeTemplate.Schema.Attributes.languagecode
-                        , MailMergeTemplate.Schema.Attributes.description
-                        , MailMergeTemplate.Schema.Attributes.mailmergetype
-                        , MailMergeTemplate.Schema.Attributes.mimetype
-                        , MailMergeTemplate.Schema.Attributes.filename
-                        , MailMergeTemplate.Schema.Attributes.filesize
-                        , MailMergeTemplate.Schema.Attributes.body
-                        , MailMergeTemplate.Schema.Attributes.languagecode
-                        , MailMergeTemplate.Schema.Attributes.ispersonal
-                        , MailMergeTemplate.Schema.Attributes.statuscode
-                        , MailMergeTemplate.Schema.Attributes.iscustomizable
-                        //, MailMergeTemplate.Schema.Attributes.ismanaged
-                    };
+                        string str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _comparerSource.Connection1);
+                        string str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _comparerSource.Connection2);
 
-                    foreach (var fieldName in fieldsToCompare)
-                    {
-                        if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
-                        {
-                            var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _comparerSource.Connection1);
-                            var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _comparerSource.Connection2);
-
-                            tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
-                            tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
-                        }
+                        tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
+                        tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
                     }
                 }
 
+                foreach (string fieldName in _fieldsToCompareMailMergeTemplateXml)
                 {
-                    List<string> fieldsToCompare = new List<string>()
-                    {
-                        MailMergeTemplate.Schema.Attributes.parameterxml
-                    };
+                    string xml1 = template1.GetAttributeValue<string>(fieldName) ?? string.Empty;
+                    string xml2 = template2.GetAttributeValue<string>(fieldName) ?? string.Empty;
 
-                    foreach (var fieldName in fieldsToCompare)
+                    if (!ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
-                        var xml1 = template1.GetAttributeValue<string>(fieldName) ?? string.Empty;
-                        var xml2 = template2.GetAttributeValue<string>(fieldName) ?? string.Empty;
+                        string reason = string.Empty;
 
-                        if (!ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                        ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+
+                        if (!compare.IsEqual)
                         {
-                            string reason = string.Empty;
-
-                            var compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
-
-                            if (!compare.IsEqual)
-                            {
-                                reason = "InCase";
-                            }
-                            else
-                            {
-                                reason = compare.GetCompareDescription();
-                            }
-
-                            tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, reason));
+                            reason = "InCase";
                         }
+                        else
+                        {
+                            reason = compare.GetCompareDescription();
+                        }
+
+                        tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, reason));
                     }
                 }
 
                 if (tabDiff.Count > 0)
                 {
-                    var name1 = template1.Name;
-                    var entityName1 = template1.TemplateTypeCode;
-                    var language1 = template1.LanguageCode.Value;
+                    string name1 = template1.Name;
+                    string entityName1 = template1.TemplateTypeCode;
+                    int language1 = template1.LanguageCode.Value;
 
                     dictDifference.Add(Tuple.Create(entityName1, name1, LanguageLocale.GetLocaleName(language1), template1.Id.ToString()), tabDiff.GetFormatedLines(false));
+
+                    this.Image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.MailMergeTemplate,
+                        ObjectId = template1.Id,
+                    });
                 }
             }
 
@@ -234,12 +250,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("AssociatedEntity", "Name", "Language", "Id");
 
-                foreach (var template in dictDifference)
+                foreach (KeyValuePair<Tuple<string, string, string, string>, List<string>> template in dictDifference)
                 {
                     tableDifference.CalculateLineLengths(template.Key.Item1, template.Key.Item2, template.Key.Item3, template.Key.Item4);
                 }
 
-                foreach (var template in dictDifference
+                foreach (KeyValuePair<Tuple<string, string, string, string>, List<string>> template in dictDifference
                     .OrderBy(w => w.Key.Item1)
                     .ThenBy(w => w.Key.Item2)
                     .ThenBy(w => w.Key.Item3)
@@ -248,7 +264,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     content.AppendLine().Append(tabSpacer + tableDifference.FormatLine(template.Key.Item1, template.Key.Item2, template.Key.Item3, template.Key.Item4));
 
-                    foreach (var str in template.Value)
+                    foreach (string str in template.Value)
                     {
                         content.AppendLine().Append(tabSpacer + tabSpacer + str);
                     }
@@ -263,7 +279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Mail Merge Templates.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Mail Merge Templates ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Mail Merge Templates ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Mail Merge Templates.txt"
                 , this._OrgOrgName
@@ -272,6 +288,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -285,20 +303,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await _comparerSource.InitializeConnection(_writeToOutput, content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking E-Mail Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking E-Mail Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var task1 = _comparerSource.GetTemplate1Async();
-            var task2 = _comparerSource.GetTemplate2Async();
+            Task<List<Template>> task1 = _comparerSource.GetTemplate1Async();
+            Task<List<Template>> task2 = _comparerSource.GetTemplate2Async();
 
-            var list1 = await task1;
+            List<Template> list1 = await task1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("E-Mail Templates in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("E-Mail Templates in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
 
-            var list2 = await task2;
+            List<Template> list2 = await task2;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("E-Mail Templates in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("E-Mail Templates in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("TemplateType", "Title", "ViewableBy", "Owner", "Id");
@@ -306,12 +324,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             FormatTextTableHandler tableOnlyExistsIn2 = new FormatTextTableHandler();
             tableOnlyExistsIn2.SetHeader("TemplateType", "Title", "ViewableBy", "Owner", "Id");
 
-            var dictDifference = new Dictionary<Tuple<string, string, string>, List<string>>();
+            Dictionary<Tuple<string, string, string>, List<string>> dictDifference = new Dictionary<Tuple<string, string, string>, List<string>>();
 
-            foreach (var template1 in list1)
+            foreach (Template template1 in list1)
             {
                 {
-                    var template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
+                    Template template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
 
                     if (template2 != null)
                     {
@@ -319,10 +337,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
-                var name1 = template1.Title;
-                var entityName1 = template1.TemplateTypeCode;
+                string name1 = template1.Title;
+                string entityName1 = template1.TemplateTypeCode;
 
-                var ownerRef = template1.OwnerId;
+                Microsoft.Xrm.Sdk.EntityReference ownerRef = template1.OwnerId;
                 string owner = string.Empty;
 
                 if (ownerRef != null)
@@ -333,15 +351,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 string ispersonal = template1.FormattedValues.ContainsKey(Template.Schema.Attributes.ispersonal) ? template1.FormattedValues[Template.Schema.Attributes.ispersonal] : string.Empty;
 
                 tableOnlyExistsIn1.AddLine(entityName1, name1, ispersonal, owner, template1.Id.ToString());
+
+                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.EmailTemplate,
+                    ObjectId = template1.Id,
+                });
             }
 
-            foreach (var template2 in list2)
+            foreach (Template template2 in list2)
             {
-                var name2 = template2.Title;
-                var entityName2 = template2.TemplateTypeCode;
+                string name2 = template2.Title;
+                string entityName2 = template2.TemplateTypeCode;
 
                 {
-                    var template1 = list1.FirstOrDefault(template => template.Id == template2.Id);
+                    Template template1 = list1.FirstOrDefault(template => template.Id == template2.Id);
 
                     if (template1 != null)
                     {
@@ -349,7 +373,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
-                var ownerRef = template2.OwnerId;
+                Microsoft.Xrm.Sdk.EntityReference ownerRef = template2.OwnerId;
                 string owner = string.Empty;
 
                 if (ownerRef != null)
@@ -360,11 +384,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 string ispersonal = template2.FormattedValues.ContainsKey(Template.Schema.Attributes.ispersonal) ? template2.FormattedValues[Template.Schema.Attributes.ispersonal] : string.Empty;
 
                 tableOnlyExistsIn2.AddLine(entityName2, name2, ispersonal, owner);
+
+                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.EmailTemplate,
+                    ObjectId = template2.Id,
+                });
             }
 
-            foreach (var template1 in list1)
+            foreach (Template template1 in list1)
             {
-                var template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
+                Template template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
 
                 if (template2 == null)
                 {
@@ -387,12 +417,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         , Template.Schema.Attributes.generationtypecode
                     };
 
-                    foreach (var fieldName in fieldsToCompare)
+                    foreach (string fieldName in fieldsToCompare)
                     {
                         if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                         {
-                            var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _comparerSource.Connection1);
-                            var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _comparerSource.Connection2);
+                            string str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _comparerSource.Connection1);
+                            string str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _comparerSource.Connection2);
 
                             tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
                             tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
@@ -409,16 +439,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         , Template.Schema.Attributes.subjectpresentationxml
                     };
 
-                    foreach (var fieldName in fieldsToCompare)
+                    foreach (string fieldName in fieldsToCompare)
                     {
-                        var xml1 = template1.GetAttributeValue<string>(fieldName) ?? string.Empty;
-                        var xml2 = template2.GetAttributeValue<string>(fieldName) ?? string.Empty;
+                        string xml1 = template1.GetAttributeValue<string>(fieldName) ?? string.Empty;
+                        string xml2 = template2.GetAttributeValue<string>(fieldName) ?? string.Empty;
 
                         if (!ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
                         {
                             string reason = string.Empty;
 
-                            var compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                            ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                             if (!compare.IsEqual)
                             {
@@ -436,10 +466,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (tabDiff.Count > 0)
                 {
-                    var name1 = template1.Title;
-                    var entityName1 = template1.TemplateTypeCode;
+                    string name1 = template1.Title;
+                    string entityName1 = template1.TemplateTypeCode;
 
                     dictDifference.Add(Tuple.Create(entityName1, name1, template1.Id.ToString()), tabDiff.GetFormatedLines(false));
+
+                    this.Image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.EmailTemplate,
+                        ObjectId = template1.Id,
+                    });
                 }
             }
 
@@ -488,12 +524,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("TemplateType", "Title", "Id");
 
-                foreach (var template in dictDifference)
+                foreach (KeyValuePair<Tuple<string, string, string>, List<string>> template in dictDifference)
                 {
                     tableDifference.CalculateLineLengths(template.Key.Item1, template.Key.Item2, template.Key.Item3);
                 }
 
-                foreach (var template in dictDifference
+                foreach (KeyValuePair<Tuple<string, string, string>, List<string>> template in dictDifference
                     .OrderBy(w => w.Key.Item1)
                     .ThenBy(w => w.Key.Item2)
                     .ThenBy(w => w.Key.Item3)
@@ -501,7 +537,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     content.AppendLine().Append(tabSpacer + tableDifference.FormatLine(template.Key.Item1, template.Key.Item2, template.Key.Item3));
 
-                    foreach (var str in template.Value)
+                    foreach (string str in template.Value)
                     {
                         content.AppendLine().Append(tabSpacer + tabSpacer + str);
                     }
@@ -516,7 +552,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in E-Mail Templates.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking E-Mail Templates ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking E-Mail Templates ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} E-Mail Templates.txt"
                 , this._OrgOrgName
@@ -525,6 +561,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -538,20 +576,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await _comparerSource.InitializeConnection(_writeToOutput, content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking KB Article Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking KB Article Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var task1 = _comparerSource.GetKbArticleTemplate1Async();
-            var task2 = _comparerSource.GetKbArticleTemplate2Async();
+            Task<List<KbArticleTemplate>> task1 = _comparerSource.GetKbArticleTemplate1Async();
+            Task<List<KbArticleTemplate>> task2 = _comparerSource.GetKbArticleTemplate2Async();
 
-            var list1 = await task1;
+            List<KbArticleTemplate> list1 = await task1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("KB Article Templates in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("KB Article Templates in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
 
-            var list2 = await task2;
+            List<KbArticleTemplate> list2 = await task2;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("KB Article Templates in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("KB Article Templates in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
 
             List<string> fieldsToCompare = new List<string>()
             {
@@ -574,12 +612,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             FormatTextTableHandler tableOnlyExistsIn2 = new FormatTextTableHandler();
             tableOnlyExistsIn2.SetHeader("Title", "Id");
 
-            var dictDifference = new Dictionary<Tuple<string, string>, List<string>>();
+            Dictionary<Tuple<string, string>, List<string>> dictDifference = new Dictionary<Tuple<string, string>, List<string>>();
 
-            foreach (var template1 in list1)
+            foreach (KbArticleTemplate template1 in list1)
             {
                 {
-                    var template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
+                    KbArticleTemplate template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
 
                     if (template2 != null)
                     {
@@ -587,15 +625,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
-                var name1 = template1.Title;
+                string name1 = template1.Title;
 
                 tableOnlyExistsIn1.AddLine(name1, template1.Id.ToString());
+
+                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.KBArticleTemplate,
+                    ObjectId = template1.Id,
+                });
             }
 
-            foreach (var template2 in list2)
+            foreach (KbArticleTemplate template2 in list2)
             {
                 {
-                    var template1 = list1.FirstOrDefault(template => template.Id == template2.Id);
+                    KbArticleTemplate template1 = list1.FirstOrDefault(template => template.Id == template2.Id);
 
                     if (template1 != null)
                     {
@@ -603,14 +647,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
-                var name2 = template2.Title;
+                string name2 = template2.Title;
 
                 tableOnlyExistsIn2.AddLine(name2, template2.Id.ToString());
+
+                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.KBArticleTemplate,
+                    ObjectId = template2.Id,
+                });
             }
 
-            foreach (var template1 in list1)
+            foreach (KbArticleTemplate template1 in list1)
             {
-                var template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
+                KbArticleTemplate template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
 
                 if (template2 == null)
                 {
@@ -620,28 +670,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 FormatTextTableHandler tabDiff = new FormatTextTableHandler();
                 tabDiff.SetHeader("Attribute", "Organization", "Value");
 
-                foreach (var fieldName in fieldsToCompare)
+                foreach (string fieldName in fieldsToCompare)
                 {
                     if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                     {
-                        var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _comparerSource.Connection1);
-                        var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _comparerSource.Connection2);
+                        string str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _comparerSource.Connection1);
+                        string str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _comparerSource.Connection2);
 
                         tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
                         tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
                     }
                 }
 
-                foreach (var fieldName in xmlFieldsToCompare)
+                foreach (string fieldName in xmlFieldsToCompare)
                 {
-                    var xml1 = template1.GetAttributeValue<string>(fieldName) ?? string.Empty;
-                    var xml2 = template2.GetAttributeValue<string>(fieldName) ?? string.Empty;
+                    string xml1 = template1.GetAttributeValue<string>(fieldName) ?? string.Empty;
+                    string xml2 = template2.GetAttributeValue<string>(fieldName) ?? string.Empty;
 
                     if (!ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
                         string reason = string.Empty;
 
-                        var compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                        ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                         if (!compare.IsEqual)
                         {
@@ -658,9 +708,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (tabDiff.Count > 0)
                 {
-                    var name1 = template1.Title;
+                    string name1 = template1.Title;
 
                     dictDifference.Add(Tuple.Create(name1, template1.Id.ToString()), tabDiff.GetFormatedLines(false));
+
+                    this.Image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.KBArticleTemplate,
+                        ObjectId = template1.Id,
+                    });
                 }
             }
 
@@ -709,19 +765,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("Title", "Id");
 
-                foreach (var template in dictDifference)
+                foreach (KeyValuePair<Tuple<string, string>, List<string>> template in dictDifference)
                 {
                     tableDifference.CalculateLineLengths(template.Key.Item1, template.Key.Item2);
                 }
 
-                foreach (var template in dictDifference
+                foreach (KeyValuePair<Tuple<string, string>, List<string>> template in dictDifference
                     .OrderBy(w => w.Key.Item1)
                     .ThenBy(w => w.Key.Item2)
                     )
                 {
                     content.AppendLine().Append(tabSpacer + tableDifference.FormatLine(template.Key.Item1, template.Key.Item2));
 
-                    foreach (var str in template.Value)
+                    foreach (string str in template.Value)
                     {
                         content.AppendLine().Append(tabSpacer + tabSpacer + str);
                     }
@@ -736,7 +792,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in KB Article Templates.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking KB Article Templates ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking KB Article Templates ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} KB Article Templates.txt"
                 , this._OrgOrgName
@@ -745,6 +801,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -758,20 +816,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await _comparerSource.InitializeConnection(_writeToOutput, content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking Contract Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Contract Templates started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var task1 = _comparerSource.GetContractTemplate1Async();
-            var task2 = _comparerSource.GetContractTemplate2Async();
+            Task<List<ContractTemplate>> task1 = _comparerSource.GetContractTemplate1Async();
+            Task<List<ContractTemplate>> task2 = _comparerSource.GetContractTemplate2Async();
 
-            var list1 = await task1;
+            List<ContractTemplate> list1 = await task1;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Contract Templates in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Contract Templates in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
 
-            var list2 = await task2;
+            List<ContractTemplate> list2 = await task2;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Contract Templates in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Contract Templates in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
 
             List<string> fieldsToCompare = new List<string>()
             {
@@ -817,12 +875,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             FormatTextTableHandler tableOnlyExistsIn2 = new FormatTextTableHandler();
             tableOnlyExistsIn2.SetHeader("Name", "Id");
 
-            var dictDifference = new Dictionary<Tuple<string, string>, List<string>>();
+            Dictionary<Tuple<string, string>, List<string>> dictDifference = new Dictionary<Tuple<string, string>, List<string>>();
 
-            foreach (var template1 in list1)
+            foreach (ContractTemplate template1 in list1)
             {
                 {
-                    var template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
+                    ContractTemplate template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
 
                     if (template2 != null)
                     {
@@ -830,15 +888,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
-                var name1 = template1.Name;
+                string name1 = template1.Name;
 
                 tableOnlyExistsIn1.AddLine(name1, template1.Id.ToString());
+
+                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.ContractTemplate,
+                    ObjectId = template1.Id,
+                });
             }
 
-            foreach (var template2 in list2)
+            foreach (ContractTemplate template2 in list2)
             {
                 {
-                    var template1 = list1.FirstOrDefault(template => template.Id == template2.Id);
+                    ContractTemplate template1 = list1.FirstOrDefault(template => template.Id == template2.Id);
 
                     if (template1 != null)
                     {
@@ -846,14 +910,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
-                var name2 = template2.Name;
+                string name2 = template2.Name;
 
                 tableOnlyExistsIn2.AddLine(name2, template2.Id.ToString());
+
+                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.ContractTemplate,
+                    ObjectId = template2.Id,
+                });
             }
 
-            foreach (var template1 in list1)
+            foreach (ContractTemplate template1 in list1)
             {
-                var template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
+                ContractTemplate template2 = list2.FirstOrDefault(template => template.Id == template1.Id);
 
                 if (template2 == null)
                 {
@@ -863,28 +933,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 FormatTextTableHandler tabDiff = new FormatTextTableHandler();
                 tabDiff.SetHeader("Attribute", "Organization", "Value");
 
-                foreach (var fieldName in fieldsToCompare)
+                foreach (string fieldName in fieldsToCompare)
                 {
                     if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                     {
-                        var str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _comparerSource.Connection1);
-                        var str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _comparerSource.Connection2);
+                        string str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, _comparerSource.Connection1);
+                        string str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, _comparerSource.Connection2);
 
                         tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
                         tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
                     }
                 }
 
-                foreach (var fieldName in xmlFieldsToCompare)
+                foreach (string fieldName in xmlFieldsToCompare)
                 {
-                    var xml1 = template1.GetAttributeValue<string>(fieldName) ?? string.Empty;
-                    var xml2 = template2.GetAttributeValue<string>(fieldName) ?? string.Empty;
+                    string xml1 = template1.GetAttributeValue<string>(fieldName) ?? string.Empty;
+                    string xml2 = template2.GetAttributeValue<string>(fieldName) ?? string.Empty;
 
                     if (!ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
                         string reason = string.Empty;
 
-                        var compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                        ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                         if (!compare.IsEqual)
                         {
@@ -901,9 +971,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (tabDiff.Count > 0)
                 {
-                    var name1 = template1.Name;
+                    string name1 = template1.Name;
 
                     dictDifference.Add(Tuple.Create(name1, template1.Id.ToString()), tabDiff.GetFormatedLines(false));
+
+                    this.Image.DifferentComponents.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.ContractTemplate,
+                        ObjectId = template1.Id,
+                    });
                 }
             }
 
@@ -952,19 +1028,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("Title", "Id");
 
-                foreach (var template in dictDifference)
+                foreach (KeyValuePair<Tuple<string, string>, List<string>> template in dictDifference)
                 {
                     tableDifference.CalculateLineLengths(template.Key.Item1, template.Key.Item2);
                 }
 
-                foreach (var template in dictDifference
+                foreach (KeyValuePair<Tuple<string, string>, List<string>> template in dictDifference
                     .OrderBy(w => w.Key.Item1)
                     .ThenBy(w => w.Key.Item2)
                     )
                 {
                     content.AppendLine().Append(tabSpacer + tableDifference.FormatLine(template.Key.Item1, template.Key.Item2));
 
-                    foreach (var str in template.Value)
+                    foreach (string str in template.Value)
                     {
                         content.AppendLine().Append(tabSpacer + tabSpacer + str);
                     }
@@ -979,7 +1055,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Contract Templates.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking Contract Templates ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Contract Templates ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Contract Templates.txt"
                 , this._OrgOrgName
@@ -988,6 +1064,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            SaveOrganizationDifferenceImage();
 
             return filePath;
         }

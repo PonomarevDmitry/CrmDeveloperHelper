@@ -1,14 +1,15 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml;
 using System.Xml.Linq;
 using Ude;
-using System.Xml;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -56,8 +57,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 byte[] arr = RemoveBOM(arrayByte, encFrom.GetPreamble());
 
-                var str = encFrom.GetString(arr).Trim();
-                str = ContentCoparerHelper.RemoveDiacritics(str);
+                string str = encFrom.GetString(arr).Trim();
+                str = RemoveDiacritics(str);
 
                 if (removeNewLine)
                 {
@@ -90,8 +91,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             for (int i = 0; i < s.Length; i++)
             {
-                var ch = s[i];
-                var cat = CharUnicodeInfo.GetUnicodeCategory(ch);
+                char ch = s[i];
+                UnicodeCategory cat = CharUnicodeInfo.GetUnicodeCategory(ch);
 
                 if (cat != UnicodeCategory.NonSpacingMark
                     && cat != UnicodeCategory.Format
@@ -149,7 +150,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 try
                 {
-                    var enc = Encoding.GetEncoding(detector.Charset);
+                    Encoding enc = Encoding.GetEncoding(detector.Charset);
 
                     result.Add(enc);
                 }
@@ -158,7 +159,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
 
 #if DEBUG
-                    if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
+                    if (System.Diagnostics.Debugger.IsAttached)
+                    {
+                        System.Diagnostics.Debugger.Break();
+                    }
 #endif
                 }
             }
@@ -181,9 +185,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static bool ListsHasEquals(List<string> list1, List<string> list2)
         {
-            foreach (var str1 in list1)
+            foreach (string str1 in list1)
             {
-                foreach (var str2 in list2)
+                foreach (string str2 in list2)
                 {
                     if (string.Equals(str1, str2))
                     {
@@ -219,7 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 //list1 = GetListString(array1, false);
                 //list2 = GetListString(array2, false);
 
-                var minimalDifference = GetMinimalDifferences(list1, list2);
+                List<Diff> minimalDifference = GetMinimalDifferences(list1, list2);
 
                 return new ContentCopareResult(false, minimalDifference);
             }
@@ -231,22 +235,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static List<Diff> GetMinimalDifferences(List<string> list1, List<string> list2)
         {
-            diff_match_patch match = new diff_match_patch();
-            match.Diff_Timeout = ContentCoparerHelper.Diff_Timeout;
+            diff_match_patch match = new diff_match_patch
+            {
+                Diff_Timeout = ContentCoparerHelper.Diff_Timeout
+            };
             //match.Patch_Margin
 
             int minDiff = int.MaxValue;
             List<Diff> selected = null;
 
-            foreach (var str1 in list1)
+            foreach (string str1 in list1)
             {
-                foreach (var str2 in list2)
+                foreach (string str2 in list2)
                 {
-                    var diff = match.diff_main(str1, str2, false);
+                    List<Diff> diff = match.diff_main(str1, str2, false);
 
-                    var changes = diff.Where(d => d.operation != Operation.EQUAL);
+                    IEnumerable<Diff> changes = diff.Where(d => d.operation != Operation.EQUAL);
 
-                    var changesLength = changes.Any() ? changes.Sum(d => d.text.Length) : 0;
+                    int changesLength = changes.Any() ? changes.Sum(d => d.text.Length) : 0;
 
                     if (changesLength < minDiff)
                     {
@@ -263,7 +269,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             if (doc.Name == "grid")
             {
-                var attr = doc.Attribute("object");
+                XAttribute attr = doc.Attribute("object");
 
                 if (attr != null)
                 {
@@ -278,17 +284,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (string.Equals(doc.Name.LocalName, "Activity", StringComparison.OrdinalIgnoreCase))
             {
-                var attr = doc.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Class", StringComparison.OrdinalIgnoreCase));
+                XAttribute attr = doc.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Class", StringComparison.OrdinalIgnoreCase));
 
                 if (attr != null && attr.Value.StartsWith("XrmWorkflow", StringComparison.OrdinalIgnoreCase))
                 {
-                    var oldClass = attr.Value;
+                    string oldClass = attr.Value;
 
                     attr.Value = className;
 
-                    var elements = doc.DescendantsAndSelf().Where(e => e.Name.LocalName.Contains(oldClass));
+                    IEnumerable<XElement> elements = doc.DescendantsAndSelf().Where(e => e.Name.LocalName.Contains(oldClass));
 
-                    foreach (var el in elements)
+                    foreach (XElement el in elements)
                     {
                         el.Name = XName.Get(el.Name.LocalName.Replace(oldClass, className), el.Name.NamespaceName);
                     }
@@ -298,9 +304,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static void RemoveEmptyXMLText(XElement doc)
         {
-            var list = doc.DescendantsAndSelf().Where(e => !e.IsEmpty && !e.HasElements && !e.HasAttributes && string.IsNullOrEmpty(e.Value)).ToList();
+            List<XElement> list = doc.DescendantsAndSelf().Where(e => !e.IsEmpty && !e.HasElements && !e.HasAttributes && string.IsNullOrEmpty(e.Value)).ToList();
 
-            foreach (var item in list)
+            foreach (XElement item in list)
             {
                 item.RemoveAll();
             }
@@ -309,18 +315,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static void RemoveEmptyElements(XElement doc)
         {
             {
-                var list = doc.DescendantsAndSelf().Where(e => !e.IsEmpty && !e.HasElements && !e.HasAttributes && string.IsNullOrEmpty(e.Value)).ToList();
+                List<XElement> list = doc.DescendantsAndSelf().Where(e => !e.IsEmpty && !e.HasElements && !e.HasAttributes && string.IsNullOrEmpty(e.Value)).ToList();
 
-                foreach (var item in list)
+                foreach (XElement item in list)
                 {
                     item.RemoveAll();
                 }
             }
 
             {
-                var list = doc.DescendantsAndSelf().Where(e => e.IsEmpty).ToList();
+                List<XElement> list = doc.DescendantsAndSelf().Where(e => e.IsEmpty).ToList();
 
-                foreach (var item in list)
+                foreach (XElement item in list)
                 {
                     if (item.Parent != null)
                     {
@@ -338,7 +344,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 xml = ContentCoparerHelper.RemoveDiacritics(xml);
 
-                if (!TryParseXml(xml, out var doc))
+                if (!TryParseXml(xml, out XElement doc))
                 {
                     return xml;
                 }
@@ -348,7 +354,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (actions != null)
                 {
-                    foreach (var action in actions)
+                    foreach (Action<XElement> action in actions)
                     {
                         action?.Invoke(doc);
                     }
@@ -361,7 +367,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
 
 #if DEBUG
-                if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
+                if (System.Diagnostics.Debugger.IsAttached)
+                {
+                    System.Diagnostics.Debugger.Break();
+                }
 #endif
 
                 throw;
@@ -378,8 +387,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 xml1 = ContentCoparerHelper.RemoveDiacritics(xml1);
                 xml2 = ContentCoparerHelper.RemoveDiacritics(xml2);
 
-                diff_match_patch match = new diff_match_patch();
-                match.Diff_Timeout = ContentCoparerHelper.Diff_Timeout;
+                diff_match_patch match = new diff_match_patch
+                {
+                    Diff_Timeout = ContentCoparerHelper.Diff_Timeout
+                };
 
                 if (string.IsNullOrEmpty(xml1) && string.IsNullOrEmpty(xml2))
                 {
@@ -396,9 +407,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     return new ContentCopareResult(false, match.diff_main(xml1, xml2, false));
                 }
 
-                if (!TryParseXml(xml1, out var doc1) || !TryParseXml(xml2, out var doc2))
+                if (!TryParseXml(xml1, out XElement doc1) || !TryParseXml(xml2, out XElement doc2))
                 {
-                    var isEqual = string.Equals(xml1, xml2);
+                    bool isEqual = string.Equals(xml1, xml2);
 
                     if (isEqual)
                     {
@@ -430,7 +441,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 {
-                    var isEqual = XNode.DeepEquals(doc1, doc2);
+                    bool isEqual = XNode.DeepEquals(doc1, doc2);
 
                     if (isEqual)
                     {
@@ -454,7 +465,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
 
 #if DEBUG
-                if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
+                if (System.Diagnostics.Debugger.IsAttached)
+                {
+                    System.Diagnostics.Debugger.Break();
+                }
 #endif
 
                 throw;
@@ -471,8 +485,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 xml1 = ContentCoparerHelper.RemoveDiacritics(xml1);
                 xml2 = ContentCoparerHelper.RemoveDiacritics(xml2);
 
-                diff_match_patch match = new diff_match_patch();
-                match.Diff_Timeout = ContentCoparerHelper.Diff_Timeout;
+                diff_match_patch match = new diff_match_patch
+                {
+                    Diff_Timeout = ContentCoparerHelper.Diff_Timeout
+                };
 
                 if (string.IsNullOrEmpty(xml1) && string.IsNullOrEmpty(xml2))
                 {
@@ -489,9 +505,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     return new ContentCopareResult(false, match.diff_main(xml1, xml2, false));
                 }
 
-                if (!TryParseXml(xml1, out var doc1) || !TryParseXml(xml2, out var doc2))
+                if (!TryParseXml(xml1, out XElement doc1) || !TryParseXml(xml2, out XElement doc2))
                 {
-                    var isEqual = string.Equals(xml1, xml2);
+                    bool isEqual = string.Equals(xml1, xml2);
 
                     if (isEqual)
                     {
@@ -530,7 +546,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 {
-                    var isEqual = XNode.DeepEquals(doc1, doc2);
+                    bool isEqual = XNode.DeepEquals(doc1, doc2);
 
                     if (isEqual)
                     {
@@ -554,7 +570,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
 
 #if DEBUG
-                if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
+                if (System.Diagnostics.Debugger.IsAttached)
+                {
+                    System.Diagnostics.Debugger.Break();
+                }
 #endif
 
                 throw;
@@ -640,11 +659,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             SortAttributes(doc);
 
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.OmitXmlDeclaration = true;
-            settings.Indent = true;
-            settings.NewLineOnAttributes = true;
-            settings.Encoding = Encoding.UTF8;
+            XmlWriterSettings settings = new XmlWriterSettings
+            {
+                OmitXmlDeclaration = true,
+                Indent = true,
+                NewLineOnAttributes = true,
+                Encoding = Encoding.UTF8
+            };
 
             using (MemoryStream memStream = new MemoryStream())
             {
@@ -663,7 +684,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static string FormatXml(string xml, bool xmlAttributeOnNewLine)
         {
-            if (!TryParseXml(xml, out var doc))
+            if (!TryParseXml(xml, out XElement doc))
             {
                 return xml;
             }
@@ -675,13 +696,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             SortAttributes(doc);
 
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.OmitXmlDeclaration = true;
-            settings.Indent = true;
-            settings.NewLineOnAttributes = true;
-            settings.Encoding = Encoding.UTF8;
+            XmlWriterSettings settings = new XmlWriterSettings
+            {
+                OmitXmlDeclaration = true,
+                Indent = true,
+                NewLineOnAttributes = true,
+                Encoding = Encoding.UTF8
+            };
 
-            var result = new StringBuilder();
+            StringBuilder result = new StringBuilder();
 
             using (XmlWriter xmlWriter = XmlWriter.Create(result, settings))
             {
@@ -693,13 +716,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static void SortAttributes(XElement doc)
         {
-            foreach (var element in doc.DescendantsAndSelf())
+            foreach (XElement element in doc.DescendantsAndSelf())
             {
-                var attributes = element.Attributes().ToList();
+                List<XAttribute> attributes = element.Attributes().ToList();
 
                 element.RemoveAttributes();
 
-                foreach (var attr in attributes.OrderBy(a => a.Name, new XNameComparer()))
+                foreach (XAttribute attr in attributes.OrderBy(a => a.Name, new XNameComparer()))
                 {
                     element.Add(attr);
                 }
@@ -741,8 +764,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return false;
             }
 
-            var str1 = EntityDescriptionHandler.GetAttributeString(entity1, fieldName);
-            var str2 = EntityDescriptionHandler.GetAttributeString(entity2, fieldName);
+            string str1 = EntityDescriptionHandler.GetAttributeString(entity1, fieldName);
+            string str2 = EntityDescriptionHandler.GetAttributeString(entity2, fieldName);
 
             return str1 != str2;
         }
@@ -755,8 +778,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             text1 = ContentCoparerHelper.RemoveDiacritics(text1);
             text2 = ContentCoparerHelper.RemoveDiacritics(text2);
 
-            diff_match_patch match = new diff_match_patch();
-            match.Diff_Timeout = ContentCoparerHelper.Diff_Timeout;
+            diff_match_patch match = new diff_match_patch
+            {
+                Diff_Timeout = ContentCoparerHelper.Diff_Timeout
+            };
 
             if (string.IsNullOrEmpty(text1) && string.IsNullOrEmpty(text2))
             {
@@ -773,7 +798,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return new ContentCopareResult(false, match.diff_main(text1, text2, false));
             }
 
-            var isEqual = string.Equals(text1, text2);
+            bool isEqual = string.Equals(text1, text2);
 
             if (isEqual)
             {
@@ -798,7 +823,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             str.AppendFormat("var {0} =", fieldName).AppendLine();
             str.AppendLine("[");
 
-            foreach (var item in split)
+            foreach (string item in split)
             {
                 if (string.IsNullOrWhiteSpace(item))
                 {
@@ -813,6 +838,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             str.Append("].join('');");
 
             return str.ToString();
+        }
+
+        private const string patternXsi = " xmlns:xsi=\"([^\"]+)\"";
+        private const string patternXsiNamespace = @" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""";
+        private const string patternSchemaLocation = " xsi:schemaLocation=\"([^\"]+)\"";
+        private const string patternSchemaLocationFormat = " xsi:schemaLocation=\"{0}\"";
+
+        public static string ClearXsdSchema(string text)
+        {
+            var result = text;
+
+            result = Regex.Replace(result, patternXsi, string.Empty, RegexOptions.IgnoreCase);
+
+            result = Regex.Replace(result, patternSchemaLocation, string.Empty, RegexOptions.IgnoreCase);
+
+            return result;
+        }
+
+        public static string ReplaceXsdSchema(string text, string schemas)
+        {
+            var result = text;
+
+            if (Regex.IsMatch(result, patternXsi))
+            {
+                result = Regex.Replace(result, patternXsi, patternXsiNamespace, RegexOptions.IgnoreCase);
+            }
+            else
+            {
+                try
+                {
+                    XDocument doc = XDocument.Parse(text, LoadOptions.SetLineInfo);
+
+
+
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            if (Regex.IsMatch(result, patternSchemaLocation))
+            {
+                result = Regex.Replace(result, patternSchemaLocation, string.Format(patternSchemaLocationFormat, schemas), RegexOptions.IgnoreCase);
+            }
+            else
+            {
+                try
+                {
+                    XDocument doc = XDocument.Parse(text, LoadOptions.SetLineInfo);
+
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            return result;
         }
     }
 }

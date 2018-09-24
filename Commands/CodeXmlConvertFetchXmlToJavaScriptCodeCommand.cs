@@ -7,10 +7,10 @@ using System.Windows;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    class CodeXmlConvertFetchXmlToJavaScriptCodeCommand : AbstractCommand
+    internal sealed class CodeXmlConvertFetchXmlToJavaScriptCodeCommand : AbstractCommand
     {
         private CodeXmlConvertFetchXmlToJavaScriptCodeCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlConvertFetchXmlToJavaScriptCodeCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsFetchRequest) { }
+            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlConvertFetchXmlToJavaScriptCodeCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusActiveDocumentXml) { }
 
         public static CodeXmlConvertFetchXmlToJavaScriptCodeCommand Instance { get; private set; }
 
@@ -21,33 +21,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static void ActionExecute(DTEHelper helper)
         {
-            var selectedFile = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).FirstOrDefault();
+            EnvDTE.Document document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsXmlType);
 
-            if (selectedFile == null)
+            if (document != null)
             {
-                return;
-            }
-
-            if (helper.ApplicationObject.ActiveWindow != null
-               && helper.ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
-               && helper.ApplicationObject.ActiveWindow.Document != null
-               )
-            {
-                if (!helper.ApplicationObject.ActiveWindow.Document.Saved)
+                var objTextDoc = document.Object("TextDocument");
+                if (objTextDoc != null
+                    && objTextDoc is EnvDTE.TextDocument textDocument
+                    )
                 {
-                    helper.ApplicationObject.ActiveWindow.Document.Save();
+                    string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
+
+                    text = ContentCoparerHelper.ClearXsdSchema(text);
+
+                    string jsCode = ContentCoparerHelper.FormatToJavaScript("fetchXml", text);
+
+                    Clipboard.SetText(jsCode);
                 }
-            }
-
-            var filePath = selectedFile.FilePath;
-
-            if (File.Exists(filePath))
-            {
-                var fileText = File.ReadAllText(filePath);
-
-                var jsCode = ContentCoparerHelper.FormatToJavaScript("fetchXml", fileText);
-
-                Clipboard.SetText(jsCode);
             }
         }
     }

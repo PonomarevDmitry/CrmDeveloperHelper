@@ -443,6 +443,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._controlsEnabled = enabled;
 
             ToggleControl(this.toolStrip, enabled);
+            ToggleControl(this.cmBComponentType, enabled);
+            ToggleControl(this.cmBSolutionComponentsType, enabled);
 
             ToggleProgressBar(enabled);
 

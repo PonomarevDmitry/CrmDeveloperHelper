@@ -20,12 +20,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public int? EntityTypeCode { get; private set; }
 
-        public WindowSelectEntityIdToFind(CommonConfiguration commonConfig, string windowTitle, string labelTitle)
+        public WindowSelectEntityIdToFind(CommonConfiguration commonConfig, string windowTitle)
         {
             InitializeComponent();
 
             this.Title = windowTitle;
-            lblText.Content = labelTitle;
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 

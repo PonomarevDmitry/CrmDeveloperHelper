@@ -11,6 +11,7 @@
         Title="Trace Reader" Height="538.662" Width="803" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu">
+            <MenuItem Header="Open Trace File" VerticalAlignment="Center" Click="mIOpenTraceFile_Click"/>
         </ContextMenu>
     </src:WindowBase.Resources>
     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True">
@@ -42,22 +43,24 @@
                 <Button Content="Close" Click="Button_Click" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Right" HorizontalContentAlignment="Right" DockPanel.Dock="Right"  />
             </DockPanel>
         </ToolBar>
+        <ToolBar Height="Auto" Width="Auto" VerticalAlignment="Top" DockPanel.Dock="Top" >
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
+                <MenuItem x:Name="miOpenFolder" Header="Open File" VerticalAlignment="Center" Padding="3" Margin="6,2" Click="mIOpenFile_Click" />
+                <MenuItem x:Name="miOpenFilesInFolders" Header="Open Files in Folders" VerticalAlignment="Center" Padding="3" Margin="6,2" Click="mIOpenFilesInFolder_Click" />
+            </Menu>
+        </ToolBar>
         <TabControl x:Name="tabControl" DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <TabItem Header="Sources">
+            <TabItem Header="Source Folders">
                 <Grid>
-                    <Label Content="Add Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-                    <ComboBox x:Name="cmBFolder" Height="26" Margin="83,10,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" Text="{Binding Path=SelectedItem.TraceReaderFolder}" ItemsSource="{Binding Path=SelectedItem.TraceReaderLastFolders}" VerticalAlignment="Top" KeyDown="cmBFolder_KeyDown" VerticalContentAlignment="Center" />
+                    <Button x:Name="btnAddFolder" Content="Add Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Click="btnAddFolderInList_Click" Height="26" Width="121" />
+                    <ComboBox x:Name="cmBFolder" Height="26" Margin="146,10,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" Text="{Binding Path=SelectedItem.TraceReaderFolder}" ItemsSource="{Binding Path=SelectedItem.TraceReaderLastFolders}" VerticalAlignment="Top" KeyDown="cmBFolder_KeyDown" VerticalContentAlignment="Center" />
+                    
                     <Label Content="File Date Change From" Padding="0" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="24"/>
                     <DatePicker x:Name="dPFileDate" HorizontalAlignment="Left" Margin="146,41,0,0" VerticalAlignment="Top" Width="199" SelectedDateFormat="Long" KeyDown="cmBFilterEnitity_KeyDown" FirstDayOfWeek="Monday"/>
                     <GroupBox Header="Sources" Margin="10,70,10,0">
                         <DockPanel LastChildFill="True">
                             <ToolBar Height="Auto" Width="Auto" VerticalAlignment="Top" DockPanel.Dock="Top" >
                                 <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
-                                    <MenuItem Header="Open File" VerticalAlignment="Center" Padding="3" Margin="6,2" Click="mIOpenFile_Click" />
-                                    <MenuItem Header="Open Files in Folders" VerticalAlignment="Center" Padding="3" Margin="6,2" Click="mIOpenFilesInFolder_Click" />
-                                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                                    <MenuItem Header="Add Folder in List" VerticalAlignment="Center" Padding="3" Margin="6,2" Click="mIAddFolderInList_Click" />
-                                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                                     <MenuItem x:Name="mIRemoveFolder" Header="Remove Folder from List" VerticalAlignment="Center" Padding="3" Margin="6,2" Click="mIRemoveFolderFromList_Click" />
                                 </Menu>
                             </ToolBar>

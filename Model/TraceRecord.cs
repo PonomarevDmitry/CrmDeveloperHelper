@@ -60,19 +60,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 int index = 0;
 
-                using (var fileStream = new FileStream(tempFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                using (var reader = new StreamReader(fileStream))
+                var fileStrings = File.ReadAllLines(tempFile);
+
                 {
-                    string line = reader.ReadLine();
+                    string line = fileStrings.FirstOrDefault(l => !string.IsNullOrEmpty(l) && l.StartsWith("#"));
 
-                    if (!string.IsNullOrEmpty(line) && line.StartsWith("#"))
+                    if (!string.IsNullOrEmpty(line))
                     {
-                        traceFile.Name = line.Trim(' ', '#', ' ');
+                        traceFile.Name = line.Trim(' ', '#');
                     }
+                }
 
-                    while (!string.IsNullOrEmpty(line = reader.ReadLine())
-                                && line.Trim().StartsWith("#")
-                    )
+                TraceRecord traceRecord = null;
+                StringBuilder description = null;
+
+                foreach (var line in fileStrings)
+                {
+                    if (!string.IsNullOrEmpty(line) && line.Trim().StartsWith("#"))
                     {
                         var parts = line.Trim(' ', '#', ' ').Split(':');
 
@@ -116,17 +120,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                                 break;
                         }
                     }
-
-                    TraceRecord traceRecord = null;
-                    StringBuilder description = null;
-
-                    int indexLast;
-
-                    while ((line = reader.ReadLine()) != null)
+                    else
                     {
-                        if (line.StartsWith("[")
-                            && (indexLast = line.IndexOf("]")) > 0
-                            )
+                        int indexLast;
+
+                        if (line.StartsWith("[") && (indexLast = line.IndexOf("]")) > 0)
                         {
                             var datePart = line.Substring(1, indexLast - 2);
 

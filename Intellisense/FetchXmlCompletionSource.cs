@@ -27,16 +27,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         private const string SourceNameMonikerAll = "CrmFetchXml.{E438F5CE-FBBD-4754-A2F7-F1AEB6752499}";
 
         private const string SourceNameMonikerAttributes = "CrmFetchXml.{417B4B2F-EC8A-4EBC-A6CD-A45013171817}";
-        
-        private FetchXmlCompletionSourceProvider _sourceProvider;
+
+        private readonly FetchXmlCompletionSourceProvider _sourceProvider;
 
         private ITextBuffer _buffer;
         private IClassifier _classifier;
         private ITextStructureNavigatorSelectorService _navigator;
 
-        private ImageSource _defaultGlyph;
-        private ImageSource _builtInGlyph;
-        private IGlyphService _glyphService;
+        private readonly ImageSource _defaultGlyph;
+        private readonly ImageSource _builtInGlyph;
+        private readonly IGlyphService _glyphService;
 
         public FetchXmlCompletionSource(FetchXmlCompletionSourceProvider sourceProvider, ITextBuffer buffer, IClassifierAggregatorService classifier, ITextStructureNavigatorSelectorService navigator, IGlyphService glyphService)
         {
@@ -560,7 +560,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             return applicableTo;
         }
 
-        private static string[] _clients = { "All", "Web", "Outlook", "OutlookWorkstationClient", "OutlookLaptopClient" };
+        private static readonly string[] _clients = { "All", "Web", "Outlook", "OutlookWorkstationClient", "OutlookLaptopClient" };
 
         private void FillClient(IList<CompletionSet> completionSets, ITrackingSpan applicableTo)
         {
@@ -574,7 +574,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             completionSets.Add(new CrmCompletionSet(SourceNameMoniker, "Client", applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
-        private static string[] _skus = { "All", "OnPremise", "Live", "SPLA" };
+        private static readonly string[] _skus = { "All", "OnPremise", "Live", "SPLA" };
 
         private void FillSku(IList<CompletionSet> completionSets, ITrackingSpan applicableTo)
         {
@@ -588,7 +588,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             completionSets.Add(new CrmCompletionSet(SourceNameMoniker, "Sku", applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
-        private static string[] _privileges = { "All", "Create", "Read", "Write", "Delete", "Append", "AppendTo", "Share", "Assign", "AllowQuickCampaign", "CreateEntity", "ImportCustomization", "UseInternetMarketing", "LearningPath" };
+        private static readonly string[] _privileges = { "All", "Create", "Read", "Write", "Delete", "Append", "AppendTo", "Share", "Assign", "AllowQuickCampaign", "CreateEntity", "ImportCustomization", "UseInternetMarketing", "LearningPath" };
 
         private void FillPrivileges(IList<CompletionSet> completionSets, ITrackingSpan applicableTo)
         {
@@ -612,10 +612,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 string entityDescription = string.Format("{0} - {1}", LanguageLocale.KnownLocales[lcid], lcid);
 
-                List<string> compareValues = new List<string>();
-
-                compareValues.Add(LanguageLocale.KnownLocales[lcid]);
-                compareValues.Add(lcid.ToString());
+                List<string> compareValues = new List<string>
+                {
+                    LanguageLocale.KnownLocales[lcid],
+                    lcid.ToString()
+                };
 
                 var insertionText = lcid.ToString();
 
@@ -889,32 +890,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         {
                             if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
                             {
-                                FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode);
+                                Dictionary<string, string> aliases = GetEntityAliases(doc);
+
+                                FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
                             }
                         }
                         else if (string.Equals(currentNodeName, "order", StringComparison.InvariantCultureIgnoreCase))
                         {
                             if (string.Equals(currentAttributeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
                             {
-                                FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode);
+                                Dictionary<string, string> aliases = GetEntityAliases(doc);
+
+                                FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
                             }
                         }
                         else if (string.Equals(currentNodeName, "condition", StringComparison.InvariantCultureIgnoreCase))
                         {
+                            Dictionary<string, string> aliases = GetEntityAliases(doc);
+
                             if (string.Equals(currentAttributeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
                             {
-                                FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode);
+                                FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
                             }
                             else if (string.Equals(currentAttributeName, "value", StringComparison.InvariantCultureIgnoreCase))
                             {
-                                Dictionary<string, string> aliases = GetEntityAliases(doc);
-
                                 FillEntityAttributeValuesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
                             }
                             else if (string.Equals(currentAttributeName, "entityname", StringComparison.InvariantCultureIgnoreCase))
                             {
-                                Dictionary<string, string> aliases = GetEntityAliases(doc);
-
                                 FillAliases(completionSets, applicableTo, aliases);
                             }
                         }
@@ -971,8 +974,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         }
                         else
                         {
-                            int spacesStart = temp.GetText().TakeWhile(ch => Char.IsWhiteSpace(ch)).Count();
-                            int spacesEnd = temp.GetText().Reverse().TakeWhile(ch => Char.IsWhiteSpace(ch)).Count();
+                            int spacesStart = temp.GetText().TakeWhile(ch => char.IsWhiteSpace(ch)).Count();
+                            int spacesEnd = temp.GetText().Reverse().TakeWhile(ch => char.IsWhiteSpace(ch)).Count();
 
                             extentTemp = new SnapshotSpan(firstDelimiter.Span.End.Add(spacesStart), lastDelimiter.Span.Start.Add(-spacesEnd));
                         }
@@ -1320,9 +1323,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private void FillEntityAttributesInList(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, ConnectionIntellisenseDataRepository repository, XElement currentXmlNode)
+        private void FillEntityAttributesInList(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, ConnectionIntellisenseDataRepository repository, XElement currentXmlNode, Dictionary<string, string> aliases)
         {
-            var entityName = GetParentEntityName(currentXmlNode);
+            var entityName = string.Empty;
+
+            if (string.Equals(currentXmlNode.Name.LocalName, "condition", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var entityNameInCondition = GetAttributeValue(currentXmlNode, "entityname");
+
+                if (!string.IsNullOrEmpty(entityNameInCondition) && aliases.ContainsKey(entityNameInCondition))
+                {
+                    entityName = aliases[entityNameInCondition];
+                }
+            }
+
+            if (string.IsNullOrEmpty(entityName))
+            {
+                entityName = GetParentEntityName(currentXmlNode);
+            }
 
             if (string.IsNullOrEmpty(entityName))
             {
@@ -1461,11 +1479,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             var attributeName = GetAttributeValue(nodeCondition, "attribute");
 
-            var aliasInCondition = GetAttributeValue(nodeCondition, "alias");
+            var entityNameInCondition = GetAttributeValue(nodeCondition, "entityname");
 
-            if (!string.IsNullOrEmpty(aliasInCondition) && aliases.ContainsKey(aliasInCondition))
+            if (!string.IsNullOrEmpty(entityNameInCondition) && aliases.ContainsKey(entityNameInCondition))
             {
-                entityName = aliases[aliasInCondition];
+                entityName = aliases[entityNameInCondition];
             }
             else
             {
@@ -1484,12 +1502,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                         if (attributeData.OptionSet != null && attributeData.OptionSet.IsBoolean)
                         {
-                            List<CrmCompletion> list = new List<CrmCompletion>();
-
-                            list.Add(CreateCompletion("0", "0", null, _defaultGlyph, Enumerable.Empty<string>()));
-                            list.Add(CreateCompletion("1", "1", null, _defaultGlyph, Enumerable.Empty<string>()));
-                            list.Add(CreateCompletion("false", "false", null, _defaultGlyph, Enumerable.Empty<string>()));
-                            list.Add(CreateCompletion("true", "true", null, _defaultGlyph, Enumerable.Empty<string>()));
+                            List<CrmCompletion> list = new List<CrmCompletion>
+                            {
+                                CreateCompletion("0", "0", null, _defaultGlyph, Enumerable.Empty<string>()),
+                                CreateCompletion("1", "1", null, _defaultGlyph, Enumerable.Empty<string>()),
+                                CreateCompletion("false", "false", null, _defaultGlyph, Enumerable.Empty<string>()),
+                                CreateCompletion("true", "true", null, _defaultGlyph, Enumerable.Empty<string>())
+                            };
 
                             if (attributeData.OptionSet != null && attributeData.OptionSet.OptionSetMetadata is BooleanOptionSetMetadata boolOptionSet)
                             {
@@ -1820,7 +1839,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
         private bool _isDisposed = false;
 
-        void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (!_isDisposed)
             {

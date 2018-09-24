@@ -196,7 +196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         foreach (var webresource1 in list1)
                         {
-                            var webresource2 = list2.FirstOrDefault(c => c.Id == webresource1.Id);
+                            var webresource2 = list2.FirstOrDefault(c => string.Equals(c.Name, webresource1.Name, StringComparison.InvariantCultureIgnoreCase));
 
                             if (webresource2 == null)
                             {

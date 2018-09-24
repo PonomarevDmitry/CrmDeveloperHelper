@@ -68,7 +68,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsFetchRequest(this, menuCommand);
+                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(this, menuCommand, "fetch");
                     }
                 }
             }

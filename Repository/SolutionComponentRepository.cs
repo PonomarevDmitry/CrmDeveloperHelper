@@ -1,4 +1,4 @@
-﻿using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -318,7 +318,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
                 catch (Exception ex)
                 {
-                    Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                    Helpers.DTEHelper.WriteExceptionToOutput(ex);
                 }
             }
         }
@@ -348,7 +348,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
                 catch (Exception ex)
                 {
-                    Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                    Helpers.DTEHelper.WriteExceptionToOutput(ex);
                 }
             }
         }
@@ -376,7 +376,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
                 catch (Exception ex)
                 {
-                    Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                    Helpers.DTEHelper.WriteExceptionToOutput(ex);
                 }
             }
         }
@@ -438,10 +438,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
             }
 
             return result;
         }
+
+
     }
 }

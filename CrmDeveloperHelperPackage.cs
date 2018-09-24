@@ -68,6 +68,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlExecuteFetchXmlRequestCommand.Initialize(this);
             CodeXmlExecuteFetchXmlRequestInConnectionsCommand.Initialize(this);
             CodeXmlConvertFetchXmlToJavaScriptCodeCommand.Initialize(this);
+            CodeXmlSetXsdSchemaCommand.Initialize(this);
+            CodeXmlClearXsdSchemaCommand.Initialize(this);
+            CodeXmlShowDifferenceWithDefaultSitemapsCommand.Initialize(this);
 
             CodePublishListAddCommand.Initialize(this);
             CodePublishListRemoveCommand.Initialize(this);
@@ -263,6 +266,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonExportSystemSavedQueryXmlCommand.Initialize(this);
             CommonExportWebResourceCommand.Initialize(this);
             CommonExportWorkflowCommand.Initialize(this);
+
+            CommonExportDefaultSitemapsCommand.Initialize(this);
+            CommonExportXsdSchemasCommand.Initialize(this);
+
             CommonFindEntityObjectsByNameCommand.Initialize(this);
             CommonFindEntityObjectsContainsStringCommand.Initialize(this);
             CommonFindEntityObjectsByIdCommand.Initialize(this);

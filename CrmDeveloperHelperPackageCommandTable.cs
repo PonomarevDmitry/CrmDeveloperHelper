@@ -80,7 +80,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuXml_GroupExecuteFetch_MenuConnection_GroupConnection = 0x1217;
         public const int codeMenuXml_GroupCopyFetch = 0x1218;
         public const int codeMenuXml_GroupSelectFetch = 0x1219;
-        public const int codeMenuXml_GroupSelectDefaultSitemap = 0x121A;
+        public const int codeMenuXml_GroupXsdSchema = 0x121F;
+        public const int codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas = 0x1220;
+        public const int codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group = 0x1221;
+        public const int codeMenuXml_GroupShowDifference = 0x1222;
+        public const int codeMenuXml_GroupShowDifference_MenuSiteMaps = 0x1223;
+        public const int codeMenuXml_GroupShowDifference_MenuSiteMaps_Group = 0x1224;
         public const int codeMenuReport = 0x100B;
         public const int codeMenuReport_GroupUpdate = 0x10FE;
         public const int codeMenuReport_GroupShowDifferenceOriginalBodyText = 0x100C;
@@ -363,6 +368,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu_GroupExport_MenuExport_GroupGlobalOptionSets = 0x10EC;
         public const int commonMenu_GroupExport_MenuExport_GroupOther1 = 0x10ED;
         public const int commonMenu_GroupExport_MenuExport_GroupOther2 = 0x10EE;
+        public const int commonMenu_GroupExport_MenuExportDefaultSiteMaps = 0x121B;
+        public const int commonMenu_GroupExport_MenuExportDefaultSiteMaps_Group = 0x121C;
+        public const int commonMenu_GroupExport_MenuExportXsdSchemas = 0x121D;
+        public const int commonMenu_GroupExport_MenuExportXsdSchemas_Group = 0x121E;
         public const int commonMenu_GroupSolutions = 0x1199;
         public const int commonMenu_GroupSolutions_MenuSolutions = 0x119A;
         public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionExplorer = 0x119B;
@@ -536,6 +545,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeReportShowDifferenceBodyTextOneByOneCommandId = 0x1036;
         public const int CodeReportShowDifferenceBodyTextInConnectionGroupCommandId = 0x1068;
         public const int CodeXmlExecuteFetchXmlRequestInConnectionsCommandId = 0x109A;
+        public const int CommonExportDefaultSitemapsCommandId = 0x10CC;
+        public const int CommonExportXsdSchemasCommandId = 0x10E5;
+        public const int CodeXmlSetXsdSchemaCommandId = 0x10FE;
+        public const int CodeXmlShowDifferenceWithDefaultSitemapsCommandId = 0x1117;
         public const int CodeWebResourceUpdateContentPublishCommandId = 0x2000;
         public const int CodeWebResourceShowDifferenceCommandId = 0x2001;
         public const int CodeWebResourceShowDifferenceCustomCommandId = 0x2002;
@@ -548,6 +561,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeWebResourceLinkClearCommandId = 0x2008;
         public const int CodeXmlExecuteFetchXmlRequestCommandId = 0x2160;
         public const int CodeXmlConvertFetchXmlToJavaScriptCodeCommandId = 0x2161;
+        public const int CodeXmlClearXsdSchemaCommandId = 0x216E;
         public const int CodeReportLinkCreateCommandId = 0x2009;
         public const int CodeReportLinkClearCommandId = 0x200A;
         public const int CodeReportShowDifferenceOriginalBodyTextCommandId = 0x200B;

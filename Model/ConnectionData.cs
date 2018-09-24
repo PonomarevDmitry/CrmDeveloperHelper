@@ -759,6 +759,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private bool _ExportSolutionCreateFolderForVersion;
+        [DataMember]
+        public bool ExportSolutionCreateFolderForVersion
+        {
+            get
+            {
+                return _ExportSolutionCreateFolderForVersion;
+            }
+            set
+            {
+                if (_ExportSolutionCreateFolderForVersion == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(ExportSolutionCreateFolderForVersion));
+                this._ExportSolutionCreateFolderForVersion = value;
+                this.OnPropertyChanged(nameof(ExportSolutionCreateFolderForVersion));
+            }
+        }
+
+        private bool _ExportSolutionCopyFileToClipBoard;
+        [DataMember]
+        public bool ExportSolutionCopyFileToClipBoard
+        {
+            get
+            {
+                return _ExportSolutionCopyFileToClipBoard;
+            }
+            set
+            {
+                if (_ExportSolutionCopyFileToClipBoard == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(ExportSolutionCopyFileToClipBoard));
+                this._ExportSolutionCopyFileToClipBoard = value;
+                this.OnPropertyChanged(nameof(ExportSolutionCopyFileToClipBoard));
+            }
+        }
+
         private string _ExportSolutionOverrideUniqueName;
         [DataMember]
         public string ExportSolutionOverrideUniqueName

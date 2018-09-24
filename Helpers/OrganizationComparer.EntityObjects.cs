@@ -22,23 +22,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await _comparerSource.InitializeConnection(_writeToOutput, content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking System Forms started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking System Forms started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var descriptor1 = new SolutionComponentDescriptor(_writeToOutput, this._comparerSource.Service1, false);
-            var descriptor2 = new SolutionComponentDescriptor(_writeToOutput, this._comparerSource.Service2, false);
+            var descriptor1 = new SolutionComponentDescriptor(_iWriteToOutput, this._comparerSource.Service1, false);
+            var descriptor2 = new SolutionComponentDescriptor(_iWriteToOutput, this._comparerSource.Service2, false);
 
             FormDescriptionHandler handler1 = new FormDescriptionHandler(descriptor1, new DependencyRepository(_comparerSource.Service1));
             FormDescriptionHandler handler2 = new FormDescriptionHandler(descriptor2, new DependencyRepository(_comparerSource.Service2));
 
-            var list1 = await _comparerSource.GetSystemForm1Async();
+            var task1 = _comparerSource.GetSystemForm1Async();
+            var task2 = _comparerSource.GetSystemForm2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("System Forms in {0}: {1}", _comparerSource.Connection1.Name, list1.Count));
+            var list1 = await task1;
 
-            var list2 = await _comparerSource.GetSystemForm2Async();
+            content.AppendLine(_iWriteToOutput.WriteToOutput("System Forms in {0}: {1}", _comparerSource.Connection1.Name, list1.Count));
 
-            content.AppendLine(_writeToOutput.WriteToOutput("System Forms in {0}: {1}", _comparerSource.Connection2.Name, list2.Count));
+            var list2 = await task2;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput("System Forms in {0}: {1}", _comparerSource.Connection2.Name, list2.Count));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Entity", "Type", "Name", "IsManaged", "Id");
@@ -68,6 +71,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 string typeName1 = form1.FormattedValues[SystemForm.Schema.Attributes.type];
 
                 tableOnlyExistsIn1.AddLine(entityName1, typeName1, name1, form1.IsManaged.ToString(), form1.Id.ToString());
+
+                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.SystemForm,
+                    ObjectId = form1.Id,
+                });
             }
 
             foreach (var form2 in list2)
@@ -87,10 +96,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 string typeName2 = form2.FormattedValues[SystemForm.Schema.Attributes.type];
 
                 tableOnlyExistsIn2.AddLine(entityName2, typeName2, name2, form2.IsManaged.ToString(), form2.Id.ToString());
+
+                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.SystemForm,
+                    ObjectId = form2.Id,
+                });
             }
 
             {
-                var reporter = new ProgressReporter(_writeToOutput, commonList.Count, 5, "Processing Common Forms");
+                var reporter = new ProgressReporter(_iWriteToOutput, commonList.Count, 5, "Processing Common Forms");
 
                 foreach (var form in commonList)
                 {
@@ -212,6 +227,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     if (tabDiff.Count > 0)
                     {
                         dictDifference.Add(Tuple.Create(entityName1, typeName1, name1, form.Entity1.Id.ToString()), tabDiff.GetFormatedLines(false));
+
+                        this.Image.DifferentComponents.Add(new SolutionImageComponent()
+                        {
+                            ComponentType = (int)ComponentType.SystemForm,
+                            ObjectId = form.Entity1.Id,
+                        });
                     }
                 }
             }
@@ -290,7 +311,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in System Forms.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput(
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput(
                 "Checking System Forms ended at {0}"
                 , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
                 ));
@@ -304,6 +325,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
+            SaveOrganizationDifferenceImage();
+
             return filePath;
         }
 
@@ -316,19 +339,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await _comparerSource.InitializeConnection(_writeToOutput, content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking System Saved Queries started at {0}"
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking System Saved Queries started at {0}"
                 , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
                 ));
 
-            var list1 = await _comparerSource.GetSavedQuery1Async();
+            var task1 = _comparerSource.GetSavedQuery1Async();
+            var task2 = _comparerSource.GetSavedQuery2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("System Saved Queries in {0}: {1}", _comparerSource.Connection1.Name, list1.Count));
+            var list1 = await task1;
 
-            var list2 = await _comparerSource.GetSavedQuery2Async();
+            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Queries in {0}: {1}", _comparerSource.Connection1.Name, list1.Count));
 
-            content.AppendLine(_writeToOutput.WriteToOutput("System Saved Queries in {0}: {1}", _comparerSource.Connection2.Name, list2.Count));
+            var list2 = await task2;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Queries in {0}: {1}", _comparerSource.Connection2.Name, list2.Count));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Entity", "Name", "QueryType", "IsUserDefined", "IsManaged", "Id");
@@ -365,6 +391,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , query1.IsUserDefined.ToString()
                     , query1.IsManaged.ToString()
                     , query1.Id.ToString());
+
+                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.SavedQuery,
+                    ObjectId = query1.Id,
+                });
             }
 
             foreach (var query2 in list2)
@@ -392,10 +424,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , query2.IsManaged.ToString()
                     , query2.Id.ToString()
                     );
+
+                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.SavedQuery,
+                    ObjectId = query2.Id,
+                });
             }
 
             {
-                var reporter = new ProgressReporter(_writeToOutput, commonList.Count, 5, "Processing Common Saved Queries");
+                var reporter = new ProgressReporter(_iWriteToOutput, commonList.Count, 5, "Processing Common Saved Queries");
 
                 foreach (var query in commonList)
                 {
@@ -510,6 +548,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         var querytypeName1 = SavedQueryRepository.GetQueryTypeName(querytype1);
 
                         dictDifference.Add(Tuple.Create(entityName1, name1, querytypeName1, query.Entity1.Id.ToString()), tabDiff.GetFormatedLines(false));
+
+                        this.Image.DifferentComponents.Add(new SolutionImageComponent()
+                        {
+                            ComponentType = (int)ComponentType.SavedQuery,
+                            ObjectId = query.Entity1.Id,
+                        });
                     }
                 }
             }
@@ -588,7 +632,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in System Saved Queries.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking System Saved Queries ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking System Saved Queries ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} System Saved Queries.txt"
                 , this._OrgOrgName
@@ -597,6 +641,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -610,17 +656,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await _comparerSource.InitializeConnection(_writeToOutput, content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Checking System Saved Query Visualizations (Charts) started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking System Saved Query Visualizations (Charts) started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var list1 = await _comparerSource.GetSavedQueryVisualization1Async();
+            var task1 = _comparerSource.GetSavedQueryVisualization1Async();
+            var task2 = _comparerSource.GetSavedQueryVisualization2Async();
 
-            content.AppendLine(_writeToOutput.WriteToOutput("System Saved Query Visualizations (Charts) in {0}: {1}", _comparerSource.Connection1.Name, list1.Count));
+            var list1 = await task1;
 
-            var list2 = await _comparerSource.GetSavedQueryVisualization2Async();
+            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Query Visualizations (Charts) in {0}: {1}", _comparerSource.Connection1.Name, list1.Count));
 
-            content.AppendLine(_writeToOutput.WriteToOutput("System Saved Query Visualizations (Charts) in {0}: {1}", _comparerSource.Connection2.Name, list2.Count));
+            var list2 = await task2;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Query Visualizations (Charts) in {0}: {1}", _comparerSource.Connection2.Name, list2.Count));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Entity", "Name", "IsManaged", "Id");
@@ -648,6 +697,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 var name1 = chart1.Name;
 
                 tableOnlyExistsIn1.AddLine(entityName1, name1, chart1.IsManaged.ToString(), chart1.Id.ToString());
+
+                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.SavedQueryVisualization,
+                    ObjectId = chart1.Id,
+                });
             }
 
             foreach (var chart2 in list2)
@@ -665,10 +720,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 tableOnlyExistsIn2.AddLine(entityName2, name2, chart2.IsManaged.ToString(), chart2.Id.ToString());
+
+                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.SavedQueryVisualization,
+                    ObjectId = chart2.Id,
+                });
             }
 
             {
-                var reporter = new ProgressReporter(_writeToOutput, commonList.Count, 5, "Processing Common Saved Query Visualizations (Charts)");
+                var reporter = new ProgressReporter(_iWriteToOutput, commonList.Count, 5, "Processing Common Saved Query Visualizations (Charts)");
 
                 foreach (var chart in commonList)
                 {
@@ -761,6 +822,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     if (tabDiff.Count > 0)
                     {
                         dictDifference.Add(Tuple.Create(entityName1, name1, chart1.Id.ToString()), tabDiff.GetFormatedLines(false));
+
+                        this.Image.DifferentComponents.Add(new SolutionImageComponent()
+                        {
+                            ComponentType = (int)ComponentType.SavedQueryVisualization,
+                            ObjectId = chart1.Id,
+                        });
                     }
                 }
             }
@@ -838,7 +905,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in System Saved Query Visualizations (Charts).");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Checking System Saved Query Visualizations (Charts) ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking System Saved Query Visualizations (Charts) ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
             string fileName = string.Format("OrgCompare {0} at {1} Saved Query Visualizations (Charts).txt"
                 , this._OrgOrgName
@@ -847,6 +914,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            SaveOrganizationDifferenceImage();
 
             return filePath;
         }

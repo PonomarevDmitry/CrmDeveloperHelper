@@ -746,6 +746,74 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void tSMICheckWorkflowsUsedEntities_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connection1 = null;
+            ConnectionData connection2 = null;
+
+            GetSelectedConnections(out connection1, out connection2);
+
+            if (connection1 != null && connection2 == null)
+            {
+                var dialog = new WindowSelectFolderForExport(_commonConfig.FolderForExport, _commonConfig.AfterCreateFileAction);
+
+                if (dialog.ShowDialog().GetValueOrDefault())
+                {
+                    var backWorker = new Thread(() =>
+                    {
+                        try
+                        {
+                            var contr = new CheckController(this._iWriteToOutput);
+
+                            _commonConfig.Save();
+
+                            contr.ExecuteCheckingWorkflowsUsedEntities(connection1, _commonConfig);
+                        }
+                        catch (Exception ex)
+                        {
+                            this._iWriteToOutput.WriteErrorToOutput(ex);
+                        }
+                    });
+
+                    backWorker.Start();
+                }
+            }
+        }
+
+        private void tSMICheckWorkflowsUsedNotExistsEntities_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connection1 = null;
+            ConnectionData connection2 = null;
+
+            GetSelectedConnections(out connection1, out connection2);
+
+            if (connection1 != null && connection2 == null)
+            {
+                var dialog = new WindowSelectFolderForExport(_commonConfig.FolderForExport, _commonConfig.AfterCreateFileAction);
+
+                if (dialog.ShowDialog().GetValueOrDefault())
+                {
+                    var backWorker = new Thread(() =>
+                    {
+                        try
+                        {
+                            var contr = new CheckController(this._iWriteToOutput);
+
+                            _commonConfig.Save();
+
+                            contr.ExecuteCheckingWorkflowsNotExistingUsedEntities(connection1, _commonConfig);
+                        }
+                        catch (Exception ex)
+                        {
+                            this._iWriteToOutput.WriteErrorToOutput(ex);
+                        }
+                    });
+
+                    backWorker.Start();
+                }
+            }
+        }
+
         private void tSMIFindEntityObjectsByName_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connection1 = null;
@@ -825,7 +893,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _commonConfig.Save();
 
-                var dialog = new WindowSelectEntityIdToFind(_commonConfig, string.Format("Find Entity in {0} by Id", connection1.Name), "Entity Id");
+                var dialog = new WindowSelectEntityIdToFind(_commonConfig, string.Format("Find Entity in {0} by Id", connection1.Name));
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
@@ -863,7 +931,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _commonConfig.Save();
 
-                var dialog = new WindowSelectEntityIdToFind(_commonConfig, string.Format("Find Entity in {0} by Uniqueidentifier", connection1.Name), "Uniqueidentifier");
+                var dialog = new WindowSelectEntityIdToFind(_commonConfig, string.Format("Find Entity in {0} by Uniqueidentifier", connection1.Name));
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {

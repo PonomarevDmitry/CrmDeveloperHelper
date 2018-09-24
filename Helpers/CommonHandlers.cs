@@ -36,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        internal static bool CheckActiveDocumentIsFetchRequest(EnvDTE80.DTE2 applicationObject)
+        internal static bool CheckActiveDocumentIsXmlWithRoot(EnvDTE80.DTE2 applicationObject, string rootName)
         {
             bool result = false;
 
@@ -62,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             {
                                 if (ContentCoparerHelper.TryParseXml(text, out var doc))
                                 {
-                                    result = doc.Name == "fetch";
+                                    result = string.Equals(doc.Name.LocalName, rootName, StringComparison.InvariantCultureIgnoreCase);
                                 }
                             }
                         }
@@ -359,13 +359,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        internal static void ActionBeforeQueryStatusActiveDocumentIsFetchRequest(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        internal static void ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(IServiceProviderOwner command, OleMenuCommand menuCommand, string rootName)
         {
             bool visible = false;
 
             if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
             {
-                visible = CheckActiveDocumentIsFetchRequest(applicationObject);
+                visible = CheckActiveDocumentIsXmlWithRoot(applicationObject, rootName);
             }
 
             if (visible == false)

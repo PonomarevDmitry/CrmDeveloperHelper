@@ -225,6 +225,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             Translation.Save(pathConfig, translation);
         }
 
+        public static string GetSchemaXsdFolder()
+        {
+            string directory = Path.Combine(GetConfigurationFolder(), _folderXsdSchemasSubdirectoryName);
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            return directory;
+        }
+
         public static string GetConnectionIntellisenseDataFullFilePath(string fileName)
         {
             string directory = Path.Combine(GetConfigurationFolder(), _folderIntellisenseCacheCacheSubdirectoryName);
@@ -307,6 +319,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 #endif
 
         private const string _folderTranslationCacheSubdirectoryName = "TranslationCache";
+
+        private const string _folderXsdSchemasSubdirectoryName = "XsdSchemas";
 
         private const string _folderIntellisenseCacheCacheSubdirectoryName = "IntellisenseCache";
 

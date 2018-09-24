@@ -123,6 +123,9 @@
                                 <MenuItem Header="CRM Objects names for prefix and show dependent components" Click="tSMICheckObjectsNamesForPrefixAndShowDependentComponents_Click"/>
                                 <MenuItem Header="CRM Objects marked to delete and show dependent components" Click="tSMICheckObjectsMarkedToDeleteAndShowDependentComponents_Click"/>
                                 <Separator Margin="10,0"/>
+                                <MenuItem Header="Workflows used Entities" Click="tSMICheckWorkflowsUsedEntities_Click"/>
+                                <MenuItem Header="Workflows used Not Exists Entities" Click="tSMICheckWorkflowsUsedNotExistsEntities_Click"/>
+                                <Separator Margin="10,0"/>
                                 <MenuItem Header="Find Entity Objects by name" Click="tSMIFindEntityObjectsByName_Click"/>
                                 <MenuItem Header="Find Entity Objects contains string" Click="tSMIFindEntityObjectsContainsString_Click"/>
                                 <MenuItem Header="Find Entity Objects by Id" Click="tSMIFindEntityObjectsById_Click"/>
@@ -157,11 +160,12 @@
                                 </MenuItem>
                                 <Separator Margin="10,0"/>
                                 <MenuItem Header="Entity Metadata"  Click="tSMIExportEntityMetadata_Click"/>
-                                <MenuItem Header="Entity Attribute Explorer"  Click="tSMIEntityAttributeExplorer_Click"/>
+                                
                                 <MenuItem Header="Entity Information" >
-                                    <MenuItem Header="Attributes Dependent Components"  Click="tSMIExportAttributesDependentComponents_Click"/>
-                                    <Separator Margin="10,0"/>
+                                    <MenuItem Header="Entity Attribute Explorer"  Click="tSMIEntityAttributeExplorer_Click"/>
                                     <MenuItem Header="Ribbon"  Click="tSMIExportRibbon_Click"/>
+                                    <Separator Margin="10,0"/>
+                                    <MenuItem Header="Attributes Dependent Components"  Click="tSMIExportAttributesDependentComponents_Click"/>
                                     <Separator Margin="10,0"/>
                                     <MenuItem Header="System Form"  Click="tSMIExportSystemForms_Click"/>
                                     <MenuItem Header="System View"  Click="tSMIExportSystemViews_Click"/>

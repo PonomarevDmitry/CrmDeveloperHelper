@@ -159,11 +159,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Loading trace files...");
+            ToggleControls(false, "Loading trace files...");
 
             this._itemsSource.Clear();
+
+            this.tabControl.Dispatcher.Invoke(() =>
+            {
+                tabControl.SelectedItem = tbITraces;
+            });
 
             var taskFiles = TraceRecord.ParseFilesAsync(files);
 
@@ -183,7 +186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _loadedRecords = await taskFiles;
 
-            ToggleControls(true);
+            ToggleControls(true, "{0} trace records loaded.", _loadedRecords.Count());
 
             await FilterExistingTraceRecords();
         }
@@ -195,9 +198,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false);
-
-            UpdateStatus("Filtering trace records...");
+            ToggleControls(false, "Filtering trace records...");
 
             this._itemsSource.Clear();
 
@@ -256,9 +257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadTraceRecords(list, dictUsers);
 
-            UpdateStatus("{0} trace records loaded.", list.Count());
-
-            ToggleControls(true);
+            ToggleControls(true, "{0} trace records filtered.", list.Count());
         }
 
         private Task<IEnumerable<TraceRecord>> FilterTraceRecordsAsync(IEnumerable<TraceRecord> list, string textName, DateTime? date)
@@ -338,11 +337,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     tabControl.SelectedItem = tbITraces;
                 }
-
-                if (this.lstVwTraceRecords.Items.Count == 1)
-                {
-                    this.lstVwTraceRecords.SelectedItem = this.lstVwTraceRecords.Items[0];
-                }
             });
         }
 
@@ -361,11 +355,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled)
+        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
 
+            UpdateStatus(statusFormat, args);
+
             ToggleControl(cmBCurrentConnection, enabled);
+
+            ToggleControl(miOpenFolder, enabled);
+            ToggleControl(miOpenFilesInFolders, enabled);
 
             ToggleProgressBar(enabled);
 
@@ -505,7 +504,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             OpenFilesInFolders();
         }
 
-        private async void OpenFilesInFolders()
+        private async Task OpenFilesInFolders()
         {
             var folders = lstVwFolders.Items.OfType<string>().ToList();
 
@@ -571,7 +570,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        private void mIAddFolderInList_Click(object sender, RoutedEventArgs e)
+        private void btnAddFolderInList_Click(object sender, RoutedEventArgs e)
         {
             AddNewFolderInList();
         }
@@ -625,6 +624,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (e.Key == Key.Enter)
             {
                 AddNewFolderInList();
+            }
+        }
+
+        private TraceRecord GetSelectedTraceRecord()
+        {
+            TraceRecord result = null;
+
+            if (this.lstVwTraceRecords.SelectedCells.Count == 1
+                && this.lstVwTraceRecords.SelectedCells[0] != null
+                && this.lstVwTraceRecords.SelectedCells[0].Item is TraceRecord
+                )
+            {
+                result = this.lstVwTraceRecords.SelectedCells[0].Item as TraceRecord;
+            }
+
+            return result;
+        }
+
+        private void mIOpenTraceFile_Click(object sender, RoutedEventArgs e)
+        {
+            var record = GetSelectedTraceRecord();
+
+            if (record == null || record.TraceFile == null)
+            {
+                return;
+            }
+
+            if (File.Exists(record.TraceFile.FilePath))
+            {
+                this._iWriteToOutput.PerformAction(record.TraceFile.FilePath, _commonConfig);
             }
         }
     }

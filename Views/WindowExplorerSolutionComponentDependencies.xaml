@@ -31,27 +31,25 @@
         <TextBox x:Name="txtBComponentDescription" Height="50" Margin="10,10,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" VerticalContentAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" />
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Center"/>
         <TextBox x:Name="txtBFilter" Height="23" Margin="52,65,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-        <Grid Margin="10,88,10,0" VerticalAlignment="Top" Height="69">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+        <Grid Margin="10,88,10,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="45*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="30*"/>
             </Grid.ColumnDefinitions>
 
             <Label Content="Component Type" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" Margin="0,5,5,5" VerticalAlignment="Center" Padding="2" Height="23" VerticalContentAlignment="Center"/>
             <ComboBox x:Name="cmBComponentType" Grid.Column="1" Grid.Row="0" Height="23" Margin="0,5" VerticalAlignment="Center" IsEditable="False" HorizontalAlignment="Stretch" SelectionChanged="cmBComponentType_SelectionChanged" />
 
-            <Label Content="Dependencies Type" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" Margin="0,5,5,5" VerticalAlignment="Center" Padding="2" Height="23" VerticalContentAlignment="Center"/>
-            <ComboBox x:Name="cmBDependencyType" SelectedIndex="0" Grid.Column="1" Grid.Row="1" Height="23" Margin="0,5" VerticalAlignment="Center" IsEditable="False" HorizontalAlignment="Stretch" SelectionChanged="cmBDependencyType_SelectionChanged">
+            <Label Content="Dependencies Type" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" Margin="0,5,5,5" VerticalAlignment="Center" Padding="2" Height="23" VerticalContentAlignment="Center"/>
+            <ComboBox x:Name="cmBDependencyType" SelectedIndex="0" Grid.Column="3" Grid.Row="1" Height="23" Margin="0,5" VerticalAlignment="Center" IsEditable="False" HorizontalAlignment="Stretch" SelectionChanged="cmBDependencyType_SelectionChanged">
                 <ComboBoxItem Content="Dependent Components" HorizontalAlignment="Stretch" />
                 <ComboBoxItem Content="Required Components" HorizontalAlignment="Stretch"  />
                 <ComboBoxItem Content="Dependencies For Delete" HorizontalAlignment="Stretch" />
             </ComboBox>
         </Grid>
-        <DataGrid x:Name="lstVSolutionComponents" AutoGenerateColumns="False" Margin="10,157,10,93" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <DataGrid x:Name="lstVSolutionComponents" AutoGenerateColumns="False" Margin="10,121,10,93" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
