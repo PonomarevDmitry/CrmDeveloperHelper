@@ -2092,6 +2092,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        public Guid? GetEntityMetadataId(string entityName)
+        {
+            if (this.IntellisenseData.Entities != null
+                && this.IntellisenseData.Entities.ContainsKey(entityName)
+                && this.IntellisenseData.Entities[entityName].MetadataId.HasValue
+                )
+            {
+                return this.IntellisenseData.Entities[entityName].MetadataId.Value;
+            }
+
+            return null;
+        }
+
         public string GetEntityMetadataUrl(Guid entityId)
         {
             if (!TryGetPublicUrl(out string publicUrl))

@@ -451,7 +451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string name = SdkMessageProcessingStepRepository.GetStageName(stage, mode);
 
-            var nodeStage = new PluginTreeViewItem()
+            var nodeStage = new PluginTreeViewItem(null)
             {
                 Name = name,
                 Image = _imageStage,
@@ -462,7 +462,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private PluginTreeViewItem CreateNodeMessage(string message, IEnumerable<SdkMessage> steps)
         {
-            var nodeMessage = new PluginTreeViewItem()
+            var nodeMessage = new PluginTreeViewItem(ComponentType.SDKMessage)
             {
                 Name = message,
                 Image = _imageMessage,
@@ -477,7 +477,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private PluginTreeViewItem CreateNodeEntity(string entityName, IEnumerable<SdkMessage> steps)
         {
-            var nodeMessage = new PluginTreeViewItem()
+            var nodeMessage = new PluginTreeViewItem(ComponentType.Entity)
             {
                 Name = entityName,
                 Image = _imageEntity,

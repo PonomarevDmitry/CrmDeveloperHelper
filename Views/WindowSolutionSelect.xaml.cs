@@ -105,9 +105,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     this._lastSolution = await repository.GetSolutionByUniqueNameAsync(lastSolutionUniqueName);
 
-                    if (this._lastSolution.IsManaged.GetValueOrDefault() || !this._lastSolution.IsVisible.GetValueOrDefault())
+                    if (this._lastSolution != null)
                     {
-                        this._lastSolution = null;
+                        if (this._lastSolution.IsManaged.GetValueOrDefault() || !this._lastSolution.IsVisible.GetValueOrDefault())
+                        {
+                            this._lastSolution = null;
+                        }
                     }
 
                     var name = this._lastSolution?.UniqueName;
