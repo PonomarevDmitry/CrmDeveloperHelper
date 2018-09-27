@@ -304,7 +304,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 LoadData(connectionData, entityCollection, fetchXml);
 
-                ToggleControls(true, "Fetch Query executed successfully. Records count: {0}.", entityCollection.TotalRecordCount);
+                ToggleControls(true, "Fetch Query executed successfully. Records count: {0}.", entityCollection.Entities.Count);
             }
             catch (Exception ex)
             {
@@ -1289,7 +1289,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             var fileText = txtBFetchXml.Text.Trim();
 
-            var jsCode = ContentCoparerHelper.FormatToJavaScript("fetchXml", fileText);
+            ContentCoparerHelper.ClearXsdSchema(fileText, out var newText);
+
+            string jsCode = ContentCoparerHelper.FormatToJavaScript("fetchXml", newText);
 
             Clipboard.SetText(jsCode);
         }

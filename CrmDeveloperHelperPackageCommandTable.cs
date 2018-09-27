@@ -82,6 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuXml_GroupSelectFetch = 0x1219;
         public const int codeMenuXml_GroupXsdSchema = 0x121F;
         public const int codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas = 0x1220;
+        public const int codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder = 0x1225;
         public const int codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group = 0x1221;
         public const int codeMenuXml_GroupShowDifference = 0x1222;
         public const int codeMenuXml_GroupShowDifference_MenuSiteMaps = 0x1223;
@@ -562,6 +563,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlExecuteFetchXmlRequestCommandId = 0x2160;
         public const int CodeXmlConvertFetchXmlToJavaScriptCodeCommandId = 0x2161;
         public const int CodeXmlClearXsdSchemaCommandId = 0x216E;
+        public const int CodeXmlOpenXsdSchemaFolderCommandId = 0x216F;
         public const int CodeReportLinkCreateCommandId = 0x2009;
         public const int CodeReportLinkClearCommandId = 0x200A;
         public const int CodeReportShowDifferenceOriginalBodyTextCommandId = 0x200B;

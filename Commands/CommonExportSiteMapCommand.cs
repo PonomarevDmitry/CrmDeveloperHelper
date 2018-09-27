@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     internal sealed class CommonExportSiteMapCommand : AbstractCommand
     {
         private CommonExportSiteMapCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonExportSiteMapCommandId, ActionExecute, null) { }
+           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonExportSiteMapCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusActiveDocumentXml) { }
 
         public static CommonExportSiteMapCommand Instance { get; private set; }
 
@@ -17,7 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static void ActionExecute(DTEHelper helper)
         {
-            helper.HandleExportSitemap();
+            helper.HandleOpenXsdSchemaFolder();
         }
     }
 }

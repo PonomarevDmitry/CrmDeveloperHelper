@@ -31,9 +31,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     string text = editPoint.GetText(textDocument.EndPoint);
 
-                    text = ContentCoparerHelper.ClearXsdSchema(text);
-
-                    editPoint.ReplaceText(textDocument.EndPoint, text, 0);
+                    if (ContentCoparerHelper.ClearXsdSchema(text, out var newText))
+                    {
+                        editPoint.ReplaceText(textDocument.EndPoint, newText, 0);
+                    }
                 }
             }
         }

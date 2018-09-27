@@ -845,13 +845,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private const string patternSchemaLocation = " xsi:schemaLocation=\"([^\"]+)\"";
         private const string patternSchemaLocationFormat = " xsi:schemaLocation=\"{0}\"";
 
-        public static string ClearXsdSchema(string text)
+        public static bool ClearXsdSchema(string text, out string changeText)
         {
-            var result = text;
+            bool result = false;
+            changeText = text;
 
-            result = Regex.Replace(result, patternXsi, string.Empty, RegexOptions.IgnoreCase);
+            if (Regex.IsMatch(changeText, patternXsi))
+            {
+                result = true;
+                changeText = Regex.Replace(changeText, patternXsi, string.Empty, RegexOptions.IgnoreCase);
+            }
 
-            result = Regex.Replace(result, patternSchemaLocation, string.Empty, RegexOptions.IgnoreCase);
+            if (Regex.IsMatch(changeText, patternSchemaLocation))
+            {
+                result = true;
+                changeText = Regex.Replace(changeText, patternSchemaLocation, string.Empty, RegexOptions.IgnoreCase);
+            }
 
             return result;
         }
@@ -866,15 +875,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                try
+                int? indexInsert = FindIndexToInsert(result);
+
+                if (indexInsert.HasValue)
                 {
-                    XDocument doc = XDocument.Parse(text, LoadOptions.SetLineInfo);
-
-
-
-                }
-                catch (Exception)
-                {
+                    result = result.Insert(indexInsert.Value, patternXsiNamespace);
                 }
             }
 
@@ -884,17 +889,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                try
-                {
-                    XDocument doc = XDocument.Parse(text, LoadOptions.SetLineInfo);
+                int? indexInsert = FindIndexToInsert(result);
 
-                }
-                catch (Exception)
+                if (indexInsert.HasValue)
                 {
+                    result = result.Insert(indexInsert.Value, string.Format(patternSchemaLocationFormat, schemas));
                 }
             }
 
             return result;
+        }
+
+        private static int? FindIndexToInsert(string result)
+        {
+            int? indexInsert = null;
+
+            var regex = new Regex(@"<[^<>\s]+");
+
+            var matches = regex.Matches(result);
+
+            var firstMatch = matches.OfType<Match>().FirstOrDefault(x => !string.IsNullOrEmpty(x.Value)
+                && !string.Equals(x.Value, "<?xml", StringComparison.InvariantCultureIgnoreCase)
+                && !x.Value.StartsWith("<!--", StringComparison.InvariantCultureIgnoreCase)
+                && !x.Value.StartsWith("<![CDATA[", StringComparison.InvariantCultureIgnoreCase)
+            );
+
+            if (firstMatch != null)
+            {
+                var index = firstMatch.Index + firstMatch.Length;
+
+                var indexEnd = result.IndexOf('>', index);
+
+                if (result[indexEnd] == '/')
+                {
+                    indexEnd--;
+                }
+
+                indexInsert = indexEnd;
+            }
+
+            return indexInsert;
         }
     }
 }

@@ -53,19 +53,20 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLastLink" priority="0x0606"/>
 
 
-      
+
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch_MenuConnection_GroupConnection" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupCopyFetch" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSelectFetch" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" priority="0x0601" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifference" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifference_MenuSiteMaps_Group" priority="0x0601" />
-      
-      
 
-      
+
+
+
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupUpdate" priority="0x0601" />
 
@@ -457,10 +458,10 @@
           <MenuText>Show Difference with Default SiteMap</MenuText>
         </Strings>
       </Menu>
-      
-      
 
-      
+
+
+
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport" priority="0x0202" type="Menu">
         <Strings>
@@ -1445,6 +1446,11 @@
           <ButtonText>Copy JavaScript FetchXml to Clipboard</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="CodeXmlOpenXsdSchemaFolderCommandId" priority="0x0100" type="Button">
+        <Strings>
+          <ButtonText>Open Xsd Schema Default Folder</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidDynamicCommandSet" id="CodeXmlSetXsdSchemaCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -1456,7 +1462,7 @@
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlClearXsdSchemaCommandId" priority="0x0100" type="Button">
         <Strings>
-          <ButtonText>Clear Xsd Schema Placeholder</ButtonText>
+          <ButtonText>Clear Xsd Schema</ButtonText>
         </Strings>
       </Button>
 
@@ -1469,7 +1475,7 @@
           <ButtonText>Show Difference with Default SiteMap Placeholder</ButtonText>
         </Strings>
       </Button>
-      
+
 
 
 
@@ -4076,7 +4082,7 @@
           <ButtonText>Export Xsd Schemas Placeholder</ButtonText>
         </Strings>
       </Button>
-      
+
 
 
 
@@ -4538,9 +4544,9 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLastLink" priority="0x0607">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    
-    
-    
+
+
+
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch" priority="0x0601">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
@@ -4559,7 +4565,7 @@
     </CommandPlacement>
 
 
-    
+
 
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupUpdate" priority="0x0600">
@@ -6037,8 +6043,8 @@
     <CommandPlacement guid="guidCommandSet" id="CommonPluginConfigurationComparerPluginAssemblyCommandId" priority="0x011B">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPluginConfiguration_MenuPluginConfiguration_GroupComparer" />
     </CommandPlacement>
-    
-    
+
+
 
     <CommandPlacement guid="guidCommandSet" id="CommonEntityAttributeExplorerCommandId" priority="0x0102">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupRibbon" />
@@ -6276,7 +6282,7 @@
     </CommandPlacement>
 
 
-    
+
     <CommandPlacement guid="guidCommandSet" id="CodeXmlExecuteFetchXmlRequestCommandId" priority="0x100">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch" />
     </CommandPlacement>
@@ -6289,24 +6295,33 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlExecuteFetchXmlRequestInConnectionsCommandId" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch_MenuConnection_GroupConnection" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidCommandSet" id="CodeXmlConvertFetchXmlToJavaScriptCodeCommandId" priority="0x105">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupCopyFetch" />
     </CommandPlacement>
 
+    
+    
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x106">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" priority="0x105">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" priority="0x106">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas" />
     </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlOpenXsdSchemaFolderCommandId" priority="0x105">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" />
+    </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlSetXsdSchemaCommandId" priority="0x106">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" />
     </CommandPlacement>
+
     <CommandPlacement guid="guidCommandSet" id="CodeXmlClearXsdSchemaCommandId" priority="0x107">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifference_MenuSiteMaps" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifference" />
     </CommandPlacement>
@@ -6316,12 +6331,12 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlShowDifferenceWithDefaultSitemapsCommandId" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifference_MenuSiteMaps_Group" />
     </CommandPlacement>
-    
-    
-      
-    
-    
-    
+
+
+
+
+
+
 
 
     <CommandPlacement guid="guidCommandSet" id="CodeReportUpdateCommandId" priority="0x0100">
@@ -7669,6 +7684,7 @@
       <IDSymbol name="codeMenuXml_GroupXsdSchema" value="0x121F" />
 
       <IDSymbol name="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas" value="0x1220" />
+      <IDSymbol name="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" value="0x1225" />
       <IDSymbol name="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" value="0x1221" />
 
       <IDSymbol name="codeMenuXml_GroupShowDifference" value="0x1222" />
@@ -8291,7 +8307,7 @@
 
 
 
-      <!--0x1225-->
+      <!--0x1226-->
 
 
     </GuidSymbol>
@@ -8451,9 +8467,9 @@
       <IDSymbol name="CommonExportXsdSchemasCommandId" value="4325" />
 
       <IDSymbol name="CodeXmlSetXsdSchemaCommandId" value="4350" />
-      
+
       <IDSymbol name="CodeXmlShowDifferenceWithDefaultSitemapsCommandId" value="4375" />
-      
+
     </GuidSymbol>
 
 
@@ -8501,6 +8517,7 @@
       <IDSymbol name="CodeXmlExecuteFetchXmlRequestCommandId" value="0x2160" />
       <IDSymbol name="CodeXmlConvertFetchXmlToJavaScriptCodeCommandId" value="0x2161" />
       <IDSymbol name="CodeXmlClearXsdSchemaCommandId" value="0x216E" />
+      <IDSymbol name="CodeXmlOpenXsdSchemaFolderCommandId" value="0x216F" />
 
 
 
@@ -8994,7 +9011,7 @@
 
 
 
-      <!--0x216F-->
+      <!--0x2170-->
 
     </GuidSymbol>
 

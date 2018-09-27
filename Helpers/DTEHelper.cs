@@ -3719,6 +3719,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result.ToString();
         }
 
+        public void HandleOpenXsdSchemaFolder()
+        {
+            var folder = FileOperations.GetSchemaXsdFolder();
+
+            this.OpenFolder(folder);
+        }
+
         public OutputWindowPane GetOutputWindow()
         {
             try
@@ -3801,6 +3808,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     FileName = "explorer.exe",
                     Arguments = @"/select, """ + filePath + "\"",
+
+                    UseShellExecute = true,
+                    WindowStyle = ProcessWindowStyle.Normal
+                };
+
+                try
+                {
+                    System.Diagnostics.Process process = System.Diagnostics.Process.Start(info);
+
+                    if (process != null)
+                    {
+                        if (!process.HasExited)
+                        {
+                            process.WaitForInputIdle();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this.WriteErrorToOutput(ex);
+
+#if DEBUG
+                    if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
+#endif
+                }
+            }
+        }
+
+        public void OpenFolder(string folderPath)
+        {
+            if (Directory.Exists(folderPath))
+            {
+                this.WriteToOutput("Opening folder {0}", folderPath);
+
+                ProcessStartInfo info = new ProcessStartInfo
+                {
+                    FileName = "explorer.exe",
+                    Arguments = folderPath,
 
                     UseShellExecute = true,
                     WindowStyle = ProcessWindowStyle.Normal

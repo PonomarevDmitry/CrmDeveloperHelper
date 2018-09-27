@@ -68,6 +68,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlExecuteFetchXmlRequestCommand.Initialize(this);
             CodeXmlExecuteFetchXmlRequestInConnectionsCommand.Initialize(this);
             CodeXmlConvertFetchXmlToJavaScriptCodeCommand.Initialize(this);
+            CodeXmlOpenXsdSchemaFolderCommand.Initialize(this);
             CodeXmlSetXsdSchemaCommand.Initialize(this);
             CodeXmlClearXsdSchemaCommand.Initialize(this);
             CodeXmlShowDifferenceWithDefaultSitemapsCommand.Initialize(this);

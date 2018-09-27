@@ -134,6 +134,7 @@
     <Compile Include="Commands\CodeXmlConvertFetchXmlToJavaScriptCodeCommand.cs" />
     <Compile Include="Commands\CodeXmlExecuteFetchXmlRequestCommand.cs" />
     <Compile Include="Commands\CodeXmlExecuteFetchXmlRequestInConnectionsCommand.cs" />
+    <Compile Include="Commands\CodeXmlOpenXsdSchemaFolderCommand.cs" />
     <Compile Include="Commands\CodeXmlSetXsdSchemaCommand.cs" />
     <Compile Include="Commands\CodeXmlShowDifferenceWithDefaultSitemapsCommand.cs" />
     <Compile Include="Commands\CommonCheckComponentTypeEnumCommand.cs" />

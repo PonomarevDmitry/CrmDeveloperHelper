@@ -32,9 +32,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 {
                     string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
 
-                    text = ContentCoparerHelper.ClearXsdSchema(text);
+                    ContentCoparerHelper.ClearXsdSchema(text, out var newText);
 
-                    string jsCode = ContentCoparerHelper.FormatToJavaScript("fetchXml", text);
+                    string jsCode = ContentCoparerHelper.FormatToJavaScript("fetchXml", newText);
 
                     Clipboard.SetText(jsCode);
                 }

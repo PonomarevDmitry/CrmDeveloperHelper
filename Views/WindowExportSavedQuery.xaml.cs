@@ -595,18 +595,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     xmlContent = doc.ToString();
 
-                    xmlContent = ContentCoparerHelper.FormatToJavaScript(fieldName, xmlContent);
+                    ContentCoparerHelper.ClearXsdSchema(xmlContent, out var newText);
+
+                    xmlContent = ContentCoparerHelper.FormatToJavaScript(fieldName, newText);
                 }
 
                 Clipboard.SetText(xmlContent);
 
-                UpdateStatus("Coping Xml {0} to Clipboard completed.", fieldName);
+                ToggleControls(true, "Coping Xml {0} to Clipboard completed.", fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                UpdateStatus("Coping Xml {0} to Clipboard failed.", fieldName);
+                ToggleControls(true, "Coping Xml {0} to Clipboard failed.", fieldName);
             }
         }
 
