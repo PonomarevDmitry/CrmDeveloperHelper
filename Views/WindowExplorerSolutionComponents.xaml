@@ -4,7 +4,7 @@
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="Solution Components" Height="538.662" Width="712" WindowStartupLocation="Manual">
+        Title="Solution Components" Height="538.662" Width="755" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
@@ -132,6 +132,16 @@
                             <MenuItem x:Name="miClearUnManagedSolution" Header="Clear UnManaged Solution" VerticalAlignment="Center" Click="miClearUnManagedSolution_Click" Visibility="Collapsed" IsEnabled="False"/>
                             <Separator x:Name="sepClearUnManagedSolution2" Visibility="Collapsed" IsEnabled="False"/>
                             <MenuItem x:Name="miSelectAsLastSelected" Header="Select Solution as Last Selected" VerticalAlignment="Center" Click="miSelectAsLastSelected_Click" Visibility="Collapsed" IsEnabled="False"/>
+                            <Separator/>
+                            <MenuItem x:Name="mIUsedEntitiesInWorkflows" Header="Used Entities in Workflows" VerticalAlignment="Center" Click="mIUsedEntitiesInWorkflows_Click" />
+                            <MenuItem x:Name="mIUsedNotExistsEntitiesInWorkflows" Header="Used Not Exists Entities in Workflows" VerticalAlignment="Center" Click="mIUsedNotExistsEntitiesInWorkflows_Click" />
+                            <Separator/>
+                            <MenuItem x:Name="mICreateSolutionImageIn" Header="Create Solution Image" VerticalAlignment="Center" Click="mICreateSolutionImageIn_Click" />
+                            <Separator/>
+                            <MenuItem x:Name="mIComponentsIn" Header="Components" VerticalAlignment="Center" Click="mIComponentsIn_Click" />
+                            <Separator/>
+                            <MenuItem x:Name="mIMissingComponentsIn" Header="Missing Components" VerticalAlignment="Center" Click="mIMissingComponentsIn_Click" />
+                            <MenuItem x:Name="mIUninstallComponentsIn" Header="Uninstall Components" VerticalAlignment="Center" Click="mIUninstallComponentsIn_Click" />
                         </MenuItem>
                     </Menu>
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />

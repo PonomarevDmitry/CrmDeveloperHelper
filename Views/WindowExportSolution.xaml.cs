@@ -151,14 +151,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 //Text="{Binding Path=SelectedItem.ExportSolutionFolder}" ItemsSource="{Binding Path=SelectedItem.LastSolutionExportFolders}" 
                 {
-                    Binding binding = new Binding();
-                    binding.Path = new PropertyPath("SelectedItem.ExportSolutionFolder");
+                    Binding binding = new Binding
+                    {
+                        Path = new PropertyPath("SelectedItem.ExportSolutionFolder")
+                    };
                     BindingOperations.SetBinding(cmBExportFolder, ComboBox.TextProperty, binding);
                 }
 
                 {
-                    Binding binding = new Binding();
-                    binding.Path = new PropertyPath("SelectedItem.LastSolutionExportFolders");
+                    Binding binding = new Binding
+                    {
+                        Path = new PropertyPath("SelectedItem.LastSolutionExportFolders")
+                    };
                     BindingOperations.SetBinding(cmBExportFolder, ComboBox.ItemsSourceProperty, binding);
                 }
 
@@ -836,19 +840,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput("Creating backup Solution Components in '{0}'.", solution.UniqueName);
 
-                {
-                    string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                        service.ConnectionData.Name
-                        , solution.UniqueName
-                        , "Components Backup"
-                    );
+                string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                    service.ConnectionData.Name
+                    , solution.UniqueName
+                    , "Components Backup"
+                );
 
+                {
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                     await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solution.Id);
 
                     this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solution.UniqueName, filePath);
                     this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                }
+
+                {
+                    fileName = fileName.Replace(".txt", ".xml");
+
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
                 }
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(service);

@@ -369,6 +369,76 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public Task<List<SolutionImageComponent>> GetSolutionImageComponentsAsync(IEnumerable<SolutionComponent> components)
+        {
+            return Task.Run(() => GetSolutionImageComponents(components));
+        }
+
+        private List<SolutionImageComponent> GetSolutionImageComponents(IEnumerable<SolutionComponent> components)
+        {
+            List<SolutionImageComponent> result = new List<SolutionImageComponent>();
+
+            var groups = components.GroupBy(comp => comp.ComponentType.Value).OrderBy(gr => gr.Key);
+
+            foreach (var gr in groups)
+            {
+                try
+                {
+                    if (SolutionComponent.IsDefinedComponentType(gr.Key))
+                    {
+                        ComponentType componentType = (ComponentType)gr.Key;
+
+                        switch (componentType)
+                        {
+                            case ComponentType.Entity:
+                                FillEntityComponent(result, components);
+                                break;
+
+                            case ComponentType.Attribute:
+                                FillAttributeComponent(result, components);
+                                break;
+
+                            case ComponentType.EntityRelationship:
+                                FillEntityRelationshipComponent(result, components);
+                                break;
+
+                            case ComponentType.EntityKey:
+                                FillEntityKeyComponent(result, components);
+                                break;
+
+                            case ComponentType.OptionSet:
+                                FillOptionSetComponent(result, components);
+                                break;
+
+                            default:
+                                result.AddRange(gr.Select(e => new SolutionImageComponent()
+                                {
+                                    ObjectId = e.ObjectId,
+                                    ComponentType = gr.Key,
+                                    RootComponentBehavior = e.RootComponentBehavior?.Value,
+                                }));
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        result.AddRange(gr.Select(e => new SolutionImageComponent()
+                        {
+                            ObjectId = e.ObjectId,
+                            ComponentType = gr.Key,
+                            RootComponentBehavior = e.RootComponentBehavior?.Value,
+                        }));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                }
+            }
+
+            return result;
+        }
+
         public string GetComponentDescription(int type, Guid idEntity)
         {
             var component = new SolutionComponent()

@@ -39,18 +39,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(SystemFormFormatFile, connectionName, entityName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
-        private const string SolutionFormatFile = "{0}.Solution {1} - {2} at {3}.txt";
+        private const string SolutionFormatFile = "{0}.Solution {1} - {2} at {3}.{4}";
 
-        private const string SolutionFormatFileMultiple = "{0}.Solutions {1} - {2} - {3} at {4}.txt";
+        private const string SolutionFormatFileMultiple = "{0}.Solutions {1} - {2} - {3} at {4}.{5}";
 
-        internal static string GetSolutionFileName(string connectionName, string uniquename, string fieldTitle)
+        internal static string GetSolutionFileName(string connectionName, string uniquename, string fieldTitle, string extension = "txt")
         {
-            return string.Format(SolutionFormatFile, connectionName, uniquename, fieldTitle, GetDateString());
+            return string.Format(SolutionFormatFile, connectionName, uniquename, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
-        internal static string GetSolutionMultipleFileName(string connectionName, string uniquename1, string uniquename2, string fieldTitle)
+        internal static string GetSolutionMultipleFileName(string connectionName, string uniquename1, string uniquename2, string fieldTitle, string extension = "txt")
         {
-            return string.Format(SolutionFormatFileMultiple, connectionName, uniquename1, uniquename2, fieldTitle, GetDateString());
+            return string.Format(SolutionFormatFileMultiple, connectionName, uniquename1, uniquename2, fieldTitle, GetDateString(), extension.Trim('.'));
+        }
+
+        private const string DifferenceFormatFile = "OrgCompare {0} OrganizationDifferenceImage at {1}.xml";
+
+        internal static string GetDifferenceFileName(string organizationsString)
+        {
+            return string.Format(DifferenceFormatFile, organizationsString, GetDateString());
         }
 
         private const string SiteMapFormatFile = "{0}.SiteMap{1} {2} - {3} at {4}.{5}";

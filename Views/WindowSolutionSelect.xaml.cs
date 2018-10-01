@@ -35,13 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public Solution SelectedSolution { get; private set; }
 
-        public bool ForAllOther
-        {
-            get
-            {
-                return chBForAllOther.IsChecked.GetValueOrDefault();
-            }
-        }
+        public bool ForAllOther => chBForAllOther.IsChecked.GetValueOrDefault();
 
         public WindowSolutionSelect(
             IWriteToOutput outputWindow
@@ -458,19 +452,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput("Creating backup Solution Components in '{0}'.", solution.UniqueName);
 
-                {
-                    string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                        _service.ConnectionData.Name
-                        , solution.UniqueName
-                        , "Components Backup"
-                    );
+                string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                    _service.ConnectionData.Name
+                    , solution.UniqueName
+                    , "Components Backup"
+                );
 
+                {
                     string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                     await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solution.Id);
 
                     this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solution.UniqueName, filePath);
                     this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                }
+
+                {
+                    fileName = fileName.Replace(".txt", ".xml");
+
+                    string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
                 }
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);

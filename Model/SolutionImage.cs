@@ -52,7 +52,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.Components = new HashSet<SolutionImageComponent>();
         }
 
-        public void Save(string filePath)
+        public Task SaveAsync(string filePath)
+        {
+            return Task.Run(() => Save(filePath));
+        }
+
+        private void Save(string filePath)
         {
             DataContractSerializer ser = new DataContractSerializer(typeof(SolutionImage));
 

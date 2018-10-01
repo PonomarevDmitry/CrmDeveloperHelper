@@ -703,7 +703,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var descriptorHandler = new DependencyDescriptionHandler(_descriptor);
 
-            var coll = await dependencyRepository.GetDependentComponentsAsync((int)solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value);
+            var coll = await dependencyRepository.GetDependentComponentsAsync(solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value);
 
             string description = await descriptorHandler.GetDescriptionDependentAsync(coll);
 
@@ -913,8 +913,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var enabledRemove = GetSolutionComponentsType() == SolutionComponentsType.SolutionComponents && this._solution != null && !this._solution.IsManaged.GetValueOrDefault();
                     var enabledAdd = GetSolutionComponentsType() != SolutionComponentsType.SolutionComponents && this._solution != null && !this._solution.IsManaged.GetValueOrDefault();
 
-                    var listRemoveComponents = new HashSet<String>(StringComparer.InvariantCultureIgnoreCase) { "sepRemoveFromSolution", "contMnRemoveFromSolution" };
-                    var listAddIntoCurrent = new HashSet<String>(StringComparer.InvariantCultureIgnoreCase) { "contMnAddIntoCurrentSolution" };
+                    var listRemoveComponents = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { "sepRemoveFromSolution", "contMnRemoveFromSolution" };
+                    var listAddIntoCurrent = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { "contMnAddIntoCurrentSolution" };
 
                     foreach (var item in items)
                     {
@@ -1140,19 +1140,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
 
-                {
-                    string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                        _service.ConnectionData.Name
-                        , _solution.UniqueName
-                        , "Components Backup"
-                    );
+                string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                    _service.ConnectionData.Name
+                    , _solution.UniqueName
+                    , "Components Backup"
+                );
 
+                {
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                     await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, _solution.Id);
 
                     this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", _solution.UniqueName, filePath);
                     this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                }
+
+                {
+                    fileName = fileName.Replace(".txt", ".xml");
+
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, _solution.Id);
                 }
 
                 await repository.RemoveSolutionComponentsAsync(_solution.UniqueName, solutionComponents);
@@ -1196,19 +1204,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
 
-                {
-                    string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                        _service.ConnectionData.Name
-                        , _solution.UniqueName
-                        , "Components Backup"
-                    );
+                string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                    _service.ConnectionData.Name
+                    , _solution.UniqueName
+                    , "Components Backup"
+                );
 
+                {
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                     await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, _solution.Id);
 
                     this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", _solution.UniqueName, filePath);
                     this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                }
+
+                {
+                    fileName = fileName.Replace(".txt", ".xml");
+
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, _solution.Id);
                 }
 
                 await repository.RemoveSolutionComponentsAsync(_solution.UniqueName, components);
@@ -1355,5 +1371,316 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         #endregion Кнопки открытия других форм с информация о сущности.
+
+        private void ExecuteActionOnSingleSolution(Solution solution, Func<string, Solution, Task> action)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            if (solution == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            try
+            {
+                action(_commonConfig.FolderForExport, solution);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
+        }
+
+        private void mIUsedEntitiesInWorkflows_Click(object sender, RoutedEventArgs e)
+        {
+            if (_solution != null)
+            {
+                ExecuteActionOnSingleSolution(_solution, PerformCreateFileWithUsedEntitiesInWorkflows);
+            }
+        }
+
+        private void mIUsedNotExistsEntitiesInWorkflows_Click(object sender, RoutedEventArgs e)
+        {
+            if (_solution != null)
+            {
+                ExecuteActionOnSingleSolution(_solution, PerformCreateFileWithUsedNotExistsEntitiesInWorkflows);
+            }
+        }
+
+        private async Task PerformCreateFileWithUsedEntitiesInWorkflows(string folder, Solution solution)
+        {
+            try
+            {
+                ToggleControls(false, "Creating file with Used Entities in Workflows...");
+
+                var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, _service, _descriptor);
+
+                string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                    _service.ConnectionData.Name
+                    , solution.UniqueName
+                    , "UsedEntitiesInWorkflows"
+                    );
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                var stringBuider = new StringBuilder();
+
+                await workflowDescriptor.GetDescriptionWithUsedEntitiesInSolutionWorkflowsAsync(stringBuider, solution.Id);
+
+                File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput("Solution Used Entities was export into file '{0}'", filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                ToggleControls(true, "Creating file with Used Entities in Workflows completed.");
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, "Creating file with Used Entities in Workflows failed.");
+            }
+        }
+
+        private async Task PerformCreateFileWithUsedNotExistsEntitiesInWorkflows(string folder, Solution solution)
+        {
+            try
+            {
+                ToggleControls(false, "Creating file with Used Not Exists Entities in Workflows...");
+
+                var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, _service, _descriptor);
+
+                string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                    _service.ConnectionData.Name
+                    , solution.UniqueName
+                    , "UsedNotExistsEntitiesInWorkflows"
+                    );
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                var stringBuider = new StringBuilder();
+
+                await workflowDescriptor.GetDescriptionWithUsedNotExistsEntitiesInSolutionWorkflowsAsync(stringBuider, solution.Id);
+
+                File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput("Solution Used Not Exists Entities was export into file '{0}'", filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                ToggleControls(true, "Creating file with Used Not Exists Entities in Workflows completed.");
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, "Creating file with Used Not Exists Entities in Workflows failed.");
+            }
+        }
+
+        private void mICreateSolutionImageIn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_solution != null)
+            {
+                ExecuteActionOnSingleSolution(_solution, PerformCreateSolutionImage);
+            }
+        }
+
+        private void mIComponentsIn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_solution != null)
+            {
+                ExecuteActionOnSingleSolution(_solution, PerformCreateFileWithSolutionComponents);
+            }
+        }
+
+        private void mIMissingComponentsIn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_solution != null)
+            {
+                ExecuteActionOnSingleSolution(_solution, PerformShowingMissingDependencies);
+            }
+        }
+
+        private void mIUninstallComponentsIn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_solution != null)
+            {
+                ExecuteActionOnSingleSolution(_solution, PerformShowingDependenciesForUninstall);
+            }
+        }
+
+        private async Task PerformCreateSolutionImage(string folder, Solution solution)
+        {
+            try
+            {
+                ToggleControls(false, "Creating file with Solution Image...");
+
+                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
+
+                string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                    _service.ConnectionData.Name
+                    , solution.UniqueName
+                    , "Components"
+                    , "xml"
+                );
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
+
+                this._iWriteToOutput.WriteToOutput("Solution Image was export into file '{0}'", filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                ToggleControls(true, "Creating file with Solution Image completed.");
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, "Creating file with Solution Image failed.");
+            }
+        }
+
+        private async Task PerformCreateFileWithSolutionComponents(string folder, Solution solution)
+        {
+            try
+            {
+                ToggleControls(false, "Creating file with Components...");
+
+                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
+
+                string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                    _service.ConnectionData.Name
+                    , solution.UniqueName
+                    , "Components"
+                );
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solution.Id);
+
+                this._iWriteToOutput.WriteToOutput("Solution Components was export into file '{0}'", filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                ToggleControls(true, "Creating file with Components completed.");
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, "Creating file with Components failed.");
+            }
+        }
+
+        private async Task PerformShowingMissingDependencies(string folder, Solution solution)
+        {
+            try
+            {
+                ToggleControls(false, "Creating file with Missing Dependencies...");
+
+                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
+
+                ComponentsGroupBy showComponents = _commonConfig.ComponentsGroupBy;
+
+                string showString = null;
+
+                if (showComponents == ComponentsGroupBy.DependentComponents)
+                {
+                    showString = "dependent";
+                }
+                else
+                {
+                    showString = "required";
+                }
+
+                showString = string.Format("Missing Dependencies {0}", showString);
+
+                string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                    _service.ConnectionData.Name
+                    , solution.UniqueName
+                    , showString
+                    );
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                await solutionDescriptor.CreateFileWithSolutionDependenciesForUninstallAsync(filePath, solution.Id, showComponents, showString);
+
+                this._iWriteToOutput.WriteToOutput("Solution {0} was export into file '{1}'", showString, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                ToggleControls(true, "Creating file with Missing Dependencies completed.");
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, "Creating file with Missing Dependencies failed.");
+            }
+        }
+
+        private async Task PerformShowingDependenciesForUninstall(string folder, Solution solution)
+        {
+            try
+            {
+                ToggleControls(false, "Creating file with Dependencies for Uninstall...");
+
+                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
+
+                ComponentsGroupBy showComponents = _commonConfig.ComponentsGroupBy;
+
+                string showString = null;
+
+                if (showComponents == ComponentsGroupBy.DependentComponents)
+                {
+                    showString = "dependent";
+                }
+                else
+                {
+                    showString = "required";
+                }
+
+                showString = string.Format("Dependencies for Uninstall {0}", showString);
+
+                string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                    _service.ConnectionData.Name
+                    , solution.UniqueName
+                    , showString
+                    );
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                await solutionDescriptor.CreateFileWithSolutionDependenciesForUninstallAsync(filePath, solution.Id, showComponents, showString);
+
+                this._iWriteToOutput.WriteToOutput("Solution {0} was export into file '{1}'", showString, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                ToggleControls(true, "Creating file with Dependencies for Uninstall completed.");
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, "Creating file with Dependencies for Uninstall failed.");
+            }
+        }
     }
 }

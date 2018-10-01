@@ -668,13 +668,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
             mIOpenComponentsInWindow.Click += mIOpenComponentsInWindow_Click;
 
-            MenuItem mIComponentsIn = new MenuItem()
-            {
-                Header = string.Format("Components in {0}", solution.UniqueNameEscapeUnderscore),
-                Tag = solution,
-            };
-            mIComponentsIn.Click += mIComponentsIn_Click;
-
             MenuItem mIUsedEntitiesInWorkflows = new MenuItem()
             {
                 Header = string.Format("Used Entities in Workflows in {0}", solution.UniqueNameEscapeUnderscore),
@@ -688,6 +681,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Tag = solution,
             };
             mIUsedNotExistsEntitiesInWorkflows.Click += mIUsedNotExistsEntitiesInWorkflows_Click;
+
+            MenuItem mICreateSolutionImageIn = new MenuItem()
+            {
+                Header = string.Format("Create Solution Image in {0}", solution.UniqueNameEscapeUnderscore),
+                Tag = solution,
+            };
+            mICreateSolutionImageIn.Click += mICreateSolutionImageIn_Click; ;
+
+            MenuItem mIComponentsIn = new MenuItem()
+            {
+                Header = string.Format("Components in {0}", solution.UniqueNameEscapeUnderscore),
+                Tag = solution,
+            };
+            mIComponentsIn.Click += mIComponentsIn_Click;
 
             MenuItem mIMissingComponentsIn = new MenuItem()
             {
@@ -725,6 +732,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             itemCollection.Add(new Separator());
             itemCollection.Add(mIUsedEntitiesInWorkflows);
             itemCollection.Add(mIUsedNotExistsEntitiesInWorkflows);
+            itemCollection.Add(new Separator());
+            itemCollection.Add(mICreateSolutionImageIn);
             itemCollection.Add(new Separator());
             itemCollection.Add(mIComponentsIn);
             itemCollection.Add(new Separator());
@@ -819,6 +828,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void mICreateSolutionImageIn_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+                )
+            {
+                ExecuteActionOnSingleSolution(solution, PerformCreateSolutionImage);
+            }
+        }
+
         private void mIOpenComponentsInWindow_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
@@ -849,11 +868,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private async Task PerformCreateSolutionImage(string folder, Solution solution)
+        {
+            try
+            {
+                ToggleControls(false, "Creating file with Solution Image...");
+
+                var service = await GetService();
+                var descriptor = await GetDescriptor();
+
+                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+
+                string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                    service.ConnectionData.Name
+                    , solution.UniqueName
+                    , "Components"
+                    , "xml"
+                );
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
+
+                this._iWriteToOutput.WriteToOutput("Solution Image was export into file '{0}'", filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                ToggleControls(true, "Creating file with Solution Image completed.");
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, "Creating file with Solution Image failed.");
+            }
+        }
+
         private async Task PerformCreateFileWithSolutionComponents(string folder, Solution solution)
         {
             try
             {
-                ToggleControls(false, "Analizing solution...");
+                ToggleControls(false, "Creating file with Components...");
 
                 var service = await GetService();
                 var descriptor = await GetDescriptor();
@@ -874,13 +929,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, "Analizing solution is completed.");
+                ToggleControls(true, "Creating file with Components completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Analizing solution failed.");
+                ToggleControls(true, "Creating file with Components failed.");
             }
         }
 
@@ -912,7 +967,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, "Analizing solutions...");
+                ToggleControls(false, "Creating file with Missing Dependencies...");
 
                 var service = await GetService();
                 var descriptor = await GetDescriptor();
@@ -948,13 +1003,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, "Analizing solutions completed.");
+                ToggleControls(true, "Creating file with Missing Dependencies completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Analizing solutions failed.");
+                ToggleControls(true, "Creating file with Missing Dependencies failed.");
             }
         }
 
@@ -962,7 +1017,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, "Analizing solutions...");
+                ToggleControls(false, "Creating file with Dependencies for Uninstall...");
 
                 var service = await GetService();
                 var descriptor = await GetDescriptor();
@@ -998,13 +1053,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, "Analizing solutions completed.");
+                ToggleControls(true, "Creating file with Dependencies for Uninstall completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Analizing solutions failed.");
+                ToggleControls(true, "Creating file with Dependencies for Uninstall failed.");
             }
         }
 
@@ -1247,12 +1302,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , "Components Backup"
                         );
 
-                        string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                        {
+                            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                        await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solutionTarget.Id);
+                            await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solutionTarget.Id);
 
-                        this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                            this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
+                            this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                        }
+
+                        {
+                            fileName = fileName.Replace(".txt", ".xml");
+
+                            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                            await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
+                        }
                     }
 
                     this._iWriteToOutput.WriteToOutput(string.Empty);
@@ -1345,12 +1410,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , "Components Backup"
                         );
 
-                        string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                        {
+                            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                        await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solutionTarget.Id);
+                            await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solutionTarget.Id);
 
-                        this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                            this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
+                            this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                        }
+
+                        {
+                            fileName = fileName.Replace(".txt", ".xml");
+
+                            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                            await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
+                        }
                     }
 
                     this._iWriteToOutput.WriteToOutput(string.Empty);
@@ -1493,12 +1568,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , "Components Backup"
                     );
 
-                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                    {
+                        string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                    await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solution.Id);
+                        await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solution.Id);
 
-                    this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solution.UniqueName, filePath);
-                    this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                        this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solution.UniqueName, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                    }
+
+                    {
+                        fileName = fileName.Replace(".txt", ".xml");
+
+                        string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                        await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
+                    }
                 }
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(service);
@@ -1565,7 +1650,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, "Analizing solution...");
+                ToggleControls(false, "Creating file with Used Entities in Workflows...");
 
                 var service = await GetService();
                 var descriptor = await GetDescriptor();
@@ -1590,13 +1675,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, "Analizing solutions completed.");
+                ToggleControls(true, "Creating file with Used Entities in Workflows completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Analizing solutions failed.");
+                ToggleControls(true, "Creating file with Used Entities in Workflows failed.");
             }
         }
 
@@ -1604,7 +1689,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, "Analizing solution...");
+                ToggleControls(false, "Creating file with Used Not Exists Entities in Workflows...");
 
                 var service = await GetService();
                 var descriptor = await GetDescriptor();
@@ -1629,13 +1714,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, "Analizing solution completed.");
+                ToggleControls(true, "Creating file with Used Not Exists Entities in Workflows completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Analizing solution failed.");
+                ToggleControls(true, "Creating file with Used Not Exists Entities in Workflows failed.");
             }
         }
 

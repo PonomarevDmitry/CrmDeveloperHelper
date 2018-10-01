@@ -3,6 +3,7 @@ using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Metadata.Query;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -842,6 +843,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
         }
 
+        private void FillEntityComponent(List<SolutionImageComponent> result, IEnumerable<SolutionComponent> components)
+        {
+            foreach (var comp in components)
+            {
+                EntityMetadata metaData = GetEntityMetadata(comp.ObjectId.Value);
+
+                if (metaData != null)
+                {
+                    result.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.Entity,
+                        SchemaName = metaData.LogicalName,
+                        RootComponentBehavior = comp.RootComponentBehavior?.Value,
+                    });
+                }
+            }
+        }
+
         private string GenerateDescriptionEntitySingle(SolutionComponent component)
         {
             EntityMetadata metaData = GetEntityMetadata(component.ObjectId.Value);
@@ -904,6 +923,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 List<string> lines = handler.GetFormatedLines(true);
 
                 lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            }
+        }
+
+        private void FillAttributeComponent(List<SolutionImageComponent> result, IEnumerable<SolutionComponent> components)
+        {
+            foreach (var comp in components)
+            {
+                AttributeMetadata metaData = GetAttributeMetadata(comp.ObjectId.Value);
+
+                if (metaData != null)
+                {
+                    result.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.Attribute,
+                        SchemaName = metaData.LogicalName,
+                        ParentSchemaName = metaData.EntityLogicalName,
+                        RootComponentBehavior = comp.RootComponentBehavior?.Value,
+                    });
+                }
             }
         }
 
@@ -1032,6 +1070,58 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             linesMany.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
         }
 
+        private void FillEntityRelationshipComponent(List<SolutionImageComponent> result, IEnumerable<SolutionComponent> components)
+        {
+            foreach (var comp in components)
+            {
+                RelationshipMetadataBase metaData = GetRelationshipMetadata(comp.ObjectId.GetValueOrDefault());
+
+                if (metaData != null)
+                {
+                    if (metaData is OneToManyRelationshipMetadata)
+                    {
+                        var relationship = metaData as OneToManyRelationshipMetadata;
+
+                        result.Add(new SolutionImageComponent()
+                        {
+                            ComponentType = (int)ComponentType.EntityRelationship,
+                            SchemaName = relationship.SchemaName,
+                            ParentSchemaName = relationship.ReferencingEntity,
+                            RootComponentBehavior = comp.RootComponentBehavior?.Value,
+                        });
+
+                        result.Add(new SolutionImageComponent()
+                        {
+                            ComponentType = (int)ComponentType.EntityRelationship,
+                            SchemaName = relationship.SchemaName,
+                            ParentSchemaName = relationship.ReferencedEntity,
+                            RootComponentBehavior = comp.RootComponentBehavior?.Value,
+                        });
+                    }
+                    else if (metaData is ManyToManyRelationshipMetadata)
+                    {
+                        var relationship = metaData as ManyToManyRelationshipMetadata;
+
+                        result.Add(new SolutionImageComponent()
+                        {
+                            ComponentType = (int)ComponentType.EntityRelationship,
+                            SchemaName = relationship.SchemaName,
+                            ParentSchemaName = relationship.Entity1LogicalName,
+                            RootComponentBehavior = comp.RootComponentBehavior?.Value,
+                        });
+
+                        result.Add(new SolutionImageComponent()
+                        {
+                            ComponentType = (int)ComponentType.EntityRelationship,
+                            SchemaName = relationship.SchemaName,
+                            ParentSchemaName = relationship.Entity2LogicalName,
+                            RootComponentBehavior = comp.RootComponentBehavior?.Value,
+                        });
+                    }
+                }
+            }
+        }
+
         private string GenerateDescriptionEntityRelationshipSingle(SolutionComponent component)
         {
             RelationshipMetadataBase metaData = GetRelationshipMetadata(component.ObjectId.Value);
@@ -1107,6 +1197,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
         }
 
+        private void FillEntityKeyComponent(List<SolutionImageComponent> result, IEnumerable<SolutionComponent> components)
+        {
+            foreach (var comp in components)
+            {
+                EntityKeyMetadata metaData = GetEntityKeyMetadata(comp.ObjectId.Value);
+
+                if (metaData != null)
+                {
+                    result.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.EntityKey,
+                        SchemaName = metaData.LogicalName,
+                        ParentSchemaName = metaData.EntityLogicalName,
+                        RootComponentBehavior = comp.RootComponentBehavior?.Value,
+                    });
+                }
+            }
+        }
+
         private string GenerateDescriptionEntityKeySingle(SolutionComponent component)
         {
             EntityKeyMetadata metaData = GetEntityKeyMetadata(component.ObjectId.Value);
@@ -1160,6 +1269,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 List<string> lines = handler.GetFormatedLines(true);
 
                 lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            }
+        }
+
+        private void FillOptionSetComponent(List<SolutionImageComponent> result, IEnumerable<SolutionComponent> components)
+        {
+            foreach (var comp in components)
+            {
+                string behaviorName = string.Empty;
+
+                if (comp.RootComponentBehavior != null)
+                {
+                    behaviorName = SolutionComponent.GetRootComponentBehaviorName(comp.RootComponentBehavior.Value);
+                }
+
+                if (this.AllOptionSetMetadata.ContainsKey(comp.ObjectId.Value))
+                {
+                    var optionSet = this.AllOptionSetMetadata[comp.ObjectId.Value];
+
+                    result.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.OptionSet,
+                        SchemaName = optionSet.Name,
+                        RootComponentBehavior = comp.RootComponentBehavior?.Value,
+                    });
+                }
+            }
+
+            foreach (var comp in components)
+            {
+                EntityKeyMetadata metaData = GetEntityKeyMetadata(comp.ObjectId.Value);
+
+                if (metaData != null)
+                {
+                    result.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.EntityKey,
+                        SchemaName = metaData.LogicalName,
+                        ParentSchemaName = metaData.EntityLogicalName,
+                        RootComponentBehavior = comp.RootComponentBehavior?.Value,
+                    });
+                }
             }
         }
 

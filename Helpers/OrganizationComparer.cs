@@ -44,10 +44,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 Connection1Image = new SolutionImage()
                 {
+                    ConnectionName = Connection1.Name,
+
                     ConnectionOrganizationName = Connection1.UniqueOrgName,
                     ConnectionDiscoveryService = Connection1.DiscoveryUrl,
                     ConnectionOrganizationService = Connection1.OrganizationUrl,
                     ConnectionPublicUrl = Connection1.PublicUrl,
+
+                    ConnectionSystemUserName = Connection1.GetUsername,
 
                     MachineName = Environment.MachineName,
                     ExecuteUserDomainName = Environment.UserDomainName,
@@ -56,6 +60,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 Connection2Image = new SolutionImage()
                 {
+                    ConnectionName = Connection2.Name,
+
                     ConnectionOrganizationName = Connection2.UniqueOrgName,
                     ConnectionDiscoveryService = Connection2.DiscoveryUrl,
                     ConnectionOrganizationService = Connection2.OrganizationUrl,
@@ -1882,10 +1888,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void SaveOrganizationDifferenceImage()
         {
-            string fileName = string.Format("OrgCompare {0} OrganizationDifferenceImage at {1}.xml"
-                , _OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                );
+            string fileName = EntityFileNameFormatter.GetDifferenceFileName(_OrgOrgName);
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
