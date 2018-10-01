@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
@@ -564,14 +565,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private string[] _formXmlXsdSchemas = new string[]
-        {
-            "pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/FormXml.xsd"
-            , "pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/RibbonCore.xsd"
-            , "pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/RibbonTypes.xsd"
-            , "pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/RibbonWSS.xsd"
-        };
-
         private async Task PerformUpdateEntityField(string folder, Guid idSystemForm, string entityName, string name, string fieldName, string fieldTitle)
         {
             if (!_controlsEnabled)
@@ -615,7 +608,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialogResult.GetValueOrDefault() == false)
                 {
-                    UpdateStatus("Operation canceled.");
+                    ToggleControls(true, "Updating Field {0} canceled.", fieldName);
                     return;
                 }
 
@@ -624,48 +617,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
                 {
-                    _iWriteToOutput.WriteToOutput("Text is not valid xml.");
-                    UpdateStatus("Operation failed.");
+                    _iWriteToOutput.WriteToOutput("Text is not valid Xml.");
+                    ToggleControls(true, "Text is not valid Xml.");
 
                     _iWriteToOutput.ActivateOutputWindow();
                     return;
                 }
 
-                XmlSchemaSet schemas = new XmlSchemaSet();
+                bool validateResult = await ValidateXmlDocumentAsync(doc);
 
-
-                foreach (var item in _formXmlXsdSchemas)
+                if (!validateResult)
                 {
-                    Uri uri = new Uri(item);
-                    StreamResourceInfo info = Application.GetResourceStream(uri);
-
-                    using (StreamReader reader = new StreamReader(info.Stream))
-                    {
-                        schemas.Add("", XmlReader.Create(reader));
-                    }
-                }
-
-                List<ValidationEventArgs> errors = new List<ValidationEventArgs>();
-
-                doc.Validate(schemas, (o, e) =>
-                {
-                    errors.Add(e);
-                });
-
-                if (errors.Count > 0)
-                {
-                    _iWriteToOutput.WriteToOutput("FormXml is not valid.");
-
-                    foreach (var item in errors)
-                    {
-                        _iWriteToOutput.WriteToOutput(string.Empty);
-                        _iWriteToOutput.WriteToOutput(string.Empty);
-                        _iWriteToOutput.WriteToOutput("Severity: {0}      Message: {1}", item.Severity, item.Message);
-                        _iWriteToOutput.WriteErrorToOutput(item.Exception);
-                    }
-
-                    _iWriteToOutput.ActivateOutputWindow();
-                    UpdateStatus("Operation failed.");
+                    ToggleControls(true, "Validating Xml for Field {0} failed.", fieldName);
 
                     return;
                 }
@@ -686,6 +649,58 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, "Updating Field {0} failed.", fieldName);
             }
+        }
+
+        private Task<bool> ValidateXmlDocumentAsync(XDocument doc)
+        {
+            return Task.Run(() => ValidateXmlDocument(doc));
+        }
+
+        private bool ValidateXmlDocument(XDocument doc)
+        {
+            XmlSchemaSet schemas = new XmlSchemaSet();
+
+            {
+                var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "FormXml", StringComparison.InvariantCultureIgnoreCase));
+
+                if (schemasResources != null)
+                {
+                    foreach (var fileName in schemasResources.Item2)
+                    {
+                        Uri uri = FileOperations.GetSchemaResourceUri(fileName);
+                        StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                        using (StreamReader reader = new StreamReader(info.Stream))
+                        {
+                            schemas.Add("", XmlReader.Create(reader));
+                        }
+                    }
+                }
+            }
+
+            List<ValidationEventArgs> errors = new List<ValidationEventArgs>();
+
+            doc.Validate(schemas, (o, e) =>
+            {
+                errors.Add(e);
+            });
+
+            if (errors.Count > 0)
+            {
+                _iWriteToOutput.WriteToOutput("FormXml is not valid.");
+
+                foreach (var item in errors)
+                {
+                    _iWriteToOutput.WriteToOutput(string.Empty);
+                    _iWriteToOutput.WriteToOutput(string.Empty);
+                    _iWriteToOutput.WriteToOutput("Severity: {0}      Message: {1}", item.Severity, item.Message);
+                    _iWriteToOutput.WriteErrorToOutput(item.Exception);
+                }
+
+                _iWriteToOutput.ActivateOutputWindow();
+            }
+
+            return errors.Count == 0;
         }
 
         private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)

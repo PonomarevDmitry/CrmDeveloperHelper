@@ -390,5 +390,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             File.Move(filePath, fileNewPath);
         }
+
+        public static Uri GetSchemaResourceUri(string fileName)
+        {
+            return new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/{0}", fileName));
+        }
     }
 }

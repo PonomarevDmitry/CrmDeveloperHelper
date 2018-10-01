@@ -3634,7 +3634,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         foreach (var fileName in fileNamesColl)
                         {
-                            Uri uri = new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/{0}", fileName));
+                            Uri uri = FileOperations.GetSchemaResourceUri(fileName);
                             StreamResourceInfo info = Application.GetResourceStream(uri);
 
                             var doc = XDocument.Load(info.Stream);
@@ -3683,7 +3683,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 foreach (var fileName in fileNamesColl)
                 {
-                    Uri uri = new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/{0}", fileName));
+                    Uri uri = FileOperations.GetSchemaResourceUri(fileName);
                     StreamResourceInfo info = Application.GetResourceStream(uri);
 
                     var doc = XDocument.Load(info.Stream);
@@ -3703,7 +3703,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     this.WriteToOutputFilePathUri(filePath);
 
-                    if (result.Length> 0)
+                    if (result.Length > 0)
                     {
                         result.Append(" ");
                     }
