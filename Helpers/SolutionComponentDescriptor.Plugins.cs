@@ -74,13 +74,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             var table = new FormatTextTableHandler();
-            table.SetHeader("PluginAssembly", "PluginType", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            table.SetHeader("PluginType", "PluginAssembly", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
 
             foreach (var entity in list)
             {
                 table.AddLine(
-                    entity.AssemblyName
-                    , entity.TypeName
+                    entity.TypeName
+                    , entity.AssemblyName
                     , entity.IsManaged.ToString()
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
@@ -96,7 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             if (entity != null)
             {
-                return string.Format("PluginAssembly {0}    PluginType {1}    IsManged {2}    SolutionName {3}"
+                return string.Format("PluginType \"{0}, {1}\"   IsManged {2}    SolutionName {3}"
                     , entity.AssemblyName
                     , entity.TypeName
                     , entity.IsManaged.ToString()

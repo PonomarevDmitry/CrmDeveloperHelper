@@ -828,7 +828,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 _logExceptions.Add(ex, new object());
 
+                Log.Info(new string('-', 150));
                 Log.Error(ex, description);
+                Log.Info(new string('-', 150));
             }
 
             if (!_outputExceptions.TryGetValue(ex, out _))
@@ -836,7 +838,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 _outputExceptions.Add(ex, new object());
 
                 this.WriteToOutput(string.Empty);
+
+                this.WriteToOutput(new string('-', 150));
                 this.WriteToOutput(description);
+                this.WriteToOutput(new string('-', 150));
 
                 this.ActivateOutputWindow();
 

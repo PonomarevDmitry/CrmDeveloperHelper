@@ -1,4 +1,4 @@
-﻿using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Metadata.Query;
 using Microsoft.Xrm.Sdk.Query;
@@ -395,6 +395,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
+                this._iWriteToOutput.WriteToOutput("GetEntityMetadata(Guid {0})", idMetadata);
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
                 return null;
@@ -441,6 +442,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
+                    this._iWriteToOutput.WriteToOutput("GetEntityMetadataList(Guid {0})", idMetadata);
                     this._iWriteToOutput.WriteErrorToOutput(ex);
                 }
             }
@@ -488,6 +490,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
+                this._iWriteToOutput.WriteToOutput("GetEntityMetadata(string {0})", entityName);
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
                 return null;
@@ -546,6 +549,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
+                this._iWriteToOutput.WriteToOutput("GetEntityMetadata(string {0}, string[] {1})", entityName, string.Join(",", columnNames));
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
                 return null;
@@ -603,6 +607,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
+                this._iWriteToOutput.WriteToOutput("GetAttributeMetadata(Guid {0})", idAttribute);
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
                 return null;
@@ -708,6 +713,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
+                this._iWriteToOutput.WriteToOutput("GetAttributeMetadata(string {0}, string {1})", entityName, attributeName);
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
                 return null;
@@ -755,6 +761,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
+                this._iWriteToOutput.WriteToOutput("GetEntityKeyMetadata(Guid {0})", idKey);
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
                 return null;
@@ -802,6 +809,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
+                this._iWriteToOutput.WriteToOutput("GetRelationshipMetadata(Guid {0})", idRelation);
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
                 return null;
@@ -1025,13 +1033,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         string relName = string.Format("{0} - {1}", relationship.Entity1LogicalName, relationship.Entity2LogicalName);
 
-                        string refEntity = relationship.SchemaName;
-
                         string url = null;
 
                         if (_withUrls)
                         {
-                            var entityMetadata = GetEntityMetadata(refEntity);
+                            var entityMetadata = GetEntityMetadata(relationship.Entity1LogicalName);
 
                             if (entityMetadata != null)
                             {
@@ -1041,7 +1047,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         handlerManyToMany.AddLine(relName
                             , "Many to Many"
-                            , refEntity
+                            , relationship.SchemaName
                             , behavior
                             , relationship.IsManaged.ToString()
                             , url
@@ -1152,14 +1158,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     string relName = string.Format("{0} - {1}", relationship.Entity1LogicalName, relationship.Entity2LogicalName);
 
-                    string refEntity = relationship.SchemaName;
-
-                    var entityMetadata = GetEntityMetadata(refEntity);
+                    var entityMetadata = GetEntityMetadata(relationship.Entity1LogicalName);
 
                     return string.Format("EntityRelationship {0} - {1} - {2} - {3}{4}"
                         , relName
                         , "Many to Many"
-                        , refEntity
+                        , relationship.SchemaName
                         , relationship.IsManaged.ToString()
                         , _withUrls ? string.Format("    Url {0}", _service.ConnectionData.GetRelationshipMetadataUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value)) : string.Empty
                         );

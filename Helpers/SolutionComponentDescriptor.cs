@@ -391,23 +391,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         switch (componentType)
                         {
                             case ComponentType.Entity:
-                                FillEntityComponent(result, components);
+                                FillEntityComponent(result, gr);
                                 break;
 
                             case ComponentType.Attribute:
-                                FillAttributeComponent(result, components);
+                                FillAttributeComponent(result, gr);
                                 break;
 
                             case ComponentType.EntityRelationship:
-                                FillEntityRelationshipComponent(result, components);
+                                FillEntityRelationshipComponent(result, gr);
                                 break;
 
                             case ComponentType.EntityKey:
-                                FillEntityKeyComponent(result, components);
+                                FillEntityKeyComponent(result, gr);
                                 break;
 
                             case ComponentType.OptionSet:
-                                FillOptionSetComponent(result, components);
+                                FillOptionSetComponent(result, gr);
                                 break;
 
                             default:
