@@ -6,8 +6,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     internal sealed class CodeXmlOpenXsdSchemaFolderCommand : AbstractCommand
     {
         private CodeXmlOpenXsdSchemaFolderCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlOpenXsdSchemaFolderCommandId, ActionExecute, null) { }
-
+           : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlOpenXsdSchemaFolderCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusActiveDocumentXml) { }
+         
         public static CodeXmlOpenXsdSchemaFolderCommand Instance { get; private set; }
 
         public static void Initialize(Package package)

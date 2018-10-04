@@ -1447,6 +1447,8 @@
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlOpenXsdSchemaFolderCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Open Xsd Schema Default Folder</ButtonText>
         </Strings>
@@ -1461,6 +1463,8 @@
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlClearXsdSchemaCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Clear Xsd Schema</ButtonText>
         </Strings>
