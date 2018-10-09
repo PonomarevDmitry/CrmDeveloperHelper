@@ -12,11 +12,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public partial class OrganizationComparer
     {
-        public Task<string> CheckMailMergeTemplatesAsync()
-        {
-            return Task.Run(() => CheckMailMergeTemplates());
-        }
-
         private static List<string> _fieldsToCompareMailMergeTemplateOrdinal = new List<string>()
         {
             MailMergeTemplate.Schema.Attributes.name
@@ -39,6 +34,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             MailMergeTemplate.Schema.Attributes.parameterxml
         };
+
+        public Task<string> CheckMailMergeTemplatesAsync()
+        {
+            return Task.Run(async () => await CheckMailMergeTemplates());
+        }
 
         private async Task<string> CheckMailMergeTemplates()
         {
@@ -296,7 +296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckEMailTemplatesAsync()
         {
-            return Task.Run(() => CheckEMailTemplates());
+            return Task.Run(async () => await CheckEMailTemplates());
         }
 
         private async Task<string> CheckEMailTemplates()
@@ -569,7 +569,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckKBArticleTemplatesAsync()
         {
-            return Task.Run(() => CheckKBArticleTemplates());
+            return Task.Run(async () => await CheckKBArticleTemplates());
         }
 
         private async Task<string> CheckKBArticleTemplates()

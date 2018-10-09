@@ -730,57 +730,66 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task CreateEntityMetadataFileAsync(string entityName)
         {
-            string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
-
-            var config = new CreateFileWithEntityMetadataCSharpConfiguration(
-                entityName
-                , txtBFolder.Text.Trim()
-                , tabSpacer
-                , chBAttributes.IsChecked.GetValueOrDefault()
-                , chBStatus.IsChecked.GetValueOrDefault()
-                , chBLocalOptionSets.IsChecked.GetValueOrDefault()
-                , chBGlobalOptionSets.IsChecked.GetValueOrDefault()
-                , chBOneToMany.IsChecked.GetValueOrDefault()
-                , chBManyToOne.IsChecked.GetValueOrDefault()
-                , chBManyToMany.IsChecked.GetValueOrDefault()
-                , chBKeys.IsChecked.GetValueOrDefault()
-                , chBAllDescriptions.IsChecked.GetValueOrDefault()
-                , chBWithDependentComponents.IsChecked.GetValueOrDefault()
-                , chBIntoSchemaClass.IsChecked.GetValueOrDefault()
-                , chBWithManagedInfo.IsChecked.GetValueOrDefault()
-                , _commonConfig.ConstantType
-                , _commonConfig.OptionSetExportType
-                );
-
             ToggleControls(false, "Creating File...");
 
-            this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            var service = await GetService();
-
-            string filePath = string.Empty;
-
-            using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
+            try
             {
-                string fileName = null;
+                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
-                if (!string.IsNullOrEmpty(_filePath))
+                var config = new CreateFileWithEntityMetadataCSharpConfiguration(
+                    entityName
+                    , txtBFolder.Text.Trim()
+                    , tabSpacer
+                    , chBAttributes.IsChecked.GetValueOrDefault()
+                    , chBStatus.IsChecked.GetValueOrDefault()
+                    , chBLocalOptionSets.IsChecked.GetValueOrDefault()
+                    , chBGlobalOptionSets.IsChecked.GetValueOrDefault()
+                    , chBOneToMany.IsChecked.GetValueOrDefault()
+                    , chBManyToOne.IsChecked.GetValueOrDefault()
+                    , chBManyToMany.IsChecked.GetValueOrDefault()
+                    , chBKeys.IsChecked.GetValueOrDefault()
+                    , chBAllDescriptions.IsChecked.GetValueOrDefault()
+                    , chBWithDependentComponents.IsChecked.GetValueOrDefault()
+                    , chBIntoSchemaClass.IsChecked.GetValueOrDefault()
+                    , chBWithManagedInfo.IsChecked.GetValueOrDefault()
+                    , _commonConfig.ConstantType
+                    , _commonConfig.OptionSetExportType
+                    );
+
+                this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                var service = await GetService();
+
+                string filePath = string.Empty;
+
+                using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
                 {
-                    fileName = Path.GetFileName(_filePath);
+                    string fileName = null;
+
+                    if (!string.IsNullOrEmpty(_filePath))
+                    {
+                        fileName = Path.GetFileName(_filePath);
+                    }
+
+                    filePath = await handler.CreateFileAsync(fileName);
                 }
 
-                filePath = await handler.CreateFileAsync(fileName);
+                this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                this._iWriteToOutput.WriteToOutput(string.Empty);
+
+                this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                ToggleControls(true, "File is created.");
             }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
 
-            this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
-
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-            this._iWriteToOutput.WriteToOutput(string.Empty);
-
-            this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            ToggleControls(true, "File is created.");
+                ToggleControls(true, "Creating File failed.");
+            }
         }
 
         private void btnCreateJavaScriptFile_Click(object sender, RoutedEventArgs e)

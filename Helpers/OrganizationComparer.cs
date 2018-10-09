@@ -1,4 +1,4 @@
-﻿using Microsoft.Xrm.Sdk.Query;
+using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -356,7 +356,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckWebResourcesAsync(bool withDetails)
         {
-            return Task.Run(() => CheckWebResources(withDetails));
+            return Task.Run(async () => await CheckWebResources(withDetails));
         }
 
         private async Task<string> CheckWebResources(bool withDetails)
@@ -762,11 +762,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return filePath;
         }
 
-        public Task<string> CheckSiteMapsAsync()
-        {
-            return Task.Run(async () => await CheckSiteMaps());
-        }
-
         private static List<string> _fieldsToCompareSiteMapOrdinal = new List<string>()
         {
             SiteMap.Schema.Attributes.sitemapname
@@ -778,6 +773,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             SiteMap.Schema.Attributes.sitemapxml
         };
+
+        public Task<string> CheckSiteMapsAsync()
+        {
+            return Task.Run(async () => await CheckSiteMaps());
+        }
 
         private async Task<string> CheckSiteMaps()
         {
@@ -1154,7 +1154,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckReportsAsync()
         {
-            return Task.Run(() => CheckReports());
+            return Task.Run(async () => await CheckReports());
         }
 
         private async Task<string> CheckReports()

@@ -282,7 +282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private Task ExecuteFetchAsync(XElement fetchXml, ConnectionData connectionData)
         {
-            return Task.Run(() => ExecuteFetch(fetchXml, connectionData));
+            return Task.Run(async () => await ExecuteFetch(fetchXml, connectionData));
         }
 
         private async Task ExecuteFetch(XElement fetchXml, ConnectionData connectionData)

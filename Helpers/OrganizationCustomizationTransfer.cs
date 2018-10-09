@@ -113,7 +113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> TrasnferAuditAsync()
         {
-            return Task.Run(() => TrasnferAudit());
+            return Task.Run(async () => await TrasnferAudit());
         }
 
         private async Task<string> TrasnferAudit()

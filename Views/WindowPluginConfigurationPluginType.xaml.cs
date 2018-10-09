@@ -360,7 +360,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Task PerformPluginTypeDescriptionAsync(string folder, PluginTypeFullInfo pluginType)
         {
-            return Task.Run(() => PerformPluginTypeDescription(folder, pluginType));
+            return Task.Run(async () => await PerformPluginTypeDescription(folder, pluginType));
         }
 
         private async Task PerformPluginTypeDescription(string folder, PluginTypeFullInfo pluginType)

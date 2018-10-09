@@ -61,7 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 >>
             ComparingFilesAndWebResourcesAsync(IWriteToOutput _iWriteToOutput, List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
         {
-            return Task.Run(() => ComparingFilesAndWebResources(_iWriteToOutput, selectedFiles, connectionData, withDetails));
+            return Task.Run(async () => await ComparingFilesAndWebResources(_iWriteToOutput, selectedFiles, connectionData, withDetails));
         }
 
         private static async Task<Tuple<IOrganizationServiceExtented
@@ -787,7 +787,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 >>
             FindFilesNotExistsInCrmAsync(IWriteToOutput _iWriteToOutput, List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
-            return Task.Run(() => FindFilesNotExistsInCrm(_iWriteToOutput, selectedFiles, connectionData));
+            return Task.Run(async () => await FindFilesNotExistsInCrm(_iWriteToOutput, selectedFiles, connectionData));
         }
 
         private static async Task<Tuple<IOrganizationServiceExtented

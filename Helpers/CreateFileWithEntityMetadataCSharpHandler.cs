@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CreateFileAsync(string fileName = null)
         {
-            return Task.Run(() => CreateFile(fileName));
+            return Task.Run(async () => await CreateFile(fileName));
         }
 
         private async Task<string> CreateFile(string fileName = null)
@@ -356,7 +356,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             //AddEntityMetadataString(table, "SyncToExternalSearchIndex", _entityMetadata.SyncToExternalSearchIndex);
 
-            table.SetHeader("PropertyName", "Value", "CanBeChanged");
+            table.SetHeader("PropertyName", "Value");
 
             List<string> result = table.GetFormatedLines(false);
 
@@ -973,7 +973,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            table.SetHeader("PropertyName", "Value", "CanBeChanged");
+            table.SetHeader("PropertyName", "Value");
 
             List<string> result = table.GetFormatedLines(false);
 
@@ -1016,7 +1016,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 CreateFileHandler.FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, key.DisplayName, new Label(), _config.TabSpacer);
 
                 FormatTextTableHandler table = new FormatTextTableHandler();
-                table.SetHeader("PropertyName", "Value", "CanBeChanged");
+                table.SetHeader("PropertyName", "Value");
 
                 table.AddEntityMetadataString("SchemaName", key.SchemaName);
                 if (this._config.WithManagedInfo)
@@ -1276,7 +1276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            table.SetHeader("PropertyName", "Value", "CanBeChanged");
+            table.SetHeader("PropertyName", "Value");
 
             List<string> result = table.GetFormatedLines(false);
 

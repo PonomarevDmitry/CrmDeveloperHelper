@@ -225,17 +225,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public FormatTextTableHandler AddLineIfNotEqual(string fieldName, BooleanManagedProperty value1, BooleanManagedProperty value2)
         {
             var valueString1 = value1 != null ? value1.Value.ToString() : "null";
-            var valueChange1 = value1 != null ? value1.CanBeChanged.ToString() : string.Empty;
-
             var valueString2 = value2 != null ? value2.Value.ToString() : "null";
-            var valueChange2 = value2 != null ? value2.CanBeChanged.ToString() : string.Empty;
-
-            var str1 = string.Format("{0} CanBeChanged {1}", valueString1, valueChange1);
-            var str2 = string.Format("{0} CanBeChanged {1}", valueString2, valueChange2);
 
             if (valueString1 != valueString2)
             {
-                this.AddLine(fieldName, str1, str2);
+                this.AddLine(fieldName, valueString1, valueString2);
             }
 
             return this;
@@ -244,17 +238,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public FormatTextTableHandler AddLineIfNotEqual(string fieldName, AttributeRequiredLevelManagedProperty value1, AttributeRequiredLevelManagedProperty value2)
         {
             var valueString1 = value1 != null ? value1.Value.ToString() : "null";
-            var valueChange1 = value1 != null ? value1.CanBeChanged.ToString() : string.Empty;
 
             var valueString2 = value2 != null ? value2.Value.ToString() : "null";
-            var valueChange2 = value2 != null ? value2.CanBeChanged.ToString() : string.Empty;
-
-            var str1 = string.Format("{0} CanBeChanged {1}", valueString1, valueChange1);
-            var str2 = string.Format("{0} CanBeChanged {1}", valueString2, valueChange2);
 
             if (valueString1 != valueString2)
             {
-                this.AddLine(fieldName, str1, str2);
+                this.AddLine(fieldName, valueString1, valueString2);
             }
 
             return this;
@@ -281,9 +270,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public FormatTextTableHandler AddEntityMetadataString(string fieldName, BooleanManagedProperty value)
         {
             var valueString = value != null ? value.Value.ToString() : "null";
-            var valueChange = value != null ? value.CanBeChanged.ToString() : string.Empty;
 
-            return this.AddLineNotNull(fieldName, valueString, valueChange);
+            return this.AddLineNotNull(fieldName, valueString);
         }
 
         public FormatTextTableHandler AddEntityMetadataString<T>(string fieldName, Nullable<T> value) where T : struct

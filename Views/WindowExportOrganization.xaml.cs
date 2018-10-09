@@ -377,7 +377,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Task<string> CreateFileAsync(string folder, string name, string fieldTitle, string xmlContent)
         {
-            return Task.Run(() => CreateFile(folder, name, fieldTitle, xmlContent));
+            return Task.Run(async () => await CreateFile(folder, name, fieldTitle, xmlContent));
         }
 
         private async Task<string> CreateFile(string folder, string name, string fieldTitle, string xmlContent)

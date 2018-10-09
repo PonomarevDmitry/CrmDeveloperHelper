@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CreateFileAsync(string fileName = null)
         {
-            return Task.Run(() => CreateFile(fileName));
+            return Task.Run(async () => await CreateFile(fileName));
         }
 
         private async Task<string> CreateFile(string fileName = null)

@@ -432,7 +432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 var isValidForRead = string.Format("IsValidForRead: {0}", attrib.IsValidForRead.GetValueOrDefault());
                 var isValidForUpdate = string.Format("IsValidForUpdate: {0}", attrib.IsValidForUpdate.GetValueOrDefault());
 
-                var isValidForAdvancedFind = string.Format("IsValidForAdvancedFind: {0}    CanBeChanged = {1}", attrib.IsValidForAdvancedFind.Value, attrib.IsValidForAdvancedFind.CanBeChanged);
+                var isValidForAdvancedFind = string.Format("IsValidForAdvancedFind: {0}", attrib.IsValidForAdvancedFind.Value);
 
                 AddStringIntoList(result, tabSpacer, isValidForCreate, isValidForRead, isValidForUpdate, isValidForAdvancedFind);
             }

@@ -59,7 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task CreateFileAsync(string filePath, IEnumerable<OptionSetMetadata> optionSets)
         {
-            return Task.Run(() => this.CreateFile(filePath, optionSets));
+            return Task.Run(async () => await this.CreateFile(filePath, optionSets));
         }
 
         private async Task CreateFile(string filePath, IEnumerable<OptionSetMetadata> optionSets)
