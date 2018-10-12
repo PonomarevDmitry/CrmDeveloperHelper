@@ -98,16 +98,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         //    return component.ToString();
         //}
 
-        public override string GetName(SolutionComponent component)
-        {
-            var entity = GetEntity<FieldPermission>(component.ObjectId.Value);
+        //public TupleList<string, string> GetComponentColumns()
+        //{
 
-            if (entity != null)
-            {
-
-            }
-
-            return component.ObjectId.ToString();
-        }
+        //}
     }
 }

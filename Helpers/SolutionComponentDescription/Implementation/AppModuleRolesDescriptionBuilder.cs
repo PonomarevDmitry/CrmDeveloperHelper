@@ -2,6 +2,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -171,7 +172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     );
             }
 
-            return component.ToString();
+            return base.GenerateDescriptionSingle(component, withUrls);
         }
 
         public override string GetName(SolutionComponent component)
@@ -181,12 +182,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             if (entity != null)
             {
                 return string.Format("{0} - {1}"
-                    , entity.GetAttributeValue<AliasedValue>("entitymap.sourceentityname")?.Value?.ToString()
-                    , entity.GetAttributeValue<AliasedValue>("entitymap.targetentityname")?.Value?.ToString()
-                    );
+                    , EntityDescriptionHandler.GetAttributeString(entity, AppModuleRoles.Schema.Attributes.appmoduleid + "." + AppModule.Schema.Attributes.name)
+                    , EntityDescriptionHandler.GetAttributeString(entity, AppModuleRoles.Schema.Attributes.roleid + "." + Role.Schema.Attributes.name)
+                );
             }
 
-            return component.ObjectId.ToString();
+            return base.GetName(component);
+        }
+
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+                {
+                    { AppModuleRoles.Schema.Attributes.appmoduleid + "." + AppModule.Schema.Attributes.name, "AppModuleName" }
+                    , { AppModuleRoles.Schema.Attributes.roleid + "." + Role.Schema.Attributes.name, "RoleName" }
+                    , { AppModuleRoles.Schema.Attributes.ismanaged, "IsManaged" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                };
         }
     }
 }

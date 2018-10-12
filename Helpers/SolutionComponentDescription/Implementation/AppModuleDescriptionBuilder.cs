@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,7 +92,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     );
             }
 
-            return component.ToString();
+            return base.GenerateDescriptionSingle(component, withUrls);
         }
 
         public override string GetName(SolutionComponent component)
@@ -103,7 +104,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return entity.UniqueName ?? entity.Name ?? entity.Id.ToString();
             }
 
-            return component.ObjectId.ToString();
+            return base.GetName(component);
+        }
+
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+                {
+                    { AppModule.Schema.Attributes.name, "Name" }
+                    , { AppModule.Schema.Attributes.uniquename, "UniqueName" }
+                    , { AppModule.Schema.Attributes.url, "URL" }
+                    , { AppModule.Schema.Attributes.appmoduleversion, "AppModuleVersion" }
+                    , { AppModule.Schema.Attributes.ismanaged, "IsManaged" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                };
         }
     }
 }

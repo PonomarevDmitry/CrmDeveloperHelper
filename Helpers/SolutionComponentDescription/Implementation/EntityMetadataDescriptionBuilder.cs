@@ -175,5 +175,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             return string.Format("{0}.ComponentType {1} - {2} - {3}.{4}", connectionName, this.ComponentTypeValue, objectId, fieldTitle, extension);
         }
+
+        public TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>();
+        }
     }
 }

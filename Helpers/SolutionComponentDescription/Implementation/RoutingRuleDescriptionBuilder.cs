@@ -2,6 +2,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,19 +94,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return title.ToString();
             }
 
-            return component.ToString();
+            return base.GenerateDescriptionSingle(component, withUrls);
         }
 
-        public override string GetName(SolutionComponent component)
+        public override TupleList<string, string> GetComponentColumns()
         {
-            var entity = GetEntity<FieldPermission>(component.ObjectId.Value);
-
-            if (entity != null)
-            {
-
-            }
-
-            return component.ObjectId.ToString();
+            return new TupleList<string, string>
+                {
+                    { RoutingRule.Schema.Attributes.name, "Name" }
+                    , { RoutingRule.Schema.Attributes.workflowid, "Workflow" }
+                    , { RoutingRule.Schema.Attributes.statuscode, "StatusCode" }
+                    , { RoutingRule.Schema.Attributes.ismanaged, "IsManaged" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                };
         }
     }
 }

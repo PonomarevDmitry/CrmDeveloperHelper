@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -120,7 +121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return builder.ToString();
             }
 
-            return component.ToString();
+            return base.GenerateDescriptionSingle(component, withUrls);
         }
 
         public override string GetDisplayName(SolutionComponent component)
@@ -132,7 +133,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return entity.FileName;
             }
 
-            return component.ObjectId.ToString();
+            return base.GetDisplayName(component);
+        }
+
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+                {
+                    { Report.Schema.Attributes.name, "Name" }
+                    , { Report.Schema.Attributes.filename, "FileName" }
+                    , { Report.Schema.Attributes.reporttypecode, "ReportType" }
+                    , { Report.Schema.Attributes.ispersonal, "ViewableBy" }
+                    , { Report.Schema.Attributes.ownerid, "Owner" }
+                    , { Report.Schema.Attributes.iscustomizable, "IsCustomizable" }
+                    , { Report.Schema.Attributes.ismanaged, "IsManaged" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                };
         }
     }
 }

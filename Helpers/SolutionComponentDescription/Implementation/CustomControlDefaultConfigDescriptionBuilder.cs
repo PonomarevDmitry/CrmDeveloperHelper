@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,19 +84,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     );
             }
 
-            return component.ToString();
+            return base.GenerateDescriptionSingle(component, withUrls);
         }
 
-        public override string GetName(SolutionComponent component)
+        public override string GetName(SolutionComponent solutionComponent)
         {
-            var entity = GetEntity<FieldPermission>(component.ObjectId.Value);
+            var entity = GetEntity<CustomControlDefaultConfig>(solutionComponent.ObjectId.Value);
 
             if (entity != null)
             {
-
+                return string.Format("{0} - {1}"
+                    , entity.PrimaryEntityTypeCode
+                    , entity.Id.ToString()
+                    );
             }
 
-            return component.ObjectId.ToString();
+            return base.GetName(solutionComponent);
+        }
+
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+                {
+                    { CustomControlDefaultConfig.Schema.Attributes.primaryentitytypecode, "PrimaryEntityTypeCode" }
+                    , { CustomControlDefaultConfig.Schema.EntityPrimaryIdAttribute, "Id" }
+                    , { CustomControlDefaultConfig.Schema.Attributes.ismanaged, "IsManaged" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                };
         }
     }
 }

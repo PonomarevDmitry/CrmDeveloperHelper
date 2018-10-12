@@ -347,29 +347,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return null;
             }
 
-            //var type = component.ComponentType.Value;
-
-            //if (SolutionComponent.IsDefinedComponentType(type))
-            //{
-            //    ComponentType componentType = (ComponentType)type;
-
-            //    switch (componentType)
-            //    {
-
-
-            //        case ComponentType.EntityRelationship:
-            //            {
-            //                RelationshipMetadataBase metaData = GetRelationshipMetadata(component.ObjectId.Value);
-
-            //                if (metaData != null)
-            //                {
-            //                    return metaData.IsCustomizable.Value.ToString();
-            //                }
-            //            }
-            //            break;
-            //    }
-            //}
-
             var entity = GetEntity<Entity>(solutionComponent.ObjectId.Value);
 
             if (entity != null)
@@ -394,29 +371,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 return null;
             }
-
-            //var type = component.ComponentType.Value;
-
-            //if (SolutionComponent.IsDefinedComponentType(type))
-            //{
-            //    ComponentType componentType = (ComponentType)type;
-
-            //    switch (componentType)
-            //    {
-
-
-            //        case ComponentType.EntityRelationship:
-            //            {
-            //                RelationshipMetadataBase metaData = GetRelationshipMetadata(component.ObjectId.Value);
-
-            //                if (metaData != null)
-            //                {
-            //                    return metaData.IsManaged.ToString();
-            //                }
-            //            }
-            //            break;
-            //    }
-            //}
 
             var entity = GetEntity<Entity>(solutionComponent.ObjectId.Value);
 
@@ -462,6 +416,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             return string.Format("{0}.ComponentType {1} - {2} - {3}.{4}", connectionName, this.ComponentTypeValue, objectId, fieldTitle, extension);
+        }
+
+        public virtual TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>();
         }
     }
 }

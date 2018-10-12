@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,7 +93,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     );
             }
 
-            return component.ToString();
+            return base.GenerateDescriptionSingle(component, withUrls);
         }
 
         public override string GetDisplayName(SolutionComponent component)
@@ -104,7 +105,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return entity.DisplayName;
             }
 
-            return component.ObjectId.ToString();
+            return base.GetDisplayName(component);
+        }
+
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+            {
+                { WebResource.Schema.Attributes.name, "Name" }
+                , { WebResource.Schema.Attributes.displayname, "DisplayName" }
+                , { WebResource.Schema.Attributes.webresourcetype, "Type" }
+                , { WebResource.Schema.Attributes.languagecode, "LanguageCode" }
+                , { WebResource.Schema.Attributes.ismanaged, "IsManaged" }
+                , { WebResource.Schema.Attributes.iscustomizable, "IsCustomizable" }
+                , { "solution.uniquename", "SolutionName" }
+                , { "solution.ismanaged", "SolutionIsManaged" }
+                , { "suppsolution.uniquename", "SupportingName" }
+                , { "suppsolution.ismanaged", "SupportingIsManaged" }
+            };
         }
     }
 }

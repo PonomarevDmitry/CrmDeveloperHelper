@@ -41,5 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         string GetCustomizableName(SolutionComponent solutionComponent);
 
         string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension);
+
+        TupleList<string, string> GetComponentColumns();
     }
 }

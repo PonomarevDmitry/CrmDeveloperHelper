@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,19 +92,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     );
             }
 
-            return component.ToString();
+            return base.GenerateDescriptionSingle(component, withUrls);
         }
 
         public override string GetName(SolutionComponent component)
         {
-            var entity = GetEntity<SdkMessageProcessingStepImage>(component.ObjectId.Value);
+            var entity = GetEntity<SiteMap>(component.ObjectId.Value);
 
             if (entity != null)
             {
-                return entity.EntityAlias;
+                return entity.SiteMapNameUnique ?? entity.SiteMapName ?? entity.Id.ToString();
             }
 
-            return component.ObjectId.ToString();
+            return base.GetName(component);
+        }
+
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+                {
+                    { SiteMap.Schema.EntityPrimaryIdAttribute, "Id" }
+                    , { SiteMap.Schema.Attributes.sitemapname, "Name" }
+                    , { SiteMap.Schema.Attributes.sitemapnameunique, "NameUnique" }
+                    , { SiteMap.Schema.Attributes.isappaware, "IsAppware" }
+                    , { SiteMap.Schema.Attributes.ismanaged, "IsManaged" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                };
         }
     }
 }

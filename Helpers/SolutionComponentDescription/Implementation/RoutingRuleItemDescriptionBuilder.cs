@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,19 +88,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     );
             }
 
-            return component.ToString();
+            return base.GenerateDescriptionSingle(component, withUrls);
         }
 
         public override string GetName(SolutionComponent component)
         {
-            var fieldPermission = GetEntity<FieldPermission>(component.ObjectId.Value);
+            var entity = GetEntity<RoutingRuleItem>(component.ObjectId.Value);
 
-            if (fieldPermission != null)
+            if (entity != null)
             {
-
+                return string.Format("{0} - {1}", entity.RoutingRuleId?.Name, entity.Name);
             }
 
-            return component.ObjectId.ToString();
+            return base.GetName(component);
+        }
+
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+                {
+                    {  RoutingRuleItem.Schema.Attributes.routingruleid, "RoutingRuleName" }
+                    , { RoutingRuleItem.Schema.Attributes.name, "Name" }
+                    , { RoutingRuleItem.Schema.Attributes.ismanaged, "IsManaged" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                };
         }
     }
 }

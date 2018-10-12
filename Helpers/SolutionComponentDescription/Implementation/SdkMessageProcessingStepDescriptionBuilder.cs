@@ -2,6 +2,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
@@ -182,19 +183,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return string.Format("SdkMessageProcessingStep {0}", str);
             }
 
-            return component.ToString();
+            return base.GenerateDescriptionSingle(component, withUrls);
         }
 
-        public override string GetName(SolutionComponent component)
+        public override TupleList<string, string> GetComponentColumns()
         {
-            var fieldPermission = GetEntity<FieldPermission>(component.ObjectId.Value);
-
-            if (fieldPermission != null)
-            {
-
-            }
-
-            return component.ObjectId.ToString();
+            return new TupleList<string, string>
+                {
+                    { SdkMessageProcessingStep.Schema.Attributes.eventhandler, "TypeName" }
+                    , { SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode, "PrimaryObjectTypeCode" }
+                    , { SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode, "SecondaryObjectTypeCode" }
+                    , { SdkMessageProcessingStep.Schema.Attributes.sdkmessageid, "Message" }
+                    , { SdkMessageProcessingStep.Schema.Attributes.stage, "Stage" }
+                    , { SdkMessageProcessingStep.Schema.Attributes.mode, "Mode" }
+                    , { SdkMessageProcessingStep.Schema.Attributes.rank, "Rank" }
+                    , { SdkMessageProcessingStep.Schema.Attributes.statuscode, "StatusCode" }
+                    , { SdkMessageProcessingStep.Schema.Attributes.iscustomizable, "IsCustomizable" }
+                    , { SdkMessageProcessingStep.Schema.Attributes.ismanaged, "IsManaged" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                    , { SdkMessageProcessingStep.Schema.Attributes.filteringattributes, "" }
+                };
         }
     }
 }

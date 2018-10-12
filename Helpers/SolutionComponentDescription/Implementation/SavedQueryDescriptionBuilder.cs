@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
@@ -93,7 +94,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     );
             }
 
-            return component.ToString();
+            return base.GenerateDescriptionSingle(component, withUrls);
         }
 
         public override string GetName(SolutionComponent component)
@@ -105,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return string.Format("{0} - {1}", entity.ReturnedTypeCode, entity.Name);
             }
 
-            return component.ObjectId.ToString();
+            return base.GetName(component);
         }
 
         public override string GetDisplayName(SolutionComponent component)
@@ -117,7 +118,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return SavedQueryRepository.GetQueryTypeName(entity.QueryType.Value);
             }
 
-            return component.ObjectId.ToString();
+            return base.GetDisplayName(component);
+        }
+
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+                {
+                    {  SavedQuery.Schema.Attributes.returnedtypecode, "EntityName" }
+                    , { SavedQuery.Schema.Attributes.name, "Name" }
+                    , { SavedQuery.Schema.Attributes.iscustomizable, "IsCustomizable" }
+                    , { SavedQuery.Schema.Attributes.ismanaged, "IsManaged" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                };
         }
     }
 }

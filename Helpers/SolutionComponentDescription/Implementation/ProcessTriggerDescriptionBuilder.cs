@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -119,7 +120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     );
             }
 
-            return component.ToString();
+            return base.GenerateDescriptionSingle(component, withUrls);
         }
 
         public override string GetName(SolutionComponent component)
@@ -134,7 +135,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     );
             }
 
-            return component.ObjectId.ToString();
+            return base.GetName(component);
+        }
+
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+                {
+                    { ProcessTrigger.Schema.Attributes.primaryentitytypecode, "PrimaryEntityTypeCode" }
+                    , { ProcessTrigger.Schema.Attributes.processid, "ProcessName" }
+                    , { ProcessTrigger.Schema.Attributes.Event, "Event" }
+                    , { ProcessTrigger.Schema.Attributes.pipelinestage, "PipelineStage" }
+                    , { ProcessTrigger.Schema.Attributes.formid, "FormName" }
+                    , { ProcessTrigger.Schema.Attributes.scope, "Scope" }
+                    , { ProcessTrigger.Schema.Attributes.methodid, "MethodId" }
+                    , { ProcessTrigger.Schema.Attributes.controlname, "ControlName" }
+                    , { ProcessTrigger.Schema.Attributes.controltype, "ControlType" }
+                    , { ProcessTrigger.Schema.Attributes.iscustomizable, "IsCustomizable" }
+                    , { ProcessTrigger.Schema.Attributes.ismanaged, "IsManaged" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                };
         }
     }
 }

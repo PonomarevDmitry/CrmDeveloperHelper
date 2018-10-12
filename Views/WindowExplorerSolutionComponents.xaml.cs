@@ -1000,7 +1000,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (category.HasValue)
             {
-                columnsForComponentType = SolutionComponentDescriptor.GetComponentColumns(category.Value);
+                columnsForComponentType = _descriptor.GetComponentColumns(category.Value);
             }
 
             WindowSettings winConfig = this.GetWindowsSettings();

@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,19 +91,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     );
             }
 
-            return component.ToString();
+            return base.GenerateDescriptionSingle(component, withUrls);
         }
 
-        public override string GetName(SolutionComponent component)
+        public override TupleList<string, string> GetComponentColumns()
         {
-            var fieldPermission = GetEntity<FieldPermission>(component.ObjectId.Value);
-
-            if (fieldPermission != null)
-            {
-
-            }
-
-            return component.ObjectId.ToString();
+            return new TupleList<string, string>
+                {
+                    { ServiceEndpoint.Schema.Attributes.name, "Name" }
+                    , { ServiceEndpoint.Schema.Attributes.connectionmode, "ConnectionMode" }
+                    , { ServiceEndpoint.Schema.Attributes.contract, "Contract" }
+                    , { ServiceEndpoint.Schema.Attributes.messageformat, "MessageFormat" }
+                    , { ServiceEndpoint.Schema.Attributes.namespaceformat, "NamespaceFormat" }
+                    , { ServiceEndpoint.Schema.Attributes.namespaceaddress, "NamespaceAddress" }
+                    , { ServiceEndpoint.Schema.Attributes.iscustomizable, "IsCustomizable" }
+                    , { ServiceEndpoint.Schema.Attributes.ismanaged, "IsManaged" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                };
         }
     }
 }

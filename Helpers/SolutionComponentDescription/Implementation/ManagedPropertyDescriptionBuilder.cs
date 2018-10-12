@@ -1,8 +1,10 @@
-﻿using Microsoft.Xrm.Sdk.Messages;
+﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -11,21 +13,25 @@ using System.Text;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
 {
-    public class ManagedPropertyDescriptionBuilder : DefaultSolutionComponentDescriptionBuilder
+    public class ManagedPropertyDescriptionBuilder : ISolutionComponentDescriptionBuilder
     {
-        public ManagedPropertyDescriptionBuilder(IOrganizationServiceExtented service)
-            : base(service, (int)ComponentType.ManagedProperty)
-        {
+        private const string formatSpacer = DefaultSolutionComponentDescriptionBuilder.formatSpacer;
+        private const string unknowedMessage = DefaultSolutionComponentDescriptionBuilder.unknowedMessage;
 
+        protected readonly IOrganizationServiceExtented _service;
+
+        public ManagedPropertyDescriptionBuilder(IOrganizationServiceExtented service)
+        {
+            this._service = service;
         }
 
-        public override ComponentType? ComponentTypeEnum => ComponentType.ManagedProperty;
+        public ComponentType? ComponentTypeEnum => ComponentType.ManagedProperty;
 
-        public override int ComponentTypeValue => (int)ComponentType.ManagedProperty;
+        public int ComponentTypeValue => (int)ComponentType.ManagedProperty;
 
-        public override string EntityLogicalName => string.Empty;
+        public string EntityLogicalName => string.Empty;
 
-        public override string EntityPrimaryIdAttribute => string.Empty;
+        public string EntityPrimaryIdAttribute => string.Empty;
 
         private readonly object _syncObjectManagedPropertyMetadata = new object();
 
@@ -58,7 +64,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        public List<T> GetEntities<T>(IEnumerable<Guid> components) where T : Entity
+        {
+            return new List<T>();
+        }
+
+        public List<T> GetEntities<T>(IEnumerable<Guid?> components) where T : Entity
+        {
+            return new List<T>();
+        }
+
+        public T GetEntity<T>(Guid idEntity) where T : Entity
+        {
+            return null;
+        }
+
+        public void FillSolutionImageComponent(List<SolutionImageComponent> result, SolutionComponent solutionComponent)
+        {
+            if (this.AllManagedProperties.Any())
+            {
+                if (this.AllManagedProperties.ContainsKey(solutionComponent.ObjectId.Value))
+                {
+                    var managedProperty = this.AllManagedProperties[solutionComponent.ObjectId.Value];
+
+                    result.Add(new SolutionImageComponent()
+                    {
+                        ComponentType = (int)ComponentType.ManagedProperty,
+                        ObjectId = solutionComponent.ObjectId.Value,
+                        RootComponentBehavior = solutionComponent.RootComponentBehavior?.Value,
+
+                        ComponentTypeName = ComponentType.ManagedProperty.ToString(),
+                        Description = GenerateDescriptionSingle(solutionComponent, false),
+                    });
+                }
+            }
+        }
+
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
             handler.SetHeader(
@@ -127,7 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        public string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
         {
             if (this.AllManagedProperties.Any())
             {
@@ -156,7 +198,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return component.ToString();
         }
 
-        public override string GetName(SolutionComponent solutionComponent)
+        public string GetName(SolutionComponent solutionComponent)
         {
             if (this.AllManagedProperties.Any())
             {
@@ -168,10 +210,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 }
             }
 
-            return base.GetName(solutionComponent);
+            return solutionComponent.ObjectId.ToString();
         }
 
-        public override string GetDisplayName(SolutionComponent solutionComponent)
+        public string GetDisplayName(SolutionComponent solutionComponent)
         {
             if (this.AllManagedProperties.Any())
             {
@@ -183,10 +225,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 }
             }
 
-            return base.GetDisplayName(solutionComponent);
+            return null;
         }
 
-        public override string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension)
+        public string GetCustomizableName(SolutionComponent solutionComponent)
+        {
+            return null;
+        }
+
+        public string GetManagedName(SolutionComponent solutionComponent)
+        {
+            return null;
+        }
+
+        public string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension)
         {
             if (this.AllManagedProperties.Any())
             {
@@ -198,7 +250,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 }
             }
 
-            return base.GetFileName(connectionName, objectId, fieldTitle, extension);
+            return string.Format("{0}.ComponentType {1} - {2} - {3}.{4}", connectionName, this.ComponentTypeValue, objectId, fieldTitle, extension);
+        }
+
+        public TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>();
         }
     }
 }

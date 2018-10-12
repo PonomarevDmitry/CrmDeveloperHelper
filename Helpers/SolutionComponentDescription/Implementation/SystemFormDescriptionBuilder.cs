@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,14 +61,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 .ThenBy(ent => ent.Name)
                 )
             {
-                string formName = entity.Name;
-                string entityName = entity.ObjectTypeCode;
-
                 string formTypeName = entity.FormattedValues[SystemForm.Schema.Attributes.type];
 
-                handler.AddLine(entityName
+                handler.AddLine(entity.ObjectTypeCode
                     , string.Format("'{0}'", formTypeName)
-                    , string.Format("'{0}'", formName)
+                    , string.Format("'{0}'", entity.Name)
                     , entity.IsManaged.ToString()
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
@@ -101,7 +99,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     );
             }
 
-            return component.ToString();
+            return base.GenerateDescriptionSingle(component, withUrls);
         }
 
         public override string GetName(SolutionComponent component)
@@ -113,7 +111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return string.Format("{0} - {1}", entity.ObjectTypeCode, entity.Name);
             }
 
-            return component.ObjectId.ToString();
+            return base.GetName(component);
         }
 
         public override string GetDisplayName(SolutionComponent component)
@@ -125,7 +123,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return entity.FormattedValues[SystemForm.Schema.Attributes.type];
             }
 
-            return component.ObjectId.ToString();
+            return base.GetDisplayName(component);
+        }
+
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+                {
+                    {  SystemForm.Schema.Attributes.objecttypecode, "EntityName" }
+                    , { SystemForm.Schema.Attributes.type, "FormType" }
+                    , { SystemForm.Schema.Attributes.name, "Name" }
+                    , { SystemForm.Schema.Attributes.uniquename, "UniqueName" }
+                    , { SystemForm.Schema.Attributes.formactivationstate, "State" }
+                    , { SystemForm.Schema.Attributes.iscustomizable, "IsCustomizable" }
+                    , { SystemForm.Schema.Attributes.ismanaged, "IsManaged" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                };
         }
     }
 }

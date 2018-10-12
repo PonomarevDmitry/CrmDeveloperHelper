@@ -2,6 +2,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
@@ -229,19 +230,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return string.Format("SdkMessageProcessingStepImage {0}", str);
             }
 
-            return component.ToString();
+            return base.GenerateDescriptionSingle(component, withUrls);
         }
 
         public override string GetName(SolutionComponent component)
         {
-            var fieldPermission = GetEntity<FieldPermission>(component.ObjectId.Value);
+            var entity = GetEntity<SdkMessageProcessingStepImage>(component.ObjectId.Value);
 
-            if (fieldPermission != null)
+            if (entity != null)
             {
-
+                return entity.EntityAlias;
             }
 
-            return component.ObjectId.ToString();
+            return base.GetName(component);
+        }
+
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+                {
+                    { "sdkmessageprocessingstep.eventhandler", "TypeName" }
+                    , { SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode, "PrimaryObjectTypeCode" }
+                    , { SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode, "SecondaryObjectTypeCode" }
+                    , { "sdkmessageprocessingstep.sdkmessageid", "Message" }
+                    , { "sdkmessageprocessingstep.stage", "Stage" }
+                    , { "sdkmessageprocessingstep.mode", "Mode" }
+                    , { "sdkmessageprocessingstep.rank", "Rank" }
+                    , { "sdkmessageprocessingstep.statuscode", "StatusCode" }
+                    , { SdkMessageProcessingStepImage.Schema.Attributes.imagetype, "ImageType" }
+                    , { SdkMessageProcessingStepImage.Schema.Attributes.name, "Name" }
+                    , { SdkMessageProcessingStepImage.Schema.Attributes.entityalias, "EntityAlias" }
+                    , { SdkMessageProcessingStepImage.Schema.Attributes.iscustomizable, "IsCustomizable" }
+                    , { SdkMessageProcessingStepImage.Schema.Attributes.ismanaged, "IsManaged" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                    , { SdkMessageProcessingStepImage.Schema.Attributes.attributes, "" }
+                };
         }
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -111,7 +112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     );
             }
 
-            return component.ToString();
+            return base.GenerateDescriptionSingle(component, withUrls);
         }
 
         public override string GetName(SolutionComponent component)
@@ -123,7 +124,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return string.Format("{0} - {1}", entity.Entity ?? "ApplicationRibbon", entity.DiffId);
             }
 
-            return component.ObjectId.ToString();
+            return base.GetName(component);
+        }
+
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+                {
+                    { RibbonDiff.Schema.Attributes.entity, "Entity" }
+                    , { RibbonDiff.Schema.Attributes.diffid, "DiffId" }
+                    , { RibbonDiff.Schema.Attributes.difftype, "DiffType" }
+                    , { RibbonDiff.Schema.Attributes.tabid, "TabId" }
+                    , { RibbonDiff.Schema.Attributes.contextgroupid, "ContextGroupId" }
+                    , { RibbonDiff.Schema.Attributes.sequence, "Sequence" }
+                    , { RibbonDiff.Schema.Attributes.ismanaged, "IsManaged" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                };
         }
     }
 }
