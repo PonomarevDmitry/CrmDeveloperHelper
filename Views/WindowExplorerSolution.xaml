@@ -96,7 +96,7 @@
                 </DataGrid>
             </DockPanel>
         </GroupBox>
-        <ToolBar x:Name="toolStrip" Margin="0,0,0,31" VerticalAlignment="Bottom" Height="Auto" Width="Auto">
+        <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="Auto" Width="Auto">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>

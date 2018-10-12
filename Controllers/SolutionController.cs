@@ -1171,7 +1171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var solutionRep = new SolutionComponentRepository(service);
 
-            var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.SDKMessageProcessingStep);
+            var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.SdkMessageProcessingStep);
 
             foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
             {
@@ -1193,7 +1193,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var componentsToAdd = dictForAdding.Select(e => new SolutionComponent(new
             {
                 ObjectId = e.Key,
-                ComponentType = new OptionSetValue((int)ComponentType.SDKMessageProcessingStep),
+                ComponentType = new OptionSetValue((int)ComponentType.SdkMessageProcessingStep),
                 RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
             })).ToList();
 
@@ -1382,7 +1382,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var solutionRep = new SolutionComponentRepository(service);
 
-            var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.SDKMessageProcessingStep);
+            var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.SdkMessageProcessingStep);
 
             foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
             {
@@ -1404,7 +1404,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var componentsToAdd = dictForAdding.Select(e => new SolutionComponent(new
             {
                 ObjectId = e.Key,
-                ComponentType = new OptionSetValue((int)ComponentType.SDKMessageProcessingStep),
+                ComponentType = new OptionSetValue((int)ComponentType.SdkMessageProcessingStep),
                 RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
             })).ToList();
 

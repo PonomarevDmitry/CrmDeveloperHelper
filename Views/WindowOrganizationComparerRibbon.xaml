@@ -124,7 +124,7 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <ToolBar x:Name="toolStrip" Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
+        <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>

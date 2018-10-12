@@ -209,7 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 case Entities.ComponentType.ContractTemplate:
                     return ContractTemplate.EntityTypeCode;
 
-                case Entities.ComponentType.KBArticleTemplate:
+                case Entities.ComponentType.KbArticleTemplate:
                     return KbArticleTemplate.EntityTypeCode;
 
                 case Entities.ComponentType.MailMergeTemplate:
@@ -254,10 +254,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 case Entities.ComponentType.FieldPermission:
                     return FieldPermission.EntityTypeCode;
 
-                case Entities.ComponentType.SDKMessageProcessingStep:
+                case Entities.ComponentType.SdkMessageProcessingStep:
                     return SdkMessageProcessingStep.EntityTypeCode;
 
-                case Entities.ComponentType.SDKMessageProcessingStepImage:
+                case Entities.ComponentType.SdkMessageProcessingStepImage:
                     return SdkMessageProcessingStepImage.EntityTypeCode;
 
                 case Entities.ComponentType.ServiceEndpoint:

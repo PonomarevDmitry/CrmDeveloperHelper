@@ -200,7 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         Dependency attr = dependent1.FirstOrDefault(e => e.DependentComponentType.Value == (int)ComponentType.Attribute);
 
-                        Microsoft.Xrm.Sdk.Metadata.AttributeMetadata attributeMetadata = descriptor1.GetAttributeMetadata(attr.DependentComponentObjectId.Value);
+                        Microsoft.Xrm.Sdk.Metadata.AttributeMetadata attributeMetadata = descriptor1.MetadataSource.GetAttributeMetadata(attr.DependentComponentObjectId.Value);
 
                         if (attributeMetadata != null)
                         {
@@ -220,7 +220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         Dependency attr = dependent2.FirstOrDefault(e => e.DependentComponentType.Value == (int)ComponentType.Attribute);
 
-                        Microsoft.Xrm.Sdk.Metadata.AttributeMetadata attributeMetadata = descriptor2.GetAttributeMetadata(attr.DependentComponentObjectId.Value);
+                        Microsoft.Xrm.Sdk.Metadata.AttributeMetadata attributeMetadata = descriptor2.MetadataSource.GetAttributeMetadata(attr.DependentComponentObjectId.Value);
 
                         if (attributeMetadata != null)
                         {

@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 try
                 {
-                    this._entityMetadata = _descriptor.GetEntityMetadata(entityName);
+                    this._entityMetadata = _descriptor.MetadataSource.GetEntityMetadata(entityName);
                 }
                 catch (Exception)
                 {

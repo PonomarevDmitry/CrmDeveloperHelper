@@ -1132,7 +1132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
                 {
-                    ComponentType = (int)ComponentType.SDKMessageProcessingStep,
+                    ComponentType = (int)ComponentType.SdkMessageProcessingStep,
                     ObjectId = step1.Id
                 });
             }
@@ -1190,7 +1190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
                 {
-                    ComponentType = (int)ComponentType.SDKMessageProcessingStep,
+                    ComponentType = (int)ComponentType.SdkMessageProcessingStep,
                     ObjectId = step2.Id
                 });
             }
@@ -1288,7 +1288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     this.Image.DifferentComponents.Add(new SolutionImageComponent()
                     {
-                        ComponentType = (int)ComponentType.SDKMessageProcessingStep,
+                        ComponentType = (int)ComponentType.SdkMessageProcessingStep,
                         ObjectId = commonStep.Entity1.Id,
                     });
                 }

@@ -105,7 +105,7 @@
         ContractTemplate = 37,
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        KBArticleTemplate = 38,
+        KbArticleTemplate = 38,
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
         MailMergeTemplate = 39,
@@ -177,10 +177,10 @@
         PluginAssembly = 91,
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        SDKMessageProcessingStep = 92,
+        SdkMessageProcessingStep = 92,
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        SDKMessageProcessingStepImage = 93,
+        SdkMessageProcessingStepImage = 93,
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
         ServiceEndpoint = 95,

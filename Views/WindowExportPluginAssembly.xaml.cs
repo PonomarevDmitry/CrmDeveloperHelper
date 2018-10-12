@@ -813,7 +813,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var contr = new SolutionController(this._iWriteToOutput);
 
-                    contr.ExecuteAddingComponentesIntoSolution(service.ConnectionData, _commonConfig, solutionUniqueName, ComponentType.SDKMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
+                    contr.ExecuteAddingComponentesIntoSolution(service.ConnectionData, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
                 }
                 catch (Exception ex)
                 {

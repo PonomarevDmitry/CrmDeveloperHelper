@@ -341,7 +341,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.toolStrip, enabled);
+            ToggleControl(this.btnExportSolution, enabled);
 
             ToggleControl(cmBCurrentConnection, enabled);
 
@@ -389,7 +389,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     bool enabled = this.lstVwSolutions.SelectedItems.Count > 0;
 
-                    UIElement[] list = { btnExportSolution };
+                    UIElement[] list = { btnExportSolution, btnOpenSolutionInWeb };
 
                     foreach (var button in list)
                     {

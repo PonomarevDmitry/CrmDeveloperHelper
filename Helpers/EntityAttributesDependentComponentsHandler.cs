@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            var metedata = _descriptor.GetEntityMetadata(entityName);
+            var metedata = _descriptor.MetadataSource.GetEntityMetadata(entityName);
 
             foreach (var currentAttribute in metedata.Attributes.OrderBy(attr => attr.LogicalName))
             {
@@ -46,8 +46,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             var val = ent.DependentComponentType.Value;
 
                             return val == (int)ComponentType.Workflow
-                                || val == (int)ComponentType.SDKMessageProcessingStep
-                                || val == (int)ComponentType.SDKMessageProcessingStepImage
+                                || val == (int)ComponentType.SdkMessageProcessingStep
+                                || val == (int)ComponentType.SdkMessageProcessingStepImage
                                 ;
 
                             //return val == (int)ComponentType.SDKMessageProcessingStepImage

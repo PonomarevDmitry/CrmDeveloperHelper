@@ -990,7 +990,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService1();
             var descriptor = new SolutionComponentDescriptor(_iWriteToOutput, service, false);
 
-            var entityMetadata = descriptor.GetEntityMetadata(entity.EntityMetadata1.MetadataId.Value);
+            var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(entity.EntityMetadata1.MetadataId.Value);
 
             IEnumerable<OptionSetMetadata> optionSets =
                 entityMetadata
@@ -1158,7 +1158,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService2();
             var descriptor = new SolutionComponentDescriptor(_iWriteToOutput, service, false);
 
-            var entityMetadata = descriptor.GetEntityMetadata(entity.EntityMetadata2.MetadataId.Value);
+            var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(entity.EntityMetadata2.MetadataId.Value);
 
             IEnumerable<OptionSetMetadata> optionSets =
                 entityMetadata

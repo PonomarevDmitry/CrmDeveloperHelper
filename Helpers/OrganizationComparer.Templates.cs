@@ -631,7 +631,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
                 {
-                    ComponentType = (int)ComponentType.KBArticleTemplate,
+                    ComponentType = (int)ComponentType.KbArticleTemplate,
                     ObjectId = template1.Id,
                 });
             }
@@ -653,7 +653,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
                 {
-                    ComponentType = (int)ComponentType.KBArticleTemplate,
+                    ComponentType = (int)ComponentType.KbArticleTemplate,
                     ObjectId = template2.Id,
                 });
             }
@@ -714,7 +714,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     this.Image.DifferentComponents.Add(new SolutionImageComponent()
                     {
-                        ComponentType = (int)ComponentType.KBArticleTemplate,
+                        ComponentType = (int)ComponentType.KbArticleTemplate,
                         ObjectId = template1.Id,
                     });
                 }

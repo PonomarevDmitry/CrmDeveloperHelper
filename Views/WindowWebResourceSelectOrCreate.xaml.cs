@@ -156,7 +156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     Visibility visibility = isEnabled ? Visibility.Visible : Visibility.Collapsed;
 
-                    toolStrip.Dispatcher.Invoke(() =>
+                    this.Dispatcher.Invoke(() =>
                     {
                         txtBLastLink.Text = name;
 

@@ -484,7 +484,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
             var descriptor = await GetDescriptor();
 
-            var entityMetadata = descriptor.GetEntityMetadata(entity.EntityMetadata.MetadataId.Value);
+            var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(entity.EntityMetadata.MetadataId.Value);
 
             IEnumerable<OptionSetMetadata> optionSets =
                 entityMetadata

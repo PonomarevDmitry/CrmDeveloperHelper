@@ -60,12 +60,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 return this.PluginType.Value;
             }
 
-            if (this.Step.HasValue && this.ComponentType == Entities.ComponentType.SDKMessageProcessingStep)
+            if (this.Step.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageProcessingStep)
             {
                 return this.Step.Value;
             }
 
-            if (this.StepImage.HasValue && this.ComponentType == Entities.ComponentType.SDKMessageProcessingStepImage)
+            if (this.StepImage.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageProcessingStepImage)
             {
                 return this.StepImage.Value;
             }

@@ -41,7 +41,7 @@
         </TreeView>
         <Label x:Name="lblLastLink" Content="Last Link" HorizontalAlignment="Left" Margin="10,0,0,62" VerticalAlignment="Bottom" IsEnabled="False" Visibility="Collapsed" />
         <TextBox x:Name="txtBLastLink" Height="26" Margin="71,0,10,62" TextWrapping="Wrap"  VerticalAlignment="Bottom" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" IsEnabled="False" Visibility="Collapsed" />
-        <ToolBar x:Name="toolStrip" Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
+        <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -54,7 +54,7 @@
                         <Setter Property="Padding" Value="3" />
                     </Style>
                 </DockPanel.Resources>
-                <ToolBarPanel Orientation="Horizontal" >
+                <ToolBarPanel x:Name="toolStrip" Orientation="Horizontal" >
                     <Button x:Name="btnSelectWebResource" Content="Select WebResource" Click="btnSelectWebResource_Click" />
                     <Separator x:Name="sepCreateNewWebResource" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0,20,0" IsEnabled="False" Visibility="Collapsed"/>
                     <Button x:Name="btnCreateNewWebResource" Content="Create New WebResource" IsEnabled="False" Visibility="Collapsed" Click="btnCreateNewWebResource_Click"/>

@@ -220,7 +220,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.toolStrip, enabled);
+            ToggleControl(this.btnSelectReport, enabled);
+            ToggleControl(this.btnSelectLastLink, enabled);
 
             ToggleProgressBar(enabled);
 

@@ -216,7 +216,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!tempSelectEntity)
                 {
-                    var metadata = descriptor.GetEntityMetadata(selection.ToLower());
+                    var metadata = descriptor.MetadataSource.GetEntityMetadata(selection.ToLower());
 
                     if (metadata != null)
                     {
@@ -335,7 +335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!tempWithSelect)
                 {
-                    var metadata = descriptor.GetOptionSetMetadata(selection.ToLower());
+                    var metadata = descriptor.MetadataSource.GetOptionSetMetadata(selection.ToLower());
 
                     if (metadata != null)
                     {

@@ -958,7 +958,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.toolStrip, enabled);
+            ToggleControl(this.btnExecuteFetchXml, enabled);
 
             ToggleControl(this.dGrParameters, enabled);
 

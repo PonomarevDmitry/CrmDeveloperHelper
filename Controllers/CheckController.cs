@@ -4,6 +4,7 @@ using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -1073,7 +1074,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
 
-            var descriptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+            var entityMetadataSource = new SolutionComponentMetadataSource(service);
+
+            var descriptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true, entityMetadataSource);
             var dependencyRepository = new DependencyRepository(service);
             var descriptorHandler = new DependencyDescriptionHandler(descriptor);
 
@@ -1091,7 +1094,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     var filter = coll
                         .Where(c => c.DependentComponentType.Value == (int)ComponentType.Attribute)
-                        .Select(c => new { Dependency = c, Attribute = descriptor.GetAttributeMetadata(c.DependentComponentObjectId.Value) })
+                        .Select(c => new { Dependency = c, Attribute = entityMetadataSource.GetAttributeMetadata(c.DependentComponentObjectId.Value) })
                         .Where(c => c.Attribute != null)
                         .GroupBy(c => c.Attribute.EntityLogicalName)
                         .Where(gr => gr.Count() > 1)
@@ -1827,7 +1830,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var descriptor = new SolutionComponentDescriptor(this._iWriteToOutput, service, true);
 
-                descriptor.DownloadEntityMetadata();
+                descriptor.MetadataSource.DownloadEntityMetadata();
 
                 var desc = await descriptor.GetSolutionComponentsDescriptionAsync(solutionComponents);
 

@@ -111,7 +111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var attr = dependent.FirstOrDefault(e => e.DependentComponentType.Value == (int)ComponentType.Attribute);
 
-                var attributeMetadata = _descriptor.GetAttributeMetadata(attr.DependentComponentObjectId.Value);
+                var attributeMetadata = _descriptor.MetadataSource.GetAttributeMetadata(attr.DependentComponentObjectId.Value);
 
                 if (attributeMetadata != null)
                 {

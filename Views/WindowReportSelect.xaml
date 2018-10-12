@@ -43,7 +43,7 @@
         </DataGrid>
         <Label x:Name="lblLastLink" Content="Last Link" HorizontalAlignment="Left" Margin="10,0,0,62" VerticalAlignment="Bottom"/>
         <TextBox x:Name="txtBLastLink" Height="26" Margin="71,0,10,62" TextWrapping="Wrap"  VerticalAlignment="Bottom" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
-        <ToolBar x:Name="toolStrip" Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
+        <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>

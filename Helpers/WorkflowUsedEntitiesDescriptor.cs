@@ -105,7 +105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     var components = await repository.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.Entity);
 
-                    var listMetadata = _descriptor.GetEntityMetadataList(components.Where(e => e.ObjectId.HasValue).Select(e => e.ObjectId.Value));
+                    var listMetadata = _descriptor.MetadataSource.GetEntityMetadataList(components.Where(e => e.ObjectId.HasValue).Select(e => e.ObjectId.Value));
 
                     foreach (var entityMetadata in listMetadata)
                     {
@@ -223,7 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     var components = await repository.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.Entity);
 
-                    var listMetadata = _descriptor.GetEntityMetadataList(components.Where(e => e.ObjectId.HasValue).Select(e => e.ObjectId.Value));
+                    var listMetadata = _descriptor.MetadataSource.GetEntityMetadataList(components.Where(e => e.ObjectId.HasValue).Select(e => e.ObjectId.Value));
 
                     foreach (var entityMetadata in listMetadata)
                     {
@@ -425,7 +425,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    var entityMetadata = _descriptor.GetEntityMetadata(item.LogicalName);
+                    var entityMetadata = _descriptor.MetadataSource.GetEntityMetadata(item.LogicalName);
 
                     if (entityMetadata != null)
                     {
@@ -588,7 +588,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     try
                     {
-                        var entityMetadata = _descriptor.GetEntityMetadata(itemRef.LogicalName);
+                        var entityMetadata = _descriptor.MetadataSource.GetEntityMetadata(itemRef.LogicalName);
 
                         if (entityMetadata != null)
                         {

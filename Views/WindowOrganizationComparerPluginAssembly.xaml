@@ -73,7 +73,7 @@
         </DataGrid>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,62" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="26" Width="53"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,62" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="254" Height="26" />
-        <ToolBar x:Name="toolStrip" Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
+        <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>

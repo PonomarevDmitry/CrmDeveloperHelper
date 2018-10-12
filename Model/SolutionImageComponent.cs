@@ -1,11 +1,5 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
@@ -14,6 +8,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
     {
         [DataMember]
         public int ComponentType { get; set; }
+
+        [DataMember]
+        public string ComponentTypeName { get; set; }
 
         [DataMember]
         public Guid? ObjectId { get; set; }
@@ -26,6 +23,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         [DataMember]
         public string ParentSchemaName { get; set; }
+
+        [DataMember]
+        public string Description { get; set; }
 
         public override bool Equals(object obj)
         {

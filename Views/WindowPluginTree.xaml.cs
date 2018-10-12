@@ -717,7 +717,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string nameStep = GetStepName(step);
             string tooltipStep = GetStepTooltip(step);
 
-            var nodeStep = new PluginTreeViewItem(ComponentType.SDKMessageProcessingStep)
+            var nodeStep = new PluginTreeViewItem(ComponentType.SdkMessageProcessingStep)
             {
                 Name = nameStep,
                 Tooltip = tooltipStep,
@@ -739,7 +739,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string nameImage = GetImageName(image);
             string tooltipImage = GetImageTooltip(image);
 
-            var nodeImage = new PluginTreeViewItem(ComponentType.SDKMessageProcessingStepImage)
+            var nodeImage = new PluginTreeViewItem(ComponentType.SdkMessageProcessingStepImage)
             {
                 Name = nameImage,
                 Tooltip = tooltipImage,
@@ -1024,12 +1024,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return "Create Message Filter Description";
             }
 
-            if (item.Step.HasValue && item.ComponentType == ComponentType.SDKMessageProcessingStep)
+            if (item.Step.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
             {
                 return "Create Step Description";
             }
 
-            if (item.StepImage.HasValue && item.ComponentType == ComponentType.SDKMessageProcessingStepImage)
+            if (item.StepImage.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStepImage)
             {
                 return "Create Image Description";
             }
@@ -1043,8 +1043,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 || (item.PluginType.HasValue && item.ComponentType == ComponentType.PluginType)
                 || ((item.Message != null && item.Message.Any()) && item.ComponentType == ComponentType.SDKMessage)
                 || ((item.MessageFilter != null && item.MessageFilter.Any()) && item.ComponentType == ComponentType.SDKMessage)
-                || (item.Step.HasValue && item.ComponentType == ComponentType.SDKMessageProcessingStep)
-                || (item.StepImage.HasValue && item.ComponentType == ComponentType.SDKMessageProcessingStepImage)
+                || (item.Step.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
+                || (item.StepImage.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStepImage)
                 ;
         }
 
@@ -1271,7 +1271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            if (node.Step.HasValue && node.ComponentType == ComponentType.SDKMessageProcessingStep)
+            if (node.Step.HasValue && node.ComponentType == ComponentType.SdkMessageProcessingStep)
             {
                 var repository = new SdkMessageProcessingStepRepository(service);
                 var step = await repository.GetStepByIdAsync(node.Step.Value);
@@ -1317,7 +1317,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            if (node.StepImage.HasValue && node.ComponentType == ComponentType.SDKMessageProcessingStepImage)
+            if (node.StepImage.HasValue && node.ComponentType == ComponentType.SdkMessageProcessingStepImage)
             {
                 var repository = new SdkMessageProcessingStepImageRepository(service);
                 SdkMessageProcessingStepImage stepImage = await repository.GetStepImageByIdAsync(node.StepImage.Value);
@@ -1458,7 +1458,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             bool isPluginAssembly = nodeItem.PluginAssembly.HasValue && nodeItem.ComponentType == ComponentType.PluginAssembly;
             bool isPluginType = nodeItem.PluginType.HasValue && nodeItem.ComponentType == ComponentType.PluginType;
-            bool isStep = nodeItem.Step.HasValue && nodeItem.ComponentType == ComponentType.SDKMessageProcessingStep;
+            bool isStep = nodeItem.Step.HasValue && nodeItem.ComponentType == ComponentType.SdkMessageProcessingStep;
 
             ConnectionData connectionData = null;
 
@@ -1866,7 +1866,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var contr = new SolutionController(this._iWriteToOutput);
 
-                    contr.ExecuteAddingComponentesIntoSolution(service.ConnectionData, _commonConfig, solutionUniqueName, ComponentType.SDKMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
+                    contr.ExecuteAddingComponentesIntoSolution(service.ConnectionData, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
                 }
                 catch (Exception ex)
                 {
@@ -1999,7 +1999,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var contr = new SolutionController(this._iWriteToOutput);
 
-                    contr.ExecuteAddingComponentesIntoSolution(service.ConnectionData, _commonConfig, solutionUniqueName, ComponentType.SDKMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
+                    contr.ExecuteAddingComponentesIntoSolution(service.ConnectionData, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
                 }
                 catch (Exception ex)
                 {

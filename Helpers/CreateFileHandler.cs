@@ -738,7 +738,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         foreach (var target in lookupAttrib.Targets)
                         {
-                            var entityMetadata = descriptor.GetEntityMetadata(target, new[] { "LogicalName", "DisplayName", "DisplayCollectionName", "Description", "PrimaryIdAttribute", "PrimaryNameAttribute" });
+                            var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(target, new[] { "LogicalName", "DisplayName", "DisplayCollectionName", "Description", "PrimaryIdAttribute", "PrimaryNameAttribute" });
 
                             if (entityMetadata != null)
                             {

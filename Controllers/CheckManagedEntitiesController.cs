@@ -1163,16 +1163,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
 
-            descriptor.DownloadEntityMetadataForNames(_entitiesWithManagedProperty, true);
+            descriptor.MetadataSource.DownloadEntityMetadataForNames(_entitiesWithManagedProperty, true);
 
-            var list = _entitiesWithManagedProperty.Where(n => descriptor.GetEntityMetadata(n) != null);
+            var list = _entitiesWithManagedProperty.Where(n => descriptor.MetadataSource.GetEntityMetadata(n) != null);
 
             {
                 var reporter = new ProgressReporter(_iWriteToOutput, list.Count(), 5, "Processing Managed Entities");
 
                 foreach (var entityName in list)
                 {
-                    var entityMetadata = descriptor.GetEntityMetadata(entityName);
+                    var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(entityName);
 
                     if (entityMetadata == null)
                     {

@@ -65,7 +65,7 @@
                     <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
                     <GroupBox Grid.Column="2" Header="Fetch Xml Text">
                         <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true">
-                            <ToolBar x:Name="toolStrip" VerticalAlignment="Top" Height="30" DockPanel.Dock="Top">
+                            <ToolBar VerticalAlignment="Top" Height="30" DockPanel.Dock="Top">
                                 <Button x:Name="btnExecuteFetchXml" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click"/>
                                 <Separator />
                                 <Button x:Name="btnCopyJavaScriptToClipboardCode" Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>

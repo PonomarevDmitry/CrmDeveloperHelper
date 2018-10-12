@@ -466,7 +466,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             foreach (var step in querySteps)
             {
-                var listRequired = await dependencyRepository.GetRequiredComponentsAsync((int)ComponentType.SDKMessageProcessingStep, step.Id);
+                var listRequired = await dependencyRepository.GetRequiredComponentsAsync((int)ComponentType.SdkMessageProcessingStep, step.Id);
 
                 var stepEntities = GetSetEntites(step);
                 var stepAttributes = GetSetStepAttributes(step);
@@ -730,7 +730,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             foreach (var image in queryImages)
             {
-                var listRequired = await dependencyRepository.GetRequiredComponentsAsync((int)ComponentType.SDKMessageProcessingStepImage, image.Id);
+                var listRequired = await dependencyRepository.GetRequiredComponentsAsync((int)ComponentType.SdkMessageProcessingStepImage, image.Id);
 
                 var stepEntities = GetSetEntites(image);
                 var stepAttributes = GetSetImageAttributes(image);

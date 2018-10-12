@@ -113,7 +113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var visibility = isEnabled ? Visibility.Visible : Visibility.Collapsed;
 
-                    toolStrip.Dispatcher.Invoke(() =>
+                    this.Dispatcher.Invoke(() =>
                     {
                         txtBLastLink.Text = name;
 
@@ -208,7 +208,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.toolStrip, enabled);
+            ToggleControl(this.btnSelectSolution, enabled);
+            ToggleControl(this.btnSelectLastSolution, enabled);
 
             ToggleProgressBar(enabled);
 
@@ -254,7 +255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     bool enabled = this.lstVwSolutions.SelectedItems.Count > 0;
 
-                    UIElement[] list = { btnSelectSolution };
+                    UIElement[] list = { btnSelectSolution, btnOpenSolutionInWeb };
 
                     foreach (var button in list)
                     {

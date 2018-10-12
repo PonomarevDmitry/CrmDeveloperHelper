@@ -56,20 +56,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             if (_config.EntityMetadata == null)
             {
-                this._entityMetadata = this._solutionComponentDescriptor.GetEntityMetadata(_config.EntityName);
+                this._entityMetadata = this._solutionComponentDescriptor.MetadataSource.GetEntityMetadata(_config.EntityName);
             }
             else
             {
                 this._entityMetadata = _config.EntityMetadata;
 
-                this._solutionComponentDescriptor.StoreEntityMetadata(_config.EntityMetadata);
+                this._solutionComponentDescriptor.MetadataSource.StoreEntityMetadata(_config.EntityMetadata);
             }
 
             HashSet<string> hashSet = GetLinkedEntities(this._entityMetadata);
 
             hashSet.Remove(this._entityMetadata.LogicalName);
 
-            this._taskDownloadMetadata = this._solutionComponentDescriptor.DownloadEntityMetadataOnlyForNamesAsync(hashSet.ToArray(), new[] { "DisplayName", "DisplayCollectionName", "Description", "PrimaryIdAttribute", "PrimaryNameAttribute" }, true);
+            this._taskDownloadMetadata = this._solutionComponentDescriptor.MetadataSource.DownloadEntityMetadataOnlyForNamesAsync(hashSet.ToArray(), new[] { "DisplayName", "DisplayCollectionName", "Description", "PrimaryIdAttribute", "PrimaryNameAttribute" }, true);
 
             var repositoryStringMap = new StringMapRepository(_service);
             this._listStringMap = repositoryStringMap.GetListAsync(this._entityMetadata.LogicalName);
@@ -810,7 +810,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         await this._taskDownloadMetadata;
 
-                        entityMetadata = _solutionComponentDescriptor.GetEntityMetadata(relationship.ReferencedEntity);
+                        entityMetadata = _solutionComponentDescriptor.MetadataSource.GetEntityMetadata(relationship.ReferencedEntity);
                     }
                     else if (!string.Equals(this._entityMetadata.LogicalName, relationship.ReferencingEntity, StringComparison.OrdinalIgnoreCase))
                     {
@@ -818,7 +818,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         await this._taskDownloadMetadata;
 
-                        entityMetadata = _solutionComponentDescriptor.GetEntityMetadata(relationship.ReferencingEntity);
+                        entityMetadata = _solutionComponentDescriptor.MetadataSource.GetEntityMetadata(relationship.ReferencingEntity);
                     }
 
                     if (entityMetadata != null)
@@ -888,7 +888,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     await this._taskDownloadMetadata;
 
-                    var referencedEntityMetadata = _solutionComponentDescriptor.GetEntityMetadata(relationship.ReferencedEntity);
+                    var referencedEntityMetadata = _solutionComponentDescriptor.MetadataSource.GetEntityMetadata(relationship.ReferencedEntity);
 
                     if (!string.IsNullOrEmpty(referencedEntityMetadata.PrimaryNameAttribute))
                     {
@@ -907,7 +907,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     await this._taskDownloadMetadata;
 
-                    var referencingEntityMetadata = _solutionComponentDescriptor.GetEntityMetadata(relationship.ReferencingEntity);
+                    var referencingEntityMetadata = _solutionComponentDescriptor.MetadataSource.GetEntityMetadata(relationship.ReferencingEntity);
 
                     if (!string.IsNullOrEmpty(referencingEntityMetadata.PrimaryNameAttribute))
                     {
@@ -1097,7 +1097,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         await this._taskDownloadMetadata;
 
-                        entityMetadata = _solutionComponentDescriptor.GetEntityMetadata(relationship.Entity1LogicalName);
+                        entityMetadata = _solutionComponentDescriptor.MetadataSource.GetEntityMetadata(relationship.Entity1LogicalName);
                     }
                     else if (!string.Equals(this._entityMetadata.LogicalName, relationship.Entity2LogicalName, StringComparison.OrdinalIgnoreCase))
                     {
@@ -1105,7 +1105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         await this._taskDownloadMetadata;
 
-                        entityMetadata = _solutionComponentDescriptor.GetEntityMetadata(relationship.Entity2LogicalName);
+                        entityMetadata = _solutionComponentDescriptor.MetadataSource.GetEntityMetadata(relationship.Entity2LogicalName);
                     }
 
                     if (entityMetadata != null)
@@ -1177,7 +1177,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     await this._taskDownloadMetadata;
 
-                    var entity1LogicalName = _solutionComponentDescriptor.GetEntityMetadata(relationship.Entity1LogicalName);
+                    var entity1LogicalName = _solutionComponentDescriptor.MetadataSource.GetEntityMetadata(relationship.Entity1LogicalName);
 
                     if (!string.IsNullOrEmpty(entity1LogicalName.PrimaryNameAttribute))
                     {
@@ -1196,7 +1196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     await this._taskDownloadMetadata;
 
-                    var entity2LogicalName = _solutionComponentDescriptor.GetEntityMetadata(relationship.Entity2LogicalName);
+                    var entity2LogicalName = _solutionComponentDescriptor.MetadataSource.GetEntityMetadata(relationship.Entity2LogicalName);
 
                     if (!string.IsNullOrEmpty(entity2LogicalName.PrimaryNameAttribute))
                     {

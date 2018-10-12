@@ -67,7 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var attribute = _descriptorCache[service.ConnectionData.ConnectionId].GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.category);
+            var attribute = _descriptorCache[service.ConnectionData.ConnectionId].MetadataSource.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.category);
 
             FillComboBoxCategory(attribute);
 
@@ -1748,7 +1748,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var descriptor = await GetDescriptor();
 
-                var attribute = descriptor.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.category);
+                var attribute = descriptor.MetadataSource.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.category);
 
                 FillComboBoxCategory(attribute);
 

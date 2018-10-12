@@ -413,7 +413,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.toolStrip, enabled);
+            ToggleControl(this.btnExportAll, enabled);
+            ToggleControl(this.tSDDBExportSolutionComponent, enabled);
+
             ToggleControl(this.cmBComponentType, enabled);
             ToggleControl(this.cmBDependencyType, enabled);
 
