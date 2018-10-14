@@ -199,6 +199,57 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return str.ToString().TrimEnd();
         }
 
+        public List<string> GetFormatedLinesWithHeadersInLine(bool sorted)
+        {
+            List<string> list = new List<string>();
+
+            if (this.lines.Count > 0)
+            {
+                foreach (var line in lines)
+                {
+                    var str = FormatLineWithHeadersInLine(line);
+
+                    list.Add(str);
+                }
+
+                if (sorted)
+                {
+                    list.Sort();
+                }
+            }
+
+            return list;
+        }
+
+        public string FormatLineWithHeadersInLine(params string[] line)
+        {
+            StringBuilder str = new StringBuilder();
+
+            for (int index = 0; index < line.Length; index++)
+            {
+                var part = line[index];
+
+                if (this.ShowEmptyColumns || !string.IsNullOrEmpty(part))
+                {
+                    if (str.Length > 0)
+                    {
+                        str.Append(this.Separator);
+                    }
+
+                    if (this.header != null && index < this.header.Length)
+                    {
+                        str.AppendFormat("{0} {1}", this.header[index], part);
+                    }
+                    else
+                    {
+                        str.Append(part);
+                    }
+                }
+            }
+
+            return str.ToString().TrimEnd();
+        }
+
         public FormatTextTableHandler AddLineIfNotEqual(string fieldName, string value1, string value2)
         {
             if (!string.Equals(value1 ?? string.Empty, value2 ?? string.Empty))

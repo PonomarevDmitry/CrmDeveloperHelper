@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,83 +25,80 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityPrimaryIdAttribute => DuplicateRuleCondition.Schema.EntityPrimaryIdAttribute;
 
-        //protected override ColumnSet GetColumnSet()
-        //{
-        //    return new ColumnSet
-        //        (
-        //            Workflow.Schema.Attributes.name
-        //            , Workflow.Schema.Attributes.ismanaged
-        //            , Workflow.Schema.Attributes.ismanaged
-        //            , Workflow.Schema.Attributes.ismanaged
-        //            , Workflow.Schema.Attributes.ismanaged
-        //            , Workflow.Schema.Attributes.ismanaged
-        //            , Workflow.Schema.Attributes.ismanaged
-        //            , Workflow.Schema.Attributes.ismanaged
-        //        );
-        //}
+        protected override ColumnSet GetColumnSet()
+        {
+            return new ColumnSet
+                (
+                    DuplicateRuleCondition.Schema.Attributes.regardingobjectid
+                    , DuplicateRuleCondition.Schema.Attributes.baseattributename
+                    , DuplicateRuleCondition.Schema.Attributes.matchingattributename
+                );
+        }
 
-        //public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
-        //{
-        //    var list = GetEntities<DuplicateRuleCondition>(components.Select(c => c.ObjectId));
+        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        {
+            var list = GetEntities<DuplicateRuleCondition>(components.Select(c => c.ObjectId));
 
-        //    {
-        //        var hash = new HashSet<Guid>(list.Select(en => en.Id));
-        //        var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-        //        if (notFinded.Any())
-        //        {
-        //            builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-        //            notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-        //        }
-        //    }
+            {
+                var hash = new HashSet<Guid>(list.Select(en => en.Id));
+                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
+                if (notFinded.Any())
+                {
+                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
+                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
+                }
+            }
 
-        //    FormatTextTableHandler handler = new FormatTextTableHandler();
-        //    handler.SetHeader("DuplicateRuleConditionType", "Name", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
+            FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("DuplicateRule", "BaseAttributeName", "MatchingAttributeName", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
 
-        //    foreach (var DuplicateRuleCondition in list)
-        //    {
-        //        string webTypeName = string.Format("'{0}'", DuplicateRuleCondition.FormattedValues[DuplicateRuleCondition.Schema.Attributes.DuplicateRuleConditiontype]);
+            foreach (var duplicateRuleCondition in list)
+            {
+                handler.AddLine(
+                    duplicateRuleCondition.RegardingObjectId?.Name
+                    , duplicateRuleCondition.BaseAttributeName
+                    , duplicateRuleCondition.MatchingAttributeName
+                    , EntityDescriptionHandler.GetAttributeString(duplicateRuleCondition, "solution.uniquename")
+                    , EntityDescriptionHandler.GetAttributeString(duplicateRuleCondition, "solution.ismanaged")
+                    , EntityDescriptionHandler.GetAttributeString(duplicateRuleCondition, "suppsolution.uniquename")
+                    , EntityDescriptionHandler.GetAttributeString(duplicateRuleCondition, "suppsolution.ismanaged")
+                    );
+            }
 
-        //        string name = DuplicateRuleCondition.Name;
+            List<string> lines = handler.GetFormatedLines(true);
 
-        //        handler.AddLine(webTypeName
-        //            , name
-        //            , DuplicateRuleCondition.IsManaged.ToString()
-        //            , EntityDescriptionHandler.GetAttributeString(DuplicateRuleCondition, "solution.uniquename")
-        //            , EntityDescriptionHandler.GetAttributeString(DuplicateRuleCondition, "solution.ismanaged")
-        //            , EntityDescriptionHandler.GetAttributeString(DuplicateRuleCondition, "suppsolution.uniquename")
-        //            , EntityDescriptionHandler.GetAttributeString(DuplicateRuleCondition, "suppsolution.ismanaged")
-        //            , withUrls ? _service.ConnectionData?.GetSolutionComponentUrl(ComponentType.DuplicateRuleCondition, DuplicateRuleCondition.Id, null, null) : string.Empty
-        //            );
-        //    }
+            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+        }
 
-        //    List<string> lines = handler.GetFormatedLines(true);
+        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        {
+            var duplicateRuleCondition = GetEntity<DuplicateRuleCondition>(component.ObjectId.Value);
 
-        //    lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
-        //}
+            if (duplicateRuleCondition != null)
+            {
+                return string.Format("DuplicateRule     {0}    BaseAttributeName {1}    MatchingAttributeName {2}    SolutionName {3}"
+                    , duplicateRuleCondition.RegardingObjectId?.Name
+                    , duplicateRuleCondition.BaseAttributeName
+                    , duplicateRuleCondition.MatchingAttributeName
+                    , EntityDescriptionHandler.GetAttributeString(duplicateRuleCondition, "solution.uniquename")
+                    );
+            }
 
-        //public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
-        //{
-        //    var duplicateRuleCondition = GetEntity<DuplicateRuleCondition>(component.ObjectId.Value);
+            return component.ToString();
+        }
 
-        //    if (duplicateRuleCondition != null)
-        //    {
-        //        string webTypeName = string.Format("'{0}'", duplicateRuleCondition.FormattedValues[DuplicateRuleCondition.Schema.Attributes.DuplicateRuleConditiontype]);
-
-        //        return string.Format("DuplicateRuleCondition     '{0}'    DuplicateRuleConditionType '{1}'    IsManaged {2}    SolutionName {3}{4}"
-        //            , duplicateRuleCondition.Name
-        //            , webTypeName
-        //            , duplicateRuleCondition.IsManaged.ToString()
-        //            , EntityDescriptionHandler.GetAttributeString(duplicateRuleCondition, "solution.uniquename")
-        //            , withUrls ? string.Format("    Url {0}", _service.ConnectionData.GetSolutionComponentUrl(ComponentType.DuplicateRuleCondition, duplicateRuleCondition.Id, null, null)) : string.Empty
-        //            );
-        //    }
-
-        //    return component.ToString();
-        //}
-
-        //public TupleList<string, string> GetComponentColumns()
-        //{
-
-        //}
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+                {
+                    { DuplicateRuleCondition.Schema.Attributes.regardingobjectid, "DuplicateRule" }
+                    , { DuplicateRuleCondition.Schema.Attributes.baseattributename, "BaseAttributeName" }
+                    , { DuplicateRuleCondition.Schema.Attributes.matchingattributename, "MatchingAttributeName" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                };
+        }
     }
 }

@@ -51,7 +51,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             FormatTextTableHandler table = new FormatTextTableHandler();
-            table.SetHeader("ReportName", "ReportRelatedEntity", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            table.SetHeader("ReportName", "ReportRelatedEntity", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
 
             foreach (var entity in list)
             {
@@ -66,10 +66,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 table.AddLine(reportName
                     , entity.ObjectTypeCode.ToString()
                     , entity.IsManaged.ToString()
+                    , entity.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
+                    , withUrls && reportRef != null ? _service.ConnectionData?.GetSolutionComponentUrl(ComponentType.Report, reportRef.Id, null, null) : string.Empty
                     );
             }
 
@@ -92,11 +94,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     reportName = reportRef.Name;
                 }
 
-                return string.Format("Report {0}    ReportRelatedEntity {1}    IsManaged {2}    SolutionName {3}"
+                return string.Format("Report {0}    ReportRelatedEntity {1}    IsManaged {2}    IsCustomizable {3}    SolutionName {4}{5}"
                     , reportName
                     , reportEntity.ObjectTypeCode.ToString()
                     , reportEntity.IsManaged.ToString()
+                    , reportEntity.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(reportEntity, "solution.uniquename")
+                    , withUrls && reportRef != null ? string.Format("    Url {0}", _service.ConnectionData.GetSolutionComponentUrl(ComponentType.Report, reportRef.Id, null, null)) : string.Empty
                     );
             }
 

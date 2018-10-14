@@ -33,11 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     case ComponentType.DisplayString:
                         return new DisplayStringDescriptionBuilder(service);
                     case ComponentType.DisplayStringMap:
-                        return new DisplayStringMapDescriptionBuilder(service);
-                    //case ComponentType.Form:
-                    //    return new DescriptionBuilder(service);
-                    //case ComponentType.Organization:
-                    //    return new DescriptionBuilder(service);
+                        return new DisplayStringMapDescriptionBuilder(service);                    
                     case ComponentType.SavedQuery:
                         return new SavedQueryDescriptionBuilder(service);
                     case ComponentType.Workflow:
@@ -52,8 +48,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         return new ReportCategoryDescriptionBuilder(service);
                     case ComponentType.ReportVisibility:
                         return new ReportVisibilityDescriptionBuilder(service);
-                    //case ComponentType.Attachment:
-                    //    return new DescriptionBuilder(service);
                     case ComponentType.EmailTemplate:
                         return new EmailTemplateDescriptionBuilder(service);
                     case ComponentType.ContractTemplate:
@@ -92,8 +86,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         return new SiteMapDescriptionBuilder(service);
                     case ComponentType.ConnectionRole:
                         return new ConnectionRoleDescriptionBuilder(service);
-                    //case ComponentType.ComplexControl:
-                    //    return new DescriptionBuilder(service);
                     case ComponentType.FieldSecurityProfile:
                         return new FieldSecurityProfileDescriptionBuilder(service);
                     case ComponentType.FieldPermission:
@@ -144,21 +136,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         return new ChannelAccessProfileDescriptionBuilder(service);
                     case ComponentType.DependencyFeature:
                         return new DependencyFeatureDescriptionBuilder(service);
+                    case ComponentType.SdkMessage:
+                        return new SdkMessageDescriptionBuilder(service);
+                    case ComponentType.SdkMessageFilter:
+                        return new SdkMessageFilterDescriptionBuilder(service);
+                    case ComponentType.SdkMessagePair:
+                        return new SdkMessagePairDescriptionBuilder(service);
+                    case ComponentType.SdkMessageRequest:
+                        return new SdkMessageRequestDescriptionBuilder(service);
+                    case ComponentType.SdkMessageRequestField:
+                        return new SdkMessageRequestFieldDescriptionBuilder(service);
+                    case ComponentType.SdkMessageResponse:
+                        return new SdkMessageResponseDescriptionBuilder(service);
+                    case ComponentType.SdkMessageResponseField:
+                        return new SdkMessageResponseFieldDescriptionBuilder(service);
+
+                        //case ComponentType.Form:
+                        //    return new DescriptionBuilder(service);
+                        //case ComponentType.Organization:
+                        //    return new DescriptionBuilder(service);
+                        //case ComponentType.Attachment:
+                        //    return new DescriptionBuilder(service);
+                        //case ComponentType.ComplexControl:
+                        //    return new DescriptionBuilder(service);
                         //case ComponentType.ImportMap:
-                        //    return new DescriptionBuilder(service);
-                        //case ComponentType.SDKMessage:
-                        //    return new DescriptionBuilder(service);
-                        //case ComponentType.SDKMessageFilter:
-                        //    return new DescriptionBuilder(service);
-                        //case ComponentType.SdkMessagePair:
-                        //    return new DescriptionBuilder(service);
-                        //case ComponentType.SdkMessageRequest:
-                        //    return new DescriptionBuilder(service);
-                        //case ComponentType.SdkMessageRequestField:
-                        //    return new DescriptionBuilder(service);
-                        //case ComponentType.SdkMessageResponse:
-                        //    return new DescriptionBuilder(service);
-                        //case ComponentType.SdkMessageResponseField:
                         //    return new DescriptionBuilder(service);
                         //case ComponentType.WebWizard:
                         //    return new DescriptionBuilder(service);

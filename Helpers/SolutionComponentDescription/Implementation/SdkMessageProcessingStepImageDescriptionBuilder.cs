@@ -153,7 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
 
-            handler.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "ImageType", "Name", "EntityAlias", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Attributes");
+            handler.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "ImageType", "Name", "EntityAlias", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Attributes");
 
             foreach (var entity in list.Select(ent => ent.ToEntity<SdkMessageProcessingStepImage>()))
             {
@@ -177,6 +177,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , entity.Name
                     , entity.EntityAlias
                     , entity.IsManaged.ToString()
+                    , entity.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
@@ -218,6 +219,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , sdkMessageProcessingStepImage.Name
                     , sdkMessageProcessingStepImage.EntityAlias
                     , sdkMessageProcessingStepImage.IsManaged.ToString()
+                    , sdkMessageProcessingStepImage.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(sdkMessageProcessingStepImage, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(sdkMessageProcessingStepImage, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(sdkMessageProcessingStepImage, "suppsolution.uniquename")

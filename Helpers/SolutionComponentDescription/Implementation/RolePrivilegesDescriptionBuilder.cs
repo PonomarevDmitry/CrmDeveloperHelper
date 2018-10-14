@@ -156,7 +156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             FormatTextTableHandler table = new FormatTextTableHandler();
-            table.SetHeader("Name", "BusinessUnit", "Privilege", "PrivilegeDepthMask", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            table.SetHeader("Name", "BusinessUnit", "Privilege", "PrivilegeDepthMask", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
 
             foreach (var rolePriv in list.Select(e => e.ToEntity<RolePrivileges>()))
             {
@@ -177,6 +177,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , EntityDescriptionHandler.GetAttributeString(rolePriv, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(rolePriv, "suppsolution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(rolePriv, "suppsolution.ismanaged")
+                    , withUrls && rolePriv.RoleId.HasValue ? _service.ConnectionData?.GetSolutionComponentUrl(ComponentType.Role, rolePriv.RoleId.Value, null, null) : string.Empty
                     );
             }
 
@@ -197,13 +198,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     businessUnit = "Root Organization";
                 }
 
-                return string.Format("Role {0}    BusinessUnit {1}    Privilege {2}    PrivilegeDepthMask {3}    IsManaged {4}    SolutionName {5}"
+                return string.Format("Role {0}    BusinessUnit {1}    Privilege {2}    PrivilegeDepthMask {3}    IsManaged {4}    SolutionName {5}{6}"
                     , roleName
                     , businessUnit
                     , rolePrivileges.GetAttributeValue<AliasedValue>("privilege.name").Value.ToString()
                     , SecurityRolePrivilegesRepository.GetPrivilegeDepthMaskName(rolePrivileges.PrivilegeDepthMask.Value)
                     , rolePrivileges.IsManaged.ToString()
                     , EntityDescriptionHandler.GetAttributeString(rolePrivileges, "solution.uniquename")
+                    , withUrls && rolePrivileges.RoleId.HasValue ? string.Format("    Url {0}", _service.ConnectionData.GetSolutionComponentUrl(ComponentType.WebResource, rolePrivileges.RoleId.Value, null, null)) : string.Empty
                     );
             }
 

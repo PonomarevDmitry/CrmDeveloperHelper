@@ -54,7 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             FormatTextTableHandler table = new FormatTextTableHandler();
-            table.SetHeader("ReportName", "FileName", "ReportType", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "ViewableBy", "Owner", "Url");
+            table.SetHeader("ReportName", "FileName", "ReportType", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "ViewableBy", "Owner", "Url");
 
             foreach (var entity in list)
             {
@@ -77,6 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , filename
                     , reportType
                     , entity.IsManaged.ToString()
+                    , entity.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
@@ -111,6 +112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 }
 
                 builder.AppendFormat("    IsManaged {0}", report.IsManaged.ToString());
+                builder.AppendFormat("    IsCustomizable {0}", report.IsCustomizable?.Value.ToString());
                 builder.AppendFormat("    SolutionName {0}", EntityDescriptionHandler.GetAttributeString(report, "solution.uniquename"));
 
                 if (withUrls)

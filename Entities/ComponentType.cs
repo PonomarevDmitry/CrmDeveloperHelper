@@ -237,10 +237,10 @@
         ImportMap = 166,
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        SDKMessage = 201,
+        SdkMessage = 201,
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        SDKMessageFilter = 202,
+        SdkMessageFilter = 202,
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
         SdkMessagePair = 203,

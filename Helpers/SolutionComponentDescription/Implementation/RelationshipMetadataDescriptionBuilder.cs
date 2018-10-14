@@ -151,6 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                             , relationship.SchemaName
                             , behavior
                             , relationship.IsManaged.ToString()
+                            , relationship.IsCustomizable?.Value.ToString()
                             , url
                             );
 
@@ -179,6 +180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                             , relationship.SchemaName
                             , behavior
                             , relationship.IsManaged.ToString()
+                            , relationship.IsCustomizable?.Value.ToString()
                             , url
                         );
 

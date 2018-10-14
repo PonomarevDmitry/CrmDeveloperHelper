@@ -462,7 +462,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private PluginTreeViewItem CreateNodeMessage(string message, IEnumerable<SdkMessage> steps)
         {
-            var nodeMessage = new PluginTreeViewItem(ComponentType.SDKMessage)
+            var nodeMessage = new PluginTreeViewItem(ComponentType.SdkMessage)
             {
                 Name = message,
                 Image = _imageMessage,

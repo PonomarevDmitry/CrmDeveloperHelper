@@ -51,7 +51,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("PrimaryEntityTypeCode", "Name", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("PrimaryEntityTypeCode", "Name", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
 
             foreach (var entity in list)
             {
@@ -61,6 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 handler.AddLine(entityName
                     , chartName
                     , entity.IsManaged.ToString()
+                    , entity.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
@@ -79,13 +80,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (savedQueryVisualization != null)
             {
-                string chartName = savedQueryVisualization.Name;
-                string entityName = savedQueryVisualization.PrimaryEntityTypeCode;
-
-                return string.Format("SavedQueryVisualization (Chart)     {0}    Name '{1}'    IsManged {2}    SolutionName {3}"
-                    , entityName
-                    , chartName
+                return string.Format("SavedQueryVisualization (Chart)     {0}    Name '{1}'    IsManged {2}    IsManged {3}    SolutionName {4}"
+                    , savedQueryVisualization.PrimaryEntityTypeCode
+                    , savedQueryVisualization.Name
                     , savedQueryVisualization.IsManaged.ToString()
+                    , savedQueryVisualization.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(savedQueryVisualization, "solution.uniquename")
                     );
             }

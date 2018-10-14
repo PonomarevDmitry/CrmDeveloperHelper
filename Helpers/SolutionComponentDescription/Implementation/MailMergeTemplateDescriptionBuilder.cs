@@ -52,7 +52,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("TemplateTypeCode", "Name", "MailMergeType", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("TemplateTypeCode", "Name", "MailMergeType", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
 
             foreach (var entity in list)
             {
@@ -66,6 +66,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , name
                     , typeName
                     , entity.IsManaged.ToString()
+                    , entity.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
@@ -84,10 +85,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (mailMergeTemplate != null)
             {
-                string name = mailMergeTemplate.Name;
-
-                string entityName = mailMergeTemplate.TemplateTypeCode;
-
                 string typeName = string.Empty;
 
                 if (mailMergeTemplate.Contains(MailMergeTemplate.Schema.Attributes.mailmergetype) && mailMergeTemplate[MailMergeTemplate.Schema.Attributes.mailmergetype] != null)
@@ -95,11 +92,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     typeName = mailMergeTemplate.FormattedValues[MailMergeTemplate.Schema.Attributes.mailmergetype];
                 }
 
-                return string.Format("MailMergeTemplate {0}    TemplateTypeCode {1}    MailMergeType {2}    IsManaged {3}    SolutionName {4}"
-                    , name
-                    , entityName
+                return string.Format("MailMergeTemplate {0}    TemplateTypeCode {1}    MailMergeType {2}    IsManaged {3}    IsCustomizable {4}    SolutionName {5}"
+                    , mailMergeTemplate.Name
+                    , mailMergeTemplate.TemplateTypeCode
                     , typeName
                     , mailMergeTemplate.IsManaged.ToString()
+                    , mailMergeTemplate.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(mailMergeTemplate, "solution.uniquename")
                     );
             }

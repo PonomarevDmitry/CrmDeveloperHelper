@@ -757,7 +757,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private PluginTreeViewItem CreateNodeMessage(string message, IEnumerable<SdkMessageProcessingStep> steps)
         {
-            var nodeMessage = new PluginTreeViewItem(ComponentType.SDKMessage)
+            var nodeMessage = new PluginTreeViewItem(ComponentType.SdkMessage)
             {
                 Name = message,
                 Image = _imageMessage,
@@ -1014,12 +1014,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return "Create Plugin Type Description";
             }
 
-            if (item.Message != null && item.Message.Any() && item.ComponentType == ComponentType.SDKMessage)
+            if (item.Message != null && item.Message.Any() && item.ComponentType == ComponentType.SdkMessage)
             {
                 return "Create Message Description";
             }
 
-            if (item.MessageFilter != null && item.MessageFilter.Any() && item.ComponentType == ComponentType.SDKMessage)
+            if (item.MessageFilter != null && item.MessageFilter.Any() && item.ComponentType == ComponentType.SdkMessage)
             {
                 return "Create Message Filter Description";
             }
@@ -1041,8 +1041,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             return (item.PluginAssembly.HasValue && item.ComponentType == ComponentType.PluginAssembly)
                 || (item.PluginType.HasValue && item.ComponentType == ComponentType.PluginType)
-                || ((item.Message != null && item.Message.Any()) && item.ComponentType == ComponentType.SDKMessage)
-                || ((item.MessageFilter != null && item.MessageFilter.Any()) && item.ComponentType == ComponentType.SDKMessage)
+                || ((item.Message != null && item.Message.Any()) && item.ComponentType == ComponentType.SdkMessage)
+                || ((item.MessageFilter != null && item.MessageFilter.Any()) && item.ComponentType == ComponentType.SdkMessage)
                 || (item.Step.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
                 || (item.StepImage.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStepImage)
                 ;

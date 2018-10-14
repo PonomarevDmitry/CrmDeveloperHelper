@@ -50,7 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             var table = new FormatTextTableHandler();
-            table.SetHeader("Title", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            table.SetHeader("Title", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
 
             foreach (var entity in list)
             {
@@ -58,6 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 table.AddLine(title
                     , entity.IsManaged.ToString()
+                    , entity.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
@@ -76,9 +77,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 string title = kbArticleTemplate.Title;
 
-                return string.Format("KBArticleTemplate {0}    IsManaged {1}    SolutionName {2}"
+                return string.Format("KBArticleTemplate {0}    IsManaged {1}    IsManaged {2}    SolutionName {3}"
                     , title
                     , kbArticleTemplate.IsManaged.ToString()
+                    , kbArticleTemplate.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(kbArticleTemplate, "solution.uniquename")
                     );
             }

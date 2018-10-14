@@ -128,7 +128,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
 
-            handler.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "FilteringAttributes");
+            handler.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "FilteringAttributes");
 
             foreach (var entity in list.Select(ent => ent.ToEntity<SdkMessageProcessingStep>()))
             {
@@ -141,6 +141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , entity.Rank.ToString()
                     , entity.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
                     , entity.IsManaged.ToString()
+                    , entity.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
@@ -171,6 +172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , sdkMessageProcessingStep.Rank.ToString()
                     , sdkMessageProcessingStep.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
                     , sdkMessageProcessingStep.IsManaged.ToString()
+                    , sdkMessageProcessingStep.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(sdkMessageProcessingStep, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(sdkMessageProcessingStep, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(sdkMessageProcessingStep, "suppsolution.uniquename")

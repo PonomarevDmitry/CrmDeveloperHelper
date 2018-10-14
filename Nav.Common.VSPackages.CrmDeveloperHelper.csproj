@@ -627,8 +627,15 @@
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\RoutingRuleDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\SavedQueryDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\SavedQueryVisualizationDescriptionBuilder.cs" />
+    <Compile Include="Helpers\SolutionComponentDescription\Implementation\SdkMessageDescriptionBuilder.cs" />
+    <Compile Include="Helpers\SolutionComponentDescription\Implementation\SdkMessageFilterDescriptionBuilder.cs" />
+    <Compile Include="Helpers\SolutionComponentDescription\Implementation\SdkMessagePairDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\SdkMessageProcessingStepDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\SdkMessageProcessingStepImageDescriptionBuilder.cs" />
+    <Compile Include="Helpers\SolutionComponentDescription\Implementation\SdkMessageRequestDescriptionBuilder.cs" />
+    <Compile Include="Helpers\SolutionComponentDescription\Implementation\SdkMessageRequestFieldDescriptionBuilder.cs" />
+    <Compile Include="Helpers\SolutionComponentDescription\Implementation\SdkMessageResponseDescriptionBuilder.cs" />
+    <Compile Include="Helpers\SolutionComponentDescription\Implementation\SdkMessageResponseFieldDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\ServiceEndpointDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\SimilarityRuleDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\SiteMapDescriptionBuilder.cs" />

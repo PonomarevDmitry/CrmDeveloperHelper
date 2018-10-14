@@ -53,7 +53,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("EntityName", "Name", "QueryType", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("EntityName", "Name", "QueryType", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
 
             foreach (var entity in list)
             {
@@ -64,6 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , queryName
                     , Repository.SavedQueryRepository.GetQueryTypeName(entity.QueryType.GetValueOrDefault())
                     , entity.IsManaged.ToString()
+                    , entity.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
@@ -82,14 +83,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (savedQuery != null)
             {
-                string queryName = savedQuery.Name;
-                string entityName = savedQuery.ReturnedTypeCode;
-
-                return string.Format("SavedQuery {0} - '{1}'    QueryType {2}    IsManaged {3}    SolutionName {4}"
-                    , entityName
-                    , queryName
+                return string.Format("SavedQuery {0} - '{1}'    QueryType {2}    IsManaged {3}    IsManaged {4}    SolutionName {5}"
+                    , savedQuery.ReturnedTypeCode
+                    , savedQuery.Name
                     , Repository.SavedQueryRepository.GetQueryTypeName(savedQuery.QueryType.GetValueOrDefault())
                     , savedQuery.IsManaged.ToString()
+                    , savedQuery.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(savedQuery, "solution.uniquename")
                     );
             }

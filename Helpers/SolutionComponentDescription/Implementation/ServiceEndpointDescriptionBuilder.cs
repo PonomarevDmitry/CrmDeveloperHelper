@@ -53,7 +53,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Name", "ConnectionMode", "Contract", "MessageFormat", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("Name", "ConnectionMode", "Contract", "MessageFormat", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
 
             foreach (var entity in list)
             {
@@ -63,6 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , entity.FormattedValues[ServiceEndpoint.Schema.Attributes.contract]
                     , entity.FormattedValues[ServiceEndpoint.Schema.Attributes.messageformat]
                     , entity.IsManaged.ToString()
+                    , entity.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
@@ -81,12 +82,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (serviceEndpoint != null)
             {
-                return string.Format("Name {0}    ConnectionMode {1}    Contract {2}    MessageFormat {3}    IsManaged {4}    SolutionName {5}"
+                return string.Format("Name {0}    ConnectionMode {1}    Contract {2}    MessageFormat {3}    IsManaged {4}    IsManaged {5}    SolutionName {6}"
                     , serviceEndpoint.Name
                     , serviceEndpoint.FormattedValues[ServiceEndpoint.Schema.Attributes.connectionmode]
                     , serviceEndpoint.FormattedValues[ServiceEndpoint.Schema.Attributes.contract]
                     , serviceEndpoint.FormattedValues[ServiceEndpoint.Schema.Attributes.messageformat]
                     , serviceEndpoint.IsManaged.ToString()
+                    , serviceEndpoint.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(serviceEndpoint, "solution.uniquename")
                     );
             }

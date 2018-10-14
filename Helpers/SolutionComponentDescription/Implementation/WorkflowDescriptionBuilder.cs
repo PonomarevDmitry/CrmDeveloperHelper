@@ -58,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
 
-            handler.SetHeader("Entity", "Category", "Name", "Type", "Scope", "Mode", "StatusCode", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
+            handler.SetHeader("Entity", "Category", "Name", "Type", "Scope", "Mode", "StatusCode", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
 
             foreach (var entity in list
                     .OrderBy(entity => entity.PrimaryEntity)
@@ -136,6 +136,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 builder.AppendFormat("    {0}", workflow.FormattedValues[Workflow.Schema.Attributes.statuscode]);
 
                 builder.AppendFormat("    IsManaged {0}", workflow.IsManaged.ToString());
+
+                builder.AppendFormat("    IsCustomizable {0}", workflow.IsCustomizable?.Value.ToString());
 
                 builder.AppendFormat("    SolutionName {0}", EntityDescriptionHandler.GetAttributeString(workflow, "solution.uniquename"));
 
@@ -216,6 +218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 , mode
                 , statusCodeString
                 , entity.IsManaged.ToString()
+                , entity.IsCustomizable?.Value.ToString()
                 , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                 , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                 , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")

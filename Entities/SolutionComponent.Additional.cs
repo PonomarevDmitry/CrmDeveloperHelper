@@ -308,10 +308,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 case Entities.ComponentType.ChannelAccessProfile:
                     return ChannelAccessProfile.EntityTypeCode;
 
-                case Entities.ComponentType.SDKMessage:
+                case Entities.ComponentType.SdkMessage:
                     return SdkMessage.EntityTypeCode;
 
-                case Entities.ComponentType.SDKMessageFilter:
+                case Entities.ComponentType.SdkMessageFilter:
                     return SdkMessageFilter.EntityTypeCode;
 
                 case Entities.ComponentType.SdkMessagePair:

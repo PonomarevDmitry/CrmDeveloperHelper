@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         protected override ColumnSet GetColumnSet()
         {
-            return new ColumnSet(Role.Schema.Attributes.name, Role.Schema.Attributes.businessunitid, Role.Schema.Attributes.ismanaged);
+            return new ColumnSet(Role.Schema.Attributes.name, Role.Schema.Attributes.businessunitid, Role.Schema.Attributes.ismanaged, Role.Schema.Attributes.iscustomizable);
         }
 
         protected override QueryExpression GetQuery(List<Guid> idsNotCached)
@@ -126,7 +126,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             FormatTextTableHandler table = new FormatTextTableHandler();
-            table.SetHeader("Name", "BusinessUnit", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            table.SetHeader("Name", "BusinessUnit", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
 
             foreach (var role in list)
             {
@@ -140,10 +140,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 table.AddLine(role.Name
                     , businessUnit
                     , role.IsManaged.ToString()
+                    , role.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(role, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(role, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(role, "suppsolution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(role, "suppsolution.ismanaged")
+                    , withUrls ? _service.ConnectionData?.GetSolutionComponentUrl(ComponentType.Role, role.Id, null, null) : string.Empty
                     );
             }
 
@@ -163,10 +165,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     businessUnit = "Root Organization";
                 }
 
-                return string.Format("Role {0}    BusinessUnit {1}    IsManaged {2}    SolutionName {3}"
+                return string.Format("Role {0}    BusinessUnit {1}    IsManaged {2}    IsManaged {3}    SolutionName {4}"
                     , role.Name
                     , businessUnit
                     , role.IsManaged.ToString()
+                    , role.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(role, "solution.uniquename")
                     );
             }

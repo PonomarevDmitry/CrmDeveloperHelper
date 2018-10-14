@@ -45,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             var table = new FormatTextTableHandler();
-            table.SetHeader("Name", "IsManged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            table.SetHeader("Name", "IsManged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
 
             foreach (var entity in list)
             {
@@ -53,6 +53,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 table.AddLine(name
                     , entity.IsManaged.ToString()
+                    , entity.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
@@ -71,9 +72,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 string name = pluginAssembly.Name;
 
-                return string.Format("PluginAssembly {0}    IsManged {1}    SolutionName {2}"
+                return string.Format("PluginAssembly {0}    IsManged {1}    IsManged {2}    SolutionName {3}"
                     , name
                     , pluginAssembly.IsManaged.ToString()
+                    , pluginAssembly.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(pluginAssembly, "solution.uniquename")
                     );
             }
@@ -86,8 +88,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return new TupleList<string, string>
                 {
                     { PluginAssembly.Schema.Attributes.name, "Name" }
-                    , { PluginAssembly.Schema.Attributes.ismanaged, "IsManaged" }
                     , { PluginAssembly.Schema.Attributes.iscustomizable, "IsCustomizable" }
+                    , { PluginAssembly.Schema.Attributes.ismanaged, "IsManaged" }
                     , { "solution.uniquename", "SolutionName" }
                     , { "solution.ismanaged", "SolutionIsManaged" }
                     , { "suppsolution.uniquename", "SupportingName" }

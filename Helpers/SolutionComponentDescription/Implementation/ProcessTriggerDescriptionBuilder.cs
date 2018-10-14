@@ -58,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("PrimaryEntityTypeCode", "ProcessName", "Event", "PipelineStage", "FormName", "Scope", "MethodId", "ControlName", "ControlType", "IsCustomizable", "IsManaged"
+            handler.SetHeader("PrimaryEntityTypeCode", "ProcessName", "Event", "PipelineStage", "FormName", "Scope", "MethodId", "ControlName", "ControlType", "IsManaged", "IsCustomizable"
                 , "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
 
             foreach (var entity in list)
@@ -70,17 +70,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 entity.FormattedValues.TryGetValue(ProcessTrigger.Schema.Attributes.controltype, out string controltype);
 
                 handler.AddLine(
-                    entity?.PrimaryEntityTypeCode
-                    , entity?.ProcessId?.Name
-                    , entity?.Event
+                    entity.PrimaryEntityTypeCode
+                    , entity.ProcessId?.Name
+                    , entity.Event
                     , pipelinestage
-                    , entity?.FormId?.Name
+                    , entity.FormId?.Name
                     , scope
-                    , entity?.MethodId?.ToString()
-                    , entity?.ControlName
+                    , entity.MethodId?.ToString()
+                    , entity.ControlName
                     , controltype
-                    , entity?.IsCustomizable?.Value.ToString()
                     , entity.IsManaged.ToString()
+                    , entity.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
@@ -105,7 +105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 processTrigger.FormattedValues.TryGetValue(ProcessTrigger.Schema.Attributes.controltype, out string controltype);
 
-                return string.Format("PrimaryEntityTypeCode {0}    ProcessName {1}    Event {2}    PipelineStage {3}        FormName {4}        Scope {5}        MethodId {6}        ControlName {7}        ControlType {8}        IsManaged {9}        SolutionName {10}"
+                return string.Format("PrimaryEntityTypeCode {0}    ProcessName {1}    Event {2}    PipelineStage {3}        FormName {4}        Scope {5}        MethodId {6}        ControlName {7}        ControlType {8}        IsManaged {9}        IsCustomizable {10}        SolutionName {11}"
                     , processTrigger.PrimaryEntityTypeCode
                     , processTrigger.ProcessId?.Name
                     , processTrigger.Event
@@ -116,6 +116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , processTrigger.ControlName
                     , controltype
                     , processTrigger.IsManaged.ToString()
+                    , processTrigger.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(processTrigger, "solution.uniquename")
                     );
             }

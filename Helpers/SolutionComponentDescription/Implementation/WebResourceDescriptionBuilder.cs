@@ -52,17 +52,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("WebResourceType", "Name", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
+            handler.SetHeader("WebResourceType", "Name", "DisplayName", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
 
             foreach (var webResource in list)
             {
                 string webTypeName = string.Format("'{0}'", webResource.FormattedValues[WebResource.Schema.Attributes.webresourcetype]);
 
-                string name = webResource.Name;
-
                 handler.AddLine(webTypeName
-                    , name
+                    , webResource.Name
+                    , webResource.DisplayName
                     , webResource.IsManaged.ToString()
+                    , webResource.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(webResource, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(webResource, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(webResource, "suppsolution.uniquename")
@@ -84,10 +84,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 string webTypeName = string.Format("'{0}'", webResource.FormattedValues[WebResource.Schema.Attributes.webresourcetype]);
 
-                return string.Format("WebResource     '{0}'    WebResourceType '{1}'    IsManaged {2}    SolutionName {3}{4}"
+                return string.Format("WebResource     '{0}'    WebResourceType '{1}'    DisplayName     '{2}'    IsManaged {3}    IsCustomizable {4}    SolutionName {5}{6}"
                     , webResource.Name
+                    , webResource.DisplayName
                     , webTypeName
                     , webResource.IsManaged.ToString()
+                    , webResource.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(webResource, "solution.uniquename")
                     , withUrls ? string.Format("    Url {0}", _service.ConnectionData.GetSolutionComponentUrl(ComponentType.WebResource, webResource.Id, null, null)) : string.Empty
                     );

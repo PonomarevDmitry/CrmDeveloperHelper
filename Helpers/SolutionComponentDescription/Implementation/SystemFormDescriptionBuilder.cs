@@ -53,7 +53,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
 
-            handler.SetHeader("EntityName", "FormType", "FormName", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("EntityName", "FormType", "FormName", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
 
             foreach (var entity in list
                 .OrderBy(ent => ent.ObjectTypeCode)
@@ -67,6 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , string.Format("'{0}'", formTypeName)
                     , string.Format("'{0}'", entity.Name)
                     , entity.IsManaged.ToString()
+                    , entity.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
@@ -85,16 +86,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (systemForm != null)
             {
-                string formName = systemForm.Name;
-                string entityName = systemForm.ObjectTypeCode;
-
                 string formTypeName = systemForm.FormattedValues[SystemForm.Schema.Attributes.type];
 
-                return string.Format("SystemForm     {0}    '{1}'    '{2}'    IsManged {3}    SolutionName {4}"
-                    , entityName
+                return string.Format("SystemForm     {0}    '{1}'    '{2}'    IsManged {3}    IsCustomizable {3}    SolutionName {4}"
+                    , systemForm.ObjectTypeCode
                     , formTypeName
-                    , formName
+                    , systemForm.Name
                     , systemForm.IsManaged.ToString()
+                    , systemForm.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(systemForm, "solution.uniquename")
                     );
             }

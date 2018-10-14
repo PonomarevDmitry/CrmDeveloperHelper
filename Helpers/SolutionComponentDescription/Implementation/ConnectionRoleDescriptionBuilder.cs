@@ -79,9 +79,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 string name = connectionRole.Name;
 
-                return string.Format("ConnectionRole {0}    IsManaged {1}    SolutionName {2}"
+                return string.Format("ConnectionRole {0}    IsManaged {1}    IsCustomizable {2}    SolutionName {3}"
                     , name
                     , connectionRole.IsManaged.ToString()
+                    , connectionRole.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(connectionRole, "solution.uniquename")
                     );
             }

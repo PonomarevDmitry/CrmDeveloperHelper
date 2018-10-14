@@ -51,17 +51,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("TemplateTypeCode", "Name", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("TemplateTypeCode", "Title", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
 
             foreach (var entity in list)
             {
-                string entityName = entity.TemplateTypeCode;
-
-                string name = entity.Title;
-
-                handler.AddLine(entityName
-                    , name
+                handler.AddLine(entity.TemplateTypeCode
+                    , entity.Title
                     , entity.IsManaged.ToString()
+                    , entity.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
@@ -80,12 +77,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (template != null)
             {
-                string name = template.Title;
-
-                string type = template.TemplateTypeCode;
-
-                return string.Format("EmailTemplate {0}    TemplateTypeCode {1}    IsManaged {2}    SolutionName {3}", type, name
+                return string.Format("TemplateTypeCode {0}    Title {1}    IsManaged {2}    IsCustomizable {3}    SolutionName {4}"
+                    , template.TemplateTypeCode
+                    , template.Title
                     , template.IsManaged.ToString()
+                    , template.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(template, "solution.uniquename")
                     );
             }
