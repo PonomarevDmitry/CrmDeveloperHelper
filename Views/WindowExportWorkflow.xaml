@@ -119,6 +119,8 @@
 
                 <DataGridTextColumn Header="Mode" Width="150" Binding="{Binding ModeName}" />
 
+                <DataGridTextColumn Header="Status" Width="150" Binding="{Binding StatusName}" />
+
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Padding="10,0" Height="25"/>

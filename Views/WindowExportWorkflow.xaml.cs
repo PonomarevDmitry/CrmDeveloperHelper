@@ -380,6 +380,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , Workflow.Schema.Attributes.uniquename
                             , Workflow.Schema.Attributes.primaryentity
                             , Workflow.Schema.Attributes.iscustomizable
+                            , Workflow.Schema.Attributes.statuscode
                         ));
                 }
             }
@@ -427,17 +428,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public string ModeName { get; private set; }
 
+            public string StatusName { get; private set; }
+
             public string WorkflowName { get; private set; }
 
             public Workflow Workflow { get; private set; }
 
-            public EntityViewItem(string entityName, string workflowName, string category, string modeName, Workflow workflow)
+            public EntityViewItem(string entityName, string workflowName, string category, string modeName, string statusName, Workflow workflow)
             {
                 this.EntityName = entityName;
                 this.WorkflowName = workflowName;
                 this.Category = category;
                 this.ModeName = modeName;
                 this.Workflow = workflow;
+                this.StatusName = statusName;
             }
         }
 
@@ -464,8 +468,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string category = entity.FormattedValues[Workflow.Schema.Attributes.category];
                     string mode = entity.FormattedValues[Workflow.Schema.Attributes.mode];
+                    string status = entity.FormattedValues[Workflow.Schema.Attributes.statuscode];
 
-                    var item = new EntityViewItem(entity.PrimaryEntity, name, category, mode, entity);
+                    var item = new EntityViewItem(entity.PrimaryEntity, name, category, mode, status, entity);
 
                     this._itemsSource.Add(item);
                 }

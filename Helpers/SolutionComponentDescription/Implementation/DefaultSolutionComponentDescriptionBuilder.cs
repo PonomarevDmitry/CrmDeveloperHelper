@@ -401,7 +401,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 ComponentType = (solutionComponent.ComponentType?.Value).GetValueOrDefault(),
                 RootComponentBehavior = solutionComponent.RootComponentBehavior?.Value,
 
-                ComponentTypeName = solutionComponent.ComponentTypeName,
                 Description = GenerateDescriptionSingle(solutionComponent, false),
             });
         }

@@ -62,7 +62,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         ParentSchemaName = relationship.ReferencingEntity,
                         RootComponentBehavior = solutionComponent.RootComponentBehavior?.Value,
 
-                        ComponentTypeName = ComponentType.EntityRelationship.ToString(),
                         Description = GenerateDescriptionSingle(solutionComponent, false),
                     });
 
@@ -73,7 +72,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         ParentSchemaName = relationship.ReferencedEntity,
                         RootComponentBehavior = solutionComponent.RootComponentBehavior?.Value,
 
-                        ComponentTypeName = ComponentType.EntityRelationship.ToString(),
                         Description = GenerateDescriptionSingle(solutionComponent, false),
                     });
                 }
@@ -88,7 +86,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         ParentSchemaName = relationship.Entity1LogicalName,
                         RootComponentBehavior = solutionComponent.RootComponentBehavior?.Value,
 
-                        ComponentTypeName = ComponentType.EntityRelationship.ToString(),
                         Description = GenerateDescriptionSingle(solutionComponent, false),
                     });
 
@@ -99,7 +96,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         ParentSchemaName = relationship.Entity2LogicalName,
                         RootComponentBehavior = solutionComponent.RootComponentBehavior?.Value,
 
-                        ComponentTypeName = ComponentType.EntityRelationship.ToString(),
                         Description = GenerateDescriptionSingle(solutionComponent, false),
                     });
                 }

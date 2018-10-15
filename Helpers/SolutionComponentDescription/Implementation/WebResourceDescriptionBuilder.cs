@@ -86,8 +86,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 return string.Format("WebResource     '{0}'    WebResourceType '{1}'    DisplayName     '{2}'    IsManaged {3}    IsCustomizable {4}    SolutionName {5}{6}"
                     , webResource.Name
-                    , webResource.DisplayName
                     , webTypeName
+                    , webResource.DisplayName
                     , webResource.IsManaged.ToString()
                     , webResource.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(webResource, "solution.uniquename")

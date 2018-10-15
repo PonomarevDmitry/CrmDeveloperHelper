@@ -56,7 +56,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     SchemaName = metaData.LogicalName,
                     RootComponentBehavior = solutionComponent.RootComponentBehavior?.Value,
 
-                    ComponentTypeName = ComponentType.Entity.ToString(),
                     Description = GenerateDescriptionSingle(solutionComponent, false),
                 });
             }

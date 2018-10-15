@@ -10,7 +10,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public int ComponentType { get; set; }
 
         [DataMember]
-        public string ComponentTypeName { get; set; }
+        public string ComponentTypeName
+        {
+            get
+            {
+                if (Entities.SolutionComponent.IsDefinedComponentType(this.ComponentType))
+                {
+                    return ((Entities.ComponentType)this.ComponentType).ToString();
+                }
+
+                return string.Empty;
+            }
+        }
 
         [DataMember]
         public Guid? ObjectId { get; set; }

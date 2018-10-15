@@ -56,7 +56,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     SchemaName = optionSet.Name,
                     RootComponentBehavior = solutionComponent.RootComponentBehavior?.Value,
 
-                    ComponentTypeName = ComponentType.OptionSet.ToString(),
                     Description = GenerateDescriptionSingle(solutionComponent, false),
                 });
             }
