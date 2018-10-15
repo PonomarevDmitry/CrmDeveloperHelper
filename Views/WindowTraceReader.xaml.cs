@@ -250,6 +250,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     connectionData.AddTraceFilter(textName);
                 }
 
+                cmBFilter.Text = textName;
+
                 date = dPFilterDate.SelectedDate;
             });
 
@@ -274,8 +276,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var result = new List<TraceRecord>();
 
-            var hash = new HashSet<Guid>();
-
             if (date.HasValue)
             {
                 list = list.Where(e => e.Date >= date.Value);
@@ -283,18 +283,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(textName))
             {
+                var hash = new HashSet<Guid>();
+
                 foreach (var item in list)
                 {
                     if (item.Description.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
                     {
-                        result.Add(item);
-
                         if (item.RequestId != Guid.Empty)
                         {
                             hash.Add(item.RequestId);
                         }
                     }
-                    else if (hash.Contains(item.RequestId))
+                }
+
+                foreach (var item in list)
+                {
+                    if (hash.Contains(item.RequestId))
                     {
                         result.Add(item);
                     }
@@ -418,7 +422,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.Key == Key.Enter)
             {
-                FilterExistingTraceRecords();
+                if (_loadedRecords.Count == 0)
+                {
+                    OpenFilesInFolders();
+                }
+                else
+                {
+                    FilterExistingTraceRecords();
+                }
             }
         }
 
@@ -433,7 +444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 e.Handled = true;
 
-                FilterExistingTraceRecords();
+                OpenFilesInFolders();
             }
 
             base.OnKeyDown(e);
@@ -480,7 +491,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                FilterExistingTraceRecords();
+                OpenFilesInFolders();
             }
         }
 
