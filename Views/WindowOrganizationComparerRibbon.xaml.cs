@@ -313,7 +313,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private static IEnumerable<LinkedEntityMetadata> FilterList(IEnumerable<LinkedEntityMetadata> list, string textName, HashSet<string> hash)
         {
-            list = list.Where(ent => !ent.EntityMetadata1.IsIntersect.GetValueOrDefault() && !ent.EntityMetadata2.IsIntersect.GetValueOrDefault());
+            list = list.Where(ent => !(ent.EntityMetadata1?.IsIntersect).GetValueOrDefault() && !(ent.EntityMetadata2?.IsIntersect).GetValueOrDefault());
 
             if (hash != null && hash.Any())
             {

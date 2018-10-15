@@ -90,9 +90,14 @@
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Center"/>
         <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="52,10,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFilter" Height="23" Margin="52,38,289,0" TextWrapping="Wrap"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-        <Label Content="Category" HorizontalAlignment="Right" Margin="0,38,232,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="cmBCategory" Height="23" Margin="0,38,10,0" VerticalAlignment="Top" IsEditable="False" HorizontalAlignment="Right" Width="217" SelectionChanged="cmBCategory_SelectionChanged" />
+        <TextBox x:Name="txtBFilter" Height="23" Margin="52,38,457,0" TextWrapping="Wrap"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        
+        <Label Content="Category" HorizontalAlignment="Right" Margin="0,38,400,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Center"/>
+        <ComboBox x:Name="cmBCategory" Height="23" Margin="0,38,196,0" VerticalAlignment="Top" IsEditable="False" HorizontalAlignment="Right" Width="199" SelectionChanged="cmBCategory_SelectionChanged" />
+
+        <Label Content="Mode" HorizontalAlignment="Right" Margin="0,38,156,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Center"/>
+        <ComboBox x:Name="cmBMode" Height="23" Margin="0,38,10,0" VerticalAlignment="Top" IsEditable="False" HorizontalAlignment="Right" Width="141" SelectionChanged="cmBCategory_SelectionChanged" />
+
         <DataGrid x:Name="lstVwWorkflows" AutoGenerateColumns="False" Margin="10,66,10,99" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -111,6 +116,8 @@
                 <DataGridTextColumn Header="Category" Width="200" Binding="{Binding Category}" />
 
                 <DataGridTextColumn Header="Workflow Name" Width="200" Binding="{Binding WorkflowName}" />
+
+                <DataGridTextColumn Header="Mode" Width="150" Binding="{Binding ModeName}" />
 
             </DataGrid.Columns>
         </DataGrid>

@@ -409,6 +409,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControl(this.tSDDBShowDifference, enabled);
             ToggleControl(this.tSDDBConnection1, enabled);
             ToggleControl(this.tSDDBConnection2, enabled);
+            ToggleControl(this.cmBConnection1, enabled);
+            ToggleControl(this.cmBConnection2, enabled);
 
             ToggleProgressBar(enabled);
 

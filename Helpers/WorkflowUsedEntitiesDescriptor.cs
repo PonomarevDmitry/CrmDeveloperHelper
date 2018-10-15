@@ -109,7 +109,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     foreach (var entityMetadata in listMetadata)
                     {
-                        var workflows = await repositoryWorkflow.GetListAsync(entityMetadata.LogicalName, (int)Workflow.Schema.OptionSets.category.Business_Rule_2, new ColumnSet(Workflow.Schema.Attributes.xaml));
+                        var workflows = await repositoryWorkflow.GetListAsync(entityMetadata.LogicalName, (int)Workflow.Schema.OptionSets.category.Business_Rule_2, null, new ColumnSet(Workflow.Schema.Attributes.xaml));
 
                         foreach (var item in workflows)
                         {
@@ -227,7 +227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     foreach (var entityMetadata in listMetadata)
                     {
-                        var workflows = await repositoryWorkflow.GetListAsync(entityMetadata.LogicalName, (int)Workflow.Schema.OptionSets.category.Business_Rule_2, new ColumnSet(Workflow.Schema.Attributes.xaml));
+                        var workflows = await repositoryWorkflow.GetListAsync(entityMetadata.LogicalName, (int)Workflow.Schema.OptionSets.category.Business_Rule_2, null, new ColumnSet(Workflow.Schema.Attributes.xaml));
 
                         foreach (var item in workflows)
                         {
@@ -297,7 +297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 var handler = new WorkflowUsedEntitiesHandler();
 
                 {
-                    var workflows = await repositoryWorkflow.GetListAsync(null, null, new ColumnSet(Workflow.Schema.Attributes.xaml));
+                    var workflows = await repositoryWorkflow.GetListAsync(null, null, null, new ColumnSet(Workflow.Schema.Attributes.xaml));
 
                     _descriptor.GetEntities<Workflow>((int)ComponentType.Workflow, workflows.Select(c => c.Id));
 
@@ -536,7 +536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 var repositoryWorkflow = new WorkflowRepository(_service);
 
                 {
-                    var workflows = await repositoryWorkflow.GetListAsync(null, null, new ColumnSet(Workflow.Schema.Attributes.xaml));
+                    var workflows = await repositoryWorkflow.GetListAsync(null, null, null, new ColumnSet(Workflow.Schema.Attributes.xaml));
 
                     _descriptor.GetEntities<Workflow>((int)ComponentType.Workflow, workflows.Select(c => c.Id));
 

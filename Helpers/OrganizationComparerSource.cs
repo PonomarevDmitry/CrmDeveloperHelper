@@ -263,12 +263,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public virtual Task<List<Workflow>> GetWorkflow1Async()
         {
-            return new WorkflowRepository(Service1).GetListAsync(null, null, null);
+            return new WorkflowRepository(Service1).GetListAsync(null, null, null, null);
         }
 
         public virtual Task<List<Workflow>> GetWorkflow2Async()
         {
-            return new WorkflowRepository(Service2).GetListAsync(null, null, null);
+            return new WorkflowRepository(Service2).GetListAsync(null, null, null, null);
         }
 
         public virtual Task<List<SystemForm>> GetSystemForm1Async()

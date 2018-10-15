@@ -67,9 +67,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var attribute = _descriptorCache[service.ConnectionData.ConnectionId].MetadataSource.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.category);
+            var attributeCategory = _descriptorCache[service.ConnectionData.ConnectionId].MetadataSource.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.category);
+            var attributeMode = _descriptorCache[service.ConnectionData.ConnectionId].MetadataSource.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.mode);
 
-            FillComboBoxCategory(attribute);
+            FillComboBoxCategoryAndMode(attributeCategory, attributeMode);
 
             LoadFromConfig();
 
@@ -116,31 +117,77 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             --_init;
         }
 
-        private void FillComboBoxCategory(AttributeMetadata attribute)
+        private void FillComboBoxCategoryAndMode(AttributeMetadata attributeCategory, AttributeMetadata attributeMode)
         {
-            cmBCategory.Items.Clear();
+            BeginLoadConfig();
 
-            cmBCategory.Items.Add(string.Empty);
-
-            if (attribute == null)
             {
-                return;
-            }
+                int? category = null;
 
-            if (attribute is PicklistAttributeMetadata picklist)
-            {
-                foreach (var item in picklist.OptionSet.Options.Where(o => o.Value.HasValue))
+                if (cmBCategory.SelectedItem is ComboBoxItem comboBoxItem && comboBoxItem.Tag is int valueTempInt)
                 {
-                    var value = new ComboBoxItem()
+                    category = valueTempInt;
+                }
+
+                cmBCategory.Items.Clear();
+
+                cmBCategory.Items.Add(string.Empty);
+
+                if (attributeCategory != null && attributeCategory is PicklistAttributeMetadata picklist)
+                {
+                    foreach (var item in picklist.OptionSet.Options.Where(o => o.Value.HasValue))
                     {
-                        Tag = item.Value.Value,
+                        var value = new ComboBoxItem()
+                        {
+                            Tag = item.Value.Value,
 
-                        Content = item.Label.UserLocalizedLabel.Label
-                    };
+                            Content = item.Label.UserLocalizedLabel.Label
+                        };
 
-                    cmBCategory.Items.Add(value);
+                        cmBCategory.Items.Add(value);
+
+                        if (category.HasValue && category.Value == item.Value.Value)
+                        {
+                            cmBCategory.SelectedItem = value;
+                        }
+                    }
                 }
             }
+
+            {
+                int? mode = null;
+
+                if (cmBMode.SelectedItem is ComboBoxItem comboBoxItem && comboBoxItem.Tag is int valueTempInt)
+                {
+                    mode = valueTempInt;
+                }
+
+                cmBMode.Items.Clear();
+
+                cmBMode.Items.Add(string.Empty);
+
+                if (attributeMode != null && attributeMode is PicklistAttributeMetadata picklist)
+                {
+                    foreach (var item in picklist.OptionSet.Options.Where(o => o.Value.HasValue))
+                    {
+                        var value = new ComboBoxItem()
+                        {
+                            Tag = item.Value.Value,
+
+                            Content = item.Label.UserLocalizedLabel.Label
+                        };
+
+                        cmBMode.Items.Add(value);
+
+                        if (mode.HasValue && mode.Value == item.Value.Value)
+                        {
+                            cmBMode.SelectedItem = value;
+                        }
+                    }
+                }
+            }
+
+            EndLoadConfig();
         }
 
         private void LoadFromConfig()
@@ -151,19 +198,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         private const string paramCategory = "Category";
+        private const string paramMode = "Mode";
 
         private void LoadConfiguration()
         {
             WindowSettings winConfig = this.GetWindowsSettings();
 
             var categoryValue = winConfig.GetValueInt(paramCategory);
-
             if (categoryValue != -1)
             {
                 var item = cmBCategory.Items.OfType<ComboBoxItem>().FirstOrDefault(e => (int)e.Tag == categoryValue);
                 if (item != null)
                 {
                     cmBCategory.SelectedItem = item;
+                }
+            }
+
+            var modeValue = winConfig.GetValueInt(paramMode);
+            if (modeValue != -1)
+            {
+                var item = cmBMode.Items.OfType<ComboBoxItem>().FirstOrDefault(e => (int)e.Tag == modeValue);
+                if (item != null)
+                {
+                    cmBMode.SelectedItem = item;
                 }
             }
         }
@@ -174,14 +231,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var categoryValue = -1;
 
-            if (cmBCategory.SelectedItem is ComboBoxItem comboBoxItem
-                    && comboBoxItem.Tag is int value
-                    )
             {
-                categoryValue = value;
+                if (cmBCategory.SelectedItem is ComboBoxItem comboBoxItem
+                        && comboBoxItem.Tag is int value
+                        )
+                {
+                    categoryValue = value;
+                }
+            }
+
+            var modeValue = -1;
+
+            {
+                if (cmBMode.SelectedItem is ComboBoxItem comboBoxItem
+                        && comboBoxItem.Tag is int value
+                        )
+                {
+                    modeValue = value;
+                }
             }
 
             winConfig.DictInt[paramCategory] = categoryValue;
+            winConfig.DictInt[paramMode] = modeValue;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -276,11 +347,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBCategory.Dispatcher.Invoke(() =>
             {
-                if (cmBCategory.SelectedItem is ComboBoxItem comboBoxItem
-                    && comboBoxItem.Tag is int value
-                    )
+                if (cmBCategory.SelectedItem is ComboBoxItem comboBoxItem && comboBoxItem.Tag is int value)
                 {
                     category = value;
+                }
+            });
+
+            int? mode = null;
+
+            cmBMode.Dispatcher.Invoke(() =>
+            {
+                if (cmBMode.SelectedItem is ComboBoxItem comboBoxItem && comboBoxItem.Tag is int value)
+                {
+                    mode = value;
                 }
             });
 
@@ -293,10 +372,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     WorkflowRepository repository = new WorkflowRepository(service);
-                    list = await repository.GetListAsync(this._filterEntity, category
+                    list = await repository.GetListAsync(this._filterEntity, category, mode
                         , new ColumnSet(
                             Workflow.Schema.Attributes.category
                             , Workflow.Schema.Attributes.name
+                            , Workflow.Schema.Attributes.mode
                             , Workflow.Schema.Attributes.uniquename
                             , Workflow.Schema.Attributes.primaryentity
                             , Workflow.Schema.Attributes.iscustomizable
@@ -345,15 +425,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public string Category { get; private set; }
 
+            public string ModeName { get; private set; }
+
             public string WorkflowName { get; private set; }
 
             public Workflow Workflow { get; private set; }
 
-            public EntityViewItem(string entityName, string workflowName, string category, Workflow workflow)
+            public EntityViewItem(string entityName, string workflowName, string category, string modeName, Workflow workflow)
             {
                 this.EntityName = entityName;
                 this.WorkflowName = workflowName;
                 this.Category = category;
+                this.ModeName = modeName;
                 this.Workflow = workflow;
             }
         }
@@ -380,8 +463,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
 
                     string category = entity.FormattedValues[Workflow.Schema.Attributes.category];
+                    string mode = entity.FormattedValues[Workflow.Schema.Attributes.mode];
 
-                    var item = new EntityViewItem(entity.PrimaryEntity, name, category, entity);
+                    var item = new EntityViewItem(entity.PrimaryEntity, name, category, mode, entity);
 
                     this._itemsSource.Add(item);
                 }
@@ -417,6 +501,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateStatus(statusFormat, args);
 
             ToggleControl(cmBCurrentConnection, enabled);
+            ToggleControl(cmBCategory, enabled);
+            ToggleControl(cmBMode, enabled);
 
             ToggleProgressBar(enabled);
 
@@ -1741,9 +1827,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var descriptor = await GetDescriptor();
 
-                var attribute = descriptor.MetadataSource.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.category);
+                var attributeCategory = descriptor.MetadataSource.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.category);
+                var attributeMode = descriptor.MetadataSource.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.mode);
 
-                FillComboBoxCategory(attribute);
+                FillComboBoxCategoryAndMode(attributeCategory, attributeMode);
 
                 ShowExistingWorkflows();
             }

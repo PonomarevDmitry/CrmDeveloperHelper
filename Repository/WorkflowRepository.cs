@@ -25,12 +25,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<Workflow>> GetListAsync(string filterEntity, int? category, ColumnSet columnSet)
+        public Task<List<Workflow>> GetListAsync(string filterEntity, int? category, int? mode, ColumnSet columnSet)
         {
-            return Task.Run(() => GetList(filterEntity, category, columnSet));
+            return Task.Run(() => GetList(filterEntity, category, mode, columnSet));
         }
 
-        private List<Workflow> GetList(string filterEntity, int? category, ColumnSet columnSet)
+        private List<Workflow> GetList(string filterEntity, int? category, int? mode, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -70,6 +70,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             if (category.HasValue)
             {
                 query.Criteria.Conditions.Add(new ConditionExpression(Workflow.Schema.Attributes.category, ConditionOperator.Equal, category.Value));
+            }
+
+            if (mode.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Workflow.Schema.Attributes.mode, ConditionOperator.Equal, mode.Value));
             }
 
             var result = new List<Workflow>();

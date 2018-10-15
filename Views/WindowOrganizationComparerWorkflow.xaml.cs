@@ -207,8 +207,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         var repository1 = new WorkflowRepository(service1);
                         var repository2 = new WorkflowRepository(service2);
 
-                        var task1 = repository1.GetListAsync(_filterEntity, null, columnSet);
-                        var task2 = repository2.GetListAsync(_filterEntity, null, columnSet);
+                        var task1 = repository1.GetListAsync(_filterEntity, null, null, columnSet);
+                        var task2 = repository2.GetListAsync(_filterEntity, null, null, columnSet);
 
                         TranslationRepository.GetDefaultTranslationFromCacheAsync(service1.ConnectionData.ConnectionId, service1);
                         TranslationRepository.GetDefaultTranslationFromCacheAsync(service2.ConnectionData.ConnectionId, service2);
@@ -232,7 +232,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var repository1 = new WorkflowRepository(service1);
 
-                        var task1 = repository1.GetListAsync(_filterEntity, null, columnSet);
+                        var task1 = repository1.GetListAsync(_filterEntity, null, null, columnSet);
 
                         TranslationRepository.GetDefaultTranslationFromCacheAsync(service1.ConnectionData.ConnectionId, service1);
 
@@ -348,9 +348,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         name1 += string.Format("    (UniqueName \"{0}\")", link.Entity1.UniqueName);
                     }
 
-                    string name2 = link.Entity2.Name;
+                    string name2 = link.Entity2?.Name;
 
-                    if (!string.IsNullOrEmpty(link.Entity2.UniqueName))
+                    if (!string.IsNullOrEmpty(link.Entity2?.UniqueName))
                     {
                         name2 += string.Format("    (UniqueName \"{0}\")", link.Entity2.UniqueName);
                     }
@@ -396,6 +396,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControl(this.tSDDBShowDifference, enabled);
             ToggleControl(this.tSDDBConnection1, enabled);
             ToggleControl(this.tSDDBConnection2, enabled);
+            ToggleControl(this.cmBConnection1, enabled);
+            ToggleControl(this.cmBConnection2, enabled);
 
             ToggleProgressBar(enabled);
 
