@@ -1,6 +1,7 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -324,6 +325,89 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         protected virtual void SaveConfigurationInternal(WindowSettings winConfig)
         {
 
+        }
+
+        protected void ActivateControls(IEnumerable<Control> items, bool isEnabled, params string[] uidList)
+        {
+            if (uidList == null || uidList.Length == 0)
+            {
+                return;
+            }
+
+            HashSet<string> hash = new HashSet<string>(uidList, StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var item in items)
+            {
+                if (hash.Contains(item.Uid))
+                {
+                    item.IsEnabled = isEnabled;
+                    item.Visibility = isEnabled ? Visibility.Visible : Visibility.Collapsed;
+                }
+            }
+        }
+
+        protected void SetControlsName(IEnumerable<Control> items, string name, params string[] uidList)
+        {
+            if (uidList == null || uidList.Length == 0)
+            {
+                return;
+            }
+
+            HashSet<string> hash = new HashSet<string>(uidList, StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var item in items.OfType<MenuItem>())
+            {
+                if (hash.Contains(item.Uid))
+                {
+                    item.Header = name;
+                }
+            }
+        }
+
+        protected void FillLastSolutionItems(ConnectionData connectionData, IEnumerable<Control> items, bool isEnabled, RoutedEventHandler clickHandler, params string[] uidList)
+        {
+            if (uidList == null || uidList.Length == 0)
+            {
+                return;
+            }
+
+            HashSet<string> hash = new HashSet<string>(uidList, StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var item in items.OfType<MenuItem>())
+            {
+                if (hash.Contains(item.Uid))
+                {
+                    item.IsEnabled = false;
+                    item.Visibility = Visibility.Collapsed;
+
+                    item.Items.Clear();
+
+                    if (isEnabled)
+                    {
+                        if (connectionData != null
+                            && connectionData.LastSelectedSolutionsUniqueName != null
+                            && connectionData.LastSelectedSolutionsUniqueName.Any()
+                            )
+                        {
+                            item.IsEnabled = true;
+                            item.Visibility = Visibility.Visible;
+
+                            foreach (var uniqueName in connectionData.LastSelectedSolutionsUniqueName)
+                            {
+                                var menuItem = new MenuItem()
+                                {
+                                    Header = uniqueName.Replace("_", "__"),
+                                    Tag = uniqueName,
+                                };
+
+                                menuItem.Click += clickHandler;
+
+                                item.Items.Add(menuItem);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

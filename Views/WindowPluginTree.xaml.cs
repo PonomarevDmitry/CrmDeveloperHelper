@@ -1467,19 +1467,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            ActivateItems(items, CanCreateDescription(nodeItem), "contMnCreateDescription");
+            ActivateControls(items, CanCreateDescription(nodeItem), "contMnCreateDescription");
 
-            SetDescriptionNameItems(items, GetCreateDescription(nodeItem), "contMnCreateDescription");
+            SetControlsName(items, GetCreateDescription(nodeItem), "contMnCreateDescription");
 
-            ActivateItems(items, isEntity, "contMnEntity");
+            ActivateControls(items, isEntity, "contMnEntity");
 
-            ActivateItems(items, isEntity || isPluginAssembly || isStep, "contMnAddIntoSolution", "contMnAddIntoSolutionLast");
+            ActivateControls(items, isEntity || isPluginAssembly || isStep, "contMnAddIntoSolution", "contMnAddIntoSolutionLast");
 
-            ActivateItems(items, nodeItem.PluginType.HasValue, "contMnAddPluginTypeStepsIntoSolution", "contMnAddPluginTypeStepsIntoSolutionLast");
+            ActivateControls(items, nodeItem.PluginType.HasValue, "contMnAddPluginTypeStepsIntoSolution", "contMnAddPluginTypeStepsIntoSolutionLast");
 
-            ActivateItems(items, nodeItem.PluginAssembly.HasValue && nodeItem.ComponentType != ComponentType.PluginAssembly, "contMnAddPluginAssemblyIntoSolution", "contMnAddPluginAssemblyIntoSolutionLast");
+            ActivateControls(items, nodeItem.PluginAssembly.HasValue && nodeItem.ComponentType != ComponentType.PluginAssembly, "contMnAddPluginAssemblyIntoSolution", "contMnAddPluginAssemblyIntoSolutionLast");
 
-            ActivateItems(items, nodeItem.PluginAssembly.HasValue, "contMnAddPluginAssemblyStepsIntoSolution", "contMnAddPluginAssemblyStepsIntoSolutionLast");
+            ActivateControls(items, nodeItem.PluginAssembly.HasValue, "contMnAddPluginAssemblyStepsIntoSolution", "contMnAddPluginAssemblyStepsIntoSolutionLast");
 
 
             FillLastSolutionItems(connectionData, items, isEntity || isPluginAssembly || isStep, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
@@ -1489,89 +1489,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             FillLastSolutionItems(connectionData, items, nodeItem.PluginAssembly.HasValue && nodeItem.ComponentType != ComponentType.PluginAssembly, AddAssemblyIntoCrmSolutionLast_Click, "contMnAddPluginAssemblyIntoSolutionLast");
 
             FillLastSolutionItems(connectionData, items, nodeItem.PluginAssembly.HasValue, mIAddAssemblyStepsIntoSolutionLast_Click, "contMnAddPluginAssemblyStepsIntoSolutionLast");
-        }
-
-        private void FillLastSolutionItems(ConnectionData connectionData, IEnumerable<Control> items, bool isEnabled, RoutedEventHandler clickHandler, params string[] uidList)
-        {
-            if (uidList == null || uidList.Length == 0)
-            {
-                return;
-            }
-
-            HashSet<string> hash = new HashSet<string>(uidList, StringComparer.InvariantCultureIgnoreCase);
-
-            foreach (var item in items.OfType<MenuItem>())
-            {
-                if (uidList.Contains(item.Uid))
-                {
-                    item.IsEnabled = false;
-                    item.Visibility = Visibility.Collapsed;
-
-                    item.Items.Clear();
-
-                    if (isEnabled)
-                    {
-                        if (connectionData != null
-                            && connectionData.LastSelectedSolutionsUniqueName != null
-                            && connectionData.LastSelectedSolutionsUniqueName.Any()
-                            )
-                        {
-                            item.IsEnabled = true;
-                            item.Visibility = Visibility.Visible;
-
-                            foreach (var uniqueName in connectionData.LastSelectedSolutionsUniqueName)
-                            {
-                                var menuItem = new MenuItem()
-                                {
-                                    Header = uniqueName.Replace("_", "__"),
-                                    Tag = uniqueName,
-                                };
-
-                                menuItem.Click += clickHandler;
-
-                                item.Items.Add(menuItem);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private void ActivateItems(IEnumerable<Control> items, bool isEnabled, params string[] uidList)
-        {
-            if (uidList == null || uidList.Length == 0)
-            {
-                return;
-            }
-
-            HashSet<string> hash = new HashSet<string>(uidList, StringComparer.InvariantCultureIgnoreCase);
-
-            foreach (var item in items)
-            {
-                if (uidList.Contains(item.Uid))
-                {
-                    item.IsEnabled = isEnabled;
-                    item.Visibility = isEnabled ? Visibility.Visible : Visibility.Collapsed;
-                }
-            }
-        }
-
-        private void SetDescriptionNameItems(IEnumerable<Control> items, string name, params string[] uidList)
-        {
-            if (uidList == null || uidList.Length == 0)
-            {
-                return;
-            }
-
-            HashSet<string> hash = new HashSet<string>(uidList, StringComparer.InvariantCultureIgnoreCase);
-
-            foreach (var item in items.OfType<MenuItem>())
-            {
-                if (uidList.Contains(item.Uid))
-                {
-                    item.Header = name;
-                }
-            }
         }
 
         private void mICreateDescription_Click(object sender, RoutedEventArgs e)

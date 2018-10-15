@@ -855,52 +855,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (sender is ContextMenu contextMenu)
             {
-                var items = contextMenu.Items.OfType<MenuItem>();
+                var items = contextMenu.Items.OfType<Control>();
 
-                string[] commands = { "contMnAddIntoSolutionLast", "contMnAddPluginAssemblyStepsIntoSolutionLast" };
-                Action<object, RoutedEventArgs>[] actions = { AddIntoCrmSolutionLast_Click, mIAddAssemblyStepsIntoSolutionLast_Click };
+                ConnectionData connectionData = null;
 
-                for (int index = 0; index < commands.Length; index++)
+                cmBCurrentConnection.Dispatcher.Invoke(() =>
                 {
-                    var lastSolution = items.FirstOrDefault(i => string.Equals(i.Uid, commands[index], StringComparison.InvariantCultureIgnoreCase));
+                    connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+                });
 
-                    if (lastSolution != null)
-                    {
-                        lastSolution.Items.Clear();
+                FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
 
-                        lastSolution.IsEnabled = false;
-                        lastSolution.Visibility = Visibility.Collapsed;
-
-                        ConnectionData connectionData = null;
-
-                        cmBCurrentConnection.Dispatcher.Invoke(() =>
-                        {
-                            connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-                        });
-
-                        if (connectionData != null
-                            && connectionData.LastSelectedSolutionsUniqueName != null
-                            && connectionData.LastSelectedSolutionsUniqueName.Any()
-                            )
-                        {
-                            lastSolution.IsEnabled = true;
-                            lastSolution.Visibility = Visibility.Visible;
-
-                            foreach (var uniqueName in connectionData.LastSelectedSolutionsUniqueName)
-                            {
-                                var menuItem = new MenuItem()
-                                {
-                                    Header = uniqueName.Replace("_", "__"),
-                                    Tag = uniqueName,
-                                };
-
-                                menuItem.Click += new RoutedEventHandler(actions[index]);
-
-                                lastSolution.Items.Add(menuItem);
-                            }
-                        }
-                    }
-                }
+                FillLastSolutionItems(connectionData, items, true, mIAddAssemblyStepsIntoSolutionLast_Click, "contMnAddPluginAssemblyStepsIntoSolutionLast");
             }
         }
 

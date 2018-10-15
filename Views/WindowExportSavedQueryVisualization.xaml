@@ -18,8 +18,8 @@
             <Separator/>
             <MenuItem Header="Data Description" VerticalAlignment="Center" Click="mIExportSystemChartDataDescription_Click"/>
             <MenuItem Header="Presentation Description" VerticalAlignment="Center" Click="mIExportSystemChartPresentationDescription_Click"/>
-            <Separator/>
-            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+            <Separator x:Uid="controlChangeEntityAttribute"/>
+            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
                 <MenuItem Header="Data Description" VerticalAlignment="Center" Click="mIUpdateSystemChartDataDescription_Click"/>
                 <MenuItem Header="Presentation Description" VerticalAlignment="Center" Click="mIUpdateSystemChartPresentationDescription_Click"/>
             </MenuItem>
@@ -119,13 +119,13 @@
                     <Button x:Name="btnExportAll" Content="Export All Chart Information" Click="btnExportAll_Click" />
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBExportChart" Header="Export Chart Information" VerticalAlignment="Center">
+                        <MenuItem x:Name="tSDDBExportChart" Header="Export Chart Information" VerticalAlignment="Center" SubmenuOpened="tSDDBExportChart_SubmenuOpened">
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
                             <Separator/>
                             <MenuItem Header="Data Description" VerticalAlignment="Center" Click="mIExportSystemChartDataDescription_Click"/>
                             <MenuItem Header="Presentation Description" VerticalAlignment="Center" Click="mIExportSystemChartPresentationDescription_Click"/>
-                            <Separator/>
-                            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                            <Separator x:Uid="controlChangeEntityAttribute"/>
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
                                 <MenuItem Header="Data Description" VerticalAlignment="Center" Click="mIUpdateSystemChartDataDescription_Click"/>
                                 <MenuItem Header="Presentation Description" VerticalAlignment="Center" Click="mIUpdateSystemChartPresentationDescription_Click"/>
                             </MenuItem>

@@ -911,46 +911,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (sender is ContextMenu contextMenu)
             {
-                var items = contextMenu.Items.OfType<MenuItem>();
+                var items = contextMenu.Items.OfType<Control>();
 
-                var lastSolution = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
+                ConnectionData connectionData = null;
 
-                if (lastSolution != null)
+                cmBCurrentConnection.Dispatcher.Invoke(() =>
                 {
-                    lastSolution.Items.Clear();
+                    connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+                });
 
-                    lastSolution.IsEnabled = false;
-                    lastSolution.Visibility = Visibility.Collapsed;
-
-                    ConnectionData connectionData = null;
-
-                    cmBCurrentConnection.Dispatcher.Invoke(() =>
-                    {
-                        connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-                    });
-
-                    if (connectionData != null
-                        && connectionData.LastSelectedSolutionsUniqueName != null
-                        && connectionData.LastSelectedSolutionsUniqueName.Any()
-                        )
-                    {
-                        lastSolution.IsEnabled = true;
-                        lastSolution.Visibility = Visibility.Visible;
-
-                        foreach (var uniqueName in connectionData.LastSelectedSolutionsUniqueName)
-                        {
-                            var menuItem = new MenuItem()
-                            {
-                                Header = uniqueName.Replace("_", "__"),
-                                Tag = uniqueName,
-                            };
-
-                            menuItem.Click += AddIntoCrmSolutionLast_Click;
-
-                            lastSolution.Items.Add(menuItem);
-                        }
-                    }
-                }
+                FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
             }
         }
 

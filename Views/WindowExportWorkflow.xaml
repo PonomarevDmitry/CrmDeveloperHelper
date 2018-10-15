@@ -25,8 +25,8 @@
             <MenuItem Header="ClientData" VerticalAlignment="Center" Click="mIExportWorkflowClientData_Click"/>
             <Separator/>
             <MenuItem Header="Corrected Xaml" VerticalAlignment="Center" Click="mIExportWorkflowCorrectedXaml_Click"/>
-            <Separator/>
-            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+            <Separator x:Uid="controlChangeEntityAttribute"/>
+            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
                 <MenuItem Header="Xaml" VerticalAlignment="Center" Click="mIUpdateWorkflowXaml_Click"/>
                 <MenuItem Header="InputParameters" VerticalAlignment="Center" Click="mIUpdateWorkflowInputParameters_Click"/>
                 <MenuItem Header="ClientData" VerticalAlignment="Center" Click="mIUpdateWorkflowClientData_Click"/>
@@ -133,7 +133,7 @@
                     <Button x:Name="btnExportAll" Content="Export All Workflow Information" Click="btnExportAll_Click" />
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBExportWorkflow" Header="Export Workflow Information" VerticalAlignment="Center">
+                        <MenuItem x:Name="tSDDBExportWorkflow" Header="Export Workflow Information" VerticalAlignment="Center" SubmenuOpened="tSDDBExportWorkflow_SubmenuOpened">
                             <MenuItem Header="Open Workflow in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
                             <Separator/>
                             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
@@ -150,8 +150,8 @@
                             <MenuItem Header="ClientData" VerticalAlignment="Center" Click="mIExportWorkflowClientData_Click"/>
                             <Separator/>
                             <MenuItem Header="Corrected Xaml" VerticalAlignment="Center" Click="mIExportWorkflowCorrectedXaml_Click"/>
-                            <Separator/>
-                            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                            <Separator x:Uid="controlChangeEntityAttribute"/>
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
                                 <MenuItem Header="Xaml" VerticalAlignment="Center" Click="mIUpdateWorkflowXaml_Click"/>
                                 <MenuItem Header="InputParameters" VerticalAlignment="Center" Click="mIUpdateWorkflowInputParameters_Click"/>
                                 <MenuItem Header="ClientData" VerticalAlignment="Center" Click="mIUpdateWorkflowClientData_Click"/>

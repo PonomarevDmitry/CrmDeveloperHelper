@@ -837,32 +837,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (sender is ContextMenu contextMenu)
             {
-                var items = contextMenu.Items.OfType<MenuItem>();
+                var items = contextMenu.Items.OfType<Control>();
 
-                var lastSoluiton = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
-
-                if (lastSoluiton != null)
-                {
-                    lastSoluiton.Items.Clear();
-
-                    bool addIntoSolutionLast = _service.ConnectionData.LastSelectedSolutionsUniqueName.Any();
-
-                    lastSoluiton.IsEnabled = addIntoSolutionLast;
-                    lastSoluiton.Visibility = addIntoSolutionLast ? Visibility.Visible : Visibility.Collapsed;
-
-                    foreach (var uniqueName in _service.ConnectionData.LastSelectedSolutionsUniqueName)
-                    {
-                        var menuItem = new MenuItem()
-                        {
-                            Header = uniqueName.Replace("_", "__"),
-                            Tag = uniqueName,
-                        };
-
-                        menuItem.Click += AddIntoCrmSolutionLast_Click;
-
-                        lastSoluiton.Items.Add(menuItem);
-                    }
-                }
+                FillLastSolutionItems(_service.ConnectionData, items, true, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
             }
         }
 

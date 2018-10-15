@@ -195,6 +195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , Report.Schema.Attributes.ownerid
                             , Report.Schema.Attributes.reporttypecode
                             , Report.Schema.Attributes.filename
+                            , Report.Schema.Attributes.iscustomizable
                         ));
                 }
             }
@@ -595,8 +596,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     }
 
-                    var updateEntity = new Report();
-                    updateEntity.Id = idReport;
+                    var updateEntity = new Report
+                    {
+                        Id = idReport
+                    };
                     updateEntity.Attributes[fieldName] = newText;
 
                     service.Update(updateEntity);
@@ -1075,49 +1078,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
-            if (sender is ContextMenu contextMenu)
+            if (!(sender is ContextMenu contextMenu))
             {
-                var items = contextMenu.Items.OfType<MenuItem>();
-
-                ConnectionData connectionData = null;
-
-                cmBCurrentConnection.Dispatcher.Invoke(() =>
-                {
-                    connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-                });
-
-                var lastSolution = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
-
-                if (lastSolution != null)
-                {
-                    lastSolution.Items.Clear();
-
-                    lastSolution.IsEnabled = false;
-                    lastSolution.Visibility = Visibility.Collapsed;
-
-                    if (connectionData != null
-                        && connectionData.LastSelectedSolutionsUniqueName != null
-                        && connectionData.LastSelectedSolutionsUniqueName.Any()
-                        )
-                    {
-                        lastSolution.IsEnabled = true;
-                        lastSolution.Visibility = Visibility.Visible;
-
-                        foreach (var uniqueName in connectionData.LastSelectedSolutionsUniqueName)
-                        {
-                            var menuItem = new MenuItem()
-                            {
-                                Header = uniqueName.Replace("_", "__"),
-                                Tag = uniqueName,
-                            };
-
-                            menuItem.Click += AddIntoCrmSolutionLast_Click;
-
-                            lastSolution.Items.Add(menuItem);
-                        }
-                    }
-                }
+                return;
             }
+
+            var items = contextMenu.Items.OfType<Control>();
+
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
+
+            ActivateControls(items, (nodeItem.Report.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+        }
+
+        private void tSDDBExportReport_SubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
+
+            ActivateControls(tSDDBExportReport.Items.OfType<Control>(), (nodeItem.Report.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
         }
 
         private async void mIOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)

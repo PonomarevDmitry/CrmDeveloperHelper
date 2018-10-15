@@ -198,7 +198,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     var repository = new SavedQueryVisualizationRepository(service);
-                    list = await repository.GetListAsync(this._filterEntity);
+                    list = await repository.GetListAsync(this._filterEntity
+                        , new ColumnSet(
+                            SavedQueryVisualization.Schema.Attributes.savedqueryvisualizationid
+                            , SavedQueryVisualization.Schema.Attributes.primaryentitytypecode
+                            , SavedQueryVisualization.Schema.Attributes.name
+                            , SavedQueryVisualization.Schema.Attributes.iscustomizable
+                            ));
                 }
             }
             catch (Exception ex)
@@ -603,8 +609,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     }
 
-                    var updateEntity = new SavedQueryVisualization();
-                    updateEntity.Id = idSavedQueryVisualization;
+                    var updateEntity = new SavedQueryVisualization
+                    {
+                        Id = idSavedQueryVisualization
+                    };
                     updateEntity.Attributes[fieldName] = newText;
 
                     service.Update(updateEntity);
@@ -948,49 +956,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
-            if (sender is ContextMenu contextMenu)
+            if (!(sender is ContextMenu contextMenu))
             {
-                var items = contextMenu.Items.OfType<MenuItem>();
-
-                ConnectionData connectionData = null;
-
-                cmBCurrentConnection.Dispatcher.Invoke(() =>
-                {
-                    connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-                });
-
-                var lastSolution = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
-
-                if (lastSolution != null)
-                {
-                    lastSolution.Items.Clear();
-
-                    lastSolution.IsEnabled = false;
-                    lastSolution.Visibility = Visibility.Collapsed;
-
-                    if (connectionData != null
-                         && connectionData.LastSelectedSolutionsUniqueName != null
-                         && connectionData.LastSelectedSolutionsUniqueName.Any()
-                         )
-                    {
-                        lastSolution.IsEnabled = true;
-                        lastSolution.Visibility = Visibility.Visible;
-
-                        foreach (var uniqueName in connectionData.LastSelectedSolutionsUniqueName)
-                        {
-                            var menuItem = new MenuItem()
-                            {
-                                Header = uniqueName.Replace("_", "__"),
-                                Tag = uniqueName,
-                            };
-
-                            menuItem.Click += AddIntoCrmSolutionLast_Click;
-
-                            lastSolution.Items.Add(menuItem);
-                        }
-                    }
-                }
+                return;
             }
+
+            var items = contextMenu.Items.OfType<Control>();
+
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
+
+            ActivateControls(items, (nodeItem.SavedQueryVisualization.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+        }
+
+        private void tSDDBExportChart_SubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
+
+            ActivateControls(tSDDBExportChart.Items.OfType<Control>(), (nodeItem.SavedQueryVisualization.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
         }
 
         #region Кнопки открытия других форм с информация о сущности.

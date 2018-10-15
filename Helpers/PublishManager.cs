@@ -97,21 +97,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (contentFile == contentWebResource)
                 {
-                    this._iWriteToOutput.WriteToOutput("WebResource and file are equal by content: web {0}:{1}; file: {2}", element.WebResource.Id, name, element.SelectedFile.FileName);
+                    this._iWriteToOutput.WriteToOutput("WebResource and file are equal by content: web {0}:{1}; file: {2}", name, element.WebResource.Id, element.SelectedFile.FileName);
                 }
                 else
                 {
-                    WebResource resource = new WebResource();
-                    resource.WebResourceId = resource.Id = element.WebResource.Id;
-                    resource.Content = contentFile;
+                    var isCustomizable = (element.WebResource.IsCustomizable?.Value).GetValueOrDefault(true);
 
-                    this._Service.Update(resource);
+                    if (isCustomizable)
+                    {
+                        WebResource resource = new WebResource();
+                        resource.WebResourceId = resource.Id = element.WebResource.Id;
+                        resource.Content = contentFile;
 
-                    this._iWriteToOutput.WriteToOutput("Updated: web {0}:{1}; file: {2}", element.WebResource.Id, name, element.SelectedFile.FileName);
+                        this._Service.Update(resource);
+
+                        this._iWriteToOutput.WriteToOutput("Updated: web {0}:{1}; file: {2}", element.WebResource.Id, name, element.SelectedFile.FileName);
+                    }
+                    else
+                    {
+                        this._iWriteToOutput.WriteToOutput("WebResource is NOT Customizable, can't change content: web {0}:{1}.", name, element.WebResource.Id);
+                    }
                 }
             }
         }
-
 
         /// <summary>
         /// Публикация обновленных веб-ресурсов

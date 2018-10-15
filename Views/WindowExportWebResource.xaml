@@ -23,8 +23,8 @@
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
             <Separator/>
             <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIExportWebResourceDependencyXml_Click" />
-            <Separator/>
-            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+            <Separator x:Uid="controlChangeEntityAttribute"/>
+            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
                 <MenuItem Header="Content" VerticalAlignment="Center" Click="mIUpdateWebResourceContent_Click" />
                 <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIUpdateWebResourceDependencyXml_Click" />
             </MenuItem>
@@ -97,7 +97,7 @@
                     <Button x:Name="btnExportAll" Content="Export All WebResource Information" Click="btnExportAll_Click" />
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBExportWebResource" Header="Download WebResource" VerticalAlignment="Center">
+                        <MenuItem x:Name="tSDDBExportWebResource" Header="Download WebResource" VerticalAlignment="Center" SubmenuOpened="tSDDBExportWebResource_SubmenuOpened">
                             <MenuItem Header="Open WebResource in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
                             <Separator />
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
@@ -106,8 +106,8 @@
                             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
                             <Separator/>
                             <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIExportWebResourceDependencyXml_Click" />
-                            <Separator/>
-                            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                            <Separator x:Uid="controlChangeEntityAttribute"/>
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
                                 <MenuItem Header="Content" VerticalAlignment="Center" Click="mIUpdateWebResourceContent_Click" />
                                 <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIUpdateWebResourceDependencyXml_Click" />
                             </MenuItem>

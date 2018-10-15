@@ -203,7 +203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     var repository = new SavedQueryRepository(service);
-                    list = await repository.GetListAsync(this._filterEntity, new ColumnSet(SavedQuery.Schema.Attributes.name, SavedQuery.Schema.Attributes.returnedtypecode, SavedQuery.Schema.Attributes.querytype));
+                    list = await repository.GetListAsync(this._filterEntity, new ColumnSet(SavedQuery.Schema.Attributes.name, SavedQuery.Schema.Attributes.returnedtypecode, SavedQuery.Schema.Attributes.querytype, SavedQuery.Schema.Attributes.iscustomizable));
                 }
             }
             catch (Exception ex)
@@ -1196,49 +1196,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
-            if (sender is ContextMenu contextMenu)
+            if (!(sender is ContextMenu contextMenu))
             {
-                var items = contextMenu.Items.OfType<MenuItem>();
-
-                ConnectionData connectionData = null;
-
-                cmBCurrentConnection.Dispatcher.Invoke(() =>
-                {
-                    connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-                });
-
-                var lastSolution = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
-
-                if (lastSolution != null)
-                {
-                    lastSolution.Items.Clear();
-
-                    lastSolution.IsEnabled = false;
-                    lastSolution.Visibility = Visibility.Collapsed;
-
-                    if (connectionData != null
-                          && connectionData.LastSelectedSolutionsUniqueName != null
-                          && connectionData.LastSelectedSolutionsUniqueName.Any()
-                          )
-                    {
-                        lastSolution.IsEnabled = true;
-                        lastSolution.Visibility = Visibility.Visible;
-
-                        foreach (var uniqueName in connectionData.LastSelectedSolutionsUniqueName)
-                        {
-                            var menuItem = new MenuItem()
-                            {
-                                Header = uniqueName.Replace("_", "__"),
-                                Tag = uniqueName,
-                            };
-
-                            menuItem.Click += AddIntoCrmSolutionLast_Click;
-
-                            lastSolution.Items.Add(menuItem);
-                        }
-                    }
-                }
+                return;
             }
+
+            var items = contextMenu.Items.OfType<Control>();
+
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
+
+            ActivateControls(items, (nodeItem.SavedQuery.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+        }
+
+        private void tSDDBExportSavedQuery_SubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
+
+            ActivateControls(tSDDBExportSavedQuery.Items.OfType<Control>(), (nodeItem.SavedQuery.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
         }
 
         #region Кнопки открытия других форм с информация о сущности.

@@ -257,7 +257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 string name = item.Item1;
 
-                EntityTreeViewItem tn = new EntityTreeViewItem(name, item.Item2.Id, image);
+                EntityTreeViewItem tn = new EntityTreeViewItem(name, item.Item2, image);
 
                 StringBuilder result = new StringBuilder();
 

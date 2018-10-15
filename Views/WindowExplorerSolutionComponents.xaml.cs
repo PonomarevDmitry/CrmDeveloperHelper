@@ -916,49 +916,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var enabledRemove = GetSolutionComponentsType() == SolutionComponentsType.SolutionComponents && this._solution != null && !this._solution.IsManaged.GetValueOrDefault();
                     var enabledAdd = GetSolutionComponentsType() != SolutionComponentsType.SolutionComponents && this._solution != null && !this._solution.IsManaged.GetValueOrDefault();
 
-                    var listRemoveComponents = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { "sepRemoveFromSolution", "contMnRemoveFromSolution" };
-                    var listAddIntoCurrent = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { "contMnAddIntoCurrentSolution" };
+                    ActivateControls(items, enabledRemove, "sepRemoveFromSolution", "contMnRemoveFromSolution");
 
-                    foreach (var item in items)
-                    {
-                        if (listRemoveComponents.Contains(item.Uid))
-                        {
-                            item.IsEnabled = enabledRemove;
-                            item.Visibility = enabledRemove ? Visibility.Visible : Visibility.Collapsed;
-                        }
-
-                        if (listAddIntoCurrent.Contains(item.Uid))
-                        {
-                            item.IsEnabled = enabledAdd;
-                            item.Visibility = enabledAdd ? Visibility.Visible : Visibility.Collapsed;
-                        }
-                    }
+                    ActivateControls(items, enabledAdd, "contMnAddIntoCurrentSolution");
                 }
 
-                var lastSoluiton = items.OfType<MenuItem>().FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
-
-                if (lastSoluiton != null)
-                {
-                    lastSoluiton.Items.Clear();
-
-                    bool addIntoSolutionLast = _service.ConnectionData.LastSelectedSolutionsUniqueName.Any();
-
-                    lastSoluiton.IsEnabled = addIntoSolutionLast;
-                    lastSoluiton.Visibility = addIntoSolutionLast ? Visibility.Visible : Visibility.Collapsed;
-
-                    foreach (var uniqueName in _service.ConnectionData.LastSelectedSolutionsUniqueName)
-                    {
-                        var menuItem = new MenuItem()
-                        {
-                            Header = uniqueName.Replace("_", "__"),
-                            Tag = uniqueName,
-                        };
-
-                        menuItem.Click += AddIntoSolutionLast_Click;
-
-                        lastSoluiton.Items.Add(menuItem);
-                    }
-                }
+                FillLastSolutionItems(_service.ConnectionData, items, true, AddIntoSolutionLast_Click, "contMnAddIntoSolutionLast");
             }
         }
 

@@ -1076,7 +1076,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (sender is ContextMenu contextMenu)
             {
-                var items = contextMenu.Items.OfType<MenuItem>();
+                var items = contextMenu.Items.OfType<Control>();
 
                 ConnectionData connectionData = null;
 
@@ -1085,37 +1085,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
                 });
 
-                var lastSolution = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
-
-                if (lastSolution != null)
-                {
-                    lastSolution.Items.Clear();
-
-                    lastSolution.IsEnabled = false;
-                    lastSolution.Visibility = Visibility.Collapsed;
-
-                    if (connectionData != null
-                        && connectionData.LastSelectedSolutionsUniqueName != null
-                        && connectionData.LastSelectedSolutionsUniqueName.Any()
-                        )
-                    {
-                        lastSolution.IsEnabled = true;
-                        lastSolution.Visibility = Visibility.Visible;
-
-                        foreach (var uniqueName in connectionData.LastSelectedSolutionsUniqueName)
-                        {
-                            var menuItem = new MenuItem()
-                            {
-                                Header = uniqueName.Replace("_", "__"),
-                                Tag = uniqueName,
-                            };
-
-                            menuItem.Click += AddIntoCrmSolutionLast_Click;
-
-                            lastSolution.Items.Add(menuItem);
-                        }
-                    }
-                }
+                FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
             }
         }
 

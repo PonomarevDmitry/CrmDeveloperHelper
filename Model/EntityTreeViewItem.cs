@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
 
@@ -9,6 +10,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public string Name { get; set; }
 
         public Guid? WebResourceId { get; set; }
+
+        public WebResource WebResource { get; set; }
 
         public BitmapImage Image { get; set; }
 
@@ -25,11 +28,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.Items = new ObservableCollection<EntityTreeViewItem>();
         }
 
-        public EntityTreeViewItem(string name, Guid? idWebResource, BitmapImage image)
+        public EntityTreeViewItem(string name, WebResource webResource, BitmapImage image)
             : this()
         {
             this.Name = name;
-            this.WebResourceId = idWebResource;
+            this.WebResourceId = webResource?.Id;
+            this.WebResource = webResource;
             this.Image = image;
         }
 

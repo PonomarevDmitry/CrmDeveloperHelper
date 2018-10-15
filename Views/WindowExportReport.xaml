@@ -26,8 +26,8 @@
             <MenuItem Header="Query Info" VerticalAlignment="Center" Click="mIExportReportQueryInfo_Click"/>
             <Separator/>
             <MenuItem Header="Body Binary" VerticalAlignment="Center" Click="mIExportReportBodyBinary_Click"/>
-            <Separator/>
-            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+            <Separator x:Uid="controlChangeEntityAttribute"/>
+            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
                 <MenuItem Header="Default Filter" VerticalAlignment="Center" Click="mIUpdateReportDefaultFilter_Click"/>
                 <MenuItem Header="Custom Report Xml" VerticalAlignment="Center" Click="mIUpdateReportCustomReportXml_Click"/>
                 <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIUpdateReportScheduleXml_Click"/>
@@ -103,7 +103,7 @@
                     <Button x:Name="btnExportAll" Content="Export All Report Information" Click="btnExportAll_Click" />
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBExportReport" Header="Export Report Information" VerticalAlignment="Center">
+                        <MenuItem x:Name="tSDDBExportReport" Header="Export Report Information" VerticalAlignment="Center" SubmenuOpened="tSDDBExportReport_SubmenuOpened">
                             <MenuItem Header="Open Report in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
                             <Separator/>
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
@@ -116,8 +116,8 @@
                             <MenuItem Header="Query Info" VerticalAlignment="Center" Click="mIExportReportQueryInfo_Click"/>
                             <Separator/>
                             <MenuItem Header="Body Binary" VerticalAlignment="Center" Click="mIExportReportBodyBinary_Click"/>
-                            <Separator/>
-                            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                            <Separator x:Uid="controlChangeEntityAttribute"/>
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
                                 <MenuItem Header="Default Filter" VerticalAlignment="Center" Click="mIUpdateReportDefaultFilter_Click"/>
                                 <MenuItem Header="Custom Report Xml" VerticalAlignment="Center" Click="mIUpdateReportCustomReportXml_Click"/>
                                 <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIUpdateReportScheduleXml_Click"/>

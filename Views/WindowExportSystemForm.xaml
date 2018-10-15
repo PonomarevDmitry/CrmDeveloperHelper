@@ -21,8 +21,8 @@
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
             <Separator/>
             <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIExportSystemFormFormXml_Click" />
-            <Separator/>
-            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+            <Separator x:Uid="controlChangeEntityAttribute" />
+            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
                 <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIUpdateSystemFormFormXml_Click" />
             </MenuItem>
             <Separator/>
@@ -126,7 +126,7 @@
                     <Button x:Name="btnExportAll" Content="Export All Form Information" Click="btnExportAll_Click" />
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBExportSystemForm" Header="Export Form Information" VerticalAlignment="Center">
+                        <MenuItem x:Name="tSDDBExportSystemForm" Header="Export Form Information" VerticalAlignment="Center" SubmenuOpened="tSDDBExportSystemForm_SubmenuOpened">
                             <MenuItem Header="Form Description" VerticalAlignment="Center" Click="mIExportSystemFormDescription_Click" />
                             <Separator/>
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
@@ -137,8 +137,8 @@
                             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
                             <Separator/>
                             <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIExportSystemFormFormXml_Click" />
-                            <Separator/>
-                            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                            <Separator x:Uid="controlChangeEntityAttribute"/>
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
                                 <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIUpdateSystemFormFormXml_Click" />
                             </MenuItem>
                             <Separator/>

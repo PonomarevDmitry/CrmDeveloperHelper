@@ -25,8 +25,8 @@
             <MenuItem Header="Fetch XML" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXml_Click"/>
             <MenuItem Header="Layout XML" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXml_Click"/>
             <MenuItem Header="ColumnSet XML" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXml_Click"/>
-            <Separator/>
-            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+            <Separator x:Uid="controlChangeEntityAttribute"/>
+            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
                 <MenuItem Header="Fetch XML" VerticalAlignment="Center" Click="mIUpdateSavedQueryFetchXml_Click"/>
                 <MenuItem Header="Layout XML" VerticalAlignment="Center" Click="mIUpdateSavedQueryLayoutXml_Click"/>
                 <MenuItem Header="ColumnSet XML" VerticalAlignment="Center" Click="mIUpdateSavedQueryColumnSetXml_Click"/>
@@ -129,7 +129,7 @@
                     <Button x:Name="btnExportAll" Content="Export All Saved Query Information" Click="btnExportAll_Click" />
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBExportSavedQuery" Header="Export Saved Query Information" VerticalAlignment="Center">
+                        <MenuItem x:Name="tSDDBExportSavedQuery" Header="Export Saved Query Information" VerticalAlignment="Center" SubmenuOpened="tSDDBExportSavedQuery_SubmenuOpened">
                             <MenuItem Header="Open SavedQuery in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
                             <Separator />
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
@@ -141,8 +141,8 @@
                             <MenuItem Header="Fetch XML" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXml_Click"/>
                             <MenuItem Header="Layout XML" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXml_Click"/>
                             <MenuItem Header="ColumnSet XML" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXml_Click"/>
-                            <Separator/>
-                            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                            <Separator x:Uid="controlChangeEntityAttribute"/>
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
                                 <MenuItem Header="Fetch XML" VerticalAlignment="Center" Click="mIUpdateSavedQueryFetchXml_Click"/>
                                 <MenuItem Header="Layout XML" VerticalAlignment="Center" Click="mIUpdateSavedQueryLayoutXml_Click"/>
                                 <MenuItem Header="ColumnSet XML" VerticalAlignment="Center" Click="mIUpdateSavedQueryColumnSetXml_Click"/>

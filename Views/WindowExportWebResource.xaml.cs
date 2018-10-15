@@ -208,7 +208,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     WebResourceRepository repository = new WebResourceRepository(service);
-                    list = await repository.GetListAllAsync(textName, new ColumnSet(WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.webresourcetype, WebResource.Schema.Attributes.ismanaged, WebResource.Schema.Attributes.ishidden));
+                    list = await repository.GetListAllAsync(textName, new ColumnSet(WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.webresourcetype, WebResource.Schema.Attributes.ismanaged, WebResource.Schema.Attributes.ishidden, WebResource.Schema.Attributes.iscustomizable));
                 }
             }
             catch (Exception ex)
@@ -299,7 +299,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 string name = item.Item1;
 
-                EntityTreeViewItem tn = new EntityTreeViewItem(name, item.Item2.Id, image);
+                EntityTreeViewItem tn = new EntityTreeViewItem(name, item.Item2, image);
 
                 if (item != null)
                 {
@@ -612,7 +612,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-                
+
                 ToggleControls(true, "Exporting WebResource Content completed.");
             }
             catch (Exception ex)
@@ -745,8 +745,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     }
 
-                    var updateEntity = new WebResource();
-                    updateEntity.Id = idWebResource;
+                    var updateEntity = new WebResource
+                    {
+                        Id = idWebResource
+                    };
                     updateEntity.Attributes[fieldName] = newText;
 
                     service.Update(updateEntity);
@@ -983,54 +985,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
-            if (sender is ContextMenu contextMenu)
+            if (!(sender is ContextMenu contextMenu))
             {
-                if (contextMenu.PlacementTarget is TreeViewItem node)
-                {
-                    node.IsSelected = true;
-                }
-
-                var items = contextMenu.Items.OfType<MenuItem>();
-
-                ConnectionData connectionData = null;
-
-                cmBCurrentConnection.Dispatcher.Invoke(() =>
-                {
-                    connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-                });
-
-                var lastSolution = items.FirstOrDefault(i => string.Equals(i.Uid, "contMnAddIntoSolutionLast", StringComparison.InvariantCultureIgnoreCase));
-
-                if (lastSolution != null)
-                {
-                    lastSolution.Items.Clear();
-
-                    lastSolution.IsEnabled = false;
-                    lastSolution.Visibility = Visibility.Collapsed;
-
-                    if (connectionData != null
-                         && connectionData.LastSelectedSolutionsUniqueName != null
-                         && connectionData.LastSelectedSolutionsUniqueName.Any()
-                         )
-                    {
-                        lastSolution.IsEnabled = true;
-                        lastSolution.Visibility = Visibility.Visible;
-
-                        foreach (var uniqueName in connectionData.LastSelectedSolutionsUniqueName)
-                        {
-                            var menuItem = new MenuItem()
-                            {
-                                Header = uniqueName.Replace("_", "__"),
-                                Tag = uniqueName,
-                            };
-
-                            menuItem.Click += AddIntoCrmSolutionLast_Click;
-
-                            lastSolution.Items.Add(menuItem);
-                        }
-                    }
-                }
+                return;
             }
+
+            if (contextMenu.PlacementTarget is TreeViewItem node)
+            {
+                node.IsSelected = true;
+            }
+
+            var items = contextMenu.Items.OfType<Control>();
+
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityTreeViewItem;
+
+            ActivateControls(items, (nodeItem.WebResource?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+        }
+
+        private void tSDDBExportWebResource_SubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityTreeViewItem;
+
+            ActivateControls(tSDDBExportWebResource.Items.OfType<Control>(), (nodeItem.WebResource?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
