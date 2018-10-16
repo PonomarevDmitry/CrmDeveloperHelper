@@ -393,7 +393,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static Uri GetSchemaResourceUri(string fileName)
         {
-            return new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Schemas/{0}", fileName));
+            return new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Schemas/{0}", fileName));
+        }
+
+        public static Uri GetSiteMapResourceUri(string version)
+        {
+            return new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/SiteMaps/SiteMap.{0}.xml", version));
         }
     }
 }

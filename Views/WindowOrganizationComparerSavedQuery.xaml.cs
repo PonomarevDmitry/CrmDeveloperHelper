@@ -224,7 +224,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         SavedQueryRepository repository1 = new SavedQueryRepository(service1);
 
-                        var task1 = repository1.GetListCustomableAsync();
+                        var task1 = repository1.GetListAsync(_filterEntity, columnsSet);
 
                         var list1 = await task1;
 

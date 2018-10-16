@@ -3537,7 +3537,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     try
                     {
-                        Uri uri = new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/SiteMaps/SiteMap.{0}.xml", selectedSitemap));
+                        Uri uri = FileOperations.GetSiteMapResourceUri(selectedSitemap);
                         StreamResourceInfo info = Application.GetResourceStream(uri);
 
                         var doc = XDocument.Load(info.Stream);
@@ -3587,7 +3587,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             try
             {
-                Uri uri = new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/SiteMaps/SiteMap.{0}.xml", selectedSitemap));
+                Uri uri = FileOperations.GetSiteMapResourceUri(selectedSitemap);
                 StreamResourceInfo info = Application.GetResourceStream(uri);
 
                 var doc = XDocument.Load(info.Stream);

@@ -54,6 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Conditions =
                     {
                         new ConditionExpression(SavedQuery.Schema.Attributes.componentstate, ConditionOperator.In, 0, 1),
+                        new ConditionExpression(SavedQuery.Schema.Attributes.statecode, ConditionOperator.Equal, 0),
                     },
                 },
 
@@ -99,62 +100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
             }
 
-            result = result.Where(ent =>
-                !ent.Contains(SavedQuery.Schema.Attributes.statecode) || (ent.Contains(SavedQuery.Schema.Attributes.statecode) && ent.GetAttributeValue<OptionSetValue>(SavedQuery.Schema.Attributes.statecode).Value == 0)
-                ).ToList();
-
             return result;
-        }
-
-        public Task<List<SavedQuery>> GetListCustomableAsync(string filterEntity = null)
-        {
-            return Task.Run(() => GetListCustomable(filterEntity));
-        }
-
-        private List<SavedQuery> GetListCustomable(string filterEntity = null)
-        {
-            QueryExpression query = new QueryExpression()
-            {
-                EntityName = SavedQuery.EntityLogicalName,
-
-                NoLock = true,
-
-                ColumnSet = new ColumnSet(true),
-
-                Criteria =
-                {
-                    Conditions =
-                    {
-                        new ConditionExpression(SavedQuery.Schema.Attributes.componentstate, ConditionOperator.In, 0, 1),
-                        new ConditionExpression(SavedQuery.Schema.Attributes.querytype, ConditionOperator.In, 0, 1, 2, 4, 64),
-                    },
-                },
-
-                Orders =
-                {
-                    new OrderExpression(SavedQuery.Schema.Attributes.returnedtypecode, OrderType.Ascending),
-                    new OrderExpression(SavedQuery.Schema.Attributes.name, OrderType.Ascending),
-                },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
-            };
-
-            if (!string.IsNullOrEmpty(filterEntity))
-            {
-                query.Criteria.Conditions.Add(new ConditionExpression(SavedQuery.Schema.Attributes.returnedtypecode, ConditionOperator.Equal, filterEntity));
-            }
-
-            var list = this._service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SavedQuery>()).ToList();
-
-            list = list.Where(ent =>
-                !ent.Contains(SavedQuery.Schema.Attributes.statecode) || (ent.Contains(SavedQuery.Schema.Attributes.statecode) && ent.GetAttributeValue<OptionSetValue>(SavedQuery.Schema.Attributes.statecode).Value == 0)
-                ).ToList();
-
-            return list;
         }
 
         internal static string GetQueryTypeName(int queryType)

@@ -163,7 +163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                             break;
                     }
 
-                    Uri uri = new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/SiteMaps/SiteMap.{0}.xml", version));
+                    Uri uri = FileOperations.GetSiteMapResourceUri(version);
                     StreamResourceInfo info = Application.GetResourceStream(uri);
 
                     var doc = XDocument.Load(info.Stream);

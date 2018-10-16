@@ -740,11 +740,11 @@
     <Compile Include="Model\VSSolutionConfiguration.cs" />
     <Compile Include="Model\WindowSettings.cs" />
     <Compile Include="Helpers\XNameComparer.cs" />
-    <Compile Include="PluginExtraction\PluginAssembly.cs" />
-    <Compile Include="PluginExtraction\PluginDescription.cs" />
-    <Compile Include="PluginExtraction\PluginImage.cs" />
-    <Compile Include="PluginExtraction\PluginStep.cs" />
-    <Compile Include="PluginExtraction\PluginType.cs" />
+    <Compile Include="Model\PluginExtraction\PluginAssembly.cs" />
+    <Compile Include="Model\PluginExtraction\PluginDescription.cs" />
+    <Compile Include="Model\PluginExtraction\PluginImage.cs" />
+    <Compile Include="Model\PluginExtraction\PluginStep.cs" />
+    <Compile Include="Model\PluginExtraction\PluginType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AttributeMapRepository.cs" />
     <Compile Include="Repository\ConnectionIntellisenseDataRepository.cs" />
@@ -986,42 +986,42 @@
     <Resource Include="Resources\SiteMaps\SiteMap.2016SP1.xml" />
     <Resource Include="Resources\SiteMaps\SiteMap.365.8.2.xml" />
     <Compile Include="Entities\SystemUser.Additional.cs" />
-    <None Include="Schemas\Examples\PublishXmlExample.xml" />
+    <None Include="Resources\Schemas\Examples\PublishXmlExample.xml" />
     <None Include="packages.config" />
-    <Resource Include="Schemas\CustomizationsSolution.xsd">
+    <Resource Include="Resources\Schemas\CustomizationsSolution.xsd">
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="Schemas\Fetch.xsd">
+    <Resource Include="Resources\Schemas\Fetch.xsd">
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="Schemas\FormXml.xsd">
+    <Resource Include="Resources\Schemas\FormXml.xsd">
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="Schemas\isv.config.xsd">
+    <Resource Include="Resources\Schemas\isv.config.xsd">
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="Schemas\ParameterXml.xsd">
+    <Resource Include="Resources\Schemas\ParameterXml.xsd">
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="Schemas\reports.config.xsd">
+    <Resource Include="Resources\Schemas\reports.config.xsd">
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="Schemas\RibbonCore.xsd">
+    <Resource Include="Resources\Schemas\RibbonCore.xsd">
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="Schemas\RibbonTypes.xsd">
+    <Resource Include="Resources\Schemas\RibbonTypes.xsd">
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="Schemas\RibbonWSS.xsd">
+    <Resource Include="Resources\Schemas\RibbonWSS.xsd">
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="Schemas\SiteMap.xsd">
+    <Resource Include="Resources\Schemas\SiteMap.xsd">
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="Schemas\SiteMapType.xsd">
+    <Resource Include="Resources\Schemas\SiteMapType.xsd">
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="Schemas\VisualizationDataDescription.xsd">
+    <Resource Include="Resources\Schemas\VisualizationDataDescription.xsd">
       <SubType>Designer</SubType>
     </Resource>
     <None Include="sign.snk" />

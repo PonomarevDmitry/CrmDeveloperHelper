@@ -283,12 +283,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public virtual Task<List<SavedQuery>> GetSavedQuery1Async()
         {
-            return new SavedQueryRepository(Service1).GetListCustomableAsync(null);
+            return new SavedQueryRepository(Service1).GetListAsync(null, null);
         }
 
         public virtual Task<List<SavedQuery>> GetSavedQuery2Async()
         {
-            return new SavedQueryRepository(Service2).GetListCustomableAsync(null);
+            return new SavedQueryRepository(Service2).GetListAsync(null, null);
         }
 
         public virtual Task<List<SavedQueryVisualization>> GetSavedQueryVisualization1Async()

@@ -68,7 +68,7 @@
                             <ToolBar VerticalAlignment="Top" Height="30" DockPanel.Dock="Top">
                                 <Button x:Name="btnExecuteFetchXml" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click"/>
                                 <Separator />
-                                <Button x:Name="btnCopyJavaScriptToClipboardCode" Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
+                                <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
                             </ToolBar>
                             <TextBox x:Name="txtBFetchXml" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
                         </DockPanel>
@@ -79,19 +79,26 @@
                 <TextBox x:Name="txtBErrorText" Margin="5" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
             </TabItem>
             <TabItem x:Name="tbResults" IsEnabled="False" Visibility="Collapsed" IsSelected="False" Header="Results">
-                <DataGrid x:Name="dGrResults" Margin="5" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="Cell" MouseDoubleClick="dGrResults_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
-                    <DataGrid.Resources>
-                        <Style TargetType="Hyperlink">
-                            <EventSetter Event="Click" Handler="dGrResults_Hyperlink_Click"/>
-                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntityReference}"/>
-                        </Style>
-                    </DataGrid.Resources>
-                    <DataGrid.ItemContainerStyle>
-                        <Style TargetType="{x:Type DataGridRow}">
-                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntity}"/>
-                        </Style>
-                    </DataGrid.ItemContainerStyle>
-                </DataGrid>
+                <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true">
+                    <ToolBar VerticalAlignment="Top" Height="30" DockPanel.Dock="Top">
+                        <Button x:Name="btnExecuteFetchXml2" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click"/>
+                        <Separator />
+                        <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
+                    </ToolBar>
+                    <DataGrid x:Name="dGrResults" Margin="5" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="Cell" MouseDoubleClick="dGrResults_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+                        <DataGrid.Resources>
+                            <Style TargetType="Hyperlink">
+                                <EventSetter Event="Click" Handler="dGrResults_Hyperlink_Click"/>
+                                <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntityReference}"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.ItemContainerStyle>
+                            <Style TargetType="{x:Type DataGridRow}">
+                                <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntity}"/>
+                            </Style>
+                        </DataGrid.ItemContainerStyle>
+                    </DataGrid>
+                </DockPanel>
             </TabItem>
         </TabControl>
     </DockPanel>
