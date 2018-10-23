@@ -393,7 +393,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return null;
         }
 
-        public void FillSolutionImageComponent(List<SolutionImageComponent> result, SolutionComponent solutionComponent)
+        public virtual void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent)
         {
             result.Add(new SolutionImageComponent()
             {

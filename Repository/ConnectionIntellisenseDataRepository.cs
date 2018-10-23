@@ -16,10 +16,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
     public class ConnectionIntellisenseDataRepository : IDisposable
     {
-        private object syncObjectService = new object();
-        private object syncObjectTaskListEntityHeader = new object();
-        private object syncObjectTaskGettingEntity = new object();
-        private object syncObjectTaskGettingEntityObjectTypeCode = new object();
+        private readonly object syncObjectService = new object();
+        private readonly object syncObjectTaskListEntityHeader = new object();
 
         private IOrganizationServiceExtented _service;
 
@@ -348,16 +346,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 Task task = null;
 
-                lock (syncObjectTaskGettingEntity)
+                if (!_cacheTaskGettingEntity.ContainsKey(entityName))
                 {
-                    if (!_cacheTaskGettingEntity.ContainsKey(entityName))
-                    {
-                        task = Task.Run(async () => await GetEntityFullDataForNameAsync(entityName), _cancellationTokenSource.Token);
-                        _cacheTaskGettingEntity.TryAdd(entityName, task);
-                    }
-
-                    task = _cacheTaskGettingEntity[entityName];
+                    task = Task.Run(async () => await GetEntityFullDataForNameAsync(entityName), _cancellationTokenSource.Token);
+                    _cacheTaskGettingEntity.TryAdd(entityName, task);
                 }
+
+                task = _cacheTaskGettingEntity[entityName];
 
                 if (task != null)
                 {
@@ -396,15 +391,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 Task task = null;
 
-                lock (syncObjectTaskGettingEntity)
+                if (!_cacheTaskGettingEntity.ContainsKey(entityName))
                 {
-                    if (!_cacheTaskGettingEntity.ContainsKey(entityName))
-                    {
-                        _cacheTaskGettingEntity.TryAdd(entityName, Task.Run(() => GetEntityFullDataForNameAsync(entityName), _cancellationTokenSource.Token));
-                    }
-
-                    task = _cacheTaskGettingEntity[entityName];
+                    _cacheTaskGettingEntity.TryAdd(entityName, Task.Run(() => GetEntityFullDataForNameAsync(entityName), _cancellationTokenSource.Token));
                 }
+
+                task = _cacheTaskGettingEntity[entityName];
 
                 if (task != null)
                 {
@@ -431,16 +423,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 Task task = null;
 
-                lock (syncObjectTaskGettingEntityObjectTypeCode)
+                if (!_cacheTaskGettingEntityObjectTypeCode.ContainsKey(entityObjectTypeCode))
                 {
-                    if (!_cacheTaskGettingEntityObjectTypeCode.ContainsKey(entityObjectTypeCode))
-                    {
-                        task = Task.Run(async () => await GetEntityFullDataForObjectTypeCodeAsync(entityObjectTypeCode), _cancellationTokenSource.Token);
-                        _cacheTaskGettingEntityObjectTypeCode.TryAdd(entityObjectTypeCode, task);
-                    }
-
-                    task = _cacheTaskGettingEntityObjectTypeCode[entityObjectTypeCode];
+                    task = Task.Run(async () => await GetEntityFullDataForObjectTypeCodeAsync(entityObjectTypeCode), _cancellationTokenSource.Token);
+                    _cacheTaskGettingEntityObjectTypeCode.TryAdd(entityObjectTypeCode, task);
                 }
+
+                task = _cacheTaskGettingEntityObjectTypeCode[entityObjectTypeCode];
 
                 if (task != null)
                 {
@@ -484,15 +473,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 Task task = null;
 
-                lock (syncObjectTaskGettingEntity)
+                if (!_cacheTaskGettingEntity.ContainsKey(entityName))
                 {
-                    if (!_cacheTaskGettingEntity.ContainsKey(entityName))
-                    {
-                        _cacheTaskGettingEntity.TryAdd(entityName, Task.Run(() => GetEntityFullDataForNameAsync(entityName), _cancellationTokenSource.Token));
-                    }
-
-                    task = _cacheTaskGettingEntity[entityName];
+                    _cacheTaskGettingEntity.TryAdd(entityName, Task.Run(() => GetEntityFullDataForNameAsync(entityName), _cancellationTokenSource.Token));
                 }
+
+                task = _cacheTaskGettingEntity[entityName];
 
                 if (task != null)
                 {
@@ -545,12 +531,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 _service = null;
             }
 
-            lock (syncObjectTaskGettingEntity)
+            if (_cacheTaskGettingEntity.ContainsKey(entityName))
             {
-                if (_cacheTaskGettingEntity.ContainsKey(entityName))
-                {
-                    _cacheTaskGettingEntity.TryRemove(entityName, out _);
-                }
+                _cacheTaskGettingEntity.TryRemove(entityName, out _);
             }
         }
 
@@ -588,12 +571,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 _service = null;
             }
 
-            lock (syncObjectTaskGettingEntityObjectTypeCode)
+            if (_cacheTaskGettingEntityObjectTypeCode.ContainsKey(objectTypeCode))
             {
-                if (_cacheTaskGettingEntityObjectTypeCode.ContainsKey(objectTypeCode))
-                {
-                    _cacheTaskGettingEntityObjectTypeCode.TryRemove(objectTypeCode, out _);
-                }
+                _cacheTaskGettingEntityObjectTypeCode.TryRemove(objectTypeCode, out _);
             }
         }
 
@@ -640,7 +620,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
         }
 
-        private static object _staticSyncObjectCommon = new object();
+        private static readonly object _staticSyncObjectCommon = new object();
         private static ConcurrentDictionary<Guid, ConnectionIntellisenseDataRepository> _staticCacheRepositories = new ConcurrentDictionary<Guid, ConnectionIntellisenseDataRepository>();
 
         private static readonly string[] _entityMetadataShortFieldsToQuery = new string[]

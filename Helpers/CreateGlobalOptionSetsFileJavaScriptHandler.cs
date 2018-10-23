@@ -37,7 +37,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._iWriteToOutput = iWriteToOutput;
             this._withDependentComponents = withDependentComponents;
 
-            this._descriptor = new SolutionComponentDescriptor(this._iWriteToOutput, _service, false);
+            this._descriptor = new SolutionComponentDescriptor(_service, false);
             this._dependencyRepository = new DependencyRepository(this._service);
             this._descriptorHandler = new DependencyDescriptionHandler(this._descriptor);
             _repositoryStringMap = new StringMapRepository(_service);
@@ -98,7 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 str.Append(item);
 
-                WriteLine("if (typeof (" + str.ToString() + ") == \"undefined\") {");
+                WriteLine("if (typeof (" + str.ToString() + ") == 'undefined') {");
                 WriteLine(str.ToString() + " = { __namespace: true };");
                 WriteLine("}");
             }

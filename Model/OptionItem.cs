@@ -45,36 +45,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             StringBuilder strValue = new StringBuilder();
 
-            strValue.Append(FieldName);
+            strValue.Append("'" + FieldName + "'");
 
             strValue.Append(": {");
 
-            strValue.AppendFormat(" value: {0}", Value);
+            strValue.AppendFormat(" 'value': {0}", Value);
+
+            if (this.Label != null
+                && this.Label.UserLocalizedLabel != null
+                && !string.IsNullOrEmpty(this.Label.UserLocalizedLabel.Label)
+                )
+            {
+                string langCode = string.Empty;
+
+                strValue.AppendFormat(", 'text': '{0}'", this.Label.UserLocalizedLabel.Label);
+            }
 
             if (this.DisplayOrder.HasValue)
             {
-                strValue.AppendFormat(", displayOrder: {0}", this.DisplayOrder);
+                strValue.AppendFormat(", 'displayOrder': {0}", this.DisplayOrder);
             }
 
-            var lbls = this.Label.LocalizedLabels.Where(lbl => !string.IsNullOrEmpty(lbl.Label));
-
-            HashSet<string> hashShowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-            foreach (var item in lbls.OrderBy(l => l.LanguageCode, new LocaleComparer()))
+            if (this.Label != null
+                && this.Label.LocalizedLabels != null
+                )
             {
-                if (!string.IsNullOrEmpty(item.Label) && !hashShowed.Contains(item.Label))
+                var lbls = this.Label.LocalizedLabels.Where(lbl => !string.IsNullOrEmpty(lbl.Label));
+
+                HashSet<string> hashShowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+                foreach (var item in lbls.OrderBy(l => l.LanguageCode, new LocaleComparer()))
                 {
-                    string langCode = string.Empty;
+                    if (!string.IsNullOrEmpty(item.Label) && !hashShowed.Contains(item.Label))
+                    {
+                        string langCode = string.Empty;
 
-                    strValue.AppendFormat(", name{0}: \"{1}\"", item.LanguageCode, item.Label);
+                        strValue.AppendFormat(", 'name{0}': '{1}'", item.LanguageCode, item.Label);
 
-                    hashShowed.Add(item.Label);
+                        hashShowed.Add(item.Label);
+                    }
                 }
             }
 
             if (this.LinkedStateCode.HasValue)
             {
-                strValue.AppendFormat(", linkedstatecode: {0}", this.LinkedStateCode.ToString());
+                strValue.AppendFormat(", 'linkedstatecode': {0}", this.LinkedStateCode.ToString());
             }
 
             strValue.Append(" },");

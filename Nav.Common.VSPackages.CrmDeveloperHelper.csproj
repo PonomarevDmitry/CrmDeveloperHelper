@@ -648,6 +648,7 @@
     <Compile Include="Helpers\SolutionComponentDescription\SolutionComponentMetadataSource.cs" />
     <Compile Include="Helpers\SolutionComponentDescriptor.cs" />
     <Compile Include="Helpers\SolutionDescriptor.cs" />
+    <Compile Include="Helpers\OrganizationDifferenceImageBuilder.cs" />
     <Compile Include="Helpers\WorkflowUsedEntitiesDescriptor.cs" />
     <Compile Include="Helpers\WorkflowUsedEntitiesHandler.cs" />
     <Compile Include="Intellisense\CrmCompletion.cs" />
@@ -718,6 +719,7 @@
     <Compile Include="Model\OptionSetExportType.cs" />
     <Compile Include="Model\OptionSetMetadataListViewItem.cs" />
     <Compile Include="Model\OrganizationDifferenceImage.cs" />
+    <Compile Include="Model\OrganizationDifferenceImageComponent.cs" />
     <Compile Include="Model\OrganizationServiceExtentedProxy.cs" />
     <Compile Include="Model\PluginSearchResult.cs" />
     <Compile Include="Model\PluginStage.cs" />

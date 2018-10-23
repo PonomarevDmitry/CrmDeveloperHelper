@@ -28,55 +28,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public ConnectionData Connection2 => _comparerSource.Connection2;
 
-        public OrganizationDifferenceImage Image { get; private set; }
+        private OrganizationDifferenceImageBuilder _ImageBuilder;
+        private OrganizationDifferenceImageBuilder ImageBuilder
+        {
+            get
+            {
+                if (this._ImageBuilder == null)
+                {
+                    this._ImageBuilder = new OrganizationDifferenceImageBuilder(this._comparerSource.Service1, this._comparerSource.Service2);
+                }
+
+                return _ImageBuilder;
+            }
+        }
 
         public OrganizationComparer(IOrganizationComparerSource comparerSource, IWriteToOutput writeToOutput, string folder)
         {
-            _comparerSource = comparerSource;
-
-            DateTime now = DateTime.Now;
-
-            this.Image = new OrganizationDifferenceImage()
-            {
-                MachineName = Environment.MachineName,
-                ExecuteUserDomainName = Environment.UserDomainName,
-                ExecuteUserName = Environment.UserName,
-
-                Connection1Image = new SolutionImage()
-                {
-                    ConnectionName = Connection1.Name,
-
-                    ConnectionOrganizationName = Connection1.UniqueOrgName,
-                    ConnectionDiscoveryService = Connection1.DiscoveryUrl,
-                    ConnectionOrganizationService = Connection1.OrganizationUrl,
-                    ConnectionPublicUrl = Connection1.PublicUrl,
-
-                    ConnectionSystemUserName = Connection1.GetUsername,
-
-                    MachineName = Environment.MachineName,
-                    ExecuteUserDomainName = Environment.UserDomainName,
-                    ExecuteUserName = Environment.UserName,
-                },
-
-                Connection2Image = new SolutionImage()
-                {
-                    ConnectionName = Connection2.Name,
-
-                    ConnectionOrganizationName = Connection2.UniqueOrgName,
-                    ConnectionDiscoveryService = Connection2.DiscoveryUrl,
-                    ConnectionOrganizationService = Connection2.OrganizationUrl,
-                    ConnectionPublicUrl = Connection2.PublicUrl,
-
-                    MachineName = Environment.MachineName,
-                    ExecuteUserDomainName = Environment.UserDomainName,
-                    ExecuteUserName = Environment.UserName,
-                },
-            };
+            this._comparerSource = comparerSource;
 
             this._iWriteToOutput = writeToOutput;
             this._folder = folder;
 
-            string[] arr = new string[] { _comparerSource.Connection1.Name, _comparerSource.Connection2.Name };
+            string[] arr = new string[] { Connection1.Name, Connection2.Name };
 
             Array.Sort(arr);
 
@@ -104,11 +77,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             List<Microsoft.Xrm.Sdk.Metadata.OptionSetMetadata> optionSetMetadata1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Global OptionSets in {0}: {1}", _comparerSource.Connection1.Name, optionSetMetadata1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Global OptionSets in {0}: {1}", Connection1.Name, optionSetMetadata1.Count()));
 
             List<Microsoft.Xrm.Sdk.Metadata.OptionSetMetadata> optionSetMetadata2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Global OptionSets in {0}: {1}", _comparerSource.Connection2.Name, optionSetMetadata2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Global OptionSets in {0}: {1}", Connection2.Name, optionSetMetadata2.Count()));
 
             FormatTextTableHandler optionSetOnlyIn1 = new FormatTextTableHandler();
             optionSetOnlyIn1.SetHeader("Name", "IsCustomOptionSet", "IsManaged");
@@ -117,9 +90,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             optionSetOnlyIn2.SetHeader("Name", "IsCustomOptionSet", "IsManaged");
 
             Dictionary<string, List<string>> optionSetDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
-
-            SolutionComponentDescriptor descriptor1 = new SolutionComponentDescriptor(_iWriteToOutput, _comparerSource.Service1, false);
-            SolutionComponentDescriptor descriptor2 = new SolutionComponentDescriptor(_iWriteToOutput, _comparerSource.Service2, false);
 
             DependencyRepository dependencyRepository1 = new DependencyRepository(_comparerSource.Service1);
             DependencyRepository dependencyRepository2 = new DependencyRepository(_comparerSource.Service2);
@@ -144,11 +114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 optionSetOnlyIn1.AddLine(optionSet1.Name, optionSet1.IsCustomOptionSet.ToString(), optionSet1.IsManaged.ToString());
 
-                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.OptionSet,
-                    SchemaName = optionSet1.Name,
-                });
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.OptionSet, optionSet1.MetadataId.Value);
             }
 
             foreach (Microsoft.Xrm.Sdk.Metadata.OptionSetMetadata optionSet2 in optionSetMetadata2.OrderBy(e => e.Name))
@@ -169,11 +135,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 optionSetOnlyIn2.AddLine(optionSet2.Name, optionSet2.IsCustomOptionSet.ToString(), optionSet2.IsManaged.ToString());
 
-                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.OptionSet,
-                    SchemaName = optionSet2.Name,
-                });
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.OptionSet, optionSet2.MetadataId.Value);
             }
 
             foreach (Microsoft.Xrm.Sdk.Metadata.OptionSetMetadata optionSet1 in optionSetMetadata1.OrderBy(e => e.Name))
@@ -200,7 +162,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         Dependency attr = dependent1.FirstOrDefault(e => e.DependentComponentType.Value == (int)ComponentType.Attribute);
 
-                        Microsoft.Xrm.Sdk.Metadata.AttributeMetadata attributeMetadata = descriptor1.MetadataSource.GetAttributeMetadata(attr.DependentComponentObjectId.Value);
+                        Microsoft.Xrm.Sdk.Metadata.AttributeMetadata attributeMetadata = ImageBuilder.Descriptor1.MetadataSource.GetAttributeMetadata(attr.DependentComponentObjectId.Value);
 
                         if (attributeMetadata != null)
                         {
@@ -220,7 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         Dependency attr = dependent2.FirstOrDefault(e => e.DependentComponentType.Value == (int)ComponentType.Attribute);
 
-                        Microsoft.Xrm.Sdk.Metadata.AttributeMetadata attributeMetadata = descriptor2.MetadataSource.GetAttributeMetadata(attr.DependentComponentObjectId.Value);
+                        Microsoft.Xrm.Sdk.Metadata.AttributeMetadata attributeMetadata = ImageBuilder.Descriptor2.MetadataSource.GetAttributeMetadata(attr.DependentComponentObjectId.Value);
 
                         if (attributeMetadata != null)
                         {
@@ -236,11 +198,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     optionSetDifference.Add(optionSet1.Name, strDifference.Select(s => tabSpacer + s).ToList());
 
-                    this.Image.DifferentComponents.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.OptionSet,
-                        SchemaName = optionSet1.Name,
-                    });
+                    this.ImageBuilder.AddComponentDifferent((int)ComponentType.OptionSet, optionSet1.MetadataId.Value, optionSet2.MetadataId.Value, string.Join(Environment.NewLine, strDifference));
                 }
             }
 
@@ -254,7 +212,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Global OptionSets ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, optionSetOnlyIn1.Count);
+                content.AppendFormat("Global OptionSets ONLY EXISTS in {0}: {1}", Connection1.Name, optionSetOnlyIn1.Count);
 
                 optionSetOnlyIn1.GetFormatedLines(false).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
 
@@ -273,7 +231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Global OptionSets ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, optionSetOnlyIn2.Count);
+                content.AppendFormat("Global OptionSets ONLY EXISTS in {0}: {1}", Connection2.Name, optionSetOnlyIn2.Count);
 
                 optionSetOnlyIn2.GetFormatedLines(false).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
 
@@ -292,7 +250,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Global OptionSets DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, optionSetDifference.Count);
+                content.AppendFormat("Global OptionSets DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, optionSetDifference.Count);
 
                 foreach (KeyValuePair<string, List<string>> item in optionSetDifference.OrderBy(s => s.Key))
                 {
@@ -309,7 +267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Global OptionSets DIFFERENT Details in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, optionSetDifference.Count);
+                content.AppendFormat("Global OptionSets DIFFERENT Details in {0} and {1}: {2}", Connection1.Name, Connection2.Name, optionSetDifference.Count);
 
                 foreach (KeyValuePair<string, List<string>> item in optionSetDifference.OrderBy(s => s.Key))
                 {
@@ -349,7 +307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            SaveOrganizationDifferenceImage();
+            await SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -377,11 +335,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             List<WebResource> list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("WebResouces in {0}: {1}", _comparerSource.Connection1.Name, list1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("WebResouces in {0}: {1}", Connection1.Name, list1.Count));
 
             List<WebResource> list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("WebResouces in {0}: {1}", _comparerSource.Connection2.Name, list2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("WebResouces in {0}: {1}", Connection2.Name, list2.Count));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Type", "Name", "Id", "IsManaged");
@@ -423,7 +381,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             List<LinkedEntities<WebResource>> commonList = new List<LinkedEntities<WebResource>>();
 
             {
-                ProgressReporter reporter = new ProgressReporter(_iWriteToOutput, list1.Count, 10, string.Format("Processing {0} WebResources", _comparerSource.Connection1.Name));
+                ProgressReporter reporter = new ProgressReporter(_iWriteToOutput, list1.Count, 10, string.Format("Processing {0} WebResources", Connection1.Name));
 
                 foreach (WebResource res1 in list1)
                 {
@@ -452,16 +410,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     tableOnlyExistsIn1.AddLine(typeName1, name1, res1.Id.ToString(), res1.IsManaged.ToString());
 
-                    this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.WebResource,
-                        SchemaName = name1,
-                    });
+                    this.ImageBuilder.AddComponentSolution1((int)ComponentType.WebResource, res1.Id);
                 }
             }
 
             {
-                ProgressReporter reporter = new ProgressReporter(_iWriteToOutput, list2.Count, 10, string.Format("Processing {0} WebResources", _comparerSource.Connection2.Name));
+                ProgressReporter reporter = new ProgressReporter(_iWriteToOutput, list2.Count, 10, string.Format("Processing {0} WebResources", Connection2.Name));
 
                 foreach (WebResource res2 in list2)
                 {
@@ -482,11 +436,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     tableOnlyExistsIn2.AddLine(typeName2, name2, res2.Id.ToString(), res2.IsManaged.ToString());
 
-                    this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.WebResource,
-                        SchemaName = name2,
-                    });
+                    this.ImageBuilder.AddComponentSolution2((int)ComponentType.WebResource, res2.Id);
                 }
             }
 
@@ -520,11 +470,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         }
                         else
                         {
-                            this.Image.DifferentComponents.Add(new SolutionImageComponent()
-                            {
-                                ComponentType = (int)ComponentType.WebResource,
-                                SchemaName = name1,
-                            });
+                            this.ImageBuilder.AddComponentDifferent((int)ComponentType.WebResource, res.Entity1.Id, res.Entity2.Id);
 
                             if (withDetails)
                             {
@@ -594,7 +540,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("WebResources ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("WebResources ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -609,7 +555,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("WebResources ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("WebResources ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -624,7 +570,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("WebResources NOT EQUAL BY TEXT AND CONTENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, tableNotEqualByText.Count);
+                content.AppendLine().AppendLine().AppendFormat("WebResources NOT EQUAL BY TEXT AND CONTENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, tableNotEqualByText.Count);
 
                 tableNotEqualByText.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -639,7 +585,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("WebResources NOT EQUAL WITH ONLY INSERTS in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, tableNotEqualByTextOnlyInserts.Count);
+                content.AppendLine().AppendLine().AppendFormat("WebResources NOT EQUAL WITH ONLY INSERTS in {0} and {1}: {2}", Connection1.Name, Connection2.Name, tableNotEqualByTextOnlyInserts.Count);
 
                 tableNotEqualByTextOnlyInserts.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -654,7 +600,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("WebResources NOT EQUAL WITH ONLY DELETES in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, tableNotEqualByTextOnlyDeletes.Count);
+                content.AppendLine().AppendLine().AppendFormat("WebResources NOT EQUAL WITH ONLY DELETES in {0} and {1}: {2}", Connection1.Name, Connection2.Name, tableNotEqualByTextOnlyDeletes.Count);
 
                 tableNotEqualByTextOnlyDeletes.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -669,7 +615,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("WebResources NOT EQUAL BY TEXT AND CONTENT WITH COMPLEX CHANGES in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, tableNotEqualByTextComplexChanges.Count);
+                content.AppendLine().AppendLine().AppendFormat("WebResources NOT EQUAL BY TEXT AND CONTENT WITH COMPLEX CHANGES in {0} and {1}: {2}", Connection1.Name, Connection2.Name, tableNotEqualByTextComplexChanges.Count);
 
                 tableNotEqualByTextComplexChanges.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -684,7 +630,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("WebResources NOT EQUAL BY TEXT AND CONTENT WITH MIRROR CHANGES in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, tableNotEqualByTextMirror.Count);
+                content.AppendLine().AppendLine().AppendFormat("WebResources NOT EQUAL BY TEXT AND CONTENT WITH MIRROR CHANGES in {0} and {1}: {2}", Connection1.Name, Connection2.Name, tableNotEqualByTextMirror.Count);
 
                 tableNotEqualByTextMirror.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -699,7 +645,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("WebResources NOT EQUAL BY TEXT AND CONTENT WITH MIRROR CHANGES AND INSERTS in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, tableNotEqualByTextMirrorWithInserts.Count);
+                content.AppendLine().AppendLine().AppendFormat("WebResources NOT EQUAL BY TEXT AND CONTENT WITH MIRROR CHANGES AND INSERTS in {0} and {1}: {2}", Connection1.Name, Connection2.Name, tableNotEqualByTextMirrorWithInserts.Count);
 
                 tableNotEqualByTextMirrorWithInserts.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -714,7 +660,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("WebResources NOT EQUAL BY TEXT AND CONTENT WITH MIRROR CHANGES AND DELETES in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, tableNotEqualByTextMirrorWithDeletes.Count);
+                content.AppendLine().AppendLine().AppendFormat("WebResources NOT EQUAL BY TEXT AND CONTENT WITH MIRROR CHANGES AND DELETES in {0} and {1}: {2}", Connection1.Name, Connection2.Name, tableNotEqualByTextMirrorWithDeletes.Count);
 
                 tableNotEqualByTextMirrorWithDeletes.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -729,7 +675,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("WebResources EQUAL BY TEXT, NOT CONTENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, tableEqualByTextNotContent.Count);
+                content.AppendLine().AppendLine().AppendFormat("WebResources EQUAL BY TEXT, NOT CONTENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, tableEqualByTextNotContent.Count);
 
                 tableEqualByTextNotContent.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -757,7 +703,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            SaveOrganizationDifferenceImage();
+            await SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -792,11 +738,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             List<SiteMap> list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Sitemaps in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Sitemaps in {0}: {1}", Connection1.Name, list1.Count()));
 
             List<SiteMap> list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Sitemaps in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Sitemaps in {0}: {1}", Connection2.Name, list2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Id", "SiteMapName", "SiteMapNameUnique", "IsAppAware");
@@ -819,11 +765,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 tableOnlyExistsIn1.AddLine(sitemap1.Id.ToString(), sitemap1.SiteMapName, sitemap1.SiteMapNameUnique, sitemap1.IsAppAware.ToString());
 
-                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.SiteMap,
-                    ObjectId = sitemap1.Id,
-                });
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.SiteMap, sitemap1.Id);
             }
 
             foreach (SiteMap sitemap2 in list2)
@@ -839,11 +781,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 tableOnlyExistsIn2.AddLine(sitemap2.Id.ToString(), sitemap2.SiteMapName, sitemap2.SiteMapNameUnique, sitemap2.IsAppAware.ToString());
 
-                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.SiteMap,
-                    ObjectId = sitemap2.Id,
-                });
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.SiteMap, sitemap2.Id);
             }
 
             foreach (SiteMap sitemap1 in list1)
@@ -862,11 +800,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (ContentCoparerHelper.IsEntityDifferentInField(sitemap1, sitemap2, fieldName))
                     {
-                        string str1 = EntityDescriptionHandler.GetAttributeString(sitemap1, fieldName, _comparerSource.Connection1);
-                        string str2 = EntityDescriptionHandler.GetAttributeString(sitemap2, fieldName, _comparerSource.Connection2);
+                        string str1 = EntityDescriptionHandler.GetAttributeString(sitemap1, fieldName, Connection1);
+                        string str2 = EntityDescriptionHandler.GetAttributeString(sitemap2, fieldName, Connection2);
 
-                        tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
-                        tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
+                        tabDiff.AddLine(fieldName, Connection1.Name, str1);
+                        tabDiff.AddLine(fieldName, Connection2.Name, str2);
                     }
                 }
 
@@ -890,19 +828,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             reason = compare.GetCompareDescription();
                         }
 
-                        tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, reason));
+                        tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
                     }
                 }
 
                 if (tabDiff.Count > 0)
                 {
-                    dictDifference.Add(Tuple.Create(sitemap1.Id.ToString(), sitemap1.SiteMapName, sitemap1.SiteMapNameUnique, sitemap1.IsAppAware.ToString()), tabDiff.GetFormatedLines(false));
+                    var diff = tabDiff.GetFormatedLines(false);
+                    this.ImageBuilder.AddComponentDifferent((int)ComponentType.SiteMap, sitemap1.Id, sitemap2.Id, string.Join(Environment.NewLine, diff));
 
-                    this.Image.DifferentComponents.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.SiteMap,
-                        ObjectId = sitemap1.Id,
-                    });
+                    dictDifference.Add(Tuple.Create(sitemap1.Id.ToString(), sitemap1.SiteMapName, sitemap1.SiteMapNameUnique, sitemap1.IsAppAware.ToString()), diff);
                 }
             }
 
@@ -916,7 +851,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("SiteMaps ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("SiteMaps ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -931,7 +866,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                        .AppendLine()
                        .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("SiteMaps ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("SiteMaps ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -946,7 +881,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("SiteMaps DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("SiteMaps DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
 
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("AssociatedEntity", "Name", "Language", "Id");
@@ -990,7 +925,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            SaveOrganizationDifferenceImage();
+            await SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -1016,12 +951,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (organization1 == null)
             {
-                content.AppendLine().AppendLine().AppendFormat("Not finded organization {0} at {1}.", _comparerSource.Connection1.OrganizationId.ToString(), _comparerSource.Connection1.Name).AppendLine();
+                content.AppendLine().AppendLine().AppendFormat("Not finded organization {0} at {1}.", Connection1.OrganizationId.ToString(), Connection1.Name).AppendLine();
             }
 
             if (organization2 == null)
             {
-                content.AppendLine().AppendLine().AppendFormat("Not finded organization {0} at {1}.", _comparerSource.Connection1.OrganizationId.ToString(), _comparerSource.Connection1.Name).AppendLine();
+                content.AppendLine().AppendLine().AppendFormat("Not finded organization {0} at {1}.", Connection1.OrganizationId.ToString(), Connection1.Name).AppendLine();
             }
 
             if (organization1 != null && organization2 != null)
@@ -1069,16 +1004,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (ContentCoparerHelper.IsEntityDifferentInField(organization1, organization2, fieldName))
                     {
-                        string str1 = EntityDescriptionHandler.GetAttributeString(organization1, fieldName, _comparerSource.Connection1);
-                        string str2 = EntityDescriptionHandler.GetAttributeString(organization2, fieldName, _comparerSource.Connection2);
+                        string str1 = EntityDescriptionHandler.GetAttributeString(organization1, fieldName, Connection1);
+                        string str2 = EntityDescriptionHandler.GetAttributeString(organization2, fieldName, Connection2);
 
-                        tableDifference.CalculateLineLengths(fieldName, _comparerSource.Connection1.Name, str1);
-                        tableDifference.CalculateLineLengths(fieldName, _comparerSource.Connection2.Name, str2);
+                        tableDifference.CalculateLineLengths(fieldName, Connection1.Name, str1);
+                        tableDifference.CalculateLineLengths(fieldName, Connection2.Name, str2);
 
                         dict.Add(fieldName, new List<Tuple<string, string>>()
                     {
-                        Tuple.Create(_comparerSource.Connection1.Name, str1)
-                        , Tuple.Create(_comparerSource.Connection2.Name, str2)
+                        Tuple.Create(Connection1.Name, str1)
+                        , Tuple.Create(Connection2.Name, str2)
                     });
                     }
                 }
@@ -1103,15 +1038,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             reason = compare.GetCompareDescription();
                         }
 
-                        tableDifference.CalculateLineLengths(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, reason));
-                        tableDifference.CalculateLineLengths(fieldName, _comparerSource.Connection1.Name, xml1);
-                        tableDifference.CalculateLineLengths(fieldName, _comparerSource.Connection2.Name, xml2);
+                        tableDifference.CalculateLineLengths(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
+                        tableDifference.CalculateLineLengths(fieldName, Connection1.Name, xml1);
+                        tableDifference.CalculateLineLengths(fieldName, Connection2.Name, xml2);
 
                         dict.Add(fieldName, new List<Tuple<string, string>>()
                     {
-                        Tuple.Create(string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, reason))
-                        , Tuple.Create(_comparerSource.Connection1.Name, xml1)
-                        , Tuple.Create(_comparerSource.Connection2.Name, xml2)
+                        Tuple.Create(string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason))
+                        , Tuple.Create(Connection1.Name, xml1)
+                        , Tuple.Create(Connection2.Name, xml2)
 
                     });
                     }
@@ -1119,7 +1054,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (dict.Count > 0)
                 {
-                    content.AppendLine().AppendLine().AppendFormat("Organizations DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dict.Count);
+                    content.AppendLine().AppendLine().AppendFormat("Organizations DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dict.Count);
 
                     content.AppendLine();
 
@@ -1170,11 +1105,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             List<Report> list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Reports in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Reports in {0}: {1}", Connection1.Name, list1.Count()));
 
             List<Report> list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Reports in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Reports in {0}: {1}", Connection2.Name, list2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("ReportName", "FileName", "ReportType", "Viewable By", "Owner", "IsCustomReport", "IsManaged", "ReportId");
@@ -1247,11 +1182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , report1.Id.ToString()
                     );
 
-                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.Report,
-                    ObjectId = report1.Id,
-                });
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.Report, report1.Id);
             }
 
             foreach (Report report2 in list2)
@@ -1311,16 +1242,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , report2.IsManaged.ToString()
                     , report2.Id.ToString());
 
-                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.Report,
-                    ObjectId = report2.Id,
-                });
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.Report, report2.Id);
             }
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Reports in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, commonReports.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Reports in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonReports.Count()));
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Reports by Signature in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, commonReportsBySignature.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Reports by Signature in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonReportsBySignature.Count()));
 
             FullfillReportDifferences(commonReports, dictDifference);
 
@@ -1336,7 +1263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Reports ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("Reports ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -1351,7 +1278,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Reports ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("Reports ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -1366,10 +1293,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Reports DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("Reports DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
 
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
-                tableDifference.SetHeader(_comparerSource.Connection1.Name, _comparerSource.Connection2.Name, "ReportId");
+                tableDifference.SetHeader(Connection1.Name, Connection2.Name, "ReportId");
 
                 foreach (KeyValuePair<Tuple<string, string, string, string>, List<string>> report in dictDifference)
                 {
@@ -1401,10 +1328,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Reports by Signature DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifferenceBySignature.Count);
+                content.AppendLine().AppendLine().AppendFormat("Reports by Signature DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifferenceBySignature.Count);
 
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
-                tableDifference.SetHeader(_comparerSource.Connection1.Name, _comparerSource.Connection2.Name, "ReportId1", "ReportId2");
+                tableDifference.SetHeader(Connection1.Name, Connection2.Name, "ReportId1", "ReportId2");
 
                 foreach (KeyValuePair<Tuple<string, string, string, string>, List<string>> report in dictDifferenceBySignature)
                 {
@@ -1446,7 +1373,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            SaveOrganizationDifferenceImage();
+            await SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -1486,15 +1413,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (string.Equals(fieldName, "bodybinary", StringComparison.OrdinalIgnoreCase))
                             {
-                                tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, "Differs"));
+                                tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, "Differs"));
                             }
                             else
                             {
-                                string str1 = EntityDescriptionHandler.GetAttributeString(commonItem.Entity1, fieldName, _comparerSource.Connection1);
-                                string str2 = EntityDescriptionHandler.GetAttributeString(commonItem.Entity2, fieldName, _comparerSource.Connection2);
+                                string str1 = EntityDescriptionHandler.GetAttributeString(commonItem.Entity1, fieldName, Connection1);
+                                string str2 = EntityDescriptionHandler.GetAttributeString(commonItem.Entity2, fieldName, Connection2);
 
-                                tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
-                                tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
+                                tabDiff.AddLine(fieldName, Connection1.Name, str1);
+                                tabDiff.AddLine(fieldName, Connection2.Name, str2);
                             }
                         }
                     }
@@ -1531,7 +1458,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 reason = compare.GetCompareDescription();
                             }
 
-                            tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, reason));
+                            tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
                         }
                     }
                 }
@@ -1541,13 +1468,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     string name1 = commonItem.Entity1.Name;
                     string name2 = commonItem.Entity2.Name;
 
-                    dictDifferenceBySignature.Add(Tuple.Create(name1, name2, commonItem.Entity1.Id.ToString(), commonItem.Entity2.Id.ToString()), tabDiff.GetFormatedLines(false));
+                    var diff = tabDiff.GetFormatedLines(false);
+                    this.ImageBuilder.AddComponentDifferent((int)ComponentType.Report, commonItem.Entity1.Id, commonItem.Entity2.Id, string.Join(Environment.NewLine, diff));
 
-                    this.Image.DifferentComponents.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.Report,
-                        ObjectId = commonItem.Entity1.Id,
-                    });
+                    dictDifferenceBySignature.Add(Tuple.Create(name1, name2, commonItem.Entity1.Id.ToString(), commonItem.Entity2.Id.ToString()), diff);
                 }
             }
         }
@@ -1573,8 +1497,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var task1 = _comparerSource.GetWorkflow1Async();
             var task2 = _comparerSource.GetWorkflow2Async();
 
-            var taskTranslation1 = TranslationRepository.GetDefaultTranslationFromCacheAsync(_comparerSource.Connection1.ConnectionId, _comparerSource.Service1);
-            var taskTranslation2 = TranslationRepository.GetDefaultTranslationFromCacheAsync(_comparerSource.Connection2.ConnectionId, _comparerSource.Service2);
+            var taskTranslation1 = TranslationRepository.GetDefaultTranslationFromCacheAsync(Connection1.ConnectionId, _comparerSource.Service1);
+            var taskTranslation2 = TranslationRepository.GetDefaultTranslationFromCacheAsync(Connection2.ConnectionId, _comparerSource.Service2);
 
             Translation translation1 = await taskTranslation1;
             Translation translation2 = await taskTranslation2;
@@ -1584,11 +1508,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             List<Workflow> list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Workflows in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Workflows in {0}: {1}", Connection1.Name, list1.Count()));
 
             List<Workflow> list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Workflows in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Workflows in {0}: {1}", Connection2.Name, list2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Entity", "Category", "Name", "IsCrmUiWorkflow", "IsManaged", "Id");
@@ -1625,11 +1549,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , workflow1.Id.ToString()
                     );
 
-                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.Workflow,
-                    ObjectId = workflow1.Id,
-                });
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.Workflow, workflow1.Id);
             }
 
             foreach (Workflow workflow2 in list2)
@@ -1656,14 +1576,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , workflow2.Id.ToString()
                     );
 
-                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.Workflow,
-                    ObjectId = workflow2.Id,
-                });
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.Workflow, workflow2.Id);
             }
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Workflows in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, commonList.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Workflows in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonList.Count()));
 
             {
                 ProgressReporter reporter = new ProgressReporter(_iWriteToOutput, commonList.Count, 5, "Processing Common Workflows");
@@ -1711,11 +1627,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (ContentCoparerHelper.IsEntityDifferentInField(workflow.Entity1, workflow.Entity2, fieldName))
                             {
-                                string str1 = EntityDescriptionHandler.GetAttributeString(workflow.Entity1, fieldName, _comparerSource.Connection1);
-                                string str2 = EntityDescriptionHandler.GetAttributeString(workflow.Entity2, fieldName, _comparerSource.Connection2);
+                                string str1 = EntityDescriptionHandler.GetAttributeString(workflow.Entity1, fieldName, Connection1);
+                                string str2 = EntityDescriptionHandler.GetAttributeString(workflow.Entity2, fieldName, Connection2);
 
-                                tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
-                                tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
+                                tabDiff.AddLine(fieldName, Connection1.Name, str1);
+                                tabDiff.AddLine(fieldName, Connection2.Name, str2);
                             }
                         }
                     }
@@ -1754,7 +1670,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                         reason = "Differes";
                                     }
 
-                                    tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, reason));
+                                    tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
                                 }
                             }
                         }
@@ -1766,13 +1682,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         string categoryName1 = workflow.Entity1.FormattedValues[Workflow.Schema.Attributes.category];
                         string name1 = workflow.Entity1.Name;
 
-                        dictDifference.Add(Tuple.Create(entityName1, categoryName1, name1, workflow.Entity1.Id.ToString()), tabDiff.GetFormatedLines(false));
+                        var diff = tabDiff.GetFormatedLines(false);
+                        this.ImageBuilder.AddComponentDifferent((int)ComponentType.Workflow, workflow.Entity1.Id, workflow.Entity2.Id, string.Join(Environment.NewLine, diff));
 
-                        this.Image.DifferentComponents.Add(new SolutionImageComponent()
-                        {
-                            ComponentType = (int)ComponentType.Workflow,
-                            ObjectId = workflow.Entity1.Id,
-                        });
+                        dictDifference.Add(Tuple.Create(entityName1, categoryName1, name1, workflow.Entity1.Id.ToString()), diff);
                     }
                 }
             }
@@ -1787,7 +1700,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                       .AppendLine()
                       .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Workflows ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("Workflows ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -1802,7 +1715,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                        .AppendLine()
                        .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Workflows ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("Workflows ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -1823,7 +1736,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                       .AppendLine()
                       .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Workflows DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("Workflows DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
 
                 {
                     FormatTextTableHandler tableDifference = new FormatTextTableHandler();
@@ -1845,7 +1758,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Workflows DIFFERENT information in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("Workflows DIFFERENT information in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
 
                 foreach (KeyValuePair<Tuple<string, string, string, string>, List<string>> workflow in ordered)
                 {
@@ -1881,21 +1794,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            SaveOrganizationDifferenceImage();
+            await SaveOrganizationDifferenceImage();
 
             return filePath;
         }
 
-        private void SaveOrganizationDifferenceImage()
+        private async Task SaveOrganizationDifferenceImage()
         {
             string fileName = EntityFileNameFormatter.GetDifferenceFileName(_OrgOrgName);
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            this.Image.CreatedOn = DateTime.Now;
-            this.Image.Connection1Image.CreatedOn = DateTime.Now;
-            this.Image.Connection2Image.CreatedOn = DateTime.Now;
-            this.Image.Save(filePath);
+            var image = await ImageBuilder.GetImage();
+
+            image.Save(filePath);
 
             _iWriteToOutput.WriteToOutput("OrganizationDifferenceImage {0} and {1} exported into file {2}", Connection1.Name, Connection2.Name, filePath);
 

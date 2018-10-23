@@ -1161,7 +1161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             bool hasInfo = false;
 
-            SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+            SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(service, true);
 
             descriptor.MetadataSource.DownloadEntityMetadataForNames(_entitiesWithManagedProperty, true);
 

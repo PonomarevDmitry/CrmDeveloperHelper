@@ -20,9 +20,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
     public class SiteMapIntellisenseDataRepository : IDisposable
     {
-        private object _syncObjectService = new object();
+        private readonly object _syncObjectService = new object();
 
-        private object _syncObjectTaskGettingSitemInformation = new object();
+        private readonly object _syncObjectTaskGettingSitemInformation = new object();
         private Task _taskGettingSitemInformation;
 
         private IOrganizationServiceExtented _service;
@@ -33,7 +33,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        private static object _staticSyncObjectCommon = new object();
         private static ConcurrentDictionary<Guid, SiteMapIntellisenseDataRepository> _staticCacheRepositories = new ConcurrentDictionary<Guid, SiteMapIntellisenseDataRepository>();
 
         private SiteMapIntellisenseDataRepository(ConnectionData connectionData)
@@ -304,17 +303,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return null;
             }
 
-            lock (_staticSyncObjectCommon)
+            if (!_staticCacheRepositories.ContainsKey(connectionData.ConnectionId))
             {
-                if (!_staticCacheRepositories.ContainsKey(connectionData.ConnectionId))
-                {
-                    var repository = new SiteMapIntellisenseDataRepository(connectionData);
+                var repository = new SiteMapIntellisenseDataRepository(connectionData);
 
-                    _staticCacheRepositories.TryAdd(connectionData.ConnectionId, repository);
-                }
-
-                return _staticCacheRepositories[connectionData.ConnectionId];
+                _staticCacheRepositories.TryAdd(connectionData.ConnectionId, repository);
             }
+
+            return _staticCacheRepositories[connectionData.ConnectionId];
         }
 
         #region IDisposable Support

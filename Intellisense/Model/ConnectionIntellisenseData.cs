@@ -1,31 +1,24 @@
 ﻿using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
-using System.Linq;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
-using System.Collections.Concurrent;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 {
     [DataContract]
     public class ConnectionIntellisenseData
     {
-        private object _syncObjectEntities = new object();
-
-        private static object _syncCacheObject = new object();
-
         private static ConcurrentDictionary<Guid, object> _cacheSyncObjectFile = new ConcurrentDictionary<Guid, object>();
 
         private static object GetFileSyncObject(Guid connectionId)
         {
-            lock (_syncCacheObject)
+            if (!_cacheSyncObjectFile.ContainsKey(connectionId))
             {
-                if (!_cacheSyncObjectFile.ContainsKey(connectionId))
-                {
-                    _cacheSyncObjectFile.TryAdd(connectionId, new object());
-                }
+                _cacheSyncObjectFile.TryAdd(connectionId, new object());
             }
 
             return _cacheSyncObjectFile[connectionId];
@@ -50,18 +43,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         public void LoadFullData(IEnumerable<EntityMetadata> entityMetadataList)
         {
-            foreach (var entityMetadata in entityMetadataList)
-            {
-                lock (_syncObjectEntities)
-                {
-                    if (!this.Entities.ContainsKey(entityMetadata.LogicalName))
-                    {
-                        this.Entities.TryAdd(entityMetadata.LogicalName, new EntityIntellisenseData());
-                    }
+            entityMetadataList.AsParallel().ForAll(entityMetadata => {
 
-                    this.Entities[entityMetadata.LogicalName].LoadData(entityMetadata);
+                if (!this.Entities.ContainsKey(entityMetadata.LogicalName))
+                {
+                    this.Entities.TryAdd(entityMetadata.LogicalName, new EntityIntellisenseData());
                 }
-            }
+
+                this.Entities[entityMetadata.LogicalName].LoadData(entityMetadata);
+            });
 
             SaveIntellisenseDataByTime();
         }
@@ -73,15 +63,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 return;
             }
 
-            lock (_syncObjectEntities)
+            if (!this.Entities.ContainsKey(entityMetadata.LogicalName))
             {
-                if (!this.Entities.ContainsKey(entityMetadata.LogicalName))
-                {
-                    this.Entities.TryAdd(entityMetadata.LogicalName, new EntityIntellisenseData());
-                }
-
-                this.Entities[entityMetadata.LogicalName].LoadData(entityMetadata);
+                this.Entities.TryAdd(entityMetadata.LogicalName, new EntityIntellisenseData());
             }
+
+            this.Entities[entityMetadata.LogicalName].LoadData(entityMetadata);
 
             SaveIntellisenseDataByTime();
         }
@@ -89,17 +76,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         [OnDeserializing]
         private void BeforeDeserialize(StreamingContext context)
         {
-            if (_syncObjectEntities == null)
+            if (Entities == null)
             {
-                _syncObjectEntities = new object();
-            }
-
-            lock (_syncObjectEntities)
-            {
-                if (Entities == null)
-                {
-                    this.Entities = new ConcurrentDictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                }
+                this.Entities = new ConcurrentDictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
             }
         }
 
@@ -233,28 +212,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
             if (data.Entities != null)
             {
-                lock (_syncObjectEntities)
+                if (this.Entities == null)
                 {
-                    if (this.Entities == null)
-                    {
-                        this.Entities = new ConcurrentDictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                    }
+                    this.Entities = new ConcurrentDictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
 
-                foreach (var entityData in data.Entities.Values)
+                data.Entities.Values.AsParallel().ForAll(entityData =>
                 {
-                    lock (_syncObjectEntities)
+                    if (!this.Entities.ContainsKey(entityData.EntityLogicalName))
                     {
-                        if (!this.Entities.ContainsKey(entityData.EntityLogicalName))
-                        {
-                            this.Entities.TryAdd(entityData.EntityLogicalName, entityData);
-                        }
-                        else
-                        {
-                            this.Entities[entityData.EntityLogicalName].MergeDataFromDisk(entityData);
-                        }
+                        this.Entities.TryAdd(entityData.EntityLogicalName, entityData);
                     }
-                }
+                    else
+                    {
+                        this.Entities[entityData.EntityLogicalName].MergeDataFromDisk(entityData);
+                    }
+                });
             }
         }
     }

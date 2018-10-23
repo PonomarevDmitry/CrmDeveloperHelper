@@ -97,6 +97,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return base.GetName(component);
         }
 
+        public override void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent)
+        {
+            var entity = GetEntity<PluginType>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                result.Add(new SolutionImageComponent()
+                {
+                    ComponentType = (int)ComponentType.PluginType,
+                    SchemaName = string.Format("{0}, {1}, Version={2}, Culture={3}, PublicKeyToken={4}", entity.TypeName, entity.AssemblyName, entity.Version, entity.Culture, entity.PublicKeyToken),
+                    RootComponentBehavior = solutionComponent.RootComponentBehavior?.Value,
+
+                    Description = GenerateDescriptionSingle(solutionComponent, false),
+                });
+            }
+        }
+
         public override TupleList<string, string> GetComponentColumns()
         {
             return new TupleList<string, string>

@@ -38,14 +38,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         [DataMember]
         public bool IsIntersectEntity { get; private set; }
 
-        private object _syncObjectAttributes = new object();
-
-        private object _syncObjectManyToOneRelationships = new object();
-
-        private object _syncObjectOneToManyRelationships = new object();
-
-        private object _syncObjectManyToManyRelationships = new object();
-
         [DataMember]
         public ConcurrentDictionary<string, AttributeIntellisenseData> Attributes { get; private set; }
 
@@ -108,41 +100,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         [OnDeserializing]
         private void BeforeDeserialize(StreamingContext context)
         {
-            if (_syncObjectAttributes == null) { _syncObjectAttributes = new object(); }
-            if (_syncObjectManyToOneRelationships == null) { _syncObjectManyToOneRelationships = new object(); }
-            if (_syncObjectOneToManyRelationships == null) { _syncObjectOneToManyRelationships = new object(); }
-            if (_syncObjectManyToManyRelationships == null) { _syncObjectManyToManyRelationships = new object(); }
-
-            lock (_syncObjectAttributes)
+            if (Attributes == null)
             {
-                if (Attributes == null)
-                {
-                    this.Attributes = new ConcurrentDictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                }
+                this.Attributes = new ConcurrentDictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
             }
 
-            lock (_syncObjectManyToOneRelationships)
+            if (ManyToOneRelationships == null)
             {
-                if (ManyToOneRelationships == null)
-                {
-                    this.ManyToOneRelationships = new ConcurrentDictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                }
+                this.ManyToOneRelationships = new ConcurrentDictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
             }
 
-            lock (_syncObjectOneToManyRelationships)
+            if (OneToManyRelationships == null)
             {
-                if (OneToManyRelationships == null)
-                {
-                    this.OneToManyRelationships = new ConcurrentDictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                }
+                this.OneToManyRelationships = new ConcurrentDictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
             }
 
-            lock (_syncObjectManyToManyRelationships)
+            if (ManyToManyRelationships == null)
             {
-                if (ManyToManyRelationships == null)
-                {
-                    this.ManyToManyRelationships = new ConcurrentDictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                }
+                this.ManyToManyRelationships = new ConcurrentDictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
             }
         }
 
@@ -195,91 +170,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
             if (entityMetadata.Attributes != null)
             {
-                lock (_syncObjectAttributes)
-                {
-                    this.Attributes = new ConcurrentDictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                this.Attributes.Clear();
 
-                    this.Attributes.Clear();
-                }
-
-                foreach (var attr in entityMetadata.Attributes)
+                entityMetadata.Attributes.AsParallel().ForAll(attr =>
                 {
-                    lock (_syncObjectAttributes)
+                    if (!this.Attributes.ContainsKey(attr.LogicalName))
                     {
-                        if (!this.Attributes.ContainsKey(attr.LogicalName))
-                        {
-                            this.Attributes.TryAdd(attr.LogicalName, new AttributeIntellisenseData());
-                        }
+                        this.Attributes.TryAdd(attr.LogicalName, new AttributeIntellisenseData());
                     }
 
                     this.Attributes[attr.LogicalName].LoadData(attr
                         , string.Equals(attr.LogicalName, entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase)
                         , string.Equals(attr.LogicalName, entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase)
                         );
-                }
+                });
             }
 
             if (entityMetadata.OneToManyRelationships != null)
             {
-                lock (_syncObjectOneToManyRelationships)
-                {
-                    this.OneToManyRelationships.Clear();
-                }
+                this.OneToManyRelationships.Clear();
 
-                foreach (var item in entityMetadata.OneToManyRelationships)
+                entityMetadata.OneToManyRelationships.AsParallel().ForAll(item =>
                 {
-                    lock (_syncObjectOneToManyRelationships)
+                    if (!this.OneToManyRelationships.ContainsKey(item.SchemaName))
                     {
-                        if (!this.OneToManyRelationships.ContainsKey(item.SchemaName))
-                        {
-                            this.OneToManyRelationships.TryAdd(item.SchemaName, new OneToManyRelationshipIntellisenseData());
-                        }
+                        this.OneToManyRelationships.TryAdd(item.SchemaName, new OneToManyRelationshipIntellisenseData());
                     }
 
                     this.OneToManyRelationships[item.SchemaName].LoadData(item);
-                }
+                });
             }
 
             if (entityMetadata.ManyToOneRelationships != null)
             {
-                lock (_syncObjectManyToOneRelationships)
-                {
-                    this.ManyToOneRelationships = new ConcurrentDictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                }
+                this.ManyToOneRelationships.Clear();
 
-                foreach (var item in entityMetadata.ManyToOneRelationships)
+                entityMetadata.ManyToOneRelationships.AsParallel().ForAll(item =>
                 {
-                    lock (_syncObjectManyToOneRelationships)
+                    if (!this.ManyToOneRelationships.ContainsKey(item.SchemaName))
                     {
-                        if (!this.ManyToOneRelationships.ContainsKey(item.SchemaName))
-                        {
-                            this.ManyToOneRelationships.TryAdd(item.SchemaName, new ManyToOneRelationshipIntellisenseData());
-                        }
+                        this.ManyToOneRelationships.TryAdd(item.SchemaName, new ManyToOneRelationshipIntellisenseData());
                     }
 
                     this.ManyToOneRelationships[item.SchemaName].LoadData(item);
-                }
+                });
             }
 
             if (entityMetadata.ManyToManyRelationships != null)
             {
-                lock (_syncObjectManyToManyRelationships)
-                {
-                    this.ManyToManyRelationships = new ConcurrentDictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                }
+                this.ManyToManyRelationships.Clear();
 
-                foreach (var item in entityMetadata.ManyToManyRelationships)
+                entityMetadata.ManyToManyRelationships.AsParallel().ForAll(item =>
                 {
-                    lock (_syncObjectManyToManyRelationships)
+                    if (!this.ManyToManyRelationships.ContainsKey(item.SchemaName))
                     {
-                        if (!this.ManyToManyRelationships.ContainsKey(item.SchemaName))
-                        {
-                            this.ManyToManyRelationships.TryAdd(item.SchemaName, new ManyToManyRelationshipIntellisenseData());
-                        }
+                        this.ManyToManyRelationships.TryAdd(item.SchemaName, new ManyToManyRelationshipIntellisenseData());
                     }
 
                     this.ManyToManyRelationships[item.SchemaName].LoadData(item);
-                }
+                });
             }
         }
 
@@ -345,93 +294,72 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
             if (entityData.Attributes != null)
             {
-                lock (_syncObjectAttributes)
+                if (this.Attributes == null)
                 {
-                    if (this.Attributes == null)
-                    {
-                        this.Attributes = new ConcurrentDictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                    }
+                    this.Attributes = new ConcurrentDictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
 
-                foreach (var attr in entityData.Attributes.Values)
+                entityData.Attributes.Values.AsParallel().ForAll(attr =>
                 {
-                    lock (_syncObjectAttributes)
+                    if (!this.Attributes.ContainsKey(attr.LogicalName))
                     {
-                        if (!this.Attributes.ContainsKey(attr.LogicalName))
-                        {
-                            this.Attributes.TryAdd(attr.LogicalName, attr);
-                        }
-                        else
-                        {
-                            this.Attributes[attr.LogicalName].MergeDataFromDisk(attr);
-                        }
+                        this.Attributes.TryAdd(attr.LogicalName, attr);
                     }
-                }
+                    else
+                    {
+                        this.Attributes[attr.LogicalName].MergeDataFromDisk(attr);
+                    }
+                });
             }
 
             if (entityData.OneToManyRelationships != null)
             {
-                lock (_syncObjectOneToManyRelationships)
+                if (this.OneToManyRelationships == null)
                 {
-                    if (this.OneToManyRelationships == null)
-                    {
-                        this.OneToManyRelationships = new ConcurrentDictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                    }
+                    this.OneToManyRelationships = new ConcurrentDictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
 
-                foreach (var item in entityData.OneToManyRelationships.Values)
+                entityData.OneToManyRelationships.Values.AsParallel().ForAll(item =>
                 {
-                    lock (_syncObjectOneToManyRelationships)
+                    if (!this.OneToManyRelationships.ContainsKey(item.SchemaName))
                     {
-                        if (!this.OneToManyRelationships.ContainsKey(item.SchemaName))
-                        {
-                            this.OneToManyRelationships.TryAdd(item.SchemaName, item);
-                        }
-                        else
-                        {
-                            this.OneToManyRelationships[item.SchemaName].MergeDataFromDisk(item);
-                        }
+                        this.OneToManyRelationships.TryAdd(item.SchemaName, item);
                     }
-                }
+                    else
+                    {
+                        this.OneToManyRelationships[item.SchemaName].MergeDataFromDisk(item);
+                    }
+                });
             }
 
             if (entityData.ManyToOneRelationships != null)
             {
-                lock (_syncObjectManyToOneRelationships)
+                if (this.ManyToOneRelationships == null)
                 {
-                    if (this.ManyToOneRelationships == null)
-                    {
-                        this.ManyToOneRelationships = new ConcurrentDictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                    }
+                    this.ManyToOneRelationships = new ConcurrentDictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
 
-                foreach (var item in entityData.ManyToOneRelationships.Values)
+                entityData.ManyToOneRelationships.Values.AsParallel().ForAll(item =>
                 {
-                    lock (_syncObjectManyToOneRelationships)
+                    if (!this.ManyToOneRelationships.ContainsKey(item.SchemaName))
                     {
-                        if (!this.ManyToOneRelationships.ContainsKey(item.SchemaName))
-                        {
-                            this.ManyToOneRelationships.TryAdd(item.SchemaName, item);
-                        }
-                        else
-                        {
-                            this.ManyToOneRelationships[item.SchemaName].MergeDataFromDisk(item);
-                        }
+                        this.ManyToOneRelationships.TryAdd(item.SchemaName, item);
                     }
-                }
+                    else
+                    {
+                        this.ManyToOneRelationships[item.SchemaName].MergeDataFromDisk(item);
+                    }
+                });
             }
 
             if (entityData.ManyToManyRelationships != null)
             {
-                lock (_syncObjectManyToManyRelationships)
+                if (this.ManyToManyRelationships == null)
                 {
-                    if (this.ManyToManyRelationships == null)
-                    {
-                        this.ManyToManyRelationships = new ConcurrentDictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                    }
+                    this.ManyToManyRelationships = new ConcurrentDictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
 
-                foreach (var item in entityData.ManyToManyRelationships.Values)
+                entityData.ManyToManyRelationships.Values.AsParallel().ForAll(item =>
                 {
                     if (!this.ManyToManyRelationships.ContainsKey(item.SchemaName))
                     {
@@ -441,7 +369,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     {
                         this.ManyToManyRelationships[item.SchemaName].MergeDataFromDisk(item);
                     }
-                }
+                });
             }
         }
 

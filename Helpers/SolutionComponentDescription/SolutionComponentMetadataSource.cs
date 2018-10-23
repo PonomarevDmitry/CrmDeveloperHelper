@@ -23,17 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             this.Service = service;
         }
 
-        private readonly object _syncObjectEntityCache = new object();
-
         private readonly object _syncObjectOptionSets = new object();
-
-        private readonly object _syncObjectEntityMetadata = new object();
-
-        private readonly object _syncObjectAttributeMetadata = new object();
-
-        private readonly object _syncObjectEntityKeyMetadata = new object();
-
-        private readonly object _syncObjectRelationshipMetadata = new object();
 
         private ConcurrentDictionary<Guid, EntityMetadata> _dictEntity = new ConcurrentDictionary<Guid, EntityMetadata>();
 
@@ -202,12 +192,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         private void HandleEntityMetadata(EntityMetadata metaEntity)
         {
-            lock (_syncObjectEntityMetadata)
+            if (!_dictEntity.ContainsKey(metaEntity.MetadataId.Value))
             {
-                if (!_dictEntity.ContainsKey(metaEntity.MetadataId.Value))
-                {
-                    _dictEntity.TryAdd(metaEntity.MetadataId.Value, metaEntity);
-                }
+                _dictEntity.TryAdd(metaEntity.MetadataId.Value, metaEntity);
             }
 
 
@@ -215,24 +202,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 foreach (var metaAttribute in metaEntity.Attributes)
                 {
-                    lock (_syncObjectAttributeMetadata)
+                    if (!_dictAttribute.ContainsKey(metaAttribute.MetadataId.Value))
                     {
-                        if (!_dictAttribute.ContainsKey(metaAttribute.MetadataId.Value))
-                        {
-                            _dictAttribute.TryAdd(metaAttribute.MetadataId.Value, metaAttribute);
-                        }
+                        _dictAttribute.TryAdd(metaAttribute.MetadataId.Value, metaAttribute);
                     }
 
                     if (metaAttribute is StatusAttributeMetadata statusAttributeMetadata
                             && statusAttributeMetadata.OptionSet != null
                         )
                     {
-                        lock (_syncObjectOptionSets)
+                        if (!this.AllOptionSetMetadata.ContainsKey(statusAttributeMetadata.OptionSet.MetadataId.Value))
                         {
-                            if (!this.AllOptionSetMetadata.ContainsKey(statusAttributeMetadata.OptionSet.MetadataId.Value))
-                            {
-                                this.AllOptionSetMetadata.TryAdd(statusAttributeMetadata.OptionSet.MetadataId.Value, statusAttributeMetadata.OptionSet);
-                            }
+                            this.AllOptionSetMetadata.TryAdd(statusAttributeMetadata.OptionSet.MetadataId.Value, statusAttributeMetadata.OptionSet);
                         }
                     }
 
@@ -240,12 +221,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                             && stateAttributeMetadata.OptionSet != null
                         )
                     {
-                        lock (_syncObjectOptionSets)
+                        if (!this.AllOptionSetMetadata.ContainsKey(stateAttributeMetadata.OptionSet.MetadataId.Value))
                         {
-                            if (!this.AllOptionSetMetadata.ContainsKey(stateAttributeMetadata.OptionSet.MetadataId.Value))
-                            {
-                                this.AllOptionSetMetadata.TryAdd(stateAttributeMetadata.OptionSet.MetadataId.Value, stateAttributeMetadata.OptionSet);
-                            }
+                            this.AllOptionSetMetadata.TryAdd(stateAttributeMetadata.OptionSet.MetadataId.Value, stateAttributeMetadata.OptionSet);
                         }
                     }
 
@@ -253,12 +231,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                             && booleanAttributeMetadata.OptionSet != null
                         )
                     {
-                        lock (_syncObjectOptionSets)
+                        if (!this.AllOptionSetMetadata.ContainsKey(booleanAttributeMetadata.OptionSet.MetadataId.Value))
                         {
-                            if (!this.AllOptionSetMetadata.ContainsKey(booleanAttributeMetadata.OptionSet.MetadataId.Value))
-                            {
-                                this.AllOptionSetMetadata.TryAdd(booleanAttributeMetadata.OptionSet.MetadataId.Value, booleanAttributeMetadata.OptionSet);
-                            }
+                            this.AllOptionSetMetadata.TryAdd(booleanAttributeMetadata.OptionSet.MetadataId.Value, booleanAttributeMetadata.OptionSet);
                         }
                     }
 
@@ -266,12 +241,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                             && picklistAttributeMetadata.OptionSet != null
                         )
                     {
-                        lock (_syncObjectOptionSets)
+                        if (!this.AllOptionSetMetadata.ContainsKey(picklistAttributeMetadata.OptionSet.MetadataId.Value))
                         {
-                            if (!this.AllOptionSetMetadata.ContainsKey(picklistAttributeMetadata.OptionSet.MetadataId.Value))
-                            {
-                                this.AllOptionSetMetadata.TryAdd(picklistAttributeMetadata.OptionSet.MetadataId.Value, picklistAttributeMetadata.OptionSet);
-                            }
+                            this.AllOptionSetMetadata.TryAdd(picklistAttributeMetadata.OptionSet.MetadataId.Value, picklistAttributeMetadata.OptionSet);
                         }
                     }
                 }
@@ -281,12 +253,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 foreach (var metaRelationship in metaEntity.OneToManyRelationships)
                 {
-                    lock (_syncObjectRelationshipMetadata)
+                    if (!_dictRelashionship.ContainsKey(metaRelationship.MetadataId.Value))
                     {
-                        if (!_dictRelashionship.ContainsKey(metaRelationship.MetadataId.Value))
-                        {
-                            _dictRelashionship.TryAdd(metaRelationship.MetadataId.Value, metaRelationship);
-                        }
+                        _dictRelashionship.TryAdd(metaRelationship.MetadataId.Value, metaRelationship);
                     }
                 }
             }
@@ -295,12 +264,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 foreach (var metaRelationship in metaEntity.ManyToOneRelationships)
                 {
-                    lock (_syncObjectRelationshipMetadata)
+                    if (!_dictRelashionship.ContainsKey(metaRelationship.MetadataId.Value))
                     {
-                        if (!_dictRelashionship.ContainsKey(metaRelationship.MetadataId.Value))
-                        {
-                            _dictRelashionship.TryAdd(metaRelationship.MetadataId.Value, metaRelationship);
-                        }
+                        _dictRelashionship.TryAdd(metaRelationship.MetadataId.Value, metaRelationship);
                     }
                 }
             }
@@ -309,12 +275,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 foreach (var metaRelationship in metaEntity.ManyToManyRelationships)
                 {
-                    lock (_syncObjectRelationshipMetadata)
+                    if (!_dictRelashionship.ContainsKey(metaRelationship.MetadataId.Value))
                     {
-                        if (!_dictRelashionship.ContainsKey(metaRelationship.MetadataId.Value))
-                        {
-                            _dictRelashionship.TryAdd(metaRelationship.MetadataId.Value, metaRelationship);
-                        }
+                        _dictRelashionship.TryAdd(metaRelationship.MetadataId.Value, metaRelationship);
                     }
                 }
             }
@@ -323,12 +286,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 foreach (var metaKey in metaEntity.Keys)
                 {
-                    lock (_syncObjectEntityKeyMetadata)
+                    if (!_dictKey.ContainsKey(metaKey.MetadataId.Value))
                     {
-                        if (!_dictKey.ContainsKey(metaKey.MetadataId.Value))
-                        {
-                            _dictKey.TryAdd(metaKey.MetadataId.Value, metaKey);
-                        }
+                        _dictKey.TryAdd(metaKey.MetadataId.Value, metaKey);
                     }
                 }
             }
@@ -338,12 +298,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public EntityMetadata GetEntityMetadata(Guid idMetadata)
         {
-            lock (_syncObjectEntityMetadata)
+            if (_dictEntity.ContainsKey(idMetadata))
             {
-                if (_dictEntity.ContainsKey(idMetadata))
-                {
-                    return _dictEntity[idMetadata];
-                }
+                return _dictEntity[idMetadata];
             }
 
             try
@@ -365,10 +322,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 HandleEntityMetadata(metaEntity);
 
-                lock (_syncObjectEntityMetadata)
-                {
-                    return _dictEntity[metaEntity.MetadataId.Value];
-                }
+                return _dictEntity[metaEntity.MetadataId.Value];
             }
             catch (Exception ex)
             {
@@ -385,12 +339,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             foreach (var idMetadata in idMetadataColl.Distinct())
             {
-                lock (_syncObjectEntityMetadata)
+                if (_dictEntity.ContainsKey(idMetadata))
                 {
-                    if (_dictEntity.ContainsKey(idMetadata))
-                    {
-                        result.Add(_dictEntity[idMetadata]);
-                    }
+                    result.Add(_dictEntity[idMetadata]);
                 }
 
                 try
@@ -412,10 +363,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                     HandleEntityMetadata(metaEntity);
 
-                    lock (_syncObjectEntityMetadata)
-                    {
-                        result.Add(_dictEntity[metaEntity.MetadataId.Value]);
-                    }
+                    result.Add(_dictEntity[metaEntity.MetadataId.Value]);
                 }
                 catch (Exception ex)
                 {
@@ -431,10 +379,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             EntityMetadata metadata = null;
 
-            lock (_syncObjectEntityMetadata)
-            {
-                metadata = _dictEntity.Values.FirstOrDefault(e => string.Equals(entityName, e.LogicalName, StringComparison.OrdinalIgnoreCase));
-            }
+            metadata = _dictEntity.Values.FirstOrDefault(e => string.Equals(entityName, e.LogicalName, StringComparison.OrdinalIgnoreCase));
 
             if (metadata != null)
             {
@@ -460,10 +405,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 HandleEntityMetadata(metaEntity);
 
-                lock (_syncObjectEntityMetadata)
-                {
-                    return _dictEntity[metaEntity.MetadataId.Value];
-                }
+                return _dictEntity[metaEntity.MetadataId.Value];
             }
             catch (Exception ex)
             {
@@ -478,10 +420,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             EntityMetadata metadata = null;
 
-            lock (_syncObjectEntityMetadata)
-            {
-                metadata = _dictEntity.Values.FirstOrDefault(e => string.Equals(entityName, e.LogicalName, StringComparison.OrdinalIgnoreCase));
-            }
+            metadata = _dictEntity.Values.FirstOrDefault(e => string.Equals(entityName, e.LogicalName, StringComparison.OrdinalIgnoreCase));
 
             if (metadata != null)
             {
@@ -519,10 +458,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     HandleEntityMetadata(metaEntity);
                 }
 
-                lock (_syncObjectEntityMetadata)
-                {
-                    return _dictEntity.Values.FirstOrDefault(e => string.Equals(entityName, e.LogicalName, StringComparison.OrdinalIgnoreCase));
-                }
+                return _dictEntity.Values.FirstOrDefault(e => string.Equals(entityName, e.LogicalName, StringComparison.OrdinalIgnoreCase));
             }
             catch (Exception ex)
             {
@@ -545,12 +481,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public AttributeMetadata GetAttributeMetadata(Guid idAttribute)
         {
-            lock (_syncObjectAttributeMetadata)
+            if (_dictAttribute.ContainsKey(idAttribute))
             {
-                if (_dictAttribute.ContainsKey(idAttribute))
-                {
-                    return _dictAttribute[idAttribute];
-                }
+                return _dictAttribute[idAttribute];
             }
 
             try
@@ -569,18 +502,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 var metaAttribute = response.AttributeMetadata;
 
-                lock (_syncObjectAttributeMetadata)
+                if (!_dictAttribute.ContainsKey(metaAttribute.MetadataId.Value))
                 {
-                    if (!_dictAttribute.ContainsKey(metaAttribute.MetadataId.Value))
-                    {
-                        _dictAttribute.TryAdd(metaAttribute.MetadataId.Value, metaAttribute);
-                    }
+                    _dictAttribute.TryAdd(metaAttribute.MetadataId.Value, metaAttribute);
                 }
 
-                lock (_syncObjectAttributeMetadata)
-                {
-                    return _dictAttribute[metaAttribute.MetadataId.Value];
-                }
+                return _dictAttribute[metaAttribute.MetadataId.Value];
             }
             catch (Exception ex)
             {
@@ -595,11 +522,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             AttributeMetadata result = null;
 
-            lock (_syncObjectAttributeMetadata)
-            {
-                result = _dictAttribute.Values.FirstOrDefault(a => string.Equals(entityName, a.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase)
-                                                                    && string.Equals(attributeName, a.LogicalName, StringComparison.InvariantCultureIgnoreCase));
-            }
+            result = _dictAttribute.Values.FirstOrDefault(a => string.Equals(entityName, a.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase)
+                                                                && string.Equals(attributeName, a.LogicalName, StringComparison.InvariantCultureIgnoreCase));
 
             if (result != null)
             {
@@ -623,24 +547,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 var metaAttribute = response.AttributeMetadata;
 
-                lock (_syncObjectAttributeMetadata)
+                if (!_dictAttribute.ContainsKey(metaAttribute.MetadataId.Value))
                 {
-                    if (!_dictAttribute.ContainsKey(metaAttribute.MetadataId.Value))
-                    {
-                        _dictAttribute.TryAdd(metaAttribute.MetadataId.Value, metaAttribute);
-                    }
+                    _dictAttribute.TryAdd(metaAttribute.MetadataId.Value, metaAttribute);
                 }
 
                 if (metaAttribute is StatusAttributeMetadata statusAttributeMetadata
                             && statusAttributeMetadata.OptionSet != null
                         )
                 {
-                    lock (_syncObjectOptionSets)
+                    if (!this.AllOptionSetMetadata.ContainsKey(statusAttributeMetadata.OptionSet.MetadataId.Value))
                     {
-                        if (!this.AllOptionSetMetadata.ContainsKey(statusAttributeMetadata.OptionSet.MetadataId.Value))
-                        {
-                            this.AllOptionSetMetadata.TryAdd(statusAttributeMetadata.OptionSet.MetadataId.Value, statusAttributeMetadata.OptionSet);
-                        }
+                        this.AllOptionSetMetadata.TryAdd(statusAttributeMetadata.OptionSet.MetadataId.Value, statusAttributeMetadata.OptionSet);
                     }
                 }
 
@@ -648,12 +566,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         && stateAttributeMetadata.OptionSet != null
                     )
                 {
-                    lock (_syncObjectOptionSets)
+                    if (!this.AllOptionSetMetadata.ContainsKey(stateAttributeMetadata.OptionSet.MetadataId.Value))
                     {
-                        if (!this.AllOptionSetMetadata.ContainsKey(stateAttributeMetadata.OptionSet.MetadataId.Value))
-                        {
-                            this.AllOptionSetMetadata.TryAdd(stateAttributeMetadata.OptionSet.MetadataId.Value, stateAttributeMetadata.OptionSet);
-                        }
+                        this.AllOptionSetMetadata.TryAdd(stateAttributeMetadata.OptionSet.MetadataId.Value, stateAttributeMetadata.OptionSet);
                     }
                 }
 
@@ -661,12 +576,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         && booleanAttributeMetadata.OptionSet != null
                     )
                 {
-                    lock (_syncObjectOptionSets)
+                    if (!this.AllOptionSetMetadata.ContainsKey(booleanAttributeMetadata.OptionSet.MetadataId.Value))
                     {
-                        if (!this.AllOptionSetMetadata.ContainsKey(booleanAttributeMetadata.OptionSet.MetadataId.Value))
-                        {
-                            this.AllOptionSetMetadata.TryAdd(booleanAttributeMetadata.OptionSet.MetadataId.Value, booleanAttributeMetadata.OptionSet);
-                        }
+                        this.AllOptionSetMetadata.TryAdd(booleanAttributeMetadata.OptionSet.MetadataId.Value, booleanAttributeMetadata.OptionSet);
                     }
                 }
 
@@ -674,19 +586,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         && picklistAttributeMetadata.OptionSet != null
                     )
                 {
-                    lock (_syncObjectOptionSets)
+                    if (!this.AllOptionSetMetadata.ContainsKey(picklistAttributeMetadata.OptionSet.MetadataId.Value))
                     {
-                        if (!this.AllOptionSetMetadata.ContainsKey(picklistAttributeMetadata.OptionSet.MetadataId.Value))
-                        {
-                            this.AllOptionSetMetadata.TryAdd(picklistAttributeMetadata.OptionSet.MetadataId.Value, picklistAttributeMetadata.OptionSet);
-                        }
+                        this.AllOptionSetMetadata.TryAdd(picklistAttributeMetadata.OptionSet.MetadataId.Value, picklistAttributeMetadata.OptionSet);
                     }
                 }
 
-                lock (_syncObjectAttributeMetadata)
-                {
-                    return _dictAttribute[metaAttribute.MetadataId.Value];
-                }
+                return _dictAttribute[metaAttribute.MetadataId.Value];
             }
             catch (Exception ex)
             {
@@ -699,12 +605,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public EntityKeyMetadata GetEntityKeyMetadata(Guid idKey)
         {
-            lock (_syncObjectEntityKeyMetadata)
+            if (_dictKey.ContainsKey(idKey))
             {
-                if (_dictKey.ContainsKey(idKey))
-                {
-                    return _dictKey[idKey];
-                }
+                return _dictKey[idKey];
             }
 
             try
@@ -723,18 +626,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 var metaKey = response.EntityKeyMetadata;
 
-                lock (_syncObjectEntityKeyMetadata)
+                if (!_dictKey.ContainsKey(metaKey.MetadataId.Value))
                 {
-                    if (!_dictKey.ContainsKey(metaKey.MetadataId.Value))
-                    {
-                        _dictKey.TryAdd(metaKey.MetadataId.Value, metaKey);
-                    }
+                    _dictKey.TryAdd(metaKey.MetadataId.Value, metaKey);
                 }
 
-                lock (_syncObjectEntityKeyMetadata)
-                {
-                    return _dictKey[metaKey.MetadataId.Value];
-                }
+                return _dictKey[metaKey.MetadataId.Value];
             }
             catch (Exception ex)
             {
@@ -747,12 +644,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public RelationshipMetadataBase GetRelationshipMetadata(Guid idRelation)
         {
-            lock (_syncObjectRelationshipMetadata)
+            if (_dictRelashionship.ContainsKey(idRelation))
             {
-                if (_dictRelashionship.ContainsKey(idRelation))
-                {
-                    return _dictRelashionship[idRelation];
-                }
+                return _dictRelashionship[idRelation];
             }
 
             try
@@ -771,18 +665,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 var metaRelation = response.RelationshipMetadata;
 
-                lock (_syncObjectRelationshipMetadata)
+                if (!_dictRelashionship.ContainsKey(metaRelation.MetadataId.Value))
                 {
-                    if (!_dictRelashionship.ContainsKey(metaRelation.MetadataId.Value))
-                    {
-                        _dictRelashionship.TryAdd(metaRelation.MetadataId.Value, metaRelation);
-                    }
+                    _dictRelashionship.TryAdd(metaRelation.MetadataId.Value, metaRelation);
                 }
 
-                lock (_syncObjectRelationshipMetadata)
-                {
-                    return _dictRelashionship[metaRelation.MetadataId.Value];
-                }
+                return _dictRelashionship[metaRelation.MetadataId.Value];
             }
             catch (Exception ex)
             {

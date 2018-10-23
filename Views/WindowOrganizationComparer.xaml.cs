@@ -1,21 +1,21 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -150,10 +150,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    ConnectionData connection1 = null;
-                    ConnectionData connection2 = null;
 
-                    GetSelectedConnections(out connection1, out connection2);
+                    GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
                     {
                         bool enabled = connection1 != null && connection2 == null;
@@ -416,10 +414,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckObjectsNamesForPrefix_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -450,10 +446,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckObjectsNamesForPrefixAndShowDependentComponents_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -484,10 +478,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckObjectsMarkedToDeleteAndShowDependentComponents_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -518,10 +510,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckEntitiesOwnership_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -546,10 +536,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckGlobalOptionSetDuplicatesOnEntity_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -574,10 +562,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMISolutionComponentTypeEnum_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -602,10 +588,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICreateAllDependencyNodesDescription_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -630,10 +614,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckPluginStepsDuplicates_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -658,10 +640,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckPluginImagesDuplicates_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -686,10 +666,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckPluginStepsRequiredComponents_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -714,10 +692,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckPluginImagesRequiredComponents_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -742,10 +718,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckWorkflowsUsedEntities_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -776,10 +750,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckWorkflowsUsedNotExistsEntities_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -810,10 +782,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIFindEntityObjectsByName_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -844,10 +814,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIFindEntityObjectsContainsString_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -878,10 +846,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIFindEntityObjectsById_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -916,10 +882,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIFindEntityObjectsByUniqueidentifier_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -954,10 +918,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckManagedEntitiesInCRM_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -986,10 +948,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSitemap_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1014,10 +974,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1042,10 +1000,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSystemFormsEvents_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1071,10 +1027,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportEntityMetadata_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1099,10 +1053,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1127,10 +1079,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportAttributesDependentComponents_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1155,10 +1105,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportRibbon_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1183,10 +1131,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportWorkflows_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1211,10 +1157,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSystemForms_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1239,10 +1183,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSystemViews_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1267,10 +1209,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSystemCharts_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1295,10 +1235,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportWebResources_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1323,10 +1261,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportReports_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1351,10 +1287,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSolutionComponents_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1379,10 +1313,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportPluginAssemblyDescription_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1407,10 +1339,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportPluginTypeDescription_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1435,10 +1365,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportPluginTree_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1463,10 +1391,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSdkMessageTree_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1491,10 +1417,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSdkMessageRequestTree_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1519,10 +1443,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportCreatePluginConfiguration_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1552,10 +1474,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportPluginConfigurationAssembly_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1576,10 +1496,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportPluginConfigurationType_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1616,10 +1534,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
-
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1640,10 +1555,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportPluginConfigurationComparer_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1664,10 +1577,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSolution_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1692,10 +1603,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportOrganization_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
@@ -1724,10 +1633,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceSystemSavedQueries_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
             {
@@ -1763,10 +1670,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceSystemCharts_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
             {
@@ -1802,10 +1707,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
             {
@@ -1840,10 +1743,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceSystemForms_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
             {
@@ -1879,10 +1780,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceWebResources_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
             {
@@ -1917,10 +1816,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceEntityMetadata_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
             {
@@ -1955,10 +1852,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceRibbons_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
             {
@@ -1993,10 +1888,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceSitemaps_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
             {
@@ -2031,10 +1924,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceWorkflows_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
             {
@@ -2070,10 +1961,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceReports_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
             {
@@ -2108,10 +1997,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferencePluginAssemblies_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
 
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
             {
@@ -2153,10 +2040,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
-
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
             {
@@ -2188,15 +2072,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            var source = new OrganizationComparerSource(connection1, connection2);
+            try
+            {
+                var source = new OrganizationComparerSource(connection1, connection2);
 
-            OrganizationComparer comparer = new OrganizationComparer(source, this._iWriteToOutput, folder);
+                OrganizationComparer comparer = new OrganizationComparer(source, this._iWriteToOutput, folder);
 
-            await function(comparer);
+                await function(comparer);
 
-            this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            ToggleControls(true, "Analizing organizations completed.");
+                ToggleControls(true, "Analizing organizations completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, "Analizing organizations failed.");
+            }
         }
 
         #region Кнопки сравнения сред.
@@ -2363,10 +2256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
-
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
             {
@@ -2398,15 +2288,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            var source = new OrganizationComparerSource(connection1, connection2);
+            try
+            {
+                var source = new OrganizationComparerSource(connection1, connection2);
 
-            OrganizationComparer comparer = new OrganizationComparer(source, this._iWriteToOutput, folder);
+                OrganizationComparer comparer = new OrganizationComparer(source, this._iWriteToOutput, folder);
 
-            await MultipleAnalize(functions, comparer);
+                await MultipleAnalize(functions, comparer);
 
-            this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            ToggleControls(true, "Analizing organizations completed.");
+                ToggleControls(true, "Analizing organizations completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, "Analizing organizations failed.");
+            }
         }
 
         private async Task MultipleAnalize(List<Func<OrganizationComparer, Task>> functions, OrganizationComparer comparer)
@@ -3150,10 +3049,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
-
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
             {
@@ -3191,10 +3087,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connection1 = null;
-            ConnectionData connection2 = null;
-
-            GetSelectedConnections(out connection1, out connection2);
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
             {
@@ -3227,17 +3120,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteTrasnferOperation(Func<OrganizationCustomizationTransfer, Task> function, ConnectionData connectionSource, ConnectionData connectionTarget, string folder)
         {
-            ToggleControls(false, "Analizing organizations...");
+            ToggleControls(false, "Transfering...");
 
             this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            var trasnferHandler = new OrganizationCustomizationTransfer(connectionSource, connectionTarget, this._iWriteToOutput, folder);
+            try
+            {
+                var trasnferHandler = new OrganizationCustomizationTransfer(connectionSource, connectionTarget, this._iWriteToOutput, folder);
 
-            await function(trasnferHandler);
+                await function(trasnferHandler);
 
-            this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            ToggleControls(true, "Analizing organizations completed.");
+                ToggleControls(true, "Transfering completed.");
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, "Transfering failed.");
+            }
         }
 
         private void tSMITransferAuditFrom1To2_Click(object sender, RoutedEventArgs e)

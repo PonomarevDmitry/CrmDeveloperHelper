@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             _optionSetComparer = optionSetComparer;
         }
 
-        public async Task<List<string>> GetDifferenceAsync(OrganizationDifferenceImage image, EntityMetadata entityMetadata1, EntityMetadata entityMetadata2)
+        public async Task<List<string>> GetDifferenceAsync(OrganizationDifferenceImageBuilder imageBuilder, EntityMetadata entityMetadata1, EntityMetadata entityMetadata2)
         {
             List<string> strDifference = new List<string>();
 
@@ -111,20 +111,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            await CompareAttributesAsync(image, strDifference, entityMetadata1.LogicalName, entityMetadata1.Attributes, entityMetadata2.Attributes);
+            await CompareAttributesAsync(imageBuilder, strDifference, entityMetadata1.LogicalName, entityMetadata1.Attributes, entityMetadata2.Attributes);
 
-            CompareKeys(image, strDifference, entityMetadata1.LogicalName, entityMetadata1.Keys ?? Enumerable.Empty<EntityKeyMetadata>(), entityMetadata2.Keys ?? Enumerable.Empty<EntityKeyMetadata>());
+            CompareKeys(imageBuilder, strDifference, entityMetadata1.LogicalName, entityMetadata1.Keys ?? Enumerable.Empty<EntityKeyMetadata>(), entityMetadata2.Keys ?? Enumerable.Empty<EntityKeyMetadata>());
 
-            CompareOneToMany(image, strDifference, entityMetadata1.LogicalName, "N:1", "ManyToOne", entityMetadata1.ManyToOneRelationships, entityMetadata2.ManyToOneRelationships);
+            CompareOneToMany(imageBuilder, strDifference, entityMetadata1.LogicalName, "N:1", "ManyToOne", entityMetadata1.ManyToOneRelationships, entityMetadata2.ManyToOneRelationships);
 
-            CompareOneToMany(image, strDifference, entityMetadata1.LogicalName, "1:N", "OneToMany", entityMetadata1.OneToManyRelationships, entityMetadata2.OneToManyRelationships);
+            CompareOneToMany(imageBuilder, strDifference, entityMetadata1.LogicalName, "1:N", "OneToMany", entityMetadata1.OneToManyRelationships, entityMetadata2.OneToManyRelationships);
 
-            CompareManyToMany(image, strDifference, entityMetadata1.LogicalName, entityMetadata1.ManyToManyRelationships, entityMetadata2.ManyToManyRelationships);
+            CompareManyToMany(imageBuilder, strDifference, entityMetadata1.LogicalName, entityMetadata1.ManyToManyRelationships, entityMetadata2.ManyToManyRelationships);
 
             return strDifference;
         }
 
-        private void CompareOneToMany(OrganizationDifferenceImage image, List<string> strDifference, string entityName, string className, string relationTypeName, IEnumerable<OneToManyRelationshipMetadata> listRel1, IEnumerable<OneToManyRelationshipMetadata> listRel2)
+        private void CompareOneToMany(OrganizationDifferenceImageBuilder imageBuilder, List<string> strDifference, string entityName, string className, string relationTypeName, IEnumerable<OneToManyRelationshipMetadata> listRel1, IEnumerable<OneToManyRelationshipMetadata> listRel2)
         {
             FormatTextTableHandler listRelOnlyIn1 = new FormatTextTableHandler(true);
             FormatTextTableHandler listRelOnlyIn2 = new FormatTextTableHandler(true);
@@ -160,12 +160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , rel2.IsManaged.ToString()
                     );
 
-                image.Connection2Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.EntityRelationship,
-                    SchemaName = rel2.SchemaName,
-                    ParentSchemaName = entityName
-                });
+                imageBuilder.AddComponentSolution2((int)ComponentType.EntityRelationship, rel2.MetadataId.Value);
             }
 
             foreach (OneToManyRelationshipMetadata rel1 in listRel1.OrderBy(s => s.SchemaName))
@@ -194,12 +189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , rel1.IsManaged.ToString()
                     );
 
-                image.Connection1Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.EntityRelationship,
-                    SchemaName = rel1.SchemaName,
-                    ParentSchemaName = entityName
-                });
+                imageBuilder.AddComponentSolution1((int)ComponentType.EntityRelationship, rel1.MetadataId.Value);
             }
 
             foreach (OneToManyRelationshipMetadata rel1 in listRel1.OrderBy(s => s.SchemaName))
@@ -227,12 +217,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     dictDifference.Add(rel1.SchemaName, diff);
 
-                    image.DifferentComponents.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.EntityRelationship,
-                        SchemaName = rel1.SchemaName,
-                        ParentSchemaName = entityName
-                    });
+                    imageBuilder.AddComponentDifferent((int)ComponentType.EntityRelationship, rel1.MetadataId.Value, rel2.MetadataId.Value, string.Join(Environment.NewLine, strDifference));
                 }
             }
 
@@ -350,7 +335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private void CompareManyToMany(OrganizationDifferenceImage image, List<string> strDifference, string entityName, IEnumerable<ManyToManyRelationshipMetadata> listRel1, IEnumerable<ManyToManyRelationshipMetadata> listRel2)
+        private void CompareManyToMany(OrganizationDifferenceImageBuilder imageBuilder, List<string> strDifference, string entityName, IEnumerable<ManyToManyRelationshipMetadata> listRel1, IEnumerable<ManyToManyRelationshipMetadata> listRel2)
         {
             FormatTextTableHandler listRelOnlyIn1 = new FormatTextTableHandler(true);
             FormatTextTableHandler listRelOnlyIn2 = new FormatTextTableHandler(true);
@@ -387,12 +372,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , rel2.IsManaged.ToString()
                     );
 
-                image.Connection2Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.EntityRelationship,
-                    SchemaName = rel2.SchemaName,
-                    ParentSchemaName = entityName
-                });
+                imageBuilder.AddComponentSolution2((int)ComponentType.EntityRelationship, rel2.MetadataId.Value);
             }
 
             foreach (ManyToManyRelationshipMetadata rel1 in listRel1.OrderBy(s => s.SchemaName))
@@ -422,12 +402,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , rel1.IsManaged.ToString()
                     );
 
-                image.Connection1Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.EntityRelationship,
-                    SchemaName = rel1.SchemaName,
-                    ParentSchemaName = entityName
-                });
+                imageBuilder.AddComponentSolution1((int)ComponentType.EntityRelationship, rel1.MetadataId.Value);             
             }
 
             foreach (ManyToManyRelationshipMetadata rel1 in listRel1.OrderBy(s => s.SchemaName))
@@ -455,12 +430,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     dictDifference.Add(rel1.SchemaName, diff);
 
-                    image.DifferentComponents.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.EntityRelationship,
-                        SchemaName = rel1.SchemaName,
-                        ParentSchemaName = entityName
-                    });
+                    imageBuilder.AddComponentDifferent((int)ComponentType.EntityRelationship, rel1.MetadataId.Value, rel2.MetadataId.Value, string.Join(Environment.NewLine, strDifference));
                 }
             }
 
@@ -589,7 +559,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private void CompareKeys(OrganizationDifferenceImage image, List<string> strDifference, string entityName, IEnumerable<EntityKeyMetadata> keys1, IEnumerable<EntityKeyMetadata> keys2)
+        private void CompareKeys(OrganizationDifferenceImageBuilder imageBuilder, List<string> strDifference, string entityName, IEnumerable<EntityKeyMetadata> keys1, IEnumerable<EntityKeyMetadata> keys2)
         {
             FormatTextTableHandler listKeysOnlyIn1 = new FormatTextTableHandler(true);
             FormatTextTableHandler listKeysOnlyIn2 = new FormatTextTableHandler(true);
@@ -612,12 +582,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 listKeysOnlyIn2.AddLine(key2.LogicalName, key2.SchemaName, key2.IsManaged.ToString(), string.Join(",", key2.KeyAttributes.OrderBy(s => s)));
 
-                image.Connection2Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.EntityKey,
-                    SchemaName = key2.SchemaName,
-                    ParentSchemaName = entityName
-                });
+                imageBuilder.AddComponentSolution2((int)ComponentType.EntityKey, key2.MetadataId.Value);
             }
 
             foreach (EntityKeyMetadata key1 in keys1.OrderBy(s => s.LogicalName))
@@ -633,12 +598,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 listKeysOnlyIn1.AddLine(key1.LogicalName, key1.SchemaName, key1.IsManaged.ToString(), string.Join(",", key1.KeyAttributes.OrderBy(s => s)));
 
-                image.Connection1Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.EntityKey,
-                    SchemaName = key1.SchemaName,
-                    ParentSchemaName = entityName
-                });
+                imageBuilder.AddComponentSolution1((int)ComponentType.EntityKey, key1.MetadataId.Value);
             }
 
             foreach (EntityKeyMetadata key1 in keys1.OrderBy(s => s.LogicalName))
@@ -656,12 +616,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     dictDifference.Add(key1.LogicalName, diff.Select(s => _tabSpacer + s).ToList());
 
-                    image.DifferentComponents.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.EntityKey,
-                        SchemaName = key1.SchemaName,
-                        ParentSchemaName = entityName
-                    });
+                    imageBuilder.AddComponentDifferent((int)ComponentType.EntityKey, key1.MetadataId.Value, key2.MetadataId.Value, string.Join(Environment.NewLine, strDifference));
                 }
             }
 
@@ -735,7 +690,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return strDifference;
         }
 
-        private async Task CompareAttributesAsync(OrganizationDifferenceImage image, List<string> strDifference, string entityName, IEnumerable<AttributeMetadata> attributes1, IEnumerable<AttributeMetadata> attributes2)
+        private async Task CompareAttributesAsync(OrganizationDifferenceImageBuilder imageBuilder, List<string> strDifference, string entityName, IEnumerable<AttributeMetadata> attributes1, IEnumerable<AttributeMetadata> attributes2)
         {
             FormatTextTableHandler listAttributesOnlyIn1 = new FormatTextTableHandler(true);
             FormatTextTableHandler listAttributesOnlyIn2 = new FormatTextTableHandler(true);
@@ -766,12 +721,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 listAttributesOnlyIn1.CalculateLineLengths(listStr.ToArray());
                 listAttributesOnlyIn2.AddLine(listStr.ToArray());
 
-                image.Connection2Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.Attribute,
-                    SchemaName = attr2.SchemaName,
-                    ParentSchemaName = entityName
-                });
+                imageBuilder.AddComponentSolution2((int)ComponentType.Attribute, attr2.MetadataId.Value);
             }
 
             foreach (AttributeMetadata attr1 in attributes1.OrderBy(s => s.LogicalName))
@@ -795,12 +745,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 listAttributesOnlyIn1.AddLine(listStr.ToArray());
                 listAttributesOnlyIn2.CalculateLineLengths(listStr.ToArray());
 
-                image.Connection1Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.Attribute,
-                    SchemaName = attr1.SchemaName,
-                    ParentSchemaName = entityName
-                });
+                imageBuilder.AddComponentSolution1((int)ComponentType.Attribute, attr1.MetadataId.Value);
             }
 
             foreach (AttributeMetadata attr1 in attributes1.OrderBy(s => s.LogicalName))
@@ -818,12 +763,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     dictDifference.Add(attr1.LogicalName, diff);
 
-                    image.DifferentComponents.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.EntityKey,
-                        SchemaName = attr1.SchemaName,
-                        ParentSchemaName = entityName
-                    });
+                    imageBuilder.AddComponentDifferent((int)ComponentType.Attribute, attr1.MetadataId.Value, attr2.MetadataId.Value, string.Join(Environment.NewLine, strDifference));
                 }
             }
 

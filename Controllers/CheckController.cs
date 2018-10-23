@@ -251,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             Dictionary<string, string> wrongWebResourceNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
-            SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+            SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(service, true);
 
             DependencyRepository dependencyRepository = new DependencyRepository(service);
 
@@ -443,7 +443,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             Dictionary<string, string> wrongWebResourceNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
-            var descriptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+            var descriptor = new SolutionComponentDescriptor(service, true);
 
             var descriptorHandler = new DependencyDescriptionHandler(descriptor);
 
@@ -907,7 +907,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
 
-            var descriptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+            var descriptor = new SolutionComponentDescriptor(service, true);
 
             var descriptorHandler = new DependencyDescriptionHandler(descriptor);
 
@@ -1076,7 +1076,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var entityMetadataSource = new SolutionComponentMetadataSource(service);
 
-            var descriptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true, entityMetadataSource);
+            var descriptor = new SolutionComponentDescriptor(service, true, entityMetadataSource);
             var dependencyRepository = new DependencyRepository(service);
             var descriptorHandler = new DependencyDescriptionHandler(descriptor);
 
@@ -1828,7 +1828,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     ObjectId = e.Item2,
                 }).ToList();
 
-                var descriptor = new SolutionComponentDescriptor(this._iWriteToOutput, service, true);
+                var descriptor = new SolutionComponentDescriptor(service, true);
 
                 descriptor.MetadataSource.DownloadEntityMetadata();
 
@@ -1905,7 +1905,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-            var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(_iWriteToOutput, service, true));
+            var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(service, true));
 
             var stringBuider = new StringBuilder();
 
@@ -1964,7 +1964,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-            var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(_iWriteToOutput, service, true));
+            var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(service, true));
 
             var stringBuider = new StringBuilder();
 

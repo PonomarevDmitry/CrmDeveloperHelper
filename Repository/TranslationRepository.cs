@@ -16,8 +16,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
     public class TranslationRepository
     {
-        private static object syncObject = new object();
-
         /// <summary>
         /// Сервис CRM
         /// </summary>
@@ -43,12 +41,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private static Translation GetDefaultTranslationFromCache(Guid connectionId, IOrganizationServiceExtented service)
         {
-            lock (syncObject)
+            if (_cacheDefault.ContainsKey(connectionId))
             {
-                if (_cacheDefault.ContainsKey(connectionId))
-                {
-                    return _cacheDefault[connectionId];
-                }
+                return _cacheDefault[connectionId];
             }
 
             var fileName = string.Format("DefaultTranslation.{0}.xml", connectionId.ToString());
@@ -57,12 +52,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (trans != null)
             {
-                lock (syncObject)
+                if (!_cacheDefault.ContainsKey(connectionId))
                 {
-                    if (!_cacheDefault.ContainsKey(connectionId))
-                    {
-                        _cacheDefault.TryAdd(connectionId, trans);
-                    }
+                    _cacheDefault.TryAdd(connectionId, trans);
                 }
 
                 return trans;
@@ -75,12 +67,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 FileOperations.SaveTranslationLocalCache(fileName, result);
 
-                lock (syncObject)
+                if (!_cacheDefault.ContainsKey(connectionId))
                 {
-                    if (!_cacheDefault.ContainsKey(connectionId))
-                    {
-                        _cacheDefault.TryAdd(connectionId, result);
-                    }
+                    _cacheDefault.TryAdd(connectionId, result);
                 }
             }
 
@@ -94,12 +83,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private static async Task<Translation> GetFieldTranslationFromCache(Guid connectionId, IOrganizationServiceExtented service)
         {
-            lock (syncObject)
+            if (_cacheField.ContainsKey(connectionId))
             {
-                if (_cacheField.ContainsKey(connectionId))
-                {
-                    return _cacheField[connectionId];
-                }
+                return _cacheField[connectionId];
             }
 
             var fileName = string.Format("FieldTranslation.{0}.xml", connectionId.ToString());
@@ -108,17 +94,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (trans != null)
             {
-                lock (syncObject)
+                if (!_cacheField.ContainsKey(connectionId))
                 {
-                    if (!_cacheField.ContainsKey(connectionId))
-                    {
-                        _cacheField.TryAdd(connectionId, trans);
-                    }
+                    _cacheField.TryAdd(connectionId, trans);
                 }
 
                 return trans;
             }
-            
+
             var repository = new SdkMessageRequestRepository(service);
 
             var request = await repository.FindByRequestNameAsync(SdkMessageRequest.Instances.ExportFieldTranslationRequest, new ColumnSet(false));
@@ -133,12 +116,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (result != null)
             {
-                lock (syncObject)
+                if (!_cacheField.ContainsKey(connectionId))
                 {
-                    if (!_cacheField.ContainsKey(connectionId))
-                    {
-                        _cacheField.TryAdd(connectionId, result);
-                    }
+                    _cacheField.TryAdd(connectionId, result);
                 }
 
                 FileOperations.SaveTranslationLocalCache(fileName, result);
@@ -149,11 +129,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         public static void ClearCache()
         {
-            lock (syncObject)
-            {
-                _cacheField.Clear();
-                _cacheDefault.Clear();
-            }
+            _cacheField.Clear();
+            _cacheDefault.Clear();
 
             FileOperations.ClearTranslationLocalCache();
         }
@@ -345,9 +322,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 var data = datas.First();
 
-                int temp;
 
-                if (int.TryParse(data.Value, out temp))
+                if (int.TryParse(data.Value, out int temp))
                 {
                     return temp;
                 }
@@ -369,9 +345,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 var data = datas.First();
 
-                Guid temp;
 
-                if (Guid.TryParse(data.Value, out temp))
+                if (Guid.TryParse(data.Value, out Guid temp))
                 {
                     return temp;
                 }

@@ -197,7 +197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
 
-            var descriptor = new SolutionComponentDescriptor(this._iWriteToOutput, service, true);
+            var descriptor = new SolutionComponentDescriptor(service, true);
 
             foreach (var selFile in selectedFiles)
             {
@@ -316,7 +316,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
 
-            var descriptor = new SolutionComponentDescriptor(this._iWriteToOutput, service, true);
+            var descriptor = new SolutionComponentDescriptor(service, true);
 
             foreach (var selFile in selectedFiles)
             {

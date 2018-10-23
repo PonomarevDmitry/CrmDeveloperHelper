@@ -300,7 +300,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 //RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
             })).ToList();
 
-            var solutionDesciptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+            var solutionDesciptor = new SolutionComponentDescriptor(service, true);
 
             this._iWriteToOutput.WriteToOutput("WebResources to add into Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
 
@@ -481,7 +481,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 //RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
             })).ToList();
 
-            var solutionDesciptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+            var solutionDesciptor = new SolutionComponentDescriptor(service, true);
 
             this._iWriteToOutput.WriteToOutput("Reports to add into Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
 
@@ -545,7 +545,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var dictForAdding = new HashSet<Guid>();
 
-            var solutionDesciptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+            var solutionDesciptor = new SolutionComponentDescriptor(service, true);
 
             if (SolutionComponent.IsComponentTypeMetadata(componentType))
             {
@@ -713,7 +713,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var dictForAdding = new HashSet<Tuple<int, Guid>>();
 
-            var solutionDesciptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+            var solutionDesciptor = new SolutionComponentDescriptor(service, true);
 
             foreach (var grComponents in components.Where(en => en.ObjectId.HasValue && en.ComponentType != null).GroupBy(en => en.ComponentType.Value))
             {
@@ -1006,7 +1006,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     //RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
                 })).ToList();
 
-                var solutionDesciptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                var solutionDesciptor = new SolutionComponentDescriptor(service, true);
 
                 this._iWriteToOutput.WriteToOutput("PluginAssemblies to add into Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
 
@@ -1197,7 +1197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
             })).ToList();
 
-            var solutionDesciptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+            var solutionDesciptor = new SolutionComponentDescriptor(service, true);
 
             this._iWriteToOutput.WriteToOutput("Processing Steps to add into Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
 
@@ -1408,7 +1408,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
             })).ToList();
 
-            var solutionDesciptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+            var solutionDesciptor = new SolutionComponentDescriptor(service, true);
 
             this._iWriteToOutput.WriteToOutput("Processing Steps to add into Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
 

@@ -67,7 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (this._descriptor == null)
             {
-                this._descriptor = new SolutionComponentDescriptor(_iWriteToOutput, _service, true);
+                this._descriptor = new SolutionComponentDescriptor(_service, true);
             }
 
             this._converter = new SolutionComponentConverter(this._descriptor);

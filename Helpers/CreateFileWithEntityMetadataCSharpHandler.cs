@@ -42,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._service = service;
             this._iWriteToOutput = iWriteToOutput;
 
-            this._solutionComponentDescriptor = new SolutionComponentDescriptor(_iWriteToOutput, _service, false);
+            this._solutionComponentDescriptor = new SolutionComponentDescriptor(_service, false);
             this._dependencyRepository = new DependencyRepository(_service);
             this._descriptorHandler = new DependencyDescriptionHandler(_solutionComponentDescriptor);
         }

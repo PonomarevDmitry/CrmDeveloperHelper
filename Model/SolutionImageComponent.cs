@@ -21,6 +21,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 return string.Empty;
             }
+
+            set
+            {
+
+            }
         }
 
         [DataMember]

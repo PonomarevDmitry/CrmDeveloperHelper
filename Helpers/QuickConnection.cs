@@ -3,19 +3,19 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk.Discovery;
 using Microsoft.Xrm.Sdk.Query;
-using System.DirectoryServices.AccountManagement;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.DirectoryServices.AccountManagement;
 using System.Linq;
 using System.Net;
-using System.ServiceModel.Description;
 using System.Runtime.InteropServices;
+using System.ServiceModel.Description;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Collections.Concurrent;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -24,35 +24,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     /// </summary>
     public static class QuickConnection
     {
-        private static object _syncObjectDiscoveryService = new object();
-        private static object _syncObjectOrganizationService = new object();
-
         private static ConcurrentDictionary<Uri, IServiceManagement<IDiscoveryService>> _cacheDiscoveryServiceManagement = new ConcurrentDictionary<Uri, IServiceManagement<IDiscoveryService>>();
         private static ConcurrentDictionary<Uri, IServiceManagement<IOrganizationService>> _cacheOrganizationServiceManagement = new ConcurrentDictionary<Uri, IServiceManagement<IOrganizationService>>();
 
         private static IServiceManagement<IDiscoveryService> GetDiscoveryServiceConfiguration(Uri uri)
         {
-            lock (_syncObjectDiscoveryService)
+            if (_cacheDiscoveryServiceManagement.ContainsKey(uri))
             {
-                if (_cacheDiscoveryServiceManagement.ContainsKey(uri))
-                {
-                    return _cacheDiscoveryServiceManagement[uri];
-                }
+                return _cacheDiscoveryServiceManagement[uri];
             }
 
             try
             {
                 var management = ServiceConfigurationFactory.CreateManagement<IDiscoveryService>(uri);
 
-                lock (_syncObjectDiscoveryService)
+                if (!_cacheDiscoveryServiceManagement.ContainsKey(uri))
                 {
-                    if (!_cacheDiscoveryServiceManagement.ContainsKey(uri))
-                    {
-                        _cacheDiscoveryServiceManagement.TryAdd(uri, management);
-                    }
-
-                    return _cacheDiscoveryServiceManagement[uri];
+                    _cacheDiscoveryServiceManagement.TryAdd(uri, management);
                 }
+
+                return _cacheDiscoveryServiceManagement[uri];
             }
             catch (Exception ex)
             {
@@ -64,27 +55,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static IServiceManagement<IOrganizationService> GetOrganizationServiceConfiguration(Uri uri)
         {
-            lock (_syncObjectOrganizationService)
+            if (_cacheOrganizationServiceManagement.ContainsKey(uri))
             {
-                if (_cacheOrganizationServiceManagement.ContainsKey(uri))
-                {
-                    return _cacheOrganizationServiceManagement[uri];
-                }
+                return _cacheOrganizationServiceManagement[uri];
             }
 
             try
             {
                 var management = ServiceConfigurationFactory.CreateManagement<IOrganizationService>(uri);
 
-                lock (_syncObjectOrganizationService)
+                if (!_cacheOrganizationServiceManagement.ContainsKey(uri))
                 {
-                    if (!_cacheOrganizationServiceManagement.ContainsKey(uri))
-                    {
-                        _cacheOrganizationServiceManagement.TryAdd(uri, management);
-                    }
-
-                    return _cacheOrganizationServiceManagement[uri];
+                    _cacheOrganizationServiceManagement.TryAdd(uri, management);
                 }
+
+                return _cacheOrganizationServiceManagement[uri];
             }
             catch (Exception ex)
             {
@@ -98,10 +83,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static Task<IOrganizationServiceExtented> ConnectAsync(ConnectionData connectionData)
         {
-            return Task.Run(() => Connect(connectionData));
+            return Task.Run(async () => await Connect(connectionData));
         }
 
-        private async static Task<IOrganizationServiceExtented> Connect(ConnectionData connectionData)
+        private static async Task<IOrganizationServiceExtented> Connect(ConnectionData connectionData)
         {
             bool withDiscoveryRequest = !connectionData.OrganizationInformationExpirationDate.HasValue || connectionData.OrganizationInformationExpirationDate.Value < DateTime.Now;
 
@@ -128,7 +113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static Task<bool> TestConnectAsync(ConnectionData connectionData, IWriteToOutput iWriteToOutput)
         {
-            return Task.Run(() => TestConnect(connectionData, iWriteToOutput));
+            return Task.Run(async() => await TestConnect(connectionData, iWriteToOutput));
         }
 
         private static async Task<bool> TestConnect(ConnectionData connectionData, IWriteToOutput iWriteToOutput)
@@ -479,8 +464,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         credentials.ClientCredentials.UserName.UserName = username;
                         credentials.ClientCredentials.UserName.Password = password;
 
-                        credentials.SupportingCredentials = new AuthenticationCredentials();
-                        credentials.SupportingCredentials.ClientCredentials = Microsoft.Crm.Services.Utility.DeviceIdManager.LoadOrRegisterDevice();
+                        credentials.SupportingCredentials = new AuthenticationCredentials
+                        {
+                            ClientCredentials = Microsoft.Crm.Services.Utility.DeviceIdManager.LoadOrRegisterDevice()
+                        };
                     }
                     break;
 
@@ -495,8 +482,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             IdentityProvider provider = serviceManagement.GetIdentityProvider(credentials.ClientCredentials.UserName.UserName);
                             if (provider != null && provider.IdentityProviderType == IdentityProviderType.LiveId)
                             {
-                                credentials.SupportingCredentials = new AuthenticationCredentials();
-                                credentials.SupportingCredentials.ClientCredentials = Microsoft.Crm.Services.Utility.DeviceIdManager.LoadOrRegisterDevice();
+                                credentials.SupportingCredentials = new AuthenticationCredentials
+                                {
+                                    ClientCredentials = Microsoft.Crm.Services.Utility.DeviceIdManager.LoadOrRegisterDevice()
+                                };
                             }
                         }
                     }

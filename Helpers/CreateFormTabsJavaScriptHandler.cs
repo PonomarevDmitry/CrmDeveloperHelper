@@ -89,7 +89,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             foreach (var control in webResouces)
             {
-                WriteLine("\"{0}\": \"{0}\",", control.Name);
+                WriteLine("'{0}': '{0}',", control.Name);
             }
 
             WriteLine("};");
@@ -108,7 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             foreach (var control in subgrids)
             {
-                WriteLine("\"{0}\": \"{0}\",", control.Name);
+                WriteLine("'{0}': '{0}',", control.Name);
             }
 
             WriteLine("};");
@@ -125,38 +125,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             foreach (var tab in tabs)
             {
-                WriteLine((string.Format("\"{0}\": ", tab.Name) + "{"));
+                WriteLine((string.Format("'{0}': ", tab.Name) + "{"));
 
-                WriteLine("\"Name\": \"{0}\",", tab.Name);
+                WriteLine("'Name': '{0}',", tab.Name);
 
-                WriteLine("\"DefaultShowLabel\": {0},", tab.ShowLabel);
+                WriteLine("'DefaultShowLabel': {0},", tab.ShowLabel);
 
-                WriteLine("\"DefaultExpanded\": {0},", tab.Expanded);
+                WriteLine("'DefaultExpanded': {0},", tab.Expanded);
 
-                WriteLine("\"DefaultVisible\": {0},", tab.Visible);
+                WriteLine("'DefaultVisible': {0},", tab.Visible);
 
                 foreach (var label in tab.Labels)
                 {
-                    WriteLine("\"Label{0}\": \"{1}\",", label.LanguageCode, label.Value);
+                    WriteLine("'Label{0}': '{1}',", label.LanguageCode, label.Value);
                 }
 
                 if (tab.Sections.Any())
                 {
-                    WriteLine("\"Sections\": {");
+                    WriteLine("'Sections': {");
 
                     foreach (var section in tab.Sections)
                     {
-                        WriteLine((string.Format("\"{0}\": ", section.Name) + "{"));
+                        WriteLine((string.Format("'{0}': ", section.Name) + "{"));
 
-                        WriteLine("\"Name\": \"{0}\",", section.Name);
+                        WriteLine("'Name': '{0}',", section.Name);
 
-                        WriteLine("\"DefaultShowLabel\": {0},", section.ShowLabel);
+                        WriteLine("'DefaultShowLabel': {0},", section.ShowLabel);
 
-                        WriteLine("\"DefaultVisible\": {0},", section.Visible);
+                        WriteLine("'DefaultVisible': {0},", section.Visible);
 
                         foreach (var label in section.Labels)
                         {
-                            WriteLine("\"Label{0}\": \"{1}\",", label.LanguageCode, label.Value);
+                            WriteLine("'Label{0}': '{1}',", label.LanguageCode, label.Value);
                         }
 
                         WriteLine("},");
@@ -192,7 +192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 str.Append(item);
 
-                WriteLine("if (typeof (" + str.ToString() + ") == \"undefined\") {");
+                WriteLine("if (typeof (" + str.ToString() + ") == 'undefined') {");
                 WriteLine(str.ToString() + " = { __namespace: true };");
                 WriteLine("}");
             }

@@ -59,7 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._objectId = objectId;
             this._componentType = componentType;
 
-            var descriptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+            var descriptor = new SolutionComponentDescriptor(service, true);
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
             _descriptorCache[service.ConnectionData.ConnectionId] = descriptor;
@@ -175,7 +175,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var service = await GetService();
 
-                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
                 }
 
                 return _descriptorCache[connectionData.ConnectionId];

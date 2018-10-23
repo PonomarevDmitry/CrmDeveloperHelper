@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._optionSetComparer = optionSetComparer;
         }
 
-        public async Task<List<string>> GetDifference(OrganizationDifferenceImage image, EntityMetadata entityMetadata1, EntityMetadata entityMetadata2)
+        public async Task<List<string>> GetDifference(OrganizationDifferenceImageBuilder imageBuilder, EntityMetadata entityMetadata1, EntityMetadata entityMetadata2)
         {
             List<string> strDifference = new List<string>();
 
@@ -158,20 +158,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            await CompareAttributes(image, strDifference, entityMetadata1.LogicalName, entityMetadata1.Attributes, entityMetadata2.Attributes);
+            await CompareAttributes(imageBuilder, strDifference, entityMetadata1.LogicalName, entityMetadata1.Attributes, entityMetadata2.Attributes);
 
-            CompareKeys(image, strDifference, entityMetadata1.LogicalName, entityMetadata1.Keys ?? Enumerable.Empty<EntityKeyMetadata>(), entityMetadata2.Keys ?? Enumerable.Empty<EntityKeyMetadata>());
+            CompareKeys(imageBuilder, strDifference, entityMetadata1.LogicalName, entityMetadata1.Keys ?? Enumerable.Empty<EntityKeyMetadata>(), entityMetadata2.Keys ?? Enumerable.Empty<EntityKeyMetadata>());
 
-            CompareOneToMany(image, strDifference, entityMetadata1.LogicalName, "N:1", "ManyToOne", entityMetadata1.ManyToOneRelationships, entityMetadata2.ManyToOneRelationships);
+            CompareOneToMany(imageBuilder, strDifference, entityMetadata1.LogicalName, "N:1", "ManyToOne", entityMetadata1.ManyToOneRelationships, entityMetadata2.ManyToOneRelationships);
 
-            CompareOneToMany(image, strDifference, entityMetadata1.LogicalName, "1:N", "OneToMany", entityMetadata1.OneToManyRelationships, entityMetadata2.OneToManyRelationships);
+            CompareOneToMany(imageBuilder, strDifference, entityMetadata1.LogicalName, "1:N", "OneToMany", entityMetadata1.OneToManyRelationships, entityMetadata2.OneToManyRelationships);
 
-            CompareManyToMany(image, strDifference, entityMetadata1.LogicalName, entityMetadata1.ManyToManyRelationships, entityMetadata2.ManyToManyRelationships);
+            CompareManyToMany(imageBuilder, strDifference, entityMetadata1.LogicalName, entityMetadata1.ManyToManyRelationships, entityMetadata2.ManyToManyRelationships);
 
             return strDifference;
         }
 
-        private void CompareOneToMany(OrganizationDifferenceImage image, List<string> strDifference, string entityName, string className, string relationTypeName, IEnumerable<OneToManyRelationshipMetadata> listRel1, IEnumerable<OneToManyRelationshipMetadata> listRel2)
+        private void CompareOneToMany(OrganizationDifferenceImageBuilder imageBuilder, List<string> strDifference, string entityName, string className, string relationTypeName, IEnumerable<OneToManyRelationshipMetadata> listRel1, IEnumerable<OneToManyRelationshipMetadata> listRel2)
         {
             Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -200,12 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     dictDifference.Add(rel1.SchemaName, diff);
 
-                    image.DifferentComponents.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.EntityRelationship,
-                        SchemaName = rel1.SchemaName,
-                        ParentSchemaName = entityName
-                    });
+                    imageBuilder.AddComponentDifferent((int)ComponentType.EntityRelationship, rel1.MetadataId.Value, rel2.MetadataId.Value, string.Join(Environment.NewLine, diff));
                 }
             }
 
@@ -243,7 +238,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        private void CompareManyToMany(OrganizationDifferenceImage image, List<string> strDifference, string entityName, IEnumerable<ManyToManyRelationshipMetadata> listRel1, IEnumerable<ManyToManyRelationshipMetadata> listRel2)
+        private void CompareManyToMany(OrganizationDifferenceImageBuilder imageBuilder, List<string> strDifference, string entityName, IEnumerable<ManyToManyRelationshipMetadata> listRel1, IEnumerable<ManyToManyRelationshipMetadata> listRel2)
         {
             Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -272,12 +267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     dictDifference.Add(rel1.SchemaName, diff);
 
-                    image.DifferentComponents.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.EntityRelationship,
-                        SchemaName = rel1.SchemaName,
-                        ParentSchemaName = entityName
-                    });
+                    imageBuilder.AddComponentDifferent((int)ComponentType.EntityRelationship, rel1.MetadataId.Value, rel2.MetadataId.Value, string.Join(Environment.NewLine, diff));
                 }
             }
 
@@ -369,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private void CompareKeys(OrganizationDifferenceImage image, List<string> strDifference, string entityName, IEnumerable<EntityKeyMetadata> keys1, IEnumerable<EntityKeyMetadata> keys2)
+        private void CompareKeys(OrganizationDifferenceImageBuilder imageBuilder, List<string> strDifference, string entityName, IEnumerable<EntityKeyMetadata> keys1, IEnumerable<EntityKeyMetadata> keys2)
         {
             Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -388,12 +378,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     dictDifference.Add(key1.LogicalName, diff.Select(s => _tabSpacer + s).ToList());
 
-                    image.DifferentComponents.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.EntityKey,
-                        SchemaName = key1.LogicalName,
-                        ParentSchemaName = entityName
-                    });
+                    imageBuilder.AddComponentDifferent((int)ComponentType.EntityKey, key1.MetadataId.Value, key2.MetadataId.Value, string.Join(Environment.NewLine, diff));
                 }
             }
 
@@ -466,7 +451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return strDifference;
         }
 
-        private async Task CompareAttributes(OrganizationDifferenceImage image, List<string> strDifference, string entityName, IEnumerable<AttributeMetadata> attributes1, IEnumerable<AttributeMetadata> attributes2)
+        private async Task CompareAttributes(OrganizationDifferenceImageBuilder imageBuilder, List<string> strDifference, string entityName, IEnumerable<AttributeMetadata> attributes1, IEnumerable<AttributeMetadata> attributes2)
         {
             Dictionary<string, List<string>> dictDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -485,12 +470,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     dictDifference.Add(attr1.LogicalName, diff);
 
-                    image.DifferentComponents.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.Attribute,
-                        SchemaName = attr1.SchemaName,
-                        ParentSchemaName = entityName
-                    });
+                    imageBuilder.AddComponentDifferent((int)ComponentType.Attribute, attr1.MetadataId.Value, attr2.MetadataId.Value, string.Join(Environment.NewLine, diff));
                 }
             }
 

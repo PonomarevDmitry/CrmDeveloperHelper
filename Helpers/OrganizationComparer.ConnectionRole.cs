@@ -1,4 +1,4 @@
-﻿using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var taskRole1 = _comparerSource.GetConnectionRole1Async();
             var taskRole2 = _comparerSource.GetConnectionRole2Async();
-                
+
             var taskRoleAssociation1 = _comparerSource.GetConnectionRoleAssociation1Async();
             var taskRoleAssociation2 = _comparerSource.GetConnectionRoleAssociation2Async();
 
@@ -41,11 +41,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listRole1 = await taskRole1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Connection Roles in {0}: {1}", _comparerSource.Connection1.Name, listRole1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Connection Roles in {0}: {1}", Connection1.Name, listRole1.Count));
 
             var listRole2 = await taskRole2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Connection Roles in {0}: {1}", _comparerSource.Connection2.Name, listRole2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Connection Roles in {0}: {1}", Connection2.Name, listRole2.Count));
 
 
 
@@ -53,11 +53,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listRoleAssociation1 = await taskRoleAssociation1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Connection Role Associations in {0}: {1}", _comparerSource.Connection1.Name, listRoleAssociation1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Connection Role Associations in {0}: {1}", Connection1.Name, listRoleAssociation1.Count));
 
             var listRoleAssociation2 = await taskRoleAssociation2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Connection Role Associations in {0}: {1}", _comparerSource.Connection2.Name, listRoleAssociation2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Connection Role Associations in {0}: {1}", Connection2.Name, listRoleAssociation2.Count));
 
 
 
@@ -65,11 +65,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listRoleObjectTypeCode1 = await taskRoleObjectTypeCode1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Connection Role ObjectTypeCodes in {0}: {1}", _comparerSource.Connection1.Name, listRoleObjectTypeCode1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Connection Role ObjectTypeCodes in {0}: {1}", Connection1.Name, listRoleObjectTypeCode1.Count));
 
             var listRoleObjectTypeCode2 = await taskRoleObjectTypeCode2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Connection Role ObjectTypeCodes in {0}: {1}", _comparerSource.Connection2.Name, listRoleObjectTypeCode2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Connection Role ObjectTypeCodes in {0}: {1}", Connection2.Name, listRoleObjectTypeCode2.Count));
 
 
 
@@ -108,11 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 tableOnlyExistsIn1.AddLine(category1, name1, role1.Id.ToString(), role1.IsManaged.ToString());
 
-                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.ConnectionRole,
-                    ObjectId = role1.Id,
-                });
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.ConnectionRole, role1.Id);
             }
 
             foreach (var role2 in listRole2)
@@ -131,14 +127,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 tableOnlyExistsIn2.AddLine(category2, name2, role2.Id.ToString(), role2.IsManaged.ToString());
 
-                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.ConnectionRole,
-                    ObjectId = role2.Id,
-                });
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.ConnectionRole, role2.Id);
             }
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Roles in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, commonRolesList.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Roles in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonRolesList.Count()));
 
             foreach (var commonItem in commonRolesList)
             {
@@ -179,11 +171,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (ContentCoparerHelper.IsEntityDifferentInField(commonItem.Entity1, commonItem.Entity2, fieldName))
                         {
-                            var str1 = EntityDescriptionHandler.GetAttributeString(commonItem.Entity1, fieldName, _comparerSource.Connection1);
-                            var str2 = EntityDescriptionHandler.GetAttributeString(commonItem.Entity2, fieldName, _comparerSource.Connection2);
+                            var str1 = EntityDescriptionHandler.GetAttributeString(commonItem.Entity1, fieldName, Connection1);
+                            var str2 = EntityDescriptionHandler.GetAttributeString(commonItem.Entity2, fieldName, Connection2);
 
-                            tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
-                            tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
+                            tabDiff.AddLine(fieldName, Connection1.Name, str1);
+                            tabDiff.AddLine(fieldName, Connection2.Name, str2);
                         }
                     }
 
@@ -229,11 +221,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     dictDifference.Add(commonItem, diff);
 
-                    this.Image.DifferentComponents.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.ConnectionRole,
-                        ObjectId = commonItem.Entity1.Id,
-                    });
+                    this.ImageBuilder.AddComponentDifferent((int)ComponentType.ConnectionRole, commonItem.Entity1.Id, commonItem.Entity2.Id, string.Join(Environment.NewLine, diff));
                 }
             }
 
@@ -247,7 +235,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Connection Roles ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("Connection Roles ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -262,7 +250,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Connection Roles ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("Connection Roles ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -277,10 +265,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Connection Roles DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("Connection Roles DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
 
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
-                tableDifference.SetHeader(_comparerSource.Connection1.Name, _comparerSource.Connection2.Name, "Id");
+                tableDifference.SetHeader(Connection1.Name, Connection2.Name, "Id");
 
                 foreach (var item in dictDifference)
                 {
@@ -320,7 +308,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            SaveOrganizationDifferenceImage();
+            await SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -334,7 +322,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (diff.Count > 0) { diff.Add(string.Empty); }
 
-                diff.Add(string.Format("{0} ONLY in {1}: {2}", prefix, _comparerSource.Connection1.Name, tableOnlyIn1.Count()));
+                diff.Add(string.Format("{0} ONLY in {1}: {2}", prefix, Connection1.Name, tableOnlyIn1.Count()));
 
                 foreach (var item in tableOnlyIn1)
                 {
@@ -346,7 +334,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (diff.Count > 0) { diff.Add(string.Empty); }
 
-                diff.Add(string.Format("{0} ONLY in {1}: {2}", prefix, _comparerSource.Connection2.Name, tableOnlyIn2.Count()));
+                diff.Add(string.Format("{0} ONLY in {1}: {2}", prefix, Connection2.Name, tableOnlyIn2.Count()));
 
                 foreach (var item in tableOnlyIn2)
                 {
@@ -389,23 +377,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else if (optionSet1 != null && optionSet2 == null)
             {
-                content.AppendFormat("Global OptionSet {0} ONLY EXISTS in {0}.", optionSetName, _comparerSource.Connection2.Name);
+                content.AppendFormat("Global OptionSet {0} ONLY EXISTS in {0}.", optionSetName, Connection2.Name);
 
-                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.OptionSet,
-                    SchemaName = "connectionrole_category",
-                });
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.OptionSet, optionSet1.MetadataId.Value);
             }
             else if (optionSet1 == null && optionSet2 != null)
             {
-                content.AppendFormat("Global OptionSet {0} ONLY EXISTS in {0}.", optionSetName, _comparerSource.Connection1.Name);
+                content.AppendFormat("Global OptionSet {0} ONLY EXISTS in {0}.", optionSetName, Connection1.Name);
 
-                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.OptionSet,
-                    SchemaName = "connectionrole_category",
-                });
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.OptionSet, optionSet2.MetadataId.Value);
             }
             else
             {
@@ -413,13 +393,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (strDifference.Count > 0)
                 {
-                    this.Image.DifferentComponents.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.OptionSet,
-                        SchemaName = "connectionrole_category",
-                    });
+                    this.ImageBuilder.AddComponentDifferent((int)ComponentType.OptionSet, optionSet1.MetadataId.Value, optionSet2.MetadataId.Value, string.Join(Environment.NewLine, strDifference));
 
-                    content.AppendLine().AppendLine().AppendFormat("Global OptionSet {0} DIFFERENT in {1} and {2}", optionSetName, _comparerSource.Connection1.Name, _comparerSource.Connection2.Name);
+                    content.AppendLine().AppendLine().AppendFormat("Global OptionSet {0} DIFFERENT in {1} and {2}", optionSetName, Connection1.Name, Connection2.Name);
 
                     foreach (var str in strDifference)
                     {
@@ -442,7 +418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            SaveOrganizationDifferenceImage();
+            await SaveOrganizationDifferenceImage();
 
             return filePath;
         }

@@ -26,22 +26,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Checking System Forms started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            var descriptor1 = new SolutionComponentDescriptor(_iWriteToOutput, this._comparerSource.Service1, false);
-            var descriptor2 = new SolutionComponentDescriptor(_iWriteToOutput, this._comparerSource.Service2, false);
-
-            FormDescriptionHandler handler1 = new FormDescriptionHandler(descriptor1, new DependencyRepository(_comparerSource.Service1));
-            FormDescriptionHandler handler2 = new FormDescriptionHandler(descriptor2, new DependencyRepository(_comparerSource.Service2));
+            FormDescriptionHandler handler1 = new FormDescriptionHandler(ImageBuilder.Descriptor1, new DependencyRepository(_comparerSource.Service1));
+            FormDescriptionHandler handler2 = new FormDescriptionHandler(ImageBuilder.Descriptor2, new DependencyRepository(_comparerSource.Service2));
 
             var task1 = _comparerSource.GetSystemForm1Async();
             var task2 = _comparerSource.GetSystemForm2Async();
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("System Forms in {0}: {1}", _comparerSource.Connection1.Name, list1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("System Forms in {0}: {1}", Connection1.Name, list1.Count));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("System Forms in {0}: {1}", _comparerSource.Connection2.Name, list2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("System Forms in {0}: {1}", Connection2.Name, list2.Count));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Entity", "Type", "Name", "IsManaged", "Id");
@@ -72,11 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 tableOnlyExistsIn1.AddLine(entityName1, typeName1, name1, form1.IsManaged.ToString(), form1.Id.ToString());
 
-                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.SystemForm,
-                    ObjectId = form1.Id,
-                });
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.SystemForm, form1.Id);
             }
 
             foreach (var form2 in list2)
@@ -97,11 +90,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 tableOnlyExistsIn2.AddLine(entityName2, typeName2, name2, form2.IsManaged.ToString(), form2.Id.ToString());
 
-                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.SystemForm,
-                    ObjectId = form2.Id,
-                });
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.SystemForm, form2.Id);
             }
 
             {
@@ -147,11 +136,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (ContentCoparerHelper.IsEntityDifferentInField(form.Entity1, form.Entity2, fieldName))
                             {
-                                var str1 = EntityDescriptionHandler.GetAttributeString(form.Entity1, fieldName, _comparerSource.Connection1);
-                                var str2 = EntityDescriptionHandler.GetAttributeString(form.Entity2, fieldName, _comparerSource.Connection2);
+                                var str1 = EntityDescriptionHandler.GetAttributeString(form.Entity1, fieldName, Connection1);
+                                var str2 = EntityDescriptionHandler.GetAttributeString(form.Entity2, fieldName, Connection2);
 
-                                tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
-                                tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
+                                tabDiff.AddLine(fieldName, Connection1.Name, str1);
+                                tabDiff.AddLine(fieldName, Connection2.Name, str2);
                             }
                         }
                     }
@@ -213,12 +202,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                                 if (!string.IsNullOrEmpty(formReason))
                                 {
-                                    tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, formReason));
+                                    tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, formReason));
                                 }
 
                                 if (!string.IsNullOrEmpty(descReason))
                                 {
-                                    tabDiff.AddLine(fieldName + "Description", string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, descReason));
+                                    tabDiff.AddLine(fieldName + "Description", string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, descReason));
                                 }
                             }
                         }
@@ -226,13 +215,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (tabDiff.Count > 0)
                     {
-                        dictDifference.Add(Tuple.Create(entityName1, typeName1, name1, form.Entity1.Id.ToString()), tabDiff.GetFormatedLines(false));
+                        var diff = tabDiff.GetFormatedLines(false);
+                        this.ImageBuilder.AddComponentDifferent((int)ComponentType.SystemForm, form.Entity1.Id, form.Entity2.Id, string.Join(Environment.NewLine, diff));
 
-                        this.Image.DifferentComponents.Add(new SolutionImageComponent()
-                        {
-                            ComponentType = (int)ComponentType.SystemForm,
-                            ObjectId = form.Entity1.Id,
-                        });
+                        dictDifference.Add(Tuple.Create(entityName1, typeName1, name1, form.Entity1.Id.ToString()), diff);
                     }
                 }
             }
@@ -247,7 +233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Forms ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Forms ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -262,7 +248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Forms ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Forms ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -277,7 +263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Forms DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Forms DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
 
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("Entity", "Type", "Name", "Id");
@@ -325,7 +311,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            SaveOrganizationDifferenceImage();
+            await SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -350,11 +336,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Queries in {0}: {1}", _comparerSource.Connection1.Name, list1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Queries in {0}: {1}", Connection1.Name, list1.Count));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Queries in {0}: {1}", _comparerSource.Connection2.Name, list2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Queries in {0}: {1}", Connection2.Name, list2.Count));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Entity", "Name", "QueryType", "IsUserDefined", "IsManaged", "Id");
@@ -392,11 +378,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , query1.IsManaged.ToString()
                     , query1.Id.ToString());
 
-                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.SavedQuery,
-                    ObjectId = query1.Id,
-                });
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.SavedQuery, query1.Id);
             }
 
             foreach (var query2 in list2)
@@ -425,11 +407,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , query2.Id.ToString()
                     );
 
-                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.SavedQuery,
-                    ObjectId = query2.Id,
-                });
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.SavedQuery, query2.Id);
             }
 
             {
@@ -487,11 +465,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (ContentCoparerHelper.IsEntityDifferentInField(query.Entity1, query.Entity2, fieldName))
                             {
-                                var str1 = EntityDescriptionHandler.GetAttributeString(query.Entity1, fieldName, _comparerSource.Connection1);
-                                var str2 = EntityDescriptionHandler.GetAttributeString(query.Entity2, fieldName, _comparerSource.Connection2);
+                                var str1 = EntityDescriptionHandler.GetAttributeString(query.Entity1, fieldName, Connection1);
+                                var str2 = EntityDescriptionHandler.GetAttributeString(query.Entity2, fieldName, Connection2);
 
-                                tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
-                                tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
+                                tabDiff.AddLine(fieldName, Connection1.Name, str1);
+                                tabDiff.AddLine(fieldName, Connection2.Name, str2);
                             }
                         }
                     }
@@ -533,7 +511,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                                 if (!string.IsNullOrEmpty(reason))
                                 {
-                                    tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, reason));
+                                    tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
                                 }
                             }
                         }
@@ -547,13 +525,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         var querytypeName1 = SavedQueryRepository.GetQueryTypeName(querytype1);
 
-                        dictDifference.Add(Tuple.Create(entityName1, name1, querytypeName1, query.Entity1.Id.ToString()), tabDiff.GetFormatedLines(false));
+                        var diff = tabDiff.GetFormatedLines(false);
+                        this.ImageBuilder.AddComponentDifferent((int)ComponentType.SavedQuery, query.Entity1.Id, query.Entity2.Id, string.Join(Environment.NewLine, diff));
 
-                        this.Image.DifferentComponents.Add(new SolutionImageComponent()
-                        {
-                            ComponentType = (int)ComponentType.SavedQuery,
-                            ObjectId = query.Entity1.Id,
-                        });
+                        dictDifference.Add(Tuple.Create(entityName1, name1, querytypeName1, query.Entity1.Id.ToString()), diff);
                     }
                 }
             }
@@ -568,7 +543,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Saved Queries ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Saved Queries ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -583,7 +558,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Saved Queries ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Saved Queries ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -598,7 +573,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Saved Queries DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Saved Queries DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
 
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("Entity", "Name", "QueryType", "Id");
@@ -642,7 +617,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            SaveOrganizationDifferenceImage();
+            await SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -665,11 +640,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Query Visualizations (Charts) in {0}: {1}", _comparerSource.Connection1.Name, list1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Query Visualizations (Charts) in {0}: {1}", Connection1.Name, list1.Count));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Query Visualizations (Charts) in {0}: {1}", _comparerSource.Connection2.Name, list2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Query Visualizations (Charts) in {0}: {1}", Connection2.Name, list2.Count));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Entity", "Name", "IsManaged", "Id");
@@ -698,11 +673,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 tableOnlyExistsIn1.AddLine(entityName1, name1, chart1.IsManaged.ToString(), chart1.Id.ToString());
 
-                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.SavedQueryVisualization,
-                    ObjectId = chart1.Id,
-                });
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.SavedQueryVisualization, chart1.Id);
             }
 
             foreach (var chart2 in list2)
@@ -721,11 +692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 tableOnlyExistsIn2.AddLine(entityName2, name2, chart2.IsManaged.ToString(), chart2.Id.ToString());
 
-                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.SavedQueryVisualization,
-                    ObjectId = chart2.Id,
-                });
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.SavedQueryVisualization, chart2.Id);
             }
 
             {
@@ -772,11 +739,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (ContentCoparerHelper.IsEntityDifferentInField(chart1, chart2, fieldName))
                             {
-                                var str1 = EntityDescriptionHandler.GetAttributeString(chart1, fieldName, _comparerSource.Connection1);
-                                var str2 = EntityDescriptionHandler.GetAttributeString(chart2, fieldName, _comparerSource.Connection2);
+                                var str1 = EntityDescriptionHandler.GetAttributeString(chart1, fieldName, Connection1);
+                                var str2 = EntityDescriptionHandler.GetAttributeString(chart2, fieldName, Connection2);
 
-                                tabDiff.AddLine(fieldName, _comparerSource.Connection1.Name, str1);
-                                tabDiff.AddLine(fieldName, _comparerSource.Connection2.Name, str2);
+                                tabDiff.AddLine(fieldName, Connection1.Name, str1);
+                                tabDiff.AddLine(fieldName, Connection2.Name, str2);
                             }
                         }
                     }
@@ -813,7 +780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                                 if (!string.IsNullOrEmpty(reason))
                                 {
-                                    tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, reason));
+                                    tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
                                 }
                             }
                         }
@@ -821,13 +788,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (tabDiff.Count > 0)
                     {
-                        dictDifference.Add(Tuple.Create(entityName1, name1, chart1.Id.ToString()), tabDiff.GetFormatedLines(false));
+                        var diff = tabDiff.GetFormatedLines(false);
+                        this.ImageBuilder.AddComponentDifferent((int)ComponentType.SavedQueryVisualization, chart1.Id, chart2.Id, string.Join(Environment.NewLine, diff));
 
-                        this.Image.DifferentComponents.Add(new SolutionImageComponent()
-                        {
-                            ComponentType = (int)ComponentType.SavedQueryVisualization,
-                            ObjectId = chart1.Id,
-                        });
+                        dictDifference.Add(Tuple.Create(entityName1, name1, chart1.Id.ToString()), diff);
                     }
                 }
             }
@@ -842,7 +806,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Saved Query Visualizations (Charts) ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Saved Query Visualizations (Charts) ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -857,7 +821,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Saved Query Visualizations (Charts) ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Saved Query Visualizations (Charts) ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
             }
@@ -872,7 +836,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("System Saved Query Visualizations (Charts) DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("System Saved Query Visualizations (Charts) DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
 
                 FormatTextTableHandler tableDifference = new FormatTextTableHandler();
                 tableDifference.SetHeader("Entity", "Name", "Id");
@@ -915,7 +879,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            SaveOrganizationDifferenceImage();
+            await SaveOrganizationDifferenceImage();
 
             return filePath;
         }

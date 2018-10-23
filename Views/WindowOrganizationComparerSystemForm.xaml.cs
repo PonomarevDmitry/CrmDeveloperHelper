@@ -187,7 +187,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service != null)
                 {
-                    _сacheDescription[connectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                    _сacheDescription[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
                 }
             }
 
@@ -209,7 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service != null)
                 {
-                    _сacheDescription[connectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                    _сacheDescription[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
                 }
             }
 

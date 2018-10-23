@@ -833,7 +833,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var service = await GetService();
 
-                var descriptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                var descriptor = new SolutionComponentDescriptor(service, true);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 

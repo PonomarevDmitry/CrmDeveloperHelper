@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return null;
         }
 
-        public void FillSolutionImageComponent(List<SolutionImageComponent> result, SolutionComponent solutionComponent)
+        public void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent)
         {
             AttributeMetadata metaData = _source.GetAttributeMetadata(solutionComponent.ObjectId.Value);
 

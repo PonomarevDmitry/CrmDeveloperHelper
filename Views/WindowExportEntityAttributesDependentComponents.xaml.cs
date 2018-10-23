@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._connectionConfig = service.ConnectionData.ConnectionConfiguration;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
-            _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+            _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
 
             if (allEntities != null)
             {
@@ -167,7 +167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var service = await GetService();
 
-                    _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+                    _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
                 }
 
                 return _descriptorCache[connectionData.ConnectionId];
@@ -765,7 +765,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 var dependencyRepository = new DependencyRepository(service);
-                var descriptor = new SolutionComponentDescriptor(this._iWriteToOutput, service, true);
+                var descriptor = new SolutionComponentDescriptor(service, true);
                 var descriptorHandler = new DependencyDescriptionHandler(descriptor);
 
                 var handler = new EntityAttributesDependentComponentsHandler(dependencyRepository, descriptor, descriptorHandler);

@@ -444,7 +444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ToggleControls(false, "Start clearing solution...");
 
-                var descriptor = new SolutionComponentDescriptor(_iWriteToOutput, _service, true);
+                var descriptor = new SolutionComponentDescriptor(_service, true);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, descriptor);
 

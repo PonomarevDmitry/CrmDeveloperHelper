@@ -240,6 +240,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("rootcomponentbehavior");
             }
+            [System.Diagnostics.DebuggerNonUserCode()]
+            set
+            {
+                this.OnPropertyChanging("RootComponentBehavior");
+                this.SetAttributeValue("rootcomponentbehavior", value);
+                this.OnPropertyChanged("RootComponentBehavior");
+            }
         }
 
         /// <summary>

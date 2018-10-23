@@ -33,35 +33,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var taskPriv1 = new SecurityPrivilegesRepository(_comparerSource.Service1).GetListAsync();
             var taskPriv2 = new SecurityPrivilegesRepository(_comparerSource.Service2).GetListAsync();
 
-            
+
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles in {0}: {1}", Connection1.Name, list1.Count()));
 
             var taskPrivRole1 = new SecurityRolePrivilegesRepository(_comparerSource.Service1).GetListAsync(list1.Select(e => e.RoleId.Value));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles in {0}: {1}", Connection2.Name, list2.Count()));
 
             var taskPrivRole2 = new SecurityRolePrivilegesRepository(_comparerSource.Service2).GetListAsync(list2.Select(e => e.RoleId.Value));
 
 
             var listPrivilege1 = (await taskPriv1).Select(e => e.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Privileges in {0}: {1}", _comparerSource.Connection1.Name, listPrivilege1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Privileges in {0}: {1}", Connection1.Name, listPrivilege1.Count()));
 
             var listPrivilege2 = (await taskPriv2).Select(e => e.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Privileges in {0}: {1}", _comparerSource.Connection2.Name, listPrivilege2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Privileges in {0}: {1}", Connection2.Name, listPrivilege2.Count()));
 
 
 
 
             var commonPrivileges = new HashSet<string>(listPrivilege1.Intersect(listPrivilege2), StringComparer.OrdinalIgnoreCase);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Security Privileges in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, commonPrivileges.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Security Privileges in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonPrivileges.Count()));
 
 
 
@@ -75,11 +75,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listRolePrivilege1 = await taskPrivRole1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles Privileges in {0}: {1}", _comparerSource.Connection1.Name, listRolePrivilege1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles Privileges in {0}: {1}", Connection1.Name, listRolePrivilege1.Count()));
 
             var listRolePrivilege2 = await taskPrivRole2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles Privileges in {0}: {1}", _comparerSource.Connection2.Name, listRolePrivilege2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles Privileges in {0}: {1}", Connection2.Name, listRolePrivilege2.Count()));
 
 
 
@@ -129,11 +129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 tableOnlyExistsIn1.AddLine(name1, businessUnit1, state);
 
-                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.Role,
-                    ObjectId = role1.Id,
-                });
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.Role, role1.Id);
             }
 
             foreach (var role2 in list2)
@@ -170,11 +166,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 tableOnlyExistsIn2.AddLine(name2, businessUnit2, state);
 
-                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.Role,
-                    ObjectId = role2.Id,
-                });
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.Role, role2.Id);
             }
 
             foreach (var role1 in list1)
@@ -216,11 +208,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     dictDifference.Add(Tuple.Create(name1, businessUnit1), diff);
 
-                    this.Image.DifferentComponents.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.Role,
-                        ObjectId = role1.Id,
-                    });
+                    this.ImageBuilder.AddComponentDifferent((int)ComponentType.Role, role1.Id, role2.Id, string.Join(Environment.NewLine, diff));
                 }
             }
 
@@ -234,7 +222,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Security Privileges ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, privilegesOnlyIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("Security Privileges ONLY EXISTS in {0}: {1}", Connection1.Name, privilegesOnlyIn1.Count);
 
                 foreach (var e in privilegesOnlyIn1.OrderBy(CategorizationPrivilege).ThenBy(FormatPrivilege).ThenBy(s => s))
                 {
@@ -252,7 +240,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Security Privileges ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, privilegesOnlyIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("Security Privileges ONLY EXISTS in {0}: {1}", Connection2.Name, privilegesOnlyIn2.Count);
 
                 foreach (var e in privilegesOnlyIn2.OrderBy(CategorizationPrivilege).ThenBy(FormatPrivilege).ThenBy(s => s))
                 {
@@ -270,7 +258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Security Roles ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("Security Roles ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append(tabSpacer + e.TrimEnd()));
             }
@@ -285,7 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Security Roles ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("Security Roles ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append(tabSpacer + e.TrimEnd()));
             }
@@ -302,7 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var order = dictDifference.OrderBy(s => s.Key.Item1).ThenBy(s => s.Key.Item2);
 
-                content.AppendLine().AppendLine().AppendFormat("Security Roles DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
+                content.AppendLine().AppendLine().AppendFormat("Security Roles DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
 
                 {
                     var table = new FormatTextTableHandler();
@@ -324,7 +312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                      .AppendLine()
                      .AppendLine();
 
-                content.AppendFormat("Security Roles DIFFERENT Details in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
+                content.AppendFormat("Security Roles DIFFERENT Details in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
 
                 foreach (var item in order)
                 {
@@ -364,7 +352,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            SaveOrganizationDifferenceImage();
+            await SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -375,7 +363,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             FormatTextTableHandler tableOnlyIn2 = new FormatTextTableHandler();
 
             FormatTextTableHandler tableDifferent = new FormatTextTableHandler();
-            tableDifferent.SetHeader("Privilege", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name);
+            tableDifferent.SetHeader("Privilege", Connection1.Name, Connection2.Name);
 
             if (enumerable1 != null)
             {
@@ -467,7 +455,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (diff.Count > 0) { diff.Add(string.Empty); }
 
-                diff.Add(string.Format("Privileges ONLY in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyIn1.Count));
+                diff.Add(string.Format("Privileges ONLY in {0}: {1}", Connection1.Name, tableOnlyIn1.Count));
                 tableOnlyIn1.GetFormatedLines(false).ForEach(s => diff.Add(tabSpacer + s));
             }
 
@@ -475,7 +463,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (diff.Count > 0) { diff.Add(string.Empty); }
 
-                diff.Add(string.Format("Privileges ONLY in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyIn2.Count));
+                diff.Add(string.Format("Privileges ONLY in {0}: {1}", Connection2.Name, tableOnlyIn2.Count));
                 tableOnlyIn2.GetFormatedLines(false).ForEach(s => diff.Add(tabSpacer + s));
             }
 
@@ -483,7 +471,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (diff.Count > 0) { diff.Add(string.Empty); }
 
-                diff.Add(string.Format("Different privileges in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, tableDifferent.Count));
+                diff.Add(string.Format("Different privileges in {0} and {1}: {2}", Connection1.Name, Connection2.Name, tableDifferent.Count));
                 tableDifferent.GetFormatedLines(false).ForEach(s => diff.Add(tabSpacer + s));
             }
         }
@@ -550,19 +538,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Field Security Profiles in {0}: {1}", _comparerSource.Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Field Security Profiles in {0}: {1}", Connection1.Name, list1.Count()));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Field Security Profiles in {0}: {1}", _comparerSource.Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Field Security Profiles in {0}: {1}", Connection2.Name, list2.Count()));
 
             var listPermission1 = await taskPerm1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Field Security Profiles Permissions in {0}: {1}", _comparerSource.Connection1.Name, listPermission1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Field Security Profiles Permissions in {0}: {1}", Connection1.Name, listPermission1.Count()));
 
             var listPermission2 = await taskPerm2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Field Security Profiles Permissions in {0}: {1}", _comparerSource.Connection2.Name, listPermission2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Field Security Profiles Permissions in {0}: {1}", Connection2.Name, listPermission2.Count()));
 
             var group1 = listPermission1.GroupBy(e => e.FieldSecurityProfileId.Id);
             var group2 = listPermission2.GroupBy(e => e.FieldSecurityProfileId.Id);
@@ -590,11 +578,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 tableOnlyExistsIn1.AddLine(name1, profile1.Id.ToString());
 
-                this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.FieldSecurityProfile,
-                    ObjectId = profile1.Id,
-                });
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.FieldSecurityProfile, profile1.Id);
             }
 
             foreach (var profile2 in list2)
@@ -612,11 +596,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 tableOnlyExistsIn2.AddLine(name2, profile2.Id.ToString());
 
-                this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
-                {
-                    ComponentType = (int)ComponentType.FieldSecurityProfile,
-                    ObjectId = profile2.Id,
-                });
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.FieldSecurityProfile, profile2.Id);
             }
 
             foreach (var profile1 in list1)
@@ -641,11 +621,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     dictDifference.Add(Tuple.Create(name1, profile1.Id), diff);
 
-                    this.Image.DifferentComponents.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.FieldSecurityProfile,
-                        ObjectId = profile1.Id,
-                    });
+                    this.ImageBuilder.AddComponentDifferent((int)ComponentType.FieldSecurityProfile, profile1.Id, profile2.Id, string.Join(Environment.NewLine, diff));
                 }
             }
 
@@ -659,7 +635,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Field Security Profiles ONLY EXISTS in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyExistsIn1.Count);
+                content.AppendLine().AppendLine().AppendFormat("Field Security Profiles ONLY EXISTS in {0}: {1}", Connection1.Name, tableOnlyExistsIn1.Count);
 
                 tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append(tabSpacer + e.TrimEnd()));
             }
@@ -674,7 +650,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendLine().AppendLine().AppendFormat("Field Security Profiles ONLY EXISTS in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyExistsIn2.Count);
+                content.AppendLine().AppendLine().AppendFormat("Field Security Profiles ONLY EXISTS in {0}: {1}", Connection2.Name, tableOnlyExistsIn2.Count);
 
                 tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append(tabSpacer + e.TrimEnd()));
             }
@@ -691,7 +667,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                      .AppendLine()
                      .AppendLine();
 
-                content.AppendFormat("Field Security Profiles DIFFERENT in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
+                content.AppendFormat("Field Security Profiles DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
 
                 {
                     var table = new FormatTextTableHandler();
@@ -713,7 +689,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine()
                     .AppendLine();
 
-                content.AppendFormat("Field Security Profiles DIFFERENT Details in {0} and {1}: {2}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name, dictDifference.Count);
+                content.AppendFormat("Field Security Profiles DIFFERENT Details in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
 
                 foreach (var item in dictDifference.OrderBy(s => s.Key.Item1).ThenBy(s => s.Key.Item2))
                 {
@@ -753,7 +729,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            SaveOrganizationDifferenceImage();
+            await SaveOrganizationDifferenceImage();
 
             return filePath;
         }
@@ -768,12 +744,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             FormatTextTableHandler tableDifferent = new FormatTextTableHandler();
             tableDifferent.SetHeader("FieldPermission"
-                , _comparerSource.Connection1.Name + " Can Create"
-                , _comparerSource.Connection2.Name + " Can Create"
-                , _comparerSource.Connection1.Name + " Can Read"
-                , _comparerSource.Connection2.Name + " Can Read"
-                , _comparerSource.Connection1.Name + " Can Update"
-                , _comparerSource.Connection2.Name + " Can Update"
+                , Connection1.Name + " Can Create"
+                , Connection2.Name + " Can Create"
+                , Connection1.Name + " Can Read"
+                , Connection2.Name + " Can Read"
+                , Connection1.Name + " Can Update"
+                , Connection2.Name + " Can Update"
                 );
 
             if (enumerable1 != null)
@@ -804,11 +780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     tableOnlyIn2.CalculateLineLengths(entityName1, attributeName1, cancreate1, canread1, canupdate1);
 
-                    this.Image.Connection1Image.Components.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.FieldPermission,
-                        ObjectId = item1.Id,
-                    });
+                    this.ImageBuilder.AddComponentSolution1((int)ComponentType.FieldPermission, item1.Id);
                 }
             }
 
@@ -840,11 +812,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     tableOnlyIn1.CalculateLineLengths(entityName2, attributeName2, cancreate2, canread2, canupdate2);
 
-                    this.Image.Connection2Image.Components.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.FieldPermission,
-                        ObjectId = item2.Id,
-                    });
+                    this.ImageBuilder.AddComponentSolution2((int)ComponentType.FieldPermission, item2.Id);
                 }
             }
 
@@ -875,11 +843,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (cancreate1 != cancreate2 || canread1 != canread2 || canupdate1 != canupdate2)
                     {
-                        this.Image.DifferentComponents.Add(new SolutionImageComponent()
-                        {
-                            ComponentType = (int)ComponentType.FieldPermission,
-                            ObjectId = item1.Id,
-                        });
+                        this.ImageBuilder.AddComponentDifferent((int)ComponentType.FieldPermission, item1.Id, item2.Id);
 
                         tableDifferent.AddLine(entityName1, attributeName1
                             , cancreate1, cancreate2
@@ -892,19 +856,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (tableOnlyIn1.Count > 0)
             {
-                diff.Add(string.Format("Privileges ONLY in {0}: {1}", _comparerSource.Connection1.Name, tableOnlyIn1.Count));
+                diff.Add(string.Format("Privileges ONLY in {0}: {1}", Connection1.Name, tableOnlyIn1.Count));
                 tableOnlyIn1.GetFormatedLines(true).ForEach(s => diff.Add(tabSpacer + s));
             }
 
             if (tableOnlyIn2.Count > 0)
             {
-                diff.Add(string.Format("Privileges ONLY in {0}: {1}", _comparerSource.Connection2.Name, tableOnlyIn2.Count));
+                diff.Add(string.Format("Privileges ONLY in {0}: {1}", Connection2.Name, tableOnlyIn2.Count));
                 tableOnlyIn2.GetFormatedLines(true).ForEach(s => diff.Add(tabSpacer + s));
             }
 
             if (tableDifferent.Count > 0)
             {
-                diff.Add(string.Format("Different privileges {0} and {1}", _comparerSource.Connection1.Name, _comparerSource.Connection2.Name));
+                diff.Add(string.Format("Different privileges {0} and {1}", Connection1.Name, Connection2.Name));
                 tableDifferent.GetFormatedLines(true).ForEach(s => diff.Add(tabSpacer + s));
             }
         }

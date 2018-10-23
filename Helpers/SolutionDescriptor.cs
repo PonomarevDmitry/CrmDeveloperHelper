@@ -92,7 +92,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var components = await repository.GetSolutionComponentsAsync(solutionId);
 
-                List<SolutionImageComponent> imageComponents = await _descriptor.GetSolutionImageComponentsAsync(components);
+                List<SolutionImageComponent> imageComponents = await _descriptor.GetSolutionImageComponentsListAsync(components);
 
                 SolutionImage image = new SolutionImage()
                 {

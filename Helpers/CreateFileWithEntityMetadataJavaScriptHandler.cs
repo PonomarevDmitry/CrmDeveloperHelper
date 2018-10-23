@@ -56,7 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (_config.WithDependentComponents)
             {
                 this._dependencyRepository = new DependencyRepository(_service);
-                this._descriptorHandler = new DependencyDescriptionHandler(new SolutionComponentDescriptor(iWriteToOutput, _service, false));
+                this._descriptorHandler = new DependencyDescriptionHandler(new SolutionComponentDescriptor(_service, false));
             }
 
             var repositoryStringMap = new StringMapRepository(_service);
@@ -125,7 +125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 str.Append(item);
 
-                WriteLine("if (typeof (" + str.ToString() + ") == \"undefined\") {");
+                WriteLine("if (typeof (" + str.ToString() + ") == 'undefined') {");
                 WriteLine(str.ToString() + " = { __namespace: true };");
                 WriteLine("}");
             }
@@ -151,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             foreach (AttributeMetadata attrib in attributes.OrderBy(attr => attr.LogicalName))
             {
-                WriteLine("\"{0}\": \"{0}\",", attrib.LogicalName.ToLower());
+                WriteLine("'{0}': '{0}',", attrib.LogicalName.ToLower());
             }
 
             WriteLine("};");

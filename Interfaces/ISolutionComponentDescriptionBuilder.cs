@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         T GetEntity<T>(Guid idEntity) where T : Entity;
 
-        void FillSolutionImageComponent(List<SolutionImageComponent> result, SolutionComponent solutionComponent);
+        void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent);
 
         void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls);
 

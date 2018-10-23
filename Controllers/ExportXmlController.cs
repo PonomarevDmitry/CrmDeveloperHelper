@@ -293,7 +293,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 .ThenBy(ent => ent.Type.Value)
                 .ThenBy(ent => ent.Name);
 
-            SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(_iWriteToOutput, service, true);
+            SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(service, true);
 
             var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
 

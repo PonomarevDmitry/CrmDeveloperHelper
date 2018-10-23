@@ -20,7 +20,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private ConcurrentDictionary<int, ISolutionComponentDescriptionBuilder> _cacheBuilders = new ConcurrentDictionary<int, ISolutionComponentDescriptionBuilder>();
 
-        private readonly IWriteToOutput _iWriteToOutput;
         private readonly IOrganizationServiceExtented _service;
         private readonly bool _withUrls;
 
@@ -30,15 +29,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         /// Конструктор репозитория функция по поиску решений.
         /// </summary>
         /// <param name="service"></param>
-        public SolutionComponentDescriptor(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, bool withUrls)
-            : this(iWriteToOutput, service, withUrls, null)
+        public SolutionComponentDescriptor(IOrganizationServiceExtented service, bool withUrls)
+            : this(service, withUrls, null)
         {
 
         }
 
-        public SolutionComponentDescriptor(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, bool withUrls, SolutionComponentMetadataSource metadataSource)
+        public SolutionComponentDescriptor(IOrganizationServiceExtented service, bool withUrls, SolutionComponentMetadataSource metadataSource)
         {
-            this._iWriteToOutput = iWriteToOutput;
             this._service = service;
             this._withUrls = withUrls;
             this.MetadataSource = metadataSource;
@@ -87,19 +85,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     builder.AppendLine().AppendLine(DTEHelper.GetExceptionDescription(ex)).AppendLine();
 
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                    DTEHelper.Singleton.WriteErrorToOutput(ex);
                 }
             }
 
             return builder.ToString();
         }
 
-        public Task<List<SolutionImageComponent>> GetSolutionImageComponentsAsync(IEnumerable<SolutionComponent> components)
+        public Task<List<SolutionImageComponent>> GetSolutionImageComponentsListAsync(IEnumerable<SolutionComponent> components)
         {
-            return Task.Run(() => GetSolutionImageComponents(components));
+            return Task.Run(() => GetSolutionImageComponentsList(components));
         }
 
-        private List<SolutionImageComponent> GetSolutionImageComponents(IEnumerable<SolutionComponent> components)
+        private List<SolutionImageComponent> GetSolutionImageComponentsList(IEnumerable<SolutionComponent> components)
         {
             List<SolutionImageComponent> result = new List<SolutionImageComponent>();
 
@@ -118,7 +116,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                    DTEHelper.Singleton.WriteErrorToOutput(ex);
+                }
+            }
+
+            return result;
+        }
+
+        public Task<List<SolutionImageComponent>> GetSolutionImageComponentAsync(SolutionComponent component)
+        {
+            return Task.Run(() => GetSolutionImageComponent(component));
+        }
+
+        private List<SolutionImageComponent> GetSolutionImageComponent(SolutionComponent component)
+        {
+            List<SolutionImageComponent> result = new List<SolutionImageComponent>();
+
+            if (component != null
+                && component.ComponentType != null
+                && component.ObjectId.HasValue
+                )
+            {
+                try
+                {
+                    var descriptionBuilder = GetDescriptionBuilder(component.ComponentType.Value);
+
+                    descriptionBuilder.FillSolutionImageComponent(result, component);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.Singleton.WriteErrorToOutput(ex);
                 }
             }
 

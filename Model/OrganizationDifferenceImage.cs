@@ -31,13 +31,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public string ExecuteUserName { get; set; }
 
         [DataMember]
-        public HashSet<SolutionImageComponent> DifferentComponents { get; set; }
+        public HashSet<OrganizationDifferenceImageComponent> DifferentComponents { get; set; }
 
         public string FilePath { get; set; }
 
         public OrganizationDifferenceImage()
         {
-            this.DifferentComponents = new HashSet<SolutionImageComponent>();
+            this.DifferentComponents = new HashSet<OrganizationDifferenceImageComponent>();
         }
 
         public void Save(string filePath)
