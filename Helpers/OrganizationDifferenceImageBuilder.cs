@@ -104,7 +104,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 foreach (var item in this._componentsDifferent)
                 {
-                    var list = await Descriptor1.GetSolutionImageComponentAsync(item.Item1);
+                    var list = await Descriptor1.GetSolutionImageComponentsListAsync(new[] { item.Item1 });
 
                     foreach (var item1 in list)
                     {

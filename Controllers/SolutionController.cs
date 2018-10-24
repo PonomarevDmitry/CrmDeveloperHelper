@@ -113,6 +113,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Экспортирование решения.
 
+        #region Дерево плагинов с конфигуации.
+
+        public void ExecuteOpeningSolutionImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            this._iWriteToOutput.WriteToOutput("*********** Start Showing SolutionImage Window at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
+            {
+                OpeningSolutionImageWindow(connectionData, commonConfig);
+            }
+            catch (Exception xE)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(xE);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutput("*********** End Showing SolutionImage Window at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            }
+        }
+
+        private void OpeningSolutionImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+
+            WindowHelper.OpenSolutionImageWindow(this._iWriteToOutput, connectionData, commonConfig);
+        }
+
+        #endregion Дерево плагинов с конфигуации.
+
         #region Добавление веб-ресурса в решение.
 
         public async Task ExecuteAddingWebResourcesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)

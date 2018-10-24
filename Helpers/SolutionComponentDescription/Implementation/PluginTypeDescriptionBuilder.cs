@@ -28,11 +28,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         protected override ColumnSet GetColumnSet()
         {
             return new ColumnSet
-                (
-                    PluginType.Schema.Attributes.assemblyname
-                    , PluginType.Schema.Attributes.typename
-                    , PluginType.Schema.Attributes.ismanaged
-                );
+            (
+                PluginType.Schema.Attributes.assemblyname
+                , PluginType.Schema.Attributes.typename
+                , PluginType.Schema.Attributes.culture
+                , PluginType.Schema.Attributes.version
+                , PluginType.Schema.Attributes.publickeytoken
+                , PluginType.Schema.Attributes.ismanaged
+            );
         }
 
         public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
@@ -112,6 +115,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     Description = GenerateDescriptionSingle(solutionComponent, false),
                 });
             }
+        }
+
+        public override void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionImageComponent)
+        {
+            base.FillSolutionComponent(result, solutionImageComponent);
         }
 
         public override TupleList<string, string> GetComponentColumns()

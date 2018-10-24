@@ -63,6 +63,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
+        public void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionImageComponent)
+        {
+            if (solutionImageComponent == null
+                || string.IsNullOrEmpty(solutionImageComponent.SchemaName)
+                || string.IsNullOrEmpty(solutionImageComponent.ParentSchemaName)
+                )
+            {
+                return;
+            }
+
+            EntityKeyMetadata metaData = _source.GetEntityKeyMetadata(solutionImageComponent.ParentSchemaName, solutionImageComponent.SchemaName);
+
+            if (metaData != null)
+            {
+                var component = new SolutionComponent()
+                {
+                    ComponentType = new OptionSetValue(this.ComponentTypeValue),
+                    ObjectId = metaData.MetadataId.Value,
+                };
+
+                if (solutionImageComponent.RootComponentBehavior.HasValue)
+                {
+                    component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
+                }
+
+                result.Add(component);
+            }
+        }
+
         public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();

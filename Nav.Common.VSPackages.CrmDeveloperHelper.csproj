@@ -162,6 +162,7 @@
     <Compile Include="Commands\CommonFindEntityObjectsByUniqueidentifierCommand.cs" />
     <Compile Include="Commands\CommonOpenCrmWebSiteCommand.cs" />
     <Compile Include="Commands\CommonOpenCurrentConnectionCrmInWebCommand.cs" />
+    <Compile Include="Commands\CommonOpenSolutionImageCommand.cs" />
     <Compile Include="Commands\CommonPluginConfigurationCreateCommand.cs" />
     <Compile Include="Commands\CommonCrmConnectionCommand.cs" />
     <Compile Include="Commands\CommonExportAttributesAndDependentComponentsCommand.cs" />
@@ -960,6 +961,9 @@
     <Compile Include="Views\WindowSelectPrefix.xaml.cs">
       <DependentUpon>WindowSelectPrefix.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowSolutionImage.xaml.cs">
+      <DependentUpon>WindowSolutionImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowSolutionSelect.xaml.cs">
       <DependentUpon>WindowSolutionSelect.xaml</DependentUpon>
     </Compile>
@@ -1490,6 +1494,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowSelectPrefix.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowSolutionImage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

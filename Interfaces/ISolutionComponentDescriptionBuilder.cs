@@ -28,6 +28,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent);
 
+        void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionComponent);
+
         void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls);
 
         string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls);

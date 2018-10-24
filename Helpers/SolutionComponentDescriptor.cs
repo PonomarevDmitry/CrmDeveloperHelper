@@ -123,25 +123,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        public Task<List<SolutionImageComponent>> GetSolutionImageComponentAsync(SolutionComponent component)
+        public Task<List<SolutionComponent>> GetSolutionComponentsListAsync(IEnumerable<SolutionImageComponent> components)
         {
-            return Task.Run(() => GetSolutionImageComponent(component));
+            return Task.Run(() => GetSolutionComponentsList(components));
         }
 
-        private List<SolutionImageComponent> GetSolutionImageComponent(SolutionComponent component)
+        private List<SolutionComponent> GetSolutionComponentsList(IEnumerable<SolutionImageComponent> components)
         {
-            List<SolutionImageComponent> result = new List<SolutionImageComponent>();
+            List<SolutionComponent> result = new List<SolutionComponent>();
 
-            if (component != null
-                && component.ComponentType != null
-                && component.ObjectId.HasValue
-                )
+            var groups = components.GroupBy(comp => comp.ComponentType).OrderBy(gr => gr.Key);
+
+            foreach (var gr in groups)
             {
                 try
                 {
-                    var descriptionBuilder = GetDescriptionBuilder(component.ComponentType.Value);
+                    var descriptionBuilder = GetDescriptionBuilder(gr.Key);
 
-                    descriptionBuilder.FillSolutionImageComponent(result, component);
+                    foreach (var item in gr)
+                    {
+                        descriptionBuilder.FillSolutionComponent(result, item);
+                    }
                 }
                 catch (Exception ex)
                 {

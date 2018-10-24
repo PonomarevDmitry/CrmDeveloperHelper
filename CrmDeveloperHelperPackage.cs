@@ -262,6 +262,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonExportSiteMapCommand.Initialize(this);
             CommonExportSolutionComponentsCommand.Initialize(this);
             CommonExportSolutionCommand.Initialize(this);
+            CommonOpenSolutionImageCommand.Initialize(this);
             CommonExportSystemFormXmlCommand.Initialize(this);
             CommonExportSystemSavedQueryVisualizationXmlCommand.Initialize(this);
             CommonExportSystemSavedQueryXmlCommand.Initialize(this);

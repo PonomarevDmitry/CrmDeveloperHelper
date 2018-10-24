@@ -395,6 +395,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public virtual void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent)
         {
+            if (solutionComponent == null)
+            {
+                return;
+            }
+
             result.Add(new SolutionImageComponent()
             {
                 ObjectId = solutionComponent.ObjectId,
@@ -403,6 +408,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 Description = GenerateDescriptionSingle(solutionComponent, false),
             });
+        }
+
+        public virtual void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionImageComponent)
+        {
+            if (solutionImageComponent == null || !solutionImageComponent.ObjectId.HasValue)
+            {
+                return;
+            }
+
+            var entity = GetEntity<Entity>(solutionImageComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                var component = new SolutionComponent()
+                {
+                    ComponentType = new OptionSetValue(this.ComponentTypeValue),
+                    ObjectId = entity.Id,
+                };
+
+                if (solutionImageComponent.RootComponentBehavior.HasValue)
+                {
+                    component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
+                }
+
+                result.Add(component);
+            }
         }
 
         public virtual string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension)

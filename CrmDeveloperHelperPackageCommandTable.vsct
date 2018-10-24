@@ -4049,6 +4049,12 @@
           <ButtonText>Export Solution</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="CommonOpenSolutionImageCommandId" priority="0x012C" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Open SolutionImage</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidDynamicCommandSet" id="CommonExportOpenLastSelectedSolutionInWebCommandId" priority="0x012C" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -6118,6 +6124,9 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionExplorer" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CommonExportSolutionCommandId" priority="0x0120">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionExplorer" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonOpenSolutionImageCommandId" priority="0x0120">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionExplorer" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutions" priority="0x0121">
@@ -8688,6 +8697,7 @@
       <IDSymbol name="CommonExportReportCommandId" value="0x203E" />
       <IDSymbol name="CommonExportSolutionComponentsCommandId" value="0x203F" />
       <IDSymbol name="CommonExportSolutionCommandId" value="0x2151" />
+      <IDSymbol name="CommonOpenSolutionImageCommandId" value="0x2170" />
 
       <IDSymbol name="CommonOrganizationComparerCommandId" value="0x2040" />
       <IDSymbol name="CommonCrmConnectionTestCommandId" value="0x2115" />
@@ -9015,7 +9025,7 @@
 
 
 
-      <!--0x2170-->
+      <!--0x2171-->
 
     </GuidSymbol>
 

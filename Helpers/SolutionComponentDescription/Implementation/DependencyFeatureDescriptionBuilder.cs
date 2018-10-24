@@ -54,6 +54,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             });
         }
 
+        public virtual void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionImageComponent)
+        {
+            if (solutionImageComponent == null || !solutionImageComponent.ObjectId.HasValue)
+            {
+                return;
+            }
+
+            var component = new SolutionComponent()
+            {
+                ComponentType = new OptionSetValue(this.ComponentTypeValue),
+                ObjectId = solutionImageComponent.ObjectId.Value,
+            };
+
+            if (solutionImageComponent.RootComponentBehavior.HasValue)
+            {
+                component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
+            }
+
+            result.Add(component);
+        }
+
         public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();

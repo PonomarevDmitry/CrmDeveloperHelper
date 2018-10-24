@@ -642,6 +642,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
+        public EntityKeyMetadata GetEntityKeyMetadata(string entityName, string keyName)
+        {
+            EntityKeyMetadata result = null;
+
+            result = _dictKey.Values.FirstOrDefault(a => string.Equals(entityName, a.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase)
+                                                                && string.Equals(keyName, a.LogicalName, StringComparison.InvariantCultureIgnoreCase));
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            try
+            {
+                if (this._allMetadataDownloaded)
+                {
+                    return null;
+                }
+
+                var request = new RetrieveEntityKeyRequest()
+                {
+                    EntityLogicalName = entityName,
+                    LogicalName = keyName,
+                };
+
+                var response = (RetrieveEntityKeyResponse)Service.Execute(request);
+
+                var metaKey = response.EntityKeyMetadata;
+
+                if (!_dictKey.ContainsKey(metaKey.MetadataId.Value))
+                {
+                    _dictKey.TryAdd(metaKey.MetadataId.Value, metaKey);
+                }
+
+                return _dictKey[metaKey.MetadataId.Value];
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.Singleton.WriteToOutput("GetEntityKeyMetadata(string {0}, string {1})", entityName, keyName);
+                DTEHelper.Singleton.WriteErrorToOutput(ex);
+
+                return null;
+            }
+        }
+
         public RelationshipMetadataBase GetRelationshipMetadata(Guid idRelation)
         {
             if (_dictRelashionship.ContainsKey(idRelation))
@@ -675,6 +720,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             catch (Exception ex)
             {
                 DTEHelper.Singleton.WriteToOutput("GetRelationshipMetadata(Guid {0})", idRelation);
+                DTEHelper.Singleton.WriteErrorToOutput(ex);
+
+                return null;
+            }
+        }
+
+        public RelationshipMetadataBase GetRelationshipMetadata(string relationName)
+        {
+            RelationshipMetadataBase result = null;
+
+            result = _dictRelashionship.Values.FirstOrDefault(a => string.Equals(relationName, a.SchemaName, StringComparison.InvariantCultureIgnoreCase));
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            try
+            {
+                if (this._allMetadataDownloaded)
+                {
+                    return null;
+                }
+
+                var request = new RetrieveRelationshipRequest()
+                {
+                    Name = relationName,
+                };
+
+                var response = (RetrieveRelationshipResponse)Service.Execute(request);
+
+                var metaRelation = response.RelationshipMetadata;
+
+                if (!_dictRelashionship.ContainsKey(metaRelation.MetadataId.Value))
+                {
+                    _dictRelashionship.TryAdd(metaRelation.MetadataId.Value, metaRelation);
+                }
+
+                return _dictRelashionship[metaRelation.MetadataId.Value];
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.Singleton.WriteToOutput("GetRelationshipMetadata(string {0})", relationName);
                 DTEHelper.Singleton.WriteErrorToOutput(ex);
 
                 return null;

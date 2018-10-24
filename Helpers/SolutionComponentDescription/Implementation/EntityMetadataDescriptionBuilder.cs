@@ -46,6 +46,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent)
         {
+            if (solutionComponent == null || !solutionComponent.ObjectId.HasValue)
+            {
+                return;
+            }
+
             EntityMetadata metaData = _source.GetEntityMetadata(solutionComponent.ObjectId.Value);
 
             if (metaData != null)
@@ -58,6 +63,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                     Description = GenerateDescriptionSingle(solutionComponent, false),
                 });
+            }
+        }
+
+        public void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionImageComponent)
+        {
+            if (solutionImageComponent == null || string.IsNullOrEmpty(solutionImageComponent.SchemaName))
+            {
+                return;
+            }
+
+            EntityMetadata metaData = _source.GetEntityMetadata(solutionImageComponent.SchemaName);
+
+            if (metaData != null)
+            {
+                var component = new SolutionComponent()
+                {
+                    ComponentType = new OptionSetValue(this.ComponentTypeValue),
+                    ObjectId = metaData.MetadataId.Value,
+                };
+
+                if (solutionImageComponent.RootComponentBehavior.HasValue)
+                {
+                    component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
+                }
+
+                result.Add(component);
             }
         }
 

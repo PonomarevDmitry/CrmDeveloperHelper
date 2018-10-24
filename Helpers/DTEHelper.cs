@@ -3168,6 +3168,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleOpenSolutionImageWindow()
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            if (crmConfig != null && crmConfig.CurrentConnectionData != null)
+            {
+                ActivateOutputWindow();
+                WriteToOutputEmptyLines(commonConfig);
+
+                try
+                {
+                    Controller.StartOpenSolutionImageWindow(crmConfig.CurrentConnectionData, commonConfig);
+                }
+                catch (Exception xE)
+                {
+                    WriteErrorToOutput(xE);
+                }
+            }
+        }
+
         public void HandleExportSystemForm()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();

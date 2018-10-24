@@ -46,18 +46,58 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent)
         {
-            if (this._source.AllOptionSetMetadata.ContainsKey(solutionComponent.ObjectId.Value))
+            if (solutionComponent == null || !solutionComponent.ObjectId.HasValue)
             {
-                var optionSet = this._source.AllOptionSetMetadata[solutionComponent.ObjectId.Value];
+                return;
+            }
 
-                result.Add(new SolutionImageComponent()
+            if (!this._source.AllOptionSetMetadata.ContainsKey(solutionComponent.ObjectId.Value))
+            {
+                return;
+            }
+
+            var optionSet = this._source.AllOptionSetMetadata[solutionComponent.ObjectId.Value];
+
+            result.Add(new SolutionImageComponent()
+            {
+                ComponentType = (int)ComponentType.OptionSet,
+                SchemaName = optionSet.Name,
+                RootComponentBehavior = solutionComponent.RootComponentBehavior?.Value,
+
+                Description = GenerateDescriptionSingle(solutionComponent, false),
+            });
+        }
+
+        public void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionImageComponent)
+        {
+            if (solutionImageComponent == null
+                || string.IsNullOrEmpty(solutionImageComponent.SchemaName)
+                )
+            {
+                return;
+            }
+
+            if (this._source.AllOptionSetMetadata == null)
+            {
+                return;
+            }
+
+            var optionSet = this._source.AllOptionSetMetadata.Values.FirstOrDefault(o => string.Equals(o.Name, solutionImageComponent.SchemaName, StringComparison.InvariantCultureIgnoreCase));
+
+            if (optionSet != null)
+            {
+                var component = new SolutionComponent()
                 {
-                    ComponentType = (int)ComponentType.OptionSet,
-                    SchemaName = optionSet.Name,
-                    RootComponentBehavior = solutionComponent.RootComponentBehavior?.Value,
+                    ComponentType = new OptionSetValue(this.ComponentTypeValue),
+                    ObjectId = optionSet.MetadataId.Value,
+                };
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false),
-                });
+                if (solutionImageComponent.RootComponentBehavior.HasValue)
+                {
+                    component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
+                }
+
+                result.Add(component);
             }
         }
 
