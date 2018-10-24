@@ -4106,16 +4106,17 @@
         </Strings>
       </Button>
 
-
       <Button guid="guidCommandSet" id="CommonOrganizationComparerCommandId" priority="0x012D" type="Button">
         <Strings>
           <ButtonText>Organization Comparer</ButtonText>
         </Strings>
       </Button>
-
-
-
-
+      <Button guid="guidCommandSet" id="CommonOpenOrganizationDifferenceImageCommandId" priority="0x012D" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Open Organization Difference Image</ButtonText>
+        </Strings>
+      </Button>
 
 
       <Button guid="guidDynamicCommandSet" id="CommonOpenCrmWebSiteCommandId" priority="0x012E" type="Button">
@@ -5544,6 +5545,9 @@
     <CommandPlacement guid="guidCommandSet" id="CommonOrganizationComparerCommandId" priority="0x0108">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupOrganizationComparer" />
     </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonOpenOrganizationDifferenceImageCommandId" priority="0x0109">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupOrganizationComparer" />
+    </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnections" priority="0x0109">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll" />
@@ -6313,8 +6317,8 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupCopyFetch" />
     </CommandPlacement>
 
-    
-    
+
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x106">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
     </CommandPlacement>
@@ -8700,6 +8704,7 @@
       <IDSymbol name="CommonOpenSolutionImageCommandId" value="0x2170" />
 
       <IDSymbol name="CommonOrganizationComparerCommandId" value="0x2040" />
+      <IDSymbol name="CommonOpenOrganizationDifferenceImageCommandId" value="0x2171" />
       <IDSymbol name="CommonCrmConnectionTestCommandId" value="0x2115" />
 
       <IDSymbol name="CommonCrmConnectionCommandId" value="0x2041" />
@@ -9025,7 +9030,7 @@
 
 
 
-      <!--0x2171-->
+      <!--0x2172-->
 
     </GuidSymbol>
 

@@ -162,6 +162,7 @@
     <Compile Include="Commands\CommonFindEntityObjectsByUniqueidentifierCommand.cs" />
     <Compile Include="Commands\CommonOpenCrmWebSiteCommand.cs" />
     <Compile Include="Commands\CommonOpenCurrentConnectionCrmInWebCommand.cs" />
+    <Compile Include="Commands\CommonOpenOrganizationDifferenceImageCommand.cs" />
     <Compile Include="Commands\CommonOpenSolutionImageCommand.cs" />
     <Compile Include="Commands\CommonPluginConfigurationCreateCommand.cs" />
     <Compile Include="Commands\CommonCrmConnectionCommand.cs" />
@@ -923,6 +924,9 @@
     <Compile Include="Views\WindowOrganizationComparerWorkflow.xaml.cs">
       <DependentUpon>WindowOrganizationComparerWorkflow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowOrganizationDifferenceImage.xaml.cs">
+      <DependentUpon>WindowOrganizationDifferenceImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowPluginConfiguration.xaml.cs">
       <DependentUpon>WindowPluginConfiguration.xaml</DependentUpon>
     </Compile>
@@ -1443,6 +1447,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowOrganizationComparerWorkflow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowOrganizationDifferenceImage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

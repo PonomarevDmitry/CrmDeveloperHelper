@@ -113,7 +113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Экспортирование решения.
 
-        #region Дерево плагинов с конфигуации.
+        #region Окна с образами.
 
         public void ExecuteOpeningSolutionImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
@@ -146,7 +146,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             WindowHelper.OpenSolutionImageWindow(this._iWriteToOutput, connectionData, commonConfig);
         }
 
-        #endregion Дерево плагинов с конфигуации.
+        public void ExecuteOpeningOrganizationDifferenceImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            this._iWriteToOutput.WriteToOutput("*********** Start Showing OrganizationDifferenceImage Window at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
+            {
+                OpeningOrganizationDifferenceImageWindow(connectionData, commonConfig);
+            }
+            catch (Exception xE)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(xE);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutput("*********** End Showing OrganizationDifferenceImage Window at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            }
+        }
+
+        private void OpeningOrganizationDifferenceImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+
+            WindowHelper.OpenOrganizationDifferenceImageWindow(this._iWriteToOutput, connectionData, commonConfig);
+        }
+
+        #endregion Окна с образами.
 
         #region Добавление веб-ресурса в решение.
 

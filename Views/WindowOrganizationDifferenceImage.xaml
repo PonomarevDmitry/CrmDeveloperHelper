@@ -1,11 +1,11 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowSolutionImage"
+﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowOrganizationDifferenceImage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         xmlns:entities="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Entities"
-        Title="SolutionImage Components" Height="538.662" Width="895.667" WindowStartupLocation="Manual">
+        Title="OrganizationDifferenceImage Components" Height="538.662" Width="895.667" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open Component in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
@@ -27,10 +27,17 @@
         <TextBox x:Name="txtBFilePath" Height="23" Margin="85,10,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
 
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="85,38,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" />
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="85,38,381,0" TextWrapping="Wrap"  VerticalAlignment="Top" />
 
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFilter" Height="23" Margin="85,66,381,0" TextWrapping="Wrap" VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown"  VerticalContentAlignment="Center" />
+        <TextBox x:Name="txtBFilter" Height="23" Margin="85,66,381,0" TextWrapping="Wrap"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown"  VerticalContentAlignment="Center" />
+        
+        <Label Content="Location" HorizontalAlignment="Right" Margin="0,38,280,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Stretch" Width="96"/>
+        <ComboBox x:Name="cmBComponentLocation" SelectedIndex="0" Height="23" Margin="0,38,10,0" VerticalAlignment="Top" IsEditable="False" HorizontalAlignment="Right" SelectionChanged="cmBComponentType_SelectionChanged" Width="265">
+            <ComboBoxItem Content="With differences" HorizontalAlignment="Stretch" />
+            <ComboBoxItem Content="Only in First" HorizontalAlignment="Stretch" />
+            <ComboBoxItem Content="Only in Second" HorizontalAlignment="Stretch"  />
+        </ComboBox>
 
         <Label Content="Component Type" HorizontalAlignment="Right" Margin="0,66,280,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Stretch" Width="96"/>
         <ComboBox x:Name="cmBComponentType" SelectedIndex="0" ItemsSource="{Binding Source={helpers:EnumBindingSource {helpers:NullableType entities:ComponentType}, SortByName=True}}" Height="23" Margin="0,66,10,0" VerticalAlignment="Top" IsEditable="False" HorizontalAlignment="Right" SelectionChanged="cmBComponentType_SelectionChanged" Width="265"/>
@@ -72,7 +79,7 @@
                     </Style>
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
-                    <Button x:Name="tSBLoadSolutionImage" Content="Load SolutionImage" Click="tSBLoadSolutionImage_Click" />
+                    <Button x:Name="tSBLoadOrganizationDifferenceImage" Content="Load OrganizationDifferenceImage" Click="tSBLoadOrganizationDifferenceImage_Click" />
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                 </ToolBarPanel>
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>

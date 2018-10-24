@@ -686,6 +686,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
+        public static void OpenOrganizationDifferenceImageWindow(
+            IWriteToOutput iWriteToOutput
+            , ConnectionData connectionData
+            , CommonConfiguration commonConfig
+            )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowOrganizationDifferenceImage(
+                        iWriteToOutput
+                        , commonConfig
+                        , connectionData
+                        , null
+                        );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
         public static void OpenPluginTypeWindow(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service

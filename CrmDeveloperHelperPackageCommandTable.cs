@@ -637,6 +637,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonExportSolutionCommandId = 0x2151;
         public const int CommonOpenSolutionImageCommandId = 0x2170;
         public const int CommonOrganizationComparerCommandId = 0x2040;
+        public const int CommonOpenOrganizationDifferenceImageCommandId = 0x2171;
         public const int CommonCrmConnectionTestCommandId = 0x2115;
         public const int CommonCrmConnectionCommandId = 0x2041;
         public const int CommonConfigCommandId = 0x2042;
