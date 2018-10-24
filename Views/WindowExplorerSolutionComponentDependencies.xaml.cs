@@ -79,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             txtBComponentDescription.Text = _descriptor.GetComponentDescription(componentType, objectId);
 
-            FillComboBoxComponentType();
+            FillDataGridColumns();
 
             LoadFromConfig();
 
@@ -115,22 +115,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void EndLoadConfig()
         {
             --_init;
-        }
-
-        private void FillComboBoxComponentType()
-        {
-            cmBComponentType.Items.Clear();
-
-            cmBComponentType.Items.Add(string.Empty);
-
-            var listComponentType = Enum.GetValues(typeof(ComponentType)).OfType<ComponentType>().ToList();
-
-            foreach (var item in listComponentType.OrderBy(o => o.ToString()))
-            {
-                cmBComponentType.Items.Add(item);
-            }
-
-            FillDataGridColumns();
         }
 
         private void LoadFromConfig()

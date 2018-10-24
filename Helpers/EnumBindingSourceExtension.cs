@@ -1,4 +1,6 @@
-﻿using System;
+using System;
+using System.Collections;
+using System.Linq;
 using System.Windows.Markup;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
@@ -8,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private Type _enumType;
         public Type EnumType
         {
-            get { return this._enumType; }
+            get => this._enumType;
             set
             {
                 if (value != this._enumType)
@@ -26,6 +28,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public bool SortByName { get; set; }
+
         public EnumBindingSourceExtension() { }
 
         public EnumBindingSourceExtension(Type enumType)
@@ -35,18 +39,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            if (null == this._enumType)
+            if (this._enumType == null)
                 throw new InvalidOperationException("The EnumType must be specified.");
 
             Type actualEnumType = Nullable.GetUnderlyingType(this._enumType) ?? this._enumType;
             Array enumValues = Enum.GetValues(actualEnumType);
 
+            if (this.SortByName)
+            {
+                Array.Sort(enumValues, new EnumSorterByName());
+            }
+
             if (actualEnumType == this._enumType)
                 return enumValues;
 
-            Array tempArray = Array.CreateInstance(actualEnumType, enumValues.Length + 1);
+            object[] tempArray = new object[enumValues.Length + 1];
+            tempArray[0] = string.Empty;
             enumValues.CopyTo(tempArray, 1);
             return tempArray;
+        }
+
+        private class EnumSorterByName : IComparer
+        {
+            public int Compare(object x, object y)
+            {
+                return x.ToString().CompareTo(y.ToString());
+            }
         }
     }
 }

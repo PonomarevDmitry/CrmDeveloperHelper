@@ -56,6 +56,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadFromConfig();
 
+            LoadConfiguration();
+
             txtBFilter.SelectionLength = 0;
             txtBFilter.SelectionStart = txtBFilter.Text.Length;
 
@@ -79,6 +81,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFileAction.DataContext = _commonConfig;
 
             txtBFolder.DataContext = _commonConfig;
+        }
+
+        private const string paramComponentType = "ComponentType";
+
+        private void LoadConfiguration()
+        {
+            WindowSettings winConfig = this.GetWindowsSettings();
+
+            {
+                var categoryValue = winConfig.GetValueInt(paramComponentType);
+
+                if (categoryValue != -1)
+                {
+                    var item = cmBComponentType.Items.OfType<ComponentType?>().FirstOrDefault(e => (int)e == categoryValue);
+                    if (item.HasValue)
+                    {
+                        cmBComponentType.SelectedItem = item.Value;
+                    }
+                }
+            }
+        }
+
+        protected override void SaveConfigurationInternal(WindowSettings winConfig)
+        {
+            base.SaveConfigurationInternal(winConfig);
+
+            var categoryValue = -1;
+
+            if (cmBComponentType.SelectedItem != null 
+                && cmBComponentType.SelectedItem is ComponentType selected
+                )
+            {
+                categoryValue = (int)selected;
+            }
+
+            winConfig.DictInt[paramComponentType] = categoryValue;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -229,7 +267,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBComponentType.Dispatcher.Invoke(() =>
             {
-                if (cmBComponentType.SelectedItem is ComponentType comp)
+                if (cmBComponentType.SelectedItem != null 
+                    && cmBComponentType.SelectedItem is ComponentType comp
+                    )
                 {
                     category = (int)comp;
                 }

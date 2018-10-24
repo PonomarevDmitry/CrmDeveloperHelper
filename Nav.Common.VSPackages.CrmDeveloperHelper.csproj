@@ -554,6 +554,7 @@
     <Compile Include="Helpers\FormDescriptionHandler.cs" />
     <Compile Include="Helpers\LabelComparer.cs" />
     <Compile Include="Helpers\LabelReplacer.cs" />
+    <Compile Include="Helpers\NullableTypeExtension.cs" />
     <Compile Include="Helpers\OptionSetComparer.cs" />
     <Compile Include="Helpers\OrganizationComparer.ConnectionRole.cs" />
     <Compile Include="Helpers\OrganizationComparer.cs" />
