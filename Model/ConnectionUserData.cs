@@ -13,10 +13,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public Guid UserId
         {
-            get
-            {
-                return _UserId;
-            }
+            get => _UserId;
             set
             {
                 if (_UserId == value)
@@ -38,10 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string Username
         {
-            get
-            {
-                return _Username;
-            }
+            get => _Username;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -68,10 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string Password
         {
-            get
-            {
-                return _Password;
-            }
+            get => _Password;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -87,6 +78,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.OnPropertyChanging(nameof(Password));
                 this._Password = value;
                 this.OnPropertyChanged(nameof(Password));
+            }
+        }
+
+        private string _Salt;
+
+        [DataMember]
+        public string Salt
+        {
+            get => _Salt;
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.Trim();
+                }
+
+                if (_Salt == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(Salt));
+                this._Salt = value;
+                this.OnPropertyChanged(nameof(Salt));
             }
         }
 
@@ -118,29 +133,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [OnSerializing]
         private void BeforeSerializing(StreamingContext context)
         {
-            this.Password = Encryption.Encrypt(this.Password, Encryption.EncryptionKey);
+            FillRequiredFields();
 
-            if (this.UserId == Guid.Empty)
-            {
-                this.UserId = Guid.NewGuid();
-            }
+            this.Password = Encryption.Encrypt(this.Password, this.Salt);
         }
 
         [OnSerialized]
         private void AfterSerialize(StreamingContext context)
         {
-            this.Password = Encryption.Decrypt(this.Password, Encryption.EncryptionKey);
+            AfterSerializeAndDeserialize(context);
         }
 
         [OnDeserialized]
         private void AfterDeserialize(StreamingContext context)
         {
+            AfterSerializeAndDeserialize(context);
+        }
+
+        private void AfterSerializeAndDeserialize(StreamingContext context)
+        {
+            FillRequiredFields();
+
+            this.Password = Encryption.Decrypt(this.Password, this.Salt);
+        }
+
+        private void FillRequiredFields()
+        {
+            if (string.IsNullOrEmpty(this.Salt))
+            {
+                this.Salt = Encryption.GenerateSalt();
+            }
+
             if (this.UserId == Guid.Empty)
             {
                 this.UserId = Guid.NewGuid();
             }
-
-            this.Password = Encryption.Decrypt(this.Password, Encryption.EncryptionKey);
         }
     }
 }

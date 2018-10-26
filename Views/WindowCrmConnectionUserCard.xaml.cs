@@ -77,6 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this.User.Username = this.txtBUsername.Text.Trim();
                 this.User.Password = this.passBPassword.Password;
+                this.User.Salt = Helpers.Encryption.GenerateSalt();
 
                 if (this.User.UserId == Guid.Empty)
                 {

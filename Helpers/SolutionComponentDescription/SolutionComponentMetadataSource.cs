@@ -326,8 +326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.Singleton.WriteToOutput("GetEntityMetadata(Guid {0})", idMetadata);
-                DTEHelper.Singleton.WriteErrorToOutput(ex);
+                DTEHelper.WriteExceptionToLog(ex, "GetEntityMetadata(Guid {0})", idMetadata);
 
                 return null;
             }
@@ -367,8 +366,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.Singleton.WriteToOutput("GetEntityMetadataList(Guid {0})", idMetadata);
-                    DTEHelper.Singleton.WriteErrorToOutput(ex);
+                    DTEHelper.WriteExceptionToLog(ex, "GetEntityMetadataList(Guid {0})", idMetadata);
                 }
             }
 
@@ -409,8 +407,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.Singleton.WriteToOutput("GetEntityMetadata(string {0})", entityName);
-                DTEHelper.Singleton.WriteErrorToOutput(ex);
+                DTEHelper.WriteExceptionToLog(ex, "GetEntityMetadata(string {0})", entityName);
 
                 return null;
             }
@@ -462,8 +459,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.Singleton.WriteToOutput("GetEntityMetadata(string {0}, string[] {1})", entityName, string.Join(",", columnNames));
-                DTEHelper.Singleton.WriteErrorToOutput(ex);
+                DTEHelper.WriteExceptionToLog(ex, "GetEntityMetadata(string {0}, string[] {1})", entityName, string.Join(",", columnNames));
 
                 return null;
             }
@@ -511,8 +507,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.Singleton.WriteToOutput("GetAttributeMetadata(Guid {0})", idAttribute);
-                DTEHelper.Singleton.WriteErrorToOutput(ex);
+                DTEHelper.WriteExceptionToLog(ex, "GetAttributeMetadata(Guid {0})", idAttribute);
 
                 return null;
             }
@@ -596,8 +591,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.Singleton.WriteToOutput("GetAttributeMetadata(string {0}, string {1})", entityName, attributeName);
-                DTEHelper.Singleton.WriteErrorToOutput(ex);
+                DTEHelper.WriteExceptionToLog(ex, "GetAttributeMetadata(string {0}, string {1})", entityName, attributeName);
 
                 return null;
             }
@@ -635,8 +629,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.Singleton.WriteToOutput("GetEntityKeyMetadata(Guid {0})", idKey);
-                DTEHelper.Singleton.WriteErrorToOutput(ex);
+                DTEHelper.WriteExceptionToLog(ex, "GetEntityKeyMetadata(Guid {0})", idKey);
 
                 return null;
             }
@@ -680,8 +673,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.Singleton.WriteToOutput("GetEntityKeyMetadata(string {0}, string {1})", entityName, keyName);
-                DTEHelper.Singleton.WriteErrorToOutput(ex);
+                DTEHelper.WriteExceptionToLog(ex, "GetEntityKeyMetadata(string {0}, string {1})", entityName, keyName);
 
                 return null;
             }
@@ -719,8 +711,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.Singleton.WriteToOutput("GetRelationshipMetadata(Guid {0})", idRelation);
-                DTEHelper.Singleton.WriteErrorToOutput(ex);
+                DTEHelper.WriteExceptionToLog(ex, "GetRelationshipMetadata(Guid {0})", idRelation);
 
                 return null;
             }
@@ -762,8 +753,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.Singleton.WriteToOutput("GetRelationshipMetadata(string {0})", relationName);
-                DTEHelper.Singleton.WriteErrorToOutput(ex);
+                DTEHelper.WriteExceptionToLog(ex, "GetRelationshipMetadata(string {0})", relationName);
 
                 return null;
             }

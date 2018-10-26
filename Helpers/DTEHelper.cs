@@ -67,7 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static Logger _loggerOutput;
 
-        public static Logger Log { get; private set; }
+        private static Logger Log { get; set; }
 
         //FormatTextTableHandler table = new FormatTextTableHandler();
         //table.SetHeader("Name", "LocalizedName", "Guid", "ID");
@@ -203,7 +203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public static void WriteExceptionToLog(Exception ex)
+        public static void WriteExceptionToLog(Exception ex, string message = null, params object[] args)
         {
             if (!_logExceptions.TryGetValue(ex, out _))
             {
@@ -211,7 +211,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var description = GetExceptionDescription(ex);
 
+                Log.Info(new string('-', 150));
+
+                if (!string.IsNullOrEmpty(message))
+                {
+                    if (args != null && args.Length > 0)
+                    {
+                        message = string.Format(message, args);
+                    }
+
+                    Log.Info(message);
+                }
+               
                 Log.Error(ex, description);
+                Log.Info(new string('-', 150));
             }
         }
 
