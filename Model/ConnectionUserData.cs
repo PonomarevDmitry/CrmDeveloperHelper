@@ -154,7 +154,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             FillRequiredFields();
 
-            this.Password = Encryption.Decrypt(this.Password, this.Salt);
+            try
+            {
+                this.Password = Encryption.Decrypt(this.Password, this.Salt);
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.Singleton?.WriteToOutput("Error while Decrypting password for user {0}. Setting default password - 'empty'.", this.Username);
+                this.Password = "empty";
+                DTEHelper.WriteExceptionToLog(ex);
+            }
         }
 
         private void FillRequiredFields()

@@ -520,9 +520,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as SolutionComponentViewItem;
-
-                if (item != null)
+                if (((FrameworkElement)e.OriginalSource).DataContext is SolutionComponentViewItem item)
                 {
                     ExecuteAction(item, PerformExportMouseDoubleClick);
                 }
@@ -796,7 +794,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _service.ConnectionData.OpenSolutionComponentInWeb((ComponentType)entity.SolutionComponent.ComponentType.Value, entity.SolutionComponent.ObjectId.Value, null, null);
+            _service.UrlGenerator.OpenSolutionComponentInWeb((ComponentType)entity.SolutionComponent.ComponentType.Value, entity.SolutionComponent.ObjectId.Value);
         }
 
         private void AddIntoSolution_Click(object sender, RoutedEventArgs e)
@@ -1220,6 +1218,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, _service, _commonConfig, null);
+        }
+
+        private void btnEntityKeyExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, _service, _commonConfig, null);
         }
 
         private void btnGlobalOptionSets_Click(object sender, RoutedEventArgs e)

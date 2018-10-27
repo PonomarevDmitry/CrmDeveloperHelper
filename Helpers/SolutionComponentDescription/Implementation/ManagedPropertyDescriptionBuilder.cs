@@ -272,7 +272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     var managedProperty = this.AllManagedProperties[objectId];
 
-                    return managedProperty.LogicalName;
+                    return string.Format("{0}.ManagedProperty {1} - {2} - {3}.{4}", connectionName, managedProperty.LogicalName, objectId, fieldTitle, extension);
                 }
             }
 

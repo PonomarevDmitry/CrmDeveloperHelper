@@ -71,7 +71,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    , withUrls && reportRef != null ? _service.ConnectionData?.GetSolutionComponentUrl(ComponentType.Report, reportRef.Id, null, null) : string.Empty
+                    , withUrls && reportRef != null ? _service.UrlGenerator?.GetSolutionComponentUrl(ComponentType.Report, reportRef.Id) : string.Empty
                     );
             }
 
@@ -100,7 +100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , reportVisibility.IsManaged.ToString()
                     , reportVisibility.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(reportVisibility, "solution.uniquename")
-                    , withUrls && reportRef != null ? string.Format("    Url {0}", _service.ConnectionData.GetSolutionComponentUrl(ComponentType.Report, reportRef.Id, null, null)) : string.Empty
+                    , withUrls && reportRef != null ? string.Format("    Url {0}", _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.Report, reportRef.Id)) : string.Empty
                     );
             }
 

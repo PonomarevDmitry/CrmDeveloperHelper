@@ -177,7 +177,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , EntityDescriptionHandler.GetAttributeString(rolePriv, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(rolePriv, "suppsolution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(rolePriv, "suppsolution.ismanaged")
-                    , withUrls && rolePriv.RoleId.HasValue ? _service.ConnectionData?.GetSolutionComponentUrl(ComponentType.Role, rolePriv.RoleId.Value, null, null) : string.Empty
+                    , withUrls && rolePriv.RoleId.HasValue ? _service.UrlGenerator?.GetSolutionComponentUrl(ComponentType.Role, rolePriv.RoleId.Value) : string.Empty
                     );
             }
 
@@ -205,7 +205,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , SecurityRolePrivilegesRepository.GetPrivilegeDepthMaskName(rolePrivileges.PrivilegeDepthMask.Value)
                     , rolePrivileges.IsManaged.ToString()
                     , EntityDescriptionHandler.GetAttributeString(rolePrivileges, "solution.uniquename")
-                    , withUrls && rolePrivileges.RoleId.HasValue ? string.Format("    Url {0}", _service.ConnectionData.GetSolutionComponentUrl(ComponentType.WebResource, rolePrivileges.RoleId.Value, null, null)) : string.Empty
+                    , withUrls && rolePrivileges.RoleId.HasValue ? string.Format("    Url {0}", _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.WebResource, rolePrivileges.RoleId.Value)) : string.Empty
                     );
             }
 

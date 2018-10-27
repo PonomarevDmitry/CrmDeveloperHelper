@@ -193,7 +193,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (metaData != null)
             {
-                return string.Format("{0}.{1}", metaData.EntityLogicalName, metaData.LogicalName);
+                return string.Format("{0}.EntityKey {1}.{2} - {3}.{4}", connectionName, metaData.EntityLogicalName, metaData.LogicalName, fieldTitle, extension);
             }
 
             return string.Format("{0}.ComponentType {1} - {2} - {3}.{4}", connectionName, this.ComponentTypeValue, objectId, fieldTitle, extension);

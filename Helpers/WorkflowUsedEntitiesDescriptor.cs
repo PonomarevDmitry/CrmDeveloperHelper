@@ -376,7 +376,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     var values = new List<string>() { item.LogicalName, item.Name, item.Id.ToString() };
 
-                    var url = _service.ConnectionData.GetEntityUrl(item.LogicalName, item.Id);
+                    var url = _service.ConnectionData.GetEntityInstanceUrl(item.LogicalName, item.Id);
 
                     if (!string.IsNullOrEmpty(url))
                     {
@@ -413,7 +413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 table.AddLine(item.LogicalName, item.Name, item.Id.ToString());
                 table.GetFormatedLines(false).ForEach(s => strFile.AppendLine(s));
 
-                var url = _service.ConnectionData.GetEntityUrl(item.LogicalName, item.Id);
+                var url = _service.ConnectionData.GetEntityInstanceUrl(item.LogicalName, item.Id);
 
                 if (!string.IsNullOrEmpty(url))
                 {
@@ -650,7 +650,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     var values = new List<string>() { item.LogicalName, item.Name, item.Id.ToString() };
 
-                    var url = _service.ConnectionData.GetEntityUrl(item.LogicalName, item.Id);
+                    var url = _service.ConnectionData.GetEntityInstanceUrl(item.LogicalName, item.Id);
 
                     if (!string.IsNullOrEmpty(url))
                     {
@@ -687,7 +687,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 table.AddLine(item.LogicalName, item.Name, item.Id.ToString());
                 table.GetFormatedLines(false).ForEach(s => strFile.AppendLine(s));
 
-                var url = _service.ConnectionData.GetEntityUrl(item.LogicalName, item.Id);
+                var url = _service.ConnectionData.GetEntityInstanceUrl(item.LogicalName, item.Id);
 
                 if (!string.IsNullOrEmpty(url))
                 {

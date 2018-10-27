@@ -68,7 +68,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DeployExtension>True</DeployExtension>
@@ -154,6 +154,7 @@
     <Compile Include="Commands\CommonCreateAllDependencyNodeDescriptionCommand.cs" />
     <Compile Include="Commands\CommonCrmConnectionTestCommand.cs" />
     <Compile Include="Commands\CommonEntityAttributeExplorerCommand.cs" />
+    <Compile Include="Commands\CommonEntityKeyExplorerCommand.cs" />
     <Compile Include="Commands\CommonExportDefaultSitemapsCommand.cs" />
     <Compile Include="Commands\CommonExportOpenLastSelectedSolutionCommand.cs" />
     <Compile Include="Commands\CommonExportSolutionCommand.cs" />
@@ -671,6 +672,7 @@
     <Compile Include="Intellisense\Model\AttributeIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\ConnectionIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\EntityIntellisenseData.cs" />
+    <Compile Include="Intellisense\Model\EntityKeyIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\ManyToManyRelationshipIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\ManyToOneRelationshipIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\OneToManyRelationshipIntellisenseData.cs" />
@@ -687,11 +689,14 @@
     <Compile Include="Model\CommonConfiguration.cs" />
     <Compile Include="Model\ConnectionConfiguration.cs" />
     <Compile Include="Model\ConnectionData.cs" />
+    <Compile Include="Model\ConnectionData.Urls.cs" />
+    <Compile Include="Model\ConnectionDataUrlGenerator.cs" />
     <Compile Include="Model\ConnectionUserData.cs" />
     <Compile Include="Model\ConstantType.cs" />
     <Compile Include="Model\ContentCopareResult.cs" />
     <Compile Include="Model\CrmSvcUtil.cs" />
     <Compile Include="Model\ElementForPublish.cs" />
+    <Compile Include="Model\EntityKeyMetadataViewItem.cs" />
     <Compile Include="Model\EntityMetadataListViewItem.cs" />
     <Compile Include="Model\EntityMetadataViewItem.cs" />
     <Compile Include="Model\EntityTreeViewItem.cs" />
@@ -829,6 +834,9 @@
     </Compile>
     <Compile Include="Views\WindowEntityAttributeExplorer.xaml.cs">
       <DependentUpon>WindowEntityAttributeExplorer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowEntityKeyExplorer.xaml.cs">
+      <DependentUpon>WindowEntityKeyExplorer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowExplorerSolutionComponentDependencies.xaml.cs">
       <DependentUpon>WindowExplorerSolutionComponentDependencies.xaml</DependentUpon>
@@ -1323,6 +1331,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowEntityAttributeExplorer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowEntityKeyExplorer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

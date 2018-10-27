@@ -235,7 +235,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     var optionSet = this._source.AllOptionSetMetadata[objectId];
 
-                    return optionSet.Name;
+                    return string.Format("{0}.OptionSet {1} - {2} - {3}.{4}", connectionName, optionSet.Name, objectId, fieldTitle, extension);
                 }
             }
 

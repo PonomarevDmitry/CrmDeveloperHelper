@@ -50,12 +50,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         [DataMember]
         public ConcurrentDictionary<string, ManyToManyRelationshipIntellisenseData> ManyToManyRelationships { get; private set; }
 
+        [DataMember]
+        public ConcurrentDictionary<string, EntityKeyIntellisenseData> Keys { get; private set; }
+
         public EntityIntellisenseData()
         {
             this.Attributes = new ConcurrentDictionary<string, AttributeIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
             this.ManyToOneRelationships = new ConcurrentDictionary<string, ManyToOneRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
             this.OneToManyRelationships = new ConcurrentDictionary<string, OneToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
             this.ManyToManyRelationships = new ConcurrentDictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+            this.Keys = new ConcurrentDictionary<string, EntityKeyIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
         }
 
         public IEnumerable<AttributeIntellisenseData> AttributesOrdered()
@@ -118,6 +122,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             if (ManyToManyRelationships == null)
             {
                 this.ManyToManyRelationships = new ConcurrentDictionary<string, ManyToManyRelationshipIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+            }
+
+            if (Keys == null)
+            {
+                this.Keys = new ConcurrentDictionary<string, EntityKeyIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
             }
         }
 
@@ -228,6 +237,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     }
 
                     this.ManyToManyRelationships[item.SchemaName].LoadData(item);
+                });
+            }
+
+            if (entityMetadata.Keys != null)
+            {
+                this.Keys.Clear();
+
+                entityMetadata.Keys.AsParallel().ForAll(item =>
+                {
+                    if (!this.Keys.ContainsKey(item.LogicalName))
+                    {
+                        this.Keys.TryAdd(item.LogicalName, new EntityKeyIntellisenseData());
+                    }
+
+                    this.Keys[item.SchemaName].LoadData(item);
                 });
             }
         }
@@ -368,6 +392,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     else
                     {
                         this.ManyToManyRelationships[item.SchemaName].MergeDataFromDisk(item);
+                    }
+                });
+            }
+
+            if (entityData.Keys != null)
+            {
+                if (this.Keys == null)
+                {
+                    this.Keys = new ConcurrentDictionary<string, EntityKeyIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+                }
+
+                entityData.Keys.Values.AsParallel().ForAll(item =>
+                {
+                    if (!this.Keys.ContainsKey(item.LogicalName))
+                    {
+                        this.Keys.TryAdd(item.LogicalName, item);
+                    }
+                    else
+                    {
+                        this.Keys[item.LogicalName].MergeDataFromDisk(item);
                     }
                 });
             }

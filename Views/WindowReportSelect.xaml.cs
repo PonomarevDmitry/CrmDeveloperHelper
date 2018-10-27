@@ -312,9 +312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
-
-                if (item != null)
+                if (((FrameworkElement)e.OriginalSource).DataContext is EntityViewItem item)
                 {
                     this.SelectedReportId = item.Report.Id;
 
@@ -379,7 +377,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _service.ConnectionData.OpenSolutionComponentInWeb(ComponentType.Report, entity.Id, null, null);
+            _service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.Report, entity.Id);
         }
 
         private void mICreateNewReport_Click(object sender, RoutedEventArgs e)

@@ -616,6 +616,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonPluginConfigurationComparerPluginAssemblyCommandId = 0x202E;
         public const int CommonExportEntityMetadataCommandId = 0x202F;
         public const int CommonEntityAttributeExplorerCommandId = 0x2165;
+        public const int CommonEntityKeyExplorerCommandId = 0x2172;
         public const int CommonExportAttributesAndDependentComponentsCommandId = 0x2030;
         public const int CommonExportRibbonXmlCommandId = 0x2031;
         public const int CommonExportSystemFormXmlCommandId = 0x2032;

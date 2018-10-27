@@ -50,6 +50,7 @@
                 <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
                 <Separator/>
                 <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                 <Separator/>
                 <MenuItem Header="Ribbon" Click="btnExportRibbon_Click"/>
                 <Separator/>

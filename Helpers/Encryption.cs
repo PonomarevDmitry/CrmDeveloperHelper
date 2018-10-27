@@ -32,20 +32,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             byte[] saltBytes = Convert.FromBase64String(salt);
 
-            try
-            {
-                byte[] passwordBytes = ProtectedData.Unprotect(protectedBytes, saltBytes, DataProtectionScope.CurrentUser);
+            byte[] passwordBytes = ProtectedData.Unprotect(protectedBytes, saltBytes, DataProtectionScope.CurrentUser);
 
-                string password = Encoding.Unicode.GetString(passwordBytes);
+            string password = Encoding.Unicode.GetString(passwordBytes);
 
-                return password;
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToLog(ex);
-
-                return "P@ssw0rd";
-            }
+            return password;
         }
 
         #endregion Decrypt

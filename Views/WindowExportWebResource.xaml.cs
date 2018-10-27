@@ -1047,7 +1047,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIOpenInWeb_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenInWeb_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1061,11 +1061,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            var service = await GetService();
 
-            if (connectionData != null)
+            if (service != null)
             {
-                connectionData.OpenSolutionComponentInWeb(ComponentType.WebResource, entity.WebResourceId.Value, null, null);
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.WebResource, entity.WebResourceId.Value);
             }
         }
 

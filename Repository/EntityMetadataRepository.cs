@@ -399,37 +399,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return resp.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
         }
 
-        public Task UpdateAttributeMetadataAsync(AttributeMetadata attributeMetadata)
-        {
-            return Task.Run(() => UpdateAttributeMetadata(attributeMetadata));
-        }
-
-        private void UpdateAttributeMetadata(AttributeMetadata attributeMetadata)
-        {
-            var request = new UpdateAttributeRequest()
-            {
-                Attribute = attributeMetadata,
-                EntityName = attributeMetadata.EntityLogicalName,
-            };
-
-            var response = (UpdateAttributeResponse)_Service.Execute(request);
-        }
-
-        public Task UpdateEntityMetadataAsync(EntityMetadata entityMetadata)
-        {
-            return Task.Run(() => UpdateEntityMetadata(entityMetadata));
-        }
-
-        private void UpdateEntityMetadata(EntityMetadata entityMetadata)
-        {
-            var request = new UpdateEntityRequest()
-            {
-                Entity = entityMetadata,
-            };
-
-            var response = (UpdateEntityResponse)_Service.Execute(request);
-        }
-
         public Task<List<EntityMetadata>> GetEntitiesWithAttributesForAuditAsync()
         {
             return Task.Run(() => GetEntitiesWithAttributesForAudit());
@@ -465,6 +434,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_Service.Execute(request);
 
             return response.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
+        }
+
+        public Task UpdateEntityMetadataAsync(EntityMetadata entityMetadata)
+        {
+            return Task.Run(() => UpdateEntityMetadata(entityMetadata));
+        }
+
+        private void UpdateEntityMetadata(EntityMetadata entityMetadata)
+        {
+            var request = new UpdateEntityRequest()
+            {
+                Entity = entityMetadata,
+            };
+
+            var response = (UpdateEntityResponse)_Service.Execute(request);
+        }
+
+        public Task UpdateAttributeMetadataAsync(AttributeMetadata attributeMetadata)
+        {
+            return Task.Run(() => UpdateAttributeMetadata(attributeMetadata));
+        }
+
+        private void UpdateAttributeMetadata(AttributeMetadata attributeMetadata)
+        {
+            var request = new UpdateAttributeRequest()
+            {
+                Attribute = attributeMetadata,
+                EntityName = attributeMetadata.EntityLogicalName,
+                MergeLabels = false,
+            };
+
+            var response = (UpdateAttributeResponse)_Service.Execute(request);
+        }
+
+        public Task UpdateRelationshipMetadataAsync(RelationshipMetadataBase relationshipMetadataBase)
+        {
+            return Task.Run(() => UpdateRelationshipMetadata(relationshipMetadataBase));
+        }
+
+        private void UpdateRelationshipMetadata(RelationshipMetadataBase relationshipMetadataBase)
+        {
+            var request = new UpdateRelationshipRequest()
+            {
+                Relationship = relationshipMetadataBase,
+                MergeLabels = false,
+            };
+
+            var response = (UpdateRelationshipResponse)_Service.Execute(request);
         }
     }
 }

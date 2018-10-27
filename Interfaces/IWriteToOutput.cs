@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         void WriteToOutputSolutionUri(Guid connectionId, string solutionUniqueName, string solutionUrl);
 
-        void WriteErrorToOutput(Exception ex);
+        void WriteErrorToOutput(Exception ex, string message = null, params object[] args);
 
         void ActivateOutputWindow();
 

@@ -605,7 +605,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             foreach (var item in solutionComponents)
             {
-                service.ConnectionData.OpenSolutionComponentInWeb((ComponentType)item.ComponentType.Value, item.ObjectId.Value, null, null);
+                service.UrlGenerator.OpenSolutionComponentInWeb((ComponentType)item.ComponentType.Value, item.ObjectId.Value);
             }
         }
 

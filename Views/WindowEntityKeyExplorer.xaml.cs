@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk.Metadata;
+using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
@@ -20,7 +21,7 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExportEntityMetadata : WindowBase
+    public partial class WindowEntityKeyExplorer : WindowBase
     {
         private readonly object sysObjectConnections = new object();
 
@@ -29,25 +30,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private CommonConfiguration _commonConfig;
         private ConnectionConfiguration _connectionConfig;
 
-        public string _filePath;
-
         private bool _controlsEnabled = true;
 
-        private ObservableCollection<EntityMetadataListViewItem> _itemsSource;
+        private ObservableCollection<EntityMetadataViewItem> _itemsSourceEntityList;
+
+        private ObservableCollection<EntityKeyMetadataViewItem> _itemsSourceEntityKeyList;
 
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
         private Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
-        private Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
+
+        private Dictionary<Guid, IEnumerable<EntityMetadataViewItem>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadataViewItem>>();
+
+        private Dictionary<Guid, Dictionary<string, IEnumerable<EntityKeyMetadataViewItem>>> _cacheEntityKeyMetadata = new Dictionary<Guid, Dictionary<string, IEnumerable<EntityKeyMetadataViewItem>>>();
 
         private int _init = 0;
 
-        public WindowExportEntityMetadata(
+        public WindowEntityKeyExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string filterEntity
-            , IEnumerable<EntityMetadata> allEntities
-            , string filePath
         )
         {
             _init++;
@@ -57,15 +59,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
             this._connectionConfig = service.ConnectionData.ConnectionConfiguration;
-            this._filePath = filePath;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
             _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
-
-            if (allEntities != null)
-            {
-                _cacheEntityMetadata[service.ConnectionData.ConnectionId] = allEntities;
-            }
 
             BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
 
@@ -79,76 +75,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             txtBFilterEnitity.Focus();
 
-            _itemsSource = new ObservableCollection<EntityMetadataListViewItem>();
+            _itemsSourceEntityList = new ObservableCollection<EntityMetadataViewItem>();
+            lstVwEntities.ItemsSource = _itemsSourceEntityList;
 
-            lstVwEntities.ItemsSource = _itemsSource;
+            _itemsSourceEntityKeyList = new ObservableCollection<EntityKeyMetadataViewItem>();
+            lstVwEntityKeys.ItemsSource = _itemsSourceEntityKeyList;
 
             UpdateButtonsEnable();
-
-            if (!string.IsNullOrEmpty(_filePath))
-            {
-                txtBFolder.IsReadOnly = true;
-                txtBFolder.Background = SystemColors.InactiveSelectionHighlightBrush;
-                txtBFolder.Text = Path.GetDirectoryName(_filePath);
-            }
 
             cmBCurrentConnection.ItemsSource = _connectionConfig.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
             _init--;
 
-            if (allEntities != null)
-            {
-                var list = allEntities.AsEnumerable();
-
-                list = FilterList(list, filterEntity);
-
-                LoadEntities(list);
-            }
-            else if (service != null)
-            {
-                ShowExistingEntities();
-            }
+            ShowExistingEntities();
         }
 
         private void LoadFromConfig()
         {
-            txtBSpaceCount.DataContext = _commonConfig;
+            WindowSettings winConfig = GetWindowsSettings();
 
-            rBTab.DataContext = _commonConfig;
-            rBSpaces.DataContext = _commonConfig;
+            LoadFormSettings(winConfig);
+        }
 
-            rBClasses.DataContext = _commonConfig;
-            rBEnums.DataContext = _commonConfig;
+        protected override void LoadConfigurationInternal(WindowSettings winConfig)
+        {
+            base.LoadConfigurationInternal(winConfig);
 
-            rBReadOnly.DataContext = _commonConfig;
-            rBConst.DataContext = _commonConfig;
+            LoadFormSettings(winConfig);
+        }
 
-            chBAttributes.DataContext = _commonConfig;
-            chBManyToOne.DataContext = _commonConfig;
-            chBManyToMany.DataContext = _commonConfig;
-            chBOneToMany.DataContext = _commonConfig;
-            chBLocalOptionSets.DataContext = _commonConfig;
-            chBGlobalOptionSets.DataContext = _commonConfig;
-            chBStatus.DataContext = _commonConfig;
-            chBKeys.DataContext = _commonConfig;
+        private const string paramColumnEntityWidth = "ColumnEntityWidth";
 
-            chBIntoSchemaClass.DataContext = _commonConfig;
-
-            chBAllDescriptions.DataContext = _commonConfig;
-
-            chBWithDependentComponents.DataContext = _commonConfig;
-
-            chBWithManagedInfo.DataContext = _commonConfig;
-
-            txtBNameSpace.DataContext = cmBCurrentConnection;
-
-            cmBFileAction.DataContext = _commonConfig;
-
-            if (string.IsNullOrEmpty(_filePath))
+        private void LoadFormSettings(WindowSettings winConfig)
+        {
+            if (winConfig.DictDouble.ContainsKey(paramColumnEntityWidth))
             {
-                txtBFolder.DataContext = _commonConfig;
+                columnEntity.Width = new GridLength(winConfig.DictDouble[paramColumnEntityWidth]);
             }
+        }
+
+        protected override void SaveConfigurationInternal(WindowSettings winConfig)
+        {
+            base.SaveConfigurationInternal(winConfig);
+
+            winConfig.DictDouble[paramColumnEntityWidth] = columnEntity.Width.Value;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -225,9 +196,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, "Loading entities...");
 
-            _itemsSource.Clear();
+            _itemsSourceEntityList.Clear();
+            _itemsSourceEntityKeyList.Clear();
 
-            IEnumerable<EntityMetadata> list = Enumerable.Empty<EntityMetadata>();
+            IEnumerable<EntityMetadataViewItem> list = Enumerable.Empty<EntityMetadataViewItem>();
 
             try
             {
@@ -239,9 +211,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         EntityMetadataRepository repository = new EntityMetadataRepository(service);
 
-                        var task = repository.GetEntitiesDisplayNameAsync();
+                        var task = repository.GetEntitiesForEntityAttributeExplorerAsync(EntityFilters.Entity);
 
-                        _cacheEntityMetadata.Add(service.ConnectionData.ConnectionId, await task);
+                        var temp = await task;
+
+                        _cacheEntityMetadata.Add(service.ConnectionData.ConnectionId, temp.Select(e => new EntityMetadataViewItem(e)).ToList());
                     }
 
                     list = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
@@ -259,12 +233,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 textName = txtBFilterEnitity.Text.Trim().ToLower();
             });
 
-            list = FilterList(list, textName);
+            list = FilterEntityList(list, textName);
 
             LoadEntities(list);
         }
 
-        private static IEnumerable<EntityMetadata> FilterList(IEnumerable<EntityMetadata> list, string textName)
+        private static IEnumerable<EntityMetadataViewItem> FilterEntityList(IEnumerable<EntityMetadataViewItem> list, string textName)
         {
             if (!string.IsNullOrEmpty(textName))
             {
@@ -272,20 +246,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (int.TryParse(textName, out int tempInt))
                 {
-                    list = list.Where(ent => ent.ObjectTypeCode == tempInt);
+                    list = list.Where(ent => ent.EntityMetadata.ObjectTypeCode == tempInt);
                 }
                 else
                 {
                     if (Guid.TryParse(textName, out Guid tempGuid))
                     {
-                        list = list.Where(ent => ent.MetadataId == tempGuid);
+                        list = list.Where(ent => ent.EntityMetadata.MetadataId == tempGuid);
                     }
                     else
                     {
                         list = list
                         .Where(ent =>
                             ent.LogicalName.ToLower().Contains(textName)
-                            || (ent.DisplayName != null && ent.DisplayName.LocalizedLabels
+                            || (ent.DisplayName != null && ent.EntityMetadata.DisplayName.LocalizedLabels
                                 .Where(l => !string.IsNullOrEmpty(l.Label))
                                 .Any(lbl => lbl.Label.ToLower().Contains(textName)))
 
@@ -304,20 +278,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return list;
         }
 
-        private void LoadEntities(IEnumerable<EntityMetadata> results)
+        private void LoadEntities(IEnumerable<EntityMetadataViewItem> results)
         {
             this._iWriteToOutput.WriteToOutput("Found {0} entity(ies).", results.Count());
 
             this.lstVwEntities.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in results)
+                foreach (var entity in results.OrderBy(s => s.LogicalName))
                 {
-                    string name = entity.LogicalName;
-                    string displayName = CreateFileHandler.GetLocalizedLabel(entity.DisplayName);
-
-                    EntityMetadataListViewItem item = new EntityMetadataListViewItem(name, displayName, entity);
-
-                    _itemsSource.Add(item);
+                    _itemsSourceEntityList.Add(entity);
                 }
 
                 if (this.lstVwEntities.Items.Count == 1)
@@ -327,7 +296,138 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
 
             ToggleControls(true, "{0} entities loaded.", results.Count());
+
+            ShowExistingEntityKeys();
         }
+
+        private async Task ShowExistingEntityKeys()
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false, "Loading entity keys...");
+
+            string entityLogicalName = string.Empty;
+
+            this.Dispatcher.Invoke(() =>
+            {
+                _itemsSourceEntityKeyList.Clear();
+
+                if (this.lstVwEntities.SelectedItems.Count == 1
+                    && this.lstVwEntities.SelectedItems[0] != null
+                    && this.lstVwEntities.SelectedItems[0] is EntityMetadataViewItem
+                )
+                {
+                    entityLogicalName = (this.lstVwEntities.SelectedItems[0] as EntityMetadataViewItem).LogicalName;
+                }
+            });
+
+            IEnumerable<EntityKeyMetadataViewItem> list = Enumerable.Empty<EntityKeyMetadataViewItem>();
+
+            if (!string.IsNullOrEmpty(entityLogicalName))
+            {
+                try
+                {
+                    var service = await GetService();
+
+                    if (service != null)
+                    {
+                        if (!_cacheEntityKeyMetadata.ContainsKey(service.ConnectionData.ConnectionId))
+                        {
+                            _cacheEntityKeyMetadata.Add(service.ConnectionData.ConnectionId, new Dictionary<string, IEnumerable<EntityKeyMetadataViewItem>>(StringComparer.InvariantCultureIgnoreCase));
+                        }
+
+                        var cacheEntityKey = _cacheEntityKeyMetadata[service.ConnectionData.ConnectionId];
+
+                        if (!cacheEntityKey.ContainsKey(entityLogicalName))
+                        {
+                            var repository = new EntityMetadataRepository(service);
+
+                            var metadata = await repository.GetEntityMetadataAttributesAsync(entityLogicalName, EntityFilters.All);
+
+                            if (metadata != null && metadata.Keys != null)
+                            {
+                                cacheEntityKey.Add(entityLogicalName, metadata.Keys.Select(e => new EntityKeyMetadataViewItem(e)).ToList());
+                            }
+                        }
+
+                        if (cacheEntityKey.ContainsKey(entityLogicalName))
+                        {
+                            list = cacheEntityKey[entityLogicalName];
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                }
+            }
+
+            string textName = string.Empty;
+
+            txtBFilterEntityKey.Dispatcher.Invoke(() =>
+            {
+                textName = txtBFilterEntityKey.Text.Trim().ToLower();
+            });
+
+            list = FilterEntityKeyList(list, textName);
+
+            LoadEntityKeys(list);
+        }
+
+        private static IEnumerable<EntityKeyMetadataViewItem> FilterEntityKeyList(IEnumerable<EntityKeyMetadataViewItem> list, string textName)
+        {
+            if (!string.IsNullOrEmpty(textName))
+            {
+                textName = textName.ToLower();
+
+                if (Guid.TryParse(textName, out Guid tempGuid))
+                {
+                    list = list.Where(ent => ent.EntityKeyMetadata.MetadataId == tempGuid);
+                }
+                else
+                {
+                    list = list
+                    .Where(ent =>
+                        ent.LogicalName.ToLower().Contains(textName)
+                        || (ent.DisplayName != null && ent.EntityKeyMetadata.DisplayName.LocalizedLabels
+                            .Where(l => !string.IsNullOrEmpty(l.Label))
+                            .Any(lbl => lbl.Label.ToLower().Contains(textName)))
+
+                    //|| (ent.Description != null && ent.Description.LocalizedLabels
+                    //    .Where(l => !string.IsNullOrEmpty(l.Label))
+                    //    .Any(lbl => lbl.Label.ToLower().Contains(textName)))
+
+                    //|| (ent.DisplayCollectionName != null && ent.DisplayCollectionName.LocalizedLabels
+                    //    .Where(l => !string.IsNullOrEmpty(l.Label))
+                    //    .Any(lbl => lbl.Label.ToLower().Contains(textName)))
+                    );
+                }
+            }
+
+            return list;
+        }
+
+        private void LoadEntityKeys(IEnumerable<EntityKeyMetadataViewItem> results)
+        {
+            this.lstVwEntityKeys.Dispatcher.Invoke(() =>
+            {
+                foreach (var entity in results.OrderBy(s => s.LogicalName))
+                {
+                    _itemsSourceEntityKeyList.Add(entity);
+                }
+
+                if (this.lstVwEntityKeys.Items.Count == 1)
+                {
+                    this.lstVwEntityKeys.SelectedItem = this.lstVwEntityKeys.Items[0];
+                }
+            });
+
+            ToggleControls(true, "{0} entity keys loaded.", results.Count());
+        }
+
 
         private void UpdateStatus(string format, params object[] args)
         {
@@ -393,7 +493,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     bool enabled = this._controlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
 
-                    UIElement[] list = { btnCreateCSharpFile, btnCreateJavaScriptFile };
+                    UIElement[] list = { };
 
                     foreach (var button in list)
                     {
@@ -414,22 +514,88 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private EntityMetadataListViewItem GetSelectedEntity()
+        private void txtBFilterEntityKey_KeyDown(object sender, KeyEventArgs e)
         {
-            EntityMetadataListViewItem result = null;
+            if (e.Key == Key.Enter)
+            {
+                ShowExistingEntityKeys();
+            }
+        }
 
-            if (this.lstVwEntities.SelectedItems.Count == 1
+        private EntityMetadataViewItem GetSelectedEntity()
+        {
+            EntityMetadataViewItem result = null;
+
+            if (this.lstVwEntities.SelectedItems.Count > 0
                 && this.lstVwEntities.SelectedItems[0] != null
-                && this.lstVwEntities.SelectedItems[0] is EntityMetadataListViewItem
+                && this.lstVwEntities.SelectedItems[0] is EntityMetadataViewItem
                 )
             {
-                result = (this.lstVwEntities.SelectedItems[0] as EntityMetadataListViewItem);
+                result = (this.lstVwEntities.SelectedItems[0] as EntityMetadataViewItem);
             }
 
             return result;
         }
 
+        private List<EntityMetadataViewItem> GetSelectedEntities()
+        {
+            List<EntityMetadataViewItem> result = this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().ToList();
+
+            return result;
+        }
+
+        private EntityKeyMetadataViewItem GetSelectedEntityKey()
+        {
+            EntityKeyMetadataViewItem result = null;
+
+            if (this.lstVwEntityKeys.SelectedItems.Count > 0
+                && this.lstVwEntityKeys.SelectedItems[0] != null
+                && this.lstVwEntityKeys.SelectedItems[0] is EntityKeyMetadataViewItem
+                )
+            {
+                result = (this.lstVwEntityKeys.SelectedItems[0] as EntityKeyMetadataViewItem);
+            }
+
+            return result;
+        }
+
+        private List<EntityKeyMetadataViewItem> GetSelectedEntityKeys()
+        {
+            List<EntityKeyMetadataViewItem> result = this.lstVwEntityKeys.SelectedItems.OfType<EntityKeyMetadataViewItem>().ToList();
+
+            return result;
+        }
+
         #region Кнопки открытия других форм с информация о сущности.
+
+        private async void btnCreateMetadataFile_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            IEnumerable<EntityMetadata> entityMetadataList = null;
+
+            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
+            {
+                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId].Select(i => i.EntityMetadata).ToList();
+            }
+
+            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList, null);
+        }
+
+        private async void btnEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+        }
 
         private async void btnExportRibbon_Click(object sender, RoutedEventArgs e)
         {
@@ -443,32 +609,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
             {
-                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
+                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId].Select(i => i.EntityMetadata).ToList();
             }
 
-            WindowHelper.OpenEntityRibbonWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, entityMetadataList);
-        }
-
-        private async void btnEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName);
-        }
-
-        private async void btnEntityKeyExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName);
+            WindowHelper.OpenEntityRibbonWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
         }
 
         private async void btnGlobalOptionSets_Click(object sender, RoutedEventArgs e)
@@ -516,7 +660,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty);
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnSavedQuery_Click(object sender, RoutedEventArgs e)
@@ -527,7 +671,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty);
+            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnSavedChart_Click(object sender, RoutedEventArgs e)
@@ -538,7 +682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty);
+            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnWorkflows_Click(object sender, RoutedEventArgs e)
@@ -549,7 +693,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty);
+            WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnAttributesDependentComponent_Click(object sender, RoutedEventArgs e)
@@ -564,10 +708,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
             {
-                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
+                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId].Select(i => i.EntityMetadata).ToList();
             }
 
-            WindowHelper.OpenAttributesDependentComponentWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, entityMetadataList);
+            WindowHelper.OpenAttributesDependentComponentWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
         }
 
         private async void btnPluginTree_Click(object sender, RoutedEventArgs e)
@@ -578,7 +722,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName);
+            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnMessageTree_Click(object sender, RoutedEventArgs e)
@@ -589,7 +733,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName);
+            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
@@ -600,7 +744,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName);
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)
@@ -649,7 +793,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.EntityLogicalName);
+            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.LogicalName);
         }
 
         private async void btnCompareSavedQuery_Click(object sender, RoutedEventArgs e)
@@ -660,7 +804,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.EntityLogicalName);
+            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.LogicalName);
         }
 
         private async void btnCompareSavedChart_Click(object sender, RoutedEventArgs e)
@@ -671,7 +815,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.EntityLogicalName);
+            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.LogicalName);
         }
 
         private async void btnCompareWorkflows_Click(object sender, RoutedEventArgs e)
@@ -682,7 +826,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.EntityLogicalName);
+            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.LogicalName);
         }
 
         #endregion Кнопки открытия других форм с информация о сущности.
@@ -692,273 +836,73 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void btnCreateCSharpFile_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteActionAsync(entity.EntityLogicalName, CreateEntityMetadataFileAsync);
-        }
-
         private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as EntityMetadataListViewItem;
 
-                if (item != null)
-                {
-                    ExecuteActionAsync(item.EntityLogicalName, CreateEntityMetadataFileAsync);
-                }
             }
         }
 
-        private async Task ExecuteActionAsync(string entityName, Func<string, Task> action)
-        {
-            string folder = txtBFolder.Text.Trim();
-
-            if (!_controlsEnabled)
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(folder))
-            {
-                return;
-            }
-
-            if (!Directory.Exists(folder))
-            {
-                return;
-            }
-
-            await action(entityName);
-        }
-
-        private async Task CreateEntityMetadataFileAsync(string entityName)
-        {
-            ToggleControls(false, "Creating File...");
-
-            try
-            {
-                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
-
-                var config = new CreateFileWithEntityMetadataCSharpConfiguration(
-                    entityName
-                    , txtBFolder.Text.Trim()
-                    , tabSpacer
-                    , chBAttributes.IsChecked.GetValueOrDefault()
-                    , chBStatus.IsChecked.GetValueOrDefault()
-                    , chBLocalOptionSets.IsChecked.GetValueOrDefault()
-                    , chBGlobalOptionSets.IsChecked.GetValueOrDefault()
-                    , chBOneToMany.IsChecked.GetValueOrDefault()
-                    , chBManyToOne.IsChecked.GetValueOrDefault()
-                    , chBManyToMany.IsChecked.GetValueOrDefault()
-                    , chBKeys.IsChecked.GetValueOrDefault()
-                    , chBAllDescriptions.IsChecked.GetValueOrDefault()
-                    , chBWithDependentComponents.IsChecked.GetValueOrDefault()
-                    , chBIntoSchemaClass.IsChecked.GetValueOrDefault()
-                    , chBWithManagedInfo.IsChecked.GetValueOrDefault()
-                    , _commonConfig.ConstantType
-                    , _commonConfig.OptionSetExportType
-                    );
-
-                this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-                var service = await GetService();
-
-                string filePath = string.Empty;
-
-                using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
-                {
-                    string fileName = null;
-
-                    if (!string.IsNullOrEmpty(_filePath))
-                    {
-                        fileName = Path.GetFileName(_filePath);
-                    }
-
-                    filePath = await handler.CreateFileAsync(fileName);
-                }
-
-                this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
-
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-
-                this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-                ToggleControls(true, "File is created.");
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "Creating File failed.");
-            }
-        }
-
-        private void btnCreateJavaScriptFile_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteActionAsync(entity.EntityLogicalName, CreateEntityMetadataFileJSAsync);
-        }
-
-        private async Task CreateEntityMetadataFileJSAsync(string entityName)
+        private async Task ExecuteActionAsync(IEnumerable<string> entityNames, Func<IEnumerable<string>, Task> action)
         {
             if (!_controlsEnabled)
             {
                 return;
             }
 
-            string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
-
-            var config = new CreateFileWithEntityMetadataJavaScriptConfiguration(
-                entityName
-                , txtBFolder.Text.Trim()
-                , tabSpacer
-                , chBWithDependentComponents.IsChecked.GetValueOrDefault()
-                );
-
-            ToggleControls(false, "Creating File...");
-
-            this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            try
-            {
-                var service = await GetService();
-
-                using (var handler = new CreateFileWithEntityMetadataJavaScriptHandler(config, service, _iWriteToOutput))
-                {
-                    string filePath = await handler.CreateFileAsync();
-
-                    this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
-
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-                }
-
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-
-                this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-                ToggleControls(true, "File is created.");
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "File creation failed.");
-            }
-        }
-
-        private void btnExportEntityXml_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteActionAsync(entity.EntityLogicalName, CreateEntityXmlFileAsync);
+            await action(entityNames);
         }
 
         private void btnPublishEntity_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entityList = GetSelectedEntities();
 
-            if (entity == null)
+            if (entityList == null || !entityList.Any())
             {
                 return;
             }
 
-            ExecuteActionAsync(entity.EntityLogicalName, PublishEntityAsync);
+            ExecuteActionAsync(entityList.Select(item => item.LogicalName).ToList(), PublishEntityAsync);
         }
 
-        private async Task CreateEntityXmlFileAsync(string entityName)
+        private async Task PublishEntityAsync(IEnumerable<string> entityNames)
         {
             if (!_controlsEnabled)
             {
                 return;
             }
 
-            ToggleControls(false, "Creating File...");
+            ToggleControls(false, "Publishing Entities: {0}...", entityNames.Count());
 
-            this._iWriteToOutput.WriteToOutput("Start getting file with Entity Xml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            try
-            {
-                var service = await GetService();
-
-                var repository = new EntityMetadataRepository(service);
-
-                var fileName = string.Format("{0}.{1} - EntityXml at {2}.xml", service.ConnectionData.Name, entityName, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-                string filePath = Path.Combine(txtBFolder.Text.Trim(), FileOperations.RemoveWrongSymbols(fileName));
-
-                await repository.ExportEntityXmlAsync(entityName, filePath);
-
-                this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with EntityXml: {1}", entityName, filePath);
-
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-
-                this._iWriteToOutput.WriteToOutput("End getting file with Entity Xml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-                ToggleControls(true, "File is created.");
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "File creation failed.");
-            }
-        }
-
-        private async Task PublishEntityAsync(string entityName)
-        {
-            if (!_controlsEnabled)
-            {
-                return;
-            }
-
-            ToggleControls(false, "Publishing Entity {0}...", entityName);
-
-            this._iWriteToOutput.WriteToOutput("Start publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            var entityNamesOrdered = string.Join(",", entityNames.OrderBy(s => s));
 
             try
             {
+                this._iWriteToOutput.WriteToOutput("Start publishing entities {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
                 var service = await GetService();
 
                 var repository = new PublishActionsRepository(service);
 
-                await repository.PublishEntitiesAsync(new[] { entityName });
+                await repository.PublishEntitiesAsync(entityNames);
 
-                this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, "Entity {0} published", entityName);
+                ToggleControls(true, "Entities {0} published", entityNamesOrdered);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Publish Entity {0} failed", entityName);
+                ToggleControls(true, "Publish Entity {0} failed", entityNamesOrdered);
             }
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ShowExistingEntityKeys();
+
             UpdateButtonsEnable();
         }
 
@@ -993,6 +937,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void mIOpenEntityKeyInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            var entityKey = GetSelectedEntityKey();
+
+            if (entity == null || entityKey == null)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenEntityKeyMetadataInWeb(entity.EntityMetadata.MetadataId.Value, entityKey.EntityKeyMetadata.MetadataId.Value);
+            }
+        }
+
         private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -1006,24 +969,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                connectionData.OpenEntityListInWeb(entity.EntityLogicalName);
-            }
-        }
-
-        private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-
-            if (connectionData != null)
-            {
-                connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.Entity, entity.EntityMetadata.MetadataId.Value);
+                connectionData.OpenEntityListInWeb(entity.LogicalName);
             }
         }
 
@@ -1045,9 +991,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void AddIntoSolution(bool withSelect, string solutionUniqueName)
         {
-            var entity = GetSelectedEntity();
+            var entityList = GetSelectedEntities();
 
-            if (entity == null)
+            if (entityList == null || !entityList.Any())
             {
                 return;
             }
@@ -1071,7 +1017,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         var contr = new SolutionController(this._iWriteToOutput);
 
-                        contr.ExecuteAddingComponentesIntoSolution(connectionData, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entity.EntityMetadata.MetadataId.Value }, null, withSelect);
+                        contr.ExecuteAddingComponentesIntoSolution(connectionData, _commonConfig, solutionUniqueName, ComponentType.Entity, entityList.Select(item => item.EntityMetadata.MetadataId.Value).ToList(), null, withSelect);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                });
+
+                backWorker.Start();
+            }
+        }
+
+        private void AddEntityKeyIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        {
+            AddEntityKeyIntoSolution(true, null);
+        }
+
+        private void AddEntityKeyIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+               )
+            {
+                AddEntityKeyIntoSolution(false, solutionUniqueName);
+            }
+        }
+
+        private void AddEntityKeyIntoSolution(bool withSelect, string solutionUniqueName)
+        {
+            var entityKeyList = GetSelectedEntityKeys();
+
+            if (entityKeyList == null || !entityKeyList.Any())
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            if (connectionData != null)
+            {
+                var backWorker = new Thread(() =>
+                {
+                    try
+                    {
+                        this._iWriteToOutput.ActivateOutputWindow();
+
+                        var contr = new SolutionController(this._iWriteToOutput);
+
+                        contr.ExecuteAddingComponentesIntoSolution(connectionData, _commonConfig, solutionUniqueName, ComponentType.EntityKey, entityKeyList.Select(item => item.EntityKeyMetadata.MetadataId.Value).ToList(), null, withSelect);
                     }
                     catch (Exception ex)
                     {
@@ -1097,6 +1099,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 });
 
                 FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+            }
+        }
+
+        private void ContextMenuEntityKey_Opened(object sender, RoutedEventArgs e)
+        {
+            if (sender is ContextMenu contextMenu)
+            {
+                var items = contextMenu.Items.OfType<Control>();
+
+                ConnectionData connectionData = null;
+
+                cmBCurrentConnection.Dispatcher.Invoke(() =>
+                {
+                    connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+                });
+
+                FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+            }
+        }
+
+        private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.Entity, entity.EntityMetadata.MetadataId.Value);
             }
         }
 
@@ -1139,6 +1175,62 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
+        private void mIEntityKeyOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entityKey = GetSelectedEntityKey();
+
+            if (entityKey == null)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.EntityKey, entityKey.EntityKeyMetadata.MetadataId.Value);
+            }
+        }
+
+        private async void mIEntityKeyOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var entityKey = GetSelectedEntityKey();
+
+            if (entityKey == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+            var descriptor = await GetDescriptor();
+
+            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, descriptor, _commonConfig, (int)ComponentType.EntityKey, entityKey.EntityKeyMetadata.MetadataId.Value, null);
+        }
+
+        private async void mIEntityKeyOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var entityKey = GetSelectedEntityKey();
+
+            if (entityKey == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenExplorerSolutionWindow(
+                _iWriteToOutput
+                , service
+                , _commonConfig
+                , (int)ComponentType.EntityKey
+                , entityKey.EntityKeyMetadata.MetadataId.Value
+            );
+        }
+
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_init > 0)
@@ -1148,7 +1240,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Dispatcher.Invoke(() =>
             {
-                this._itemsSource.Clear();
+                this._itemsSourceEntityList.Clear();
+                this._itemsSourceEntityKeyList.Clear();
             });
 
             if (!_controlsEnabled)
@@ -1163,6 +1256,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 UpdateButtonsEnable();
 
                 ShowExistingEntities();
+            }
+        }
+
+        private void mIClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            if (connectionData != null)
+            {
+                _cacheEntityMetadata.Remove(connectionData.ConnectionId);
+
+                UpdateButtonsEnable();
+
+                ShowExistingEntities();
+            }
+        }
+
+        private void mIClearEntityKeyCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            if (connectionData != null)
+            {
+                _cacheEntityKeyMetadata.Remove(connectionData.ConnectionId);
+
+                UpdateButtonsEnable();
+
+                ShowExistingEntityKeys();
             }
         }
     }

@@ -3930,7 +3930,13 @@
           <ButtonText>Entity Attribute Explorer</ButtonText>
         </Strings>
       </Button>
-
+      <Button guid="guidCommandSet" id="CommonEntityKeyExplorerCommandId" priority="0x0101" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Entity Key Explorer</ButtonText>
+        </Strings>
+      </Button>
+      
 
 
       <Button guid="guidCommandSet" id="CommonExportAttributesAndDependentComponentsCommandId" priority="0x011D" type="Button">
@@ -6063,6 +6069,10 @@
     <CommandPlacement guid="guidCommandSet" id="CommonEntityAttributeExplorerCommandId" priority="0x0102">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupRibbon" />
     </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonEntityKeyExplorerCommandId" priority="0x0102">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupRibbon" />
+    </CommandPlacement>
+    
     <CommandPlacement guid="guidCommandSet" id="CommonExportRibbonXmlCommandId" priority="0x011E">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupRibbon" />
     </CommandPlacement>
@@ -8668,6 +8678,8 @@
       <IDSymbol name="CommonExportEntityMetadataCommandId" value="0x202F" />
 
       <IDSymbol name="CommonEntityAttributeExplorerCommandId" value="0x2165" />
+      <IDSymbol name="CommonEntityKeyExplorerCommandId" value="0x2172" />
+      
 
       <IDSymbol name="CommonExportAttributesAndDependentComponentsCommandId" value="0x2030" />
 
@@ -9030,7 +9042,7 @@
 
 
 
-      <!--0x2172-->
+      <!--0x2173-->
 
     </GuidSymbol>
 

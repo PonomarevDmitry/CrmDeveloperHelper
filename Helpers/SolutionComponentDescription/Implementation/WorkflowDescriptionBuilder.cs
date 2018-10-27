@@ -143,7 +143,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 if (withUrls)
                 {
-                    builder.AppendFormat("    Url {0}", _service.ConnectionData?.GetSolutionComponentUrl(ComponentType.Workflow, workflow.Id, null, null));
+                    builder.AppendFormat("    Url {0}", _service.UrlGenerator?.GetSolutionComponentUrl(ComponentType.Workflow, workflow.Id));
                 }
 
                 return builder.ToString();
@@ -223,7 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
                 , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
                 , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                , withUrls ? _service.ConnectionData?.GetSolutionComponentUrl(ComponentType.Workflow, entity.Id, null, null) : string.Empty
+                , withUrls ? _service.UrlGenerator?.GetSolutionComponentUrl(ComponentType.Workflow, entity.Id) : string.Empty
             );
         }
 

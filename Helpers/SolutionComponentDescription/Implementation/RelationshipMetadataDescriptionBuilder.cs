@@ -165,7 +165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                             if (entityMetadata != null)
                             {
-                                url = _source.Service.ConnectionData?.GetRelationshipMetadataUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value);
+                                url = _source.Service.ConnectionData?.GetRelationshipMetadataRelativeUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value);
                             }
                         }
 
@@ -195,7 +195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                             if (entityMetadata != null)
                             {
-                                url = _source.Service.ConnectionData?.GetRelationshipMetadataUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value);
+                                url = _source.Service.ConnectionData?.GetRelationshipMetadataRelativeUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value);
                             }
                         }
 
@@ -252,7 +252,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         , refEntity
                         , relationship.SchemaName
                         , relationship.IsManaged.ToString()
-                        , withUrls ? string.Format("    Url {0}", _source.Service.ConnectionData.GetRelationshipMetadataUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value)) : string.Empty
+                        , withUrls ? string.Format("    Url {0}", _source.Service.ConnectionData.GetRelationshipMetadataRelativeUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value)) : string.Empty
                         );
                 }
                 else if (metaData is ManyToManyRelationshipMetadata)
@@ -268,7 +268,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         , "Many to Many"
                         , relationship.SchemaName
                         , relationship.IsManaged.ToString()
-                        , withUrls ? string.Format("    Url {0}", _source.Service.ConnectionData.GetRelationshipMetadataUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value)) : string.Empty
+                        , withUrls ? string.Format("    Url {0}", _source.Service.ConnectionData.GetRelationshipMetadataRelativeUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value)) : string.Empty
                         );
                 }
             }

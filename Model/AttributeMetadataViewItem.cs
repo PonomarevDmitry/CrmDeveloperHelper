@@ -1,18 +1,12 @@
-﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
     public class AttributeMetadataViewItem : INotifyPropertyChanging, INotifyPropertyChanged
     {
-        private static string[] _names = 
+        private static readonly string[] _names =
         {
             nameof(IsChanged)
             , nameof(IsGlobalFilterEnabled)
@@ -189,10 +183,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         private bool _IsChanged = false;
         public bool IsChanged
         {
-            get
-            {
-                return _IsChanged;
-            }
+            get => _IsChanged;
             set
             {
                 if (_IsChanged == value)
@@ -210,10 +201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool IsGlobalFilterEnabled
         {
-            get
-            {
-                return (AttributeMetadata.IsGlobalFilterEnabled?.Value).GetValueOrDefault();
-            }
+            get => (AttributeMetadata.IsGlobalFilterEnabled?.Value).GetValueOrDefault();
             set
             {
                 if (AttributeMetadata.IsGlobalFilterEnabled == null || !AttributeMetadata.IsGlobalFilterEnabled.CanBeChanged)
@@ -231,10 +219,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool IsSortableEnabled
         {
-            get
-            {
-                return (AttributeMetadata.IsSortableEnabled?.Value).GetValueOrDefault();
-            }
+            get => (AttributeMetadata.IsSortableEnabled?.Value).GetValueOrDefault();
             set
             {
                 if (AttributeMetadata.IsSortableEnabled == null || !AttributeMetadata.IsSortableEnabled.CanBeChanged)
@@ -252,10 +237,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool IsCustomizable
         {
-            get
-            {
-                return (AttributeMetadata.IsCustomizable?.Value).GetValueOrDefault();
-            }
+            get => (AttributeMetadata.IsCustomizable?.Value).GetValueOrDefault();
             set
             {
                 if (AttributeMetadata.IsCustomizable == null || !AttributeMetadata.IsCustomizable.CanBeChanged)
@@ -273,10 +255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool IsRenameable
         {
-            get
-            {
-                return (AttributeMetadata.IsRenameable?.Value).GetValueOrDefault();
-            }
+            get => (AttributeMetadata.IsRenameable?.Value).GetValueOrDefault();
             set
             {
                 if (AttributeMetadata.IsRenameable == null || !AttributeMetadata.IsRenameable.CanBeChanged)
@@ -294,10 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool IsValidForAdvancedFind
         {
-            get
-            {
-                return (AttributeMetadata.IsValidForAdvancedFind?.Value).GetValueOrDefault();
-            }
+            get => (AttributeMetadata.IsValidForAdvancedFind?.Value).GetValueOrDefault();
             set
             {
                 if (AttributeMetadata.IsValidForAdvancedFind == null || !AttributeMetadata.IsValidForAdvancedFind.CanBeChanged)
@@ -313,10 +289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool IsValidForForm
         {
-            get
-            {
-                return AttributeMetadata.IsValidForForm.GetValueOrDefault();
-            }
+            get => AttributeMetadata.IsValidForForm.GetValueOrDefault();
             set
             {
                 if (AttributeMetadata.IsValidForForm == value)
@@ -332,10 +305,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool IsRequiredForForm
         {
-            get
-            {
-                return AttributeMetadata.IsRequiredForForm.GetValueOrDefault();
-            }
+            get => AttributeMetadata.IsRequiredForForm.GetValueOrDefault();
             set
             {
                 if (AttributeMetadata.IsRequiredForForm == value)
@@ -351,10 +321,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool IsValidForGrid
         {
-            get
-            {
-                return AttributeMetadata.IsValidForGrid.GetValueOrDefault();
-            }
+            get => AttributeMetadata.IsValidForGrid.GetValueOrDefault();
             set
             {
                 if (AttributeMetadata.IsValidForGrid == value)
@@ -372,10 +339,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public AttributeRequiredLevel RequiredLevel
         {
-            get
-            {
-                return (AttributeMetadata.RequiredLevel?.Value).GetValueOrDefault();
-            }
+            get => (AttributeMetadata.RequiredLevel?.Value).GetValueOrDefault();
             set
             {
                 if (AttributeMetadata.RequiredLevel == null || !AttributeMetadata.RequiredLevel.CanBeChanged)
@@ -393,10 +357,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool CanModifyAdditionalSettings
         {
-            get
-            {
-                return (AttributeMetadata.CanModifyAdditionalSettings?.Value).GetValueOrDefault();
-            }
+            get => (AttributeMetadata.CanModifyAdditionalSettings?.Value).GetValueOrDefault();
             set
             {
                 if (AttributeMetadata.CanModifyAdditionalSettings == null || !AttributeMetadata.CanModifyAdditionalSettings.CanBeChanged)
@@ -412,10 +373,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool IsDataSourceSecret
         {
-            get
-            {
-                return AttributeMetadata.IsDataSourceSecret.GetValueOrDefault();
-            }
+            get => AttributeMetadata.IsDataSourceSecret.GetValueOrDefault();
             set
             {
                 if (AttributeMetadata.IsDataSourceSecret == value)
@@ -431,10 +389,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool IsSecured
         {
-            get
-            {
-                return AttributeMetadata.IsSecured.GetValueOrDefault();
-            }
+            get => AttributeMetadata.IsSecured.GetValueOrDefault();
             set
             {
                 if (AttributeMetadata.IsSecured == value)
@@ -452,10 +407,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool IsAuditEnabled
         {
-            get
-            {
-                return (AttributeMetadata.IsAuditEnabled?.Value).GetValueOrDefault();
-            }
+            get => (AttributeMetadata.IsAuditEnabled?.Value).GetValueOrDefault();
             set
             {
                 if (AttributeMetadata.IsAuditEnabled == null || !AttributeMetadata.IsAuditEnabled.CanBeChanged)

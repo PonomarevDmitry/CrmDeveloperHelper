@@ -12,26 +12,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
     /// </summary>
     public class MainController
     {
-        private IWriteToOutputAndPublishList _iWriteToOutputAndPublishList = null;
+        private readonly IWriteToOutputAndPublishList _iWriteToOutputAndPublishList;
 
-        private PublishController _publishController = null;
-        private CompareController _compareController = null;
-        private DifferenceController _differenceController = null;
-        private DownloadController _downloadController = null;
-        private CheckController _checkController = null;
-        private ExportXmlController _exportXmlController = null;
-        private PluginTreeController _pluginTreeController = null;
-        private SolutionController _solutionController = null;
-        private EntityMetadataController _entityMetadataController = null;
-        private ExportPluginConfigurationController _exportPluginConfigurationController = null;
-        private CheckPluginController _checkPluginController = null;
-        private PluginTypeDescriptionController _pluginTypeDescriptionController = null;
-        private ExportSolutionController _exportSolutionController = null;
-        private CrmSvcUtilController _crmSvcUtilController = null;
-        private CheckManagedEntitiesController _checkManagedEntitiesController = null;
-        private OpenFilesController _openFilesController;
-        private ReportController _reportController;
-        private LinkController _linkController;
+        private readonly PublishController _publishController;
+        private readonly CompareController _compareController;
+        private readonly DifferenceController _differenceController;
+        private readonly DownloadController _downloadController;
+        private readonly CheckController _checkController;
+        private readonly ExportXmlController _exportXmlController;
+        private readonly PluginTreeController _pluginTreeController;
+        private readonly SolutionController _solutionController;
+        private readonly EntityMetadataController _entityMetadataController;
+        private readonly ExportPluginConfigurationController _exportPluginConfigurationController;
+        private readonly CheckPluginController _checkPluginController;
+        private readonly PluginTypeDescriptionController _pluginTypeDescriptionController;
+        private readonly ExportSolutionController _exportSolutionController;
+        private readonly CrmSvcUtilController _crmSvcUtilController;
+        private readonly CheckManagedEntitiesController _checkManagedEntitiesController;
+        private readonly OpenFilesController _openFilesController;
+        private readonly ReportController _reportController;
+        private readonly LinkController _linkController;
 
         /// <summary>
         /// Конструктор контроллера для публикации
@@ -803,6 +803,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._entityMetadataController.ExecuteOpeningEntityAttributeExplorer(selection, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartOpenEntityKeyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteOpeningEntityKeyExplorer(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

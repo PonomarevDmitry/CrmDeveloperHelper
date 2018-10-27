@@ -31,6 +31,7 @@
             <Separator/>
             <MenuItem Header="Get Other Entity Information">
                 <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                 <Separator/>
                 <MenuItem Header="Ribbon" Click="btnExportRibbon_Click"/>
                 <Separator/>
@@ -72,6 +73,7 @@
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem Header="Open Entity Information" VerticalAlignment="Center">
                     <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                     <Separator/>
                     <MenuItem Header="Ribbon" Click="btnExportRibbon_Click" />
                     <Separator/>

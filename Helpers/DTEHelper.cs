@@ -191,15 +191,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public static void WriteExceptionToOutput(Exception ex)
+        public static void WriteExceptionToOutput(Exception ex, string message = null, params object[] args)
         {
             if (Singleton != null)
             {
-                Singleton.WriteErrorToOutput(ex);
+                Singleton.WriteErrorToOutput(ex, message, args);
             }
             else
             {
-                WriteExceptionToLog(ex);
+                WriteExceptionToLog(ex, message, args);
             }
         }
 
@@ -222,7 +222,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     Log.Info(message);
                 }
-               
+
                 Log.Error(ex, description);
                 Log.Info(new string('-', 150));
             }
@@ -833,15 +833,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return str.ToString();
         }
 
-        public void WriteErrorToOutput(Exception ex)
+        public void WriteErrorToOutput(Exception ex, string message = null, params object[] args)
         {
             var description = GetExceptionDescription(ex);
+
+            if (!string.IsNullOrEmpty(message) && args != null && args.Length > 0)
+            {
+                message = string.Format(message, args);
+            }
 
             if (!_logExceptions.TryGetValue(ex, out _))
             {
                 _logExceptions.Add(ex, new object());
 
                 Log.Info(new string('-', 150));
+
+                if (!string.IsNullOrEmpty(message))
+                {
+                    Log.Info(message);
+                }
+
                 Log.Error(ex, description);
                 Log.Info(new string('-', 150));
             }
@@ -853,6 +864,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.WriteToOutput(string.Empty);
 
                 this.WriteToOutput(new string('-', 150));
+
+                if (!string.IsNullOrEmpty(message))
+                {
+                    Log.Info(message);
+                }
+
                 this.WriteToOutput(description);
                 this.WriteToOutput(new string('-', 150));
 
@@ -1602,7 +1619,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     switch (action)
                     {
                         case ActionOpenComponent.OpenInWeb:
-                            connectionData.OpenSolutionComponentInWeb(Entities.ComponentType.Report, objectId.Value, null, null);
+                            connectionData.OpenEntityInstanceInWeb(Entities.Report.EntityLogicalName, objectId.Value);
                             return;
 
                         case ActionOpenComponent.OpenDependentComponentsInWeb:
@@ -1840,7 +1857,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     switch (action)
                     {
                         case ActionOpenComponent.OpenInWeb:
-                            connectionData.OpenSolutionComponentInWeb(Entities.ComponentType.WebResource, objectId.Value, null, null);
+                            connectionData.OpenEntityInstanceInWeb(Entities.WebResource.EntityLogicalName, objectId.Value);
                             return;
 
                         case ActionOpenComponent.OpenDependentComponentsInWeb:
@@ -2901,6 +2918,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 try
                 {
                     Controller.StartOpenEntityAttributeExplorer(selection, crmConfig.CurrentConnectionData, commonConfig);
+                }
+                catch (Exception xE)
+                {
+                    WriteErrorToOutput(xE);
+                }
+            }
+        }
+
+        public void HandleOpenEntityKeyExplorer()
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            string selection = GetSelectedText();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow();
+                WriteToOutputEmptyLines(commonConfig);
+
+                try
+                {
+                    Controller.StartOpenEntityKeyExplorer(selection, crmConfig.CurrentConnectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {

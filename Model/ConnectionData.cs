@@ -1,4 +1,3 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
 using System;
 using System.Collections.Concurrent;
@@ -15,7 +14,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
     /// Данные для сохранения веб-ресурсов в CRM
     /// </summary>
     [DataContract]
-    public class ConnectionData : INotifyPropertyChanging, INotifyPropertyChanged
+    public partial class ConnectionData : INotifyPropertyChanging, INotifyPropertyChanged
     {
         internal const int CountConnectionToQuickList = 40;
 
@@ -35,10 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool IsCurrentConnection
         {
-            get
-            {
-                return _IsCurrentConnection;
-            }
+            get => _IsCurrentConnection;
             set
             {
                 if (_IsCurrentConnection == value)
@@ -65,10 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool IsReadOnly
         {
-            get
-            {
-                return _IsReadOnly;
-            }
+            get => _IsReadOnly;
             set
             {
                 if (_IsReadOnly == value)
@@ -89,10 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string Name
         {
-            get
-            {
-                return _Name;
-            }
+            get => _Name;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -120,10 +110,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string GroupName
         {
-            get
-            {
-                return _GroupName;
-            }
+            get => _GroupName;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -145,10 +132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string DiscoveryUrl
         {
-            get
-            {
-                return _DiscoveryUrl;
-            }
+            get => _DiscoveryUrl;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -174,10 +158,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string UniqueOrgName
         {
-            get
-            {
-                return _UniqueOrgName;
-            }
+            get => _UniqueOrgName;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -203,10 +184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string OrganizationUrl
         {
-            get
-            {
-                return _OrganizationUrl;
-            }
+            get => _OrganizationUrl;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -232,10 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string PublicUrl
         {
-            get
-            {
-                return _PublicUrl;
-            }
+            get => _PublicUrl;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -261,10 +236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string OrganizationVersion
         {
-            get
-            {
-                return _OrganizationVersion;
-            }
+            get => _OrganizationVersion;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -287,10 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string FriendlyName
         {
-            get
-            {
-                return _FriendlyName;
-            }
+            get => _FriendlyName;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -315,10 +284,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public Guid? OrganizationId
         {
-            get
-            {
-                return _OrganizationId;
-            }
+            get => _OrganizationId;
             set
             {
                 if (_OrganizationId == value)
@@ -338,10 +304,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string OrganizationState
         {
-            get
-            {
-                return _OrganizationState;
-            }
+            get => _OrganizationState;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -366,10 +329,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string UrlName
         {
-            get
-            {
-                return _UrlName;
-            }
+            get => _UrlName;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -394,10 +354,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string DefaultLanguage
         {
-            get
-            {
-                return _DefaultLanguage;
-            }
+            get => _DefaultLanguage;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -422,10 +379,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string InstalledLanguagePacks
         {
-            get
-            {
-                return _InstalledLanguagePacks;
-            }
+            get => _InstalledLanguagePacks;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -450,10 +404,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string BaseCurrency
         {
-            get
-            {
-                return _BaseCurrency;
-            }
+            get => _BaseCurrency;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -481,10 +432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string NameSpaceClasses
         {
-            get
-            {
-                return _NameSpaceClasses;
-            }
+            get => _NameSpaceClasses;
             set
             {
                 this.OnPropertyChanging(nameof(NameSpaceClasses));
@@ -503,10 +451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string NameSpaceOptionSets
         {
-            get
-            {
-                return _NameSpaceOptionSets;
-            }
+            get => _NameSpaceOptionSets;
             set
             {
                 this.OnPropertyChanging(nameof(NameSpaceOptionSets));
@@ -525,10 +470,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string ServiceContextName
         {
-            get
-            {
-                return _ServiceContextName;
-            }
+            get => _ServiceContextName;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -552,10 +494,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool InteractiveLogin
         {
-            get
-            {
-                return _InteractiveLogin;
-            }
+            get => _InteractiveLogin;
             set
             {
                 if (_InteractiveLogin == value)
@@ -573,10 +512,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool GenerateActions
         {
-            get
-            {
-                return _GenerateActions;
-            }
+            get => _GenerateActions;
             set
             {
                 if (_GenerateActions == value)
@@ -594,10 +530,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public Guid? SelectedCrmSvcUtil
         {
-            get
-            {
-                return _SelectedCrmSvcUtil;
-            }
+            get => _SelectedCrmSvcUtil;
             set
             {
                 if (_SelectedCrmSvcUtil == value)
@@ -615,10 +548,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string SelectSolutionFilter
         {
-            get
-            {
-                return _SelectSolutionFilter;
-            }
+            get => _SelectSolutionFilter;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -641,10 +571,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string ExplorerSolutionFilter
         {
-            get
-            {
-                return _ExplorerSolutionFilter;
-            }
+            get => _ExplorerSolutionFilter;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -667,10 +594,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string ExportSolutionFilter
         {
-            get
-            {
-                return _ExportSolutionFilter;
-            }
+            get => _ExportSolutionFilter;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -693,10 +617,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string ExportSolutionFolder
         {
-            get
-            {
-                return _ExportSolutionFolder;
-            }
+            get => _ExportSolutionFolder;
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -721,10 +642,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSolutionOverrideSolutionNameAndVersion
         {
-            get
-            {
-                return _ExportSolutionOverrideSolutionNameAndVersion;
-            }
+            get => _ExportSolutionOverrideSolutionNameAndVersion;
             set
             {
                 if (_ExportSolutionOverrideSolutionNameAndVersion == value)
@@ -742,10 +660,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSolutionOverrideSolutionDescription
         {
-            get
-            {
-                return _ExportSolutionOverrideSolutionDescription;
-            }
+            get => _ExportSolutionOverrideSolutionDescription;
             set
             {
                 if (_ExportSolutionOverrideSolutionDescription == value)
@@ -763,10 +678,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSolutionCreateFolderForVersion
         {
-            get
-            {
-                return _ExportSolutionCreateFolderForVersion;
-            }
+            get => _ExportSolutionCreateFolderForVersion;
             set
             {
                 if (_ExportSolutionCreateFolderForVersion == value)
@@ -784,10 +696,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSolutionCopyFileToClipBoard
         {
-            get
-            {
-                return _ExportSolutionCopyFileToClipBoard;
-            }
+            get => _ExportSolutionCopyFileToClipBoard;
             set
             {
                 if (_ExportSolutionCopyFileToClipBoard == value)
@@ -805,10 +714,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string ExportSolutionOverrideUniqueName
         {
-            get
-            {
-                return _ExportSolutionOverrideUniqueName;
-            }
+            get => _ExportSolutionOverrideUniqueName;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -831,10 +737,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string ExportSolutionOverrideDisplayName
         {
-            get
-            {
-                return _ExportSolutionOverrideDisplayName;
-            }
+            get => _ExportSolutionOverrideDisplayName;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -857,10 +760,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string ExportSolutionOverrideVersion
         {
-            get
-            {
-                return _ExportSolutionOverrideVersion;
-            }
+            get => _ExportSolutionOverrideVersion;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -883,10 +783,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string ExportSolutionOverrideDescription
         {
-            get
-            {
-                return _ExportSolutionOverrideDescription;
-            }
+            get => _ExportSolutionOverrideDescription;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -909,10 +806,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string TraceReaderFilter
         {
-            get
-            {
-                return _TraceReaderFilter;
-            }
+            get => _TraceReaderFilter;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -935,10 +829,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string TraceReaderFolder
         {
-            get
-            {
-                return _TraceReaderFolder;
-            }
+            get => _TraceReaderFolder;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -970,10 +861,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public Guid? UserId
         {
-            get
-            {
-                return _UserId;
-            }
+            get => _UserId;
             set
             {
                 if (_UserId == value)
@@ -998,7 +886,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public ConnectionUserData User
         {
-            get { return _user; }
+            get => _user;
             set
             {
                 if (_user == value)
@@ -1178,24 +1066,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public ConnectionData CreateCopy()
         {
-            ConnectionData result = new ConnectionData();
+            ConnectionData result = new ConnectionData
+            {
+                GroupName = this.GroupName,
 
-            result.GroupName = this.GroupName;
+                DiscoveryUrl = this.DiscoveryUrl,
+                OrganizationUrl = this.OrganizationUrl,
+                UniqueOrgName = this.UniqueOrgName,
 
-            result.DiscoveryUrl = this.DiscoveryUrl;
-            result.OrganizationUrl = this.OrganizationUrl;
-            result.UniqueOrgName = this.UniqueOrgName;
+                NameSpaceClasses = this.NameSpaceClasses,
+                NameSpaceOptionSets = this.NameSpaceOptionSets,
+                ServiceContextName = this.ServiceContextName,
 
-            result.NameSpaceClasses = this.NameSpaceClasses;
-            result.NameSpaceOptionSets = this.NameSpaceOptionSets;
-            result.ServiceContextName = this.ServiceContextName;
+                ConnectionConfiguration = this.ConnectionConfiguration,
 
-            result.ConnectionConfiguration = this.ConnectionConfiguration;
+                UserId = this.UserId,
+                User = this.User,
 
-            result.UserId = this.UserId;
-            result.User = this.User;
-
-            result.ConnectionId = Guid.NewGuid();
+                ConnectionId = Guid.NewGuid()
+            };
 
             return result;
         }
@@ -1769,625 +1658,5 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             this.IntellisenseData.Save();
         }
-
-        #region Генерация url-адресов.
-
-        private static bool IsValidUri(string url)
-        {
-            if (string.IsNullOrEmpty(url))
-            {
-                return false;
-            }
-
-            if (!Uri.IsWellFormedUriString(url, UriKind.Absolute))
-            {
-                return false;
-            }
-
-            Uri tmp;
-
-            if (!Uri.TryCreate(url, UriKind.Absolute, out tmp))
-            {
-                return false;
-            }
-
-            return tmp.Scheme == Uri.UriSchemeHttp || tmp.Scheme == Uri.UriSchemeHttps;
-        }
-
-        private bool TryGetPublicUrl(out string uri)
-        {
-            uri = null;
-
-            if (string.IsNullOrEmpty(this.PublicUrl))
-            {
-                return false;
-            }
-
-            uri = this.PublicUrl.TrimEnd('/');
-
-            return true;
-        }
-
-        public void OpenCrmWebSite(OpenCrmWebSiteType crmWebSiteType)
-        {
-            if (!TryGetPublicUrl(out string publicUrl))
-            {
-                return;
-            }
-
-            string relativeUrl = string.Empty;
-
-            if (crmWebSiteType != OpenCrmWebSiteType.CrmWebApplication)
-            {
-                relativeUrl = GetRelativeUrl(crmWebSiteType);
-
-                if (!string.IsNullOrEmpty(relativeUrl))
-                {
-                    relativeUrl = '/' + relativeUrl.TrimStart('/');
-                }
-            }
-
-            var uri = publicUrl.TrimEnd('/') + relativeUrl;
-
-            if (!IsValidUri(uri)) return;
-
-            System.Diagnostics.Process.Start(uri);
-        }
-
-        private string GetRelativeUrl(OpenCrmWebSiteType crmWebSiteType)
-        {
-            switch (crmWebSiteType)
-            {
-                case OpenCrmWebSiteType.AdvancedFind:
-                    return "/main.aspx?pagetype=advancedfind";
-
-                case OpenCrmWebSiteType.Solutions:
-                    //return "/tools/systemcustomization/systemCustomization.aspx?pid=11&web=true";
-                    return "/tools/Solution/home_solution.aspx?etc=7100";
-
-                case OpenCrmWebSiteType.Customization:
-                    return "/tools/systemcustomization/systemCustomization.aspx";
-
-                case OpenCrmWebSiteType.SystemUsers:
-                    return GetEntityListRelativeUrl(SystemUser.EntityLogicalName);
-
-                case OpenCrmWebSiteType.Teams:
-                    return GetEntityListRelativeUrl(Team.EntityLogicalName);
-
-                case OpenCrmWebSiteType.Roles:
-                    return GetEntityListRelativeUrl(Role.EntityLogicalName);
-
-                case OpenCrmWebSiteType.Security:
-                    return "/tools/AdminSecurity/adminsecurity_area.aspx";
-
-                case OpenCrmWebSiteType.Workflows:
-                    return GetEntityListRelativeUrl(Workflow.EntityLogicalName);
-
-                case OpenCrmWebSiteType.SystemJobs:
-                    return "/tools/business/home_asyncoperation.aspx";
-
-                case OpenCrmWebSiteType.Audit:
-                    return "/tools/audit/audit_area.aspx";
-
-                case OpenCrmWebSiteType.Administration:
-                    return "/tools/Admin/admin.aspx";
-
-                case OpenCrmWebSiteType.EngagementHub:
-                    return "/engagementhub.aspx";
-
-                case OpenCrmWebSiteType.Business:
-                    return "/tools/business/business.aspx";
-
-                case OpenCrmWebSiteType.Templates:
-                    return "/tools/templates/templates.aspx";
-
-                case OpenCrmWebSiteType.ProductCatalog:
-                    return "/tools/productcatalog/productcatalog.aspx";
-
-                case OpenCrmWebSiteType.ServiceManagement:
-                    return "/tools/servicemanagement/servicemanagement.aspx";
-
-                case OpenCrmWebSiteType.DataManagement:
-                    return "/tools/DataManagement/datamanagement.aspx";
-
-                case OpenCrmWebSiteType.Social:
-                    return "/tools/social/social_area.aspx";
-
-                case OpenCrmWebSiteType.Calendar:
-                    return "/workplace/home_calendar.aspx";
-
-                case OpenCrmWebSiteType.MobileOffline:
-                    return "/tools/mobileoffline/mobileoffline.aspx";
-
-                case OpenCrmWebSiteType.ExternAppManagement:
-                    return "/tools/externappmanagement/externappmanagement.aspx";
-
-                case OpenCrmWebSiteType.AppsForCrm:
-                    return "/tools/appsforcrm/AppForOutlookAdminSettings.aspx";
-
-                case OpenCrmWebSiteType.RelationshipIntelligence:
-                    return "/_static/tools/RelationshipIntelligenceConfig/UnifiedConfig.html";
-
-                case OpenCrmWebSiteType.MicrosoftFlow:
-                    return "/tools/MicrosoftFlow/FlowTemplatesPage.aspx";
-
-                case OpenCrmWebSiteType.AppModule:
-                    return "/tools/AppModuleContainer/applandingtilepage.aspx";
-
-                case OpenCrmWebSiteType.AppointmentBook:
-                    return "/sm/home_apptbook.aspx";
-            }
-
-            return null;
-        }
-
-        public void OpenSolutionInWeb(Guid idSolution)
-        {
-            string uri = GetSolutionUrl(idSolution);
-
-            if (!IsValidUri(uri)) return;
-
-            System.Diagnostics.Process.Start(uri);
-        }
-
-        public string GetSolutionUrl(Guid idSolution)
-        {
-            if (!TryGetPublicUrl(out string publicUrl))
-            {
-                return null;
-            }
-
-            return publicUrl + string.Format("/tools/solution/edit.aspx?id={0}", idSolution);
-        }
-
-        public void OpenSolutionCreateInWeb()
-        {
-            if (!TryGetPublicUrl(out string publicUrl))
-            {
-                return;
-            }
-
-            string uri = publicUrl + "/tools/solution/edit.aspx";
-
-            if (!IsValidUri(uri)) return;
-
-            System.Diagnostics.Process.Start(uri);
-        }
-
-        public void OpenReportCreateInWeb()
-        {
-            if (!TryGetPublicUrl(out string publicUrl))
-            {
-                return;
-            }
-
-            string uri = publicUrl + "/CRMReports/reportproperty.aspx";
-
-            if (!IsValidUri(uri)) return;
-
-            System.Diagnostics.Process.Start(uri);
-        }
-
-        public void OpenEntityInWeb(string entityName, Guid entityId)
-        {
-            string uri = GetEntityUrl(entityName, entityId);
-
-            if (!IsValidUri(uri)) return;
-
-            System.Diagnostics.Process.Start(uri);
-        }
-
-        public void OpenEntityListInWeb(string entityName)
-        {
-            string uri = GetEntityListUrl(entityName);
-
-            if (!IsValidUri(uri)) return;
-
-            System.Diagnostics.Process.Start(uri);
-        }
-
-        public string GetEntityListUrl(string entityName)
-        {
-            //var componentType = GetSolutionComponentType(entityName);
-
-            //if (componentType.HasValue)
-            //{
-            //    var url = GetSolutionComponentUrl(componentType.Value, entityId, null, null);
-
-            //    if (!string.IsNullOrEmpty(url))
-            //    {
-            //        return url;
-            //    }
-            //}
-
-            return string.Format(GetEntityListUrlFormat(), entityName);
-        }
-
-        public string GetEntityListUrlFormat()
-        {
-            if (!TryGetPublicUrl(out string publicUrl))
-            {
-                return null;
-            }
-
-            return publicUrl + "/main.aspx?etn={0}&pagetype=entitylist";
-        }
-
-        public string GetEntityListRelativeUrl(string entityName)
-        {
-            return string.Format("/main.aspx?etn={0}&pagetype=entitylist", entityName);
-        }
-
-        public string GetEntityUrl(string entityName, Guid entityId)
-        {
-            var componentType = GetSolutionComponentType(entityName);
-
-            if (componentType.HasValue)
-            {
-                var url = GetSolutionComponentUrl(componentType.Value, entityId, null, null);
-
-                if (!string.IsNullOrEmpty(url))
-                {
-                    return url;
-                }
-            }
-
-            return string.Format(GetEntityUrlFormat(entityName), entityId);
-        }
-
-        public string GetEntityUrlFormat(string entityName)
-        {
-            if (!TryGetPublicUrl(out string publicUrl))
-            {
-                return null;
-            }
-
-            if (string.Equals(entityName, "asyncoperation", StringComparison.InvariantCultureIgnoreCase))
-            {
-                return publicUrl + "/tools/asyncoperation/edit.aspx?id={0}";
-            }
-
-            if (string.Equals(entityName, BusinessUnit.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase))
-            {
-                return publicUrl + "biz/business/edit.aspx?id={0}";
-            }
-
-            return publicUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord&id={0}";
-        }
-
-        private static ComponentType? GetSolutionComponentType(string entityName)
-        {
-            var componentTypeName = entityName;
-
-            if (string.Equals(componentTypeName, "template", StringComparison.OrdinalIgnoreCase))
-            {
-                componentTypeName = "EmailTemplate";
-            }
-
-            if (Enum.TryParse<ComponentType>(componentTypeName, true, out ComponentType componentType))
-            {
-                return componentType;
-            }
-
-            return null;
-        }
-
-        public void OpenEntityMetadataInWeb(Guid entityMetadataId)
-        {
-            string uri = GetEntityMetadataUrl(entityMetadataId);
-
-            if (!IsValidUri(uri)) return;
-
-            System.Diagnostics.Process.Start(uri);
-        }
-
-        public void OpenEntityMetadataInWeb(string entityName)
-        {
-            if (this.IntellisenseData.Entities != null
-                && this.IntellisenseData.Entities.ContainsKey(entityName)
-                && this.IntellisenseData.Entities[entityName].MetadataId.HasValue
-                )
-            {
-                OpenEntityMetadataInWeb(this.IntellisenseData.Entities[entityName].MetadataId.Value);
-            }
-        }
-
-        public Guid? GetEntityMetadataId(string entityName)
-        {
-            if (this.IntellisenseData.Entities != null
-                && this.IntellisenseData.Entities.ContainsKey(entityName)
-                && this.IntellisenseData.Entities[entityName].MetadataId.HasValue
-                )
-            {
-                return this.IntellisenseData.Entities[entityName].MetadataId.Value;
-            }
-
-            return null;
-        }
-
-        public string GetEntityMetadataUrl(Guid entityId)
-        {
-            if (!TryGetPublicUrl(out string publicUrl))
-            {
-                return null;
-            }
-
-            return publicUrl + GetSolutionComponentRelativeUrl(ComponentType.Entity, entityId, null, null);
-        }
-
-        public void OpenAttributeMetadataInWeb(Guid entityId, Guid attributeId)
-        {
-            string uri = GetAttributeMetadataUrl(entityId, attributeId);
-
-            if (!IsValidUri(uri)) return;
-
-            System.Diagnostics.Process.Start(uri);
-        }
-
-        public string GetAttributeMetadataUrl(Guid entityId, Guid attributeId)
-        {
-            if (!TryGetPublicUrl(out string publicUrl))
-            {
-                return null;
-            }
-
-            return publicUrl + $"/tools/systemcustomization/attributes/manageAttribute.aspx?attributeId={attributeId}&entityId={entityId}";
-        }
-
-        public void OpenRelationshipMetadataInWeb(Guid entityId, Guid relationId)
-        {
-            string uri = GetRelationshipMetadataUrl(entityId, relationId);
-
-            if (!IsValidUri(uri)) return;
-
-            System.Diagnostics.Process.Start(uri);
-        }
-
-        public string GetRelationshipMetadataUrl(Guid entityId, Guid relationId)
-        {
-            if (!TryGetPublicUrl(out string publicUrl))
-            {
-                return null;
-            }
-
-            return publicUrl + $"/tools/systemcustomization/relationships/manageRelationship.aspx?entityId={entityId}&entityRelationshipId={relationId}";
-        }
-
-        public void OpenGlobalOptionSetInWeb(Guid idGlobalOptionSet)
-        {
-            string uri = GetGlobalOptionSetUrl(idGlobalOptionSet);
-
-            if (!IsValidUri(uri)) return;
-
-            System.Diagnostics.Process.Start(uri);
-        }
-
-        public string GetGlobalOptionSetUrl(Guid idGlobalOptionSet)
-        {
-            if (!TryGetPublicUrl(out string publicUrl))
-            {
-                return null;
-            }
-
-            return publicUrl + GetSolutionComponentRelativeUrl(ComponentType.OptionSet, idGlobalOptionSet, null, null);
-        }
-
-        public void OpenSolutionComponentInWeb(ComponentType componentType, Guid objectId, string linkedEntityName, int? linkedEntityObjectCode)
-        {
-            string uri = GetSolutionComponentUrl(componentType, objectId, linkedEntityName, linkedEntityObjectCode);
-
-            if (!IsValidUri(uri)) { return; }
-
-            System.Diagnostics.Process.Start(uri);
-        }
-
-        public string GetSolutionComponentUrl(ComponentType componentType, Guid objectId, string linkedEntityName, int? linkedEntityObjectCode)
-        {
-            string uriEnd = GetSolutionComponentRelativeUrl(componentType, objectId, linkedEntityName, linkedEntityObjectCode);
-
-            if (string.IsNullOrEmpty(uriEnd))
-            {
-                return null;
-            }
-
-            if (!TryGetPublicUrl(out string publicUrl))
-            {
-                return null;
-            }
-
-            var uri = publicUrl + "/" + uriEnd.TrimStart('/');
-            return uri;
-        }
-
-        private static string GetSolutionComponentRelativeUrl(ComponentType componentType, Guid objectId, string linkedEntityName, int? linkedEntityObjectCode)
-        {
-            switch (componentType)
-            {
-                case ComponentType.SavedQuery:
-                    return $"/tools/vieweditor/viewManager.aspx?id={objectId}";
-
-                case ComponentType.SavedQueryVisualization:
-                    return $"/main.aspx?extraqs=etc={linkedEntityObjectCode}&id={objectId}&pagetype=vizdesigner";
-
-                case ComponentType.SystemForm:
-                    break;
-
-                case ComponentType.Workflow:
-                    return $"/sfa/workflow/edit.aspx?id={objectId}";
-
-                case ComponentType.Entity:
-                    return $"/tools/systemcustomization/entities/manageentity.aspx?id={objectId}";
-
-                case ComponentType.OptionSet:
-                    return $"/tools/systemcustomization/optionset/optionset.aspx?id={objectId}";
-
-                case ComponentType.WebResource:
-                    return $"/main.aspx?etc=9333&id={objectId}&pagetype=webresourceedit";
-
-                case ComponentType.Report:
-                    return $"/CRMReports/reportproperty.aspx?id={objectId}";
-
-                case ComponentType.EntityMap:
-                    return $"/tools/systemcustomization/relationships/mappings/mappingList.aspx?mappingId={objectId}";
-
-                //case ComponentType.AttributeMap:
-                //   return $"";
-
-                case ComponentType.DisplayString:
-                    return $"/tools/systemcustomization/displaystrings/edit.aspx?id={objectId}";
-
-                case ComponentType.FieldSecurityProfile:
-                    return $"/biz/fieldsecurityprofiles/edit.aspx?id={objectId}";
-
-                case ComponentType.Role:
-                    return $"/biz/roles/edit.aspx?id={objectId}";
-
-                //case ComponentType.RolePrivileges:
-                //   return $"";
-
-                case ComponentType.ConnectionRole:
-                    return $"/connections/connectionroles/edit.aspx?id={objectId}";
-
-
-                //case ComponentType.Attribute:
-                //   return $"";
-                //case ComponentType.Relationship:
-                //   return $"";
-                //case ComponentType.AttributePicklistValue:
-                //   return $"";
-                //case ComponentType.AttributeLookupValue:
-                //   return $"";
-                //case ComponentType.ViewAttribute:
-                //   return $"";
-                //case ComponentType.LocalizedLabel:
-                //   return $"";
-                //case ComponentType.RelationshipExtraCondition:
-                //   return $"";
-
-                //case ComponentType.EntityRelationship:
-                //   return $"";
-                //case ComponentType.EntityRelationshipRole:
-                //   return $"";
-                //case ComponentType.EntityRelationshipRelationships:
-                //   return $"";
-                //case ComponentType.ManagedProperty:
-                //   return $"";
-                //case ComponentType.EntityKey:
-                //   return $"";
-
-
-                //case ComponentType.DisplayStringMap:
-                //   return $"";
-                //case ComponentType.Form:
-                //   return $"";
-                //case ComponentType.Organization:
-                //   return $"";
-
-                //case ComponentType.ReportEntity:
-                //   return $"";
-                //case ComponentType.ReportCategory:
-                //   return $"";
-                //case ComponentType.ReportVisibility:
-                //   return $"";
-
-                //case ComponentType.Attachment:
-                //   return $"";
-                //case ComponentType.EmailTemplate:
-                //   return $"";
-                //case ComponentType.ContractTemplate:
-                //   return $"";
-                //case ComponentType.KBArticleTemplate:
-                //   return $"";
-                //case ComponentType.MailMergeTemplate:
-                //   return $"";
-
-
-                //case ComponentType.DuplicateRule:
-                //   return $"";
-                //case ComponentType.DuplicateRuleCondition:
-                //   return $"";
-
-
-                //case ComponentType.RibbonCommand:
-                //   return $"";
-                //case ComponentType.RibbonContextGroup:
-                //   return $"";
-                //case ComponentType.RibbonCustomization:
-                //   return $"";
-                //case ComponentType.RibbonRule:
-                //   return $"";
-                //case ComponentType.RibbonTabToCommandMap:
-                //   return $"";
-                //case ComponentType.RibbonDiff:
-                //   return $"";
-
-                //case ComponentType.SiteMap:
-                //   return $"";
-                //case ComponentType.FieldPermission:
-                //   return $"";
-                //case ComponentType.PluginType:
-                //   return $"";
-                //case ComponentType.PluginAssembly:
-                //   return $"";
-                //case ComponentType.SDKMessageProcessingStep:
-                //   return $"";
-                //case ComponentType.SDKMessageProcessingStepImage:
-                //   return $"";
-                //case ComponentType.ServiceEndpoint:
-                //   return $"";
-                //case ComponentType.RoutingRule:
-                //   return $"";
-                //case ComponentType.RoutingRuleItem:
-                //   return $"";
-                //case ComponentType.SLA:
-                //   return $"";
-                //case ComponentType.SLAItem:
-                //   return $"";
-                //case ComponentType.ConvertRule:
-                //   return $"";
-                //case ComponentType.ConvertRuleItem:
-                //   return $"";
-                //case ComponentType.HierarchyRule:
-                //   return $"";
-                //case ComponentType.MobileOfflineProfile:
-                //   return $"";
-                //case ComponentType.MobileOfflineProfileItem:
-                //   return $"";
-                //case ComponentType.SimilarityRule:
-                //   return $"";
-                //case ComponentType.CustomControl:
-                //   return $"";
-                //case ComponentType.CustomControlDefaultConfig:
-                //   return $"";
-
-                default:
-                    break;
-            }
-
-            return null;
-        }
-
-        internal void OpenSolutionComponentDependentComponentsInWeb(ComponentType componentType, Guid objectId)
-        {
-            if (!TryGetPublicUrl(out string publicUrl))
-            {
-                return;
-            }
-
-            var entityTypeCode = SolutionComponent.GetComponentTypeObjectTypeCode(componentType);
-
-            if (!entityTypeCode.HasValue)
-            {
-                return;
-            }
-
-            var uri = publicUrl + $"/tools/dependency/dependencyviewdialog.aspx?dType=1&objectid={objectId}&objecttype={entityTypeCode}&operationtype=showdependency";
-
-            if (!IsValidUri(uri)) { return; }
-
-            System.Diagnostics.Process.Start(uri);
-        }
-
-        #endregion Генерация url-адресов.
     }
 }

@@ -145,7 +145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , EntityDescriptionHandler.GetAttributeString(role, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(role, "suppsolution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(role, "suppsolution.ismanaged")
-                    , withUrls ? _service.ConnectionData?.GetSolutionComponentUrl(ComponentType.Role, role.Id, null, null) : string.Empty
+                    , withUrls ? _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.Role, role.Id) : string.Empty
                     );
             }
 

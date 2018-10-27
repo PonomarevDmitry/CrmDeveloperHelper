@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData != null)
             {
-                var url = connectionData.GetEntityUrl(entity.LogicalName, entity.Id);
+                var url = connectionData.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
 
                 if (!string.IsNullOrEmpty(url))
                 {
@@ -154,7 +154,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (connectionData != null)
                 {
-                    var url = connectionData.GetEntityUrl(entityReference.LogicalName, entityReference.Id);
+                    var url = connectionData.GetEntityInstanceUrl(entityReference.LogicalName, entityReference.Id);
 
                     if (!string.IsNullOrEmpty(url))
                     {

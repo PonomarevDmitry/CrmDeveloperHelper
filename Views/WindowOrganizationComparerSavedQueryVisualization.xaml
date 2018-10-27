@@ -39,6 +39,8 @@
                 <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
                 <Separator/>
                 <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer1_Click"/>
+                <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer1_Click"/>
+                <Separator/>
                 <MenuItem Header="Ribbon" Click="btnExportRibbon1_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets1_Click"/>
@@ -65,6 +67,8 @@
                 <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
                 <Separator/>
                 <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer2_Click"/>
+                <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer2_Click"/>
+                <Separator/>
                 <MenuItem Header="Ribbon" Click="btnExportRibbon2_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets2_Click"/>

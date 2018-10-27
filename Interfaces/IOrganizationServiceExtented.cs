@@ -11,6 +11,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         ConnectionData ConnectionData { get; }
 
+        ConnectionDataUrlGenerator UrlGenerator { get; }
+
         bool IsRequestExists(string requestName);
 
         T RetrieveByQuery<T>(string entityName, Guid id, ColumnSet columnSet) where T : Entity;

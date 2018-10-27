@@ -84,7 +84,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
                     , ispersonal
                     , owner
-                    , withUrls ? _service.ConnectionData?.GetSolutionComponentUrl(ComponentType.Report, entity.Id, null, null) : string.Empty
+                    , withUrls ? _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.Report, entity.Id) : string.Empty
                     );
             }
 
@@ -117,7 +117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 if (withUrls)
                 {
-                    builder.AppendFormat("    Url {0}", _service.ConnectionData?.GetSolutionComponentUrl(ComponentType.Report, report.Id, null, null));
+                    builder.AppendFormat("    Url {0}", _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.Report, report.Id));
                 }
 
                 return builder.ToString();

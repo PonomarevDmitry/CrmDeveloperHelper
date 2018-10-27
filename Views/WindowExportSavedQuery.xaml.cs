@@ -399,9 +399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
-
-                if (item != null)
+                if (((FrameworkElement)e.OriginalSource).DataContext is EntityViewItem item)
                 {
                     ExecuteAction(item.SavedQuery.Id, item.SavedQuery.ReturnedTypeCode, item.SavedQuery.Name, PerformExportMouseDoubleClick);
                 }
@@ -1081,7 +1079,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIOpenInWeb_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenInWeb_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1090,11 +1088,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            var service = await GetService();
 
-            if (connectionData != null)
+            if (service != null)
             {
-                connectionData.OpenSolutionComponentInWeb(ComponentType.SavedQuery, entity.Id, null, null);
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SavedQuery, entity.Id);
             }
         }
 
@@ -1253,6 +1251,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
 
             WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.ReturnedTypeCode);
+        }
+
+        private async void btnEntityKeyExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.ReturnedTypeCode);
         }
 
         private async void btnExportRibbon_Click(object sender, RoutedEventArgs e)
@@ -1493,9 +1502,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-
-            if (connectionData != null)
+            if (cmBCurrentConnection.SelectedItem is ConnectionData connectionData)
             {
                 ShowExistingSavedQueries();
             }

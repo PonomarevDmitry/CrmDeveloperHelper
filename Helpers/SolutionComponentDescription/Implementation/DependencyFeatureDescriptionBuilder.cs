@@ -124,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension)
         {
-            return string.Format("{0}.ComponentType {1} - {2} - {3}.{4}", connectionName, this.ComponentTypeValue, objectId, fieldTitle, extension);
+            return string.Format("{0}.DependencyFeature {1} - {2}.{3}", connectionName, objectId, fieldTitle, extension);
         }
 
         public TupleList<string, string> GetComponentColumns()

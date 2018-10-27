@@ -187,9 +187,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-
-            if (connectionData == null)
+            if (!(cmBCurrentConnection.SelectedItem is ConnectionData connectionData))
             {
                 txtBErrorText.Text = "Connection is not selected.";
 
@@ -340,9 +338,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             var columnsInFetch = GetColumns(connectionData, fetchXml);
 
-            Dictionary<string, string> columnMapping = null;
-
-            var dataTable = EntityCollectionToDataTable(connectionData, entityCollection, out columnMapping);
+            var dataTable = EntityCollectionToDataTable(connectionData, entityCollection, out Dictionary<string, string> columnMapping);
 
             this.Dispatcher.Invoke(() =>
             {
@@ -492,7 +488,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     && parameter is ConnectionData connectionData
                     )
                 {
-                    var url = connectionData.GetEntityUrl(entityName, id);
+                    var url = connectionData.GetEntityInstanceUrl(entityName, id);
 
                     if (Uri.TryCreate(url, UriKind.Absolute, out var result))
                     {
@@ -912,10 +908,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             cmBCurrentConnection.Dispatcher.Invoke(() =>
             {
                 ClearGridAndTextBox();
-
-                var connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-
-                if (connectionData != null)
+                
+                if (cmBCurrentConnection.SelectedItem is ConnectionData connectionData)
                 {
                     if (!_syncCacheObjects.ContainsKey(connectionData.ConnectionId))
                     {
@@ -940,14 +934,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as DataRowView;
-
-                if (item != null
+                if (((FrameworkElement)e.OriginalSource).DataContext is DataRowView item
                     && item[_columnOriginalEntity] != null
                     && item[_columnOriginalEntity] is Entity entity
                     )
                 {
-                    this.ConnectionData?.OpenEntityInWeb(entity.LogicalName, entity.Id);
+                    this.ConnectionData?.OpenEntityInstanceInWeb(entity.LogicalName, entity.Id);
                 }
             }
         }
@@ -1053,7 +1045,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var url = this.ConnectionData?.GetEntityUrl(entity.LogicalName, entity.Id);
+            var url = this.ConnectionData?.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
 
             Clipboard.SetText(url);
         }
@@ -1203,16 +1195,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             entityName = null;
             entityId = Guid.Empty;
 
-            MenuItem menuItem = e.OriginalSource as MenuItem;
-
-            if (menuItem == null)
+            if (!(e.OriginalSource is MenuItem menuItem))
             {
                 return false;
             }
 
-            ContextMenu contextMenu = ItemsControl.ItemsControlFromItemContainer(menuItem) as ContextMenu;
-
-            if (contextMenu == null
+            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
                 || contextMenu.PlacementTarget == null
                 || !(contextMenu.PlacementTarget is TextBlock textBlock)
                 || !(contextMenu.DataContext is DataRowView dataRowView)
@@ -1232,9 +1220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return false;
             }
 
-            var value = dataRowView[cell.Column.SortMemberPath] as PrimaryGuidView;
-
-            if (value == null)
+            if (!(dataRowView[cell.Column.SortMemberPath] is PrimaryGuidView value))
             {
                 return false;
             }
@@ -1249,16 +1235,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             navigateUri = null;
 
-            MenuItem menuItem = e.OriginalSource as MenuItem;
-
-            if (menuItem == null)
+            if (!(e.OriginalSource is MenuItem menuItem))
             {
                 return false;
             }
 
-            ContextMenu contextMenu = ItemsControl.ItemsControlFromItemContainer(menuItem) as ContextMenu;
-
-            if (contextMenu == null
+            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
                 || contextMenu.PlacementTarget == null
                 || !(contextMenu.PlacementTarget is TextBlock textBlock)
                 )

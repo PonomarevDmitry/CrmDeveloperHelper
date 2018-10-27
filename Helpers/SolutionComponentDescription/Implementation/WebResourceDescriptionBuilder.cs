@@ -67,7 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , EntityDescriptionHandler.GetAttributeString(webResource, "solution.ismanaged")
                     , EntityDescriptionHandler.GetAttributeString(webResource, "suppsolution.uniquename")
                     , EntityDescriptionHandler.GetAttributeString(webResource, "suppsolution.ismanaged")
-                    , withUrls ? _service.ConnectionData?.GetSolutionComponentUrl(ComponentType.WebResource, webResource.Id, null, null) : string.Empty
+                    , withUrls ? _service.UrlGenerator?.GetSolutionComponentUrl(ComponentType.WebResource, webResource.Id) : string.Empty
                     );
             }
 
@@ -91,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , webResource.IsManaged.ToString()
                     , webResource.IsCustomizable?.Value.ToString()
                     , EntityDescriptionHandler.GetAttributeString(webResource, "solution.uniquename")
-                    , withUrls ? string.Format("    Url {0}", _service.ConnectionData.GetSolutionComponentUrl(ComponentType.WebResource, webResource.Id, null, null)) : string.Empty
+                    , withUrls ? string.Format("    Url {0}", _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.WebResource, webResource.Id)) : string.Empty
                     );
             }
 

@@ -122,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     {
                         string name = string.Format("{0}.{1}", metaData.EntityLogicalName, metaData.LogicalName);
 
-                        handler.AddLine(name, metaData.IsManaged.ToString(), behavior, withUrls ? _source.Service.ConnectionData?.GetAttributeMetadataUrl(entityMetadata.MetadataId.Value, metaData.MetadataId.Value) : string.Empty);
+                        handler.AddLine(name, metaData.IsManaged.ToString(), behavior, withUrls ? _source.Service.ConnectionData?.GetAttributeMetadataRelativeUrl(entityMetadata.MetadataId.Value, metaData.MetadataId.Value) : string.Empty);
 
                         continue;
                     }
@@ -159,7 +159,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         , metaData.EntityLogicalName
                         , metaData.LogicalName
                         , metaData.IsManaged.ToString()
-                        , withUrls ? string.Format("     Url {0}", _source.Service.ConnectionData.GetAttributeMetadataUrl(entityMetadata.MetadataId.Value, metaData.MetadataId.Value)) : string.Empty
+                        , withUrls ? string.Format("     Url {0}", _source.Service.ConnectionData.GetAttributeMetadataRelativeUrl(entityMetadata.MetadataId.Value, metaData.MetadataId.Value)) : string.Empty
                     );
 
                     return name;
@@ -228,7 +228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (metaData != null)
             {
-                return string.Format("{0}.{1}", metaData.EntityLogicalName, metaData.LogicalName);
+                return string.Format("{0}.Attribute {1}.{2} - {3}.{4}", connectionName, metaData.EntityLogicalName, metaData.LogicalName, fieldTitle, extension);
             }
 
             return string.Format("{0}.ComponentType {1} - {2} - {3}.{4}", connectionName, this.ComponentTypeValue, objectId, fieldTitle, extension);

@@ -473,7 +473,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (action == ActionOpenComponent.OpenInWeb)
                 {
-                    connectionData.OpenSolutionComponentInWeb(Entities.ComponentType.Report, reportEntity.Id, null, null);
+                    service.UrlGenerator.OpenSolutionComponentInWeb(Entities.ComponentType.Report, reportEntity.Id);
                 }
                 else if (action == ActionOpenComponent.OpenDependentComponentsInWeb)
                 {
@@ -652,7 +652,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (action == ActionOpenComponent.OpenInWeb)
                 {
-                    connectionData.OpenSolutionComponentInWeb(Entities.ComponentType.WebResource, webresource.Id, null, null);
+                    service.UrlGenerator.OpenSolutionComponentInWeb(Entities.ComponentType.WebResource, webresource.Id);
                 }
                 else if (action == ActionOpenComponent.OpenDependentComponentsInWeb)
                 {
