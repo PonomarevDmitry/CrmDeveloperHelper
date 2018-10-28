@@ -152,7 +152,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingWebResources()
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -452,7 +452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteAction(LinkedEntities<WebResource> linked, bool showAllways, Func<LinkedEntities<WebResource>, bool, Task> action)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -535,7 +535,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Func<LinkedEntities<WebResource>, bool, string, string, Task> action
         )
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -567,7 +567,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformShowingDifferenceDescriptionAsync(LinkedEntities<WebResource> linked, bool showAllways)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -611,7 +611,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionDescription(Guid idWebResource, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -631,7 +631,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportDescriptionToFile(Guid idWebResource, Func<Task<IOrganizationServiceExtented>> getService)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -706,7 +706,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformDownloadWebResourceAsync(Guid idWebResource, Func<Task<IOrganizationServiceExtented>> getService)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -773,7 +773,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformShowingDifferenceContentAsync(LinkedEntities<WebResource> linked, bool showAllways)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -826,14 +826,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
 
             this.Dispatcher.Invoke(() =>
             {
-                this._itemsSource.Clear();
+                this._itemsSource?.Clear();
 
                 ConnectionData connection1 = cmBConnection1.SelectedItem as ConnectionData;
                 ConnectionData connection2 = cmBConnection2.SelectedItem as ConnectionData;

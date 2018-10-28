@@ -242,17 +242,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 return null;
             }
 
+            return publicUrl + GetEntityInstanceRelativeUrlFormat(entityName);
+        }
+
+        public string GetEntityInstanceRelativeUrlFormat(string entityName)
+        {
             if (string.Equals(entityName, "asyncoperation", StringComparison.InvariantCultureIgnoreCase))
             {
-                return publicUrl + "/tools/asyncoperation/edit.aspx?id={0}";
+                return "/tools/asyncoperation/edit.aspx?id={0}";
             }
 
             if (string.Equals(entityName, BusinessUnit.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase))
             {
-                return publicUrl + "biz/business/edit.aspx?id={0}";
+                return "/biz/business/edit.aspx?id={0}";
             }
 
-            return publicUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord&id={0}";
+            return "/main.aspx?etn=" + entityName + "&pagetype=entityrecord&id={0}";
         }
 
         public void OpenEntityListInWeb(string entityName)
@@ -447,7 +452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         //    return uri;
         //}
 
-        internal string GetSolutionComponentRelativeUrl(ComponentType componentType, Guid objectId)
+        public string GetSolutionComponentRelativeUrl(ComponentType componentType, Guid objectId)
         {
             switch (componentType)
             {
@@ -552,9 +557,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 case ComponentType.ConnectionRole:
                     return $"/connections/connectionroles/edit.aspx?id={objectId}";
+            }
 
-                default:
-                    break;
+            SolutionComponent.GetComponentTypeEntityName((int)componentType, out string entityName, out string entityIdName);
+
+            if (!string.IsNullOrEmpty(entityName))
+            {
+                return string.Format(GetEntityInstanceRelativeUrlFormat(entityName), objectId);
             }
 
             return null;

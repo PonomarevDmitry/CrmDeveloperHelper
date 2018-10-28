@@ -315,5 +315,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return response.Entity.ToEntity<PluginAssembly>();
         }
+
+        public PluginAssembly FindAssemblyByFullName(string name, string versionString, string cultureString, string publicKeyTokenString, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_service)),
+
+                EntityName = PluginAssembly.EntityLogicalName,
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(PluginAssembly.Schema.Attributes.ishidden, ConditionOperator.Equal, false),
+
+                        new ConditionExpression(PluginAssembly.Schema.Attributes.name, ConditionOperator.Equal, name),
+                        new ConditionExpression(PluginAssembly.Schema.Attributes.version, ConditionOperator.Equal, versionString),
+                        new ConditionExpression(PluginAssembly.Schema.Attributes.culture, ConditionOperator.Equal, cultureString),
+                        new ConditionExpression(PluginAssembly.Schema.Attributes.publickeytoken, ConditionOperator.Equal, publicKeyTokenString),
+                    },
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginAssembly>()).FirstOrDefault();
+        }
     }
 }

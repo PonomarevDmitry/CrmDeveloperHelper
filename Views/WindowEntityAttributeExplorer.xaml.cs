@@ -189,7 +189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingEntities()
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -302,7 +302,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingAttributes()
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -837,7 +837,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteActionAsync(IEnumerable<string> entityNames, Func<IEnumerable<string>, Task> action)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -859,7 +859,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PublishEntityAsync(IEnumerable<string> entityNames)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -1224,18 +1224,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0)
-            {
-                return;
-            }
-
             this.Dispatcher.Invoke(() =>
             {
-                this._itemsSourceEntityList.Clear();
-                this._itemsSourceAttributeList.Clear();
+                this._itemsSourceEntityList?.Clear();
+                this._itemsSourceAttributeList?.Clear();
             });
 
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -1290,7 +1285,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void mISaveChanges(object sender, RoutedEventArgs e)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }

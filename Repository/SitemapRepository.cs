@@ -70,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
             }
 
             return result;
@@ -99,6 +99,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     },
                 },
             };
+
+            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SiteMap>()).FirstOrDefault();
+        }
+
+        public SiteMap FindByExactName(string sitemapName, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = SiteMap.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+            };
+
+            if (!string.IsNullOrEmpty(sitemapName))
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(SiteMap.Schema.Attributes.sitemapnameunique, ConditionOperator.Equal, sitemapName));
+            }
+            else
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(SiteMap.Schema.Attributes.sitemapnameunique, ConditionOperator.Null));
+            }
 
             return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SiteMap>()).FirstOrDefault();
         }

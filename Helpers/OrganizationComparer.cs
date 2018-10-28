@@ -1138,7 +1138,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                     else
                     {
-                        if (report1.SignatureDate.HasValue && report1.SignatureId.HasValue && report1.SignatureId.Value != Guid.Empty)
+                        if (report1.SignatureDate.HasValue 
+                            && report1.SignatureId.HasValue 
+                            && report1.SignatureId.Value != Guid.Empty
+                            && report1.SignatureLcid.HasValue
+                            )
                         {
                             report2 = list2.FirstOrDefault(report =>
                             {
@@ -1146,6 +1150,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                     && string.Equals(report.FileName, report1.FileName, StringComparison.InvariantCulture)
                                     && report.ReportTypeCode.Value == report1.ReportTypeCode.Value
                                     && report.SignatureId == report1.SignatureId
+                                    && report.SignatureLcid == report1.SignatureLcid
                                     && report.SignatureDate == report1.SignatureDate
                                     ;
                             });
@@ -1194,14 +1199,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         continue;
                     }
-
-                    if (report1 != null)
-                    {
-                        continue;
-                    }
                     else
                     {
-                        if (report2.SignatureDate.HasValue && report2.SignatureId.HasValue)
+                        if (report2.SignatureDate.HasValue 
+                            && report2.SignatureId.HasValue
+                            && report2.SignatureId.Value != Guid.Empty
+                            && report2.SignatureLcid.HasValue
+                            )
                         {
                             report1 = list2.FirstOrDefault(report =>
                             {
@@ -1209,6 +1213,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                     && string.Equals(report.FileName, report2.FileName, StringComparison.InvariantCulture)
                                     && report.ReportTypeCode.Value == report2.ReportTypeCode.Value
                                     && report.SignatureId == report2.SignatureId
+                                    && report.SignatureLcid == report2.SignatureLcid
                                     && report.SignatureDate == report2.SignatureDate
                                     ;
                             });

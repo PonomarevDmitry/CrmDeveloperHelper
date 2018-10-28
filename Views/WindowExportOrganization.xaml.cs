@@ -132,7 +132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingOrganizations()
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -357,7 +357,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string folder = txtBFolder.Text.Trim();
 
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -452,7 +452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string folder = txtBFolder.Text.Trim();
 
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -472,7 +472,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportXmlToFile(string folder, Organization organization, string fieldName, string fieldTitle)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -499,7 +499,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformUpdateEntityField(string folder, Organization organization, string fieldName, string fieldTitle)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -760,7 +760,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string folder = txtBFolder.Text.Trim();
 
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -785,7 +785,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string fieldName2, string fieldTitle2
             )
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -826,17 +826,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0)
-            {
-                return;
-            }
-
             this.Dispatcher.Invoke(() =>
             {
-                this._itemsSource.Clear();
+                this._itemsSource?.Clear();
             });
 
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }

@@ -46,7 +46,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filePath
         )
         {
-            _init++;
+            BeginLoadConfig();
 
             InitializeComponent();
 
@@ -74,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = _connectionConfig.Connections;
             cmBCurrentConnection.SelectedItem = connectionData;
 
-            _init--;
+            EndLoadConfig();
 
             if (!string.IsNullOrEmpty(filePath))
             {
@@ -148,6 +148,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = null;
 
             base.OnClosed(e);
+        }
+
+        private void BeginLoadConfig()
+        {
+            ++_init;
+        }
+
+        private void EndLoadConfig()
+        {
+            --_init;
         }
 
         private enum ComponentLocation
@@ -225,12 +235,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task LoadOrganizationDifferenceImage(string filePath)
         {
-            if (_init > 0)
-            {
-                return;
-            }
-
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -274,12 +279,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
+            ToggleControls(true, "OrganizationDifference Image loaded.");
+
             FilteringOrganizationDifferenceImageComponents();
         }
 
         private void FilteringOrganizationDifferenceImageComponents()
         {
-            if (_init > 0)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -488,12 +495,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteAction(SolutionImageComponent entity, Func<string, SolutionImageComponent, Task> action)
         {
-            string folder = txtBFolder.Text.Trim();
-
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
+
+            string folder = txtBFolder.Text.Trim();
 
             if (string.IsNullOrEmpty(folder))
             {
@@ -596,6 +603,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
+                UpdateStatus("SolutionComponent not found.");
                 return;
             }
 
@@ -623,6 +631,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
+                UpdateStatus("SolutionComponent not found.");
                 return;
             }
 
@@ -655,6 +664,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
+                UpdateStatus("SolutionComponent not found.");
                 return;
             }
 
@@ -685,6 +695,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
+                UpdateStatus("SolutionComponent not found.");
                 return;
             }
 
@@ -731,6 +742,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
+                UpdateStatus("SolutionComponent not found.");
                 return;
             }
 

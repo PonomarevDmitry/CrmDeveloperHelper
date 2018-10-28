@@ -196,5 +196,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Workflow>()).FirstOrDefault();
         }
+
+        public Workflow FindLinkedWorkflow(Guid idSystemForm, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = Workflow.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Workflow.Schema.Attributes.parentworkflowid, ConditionOperator.Null),
+                        new ConditionExpression(Workflow.Schema.Attributes.formid, ConditionOperator.Equal, idSystemForm),
+                    },
+                },
+            };
+
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Workflow>()).FirstOrDefault();
+        }
     }
 }

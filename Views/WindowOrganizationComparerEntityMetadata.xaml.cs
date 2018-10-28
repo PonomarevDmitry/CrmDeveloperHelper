@@ -192,7 +192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingEntities()
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -503,7 +503,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteDifferenceCSharp(string entityName)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -602,7 +602,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteDifferenceJavaScript(string entityName)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -700,7 +700,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task CreateEntityMetadataFileCSharp(Func<Task<IOrganizationServiceExtented>> getService, string entityName, string nameSpace)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -763,7 +763,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task CreateEntityMetadataFileJavaScript(Func<Task<IOrganizationServiceExtented>> getService, string entityName, string nameSpace)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -814,14 +814,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
 
             this.Dispatcher.Invoke(() =>
             {
-                this._itemsSource.Clear();
+                this._itemsSource?.Clear();
 
                 ConnectionData connection1 = cmBConnection1.SelectedItem as ConnectionData;
                 ConnectionData connection2 = cmBConnection2.SelectedItem as ConnectionData;

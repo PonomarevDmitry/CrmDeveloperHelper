@@ -48,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 ObjectId = solutionComponent.ObjectId,
                 ComponentType = (solutionComponent.ComponentType?.Value).GetValueOrDefault(),
-                RootComponentBehavior = solutionComponent.RootComponentBehavior?.Value,
+                RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
                 Description = GenerateDescriptionSingle(solutionComponent, false),
             });
@@ -65,6 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 ComponentType = new OptionSetValue(this.ComponentTypeValue),
                 ObjectId = solutionImageComponent.ObjectId.Value,
+                RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
             };
 
             if (solutionImageComponent.RootComponentBehavior.HasValue)

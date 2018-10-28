@@ -45,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             get
             {
-                GetEntityName(this.ComponentTypeValue, out string entityName, out string entityIdName);
+                SolutionComponent.GetComponentTypeEntityName(this.ComponentTypeValue, out string entityName, out string entityIdName);
 
                 return entityName;
             }
@@ -55,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             get
             {
-                GetEntityName(this.ComponentTypeValue, out string entityName, out string entityIdName);
+                SolutionComponent.GetComponentTypeEntityName(this.ComponentTypeValue, out string entityName, out string entityIdName);
 
                 return entityIdName;
             }
@@ -195,51 +195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         protected virtual ColumnSet GetColumnSet()
         {
             return new ColumnSet(true);
-        }
-
-        public static void GetEntityName(int type, out string entityName, out string entityIdName)
-        {
-            entityName = string.Empty;
-            entityIdName = string.Empty;
-
-            if (!SolutionComponent.IsDefinedComponentType(type))
-            {
-                return;
-            }
-
-            ComponentType componentType = (ComponentType)type;
-
-            if (SolutionComponent.IsComponentTypeMetadata(componentType))
-            {
-                return;
-            }
-
-            switch (componentType)
-            {
-                case ComponentType.EmailTemplate:
-                    entityName = Template.EntityLogicalName;
-                    entityIdName = Template.PrimaryIdAttribute;
-                    break;
-
-                case ComponentType.RolePrivileges:
-                    entityName = RolePrivileges.EntityLogicalName;
-                    entityIdName = RolePrivileges.PrimaryIdAttribute;
-                    break;
-
-                case ComponentType.SystemForm:
-                    entityName = SystemForm.EntityLogicalName;
-                    entityIdName = SystemForm.PrimaryIdAttribute;
-                    break;
-
-                case ComponentType.DependencyFeature:
-                    break;
-
-                default:
-                    entityName = componentType.ToString().ToLower();
-                    entityIdName = entityName + "id";
-                    break;
-            }
-        }
+        }        
 
         private List<Entity> GetCachedEntities(List<Guid> idsNotCached)
         {
@@ -403,8 +359,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             result.Add(new SolutionImageComponent()
             {
                 ObjectId = solutionComponent.ObjectId,
-                ComponentType = (solutionComponent.ComponentType?.Value).GetValueOrDefault(),
-                RootComponentBehavior = solutionComponent.RootComponentBehavior?.Value,
+                ComponentType = this.ComponentTypeValue,
+                RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
                 Description = GenerateDescriptionSingle(solutionComponent, false),
             });
@@ -425,6 +381,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     ComponentType = new OptionSetValue(this.ComponentTypeValue),
                     ObjectId = entity.Id,
+                    RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
                 };
 
                 if (solutionImageComponent.RootComponentBehavior.HasValue)

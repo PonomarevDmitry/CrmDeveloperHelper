@@ -124,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             return false;
         }
 
-        internal static int? GetComponentTypeObjectTypeCode(ComponentType componentType)
+        public static int? GetComponentTypeObjectTypeCode(ComponentType componentType)
         {
             switch (componentType)
             {
@@ -371,6 +371,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             }
 
             return null;
+        }
+
+        public static void GetComponentTypeEntityName(int type, out string entityName, out string entityIdName)
+        {
+            entityName = string.Empty;
+            entityIdName = string.Empty;
+
+            if (!IsDefinedComponentType(type))
+            {
+                return;
+            }
+
+            ComponentType componentType = (ComponentType)type;
+
+            if (IsComponentTypeMetadata(componentType))
+            {
+                return;
+            }
+
+            switch (componentType)
+            {
+                case Entities.ComponentType.EmailTemplate:
+                    entityName = Template.EntityLogicalName;
+                    entityIdName = Template.PrimaryIdAttribute;
+                    break;
+
+                case Entities.ComponentType.RolePrivileges:
+                    entityName = RolePrivileges.EntityLogicalName;
+                    entityIdName = RolePrivileges.PrimaryIdAttribute;
+                    break;
+
+                case Entities.ComponentType.SystemForm:
+                    entityName = SystemForm.EntityLogicalName;
+                    entityIdName = SystemForm.PrimaryIdAttribute;
+                    break;
+
+                case Entities.ComponentType.DependencyFeature:
+                    break;
+
+                default:
+                    entityName = componentType.ToString().ToLower();
+                    entityIdName = entityName + "id";
+                    break;
+            }
         }
     }
 }

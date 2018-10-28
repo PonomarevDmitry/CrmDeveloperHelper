@@ -154,7 +154,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task LoadTraceRecords(IEnumerable<string> files)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -193,7 +193,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task FilterExistingTraceRecords()
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -452,18 +452,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0)
-            {
-                return;
-            }
-
             this.Dispatcher.Invoke(() =>
             {
-                this._loadedRecords.Clear();
-                this._itemsSource.Clear();
+                this._loadedRecords?.Clear();
+                this._itemsSource?.Clear();
             });
 
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }

@@ -1,7 +1,9 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,6 +110,69 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             return base.GetDisplayName(component);
+        }
+
+        public override void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent)
+        {
+            if (solutionComponent == null
+                || !solutionComponent.ObjectId.HasValue
+                )
+            {
+                return;
+            }
+
+            var entity = GetEntity<WebResource>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                var imageComponent = new SolutionImageComponent()
+                {
+                    ComponentType = this.ComponentTypeValue,
+                    SchemaName = entity.Name,
+
+                    RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
+
+                    Description = GenerateDescriptionSingle(solutionComponent, false),
+                };
+
+                result.Add(imageComponent);
+            }
+        }
+
+        public override void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionImageComponent)
+        {
+            if (solutionImageComponent == null)
+            {
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(solutionImageComponent.SchemaName))
+            {
+                string webResourceName = solutionImageComponent.SchemaName;
+
+                var repository = new WebResourceRepository(_service);
+
+                var entity = repository.FindByExactName(webResourceName, new ColumnSet(false));
+
+                if (entity != null)
+                {
+                    var component = new SolutionComponent()
+                    {
+                        ComponentType = new OptionSetValue(this.ComponentTypeValue),
+                        ObjectId = entity.Id,
+                        RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                    };
+
+                    if (solutionImageComponent.RootComponentBehavior.HasValue)
+                    {
+                        component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
+                    }
+
+                    result.Add(component);
+
+                    return;
+                }
+            }
         }
 
         public override TupleList<string, string> GetComponentColumns()

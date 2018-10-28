@@ -202,5 +202,52 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return result;
         }
+
+        public static string GetFormTypeString(int? formtype)
+        {
+            if (!formtype.HasValue)
+            {
+                return string.Empty;
+            }
+
+            switch (formtype.Value)
+            {
+                case (int)SystemForm.Schema.OptionSets.type.AppointmentBook_1:
+                    return "appointmentBook";
+
+                case (int)SystemForm.Schema.OptionSets.type.Main_2:
+                    return "main";
+                
+                case (int)SystemForm.Schema.OptionSets.type.Quick_View_Form_6:
+                    return "quick";
+
+                case (int)SystemForm.Schema.OptionSets.type.Quick_Create_7:
+                    return "quickCreate";
+
+                case (int)SystemForm.Schema.OptionSets.type.InteractionCentricDashboard_10:
+                    return "icdashboardeditor";
+
+                case (int)SystemForm.Schema.OptionSets.type.Card_11:
+                    return "card";
+
+                case (int)SystemForm.Schema.OptionSets.type.Main_Interactive_experience_12:
+                    return "mainInteractionCentric";
+
+                case (int)SystemForm.Schema.OptionSets.type.Dashboard_0:
+                case (int)SystemForm.Schema.OptionSets.type.MiniCampaignBO_3:
+                case (int)SystemForm.Schema.OptionSets.type.Preview_4:
+                case (int)SystemForm.Schema.OptionSets.type.Mobile_Express_5:
+                case (int)SystemForm.Schema.OptionSets.type.Dialog_8:
+                case (int)SystemForm.Schema.OptionSets.type.Task_Flow_Form_9:
+
+                case (int)SystemForm.Schema.OptionSets.type.Other_100:
+                case (int)SystemForm.Schema.OptionSets.type.MainBackup_101:
+                case (int)SystemForm.Schema.OptionSets.type.AppointmentBookBackup_102:
+                case (int)SystemForm.Schema.OptionSets.type.Power_BI_Dashboard_103:
+                    break;
+            }
+
+            return string.Empty;
+        }
     }
 }

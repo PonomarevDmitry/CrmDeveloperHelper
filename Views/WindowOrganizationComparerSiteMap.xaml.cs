@@ -167,7 +167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingSiteMaps()
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -462,7 +462,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteAction(LinkedEntities<SiteMap> linked, bool showAllways, Func<LinkedEntities<SiteMap>, bool, Task> action)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -585,7 +585,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionLinked(LinkedEntities<SiteMap> linked, bool showAllways, string fieldName, string fieldTitle, Func<LinkedEntities<SiteMap>, bool, string, string, Task> action)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -610,7 +610,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformShowingDifferenceSingleXmlAsync(LinkedEntities<SiteMap> linked, bool showAllways, string fieldName, string fieldTitle)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -658,7 +658,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionEntity(Guid idSiteMap, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, Task> action)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -678,7 +678,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportXmlToFileAsync(Guid idSiteMap, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -720,7 +720,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformShowingDifferenceDescriptionAsync(LinkedEntities<SiteMap> linked, bool showAllways)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -767,7 +767,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionDescription(Guid idSiteMap, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -787,7 +787,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportDescriptionToFileAsync(Guid idSiteMap, Func<Task<IOrganizationServiceExtented>> getService)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -876,14 +876,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
 
             this.Dispatcher.Invoke(() =>
             {
-                this._itemsSource.Clear();
+                this._itemsSource?.Clear();
 
                 ConnectionData connection1 = cmBConnection1.SelectedItem as ConnectionData;
                 ConnectionData connection2 = cmBConnection2.SelectedItem as ConnectionData;

@@ -201,12 +201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingSolutionComponents()
         {
-            if (!_controlsEnabled)
-            {
-                return;
-            }
-
-            if (_init > 0)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -515,7 +510,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string folder = _commonConfig.FolderForExport;
 
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -829,7 +824,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBComponentType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -841,7 +836,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBDependencyType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }

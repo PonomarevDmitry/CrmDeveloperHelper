@@ -1,7 +1,9 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,13 +30,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         protected override ColumnSet GetColumnSet()
         {
             return new ColumnSet
-                (
-                    SiteMap.Schema.Attributes.sitemapname
-                    , SiteMap.Schema.Attributes.sitemapnameunique
-                    , SiteMap.Schema.Attributes.sitemapid
-                    , SiteMap.Schema.Attributes.isappaware
-                    , SiteMap.Schema.Attributes.ismanaged
-                );
+            (
+                SiteMap.Schema.Attributes.sitemapname
+                , SiteMap.Schema.Attributes.sitemapnameunique
+                , SiteMap.Schema.Attributes.sitemapid
+                , SiteMap.Schema.Attributes.isappaware
+                , SiteMap.Schema.Attributes.ismanaged
+            );
         }
 
         public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
@@ -105,6 +107,70 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             return base.GetName(component);
+        }
+
+        public override void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent)
+        {
+            if (solutionComponent == null
+                || !solutionComponent.ObjectId.HasValue
+                )
+            {
+                return;
+            }
+
+            var entity = GetEntity<SiteMap>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                var imageComponent = new SolutionImageComponent()
+                {
+                    ComponentType = this.ComponentTypeValue,
+
+                    RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
+
+                    Description = GenerateDescriptionSingle(solutionComponent, false),
+                };
+
+                if (!string.IsNullOrEmpty(entity.SiteMapNameUnique))
+                {
+                    imageComponent.SchemaName = entity.SiteMapNameUnique;
+                }
+
+                result.Add(imageComponent);
+            }
+        }
+
+        public override void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionImageComponent)
+        {
+            if (solutionImageComponent == null)
+            {
+                return;
+            }
+
+            string sitemapName = solutionImageComponent.SchemaName;
+
+            var repository = new SitemapRepository(_service);
+
+            var entity = repository.FindByExactName(sitemapName, new ColumnSet(false));
+
+            if (entity != null)
+            {
+                var component = new SolutionComponent()
+                {
+                    ComponentType = new OptionSetValue(this.ComponentTypeValue),
+                    ObjectId = entity.Id,
+                    RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                };
+
+                if (solutionImageComponent.RootComponentBehavior.HasValue)
+                {
+                    component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
+                }
+
+                result.Add(component);
+
+                return;
+            }
         }
 
         public override TupleList<string, string> GetComponentColumns()

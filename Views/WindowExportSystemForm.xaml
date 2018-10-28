@@ -7,6 +7,8 @@
         Title="Export System Form's Xml" Height="538.662" Width="717" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+            <MenuItem Header="Open SystemForm in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
+            <Separator />
             <MenuItem Header="Form Description" VerticalAlignment="Center" Click="mIExportSystemFormDescription_Click" />
             <Separator/>
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
@@ -128,6 +130,8 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSystemForm" Header="Export Form Information" VerticalAlignment="Center" SubmenuOpened="tSDDBExportSystemForm_SubmenuOpened">
+                            <MenuItem Header="Open SystemForm in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
+                            <Separator />
                             <MenuItem Header="Form Description" VerticalAlignment="Center" Click="mIExportSystemFormDescription_Click" />
                             <Separator/>
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>

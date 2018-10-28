@@ -236,6 +236,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
+        public PluginType FindTypeByFullName(string name, string assemblyName, string versionString, string cultureString, string publicKeyTokenString, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                EntityName = PluginType.EntityLogicalName,
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(PluginType.Schema.Attributes.name, ConditionOperator.Equal, name),
+
+                        new ConditionExpression(PluginType.Schema.Attributes.assemblyname, ConditionOperator.Equal, assemblyName),
+                        new ConditionExpression(PluginType.Schema.Attributes.version, ConditionOperator.Equal, versionString),
+                        new ConditionExpression(PluginType.Schema.Attributes.culture, ConditionOperator.Equal, cultureString),
+                        new ConditionExpression(PluginType.Schema.Attributes.publickeytoken, ConditionOperator.Equal, publicKeyTokenString),
+                    },
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginType>()).FirstOrDefault();
+        }
+
         internal PluginType FindPluginType(string name)
         {
             QueryExpression query = new QueryExpression()

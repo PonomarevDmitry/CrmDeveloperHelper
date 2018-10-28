@@ -7,6 +7,8 @@
         Title="Export Chart's Xml" Height="538.662" Width="717" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+            <MenuItem Header="Open Chart in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
+            <Separator />
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
             <Separator />
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
@@ -121,6 +123,8 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportChart" Header="Export Chart Information" VerticalAlignment="Center" SubmenuOpened="tSDDBExportChart_SubmenuOpened">
+                            <MenuItem Header="Open Chart in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
+                            <Separator />
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
                             <Separator/>
                             <MenuItem Header="Data Description" VerticalAlignment="Center" Click="mIExportSystemChartDataDescription_Click"/>

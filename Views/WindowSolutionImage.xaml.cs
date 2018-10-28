@@ -37,6 +37,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private bool _controlsEnabled = true;
 
+        private int _init = 0;
+
         public WindowSolutionImage(
             IWriteToOutput iWriteToOutput
             , CommonConfiguration commonConfig
@@ -44,6 +46,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filePath
         )
         {
+            BeginLoadConfig();
+
             InitializeComponent();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
@@ -69,6 +73,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBCurrentConnection.ItemsSource = _connectionConfig.Connections;
             cmBCurrentConnection.SelectedItem = connectionData;
+
+            EndLoadConfig();
 
             if (!string.IsNullOrEmpty(filePath))
             {
@@ -109,7 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var categoryValue = -1;
 
-            if (cmBComponentType.SelectedItem != null 
+            if (cmBComponentType.SelectedItem != null
                 && cmBComponentType.SelectedItem is ComponentType selected
                 )
             {
@@ -131,6 +137,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = null;
 
             base.OnClosed(e);
+        }
+
+        private void BeginLoadConfig()
+        {
+            ++_init;
+        }
+
+        private void EndLoadConfig()
+        {
+            --_init;
         }
 
         private async Task<IOrganizationServiceExtented> GetService()
@@ -186,7 +202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task LoadSolutionImage(string filePath)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -230,11 +246,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
+            ToggleControls(true, "Solution Image loaded.");
+
             FilteringSolutionImageComponents();
         }
 
         private void FilteringSolutionImageComponents()
         {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
             this._itemsSource.Clear();
 
             ToggleControls(false, "Filtering SolutionImage Components...");
@@ -267,7 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBComponentType.Dispatcher.Invoke(() =>
             {
-                if (cmBComponentType.SelectedItem != null 
+                if (cmBComponentType.SelectedItem != null
                     && cmBComponentType.SelectedItem is ComponentType comp
                     )
                 {
@@ -416,12 +439,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteAction(SolutionImageComponent entity, Func<string, SolutionImageComponent, Task> action)
         {
-            string folder = txtBFolder.Text.Trim();
-
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
+
+            string folder = txtBFolder.Text.Trim();
 
             if (string.IsNullOrEmpty(folder))
             {
@@ -541,6 +564,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
+                UpdateStatus("SolutionComponent not found.");
                 return;
             }
 
@@ -568,6 +592,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
+                UpdateStatus("SolutionComponent not found.");
                 return;
             }
 
@@ -600,12 +625,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
+                UpdateStatus("SolutionComponent not found.");
                 return;
             }
 
             foreach (var item in solutionComponents)
             {
-                service.UrlGenerator.OpenSolutionComponentInWeb((ComponentType)item.ComponentType.Value, item.ObjectId.Value);
+                if (SolutionComponent.IsDefinedComponentType(item.ComponentType.Value))
+                {
+                    service.UrlGenerator.OpenSolutionComponentInWeb((ComponentType)item.ComponentType.Value, item.ObjectId.Value);
+                }
             }
         }
 
@@ -627,6 +656,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
+                UpdateStatus("SolutionComponent not found.");
                 return;
             }
 
@@ -673,6 +703,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
+                UpdateStatus("SolutionComponent not found.");
                 return;
             }
 

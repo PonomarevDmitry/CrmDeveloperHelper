@@ -767,6 +767,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return false;
         }
 
+        public WebResource FindByExactName(string name, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = WebResource.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(WebResource.Schema.Attributes.name, ConditionOperator.Equal, name),
+                    },
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<WebResource>()).FirstOrDefault();
+        }
+
         public static IEnumerable<string> GetSplitedNames(string friendlyPath, string extension)
         {
             if (string.IsNullOrEmpty(friendlyPath))

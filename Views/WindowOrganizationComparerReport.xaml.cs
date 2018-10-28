@@ -165,7 +165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingReports()
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -190,7 +190,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service1 != null && service2 != null)
                 {
-                    var columnSet = new ColumnSet(SavedQuery.Schema.Attributes.name, SavedQuery.Schema.Attributes.returnedtypecode, SavedQuery.Schema.Attributes.querytype);
+                    var columnSet = new ColumnSet(
+                        Report.Schema.Attributes.name
+                        , Report.Schema.Attributes.filename
+                        , Report.Schema.Attributes.signatureid
+                        , Report.Schema.Attributes.signaturelcid
+                        , Report.Schema.Attributes.signaturedate
+                    );
 
                     var temp = new List<LinkedEntities<Report>>();
 
@@ -208,6 +214,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         foreach (var report1 in list1)
                         {
                             var report2 = list2.FirstOrDefault(c => c.Id == report1.Id);
+
+                            if (report2 == null
+                                && report1.SignatureDate.HasValue
+                                && report1.SignatureId.HasValue
+                                && report1.SignatureLcid.HasValue
+                                )
+                            {
+                                report2 = list2.FirstOrDefault(c => c.SignatureLcid == report1.SignatureLcid && c.SignatureId == report1.SignatureId && c.SignatureDate == report1.SignatureDate);
+                            }
 
                             if (report2 == null)
                             {
@@ -264,7 +279,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     list = list.Where(ent =>
                     {
                         var name1 = ent.Entity1?.Name.ToLower();
-
                         var name2 = ent.Entity2?.Name.ToLower();
 
                         return name1.Contains(textName)
@@ -443,7 +457,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionForLinked(LinkedEntities<Report> linked, bool showAllways, Func<LinkedEntities<Report>, bool, Task> action)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -639,7 +653,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionLinked(LinkedEntities<Report> linked, bool showAllways, string fieldName, string fieldTitle, Func<LinkedEntities<Report>, bool, string, string, Task> action)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -664,7 +678,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformShowingDifferenceSingleXmlAsync(LinkedEntities<Report> linked, bool showAllways, string fieldName, string fieldTitle)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -709,7 +723,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionOnEntity(Guid idReport, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, Task> action)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -729,7 +743,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportXmlToFile(Guid idReport, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -756,7 +770,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportBodyBinary(Guid idReport, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -816,7 +830,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformShowingDifferenceDescriptionAsync(LinkedEntities<Report> linked, bool showAllways)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -860,7 +874,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionDescription(Guid idReport, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -880,7 +894,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportDescriptionToFile(Guid idReport, Func<Task<IOrganizationServiceExtented>> getService)
         {
-            if (!_controlsEnabled)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
@@ -1111,14 +1125,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0)
+            if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
 
             this.Dispatcher.Invoke(() =>
             {
-                this._itemsSource.Clear();
+                this._itemsSource?.Clear();
 
                 ConnectionData connection1 = cmBConnection1.SelectedItem as ConnectionData;
                 ConnectionData connection2 = cmBConnection2.SelectedItem as ConnectionData;

@@ -1,7 +1,9 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -109,6 +111,64 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             return base.GetName(component);
+        }
+
+        public override void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent)
+        {
+            if (solutionComponent == null
+                || !solutionComponent.ObjectId.HasValue
+                )
+            {
+                return;
+            }
+
+            var entity = GetEntity<RibbonCustomization>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                var repository = new RibbonCustomizationRepository(_service);
+
+                result.Add(new SolutionImageComponent()
+                {
+                    SchemaName = string.Format("{0}:RibbonDiffXml", entity.Entity),
+                    ComponentType = (solutionComponent.ComponentType?.Value).GetValueOrDefault(),
+                    RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
+
+                    Description = GenerateDescriptionSingle(solutionComponent, false),
+                });
+            }
+        }
+
+        public override void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionImageComponent)
+        {
+            if (solutionImageComponent == null)
+            {
+                return;
+            }
+
+            if (string.Equals(solutionImageComponent.SchemaName, ":RibbonDiffXml", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var repository = new RibbonCustomizationRepository(_service);
+
+                var entity = repository.FindApplicationRibbonCustomization();
+
+                if (entity != null)
+                {
+                    var component = new SolutionComponent()
+                    {
+                        ComponentType = new OptionSetValue(this.ComponentTypeValue),
+                        ObjectId = entity.Id,
+                        RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                    };
+
+                    if (solutionImageComponent.RootComponentBehavior.HasValue)
+                    {
+                        component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
+                    }
+
+                    result.Add(component);
+                }
+            }
         }
 
         public override TupleList<string, string> GetComponentColumns()

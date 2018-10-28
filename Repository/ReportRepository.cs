@@ -267,9 +267,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            var webResourceCollection = _service.RetrieveMultiple(query);
+            var collection = _service.RetrieveMultiple(query);
 
-            return webResourceCollection.Entities.Select(e => e.ToEntity<Report>()).FirstOrDefault();
+            return collection.Entities.Select(e => e.ToEntity<Report>()).FirstOrDefault();
+        }
+
+        public Report FindReportBySignature(int lcid, Guid signatureId, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = Report.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Report.Schema.Attributes.signaturelcid, ConditionOperator.Equal, lcid),
+                        new ConditionExpression(Report.Schema.Attributes.signatureid, ConditionOperator.Equal, signatureId),
+                    }
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var collection = _service.RetrieveMultiple(query);
+
+            return collection.Entities.Select(e => e.ToEntity<Report>()).FirstOrDefault();
         }
     }
 }

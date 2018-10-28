@@ -153,7 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return Task.Run(() => GetSolutionByUniqueName(uniqueName));
         }
 
-        private Solution GetSolutionByUniqueName(string uniqueName)
+        public Solution GetSolutionByUniqueName(string uniqueName)
         {
             QueryExpression query = new QueryExpression()
             {
