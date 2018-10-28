@@ -250,6 +250,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     }
                     break;
 
+                case ComponentType.AppModule:
+                    {
+                        var respositorySolution = new SolutionRepository(this._service);
+                        var defaultSolution = respositorySolution.GetSolutionByUniqueName(Solution.InstancesUniqueNames.Default);
+
+                        // /designer/app/47FB3607-13DA-E811-8114-001DD8B71D68/7A536683-A60D-E811-8105-001DD8B71D68#/AppDesignerCanvas/7a536683-a60d-e811-8105-001dd8b71d68
+
+                        if (defaultSolution != null)
+                        {
+                            return $"/designer/app/{defaultSolution.Id}/{objectId}#/AppDesignerCanvas/{objectId}";
+                        }
+                    }
+                    break;
+
+                case ComponentType.AppModuleRoles:
+                    {
+                        var appModuleRoles = _service.RetrieveByQuery<AppModuleRoles>(AppModuleRoles.EntityLogicalName, objectId, new ColumnSet(AppModuleRoles.Schema.Attributes.appmoduleid));
+
+                        if (appModuleRoles != null && appModuleRoles.AppModuleId != null)
+                        {
+                            return this.GetSolutionComponentRelativeUrl(ComponentType.AppModule, appModuleRoles.AppModuleId.Id);
+                        }
+                    }
+                    break;
+
                     //case ComponentType.RibbonCommand:
                     //   return $"";
                     //case ComponentType.RibbonContextGroup:
