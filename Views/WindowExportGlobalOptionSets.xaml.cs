@@ -41,6 +41,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private int _init = 0;
 
+        private HashSet<string> _selectedOptionSets;
+
         public WindowExportGlobalOptionSets(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -66,6 +68,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (optionSets != null)
             {
                 _cacheOptionSetMetadata[service.ConnectionData.ConnectionId] = optionSets;
+
+                this._selectedOptionSets = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+                foreach (var item in optionSets)
+                {
+                    _selectedOptionSets.Add(item.Name);
+                }
             }
 
             InitializeComponent();
@@ -257,7 +266,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         var task = repository.GetOptionSetsAsync();
 
-                        _cacheOptionSetMetadata.Add(service.ConnectionData.ConnectionId, await task);
+                        var optionSets = await task;
+
+                        if (this._selectedOptionSets != null)
+                        {
+                            optionSets = optionSets.Where(o => _selectedOptionSets.Contains(o.Name)).ToList();
+                        }
+
+                        _cacheOptionSetMetadata.Add(service.ConnectionData.ConnectionId, optionSets);
                     }
 
                     list = _cacheOptionSetMetadata[service.ConnectionData.ConnectionId];
@@ -731,6 +747,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
         {
             this._cacheOptionSetMetadata.Clear();
+            this._selectedOptionSets = null;
 
             btnClearEntityFilter.IsEnabled = sepClearEntityFilter.IsEnabled = false;
             btnClearEntityFilter.Visibility = sepClearEntityFilter.Visibility = Visibility.Collapsed;
