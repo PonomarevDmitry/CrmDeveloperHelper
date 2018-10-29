@@ -130,7 +130,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             List<string> values = new List<string>();
 
             values.AddRange(new[]
-                        {
+            {
                 EntityDescriptionHandler.GetAttributeString(entity, ChannelAccessProfileEntityAccessLevel.Schema.Attributes.channelaccessprofileid + "." + ChannelAccessProfile.Schema.Attributes.name)
                 , EntityDescriptionHandler.GetAttributeString(entity, ChannelAccessProfileEntityAccessLevel.Schema.Attributes.entityaccesslevelid + "." + Privilege.Schema.Attributes.name)
                 , entity.EntityAccessLevelDepthMask.ToString()
