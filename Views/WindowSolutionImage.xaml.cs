@@ -564,7 +564,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
-                UpdateStatus("SolutionComponent not found.");
+                _iWriteToOutput.WriteToOutput("SolutionComponent not found in Crm Connection {0}.", service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow();
                 return;
             }
 
@@ -592,7 +593,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
-                UpdateStatus("SolutionComponent not found.");
+                _iWriteToOutput.WriteToOutput("SolutionComponent not found in Crm Connection {0}.", service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow();
                 return;
             }
 
@@ -625,7 +627,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
-                UpdateStatus("SolutionComponent not found.");
+                _iWriteToOutput.WriteToOutput("SolutionComponent not found in Crm Connection {0}.", service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow();
                 return;
             }
 
@@ -656,7 +659,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
-                UpdateStatus("SolutionComponent not found.");
+                _iWriteToOutput.WriteToOutput("SolutionComponent not found in Crm Connection {0}.", service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow();
                 return;
             }
 
@@ -697,22 +701,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var service = await GetService();
             var descriptor = await GetDescriptor();
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(solutionImageComponents);
 
             if (!solutionComponents.Any())
             {
-                UpdateStatus("SolutionComponent not found.");
+                _iWriteToOutput.WriteToOutput("SolutionComponent not found in Crm Connection {0}.", service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow();
                 return;
             }
-
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
 
             _commonConfig.Save();
 
@@ -724,7 +723,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var contr = new SolutionController(this._iWriteToOutput);
 
-                    contr.ExecuteAddingComponentesIntoSolution(connectionData, _commonConfig, solutionUniqueName, solutionComponents, withSelect);
+                    contr.ExecuteAddingComponentesIntoSolution(service.ConnectionData, _commonConfig, solutionUniqueName, solutionComponents, withSelect);
                 }
                 catch (Exception ex)
                 {
