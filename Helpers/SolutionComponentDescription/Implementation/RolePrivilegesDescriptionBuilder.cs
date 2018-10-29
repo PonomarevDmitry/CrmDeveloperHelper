@@ -141,75 +141,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return query;
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<RolePrivileges>(components.Select(c => c.ObjectId));
+            FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("Name", "BusinessUnit", "Privilege", "PrivilegeDepthMask");
 
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            FormatTextTableHandler table = new FormatTextTableHandler();
-            table.SetHeader("Name", "BusinessUnit", "Privilege", "PrivilegeDepthMask", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
-
-            foreach (var rolePriv in list.Select(e => e.ToEntity<RolePrivileges>()))
-            {
-                var roleName = rolePriv.GetAttributeValue<AliasedValue>("role.name").Value.ToString();
-                var businessUnit = ((EntityReference)rolePriv.GetAttributeValue<AliasedValue>("role.businessunitid").Value).Name;
-
-                if (!rolePriv.Attributes.Contains("businessunit.parentbusinessunitid"))
-                {
-                    businessUnit = "Root Organization";
-                }
-
-                table.AddLine(roleName
-                    , businessUnit
-                    , rolePriv.GetAttributeValue<AliasedValue>("privilege.name").Value.ToString()
-                    , SecurityRolePrivilegesRepository.GetPrivilegeDepthMaskName(rolePriv.PrivilegeDepthMask.Value)
-                    , rolePriv.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(rolePriv, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(rolePriv, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(rolePriv, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(rolePriv, "suppsolution.ismanaged")
-                    , withUrls && rolePriv.RoleId.HasValue ? _service.UrlGenerator?.GetSolutionComponentUrl(ComponentType.Role, rolePriv.RoleId.Value) : string.Empty
-                    );
-            }
-
-            table.GetFormatedLines(true).ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var rolePrivileges = GetEntity<RolePrivileges>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<RolePrivileges>();
 
-            if (rolePrivileges != null)
+            List<string> values = new List<string>();
+
+            var businessUnit = EntityDescriptionHandler.GetAttributeString(entity, "role.businessunitid");
+
+            if (!entity.Attributes.Contains("businessunit.parentbusinessunitid"))
             {
-                var roleName = rolePrivileges.GetAttributeValue<AliasedValue>("role.name").Value.ToString();
-                var businessUnit = ((EntityReference)rolePrivileges.GetAttributeValue<AliasedValue>("role.businessunitid").Value).Name;
-
-                if (!rolePrivileges.Attributes.Contains("businessunit.parentbusinessunitid"))
-                {
-                    businessUnit = "Root Organization";
-                }
-
-                return string.Format("Role {0}    BusinessUnit {1}    Privilege {2}    PrivilegeDepthMask {3}    IsManaged {4}    SolutionName {5}{6}"
-                    , roleName
-                    , businessUnit
-                    , rolePrivileges.GetAttributeValue<AliasedValue>("privilege.name").Value.ToString()
-                    , SecurityRolePrivilegesRepository.GetPrivilegeDepthMaskName(rolePrivileges.PrivilegeDepthMask.Value)
-                    , rolePrivileges.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(rolePrivileges, "solution.uniquename")
-                    , withUrls && rolePrivileges.RoleId.HasValue ? string.Format("    Url {0}", _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.WebResource, rolePrivileges.RoleId.Value)) : string.Empty
-                    );
+                businessUnit = "Root Organization";
             }
 
-            return base.GenerateDescriptionSingle(component, withUrls);
+            values.AddRange(new[]
+            {
+                EntityDescriptionHandler.GetAttributeString(entity, "role.name")
+                , businessUnit
+                , EntityDescriptionHandler.GetAttributeString(entity, "privilege.name")
+                , SecurityRolePrivilegesRepository.GetPrivilegeDepthMaskName(entity.PrivilegeDepthMask.Value)
+            });
+
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
+
+            return values;
         }
 
         public override string GetName(SolutionComponent component)

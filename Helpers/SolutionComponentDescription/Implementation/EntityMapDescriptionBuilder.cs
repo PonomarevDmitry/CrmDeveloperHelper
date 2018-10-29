@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -35,57 +36,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<EntityMap>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Source", "", "Target", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("Source", "", "Target");
 
-            foreach (var entity in list)
-            {
-                handler.AddLine(
-                    entity.SourceEntityName
-                    , "->"
-                    , entity.TargetEntityName
-                    , entity.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var entityMap = GetEntity<EntityMap>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<EntityMap>();
 
-            if (entityMap != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                return string.Format("EntityMap {0} -> {1}    IsManaged {2}    SolutionName {3}"
-                    , entityMap.SourceEntityName
-                    , entityMap.TargetEntityName
-                    , entityMap.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entityMap, "solution.uniquename")
-                    );
-            }
+                entity.SourceEntityName
+                , "->"
+                , entity.TargetEntityName
+            });
 
-            return base.GenerateDescriptionSingle(component, withUrls);
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
+
+            return values;
         }
 
         public override string GetName(SolutionComponent solutionComponent)

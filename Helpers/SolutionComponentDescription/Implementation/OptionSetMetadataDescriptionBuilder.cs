@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 SchemaName = optionSet.Name,
                 RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                Description = GenerateDescriptionSingle(solutionComponent, false),
+                Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
             });
         }
 
@@ -102,12 +102,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
-        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
             FormatTextTableHandler handlerUnknowed = new FormatTextTableHandler();
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("OptionSetName", "IsManaged", "Behaviour", "Url");
+            handler.SetHeader("OptionSetName", "Behaviour");
+
+            if (withManaged)
+            {
+                handler.AppendHeader("IsManaged");
+            }
+
+            if (withUrls)
+            {
+                handler.AppendHeader("Url");
+            }
 
             foreach (var comp in components)
             {
@@ -122,11 +132,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     var optionSet = this._source.AllOptionSetMetadata[comp.ObjectId.Value];
 
-                    handler.AddLine(optionSet.Name, optionSet.IsManaged.ToString(), behaviorName, withUrls ? _source.Service.ConnectionData?.GetGlobalOptionSetUrl(optionSet.MetadataId.Value) : string.Empty);
+                    List<string> values = new List<string>();
+
+                    values.AddRange(new[]
+                    {
+                        optionSet.Name
+                        , behaviorName
+                    });
+
+                    if (withManaged)
+                    {
+                        values.Add(optionSet.IsManaged.ToString());
+                    }
+
+                    if (withUrls)
+                    {
+                        values.Add(_source.Service.ConnectionData?.GetGlobalOptionSetUrl(optionSet.MetadataId.Value));
+                    }
+
+                    handler.AddLine(values);
                 }
                 else
                 {
-                    handlerUnknowed.AddLine(comp.ObjectId.ToString(), string.Empty, behaviorName);
+                    handlerUnknowed.AddLine(comp.ObjectId.ToString(), behaviorName);
                 }
             }
 
@@ -144,7 +172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
-        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls)
+        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
             if (this._source.AllOptionSetMetadata.Any())
             {
@@ -152,11 +180,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     var optionSet = this._source.AllOptionSetMetadata[solutionComponent.ObjectId.Value];
 
-                    return string.Format("OptionSet {0}    IsManaged {1}{2}"
-                        , optionSet.Name
-                        , optionSet.IsManaged.ToString()
-                        , withUrls ? string.Format("    Url {0}", _source.Service.ConnectionData.GetGlobalOptionSetUrl(optionSet.MetadataId.Value)) : string.Empty
-                        );
+                    string behaviorName = string.Empty;
+
+                    if (solutionComponent.RootComponentBehavior != null)
+                    {
+                        behaviorName = SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior.Value);
+                    }
+
+                    FormatTextTableHandler handler = new FormatTextTableHandler();
+                    handler.SetHeader("OptionSetName", "Behaviour");
+
+                    if (withManaged)
+                    {
+                        handler.AppendHeader("IsManaged");
+                    }
+
+                    if (withUrls)
+                    {
+                        handler.AppendHeader("Url");
+                    }
+
+                    List<string> values = new List<string>();
+
+                    values.AddRange(new[]
+                    {
+                        optionSet.Name
+                        , behaviorName
+                    });
+
+                    if (withManaged)
+                    {
+                        values.Add(optionSet.IsManaged.ToString());
+                    }
+
+                    if (withUrls)
+                    {
+                        values.Add(_source.Service.ConnectionData?.GetGlobalOptionSetUrl(optionSet.MetadataId.Value));
+                    }
+
+                    handler.AddLine(values);
+
+                    var str = handler.GetFormatedLinesWithHeadersInLine(false).FirstOrDefault();
+
+                    return string.Format("{0} {1}", this.ComponentTypeEnum.ToString(), str);
                 }
             }
 

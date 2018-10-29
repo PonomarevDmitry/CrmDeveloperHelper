@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -42,189 +43,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<Workflow>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("Entity", "Category", "Name", "Type", "Scope", "Mode", "StatusCode", "IsCustomizable");
 
-            handler.SetHeader("Entity", "Category", "Name", "Type", "Scope", "Mode", "StatusCode", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
+            AppendIntoTableHeader(handler, withUrls, withManaged, withSolutionInfo);
 
-            foreach (var entity in list
-                    .OrderBy(entity => entity.PrimaryEntity)
-                    .ThenBy(entity => entity.Category?.Value)
-                    .ThenBy(entity => entity.Name)
-                    .ThenBy(entity =>
-                    {
-                        var op = entity.BusinessProcessType;
-                        return (op != null) ? (int?)op.Value : null;
-                    })
-                )
-            {
-                CreateOneWorkFlowDescription(entity, handler, withUrls);
-            }
-
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var workflow = GetEntity<Workflow>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<Workflow>();
 
-            if (workflow != null)
-            {
-                StringBuilder builder = new StringBuilder();
-
-                string primaryentity = workflow.PrimaryEntity;
-                string name = workflow.Name;
-                string category = string.Empty;
-                string businessprocesstype = string.Empty;
-                string scope = string.Empty;
-                string mode = string.Empty;
-
-                builder.AppendFormat("Workflow {0}", primaryentity);
-
-                if (workflow.Contains(Workflow.Schema.Attributes.category) && workflow.Attributes[Workflow.Schema.Attributes.category] != null)
-                {
-                    category = workflow.FormattedValues[Workflow.Schema.Attributes.category];
-
-                    builder.AppendFormat(" {0}", category);
-                }
-
-                builder.AppendFormat("    {0}", name);
-
-                var uniqueName = workflow.UniqueName;
-
-                if (!string.IsNullOrEmpty(uniqueName))
-                {
-                    builder.AppendFormat("    UniqueName {0}", uniqueName);
-                }
-
-                if (workflow.Contains(Workflow.Schema.Attributes.businessprocesstype) && workflow.Attributes[Workflow.Schema.Attributes.businessprocesstype] != null)
-                {
-                    businessprocesstype = workflow.FormattedValues[Workflow.Schema.Attributes.businessprocesstype];
-
-                    builder.AppendFormat("    {0}", businessprocesstype);
-                }
-
-                if (workflow.Contains(Workflow.Schema.Attributes.scope) && workflow.Attributes[Workflow.Schema.Attributes.scope] != null)
-                {
-                    scope = workflow.FormattedValues[Workflow.Schema.Attributes.scope];
-
-                    builder.AppendFormat("    {0}", scope);
-                }
-
-                if (workflow.Contains(Workflow.Schema.Attributes.mode) && workflow.Attributes[Workflow.Schema.Attributes.mode] != null)
-                {
-                    mode = workflow.FormattedValues[Workflow.Schema.Attributes.mode];
-
-                    builder.AppendFormat("    {0}", mode);
-                }
-
-                builder.AppendFormat("    {0}", workflow.FormattedValues[Workflow.Schema.Attributes.statuscode]);
-
-                builder.AppendFormat("    IsManaged {0}", workflow.IsManaged.ToString());
-
-                builder.AppendFormat("    IsCustomizable {0}", workflow.IsCustomizable?.Value.ToString());
-
-                builder.AppendFormat("    SolutionName {0}", EntityDescriptionHandler.GetAttributeString(workflow, "solution.uniquename"));
-
-                if (withUrls)
-                {
-                    builder.AppendFormat("    Url {0}", _service.UrlGenerator?.GetSolutionComponentUrl(ComponentType.Workflow, workflow.Id));
-                }
-
-                return builder.ToString();
-            }
-
-            return base.GenerateDescriptionSingle(component, withUrls);
-        }
-
-        private void CreateOneWorkFlowDescription(Workflow entity, FormatTextTableHandler handler, bool withUrls)
-        {
-            //"workflowid", "name", "uniquename", "businessprocesstype", "category", "mode", "primaryentity", "scope"
+            List<string> values = new List<string>();
 
             string name = entity.Name;
 
-            var uniqueName = entity.UniqueName;
-
-            if (!string.IsNullOrEmpty(uniqueName))
+            if (!string.IsNullOrEmpty(entity.UniqueName))
             {
-                name += string.Format("    (UniqueName \"{0}\")", uniqueName);
+                name += string.Format("    (UniqueName \"{0}\")", entity.UniqueName);
             }
 
-            string primaryentity = entity.PrimaryEntity;
-            string category = string.Empty;
-            string businessprocesstype = string.Empty;
-            string scope = string.Empty;
-            string mode = string.Empty;
-            string statusCodeString = entity.FormattedValues[Workflow.Schema.Attributes.statuscode];
+            entity.FormattedValues.TryGetValue(Workflow.Schema.Attributes.category, out string category);
+            entity.FormattedValues.TryGetValue(Workflow.Schema.Attributes.businessprocesstype, out string businessprocesstype);
+            entity.FormattedValues.TryGetValue(Workflow.Schema.Attributes.scope, out string scope);
+            entity.FormattedValues.TryGetValue(Workflow.Schema.Attributes.mode, out string mode);
+            entity.FormattedValues.TryGetValue(Workflow.Schema.Attributes.statuscode, out string statuscode);
 
-            if (entity.Contains(Workflow.Schema.Attributes.category) && entity.Attributes[Workflow.Schema.Attributes.category] != null)
+            values.AddRange(new[]
             {
-                //var option = entity.Category.Value;
-
-                //category = GetWorkFlowCategory(option);
-
-                category = entity.FormattedValues[Workflow.Schema.Attributes.category];
-            }
-
-            //if (entity.Contains("uniquename") && entity.Attributes["uniquename"] != null)
-            //{
-            //    string uniquename = entity.UniqueName;
-
-            //    if (!string.IsNullOrEmpty(uniquename))
-            //    {
-            //        builder.AppendFormat("; UniqueName: '{0}'", uniquename);
-            //    }
-            //}
-
-            if (entity.Contains(Workflow.Schema.Attributes.businessprocesstype) && entity.Attributes[Workflow.Schema.Attributes.businessprocesstype] != null)
-            {
-                //var option = entity.BusinessProcessType.Value;
-
-                //businessprocesstype = GetWorkFlowBusinessProcessType(option);
-
-                businessprocesstype = entity.FormattedValues[Workflow.Schema.Attributes.businessprocesstype];
-            }
-
-            if (entity.Contains(Workflow.Schema.Attributes.scope) && entity.Attributes[Workflow.Schema.Attributes.scope] != null)
-            {
-                scope = entity.FormattedValues[Workflow.Schema.Attributes.scope];
-            }
-
-            if (entity.Contains(Workflow.Schema.Attributes.mode) && entity.Attributes[Workflow.Schema.Attributes.mode] != null)
-            {
-                mode = entity.FormattedValues[Workflow.Schema.Attributes.mode];
-            }
-
-            handler.AddLine(primaryentity
+                entity.PrimaryEntity
                 , category
                 , name
                 , businessprocesstype
                 , scope
                 , mode
-                , statusCodeString
-                , entity.IsManaged.ToString()
+                , statuscode
                 , entity.IsCustomizable?.Value.ToString()
-                , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                , withUrls ? _service.UrlGenerator?.GetSolutionComponentUrl(ComponentType.Workflow, entity.Id) : string.Empty
-            );
+            });
+
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
+
+            return values;
         }
 
         public override string GetDisplayName(SolutionComponent component)

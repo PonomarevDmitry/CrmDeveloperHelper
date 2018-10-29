@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -36,75 +37,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<ReportCategory>(components.Select(c => c.ObjectId));
+            FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("ReportName", "Category", "IsCustomizable");
 
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            FormatTextTableHandler table = new FormatTextTableHandler();
-            table.SetHeader("ReportName", "Category", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
-
-            foreach (var entity in list)
-            {
-                var reportRef = entity.ReportId;
-                string reportName = string.Empty;
-
-                if (reportRef != null)
-                {
-                    reportName = reportRef.Name;
-                }
-
-                table.AddLine(reportName
-                    , entity.FormattedValues[ReportCategory.Schema.Attributes.categorycode]
-                    , entity.IsManaged.ToString()
-                    , entity.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    , withUrls && reportRef != null ? _service.UrlGenerator?.GetSolutionComponentUrl(ComponentType.Report, reportRef.Id) : string.Empty
-                    );
-            }
-
-            List<string> lines = table.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var reportCategory = GetEntity<ReportCategory>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<ReportCategory>();
 
-            if (reportCategory != null)
+            List<string> values = new List<string>();
+
+            entity.FormattedValues.TryGetValue(ReportCategory.Schema.Attributes.categorycode, out string categorycode);
+
+            values.AddRange(new[]
             {
-                var reportRef = reportCategory.ReportId;
-                string reportName = string.Empty;
+                entity.ReportId?.Name
+                , categorycode
+                , entity.IsCustomizable?.Value.ToString()
+            });
 
-                if (reportRef != null)
-                {
-                    reportName = reportRef.Name;
-                }
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
 
-                return string.Format("Report {0}    Category {1}    IsManaged {2}    IsManaged {3}    SolutionName {4}{5}"
-                    , reportName
-                    , reportCategory.FormattedValues[ReportCategory.Schema.Attributes.categorycode]
-                    , reportCategory.IsManaged.ToString()
-                    , reportCategory.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(reportCategory, "solution.uniquename")
-                    , withUrls && reportRef != null ? string.Format("    Url {0}", _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.Report, reportRef.Id)) : string.Empty
-                    );
-            }
-
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override string GetName(SolutionComponent component)

@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -35,60 +36,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<ConvertRuleItem>(components.Select(c => c.ObjectId));
+            FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("ConvertRuleName", "Name");
 
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            FormatTextTableHandler table = new FormatTextTableHandler();
-            table.SetHeader("ConvertRuleName", "Name", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
-
-            foreach (var entity in list)
-            {
-                string convertRuleName = entity.ConvertRuleId.Name;
-                string name = entity.Name;
-
-                table.AddLine(
-                    convertRuleName
-                    , name
-                    , entity.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
-
-            table.GetFormatedLines(true).ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var convertRuleItem = GetEntity<ConvertRuleItem>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<ConvertRuleItem>();
 
-            if (convertRuleItem != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                string convertRuleName = convertRuleItem.ConvertRuleId.Name;
-                string name = convertRuleItem.Name;
+                entity.ConvertRuleId?.Name
+                , entity.Name
+            });
 
-                return string.Format("ConvertRuleName {0}    Name {1}    IsManaged {2}    SolutionName {3}"
-                    , convertRuleName
-                    , name
-                    , convertRuleItem.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(convertRuleItem, "solution.uniquename")
-                    );
-            }
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
 
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override TupleList<string, string> GetComponentColumns()

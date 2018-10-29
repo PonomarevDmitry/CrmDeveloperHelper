@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -37,74 +38,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<RibbonTabToCommandMap>(components.Select(c => c.ObjectId));
+            FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("Entity", "TabId", "ControlId", "Command");
 
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            FormatTextTableHandler table = new FormatTextTableHandler();
-
-            table.SetHeader("Entity", "TabId", "ControlId", "Command", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
-
-            foreach (var entity in list)
-            {
-                string entityName = entity.Entity;
-
-                if (string.IsNullOrEmpty(entityName))
-                {
-                    entityName = "ApplicationRibbon";
-                }
-
-                table.AddLine(entityName
-                    , entity.TabId
-                    , entity.ControlId
-                    , entity.Command
-                    , entity.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
-
-            List<string> lines = table.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var ribbonTabToCommandMap = GetEntity<RibbonTabToCommandMap>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<RibbonTabToCommandMap>();
 
-            if (ribbonTabToCommandMap != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                string entityName = ribbonTabToCommandMap.Entity;
+                entity.Entity ?? "ApplicationRibbon"
+                , entity.TabId
+                , entity.ControlId
+                , entity.Command
+            });
 
-                if (string.IsNullOrEmpty(entityName))
-                {
-                    entityName = "ApplicationRibbon";
-                }
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
 
-                return string.Format("Entity {0}    TabId {1}    ControlId {2}    Command {3}    IsManaged {4}    SolutionName {5}"
-                    , entityName
-                    , ribbonTabToCommandMap.TabId
-                    , ribbonTabToCommandMap.ControlId
-                    , ribbonTabToCommandMap.Command
-                    , ribbonTabToCommandMap.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(ribbonTabToCommandMap, "solution.uniquename")
-                    );
-            }
-
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override string GetName(SolutionComponent component)

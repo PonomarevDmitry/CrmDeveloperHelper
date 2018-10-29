@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -123,62 +124,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return query;
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<CustomControlResource>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("ControlName", "Name", "WebResourceName", "WebResourceType", "Id", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("ControlName", "Name", "WebResourceName", "WebResourceType", "Id");
 
-            foreach (var entity in list)
-            {
-                handler.AddLine(
-                    EntityDescriptionHandler.GetAttributeString(entity, CustomControlResource.Schema.Attributes.customcontrolid + "." + AppModule.Schema.Attributes.name)
-                    , entity.Name
-                    , EntityDescriptionHandler.GetAttributeString(entity, CustomControlResource.Schema.Attributes.webresourceid + "." + WebResource.Schema.Attributes.name)
-                    , EntityDescriptionHandler.GetAttributeString(entity, CustomControlResource.Schema.Attributes.webresourceid + "." + WebResource.Schema.Attributes.webresourcetype)
-                    , entity.Id.ToString()
-                    , entity.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var customControlResource = GetEntity<CustomControlResource>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<CustomControlResource>();
 
-            if (customControlResource != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                return string.Format("ControlName {0}    Name {1}    WebResourceName {2}    WebResourceType {3}    Id {4}    IsManaged {5}    SolutionName {6}"
-                    , EntityDescriptionHandler.GetAttributeString(customControlResource, CustomControlResource.Schema.Attributes.customcontrolid + "." + AppModule.Schema.Attributes.name)
-                    , customControlResource.Name
-                    , EntityDescriptionHandler.GetAttributeString(customControlResource, CustomControlResource.Schema.Attributes.webresourceid + "." + WebResource.Schema.Attributes.name)
-                    , EntityDescriptionHandler.GetAttributeString(customControlResource, CustomControlResource.Schema.Attributes.webresourceid + "." + WebResource.Schema.Attributes.webresourcetype)
-                    , customControlResource.Id.ToString()
-                    , customControlResource.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(customControlResource, "solution.uniquename")
-                    );
-            }
+                EntityDescriptionHandler.GetAttributeString(entity, CustomControlResource.Schema.Attributes.customcontrolid + "." + AppModule.Schema.Attributes.name)
+                , entity.Name
+                , EntityDescriptionHandler.GetAttributeString(entity, CustomControlResource.Schema.Attributes.webresourceid + "." + WebResource.Schema.Attributes.name)
+                , EntityDescriptionHandler.GetAttributeString(entity, CustomControlResource.Schema.Attributes.webresourceid + "." + WebResource.Schema.Attributes.webresourcetype)
+                , entity.Id.ToString()
+            });
 
-            return base.GenerateDescriptionSingle(component, withUrls);
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
+
+            return values;
         }
 
         public override string GetName(SolutionComponent component)

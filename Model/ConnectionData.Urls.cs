@@ -351,16 +351,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public void OpenAttributeMetadataInWeb(Guid entityId, Guid attributeId)
         {
-            if (!TryGetPublicUrl(out string publicUrl))
-            {
-                return;
-            }
-
-            string uri = publicUrl + GetAttributeMetadataRelativeUrl(entityId, attributeId);
+            string uri = GetAttributeMetadataUrl(entityId, attributeId);
 
             if (!IsValidUri(uri)) return;
 
             System.Diagnostics.Process.Start(uri);
+        }
+
+        public string GetAttributeMetadataUrl(Guid entityId, Guid attributeId)
+        {
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return null;
+            }
+
+            return publicUrl + GetAttributeMetadataRelativeUrl(entityId, attributeId);
         }
 
         public string GetAttributeMetadataRelativeUrl(Guid entityId, Guid attributeId)
@@ -370,16 +375,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public void OpenEntityKeyMetadataInWeb(Guid entityId, Guid entityKeyId)
         {
-            if (!TryGetPublicUrl(out string publicUrl))
-            {
-                return;
-            }
-
-            string uri = publicUrl + GetEntityKeyMetadataRelativeUrl(entityId, entityKeyId);
+            string uri = GetEntityKeyMetadataUrl(entityId, entityKeyId);
 
             if (!IsValidUri(uri)) return;
 
             System.Diagnostics.Process.Start(uri);
+        }
+
+        public string GetEntityKeyMetadataUrl(Guid entityId, Guid entityKeyId)
+        {
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return null;
+            }
+
+            return publicUrl + GetEntityKeyMetadataRelativeUrl(entityId, entityKeyId);
         }
 
         public string GetEntityKeyMetadataRelativeUrl(Guid entityId, Guid entityKeyId)
@@ -389,16 +399,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public void OpenRelationshipMetadataInWeb(Guid entityId, Guid relationId)
         {
-            if (!TryGetPublicUrl(out string publicUrl))
-            {
-                return;
-            }
-
-            string uri = publicUrl + GetRelationshipMetadataRelativeUrl(entityId, relationId);
+            string uri = GetRelationshipMetadataUrl(entityId, relationId);
 
             if (!IsValidUri(uri)) return;
 
             System.Diagnostics.Process.Start(uri);
+        }
+
+        public string GetRelationshipMetadataUrl(Guid entityId, Guid relationId)
+        {
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return null;
+            }
+
+            return publicUrl + GetRelationshipMetadataRelativeUrl(entityId, relationId);
         }
 
         public string GetRelationshipMetadataRelativeUrl(Guid entityId, Guid relationId)

@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -71,76 +72,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return query;
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<SdkMessage>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-
             handler.SetHeader("Message", "Category", "Template", "WorkflowSdkStepEnabled", "CustomizationLevel", "AutoTransact", "Expand", "IsActive", "IsPrivate", "IsReadOnly", "IsValidForExecuteAsync");
 
-            foreach (var entity in list.Select(ent => ent.ToEntity<SdkMessage>()))
-            {
-                handler.AddLine(
-                    entity.Name
-                    , entity.CategoryName
-                    , entity.Template.ToString()
-                    , entity.WorkflowSdkStepEnabled.ToString()
-                    , entity.CustomizationLevel.ToString()
-                    , entity.AutoTransact.ToString()
-                    , entity.Expand.ToString()
-                    , entity.IsActive.ToString()
-                    , entity.IsPrivate.ToString()
-                    , entity.IsReadOnly.ToString()
-                    , entity.IsValidForExecuteAsync.ToString()
-                );
-            }
-
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var sdkMessage = GetEntity<SdkMessage>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<SdkMessage>();
 
-            if (sdkMessage != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                FormatTextTableHandler handler = new FormatTextTableHandler();
+                entity.Name
+                , entity.CategoryName
+                , entity.Template.ToString()
+                , entity.WorkflowSdkStepEnabled.ToString()
+                , entity.CustomizationLevel.ToString()
+                , entity.AutoTransact.ToString()
+                , entity.Expand.ToString()
+                , entity.IsActive.ToString()
+                , entity.IsPrivate.ToString()
+                , entity.IsReadOnly.ToString()
+                , entity.IsValidForExecuteAsync.ToString()
+            });
 
-                handler.SetHeader("Message", "Category", "Template", "WorkflowSdkStepEnabled", "CustomizationLevel", "AutoTransact", "Expand", "IsActive", "IsPrivate", "IsReadOnly", "IsValidForExecuteAsync");
-
-                handler.AddLine(
-                    sdkMessage.Name
-                    , sdkMessage.CategoryName
-                    , sdkMessage.Template.ToString()
-                    , sdkMessage.WorkflowSdkStepEnabled.ToString()
-                    , sdkMessage.CustomizationLevel.ToString()
-                    , sdkMessage.AutoTransact.ToString()
-                    , sdkMessage.Expand.ToString()
-                    , sdkMessage.IsActive.ToString()
-                    , sdkMessage.IsPrivate.ToString()
-                    , sdkMessage.IsReadOnly.ToString()
-                    , sdkMessage.IsValidForExecuteAsync.ToString()
-                );
-
-                var str = handler.GetFormatedLinesWithHeadersInLine(false).FirstOrDefault();
-
-                return string.Format("SdkMessage {0}", str);
-            }
-
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override TupleList<string, string> GetComponentColumns()

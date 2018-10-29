@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -36,60 +37,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<SavedQueryVisualization>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("PrimaryEntityTypeCode", "Name", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("PrimaryEntityTypeCode", "Name", "IsCustomizable");
 
-            foreach (var entity in list)
-            {
-                string chartName = entity.Name;
-                string entityName = entity.PrimaryEntityTypeCode;
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-                handler.AddLine(entityName
-                    , chartName
-                    , entity.IsManaged.ToString()
-                    , entity.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
-
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var savedQueryVisualization = GetEntity<SavedQueryVisualization>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<SavedQueryVisualization>();
 
-            if (savedQueryVisualization != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                return string.Format("SavedQueryVisualization (Chart)     {0}    Name '{1}'    IsManged {2}    IsManged {3}    SolutionName {4}"
-                    , savedQueryVisualization.PrimaryEntityTypeCode
-                    , savedQueryVisualization.Name
-                    , savedQueryVisualization.IsManaged.ToString()
-                    , savedQueryVisualization.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(savedQueryVisualization, "solution.uniquename")
-                    );
-            }
+                entity.PrimaryEntityTypeCode
+                , entity.Name
+                , entity.IsCustomizable?.Value.ToString()
+            });
 
-            return base.GenerateDescriptionSingle(component, withUrls);
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
+
+            return values;
         }
 
         public override string GetName(SolutionComponent component)

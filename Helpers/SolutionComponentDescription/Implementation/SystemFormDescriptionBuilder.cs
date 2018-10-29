@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -37,68 +38,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<SystemForm>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("EntityName", "FormType", "FormName", "IsCustomizable");
 
-            handler.SetHeader("EntityName", "FormType", "FormName", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            foreach (var entity in list
-                .OrderBy(ent => ent.ObjectTypeCode)
-                .ThenBy(ent => ent.Type.Value)
-                .ThenBy(ent => ent.Name)
-                )
-            {
-                string formTypeName = entity.FormattedValues[SystemForm.Schema.Attributes.type];
-
-                handler.AddLine(entity.ObjectTypeCode
-                    , string.Format("'{0}'", formTypeName)
-                    , string.Format("'{0}'", entity.Name)
-                    , entity.IsManaged.ToString()
-                    , entity.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
-
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var systemForm = GetEntity<SystemForm>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<SystemForm>();
 
-            if (systemForm != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                string formTypeName = systemForm.FormattedValues[SystemForm.Schema.Attributes.type];
+                entity.ObjectTypeCode
+                , entity.FormattedValues[SystemForm.Schema.Attributes.type]
+                , entity.Name
+                , entity.IsCustomizable?.Value.ToString()
+            });
 
-                return string.Format("SystemForm     {0}    '{1}'    '{2}'    IsManged {3}    IsCustomizable {3}    SolutionName {4}"
-                    , systemForm.ObjectTypeCode
-                    , formTypeName
-                    , systemForm.Name
-                    , systemForm.IsManaged.ToString()
-                    , systemForm.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(systemForm, "solution.uniquename")
-                    );
-            }
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
 
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override string GetName(SolutionComponent component)

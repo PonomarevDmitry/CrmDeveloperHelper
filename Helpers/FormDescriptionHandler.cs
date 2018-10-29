@@ -21,8 +21,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private DependencyRepository _dependencyRepository;
 
         private DependencyDescriptionHandler _descriptorHandler;
+        private const string tabSpacer = "    ";
 
-        const string tabSpacer = "    ";
+        public bool WithManagedInfo { get; set; } = true;
+
+        public bool WithDependentComponents { get; set; } = true;
 
         public FormDescriptionHandler(SolutionComponentDescriptor descriptor, DependencyRepository dependencyRepository)
         {
@@ -75,7 +78,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await SaveDisplayConditions(result, doc);
 
-            await SaveDependentComponents(result, formId);
+            if (this.WithDependentComponents)
+            {
+                await SaveDependentComponents(result, formId);
+            }
 
             return result.ToString();
         }
@@ -762,11 +768,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (attribute != null)
                         {
-                            List<String> lines = new List<string>();
+                            List<string> lines = new List<string>();
 
                             CreateFileHandler.FillLabelDisplayNameAndDescription(lines, true, attribute.DisplayName, attribute.Description, tabSpacer);
 
-                            var attributeDescription = CreateFileHandler.GetAttributeDescription(attribute, true, true, this._descriptor);
+                            var attributeDescription = CreateFileHandler.GetAttributeDescription(attribute, true, this.WithManagedInfo, this._descriptor);
 
                             if (attributeDescription.Count > 0)
                             {

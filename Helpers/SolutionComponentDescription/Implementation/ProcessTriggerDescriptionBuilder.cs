@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -43,85 +44,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<ProcessTrigger>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("PrimaryEntityTypeCode", "ProcessName", "Event", "PipelineStage", "FormName", "Scope", "MethodId", "ControlName", "ControlType", "IsManaged", "IsCustomizable"
-                , "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("PrimaryEntityTypeCode", "ProcessName", "Event", "PipelineStage", "FormName", "Scope", "MethodId", "ControlName", "ControlType", "IsCustomizable");
 
-            foreach (var entity in list)
-            {
-                entity.FormattedValues.TryGetValue(ProcessTrigger.Schema.Attributes.pipelinestage, out string pipelinestage);
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-                entity.FormattedValues.TryGetValue(ProcessTrigger.Schema.Attributes.scope, out string scope);
-
-                entity.FormattedValues.TryGetValue(ProcessTrigger.Schema.Attributes.controltype, out string controltype);
-
-                handler.AddLine(
-                    entity.PrimaryEntityTypeCode
-                    , entity.ProcessId?.Name
-                    , entity.Event
-                    , pipelinestage
-                    , entity.FormId?.Name
-                    , scope
-                    , entity.MethodId?.ToString()
-                    , entity.ControlName
-                    , controltype
-                    , entity.IsManaged.ToString()
-                    , entity.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
-
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var processTrigger = GetEntity<ProcessTrigger>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<ProcessTrigger>();
 
-            if (processTrigger != null)
+            List<string> values = new List<string>();
+
+            entity.FormattedValues.TryGetValue(ProcessTrigger.Schema.Attributes.pipelinestage, out string pipelinestage);
+
+            entity.FormattedValues.TryGetValue(ProcessTrigger.Schema.Attributes.scope, out string scope);
+
+            entity.FormattedValues.TryGetValue(ProcessTrigger.Schema.Attributes.controltype, out string controltype);
+
+            values.AddRange(new[]
             {
-                processTrigger.FormattedValues.TryGetValue(ProcessTrigger.Schema.Attributes.pipelinestage, out string pipelinestage);
+                entity.PrimaryEntityTypeCode
+                , entity.ProcessId?.Name
+                , entity.Event
+                , pipelinestage
+                , entity.FormId?.Name
+                , scope
+                , entity.MethodId?.ToString()
+                , entity.ControlName
+                , controltype
+                , entity.IsCustomizable?.Value.ToString()
+            });
 
-                processTrigger.FormattedValues.TryGetValue(ProcessTrigger.Schema.Attributes.scope, out string scope);
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
 
-                processTrigger.FormattedValues.TryGetValue(ProcessTrigger.Schema.Attributes.controltype, out string controltype);
-
-                return string.Format("PrimaryEntityTypeCode {0}    ProcessName {1}    Event {2}    PipelineStage {3}        FormName {4}        Scope {5}        MethodId {6}        ControlName {7}        ControlType {8}        IsManaged {9}        IsCustomizable {10}        SolutionName {11}"
-                    , processTrigger.PrimaryEntityTypeCode
-                    , processTrigger.ProcessId?.Name
-                    , processTrigger.Event
-                    , pipelinestage
-                    , processTrigger.FormId?.Name
-                    , scope
-                    , processTrigger.MethodId?.ToString()
-                    , processTrigger.ControlName
-                    , controltype
-                    , processTrigger.IsManaged.ToString()
-                    , processTrigger.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(processTrigger, "solution.uniquename")
-                    );
-            }
-
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override string GetName(SolutionComponent component)

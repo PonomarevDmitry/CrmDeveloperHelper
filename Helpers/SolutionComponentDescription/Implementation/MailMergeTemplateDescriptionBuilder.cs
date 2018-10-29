@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -37,72 +38,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<MailMergeTemplate>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("TemplateTypeCode", "Name", "MailMergeType", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("TemplateTypeCode", "Name", "MailMergeType");
 
-            foreach (var entity in list)
-            {
-                string entityName = entity.TemplateTypeCode;
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-                string name = entity.Name;
-
-                string typeName = entity.FormattedValues.ContainsKey(MailMergeTemplate.Schema.Attributes.mailmergetype) ? entity.FormattedValues[MailMergeTemplate.Schema.Attributes.mailmergetype] : string.Empty;
-
-                handler.AddLine(entityName
-                    , name
-                    , typeName
-                    , entity.IsManaged.ToString()
-                    , entity.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
-
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var mailMergeTemplate = GetEntity<MailMergeTemplate>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<MailMergeTemplate>();
 
-            if (mailMergeTemplate != null)
+            List<string> values = new List<string>();
+
+            string typeName = entity.FormattedValues.ContainsKey(MailMergeTemplate.Schema.Attributes.mailmergetype) ? entity.FormattedValues[MailMergeTemplate.Schema.Attributes.mailmergetype] : string.Empty;
+
+            values.AddRange(new[]
             {
-                string typeName = string.Empty;
+                entity.TemplateTypeCode
+                , entity.Name
+                , typeName
+                , entity.IsCustomizable?.Value.ToString()
+            });
 
-                if (mailMergeTemplate.Contains(MailMergeTemplate.Schema.Attributes.mailmergetype) && mailMergeTemplate[MailMergeTemplate.Schema.Attributes.mailmergetype] != null)
-                {
-                    typeName = mailMergeTemplate.FormattedValues[MailMergeTemplate.Schema.Attributes.mailmergetype];
-                }
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
 
-                return string.Format("MailMergeTemplate {0}    TemplateTypeCode {1}    MailMergeType {2}    IsManaged {3}    IsCustomizable {4}    SolutionName {5}"
-                    , mailMergeTemplate.Name
-                    , mailMergeTemplate.TemplateTypeCode
-                    , typeName
-                    , mailMergeTemplate.IsManaged.ToString()
-                    , mailMergeTemplate.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(mailMergeTemplate, "solution.uniquename")
-                    );
-            }
-
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override TupleList<string, string> GetComponentColumns()

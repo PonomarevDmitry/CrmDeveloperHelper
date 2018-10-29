@@ -39,65 +39,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<WebResource>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("WebResourceType", "Name", "DisplayName", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
+            handler.SetHeader("WebResourceType", "Name", "DisplayName", "IsCustomizable");
 
-            foreach (var webResource in list)
-            {
-                string webTypeName = string.Format("'{0}'", webResource.FormattedValues[WebResource.Schema.Attributes.webresourcetype]);
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-                handler.AddLine(webTypeName
-                    , webResource.Name
-                    , webResource.DisplayName
-                    , webResource.IsManaged.ToString()
-                    , webResource.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(webResource, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(webResource, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(webResource, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(webResource, "suppsolution.ismanaged")
-                    , withUrls ? _service.UrlGenerator?.GetSolutionComponentUrl(ComponentType.WebResource, webResource.Id) : string.Empty
-                    );
-            }
-
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var webResource = GetEntity<WebResource>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<WebResource>();
 
-            if (webResource != null)
+            List<string> values = new List<string>();
+
+            entity.FormattedValues.TryGetValue(WebResource.Schema.Attributes.webresourcetype, out var webresourcetype);
+
+            values.AddRange(new[]
             {
-                string webTypeName = string.Format("'{0}'", webResource.FormattedValues[WebResource.Schema.Attributes.webresourcetype]);
+                webresourcetype
+                , entity.Name
+                , entity.DisplayName
+                , entity.IsCustomizable?.Value.ToString()
+            });
 
-                return string.Format("WebResource     '{0}'    WebResourceType '{1}'    DisplayName     '{2}'    IsManaged {3}    IsCustomizable {4}    SolutionName {5}{6}"
-                    , webResource.Name
-                    , webTypeName
-                    , webResource.DisplayName
-                    , webResource.IsManaged.ToString()
-                    , webResource.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(webResource, "solution.uniquename")
-                    , withUrls ? string.Format("    Url {0}", _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.WebResource, webResource.Id)) : string.Empty
-                    );
-            }
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
 
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override string GetDisplayName(SolutionComponent component)
@@ -132,7 +102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                     RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false),
+                    Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
                 };
 
                 result.Add(imageComponent);

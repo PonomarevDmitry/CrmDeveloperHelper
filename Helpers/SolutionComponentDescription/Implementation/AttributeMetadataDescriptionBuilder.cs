@@ -4,6 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
@@ -62,14 +63,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     ParentSchemaName = metaData.EntityLogicalName,
                     RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false),
+                    Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
                 });
             }
         }
 
         public void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionImageComponent)
         {
-            if (solutionImageComponent == null 
+            if (solutionImageComponent == null
                 || string.IsNullOrEmpty(solutionImageComponent.SchemaName)
                 || string.IsNullOrEmpty(solutionImageComponent.ParentSchemaName)
                 )
@@ -97,12 +98,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
-        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
             FormatTextTableHandler handlerUnknowed = new FormatTextTableHandler();
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("AttributeName", "IsManaged", "Behaviour", "Url");
+            handler.SetHeader("AttributeName", "Behaviour");
+
+            if (withManaged)
+            {
+                handler.AppendHeader("IsManaged");
+            }
+
+            if (withUrls)
+            {
+                handler.AppendHeader("Url");
+            }
 
             foreach (var comp in components)
             {
@@ -117,19 +128,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 if (metaData != null)
                 {
-                    var entityMetadata = _source.GetEntityMetadata(metaData.EntityLogicalName);
+                    List<string> values = new List<string>();
 
-                    if (entityMetadata != null)
+                    values.AddRange(new[]
                     {
-                        string name = string.Format("{0}.{1}", metaData.EntityLogicalName, metaData.LogicalName);
+                        string.Format("{0}.{1}", metaData.EntityLogicalName, metaData.LogicalName)
+                        , behavior
+                    });
 
-                        handler.AddLine(name, metaData.IsManaged.ToString(), behavior, withUrls ? _source.Service.ConnectionData?.GetAttributeMetadataRelativeUrl(entityMetadata.MetadataId.Value, metaData.MetadataId.Value) : string.Empty);
-
-                        continue;
+                    if (withManaged)
+                    {
+                        values.Add(metaData.IsManaged.ToString());
                     }
-                }
 
-                handlerUnknowed.AddLine(comp.ObjectId.ToString(), string.Empty, behavior);
+                    if (withUrls)
+                    {
+                        var entityMetadata = _source.GetEntityMetadata(metaData.EntityLogicalName);
+
+                        if (entityMetadata != null)
+                        {
+                            values.Add(_source.Service.ConnectionData?.GetAttributeMetadataUrl(entityMetadata.MetadataId.Value, metaData.MetadataId.Value));
+                        }
+                    }
+
+                    handler.AddLine(values);
+                }
+                else
+                {
+                    handlerUnknowed.AddLine(comp.ObjectId.ToString(), behavior);
+                }
             }
 
             if (handlerUnknowed.Count > 0)
@@ -146,25 +173,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
-        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls)
+        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
             AttributeMetadata metaData = _source.GetAttributeMetadata(solutionComponent.ObjectId.Value);
 
             if (metaData != null)
             {
-                var entityMetadata = _source.GetEntityMetadata(metaData.EntityLogicalName);
+                string behavior = string.Empty;
 
-                if (entityMetadata != null)
+                if (solutionComponent.RootComponentBehavior != null)
                 {
-                    string name = string.Format("Attribute {0}.{1}     IsManaged {2}{3}"
-                        , metaData.EntityLogicalName
-                        , metaData.LogicalName
-                        , metaData.IsManaged.ToString()
-                        , withUrls ? string.Format("     Url {0}", _source.Service.ConnectionData.GetAttributeMetadataRelativeUrl(entityMetadata.MetadataId.Value, metaData.MetadataId.Value)) : string.Empty
-                    );
-
-                    return name;
+                    behavior = SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior.Value);
                 }
+
+                FormatTextTableHandler handler = new FormatTextTableHandler();
+                handler.SetHeader("AttributeName", "Behaviour");
+
+                if (withManaged)
+                {
+                    handler.AppendHeader("IsManaged");
+                }
+
+                if (withUrls)
+                {
+                    handler.AppendHeader("Url");
+                }
+
+                List<string> values = new List<string>();
+
+                values.AddRange(new[]
+                {
+                    string.Format("{0}.{1}", metaData.EntityLogicalName, metaData.LogicalName)
+                    , behavior
+                });
+
+                if (withManaged)
+                {
+                    values.Add(metaData.IsManaged.ToString());
+                }
+
+                if (withUrls)
+                {
+                    var entityMetadata = _source.GetEntityMetadata(metaData.EntityLogicalName);
+
+                    if (entityMetadata != null)
+                    {
+                        values.Add(_source.Service.ConnectionData?.GetAttributeMetadataUrl(entityMetadata.MetadataId.Value, metaData.MetadataId.Value));
+                    }
+                }
+
+                handler.AddLine(values);
+
+                var str = handler.GetFormatedLinesWithHeadersInLine(false).FirstOrDefault();
+
+                return string.Format("{0} {1}", this.ComponentTypeEnum.ToString(), str);
             }
 
             return solutionComponent.ToString();

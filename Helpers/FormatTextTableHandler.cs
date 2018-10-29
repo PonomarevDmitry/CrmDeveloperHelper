@@ -13,16 +13,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private List<string[]> lines = new List<string[]>();
 
-        private string[] header = null;
+        private List<string> _header = new List<string>();
 
         public string Separator { get; set; }
 
         public bool ShowEmptyColumns { get; private set; }
 
-        public int Count
-        {
-            get { return lines.Count; }
-        }
+        public int Count => lines.Count;
 
         public FormatTextTableHandler()
         {
@@ -38,14 +35,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public FormatTextTableHandler SetHeader(params string[] parts)
         {
-            header = parts;
-
-            return this;
+            return SetHeaderInternal(parts);
         }
 
         public FormatTextTableHandler SetHeader(IEnumerable<string> parts)
         {
-            return SetHeader(parts.ToArray());
+            return SetHeaderInternal(parts.ToArray());
+        }
+
+        private FormatTextTableHandler SetHeaderInternal(string[] parts)
+        {
+            _header.Clear();
+
+            _header.AddRange(parts);
+
+            return this;
+        }
+
+        public FormatTextTableHandler AppendHeader(params string[] parts)
+        {
+            return AppendHeaderInternal(parts);
+        }
+
+        public FormatTextTableHandler AppendHeader(IEnumerable<string> parts)
+        {
+            return AppendHeaderInternal(parts.ToArray());
+        }
+
+        private FormatTextTableHandler AppendHeaderInternal(string[] parts)
+        {
+            _header.AddRange(parts);
+
+            return this;
         }
 
         public FormatTextTableHandler SetHeaderNotNull(params string[] parts)
@@ -54,7 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (temp.Length > 0)
             {
-                header = temp;
+                AppendHeaderInternal(temp);
             }
 
             return this;
@@ -67,6 +88,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public FormatTextTableHandler AddLine(params string[] parts)
         {
+            return AddLineInternal(parts);
+        }
+
+        public FormatTextTableHandler AddLine(IEnumerable<string> parts)
+        {
+            return AddLineInternal(parts.ToArray());
+        }
+
+        private FormatTextTableHandler AddLineInternal(string[] parts)
+        {
             lines.Add(parts);
 
             CalculateLineLengths(parts);
@@ -74,12 +105,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return this;
         }
 
-        public FormatTextTableHandler AddLine(IEnumerable<string> parts)
+        public FormatTextTableHandler AddLineNotNull(params string[] parts)
         {
-            return AddLine(parts.ToArray());
+            return AddLineNotNullInternal(parts);
         }
 
-        public FormatTextTableHandler AddLineNotNull(params string[] parts)
+        public FormatTextTableHandler AddLineNotNull(IEnumerable<string> parts)
+        {
+            return AddLineNotNullInternal(parts.ToArray());
+        }
+
+        private FormatTextTableHandler AddLineNotNullInternal(string[] parts)
         {
             var temp = parts.Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
@@ -91,11 +127,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return this;
-        }
-
-        public FormatTextTableHandler AddLineNotNull(IEnumerable<string> parts)
-        {
-            return AddLineNotNull(parts.ToArray());
         }
 
         public FormatTextTableHandler CalculateLineLengths(params string[] parts)
@@ -147,9 +178,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     list.Sort();
                 }
 
-                if (this.header != null)
+                if (this._header.Count > 0)
                 {
-                    var str = FormatLine(header);
+                    var str = FormatLine(_header);
 
                     list.Insert(0, str);
                 }
@@ -158,7 +189,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return list;
         }
 
+        public string FormatLine(IEnumerable<string> line)
+        {
+            return FormatLineInternal(line.ToArray());
+        }
+
         public string FormatLine(params string[] line)
+        {
+            return FormatLineInternal(line);
+        }
+
+        private string FormatLineInternal(string[] line)
         {
             StringBuilder str = new StringBuilder();
 
@@ -175,9 +216,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (this.ShowEmptyColumns || partMaxLength > 0)
                 {
-                    if (this.header != null && index < this.header.Length)
+                    if (this._header.Count > 0 && index < this._header.Count)
                     {
-                        partMaxLength = Math.Max(partMaxLength, this.header[index].Length);
+                        partMaxLength = Math.Max(partMaxLength, this._header[index].Length);
                     }
 
                     if (str.Length > 0)
@@ -191,7 +232,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                     else
                     {
-                        str.Append(new String(' ', partMaxLength));
+                        str.Append(new string(' ', partMaxLength));
                     }
                 }
             }
@@ -236,9 +277,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         str.Append(this.Separator);
                     }
 
-                    if (this.header != null && index < this.header.Length)
+                    if (this._header.Count > 0 && index < this._header.Count)
                     {
-                        str.AppendFormat("{0} {1}", this.header[index], part);
+                        str.AppendFormat("{0} {1}", this._header[index], part);
                     }
                     else
                     {

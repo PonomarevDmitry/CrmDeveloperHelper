@@ -1,7 +1,8 @@
-﻿using System;
-using System.Runtime.Serialization;
-using Microsoft.Xrm.Sdk;
+﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
+using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 {
@@ -33,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public bool IsEntityNameAttribute { get; private set; }
 
         [DataMember]
-        public string[] Targets { get; private set; }
+        public List<string> Targets { get; private set; }
 
         [DataMember]
         public OptionSetIntellisenseData OptionSet { get; private set; }
@@ -99,7 +100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 if (lookupAttributeMetadata.Targets != null && lookupAttributeMetadata.Targets.Length > 0)
                 {
-                    this.Targets = lookupAttributeMetadata.Targets;
+                    this.Targets = new List<string>(lookupAttributeMetadata.Targets);
                 }
             }
         }
@@ -164,8 +165,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 this.OptionSet = attr.OptionSet;
             }
 
-            if ((this.Targets == null || this.Targets.Length == 0)
-                && attr.Targets != null && attr.Targets.Length > 0)
+            if ((this.Targets == null || this.Targets.Count == 0)
+                && attr.Targets != null && attr.Targets.Count > 0)
             {
                 this.Targets = attr.Targets;
             }

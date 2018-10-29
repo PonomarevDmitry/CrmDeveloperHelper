@@ -36,65 +36,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<RoutingRule>(components.Select(c => c.ObjectId));
+            FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("Name", "Workflow");
 
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            var table = new FormatTextTableHandler();
-            table.SetHeader("Name", "Workflow", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
-
-            foreach (var entity in list)
-            {
-                var name = entity.Name;
-
-                table.AddLine(name
-                    , entity.WorkflowId?.Name
-                    , entity.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
-
-            table.GetFormatedLines(true).ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var routingRule = GetEntity<RoutingRule>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<RoutingRule>();
 
-            if (routingRule != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                string name = routingRule.Name;
+                entity.Name
+                , entity.WorkflowId?.Name
+            });
 
-                StringBuilder title = new StringBuilder();
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
 
-                title.AppendFormat("RoutingRule {0}", name);
-
-                if (routingRule.WorkflowId != null)
-                {
-                    title.AppendFormat("    Workflow '{0}'", routingRule.WorkflowId?.Name);
-                }
-
-                title.AppendFormat("    IsManaged '{0}'", routingRule.IsManaged.ToString());
-
-                title.AppendFormat("    SolutionName '{0}'", EntityDescriptionHandler.GetAttributeString(routingRule, "solution.uniquename"));
-
-                return title.ToString();
-            }
-
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override TupleList<string, string> GetComponentColumns()

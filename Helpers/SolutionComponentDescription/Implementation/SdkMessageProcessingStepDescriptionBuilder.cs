@@ -112,80 +112,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return result;
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<SdkMessageProcessingStep>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "IsCustomizable");
 
-            handler.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "FilteringAttributes");
+            action(handler, false, withManaged, withSolutionInfo);
 
-            foreach (var entity in list.Select(ent => ent.ToEntity<SdkMessageProcessingStep>()))
-            {
-                handler.AddLine(
-                    entity.EventHandler?.Name ?? "Unknown"
-                    , entity.PrimaryObjectTypeCodeName
-                    , entity.SecondaryObjectTypeCodeName
-                    , entity.SdkMessageId?.Name ?? "Unknown"
-                    , SdkMessageProcessingStepRepository.GetStageName(entity.Stage.Value, entity.Mode.Value)
-                    , entity.Rank.ToString()
-                    , entity.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
-                    , entity.IsManaged.ToString()
-                    , entity.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    , entity.FilteringAttributesStringsSorted
-                );
-            }
+            handler.AppendHeader("FilteringAttributes");
 
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var sdkMessageProcessingStep = GetEntity<SdkMessageProcessingStep>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<SdkMessageProcessingStep>();
 
-            if (sdkMessageProcessingStep != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                FormatTextTableHandler handler = new FormatTextTableHandler();
+                entity.EventHandler?.Name ?? "Unknown"
+                , entity.PrimaryObjectTypeCodeName
+                , entity.SecondaryObjectTypeCodeName
+                , entity.SdkMessageId?.Name ?? "Unknown"
+                , SdkMessageProcessingStepRepository.GetStageName(entity.Stage.Value, entity.Mode.Value)
+                , entity.Rank.ToString()
+                , entity.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
+                , entity.IsCustomizable?.Value.ToString()
+            });
 
-                handler.AddLine(
-                    sdkMessageProcessingStep.EventHandler?.Name ?? "Unknown"
-                    , sdkMessageProcessingStep.PrimaryObjectTypeCodeName
-                    , sdkMessageProcessingStep.SecondaryObjectTypeCodeName
-                    , sdkMessageProcessingStep.SdkMessageId?.Name ?? "Unknown"
-                    , SdkMessageProcessingStepRepository.GetStageName(sdkMessageProcessingStep.Stage.Value, sdkMessageProcessingStep.Mode.Value)
-                    , sdkMessageProcessingStep.Rank.ToString()
-                    , sdkMessageProcessingStep.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
-                    , sdkMessageProcessingStep.IsManaged.ToString()
-                    , sdkMessageProcessingStep.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(sdkMessageProcessingStep, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(sdkMessageProcessingStep, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(sdkMessageProcessingStep, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(sdkMessageProcessingStep, "suppsolution.ismanaged")
-                    , sdkMessageProcessingStep.FilteringAttributesStringsSorted
-                );
+            AppendIntoValues(values, entity, false, withManaged, withSolutionInfo);
 
-                var str = handler.GetFormatedLines(false).FirstOrDefault();
+            values.Add(entity.FilteringAttributesStringsSorted);
 
-                return string.Format("SdkMessageProcessingStep {0}", str);
-            }
-
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override TupleList<string, string> GetComponentColumns()
@@ -206,7 +167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { "solution.ismanaged", "SolutionIsManaged" }
                     , { "suppsolution.uniquename", "SupportingName" }
                     , { "suppsolution.ismanaged", "SupportingIsManaged" }
-                    , { SdkMessageProcessingStep.Schema.Attributes.filteringattributes, "" }
+                    , { SdkMessageProcessingStep.Schema.Attributes.filteringattributes, "FilteringAttributes" }
                 };
         }
     }

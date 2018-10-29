@@ -41,57 +41,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<PluginAssembly>(components.Select(c => c.ObjectId));
+            FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("Name", "IsCustomizable");
 
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            var table = new FormatTextTableHandler();
-            table.SetHeader("Name", "IsManged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
-
-            foreach (var entity in list)
-            {
-                string name = entity.Name;
-
-                table.AddLine(name
-                    , entity.IsManaged.ToString()
-                    , entity.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
-
-            table.GetFormatedLines(true).ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var pluginAssembly = GetEntity<PluginAssembly>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<PluginAssembly>();
 
-            if (pluginAssembly != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                string name = pluginAssembly.Name;
+                entity.Name
+                , entity.IsCustomizable?.Value.ToString()
+            });
 
-                return string.Format("PluginAssembly {0}    IsManged {1}    IsManged {2}    SolutionName {3}"
-                    , name
-                    , pluginAssembly.IsManaged.ToString()
-                    , pluginAssembly.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(pluginAssembly, "solution.uniquename")
-                    );
-            }
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
 
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent)
@@ -106,7 +80,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     SchemaName = string.Format("{0}, Version={1}, Culture={2}, PublicKeyToken={3}", entity.Name, entity.Version, entity.Culture, entity.PublicKeyToken),
                     RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false),
+                    Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
                 });
             }
         }

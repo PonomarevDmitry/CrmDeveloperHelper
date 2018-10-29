@@ -61,9 +61,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 lines.Add("PrimaryName");
             }
 
-            if (attribute.Targets != null && attribute.Targets.Length > 0)
+            if (attribute.Targets != null && attribute.Targets.Count > 0)
             {
-                if (attribute.Targets.Length <= 6)
+                if (attribute.Targets.Count <= 6)
                 {
                     string targets = string.Join(",", attribute.Targets.OrderBy(s => s));
 
@@ -71,7 +71,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
                 else
                 {
-                    lines.Add(string.Format("Targets Count: {0}", attribute.Targets.Length));
+                    lines.Add(string.Format("Targets Count: {0}", attribute.Targets.Count));
                 }
             }
 
@@ -277,7 +277,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 result.Add("PrimaryName");
             }
 
-            if (attribute.Targets != null && attribute.Targets.Length > 0)
+            if (attribute.Targets != null && attribute.Targets.Count > 0)
             {
                 result.AddRange(attribute.Targets);
             }

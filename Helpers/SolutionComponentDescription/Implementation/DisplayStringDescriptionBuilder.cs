@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -39,78 +40,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<DisplayString>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Key", "LanguageCode", "Published", "Custom", "CustomComment", "FormatParameters", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("Key", "LanguageCode", "Published", "Custom", "CustomComment", "FormatParameters");
 
-            foreach (var entity in list)
-            {
-                var displayStringKey = entity.DisplayStringKey;
-                var languageCode = entity.LanguageCode;
-                var publishedDisplayString = entity.PublishedDisplayString;
-                var customDisplayString = entity.CustomDisplayString;
-                var customComment = entity.CustomComment;
-                var formatParameters = entity.FormatParameters;
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-                handler.AddLine(displayStringKey
-                    , LanguageLocale.GetLocaleName(languageCode.Value)
-                    , publishedDisplayString
-                    , customDisplayString
-                    , customComment
-                    , formatParameters.ToString()
-                    , entity.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
-
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var displayString = GetEntity<DisplayString>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<DisplayString>();
 
-            if (displayString != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                string displaystringkey = displayString.DisplayStringKey;
+                entity.DisplayStringKey
+                , LanguageLocale.GetLocaleName(entity.LanguageCode.Value)
+                , entity.PublishedDisplayString
+                , entity.CustomDisplayString
+                , entity.CustomComment
+                , entity.FormatParameters.ToString()
+            });
 
-                string customdisplaystring = displayString.CustomDisplayString;
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
 
-                StringBuilder str = new StringBuilder();
-
-                str.AppendFormat("DisplayString {0}", displaystringkey);
-
-                if (!string.IsNullOrEmpty(customdisplaystring))
-                {
-                    str.AppendFormat(" - {0}", customdisplaystring);
-                }
-
-                str.AppendFormat(" - IsManaged {0}", displayString.IsManaged.ToString());
-
-                str.AppendFormat(" - SolutionName {0}", EntityDescriptionHandler.GetAttributeString(displayString, "solution.uniquename"));
-
-                return str.ToString();
-            }
-
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override string GetName(SolutionComponent component)

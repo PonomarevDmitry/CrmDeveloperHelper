@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk.Query;
+﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -124,72 +125,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return query;
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<SdkMessageResponseField>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-
             handler.SetHeader("Message", "RequestName", "Position", "Name", "PublicName", "ClrParser", "Parser", "Optional", "CustomizationLevel");
 
-            foreach (var entity in list.Select(ent => ent.ToEntity<SdkMessageResponseField>()))
-            {
-                handler.AddLine(
-                    EntityDescriptionHandler.GetAttributeString(entity, SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.name)
-                    , EntityDescriptionHandler.GetAttributeString(entity, SdkMessagePair.Schema.Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.name)
-                    , entity.Position.ToString()
-                    , entity.Name
-                    , entity.PublicName
-                    , entity.Value
-                    , entity.ClrFormatter
-                    , entity.Formatter
-                    , entity.ParameterBindingInformation
-                    , entity.CustomizationLevel.ToString()
-                );
-            }
-
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var sdkMessageResponseField = GetEntity<SdkMessageResponseField>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<SdkMessageResponseField>();
 
-            if (sdkMessageResponseField != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                FormatTextTableHandler handler = new FormatTextTableHandler();
+                EntityDescriptionHandler.GetAttributeString(entity, SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.name)
+                , EntityDescriptionHandler.GetAttributeString(entity, SdkMessagePair.Schema.Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.name)
+                , entity.Position.ToString()
+                , entity.Name
+                , entity.PublicName
+                , entity.Value
+                , entity.ClrFormatter
+                , entity.Formatter
+                , entity.ParameterBindingInformation
+                , entity.CustomizationLevel.ToString()
+            });
 
-                handler.AddLine(
-                    EntityDescriptionHandler.GetAttributeString(sdkMessageResponseField, SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.name)
-                    , EntityDescriptionHandler.GetAttributeString(sdkMessageResponseField, SdkMessagePair.Schema.Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.name)
-                    , sdkMessageResponseField.Position.ToString()
-                    , sdkMessageResponseField.Name
-                    , sdkMessageResponseField.PublicName
-                    , sdkMessageResponseField.Value
-                    , sdkMessageResponseField.ClrFormatter
-                    , sdkMessageResponseField.Formatter
-                    , sdkMessageResponseField.ParameterBindingInformation
-                    , sdkMessageResponseField.CustomizationLevel.ToString()
-                );
-
-                var str = handler.GetFormatedLinesWithHeadersInLine(false).FirstOrDefault();
-
-                return string.Format("SdkMessageResponseField {0}", str);
-            }
-
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override TupleList<string, string> GetComponentColumns()

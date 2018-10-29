@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -37,62 +38,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<AppModule>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Name", "UniqueName", "URL", "AppModuleVersion", "Id", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("Name", "UniqueName", "URL", "AppModuleVersion", "Id");
 
-            foreach (var entity in list)
-            {
-                handler.AddLine(
-                    entity.Name
-                    , entity.UniqueName
-                    , entity.URL
-                    , entity.AppModuleVersion
-                    , entity.Id.ToString()
-                    , entity.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var appModule = GetEntity<AppModule>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<AppModule>();
 
-            if (appModule != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                return string.Format("Name {0}    UniqueName {1}    URL {2}    AppModuleVersion {3}    Id {4}    IsManaged {5}    SolutionName {6}"
-                    , appModule.Name
-                    , appModule.UniqueName
-                    , appModule.URL
-                    , appModule.AppModuleVersion
-                    , appModule.Id.ToString()
-                    , appModule.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(appModule, "solution.uniquename")
-                    );
-            }
+                entity.Name
+                , entity.UniqueName
+                , entity.URL
+                , entity.AppModuleVersion
+                , entity.Id.ToString()
+            });
 
-            return base.GenerateDescriptionSingle(component, withUrls);
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
+
+            return values;
         }
 
         public override string GetName(SolutionComponent component)

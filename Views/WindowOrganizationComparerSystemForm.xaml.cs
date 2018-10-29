@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private string _filterEntity;
 
         private Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
-        private Dictionary<Guid, SolutionComponentDescriptor> _сacheDescription = new Dictionary<Guid, SolutionComponentDescriptor>();
+        private Dictionary<Guid, SolutionComponentDescriptor> _cacheDescription = new Dictionary<Guid, SolutionComponentDescriptor>();
 
         private CommonConfiguration _commonConfig;
         private ConnectionConfiguration _connectionConfig;
@@ -181,17 +181,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBConnection1.SelectedItem as ConnectionData;
             });
 
-            if (!_сacheDescription.ContainsKey(connectionData.ConnectionId))
+            if (!_cacheDescription.ContainsKey(connectionData.ConnectionId))
             {
                 var service = await GetService1();
 
                 if (service != null)
                 {
-                    _сacheDescription[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
+                    _cacheDescription[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, false);
                 }
             }
 
-            return _сacheDescription[connectionData.ConnectionId];
+            return _cacheDescription[connectionData.ConnectionId];
         }
 
         private async Task<SolutionComponentDescriptor> GetDescriptor2()
@@ -203,17 +203,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBConnection2.SelectedItem as ConnectionData;
             });
 
-            if (!_сacheDescription.ContainsKey(connectionData.ConnectionId))
+            if (!_cacheDescription.ContainsKey(connectionData.ConnectionId))
             {
                 var service = await GetService2();
 
                 if (service != null)
                 {
-                    _сacheDescription[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
+                    _cacheDescription[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, false);
                 }
             }
 
-            return _сacheDescription[connectionData.ConnectionId];
+            return _cacheDescription[connectionData.ConnectionId];
         }
 
         private async Task ShowExistingSystemForms()
@@ -712,8 +712,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var descriptor1 = await GetDescriptor1();
                 var descriptor2 = await GetDescriptor2();
 
-                var handler1 = new FormDescriptionHandler(descriptor1, new DependencyRepository(service1));
-                var handler2 = new FormDescriptionHandler(descriptor2, new DependencyRepository(service2));
+                var handler1 = new FormDescriptionHandler(descriptor1, new DependencyRepository(service1))
+                {
+                    WithManagedInfo = false,
+                    WithDependentComponents = false,
+                };
+                var handler2 = new FormDescriptionHandler(descriptor2, new DependencyRepository(service2))
+                {
+                    WithManagedInfo = false,
+                    WithDependentComponents = false,
+                };
 
                 var repository1 = new SystemFormRepository(service1);
                 var repository2 = new SystemFormRepository(service2);
@@ -1117,8 +1125,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (service != null && descriptor != null)
             {
-                var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
-
                 var repository = new SystemFormRepository(service);
 
                 var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
@@ -1130,6 +1136,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     try
                     {
                         XElement doc = XElement.Parse(formXml);
+
+                        var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
 
                         string formDescritpion = await handler.GetFormDescriptionAsync(doc, systemForm.ObjectTypeCode, idSystemForm, systemForm.Name, systemForm.FormattedValues[SystemForm.Schema.Attributes.type]);
 
@@ -1231,8 +1239,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (service != null && descriptor != null)
             {
-                var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
-
                 var repository = new SystemFormRepository(service);
 
                 var systemForm = await repository.GetByIdAsync(systemFormId, new ColumnSet(true));
@@ -1254,7 +1260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         XElement doc = XElement.Parse(formXml);
 
-                        List<string> webResources = handler.GetFormLibraries(doc);
+                        List<string> webResources = new FormDescriptionHandler(descriptor, new DependencyRepository(service)).GetFormLibraries(doc);
 
                         foreach (var resName in webResources)
                         {

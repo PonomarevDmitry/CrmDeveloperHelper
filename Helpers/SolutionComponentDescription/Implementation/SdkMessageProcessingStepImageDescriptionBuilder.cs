@@ -137,102 +137,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return result;
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<SdkMessageProcessingStepImage>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "ImageType", "Name", "EntityAlias", "IsCustomizable");
 
-            handler.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "ImageType", "Name", "EntityAlias", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Attributes");
+            action(handler, false, withManaged, withSolutionInfo);
 
-            foreach (var entity in list.Select(ent => ent.ToEntity<SdkMessageProcessingStepImage>()))
-            {
-                string pluginType = entity.Contains("sdkmessageprocessingstep.eventhandler") ? (entity.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.eventhandler").Value as EntityReference).Name : "Null";
+            handler.AppendHeader("Attributes");
 
-                string sdkMessage = entity.Contains("sdkmessageprocessingstep.sdkmessageid") ? (entity.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.sdkmessageid").Value as EntityReference).Name : "Null";
-                int stage = entity.Contains("sdkmessageprocessingstep.stage") ? (entity.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.stage").Value as OptionSetValue).Value : 0;
-                int mode = entity.Contains("sdkmessageprocessingstep.mode") ? (entity.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.mode").Value as OptionSetValue).Value : 0;
-                int rank = entity.Contains("sdkmessageprocessingstep.rank") ? (int)entity.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.rank").Value : 0;
-                string status = entity.FormattedValues.ContainsKey("sdkmessageprocessingstep.statuscode") ? entity.FormattedValues["sdkmessageprocessingstep.statuscode"] : "";
-
-                handler.AddLine(
-                    pluginType
-                    , entity.PrimaryObjectTypeCodeName
-                    , entity.SecondaryObjectTypeCodeName
-                    , sdkMessage
-                    , SdkMessageProcessingStepRepository.GetStageName(stage, mode)
-                    , rank.ToString()
-                    , status
-                    , entity.FormattedValues[SdkMessageProcessingStepImage.Schema.Attributes.imagetype]
-                    , entity.Name
-                    , entity.EntityAlias
-                    , entity.IsManaged.ToString()
-                    , entity.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    , entity.Attributes1StringsSorted
-                );
-            }
-
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var sdkMessageProcessingStepImage = GetEntity<SdkMessageProcessingStepImage>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<SdkMessageProcessingStepImage>();
 
-            if (sdkMessageProcessingStepImage != null)
+            List<string> values = new List<string>();
+
+            int stage = entity.Contains("sdkmessageprocessingstep.stage") ? (entity.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.stage").Value as OptionSetValue).Value : 0;
+            int mode = entity.Contains("sdkmessageprocessingstep.mode") ? (entity.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.mode").Value as OptionSetValue).Value : 0;
+
+            values.AddRange(new[]
             {
-                FormatTextTableHandler handler = new FormatTextTableHandler();
+                EntityDescriptionHandler.GetAttributeString(entity, "sdkmessageprocessingstep.eventhandler")
+                , entity.PrimaryObjectTypeCodeName
+                , entity.SecondaryObjectTypeCodeName
+                , EntityDescriptionHandler.GetAttributeString(entity, "sdkmessageprocessingstep.sdkmessageid")
+                , SdkMessageProcessingStepRepository.GetStageName(stage, mode)
+                , EntityDescriptionHandler.GetAttributeString(entity, "sdkmessageprocessingstep.rank")
+                , EntityDescriptionHandler.GetAttributeString(entity, "sdkmessageprocessingstep.statuscode")
+                , entity.FormattedValues[SdkMessageProcessingStepImage.Schema.Attributes.imagetype]
+                , entity.Name
+                , entity.EntityAlias
+                , entity.IsManaged.ToString()
+                , entity.IsCustomizable?.Value.ToString()
+            });
 
-                string pluginType = sdkMessageProcessingStepImage.Contains("sdkmessageprocessingstep.eventhandler") ? (sdkMessageProcessingStepImage.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.eventhandler").Value as EntityReference).Name : "Null";
+            AppendIntoValues(values, entity, false, withManaged, withSolutionInfo);
 
-                string sdkMessage = sdkMessageProcessingStepImage.Contains("sdkmessageprocessingstep.sdkmessageid") ? (sdkMessageProcessingStepImage.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.sdkmessageid").Value as EntityReference).Name : "Null";
-                int stage = sdkMessageProcessingStepImage.Contains("sdkmessageprocessingstep.stage") ? (sdkMessageProcessingStepImage.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.stage").Value as OptionSetValue).Value : 0;
-                int mode = sdkMessageProcessingStepImage.Contains("sdkmessageprocessingstep.mode") ? (sdkMessageProcessingStepImage.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.mode").Value as OptionSetValue).Value : 0;
-                int rank = sdkMessageProcessingStepImage.Contains("sdkmessageprocessingstep.rank") ? (int)sdkMessageProcessingStepImage.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.rank").Value : 0;
-                string status = sdkMessageProcessingStepImage.FormattedValues.ContainsKey("sdkmessageprocessingstep.statuscode") ? sdkMessageProcessingStepImage.FormattedValues["sdkmessageprocessingstep.statuscode"] : "";
+            values.Add(entity.Attributes1StringsSorted);
 
-                handler.AddLine(
-                    pluginType
-                    , sdkMessageProcessingStepImage.PrimaryObjectTypeCodeName
-                    , sdkMessageProcessingStepImage.SecondaryObjectTypeCodeName
-                    , sdkMessage
-                    , SdkMessageProcessingStepRepository.GetStageName(stage, mode)
-                    , rank.ToString()
-                    , status
-                    , sdkMessageProcessingStepImage.FormattedValues[SdkMessageProcessingStepImage.Schema.Attributes.imagetype]
-                    , sdkMessageProcessingStepImage.Name
-                    , sdkMessageProcessingStepImage.EntityAlias
-                    , sdkMessageProcessingStepImage.IsManaged.ToString()
-                    , sdkMessageProcessingStepImage.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(sdkMessageProcessingStepImage, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(sdkMessageProcessingStepImage, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(sdkMessageProcessingStepImage, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(sdkMessageProcessingStepImage, "suppsolution.ismanaged")
-                    , sdkMessageProcessingStepImage.Attributes1StringsSorted
-                );
-
-                var str = handler.GetFormatedLines(false).FirstOrDefault();
-
-                return string.Format("SdkMessageProcessingStepImage {0}", str);
-            }
-
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override string GetName(SolutionComponent component)

@@ -28,8 +28,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._service1 = service1;
             this._service2 = service2;
 
-            this.Descriptor1 = new SolutionComponentDescriptor(this._service1, false);
-            this.Descriptor2 = new SolutionComponentDescriptor(this._service2, false);
+            this.Descriptor1 = new SolutionComponentDescriptor(this._service1, false)
+            {
+                WithManagedInfo = false,
+                WithSolutionsInfo = false,
+            };
+            this.Descriptor2 = new SolutionComponentDescriptor(this._service2, false)
+            {
+                WithManagedInfo = false,
+                WithSolutionsInfo = false,
+            };
 
             this._componentsOnlyIn1 = new List<SolutionComponent>();
             this._componentsOnlyIn2 = new List<SolutionComponent>();

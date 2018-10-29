@@ -26,8 +26,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Checking System Forms started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
 
-            FormDescriptionHandler handler1 = new FormDescriptionHandler(ImageBuilder.Descriptor1, new DependencyRepository(_comparerSource.Service1));
-            FormDescriptionHandler handler2 = new FormDescriptionHandler(ImageBuilder.Descriptor2, new DependencyRepository(_comparerSource.Service2));
+            FormDescriptionHandler handler1 = new FormDescriptionHandler(ImageBuilder.Descriptor1, new DependencyRepository(_comparerSource.Service1))
+            {
+                WithManagedInfo = false,
+                WithDependentComponents = false,
+            };
+            FormDescriptionHandler handler2 = new FormDescriptionHandler(ImageBuilder.Descriptor2, new DependencyRepository(_comparerSource.Service2))
+            {
+                WithManagedInfo = false,
+                WithDependentComponents = false,
+            };
 
             var task1 = _comparerSource.GetSystemForm1Async();
             var task2 = _comparerSource.GetSystemForm2Async();

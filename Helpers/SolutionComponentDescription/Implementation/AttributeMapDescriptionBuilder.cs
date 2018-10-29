@@ -112,61 +112,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return query;
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<AttributeMap>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Source", "Attribute", "", "Target", "Attribute", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("Source", "Attribute", "", "Target", "Attribute");
 
-            foreach (var entity in list)
-            {
-                handler.AddLine(
-                    entity.GetAttributeValue<AliasedValue>("entitymap.sourceentityname").Value.ToString()
-                    , entity.SourceAttributeName
-                    , "->"
-                    , entity.GetAttributeValue<AliasedValue>("entitymap.targetentityname").Value.ToString()
-                    , entity.TargetAttributeName
-                    , entity.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var attributeMap = GetEntity<AttributeMap>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<AttributeMap>();
 
-            if (attributeMap != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                return string.Format("AttributeMap {0}.{1} -> {2}.{3}    IsManaged {4}    SolutionName {5}"
-                    , attributeMap.GetAttributeValue<AliasedValue>("entitymap.sourceentityname").Value.ToString()
-                    , attributeMap.SourceAttributeName
-                    , attributeMap.GetAttributeValue<AliasedValue>("entitymap.targetentityname").Value.ToString()
-                    , attributeMap.TargetAttributeName
-                    , attributeMap.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(attributeMap, "solution.uniquename")
-                    );
-            }
+                entity.GetAttributeValue<AliasedValue>("entitymap.sourceentityname").Value.ToString()
+                , entity.SourceAttributeName
+                , "->"
+                , entity.GetAttributeValue<AliasedValue>("entitymap.targetentityname").Value.ToString()
+                , entity.TargetAttributeName
+            });
 
-            return base.GenerateDescriptionSingle(component, withUrls);
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
+
+            return values;
         }
 
         public override string GetName(SolutionComponent component)

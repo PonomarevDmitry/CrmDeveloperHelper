@@ -21,7 +21,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private ConcurrentDictionary<int, ISolutionComponentDescriptionBuilder> _cacheBuilders = new ConcurrentDictionary<int, ISolutionComponentDescriptionBuilder>();
 
         private readonly IOrganizationServiceExtented _service;
-        private readonly bool _withUrls;
+
+        public bool WithUrls { get; set; } = false;
+
+        public bool WithSolutionsInfo { get; set; } = true;
+
+        public bool WithManagedInfo { get; set; } = true;
 
         public SolutionComponentMetadataSource MetadataSource { get; private set; }
 
@@ -38,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public SolutionComponentDescriptor(IOrganizationServiceExtented service, bool withUrls, SolutionComponentMetadataSource metadataSource)
         {
             this._service = service;
-            this._withUrls = withUrls;
+            this.WithUrls = withUrls;
             this.MetadataSource = metadataSource;
 
             if (this.MetadataSource == null)
@@ -77,7 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     var descriptionBuilder = GetDescriptionBuilder(gr.Key);
 
-                    descriptionBuilder.GenerateDescription(builder, gr, _withUrls);
+                    descriptionBuilder.GenerateDescription(builder, gr, WithUrls, WithManagedInfo, WithSolutionsInfo);
                 }
                 catch (Exception ex)
                 {
@@ -164,7 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var descriptionBuilder = GetDescriptionBuilder(type);
 
-            return descriptionBuilder.GenerateDescriptionSingle(solutionComponent, _withUrls);
+            return descriptionBuilder.GenerateDescriptionSingle(solutionComponent, WithUrls, WithManagedInfo, WithSolutionsInfo);
         }
 
         public string GetCustomizableName(SolutionComponent solutionComponent)

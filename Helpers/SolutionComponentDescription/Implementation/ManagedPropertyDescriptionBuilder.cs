@@ -93,7 +93,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         ObjectId = solutionComponent.ObjectId.Value,
                         RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                        Description = GenerateDescriptionSingle(solutionComponent, false),
+                        Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
                     });
                 }
             }
@@ -127,7 +127,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
-        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
             handler.SetHeader(
@@ -142,8 +142,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 , "IsGlobalForOperation"
                 , "ManagedPropertyType"
                 , "Operation"
-                //, "Description"
-                //, "Description"
                 );
 
             //public Label Description { get; }
@@ -178,11 +176,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         , managedProperty.IsGlobalForOperation.ToString()
                         , managedProperty.ManagedPropertyType.ToString()
                         , managedProperty.Operation.ToString()
-                        //, managedProperty.IsManaged.ToString()
-                        //, managedProperty.IsManaged.ToString()
-                        //, managedProperty.IsManaged.ToString()
-                        //, managedProperty.IsManaged.ToString()
-                        //, managedProperty.IsManaged.ToString()
                         );
                 }
                 else
@@ -196,7 +189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
         }
 
-        public string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        public string GenerateDescriptionSingle(SolutionComponent component, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
             if (this.AllManagedProperties.Any())
             {
@@ -204,21 +197,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     var managedProperty = this.AllManagedProperties[component.ObjectId.Value];
 
-                    return $"LogicalName {managedProperty.LogicalName}    DisplayName {CreateFileHandler.GetLocalizedLabel(managedProperty.DisplayName)}"
-                        + $"    Description {CreateFileHandler.GetLocalizedLabel(managedProperty.Description)}    EnablesEntityName {managedProperty.EnablesEntityName}"
-                        + $"    EnablesAttributeName {managedProperty.EnablesAttributeName}    ErrorCode {managedProperty.ErrorCode.ToString()}"
-                        + $"    EvaluationPriority {managedProperty.EvaluationPriority.ToString()}    IsPrivate {managedProperty.IsPrivate.ToString()}"
-                        + $"    IsGlobalForOperation {managedProperty.IsGlobalForOperation.ToString()}    ManagedPropertyType {managedProperty.ManagedPropertyType.ToString()}"
-                        + $"    Operation {managedProperty.Operation.ToString()}"
-                        //+ $"    IsManaged {1}    IsManaged {1}"
-                        ;
-                    //, managedProperty.EnablesAttributeName
-                    //, managedProperty.ErrorCode.ToString()
-                    //, managedProperty.EvaluationPriority.ToString()
-                    //, managedProperty.IsPrivate.ToString()
-                    //, managedProperty.IsGlobalForOperation.ToString()
-                    //, managedProperty.ManagedPropertyType.ToString()
-                    //, managedProperty.Operation.ToString()
+                    FormatTextTableHandler handler = new FormatTextTableHandler();
+                    handler.SetHeader(
+                        "LogicalName"
+                        , "DisplayName"
+                        , "Description"
+                        , "EnablesEntityName"
+                        , "EnablesAttributeName"
+                        , "ErrorCode"
+                        , "EvaluationPriority"
+                        , "IsPrivate"
+                        , "IsGlobalForOperation"
+                        , "ManagedPropertyType"
+                        , "Operation"
+                        );
+
+                    handler.AddLine(
+                        managedProperty.LogicalName
+                        , CreateFileHandler.GetLocalizedLabel(managedProperty.DisplayName)
+                        , CreateFileHandler.GetLocalizedLabel(managedProperty.Description)
+                        , managedProperty.EnablesEntityName
+                        , managedProperty.EnablesAttributeName
+                        , managedProperty.ErrorCode.ToString()
+                        , managedProperty.EvaluationPriority.ToString()
+                        , managedProperty.IsPrivate.ToString()
+                        , managedProperty.IsGlobalForOperation.ToString()
+                        , managedProperty.ManagedPropertyType.ToString()
+                        , managedProperty.Operation.ToString()
+                        );
+
+                    var str = handler.GetFormatedLinesWithHeadersInLine(false).FirstOrDefault();
+
+                    return string.Format("{0} {1}", this.ComponentTypeEnum.ToString(), str);
                 }
             }
 

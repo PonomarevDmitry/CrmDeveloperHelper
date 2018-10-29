@@ -58,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     ParentSchemaName = metaData.EntityLogicalName,
                     RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false),
+                    Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
                 });
             }
         }
@@ -93,26 +93,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
-        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Name", "IsManaged", "KeyAttributes");
+            handler.SetHeader("Name", "Behaviour");
+
+            if (withManaged)
+            {
+                handler.AppendHeader("IsManaged");
+            }
+
+            handler.AppendHeader("KeyAttributes");
+
+            if (withUrls)
+            {
+                handler.AppendHeader("Url");
+            }
 
             foreach (var comp in components)
             {
+                string behavior = string.Empty;
+
+                if (comp.RootComponentBehavior != null)
+                {
+                    behavior = SolutionComponent.GetRootComponentBehaviorName(comp.RootComponentBehavior.Value);
+                }
+
                 EntityKeyMetadata metaData = _source.GetEntityKeyMetadata(comp.ObjectId.Value);
 
                 if (metaData != null)
                 {
-                    handler.AddLine(
+                    List<string> values = new List<string>();
+
+                    values.AddRange(new[]
+                    {
                         string.Format("{0}.{1}", metaData.EntityLogicalName, metaData.LogicalName)
-                        , metaData.IsManaged.ToString()
-                        , string.Join(",", metaData.KeyAttributes.OrderBy(s => s))
-                        );
+                        , behavior
+                    });
+
+                    if (withManaged)
+                    {
+                        values.Add(metaData.IsManaged.ToString());
+                    }
+
+                    values.Add(string.Join(",", metaData.KeyAttributes.OrderBy(s => s)));
+
+                    if (withUrls)
+                    {
+                        var entityMetadata = _source.GetEntityMetadata(metaData.EntityLogicalName);
+                        if (entityMetadata != null)
+                        {
+                            values.Add(_source.Service.ConnectionData?.GetEntityKeyMetadataUrl(entityMetadata.MetadataId.Value, metaData.MetadataId.Value));
+                        }
+                    }
+
+                    handler.AddLine(values);
                 }
                 else
                 {
-                    handler.AddLine(comp.ObjectId.ToString());
+                    handler.AddLine(comp.ObjectId.ToString(), behavior);
                 }
             }
 
@@ -121,15 +160,64 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
         }
 
-        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls)
+        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
             EntityKeyMetadata metaData = _source.GetEntityKeyMetadata(solutionComponent.ObjectId.Value);
 
             if (metaData != null)
             {
-                string name = string.Format("EntityKey {0}.{1}    IsManaged {2}", metaData.EntityLogicalName, metaData.LogicalName, metaData.IsManaged.ToString());
+                string behavior = string.Empty;
 
-                return name;
+                if (solutionComponent.RootComponentBehavior != null)
+                {
+                    behavior = SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior.Value);
+                }
+
+                FormatTextTableHandler handler = new FormatTextTableHandler();
+                handler.SetHeader("EntityKeyName", "Behaviour");
+
+                if (withManaged)
+                {
+                    handler.AppendHeader("IsManaged");
+                }
+
+                handler.AppendHeader("KeyAttributes");
+
+                if (withUrls)
+                {
+                    handler.AppendHeader("Url");
+                }
+
+                List<string> values = new List<string>();
+
+                values.AddRange(new[]
+                {
+                    string.Format("{0}.{1}", metaData.EntityLogicalName, metaData.LogicalName)
+                    , behavior
+                });
+
+                if (withManaged)
+                {
+                    values.Add(metaData.IsManaged.ToString());
+                }
+
+                values.Add(string.Join(",", metaData.KeyAttributes.OrderBy(s => s)));
+
+                if (withUrls)
+                {
+                    var entityMetadata = _source.GetEntityMetadata(metaData.EntityLogicalName);
+
+                    if (entityMetadata != null)
+                    {
+                        values.Add(_source.Service.ConnectionData?.GetEntityKeyMetadataUrl(entityMetadata.MetadataId.Value, metaData.MetadataId.Value));
+                    }
+                }
+
+                handler.AddLine(values);
+
+                var str = handler.GetFormatedLinesWithHeadersInLine(false).FirstOrDefault();
+
+                return string.Format("{0} {1}", this.ComponentTypeEnum.ToString(), str);
             }
 
             return solutionComponent.ToString();

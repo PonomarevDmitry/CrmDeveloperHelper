@@ -50,7 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 ComponentType = (solutionComponent.ComponentType?.Value).GetValueOrDefault(),
                 RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                Description = GenerateDescriptionSingle(solutionComponent, false),
+                Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
             });
         }
 
@@ -76,7 +76,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             result.Add(component);
         }
 
-        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
             handler.SetHeader("DependencyFeatureId", "Behaviour");
@@ -98,7 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
         }
 
-        public string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        public string GenerateDescriptionSingle(SolutionComponent component, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
             return string.Format("DependencyFeatureId {0}", component.ObjectId.Value.ToString());
         }

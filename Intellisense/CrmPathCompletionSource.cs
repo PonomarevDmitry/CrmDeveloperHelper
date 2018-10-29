@@ -223,7 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                             || attribute.AttributeType == Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Owner
                             )
                         {
-                            if (attribute.Targets != null && attribute.Targets.Length > 0)
+                            if (attribute.Targets != null && attribute.Targets.Count > 0)
                             {
                                 if (fields.Length == 0)
                                 {
@@ -235,7 +235,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                                     return;
                                 }
 
-                                if (attribute.Targets.Length == 1)
+                                if (attribute.Targets.Count == 1)
                                 {
                                     var nextEntityName = attribute.Targets.First();
 
@@ -405,7 +405,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                             || attribute.AttributeType == Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Owner
                             )
                         {
-                            if (attribute.Targets != null && attribute.Targets.Length > 0)
+                            if (attribute.Targets != null && attribute.Targets.Count > 0)
                             {
                                 foreach (var nextEntityName in attribute.Targets)
                                 {

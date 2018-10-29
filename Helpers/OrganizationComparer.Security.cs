@@ -30,46 +30,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var task1 = _comparerSource.GetRole1Async();
             var task2 = _comparerSource.GetRole2Async();
 
-            var taskPriv1 = new SecurityPrivilegesRepository(_comparerSource.Service1).GetListAsync();
-            var taskPriv2 = new SecurityPrivilegesRepository(_comparerSource.Service2).GetListAsync();
-
-
-
             var list1 = await task1;
+
+            var taskPriv1 = new SecurityPrivilegesRepository(_comparerSource.Service1).GetListAsync();
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles in {0}: {1}", Connection1.Name, list1.Count()));
 
-            var taskPrivRole1 = new SecurityRolePrivilegesRepository(_comparerSource.Service1).GetListAsync(list1.Select(e => e.RoleId.Value));
+
 
             var list2 = await task2;
 
+            var taskPriv2 = new SecurityPrivilegesRepository(_comparerSource.Service2).GetListAsync();
+
             content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles in {0}: {1}", Connection2.Name, list2.Count()));
 
-            var taskPrivRole2 = new SecurityRolePrivilegesRepository(_comparerSource.Service2).GetListAsync(list2.Select(e => e.RoleId.Value));
 
 
             var listPrivilege1 = (await taskPriv1).Select(e => e.Name);
 
+            var taskPrivRole1 = new SecurityRolePrivilegesRepository(_comparerSource.Service1).GetListAsync(list1.Select(e => e.RoleId.Value));
+
             content.AppendLine(_iWriteToOutput.WriteToOutput("Security Privileges in {0}: {1}", Connection1.Name, listPrivilege1.Count()));
+
+
+
 
             var listPrivilege2 = (await taskPriv2).Select(e => e.Name);
 
+            var taskPrivRole2 = new SecurityRolePrivilegesRepository(_comparerSource.Service2).GetListAsync(list2.Select(e => e.RoleId.Value));
+
             content.AppendLine(_iWriteToOutput.WriteToOutput("Security Privileges in {0}: {1}", Connection2.Name, listPrivilege2.Count()));
 
-
-
+            
 
             var commonPrivileges = new HashSet<string>(listPrivilege1.Intersect(listPrivilege2), StringComparer.OrdinalIgnoreCase);
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Common Security Privileges in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonPrivileges.Count()));
 
-
-
-
             var privilegesOnlyIn1 = listPrivilege1.Except(listPrivilege2).ToList();
-
             var privilegesOnlyIn2 = listPrivilege2.Except(listPrivilege1).ToList();
-
 
 
 
@@ -106,18 +105,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 {
-                    var role2 = list2.FirstOrDefault(role =>
+                    Role role2 = null;
+
+                    if (role2 == null)
                     {
-                        var name2 = role.Name;
-                        var businessUnit2 = role.BusinessUnitId.Name;
+                        role2 = list2.FirstOrDefault(role => role.Id == role1.Id);
+                    }
 
-                        if (role.BusinessUnitParentBusinessUnit == null)
-                        {
-                            businessUnit2 = "Root Organization";
-                        }
+                    if (role2 == null && role1.RoleTemplateId != null)
+                    {
+                        role2 = list2.FirstOrDefault(role => role.RoleTemplateId != null && role.RoleTemplateId.Id == role1.RoleTemplateId.Id);
+                    }
 
-                        return name1 == name2 && businessUnit1 == businessUnit2;
-                    });
+                    //if (role2 == null)
+                    //{
+                    //    role2 = list2.FirstOrDefault(role =>
+                    //    {
+                    //        var name2 = role.Name;
+                    //        var businessUnit2 = role.BusinessUnitId.Name;
+
+                    //        if (role.BusinessUnitParentBusinessUnit == null)
+                    //        {
+                    //            businessUnit2 = "Root Organization";
+                    //        }
+
+                    //        return name1 == name2 && businessUnit1 == businessUnit2;
+                    //    });
+                    //}
 
                     if (role2 != null)
                     {
@@ -143,18 +157,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 {
-                    var role1 = list1.FirstOrDefault(role =>
+                    Role role1 = null;
+
+                    if (role1 == null)
                     {
-                        var name1 = role.Name;
-                        var businessUnit1 = role.BusinessUnitId.Name;
+                        role1 = list2.FirstOrDefault(role => role.Id == role2.Id);
+                    }
 
-                        if (role.BusinessUnitParentBusinessUnit == null)
-                        {
-                            businessUnit1 = "Root Organization";
-                        }
+                    if (role1 == null && role2.RoleTemplateId != null)
+                    {
+                        role1 = list2.FirstOrDefault(role => role.RoleTemplateId != null && role.RoleTemplateId.Id == role2.RoleTemplateId.Id);
+                    }
 
-                        return name1 == name2 && businessUnit1 == businessUnit2;
-                    });
+                    //if (role1 == null)
+                    //{
+                    //    role1 = list2.FirstOrDefault(role =>
+                    //    {
+                    //        var name1 = role.Name;
+                    //        var businessUnit1 = role.BusinessUnitId.Name;
+
+                    //        if (role.BusinessUnitParentBusinessUnit == null)
+                    //        {
+                    //            businessUnit1 = "Root Organization";
+                    //        }
+
+                    //        return name1 == name2 && businessUnit1 == businessUnit2;
+                    //    });
+                    //}
 
                     if (role1 != null)
                     {
@@ -179,18 +208,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     businessUnit1 = "Root Organization";
                 }
 
-                var role2 = list2.FirstOrDefault(role =>
+                Role role2 = null;
+
+                if (role2 == null)
                 {
-                    var name2 = role.Name;
-                    var businessUnit2 = role.BusinessUnitId.Name;
+                    role2 = list2.FirstOrDefault(role => role.Id == role1.Id);
+                }
 
-                    if (role.BusinessUnitParentBusinessUnit == null)
-                    {
-                        businessUnit2 = "Root Organization";
-                    }
+                if (role2 == null && role1.RoleTemplateId != null)
+                {
+                    role2 = list2.FirstOrDefault(role => role.RoleTemplateId != null && role.RoleTemplateId.Id == role1.RoleTemplateId.Id);
+                }
 
-                    return name1 == name2 && businessUnit1 == businessUnit2;
-                });
+                //if (role2 == null)
+                //{
+                //    role2 = list2.FirstOrDefault(role =>
+                //    {
+                //        var name2 = role.Name;
+                //        var businessUnit2 = role.BusinessUnitId.Name;
+
+                //        if (role.BusinessUnitParentBusinessUnit == null)
+                //        {
+                //            businessUnit2 = "Root Organization";
+                //        }
+
+                //        return name1 == name2 && businessUnit1 == businessUnit2;
+                //    });
+                //}
 
                 if (role2 == null)
                 {

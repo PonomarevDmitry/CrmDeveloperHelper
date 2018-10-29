@@ -107,59 +107,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return query;
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<DisplayStringMap>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("DisplayStringKey", "ObjectTypeCode", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("DisplayStringKey", "ObjectTypeCode");
 
-            foreach (var entity in list)
-            {
-                var displayStringKey = entity.GetAttributeValue<AliasedValue>("displaystring.displaystringkey").Value.ToString();
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-                handler.AddLine(displayStringKey
-                    , entity.ObjectTypeCode
-                    , entity.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
-
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var displayStringMap = GetEntity<DisplayStringMap>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<DisplayStringMap>();
 
-            if (displayStringMap != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                var displayStringKey = displayStringMap.GetAttributeValue<AliasedValue>("displaystring.displaystringkey").Value.ToString();
+                EntityDescriptionHandler.GetAttributeString(entity, "displaystring.displaystringkey")
+                , entity.ObjectTypeCode
+            });
 
-                return string.Format("DisplayStringKey {0}    ObjectTypeCode {1}    IsManaged {2}    SolutionName {3}"
-                    , displayStringKey
-                    , displayStringMap.ObjectTypeCode
-                    , displayStringMap.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(displayStringMap, "solution.uniquename")
-                    );
-            }
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
 
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override string GetName(SolutionComponent solutionComponent)

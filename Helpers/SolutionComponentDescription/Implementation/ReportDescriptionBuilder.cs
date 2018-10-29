@@ -44,96 +44,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<Report>(components.Select(c => c.ObjectId));
+            FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("ReportName", "FileName", "ReportType", "SignatureLcid", "SignatureId", "IsCustomizable", "ViewableBy", "Owner");
 
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            FormatTextTableHandler table = new FormatTextTableHandler();
-            table.SetHeader("ReportName", "FileName", "ReportType", "SignatureLcid", "SignatureLcid", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "ViewableBy", "Owner", "Url");
-
-            foreach (var entity in list)
-            {
-                string name = entity.Name;
-                string filename = entity.FileName;
-                string reportType = entity.FormattedValues.ContainsKey(Report.Schema.Attributes.reporttypecode)
-                    ? entity.FormattedValues[Report.Schema.Attributes.reporttypecode] : "Empty";
-
-                var ownerRef = entity.OwnerId;
-                string owner = string.Empty;
-
-                if (ownerRef != null)
-                {
-                    owner = ownerRef.Name;
-                }
-
-                string ispersonal = entity.FormattedValues.ContainsKey(Report.Schema.Attributes.ispersonal) ? entity.FormattedValues[Report.Schema.Attributes.ispersonal] : "Empty";
-
-                table.AddLine(name
-                    , filename
-                    , reportType
-                    , entity.SignatureLcid.ToString()
-                    , entity.SignatureId.ToString()
-                    , entity.IsManaged.ToString()
-                    , entity.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    , ispersonal
-                    , owner
-                    , withUrls ? _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.Report, entity.Id) : string.Empty
-                    );
-            }
-
-            List<string> lines = table.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var report = GetEntity<Report>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<Report>();
 
-            if (report != null)
+            List<string> values = new List<string>();
+
+            entity.FormattedValues.TryGetValue(Report.Schema.Attributes.reporttypecode, out string reporttypecode);
+
+            entity.FormattedValues.TryGetValue(Report.Schema.Attributes.ispersonal, out string ispersonal);
+
+            values.AddRange(new[]
             {
-                string name = report.Name;
-                string fileName = report.FileName;
+                entity.Name
+                , entity.FileName
+                , reporttypecode
+                , entity.SignatureLcid.ToString()
+                , entity.SignatureId.ToString()
+                , entity.IsCustomizable?.Value.ToString()
+                , ispersonal
+                , entity.OwnerId?.Name
+            });
 
-                StringBuilder builder = new StringBuilder();
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
 
-                builder.AppendFormat("Report {0}", name);
-
-                if (!string.IsNullOrEmpty(fileName))
-                {
-                    builder.AppendFormat("    {0}", fileName);
-                }
-
-                builder.AppendFormat("    SignatureLcid {0}", report.SignatureLcid.ToString());
-                builder.AppendFormat("    SignatureId {0}", report.SignatureId.ToString());
-
-                builder.AppendFormat("    IsManaged {0}", report.IsManaged.ToString());
-                builder.AppendFormat("    IsCustomizable {0}", report.IsCustomizable?.Value.ToString());
-                builder.AppendFormat("    SolutionName {0}", EntityDescriptionHandler.GetAttributeString(report, "solution.uniquename"));
-
-                if (withUrls)
-                {
-                    builder.AppendFormat("    Url {0}", _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.Report, report.Id));
-                }
-
-                return builder.ToString();
-            }
-
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override string GetDisplayName(SolutionComponent component)
@@ -168,7 +113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                     RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false),
+                    Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
                 };
 
                 if (entity.SignatureId.HasValue && entity.SignatureLcid.HasValue)

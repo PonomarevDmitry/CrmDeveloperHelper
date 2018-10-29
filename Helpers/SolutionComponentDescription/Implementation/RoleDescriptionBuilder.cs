@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -111,70 +112,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return query;
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<Role>(components.Select(c => c.ObjectId));
+            FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("Name", "BusinessUnit", "IsCustomizable");
 
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            FormatTextTableHandler table = new FormatTextTableHandler();
-            table.SetHeader("Name", "BusinessUnit", "IsManaged", "IsCustomizable", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
-
-            foreach (var role in list)
-            {
-                var businessUnit = role.BusinessUnitId.Name;
-
-                if (role.BusinessUnitParentBusinessUnit == null)
-                {
-                    businessUnit = "Root Organization";
-                }
-
-                table.AddLine(role.Name
-                    , businessUnit
-                    , role.IsManaged.ToString()
-                    , role.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(role, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(role, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(role, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(role, "suppsolution.ismanaged")
-                    , withUrls ? _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.Role, role.Id) : string.Empty
-                    );
-            }
-
-            table.GetFormatedLines(true).ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var role = GetEntity<Role>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<Role>();
 
-            if (role != null)
+            List<string> values = new List<string>();
+
+            var businessUnit = entity.BusinessUnitId.Name;
+
+            if (entity.BusinessUnitParentBusinessUnit == null)
             {
-                var businessUnit = role.BusinessUnitId.Name;
-
-                if (!role.Attributes.Contains("businessunit.parentbusinessunitid"))
-                {
-                    businessUnit = "Root Organization";
-                }
-
-                return string.Format("Role {0}    BusinessUnit {1}    IsManaged {2}    IsManaged {3}    SolutionName {4}"
-                    , role.Name
-                    , businessUnit
-                    , role.IsManaged.ToString()
-                    , role.IsCustomizable?.Value.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(role, "solution.uniquename")
-                    );
+                businessUnit = "Root Organization";
             }
 
-            return base.GenerateDescriptionSingle(component, withUrls);
+            values.AddRange(new[]
+            {
+                entity.Name
+                , businessUnit
+                , entity.IsCustomizable?.Value.ToString()
+            });
+
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
+
+            return values;
         }
 
         public override TupleList<string, string> GetComponentColumns()

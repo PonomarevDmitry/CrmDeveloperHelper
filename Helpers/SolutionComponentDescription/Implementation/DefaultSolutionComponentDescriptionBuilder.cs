@@ -195,7 +195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         protected virtual ColumnSet GetColumnSet()
         {
             return new ColumnSet(true);
-        }        
+        }
 
         private List<Entity> GetCachedEntities(List<Guid> idsNotCached)
         {
@@ -249,21 +249,73 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return null;
         }
 
-        public virtual void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
-            builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
+            var list = GetEntities<Entity>(components.Select(c => c.ObjectId));
 
-            foreach (var item in components)
             {
-                builder.AppendFormat(formatSpacer, item.ToString()).AppendLine();
+                var hash = new HashSet<Guid>(list.Select(en => en.Id));
+                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
+                if (notFinded.Any())
+                {
+                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
+                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
+                }
             }
+
+            FormatTextTableHandler handler = GetDescriptionHeader(withUrls, withManaged, withSolutionInfo, AppendIntoTableHeader);
+
+            foreach (var entity in list)
+            {
+                List<string> values = GetDescriptionValues(entity, withUrls, withManaged, withSolutionInfo, AppendIntoValues);
+
+                handler.AddLine(values);
+            }
+
+            List<string> lines = handler.GetFormatedLines(true);
+
+            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
         }
 
-        public virtual string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls)
+        protected virtual FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
+        {
+            var result = new FormatTextTableHandler();
+            result.SetHeader("Id");
+
+            action(result, withUrls, withManaged, withSolutionInfo);
+
+            return result;
+        }
+
+        protected virtual List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
+        {
+            var result = new List<string>() { entityInput.Id.ToString() };
+
+            action(result, entityInput, withUrls, withManaged, withSolutionInfo);
+
+            return result;
+        }
+
+        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
             if (solutionComponent == null)
             {
                 return null;
+            }
+
+            var entityInput = GetEntity<Entity>(solutionComponent.ObjectId.Value);
+
+            if (entityInput != null)
+            {
+                FormatTextTableHandler handler = GetDescriptionHeader(withUrls, withManaged, withSolutionInfo, AppendIntoTableHeaderSingle);
+
+                List<string> values = GetDescriptionValues(entityInput, withUrls, withManaged, withSolutionInfo, AppendIntoValuesSingle);
+
+                handler.AddLine(values);
+
+                var str = handler.GetFormatedLinesWithHeadersInLine(false).FirstOrDefault();
+
+                return string.Format("{0} {1}", entityInput.LogicalName, str);
             }
 
             return solutionComponent.ToString();
@@ -362,7 +414,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 ComponentType = this.ComponentTypeValue,
                 RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                Description = GenerateDescriptionSingle(solutionComponent, false),
+                Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
             });
         }
 
@@ -408,6 +460,102 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         public virtual TupleList<string, string> GetComponentColumns()
         {
             return new TupleList<string, string>();
+        }
+
+        protected void AppendIntoTableHeader(FormatTextTableHandler handler, bool withUrls, bool withManaged, bool withSolutionInfo)
+        {
+            if (withManaged)
+            {
+                handler.AppendHeader("IsManaged");
+            }
+
+            if (withSolutionInfo)
+            {
+                handler.AppendHeader("SolutionName");
+
+                if (withManaged)
+                {
+                    handler.AppendHeader("SolutionIsManaged");
+                }
+
+                handler.AppendHeader("SupportingName");
+
+                if (withManaged)
+                {
+                    handler.AppendHeader("SupportinIsManaged");
+                }
+            }
+
+            if (withUrls)
+            {
+                handler.AppendHeader("Url");
+            }
+        }
+
+        protected void AppendIntoValues(List<string> values, Entity entity, bool withUrls, bool withManaged, bool withSolutionInfo)
+        {
+            if (withManaged)
+            {
+                values.Add(EntityDescriptionHandler.GetAttributeString(entity, "ismanaged"));
+            }
+
+            if (withSolutionInfo)
+            {
+                values.Add(EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename"));
+
+                if (withManaged)
+                {
+                    values.Add(EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged"));
+                }
+
+                values.Add(EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename"));
+
+                if (withManaged)
+                {
+                    values.Add(EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged"));
+                }
+            }
+
+            if (withUrls && this.ComponentTypeEnum.HasValue)
+            {
+                values.Add(_service.UrlGenerator?.GetSolutionComponentUrl(this.ComponentTypeEnum.Value, entity.Id));
+            }
+        }
+
+        protected void AppendIntoTableHeaderSingle(FormatTextTableHandler handler, bool withUrls, bool withManaged, bool withSolutionInfo)
+        {
+            if (withManaged)
+            {
+                handler.AppendHeader("IsManaged");
+            }
+
+            if (withSolutionInfo)
+            {
+                handler.AppendHeader("SolutionName");
+            }
+
+            if (withUrls)
+            {
+                handler.AppendHeader("Url");
+            }
+        }
+
+        protected void AppendIntoValuesSingle(List<string> values, Entity entity, bool withUrls, bool withManaged, bool withSolutionInfo)
+        {
+            if (withManaged)
+            {
+                values.Add(EntityDescriptionHandler.GetAttributeString(entity, "ismanaged"));
+            }
+
+            if (withSolutionInfo)
+            {
+                values.Add(EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename"));
+            }
+
+            if (withUrls && this.ComponentTypeEnum.HasValue)
+            {
+                values.Add(_service.UrlGenerator?.GetSolutionComponentUrl(this.ComponentTypeEnum.Value, entity.Id));
+            }
         }
     }
 }

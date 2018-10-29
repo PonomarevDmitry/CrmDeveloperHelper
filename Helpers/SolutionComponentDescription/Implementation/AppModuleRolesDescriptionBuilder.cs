@@ -123,56 +123,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return query;
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<AppModuleRoles>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("AppModuleName", "RoleName", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("AppModuleName", "RoleName", "Id");
 
-            foreach (var entity in list)
-            {
-                handler.AddLine(
-                    EntityDescriptionHandler.GetAttributeString(entity, AppModuleRoles.Schema.Attributes.appmoduleid + "." + AppModule.Schema.Attributes.name)
-                    , EntityDescriptionHandler.GetAttributeString(entity, AppModuleRoles.Schema.Attributes.roleid + "." + Role.Schema.Attributes.name)
-                    , entity.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var appModuleRoles = GetEntity<AppModuleRoles>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<AppModuleRoles>();
 
-            if (appModuleRoles != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                return string.Format("AppModuleName {0}    RoleName {1}    IsManaged {2}    SolutionName {3}"
-                    , EntityDescriptionHandler.GetAttributeString(appModuleRoles, AppModuleRoles.Schema.Attributes.appmoduleid + "." + AppModule.Schema.Attributes.name)
-                    , EntityDescriptionHandler.GetAttributeString(appModuleRoles, AppModuleRoles.Schema.Attributes.roleid + "." + Role.Schema.Attributes.name)
-                    , appModuleRoles.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(appModuleRoles, "solution.uniquename")
-                    );
-            }
+                EntityDescriptionHandler.GetAttributeString(entity, AppModuleRoles.Schema.Attributes.appmoduleid + "." + AppModule.Schema.Attributes.name)
+                , EntityDescriptionHandler.GetAttributeString(entity, AppModuleRoles.Schema.Attributes.roleid + "." + Role.Schema.Attributes.name)
+                , entity.Id.ToString()
+            });
 
-            return base.GenerateDescriptionSingle(component, withUrls);
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
+
+            return values;
         }
 
         public override string GetName(SolutionComponent component)

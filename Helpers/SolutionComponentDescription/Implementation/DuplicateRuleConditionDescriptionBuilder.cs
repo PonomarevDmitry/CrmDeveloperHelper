@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -35,56 +36,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<DuplicateRuleCondition>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("DuplicateRule", "BaseAttributeName", "MatchingAttributeName", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
+            handler.SetHeader("DuplicateRule", "BaseAttributeName", "MatchingAttributeName");
 
-            foreach (var duplicateRuleCondition in list)
-            {
-                handler.AddLine(
-                    duplicateRuleCondition.RegardingObjectId?.Name
-                    , duplicateRuleCondition.BaseAttributeName
-                    , duplicateRuleCondition.MatchingAttributeName
-                    , EntityDescriptionHandler.GetAttributeString(duplicateRuleCondition, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(duplicateRuleCondition, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(duplicateRuleCondition, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(duplicateRuleCondition, "suppsolution.ismanaged")
-                    );
-            }
+            action(handler, withUrls, false, withSolutionInfo);
 
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var duplicateRuleCondition = GetEntity<DuplicateRuleCondition>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<DuplicateRuleCondition>();
 
-            if (duplicateRuleCondition != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                return string.Format("DuplicateRule     {0}    BaseAttributeName {1}    MatchingAttributeName {2}    SolutionName {3}"
-                    , duplicateRuleCondition.RegardingObjectId?.Name
-                    , duplicateRuleCondition.BaseAttributeName
-                    , duplicateRuleCondition.MatchingAttributeName
-                    , EntityDescriptionHandler.GetAttributeString(duplicateRuleCondition, "solution.uniquename")
-                    );
-            }
+                entity.RegardingObjectId?.Name
+                , entity.BaseAttributeName
+                , entity.MatchingAttributeName
+            });
 
-            return component.ToString();
+            AppendIntoValues(values, entity, withUrls, false, withSolutionInfo);
+
+            return values;
         }
 
         public override TupleList<string, string> GetComponentColumns()

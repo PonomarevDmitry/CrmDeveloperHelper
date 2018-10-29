@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -112,58 +113,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return query;
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<ChannelAccessProfileEntityAccessLevel>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("ChannelAccessProfileName", "EntityAccessLevelName", "EntityAccessLevelDepthMask", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("ChannelAccessProfileName", "EntityAccessLevelName", "EntityAccessLevelDepthMask");
 
-            foreach (var entity in list)
-            {
-                handler.AddLine(
-                    EntityDescriptionHandler.GetAttributeString(entity, ChannelAccessProfileEntityAccessLevel.Schema.Attributes.channelaccessprofileid + "." + ChannelAccessProfile.Schema.Attributes.name)
-                    , EntityDescriptionHandler.GetAttributeString(entity, ChannelAccessProfileEntityAccessLevel.Schema.Attributes.entityaccesslevelid + "." + Privilege.Schema.Attributes.name)
-                    , entity.EntityAccessLevelDepthMask.ToString()
-                    , entity.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var channelAccessProfileEntityAccessLevel = GetEntity<ChannelAccessProfileEntityAccessLevel>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<ChannelAccessProfileEntityAccessLevel>();
 
-            if (channelAccessProfileEntityAccessLevel != null)
-            {
-                return string.Format("ChannelAccessProfileName {0}    EntityAccessLevelName {1}    EntityAccessLevelDepthMask {2}    IsManaged {3}    SolutionName {4}"
-                    , EntityDescriptionHandler.GetAttributeString(channelAccessProfileEntityAccessLevel, ChannelAccessProfileEntityAccessLevel.Schema.Attributes.channelaccessprofileid + "." + ChannelAccessProfile.Schema.Attributes.name)
-                    , EntityDescriptionHandler.GetAttributeString(channelAccessProfileEntityAccessLevel, ChannelAccessProfileEntityAccessLevel.Schema.Attributes.entityaccesslevelid + "." + Privilege.Schema.Attributes.name)
-                    , channelAccessProfileEntityAccessLevel.EntityAccessLevelDepthMask
-                    , channelAccessProfileEntityAccessLevel.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(channelAccessProfileEntityAccessLevel, "solution.uniquename")
-                    );
-            }
+            List<string> values = new List<string>();
 
-            return base.GenerateDescriptionSingle(component, withUrls);
+            values.AddRange(new[]
+                        {
+                EntityDescriptionHandler.GetAttributeString(entity, ChannelAccessProfileEntityAccessLevel.Schema.Attributes.channelaccessprofileid + "." + ChannelAccessProfile.Schema.Attributes.name)
+                , EntityDescriptionHandler.GetAttributeString(entity, ChannelAccessProfileEntityAccessLevel.Schema.Attributes.entityaccesslevelid + "." + Privilege.Schema.Attributes.name)
+                , entity.EntityAccessLevelDepthMask.ToString()
+            });
+
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
+
+            return values;
         }
 
         public override string GetName(SolutionComponent component)

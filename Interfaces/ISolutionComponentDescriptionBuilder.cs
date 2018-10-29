@@ -30,9 +30,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionComponent);
 
-        void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls);
+        void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo);
 
-        string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls);
+        string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls, bool withManaged, bool withSolutionInfo);
 
         string GetName(SolutionComponent solutionComponent);
 

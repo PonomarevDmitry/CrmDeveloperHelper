@@ -112,67 +112,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return query;
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<FieldPermission>(components.Select(c => c.ObjectId));
+            FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("FieldSecurityProfileName", "Attribute");
 
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            var table = new FormatTextTableHandler();
-            table.SetHeader("FieldSecurityProfileName", "Attribute", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
-
-            foreach (var entity in list)
-            {
-                var name = entity.GetAttributeValue<AliasedValue>("fieldsecurityprofile.name").Value.ToString();
-
-                string attr = string.Format("{0}.{1}"
-                    , entity.EntityName
-                    , entity.AttributeLogicalName
-                    );
-
-                table.AddLine(name
-                    , attr
-                    , entity.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
-
-            table.GetFormatedLines(true).ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var fieldPermission = GetEntity<FieldPermission>(solutionComponent.ObjectId.Value);
+            var entity = entityInput.ToEntity<FieldPermission>();
 
-            if (fieldPermission != null)
+            List<string> values = new List<string>();
+
+            string attr = string.Format("{0}.{1}", entity.EntityName, entity.AttributeLogicalName);
+
+            values.AddRange(new[]
             {
-                var name = fieldPermission.GetAttributeValue<AliasedValue>("fieldsecurityprofile.name").Value.ToString();
+                EntityDescriptionHandler.GetAttributeString(entity, "fieldsecurityprofile.name")
+                , attr
+            });
 
-                string attr = string.Format("{0}.{1}"
-                    , fieldPermission.EntityName
-                    , fieldPermission.AttributeLogicalName
-                    );
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
 
-                return string.Format("FieldSecurityProfile {0}    Attribute {1}    IsManaged {2}    SolutionName {3}"
-                    , name
-                    , attr
-                    , fieldPermission.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(fieldPermission, "solution.uniquename")
-                    );
-            }
-
-            return base.GenerateDescriptionSingle(solutionComponent, withUrls);
+            return values;
         }
 
         public override string GetName(SolutionComponent component)

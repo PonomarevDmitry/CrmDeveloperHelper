@@ -39,62 +39,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<SiteMap>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("SiteMapName", "Id", "IsAppAware", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
+            handler.SetHeader("SiteMapName", "SiteMapNameUnique", "Id", "IsAppAware");
 
-            foreach (var sitemap in list)
-            {
-                string name = sitemap.SiteMapName;
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-                handler.AddLine(
-                    name
-                    , sitemap.Id.ToString()
-                    , sitemap.IsAppAware.ToString()
-                    , sitemap.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(sitemap, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(sitemap, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(sitemap, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(sitemap, "suppsolution.ismanaged")
-                    );
-            }
-
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var siteMap = GetEntity<SiteMap>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<SiteMap>();
 
-            if (siteMap != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                string name = siteMap.SiteMapName;
+                entity.SiteMapName
+                , entity.SiteMapNameUnique
+                , entity.Id.ToString()
+                , entity.IsAppAware.ToString()
+            });
 
-                return string.Format("SiteMapName {0}    Id {1}    IsAppAware {2}    IsManaged {3}    SolutionName {4}"
-                    , name
-                    , siteMap.Id.ToString()
-                    , siteMap.IsAppAware.ToString()
-                    , siteMap.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(siteMap, "solution.uniquename")
-                    );
-            }
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
 
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override string GetName(SolutionComponent component)
@@ -128,7 +99,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                     RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false),
+                    Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
                 };
 
                 if (!string.IsNullOrEmpty(entity.SiteMapNameUnique))

@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -38,81 +39,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<RibbonDiff>(components.Select(c => c.ObjectId));
+            FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("Entity", "DiffId", "DiffType", "TabId", "ContextGroupId", "Sequence");
 
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
+            action(handler, withUrls, withManaged, withSolutionInfo);
 
-            FormatTextTableHandler table = new FormatTextTableHandler();
-
-            table.SetHeader("Entity", "DiffId", "DiffType", "TabId", "ContextGroupId", "Sequence", "IsManaged", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged");
-
-            foreach (var entity in list)
-            {
-                string entityName = entity.Entity;
-
-                if (string.IsNullOrEmpty(entityName))
-                {
-                    entityName = "ApplicationRibbon";
-                }
-
-
-                entity.FormattedValues.TryGetValue(RibbonDiff.Schema.Attributes.difftype, out string difftype);
-
-                table.AddLine(entityName
-                    , entity.DiffId
-                    , difftype
-                    , entity.TabId
-                    , entity.ContextGroupId?.ToString()
-                    , entity.Sequence?.ToString()
-                    , entity.IsManaged?.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(entity, "suppsolution.ismanaged")
-                    );
-            }
-
-            List<string> lines = table.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var ribbonDiff = GetEntity<RibbonDiff>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<RibbonDiff>();
 
-            if (ribbonDiff != null)
+            List<string> values = new List<string>();
+
+            entity.FormattedValues.TryGetValue(RibbonDiff.Schema.Attributes.difftype, out string difftype);
+
+            values.AddRange(new[]
             {
-                string entityName = ribbonDiff.Entity;
+                entity.Entity ?? "ApplicationRibbon"
+                , entity.DiffId
+                , difftype
+                , entity.TabId
+                , entity.ContextGroupId?.ToString()
+                , entity.Sequence?.ToString()
+            });
 
-                if (string.IsNullOrEmpty(entityName))
-                {
-                    entityName = "ApplicationRibbon";
-                }
+            action(values, entity, withUrls, withManaged, withSolutionInfo);
 
-                return string.Format("Entity {0}    DiffId {1}    DiffType {2}    TabId {3}    ContextGroupId {4}    Sequence {5}    IsManaged {6}    SolutionName {7}"
-                    , entityName
-                    , ribbonDiff.DiffId
-                    , ribbonDiff.FormattedValues[RibbonDiff.Schema.Attributes.difftype]
-                    , ribbonDiff.TabId
-                    , ribbonDiff.ContextGroupId.ToString()
-                    , ribbonDiff.Sequence.ToString()
-                    , ribbonDiff.IsManaged.ToString()
-                    , EntityDescriptionHandler.GetAttributeString(ribbonDiff, "solution.uniquename")
-                    );
-            }
-
-            return base.GenerateDescriptionSingle(component, withUrls);
+            return values;
         }
 
         public override string GetName(SolutionComponent component)

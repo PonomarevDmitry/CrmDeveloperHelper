@@ -62,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         ParentSchemaName = relationship.ReferencingEntity,
                         RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                        Description = GenerateDescriptionSingle(solutionComponent, false),
+                        Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
                     });
 
                     result.Add(new SolutionImageComponent()
@@ -72,7 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         ParentSchemaName = relationship.ReferencedEntity,
                         RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                        Description = GenerateDescriptionSingle(solutionComponent, false),
+                        Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
                     });
                 }
                 else if (metaData is ManyToManyRelationshipMetadata)
@@ -86,7 +86,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         ParentSchemaName = relationship.Entity1LogicalName,
                         RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                        Description = GenerateDescriptionSingle(solutionComponent, false),
+                        Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
                     });
 
                     result.Add(new SolutionImageComponent()
@@ -96,7 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         ParentSchemaName = relationship.Entity2LogicalName,
                         RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                        Description = GenerateDescriptionSingle(solutionComponent, false),
+                        Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
                     });
                 }
             }
@@ -131,12 +131,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
-        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
 
             FormatTextTableHandler handlerManyToOne = new FormatTextTableHandler();
+            handlerManyToOne.SetHeader("ReferencingAttribute", "Type", "SchemaName", "Behaviour", "IsCustomizable");
+
             FormatTextTableHandler handlerManyToMany = new FormatTextTableHandler();
+            handlerManyToMany.SetHeader("Entity - Entity", "Type", "SchemaName", "Behaviour", "IsCustomizable");
+
+            if (withManaged)
+            {
+                handlerManyToOne.AppendHeader("IsManaged");
+                handlerManyToMany.AppendHeader("IsManaged");
+            }
+
+            if (withUrls)
+            {
+                handlerManyToOne.AppendHeader("Url");
+                handlerManyToMany.AppendHeader("Url");
+            }
 
             foreach (var comp in components)
             {
@@ -158,29 +173,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         string relName = string.Format("{0}.{1}", relationship.ReferencingEntity, relationship.ReferencingAttribute);
                         string refEntity = relationship.ReferencedEntity;
 
-                        string url = null;
+                        List<string> values = new List<string>();
 
-                        if (withUrls)
+                        values.AddRange(new[]
                         {
-                            var entityMetadata = _source.GetEntityMetadata(refEntity);
-
-                            if (entityMetadata != null)
-                            {
-                                url = _source.Service.ConnectionData?.GetRelationshipMetadataRelativeUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value);
-                            }
-                        }
-
-                        handlerManyToOne.AddLine(relName
+                            relName
                             , "Many to One"
                             , refEntity
                             , relationship.SchemaName
                             , behavior
-                            , relationship.IsManaged.ToString()
                             , relationship.IsCustomizable?.Value.ToString()
-                            , url
-                            );
+                        });
 
-                        continue;
+                        if (withManaged)
+                        {
+                            values.Add(metaData.IsManaged.ToString());
+                        }
+
+                        if (withUrls)
+                        {
+                            var entityMetadata = _source.GetEntityMetadata(refEntity);
+                            if (entityMetadata != null)
+                            {
+                                values.Add(_source.Service.ConnectionData?.GetRelationshipMetadataRelativeUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value));
+                            }
+                        }
+
+                        handlerManyToOne.AddLine(values);
                     }
                     else if (metaData is ManyToManyRelationshipMetadata)
                     {
@@ -188,32 +207,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                         string relName = string.Format("{0} - {1}", relationship.Entity1LogicalName, relationship.Entity2LogicalName);
 
-                        string url = null;
+                        List<string> values = new List<string>();
+
+                        values.AddRange(new[]
+                        {
+                            relName
+                            , "Many to Many"
+                            , relationship.SchemaName
+                            , behavior
+                            , relationship.IsCustomizable?.Value.ToString()
+                        });
+
+                        if (withManaged)
+                        {
+                            values.Add(metaData.IsManaged.ToString());
+                        }
 
                         if (withUrls)
                         {
                             var entityMetadata = _source.GetEntityMetadata(relationship.Entity1LogicalName);
-
                             if (entityMetadata != null)
                             {
-                                url = _source.Service.ConnectionData?.GetRelationshipMetadataRelativeUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value);
+                                values.Add(_source.Service.ConnectionData?.GetRelationshipMetadataRelativeUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value));
                             }
                         }
 
-                        handlerManyToMany.AddLine(relName
-                            , "Many to Many"
-                            , relationship.SchemaName
-                            , behavior
-                            , relationship.IsManaged.ToString()
-                            , relationship.IsCustomizable?.Value.ToString()
-                            , url
-                        );
-
-                        continue;
+                        handlerManyToMany.AddLine(values);
                     }
                 }
-
-                handler.AddLine(comp.ObjectId.ToString(), string.Empty, behavior);
+                else
+                {
+                    handler.AddLine(comp.ObjectId.ToString(), behavior);
+                }
             }
 
             List<string> linesUnknowed = handler.GetFormatedLines(true);
@@ -232,45 +257,120 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             linesMany.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
         }
 
-        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls)
+        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
             RelationshipMetadataBase metaData = _source.GetRelationshipMetadata(solutionComponent.ObjectId.Value);
 
             if (metaData != null)
             {
+                string behavior = string.Empty;
+
+                if (solutionComponent.RootComponentBehavior != null)
+                {
+                    behavior = SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior.Value);
+                }
+
                 if (metaData is OneToManyRelationshipMetadata)
                 {
+                    FormatTextTableHandler handlerManyToOne = new FormatTextTableHandler();
+                    handlerManyToOne.SetHeader("ReferencingAttribute", "Type", "SchemaName", "Behaviour", "IsCustomizable");
+
+                    if (withManaged)
+                    {
+                        handlerManyToOne.AppendHeader("IsManaged");
+                    }
+
+                    if (withUrls)
+                    {
+                        handlerManyToOne.AppendHeader("Url");
+                    }
+
                     var relationship = metaData as OneToManyRelationshipMetadata;
 
                     string relName = string.Format("{0}.{1}", relationship.ReferencingEntity, relationship.ReferencingAttribute);
                     string refEntity = relationship.ReferencedEntity;
 
-                    var entityMetadata = _source.GetEntityMetadata(refEntity);
+                    List<string> values = new List<string>();
 
-                    return string.Format("EntityRelationship {0} - {1} - {2} - {3} - {4}{5}"
-                        , relName
+                    values.AddRange(new[]
+                    {
+                        relName
                         , "Many to One"
                         , refEntity
                         , relationship.SchemaName
-                        , relationship.IsManaged.ToString()
-                        , withUrls ? string.Format("    Url {0}", _source.Service.ConnectionData.GetRelationshipMetadataRelativeUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value)) : string.Empty
-                        );
+                        , behavior
+                        , relationship.IsCustomizable?.Value.ToString()
+                    });
+
+                    if (withManaged)
+                    {
+                        values.Add(metaData.IsManaged.ToString());
+                    }
+
+                    if (withUrls)
+                    {
+                        var entityMetadata = _source.GetEntityMetadata(refEntity);
+                        if (entityMetadata != null)
+                        {
+                            values.Add(_source.Service.ConnectionData?.GetRelationshipMetadataRelativeUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value));
+                        }
+                    }
+
+                    handlerManyToOne.AddLine(values);
+
+                    var str = handlerManyToOne.GetFormatedLinesWithHeadersInLine(false).FirstOrDefault();
+
+                    return string.Format("{0} {1}", this.ComponentTypeEnum.ToString(), str);
                 }
                 else if (metaData is ManyToManyRelationshipMetadata)
                 {
+                    FormatTextTableHandler handlerManyToMany = new FormatTextTableHandler();
+                    handlerManyToMany.SetHeader("Entity - Entity", "Type", "SchemaName", "Behaviour", "IsCustomizable");
+
+                    if (withManaged)
+                    {
+                        handlerManyToMany.AppendHeader("IsManaged");
+                    }
+
+                    if (withUrls)
+                    {
+                        handlerManyToMany.AppendHeader("Url");
+                    }
+
                     var relationship = metaData as ManyToManyRelationshipMetadata;
 
                     string relName = string.Format("{0} - {1}", relationship.Entity1LogicalName, relationship.Entity2LogicalName);
 
-                    var entityMetadata = _source.GetEntityMetadata(relationship.Entity1LogicalName);
+                    List<string> values = new List<string>();
 
-                    return string.Format("EntityRelationship {0} - {1} - {2} - {3}{4}"
-                        , relName
-                        , "Many to Many"
-                        , relationship.SchemaName
-                        , relationship.IsManaged.ToString()
-                        , withUrls ? string.Format("    Url {0}", _source.Service.ConnectionData.GetRelationshipMetadataRelativeUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value)) : string.Empty
-                        );
+                    values.AddRange(new[]
+                    {
+                            relName
+                            , "Many to Many"
+                            , relationship.SchemaName
+                            , behavior
+                            , relationship.IsCustomizable?.Value.ToString()
+                        });
+
+                    if (withManaged)
+                    {
+                        values.Add(metaData.IsManaged.ToString());
+                    }
+
+                    if (withUrls)
+                    {
+                        var entityMetadata = _source.GetEntityMetadata(relationship.Entity1LogicalName);
+                        if (entityMetadata != null)
+                        {
+                            values.Add(_source.Service.ConnectionData?.GetRelationshipMetadataRelativeUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value));
+                        }
+                    }
+
+                    handlerManyToMany.AddLine(values);
+
+                    var str = handlerManyToMany.GetFormatedLinesWithHeadersInLine(false).FirstOrDefault();
+
+                    return string.Format("{0} {1}", this.ComponentTypeEnum.ToString(), str);
                 }
             }
 

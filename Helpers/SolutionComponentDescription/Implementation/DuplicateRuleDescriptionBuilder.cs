@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -36,58 +37,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        public override void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
-            var list = GetEntities<DuplicateRule>(components.Select(c => c.ObjectId));
-
-            {
-                var hash = new HashSet<Guid>(list.Select(en => en.Id));
-                var notFinded = components.Where(en => !hash.Contains(en.ObjectId.Value)).ToList();
-                if (notFinded.Any())
-                {
-                    builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
-                }
-            }
-
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("DuplicateRuleType", "BaseEntityTypeCode", "MatchingEntityName", "StatusCode", "SolutionName", "SolutionIsManaged", "SupportingName", "SupportinIsManaged", "Url");
+            handler.SetHeader("DuplicateRuleType", "BaseEntityTypeCode", "MatchingEntityName", "StatusCode");
 
-            foreach (var duplicateRule in list)
-            {
-                handler.AddLine(
-                    duplicateRule.Name
-                    , duplicateRule.BaseEntityName
-                    , duplicateRule.MatchingEntityName
-                    , duplicateRule.FormattedValues[DuplicateRule.Schema.Attributes.statuscode]
-                    , EntityDescriptionHandler.GetAttributeString(duplicateRule, "solution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(duplicateRule, "solution.ismanaged")
-                    , EntityDescriptionHandler.GetAttributeString(duplicateRule, "suppsolution.uniquename")
-                    , EntityDescriptionHandler.GetAttributeString(duplicateRule, "suppsolution.ismanaged")
-                    );
-            }
+            action(handler, withUrls, false, withSolutionInfo);
 
-            List<string> lines = handler.GetFormatedLines(true);
-
-            lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
+            return handler;
         }
 
-        public override string GenerateDescriptionSingle(SolutionComponent component, bool withUrls)
+        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var duplicateRule = GetEntity<DuplicateRule>(component.ObjectId.Value);
+            var entity = entityInput.ToEntity<DuplicateRule>();
 
-            if (duplicateRule != null)
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
             {
-                return string.Format("DuplicateRule     {0}    BaseEntityName {1}    MatchingEntityName {2}    StatusCode {3}    SolutionName {4}"
-                    , duplicateRule.Name
-                    , duplicateRule.BaseEntityName
-                    , duplicateRule.MatchingEntityName
-                    , duplicateRule.FormattedValues[DuplicateRule.Schema.Attributes.statuscode]
-                    , EntityDescriptionHandler.GetAttributeString(duplicateRule, "solution.uniquename")
-                    );
-            }
+                entity.Name
+                , entity.BaseEntityName
+                , entity.MatchingEntityName
+                , entity.FormattedValues[DuplicateRule.Schema.Attributes.statuscode]
+            });
 
-            return component.ToString();
+            AppendIntoValues(values, entity, withUrls, false, withSolutionInfo);
+
+            return values;
         }
 
         public override TupleList<string, string> GetComponentColumns()
