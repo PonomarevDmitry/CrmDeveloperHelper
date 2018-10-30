@@ -202,7 +202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         foreach (var sitemap1 in list1)
                         {
-                            var sitemap2 = list2.FirstOrDefault(c => (c.SiteMapNameUnique ?? string.Empty) == (sitemap1.SiteMapNameUnique ?? string.Empty));
+                            var sitemap2 = list2.FirstOrDefault(c => string.Equals(c.SiteMapNameUnique ?? string.Empty, sitemap1.SiteMapNameUnique ?? string.Empty));
 
                             if (sitemap2 == null)
                             {

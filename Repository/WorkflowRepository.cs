@@ -217,7 +217,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Workflow>()).FirstOrDefault();
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            if (coll.Count == 1)
+            {
+                return coll.Select(e => e.ToEntity<Workflow>()).FirstOrDefault();
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

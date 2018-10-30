@@ -711,7 +711,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static List<string> _fieldsToCompareSiteMapOrdinal = new List<string>()
         {
             SiteMap.Schema.Attributes.sitemapname
-            , SiteMap.Schema.Attributes.sitemapnameunique
+            //, SiteMap.Schema.Attributes.sitemapnameunique
             , SiteMap.Schema.Attributes.isappaware
         };
 
@@ -755,7 +755,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             foreach (SiteMap sitemap1 in list1)
             {
                 {
-                    SiteMap sitemap2 = list2.FirstOrDefault(sitemap => sitemap.Id == sitemap1.Id);
+                    SiteMap sitemap2 = list2.FirstOrDefault(sitemap => string.Equals(sitemap.SiteMapNameUnique ?? string.Empty, sitemap1.SiteMapNameUnique ?? string.Empty));
 
                     if (sitemap2 != null)
                     {
@@ -771,7 +771,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             foreach (SiteMap sitemap2 in list2)
             {
                 {
-                    SiteMap sitemap1 = list1.FirstOrDefault(sitemap => sitemap.Id == sitemap2.Id);
+                    SiteMap sitemap1 = list1.FirstOrDefault(sitemap => string.Equals(sitemap.SiteMapNameUnique ?? string.Empty, sitemap2.SiteMapNameUnique ?? string.Empty));
 
                     if (sitemap1 != null)
                     {
@@ -786,7 +786,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             foreach (SiteMap sitemap1 in list1)
             {
-                SiteMap sitemap2 = list2.FirstOrDefault(sitemap => sitemap.Id == sitemap1.Id);
+                SiteMap sitemap2 = list2.FirstOrDefault(sitemap => string.Equals(sitemap.SiteMapNameUnique ?? string.Empty, sitemap1.SiteMapNameUnique ?? string.Empty));
 
                 if (sitemap2 == null)
                 {
@@ -1138,8 +1138,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                     else
                     {
-                        if (report1.SignatureDate.HasValue 
-                            && report1.SignatureId.HasValue 
+                        if (report1.SignatureDate.HasValue
+                            && report1.SignatureId.HasValue
                             && report1.SignatureId.Value != Guid.Empty
                             && report1.SignatureLcid.HasValue
                             )
@@ -1201,7 +1201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                     else
                     {
-                        if (report2.SignatureDate.HasValue 
+                        if (report2.SignatureDate.HasValue
                             && report2.SignatureId.HasValue
                             && report2.SignatureId.Value != Guid.Empty
                             && report2.SignatureLcid.HasValue
