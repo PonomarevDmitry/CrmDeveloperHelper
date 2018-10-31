@@ -1253,6 +1253,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.ReturnedTypeCode);
         }
 
+        private async void btnEntityRelationshipOneToManyExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.ReturnedTypeCode);
+        }
+
+        private async void btnEntityRelationshipManyToManyExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.ReturnedTypeCode);
+        }
+
         private async void btnEntityKeyExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();

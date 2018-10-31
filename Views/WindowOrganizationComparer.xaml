@@ -148,6 +148,8 @@
                         </Menu>
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
                             <MenuItem x:Name="tSDDBExport" Header="Export">
+                                <MenuItem Header="Open Organization Difference Image"  Click="tSMIOpenOrganizationDifferenceImage_Click"/>
+                                <Separator Margin="10,0"/>
                                 <MenuItem Header="Plugin Configuration">
                                     <MenuItem Header="Create Plugin Configuration"  Click="tSMIExportCreatePluginConfiguration_Click"/>
                                     <Separator Margin="10,0"/>
@@ -162,7 +164,11 @@
                                 <MenuItem Header="Entity Metadata"  Click="tSMIExportEntityMetadata_Click"/>
                                 
                                 <MenuItem Header="Entity Information" >
-                                    <MenuItem Header="Entity Attribute Explorer"  Click="tSMIEntityAttributeExplorer_Click"/>
+                                    <MenuItem Header="Entity Attribute Explorer"  Click="btnEntityAttributeExplorer_Click"/>
+                                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
+                                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
+                                    <Separator Margin="10,0"/>
                                     <MenuItem Header="Ribbon"  Click="tSMIExportRibbon_Click"/>
                                     <Separator Margin="10,0"/>
                                     <MenuItem Header="Attributes Dependent Components"  Click="tSMIExportAttributesDependentComponents_Click"/>
@@ -191,8 +197,9 @@
                                 <MenuItem Header="Workflows"  Click="tSMIExportWorkflows_Click"/>
                                 <MenuItem Header="Reports"  Click="tSMIExportReports_Click"/>
                                 <Separator Margin="10,0"/>
-                                <MenuItem Header="Export Solution"  Click="tSMIExportSolution_Click"/>
                                 <MenuItem Header="Solution Explorer"  Click="tSMIExportSolutionComponents_Click"/>
+                                <MenuItem Header="Export Solution"  Click="tSMIExportSolution_Click"/>
+                                <MenuItem Header="Open SolutionImage"  Click="tSMIOpenSolutionImage_Click"/>
                             </MenuItem>
                         </Menu>
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >

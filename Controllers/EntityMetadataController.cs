@@ -35,7 +35,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await CreatingFileWithEntityMetadata(selection, connectionData, commonConfig);
+                if (connectionData == null)
+                {
+                    this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                    return;
+                }
+
+                this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+
+                this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+
+                // Подключаемся к CRM.
+                var service = await QuickConnection.ConnectAsync(connectionData);
+
+                this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+
+                WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, commonConfig, selection, null, null);
             }
             catch (Exception xE)
             {
@@ -45,26 +60,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput("*********** End Creating File with Entity Metadata at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
-        }
-
-        private async Task CreatingFileWithEntityMetadata(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
-
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
-
-            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, commonConfig, selection, null, null);
         }
 
         #endregion Создание файла с мета-данными сущности.
@@ -77,7 +72,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await OpeningEntityAttributeExplorer(selection, connectionData, commonConfig);
+                if (connectionData == null)
+                {
+                    this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                    return;
+                }
+
+                this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+
+                this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+
+                // Подключаемся к CRM.
+                var service = await QuickConnection.ConnectAsync(connectionData);
+
+                this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+
+                WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, commonConfig, selection);
             }
             catch (Exception xE)
             {
@@ -89,26 +99,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpeningEntityAttributeExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
-
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
-
-            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, commonConfig, selection);
-        }
-
         #endregion Открытие Entity Attribute Explorer.
 
         public async Task ExecuteOpeningEntityKeyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
@@ -117,7 +107,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await OpeningEntityKeyExplorer(selection, connectionData, commonConfig);
+                if (connectionData == null)
+                {
+                    this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                    return;
+                }
+
+                this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+
+                this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+
+                // Подключаемся к CRM.
+                var service = await QuickConnection.ConnectAsync(connectionData);
+
+                this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+
+                WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, commonConfig, selection);
             }
             catch (Exception xE)
             {
@@ -129,24 +134,70 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpeningEntityKeyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningEntityRelationshipOneToManyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            if (connectionData == null)
+            this._iWriteToOutput.WriteToOutput("*********** Start Opening Entity Relationship One-To-Many at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+            try
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
-                return;
+                if (connectionData == null)
+                {
+                    this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                    return;
+                }
+
+                this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+
+                this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+
+                // Подключаемся к CRM.
+                var service = await QuickConnection.ConnectAsync(connectionData);
+
+                this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+
+                WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, commonConfig, selection);
             }
+            catch (Exception xE)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(xE);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutput("*********** End Opening Entity Relationship One-To-Many Explorer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            }
+        }
 
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+        public async Task ExecuteOpeningEntityRelationshipManyToManyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            this._iWriteToOutput.WriteToOutput("*********** Start Opening Entity Relationship Many-To-Many at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            try
+            {
+                if (connectionData == null)
+                {
+                    this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                    return;
+                }
 
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
+                this._iWriteToOutput.WriteToOutput("Connect to CRM.");
 
-            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+                this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
-            WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, commonConfig, selection);
+                // Подключаемся к CRM.
+                var service = await QuickConnection.ConnectAsync(connectionData);
+
+                this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+
+                WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, commonConfig, selection);
+            }
+            catch (Exception xE)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(xE);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutput("*********** End Opening Entity Relationship Many-To-Many Explorer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            }
         }
 
         #region Создание файла с глобальными OptionSet-ами.
@@ -157,7 +208,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await CreatingFileWithGlobalOptionSets(connectionData, commonConfig, selection);
+                if (connectionData == null)
+                {
+                    this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                    return;
+                }
+
+                this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+
+                this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+
+                // Подключаемся к CRM.
+                var service = await QuickConnection.ConnectAsync(connectionData);
+
+                this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+
+                WindowHelper.OpenGlobalOptionSetsWindow(
+                    this._iWriteToOutput
+                    , service
+                    , commonConfig
+                    , null
+                    , null
+                    , selection
+                    );
             }
             catch (Exception xE)
             {
@@ -167,33 +240,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput("*********** End Creating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
-        }
-
-        private async Task CreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
-
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
-
-            WindowHelper.OpenGlobalOptionSetsWindow(
-                this._iWriteToOutput
-                , service
-                , commonConfig
-                , null
-                , null
-                , selection
-                );
         }
 
         #endregion Создание файла с глобальными OptionSet-ами.

@@ -21,7 +21,7 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowEntityAttributeExplorer : WindowBase
+    public partial class WindowEntityRelationshipManyToManyExplorer : WindowBase
     {
         private readonly object sysObjectConnections = new object();
 
@@ -34,18 +34,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private ObservableCollection<EntityMetadataViewItem> _itemsSourceEntityList;
 
-        private ObservableCollection<AttributeMetadataViewItem> _itemsSourceAttributeList;
+        private ObservableCollection<ManyToManyRelationshipMetadataViewItem> _itemsSourceEntityRelationshipList;
 
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
         private Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
         private Dictionary<Guid, IEnumerable<EntityMetadataViewItem>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadataViewItem>>();
 
-        private Dictionary<Guid, Dictionary<string, IEnumerable<AttributeMetadataViewItem>>> _cacheAttributeMetadata = new Dictionary<Guid, Dictionary<string, IEnumerable<AttributeMetadataViewItem>>>();
+        private Dictionary<Guid, Dictionary<string, IEnumerable<ManyToManyRelationshipMetadataViewItem>>> _cacheEntityManyToMany = new Dictionary<Guid, Dictionary<string, IEnumerable<ManyToManyRelationshipMetadataViewItem>>>();
 
         private int _init = 0;
 
-        public WindowEntityAttributeExplorer(
+        public WindowEntityRelationshipManyToManyExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -78,8 +78,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _itemsSourceEntityList = new ObservableCollection<EntityMetadataViewItem>();
             lstVwEntities.ItemsSource = _itemsSourceEntityList;
 
-            _itemsSourceAttributeList = new ObservableCollection<AttributeMetadataViewItem>();
-            lstVwAttributes.ItemsSource = _itemsSourceAttributeList;
+            _itemsSourceEntityRelationshipList = new ObservableCollection<ManyToManyRelationshipMetadataViewItem>();
+            lstVwEntityRelationships.ItemsSource = _itemsSourceEntityRelationshipList;
 
             UpdateButtonsEnable();
 
@@ -197,7 +197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(false, "Loading entities...");
 
             _itemsSourceEntityList.Clear();
-            _itemsSourceAttributeList.Clear();
+            _itemsSourceEntityRelationshipList.Clear();
 
             IEnumerable<EntityMetadataViewItem> list = Enumerable.Empty<EntityMetadataViewItem>();
 
@@ -297,23 +297,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(true, "{0} entities loaded.", results.Count());
 
-            ShowExistingAttributes();
+            ShowExistingEntityRelationships();
         }
 
-        private async Task ShowExistingAttributes()
+        private async Task ShowExistingEntityRelationships()
         {
             if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
 
-            ToggleControls(false, "Loading attributes...");
+            ToggleControls(false, "Loading many-to-many relationships...");
 
             string entityLogicalName = string.Empty;
 
             this.Dispatcher.Invoke(() =>
             {
-                _itemsSourceAttributeList.Clear();
+                _itemsSourceEntityRelationshipList.Clear();
 
                 if (this.lstVwEntities.SelectedItems.Count == 1
                     && this.lstVwEntities.SelectedItems[0] != null
@@ -324,7 +324,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            IEnumerable<AttributeMetadataViewItem> list = Enumerable.Empty<AttributeMetadataViewItem>();
+            IEnumerable<ManyToManyRelationshipMetadataViewItem> list = Enumerable.Empty<ManyToManyRelationshipMetadataViewItem>();
 
             if (!string.IsNullOrEmpty(entityLogicalName))
             {
@@ -334,29 +334,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (service != null)
                     {
-                        if (!_cacheAttributeMetadata.ContainsKey(service.ConnectionData.ConnectionId))
+                        if (!_cacheEntityManyToMany.ContainsKey(service.ConnectionData.ConnectionId))
                         {
-                            _cacheAttributeMetadata.Add(service.ConnectionData.ConnectionId, new Dictionary<string, IEnumerable<AttributeMetadataViewItem>>(StringComparer.InvariantCultureIgnoreCase));
+                            _cacheEntityManyToMany.Add(service.ConnectionData.ConnectionId, new Dictionary<string, IEnumerable<ManyToManyRelationshipMetadataViewItem>>(StringComparer.InvariantCultureIgnoreCase));
                         }
 
-                        var cacheAttribute = _cacheAttributeMetadata[service.ConnectionData.ConnectionId];
+                        var connectionEntityManyToMany = _cacheEntityManyToMany[service.ConnectionData.ConnectionId];
 
-                        if (!cacheAttribute.ContainsKey(entityLogicalName))
+                        if (!connectionEntityManyToMany.ContainsKey(entityLogicalName))
                         {
                             var repository = new EntityMetadataRepository(service);
 
-                            var metadata = await repository.GetEntityMetadataAttributesAsync(entityLogicalName, EntityFilters.Attributes);
+                            var metadata = await repository.GetEntityMetadataAttributesAsync(entityLogicalName, EntityFilters.Relationships);
 
-                            if (metadata != null && metadata.Attributes != null)
+                            if (metadata != null)
                             {
-                                cacheAttribute.Add(entityLogicalName, metadata.Attributes.Where(e => string.IsNullOrEmpty(e.AttributeOf)).Select(e => new AttributeMetadataViewItem(e)).ToList());
+                                if (metadata.ManyToManyRelationships != null && !connectionEntityManyToMany.ContainsKey(entityLogicalName))
+                                {
+                                    connectionEntityManyToMany.Add(entityLogicalName, metadata.ManyToManyRelationships.Select(e => new ManyToManyRelationshipMetadataViewItem(e)).ToList());
+                                }
                             }
                         }
 
-                        if (cacheAttribute.ContainsKey(entityLogicalName))
+                        HashSet<Guid> hashGuid = new HashSet<Guid>();
+                        var coll = new List<ManyToManyRelationshipMetadataViewItem>();
+
+                        foreach (var item in connectionEntityManyToMany[entityLogicalName])
                         {
-                            list = cacheAttribute[entityLogicalName];
+                            if (hashGuid.Add(item.ManyToManyRelationshipMetadata.MetadataId.Value))
+                            {
+                                coll.Add(item);
+                            }
                         }
+
+                        list = coll;
                     }
                 }
                 catch (Exception ex)
@@ -367,17 +378,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string textName = string.Empty;
 
-            txtBFilterAttribute.Dispatcher.Invoke(() =>
+            txtBFilterEntityRelationship.Dispatcher.Invoke(() =>
             {
-                textName = txtBFilterAttribute.Text.Trim().ToLower();
+                textName = txtBFilterEntityRelationship.Text.Trim().ToLower();
             });
 
-            list = FilterAttributeList(list, textName);
+            list = FilterEntityRelationshipList(list, textName);
 
-            LoadAttributes(list);
+            LoadEntityRelationships(list);
         }
 
-        private static IEnumerable<AttributeMetadataViewItem> FilterAttributeList(IEnumerable<AttributeMetadataViewItem> list, string textName)
+        private static IEnumerable<ManyToManyRelationshipMetadataViewItem> FilterEntityRelationshipList(IEnumerable<ManyToManyRelationshipMetadataViewItem> list, string textName)
         {
             if (!string.IsNullOrEmpty(textName))
             {
@@ -385,14 +396,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (Guid.TryParse(textName, out Guid tempGuid))
                 {
-                    list = list.Where(ent => ent.AttributeMetadata.MetadataId == tempGuid);
+                    list = list.Where(ent => ent.ManyToManyRelationshipMetadata.MetadataId == tempGuid);
                 }
                 else
                 {
                     list = list
                     .Where(ent =>
-                        ent.LogicalName.ToLower().Contains(textName)
-                        || (ent.DisplayName != null && ent.AttributeMetadata.DisplayName.LocalizedLabels
+                        ent.SchemaName.ToLower().Contains(textName)
+                        || ent.IntersectEntityName.ToLower().Contains(textName)
+                        || (ent.ManyToManyRelationshipMetadata.Entity1AssociatedMenuConfiguration != null
+                            && ent.ManyToManyRelationshipMetadata.Entity1AssociatedMenuConfiguration.Label.LocalizedLabels
+                            .Where(l => !string.IsNullOrEmpty(l.Label))
+                            .Any(lbl => lbl.Label.ToLower().Contains(textName)))
+                        || (ent.ManyToManyRelationshipMetadata.Entity2AssociatedMenuConfiguration != null
+                            && ent.ManyToManyRelationshipMetadata.Entity2AssociatedMenuConfiguration.Label.LocalizedLabels
                             .Where(l => !string.IsNullOrEmpty(l.Label))
                             .Any(lbl => lbl.Label.ToLower().Contains(textName)))
 
@@ -410,24 +427,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return list;
         }
 
-        private void LoadAttributes(IEnumerable<AttributeMetadataViewItem> results)
+        private void LoadEntityRelationships(IEnumerable<ManyToManyRelationshipMetadataViewItem> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} attributes.", results.Count());
-
-            this.lstVwAttributes.Dispatcher.Invoke(() =>
+            this.lstVwEntityRelationships.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in results.OrderBy(s => s.LogicalName))
+                foreach (var entity in results
+                    .OrderBy(s => s.Entity1LogicalName)
+                    .ThenBy(s => s.Entity2LogicalName)
+                    .ThenBy(s => s.SchemaName)
+                    .ThenBy(s => s.IntersectEntityName)
+                )
                 {
-                    _itemsSourceAttributeList.Add(entity);
+                    _itemsSourceEntityRelationshipList.Add(entity);
                 }
 
-                if (this.lstVwAttributes.Items.Count == 1)
+                if (this.lstVwEntityRelationships.Items.Count == 1)
                 {
-                    this.lstVwAttributes.SelectedItem = this.lstVwAttributes.Items[0];
+                    this.lstVwEntityRelationships.SelectedItem = this.lstVwEntityRelationships.Items[0];
                 }
             });
 
-            ToggleControls(true, "{0} attributes loaded.", results.Count());
+            ToggleControls(true, "{0} many-to-many relationships loaded.", results.Count());
         }
 
 
@@ -493,7 +513,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwEntities != null && this.lstVwEntities.SelectedItems.Count > 0;
 
                     UIElement[] list = { };
 
@@ -516,11 +536,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void txtBFilterAttribute_KeyDown(object sender, KeyEventArgs e)
+        private void txtBFilterEntityRelationship_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingAttributes();
+                ShowExistingEntityRelationships();
             }
         }
 
@@ -546,24 +566,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return result;
         }
 
-        private AttributeMetadataViewItem GetSelectedAttribute()
+        private ManyToManyRelationshipMetadataViewItem GetSelectedEntityRelationship()
         {
-            AttributeMetadataViewItem result = null;
+            ManyToManyRelationshipMetadataViewItem result = null;
 
-            if (this.lstVwAttributes.SelectedItems.Count > 0
-                && this.lstVwAttributes.SelectedItems[0] != null
-                && this.lstVwAttributes.SelectedItems[0] is AttributeMetadataViewItem
+            if (this.lstVwEntityRelationships.SelectedItems.Count > 0
+                && this.lstVwEntityRelationships.SelectedItems[0] != null
+                && this.lstVwEntityRelationships.SelectedItems[0] is ManyToManyRelationshipMetadataViewItem
                 )
             {
-                result = (this.lstVwAttributes.SelectedItems[0] as AttributeMetadataViewItem);
+                result = (this.lstVwEntityRelationships.SelectedItems[0] as ManyToManyRelationshipMetadataViewItem);
             }
 
             return result;
         }
 
-        private List<AttributeMetadataViewItem> GetSelectedAttributes()
+        private List<ManyToManyRelationshipMetadataViewItem> GetSelectedEntityRelationships()
         {
-            List<AttributeMetadataViewItem> result = this.lstVwAttributes.SelectedItems.OfType<AttributeMetadataViewItem>().ToList();
+            List<ManyToManyRelationshipMetadataViewItem> result = this.lstVwEntityRelationships.SelectedItems.OfType<ManyToManyRelationshipMetadataViewItem>().ToList();
 
             return result;
         }
@@ -588,6 +608,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList, null);
         }
 
+        private async void btnEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+        }
+
         private async void btnEntityRelationshipOneToManyExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -597,17 +628,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
 
             WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
-        }
-
-        private async void btnEntityRelationshipManyToManyExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnEntityKeyExplorer_Click(object sender, RoutedEventArgs e)
@@ -925,7 +945,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowExistingAttributes();
+            ShowExistingEntityRelationships();
 
             UpdateButtonsEnable();
         }
@@ -961,13 +981,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIOpenAttributeInWeb_Click(object sender, RoutedEventArgs e)
+        private void mIOpenEntityRelationshipInWeb_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
-            var attribute = GetSelectedAttribute();
+            var entityRelationship = GetSelectedEntityRelationship();
 
-            if (entity == null || attribute == null)
+            if (entity == null || entityRelationship == null)
             {
                 return;
             }
@@ -976,7 +996,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                connectionData.OpenAttributeMetadataInWeb(entity.EntityMetadata.MetadataId.Value, attribute.AttributeMetadata.MetadataId.Value);
+                connectionData.OpenRelationshipMetadataInWeb(entity.EntityMetadata.MetadataId.Value, entityRelationship.ManyToManyRelationshipMetadata.MetadataId.Value);
             }
         }
 
@@ -1053,27 +1073,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void AddAttributeIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private void AddEntityRelationshipIntoCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            AddAttributeIntoSolution(true, null);
+            AddEntityRelationshipIntoSolution(true, null);
         }
 
-        private void AddAttributeIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private void AddEntityRelationshipIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag != null
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                AddAttributeIntoSolution(false, solutionUniqueName);
+                AddEntityRelationshipIntoSolution(false, solutionUniqueName);
             }
         }
 
-        private void AddAttributeIntoSolution(bool withSelect, string solutionUniqueName)
+        private void AddEntityRelationshipIntoSolution(bool withSelect, string solutionUniqueName)
         {
-            var attributeList = GetSelectedAttributes();
+            var entityRelationshipList = GetSelectedEntityRelationships();
 
-            if (attributeList == null || !attributeList.Any())
+            if (entityRelationshipList == null || !entityRelationshipList.Any())
             {
                 return;
             }
@@ -1097,7 +1117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         var contr = new SolutionController(this._iWriteToOutput);
 
-                        contr.ExecuteAddingComponentesIntoSolution(connectionData, _commonConfig, solutionUniqueName, ComponentType.Attribute, attributeList.Select(item => item.AttributeMetadata.MetadataId.Value).ToList(), null, withSelect);
+                        contr.ExecuteAddingComponentesIntoSolution(connectionData, _commonConfig, solutionUniqueName, ComponentType.EntityRelationship, entityRelationshipList.Select(item => item.ManyToManyRelationshipMetadata.MetadataId.Value).ToList(), null, withSelect);
                     }
                     catch (Exception ex)
                     {
@@ -1126,7 +1146,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void ContextMenuAttribute_Opened(object sender, RoutedEventArgs e)
+        private void ContextMenuEntityRelationship_Opened(object sender, RoutedEventArgs e)
         {
             if (sender is ContextMenu contextMenu)
             {
@@ -1139,7 +1159,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
                 });
 
-                FillLastSolutionItems(connectionData, items, true, AddAttributeIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+                FillLastSolutionItems(connectionData, items, true, AddEntityRelationshipIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
             }
         }
 
@@ -1199,11 +1219,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private void mIAttributeOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
+        private void mIEntityRelationshipOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
         {
-            var attribute = GetSelectedAttribute();
+            var entityRelationship = GetSelectedEntityRelationship();
 
-            if (attribute == null)
+            if (entityRelationship == null)
             {
                 return;
             }
@@ -1212,15 +1232,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.Attribute, attribute.AttributeMetadata.MetadataId.Value);
+                connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.EntityRelationship, entityRelationship.ManyToManyRelationshipMetadata.MetadataId.Value);
             }
         }
 
-        private async void mIAttributeOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIEntityRelationshipOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
         {
-            var attribute = GetSelectedAttribute();
+            var entityRelationship = GetSelectedEntityRelationship();
 
-            if (attribute == null)
+            if (entityRelationship == null)
             {
                 return;
             }
@@ -1230,14 +1250,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
             var descriptor = await GetDescriptor();
 
-            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, descriptor, _commonConfig, (int)ComponentType.Attribute, attribute.AttributeMetadata.MetadataId.Value, null);
+            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, descriptor, _commonConfig, (int)ComponentType.EntityRelationship, entityRelationship.ManyToManyRelationshipMetadata.MetadataId.Value, null);
         }
 
-        private async void mIAttributeOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIEntityRelationshipOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
         {
-            var attribute = GetSelectedAttribute();
+            var entityRelationship = GetSelectedEntityRelationship();
 
-            if (attribute == null)
+            if (entityRelationship == null)
             {
                 return;
             }
@@ -1250,8 +1270,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput
                 , service
                 , _commonConfig
-                , (int)ComponentType.Attribute
-                , attribute.AttributeMetadata.MetadataId.Value
+                , (int)ComponentType.EntityRelationship
+                , entityRelationship.ManyToManyRelationshipMetadata.MetadataId.Value
             );
         }
 
@@ -1260,7 +1280,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Dispatcher.Invoke(() =>
             {
                 this._itemsSourceEntityList?.Clear();
-                this._itemsSourceAttributeList?.Clear();
+                this._itemsSourceEntityRelationshipList?.Clear();
             });
 
             if (_init > 0 || !_controlsEnabled)
@@ -1297,7 +1317,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIClearAttributeCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        private void mIClearEntityRelationshipCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = null;
 
@@ -1308,571 +1328,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                _cacheAttributeMetadata.Remove(connectionData.ConnectionId);
+                _cacheEntityManyToMany.Remove(connectionData.ConnectionId);
 
                 UpdateButtonsEnable();
 
-                ShowExistingAttributes();
+                ShowExistingEntityRelationships();
             }
         }
-
-        private async void mISaveChanges(object sender, RoutedEventArgs e)
-        {
-            if (_init > 0 || !_controlsEnabled)
-            {
-                return;
-            }
-
-            ToggleControls(false, "Saving Changes...");
-
-            this._iWriteToOutput.WriteToOutput("Start saving changes at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            HashSet<string> listForPublish = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-            try
-            {
-                var service = await GetService();
-
-                if (service != null)
-                {
-                    var listEntitiesToChange = new List<EntityMetadataViewItem>();
-                    var listAttributesToChange = new List<AttributeMetadataViewItem>();
-
-                    if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-                    {
-                        listEntitiesToChange.AddRange(_cacheEntityMetadata[service.ConnectionData.ConnectionId].Where(item => item.IsChanged));
-                    }
-
-                    if (_cacheAttributeMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-                    {
-                        var dict = _cacheAttributeMetadata[service.ConnectionData.ConnectionId];
-
-                        listAttributesToChange.AddRange(dict.Values.SelectMany(item => item.Where(a => a.IsChanged)));
-                    }
-
-                    var repository = new EntityMetadataRepository(service);
-
-                    if (listAttributesToChange.Any())
-                    {
-                        this._iWriteToOutput.WriteToOutput("Updating Attributes:");
-
-                        foreach (var attribute in listAttributesToChange.OrderBy(a => a.AttributeMetadata.EntityLogicalName).ThenBy(a => a.LogicalName))
-                        {
-                            this._iWriteToOutput.WriteToOutput("    {0}.{1}", attribute.AttributeMetadata.EntityLogicalName, attribute.LogicalName);
-
-                            listForPublish.Add(attribute.AttributeMetadata.EntityLogicalName);
-
-                            try
-                            {
-                                await repository.UpdateAttributeMetadataAsync(attribute.AttributeMetadata);
-                            }
-                            catch (Exception ex)
-                            {
-                                _iWriteToOutput.WriteErrorToOutput(ex);
-                            }
-                        }
-                    }
-
-                    if (listEntitiesToChange.Any())
-                    {
-                        this._iWriteToOutput.WriteToOutput("Updating Entities:");
-
-                        foreach (var entityMetadata in listEntitiesToChange.OrderBy(a => a.LogicalName))
-                        {
-                            this._iWriteToOutput.WriteToOutput("    {0}", entityMetadata.LogicalName);
-
-                            listForPublish.Add(entityMetadata.LogicalName);
-
-                            try
-                            {
-                                await repository.UpdateEntityMetadataAsync(entityMetadata.EntityMetadata);
-                            }
-                            catch (Exception ex)
-                            {
-                                _iWriteToOutput.WriteErrorToOutput(ex);
-                            }
-                        }
-                    }
-
-                    if (listForPublish.Any())
-                    {
-                        var entityNamesOrdered = string.Join(",", listForPublish.OrderBy(s => s));
-
-                        UpdateStatus("Publishing Entity {0}...", listForPublish.Count());
-
-                        this._iWriteToOutput.WriteToOutput("Start publishing entities {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-                        var repositoryPublish = new PublishActionsRepository(service);
-
-                        await repositoryPublish.PublishEntitiesAsync(listForPublish);
-
-                        this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-                    }
-
-                    foreach (var attribute in listAttributesToChange.OrderBy(a => a.AttributeMetadata.EntityLogicalName).ThenBy(a => a.LogicalName))
-                    {
-                        try
-                        {
-                            var metadata = await repository.GetAttributeMetadataAsync(attribute.AttributeMetadata.MetadataId.Value);
-
-                            attribute.LoadMetadata(metadata);
-                        }
-                        catch (Exception ex)
-                        {
-                            _iWriteToOutput.WriteErrorToOutput(ex);
-                        }
-                    }
-
-                    foreach (var entityMetadata in listEntitiesToChange.OrderBy(a => a.LogicalName))
-                    {
-                        try
-                        {
-                            var metadata = await repository.GetEntityMetadataAttributesAsync(entityMetadata.EntityMetadata.MetadataId.Value, EntityFilters.Entity);
-
-                            entityMetadata.LoadMetadata(metadata);
-                        }
-                        catch (Exception ex)
-                        {
-                            _iWriteToOutput.WriteErrorToOutput(ex);
-                        }
-                    }
-
-                    this._iWriteToOutput.WriteToOutput("End saving changes at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-                }
-
-                ToggleControls(true, "Changes saved.");
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "Saving Changes failed.");
-            }
-        }
-
-        #region Set Attributes Properties
-
-        private void ExecuteOnSelectedAttributes(Action<AttributeMetadataViewItem> action)
-        {
-            var list = lstVwAttributes.SelectedItems.OfType<AttributeMetadataViewItem>().ToList();
-
-            foreach (var item in list)
-            {
-                action?.Invoke(item);
-            }
-        }
-
-        private void mISetAttributesRequiredLevelToNone_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.RequiredLevel = AttributeRequiredLevel.None);
-        }
-
-        private void mISetAttributesRequiredLevelToRecommended_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.RequiredLevel = AttributeRequiredLevel.Recommended);
-        }
-
-        private void mISetAttributesRequiredLevelToApplicationRequired_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.RequiredLevel = AttributeRequiredLevel.ApplicationRequired);
-        }
-
-        private void mISetAttributesRequiredLevelToSystemRequired_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.RequiredLevel = AttributeRequiredLevel.SystemRequired);
-        }
-
-        private void mISetAttributesIsAuditEnabledToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsAuditEnabled = false);
-        }
-
-        private void mISetAttributesIsAuditEnabledToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsAuditEnabled = true);
-        }
-
-        private void mISetAttributesIsCustomizableToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsCustomizable = false);
-        }
-
-        private void mISetAttributesIsCustomizableToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsCustomizable = true);
-        }
-
-        private void mISetAttributesIsRenameableToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsRenameable = false);
-        }
-
-        private void mISetAttributesIsRenameableToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsRenameable = true);
-        }
-
-        private void mISetAttributesIsValidForAdvancedFindToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsValidForAdvancedFind = false);
-        }
-
-        private void mISetAttributesIsValidForAdvancedFindToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsValidForAdvancedFind = true);
-        }
-
-        private void mISetAttributesCanModifyAdditionalSettingsToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.CanModifyAdditionalSettings = false);
-        }
-
-        private void mISetAttributesCanModifyAdditionalSettingsToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.CanModifyAdditionalSettings = true);
-        }
-
-        private void mISetAttributesIsSecuredToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsSecured = false);
-        }
-
-        private void mISetAttributesIsSecuredToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsSecured = true);
-        }
-
-        private void mISetAttributesIsDataSourceSecretToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsDataSourceSecret = false);
-        }
-
-        private void mISetAttributesIsDataSourceSecretToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsDataSourceSecret = true);
-        }
-
-        private void mISetAttributesIsValidForFormToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsValidForForm = false);
-        }
-
-        private void mISetAttributesIsValidForFormToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsValidForForm = true);
-        }
-
-        private void mISetAttributesIsRequiredForFormToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsRequiredForForm = false);
-        }
-
-        private void mISetAttributesIsRequiredForFormToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsRequiredForForm = true);
-        }
-
-        private void mISetAttributesIsValidForGridToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsValidForGrid = false);
-        }
-
-        private void mISetAttributesIsValidForGridToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsValidForGrid = true);
-        }
-
-        private void mISetAttributesIsSortableEnabledToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsSortableEnabled = false);
-        }
-
-        private void mISetAttributesIsSortableEnabledToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsSortableEnabled = true);
-        }
-
-        private void mISetAttributesIsGlobalFilterEnabledToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsGlobalFilterEnabled = false);
-        }
-
-        private void mISetAttributesIsGlobalFilterEnabledToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsGlobalFilterEnabled = true);
-        }
-
-        #endregion Set Attributes Properties
-
-        #region Select Attributes
-
-        private void ExecuteSelectAttributes(Func<AttributeMetadataViewItem, bool> checker)
-        {
-            var list = lstVwAttributes.Items.OfType<AttributeMetadataViewItem>().Where(i => checker(i)).ToList();
-
-            foreach (var item in list)
-            {
-                lstVwAttributes.SelectedItems.Add(item);
-            }
-        }
-
-        private void miSelectAttributeRequiredLevelWithNone_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.RequiredLevel == AttributeRequiredLevel.None);
-        }
-
-        private void miSelectAttributeRequiredLevelWithRecommended_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.RequiredLevel == AttributeRequiredLevel.Recommended);
-        }
-
-        private void miSelectAttributeRequiredLevelWithApplicationRequired_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.RequiredLevel == AttributeRequiredLevel.ApplicationRequired);
-        }
-
-        private void miSelectAttributeRequiredLevelWithSystemRequired_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.RequiredLevel == AttributeRequiredLevel.SystemRequired);
-        }
-
-        private void miSelectAttributeIsAuditEnabledWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsAuditEnabled == false);
-        }
-
-        private void miSelectAttributeIsAuditEnabledWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsAuditEnabled == true);
-        }
-
-        private void miSelectAttributeIsCustomizableWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsCustomizable == false);
-        }
-
-        private void miSelectAttributeIsCustomizableWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsCustomizable == true);
-        }
-
-        private void miSelectAttributeIsRenameableWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsRenameable == false);
-        }
-
-        private void miSelectAttributeIsRenameableWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsRenameable == true);
-        }
-
-        private void miSelectAttributeIsValidForAdvancedFindWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsValidForAdvancedFind == false);
-        }
-
-        private void miSelectAttributeIsValidForAdvancedFindWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsValidForAdvancedFind == true);
-        }
-
-        private void miSelectAttributeCanModifyAdditionalSettingsWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.CanModifyAdditionalSettings == false);
-        }
-
-        private void miSelectAttributeCanModifyAdditionalSettingsWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.CanModifyAdditionalSettings == true);
-        }
-
-        private void miSelectAttributeIsSecuredWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsSecured == false);
-        }
-
-        private void miSelectAttributeIsSecuredWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsSecured == true);
-        }
-
-        private void miSelectAttributeIsDataSourceSecretWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsDataSourceSecret == false);
-        }
-
-        private void miSelectAttributeIsDataSourceSecretWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsDataSourceSecret == true);
-        }
-
-        private void miSelectAttributeIsValidForFormWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsValidForForm == false);
-        }
-
-        private void miSelectAttributeIsValidForFormWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsValidForForm == true);
-        }
-
-        private void miSelectAttributeIsRequiredForFormWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsRequiredForForm == false);
-        }
-
-        private void miSelectAttributeIsRequiredForFormWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsRequiredForForm == true);
-        }
-
-        private void miSelectAttributeIsValidForGridWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsValidForGrid == false);
-        }
-
-        private void miSelectAttributeIsValidForGridWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsValidForGrid == true);
-        }
-
-        private void miSelectAttributeIsSortableEnabledWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsSortableEnabled == false);
-        }
-
-        private void miSelectAttributeIsSortableEnabledWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsSortableEnabled == true);
-        }
-
-        private void miSelectAttributeIsGlobalFilterEnabledWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsGlobalFilterEnabled == false);
-        }
-
-        private void miSelectAttributeIsGlobalFilterEnabledWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsGlobalFilterEnabled == true);
-        }
-
-        private void miSelectCustomAttributes_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.AttributeMetadata.IsCustomAttribute.GetValueOrDefault() == true);
-        }
-
-        private async void miSelectAttributesOnForms_Click(object sender, RoutedEventArgs e)
-        {
-            string entityLogicalName = string.Empty;
-
-            this.Dispatcher.Invoke(() =>
-            {
-                if (this.lstVwEntities.SelectedItems.Count == 1
-                    && this.lstVwEntities.SelectedItems[0] != null
-                    && this.lstVwEntities.SelectedItems[0] is EntityMetadataViewItem
-                )
-                {
-                    entityLogicalName = (this.lstVwEntities.SelectedItems[0] as EntityMetadataViewItem).LogicalName;
-                }
-            });
-
-            if (string.IsNullOrEmpty(entityLogicalName))
-            {
-                return;
-            }
-
-            var service = await GetService();
-
-            if (service == null)
-            {
-                return;
-            }
-
-            var repository = new SystemFormRepository(service);
-
-            var list = await repository.GetListAsync(entityLogicalName, new ColumnSet(SystemForm.Schema.Attributes.formxml));
-
-            var hashAttributes = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-            foreach (var form in list)
-            {
-                if (!string.IsNullOrEmpty(form.FormXml) && ContentCoparerHelper.TryParseXml(form.FormXml, out var doc))
-                {
-                    var elements = doc.DescendantsAndSelf("control");
-
-                    foreach (var control in elements)
-                    {
-                        var attrField = control.Attribute("datafieldname");
-
-                        if (attrField != null
-                            && !string.IsNullOrEmpty(attrField.Value)
-                            )
-                        {
-                            hashAttributes.Add(attrField.Value);
-                        }
-                    }
-                }
-            }
-
-            lstVwAttributes.Dispatcher.Invoke(() =>
-            {
-                ExecuteSelectAttributes(item => hashAttributes.Contains(item.LogicalName));
-            });
-        }
-
-        #endregion Select Attributes
-
-        #region Select Entities
-
-        private void ExecuteSelectEntities(Func<EntityMetadataViewItem, bool> checker)
-        {
-            var list = lstVwEntities.Items.OfType<EntityMetadataViewItem>().Where(i => checker(i)).ToList();
-
-            foreach (var item in list)
-            {
-                lstVwEntities.SelectedItems.Add(item);
-            }
-        }
-
-        private void miSelectCustomEntities_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectEntities(item => item.EntityMetadata.IsCustomEntity.GetValueOrDefault() == true);
-        }
-
-        private void miSelectEntityIsAuditEnabledWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectEntities(item => item.IsAuditEnabled == false);
-        }
-
-        private void miSelectEntityIsAuditEnabledWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectEntities(item => item.IsAuditEnabled == true);
-        }
-
-        #endregion Select Entities
-
-        #region Set Entity Properties
-
-        private void ExecuteOnSelectedEntities(Action<EntityMetadataViewItem> action)
-        {
-            var list = lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().ToList();
-
-            foreach (var item in list)
-            {
-                action?.Invoke(item);
-            }
-        }
-
-        private void mISetEntitiesIsAuditEnabledToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedEntities(item => item.IsAuditEnabled = false);
-        }
-
-        private void mISetEntitiesIsAuditEnabledToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedEntities(item => item.IsAuditEnabled = true);
-        }
-
-        #endregion Set Entity Properties
     }
 }

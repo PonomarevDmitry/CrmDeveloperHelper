@@ -53,6 +53,8 @@
                 <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
                 <Separator/>
                 <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                 <Separator/>
                 <MenuItem Header="Ribbon" Click="btnExportRibbon_Click"/>
@@ -92,7 +94,7 @@
         <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="52,10,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Center"/>
         <TextBox x:Name="txtBFilter" Height="23" Margin="52,38,457,0" TextWrapping="Wrap"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-        
+
         <Label Content="Category" HorizontalAlignment="Right" Margin="0,38,400,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Center"/>
         <ComboBox x:Name="cmBCategory" Height="23" Margin="0,38,196,0" VerticalAlignment="Top" IsEditable="False" HorizontalAlignment="Right" Width="199" SelectionChanged="cmBCategory_SelectionChanged" />
 
@@ -182,6 +184,43 @@
                                 <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportWorkflowDependentComponents_Click" />
                                 <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportWorkflowRequiredComponents_Click" />
                                 <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportWorkflowDependenciesForDelete_Click" />
+                            </MenuItem>
+                            <Separator/>
+                            <MenuItem Header="Get Other Entity Information">
+                                <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                                <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                                <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
+                                <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Ribbon" Click="btnExportRibbon_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
+                                <MenuItem Header="Views" Click="btnSavedQuery_Click"/>
+                                <MenuItem Header="Charts" Click="btnSavedChart_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Attributes Dependencies" Click="btnAttributesDependentComponent_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click"/>
+                                <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
+                                <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
+                            </MenuItem>
+                            <Separator/>
+                            <MenuItem Header="Compare Information with other Organization">
+                                <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Entity Ribbon" Click="btnCompareRibbon_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
+                                <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
+                                <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
                             </MenuItem>
                         </MenuItem>
                     </Menu>

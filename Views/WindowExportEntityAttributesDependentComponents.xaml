@@ -30,6 +30,8 @@
                 <MenuItem Header="Metadata" Click="btnCreateMetadataFile_Click"/>
                 <Separator/>
                 <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                 <Separator/>
                 <MenuItem Header="Ribbon" Click="btnRibbon_Click"/>
@@ -68,27 +70,36 @@
     <Grid>
         <ToolBar Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Open Entity Information Windows" VerticalAlignment="Center">
-                    <MenuItem x:Name="btnCreateMetadataFile" Header="Metadata" Click="btnCreateMetadataFile_Click" />
+                <MenuItem Header="Get Other Entity Information">
+                    <MenuItem Header="Metadata" Click="btnCreateMetadataFile_Click"/>
                     <Separator/>
-                    <MenuItem x:Name="btnRibbon" Header="Ribbon" Click="btnRibbon_Click" />
-                    <MenuItem x:Name="btnGlobalOptionSets" Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
+                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                     <Separator/>
-                    <MenuItem x:Name="btnSystemForms" Header="Forms" Click="btnSystemForms_Click" />
-                    <MenuItem x:Name="btnSavedQuery" Header="Views" Click="btnSavedQuery_Click" />
-                    <MenuItem x:Name="btnSavedChart" Header="Charts" Click="btnSavedChart_Click" />
+                    <MenuItem Header="Ribbon" Click="btnRibbon_Click"/>
                     <Separator/>
-                    <MenuItem x:Name="btnWorkflows" Header="Workflows" Click="btnWorkflows_Click" />
+                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click"/>
                     <Separator/>
-                    <MenuItem x:Name="btnPluginTree" Header="Plugin Tree" Click="btnPluginTree_Click" />
-                    <MenuItem x:Name="btnMessageTree" Header="Message Tree" Click="btnMessageTree_Click"/>
-                    <MenuItem x:Name="btnMessageRequestTree" Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
+                    <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
+                    <MenuItem Header="Views" Click="btnSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="btnSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click"/>
+                    <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
+                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
                 </MenuItem>
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                 <MenuItem Header="Compare Information with other Organization">
+                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                    <Separator/>
                     <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                     <Separator/>
                     <MenuItem Header="Entity Ribbon" Click="btnCompareRibbon_Click"/>
+                    <Separator/>
                     <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
                     <Separator/>
                     <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>

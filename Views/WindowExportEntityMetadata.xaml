@@ -31,6 +31,8 @@
             <Separator/>
             <MenuItem Header="Get Other Entity Information">
                 <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                 <Separator/>
                 <MenuItem Header="Ribbon" Click="btnExportRibbon_Click"/>
@@ -73,6 +75,8 @@
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem Header="Open Entity Information" VerticalAlignment="Center">
                     <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                     <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                     <Separator/>
                     <MenuItem Header="Ribbon" Click="btnExportRibbon_Click" />

@@ -3930,6 +3930,18 @@
           <ButtonText>Entity Attribute Explorer</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="CommonEntityRelationshipOneToManyExplorerCommandId" priority="0x0101" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Entity Relationship One-To-Many Explorer</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="CommonEntityRelationshipManyToManyExplorerCommandId" priority="0x0101" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Entity Relationship Many-To-Many Explorer</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidCommandSet" id="CommonEntityKeyExplorerCommandId" priority="0x0101" type="Button">
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
@@ -6066,13 +6078,19 @@
 
 
 
-    <CommandPlacement guid="guidCommandSet" id="CommonEntityAttributeExplorerCommandId" priority="0x0102">
+    <CommandPlacement guid="guidCommandSet" id="CommonEntityAttributeExplorerCommandId" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupRibbon" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonEntityKeyExplorerCommandId" priority="0x0102">
+    <CommandPlacement guid="guidCommandSet" id="CommonEntityRelationshipOneToManyExplorerCommandId" priority="0x0102">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupRibbon" />
     </CommandPlacement>
-    
+    <CommandPlacement guid="guidCommandSet" id="CommonEntityRelationshipManyToManyExplorerCommandId" priority="0x0102">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupRibbon" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonEntityKeyExplorerCommandId" priority="0x0103">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupRibbon" />
+    </CommandPlacement>
+
     <CommandPlacement guid="guidCommandSet" id="CommonExportRibbonXmlCommandId" priority="0x011E">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupRibbon" />
     </CommandPlacement>
@@ -8679,7 +8697,10 @@
 
       <IDSymbol name="CommonEntityAttributeExplorerCommandId" value="0x2165" />
       <IDSymbol name="CommonEntityKeyExplorerCommandId" value="0x2172" />
+      <IDSymbol name="CommonEntityRelationshipOneToManyExplorerCommandId" value="0x2173" />
+      <IDSymbol name="CommonEntityRelationshipManyToManyExplorerCommandId" value="0x2174" />
       
+
 
       <IDSymbol name="CommonExportAttributesAndDependentComponentsCommandId" value="0x2030" />
 
@@ -9042,7 +9063,7 @@
 
 
 
-      <!--0x2173-->
+      <!--0x2175-->
 
     </GuidSymbol>
 

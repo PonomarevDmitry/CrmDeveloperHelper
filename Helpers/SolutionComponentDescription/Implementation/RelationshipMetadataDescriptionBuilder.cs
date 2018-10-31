@@ -171,7 +171,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         var relationship = metaData as OneToManyRelationshipMetadata;
 
                         string relName = string.Format("{0}.{1}", relationship.ReferencingEntity, relationship.ReferencingAttribute);
-                        string refEntity = relationship.ReferencedEntity;
 
                         List<string> values = new List<string>();
 
@@ -179,10 +178,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         {
                             relName
                             , "Many to One"
-                            , refEntity
                             , relationship.SchemaName
                             , behavior
-                            , relationship.IsCustomizable?.Value.ToString()
+                            , (relationship.IsCustomizable?.Value).GetValueOrDefault().ToString()
                         });
 
                         if (withManaged)
@@ -192,10 +190,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                         if (withUrls)
                         {
-                            var entityMetadata = _source.GetEntityMetadata(refEntity);
+                            var entityMetadata = _source.GetEntityMetadata(relationship.ReferencedEntity);
                             if (entityMetadata != null)
                             {
-                                values.Add(_source.Service.ConnectionData?.GetRelationshipMetadataRelativeUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value));
+                                values.Add(_source.Service.ConnectionData?.GetRelationshipMetadataUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value));
                             }
                         }
 
@@ -215,7 +213,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                             , "Many to Many"
                             , relationship.SchemaName
                             , behavior
-                            , relationship.IsCustomizable?.Value.ToString()
+                            , (relationship.IsCustomizable?.Value).GetValueOrDefault().ToString()
                         });
 
                         if (withManaged)
@@ -228,7 +226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                             var entityMetadata = _source.GetEntityMetadata(relationship.Entity1LogicalName);
                             if (entityMetadata != null)
                             {
-                                values.Add(_source.Service.ConnectionData?.GetRelationshipMetadataRelativeUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value));
+                                values.Add(_source.Service.ConnectionData?.GetRelationshipMetadataUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value));
                             }
                         }
 

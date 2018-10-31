@@ -26,6 +26,12 @@
             </MenuItem>
             <Separator/>
             <MenuItem Header="Get Other Entity Information">
+                <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
+                <Separator/>
+                <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
+                <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
+                <Separator/>
                 <MenuItem Header="Ribbon" Click="btnExportRibbon_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click"/>
@@ -81,6 +87,10 @@
                 <MenuItem Header="Open Entity Information" VerticalAlignment="Center">
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
                     <Separator/>
+                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
+                    <Separator/>
                     <MenuItem Header="Ribbon" Click="btnExportRibbon_Click" />
                     <Separator/>
                     <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
@@ -98,7 +108,7 @@
                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
                 </MenuItem>
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                <MenuItem Header="Compare Information with other Organization">
+                <MenuItem Header="Compare Information with other Organization" VerticalAlignment="Center">
                     <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                     <Separator/>
                     <MenuItem Header="Entity Ribbon" Click="btnCompareRibbon_Click"/>
@@ -112,11 +122,11 @@
                     <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
                 </MenuItem>
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                <MenuItem Header="Clear Entity Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click" />
+                <MenuItem Header="Clear Entity Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click"  VerticalAlignment="Center"/>
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                <MenuItem Header="Clear Attribute Cache and Refresh" Click="mIClearAttributeCacheAndRefresh_Click" />
+                <MenuItem Header="Clear Attribute Cache and Refresh" Click="mIClearAttributeCacheAndRefresh_Click"  VerticalAlignment="Center"/>
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                <MenuItem Header="Save Changes" Click="mISaveChanges" />
+                <MenuItem Header="Save Changes" Click="mISaveChanges"  VerticalAlignment="Center"/>
             </Menu>
         </ToolBar>
         <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
@@ -507,8 +517,6 @@
                                 </Style>
                             </DataGridCheckBoxColumn.CellStyle>
                         </DataGridCheckBoxColumn>
-
-
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>

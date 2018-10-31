@@ -253,6 +253,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonExportEntityMetadataCommand.Initialize(this);
             CommonEntityAttributeExplorerCommand.Initialize(this);
             CommonEntityKeyExplorerCommand.Initialize(this);
+            CommonEntityRelationshipOneToManyExplorerCommand.Initialize(this);
+            CommonEntityRelationshipManyToManyExplorerCommand.Initialize(this);
             CommonExportFormEventsCommand.Initialize(this);
             CommonExportGlobalOptionSetsCommand.Initialize(this);
             CommonExportOrganizationCommand.Initialize(this);

@@ -272,7 +272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             foreach (var link in linkEntities)
             {
-                if (!string.IsNullOrEmpty(link.EntityAlias))
+                if (!string.IsNullOrEmpty(link.EntityAlias) && !result.ContainsKey(link.EntityAlias))
                 {
                     result.Add(link.EntityAlias, link.LinkToEntityName);
                 }

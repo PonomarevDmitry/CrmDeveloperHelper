@@ -155,6 +155,8 @@
     <Compile Include="Commands\CommonCrmConnectionTestCommand.cs" />
     <Compile Include="Commands\CommonEntityAttributeExplorerCommand.cs" />
     <Compile Include="Commands\CommonEntityKeyExplorerCommand.cs" />
+    <Compile Include="Commands\CommonEntityRelationshipManyToManyExplorerCommand.cs" />
+    <Compile Include="Commands\CommonEntityRelationshipOneToManyExplorerCommand.cs" />
     <Compile Include="Commands\CommonExportDefaultSitemapsCommand.cs" />
     <Compile Include="Commands\CommonExportOpenLastSelectedSolutionCommand.cs" />
     <Compile Include="Commands\CommonExportSolutionCommand.cs" />
@@ -267,6 +269,11 @@
     <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Controllers\OpenFilesController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="CrmDeveloperHelperPackageCommandTable.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrmDeveloperHelperPackageCommandTable.vsct</DependentUpon>
+    </Compile>
     <Compile Include="Entities\AppModuleRoles.cs" />
     <Compile Include="Entities\AppModuleRoles.Generated.cs" />
     <Compile Include="Entities\Attachment.Generated.cs" />
@@ -298,6 +305,7 @@
     <Compile Include="Entities\InvalidDependency.Generated.cs" />
     <Compile Include="Entities\ProcessTrigger.cs" />
     <Compile Include="Entities\ProcessTrigger.Generated.cs" />
+    <Compile Include="Entities\RoleTemplate.Generated.cs" />
     <Compile Include="Entities\SdkMessage.Additional.cs" />
     <Compile Include="Entities\SdkMessagePair.cs" />
     <Compile Include="Entities\SdkMessagePair.Generated.cs" />
@@ -368,11 +376,6 @@
     <Compile Include="Controllers\PublishController.cs" />
     <Compile Include="Controllers\SolutionController.cs" />
     <Compile Include="CrmDeveloperHelperPackage.cs" />
-    <Compile Include="CrmDeveloperHelperPackageCommandTable.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CrmDeveloperHelperPackageCommandTable.vsct</DependentUpon>
-    </Compile>
     <Compile Include="Entities\ActivityMimeAttachment.cs" />
     <Compile Include="Entities\ActivityMimeAttachment.Generated.cs" />
     <Compile Include="Entities\AdvancedSimilarityRule.cs" />
@@ -721,6 +724,8 @@
     <Compile Include="Model\LocaleComparer.cs" />
     <Compile Include="Model\LocalizedLabel.cs" />
     <Compile Include="Helpers\MessageComparer.cs" />
+    <Compile Include="Model\ManyToManyRelationshipMetadataViewItem.cs" />
+    <Compile Include="Model\OneToManyRelationshipMetadataViewItem.cs" />
     <Compile Include="Model\OpenCrmWebSiteType.cs" />
     <Compile Include="Model\OpenFilesType.cs" />
     <Compile Include="Model\OptionItem.cs" />
@@ -784,6 +789,7 @@
     <Compile Include="Repository\PublisherRepository.cs" />
     <Compile Include="Repository\ReportRepository.cs" />
     <Compile Include="Repository\RibbonCustomizationRepository.cs" />
+    <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\SavedQueryRepository.cs" />
     <Compile Include="Repository\SavedQueryVisualizationRepository.cs" />
     <Compile Include="Repository\SdkMessageFilterRepository.cs" />
@@ -837,6 +843,12 @@
     </Compile>
     <Compile Include="Views\WindowEntityKeyExplorer.xaml.cs">
       <DependentUpon>WindowEntityKeyExplorer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowEntityRelationshipManyToManyExplorer.xaml.cs">
+      <DependentUpon>WindowEntityRelationshipManyToManyExplorer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowEntityRelationshipOneToManyExplorer.xaml.cs">
+      <DependentUpon>WindowEntityRelationshipOneToManyExplorer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowExplorerSolutionComponentDependencies.xaml.cs">
       <DependentUpon>WindowExplorerSolutionComponentDependencies.xaml</DependentUpon>
@@ -1335,6 +1347,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowEntityKeyExplorer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowEntityRelationshipManyToManyExplorer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowEntityRelationshipOneToManyExplorer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

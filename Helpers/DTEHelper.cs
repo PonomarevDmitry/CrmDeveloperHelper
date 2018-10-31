@@ -2952,6 +2952,58 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleOpenEntityRelationshipOneToManyExplorer()
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            string selection = GetSelectedText();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow();
+                WriteToOutputEmptyLines(commonConfig);
+
+                try
+                {
+                    Controller.StartOpenEntityRelationshipOneToManyExplorer(selection, crmConfig.CurrentConnectionData, commonConfig);
+                }
+                catch (Exception xE)
+                {
+                    WriteErrorToOutput(xE);
+                }
+            }
+        }
+
+        public void HandleOpenEntityRelationshipManyToManyExplorer()
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            string selection = GetSelectedText();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow();
+                WriteToOutputEmptyLines(commonConfig);
+
+                try
+                {
+                    Controller.StartOpenEntityRelationshipManyToManyExplorer(selection, crmConfig.CurrentConnectionData, commonConfig);
+                }
+                catch (Exception xE)
+                {
+                    WriteErrorToOutput(xE);
+                }
+            }
+        }
+
         public void HandleExportFormEvents()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();

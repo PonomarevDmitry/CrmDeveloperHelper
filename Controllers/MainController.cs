@@ -830,6 +830,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartOpenEntityRelationshipOneToManyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteOpeningEntityRelationshipOneToManyExplorer(selection, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartOpenEntityRelationshipManyToManyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteOpeningEntityRelationshipManyToManyExplorer(selection, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartCreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>

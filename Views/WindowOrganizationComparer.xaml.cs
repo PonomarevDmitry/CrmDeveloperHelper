@@ -1051,9 +1051,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
+        private void btnEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
@@ -1067,6 +1066,81 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _commonConfig.Save();
 
                         contr.ExecuteOpeningEntityAttributeExplorer(string.Empty, connection1, _commonConfig);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                });
+                backWorker.Start();
+            }
+        }
+
+        private void btnEntityRelationshipOneToManyExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
+
+            if (connection1 != null && connection2 == null)
+            {
+                var backWorker = new Thread(() =>
+                {
+                    try
+                    {
+                        var contr = new EntityMetadataController(this._iWriteToOutput);
+
+                        _commonConfig.Save();
+
+                        contr.ExecuteOpeningEntityRelationshipOneToManyExplorer(string.Empty, connection1, _commonConfig);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                });
+                backWorker.Start();
+            }
+        }
+
+        private void btnEntityRelationshipManyToManyExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
+
+            if (connection1 != null && connection2 == null)
+            {
+                var backWorker = new Thread(() =>
+                {
+                    try
+                    {
+                        var contr = new EntityMetadataController(this._iWriteToOutput);
+
+                        _commonConfig.Save();
+
+                        contr.ExecuteOpeningEntityRelationshipManyToManyExplorer(string.Empty, connection1, _commonConfig);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                });
+                backWorker.Start();
+            }
+        }
+
+        private void btnEntityKeyExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
+
+            if (connection1 != null && connection2 == null)
+            {
+                var backWorker = new Thread(() =>
+                {
+                    try
+                    {
+                        var contr = new EntityMetadataController(this._iWriteToOutput);
+
+                        _commonConfig.Save();
+
+                        contr.ExecuteOpeningEntityKeyExplorer(string.Empty, connection1, _commonConfig);
                     }
                     catch (Exception ex)
                     {
@@ -1577,7 +1651,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSolution_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
@@ -1601,9 +1674,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void tSMIOpenSolutionImage_Click(object sender, RoutedEventArgs e)
+        {
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
+
+            if (connection1 != null && connection2 == null)
+            {
+                var backWorker = new Thread(() =>
+                {
+                    try
+                    {
+                        _commonConfig.Save();
+
+                        SolutionController contr = new SolutionController(this._iWriteToOutput);
+
+                        contr.ExecuteOpeningSolutionImageWindow(connection1, _commonConfig);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                });
+                backWorker.Start();
+            }
+        }
+
         private void tSMIExportOrganization_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
@@ -1617,6 +1714,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _commonConfig.Save();
 
                         contr.ExecuteExportingOrganizationInformation(connection1, _commonConfig);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                });
+                backWorker.Start();
+            }
+        }
+
+        private void tSMIOpenOrganizationDifferenceImage_Click(object sender, RoutedEventArgs e)
+        {
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
+
+            if (connection1 != null && connection2 == null)
+            {
+                var backWorker = new Thread(() =>
+                {
+                    try
+                    {
+                        var contr = new SolutionController(this._iWriteToOutput);
+
+                        _commonConfig.Save();
+
+                        contr.ExecuteOpeningOrganizationDifferenceImageWindow(connection1, _commonConfig);
                     }
                     catch (Exception ex)
                     {
