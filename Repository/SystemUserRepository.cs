@@ -22,6 +22,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
+                NoLock = true,
+
+                TopCount = 2,
+
                 ColumnSet = new ColumnSet(false),
 
                 EntityName = SystemUser.EntityLogicalName,
@@ -33,15 +37,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(SystemUser.Schema.Attributes.fullname, ConditionOperator.Equal, fullname),
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntityReference()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntityReference()).SingleOrDefault();
         }
 
         public Task<List<SystemUser>> GetListAsync(ColumnSet columnSet)

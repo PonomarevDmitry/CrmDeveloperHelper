@@ -453,6 +453,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 NoLock = true,
 
+                TopCount = 2,
+
                 EntityName = SdkMessageProcessingStepImage.EntityLogicalName,
 
                 ColumnSet = new ColumnSet(true),
@@ -541,7 +543,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageProcessingStepImage>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageProcessingStepImage>()).SingleOrDefault();
         }
 
         private async Task<SdkMessageProcessingStepImage> GetLinked2(Guid id)
@@ -549,6 +551,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             QueryExpression query = new QueryExpression()
             {
                 NoLock = true,
+
+                TopCount = 2,
 
                 EntityName = SdkMessageProcessingStepImage.EntityLogicalName,
 
@@ -657,7 +661,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageProcessingStepImage>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageProcessingStepImage>()).SingleOrDefault();
         }
 
         private SdkMessageProcessingStepImage GetLinked3(Guid id)
@@ -665,6 +669,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             QueryExpression query = new QueryExpression()
             {
                 NoLock = true,
+
+                TopCount = 2,
 
                 EntityName = SdkMessageProcessingStepImage.EntityLogicalName,
 
@@ -755,7 +761,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageProcessingStepImage>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageProcessingStepImage>()).SingleOrDefault();
         }
     }
 }

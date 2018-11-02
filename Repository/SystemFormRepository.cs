@@ -112,9 +112,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = SystemForm.EntityLogicalName,
-
                 NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = SystemForm.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
 
@@ -127,7 +129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SystemForm>()).FirstOrDefault();
+            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SystemForm>()).SingleOrDefault();
         }
 
         public Task<List<SystemForm>> GetListByTypeAsync(int formType, ColumnSet columnSet )

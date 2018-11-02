@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 {
@@ -29,6 +30,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent);
 
         void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionComponent);
+
+        void FillSolutionComponentFromXml(ICollection<SolutionComponent> result, XElement elementRootComponent, XDocument docCustomizations);
 
         void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo);
 

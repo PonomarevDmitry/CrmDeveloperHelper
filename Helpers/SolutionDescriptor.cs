@@ -86,41 +86,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var repositorySolution = new SolutionRepository(_service);
 
-                var solution = await repositorySolution.GetSolutionByIdAsync(solutionId);
+                //var solution = await repositorySolution.GetSolutionByIdAsync(solutionId);
 
                 var repository = new SolutionComponentRepository(_service);
 
                 var components = await repository.GetSolutionComponentsAsync(solutionId);
 
-                List<SolutionImageComponent> imageComponents = await _descriptor.GetSolutionImageComponentsListAsync(components);
-
-                SolutionImage image = new SolutionImage()
-                {
-                    ConnectionName = _service.ConnectionData.Name,
-
-                    ConnectionOrganizationName = _service.ConnectionData.UniqueOrgName,
-                    ConnectionDiscoveryService = _service.ConnectionData.DiscoveryUrl,
-                    ConnectionOrganizationService = _service.ConnectionData.OrganizationUrl,
-                    ConnectionPublicUrl = _service.ConnectionData.PublicUrl,
-
-                    MachineName = Environment.MachineName,
-                    ExecuteUserDomainName = Environment.UserDomainName,
-                    ExecuteUserName = Environment.UserName,
-
-                    ConnectionSystemUserName = _service.ConnectionData.GetUsername,
-                };
-
-                foreach (var item in imageComponents)
-                {
-                    image.Components.Add(item);
-                }
-
-                await image.SaveAsync(filePath);
+                await CreateSolutionImageWithComponents(filePath, components);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
             }
+        }
+
+        public Task CreateSolutionImageWithComponentsAsync(string filePath, IEnumerable<SolutionComponent> components)
+        {
+            return Task.Run(async () => await CreateSolutionImageWithComponents(filePath, components));
+        }
+
+        private async Task CreateSolutionImageWithComponents(string filePath, IEnumerable<SolutionComponent> components)
+        {
+            List<SolutionImageComponent> imageComponents = await _descriptor.GetSolutionImageComponentsListAsync(components);
+
+            SolutionImage image = new SolutionImage()
+            {
+                ConnectionName = _service.ConnectionData.Name,
+
+                ConnectionOrganizationName = _service.ConnectionData.UniqueOrgName,
+                ConnectionDiscoveryService = _service.ConnectionData.DiscoveryUrl,
+                ConnectionOrganizationService = _service.ConnectionData.OrganizationUrl,
+                ConnectionPublicUrl = _service.ConnectionData.PublicUrl,
+
+                MachineName = Environment.MachineName,
+                ExecuteUserDomainName = Environment.UserDomainName,
+                ExecuteUserName = Environment.UserName,
+
+                ConnectionSystemUserName = _service.ConnectionData.GetUsername,
+            };
+
+            foreach (var item in imageComponents)
+            {
+                image.Components.Add(item);
+            }
+
+            await image.SaveAsync(filePath);
         }
 
         public Task CreateFileWithSolutionDependenciesForUninstallAsync(string filePath, Guid solutionId, ComponentsGroupBy showComponents, string showString)

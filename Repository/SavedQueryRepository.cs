@@ -191,9 +191,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = SavedQuery.EntityLogicalName,
-
                 NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = SavedQuery.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
 
@@ -206,7 +208,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SavedQuery>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SavedQuery>()).SingleOrDefault();
         }
     }
 }

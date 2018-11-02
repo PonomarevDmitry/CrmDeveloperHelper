@@ -1,4 +1,5 @@
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
 {
@@ -86,20 +88,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (optionSet != null)
             {
-                var component = new SolutionComponent()
-                {
-                    ComponentType = new OptionSetValue(this.ComponentTypeValue),
-                    ObjectId = optionSet.MetadataId.Value,
-                    RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
-                };
+                int? behavior = solutionImageComponent.RootComponentBehavior;
 
-                if (solutionImageComponent.RootComponentBehavior.HasValue)
-                {
-                    component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
-                }
-
-                result.Add(component);
+                FillSolutionComponentInternal(result, optionSet, behavior);
             }
+        }
+
+        public void FillSolutionComponentFromXml(ICollection<SolutionComponent> result, XElement elementRootComponent, XDocument docCustomizations)
+        {
+            if (elementRootComponent == null)
+            {
+                return;
+            }
+
+            var schemaName = DefaultSolutionComponentDescriptionBuilder.GetSchemaNameFromXml(elementRootComponent);
+
+            if (!string.IsNullOrEmpty(schemaName))
+            {
+                var optionSet = this._source.AllOptionSetMetadata.Values.FirstOrDefault(o => string.Equals(o.Name, schemaName, StringComparison.InvariantCultureIgnoreCase));
+
+                if (optionSet != null)
+                {
+                    int? behaviour = DefaultSolutionComponentDescriptionBuilder.GetBehaviorFromXml(elementRootComponent);
+
+                    FillSolutionComponentInternal(result, optionSet, behaviour);
+                }
+            }
+        }
+
+        private void FillSolutionComponentInternal(ICollection<SolutionComponent> result, OptionSetMetadataBase optionSet, int? behavior)
+        {
+            var component = new SolutionComponent()
+            {
+                ComponentType = new OptionSetValue(this.ComponentTypeValue),
+                ObjectId = optionSet.MetadataId.Value,
+                RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+            };
+
+            if (behavior.HasValue)
+            {
+                component.RootComponentBehavior = new OptionSetValue(behavior.Value);
+            }
+
+            result.Add(component);
         }
 
         public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)

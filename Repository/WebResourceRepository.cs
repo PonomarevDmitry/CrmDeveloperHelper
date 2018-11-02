@@ -89,16 +89,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             List<string> names = new List<string>();
 
-            names.AddRange(WebResourceRepository.GetSplitedNames(friendlyPath, extension));
+            names.AddRange(GetSplitedNames(friendlyPath, extension));
 
             if (names.Count > 0)
             {
                 var webResourceCollection = SearchByName(type, names.ToArray());
 
-                if (webResourceCollection.Count == 1)
-                {
-                    return webResourceCollection[0];
-                }
+                return webResourceCollection.SingleOrDefault();
             }
 
             return null;
@@ -120,6 +117,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 NoLock = true,
 
+                TopCount = 2,
+
                 EntityName = WebResource.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
@@ -131,15 +130,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(WebResource.Schema.Attributes.webresourceid, ConditionOperator.Equal, resourceId)
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<WebResource>()).FirstOrDefault();
+            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<WebResource>()).SingleOrDefault();
         }
 
         /// <summary>
@@ -690,7 +683,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             );
 
-            var metadata = response.EntityMetadata.FirstOrDefault(e => string.Equals(e.LogicalName, WebResource.EntityLogicalName, StringComparison.OrdinalIgnoreCase));
+            var metadata = response.EntityMetadata.SingleOrDefault(e => string.Equals(e.LogicalName, WebResource.EntityLogicalName, StringComparison.OrdinalIgnoreCase));
 
             if (metadata == null)
             {
@@ -773,6 +766,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 NoLock = true,
 
+                TopCount = 2,
+
                 EntityName = WebResource.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
@@ -784,15 +779,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(WebResource.Schema.Attributes.name, ConditionOperator.Equal, name),
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<WebResource>()).FirstOrDefault();
+            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<WebResource>()).SingleOrDefault();
         }
 
         public static IEnumerable<string> GetSplitedNames(string friendlyPath, string extension)

@@ -182,7 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     }
                 );
 
-                return response.EntityMetadata.FirstOrDefault();
+                return response.EntityMetadata.SingleOrDefault();
             }
             catch (Exception ex)
             {
@@ -212,7 +212,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     }
                 );
 
-                return response.EntityMetadata.FirstOrDefault() != null;
+                return response.EntityMetadata.SingleOrDefault() != null;
             }
             catch (Exception ex)
             {

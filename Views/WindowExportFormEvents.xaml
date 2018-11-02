@@ -8,9 +8,9 @@
         Title="Export Forms Events" Height="218" Width="635" WindowStartupLocation="Manual">
     <Grid>
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="187"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="10,36,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="10,36,10,0"   VerticalAlignment="Top" TabIndex="2147483647"/>
         <Label Content="Forms Events File Name" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Height="26" Width="312"/>
-        <TextBox x:Name="txtBFileName" Text="{Binding Path=FormsEventsFileName}" Height="23" Margin="10,85,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647"/>
+        <TextBox x:Name="txtBFileName" Text="{Binding Path=FormsEventsFileName}" Height="23" Margin="10,85,10,0"   VerticalAlignment="Top" TabIndex="2147483647"/>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,113,0,0" Padding="10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="25" Width="53"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,113,305,0" Padding="10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" Height="25" />
         <CheckBox x:Name="chBOnlyWithLibraries" IsChecked="{Binding Path=FormsEventsOnlyWithFormLibraries}" Content="Only with Libraries" Margin="0,119,87,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="204"/>

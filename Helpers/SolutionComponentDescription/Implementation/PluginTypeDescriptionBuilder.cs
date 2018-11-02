@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
 {
@@ -106,46 +107,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return;
             }
 
-            if (!String.IsNullOrEmpty(solutionImageComponent.SchemaName))
+            string schemaName = solutionImageComponent.SchemaName;
+            int? behavior = solutionImageComponent.RootComponentBehavior;
+
+            FillSolutionComponentFromSchemaName(result, schemaName, behavior);
+        }
+
+        public override void FillSolutionComponentFromXml(ICollection<SolutionComponent> result, XElement elementRootComponent, XDocument docCustomizations)
+        {
+            var schemaName = GetSchemaNameFromXml(elementRootComponent);
+            var behavior = GetBehaviorFromXml(elementRootComponent);
+
+            FillSolutionComponentFromSchemaName(result, schemaName, behavior);
+        }
+
+        private void FillSolutionComponentFromSchemaName(ICollection<SolutionComponent> result, string pluginTypeName, int? behavior)
+        {
+            if (string.IsNullOrEmpty(pluginTypeName))
             {
-                var match = _regexSchemaName.Match(solutionImageComponent.SchemaName);
+                return;
+            }
 
-                if (match.Success && match.Groups.Count == 6)
+            var match = _regexSchemaName.Match(pluginTypeName);
+
+            if (match.Success && match.Groups.Count == 6)
+            {
+                string name = match.Groups[1].Value;
+                string assemblyName = match.Groups[2].Value;
+                string versionString = match.Groups[3].Value;
+                string cultureString = match.Groups[4].Value;
+                string publicKeyTokenString = match.Groups[5].Value;
+
+                if (!string.IsNullOrEmpty(name)
+                    && !string.IsNullOrEmpty(versionString)
+                    && !string.IsNullOrEmpty(cultureString)
+                    && !string.IsNullOrEmpty(publicKeyTokenString)
+                    )
                 {
-                    string name = match.Groups[1].Value;
-                    string assemblyName = match.Groups[2].Value;
-                    string versionString = match.Groups[3].Value;
-                    string cultureString = match.Groups[4].Value;
-                    string publicKeyTokenString = match.Groups[5].Value;
+                    var repository = new PluginTypeRepository(_service);
 
-                    if (!string.IsNullOrEmpty(name)
-                        && !string.IsNullOrEmpty(versionString)
-                        && !string.IsNullOrEmpty(cultureString)
-                        && !string.IsNullOrEmpty(publicKeyTokenString)
-                        )
+                    var entity = repository.FindTypeByFullName(name, assemblyName, versionString, cultureString, publicKeyTokenString, new ColumnSet(false));
+
+                    if (entity != null)
                     {
-                        var repository = new PluginTypeRepository(_service);
-
-                        var entity = repository.FindTypeByFullName(name, assemblyName, versionString, cultureString, publicKeyTokenString, new ColumnSet(false));
-
-                        if (entity != null)
-                        {
-                            var component = new SolutionComponent()
-                            {
-                                ComponentType = new OptionSetValue(this.ComponentTypeValue),
-                                ObjectId = entity.Id,
-                                RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
-                            };
-
-                            if (solutionImageComponent.RootComponentBehavior.HasValue)
-                            {
-                                component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
-                            }
-
-                            result.Add(component);
-
-                            return;
-                        }
+                        FillSolutionComponentInternal(result, entity.Id, behavior);
                     }
                 }
             }

@@ -106,10 +106,10 @@
             <ComboBox x:Name="cmBConnection2" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0"  Grid.Row="0" Grid.Column="3"/>
 
             <Label Content="Namespace 1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="0"/>
-            <TextBox x:Name="txtBNameSpace1" Text="{Binding Path=SelectedItem.NameSpaceClasses}" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1"/>
+            <TextBox x:Name="txtBNameSpace1" Text="{Binding Path=SelectedItem.NameSpaceClasses}"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1"/>
 
             <Label Content="Namespace 2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="2"/>
-            <TextBox x:Name="txtBNameSpace2" Text="{Binding Path=SelectedItem.NameSpaceClasses}" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="3"/>
+            <TextBox x:Name="txtBNameSpace2" Text="{Binding Path=SelectedItem.NameSpaceClasses}"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="3"/>
         </Grid>
         <CheckBox x:Name="chBAttributes" IsChecked="{Binding Path=GenerateAttributes}" Content="Attributes" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" />
         <CheckBox x:Name="chBStatus" IsChecked="{Binding Path=GenerateStatus}" Content="Status and StatusReason" HorizontalAlignment="Left" Margin="87,69,0,0" VerticalAlignment="Top" />
@@ -143,7 +143,7 @@
             </StackPanel>
         </GroupBox>
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFilterEnitity" Height="26" Margin="51,149,12,0" TextWrapping="Wrap" VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        <TextBox x:Name="txtBFilterEnitity" Height="26" Margin="51,149,12,0"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
         <DataGrid x:Name="lstVwEntities" AutoGenerateColumns="False" Margin="10,180,10,62" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">

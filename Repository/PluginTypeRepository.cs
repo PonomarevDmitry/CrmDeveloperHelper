@@ -240,9 +240,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                NoLock = true,
+
+                TopCount = 2,
 
                 EntityName = PluginType.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
 
                 Criteria =
                 {
@@ -256,24 +260,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(PluginType.Schema.Attributes.publickeytoken, ConditionOperator.Equal, publicKeyTokenString),
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginType>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginType>()).SingleOrDefault();
         }
 
         internal PluginType FindPluginType(string name)
         {
             QueryExpression query = new QueryExpression()
             {
-                ColumnSet = new ColumnSet(true),
+                NoLock = true,
+
+                TopCount = 2,
 
                 EntityName = PluginType.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(true),
 
                 Criteria =
                 {
@@ -282,15 +284,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(PluginType.Schema.Attributes.typename, ConditionOperator.Equal, name),
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginType>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginType>()).SingleOrDefault();
         }
 
         internal Task<PluginType> FindPluginTypeByLikeNameAsync(string name)
@@ -302,9 +298,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                ColumnSet = new ColumnSet(true),
+                NoLock = true,
+
+                TopCount = 2,
 
                 EntityName = PluginType.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(true),
 
                 Criteria =
                 {
@@ -313,33 +313,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(PluginType.Schema.Attributes.typename, ConditionOperator.Like, "%" + name + "%"),
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var coll = _service.RetrieveMultiple(query).Entities;
-
-            if (coll.Count == 1)
-            {
-                return coll.Select(e => e.ToEntity<PluginType>()).First();
-            }
-            else
-            {
-                return null;
-            }
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginType>()).SingleOrDefault();
         }
 
         public async Task<PluginType> GetPluginTypeByIdAsync(Guid id)
         {
             QueryExpression query = new QueryExpression()
             {
-                ColumnSet = new ColumnSet(true),
+                NoLock = true,
+
+                TopCount = 2,
 
                 EntityName = PluginType.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(true),
 
                 Criteria =
                 {
@@ -366,15 +355,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         EntityAlias = PluginType.Schema.Attributes.pluginassemblyid,
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginType>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginType>()).SingleOrDefault();
         }
     }
 }

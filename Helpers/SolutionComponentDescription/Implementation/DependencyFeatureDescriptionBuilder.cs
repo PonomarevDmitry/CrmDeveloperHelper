@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
 {
@@ -61,16 +62,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return;
             }
 
+            FillSolutionComponentInternal(result, solutionImageComponent.ObjectId.Value, solutionImageComponent.RootComponentBehavior);
+        }
+
+        public void FillSolutionComponentFromXml(ICollection<SolutionComponent> result, XElement elementRootComponent, XDocument docCustomizations)
+        {
+            if (elementRootComponent == null)
+            {
+                return;
+            }
+
+            var id = DefaultSolutionComponentDescriptionBuilder.GetIdFromXml(elementRootComponent);
+
+            if (id.HasValue)
+            {
+                int? behaviour = DefaultSolutionComponentDescriptionBuilder.GetBehaviorFromXml(elementRootComponent);
+
+                FillSolutionComponentInternal(result, id.Value, behaviour);
+            }
+        }
+
+        private void FillSolutionComponentInternal(ICollection<SolutionComponent> result, Guid objectId, int? behaviour)
+        {
             var component = new SolutionComponent()
             {
                 ComponentType = new OptionSetValue(this.ComponentTypeValue),
-                ObjectId = solutionImageComponent.ObjectId.Value,
+                ObjectId = objectId,
                 RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
             };
 
-            if (solutionImageComponent.RootComponentBehavior.HasValue)
+            if (behaviour.HasValue)
             {
-                component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
+                component.RootComponentBehavior = new OptionSetValue(behaviour.Value);
             }
 
             result.Add(component);
@@ -100,12 +123,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public string GenerateDescriptionSingle(SolutionComponent component, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
-            return string.Format("DependencyFeatureId {0}", component.ObjectId.Value.ToString());
+            return GenerateDescriptionSingleInternal(component.ObjectId.Value, withUrls, withManaged, withSolutionInfo);
+        }
+
+        private string GenerateDescriptionSingleInternal(Guid dependencyId, bool withUrls, bool withManaged, bool withSolutionInfo)
+        {
+            return string.Format("DependencyFeatureId {0}", dependencyId.ToString());
         }
 
         public string GetName(SolutionComponent component)
         {
-            return string.Format("DependencyFeatureId {0}", component.ObjectId.Value.ToString());
+            return component.ObjectId.Value.ToString();
         }
 
         public string GetDisplayName(SolutionComponent solutionComponent)

@@ -6,8 +6,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
 {
@@ -116,32 +115,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return;
             }
 
-            if (!string.IsNullOrEmpty(solutionImageComponent.SchemaName))
+            string schemaName = solutionImageComponent.SchemaName;
+            int? behavior = solutionImageComponent.RootComponentBehavior;
+
+            FillSolutionComponentFromSchemaName(result, schemaName, behavior);
+        }
+
+        public override void FillSolutionComponentFromXml(ICollection<SolutionComponent> result, XElement elementRootComponent, XDocument docCustomizations)
+        {
+            var schemaName = GetSchemaNameFromXml(elementRootComponent);
+            var behavior = GetBehaviorFromXml(elementRootComponent);
+
+            FillSolutionComponentFromSchemaName(result, schemaName, behavior);
+        }
+
+        private void FillSolutionComponentFromSchemaName(ICollection<SolutionComponent> result, string webResourceName, int? behavior)
+        {
+            if (string.IsNullOrEmpty(webResourceName))
             {
-                string webResourceName = solutionImageComponent.SchemaName;
+                return;
+            }
 
-                var repository = new WebResourceRepository(_service);
+            var repository = new WebResourceRepository(_service);
 
-                var entity = repository.FindByExactName(webResourceName, new ColumnSet(false));
+            var entity = repository.FindByExactName(webResourceName, new ColumnSet(false));
 
-                if (entity != null)
-                {
-                    var component = new SolutionComponent()
-                    {
-                        ComponentType = new OptionSetValue(this.ComponentTypeValue),
-                        ObjectId = entity.Id,
-                        RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
-                    };
-
-                    if (solutionImageComponent.RootComponentBehavior.HasValue)
-                    {
-                        component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
-                    }
-
-                    result.Add(component);
-
-                    return;
-                }
+            if (entity != null)
+            {
+                FillSolutionComponentInternal(result, entity.Id, behavior);
             }
         }
 

@@ -134,9 +134,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = SdkMessageRequest.EntityLogicalName,
-
                 NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = SdkMessageRequest.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
 
@@ -181,7 +183,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageRequest>()).FirstOrDefault();
+            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageRequest>()).SingleOrDefault();
         }
 
         public Task<SdkMessageRequest> FindByRequestNameAsync(string requestName, ColumnSet columnSet)
@@ -208,7 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 ColumnSet = columnSet ?? new ColumnSet(true),
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageRequest>()).FirstOrDefault();
+            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageRequest>()).SingleOrDefault();
         }
     }
 }

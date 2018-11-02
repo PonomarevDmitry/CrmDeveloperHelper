@@ -20,7 +20,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public int? EntityTypeCode { get; private set; }
 
-        public WindowSelectEntityIdToFind(CommonConfiguration commonConfig, string windowTitle)
+        public WindowSelectEntityIdToFind(CommonConfiguration commonConfig, ConnectionData connectionData, string windowTitle)
         {
             InitializeComponent();
 
@@ -30,7 +30,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._commonConfig = commonConfig;
 
-            LoadConfigs(commonConfig);
+            LoadConfigs(commonConfig, connectionData);
 
             txtBEntityId.Focus();
         }
@@ -49,11 +49,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void LoadConfigs(CommonConfiguration commonConfig)
+        private void LoadConfigs(CommonConfiguration commonConfig, ConnectionData connectionData)
         {
             txtBFolder.DataContext = commonConfig;
 
             cmBFileAction.DataContext = commonConfig;
+
+            if (connectionData.IntellisenseData != null
+                && connectionData.IntellisenseData.Entities != null
+                )
+            {
+                foreach (var item in connectionData.IntellisenseData.Entities.Keys.OrderBy(s => s))
+                {
+                    cmBEntityTypeName.Items.Add(item);
+                }
+            }
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -96,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             TryParseUrl(out var urlEntityName, out var urlObjectTypeCode, out var urlEntityId);
 
-            string textEntityName = txtBEntityTypeName.Text.Trim(' ', '<', '>');
+            string textEntityName = cmBEntityTypeName.Text.Trim(' ', '<', '>');
             string textEntityTypeCode = txtBEntityTypeCode.Text.Trim(' ', '<', '>');
             string textEntityId = txtBEntityId.Text.Trim(' ', '<', '>');
 

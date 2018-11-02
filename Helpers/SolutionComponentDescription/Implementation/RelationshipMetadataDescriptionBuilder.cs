@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
 {
@@ -129,6 +130,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 result.Add(component);
             }
+        }
+
+        public void FillSolutionComponentFromXml(ICollection<SolutionComponent> result, XElement elementRootComponent, XDocument docCustomizations)
+        {
+
         }
 
         public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
@@ -386,22 +392,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (metaData != null)
             {
-                if (metaData is OneToManyRelationshipMetadata)
-                {
-                    var relationship = metaData as OneToManyRelationshipMetadata;
-
-                    return string.Format("{0}.{1}.{2}"
-                        , relationship.ReferencingEntity
-                        , relationship.ReferencingAttribute
-                        , relationship.SchemaName
-                        );
-                }
-                else if (metaData is ManyToManyRelationshipMetadata)
-                {
-                    var relationship = metaData as ManyToManyRelationshipMetadata;
-
-                    return string.Format("{0} - {1}.{2}", relationship.Entity1LogicalName, relationship.Entity2LogicalName, relationship.SchemaName);
-                }
+                return metaData.SchemaName;
             }
 
             return solutionComponent.ObjectId.ToString();
@@ -417,13 +408,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     var relationship = metaData as OneToManyRelationshipMetadata;
 
-                    return relationship.AssociatedMenuConfiguration?.Label?.UserLocalizedLabel?.Label;
+                    return string.Format("{0}.{1}"
+                        , relationship.ReferencingEntity
+                        , relationship.ReferencingAttribute
+                    );
                 }
                 else if (metaData is ManyToManyRelationshipMetadata)
                 {
                     var relationship = metaData as ManyToManyRelationshipMetadata;
 
-                    return (relationship.Entity1AssociatedMenuConfiguration ?? relationship.Entity1AssociatedMenuConfiguration)?.Label?.UserLocalizedLabel?.Label;
+                    return string.Format("{0} - {1}", relationship.Entity1LogicalName, relationship.Entity2LogicalName);
                 }
             }
 
@@ -464,17 +458,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     var relationship = metaData as OneToManyRelationshipMetadata;
 
-                    return string.Format("{0}.{1}.{2}"
+                    return string.Format("{0}.{1}.{2}.{3} - {4}.{5}"
+                        , connectionName
                         , relationship.ReferencingEntity
                         , relationship.ReferencingAttribute
                         , relationship.SchemaName
+                        , fieldTitle
+                        , extension
                         );
                 }
                 else if (metaData is ManyToManyRelationshipMetadata)
                 {
                     var relationship = metaData as ManyToManyRelationshipMetadata;
 
-                    return string.Format("{0} - {1}.{2}", relationship.Entity1LogicalName, relationship.Entity2LogicalName, relationship.SchemaName);
+                    return string.Format("{0}.{1} - {2}.{3} - {4}.{5}", connectionName, relationship.Entity1LogicalName, relationship.Entity2LogicalName, relationship.SchemaName, fieldTitle, extension);
                 }
             }
 

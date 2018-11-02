@@ -3,10 +3,10 @@ using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
 {
@@ -74,10 +74,87 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (entity != null)
             {
-                return entity.UniqueName ?? entity.Name ?? entity.Id.ToString();
+                return entity.UniqueName ?? entity.Id.ToString();
             }
 
             return base.GetName(component);
+        }
+
+        public override string GetDisplayName(SolutionComponent solutionComponent)
+        {
+            var entity = GetEntity<AppModule>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                return entity.Name;
+            }
+
+            return null;
+        }
+
+        public override void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent)
+        {
+            if (solutionComponent == null
+                || !solutionComponent.ObjectId.HasValue
+                )
+            {
+                return;
+            }
+
+            var entity = GetEntity<AppModule>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                var imageComponent = new SolutionImageComponent()
+                {
+                    ComponentType = this.ComponentTypeValue,
+                    SchemaName = entity.Name,
+
+                    RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
+
+                    Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
+                };
+
+                result.Add(imageComponent);
+            }
+        }
+
+        public override void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionImageComponent)
+        {
+            if (solutionImageComponent == null)
+            {
+                return;
+            }
+
+            string schemaName = solutionImageComponent.SchemaName;
+            int? behavior = solutionImageComponent.RootComponentBehavior;
+
+            FillSolutionComponentFromSchemaName(result, schemaName, behavior);
+        }
+
+        public override void FillSolutionComponentFromXml(ICollection<SolutionComponent> result, XElement elementRootComponent, XDocument docCustomizations)
+        {
+            var schemaName = GetSchemaNameFromXml(elementRootComponent);
+            var behavior = GetBehaviorFromXml(elementRootComponent);
+
+            FillSolutionComponentFromSchemaName(result, schemaName, behavior);
+        }
+
+        private void FillSolutionComponentFromSchemaName(ICollection<SolutionComponent> result, string AppModuleName, int? behavior)
+        {
+            if (string.IsNullOrEmpty(AppModuleName))
+            {
+                return;
+            }
+
+            var repository = new AppModuleRepository(_service);
+
+            var entity = repository.FindByExactName(AppModuleName, new ColumnSet(false));
+
+            if (entity != null)
+            {
+                FillSolutionComponentInternal(result, entity.Id, behavior);
+            }
         }
 
         public override TupleList<string, string> GetComponentColumns()

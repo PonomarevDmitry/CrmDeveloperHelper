@@ -181,6 +181,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 NoLock = true,
 
+                TopCount = 2,
+
                 EntityName = Workflow.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
@@ -194,7 +196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Workflow>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Workflow>()).SingleOrDefault();
         }
 
         public Workflow FindLinkedWorkflow(Guid idSystemForm, ColumnSet columnSet)
@@ -202,6 +204,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             QueryExpression query = new QueryExpression()
             {
                 NoLock = true,
+
+                TopCount = 2,
 
                 EntityName = Workflow.EntityLogicalName,
 
@@ -217,16 +221,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            var coll = _service.RetrieveMultiple(query).Entities;
-
-            if (coll.Count == 1)
-            {
-                return coll.Select(e => e.ToEntity<Workflow>()).FirstOrDefault();
-            }
-            else
-            {
-                return null;
-            }
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Workflow>()).SingleOrDefault();
         }
     }
 }

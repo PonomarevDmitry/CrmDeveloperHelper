@@ -214,7 +214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (value is BooleanManagedProperty booleanManaged)
             {
-                return string.Format("{0}    CanBeChanged = {1}", booleanManaged.Value, booleanManaged.CanBeChanged);
+                return booleanManaged.Value.ToString();
             }
 
             if (value is OptionSetValue optionSetValue)

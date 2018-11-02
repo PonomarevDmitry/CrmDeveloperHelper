@@ -216,6 +216,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 NoLock = true,
 
+                TopCount = 2,
+
                 EntityName = Report.EntityLogicalName,
 
                 ColumnSet = new ColumnSet(true),
@@ -228,17 +230,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(Report.Schema.Attributes.reporttypecode, ConditionOperator.NotEqual, 3),
                     }
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var webResourceCollection = _service.RetrieveMultiple(query);
-
-            return webResourceCollection.Entities.Select(e => e.ToEntity<Report>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Report>()).SingleOrDefault();
         }
 
         private Report SearchSingleByFileName(string fileName)
@@ -246,6 +240,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             QueryExpression query = new QueryExpression()
             {
                 NoLock = true,
+
+                TopCount = 2,
 
                 EntityName = Report.EntityLogicalName,
 
@@ -259,17 +255,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(Report.Schema.Attributes.reporttypecode, ConditionOperator.NotEqual, 3),
                     }
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             var collection = _service.RetrieveMultiple(query);
 
-            return collection.Entities.Select(e => e.ToEntity<Report>()).FirstOrDefault();
+            return collection.Entities.Select(e => e.ToEntity<Report>()).SingleOrDefault();
         }
 
         public Report FindReportBySignature(int lcid, Guid signatureId, ColumnSet columnSet)
@@ -277,6 +267,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             QueryExpression query = new QueryExpression()
             {
                 NoLock = true,
+
+                TopCount = 2,
 
                 EntityName = Report.EntityLogicalName,
 
@@ -290,17 +282,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(Report.Schema.Attributes.signatureid, ConditionOperator.Equal, signatureId),
                     }
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var collection = _service.RetrieveMultiple(query);
-
-            return collection.Entities.Select(e => e.ToEntity<Report>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Report>()).SingleOrDefault();
         }
     }
 }

@@ -42,7 +42,7 @@
     </src:WindowBase.Resources>
     <Grid>
         <Label Content="Folder for Export" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="129,12,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2147483647"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="129,12,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2147483647"/>
         <DockPanel LastChildFill="True" Margin="10,41,10,63">
             <ToolBar VerticalAlignment="Top" DockPanel.Dock="Top" >
                 <ToolBar.Resources>
@@ -199,7 +199,7 @@
                                 <Separator Margin="10,0"/>
                                 <MenuItem Header="Solution Explorer"  Click="tSMIExportSolutionComponents_Click"/>
                                 <MenuItem Header="Export Solution"  Click="tSMIExportSolution_Click"/>
-                                <MenuItem Header="Open SolutionImage"  Click="tSMIOpenSolutionImage_Click"/>
+                                <MenuItem Header="Open SolutionImage Window"  Click="tSMIOpenSolutionImage_Click"/>
                             </MenuItem>
                         </Menu>
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >

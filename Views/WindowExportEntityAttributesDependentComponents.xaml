@@ -111,11 +111,11 @@
             </Menu>
         </ToolBar>
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="23" Padding="0" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="48,38,10,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" />
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="48,38,10,0"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
         <RadioButton x:Name="rBAllcomponents" IsChecked="{Binding Path=AllDependentComponents}" Content="All components" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="rBWorkflowPlugin" IsChecked="{Binding Path=AllDependentComponents, Converter={StaticResource BoolInverter}}" Content="Only Workflow, Plugin Step, Plugin Step Image" HorizontalAlignment="Left" Margin="117,66,0,0" VerticalAlignment="Top"/>
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" Padding="0" VerticalContentAlignment="Center" Height="23"/>
-        <TextBox x:Name="txtBFilterEnitity" Height="23" Margin="48,86,10,0" TextWrapping="Wrap" VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        <TextBox x:Name="txtBFilterEnitity" Height="23" Margin="48,86,10,0"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
         <DataGrid x:Name="lstVwEntities" AutoGenerateColumns="False" Margin="10,114,10,96" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">

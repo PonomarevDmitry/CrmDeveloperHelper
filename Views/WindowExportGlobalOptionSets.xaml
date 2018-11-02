@@ -45,9 +45,9 @@
     </src:WindowBase.Resources>
     <Grid>
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="26" Margin="82,10,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="26" Margin="82,10,10,0"   VerticalAlignment="Top" TabIndex="2147483647" VerticalContentAlignment="Center"/>
         <Label Content="Namespace" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBNameSpace" Text="{Binding Path=SelectedItem.NameSpaceOptionSets}" Height="26" Margin="82,41,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBNameSpace" Text="{Binding Path=SelectedItem.NameSpaceOptionSets}" Height="26" Margin="82,41,10,0"   VerticalAlignment="Top" TabIndex="2147483647" VerticalContentAlignment="Center"/>
         <GroupBox Header="OptionSets Values" Margin="10,72,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="51" VerticalContentAlignment="Center">
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <RadioButton x:Name="rBEnums" IsChecked="{Binding Path=OptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Enums}}" GroupName="OptionSetExportType"  Margin="5" Content="Enum" HorizontalAlignment="Right" VerticalAlignment="Top" />

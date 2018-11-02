@@ -282,7 +282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private void AddSolutionComponents(string solutionTargetUniqueName, IEnumerable<SolutionComponent> componentesOnlyInSource)
         {
-            foreach (var component in componentesOnlyInSource)
+            foreach (var component in componentesOnlyInSource.OrderBy(c => c.ComponentType?.Value))
             {
                 AddSolutionComponentRequest request = new AddSolutionComponentRequest()
                 {
@@ -332,7 +332,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             var components = this.GetSolutionComponents(solutionUniqueName);
 
-            foreach (var component in components)
+            foreach (var component in components.OrderByDescending(c => c.ComponentType?.Value))
             {
                 RemoveSolutionComponentRequest request = new RemoveSolutionComponentRequest()
                 {
@@ -360,7 +360,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private void RemoveSolutionComponents(string solutionUniqueName, IEnumerable<SolutionComponent> components)
         {
-            foreach (var component in components)
+            foreach (var component in components.OrderByDescending(c => c.ComponentType?.Value))
             {
                 RemoveSolutionComponentRequest request = new RemoveSolutionComponentRequest()
                 {

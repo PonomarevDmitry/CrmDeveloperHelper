@@ -82,10 +82,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = SdkMessageProcessingStepSecureConfig.EntityLogicalName,
-                ColumnSet = new ColumnSet(true),
-
                 NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = SdkMessageProcessingStepSecureConfig.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(true),
 
                 Criteria =
                 {
@@ -96,7 +99,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageProcessingStepSecureConfig>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageProcessingStepSecureConfig>()).SingleOrDefault();
         }
 
         //internal SdkMessageProcessingStepSecureConfig GetSecureConfig(Guid id)

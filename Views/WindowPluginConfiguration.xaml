@@ -8,9 +8,9 @@
         Title="Create Plugin Configuration" Height="218" Width="635" WindowStartupLocation="Manual">
     <Grid>
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="187"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="10,36,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="10,36,10,0"   VerticalAlignment="Top" TabIndex="2147483647" VerticalContentAlignment="Center"/>
         <Label Content="Plugin Configuration File Name" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Height="26" Width="312"/>
-        <TextBox x:Name="txtBFileName" Text="{Binding Path=PluginConfigurationFileName}" Height="23" Margin="10,85,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFileName" Text="{Binding Path=PluginConfigurationFileName}" Height="23" Margin="10,85,10,0"   VerticalAlignment="Top" TabIndex="2147483647" VerticalContentAlignment="Center"/>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,113,0,0" Padding="10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="26" Width="53"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,113,305,0" Padding="10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" Height="26" />
         <Button x:Name="btnCreateFile" Content="Create Plugin Configuration" Margin="0,0,127,12" Click="btnCreateFile_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="181"/>

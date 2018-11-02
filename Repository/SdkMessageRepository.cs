@@ -118,6 +118,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
+                NoLock = true,
+
+                TopCount = 2,
+
                 ColumnSet = new ColumnSet(true),
 
                 EntityName = SdkMessage.EntityLogicalName,
@@ -131,7 +135,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessage>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessage>()).SingleOrDefault();
         }
 
         public Task<List<SdkMessage>> GetMessageByIdsAsync(Guid[] ids)
@@ -284,9 +288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(entityName))
             {
-                entityName = entityName.ToLower();
-
-                result = result.Where(ent => ent.PrimaryObjectTypeCodeName.ToLower().Contains(entityName)).ToList();
+                result = result.Where(ent => ent.PrimaryObjectTypeCodeName.IndexOf(entityName, StringComparison.InvariantCultureIgnoreCase) > -1).ToList();
             }
 
             return result;

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
 {
@@ -125,8 +126,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
-        private static readonly Regex _regexSchemaName = new Regex(@"^([0-9]{1,4})({[0-9A-Fa-f]{8}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{12}})$", RegexOptions.Compiled);
-
         public override void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionImageComponent)
         {
             if (solutionImageComponent == null)
@@ -134,48 +133,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return;
             }
 
-            if (!String.IsNullOrEmpty(solutionImageComponent.SchemaName))
+            if (FillSolutionComponentFromSchemaName(result, solutionImageComponent.SchemaName, solutionImageComponent.RootComponentBehavior))
             {
-                var match = _regexSchemaName.Match(solutionImageComponent.SchemaName);
+                return;
+            }
 
-                if (match.Success && match.Groups.Count == 3)
+            base.FillSolutionComponent(result, solutionImageComponent);
+
+
+        }
+
+        public override void FillSolutionComponentFromXml(ICollection<SolutionComponent> result, XElement elementRootComponent, XDocument docCustomizations)
+        {
+            var schemaName = GetSchemaNameFromXml(elementRootComponent);
+            var behavior = GetBehaviorFromXml(elementRootComponent);
+
+            if (FillSolutionComponentFromSchemaName(result, schemaName, behavior))
+            {
+                return;
+            }
+
+            base.FillSolutionComponentFromXml(result, elementRootComponent, docCustomizations);
+        }
+
+        private static readonly Regex _regexSchemaName = new Regex(@"^([0-9]{1,4})({[0-9A-Fa-f]{8}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{12}})$", RegexOptions.Compiled);
+
+        private bool FillSolutionComponentFromSchemaName(ICollection<SolutionComponent> result, string schemaName, int? behavior)
+        {
+            if (string.IsNullOrEmpty(schemaName))
+            {
+                return false;
+            }
+
+            var match = _regexSchemaName.Match(schemaName);
+
+            if (match.Success && match.Groups.Count == 3)
+            {
+                string lcidString = match.Groups[1].Value;
+                string signatureIdString = match.Groups[2].Value;
+
+                if (!string.IsNullOrEmpty(lcidString)
+                    && int.TryParse(lcidString, out var lcid)
+                    && !string.IsNullOrEmpty(signatureIdString)
+                    && Guid.TryParse(signatureIdString, out var signatureId)
+                    )
                 {
-                    string lcidString = match.Groups[1].Value;
-                    string signatureIdString = match.Groups[2].Value;
+                    var repository = new ReportRepository(_service);
 
-                    if (!string.IsNullOrEmpty(lcidString)
-                        && int.TryParse(lcidString, out var lcid)
-                        && !string.IsNullOrEmpty(signatureIdString)
-                        && Guid.TryParse(signatureIdString, out var signatureId)
-                        )
+                    var entity = repository.FindReportBySignature(lcid, signatureId, new ColumnSet(false));
+
+                    if (entity != null)
                     {
-                        var repository = new ReportRepository(_service);
+                        FillSolutionComponentInternal(result, entity.Id, behavior);
 
-                        var entity = repository.FindReportBySignature(lcid, signatureId, new ColumnSet(false));
-
-                        if (entity != null)
-                        {
-                            var component = new SolutionComponent()
-                            {
-                                ComponentType = new OptionSetValue(this.ComponentTypeValue),
-                                ObjectId = entity.Id,
-                                RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
-                            };
-
-                            if (solutionImageComponent.RootComponentBehavior.HasValue)
-                            {
-                                component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
-                            }
-
-                            result.Add(component);
-
-                            return;
-                        }
+                        return true;
                     }
                 }
             }
 
-            base.FillSolutionComponent(result, solutionImageComponent);
+            return false;
         }
 
         public override TupleList<string, string> GetComponentColumns()

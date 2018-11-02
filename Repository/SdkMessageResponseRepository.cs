@@ -90,9 +90,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = SdkMessageResponse.EntityLogicalName,
-
                 NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = SdkMessageResponse.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
 
@@ -105,7 +107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageResponse>()).FirstOrDefault();
+            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageResponse>()).SingleOrDefault();
         }
     }
 }

@@ -6,9 +6,13 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -72,7 +76,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         builder.AppendLine();
                     }
 
-                    string name = components.First().ComponentTypeName;
+                    string name = gr.First().ComponentTypeName;
 
                     builder.AppendFormat("ComponentType:   {0} ({1})            Count: {2}"
                         , name
@@ -157,6 +161,87 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return result;
+        }
+
+        public Task<List<SolutionComponent>> LoadSolutionComponentsFromZipFileAsync(string selectedPath)
+        {
+            return Task.Run(() => LoadSolutionComponentsFromZipFile(selectedPath));
+        }
+
+        private List<SolutionComponent> LoadSolutionComponentsFromZipFile(string selectedPath)
+        {
+            List<SolutionComponent> result = new List<SolutionComponent>();
+
+            if (string.IsNullOrEmpty(selectedPath) || !File.Exists(selectedPath))
+            {
+                return result;
+            }
+
+            GetSolutionFiles(selectedPath, out XDocument docSolution, out XDocument docCustomizations);
+
+            if (docSolution == null || docCustomizations == null)
+            {
+                return result;
+            }
+
+            var nodesRootcomponents = docSolution.XPathSelectElements("ImportExportXml/SolutionManifest/RootComponents/RootComponent");
+
+            var groups = nodesRootcomponents.Where(e => e.Attribute("type") != null).GroupBy(e => (int)e.Attribute("type")).OrderBy(gr => gr.Key);
+
+            foreach (var gr in groups)
+            {
+                try
+                {
+                    var descriptionBuilder = GetDescriptionBuilder(gr.Key);
+
+                    foreach (var item in gr)
+                    {
+                        descriptionBuilder.FillSolutionComponentFromXml(result, item, docCustomizations);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.Singleton.WriteErrorToOutput(ex);
+                }
+            }
+
+            return result;
+        }
+
+        private void GetSolutionFiles(string selectedPath, out XDocument docSolution, out XDocument docCustomizations)
+        {
+            docSolution = null;
+            docCustomizations = null;
+
+            using (FileStream fileStream = new FileStream(selectedPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                using (ZipPackage package = (ZipPackage)ZipPackage.Open(fileStream, FileMode.Open, FileAccess.Read))
+                {
+                    {
+                        ZipPackagePart part = (ZipPackagePart)package.GetPart(new Uri("/solution.xml", UriKind.Relative));
+
+                        if (part != null)
+                        {
+                            using (Stream streamPart = part.GetStream(FileMode.Open, FileAccess.Read))
+                            {
+                                docSolution = XDocument.Load(streamPart);
+                            }
+                        }
+                    }
+
+                    {
+                        ZipPackagePart part = (ZipPackagePart)package.GetPart(new Uri("/customizations.xml", UriKind.Relative));
+
+                        if (part != null)
+                        {
+                            using (Stream streamPart = part.GetStream(FileMode.Open, FileAccess.Read))
+                            {
+                                docCustomizations = XDocument.Load(streamPart);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         public string GetComponentDescription(int type, Guid idEntity)

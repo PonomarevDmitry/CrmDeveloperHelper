@@ -15,9 +15,9 @@
     </src:WindowBase.Resources>
     <Grid>
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="26" Margin="58,10,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="26" Margin="58,10,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="cmBFilter" Height="26" Margin="58,41,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" Text="{Binding Path=SelectedItem.ExplorerSolutionFilter}" ItemsSource="{Binding Path=SelectedItem.LastSelectedSolutionsUniqueName}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        <ComboBox x:Name="cmBFilter" Height="26" Margin="58,41,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExplorerSolutionFilter}" ItemsSource="{Binding Path=SelectedItem.LastSelectedSolutionsUniqueName}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
         <GroupBox Header="Solutions" Margin="10,67,10,69">
             <DockPanel LastChildFill="True">
                 <ToolBar Height="Auto" Width="Auto" VerticalAlignment="Top" DockPanel.Dock="Top" >
@@ -47,6 +47,12 @@
                                     <MenuItem HorizontalAlignment="Left" Header="Open Solution List in Web" Click="mIOpenSolutionListInWeb_Click" />
                                     <Separator />
                                     <MenuItem HorizontalAlignment="Left" Header="Open Customization in Web" Click="mIOpenCustomizationInWeb_Click" />
+                                    <Separator />
+                                    <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
+                                    <Separator />
+                                    <MenuItem Header="Open Organization DifferenceImage Window" Click="mIOpenOrganizationDifferenceImage_Click" />
+                                    <Separator />
+                                    <MenuItem Header="Create SolutionImage from Zip-file" Click="mICreateSolutionImageFromZipFile_Click" />
                                 </MenuItem>
                             </Menu>
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />

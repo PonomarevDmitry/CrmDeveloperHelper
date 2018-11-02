@@ -139,7 +139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 var list = _connectionData.IntellisenseData.Entities.Values.ToList();
 
-                var entityData = list.FirstOrDefault(e => e.ObjectTypeCode.HasValue && e.ObjectTypeCode == entityTypeCode);
+                var entityData = list.SingleOrDefault(e => e.ObjectTypeCode.HasValue && e.ObjectTypeCode == entityTypeCode);
 
                 if (entityData != null
                     && entityData.Attributes != null
@@ -446,7 +446,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             foreach (var entityObjectTypeCode in hash)
             {
-                var entityData = _connectionData.IntellisenseData?.Entities?.Values?.FirstOrDefault(e => e.ObjectTypeCode.HasValue && e.ObjectTypeCode == entityObjectTypeCode);
+                var entityData = _connectionData.IntellisenseData?.Entities?.Values?.SingleOrDefault(e => e.ObjectTypeCode.HasValue && e.ObjectTypeCode == entityObjectTypeCode);
 
                 if (entityData != null)
                 {
@@ -461,7 +461,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             foreach (var entityObjectTypeCode in hash)
             {
-                var entityData = _connectionData.IntellisenseData?.Entities?.Values?.FirstOrDefault(e => e.ObjectTypeCode.HasValue && e.ObjectTypeCode == entityObjectTypeCode);
+                var entityData = _connectionData.IntellisenseData?.Entities?.Values?.SingleOrDefault(e => e.ObjectTypeCode.HasValue && e.ObjectTypeCode == entityObjectTypeCode);
 
                 if (entityData != null)
                 {

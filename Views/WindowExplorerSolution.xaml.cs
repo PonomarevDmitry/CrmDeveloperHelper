@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -687,7 +688,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Header = string.Format("Create Solution Image in {0}", solution.UniqueNameEscapeUnderscore),
                 Tag = solution,
             };
-            mICreateSolutionImageIn.Click += mICreateSolutionImageIn_Click; ;
+            mICreateSolutionImageIn.Click += mICreateSolutionImageIn_Click;
 
             MenuItem mIComponentsIn = new MenuItem()
             {
@@ -882,7 +883,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string fileName = EntityFileNameFormatter.GetSolutionFileName(
                     service.ConnectionData.Name
                     , solution.UniqueName
-                    , "Components"
+                    , "SolutionImage"
                     , "xml"
                 );
 
@@ -1296,13 +1297,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput("Creating backup Solution Components in '{0}'.", solutionTarget.UniqueName);
 
                     {
-                        string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                            service.ConnectionData.Name
-                            , solutionTarget.UniqueName
-                            , "Components Backup"
-                        );
+
 
                         {
+                            string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                                service.ConnectionData.Name
+                                , solutionTarget.UniqueName
+                                , "Components Backup"
+                            );
+
                             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                             await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solutionTarget.Id);
@@ -1312,6 +1315,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
 
                         {
+                            string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                                service.ConnectionData.Name
+                                , solutionTarget.UniqueName
+                                , "SolutionImage Backup"
+                            );
+
                             fileName = fileName.Replace(".txt", ".xml");
 
                             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1403,29 +1412,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput(string.Empty);
                     this._iWriteToOutput.WriteToOutput("Creating backup Solution Components in '{0}'.", solutionTarget.UniqueName);
 
+
                     {
                         string fileName = EntityFileNameFormatter.GetSolutionFileName(
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
                             , "Components Backup"
+                            , "txt"
                         );
 
-                        {
-                            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                        string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                            await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solutionTarget.Id);
+                        await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solutionTarget.Id);
 
-                            this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
-                            this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
-                        }
+                        this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                    }
 
-                        {
-                            fileName = fileName.Replace(".txt", ".xml");
+                    {
+                        string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                            service.ConnectionData.Name
+                            , solutionTarget.UniqueName
+                            , "SolutionImage Backup"
+                            , "xml"
+                        );
 
-                            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+                        string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                            await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
-                        }
+                        await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
                     }
 
                     this._iWriteToOutput.WriteToOutput(string.Empty);
@@ -1566,24 +1580,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         service.ConnectionData.Name
                         , solution.UniqueName
                         , "Components Backup"
+                        , "txt"
                     );
 
-                    {
-                        string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                        await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solution.Id);
+                    await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solution.Id);
 
-                        this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solution.UniqueName, filePath);
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
-                    }
+                    this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solution.UniqueName, filePath);
+                    this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                }
 
-                    {
-                        fileName = fileName.Replace(".txt", ".xml");
+                {
 
-                        string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+                    string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                        service.ConnectionData.Name
+                        , solution.UniqueName
+                        , "SolutionImage Backup"
+                        , "xml"
+                    );
 
-                        await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
-                    }
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
                 }
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(service);
@@ -1838,6 +1857,113 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     ExecuteActionOnSingleSolution(item.Solution, PerformOpenSolutionComponentsInWindow);
                 }
+            }
+        }
+
+        private void mIOpenSolutionImage_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                _commonConfig.Save();
+
+                WindowHelper.OpenSolutionImageWindow(this._iWriteToOutput, connectionData, _commonConfig);
+            }
+        }
+
+        private void mIOpenOrganizationDifferenceImage_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                _commonConfig.Save();
+
+                WindowHelper.OpenOrganizationDifferenceImageWindow(this._iWriteToOutput, connectionData, _commonConfig);
+            }
+        }
+
+        private async void mICreateSolutionImageFromZipFile_Click(object sender, RoutedEventArgs e)
+        {
+            string folder = txtBFolder.Text.Trim();
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(folder))
+            {
+                return;
+            }
+
+            try
+            {
+                string selectedPath = string.Empty;
+                var t = new Thread(() =>
+                {
+                    try
+                    {
+                        var openFileDialog1 = new Microsoft.Win32.OpenFileDialog
+                        {
+                            Filter = "Solution (.zip)|*.zip",
+                            FilterIndex = 1,
+                            RestoreDirectory = true
+                        };
+
+                        if (openFileDialog1.ShowDialog().GetValueOrDefault())
+                        {
+                            selectedPath = openFileDialog1.FileName;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(ex);
+                    }
+                });
+
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+
+                t.Join();
+
+                if (string.IsNullOrEmpty(selectedPath) || !File.Exists(selectedPath))
+                {
+                    return;
+                }
+
+                ToggleControls(false, _iWriteToOutput.WriteToOutput("Creating Solution Image from zip-file..."));
+
+                var service = await GetService();
+                var descriptor = await GetDescriptor();
+
+                var components = await descriptor.LoadSolutionComponentsFromZipFileAsync(selectedPath);
+
+                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+
+                string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                    service.ConnectionData.Name
+                    , Path.GetFileNameWithoutExtension(selectedPath)
+                    , "SolutionImage"
+                    , "xml"
+                );
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, components);
+
+                this._iWriteToOutput.WriteToOutput("Solution Image was export into file '{0}'", filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                ToggleControls(true, "Creating Solution Image from zip-file completed.");
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, "Creating Solution Image from zip-file failed.");
             }
         }
     }

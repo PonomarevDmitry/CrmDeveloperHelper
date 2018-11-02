@@ -15,16 +15,16 @@
                     </Grid.Resources>
                     <CheckBox x:Name="chBIsReadOnly" Content="Is Read Only" Margin="0,16,241,0" HorizontalAlignment="Right" VerticalAlignment="Top" Padding="0"/>
                     <Label Content="Name" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="0"/>
-                    <TextBox x:Name="txtBName" Height="23" Margin="10,36,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647"/>
+                    <TextBox x:Name="txtBName" Height="23" Margin="10,36,10,0"   VerticalAlignment="Top" TabIndex="2147483647"/>
                     <Label Content="GroupName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,64,0,0" Height="23" VerticalContentAlignment="Center" Padding="0"/>
-                    <TextBox x:Name="txtBGroupName" Height="23" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647" Margin="80,64,10,0"/>
+                    <TextBox x:Name="txtBGroupName" Height="23"   VerticalAlignment="Top" TabIndex="2147483647" Margin="80,64,10,0"/>
                     <Label Content="Discovery Service Url" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Padding="0" VerticalContentAlignment="Center"/>
-                    <TextBox x:Name="txtBDiscoveryUrl" Height="23" Margin="10,118,90,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647"/>
+                    <TextBox x:Name="txtBDiscoveryUrl" Height="23" Margin="10,118,90,0"   VerticalAlignment="Top" TabIndex="2147483647"/>
                     <Button x:Name="btnTemplateDiscovery" Content="Create" Margin="0,118,10,0" Click="btnTemplateDiscovery_Click" Height="23" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" IsTabStop="False"/>
                     <Label Content="Unique Organization Name" HorizontalAlignment="Left" Margin="10,146,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="23" Padding="0"/>
-                    <TextBox x:Name="txtBUniqueOrganizationName" Height="23" Margin="160,146,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647"/>
+                    <TextBox x:Name="txtBUniqueOrganizationName" Height="23" Margin="160,146,10,0"   VerticalAlignment="Top" TabIndex="2147483647"/>
                     <Label Content="Organization Service Url" HorizontalAlignment="Left" Margin="10,179,0,0" VerticalAlignment="Top" Padding="0" VerticalContentAlignment="Center"/>
-                    <TextBox x:Name="txtBOrganizationServiceUrl" Height="23" Margin="10,200,90,0" TextWrapping="Wrap"  VerticalAlignment="Top" TabIndex="2147483647"/>
+                    <TextBox x:Name="txtBOrganizationServiceUrl" Height="23" Margin="10,200,90,0"   VerticalAlignment="Top" TabIndex="2147483647"/>
                     <Button x:Name="btnTemplateOrganization" Content="Create" Margin="0,200,10,0" Click="btnTemplateOrganization_Click" Height="23" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" IsTabStop="False"/>
 
                     <Label Content="Public Service Url" HorizontalAlignment="Left" Margin="10,228,0,0" Height="23" VerticalAlignment="Top" Padding="0" VerticalContentAlignment="Center" />
@@ -45,9 +45,9 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <Label Content="Namespace Classes" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="0"/>
-                        <TextBox x:Name="txtBNameSpaceClasses" Height="23"  TextWrapping="Wrap"  HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+                        <TextBox x:Name="txtBNameSpaceClasses" Height="23"    HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="0"/>
                         <Label Content="Namespace OptionSets" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="1"/>
-                        <TextBox x:Name="txtBNameSpaceOptionSets" Height="23"  TextWrapping="Wrap"  HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+                        <TextBox x:Name="txtBNameSpaceOptionSets" Height="23"    HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="1"/>
                     </Grid>
                 </Grid>
             </TabItem>

@@ -515,6 +515,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 NoLock = true,
 
+                TopCount = 2,
+
                 EntityName = RibbonCustomization.EntityLogicalName,
 
                 ColumnSet = new ColumnSet(true),
@@ -553,7 +555,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<RibbonCustomization>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<RibbonCustomization>()).SingleOrDefault();
         }
     }
 }

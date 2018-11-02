@@ -29,8 +29,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private async Task<Entity> GetEntityById(Guid idEntity, ColumnSet columnSet)
         {
-            Entity result = null;
-
             {
                 var repository = new SdkMessageFilterRepository(_service);
 
@@ -45,6 +43,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             var query = new QueryExpression()
             {
                 NoLock = true,
+
+                TopCount = 2,
 
                 EntityName = _entityMetadata.LogicalName,
 
@@ -61,19 +61,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             try
             {
-                result = _service.RetrieveMultiple(query).Entities.FirstOrDefault();
-
-                if (result != null)
-                {
-                    return result;
-                }
+                return _service.RetrieveMultiple(query).Entities.SingleOrDefault();
             }
             catch (Exception ex)
             {
                 DTEHelper.WriteExceptionToLog(ex);
-            }
 
-            return result;
+                return null;
+            }
         }
 
         public Task<List<Entity>> GetEntitiesByFieldAsync(string fieldName, Guid idEntity, ColumnSet columnSet)

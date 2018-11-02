@@ -85,9 +85,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = SiteMap.EntityLogicalName,
-
                 NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = SiteMap.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
 
@@ -100,16 +102,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SiteMap>()).FirstOrDefault();
+            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SiteMap>()).SingleOrDefault();
         }
 
         public SiteMap FindByExactName(string sitemapName, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = SiteMap.EntityLogicalName,
-
                 NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = SiteMap.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
             };
@@ -123,7 +127,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 query.Criteria.Conditions.Add(new ConditionExpression(SiteMap.Schema.Attributes.sitemapnameunique, ConditionOperator.Null));
             }
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SiteMap>()).FirstOrDefault();
+            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SiteMap>()).SingleOrDefault();
         }
     }
 }

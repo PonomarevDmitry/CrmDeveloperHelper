@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
 {
@@ -56,13 +57,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (metaData != null)
             {
+                var behaviour = solutionComponent.RootComponentBehavior?.Value;
+
                 result.Add(new SolutionImageComponent()
                 {
                     ComponentType = (int)ComponentType.Entity,
                     SchemaName = metaData.LogicalName,
-                    RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
+                    RootComponentBehavior = behaviour.GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
+                    Description = GenerateDescriptionSingleInternal(metaData, behaviour, false, true, true),
                 });
             }
         }
@@ -78,20 +81,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (metaData != null)
             {
-                var component = new SolutionComponent()
-                {
-                    ComponentType = new OptionSetValue(this.ComponentTypeValue),
-                    ObjectId = metaData.MetadataId.Value,
-                    RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
-                };
-
-                if (solutionImageComponent.RootComponentBehavior.HasValue)
-                {
-                    component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
-                }
-
-                result.Add(component);
+                FillSolutionComponentInternal(result, metaData, solutionImageComponent.RootComponentBehavior);
             }
+        }
+
+        public void FillSolutionComponentFromXml(ICollection<SolutionComponent> result, XElement elementRootComponent, XDocument docCustomizations)
+        {
+            if (elementRootComponent == null)
+            {
+                return;
+            }
+
+            var schemaName = DefaultSolutionComponentDescriptionBuilder.GetSchemaNameFromXml(elementRootComponent);
+
+            if (!string.IsNullOrEmpty(schemaName))
+            {
+                EntityMetadata metaData = _source.GetEntityMetadata(schemaName);
+
+                if (metaData != null)
+                {
+                    int? behaviour = DefaultSolutionComponentDescriptionBuilder.GetBehaviorFromXml(elementRootComponent);
+
+                    FillSolutionComponentInternal(result, metaData, behaviour);
+                }
+            }
+        }
+
+        private void FillSolutionComponentInternal(ICollection<SolutionComponent> result, EntityMetadata metaData, int? behaviour)
+        {
+            var component = new SolutionComponent()
+            {
+                ComponentType = new OptionSetValue(this.ComponentTypeValue),
+                ObjectId = metaData.MetadataId.Value,
+                RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+            };
+
+            if (behaviour.HasValue)
+            {
+                component.RootComponentBehavior = new OptionSetValue(behaviour.Value);
+            }
+
+            result.Add(component);
         }
 
         public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
@@ -155,56 +185,69 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
+            if (solutionComponent == null
+                || !solutionComponent.ObjectId.HasValue)
+            {
+                return null;
+            }
+
             EntityMetadata metaData = _source.GetEntityMetadata(solutionComponent.ObjectId.Value);
 
             if (metaData != null)
             {
-                string behavior = string.Empty;
+                int? behaviourCode = solutionComponent.RootComponentBehavior?.Value;
 
-                if (solutionComponent.RootComponentBehavior != null)
-                {
-                    behavior = SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior.Value);
-                }
-
-                FormatTextTableHandler handler = new FormatTextTableHandler();
-                handler.SetHeader("EntityName", "Behaviour");
-
-                if (withManaged)
-                {
-                    handler.AppendHeader("IsManaged");
-                }
-
-                if (withUrls)
-                {
-                    handler.AppendHeader("Url");
-                }
-
-                List<string> values = new List<string>();
-
-                values.AddRange(new[]
-                {
-                    metaData.LogicalName
-                    , behavior
-                });
-
-                if (withManaged)
-                {
-                    values.Add(metaData.IsManaged.ToString());
-                }
-
-                if (withUrls)
-                {
-                    values.Add(_source.Service.ConnectionData?.GetEntityMetadataUrl(metaData.MetadataId.Value));
-                }
-
-                handler.AddLine(values);
-
-                var str = handler.GetFormatedLinesWithHeadersInLine(false).FirstOrDefault();
-
-                return string.Format("{0} {1}", this.ComponentTypeEnum.ToString(), str);
+                return GenerateDescriptionSingleInternal(metaData, behaviourCode, withUrls, withManaged, withSolutionInfo);
             }
 
             return solutionComponent.ToString();
+        }
+
+        private string GenerateDescriptionSingleInternal(EntityMetadata metaData, int? behaviourCode, bool withUrls, bool withManaged, bool withSolutionInfo)
+        {
+            string behavior = string.Empty;
+
+            if (behaviourCode.HasValue)
+            {
+                behavior = SolutionComponent.GetRootComponentBehaviorName(behaviourCode.Value);
+            }
+
+            FormatTextTableHandler handler = new FormatTextTableHandler();
+            handler.SetHeader("EntityName", "Behaviour");
+
+            if (withManaged)
+            {
+                handler.AppendHeader("IsManaged");
+            }
+
+            if (withUrls)
+            {
+                handler.AppendHeader("Url");
+            }
+
+            List<string> values = new List<string>();
+
+            values.AddRange(new[]
+            {
+                metaData.LogicalName
+                , behavior
+            });
+
+            if (withManaged)
+            {
+                values.Add(metaData.IsManaged.ToString());
+            }
+
+            if (withUrls)
+            {
+                values.Add(_source.Service.ConnectionData?.GetEntityMetadataUrl(metaData.MetadataId.Value));
+            }
+
+            handler.AddLine(values);
+
+            var str = handler.GetFormatedLinesWithHeadersInLine(false).FirstOrDefault();
+
+            return string.Format("{0} {1}", this.ComponentTypeEnum.ToString(), str);
         }
 
         public string GetName(SolutionComponent solutionComponent)

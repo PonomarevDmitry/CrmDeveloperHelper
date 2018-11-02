@@ -1,4 +1,3 @@
-﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -9,25 +8,25 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
-    public class OrganizationRepository
+    public class AppModuleRepository
     {
         /// <summary>
         /// Сервис CRM
         /// </summary>
-        private IOrganizationServiceExtented _Service { get; set; }
+        private IOrganizationServiceExtented _service;
 
         /// <summary>
         /// Конструктор репозитория
         /// </summary>
         /// <param name="service"></param>
-        public OrganizationRepository(IOrganizationServiceExtented service)
+        public AppModuleRepository(IOrganizationServiceExtented service)
         {
-            _Service = service ?? throw new ArgumentNullException(nameof(service));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<Organization>> GetListAsync()
+        public Task<List<AppModule>> GetListAsync(ColumnSet columnSet)
         {
-            return Task.Run(() => GetList());
+            return Task.Run(() => GetList(columnSet));
         }
 
         /// <summary>
@@ -35,13 +34,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private List<Organization> GetList()
+        private List<AppModule> GetList(ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = Organization.EntityLogicalName,
                 NoLock = true,
-                ColumnSet = new ColumnSet(true),
+
+                EntityName = AppModule.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
 
                 PageInfo = new PagingInfo()
                 {
@@ -50,15 +51,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            var result = new List<Organization>();
+            var result = new List<AppModule>();
 
             try
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Organization>()));
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<AppModule>()));
 
                     if (!coll.MoreRecords)
                     {
@@ -71,26 +72,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
             }
 
             return result;
         }
 
-        public Task<Organization> GetByIdAsync(Guid idOrganization, ColumnSet columnSet)
-        {
-            return Task.Run(() => GetById(idOrganization, columnSet));
-        }
-
-        private Organization GetById(Guid idOrganization, ColumnSet columnSet)
+        public AppModule FindByExactName(string uniqueName, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = Organization.EntityLogicalName,
-
                 NoLock = true,
 
                 TopCount = 2,
+
+                EntityName = AppModule.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
 
@@ -98,12 +94,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(Organization.PrimaryIdAttribute, ConditionOperator.Equal, idOrganization),
+                        new ConditionExpression(AppModule.Schema.Attributes.uniquename, ConditionOperator.Equal, uniqueName),
                     },
                 },
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Organization>()).SingleOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<AppModule>()).SingleOrDefault();
         }
     }
 }

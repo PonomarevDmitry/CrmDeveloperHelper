@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
 {
@@ -98,6 +99,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             List<Entity> result = new List<Entity>();
 
+            query.PageInfo = new PagingInfo()
+            {
+                PageNumber = 1,
+                Count = 5000,
+            };
+
             if (query != null)
             {
                 try
@@ -181,12 +188,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         Columns = new ColumnSet(Solution.Schema.Attributes.uniquename, Solution.Schema.Attributes.ismanaged),
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                }
             };
 
             return query;
@@ -425,20 +426,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return;
             }
 
-            var entity = GetEntity<Entity>(solutionImageComponent.ObjectId.Value);
+            Guid entityId = solutionImageComponent.ObjectId.Value;
+            int? behavior = solutionImageComponent.RootComponentBehavior;
+
+            FillSolutionComponentInternal(result, entityId, behavior);
+        }
+
+        public virtual void FillSolutionComponentFromXml(ICollection<SolutionComponent> result, XElement elementRootComponent, XDocument docCustomizations)
+        {
+            if (elementRootComponent == null)
+            {
+                return;
+            }
+
+            var id = GetIdFromXml(elementRootComponent);
+
+            if (id.HasValue)
+            {
+                int? behaviour = GetBehaviorFromXml(elementRootComponent);
+
+                FillSolutionComponentInternal(result, id.Value, behaviour);
+            }
+        }
+
+        protected void FillSolutionComponentInternal(ICollection<SolutionComponent> result, Guid entityId, int? behavior)
+        {
+            var entity = GetEntity<Entity>(entityId);
 
             if (entity != null)
             {
                 var component = new SolutionComponent()
                 {
                     ComponentType = new OptionSetValue(this.ComponentTypeValue),
-                    ObjectId = entity.Id,
+                    ObjectId = entityId,
                     RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
                 };
 
-                if (solutionImageComponent.RootComponentBehavior.HasValue)
+                if (behavior.HasValue)
                 {
-                    component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
+                    component.RootComponentBehavior = new OptionSetValue(behavior.Value);
                 }
 
                 result.Add(component);
@@ -556,6 +582,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 values.Add(_service.UrlGenerator?.GetSolutionComponentUrl(this.ComponentTypeEnum.Value, entity.Id));
             }
+        }
+
+        public static string GetSchemaNameFromXml(XElement elementRootComponent)
+        {
+            var elementSchemaName = elementRootComponent.Attribute("schemaName");
+
+            return elementSchemaName?.Value;
+        }
+
+        public static int? GetBehaviorFromXml(XElement elementRootComponent)
+        {
+            int? result = null;
+
+            var elementBehavior = elementRootComponent.Attribute("behavior");
+
+            if (elementBehavior != null && int.TryParse(elementBehavior.Value, out var tempInt))
+            {
+                result = tempInt;
+            }
+
+            return result;
+        }
+
+        public static string GetAttributeValue(XElement elementRootComponent, string attributeName)
+        {
+            var elementSchemaName = elementRootComponent.Attribute(attributeName);
+
+            return elementSchemaName?.Value;
+        }
+
+        public static Guid? GetIdFromXml(XElement elementRootComponent)
+        {
+            Guid? result = null;
+
+            var elementId = elementRootComponent.Attribute("id");
+
+            if (elementId != null && Guid.TryParse(elementId.Value, out var tempGuid))
+            {
+                result = tempGuid;
+            }
+
+            return result;
         }
     }
 }

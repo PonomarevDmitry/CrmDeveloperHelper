@@ -112,6 +112,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 NoLock = true,
 
+                TopCount = 2,
+
                 EntityName = SdkMessageFilter.EntityLogicalName,
 
                 ColumnSet = new ColumnSet(true),
@@ -125,15 +127,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode, ConditionOperator.Equal, secondaryEntity),
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntityReference()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntityReference()).SingleOrDefault();
         }
 
         public Task<List<SdkMessageFilter>> GetMessageFiltersByIdsAsync(Guid[] ids)
@@ -255,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageFilter>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageFilter>()).SingleOrDefault();
         }
     }
 }

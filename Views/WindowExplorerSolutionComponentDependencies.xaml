@@ -29,9 +29,9 @@
         </ContextMenu>
     </src:WindowBase.Resources>
     <Grid>
-        <TextBox x:Name="txtBComponentDescription" Height="50" Margin="10,10,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" VerticalContentAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" />
+        <TextBox x:Name="txtBComponentDescription" Height="50" Margin="10,10,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" />
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFilter" Height="23" Margin="52,65,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        <TextBox x:Name="txtBFilter" Height="23" Margin="52,65,10,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
         <Grid Margin="10,88,10,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

@@ -853,7 +853,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _commonConfig.Save();
 
-                var dialog = new WindowSelectEntityIdToFind(_commonConfig, string.Format("Find Entity in {0} by Id", connection1.Name));
+                var dialog = new WindowSelectEntityIdToFind(_commonConfig, connection1, string.Format("Find Entity in {0} by Id", connection1.Name));
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
@@ -889,7 +889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _commonConfig.Save();
 
-                var dialog = new WindowSelectEntityIdToFind(_commonConfig, string.Format("Find Entity in {0} by Uniqueidentifier", connection1.Name));
+                var dialog = new WindowSelectEntityIdToFind(_commonConfig, connection1, string.Format("Find Entity in {0} by Uniqueidentifier", connection1.Name));
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {

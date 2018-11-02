@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
 {
@@ -117,12 +118,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     new OrderExpression(Role.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                }
             };
 
             return query;
@@ -205,8 +200,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return;
             }
 
-            if (!string.IsNullOrEmpty(solutionImageComponent.SchemaName)
-                && Guid.TryParse(solutionImageComponent.SchemaName, out var roleTemplateId))
+            if (FillSolutionComponentFromSchemaName(result, solutionImageComponent.SchemaName, solutionImageComponent.RootComponentBehavior))
+            {
+                return;
+            }
+
+            base.FillSolutionComponent(result, solutionImageComponent);
+        }
+
+        public override void FillSolutionComponentFromXml(ICollection<SolutionComponent> result, XElement elementRootComponent, XDocument docCustomizations)
+        {
+            var parentId = GetAttributeValue(elementRootComponent, "parentId");
+            var behavior = GetBehaviorFromXml(elementRootComponent);
+
+            if (FillSolutionComponentFromSchemaName(result, parentId, behavior))
+            {
+                return;
+            }
+
+            base.FillSolutionComponentFromXml(result, elementRootComponent, docCustomizations);
+        }
+
+        private bool FillSolutionComponentFromSchemaName(ICollection<SolutionComponent> result, string schemaName, int? behavior)
+        {
+            if (!string.IsNullOrEmpty(schemaName)
+                && Guid.TryParse(schemaName, out var roleTemplateId))
             {
                 var repository = new RoleRepository(_service);
 
@@ -214,25 +232,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 if (entity != null)
                 {
-                    var component = new SolutionComponent()
-                    {
-                        ComponentType = new OptionSetValue(this.ComponentTypeValue),
-                        ObjectId = entity.Id,
-                        RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
-                    };
+                    FillSolutionComponentInternal(result, entity.Id, behavior);
 
-                    if (solutionImageComponent.RootComponentBehavior.HasValue)
-                    {
-                        component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
-                    }
-
-                    result.Add(component);
-
-                    return;
+                    return true;
                 }
             }
 
-            base.FillSolutionComponent(result, solutionImageComponent);
+            return false;
         }
 
         public override TupleList<string, string> GetComponentColumns()

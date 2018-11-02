@@ -506,6 +506,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 NoLock = true,
 
+                TopCount = 2,
+
                 EntityName = SdkMessageProcessingStep.EntityLogicalName,
 
                 ColumnSet = new ColumnSet(true),
@@ -614,7 +616,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageProcessingStep>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageProcessingStep>()).SingleOrDefault();
         }
 
         private SdkMessageProcessingStep GetLinked2(Guid id)
@@ -622,6 +624,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             QueryExpression query = new QueryExpression()
             {
                 NoLock = true,
+
+                TopCount = 2,
 
                 EntityName = SdkMessageProcessingStep.EntityLogicalName,
 
@@ -725,7 +729,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageProcessingStep>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageProcessingStep>()).SingleOrDefault();
         }
 
         public static string GetStageName(int stage, int? mode)

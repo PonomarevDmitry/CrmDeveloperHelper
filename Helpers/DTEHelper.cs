@@ -2505,7 +2505,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
             {
-                var dialog = new WindowSelectEntityIdToFind(commonConfig, string.Format("Find Entity in {0} by Id", crmConfig.CurrentConnectionData.Name));
+                var dialog = new WindowSelectEntityIdToFind(commonConfig, crmConfig.CurrentConnectionData, string.Format("Find Entity in {0} by Id", crmConfig.CurrentConnectionData.Name));
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
@@ -2539,7 +2539,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
             {
-                var dialog = new WindowSelectEntityIdToFind(commonConfig, string.Format("Find Entity in {0} by Uniqueidentifier", crmConfig.CurrentConnectionData.Name));
+                var dialog = new WindowSelectEntityIdToFind(commonConfig, crmConfig.CurrentConnectionData, string.Format("Find Entity in {0} by Uniqueidentifier", crmConfig.CurrentConnectionData.Name));
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {

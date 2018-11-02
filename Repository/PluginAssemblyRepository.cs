@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             );
 
-            var metadata = response.EntityMetadata.FirstOrDefault(e => string.Equals(e.LogicalName, PluginAssembly.EntityLogicalName, StringComparison.OrdinalIgnoreCase));
+            var metadata = response.EntityMetadata.SingleOrDefault(e => string.Equals(e.LogicalName, PluginAssembly.EntityLogicalName, StringComparison.OrdinalIgnoreCase));
 
             if (metadata == null)
             {
@@ -274,9 +274,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                ColumnSet = new ColumnSet(GetAttributes(_service)),
+                NoLock = true,
+
+                TopCount = 2,
 
                 EntityName = PluginAssembly.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(GetAttributes(_service)),
 
                 Criteria =
                 {
@@ -286,15 +290,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(PluginAssembly.Schema.Attributes.name, ConditionOperator.Equal, name),
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginAssembly>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginAssembly>()).SingleOrDefault();
         }
 
         public Task<PluginAssembly> GetAssemblyByIdAsync(Guid id, ColumnSet columnSet = null)
@@ -320,9 +318,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_service)),
+                NoLock = true,
+
+                TopCount = 2,
 
                 EntityName = PluginAssembly.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_service)),
 
                 Criteria =
                 {
@@ -336,15 +338,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(PluginAssembly.Schema.Attributes.publickeytoken, ConditionOperator.Equal, publicKeyTokenString),
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginAssembly>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginAssembly>()).SingleOrDefault();
         }
     }
 }

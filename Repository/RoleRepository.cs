@@ -1,4 +1,3 @@
-﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -25,9 +24,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<Role>> GetListAsync()
+        public Task<List<Role>> GetListAsync(ColumnSet columnSet)
         {
-            return Task.Run(() => GetList());
+            return Task.Run(() => GetList(columnSet));
         }
 
         /// <summary>
@@ -35,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private List<Role> GetList()
+        private List<Role> GetList(ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -43,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = Role.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = columnSet ?? new ColumnSet(true),
 
                 Criteria =
                 {
@@ -93,6 +92,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 NoLock = true,
 
+                TopCount = 2,
+
                 EntityName = Role.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
@@ -105,24 +106,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(Role.Schema.Attributes.roletemplateid, ConditionOperator.Equal, roleTemplateId),
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var coll = _service.RetrieveMultiple(query).Entities;
-
-            if (coll.Count == 1)
-            {
-                return coll.Select(e => e.ToEntity<Role>()).FirstOrDefault();
-            }
-            else
-            {
-                return null;
-            }
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Role>()).SingleOrDefault();
         }
     }
 }

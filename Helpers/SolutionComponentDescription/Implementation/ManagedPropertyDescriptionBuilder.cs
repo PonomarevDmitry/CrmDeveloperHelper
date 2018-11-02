@@ -10,6 +10,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
 {
@@ -106,25 +107,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return;
             }
 
-            if (this.AllManagedProperties != null && this.AllManagedProperties.Any())
+            if (this.AllManagedProperties != null
+                && this.AllManagedProperties.Any()
+                && this.AllManagedProperties.ContainsKey(solutionImageComponent.ObjectId.Value)
+                )
             {
-                if (this.AllManagedProperties.ContainsKey(solutionImageComponent.ObjectId.Value))
-                {
-                    var component = new SolutionComponent()
-                    {
-                        ComponentType = new OptionSetValue(this.ComponentTypeValue),
-                        ObjectId = solutionImageComponent.ObjectId.Value,
-                        RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
-                    };
-
-                    if (solutionImageComponent.RootComponentBehavior.HasValue)
-                    {
-                        component.RootComponentBehavior = new OptionSetValue(solutionImageComponent.RootComponentBehavior.Value);
-                    }
-
-                    result.Add(component);
-                }
+                FillSolutionComponentInternal(result, solutionImageComponent.ObjectId.Value, solutionImageComponent.RootComponentBehavior);
             }
+        }
+
+        public void FillSolutionComponentFromXml(ICollection<SolutionComponent> result, XElement elementRootComponent, XDocument docCustomizations)
+        {
+            if (elementRootComponent == null)
+            {
+                return;
+            }
+
+            var id = DefaultSolutionComponentDescriptionBuilder.GetIdFromXml(elementRootComponent);
+
+            if (id.HasValue
+                && this.AllManagedProperties != null
+                && this.AllManagedProperties.Any()
+                && this.AllManagedProperties.ContainsKey(id.Value)
+                )
+            {
+                int? behaviour = DefaultSolutionComponentDescriptionBuilder.GetBehaviorFromXml(elementRootComponent);
+
+                FillSolutionComponentInternal(result, id.Value, behaviour);
+            }
+        }
+
+        private void FillSolutionComponentInternal(ICollection<SolutionComponent> result, Guid objectId, int? behaviour)
+        {
+            var component = new SolutionComponent()
+            {
+                ComponentType = new OptionSetValue(this.ComponentTypeValue),
+                ObjectId = objectId,
+                RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+            };
+
+            if (behaviour.HasValue)
+            {
+                component.RootComponentBehavior = new OptionSetValue(behaviour.Value);
+            }
+
+            result.Add(component);
         }
 
         public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)

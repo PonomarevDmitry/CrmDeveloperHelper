@@ -432,17 +432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private EntityViewItem GetSelectedEntity()
         {
-            EntityViewItem result = null;
-
-            if (this.lstVwSavedQueries.SelectedItems.Count == 1
-                && this.lstVwSavedQueries.SelectedItems[0] != null
-                && this.lstVwSavedQueries.SelectedItems[0] is EntityViewItem
-                )
-            {
-                result = (this.lstVwSavedQueries.SelectedItems[0] as EntityViewItem);
-            }
-
-            return result;
+            return this.lstVwSavedQueries.SelectedItems.OfType<EntityViewItem>().SingleOrDefault();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
