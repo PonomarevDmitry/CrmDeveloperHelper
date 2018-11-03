@@ -1,6 +1,4 @@
-﻿using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Metadata;
-using Microsoft.Xrm.Sdk.Query;
+using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
@@ -20,7 +18,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -792,23 +789,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _service.UrlGenerator.OpenSolutionComponentInWeb((ComponentType)entity.SolutionComponent.ComponentType.Value, entity.SolutionComponent.ObjectId.Value);
         }
 
-        private void AddIntoSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddIntoSolution_Click(object sender, RoutedEventArgs e)
         {
-            AddIntoSolution(true, null);
+            await AddIntoSolution(true, null);
         }
 
-        private void AddIntoSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddIntoSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
               && menuItem.Tag != null
               && menuItem.Tag is string solutionUniqueName
               )
             {
-                AddIntoSolution(false, solutionUniqueName);
+                await AddIntoSolution(false, solutionUniqueName);
             }
         }
 
-        private void AddIntoSolution(bool withSelect, string solutionUniqueName)
+        private async Task AddIntoSolution(bool withSelect, string solutionUniqueName)
         {
             var solutionComponents = lstVSolutionComponents.SelectedItems.OfType<SolutionComponentViewItem>().Select(en => en.SolutionComponent).ToList();
 
@@ -819,26 +816,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var backWorker = new Thread(() =>
+            try
             {
-                try
-                {
-                    this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow();
 
-                    var contr = new SolutionController(this._iWriteToOutput);
-
-                    contr.ExecuteAddingComponentesIntoSolution(_service.ConnectionData, _commonConfig, solutionUniqueName, solutionComponents, withSelect);
-                }
-                catch (Exception ex)
-                {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
-                }
-            });
-
-            backWorker.Start();
+                await SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, _service, _descriptor, _commonConfig, solutionUniqueName, solutionComponents, withSelect);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
         }
 
-        private void AddIntoCurrentSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddIntoCurrentSolution_Click(object sender, RoutedEventArgs e)
         {
             if (GetSolutionComponentsType() == SolutionComponentsType.SolutionComponents)
             {
@@ -864,23 +854,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var backWorker = new Thread(() =>
+            try
             {
-                try
-                {
-                    this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow();
 
-                    var contr = new SolutionController(this._iWriteToOutput);
-
-                    contr.ExecuteAddingComponentesIntoSolution(_service.ConnectionData, _commonConfig, _solution.UniqueName, solutionComponents, false);
-                }
-                catch (Exception ex)
-                {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
-                }
-            });
-
-            backWorker.Start();
+                await SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, _service, _descriptor, _commonConfig, _solution.UniqueName, solutionComponents, false);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
@@ -1627,23 +1610,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                var backWorker = new Thread(() =>
-                {
-                    try
-                    {
-                        this._iWriteToOutput.ActivateOutputWindow();
+                _commonConfig.Save();
 
-                        var contr = new SolutionController(this._iWriteToOutput);
+                this._iWriteToOutput.ActivateOutputWindow();
 
-                        contr.ExecuteAddingComponentesIntoSolution(_service.ConnectionData, _commonConfig, _solution.UniqueName, solutionComponents, false);
-                    }
-                    catch (Exception ex)
-                    {
-                        this._iWriteToOutput.WriteErrorToOutput(ex);
-                    }
-                });
-
-                backWorker.Start();
+                await SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, _service, _descriptor, _commonConfig, _solution.UniqueName, solutionComponents, false);
 
                 ToggleControls(true, "Loading components from Solution Image completed.");
             }
@@ -1712,23 +1683,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 UpdateStatus(_iWriteToOutput.WriteToOutput("Adding {0} components into Current Solution.", solutionComponents.Count));
 
-                var backWorker = new Thread(() =>
-                {
-                    try
-                    {
-                        this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow();
 
-                        var contr = new SolutionController(this._iWriteToOutput);
-
-                        contr.ExecuteAddingComponentesIntoSolution(_service.ConnectionData, _commonConfig, _solution.UniqueName, solutionComponents, false);
-                    }
-                    catch (Exception ex)
-                    {
-                        this._iWriteToOutput.WriteErrorToOutput(ex);
-                    }
-                });
-
-                backWorker.Start();
+                await SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, _service, _descriptor, _commonConfig, _solution.UniqueName, solutionComponents, false);
 
                 ToggleControls(true, "Loading components from Zip-file completed.");
             }

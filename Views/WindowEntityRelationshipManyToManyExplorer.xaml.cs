@@ -1,5 +1,4 @@
-﻿using Microsoft.Xrm.Sdk.Metadata;
-using Microsoft.Xrm.Sdk.Query;
+using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
@@ -10,9 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -546,17 +543,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private EntityMetadataViewItem GetSelectedEntity()
         {
-            EntityMetadataViewItem result = null;
-
-            if (this.lstVwEntities.SelectedItems.Count > 0
-                && this.lstVwEntities.SelectedItems[0] != null
-                && this.lstVwEntities.SelectedItems[0] is EntityMetadataViewItem
-                )
-            {
-                result = (this.lstVwEntities.SelectedItems[0] as EntityMetadataViewItem);
-            }
-
-            return result;
+            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().SingleOrDefault();
         }
 
         private List<EntityMetadataViewItem> GetSelectedEntities()
@@ -568,17 +555,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private ManyToManyRelationshipMetadataViewItem GetSelectedEntityRelationship()
         {
-            ManyToManyRelationshipMetadataViewItem result = null;
-
-            if (this.lstVwEntityRelationships.SelectedItems.Count > 0
-                && this.lstVwEntityRelationships.SelectedItems[0] != null
-                && this.lstVwEntityRelationships.SelectedItems[0] is ManyToManyRelationshipMetadataViewItem
-                )
-            {
-                result = (this.lstVwEntityRelationships.SelectedItems[0] as ManyToManyRelationshipMetadataViewItem);
-            }
-
-            return result;
+            return this.lstVwEntityRelationships.SelectedItems.OfType<ManyToManyRelationshipMetadataViewItem>().SingleOrDefault();
         }
 
         private List<ManyToManyRelationshipMetadataViewItem> GetSelectedEntityRelationships()
@@ -1017,23 +994,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            AddIntoSolution(true, null);
+            await AddIntoSolution(true, null);
         }
 
-        private void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag != null
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                AddIntoSolution(false, solutionUniqueName);
+                await AddIntoSolution(false, solutionUniqueName);
             }
         }
 
-        private void AddIntoSolution(bool withSelect, string solutionUniqueName)
+        private async Task AddIntoSolution(bool withSelect, string solutionUniqueName)
         {
             var entityList = GetSelectedEntities();
 
@@ -1044,52 +1021,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            ConnectionData connectionData = null;
+            var service = await GetService();
+            var descriptor = await GetDescriptor();
 
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            try
             {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+                this._iWriteToOutput.ActivateOutputWindow();
 
-            if (connectionData != null)
+                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Entity, entityList.Select(item => item.EntityMetadata.MetadataId.Value).ToList(), null, withSelect);
+            }
+            catch (Exception ex)
             {
-                var backWorker = new Thread(() =>
-                {
-                    try
-                    {
-                        this._iWriteToOutput.ActivateOutputWindow();
-
-                        var contr = new SolutionController(this._iWriteToOutput);
-
-                        contr.ExecuteAddingComponentesIntoSolution(connectionData, _commonConfig, solutionUniqueName, ComponentType.Entity, entityList.Select(item => item.EntityMetadata.MetadataId.Value).ToList(), null, withSelect);
-                    }
-                    catch (Exception ex)
-                    {
-                        this._iWriteToOutput.WriteErrorToOutput(ex);
-                    }
-                });
-
-                backWorker.Start();
+                this._iWriteToOutput.WriteErrorToOutput(ex);
             }
         }
 
-        private void AddEntityRelationshipIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddEntityRelationshipIntoCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            AddEntityRelationshipIntoSolution(true, null);
+            await AddEntityRelationshipIntoSolution(true, null);
         }
 
-        private void AddEntityRelationshipIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddEntityRelationshipIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag != null
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                AddEntityRelationshipIntoSolution(false, solutionUniqueName);
+                await AddEntityRelationshipIntoSolution(false, solutionUniqueName);
             }
         }
 
-        private void AddEntityRelationshipIntoSolution(bool withSelect, string solutionUniqueName)
+        private async Task AddEntityRelationshipIntoSolution(bool withSelect, string solutionUniqueName)
         {
             var entityRelationshipList = GetSelectedEntityRelationships();
 
@@ -1100,32 +1063,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            ConnectionData connectionData = null;
+            var service = await GetService();
+            var descriptor = await GetDescriptor();
 
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            try
             {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+                this._iWriteToOutput.ActivateOutputWindow();
 
-            if (connectionData != null)
+                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.EntityRelationship, entityRelationshipList.Select(item => item.ManyToManyRelationshipMetadata.MetadataId.Value).ToList(), null, withSelect);
+            }
+            catch (Exception ex)
             {
-                var backWorker = new Thread(() =>
-                {
-                    try
-                    {
-                        this._iWriteToOutput.ActivateOutputWindow();
-
-                        var contr = new SolutionController(this._iWriteToOutput);
-
-                        contr.ExecuteAddingComponentesIntoSolution(connectionData, _commonConfig, solutionUniqueName, ComponentType.EntityRelationship, entityRelationshipList.Select(item => item.ManyToManyRelationshipMetadata.MetadataId.Value).ToList(), null, withSelect);
-                    }
-                    catch (Exception ex)
-                    {
-                        this._iWriteToOutput.WriteErrorToOutput(ex);
-                    }
-                });
-
-                backWorker.Start();
+                this._iWriteToOutput.WriteErrorToOutput(ex);
             }
         }
 

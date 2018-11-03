@@ -1,4 +1,4 @@
-﻿using Microsoft.Xrm.Sdk.Metadata;
+using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
@@ -11,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -416,17 +415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private EntityMetadataListViewItem GetSelectedEntity()
         {
-            EntityMetadataListViewItem result = null;
-
-            if (this.lstVwEntities.SelectedItems.Count == 1
-                && this.lstVwEntities.SelectedItems[0] != null
-                && this.lstVwEntities.SelectedItems[0] is EntityMetadataListViewItem
-                )
-            {
-                result = (this.lstVwEntities.SelectedItems[0] as EntityMetadataListViewItem);
-            }
-
-            return result;
+            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataListViewItem>().SingleOrDefault();
         }
 
         #region Кнопки открытия других форм с информация о сущности.
@@ -1049,23 +1038,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            AddIntoSolution(true, null);
+            await AddIntoSolution(true, null);
         }
 
-        private void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag != null
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                AddIntoSolution(false, solutionUniqueName);
+                await AddIntoSolution(false, solutionUniqueName);
             }
         }
 
-        private void AddIntoSolution(bool withSelect, string solutionUniqueName)
+        private async Task AddIntoSolution(bool withSelect, string solutionUniqueName)
         {
             var entity = GetSelectedEntity();
 
@@ -1076,32 +1065,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            ConnectionData connectionData = null;
+            var service = await GetService();
+            var descriptor = await GetDescriptor();
 
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            try
             {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+                this._iWriteToOutput.ActivateOutputWindow();
 
-            if (connectionData != null)
+                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entity.EntityMetadata.MetadataId.Value }, null, withSelect);
+            }
+            catch (Exception ex)
             {
-                var backWorker = new Thread(() =>
-                {
-                    try
-                    {
-                        this._iWriteToOutput.ActivateOutputWindow();
-
-                        var contr = new SolutionController(this._iWriteToOutput);
-
-                        contr.ExecuteAddingComponentesIntoSolution(connectionData, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entity.EntityMetadata.MetadataId.Value }, null, withSelect);
-                    }
-                    catch (Exception ex)
-                    {
-                        this._iWriteToOutput.WriteErrorToOutput(ex);
-                    }
-                });
-
-                backWorker.Start();
+                this._iWriteToOutput.WriteErrorToOutput(ex);
             }
         }
 

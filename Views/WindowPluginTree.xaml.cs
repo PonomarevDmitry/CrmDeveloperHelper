@@ -11,7 +11,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -1651,7 +1650,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -1660,10 +1659,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            AddIntoSolution(nodeItem, true, null);
+            await AddIntoSolution(nodeItem, true, null);
         }
 
-        private void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -1677,55 +1676,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && menuItem.Tag is string solutionUniqueName
                 )
             {
-                AddIntoSolution(nodeItem, false, solutionUniqueName);
+                await AddIntoSolution(nodeItem, false, solutionUniqueName);
             }
         }
 
-        private void AddIntoSolution(PluginTreeViewItem nodeItem, bool withSelect, string solutionUniqueName)
+        private async Task AddIntoSolution(PluginTreeViewItem nodeItem, bool withSelect, string solutionUniqueName)
         {
-            _commonConfig.Save();
+            var service = await GetService();
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            if (service == null)
             {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+                return;
+            }
 
-            if (connectionData != null)
+            ComponentType? componentType = nodeItem.ComponentType;
+            Guid? id = nodeItem.GetId();
+
+            if (componentType == ComponentType.Entity && !string.IsNullOrEmpty(nodeItem.EntityLogicalName))
             {
-                ComponentType? componentType = nodeItem.ComponentType;
-                Guid? id = nodeItem.GetId();
+                id = service.ConnectionData.GetEntityMetadataId(nodeItem.EntityLogicalName);
+            }
 
-                if (componentType == ComponentType.Entity && !string.IsNullOrEmpty(nodeItem.EntityLogicalName))
+            if (componentType.HasValue && id.HasValue)
+            {
+                _commonConfig.Save();
+
+                try
                 {
-                    id = connectionData.GetEntityMetadataId(nodeItem.EntityLogicalName);
+                    this._iWriteToOutput.ActivateOutputWindow();
+
+                    await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, componentType.Value, new[] { id.Value }, null, withSelect);
                 }
-
-                if (componentType.HasValue && id.HasValue)
+                catch (Exception ex)
                 {
-                    var backWorker = new Thread(() =>
-                    {
-                        try
-                        {
-                            this._iWriteToOutput.ActivateOutputWindow();
-
-                            var contr = new SolutionController(this._iWriteToOutput);
-
-                            contr.ExecuteAddingComponentesIntoSolution(connectionData, _commonConfig, solutionUniqueName, componentType.Value, new[] { id.Value }, null, withSelect);
-                        }
-                        catch (Exception ex)
-                        {
-                            this._iWriteToOutput.WriteErrorToOutput(ex);
-                        }
-                    });
-
-                    backWorker.Start();
+                    this._iWriteToOutput.WriteErrorToOutput(ex);
                 }
             }
         }
 
-        private void mIAddPluginTypeStepsIntoSolution_Click(object sender, RoutedEventArgs e)
+        private async void mIAddPluginTypeStepsIntoSolution_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -1734,10 +1723,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            AddPluginTypeStepsIntoSolution(nodeItem.PluginType.Value, true, null);
+            await AddPluginTypeStepsIntoSolution(nodeItem.PluginType.Value, true, null);
         }
 
-        private void mIAddPluginTypeStepsIntoSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void mIAddPluginTypeStepsIntoSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -1751,7 +1740,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                AddPluginTypeStepsIntoSolution(nodeItem.PluginType.Value, false, solutionUniqueName);
+                await AddPluginTypeStepsIntoSolution(nodeItem.PluginType.Value, false, solutionUniqueName);
             }
         }
 
@@ -1770,26 +1759,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var backWorker = new Thread(() =>
+            try
             {
-                try
-                {
-                    this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow();
 
-                    var contr = new SolutionController(this._iWriteToOutput);
-
-                    contr.ExecuteAddingComponentesIntoSolution(service.ConnectionData, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
-                }
-                catch (Exception ex)
-                {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
-                }
-            });
-
-            backWorker.Start();
+                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
         }
 
-        private void AddAssemblyIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddAssemblyIntoCrmSolution_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -1798,61 +1780,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            AddPluginTypeStepsIntoSolution(nodeItem.PluginAssembly.Value, true, null);
+            await AddPluginTypeStepsIntoSolution(nodeItem.PluginAssembly.Value, true, null);
         }
 
-        private void AddAssemblyIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
-        {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
-
-            if (nodeItem == null || !nodeItem.PluginAssembly.HasValue)
-            {
-                return;
-            }
-
-            if (sender is MenuItem menuItem
-                && menuItem.Tag != null
-                && menuItem.Tag is string solutionUniqueName
-                )
-            {
-                AddAssemblyIntoSolution(nodeItem.PluginAssembly.Value, false, solutionUniqueName);
-            }
-        }
-
-        private void AddAssemblyIntoSolution(Guid idPluginAssembly, bool withSelect, string solutionUniqueName)
-        {
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
-
-            if (connectionData != null)
-            {
-                _commonConfig.Save();
-
-                var backWorker = new Thread(() =>
-                {
-                    try
-                    {
-                        this._iWriteToOutput.ActivateOutputWindow();
-
-                        var contr = new SolutionController(this._iWriteToOutput);
-
-                        contr.ExecuteAddingComponentesIntoSolution(connectionData, _commonConfig, solutionUniqueName, ComponentType.PluginAssembly, new[] { idPluginAssembly }, null, withSelect);
-                    }
-                    catch (Exception ex)
-                    {
-                        this._iWriteToOutput.WriteErrorToOutput(ex);
-                    }
-                });
-
-                backWorker.Start();
-            }
-        }
-
-        private void mIAddAssemblyStepsIntoSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddAssemblyIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -1866,11 +1797,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && menuItem.Tag is string solutionUniqueName
                 )
             {
-                AddAssemblyStepsIntoSolution(nodeItem.PluginAssembly.Value, false, solutionUniqueName);
+                await AddAssemblyIntoSolution(nodeItem.PluginAssembly.Value, false, solutionUniqueName);
             }
         }
 
-        private void mIAddAssemblyStepsIntoSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async Task AddAssemblyIntoSolution(Guid idPluginAssembly, bool withSelect, string solutionUniqueName)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            try
+            {
+                this._iWriteToOutput.ActivateOutputWindow();
+
+                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.PluginAssembly, new[] { idPluginAssembly }, null, withSelect);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
+        }
+
+        private async void mIAddAssemblyStepsIntoSolution_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -1884,7 +1833,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && menuItem.Tag is string solutionUniqueName
                 )
             {
-                AddAssemblyStepsIntoSolution(nodeItem.PluginAssembly.Value, false, solutionUniqueName);
+                await AddAssemblyStepsIntoSolution(nodeItem.PluginAssembly.Value, false, solutionUniqueName);
+            }
+        }
+
+        private async void mIAddAssemblyStepsIntoSolutionLast_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null || !nodeItem.PluginAssembly.HasValue)
+            {
+                return;
+            }
+
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is string solutionUniqueName
+                )
+            {
+                await AddAssemblyStepsIntoSolution(nodeItem.PluginAssembly.Value, false, solutionUniqueName);
             }
         }
 
@@ -1903,23 +1870,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var backWorker = new Thread(() =>
+            try
             {
-                try
-                {
-                    this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow();
 
-                    var contr = new SolutionController(this._iWriteToOutput);
-
-                    contr.ExecuteAddingComponentesIntoSolution(service.ConnectionData, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
-                }
-                catch (Exception ex)
-                {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
-                }
-            });
-
-            backWorker.Start();
+                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
         }
     }
 }

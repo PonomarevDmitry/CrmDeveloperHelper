@@ -307,7 +307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (solution == null)
             {
-                var t = new Thread((ThreadStart)(() =>
+                var t = new Thread(() =>
                 {
                     try
                     {
@@ -321,7 +321,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         DTEHelper.WriteExceptionToOutput(ex);
                     }
-                }));
+                });
                 t.SetApartmentState(ApartmentState.STA);
                 t.Start();
 
@@ -488,7 +488,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (solution == null)
             {
-                var t = new Thread((ThreadStart)(() =>
+                var t = new Thread(() =>
                 {
                     try
                     {
@@ -502,7 +502,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         DTEHelper.WriteExceptionToOutput(ex);
                     }
-                }));
+                });
                 t.SetApartmentState(ApartmentState.STA);
                 t.Start();
 
@@ -565,229 +565,213 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление компонентов в решение.
 
-        public async Task ExecuteAddingComponentesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ComponentType componentType, IEnumerable<Guid> selectedObjects, RootComponentBehavior? rootComponentBehavior, bool withSelect)
+        public static async Task AddSolutionComponentsGroupIntoSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, ComponentType componentType, IEnumerable<Guid> selectedObjects, RootComponentBehavior? rootComponentBehavior, bool withSelect)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            iWriteToOutput.WriteToOutput("*********** Start Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
-                await AddingComponentsIntoSolution(connectionData, commonConfig, solutionUniqueName, componentType, selectedObjects, rootComponentBehavior, withSelect);
+                if (!selectedObjects.Any())
+                {
+                    iWriteToOutput.WriteToOutput("No Objects to add.");
+                    return;
+                }
+
+                if (descriptor == null)
+                {
+                    descriptor = new SolutionComponentDescriptor(service, true);
+                }
+
+                // Репозиторий для работы с веб-ресурсами
+                var reportRepository = new ReportRepository(service);
+
+                var dictForAdding = new HashSet<Guid>();
+
+                if (SolutionComponent.IsComponentTypeMetadata(componentType))
+                {
+                    foreach (var item in selectedObjects)
+                    {
+                        dictForAdding.Add(item);
+                    }
+                }
+                else
+                {
+                    var entities = descriptor.GetEntities<Entity>((int)componentType, selectedObjects.Select(e => (Guid?)e));
+
+                    foreach (var entity in entities)
+                    {
+                        dictForAdding.Add(entity.Id);
+                    }
+                }
+
+                service.ConnectionData.ConnectionConfiguration.Save();
+
+                if (!dictForAdding.Any())
+                {
+                    iWriteToOutput.WriteToOutput("No Objects to add.");
+                    return;
+                }
+
+                Solution solution = null;
+
+                if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
+                {
+                    var repositorySolution = new SolutionRepository(service);
+
+                    solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
+
+                    if (solution != null && solution.IsManaged.GetValueOrDefault())
+                    {
+                        solution = null;
+                    }
+                }
+
+                if (solution == null)
+                {
+                    var t = new Thread(() =>
+                    {
+                        try
+                        {
+                            var formSelectSolution = new WindowSolutionSelect(iWriteToOutput, service);
+
+                            formSelectSolution.ShowDialog().GetValueOrDefault();
+
+                            solution = formSelectSolution.SelectedSolution;
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(ex);
+                        }
+                    });
+                    t.SetApartmentState(ApartmentState.STA);
+                    t.Start();
+
+                    t.Join();
+                }
+                else
+                {
+                    iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData.ConnectionId, solution.UniqueName, service.ConnectionData.GetSolutionUrl(solution.Id));
+                }
+
+                if (solution == null)
+                {
+                    iWriteToOutput.WriteToOutput("Solution not selected.");
+                    return;
+                }
+
+                service.ConnectionData.AddLastSelectedSolution(solution.UniqueName);
+                service.ConnectionData.ConnectionConfiguration.Save();
+
+                var solutionRep = new SolutionComponentRepository(service);
+
+                var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, componentType);
+
+                foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
+                {
+                    if (dictForAdding.Contains(item))
+                    {
+                        dictForAdding.Remove(item);
+                    }
+                }
+
+                if (!dictForAdding.Any())
+                {
+                    iWriteToOutput.WriteToOutput("No Objects to add. All components already in Solution {0}", solution.UniqueName);
+                    return;
+                }
+
+                OptionSetValue rootBehavior = null;
+
+                if (rootComponentBehavior.HasValue)
+                {
+                    rootBehavior = new OptionSetValue((int)rootComponentBehavior.Value);
+                }
+
+                var componentsToAdd = dictForAdding.Select(e => new SolutionComponent(new
+                {
+                    ObjectId = e,
+                    ComponentType = new OptionSetValue((int)componentType),
+                    RootComponentBehavior = rootBehavior,
+                })).ToList();
+
+                iWriteToOutput.WriteToOutput("Components to add into Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
+
+                var desc = await descriptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
+
+                if (!string.IsNullOrEmpty(desc))
+                {
+                    iWriteToOutput.WriteToOutput(desc);
+                }
+
+                await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
             }
             catch (Exception xE)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                iWriteToOutput.WriteErrorToOutput(xE);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                iWriteToOutput.WriteToOutput("*********** End Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
         }
 
-        private async Task AddingComponentsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ComponentType componentType, IEnumerable<Guid> selectedObjects, RootComponentBehavior? rootComponentBehavior, bool withSelect)
+        public static async Task AddSolutionComponentsCollectionIntoSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SolutionComponent> components, bool withSelect)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
-                return;
-            }
-
-            if (!selectedObjects.Any())
-            {
-                this._iWriteToOutput.WriteToOutput("No Objects to add.");
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
-
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
-
-            // Репозиторий для работы с веб-ресурсами
-            var reportRepository = new ReportRepository(service);
-
-            var dictForAdding = new HashSet<Guid>();
-
-            var solutionDesciptor = new SolutionComponentDescriptor(service, true);
-
-            if (SolutionComponent.IsComponentTypeMetadata(componentType))
-            {
-                foreach (var item in selectedObjects)
-                {
-                    dictForAdding.Add(item);
-                }
-            }
-            else
-            {
-                var entities = solutionDesciptor.GetEntities<Entity>((int)componentType, selectedObjects.Select(e => (Guid?)e));
-
-                foreach (var entity in entities)
-                {
-                    dictForAdding.Add(entity.Id);
-                }
-            }
-
-            connectionData.ConnectionConfiguration.Save();
-
-            if (!dictForAdding.Any())
-            {
-                this._iWriteToOutput.WriteToOutput("No Objects to add.");
-                return;
-            }
-
-            Solution solution = null;
-
-            if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
-            {
-                var repositorySolution = new SolutionRepository(service);
-
-                solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
-
-                if (solution != null && solution.IsManaged.GetValueOrDefault())
-                {
-                    solution = null;
-                }
-            }
-
-            if (solution == null)
-            {
-                var t = new Thread((ThreadStart)(() =>
-                {
-                    try
-                    {
-                        var formSelectSolution = new WindowSolutionSelect(_iWriteToOutput, service);
-
-                        formSelectSolution.ShowDialog().GetValueOrDefault();
-
-                        solution = formSelectSolution.SelectedSolution;
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(ex);
-                    }
-                }));
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
-
-                t.Join();
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
-            }
-
-            if (solution == null)
-            {
-                this._iWriteToOutput.WriteToOutput("Solution not selected.");
-                return;
-            }
-
-            connectionData.AddLastSelectedSolution(solution.UniqueName);
-            connectionData.ConnectionConfiguration.Save();
-
-            var solutionRep = new SolutionComponentRepository(service);
-
-            var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, componentType);
-
-            foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
-            {
-                if (dictForAdding.Contains(item))
-                {
-                    dictForAdding.Remove(item);
-                }
-            }
-
-            if (!dictForAdding.Any())
-            {
-                this._iWriteToOutput.WriteToOutput("No Objects to add. All components already in Solution {0}", solution.UniqueName);
-                return;
-            }
-
-            OptionSetValue rootBehavior = null;
-
-            if (rootComponentBehavior.HasValue)
-            {
-                rootBehavior = new OptionSetValue((int)rootComponentBehavior.Value);
-            }
-
-            var componentsToAdd = dictForAdding.Select(e => new SolutionComponent(new
-            {
-                ObjectId = e,
-                ComponentType = new OptionSetValue((int)componentType),
-                RootComponentBehavior = rootBehavior,
-            })).ToList();
-
-            this._iWriteToOutput.WriteToOutput("Components to add into Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
-
-            var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
-
-            if (!string.IsNullOrEmpty(desc))
-            {
-                _iWriteToOutput.WriteToOutput(desc);
-            }
-
-            await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
-        }
-
-        #endregion Добавление компонентов в решение.
-
-        #region Добавление компонентов в решение.
-
-        public async Task ExecuteAddingComponentesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SolutionComponent> components, bool withSelect)
-        {
-            this._iWriteToOutput.WriteToOutput("*********** Start Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            iWriteToOutput.WriteToOutput("*********** Start Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
-                await AddingComponentsIntoSolution(connectionData, commonConfig, solutionUniqueName, components, withSelect);
-            }
-            catch (Exception xE)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutput("*********** End Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-            }
-        }
-
-        private async Task AddingComponentsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SolutionComponent> components, bool withSelect)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
-                return;
-            }
-
-            if (!components.Any())
-            {
-                this._iWriteToOutput.WriteToOutput("No Objects to add.");
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
-
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
-
-            var dictForAdding = new HashSet<Tuple<int, Guid>>();
-
-            var solutionDesciptor = new SolutionComponentDescriptor(service, true);
-
-            foreach (var grComponents in components.Where(en => en.ObjectId.HasValue && en.ComponentType != null).GroupBy(en => en.ComponentType.Value))
-            {
-                if (SolutionComponent.IsDefinedComponentType(grComponents.Key))
+                if (!components.Any())
                 {
-                    var componentType = (ComponentType)grComponents.Key;
+                    iWriteToOutput.WriteToOutput("No Objects to add.");
+                    return;
+                }
 
-                    if (SolutionComponent.IsComponentTypeMetadata(componentType))
+                if (descriptor == null)
+                {
+                    descriptor = new SolutionComponentDescriptor(service, true);
+                }
+
+                var dictForAdding = new HashSet<Tuple<int, Guid>>();
+
+                var solutionDesciptor = new SolutionComponentDescriptor(service, true);
+
+                foreach (var grComponents in components.Where(en => en.ObjectId.HasValue && en.ComponentType != null).GroupBy(en => en.ComponentType.Value))
+                {
+                    if (SolutionComponent.IsDefinedComponentType(grComponents.Key))
+                    {
+                        var componentType = (ComponentType)grComponents.Key;
+
+                        if (SolutionComponent.IsComponentTypeMetadata(componentType))
+                        {
+                            foreach (var item in grComponents)
+                            {
+                                var key = Tuple.Create(item.ComponentType.Value, item.ObjectId.Value);
+
+                                dictForAdding.Add(key);
+                            }
+                        }
+                        else
+                        {
+                            var entities = solutionDesciptor.GetEntities<Entity>((int)componentType, grComponents.Select(e => e.ObjectId));
+
+                            if (entities != null)
+                            {
+                                var hash = new HashSet<Guid>(entities.Select(en => en.Id));
+
+                                foreach (var item in grComponents)
+                                {
+                                    if (hash.Contains(item.ObjectId.Value))
+                                    {
+                                        var key = Tuple.Create(item.ComponentType.Value, item.ObjectId.Value);
+
+                                        dictForAdding.Add(key);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
                     {
                         foreach (var item in grComponents)
                         {
@@ -796,126 +780,106 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             dictForAdding.Add(key);
                         }
                     }
-                    else
+                }
+
+                service.ConnectionData.ConnectionConfiguration.Save();
+
+                if (!dictForAdding.Any())
+                {
+                    iWriteToOutput.WriteToOutput("No Objects to add.");
+                    return;
+                }
+
+                Solution solution = null;
+
+                if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
+                {
+                    var repositorySolution = new SolutionRepository(service);
+
+                    solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
+
+                    if (solution != null && solution.IsManaged.GetValueOrDefault())
                     {
-                        var entities = solutionDesciptor.GetEntities<Entity>((int)componentType, grComponents.Select(e => e.ObjectId));
-
-                        if (entities != null)
-                        {
-                            var hash = new HashSet<Guid>(entities.Select(en => en.Id));
-
-                            foreach (var item in grComponents)
-                            {
-                                if (hash.Contains(item.ObjectId.Value))
-                                {
-                                    var key = Tuple.Create(item.ComponentType.Value, item.ObjectId.Value);
-
-                                    dictForAdding.Add(key);
-                                }
-                            }
-                        }
+                        solution = null;
                     }
+                }
+
+                if (solution == null)
+                {
+                    var t = new Thread(() =>
+                    {
+                        try
+                        {
+                            var formSelectSolution = new WindowSolutionSelect(iWriteToOutput, service);
+
+                            formSelectSolution.ShowDialog().GetValueOrDefault();
+
+                            solution = formSelectSolution.SelectedSolution;
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(ex);
+                        }
+                    });
+                    t.SetApartmentState(ApartmentState.STA);
+                    t.Start();
+
+                    t.Join();
                 }
                 else
                 {
-                    foreach (var item in grComponents)
-                    {
-                        var key = Tuple.Create(item.ComponentType.Value, item.ObjectId.Value);
+                    iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData.ConnectionId, solution.UniqueName, service.ConnectionData.GetSolutionUrl(solution.Id));
+                }
 
-                        dictForAdding.Add(key);
+                if (solution == null)
+                {
+                    iWriteToOutput.WriteToOutput("Solution not selected.");
+                    return;
+                }
+
+                service.ConnectionData.AddLastSelectedSolution(solution?.UniqueName);
+                service.ConnectionData.ConnectionConfiguration.Save();
+
+                var solutionRep = new SolutionComponentRepository(service);
+
+                {
+                    var solutionComponents = await solutionRep.GetSolutionComponentsAsync(solution.Id);
+
+                    foreach (var item in solutionComponents.Where(s => s.ObjectId.HasValue && s.ComponentType != null))
+                    {
+                        dictForAdding.Remove(Tuple.Create(item.ComponentType.Value, item.ObjectId.Value));
                     }
                 }
-            }
 
-            connectionData.ConnectionConfiguration.Save();
-
-            if (!dictForAdding.Any())
-            {
-                this._iWriteToOutput.WriteToOutput("No Objects to add.");
-                return;
-            }
-
-            Solution solution = null;
-
-            if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
-            {
-                var repositorySolution = new SolutionRepository(service);
-
-                solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
-
-                if (solution != null && solution.IsManaged.GetValueOrDefault())
+                if (!dictForAdding.Any())
                 {
-                    solution = null;
+                    iWriteToOutput.WriteToOutput("No Objects to add. All components already in Solution {0}", solution.UniqueName);
+                    return;
                 }
-            }
 
-            if (solution == null)
-            {
-                var t = new Thread((ThreadStart)(() =>
+                var componentsForAdding = new List<SolutionComponent>();
+
+                componentsForAdding.AddRange(components.Where(en => en.ComponentType != null && en.ObjectId.HasValue && dictForAdding.Contains(Tuple.Create(en.ComponentType.Value, en.ObjectId.Value))));
+
+                iWriteToOutput.WriteToOutput("Components to add into Solution {0}: {1}", solution.UniqueName, componentsForAdding.Count);
+
+                var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsForAdding);
+
+                if (!string.IsNullOrEmpty(desc))
                 {
-                    try
-                    {
-                        var formSelectSolution = new WindowSolutionSelect(_iWriteToOutput, service);
-
-                        formSelectSolution.ShowDialog().GetValueOrDefault();
-
-                        solution = formSelectSolution.SelectedSolution;
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(ex);
-                    }
-                }));
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
-
-                t.Join();
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
-            }
-
-            if (solution == null)
-            {
-                this._iWriteToOutput.WriteToOutput("Solution not selected.");
-                return;
-            }
-
-            connectionData.AddLastSelectedSolution(solution?.UniqueName);
-            connectionData.ConnectionConfiguration.Save();
-
-            var solutionRep = new SolutionComponentRepository(service);
-
-            {
-                var solutionComponents = await solutionRep.GetSolutionComponentsAsync(solution.Id);
-
-                foreach (var item in solutionComponents.Where(s => s.ObjectId.HasValue && s.ComponentType != null))
-                {
-                    dictForAdding.Remove(Tuple.Create(item.ComponentType.Value, item.ObjectId.Value));
+                    iWriteToOutput.WriteToOutput(desc);
                 }
-            }
 
-            if (!dictForAdding.Any())
+                await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsForAdding);
+            }
+            catch (Exception xE)
             {
-                this._iWriteToOutput.WriteToOutput("No Objects to add. All components already in Solution {0}", solution.UniqueName);
-                return;
+                iWriteToOutput.WriteErrorToOutput(xE);
             }
-
-            var componentsForAdding = new List<SolutionComponent>();
-
-            componentsForAdding.AddRange(components.Where(en => en.ComponentType != null && en.ObjectId.HasValue && dictForAdding.Contains(Tuple.Create(en.ComponentType.Value, en.ObjectId.Value))));
-
-            this._iWriteToOutput.WriteToOutput("Components to add into Solution {0}: {1}", solution.UniqueName, componentsForAdding.Count);
-
-            var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsForAdding);
-
-            if (!string.IsNullOrEmpty(desc))
+            finally
             {
-                _iWriteToOutput.WriteToOutput(desc);
+                iWriteToOutput.WriteToOutput("*********** End Adding Components into Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
-
-            await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsForAdding);
         }
 
         #endregion Добавление компонентов в решение.
@@ -1010,7 +974,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (solution == null)
                 {
-                    var t = new Thread((ThreadStart)(() =>
+                    var t = new Thread(() =>
                     {
                         try
                         {
@@ -1024,7 +988,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         {
                             DTEHelper.WriteExceptionToOutput(ex);
                         }
-                    }));
+                    });
                     t.SetApartmentState(ApartmentState.STA);
                     t.Start();
 
@@ -1201,7 +1165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (solution == null)
             {
-                var t = new Thread((ThreadStart)(() =>
+                var t = new Thread(() =>
                 {
                     try
                     {
@@ -1215,7 +1179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         DTEHelper.WriteExceptionToOutput(ex);
                     }
-                }));
+                });
                 t.SetApartmentState(ApartmentState.STA);
                 t.Start();
 
@@ -1412,7 +1376,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (solution == null)
             {
-                var t = new Thread((ThreadStart)(() =>
+                var t = new Thread(() =>
                 {
                     try
                     {
@@ -1426,7 +1390,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         DTEHelper.WriteExceptionToOutput(ex);
                     }
-                }));
+                });
                 t.SetApartmentState(ApartmentState.STA);
                 t.Start();
 

@@ -1,4 +1,4 @@
-﻿using Microsoft.Xrm.Sdk.Query;
+using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
@@ -13,7 +13,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -376,17 +375,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private SystemForm GetSelectedEntity()
         {
-            SystemForm result = null;
-
-            if (this.lstVwSystemForms.SelectedItems.Count == 1
-                && this.lstVwSystemForms.SelectedItems[0] != null
-                && this.lstVwSystemForms.SelectedItems[0] is EntityViewItem
-                )
-            {
-                result = (this.lstVwSystemForms.SelectedItems[0] as EntityViewItem).SystemForm;
-            }
-
-            return result;
+            return this.lstVwSystemForms.SelectedItems.OfType<EntityViewItem>().Select(e => e.SystemForm).SingleOrDefault();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -1308,23 +1297,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            AddIntoSolution(true, null);
+            await AddIntoSolution(true, null);
         }
 
-        private void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
                 && menuItem.Tag is string solutionUniqueName
                 )
             {
-                AddIntoSolution(false, solutionUniqueName);
+                await AddIntoSolution(false, solutionUniqueName);
             }
         }
 
-        private void AddIntoSolution(bool withSelect, string solutionUniqueName)
+        private async Task AddIntoSolution(bool withSelect, string solutionUniqueName)
         {
             var entity = GetSelectedEntity();
 
@@ -1335,32 +1324,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            ConnectionData connectionData = null;
+            var service = await GetService();
+            var descriptor = await GetDescriptor();
 
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            try
             {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+                this._iWriteToOutput.ActivateOutputWindow();
 
-            if (connectionData != null)
+                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.SystemForm, new[] { entity.Id }, null, withSelect);
+            }
+            catch (Exception ex)
             {
-                var backWorker = new Thread(() =>
-                {
-                    try
-                    {
-                        this._iWriteToOutput.ActivateOutputWindow();
-
-                        var contr = new SolutionController(this._iWriteToOutput);
-
-                        contr.ExecuteAddingComponentesIntoSolution(connectionData, _commonConfig, solutionUniqueName, ComponentType.SystemForm, new[] { entity.Id }, null, withSelect);
-                    }
-                    catch (Exception ex)
-                    {
-                        this._iWriteToOutput.WriteErrorToOutput(ex);
-                    }
-                });
-
-                backWorker.Start();
+                this._iWriteToOutput.WriteErrorToOutput(ex);
             }
         }
 
