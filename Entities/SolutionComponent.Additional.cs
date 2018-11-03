@@ -82,7 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
         public static string GetRootComponentBehaviorName(int? behavior)
         {
-            string result = string.Empty;
+            string result = Entities.RootComponentBehavior.IncludeSubcomponents.ToString();
 
             if (behavior.HasValue)
             {

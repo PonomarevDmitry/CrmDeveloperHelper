@@ -114,7 +114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                     RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
+                    Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
                 };
 
                 if (entity.SignatureId.HasValue && entity.SignatureLcid.HasValue)

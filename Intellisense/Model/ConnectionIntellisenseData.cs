@@ -43,15 +43,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         public void LoadFullData(IEnumerable<EntityMetadata> entityMetadataList)
         {
-            entityMetadataList.AsParallel().ForAll(entityMetadata => {
-
+            foreach (var entityMetadata in entityMetadataList)
+            {
                 if (!this.Entities.ContainsKey(entityMetadata.LogicalName))
                 {
                     this.Entities.TryAdd(entityMetadata.LogicalName, new EntityIntellisenseData());
                 }
 
                 this.Entities[entityMetadata.LogicalName].LoadData(entityMetadata);
-            });
+            }
 
             SaveIntellisenseDataByTime();
         }
@@ -217,7 +217,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     this.Entities = new ConcurrentDictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
                 }
 
-                data.Entities.Values.AsParallel().ForAll(entityData =>
+                foreach (var entityData in data.Entities.Values)
                 {
                     if (!this.Entities.ContainsKey(entityData.EntityLogicalName))
                     {
@@ -227,7 +227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     {
                         this.Entities[entityData.EntityLogicalName].MergeDataFromDisk(entityData);
                     }
-                });
+                }
             }
         }
     }

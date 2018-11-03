@@ -81,7 +81,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     SchemaName = string.Format("{0}, Version={1}, Culture={2}, PublicKeyToken={3}", entity.Name, entity.Version, entity.Culture, entity.PublicKeyToken),
                     RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
+                    Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
                 });
             }
         }

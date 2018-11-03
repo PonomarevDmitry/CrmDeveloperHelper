@@ -59,7 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     ParentSchemaName = metaData.EntityLogicalName,
                     RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
+                    Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
                 });
             }
         }
@@ -102,7 +102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Name", "Behaviour");
+            handler.SetHeader("Name", "IsCustomizable", "Behaviour");
 
             if (withManaged)
             {
@@ -134,6 +134,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     values.AddRange(new[]
                     {
                         string.Format("{0}.{1}", metaData.EntityLogicalName, metaData.LogicalName)
+                        , metaData.IsCustomizable?.Value.ToString()
                         , behavior
                     });
 
@@ -180,7 +181,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 }
 
                 FormatTextTableHandler handler = new FormatTextTableHandler();
-                handler.SetHeader("EntityKeyName", "Behaviour");
+                handler.SetHeader("EntityKeyName", "IsCustomizable", "Behaviour");
 
                 if (withManaged)
                 {
@@ -199,6 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 values.AddRange(new[]
                 {
                     string.Format("{0}.{1}", metaData.EntityLogicalName, metaData.LogicalName)
+                    , metaData.IsCustomizable?.Value.ToString()
                     , behavior
                 });
 

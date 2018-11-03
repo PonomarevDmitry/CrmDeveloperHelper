@@ -187,7 +187,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return Task.Run(() => GetById(idSavedQuery, columnSet));
         }
 
-        private SavedQuery GetById(Guid idSavedQuery, ColumnSet columnSet)
+        public SavedQuery GetById(Guid idSavedQuery, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {

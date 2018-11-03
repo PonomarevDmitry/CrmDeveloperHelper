@@ -43,13 +43,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public string ExecuteUserName { get; set; }
 
         [DataMember]
-        public HashSet<SolutionImageComponent> Components { get; set; }
+        public List<SolutionImageComponent> Components { get; set; }
 
         public string FilePath { get; set; }
 
         public SolutionImage()
         {
-            this.Components = new HashSet<SolutionImageComponent>();
+            this.Components = new List<SolutionImageComponent>();
         }
 
         public Task SaveAsync(string filePath)

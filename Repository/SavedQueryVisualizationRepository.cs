@@ -103,7 +103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return Task.Run(() => GetById(idSavedQueryVisualization, columnSet));
         }
 
-        private SavedQueryVisualization GetById(Guid idSavedQueryVisualization, ColumnSet columnSet)
+        public SavedQueryVisualization GetById(Guid idSavedQueryVisualization, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {

@@ -3,10 +3,12 @@ using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
 {
@@ -81,6 +83,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             return base.GetName(component);
+        }
+
+        public override void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent)
+        {
+            if (solutionComponent == null
+                || !solutionComponent.ObjectId.HasValue
+                )
+            {
+                return;
+            }
+
+            var entity = GetEntity<DisplayString>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                var imageComponent = new SolutionImageComponent()
+                {
+                    ComponentType = this.ComponentTypeValue,
+                    SchemaName = entity.DisplayStringKey,
+                    ParentSchemaName = entity.LanguageCode.ToString(),
+
+                    RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
+
+                    Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
+                };
+
+                result.Add(imageComponent);
+            }
+        }
+
+        public override void FillSolutionComponent(ICollection<SolutionComponent> result, SolutionImageComponent solutionImageComponent)
+        {
+            if (solutionImageComponent == null)
+            {
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(solutionImageComponent.SchemaName)
+                && !string.IsNullOrEmpty(solutionImageComponent.ParentSchemaName)
+                && int.TryParse(solutionImageComponent.ParentSchemaName, out var langCode)
+                )
+            {
+                string key = solutionImageComponent.SchemaName;
+                int? behavior = solutionImageComponent.RootComponentBehavior;
+
+                var repository = new DisplayStringRepository(_service);
+
+                var entity = repository.GetByKeyAndLanguage(key, langCode, new ColumnSet(false));
+
+                if (entity != null)
+                {
+                    FillSolutionComponentInternal(result, entity.Id, behavior);
+                }
+            }
+        }
+
+        public override void FillSolutionComponentFromXml(ICollection<SolutionComponent> result, XElement elementRootComponent, XDocument docCustomizations)
+        {
+            
         }
 
         public override TupleList<string, string> GetComponentColumns()

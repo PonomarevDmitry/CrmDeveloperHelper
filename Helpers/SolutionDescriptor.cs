@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -127,7 +127,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             foreach (var item in imageComponents)
             {
-                image.Components.Add(item);
+                if (!image.Components.Contains(item))
+                {
+                    image.Components.Add(item);
+                }
             }
 
             await image.SaveAsync(filePath);

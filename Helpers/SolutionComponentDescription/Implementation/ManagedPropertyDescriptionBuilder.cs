@@ -94,7 +94,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         ObjectId = solutionComponent.ObjectId.Value,
                         RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                        Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
+                        Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
                     });
                 }
             }

@@ -52,54 +52,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (metaData != null)
             {
-                if (metaData is OneToManyRelationshipMetadata)
+                result.Add(new SolutionImageComponent()
                 {
-                    var relationship = metaData as OneToManyRelationshipMetadata;
+                    ComponentType = (int)ComponentType.EntityRelationship,
+                    SchemaName = metaData.SchemaName,
+                    RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    result.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.EntityRelationship,
-                        SchemaName = relationship.SchemaName,
-                        ParentSchemaName = relationship.ReferencingEntity,
-                        RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
-
-                        Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
-                    });
-
-                    result.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.EntityRelationship,
-                        SchemaName = relationship.SchemaName,
-                        ParentSchemaName = relationship.ReferencedEntity,
-                        RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
-
-                        Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
-                    });
-                }
-                else if (metaData is ManyToManyRelationshipMetadata)
-                {
-                    var relationship = metaData as ManyToManyRelationshipMetadata;
-
-                    result.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.EntityRelationship,
-                        SchemaName = relationship.SchemaName,
-                        ParentSchemaName = relationship.Entity1LogicalName,
-                        RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
-
-                        Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
-                    });
-
-                    result.Add(new SolutionImageComponent()
-                    {
-                        ComponentType = (int)ComponentType.EntityRelationship,
-                        SchemaName = relationship.SchemaName,
-                        ParentSchemaName = relationship.Entity2LogicalName,
-                        RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
-
-                        Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
-                    });
-                }
+                    Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
+                });
             }
         }
 
@@ -291,16 +251,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                     var relationship = metaData as OneToManyRelationshipMetadata;
 
-                    string relName = string.Format("{0}.{1}", relationship.ReferencingEntity, relationship.ReferencingAttribute);
-                    string refEntity = relationship.ReferencedEntity;
-
                     List<string> values = new List<string>();
 
                     values.AddRange(new[]
                     {
-                        relName
+                        string.Format("{0}.{1}", relationship.ReferencingEntity, relationship.ReferencingAttribute)
                         , "Many to One"
-                        , refEntity
                         , relationship.SchemaName
                         , behavior
                         , relationship.IsCustomizable?.Value.ToString()
@@ -313,7 +269,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                     if (withUrls)
                     {
-                        var entityMetadata = _source.GetEntityMetadata(refEntity);
+                        var entityMetadata = _source.GetEntityMetadata(relationship.ReferencedEntity);
                         if (entityMetadata != null)
                         {
                             values.Add(_source.Service.ConnectionData?.GetRelationshipMetadataRelativeUrl(entityMetadata.MetadataId.Value, relationship.MetadataId.Value));
@@ -343,18 +299,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                     var relationship = metaData as ManyToManyRelationshipMetadata;
 
-                    string relName = string.Format("{0} - {1}", relationship.Entity1LogicalName, relationship.Entity2LogicalName);
-
                     List<string> values = new List<string>();
 
                     values.AddRange(new[]
                     {
-                            relName
-                            , "Many to Many"
-                            , relationship.SchemaName
-                            , behavior
-                            , relationship.IsCustomizable?.Value.ToString()
-                        });
+                        string.Format("{0} - {1}", relationship.Entity1LogicalName, relationship.Entity2LogicalName)
+                        , "Many to Many"
+                        , relationship.SchemaName
+                        , behavior
+                        , relationship.IsCustomizable?.Value.ToString()
+                    });
 
                     if (withManaged)
                     {

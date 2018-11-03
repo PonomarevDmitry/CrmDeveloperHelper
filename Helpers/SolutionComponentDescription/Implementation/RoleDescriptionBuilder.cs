@@ -177,7 +177,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     ComponentType = this.ComponentTypeValue,
                     RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
+                    Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
                 };
 
                 if (entity.RoleTemplateId != null)

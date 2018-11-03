@@ -91,5 +91,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return result;
         }
+
+        public DisplayString GetByKeyAndLanguage(string key, int langCode, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = DisplayString.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(DisplayString.Schema.Attributes.displaystringkey, ConditionOperator.Equal, key),
+                        new ConditionExpression(DisplayString.Schema.Attributes.languagecode, ConditionOperator.Equal, langCode),
+                    },
+                },
+            };
+
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<DisplayString>()).SingleOrDefault();
+        }
     }
 }

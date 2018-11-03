@@ -66,7 +66,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 SchemaName = optionSet.Name,
                 RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                Description = GenerateDescriptionSingle(solutionComponent, false, true, true),
+                Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
             });
         }
 
@@ -138,7 +138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             FormatTextTableHandler handlerUnknowed = new FormatTextTableHandler();
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("OptionSetName", "Behaviour");
+            handler.SetHeader("OptionSetName", "IsCustomizable", "Behaviour");
 
             if (withManaged)
             {
@@ -168,6 +168,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     values.AddRange(new[]
                     {
                         optionSet.Name
+                        , optionSet.IsCustomizable?.Value.ToString()
                         , behaviorName
                     });
 
@@ -219,7 +220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     }
 
                     FormatTextTableHandler handler = new FormatTextTableHandler();
-                    handler.SetHeader("OptionSetName", "Behaviour");
+                    handler.SetHeader("OptionSetName", "IsCustomizable", "Behaviour");
 
                     if (withManaged)
                     {
@@ -236,6 +237,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     values.AddRange(new[]
                     {
                         optionSet.Name
+                        , optionSet.IsCustomizable?.Value.ToString()
                         , behaviorName
                     });
 

@@ -16,10 +16,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private readonly IOrganizationServiceExtented _service2;
 
         public SolutionComponentDescriptor Descriptor1 { get; private set; }
+
         public SolutionComponentDescriptor Descriptor2 { get; private set; }
 
-        private readonly List<SolutionComponent> _componentsOnlyIn1;
-        private readonly List<SolutionComponent> _componentsOnlyIn2;
+        private readonly HashSet<SolutionComponent> _componentsOnlyIn1;
+        private readonly HashSet<SolutionComponent> _componentsOnlyIn2;
 
         private readonly TupleList<SolutionComponent, SolutionComponent, string> _componentsDifferent;
 
@@ -39,8 +40,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WithSolutionsInfo = false,
             };
 
-            this._componentsOnlyIn1 = new List<SolutionComponent>();
-            this._componentsOnlyIn2 = new List<SolutionComponent>();
+            this._componentsOnlyIn1 = new HashSet<SolutionComponent>();
+            this._componentsOnlyIn2 = new HashSet<SolutionComponent>();
             this._componentsDifferent = new TupleList<SolutionComponent, SolutionComponent, string>();
         }
 
@@ -53,6 +54,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 MachineName = Environment.MachineName,
                 ExecuteUserDomainName = Environment.UserDomainName,
                 ExecuteUserName = Environment.UserName,
+
+                CreatedOn = now,
 
                 Connection1Image = new SolutionImage()
                 {
@@ -68,6 +71,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     MachineName = Environment.MachineName,
                     ExecuteUserDomainName = Environment.UserDomainName,
                     ExecuteUserName = Environment.UserName,
+
+                    CreatedOn = now,
                 },
 
                 Connection2Image = new SolutionImage()
@@ -82,6 +87,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     MachineName = Environment.MachineName,
                     ExecuteUserDomainName = Environment.UserDomainName,
                     ExecuteUserName = Environment.UserName,
+
+                    CreatedOn = now,
                 },
             };
 
@@ -90,7 +97,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 foreach (var item in list)
                 {
-                    result.Connection1Image.Components.Add(item);
+                    if (!result.Connection1Image.Components.Contains(item))
+                    {
+                        result.Connection1Image.Components.Add(item);
+                    }
                 }
             }
 
@@ -99,7 +109,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 foreach (var item in list)
                 {
-                    result.Connection2Image.Components.Add(item);
+                    if (!result.Connection2Image.Components.Contains(item))
+                    {
+                        result.Connection2Image.Components.Add(item);
+                    }
                 }
             }
 
@@ -122,10 +135,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             DescriptionDifference = item.Item3,
                         };
 
-                        result.DifferentComponents.Add(diff);
+                        if (!result.DifferentComponents.Contains(diff))
+                        {
+                            result.DifferentComponents.Add(diff);
+                        }
                     }
                 }
             }
+
+            var sorter = new SolutionImageComponentSorter();
+
+            result.Connection1Image.Components.Sort(sorter);
+            result.Connection2Image.Components.Sort(sorter);
+            result.DifferentComponents.Sort(sorter);
 
             return result;
         }

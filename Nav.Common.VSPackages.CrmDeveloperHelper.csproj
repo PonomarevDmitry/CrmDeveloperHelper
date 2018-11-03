@@ -656,6 +656,7 @@
     <Compile Include="Helpers\SolutionComponentDescriptor.cs" />
     <Compile Include="Helpers\SolutionDescriptor.cs" />
     <Compile Include="Helpers\OrganizationDifferenceImageBuilder.cs" />
+    <Compile Include="Helpers\SolutionImageComponentSorter.cs" />
     <Compile Include="Helpers\WorkflowUsedEntitiesDescriptor.cs" />
     <Compile Include="Helpers\WorkflowUsedEntitiesHandler.cs" />
     <Compile Include="Intellisense\CrmCompletion.cs" />
