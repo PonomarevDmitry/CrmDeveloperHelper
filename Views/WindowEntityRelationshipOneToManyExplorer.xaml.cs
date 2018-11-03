@@ -347,13 +347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _itemsSourceEntityRelationshipList.Clear();
 
-                if (this.lstVwEntities.SelectedItems.Count == 1
-                    && this.lstVwEntities.SelectedItems[0] != null
-                    && this.lstVwEntities.SelectedItems[0] is EntityMetadataViewItem
-                )
-                {
-                    entityLogicalName = (this.lstVwEntities.SelectedItems[0] as EntityMetadataViewItem).LogicalName;
-                }
+                entityLogicalName = GetSelectedEntity()?.LogicalName;
             });
 
             IEnumerable<OneToManyRelationshipMetadataViewItem> list = Enumerable.Empty<OneToManyRelationshipMetadataViewItem>();
@@ -603,17 +597,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private EntityMetadataViewItem GetSelectedEntity()
         {
-            EntityMetadataViewItem result = null;
-
-            if (this.lstVwEntities.SelectedItems.Count > 0
-                && this.lstVwEntities.SelectedItems[0] != null
-                && this.lstVwEntities.SelectedItems[0] is EntityMetadataViewItem
-                )
-            {
-                result = (this.lstVwEntities.SelectedItems[0] as EntityMetadataViewItem);
-            }
-
-            return result;
+            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().SingleOrDefault();
         }
 
         private List<EntityMetadataViewItem> GetSelectedEntities()
@@ -625,17 +609,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private OneToManyRelationshipMetadataViewItem GetSelectedEntityRelationship()
         {
-            OneToManyRelationshipMetadataViewItem result = null;
-
-            if (this.lstVwEntityRelationships.SelectedItems.Count > 0
-                && this.lstVwEntityRelationships.SelectedItems[0] != null
-                && this.lstVwEntityRelationships.SelectedItems[0] is OneToManyRelationshipMetadataViewItem
-                )
-            {
-                result = (this.lstVwEntityRelationships.SelectedItems[0] as OneToManyRelationshipMetadataViewItem);
-            }
-
-            return result;
+            return this.lstVwEntityRelationships.SelectedItems.OfType<OneToManyRelationshipMetadataViewItem>().SingleOrDefault();
         }
 
         private List<OneToManyRelationshipMetadataViewItem> GetSelectedEntityRelationships()

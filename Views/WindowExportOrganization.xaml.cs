@@ -312,17 +312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Organization GetSelectedEntity()
         {
-            Organization result = null;
-
-            if (this.lstVwOrganizations.SelectedItems.Count == 1
-                && this.lstVwOrganizations.SelectedItems[0] != null
-                && this.lstVwOrganizations.SelectedItems[0] is EntityViewItem
-                )
-            {
-                result = (this.lstVwOrganizations.SelectedItems[0] as EntityViewItem).Organization;
-            }
-
-            return result;
+            return this.lstVwOrganizations.SelectedItems.OfType<EntityViewItem>().Select(e => e.Organization).SingleOrDefault();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

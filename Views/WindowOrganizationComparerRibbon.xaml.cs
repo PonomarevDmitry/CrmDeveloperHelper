@@ -478,30 +478,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private LinkedEntityMetadata GetSelectedEntity()
         {
-            LinkedEntityMetadata result = null;
-
-            if (this.lstVwEntities.SelectedItems.Count == 1
-                && this.lstVwEntities.SelectedItems[0] != null
-                && this.lstVwEntities.SelectedItems[0] is LinkedEntityMetadata
-                )
-            {
-                result = (this.lstVwEntities.SelectedItems[0] as LinkedEntityMetadata);
-            }
-
-            return result;
-        }
-
-        private LinkedEntityMetadata GetSelectedLinkedEntityMetadata()
-        {
-            if (this.lstVwEntities.SelectedItems.Count == 1
-                && this.lstVwEntities.SelectedItems[0] != null
-                && this.lstVwEntities.SelectedItems[0] is LinkedEntityMetadata result
-                )
-            {
-                return result;
-            }
-
-            return null;
+            return this.lstVwEntities.SelectedItems.OfType<LinkedEntityMetadata>().SingleOrDefault();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -1600,6 +1577,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
+        private async void btnEntityRelationshipOneToManyExplorer1_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService1();
+
+            WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+        }
+
+        private async void btnEntityRelationshipOneToManyExplorer2_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService2();
+
+            WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+        }
+
+        private async void btnEntityRelationshipManyToManyExplorer1_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService1();
+
+            WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+        }
+
+        private async void btnEntityRelationshipManyToManyExplorer2_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService2();
+
+            WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+        }
+
         private async void btnEntityKeyExplorer1_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -1660,7 +1681,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnGlobalOptionSets1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedLinkedEntityMetadata();
+            var entity = GetSelectedEntity();
 
             if (entity == null)
             {
@@ -1828,7 +1849,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnGlobalOptionSets2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedLinkedEntityMetadata();
+            var entity = GetSelectedEntity();
 
             if (entity == null)
             {

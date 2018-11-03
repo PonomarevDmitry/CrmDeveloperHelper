@@ -271,17 +271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private PluginTypeFullInfo GetSelectedEntity()
         {
-            PluginTypeFullInfo result = null;
-
-            if (this.lstVwPluginTypes.SelectedItems.Count == 1
-                && this.lstVwPluginTypes.SelectedItems[0] != null
-                && this.lstVwPluginTypes.SelectedItems[0] is PluginTypeFullInfo
-                )
-            {
-                result = (this.lstVwPluginTypes.SelectedItems[0] as PluginTypeFullInfo);
-            }
-
-            return result;
+            return this.lstVwPluginTypes.SelectedItems.OfType<PluginTypeFullInfo>().SingleOrDefault();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

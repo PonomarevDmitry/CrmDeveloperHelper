@@ -313,13 +313,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _itemsSourceAttributeList.Clear();
 
-                if (this.lstVwEntities.SelectedItems.Count == 1
-                    && this.lstVwEntities.SelectedItems[0] != null
-                    && this.lstVwEntities.SelectedItems[0] is EntityMetadataViewItem
-                )
-                {
-                    entityLogicalName = (this.lstVwEntities.SelectedItems[0] as EntityMetadataViewItem).LogicalName;
-                }
+                entityLogicalName = GetSelectedEntity()?.LogicalName;
             });
 
             IEnumerable<AttributeMetadataViewItem> list = Enumerable.Empty<AttributeMetadataViewItem>();
@@ -524,17 +518,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private EntityMetadataViewItem GetSelectedEntity()
         {
-            EntityMetadataViewItem result = null;
-
-            if (this.lstVwEntities.SelectedItems.Count > 0
-                && this.lstVwEntities.SelectedItems[0] != null
-                && this.lstVwEntities.SelectedItems[0] is EntityMetadataViewItem
-                )
-            {
-                result = (this.lstVwEntities.SelectedItems[0] as EntityMetadataViewItem);
-            }
-
-            return result;
+            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().SingleOrDefault();
         }
 
         private List<EntityMetadataViewItem> GetSelectedEntities()
@@ -546,17 +530,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private AttributeMetadataViewItem GetSelectedAttribute()
         {
-            AttributeMetadataViewItem result = null;
-
-            if (this.lstVwAttributes.SelectedItems.Count > 0
-                && this.lstVwAttributes.SelectedItems[0] != null
-                && this.lstVwAttributes.SelectedItems[0] is AttributeMetadataViewItem
-                )
-            {
-                result = (this.lstVwAttributes.SelectedItems[0] as AttributeMetadataViewItem);
-            }
-
-            return result;
+            return this.lstVwAttributes.SelectedItems.OfType<AttributeMetadataViewItem>().SingleOrDefault();
         }
 
         private List<AttributeMetadataViewItem> GetSelectedAttributes()
@@ -1737,13 +1711,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Dispatcher.Invoke(() =>
             {
-                if (this.lstVwEntities.SelectedItems.Count == 1
-                    && this.lstVwEntities.SelectedItems[0] != null
-                    && this.lstVwEntities.SelectedItems[0] is EntityMetadataViewItem
-                )
-                {
-                    entityLogicalName = (this.lstVwEntities.SelectedItems[0] as EntityMetadataViewItem).LogicalName;
-                }
+                entityLogicalName = GetSelectedEntity()?.LogicalName;
             });
 
             if (string.IsNullOrEmpty(entityLogicalName))

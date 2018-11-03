@@ -312,13 +312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _itemsSourceEntityRelationshipList.Clear();
 
-                if (this.lstVwEntities.SelectedItems.Count == 1
-                    && this.lstVwEntities.SelectedItems[0] != null
-                    && this.lstVwEntities.SelectedItems[0] is EntityMetadataViewItem
-                )
-                {
-                    entityLogicalName = (this.lstVwEntities.SelectedItems[0] as EntityMetadataViewItem).LogicalName;
-                }
+                entityLogicalName = GetSelectedEntity()?.LogicalName;
             });
 
             IEnumerable<ManyToManyRelationshipMetadataViewItem> list = Enumerable.Empty<ManyToManyRelationshipMetadataViewItem>();

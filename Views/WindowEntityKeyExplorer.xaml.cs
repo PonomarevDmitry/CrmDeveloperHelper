@@ -312,13 +312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _itemsSourceEntityKeyList.Clear();
 
-                if (this.lstVwEntities.SelectedItems.Count == 1
-                    && this.lstVwEntities.SelectedItems[0] != null
-                    && this.lstVwEntities.SelectedItems[0] is EntityMetadataViewItem
-                )
-                {
-                    entityLogicalName = (this.lstVwEntities.SelectedItems[0] as EntityMetadataViewItem).LogicalName;
-                }
+                entityLogicalName = GetSelectedEntity()?.LogicalName;
             });
 
             IEnumerable<EntityKeyMetadataViewItem> list = Enumerable.Empty<EntityKeyMetadataViewItem>();
@@ -521,17 +515,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private EntityMetadataViewItem GetSelectedEntity()
         {
-            EntityMetadataViewItem result = null;
-
-            if (this.lstVwEntities.SelectedItems.Count > 0
-                && this.lstVwEntities.SelectedItems[0] != null
-                && this.lstVwEntities.SelectedItems[0] is EntityMetadataViewItem
-                )
-            {
-                result = (this.lstVwEntities.SelectedItems[0] as EntityMetadataViewItem);
-            }
-
-            return result;
+            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().SingleOrDefault();
         }
 
         private List<EntityMetadataViewItem> GetSelectedEntities()
@@ -543,17 +527,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private EntityKeyMetadataViewItem GetSelectedEntityKey()
         {
-            EntityKeyMetadataViewItem result = null;
-
-            if (this.lstVwEntityKeys.SelectedItems.Count > 0
-                && this.lstVwEntityKeys.SelectedItems[0] != null
-                && this.lstVwEntityKeys.SelectedItems[0] is EntityKeyMetadataViewItem
-                )
-            {
-                result = (this.lstVwEntityKeys.SelectedItems[0] as EntityKeyMetadataViewItem);
-            }
-
-            return result;
+            return this.lstVwEntityKeys.SelectedItems.OfType<EntityKeyMetadataViewItem>().SingleOrDefault();
         }
 
         private List<EntityKeyMetadataViewItem> GetSelectedEntityKeys()
