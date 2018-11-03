@@ -16,7 +16,7 @@
             <Separator/>
             <MenuItem Header="SiteMap XML" VerticalAlignment="Center" Click="mIExportSiteMapXml_Click"/>
             <Separator/>
-            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+            <MenuItem Header="Change SiteMap Attribute" VerticalAlignment="Center">
                 <MenuItem Header="SiteMap XML" VerticalAlignment="Center" Click="mIUpdateSiteMapXml_Click"/>
             </MenuItem>
             <Separator/>
@@ -96,7 +96,7 @@
                             <Separator/>
                             <MenuItem Header="SiteMap XML" VerticalAlignment="Center" Click="mIExportSiteMapXml_Click"/>
                             <Separator/>
-                            <MenuItem Header="Change Entity Attribute" VerticalAlignment="Center">
+                            <MenuItem Header="Change SiteMap Attribute" VerticalAlignment="Center">
                                 <MenuItem Header="SiteMap XML" VerticalAlignment="Center" Click="mIUpdateSiteMapXml_Click"/>
                             </MenuItem>
                             <Separator/>

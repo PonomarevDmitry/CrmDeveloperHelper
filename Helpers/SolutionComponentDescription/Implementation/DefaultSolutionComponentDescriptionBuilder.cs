@@ -404,6 +404,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return null;
         }
 
+        public virtual string GetLinkedEntityName(SolutionComponent solutionComponent)
+        {
+            return null;
+        }
+
         public virtual void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent)
         {
             if (solutionComponent == null)

@@ -11,25 +11,30 @@
             <Separator />
             <MenuItem Header="Form Description" VerticalAlignment="Center" Click="mIExportSystemFormDescription_Click" />
             <Separator/>
-            <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
+            <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
             <Separator />
-            <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
+            <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
             <Separator />
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
             <Separator />
-            <MenuItem Header="Create Entity JavaScript File based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFile_Click" />
+            <MenuItem x:Uid="contMnEntity" Header="Create EntityMetadata JavaScript File based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFile_Click" />
             <Separator />
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
             <Separator/>
+
+            <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add Entity into Last Crm Solution" VerticalAlignment="Center"  />
+            <MenuItem x:Uid="contMnEntity" Header="Add Entity into Crm Solution" VerticalAlignment="Center" Click="mIAddEntityIntoCrmSolution_Click" />
+            <Separator x:Uid="contMnEntity" />
+
             <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIExportSystemFormFormXml_Click" />
             <Separator x:Uid="controlChangeEntityAttribute" />
-            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
+            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm Attribute" VerticalAlignment="Center">
                 <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIUpdateSystemFormFormXml_Click" />
             </MenuItem>
             <Separator/>
             <MenuItem Header="Publish SystemForm" VerticalAlignment="Center" Click="mIPublishSystemForm_Click" />
-            <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+            <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
             <Separator/>
             <MenuItem Header="Download Form WebResouces" VerticalAlignment="Center" Click="mIExportSystemFormWebResources_Click" />
             <Separator/>
@@ -145,7 +150,7 @@
                             <Separator/>
                             <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIExportSystemFormFormXml_Click" />
                             <Separator x:Uid="controlChangeEntityAttribute"/>
-                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm Attribute" VerticalAlignment="Center">
                                 <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIUpdateSystemFormFormXml_Click" />
                             </MenuItem>
                             <Separator/>

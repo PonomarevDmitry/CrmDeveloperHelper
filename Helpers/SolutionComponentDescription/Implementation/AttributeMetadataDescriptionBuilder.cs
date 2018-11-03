@@ -293,6 +293,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return null;
         }
 
+        public string GetLinkedEntityName(SolutionComponent solutionComponent)
+        {
+            AttributeMetadata metaData = _source.GetAttributeMetadata(solutionComponent.ObjectId.Value);
+
+            if (metaData != null)
+            {
+                return metaData.EntityLogicalName;
+            }
+
+            return null;
+        }
+
         public string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension)
         {
             AttributeMetadata metaData = _source.GetAttributeMetadata(objectId);

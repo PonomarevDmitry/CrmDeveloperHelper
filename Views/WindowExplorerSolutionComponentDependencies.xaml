@@ -14,6 +14,17 @@
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
+            <Separator x:Uid="contMnAddEntityIntoSolution" />
+            <MenuItem x:Uid="contMnAddEntityIntoSolution" Header="Linked Entity">
+                <MenuItem Header="Open Linked Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
+                <Separator />
+                <MenuItem Header="Open Linked Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
+                <Separator/>
+                <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add Entity into Last Crm Solution" VerticalAlignment="Center"  />
+                <MenuItem Header="Add Entity into Crm Solution" VerticalAlignment="Center" Click="mIAddEntityIntoCrmSolution_Click" />
+                <Separator/>
+                <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+            </MenuItem>
             <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
             <Separator/>
@@ -94,7 +105,7 @@
                     <Button x:Name="btnExportAll" Content="Export All Solution Component Information" Click="btnExportAll_Click" />
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBExportSolutionComponent" Header="Export Solution Component Information" VerticalAlignment="Center">
+                        <MenuItem x:Name="tSDDBExportSolutionComponent" Header="Solution Component Information" VerticalAlignment="Center">
                             <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
                             <Separator/>
                             <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>

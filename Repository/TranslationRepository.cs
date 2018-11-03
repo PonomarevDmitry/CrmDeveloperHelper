@@ -316,13 +316,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return 0;
             }
 
-            var datas = cell.Descendants().Where(IsData);
+            var data = cell.Descendants().Where(IsData).SingleOrDefault();
 
-            if (datas.Count() == 1)
+            if (data != null)
             {
-                var data = datas.First();
-
-
                 if (int.TryParse(data.Value, out int temp))
                 {
                     return temp;
@@ -339,13 +336,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return Guid.Empty;
             }
 
-            var datas = cell.Descendants().Where(IsData);
+            var data = cell.Descendants().Where(IsData).SingleOrDefault();
 
-            if (datas.Count() == 1)
+            if (data != null)
             {
-                var data = datas.First();
-
-
                 if (Guid.TryParse(data.Value, out Guid temp))
                 {
                     return temp;
@@ -362,12 +356,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return string.Empty;
             }
 
-            var datas = cell.Descendants().Where(IsData);
+            var data = cell.Descendants().Where(IsData).SingleOrDefault();
 
-            if (datas.Count() == 1)
+            if (data != null)
             {
-                var data = datas.First();
-
                 return data.Value;
             }
 

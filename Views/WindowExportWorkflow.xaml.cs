@@ -567,17 +567,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Workflow GetSelectedEntity()
         {
-            Workflow result = null;
-
-            if (this.lstVwWorkflows.SelectedItems.Count == 1
-                && this.lstVwWorkflows.SelectedItems[0] != null
-                && this.lstVwWorkflows.SelectedItems[0] is EntityViewItem
-                )
-            {
-                result = (this.lstVwWorkflows.SelectedItems[0] as EntityViewItem).Workflow;
-            }
-
-            return result;
+            return this.lstVwWorkflows.SelectedItems.OfType<EntityViewItem>().Select(e => e.Workflow).SingleOrDefault();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -1494,6 +1484,61 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private async void mIAddEntityIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        {
+            await AddEntityIntoSolution(true, null);
+        }
+
+        private async void mIAddEntityIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+               )
+            {
+                await AddEntityIntoSolution(false, solutionUniqueName);
+            }
+        }
+
+        private async Task AddEntityIntoSolution(bool withSelect, string solutionUniqueName)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null
+                || string.IsNullOrEmpty(entity.PrimaryEntity)
+                || string.Equals(entity.PrimaryEntity, "none", StringComparison.InvariantCultureIgnoreCase)
+                )
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                var entityMetadataId = connectionData.GetEntityMetadataId(entity.PrimaryEntity);
+
+                if (entityMetadataId.HasValue)
+                {
+                    _commonConfig.Save();
+
+                    var service = await GetService();
+                    var descriptor = await GetDescriptor();
+
+                    try
+                    {
+                        this._iWriteToOutput.ActivateOutputWindow();
+
+                        await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entityMetadataId.Value }, null, withSelect);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                }
+            }
+        }
+
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
             if (!(sender is ContextMenu contextMenu))
@@ -1515,6 +1560,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
 
             ActivateControls(items, (nodeItem.Workflow.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+
+            bool hasEntity = !string.IsNullOrEmpty(nodeItem.Workflow.PrimaryEntity) && !string.Equals(nodeItem.Workflow.PrimaryEntity, "none", StringComparison.InvariantCultureIgnoreCase);
+            ActivateControls(items, hasEntity, "contMnEntity");
+            FillLastSolutionItems(connectionData, items, hasEntity, mIAddEntityIntoCrmSolutionLast_Click, "contMnAddEntityIntoSolutionLast");
         }
 
         private void tSDDBExportWorkflow_SubmenuOpened(object sender, RoutedEventArgs e)

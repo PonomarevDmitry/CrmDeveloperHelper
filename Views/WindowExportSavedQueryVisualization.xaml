@@ -18,10 +18,15 @@
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center"  />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
             <Separator/>
+
+            <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add Entity into Last Crm Solution" VerticalAlignment="Center"  />
+            <MenuItem x:Uid="contMnAddEntityIntoSolution"     Header="Add Entity into Crm Solution" VerticalAlignment="Center" Click="mIAddEntityIntoCrmSolution_Click" />
+            <Separator x:Uid="contMnAddEntityIntoSolution" />
+
             <MenuItem Header="Data Description" VerticalAlignment="Center" Click="mIExportSystemChartDataDescription_Click"/>
             <MenuItem Header="Presentation Description" VerticalAlignment="Center" Click="mIExportSystemChartPresentationDescription_Click"/>
             <Separator x:Uid="controlChangeEntityAttribute"/>
-            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
+            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Chart Attribute" VerticalAlignment="Center">
                 <MenuItem Header="Data Description" VerticalAlignment="Center" Click="mIUpdateSystemChartDataDescription_Click"/>
                 <MenuItem Header="Presentation Description" VerticalAlignment="Center" Click="mIUpdateSystemChartPresentationDescription_Click"/>
             </MenuItem>
@@ -132,7 +137,7 @@
                             <MenuItem Header="Data Description" VerticalAlignment="Center" Click="mIExportSystemChartDataDescription_Click"/>
                             <MenuItem Header="Presentation Description" VerticalAlignment="Center" Click="mIExportSystemChartPresentationDescription_Click"/>
                             <Separator x:Uid="controlChangeEntityAttribute"/>
-                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Chart Attribute" VerticalAlignment="Center">
                                 <MenuItem Header="Data Description" VerticalAlignment="Center" Click="mIUpdateSystemChartDataDescription_Click"/>
                                 <MenuItem Header="Presentation Description" VerticalAlignment="Center" Click="mIUpdateSystemChartPresentationDescription_Click"/>
                             </MenuItem>

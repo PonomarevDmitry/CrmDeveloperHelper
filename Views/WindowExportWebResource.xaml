@@ -24,7 +24,7 @@
             <Separator/>
             <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIExportWebResourceDependencyXml_Click" />
             <Separator x:Uid="controlChangeEntityAttribute"/>
-            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
+            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change WebResource Attribute" VerticalAlignment="Center">
                 <MenuItem Header="Content" VerticalAlignment="Center" Click="mIUpdateWebResourceContent_Click" />
                 <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIUpdateWebResourceDependencyXml_Click" />
             </MenuItem>
@@ -107,7 +107,7 @@
                             <Separator/>
                             <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIExportWebResourceDependencyXml_Click" />
                             <Separator x:Uid="controlChangeEntityAttribute"/>
-                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change WebResource Attribute" VerticalAlignment="Center">
                                 <MenuItem Header="Content" VerticalAlignment="Center" Click="mIUpdateWebResourceContent_Click" />
                                 <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIUpdateWebResourceDependencyXml_Click" />
                             </MenuItem>

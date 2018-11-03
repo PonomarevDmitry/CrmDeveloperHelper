@@ -187,6 +187,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return base.GetName(component);
         }
 
+        public override string GetLinkedEntityName(SolutionComponent solutionComponent)
+        {
+            var entity = GetEntity<SdkMessageProcessingStepImage>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                return entity.PrimaryObjectTypeCodeName;
+            }
+
+            return base.GetLinkedEntityName(solutionComponent);
+        }
+
         public override TupleList<string, string> GetComponentColumns()
         {
             return new TupleList<string, string>

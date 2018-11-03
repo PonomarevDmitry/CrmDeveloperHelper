@@ -373,7 +373,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             HashSet<string> hash = new HashSet<string>(uidList, StringComparer.InvariantCultureIgnoreCase);
 
-            foreach (var item in items.OfType<MenuItem>())
+            IEnumerable<MenuItem> source = GetMenuItems(items);
+
+            foreach (var item in source)
             {
                 if (hash.Contains(item.Uid))
                 {
@@ -406,6 +408,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             }
                         }
                     }
+                }
+            }
+        }
+
+        private IEnumerable<MenuItem> GetMenuItems(IEnumerable<Control> items)
+        {
+            foreach (var item in items.OfType<MenuItem>())
+            {
+                yield return item;
+
+                foreach (var child in GetMenuItems(item.Items.OfType<Control>()))
+                {
+                    yield return child;
                 }
             }
         }

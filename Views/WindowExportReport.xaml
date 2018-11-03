@@ -27,7 +27,7 @@
             <Separator/>
             <MenuItem Header="Body Binary" VerticalAlignment="Center" Click="mIExportReportBodyBinary_Click"/>
             <Separator x:Uid="controlChangeEntityAttribute"/>
-            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
+            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Report Attribute" VerticalAlignment="Center">
                 <MenuItem Header="Default Filter" VerticalAlignment="Center" Click="mIUpdateReportDefaultFilter_Click"/>
                 <MenuItem Header="Custom Report Xml" VerticalAlignment="Center" Click="mIUpdateReportCustomReportXml_Click"/>
                 <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIUpdateReportScheduleXml_Click"/>
@@ -117,7 +117,7 @@
                             <Separator/>
                             <MenuItem Header="Body Binary" VerticalAlignment="Center" Click="mIExportReportBodyBinary_Click"/>
                             <Separator x:Uid="controlChangeEntityAttribute"/>
-                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Entity Attribute" VerticalAlignment="Center">
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Report Attribute" VerticalAlignment="Center">
                                 <MenuItem Header="Default Filter" VerticalAlignment="Center" Click="mIUpdateReportDefaultFilter_Click"/>
                                 <MenuItem Header="Custom Report Xml" VerticalAlignment="Center" Click="mIUpdateReportCustomReportXml_Click"/>
                                 <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIUpdateReportScheduleXml_Click"/>

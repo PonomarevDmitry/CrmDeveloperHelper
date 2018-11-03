@@ -351,5 +351,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return descriptionBuilder.GetEntity<T>(idEntity);
         }
+
+        public string GetLinkedEntityName(SolutionComponent solutionComponent)
+        {
+            if (solutionComponent == null || solutionComponent.ComponentType == null || !solutionComponent.ObjectId.HasValue)
+            {
+                return null;
+            }
+
+            var descriptionBuilder = GetDescriptionBuilder(solutionComponent.ComponentType.Value);
+
+            return descriptionBuilder.GetLinkedEntityName(solutionComponent);
+        }
     }
 }

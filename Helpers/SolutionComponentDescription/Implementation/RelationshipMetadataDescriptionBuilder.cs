@@ -102,7 +102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             FormatTextTableHandler handler = new FormatTextTableHandler();
 
             FormatTextTableHandler handlerManyToOne = new FormatTextTableHandler();
-            handlerManyToOne.SetHeader("ReferencingAttribute", "Type", "SchemaName", "Behaviour", "IsCustomizable");
+            handlerManyToOne.SetHeader("ReferencingAttribute", "Type", "ReferencedEntity", "SchemaName", "Behaviour", "IsCustomizable");
 
             FormatTextTableHandler handlerManyToMany = new FormatTextTableHandler();
             handlerManyToMany.SetHeader("Entity - Entity", "Type", "SchemaName", "Behaviour", "IsCustomizable");
@@ -136,14 +136,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     {
                         var relationship = metaData as OneToManyRelationshipMetadata;
 
-                        string relName = string.Format("{0}.{1}", relationship.ReferencingEntity, relationship.ReferencingAttribute);
-
                         List<string> values = new List<string>();
 
                         values.AddRange(new[]
                         {
-                            relName
+                            string.Format("{0}.{1}", relationship.ReferencingEntity, relationship.ReferencingAttribute)
                             , "Many to One"
+                            , relationship.ReferencedEntity
                             , relationship.SchemaName
                             , behavior
                             , (relationship.IsCustomizable?.Value).GetValueOrDefault().ToString()
@@ -169,13 +168,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     {
                         var relationship = metaData as ManyToManyRelationshipMetadata;
 
-                        string relName = string.Format("{0} - {1}", relationship.Entity1LogicalName, relationship.Entity2LogicalName);
-
                         List<string> values = new List<string>();
 
                         values.AddRange(new[]
                         {
-                            relName
+                            string.Format("{0} - {1}", relationship.Entity1LogicalName, relationship.Entity2LogicalName)
                             , "Many to Many"
                             , relationship.SchemaName
                             , behavior
@@ -237,7 +234,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 if (metaData is OneToManyRelationshipMetadata)
                 {
                     FormatTextTableHandler handlerManyToOne = new FormatTextTableHandler();
-                    handlerManyToOne.SetHeader("ReferencingAttribute", "Type", "SchemaName", "Behaviour", "IsCustomizable");
+                    handlerManyToOne.SetHeader("ReferencingAttribute", "Type", "ReferencedEntity", "SchemaName", "Behaviour", "IsCustomizable");
 
                     if (withManaged)
                     {
@@ -257,6 +254,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     {
                         string.Format("{0}.{1}", relationship.ReferencingEntity, relationship.ReferencingAttribute)
                         , "Many to One"
+                        , relationship.ReferencedEntity
                         , relationship.SchemaName
                         , behavior
                         , relationship.IsCustomizable?.Value.ToString()
@@ -362,16 +360,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     var relationship = metaData as OneToManyRelationshipMetadata;
 
-                    return string.Format("{0}.{1}"
+                    return string.Format("{0}.{1} ManyToOne -> {2}"
                         , relationship.ReferencingEntity
                         , relationship.ReferencingAttribute
+                        , relationship.ReferencedEntity
                     );
                 }
                 else if (metaData is ManyToManyRelationshipMetadata)
                 {
                     var relationship = metaData as ManyToManyRelationshipMetadata;
 
-                    return string.Format("{0} - {1}", relationship.Entity1LogicalName, relationship.Entity2LogicalName);
+                    return string.Format("{0} - {1} ManyToMany", relationship.Entity1LogicalName, relationship.Entity2LogicalName);
                 }
             }
 
@@ -397,6 +396,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             if (metaData != null)
             {
                 return metaData.IsManaged.ToString();
+            }
+
+            return null;
+        }
+
+        public string GetLinkedEntityName(SolutionComponent solutionComponent)
+        {
+            RelationshipMetadataBase metaData = _source.GetRelationshipMetadata(solutionComponent.ObjectId.Value);
+
+            if (metaData != null)
+            {
+                if (metaData is OneToManyRelationshipMetadata)
+                {
+                    var relationship = metaData as OneToManyRelationshipMetadata;
+
+                    return relationship.ReferencedEntity;
+                }
+                else if (metaData is ManyToManyRelationshipMetadata)
+                {
+                    var relationship = metaData as ManyToManyRelationshipMetadata;
+
+                    return relationship.Entity1LogicalName;
+                }
             }
 
             return null;

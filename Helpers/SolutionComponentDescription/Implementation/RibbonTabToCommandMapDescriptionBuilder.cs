@@ -90,6 +90,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         }
 
+        public override string GetLinkedEntityName(SolutionComponent solutionComponent)
+        {
+            var entity = GetEntity<RibbonTabToCommandMap>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                return entity.Entity;
+            }
+
+            return base.GetLinkedEntityName(solutionComponent);
+        }
+
         public override TupleList<string, string> GetComponentColumns()
         {
             return new TupleList<string, string>

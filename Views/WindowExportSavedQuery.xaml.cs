@@ -1167,6 +1167,61 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private async void mIAddEntityIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        {
+            await AddEntityIntoSolution(true, null);
+        }
+
+        private async void mIAddEntityIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+               )
+            {
+                await AddEntityIntoSolution(false, solutionUniqueName);
+            }
+        }
+
+        private async Task AddEntityIntoSolution(bool withSelect, string solutionUniqueName)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null
+                || string.IsNullOrEmpty(entity.ReturnedTypeCode)
+                || string.Equals(entity.ReturnedTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
+                )
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                var entityMetadataId = connectionData.GetEntityMetadataId(entity.ReturnedTypeCode);
+
+                if (entityMetadataId.HasValue)
+                {
+                    _commonConfig.Save();
+
+                    var service = await GetService();
+                    var descriptor = await GetDescriptor();
+
+                    try
+                    {
+                        this._iWriteToOutput.ActivateOutputWindow();
+
+                        await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entityMetadataId.Value }, null, withSelect);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                }
+            }
+        }
+
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
             if (!(sender is ContextMenu contextMenu))
@@ -1188,6 +1243,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
 
             ActivateControls(items, (nodeItem.SavedQuery.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+
+            bool hasEntity = !string.IsNullOrEmpty(nodeItem.SavedQuery.ReturnedTypeCode) && !string.Equals(nodeItem.SavedQuery.ReturnedTypeCode, "none", StringComparison.InvariantCultureIgnoreCase);
+            ActivateControls(items, hasEntity, "contMnAddEntityIntoSolution");
+            FillLastSolutionItems(connectionData, items, hasEntity, mIAddEntityIntoCrmSolutionLast_Click, "contMnAddEntityIntoSolutionLast");
         }
 
         private void tSDDBExportSavedQuery_SubmenuOpened(object sender, RoutedEventArgs e)
