@@ -817,6 +817,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             ComponentType = new OptionSetValue((int)ComponentType.RibbonCustomization),
                             ObjectId = ribbonCustomization.Id,
+                            RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
                         }});
                     }
 
@@ -1041,6 +1042,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             ComponentType = new OptionSetValue((int)ComponentType.Entity),
                             ObjectId = entity.EntityMetadata.MetadataId.Value,
+                            RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
                         }});
                     }
 

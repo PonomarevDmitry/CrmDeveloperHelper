@@ -1,4 +1,5 @@
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
@@ -251,7 +252,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             {
                                 var repository = new SolutionComponentRepository(this._service);
 
-                                list = await repository.GetSolutionComponentsByTypeAsync(_solution.Id, category);
+                                list = await repository.GetSolutionComponentsByTypeAsync(_solution.Id, category, new ColumnSet(SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
                             }
                             break;
 
@@ -1111,15 +1112,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ToggleControls(false, "Removing solution components...");
 
-                SolutionComponentRepository repository = new SolutionComponentRepository(this._service);
-
-                var components = await repository.GetSolutionComponentsAsync(_solution.Id);
-
                 _commonConfig.Save();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
-
-
 
                 {
                     string fileName = EntityFileNameFormatter.GetSolutionFileName(
@@ -1148,6 +1143,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, _solution.Id);
                 }
+
+                SolutionComponentRepository repository = new SolutionComponentRepository(this._service);
 
                 await repository.RemoveSolutionComponentsAsync(_solution.UniqueName, solutionComponents);
 
@@ -1182,10 +1179,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ToggleControls(false, "Clearing solution...");
 
-                SolutionComponentRepository repository = new SolutionComponentRepository(this._service);
-
-                var components = await repository.GetSolutionComponentsAsync(_solution.Id);
-
                 _commonConfig.Save();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
@@ -1218,7 +1211,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, _solution.Id);
                 }
 
-                await repository.RemoveSolutionComponentsAsync(_solution.UniqueName, components);
+                SolutionComponentRepository repository = new SolutionComponentRepository(this._service);
+
+                await repository.ClearSolutionAsync(_solution.UniqueName);
 
                 lstVSolutionComponents.Dispatcher.Invoke(() =>
                 {

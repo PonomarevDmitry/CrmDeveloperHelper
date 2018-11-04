@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -23,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput = iWriteToOutput;
         }
 
-        #region Копирование компонентов из одного в другое.
+        #region Solution Explorer.
 
         public async Task ExecuteOpeningSolutionComponentWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
@@ -69,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        #endregion Копирование компонентов из одного в другое.
+        #endregion Solution Explorer.
 
         #region Экспортирование решения.
 
@@ -343,13 +344,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var solutionRep = new SolutionComponentRepository(service);
 
-            var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.WebResource);
-
-            foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
             {
-                if (dictForAdding.ContainsKey(item))
+                var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.WebResource, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+
+                foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
                 {
-                    dictForAdding.Remove(item);
+                    if (dictForAdding.ContainsKey(item))
+                    {
+                        dictForAdding.Remove(item);
+                    }
                 }
             }
 
@@ -524,13 +527,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var solutionRep = new SolutionComponentRepository(service);
 
-            var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.WebResource);
-
-            foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
             {
-                if (dictForAdding.ContainsKey(item))
+                var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.Report, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+
+                foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
                 {
-                    dictForAdding.Remove(item);
+                    if (dictForAdding.ContainsKey(item))
+                    {
+                        dictForAdding.Remove(item);
+                    }
                 }
             }
 
@@ -664,13 +669,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var solutionRep = new SolutionComponentRepository(service);
 
-                var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, componentType);
-
-                foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
                 {
-                    if (dictForAdding.Contains(item))
+                    var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, componentType, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+
+                    foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
                     {
-                        dictForAdding.Remove(item);
+                        if (dictForAdding.Contains(item))
+                        {
+                            dictForAdding.Remove(item);
+                        }
                     }
                 }
 
@@ -680,7 +687,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
 
-                OptionSetValue rootBehavior = null;
+                OptionSetValue rootBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents);
 
                 if (rootComponentBehavior.HasValue)
                 {
@@ -843,7 +850,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 var solutionRep = new SolutionComponentRepository(service);
 
                 {
-                    var solutionComponents = await solutionRep.GetSolutionComponentsAsync(solution.Id);
+                    var solutionComponents = await solutionRep.GetSolutionComponentsAsync(solution.Id, new ColumnSet(SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.componenttype));
 
                     foreach (var item in solutionComponents.Where(s => s.ObjectId.HasValue && s.ComponentType != null))
                     {
@@ -1010,13 +1017,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var solutionRep = new SolutionComponentRepository(service);
 
-                var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.PluginAssembly);
-
-                foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
                 {
-                    if (knownAssemblies.ContainsKey(item))
+                    var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.PluginAssembly, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+
+                    foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
                     {
-                        knownAssemblies.Remove(item);
+                        if (knownAssemblies.ContainsKey(item))
+                        {
+                            knownAssemblies.Remove(item);
+                        }
                     }
                 }
 
@@ -1201,13 +1210,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var solutionRep = new SolutionComponentRepository(service);
 
-            var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.SdkMessageProcessingStep);
-
-            foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
             {
-                if (dictForAdding.ContainsKey(item))
+                var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.SdkMessageProcessingStep, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+
+                foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
                 {
-                    dictForAdding.Remove(item);
+                    if (dictForAdding.ContainsKey(item))
+                    {
+                        dictForAdding.Remove(item);
+                    }
                 }
             }
 
@@ -1412,13 +1423,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var solutionRep = new SolutionComponentRepository(service);
 
-            var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.SdkMessageProcessingStep);
-
-            foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
             {
-                if (dictForAdding.ContainsKey(item))
+                var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.SdkMessageProcessingStep, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+
+                foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
                 {
-                    dictForAdding.Remove(item);
+                    if (dictForAdding.ContainsKey(item))
+                    {
+                        dictForAdding.Remove(item);
+                    }
                 }
             }
 

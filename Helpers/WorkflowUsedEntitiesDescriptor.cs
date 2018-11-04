@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 var handler = new WorkflowUsedEntitiesHandler();
 
                 {
-                    var components = await repository.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.Workflow);
+                    var components = await repository.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.Workflow, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
 
                     _descriptor.GetEntities<Workflow>((int)ComponentType.Workflow, components.Select(c => c.ObjectId));
 
@@ -103,7 +103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 {
-                    var components = await repository.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.Entity);
+                    var components = await repository.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.Entity, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
 
                     var listMetadata = _descriptor.MetadataSource.GetEntityMetadataList(components.Where(e => e.ObjectId.HasValue).Select(e => e.ObjectId.Value));
 
@@ -183,7 +183,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 var repositoryWorkflow = new WorkflowRepository(_service);
 
                 {
-                    var components = await repository.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.Workflow);
+                    var components = await repository.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.Workflow, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
 
                     _descriptor.GetEntities<Workflow>((int)ComponentType.Workflow, components.Select(c => c.ObjectId));
 
@@ -221,7 +221,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 {
-                    var components = await repository.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.Entity);
+                    var components = await repository.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.Entity, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
 
                     var listMetadata = _descriptor.MetadataSource.GetEntityMetadataList(components.Where(e => e.ObjectId.HasValue).Select(e => e.ObjectId.Value));
 

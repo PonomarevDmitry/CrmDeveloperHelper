@@ -25,12 +25,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<SolutionComponent>> GetSolutionComponentsAsync(Guid solutionId)
+        public Task<List<SolutionComponent>> GetSolutionComponentsAsync(Guid solutionId, ColumnSet columnSet)
         {
-            return Task.Run(() => GetSolutionComponents(solutionId));
+            return Task.Run(() => GetSolutionComponents(solutionId, columnSet));
         }
 
-        private List<SolutionComponent> GetSolutionComponents(Guid solutionId)
+        private List<SolutionComponent> GetSolutionComponents(Guid solutionId, ColumnSet columnSet)
         {
             var query = new QueryExpression
             {
@@ -38,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SolutionComponent.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = columnSet ?? new ColumnSet(true),
 
                 Criteria =
                 {
@@ -82,12 +82,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
-        public Task<List<SolutionComponent>> GetSolutionComponentsAsync(string solutionUniqueName)
+        public Task<List<SolutionComponent>> GetSolutionComponentsAsync(string solutionUniqueName, ColumnSet columnSet)
         {
-            return Task.Run(() => GetSolutionComponents(solutionUniqueName));
+            return Task.Run(() => GetSolutionComponents(solutionUniqueName, columnSet));
         }
 
-        private List<SolutionComponent> GetSolutionComponents(string solutionUniqueName)
+        private List<SolutionComponent> GetSolutionComponents(string solutionUniqueName, ColumnSet columnSet)
         {
             var query = new QueryExpression
             {
@@ -95,7 +95,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SolutionComponent.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = columnSet ?? new ColumnSet(true),
 
                 LinkEntities =
                 {
@@ -151,12 +151,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
-        public Task<List<SolutionComponent>> GetSolutionComponentsForCollectionAsync(IEnumerable<Guid> solutionCollection)
+        public Task<List<SolutionComponent>> GetSolutionComponentsForCollectionAsync(IEnumerable<Guid> solutionCollection, ColumnSet columnSet)
         {
-            return Task.Run(() => GetSolutionComponentsForCollection(solutionCollection));
+            return Task.Run(() => GetSolutionComponentsForCollection(solutionCollection, columnSet));
         }
 
-        private List<SolutionComponent> GetSolutionComponentsForCollection(IEnumerable<Guid> solutionCollection)
+        private List<SolutionComponent> GetSolutionComponentsForCollection(IEnumerable<Guid> solutionCollection, ColumnSet columnSet)
         {
             var query = new QueryExpression
             {
@@ -208,17 +208,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
-        public Task<List<SolutionComponent>> GetSolutionComponentsByTypeAsync(Guid solutionId, ComponentType? componentType)
+        public Task<List<SolutionComponent>> GetSolutionComponentsByTypeAsync(Guid solutionId, ComponentType? componentType, ColumnSet columnSet)
         {
-            return Task.Run(() => GetSolutionComponentsByType(solutionId, (int?)componentType));
+            return Task.Run(() => GetSolutionComponentsByType(solutionId, (int?)componentType, columnSet));
         }
 
-        public Task<List<SolutionComponent>> GetSolutionComponentsByTypeAsync(Guid solutionId, int? componentType)
+        public Task<List<SolutionComponent>> GetSolutionComponentsByTypeAsync(Guid solutionId, int? componentType, ColumnSet columnSet)
         {
-            return Task.Run(() => GetSolutionComponentsByType(solutionId, componentType));
+            return Task.Run(() => GetSolutionComponentsByType(solutionId, componentType, columnSet));
         }
 
-        private List<SolutionComponent> GetSolutionComponentsByType(Guid solutionId, int? componentType)
+        private List<SolutionComponent> GetSolutionComponentsByType(Guid solutionId, int? componentType, ColumnSet columnSet)
         {
             var query = new QueryExpression
             {
@@ -226,7 +226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SolutionComponent.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = columnSet ?? new ColumnSet(true),
 
                 Criteria =
                 {
@@ -282,7 +282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private void AddSolutionComponents(string solutionTargetUniqueName, IEnumerable<SolutionComponent> componentesOnlyInSource)
         {
-            foreach (var component in componentesOnlyInSource.OrderBy(c => c.ComponentType?.Value))
+            foreach (var component in componentesOnlyInSource.Where(c => c.ObjectId.HasValue && c.ComponentType != null).OrderBy(c => c.ComponentType.Value))
             {
                 AddSolutionComponentRequest request = new AddSolutionComponentRequest()
                 {
@@ -293,11 +293,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                     AddRequiredComponents = false,
                 };
-
-                //if (component.ComponentType == (int)ComponentType.Entity)
-                //{
-                //    addReq.DoNotIncludeSubcomponents = true;
-                //}
 
                 if (component.RootComponentBehavior != null)
                 {
@@ -330,27 +325,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private void ClearSolution(string solutionUniqueName)
         {
-            var components = this.GetSolutionComponents(solutionUniqueName);
+            var components = this.GetSolutionComponents(solutionUniqueName, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
 
-            foreach (var component in components.OrderByDescending(c => c.ComponentType?.Value))
-            {
-                RemoveSolutionComponentRequest request = new RemoveSolutionComponentRequest()
-                {
-                    SolutionUniqueName = solutionUniqueName,
-
-                    ComponentType = component.ComponentType.Value,
-                    ComponentId = component.ObjectId.Value,
-                };
-
-                try
-                {
-                    var response = (RemoveSolutionComponentResponse)_service.Execute(request);
-                }
-                catch (Exception ex)
-                {
-                    Helpers.DTEHelper.WriteExceptionToOutput(ex);
-                }
-            }
+            this.RemoveSolutionComponents(solutionUniqueName, components);
         }
 
         public Task RemoveSolutionComponentsAsync(string solutionUniqueName, IEnumerable<SolutionComponent> components)
@@ -360,7 +337,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private void RemoveSolutionComponents(string solutionUniqueName, IEnumerable<SolutionComponent> components)
         {
-            foreach (var component in components.OrderByDescending(c => c.ComponentType?.Value))
+            foreach (var component in components.Where(c => c.ObjectId.HasValue && c.ComponentType != null).OrderByDescending(c => c.ComponentType?.Value))
             {
                 RemoveSolutionComponentRequest request = new RemoveSolutionComponentRequest()
                 {
@@ -443,7 +420,5 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return result;
         }
-
-
     }
 }

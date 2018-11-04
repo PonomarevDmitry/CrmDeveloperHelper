@@ -65,7 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder builder = new StringBuilder();
 
-            var groups = components.GroupBy(comp => comp.ComponentType.Value).OrderBy(gr => gr.Key);
+            var groups = components.Where(c => c.ComponentType != null).GroupBy(comp => comp.ComponentType.Value).OrderBy(gr => gr.Key);
 
             foreach (var gr in groups)
             {
@@ -110,7 +110,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             List<SolutionImageComponent> result = new List<SolutionImageComponent>();
 
-            var groups = components.GroupBy(comp => comp.ComponentType.Value).OrderBy(gr => gr.Key);
+            var groups = components.Where(c => c.ComponentType != null).GroupBy(comp => comp.ComponentType.Value).OrderBy(gr => gr.Key);
 
             foreach (var gr in groups)
             {

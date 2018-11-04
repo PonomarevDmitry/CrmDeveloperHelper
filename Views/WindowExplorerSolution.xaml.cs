@@ -1,4 +1,5 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+﻿using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -1285,9 +1286,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(service);
 
-                var componentsSource = await repository.GetSolutionComponentsAsync(solutionSource.Id);
+                var componentsSource = await repository.GetSolutionComponentsAsync(solutionSource.Id, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
 
-                var componentsTarget = await repository.GetSolutionComponentsAsync(solutionTarget.Id);
+                var componentsTarget = await repository.GetSolutionComponentsAsync(solutionTarget.Id, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
 
                 var componentesOnlyInSource = SolutionDescriptor.GetComponentsInFirstNotSecond(componentsSource, componentsTarget);
 
@@ -1297,36 +1298,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput("Creating backup Solution Components in '{0}'.", solutionTarget.UniqueName);
 
                     {
+                        string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                            service.ConnectionData.Name
+                            , solutionTarget.UniqueName
+                            , "Components Backup"
+                        );
 
+                        string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                        {
-                            string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                                service.ConnectionData.Name
-                                , solutionTarget.UniqueName
-                                , "Components Backup"
-                            );
+                        await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solutionTarget.Id);
 
-                            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+                        this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                    }
 
-                            await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solutionTarget.Id);
+                    {
+                        string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                            service.ConnectionData.Name
+                            , solutionTarget.UniqueName
+                            , "SolutionImage Backup"
+                        );
 
-                            this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
-                            this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
-                        }
+                        fileName = fileName.Replace(".txt", ".xml");
 
-                        {
-                            string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                                service.ConnectionData.Name
-                                , solutionTarget.UniqueName
-                                , "SolutionImage Backup"
-                            );
+                        string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                            fileName = fileName.Replace(".txt", ".xml");
-
-                            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                            await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
-                        }
+                        await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
                     }
 
                     this._iWriteToOutput.WriteToOutput(string.Empty);
@@ -1352,7 +1349,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput(string.Empty);
                     this._iWriteToOutput.WriteToOutput("Coping Solution Components from '{0}' into '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
 
-                    await repository.AddSolutionComponentsAsync(solutionTarget.UniqueName, componentesOnlyInSource);
+                    await Controllers.SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionTarget.UniqueName, componentesOnlyInSource, false);
 
                     this._iWriteToOutput.WriteToOutput("Copied {0} components.", componentesOnlyInSource.Count.ToString());
                 }
@@ -1390,7 +1387,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var hash = new HashSet<Tuple<int, Guid>>();
 
-                    var temp = await repository.GetSolutionComponentsForCollectionAsync(solutionSourceCollection.Select(e => e.Id));
+                    var temp = await repository.GetSolutionComponentsForCollectionAsync(solutionSourceCollection.Select(e => e.Id), new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
 
                     foreach (var item in temp)
                     {
@@ -1401,7 +1398,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                var componentsTarget = await repository.GetSolutionComponentsAsync(solutionTarget.Id);
+                var componentsTarget = await repository.GetSolutionComponentsAsync(solutionTarget.Id, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
 
                 var componentesOnlyInSource = SolutionDescriptor.GetComponentsInFirstNotSecond(componentsSource, componentsTarget);
 
@@ -1472,7 +1469,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput(string.Empty);
                     this._iWriteToOutput.WriteToOutput("Coping Solution Components from '{0}' into '{1}'.", sourceName, solutionTarget.UniqueName);
 
-                    await repository.AddSolutionComponentsAsync(solutionTarget.UniqueName, componentesOnlyInSource);
+                    await Controllers.SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionTarget.UniqueName, componentesOnlyInSource, false);
 
                     this._iWriteToOutput.WriteToOutput("Copied {0} components.", componentesOnlyInSource.Count.ToString());
                 }

@@ -1,4 +1,5 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+﻿using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -43,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var repository = new SolutionComponentRepository(_service);
 
-                var components = await repository.GetSolutionComponentsAsync(solutionId);
+                var components = await repository.GetSolutionComponentsAsync(solutionId, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
 
                 StringBuilder strFile = new StringBuilder();
                 string message = null;
@@ -90,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var repository = new SolutionComponentRepository(_service);
 
-                var components = await repository.GetSolutionComponentsAsync(solutionId);
+                var components = await repository.GetSolutionComponentsAsync(solutionId, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
 
                 await CreateSolutionImageWithComponents(filePath, components);
             }
@@ -276,8 +277,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             SolutionComponentRepository repository = new SolutionComponentRepository(_service);
 
-            var components1 = await repository.GetSolutionComponentsAsync(idSolution1);
-            var components2 = await repository.GetSolutionComponentsAsync(idSolution2);
+            var components1 = await repository.GetSolutionComponentsAsync(idSolution1, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
+            var components2 = await repository.GetSolutionComponentsAsync(idSolution2, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
 
             var componentsOnlyIn1 = GetComponentsInFirstNotSecond(components1, components2);
             var componentsOnlyIn2 = GetComponentsInFirstNotSecond(components2, components1);
@@ -310,8 +311,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
 
-                var components1 = await repository.GetSolutionComponentsAsync(solution1.Id);
-                var components2 = await repository.GetSolutionComponentsAsync(solution2.Id);
+                var components1 = await repository.GetSolutionComponentsAsync(solution1.Id, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
+                var components2 = await repository.GetSolutionComponentsAsync(solution2.Id, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
 
                 var componentsOnlyIn1 = GetComponentsInFirstNotSecond(components1, components2);
                 var componentsOnlyIn2 = GetComponentsInFirstNotSecond(components2, components1);
