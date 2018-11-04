@@ -45,17 +45,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withManaged, bool withSolutionInfo, bool withUrls, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("ReportName", "FileName", "ReportType", "SignatureLcid", "SignatureId", "IsCustomizable", "ViewableBy", "Owner");
+            handler.SetHeader("ReportName", "FileName", "ReportType", "SignatureLcid", "SignatureId", "IsCustomizable", "ViewableBy", "Owner", "Behavior");
 
             action(handler, withUrls, withManaged, withSolutionInfo);
 
             return handler;
         }
 
-        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
+        protected override List<string> GetDescriptionValues(Entity entityInput, string behavior, bool withManaged, bool withSolutionInfo, bool withUrls, Action<List<string>, Entity, bool, bool, bool> action)
         {
             var entity = entityInput.ToEntity<Report>();
 
@@ -75,6 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 , entity.IsCustomizable?.Value.ToString()
                 , ispersonal
                 , entity.OwnerId?.Name
+                , behavior
             });
 
             action(values, entity, withUrls, withManaged, withSolutionInfo);
@@ -114,7 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                     RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
+                    Description = GenerateDescriptionSingle(solutionComponent, true, false, false),
                 };
 
                 if (entity.SignatureId.HasValue && entity.SignatureLcid.HasValue)

@@ -135,17 +135,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return query;
         }
 
-        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withManaged, bool withSolutionInfo, bool withUrls, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Name", "BusinessUnit", "Privilege", "PrivilegeDepthMask");
+            handler.SetHeader("Name", "BusinessUnit", "Privilege", "PrivilegeDepthMask", "Behavior");
 
             action(handler, withUrls, withManaged, withSolutionInfo);
 
             return handler;
         }
 
-        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
+        protected override List<string> GetDescriptionValues(Entity entityInput, string behavior, bool withManaged, bool withSolutionInfo, bool withUrls, Action<List<string>, Entity, bool, bool, bool> action)
         {
             var entity = entityInput.ToEntity<RolePrivileges>();
 
@@ -164,6 +164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 , businessUnit
                 , EntityDescriptionHandler.GetAttributeString(entity, "privilege.name")
                 , SecurityRolePrivilegesRepository.GetPrivilegeDepthMaskName(entity.PrivilegeDepthMask.Value)
+                , behavior
             });
 
             action(values, entity, withUrls, withManaged, withSolutionInfo);

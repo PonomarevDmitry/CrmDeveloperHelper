@@ -59,7 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     ParentSchemaName = metaData.EntityLogicalName,
                     RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
+                    Description = GenerateDescriptionSingle(solutionComponent, true, false, false),
                 });
             }
         }
@@ -99,10 +99,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         }
 
-        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Name", "IsCustomizable", "Behaviour");
+            handler.SetHeader("Name", "IsCustomizable", "Behavior");
 
             if (withManaged)
             {
@@ -118,12 +118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             foreach (var comp in components)
             {
-                string behavior = string.Empty;
-
-                if (comp.RootComponentBehavior != null)
-                {
-                    behavior = SolutionComponent.GetRootComponentBehaviorName(comp.RootComponentBehavior.Value);
-                }
+                string behavior = SolutionComponent.GetRootComponentBehaviorName(comp.RootComponentBehavior?.Value);
 
                 EntityKeyMetadata metaData = _source.GetEntityKeyMetadata(comp.ObjectId.Value);
 
@@ -167,21 +162,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
         }
 
-        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             EntityKeyMetadata metaData = _source.GetEntityKeyMetadata(solutionComponent.ObjectId.Value);
 
             if (metaData != null)
             {
-                string behavior = string.Empty;
-
-                if (solutionComponent.RootComponentBehavior != null)
-                {
-                    behavior = SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior.Value);
-                }
+                string behavior = SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior?.Value);
 
                 FormatTextTableHandler handler = new FormatTextTableHandler();
-                handler.SetHeader("EntityKeyName", "IsCustomizable", "Behaviour");
+                handler.SetHeader("EntityKeyName", "IsCustomizable", "Behavior");
 
                 if (withManaged)
                 {

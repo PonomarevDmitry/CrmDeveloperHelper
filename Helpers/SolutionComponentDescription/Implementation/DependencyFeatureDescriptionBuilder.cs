@@ -13,8 +13,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
     {
         private const string formatSpacer = DefaultSolutionComponentDescriptionBuilder.formatSpacer;
 
-        private readonly IOrganizationServiceExtented _service;
-
         public DependencyFeatureDescriptionBuilder(IOrganizationServiceExtented service)
         {
 
@@ -51,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 ComponentType = (solutionComponent.ComponentType?.Value).GetValueOrDefault(),
                 RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
+                Description = GenerateDescriptionSingle(solutionComponent, true, false, false),
             });
         }
 
@@ -76,13 +74,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (id.HasValue)
             {
-                int? behaviour = DefaultSolutionComponentDescriptionBuilder.GetBehaviorFromXml(elementRootComponent);
+                int? behavior = DefaultSolutionComponentDescriptionBuilder.GetBehaviorFromXml(elementRootComponent);
 
-                FillSolutionComponentInternal(result, id.Value, behaviour);
+                FillSolutionComponentInternal(result, id.Value, behavior);
             }
         }
 
-        private void FillSolutionComponentInternal(ICollection<SolutionComponent> result, Guid objectId, int? behaviour)
+        private void FillSolutionComponentInternal(ICollection<SolutionComponent> result, Guid objectId, int? behavior)
         {
             var component = new SolutionComponent()
             {
@@ -91,29 +89,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
             };
 
-            if (behaviour.HasValue)
+            if (behavior.HasValue)
             {
-                component.RootComponentBehavior = new OptionSetValue(behaviour.Value);
+                component.RootComponentBehavior = new OptionSetValue(behavior.Value);
             }
 
             result.Add(component);
         }
 
-        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("DependencyFeatureId", "Behaviour");
+            handler.SetHeader("DependencyFeatureId", "Behavior");
 
             foreach (var comp in components)
             {
-                string behaviorName = string.Empty;
+                string behavior = SolutionComponent.GetRootComponentBehaviorName(comp.RootComponentBehavior?.Value);
 
-                if (comp.RootComponentBehavior != null)
-                {
-                    behaviorName = SolutionComponent.GetRootComponentBehaviorName(comp.RootComponentBehavior.Value);
-                }
-
-                handler.AddLine(comp.ObjectId.ToString(), string.Empty, behaviorName);
+                handler.AddLine(comp.ObjectId.ToString(), string.Empty, behavior);
             }
 
             List<string> lines = handler.GetFormatedLines(true);
@@ -121,7 +114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
         }
 
-        public string GenerateDescriptionSingle(SolutionComponent component, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public string GenerateDescriptionSingle(SolutionComponent component, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             return GenerateDescriptionSingleInternal(component.ObjectId.Value, withUrls, withManaged, withSolutionInfo);
         }

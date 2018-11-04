@@ -1,5 +1,6 @@
 ﻿namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1008:EnumsShouldHaveZeroValue")]
     public enum ComponentType
     {
         [System.Runtime.Serialization.EnumMemberAttribute()]

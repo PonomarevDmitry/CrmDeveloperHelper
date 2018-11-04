@@ -38,17 +38,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withManaged, bool withSolutionInfo, bool withUrls, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Entity", "Command", "Id");
+            handler.SetHeader("Entity", "Command", "Id", "Behavior");
 
             action(handler, withUrls, withManaged, withSolutionInfo);
 
             return handler;
         }
 
-        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
+        protected override List<string> GetDescriptionValues(Entity entityInput, string behavior, bool withManaged, bool withSolutionInfo, bool withUrls, Action<List<string>, Entity, bool, bool, bool> action)
         {
             var entity = entityInput.ToEntity<RibbonCommand>();
 
@@ -59,6 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 entity.Entity ?? "ApplicationRibbon"
                 , entity.Command
                 , entity.Id.ToString()
+                , behavior
             });
 
             action(values, entity, withUrls, withManaged, withSolutionInfo);

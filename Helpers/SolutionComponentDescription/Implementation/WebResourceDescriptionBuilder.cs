@@ -38,17 +38,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 );
         }
 
-        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withManaged, bool withSolutionInfo, bool withUrls, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("WebResourceType", "Name", "DisplayName", "IsCustomizable");
+            handler.SetHeader("WebResourceType", "Name", "DisplayName", "IsCustomizable", "Behavior");
 
             action(handler, withUrls, withManaged, withSolutionInfo);
 
             return handler;
         }
 
-        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
+        protected override List<string> GetDescriptionValues(Entity entityInput, string behavior, bool withManaged, bool withSolutionInfo, bool withUrls, Action<List<string>, Entity, bool, bool, bool> action)
         {
             var entity = entityInput.ToEntity<WebResource>();
 
@@ -62,6 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 , entity.Name
                 , entity.DisplayName
                 , entity.IsCustomizable?.Value.ToString()
+                , behavior
             });
 
             action(values, entity, withUrls, withManaged, withSolutionInfo);
@@ -101,7 +102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                     RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
+                    Description = GenerateDescriptionSingle(solutionComponent, true, false, false),
                 };
 
                 result.Add(imageComponent);

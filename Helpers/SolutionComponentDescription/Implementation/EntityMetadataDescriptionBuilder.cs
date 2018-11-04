@@ -60,15 +60,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (metaData != null)
             {
-                var behaviour = solutionComponent.RootComponentBehavior?.Value;
+                var behavior = solutionComponent.RootComponentBehavior?.Value;
 
                 result.Add(new SolutionImageComponent()
                 {
                     ComponentType = (int)ComponentType.Entity,
                     SchemaName = metaData.LogicalName,
-                    RootComponentBehavior = behaviour.GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
+                    RootComponentBehavior = behavior.GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingleInternal(metaData, behaviour, false, true, false),
+                    Description = GenerateDescriptionSingleInternal(metaData, behavior, false, true, false),
                 });
             }
         }
@@ -103,12 +103,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 if (metaData != null)
                 {
-                    int? behaviour = DefaultSolutionComponentDescriptionBuilder.GetBehaviorFromXml(elementRootComponent);
+                    int? behavior = DefaultSolutionComponentDescriptionBuilder.GetBehaviorFromXml(elementRootComponent);
 
-                    FillSolutionComponentInternal(result, metaData, behaviour);
+                    FillSolutionComponentInternal(result, metaData, behavior);
 
-                    if (behaviour == (int)RootComponentBehavior.IncludeAsShellOnly
-                        || behaviour == (int)RootComponentBehavior.DoNotIncludeSubcomponents
+                    if (behavior == (int)RootComponentBehavior.IncludeAsShellOnly
+                        || behavior == (int)RootComponentBehavior.DoNotIncludeSubcomponents
                         )
                     {
                         var elementEntity = GetEntityElement(docCustomizations, metaData.LogicalName);
@@ -352,7 +352,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return elements.Where(a => string.Equals(entityName, (string)a.Attribute("Name"), StringComparison.InvariantCultureIgnoreCase)).Select(e => e.Parent.Parent).SingleOrDefault();
         }
 
-        private void FillSolutionComponentInternal(ICollection<SolutionComponent> result, EntityMetadata metaData, int? behaviour)
+        private void FillSolutionComponentInternal(ICollection<SolutionComponent> result, EntityMetadata metaData, int? behavior)
         {
             var component = new SolutionComponent()
             {
@@ -361,18 +361,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
             };
 
-            if (behaviour.HasValue)
+            if (behavior.HasValue)
             {
-                component.RootComponentBehavior = new OptionSetValue(behaviour.Value);
+                component.RootComponentBehavior = new OptionSetValue(behavior.Value);
             }
 
             result.Add(component);
         }
 
-        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("EntityName", "IsCustomizable", "Behaviour");
+            handler.SetHeader("EntityName", "IsCustomizable", "Behavior");
 
             if (withManaged)
             {
@@ -386,12 +386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             foreach (var comp in components)
             {
-                string behavior = string.Empty;
-
-                if (comp.RootComponentBehavior != null)
-                {
-                    behavior = SolutionComponent.GetRootComponentBehaviorName(comp.RootComponentBehavior.Value);
-                }
+                string behavior = SolutionComponent.GetRootComponentBehaviorName(comp.RootComponentBehavior?.Value);
 
                 EntityMetadata metaData = _source.GetEntityMetadata(comp.ObjectId.Value);
 
@@ -429,7 +424,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
         }
 
-        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             if (solutionComponent == null
                 || !solutionComponent.ObjectId.HasValue)
@@ -441,25 +436,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (metaData != null)
             {
-                int? behaviourCode = solutionComponent.RootComponentBehavior?.Value;
+                int? behaviorCode = solutionComponent.RootComponentBehavior?.Value;
 
-                return GenerateDescriptionSingleInternal(metaData, behaviourCode, withUrls, withManaged, withSolutionInfo);
+                return GenerateDescriptionSingleInternal(metaData, behaviorCode, withUrls, withManaged, withSolutionInfo);
             }
 
             return solutionComponent.ToString();
         }
 
-        private string GenerateDescriptionSingleInternal(EntityMetadata metaData, int? behaviourCode, bool withUrls, bool withManaged, bool withSolutionInfo)
+        private string GenerateDescriptionSingleInternal(EntityMetadata metaData, int? behaviorCode, bool withUrls, bool withManaged, bool withSolutionInfo)
         {
-            string behavior = string.Empty;
-
-            if (behaviourCode.HasValue)
-            {
-                behavior = SolutionComponent.GetRootComponentBehaviorName(behaviourCode.Value);
-            }
+            string behavior = SolutionComponent.GetRootComponentBehaviorName(behaviorCode);
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("EntityName", "IsCustomizable", "Behaviour");
+            handler.SetHeader("EntityName", "IsCustomizable", "Behavior");
 
             if (withManaged)
             {

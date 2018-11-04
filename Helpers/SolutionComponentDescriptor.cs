@@ -86,7 +86,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     var descriptionBuilder = GetDescriptionBuilder(gr.Key);
 
-                    descriptionBuilder.GenerateDescription(builder, gr, WithUrls, WithManagedInfo, WithSolutionsInfo);
+                    descriptionBuilder.GenerateDescription(builder, gr, WithManagedInfo, WithSolutionsInfo, WithUrls);
                 }
                 catch (Exception ex)
                 {
@@ -256,7 +256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var descriptionBuilder = GetDescriptionBuilder(type);
 
-            return descriptionBuilder.GenerateDescriptionSingle(solutionComponent, WithUrls, WithManagedInfo, WithSolutionsInfo);
+            return descriptionBuilder.GenerateDescriptionSingle(solutionComponent, WithManagedInfo, WithSolutionsInfo, WithUrls);
         }
 
         public string GetCustomizableName(SolutionComponent solutionComponent)

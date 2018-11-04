@@ -89,7 +89,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (service != null)
             {
-                OpenFilesInFolders();
+                OpenFilesInFoldersAsync();
             }
         }
 
@@ -424,7 +424,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (_loadedRecords.Count == 0)
                 {
-                    OpenFilesInFolders();
+                    OpenFilesInFoldersAsync();
                 }
                 else
                 {
@@ -444,7 +444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 e.Handled = true;
 
-                OpenFilesInFolders();
+                OpenFilesInFoldersAsync();
             }
 
             base.OnKeyDown(e);
@@ -486,7 +486,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                OpenFilesInFolders();
+                OpenFilesInFoldersAsync();
             }
         }
 
@@ -505,12 +505,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIOpenFilesInFolder_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenFilesInFolder_Click(object sender, RoutedEventArgs e)
         {
-            OpenFilesInFolders();
+            await OpenFilesInFoldersAsync();
         }
 
-        private async Task OpenFilesInFolders()
+        private async Task OpenFilesInFoldersAsync()
         {
             var folders = lstVwFolders.Items.OfType<string>().ToList();
 

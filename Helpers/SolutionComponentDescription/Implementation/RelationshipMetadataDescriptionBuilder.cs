@@ -58,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     SchemaName = metaData.SchemaName,
                     RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
+                    Description = GenerateDescriptionSingle(solutionComponent, true, false, false),
                 });
             }
         }
@@ -97,15 +97,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         }
 
-        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
 
             FormatTextTableHandler handlerManyToOne = new FormatTextTableHandler();
-            handlerManyToOne.SetHeader("ReferencingAttribute", "Type", "ReferencedEntity", "SchemaName", "Behaviour", "IsCustomizable");
+            handlerManyToOne.SetHeader("ReferencingAttribute", "Type", "ReferencedEntity", "SchemaName", "IsCustomizable", "Behavior");
 
             FormatTextTableHandler handlerManyToMany = new FormatTextTableHandler();
-            handlerManyToMany.SetHeader("Entity - Entity", "Type", "SchemaName", "Behaviour", "IsCustomizable");
+            handlerManyToMany.SetHeader("Entity - Entity", "Type", "SchemaName", "IsCustomizable", "Behavior");
 
             if (withManaged)
             {
@@ -123,12 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 RelationshipMetadataBase metaData = _source.GetRelationshipMetadata(comp.ObjectId.GetValueOrDefault());
 
-                string behavior = string.Empty;
-
-                if (comp.RootComponentBehavior != null)
-                {
-                    behavior = SolutionComponent.GetRootComponentBehaviorName(comp.RootComponentBehavior.Value);
-                }
+                string behavior = SolutionComponent.GetRootComponentBehaviorName(comp.RootComponentBehavior?.Value);
 
                 if (metaData != null)
                 {
@@ -144,8 +139,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                             , "Many to One"
                             , relationship.ReferencedEntity
                             , relationship.SchemaName
-                            , behavior
                             , (relationship.IsCustomizable?.Value).GetValueOrDefault().ToString()
+                            , behavior
                         });
 
                         if (withManaged)
@@ -218,23 +213,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             linesMany.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
         }
 
-        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             RelationshipMetadataBase metaData = _source.GetRelationshipMetadata(solutionComponent.ObjectId.Value);
 
             if (metaData != null)
             {
-                string behavior = string.Empty;
-
-                if (solutionComponent.RootComponentBehavior != null)
-                {
-                    behavior = SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior.Value);
-                }
+                string behavior = SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior?.Value);
 
                 if (metaData is OneToManyRelationshipMetadata)
                 {
                     FormatTextTableHandler handlerManyToOne = new FormatTextTableHandler();
-                    handlerManyToOne.SetHeader("ReferencingAttribute", "Type", "ReferencedEntity", "SchemaName", "Behaviour", "IsCustomizable");
+                    handlerManyToOne.SetHeader("ReferencingAttribute", "Type", "ReferencedEntity", "SchemaName", "Behavior", "IsCustomizable");
 
                     if (withManaged)
                     {
@@ -283,7 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 else if (metaData is ManyToManyRelationshipMetadata)
                 {
                     FormatTextTableHandler handlerManyToMany = new FormatTextTableHandler();
-                    handlerManyToMany.SetHeader("Entity - Entity", "Type", "SchemaName", "Behaviour", "IsCustomizable");
+                    handlerManyToMany.SetHeader("Entity - Entity", "Type", "SchemaName", "Behavior", "IsCustomizable");
 
                     if (withManaged)
                     {

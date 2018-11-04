@@ -84,14 +84,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         {
             string result = Entities.RootComponentBehavior.IncludeSubcomponents.ToString();
 
-            if (behavior.HasValue)
+            if (behavior.HasValue && Enum.IsDefined(typeof(RootComponentBehavior), behavior.Value))
             {
-                if (Enum.IsDefined(typeof(RootComponentBehavior), behavior.Value))
-                {
-                    RootComponentBehavior componentBehavior = (RootComponentBehavior)behavior.Value;
+                RootComponentBehavior componentBehavior = (RootComponentBehavior)behavior.Value;
 
-                    result = componentBehavior.ToString();
-                }
+                result = componentBehavior.ToString();
             }
 
             return result;

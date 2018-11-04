@@ -19,7 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         private const string formatSpacer = DefaultSolutionComponentDescriptionBuilder.formatSpacer;
         private const string unknowedMessage = DefaultSolutionComponentDescriptionBuilder.unknowedMessage;
 
-        protected readonly IOrganizationServiceExtented _service;
+        private readonly IOrganizationServiceExtented _service;
 
         public ManagedPropertyDescriptionBuilder(IOrganizationServiceExtented service)
         {
@@ -94,7 +94,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         ObjectId = solutionComponent.ObjectId.Value,
                         RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                        Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
+                        Description = GenerateDescriptionSingle(solutionComponent, true, false, false),
                     });
                 }
             }
@@ -131,13 +131,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 && this.AllManagedProperties.ContainsKey(id.Value)
                 )
             {
-                int? behaviour = DefaultSolutionComponentDescriptionBuilder.GetBehaviorFromXml(elementRootComponent);
+                int? behavior = DefaultSolutionComponentDescriptionBuilder.GetBehaviorFromXml(elementRootComponent);
 
-                FillSolutionComponentInternal(result, id.Value, behaviour);
+                FillSolutionComponentInternal(result, id.Value, behavior);
             }
         }
 
-        private void FillSolutionComponentInternal(ICollection<SolutionComponent> result, Guid objectId, int? behaviour)
+        private void FillSolutionComponentInternal(ICollection<SolutionComponent> result, Guid objectId, int? behavior)
         {
             var component = new SolutionComponent()
             {
@@ -146,15 +146,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
             };
 
-            if (behaviour.HasValue)
+            if (behavior.HasValue)
             {
-                component.RootComponentBehavior = new OptionSetValue(behaviour.Value);
+                component.RootComponentBehavior = new OptionSetValue(behavior.Value);
             }
 
             result.Add(component);
         }
 
-        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
             handler.SetHeader(
@@ -169,6 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 , "IsGlobalForOperation"
                 , "ManagedPropertyType"
                 , "Operation"
+                , "Behavior"
                 );
 
             //public Label Description { get; }
@@ -186,9 +187,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             foreach (var comp in components)
             {
-
                 if (this.AllManagedProperties.ContainsKey(comp.ObjectId.Value))
                 {
+                    var behavior = SolutionComponent.GetRootComponentBehaviorName(comp.RootComponentBehavior?.Value);
+
                     var managedProperty = this.AllManagedProperties[comp.ObjectId.Value];
 
                     handler.AddLine(
@@ -203,6 +205,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         , managedProperty.IsGlobalForOperation.ToString()
                         , managedProperty.ManagedPropertyType.ToString()
                         , managedProperty.Operation.ToString()
+                        , behavior
                         );
                 }
                 else
@@ -216,7 +219,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
         }
 
-        public string GenerateDescriptionSingle(SolutionComponent component, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public string GenerateDescriptionSingle(SolutionComponent component, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             if (this.AllManagedProperties.Any())
             {

@@ -4,8 +4,8 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     ParentSchemaName = metaData.EntityLogicalName,
                     RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
+                    Description = GenerateDescriptionSingle(solutionComponent, true, false, false),
                 });
             }
         }
@@ -101,15 +101,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public void FillSolutionComponentFromXml(ICollection<SolutionComponent> result, XElement elementRootComponent, XDocument docCustomizations)
         {
-            
+
         }
 
-        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             FormatTextTableHandler handlerUnknowed = new FormatTextTableHandler();
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("AttributeName", "IsCustomizable", "Behaviour");
+            handler.SetHeader("AttributeName", "IsCustomizable", "Behavior");
 
             if (withManaged)
             {
@@ -123,12 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             foreach (var comp in components)
             {
-                string behavior = string.Empty;
-
-                if (comp.RootComponentBehavior != null)
-                {
-                    behavior = SolutionComponent.GetRootComponentBehaviorName(comp.RootComponentBehavior.Value);
-                }
+                string behavior = SolutionComponent.GetRootComponentBehaviorName(comp.RootComponentBehavior?.Value);
 
                 AttributeMetadata metaData = _source.GetAttributeMetadata(comp.ObjectId.Value);
 
@@ -180,21 +175,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
-        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             AttributeMetadata metaData = _source.GetAttributeMetadata(solutionComponent.ObjectId.Value);
 
             if (metaData != null)
             {
-                string behavior = string.Empty;
-
-                if (solutionComponent.RootComponentBehavior != null)
-                {
-                    behavior = SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior.Value);
-                }
+                string behavior = SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior?.Value);
 
                 FormatTextTableHandler handler = new FormatTextTableHandler();
-                handler.SetHeader("AttributeName", "IsCustomizable", "Behaviour");
+                handler.SetHeader("AttributeName", "IsCustomizable", "Behavior");
 
                 if (withManaged)
                 {

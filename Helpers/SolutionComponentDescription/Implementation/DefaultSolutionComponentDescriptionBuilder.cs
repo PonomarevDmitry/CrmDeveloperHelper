@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         private readonly object _syncObjectEntityCache = new object();
 
-        protected readonly IOrganizationServiceExtented _service;
+        protected IOrganizationServiceExtented _service { get; private set; }
 
         public const string SolutionAttribute = "solutionid";
 
@@ -252,7 +252,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return null;
         }
 
-        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             var list = GetEntities<Entity>(components.Select(c => c.ObjectId));
 
@@ -262,15 +262,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 if (notFinded.Any())
                 {
                     builder.AppendFormat(formatSpacer, unknowedMessage).AppendLine();
-                    notFinded.ForEach(item => builder.AppendFormat(formatSpacer, item.ToString()).AppendLine());
+                    foreach (var item in notFinded)
+                    {
+                        var behavior = SolutionComponent.GetRootComponentBehaviorName(item.RootComponentBehavior?.Value);
+
+                        builder.AppendFormat(formatSpacer, item.ToString(), string.Format(formatSpacer, behavior)).AppendLine();
+                    }
                 }
             }
 
-            FormatTextTableHandler handler = GetDescriptionHeader(withUrls, withManaged, withSolutionInfo, AppendIntoTableHeader);
+            FormatTextTableHandler handler = GetDescriptionHeader(withManaged, withSolutionInfo, withUrls, AppendIntoTableHeader);
 
             foreach (var entity in list)
             {
-                List<string> values = GetDescriptionValues(entity, withUrls, withManaged, withSolutionInfo, AppendIntoValues);
+                var solutionComponent = components.SingleOrDefault(e => e.ObjectId == entity.Id);
+
+                var behavior = SolutionComponent.GetRootComponentBehaviorName(solutionComponent?.RootComponentBehavior?.Value);
+
+                List<string> values = GetDescriptionValues(entity, behavior, withManaged, withSolutionInfo, withUrls, AppendIntoValues);
 
                 handler.AddLine(values);
             }
@@ -280,17 +289,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             lines.ForEach(item => builder.AppendFormat(formatSpacer, item).AppendLine());
         }
 
-        protected virtual FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
+        protected virtual FormatTextTableHandler GetDescriptionHeader(bool withManaged, bool withSolutionInfo, bool withUrls, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
             var result = new FormatTextTableHandler();
             result.SetHeader("Id");
+            result.SetHeader("Behavior");
 
             action(result, withUrls, withManaged, withSolutionInfo);
 
             return result;
         }
 
-        protected virtual List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
+        protected virtual List<string> GetDescriptionValues(Entity entityInput, string behavior, bool withManaged, bool withSolutionInfo, bool withUrls, Action<List<string>, Entity, bool, bool, bool> action)
         {
             var result = new List<string>() { entityInput.Id.ToString() };
 
@@ -299,7 +309,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return result;
         }
 
-        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             if (solutionComponent == null)
             {
@@ -310,9 +320,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (entityInput != null)
             {
-                FormatTextTableHandler handler = GetDescriptionHeader(withUrls, withManaged, withSolutionInfo, AppendIntoTableHeaderSingle);
+                FormatTextTableHandler handler = GetDescriptionHeader(withManaged, withSolutionInfo, withUrls, AppendIntoTableHeaderSingle);
 
-                List<string> values = GetDescriptionValues(entityInput, withUrls, withManaged, withSolutionInfo, AppendIntoValuesSingle);
+                var behavior = SolutionComponent.GetRootComponentBehaviorName(solutionComponent?.RootComponentBehavior?.Value);
+
+                List<string> values = GetDescriptionValues(entityInput, behavior, withManaged, withSolutionInfo, withUrls, AppendIntoValuesSingle);
 
                 handler.AddLine(values);
 
@@ -422,7 +434,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 ComponentType = this.ComponentTypeValue,
                 RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
+                Description = GenerateDescriptionSingle(solutionComponent, true, false, false),
             });
         }
 
@@ -450,9 +462,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (id.HasValue)
             {
-                int? behaviour = GetBehaviorFromXml(elementRootComponent);
+                int? behavior = GetBehaviorFromXml(elementRootComponent);
 
-                FillSolutionComponentInternal(result, id.Value, behaviour);
+                FillSolutionComponentInternal(result, id.Value, behavior);
             }
         }
 

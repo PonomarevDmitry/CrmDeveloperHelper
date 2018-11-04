@@ -118,17 +118,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return query;
         }
 
-        protected override FormatTextTableHandler GetDescriptionHeader(bool withUrls, bool withManaged, bool withSolutionInfo, Action<FormatTextTableHandler, bool, bool, bool> action)
+        protected override FormatTextTableHandler GetDescriptionHeader(bool withManaged, bool withSolutionInfo, bool withUrls, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("ControlName", "Name", "WebResourceName", "WebResourceType", "Id");
+            handler.SetHeader("ControlName", "Name", "WebResourceName", "WebResourceType", "Id", "Behavior");
 
             action(handler, withUrls, withManaged, withSolutionInfo);
 
             return handler;
         }
 
-        protected override List<string> GetDescriptionValues(Entity entityInput, bool withUrls, bool withManaged, bool withSolutionInfo, Action<List<string>, Entity, bool, bool, bool> action)
+        protected override List<string> GetDescriptionValues(Entity entityInput, string behavior, bool withManaged, bool withSolutionInfo, bool withUrls, Action<List<string>, Entity, bool, bool, bool> action)
         {
             var entity = entityInput.ToEntity<CustomControlResource>();
 
@@ -141,6 +141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 , EntityDescriptionHandler.GetAttributeString(entity, CustomControlResource.Schema.Attributes.webresourceid + "." + WebResource.Schema.Attributes.name)
                 , EntityDescriptionHandler.GetAttributeString(entity, CustomControlResource.Schema.Attributes.webresourceid + "." + WebResource.Schema.Attributes.webresourcetype)
                 , entity.Id.ToString()
+                , behavior
             });
 
             action(values, entity, withUrls, withManaged, withSolutionInfo);

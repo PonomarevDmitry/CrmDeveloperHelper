@@ -8,16 +8,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
     public class LocalizedLabel
     {
         [DataMember]
-        public string EntityName { get; set; }
+        public string EntityName { get; private set; }
 
         [DataMember]
-        public Guid ObjectId { get; set; }
+        public Guid ObjectId { get; private set; }
 
         [DataMember]
-        public string ColumnName { get; set; }
+        public string ColumnName { get; private set; }
 
         [DataMember]
-        public List<LabelString> Labels { get; set; }
+        public List<LabelString> Labels { get; private set; }
 
         public LocalizedLabel()
         {

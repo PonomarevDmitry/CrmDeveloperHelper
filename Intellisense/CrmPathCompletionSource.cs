@@ -18,15 +18,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
     {
         private const string SourceNameMoniker = "CrmPath.{D6770026-9F25-4079-AC50-3C9D4B36EF71}";
 
-        private CrmPathCompletionSourceProvider _sourceProvider;
+        private readonly CrmPathCompletionSourceProvider _sourceProvider;
 
         private ITextBuffer _buffer;
-        private IClassifier _classifier;
+        private readonly IClassifier _classifier;
         private ITextStructureNavigatorSelectorService _navigator;
 
-        private ImageSource _defaultGlyph;
-        private ImageSource _builtInGlyph;
-        private IGlyphService _glyphService;
+        private readonly ImageSource _defaultGlyph;
+        private readonly ImageSource _builtInGlyph;
+        private readonly IGlyphService _glyphService;
 
         public CrmPathCompletionSource(CrmPathCompletionSourceProvider sourceProvider, ITextBuffer buffer, IClassifierAggregatorService classifier, ITextStructureNavigatorSelectorService navigator, IGlyphService glyphService)
         {
@@ -153,10 +153,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             relativePath = relativePath.Trim();
 
-            var fields = relativePath.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToArray();
+            IEnumerable<string> fields = relativePath.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToArray();
 
-            var sourceEntityName = fields[0];
-            fields = fields.Skip(1).ToArray();
+            var sourceEntityName = fields.FirstOrDefault();
+            fields = fields.Skip(1);
 
             var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -165,11 +165,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             return result;
         }
 
-        private void GetEntitiesByRelativePathRecursive(HashSet<string> result, string sourceEntityName, string[] fields, ConnectionIntellisenseData intellisenseData, out bool isGuid)
+        private void GetEntitiesByRelativePathRecursive(HashSet<string> result, string sourceEntityName, IEnumerable<string> fields, ConnectionIntellisenseData intellisenseData, out bool isGuid)
         {
             isGuid = false;
 
-            if (fields.Length == 0)
+            if (!fields.Any())
             {
                 if (!string.IsNullOrEmpty(sourceEntityName))
                 {
@@ -179,8 +179,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return;
             }
 
-            var attributeName = fields[0];
-            fields = fields.Skip(1).ToArray();
+            var attributeName = fields.First();
+            fields = fields.Skip(1);
 
             if (attributeName.StartsWith("multi ", StringComparison.OrdinalIgnoreCase))
             {
@@ -197,7 +197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                     if (!string.IsNullOrEmpty(nextEntityName))
                     {
-                        if (fields.Length == 0)
+                        if (!fields.Any())
                         {
                             result.Add(nextEntityName);
                             return;
@@ -225,7 +225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         {
                             if (attribute.Targets != null && attribute.Targets.Count > 0)
                             {
-                                if (fields.Length == 0)
+                                if (!fields.Any())
                                 {
                                     foreach (var nextEntityName in attribute.Targets)
                                     {
@@ -239,7 +239,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                                 {
                                     var nextEntityName = attribute.Targets.First();
 
-                                    if (fields.Length == 0)
+                                    if (!fields.Any())
                                     {
                                         result.Add(nextEntityName);
                                         return;
@@ -260,7 +260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                                 {
                                     if (string.Equals(rel.Entity1IntersectAttributeName, attributeName, StringComparison.OrdinalIgnoreCase))
                                     {
-                                        if (fields.Length == 0)
+                                        if (!fields.Any())
                                         {
                                             result.Add(rel.Entity1Name);
                                             return;
@@ -271,7 +271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                                     }
                                     else if (string.Equals(rel.Entity2IntersectAttributeName, attributeName, StringComparison.OrdinalIgnoreCase))
                                     {
-                                        if (fields.Length == 0)
+                                        if (!fields.Any())
                                         {
                                             result.Add(rel.Entity2Name);
                                             return;
@@ -283,7 +283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                                 }
                             }
 
-                            if (fields.Length == 0)
+                            if (!fields.Any())
                             {
                                 if (!string.Equals(sourceEntity.EntityPrimaryIdAttribute, attribute.LogicalName, StringComparison.InvariantCultureIgnoreCase))
                                 {
@@ -340,23 +340,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             relativePath = relativePath.Trim();
 
-            var fields = relativePath.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToArray();
+            IEnumerable<string> fields = relativePath.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToArray();
 
-            var sourceEntityName = fields[0];
-            fields = fields.Skip(1).ToArray();
+            var sourceEntityName = fields.FirstOrDefault();
+            fields = fields.Skip(1);
 
-            var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-            result.Add(sourceEntityName);
+            var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                sourceEntityName
+            };
 
             GetUsedEntitiesByRelativePathRecursive(result, sourceEntityName, fields, intellisenseData);
 
             return result;
         }
 
-        private void GetUsedEntitiesByRelativePathRecursive(HashSet<string> result, string sourceEntityName, string[] fields, ConnectionIntellisenseData intellisenseData)
+        private void GetUsedEntitiesByRelativePathRecursive(HashSet<string> result, string sourceEntityName, IEnumerable<string> fields, ConnectionIntellisenseData intellisenseData)
         {
-            if (fields.Length == 0)
+            if (!fields.Any())
             {
                 if (!string.IsNullOrEmpty(sourceEntityName))
                 {
@@ -366,8 +367,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return;
             }
 
-            var attributeName = fields[0];
-            fields = fields.Skip(1).ToArray();
+            var attributeName = fields.First();
+            fields = fields.Skip(1);
 
             if (attributeName.StartsWith("multi ", StringComparison.OrdinalIgnoreCase))
             {
@@ -638,7 +639,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
         private bool _isDisposed = false;
 
-        void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (!_isDisposed)
             {

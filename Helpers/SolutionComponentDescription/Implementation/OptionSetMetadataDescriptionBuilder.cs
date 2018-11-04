@@ -66,7 +66,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 SchemaName = optionSet.Name,
                 RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                Description = GenerateDescriptionSingle(solutionComponent, false, true, false),
+                Description = GenerateDescriptionSingle(solutionComponent, true, false, false),
             });
         }
 
@@ -109,9 +109,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 if (optionSet != null)
                 {
-                    int? behaviour = DefaultSolutionComponentDescriptionBuilder.GetBehaviorFromXml(elementRootComponent);
+                    int? behavior = DefaultSolutionComponentDescriptionBuilder.GetBehaviorFromXml(elementRootComponent);
 
-                    FillSolutionComponentInternal(result, optionSet, behaviour);
+                    FillSolutionComponentInternal(result, optionSet, behavior);
                 }
             }
         }
@@ -133,12 +133,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             result.Add(component);
         }
 
-        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public void GenerateDescription(StringBuilder builder, IEnumerable<SolutionComponent> components, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             FormatTextTableHandler handlerUnknowed = new FormatTextTableHandler();
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("OptionSetName", "IsCustomizable", "Behaviour");
+            handler.SetHeader("OptionSetName", "IsCustomizable", "Behavior");
 
             if (withManaged)
             {
@@ -152,12 +152,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             foreach (var comp in components)
             {
-                string behaviorName = string.Empty;
-
-                if (comp.RootComponentBehavior != null)
-                {
-                    behaviorName = SolutionComponent.GetRootComponentBehaviorName(comp.RootComponentBehavior.Value);
-                }
+                string behavior = SolutionComponent.GetRootComponentBehaviorName(comp.RootComponentBehavior?.Value);
 
                 if (this._source.AllOptionSetMetadata.ContainsKey(comp.ObjectId.Value))
                 {
@@ -169,7 +164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     {
                         optionSet.Name
                         , optionSet.IsCustomizable?.Value.ToString()
-                        , behaviorName
+                        , behavior
                     });
 
                     if (withManaged)
@@ -186,7 +181,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 }
                 else
                 {
-                    handlerUnknowed.AddLine(comp.ObjectId.ToString(), behaviorName);
+                    handlerUnknowed.AddLine(comp.ObjectId.ToString(), behavior);
                 }
             }
 
@@ -204,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
-        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withUrls, bool withManaged, bool withSolutionInfo)
+        public string GenerateDescriptionSingle(SolutionComponent solutionComponent, bool withManaged, bool withSolutionInfo, bool withUrls)
         {
             if (this._source.AllOptionSetMetadata.Any())
             {
@@ -212,15 +207,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     var optionSet = this._source.AllOptionSetMetadata[solutionComponent.ObjectId.Value];
 
-                    string behaviorName = string.Empty;
-
-                    if (solutionComponent.RootComponentBehavior != null)
-                    {
-                        behaviorName = SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior.Value);
-                    }
+                    string behavior = SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior?.Value);
 
                     FormatTextTableHandler handler = new FormatTextTableHandler();
-                    handler.SetHeader("OptionSetName", "IsCustomizable", "Behaviour");
+                    handler.SetHeader("OptionSetName", "IsCustomizable", "Behavior");
 
                     if (withManaged)
                     {
@@ -238,7 +228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     {
                         optionSet.Name
                         , optionSet.IsCustomizable?.Value.ToString()
-                        , behaviorName
+                        , behavior
                     });
 
                     if (withManaged)
