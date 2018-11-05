@@ -929,5 +929,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ShowExistingPluginAssemblies();
             }
         }
+
+        private async void mIOpenPluginTree_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenPluginTreeWindow(
+                _iWriteToOutput
+                , service
+                , _commonConfig
+                , null
+                , entity.Name
+                , null
+            );
+        }
     }
 }

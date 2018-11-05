@@ -76,15 +76,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadConfiguration();
 
-            if (!string.IsNullOrEmpty(entityFilter))
-            {
-                cmBEntityName.Text = entityFilter;
-            }
-
-            if (!string.IsNullOrEmpty(messageFilter))
-            {
-                txtBMessageFilter.Text = messageFilter;
-            }
+            cmBEntityName.Text = entityFilter;
+            txtBMessageFilter.Text = messageFilter;
 
             cmBEntityName.Focus();
 

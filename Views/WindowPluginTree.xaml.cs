@@ -84,20 +84,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadConfiguration();
 
-            if (!string.IsNullOrEmpty(entityFilter))
-            {
-                cmBEntityName.Text = entityFilter;
-            }
-
-            if (!string.IsNullOrEmpty(pluginTypeFilter))
-            {
-                txtBPluginTypeFilter.Text = pluginTypeFilter;
-            }
-
-            if (!string.IsNullOrEmpty(messageFilter))
-            {
-                txtBMessageFilter.Text = messageFilter;
-            }
+            cmBEntityName.Text = entityFilter;
+            txtBPluginTypeFilter.Text = pluginTypeFilter;
+            txtBMessageFilter.Text = messageFilter;
 
             cmBEntityName.Focus();
 
@@ -152,8 +141,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 )
             {
                 this.cmBEntityName.Text = winConfig.GetValueString(paramEntityName);
-                this.txtBMessageFilter.Text = winConfig.GetValueString(paramMessage);
                 this.txtBPluginTypeFilter.Text = winConfig.GetValueString(paramPluginTypeName);
+                this.txtBMessageFilter.Text = winConfig.GetValueString(paramMessage);
             }
 
             this.chBStagePreValidation.IsChecked = winConfig.GetValueBool(paramPreValidationStage).GetValueOrDefault();
@@ -1503,6 +1492,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ActivateControls(items, nodeItem.PluginAssembly.HasValue, "contMnAddPluginAssemblyStepsIntoSolution", "contMnAddPluginAssemblyStepsIntoSolutionLast");
 
+            ActivateControls(items, nodeItem.ComponentType == ComponentType.SdkMessage && !string.IsNullOrEmpty(nodeItem.Name), "contMnSdkMessage");
 
             FillLastSolutionItems(connectionData, items, isEntity || isPluginAssembly || isStep, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
 
@@ -1572,6 +1562,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 connectionData.OpenEntityListInWeb(nodeItem.EntityLogicalName);
             }
+        }
+
+        private async void mIOpenSdkMessageTree_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null
+                || nodeItem.ComponentType != ComponentType.SdkMessage
+                || string.IsNullOrEmpty(nodeItem.Name)
+                )
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            WindowHelper.OpenSdkMessageTreeWindow(_iWriteToOutput, service, _commonConfig, null, nodeItem.Name);
+        }
+
+        private async void mIOpenSdkMessageRequestTree_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null
+                || nodeItem.ComponentType != ComponentType.SdkMessage
+                || string.IsNullOrEmpty(nodeItem.Name)
+                )
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            WindowHelper.OpenSdkMessageRequestTreeWindow(_iWriteToOutput, service, _commonConfig, null, nodeItem.Name);
         }
 
         private async void btnPublishEntity_Click(object sender, RoutedEventArgs e)
