@@ -2580,7 +2580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartShowingPluginTree(crmConfig.CurrentConnectionData, commonConfig, selection);
+                    Controller.StartShowingPluginTree(crmConfig.CurrentConnectionData, commonConfig, selection, null, null);
                 }
                 catch (Exception xE)
                 {
@@ -2607,7 +2607,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartShowingSdkMessageTree(crmConfig.CurrentConnectionData, commonConfig, selection);
+                    Controller.StartShowingSdkMessageTree(crmConfig.CurrentConnectionData, commonConfig, selection, null);
                 }
                 catch (Exception xE)
                 {
@@ -2634,7 +2634,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartShowingSdkMessageRequestTree(crmConfig.CurrentConnectionData, commonConfig, selection);
+                    Controller.StartShowingSdkMessageRequestTree(crmConfig.CurrentConnectionData, commonConfig, selection, null);
                 }
                 catch (Exception xE)
                 {

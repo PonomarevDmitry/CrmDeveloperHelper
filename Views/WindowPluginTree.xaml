@@ -58,16 +58,19 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
+            
             <Label Content="Entity Name" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-            <TextBox x:Name="txtBEntityName" Height="23"  TextWrapping="NoWrap"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" />
+            <ComboBox x:Name="cmBEntityName" Height="23" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+            
             <Label Content="Plugin Name" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
             <TextBox x:Name="txtBPluginTypeFilter" Height="23"  TextWrapping="NoWrap"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" />
+            
             <Label Content="Message" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="4"/>
             <TextBox x:Name="txtBMessageFilter" Height="23"  TextWrapping="NoWrap"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="5" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" />
         </Grid>

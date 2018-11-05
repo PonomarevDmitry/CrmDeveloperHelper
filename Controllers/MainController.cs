@@ -1187,13 +1187,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public void StartShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string pluginTypeFilter, string messageFilter)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._pluginTreeController.ExecuteShowingPluginTree(connectionData, commonConfig, selection);
+                    this._pluginTreeController.ExecuteShowingPluginTree(connectionData, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
                 }
                 catch (Exception ex)
                 {
@@ -1204,13 +1204,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartShowingSdkMessageTree(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public void StartShowingSdkMessageTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._pluginTreeController.ExecuteShowingSdkMessageTree(connectionData, commonConfig, selection);
+                    this._pluginTreeController.ExecuteShowingSdkMessageTree(connectionData, commonConfig, entityFilter, messageFilter);
                 }
                 catch (Exception ex)
                 {
@@ -1221,13 +1221,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public void StartShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._pluginTreeController.ExecuteShowingSdkMessageRequestTree(connectionData, commonConfig, selection);
+                    this._pluginTreeController.ExecuteShowingSdkMessageRequestTree(connectionData, commonConfig, entityFilter, messageFilter);
                 }
                 catch (Exception ex)
                 {

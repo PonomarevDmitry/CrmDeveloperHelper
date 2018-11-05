@@ -1327,21 +1327,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, _service, _commonConfig, null);
+            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, _service, _commonConfig, string.Empty, string.Empty, string.Empty);
         }
 
         private void btnMessageTree_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, _service, _commonConfig, null);
+            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, _service, _commonConfig, null, string.Empty);
         }
 
         private void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, _service, _commonConfig, null);
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, _service, _commonConfig, null, string.Empty);
         }
 
         private void btnSiteMap_Click(object sender, RoutedEventArgs e)

@@ -152,7 +152,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async Task LoadTraceRecords(IEnumerable<string> files)
+        private async Task LoadTraceRecordsAsync(IEnumerable<string> files)
         {
             if (_init > 0 || !_controlsEnabled)
             {
@@ -206,8 +206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBCurrentConnection.Dispatcher.Invoke(() =>
             {
-                var connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-                if (connectionData != null)
+                if (cmBCurrentConnection.SelectedItem is ConnectionData connectionData)
                 {
                     connectionId = connectionData.ConnectionId;
                 }
@@ -244,8 +243,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 textName = cmBFilter.Text?.Trim().ToLower();
 
-                var connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-                if (connectionData != null)
+                if (cmBCurrentConnection.SelectedItem is ConnectionData connectionData)
                 {
                     connectionData.AddTraceFilter(textName);
                 }
@@ -501,7 +499,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (dialog.ShowDialog(this).GetValueOrDefault())
             {
-                await LoadTraceRecords(dialog.FileNames);
+                await LoadTraceRecordsAsync(dialog.FileNames);
             }
         }
 
@@ -537,16 +535,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 filter = filter.Where(e => e.LastWriteTime >= date.Value);
             }
 
-            LoadTraceRecords(filter.Select(f => f.FullName));
+            await LoadTraceRecordsAsync(filter.Select(f => f.FullName));
         }
 
         private void lstVwTraceRecords_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as TraceRecord;
-
-                if (item != null)
+                if (((FrameworkElement)e.OriginalSource).DataContext is TraceRecord item)
                 {
                     OpenTraceRecordDescription(item);
                 }
@@ -590,9 +586,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-
-            if (connectionData != null)
+            if (cmBCurrentConnection.SelectedItem is ConnectionData connectionData)
             {
                 if (lstVwFolders.ItemsSource != null
                     && lstVwFolders.ItemsSource is ObservableCollection<string> coll

@@ -21,8 +21,10 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
+            
             <Label Content="Entity Name" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtBEntityName" Height="23"  TextWrapping="NoWrap"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" />
+            <ComboBox x:Name="cmBEntityName" Height="23" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+            
             <Label Content="Message" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="2" VerticalContentAlignment="Center"/>
             <TextBox x:Name="txtBMessageFilter" Height="23"  TextWrapping="NoWrap"  Grid.Row="0" Grid.Column="3" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" />
         </Grid>

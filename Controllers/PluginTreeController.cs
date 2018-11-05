@@ -22,13 +22,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Дерево плагинов.
 
-        public async Task ExecuteShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public async Task ExecuteShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string pluginTypeFilter, string messageFilter)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Showing Plugin Tree at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
-                await ShowingPluginTree(connectionData, commonConfig, selection);
+                await ShowingPluginTree(connectionData, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
             }
             catch (Exception xE)
             {
@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        private async Task ShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string pluginTypeFilter, string messageFilter)
         {
             if (connectionData == null)
             {
@@ -57,20 +57,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, commonConfig, selection);
+            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
         }
 
         #endregion Дерево плагинов.
 
         #region Дерево сообщений.
 
-        public async Task ExecuteShowingSdkMessageTree(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public async Task ExecuteShowingSdkMessageTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Showing Sdk Message Tree at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
-                await ShowingSdkMessageTree(connectionData, commonConfig, selection);
+                await ShowingSdkMessageTree(connectionData, commonConfig, entityFilter, messageFilter);
             }
             catch (Exception xE)
             {
@@ -82,7 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ShowingSdkMessageTree(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        private async Task ShowingSdkMessageTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
         {
             if (connectionData == null)
             {
@@ -99,20 +99,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, commonConfig, selection);
+            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, commonConfig, entityFilter, messageFilter);
         }
 
         #endregion Дерево сообщений.
 
         #region Дерево запросов.
 
-        public async Task ExecuteShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public async Task ExecuteShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
         {
             this._iWriteToOutput.WriteToOutput("*********** Start Showing Sdk Message Request Tree at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
-                await ShowingSdkMessageRequestTree(connectionData, commonConfig, selection);
+                await ShowingSdkMessageRequestTree(connectionData, commonConfig, entityFilter, messageFilter);
             }
             catch (Exception xE)
             {
@@ -124,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        private async Task ShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
         {
             if (connectionData == null)
             {
@@ -141,7 +141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, commonConfig, selection);
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, commonConfig, entityFilter, messageFilter);
         }
 
         #endregion Дерево запросов.

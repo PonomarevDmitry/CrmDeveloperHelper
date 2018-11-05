@@ -106,9 +106,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             TryParseUrl(out var urlEntityName, out var urlObjectTypeCode, out var urlEntityId);
 
-            string textEntityName = cmBEntityTypeName.Text.Trim(' ', '<', '>');
-            string textEntityTypeCode = txtBEntityTypeCode.Text.Trim(' ', '<', '>');
-            string textEntityId = txtBEntityId.Text.Trim(' ', '<', '>');
+            string textEntityName = cmBEntityTypeName.Text?.Trim(' ', '<', '>');
+            string textEntityTypeCode = txtBEntityTypeCode.Text?.Trim(' ', '<', '>');
+            string textEntityId = txtBEntityId.Text?.Trim(' ', '<', '>');
 
             if (!string.IsNullOrEmpty(textEntityName))
             {

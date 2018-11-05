@@ -402,7 +402,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string selection
+            , string entityFilter
+            , string pluginTypeFilter
+            , string messageFilter
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -413,7 +415,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput
                         , service
                         , commonConfig
-                        , selection
+                        , entityFilter
+                        , pluginTypeFilter
+                        , messageFilter
                     );
 
                     form.ShowDialog();
@@ -433,7 +437,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string selection
+            , string entityFilter
+            , string messageFilter
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -444,7 +449,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput
                         , service
                         , commonConfig
-                        , selection
+                        , entityFilter
+                        , messageFilter
                     );
 
                     form.ShowDialog();
@@ -464,7 +470,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string selection
+            , string entityFilter
+            , string messageFilter
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -475,7 +482,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput
                         , service
                         , commonConfig
-                        , selection
+                        , entityFilter
+                        , messageFilter
                     );
 
                     form.ShowDialog();

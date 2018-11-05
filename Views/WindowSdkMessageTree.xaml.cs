@@ -44,13 +44,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ByMessage = 1,
         }
 
-        bool _controlsEnabled = true;
+        private bool _controlsEnabled = true;
 
         public WindowSdkMessageTree(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string selection
+            , string entityFilter
+            , string messageFilter
             )
         {
             _init++;
@@ -69,19 +70,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadFromConfig();
 
+            FillEntityNames(service.ConnectionData);
+
             LoadImages();
 
             LoadConfiguration();
 
-            if (!string.IsNullOrEmpty(selection))
+            if (!string.IsNullOrEmpty(entityFilter))
             {
-                txtBEntityName.Text = selection;
+                cmBEntityName.Text = entityFilter;
             }
 
-            txtBEntityName.SelectionLength = 0;
-            txtBEntityName.SelectionStart = txtBEntityName.Text.Length;
+            if (!string.IsNullOrEmpty(messageFilter))
+            {
+                txtBMessageFilter.Text = messageFilter;
+            }
 
-            txtBEntityName.Focus();
+            cmBEntityName.Focus();
 
             cmBCurrentConnection.ItemsSource = _connectionConfig.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
@@ -122,12 +127,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             WindowSettings winConfig = this.GetWindowsSettings();
 
-            if (string.IsNullOrEmpty(this.txtBEntityName.Text))
+            if (string.IsNullOrEmpty(this.cmBEntityName.Text)
+                && string.IsNullOrEmpty(this.txtBMessageFilter.Text)
+                )
             {
-                this.txtBEntityName.Text = winConfig.GetValueString(paramEntityName);
+                this.cmBEntityName.Text = winConfig.GetValueString(paramEntityName);
+                this.txtBMessageFilter.Text = winConfig.GetValueString(paramMessage);
             }
-
-            this.txtBMessageFilter.Text = winConfig.GetValueString(paramMessage);
 
             {
                 var temp = winConfig.GetValueString(paramView);
@@ -165,7 +171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             base.SaveConfigurationInternal(winConfig);
 
-            winConfig.DictString[paramEntityName] = this.txtBEntityName.Text.Trim();
+            winConfig.DictString[paramEntityName] = this.cmBEntityName.Text?.Trim();
             winConfig.DictString[paramMessage] = this.txtBMessageFilter.Text.Trim();
 
             winConfig.DictString[paramView] = this._currentView.ToString();
@@ -233,7 +239,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Dispatcher.Invoke(() =>
             {
-                entityName = txtBEntityName.Text.Trim();
+                entityName = cmBEntityName.Text?.Trim();
                 messageName = txtBMessageFilter.Text.Trim();
             });
 
@@ -844,26 +850,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ConnectionData connectionData = null;
+
             this.Dispatcher.Invoke(() =>
             {
                 trVMessageTree.ItemsSource = null;
-            });
-
-            if (_init > 0 || !_controlsEnabled)
-            {
-                return;
-            }
-
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
             if (connectionData != null)
             {
+                FillEntityNames(connectionData);
                 ShowExistingMessages();
+            }
+        }
+
+        private void FillEntityNames(ConnectionData connectionData)
+        {
+            if (connectionData != null
+                && connectionData.IntellisenseData != null
+                && connectionData.IntellisenseData.Entities != null
+                )
+            {
+                cmBEntityName.Dispatcher.Invoke(() =>
+                {
+                    string text = cmBEntityName.Text;
+
+                    cmBEntityName.Items.Clear();
+
+                    foreach (var item in connectionData.IntellisenseData.Entities.Keys.OrderBy(s => s))
+                    {
+                        cmBEntityName.Items.Add(item);
+                    }
+
+                    cmBEntityName.Text = text;
+                });
             }
         }
     }
