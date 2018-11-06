@@ -87,17 +87,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             var list = _Elements.Values.OrderBy(element => element.SelectedFile.FriendlyFilePath).ToList();
 
+            FormatTextTableHandler tableUpdated = new FormatTextTableHandler();
+            tableUpdated.SetHeader("FileName", "WebResourceName", "WebResourceType");
+
+            FormatTextTableHandler tableNotCustomizable = new FormatTextTableHandler();
+            tableNotCustomizable.SetHeader("FileName", "WebResourceName", "WebResourceType");
+
+            FormatTextTableHandler tableEqual = new FormatTextTableHandler();
+            tableEqual.SetHeader("FileName", "WebResourceName", "WebResourceType");
+
             foreach (var element in list)
             {
                 var contentFile = Convert.ToBase64String(File.ReadAllBytes(element.SelectedFile.FilePath));
 
                 var contentWebResource = element.WebResource.Content ?? string.Empty;
 
-                var name = element.WebResource.Name;
+                element.WebResource.FormattedValues.TryGetValue(WebResource.Schema.Attributes.webresourcetype, out var webresourcetype);
 
                 if (contentFile == contentWebResource)
                 {
-                    this._iWriteToOutput.WriteToOutput("WebResource and file are equal by content: web {0}:{1}; file: {2}", name, element.WebResource.Id, element.SelectedFile.FileName);
+                    tableEqual.AddLine(element.SelectedFile.FileName, element.WebResource.Name, webresourcetype);
                 }
                 else
                 {
@@ -111,13 +120,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         this._Service.Update(resource);
 
-                        this._iWriteToOutput.WriteToOutput("Updated: web {0}:{1}; file: {2}", element.WebResource.Id, name, element.SelectedFile.FileName);
+                        tableUpdated.AddLine(element.SelectedFile.FileName, element.WebResource.Name, webresourcetype);
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput("WebResource is NOT Customizable, can't change content: web {0}:{1}.", name, element.WebResource.Id);
+                        tableNotCustomizable.AddLine(element.SelectedFile.FileName, element.WebResource.Name, webresourcetype);
                     }
                 }
+            }
+
+            if (tableEqual.Count > 0)
+            {
+                this._iWriteToOutput.WriteToOutput("WebResources equal to file content:");
+
+                var lines = tableEqual.GetFormatedLines(false);
+
+                lines.ForEach(item => _iWriteToOutput.WriteToOutput("    {0}", item));
+            }
+
+            if (tableNotCustomizable.Count > 0)
+            {
+                this._iWriteToOutput.WriteToOutput("WebResources are NOT Customizable, can't change WebResource's content:");
+
+                var lines = tableNotCustomizable.GetFormatedLines(false);
+
+                lines.ForEach(item => _iWriteToOutput.WriteToOutput("    {0}", item));
+            }
+
+            if (tableUpdated.Count > 0)
+            {
+                this._iWriteToOutput.WriteToOutput("Updated WebResources:");
+
+                var lines = tableUpdated.GetFormatedLines(false);
+
+                lines.ForEach(item => _iWriteToOutput.WriteToOutput("    {0}", item));
             }
         }
 
