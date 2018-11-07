@@ -101,7 +101,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private Publisher GetDefaultPublisher()
         {
+            var organization = _Service.Retrieve(Organization.EntityLogicalName, _Service.ConnectionData.OrganizationId.Value, new ColumnSet(Organization.Schema.Attributes.name)).ToEntity<Organization>();
+
+            var defaultPublisherName = "DefaultPublisher" + organization.Name;
+
             QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = Publisher.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Publisher.Schema.Attributes.uniquename, ConditionOperator.Equal, defaultPublisherName),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(Publisher.Schema.Attributes.createdon, OrderType.Ascending),
+                },
+            };
+
+            var result = _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Publisher>()).SingleOrDefault();
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            query = new QueryExpression()
             {
                 NoLock = true,
 
@@ -125,7 +160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Publisher>()).SingleOrDefault();
+            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Publisher>()).FirstOrDefault();
         }
     }
 }
