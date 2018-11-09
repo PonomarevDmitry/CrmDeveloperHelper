@@ -1359,7 +1359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format("Register all Steps for Plugin Assembly in {0}?", connectionData?.Name);
             }
 
-            if (MessageBox.Show(message, "Question", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
                 await RegisterSteps(step);
             }

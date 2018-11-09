@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading entities...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntitiesFormat);
 
             this._itemsSource.Clear();
 

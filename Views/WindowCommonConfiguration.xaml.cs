@@ -1,4 +1,4 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.ObjectModel;
@@ -259,7 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (message.Length > 0)
             {
-                MessageBox.Show(message.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(message.ToString(), Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
 
                 return false;
             }
@@ -305,20 +305,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBCreate_Click(object sender, RoutedEventArgs e)
         {
-            var openFileDialog1 = new Microsoft.Win32.OpenFileDialog();
-
-            openFileDialog1.Filter = "Crm Scv Util (CrmScvUtil.exe)|*.exe";
-            openFileDialog1.FilterIndex = 1;
-            openFileDialog1.RestoreDirectory = true;
+            var openFileDialog1 = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "Crm Scv Util (CrmScvUtil.exe)|*.exe",
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
 
             if (openFileDialog1.ShowDialog().GetValueOrDefault())
             {
                 try
                 {
-                    CrmSvcUtil util = new CrmSvcUtil();
-
-                    util.Path = openFileDialog1.FileName;
-                    util.Id = Guid.NewGuid();
+                    CrmSvcUtil util = new CrmSvcUtil
+                    {
+                        Path = openFileDialog1.FileName,
+                        Id = Guid.NewGuid()
+                    };
 
                     FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(util.Path);
                     util.Version = string.Format("{0}.{1}.{2}.{3}", versionInfo.ProductMajorPart, versionInfo.ProductMinorPart, versionInfo.ProductPrivatePart, versionInfo.ProductBuildPart);
@@ -375,7 +377,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 CrmSvcUtil util = lstVwUtils.SelectedItems[0] as CrmSvcUtil;
 
-                if (MessageBox.Show("Delete CrmSvcUtil?", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                if (MessageBox.Show(Properties.MessageBoxStrings.DeleteCrmSvcUtil, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
                     _config.Utils.Remove(util);
                 }

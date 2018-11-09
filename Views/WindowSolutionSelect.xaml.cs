@@ -85,7 +85,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading solutions...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingSolutions);
 
             this._itemsSource.Clear();
 
@@ -144,7 +144,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSolutions(list);
 
-            ToggleControls(true, "{0} solutions loaded.", list.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionsCompletedFormat, list.Count());
         }
 
         private class EntityViewItem
@@ -423,16 +423,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string question = string.Format("Are you sure want to clear solution {0}?", solution.UniqueName);
+            string question = string.Format(Properties.MessageBoxStrings.ClearSolutionFormat, solution.UniqueName);
 
-            if (MessageBox.Show(question, "Question", MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
+            if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
             {
                 return;
             }
 
             try
             {
-                ToggleControls(false, "Start clearing solution...");
+                
+                ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat, solution.UniqueName);
 
                 var descriptor = new SolutionComponentDescriptor(_service, true);
 
@@ -474,13 +475,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
                 await repository.ClearSolutionAsync(solution.UniqueName);
 
-                ToggleControls(true, "Clearing solution is completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Clearing solution failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat, solution.UniqueName);
             }
         }
     }

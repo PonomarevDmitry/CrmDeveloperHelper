@@ -711,7 +711,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
             var service = await getService();
 
@@ -728,7 +728,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true, "Entity Description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
         }
 
         private Task<string> CreateDescriptionFileAsync(string connectionName, string name, string fieldName, string description)

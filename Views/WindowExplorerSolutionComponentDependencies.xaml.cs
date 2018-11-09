@@ -234,6 +234,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 switch (solutionComponents)
                 {
                     case DependencyType.RequiredComponents:
+                    default:
                         {
                             IEnumerable<Dependency> temp = await repository.GetRequiredComponentsAsync(_componentType, _objectId);
 
@@ -276,9 +277,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 list.AddRange(temp.Select(en => en.DependentToSolutionComponent()));
                             }
                         }
-                        break;
-
-                    default:
                         break;
                 }
 
@@ -545,7 +543,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityDescription(string folder, SolutionComponentViewItem solutionComponentViewItem)
         {
-            ToggleControls(false, "Creating Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
             string fileName = _descriptor.GetFileName(_service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, "EntityDescription", "txt");
 
@@ -584,7 +582,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            ToggleControls(true, "Entity Description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -1045,7 +1043,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Publishing Entity {0}...", entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityName);
 
             this._iWriteToOutput.WriteToOutput("Start publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1057,13 +1055,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, "Entity {0} published", entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Publish Entity {0} failed", entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityName);
             }
         }
 

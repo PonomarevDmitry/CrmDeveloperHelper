@@ -523,7 +523,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Exporting Xml {0} to File...", fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldName);
 
             try
             {
@@ -539,13 +539,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, "Exporting Xml {0} to File completed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Exporting Xml {0} to File failed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat, fieldName);
             }
         }
 
@@ -556,7 +556,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Updating Field {0}...", fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat, fieldName);
 
             try
             {
@@ -607,13 +607,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     service.Update(updateEntity);
                 }
 
-                ToggleControls(true, "Updating Field {0} completed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Updating Field {0} failed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat, fieldName);
             }
         }
 
@@ -655,7 +655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityDescription(string folder, Guid idSavedQueryVisualization, string entityName, string name)
         {
-            ToggleControls(false, "Creating Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
             try
             {
@@ -676,13 +676,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, "Entity Description completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Entity Description failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
             }
         }
 
@@ -1384,7 +1384,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Publishing Entity {0}...", entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityName);
 
             this._iWriteToOutput.WriteToOutput("Start publishing Entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1398,13 +1398,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing Entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, "Publish Entity {0} completed.", entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Publish Entity {0} failed.", entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityName);
             }
         }
 

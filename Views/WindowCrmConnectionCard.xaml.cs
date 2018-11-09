@@ -128,7 +128,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (builder.Length > 0) { builder.AppendLine(); }
 
-                builder.Append("Name is empty.");
+                builder.Append(Properties.MessageBoxStrings.NameIsEmpty);
             }
 
             message = builder.ToString();
@@ -137,7 +137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnTemplateDiscovery_Click(object sender, RoutedEventArgs e)
         {
-            txtBDiscoveryUrl.Text = @"http:///XRMServices/2011/Discovery.svc";
+            txtBDiscoveryUrl.Text = Properties.MessageBoxStrings.DefaultDiscoveryServiceUrlTemplate;
             txtBDiscoveryUrl.SelectionLength = 0;
             txtBDiscoveryUrl.SelectionStart = 7;
             txtBDiscoveryUrl.Focus();
@@ -145,7 +145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnTemplateOrganization_Click(object sender, RoutedEventArgs e)
         {
-            txtBOrganizationServiceUrl.Text = @"http:////XRMServices/2011/Organization.svc";
+            txtBOrganizationServiceUrl.Text = Properties.MessageBoxStrings.DefaultOrganizationServiceUrlTemplate;
             txtBOrganizationServiceUrl.SelectionLength = 0;
             txtBOrganizationServiceUrl.SelectionStart = 7;
             txtBOrganizationServiceUrl.Focus();
@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!fieldsIsOk)
             {
-                MessageBox.Show(this, message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(this, message, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -262,7 +262,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnTestConnection_Click(object sender, RoutedEventArgs e)
         {
-            ToggleControls(false, "Start Testing Connection...");
+            ToggleControls(false, Properties.WindowStatusStrings.StartTestingConnectionFormat, this.ConnectionData.Name);
 
             try
             {
@@ -272,13 +272,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 LoadConnectionData(this.ConnectionData);
 
-                ToggleControls(true, "Connected.");
+                ToggleControls(true, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat, this.ConnectionData.Name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Connection failed. See Error in Output.");
+                ToggleControls(true, Properties.WindowStatusStrings.ConnectionFailedFormat, this.ConnectionData.Name);
             }
         }
 

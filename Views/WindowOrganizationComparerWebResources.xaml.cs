@@ -626,7 +626,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
             var service = await getService();
 

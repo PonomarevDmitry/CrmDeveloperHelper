@@ -459,7 +459,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityDescription(string folder, Guid idPluginType, string name)
         {
-            ToggleControls(false, "Creating Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
             var service = await GetService();
 
@@ -478,7 +478,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            ToggleControls(true, "Entity Description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

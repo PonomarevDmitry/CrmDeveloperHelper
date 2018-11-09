@@ -986,7 +986,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Exporting Xml {0} to File...", fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldName);
 
             var service = await getService();
 
@@ -1003,7 +1003,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true, "Exporting Xml {0} to File completed.", fieldName);
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat, fieldName);
         }
 
         private void ExecuteActionEntityDescription(Guid idSystemForm, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)
@@ -1033,7 +1033,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
             var service = await getService();
 
@@ -1050,7 +1050,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true, "Entity Description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
         }
 
         private void mIExportSystemForm1EntityDescription_Click(object sender, RoutedEventArgs e)

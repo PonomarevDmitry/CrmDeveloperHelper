@@ -250,10 +250,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                childDomain.SetData("Assembly", assemblyPath);
+                childDomain.SetData(_assemblyKey, assemblyPath);
                 childDomain.DoCallBack(new CrossAppDomainDelegate(CheckAssembly));
 
-                var check = childDomain.GetData("Result");
+                var check = childDomain.GetData(_resultKey);
 
                 if (check is Tuple<HashSet<string>, HashSet<string>> paths)
                 {
@@ -340,16 +340,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return childDomain;
         }
 
+        private const string _assemblyKey = "Assembly";
+        private const string _resultKey = "Result";
+
         public static void CheckAssembly()
         {
             try
             {
-                var path = (string)AppDomain.CurrentDomain.GetData("Assembly");
+                var path = (string)AppDomain.CurrentDomain.GetData(_assemblyKey);
 
                 var temp = new PluginsAndWorkflowLoader();
                 var result = temp.LoadAssembly(path);
 
-                AppDomain.CurrentDomain.SetData("Result", result);
+                AppDomain.CurrentDomain.SetData(_resultKey, result);
             }
             catch (Exception ex)
             {

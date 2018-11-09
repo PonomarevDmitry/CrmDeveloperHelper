@@ -73,7 +73,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         if (message.Length > 0) { message.AppendLine(); }
 
-                        message.Append("Folder does not exists.");
+                        message.Append(Properties.MessageBoxStrings.FolderDoesNotExists);
                     }
                 }
             }
@@ -87,7 +87,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (message.Length > 0)
             {
-                MessageBox.Show(message.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(message.ToString(), Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {

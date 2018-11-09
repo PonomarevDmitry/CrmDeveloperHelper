@@ -780,7 +780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Exporting Xml {0} to File...", fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldName);
 
             var service = await getService();
 
@@ -797,7 +797,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true, "Exporting Xml {0} to File completed.", fieldName);
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat, fieldName);
         }
 
         private void mIShowDifferenceEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -883,7 +883,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
             var service = await getService();
 

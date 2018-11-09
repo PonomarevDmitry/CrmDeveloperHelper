@@ -172,7 +172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading sitemaps...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingSiteMaps);
 
             this._itemsSource.Clear();
 
@@ -331,7 +331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "{0} sitemaps loaded.", results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingSiteMapsCompletedFormat, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -673,7 +673,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Exporting Xml {0} to File...", fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldName);
 
             var service = await getService();
 
@@ -692,7 +692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true, "Exporting Xml {0} to File completed.", fieldName);
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat, fieldName);
 
         }
 
@@ -782,7 +782,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
             var service = await getService();
 

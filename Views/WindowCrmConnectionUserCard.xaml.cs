@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!fieldsIsOk)
             {
-                MessageBox.Show(this, message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(this, message, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -86,7 +86,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format("Unable to save connection details. Error: {0}", ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(string.Format("Unable to save connection details. Error: {0}", ex.Message), Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             this.DialogResult = true;

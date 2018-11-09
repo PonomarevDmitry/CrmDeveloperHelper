@@ -209,7 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading entities...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntitiesFormat);
 
             this._itemsSource.Clear();
 
@@ -907,8 +907,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Publishing Application Ribbon...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingApplicationRibbon);
 
             this._iWriteToOutput.WriteToOutput("Start publishing Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -922,13 +922,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, "Publishing Application Ribbon completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingApplicationRibbonCompleted);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Publishing Application Ribbon failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingApplicationRibbonFailed);
             }
         }
 
@@ -1303,7 +1303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Publishing Entity {0}...", entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityName);
 
             this._iWriteToOutput.WriteToOutput("Start publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1316,14 +1316,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await repository.PublishEntitiesAsync(new[] { entityName });
 
                 this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-                ToggleControls(true, "Publishing Entity {0} completed.", entityName);
+                
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "Publishing Entity {0} failed.", entityName);
+                
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityName);
             }
         }
 

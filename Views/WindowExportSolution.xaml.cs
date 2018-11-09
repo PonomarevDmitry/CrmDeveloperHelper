@@ -236,7 +236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading solutions...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingSolutions);
 
             this._itemsSource.Clear();
 
@@ -275,7 +275,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSolutions(list);
 
-            ToggleControls(true, "{0} solutions loaded.", list.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionsCompletedFormat, list.Count());
         }
 
         private class EntityViewItem
@@ -428,9 +428,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    string message = string.Format("Export solution {0}?", item.SolutionName);
+                    string message = string.Format(Properties.MessageBoxStrings.ExportSolutionFormat, item.SolutionName);
 
-                    if (MessageBox.Show(message, "Question", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                    if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                     {
                         ExecuteAction(item.Solution, PerformExportSolution);
                     }
@@ -485,16 +485,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (!Version.TryParse(version, out Version ver))
                     {
-                        MessageBox.Show("Solution Version is not valid Version.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show(Properties.MessageBoxStrings.SolutionVersionTextIsNotValidVersion, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
 
                     version = ver.ToString();
+                }
+            }
 
-                    if (chBCreateFolderForVersion.IsChecked.GetValueOrDefault())
-                    {
-                        fileExportFolder = Path.Combine(fileExportFolder, version);
-                    }
+            if (chBCreateFolderForVersion.IsChecked.GetValueOrDefault())
+            {
+                if (!string.IsNullOrEmpty(version))
+                {
+                    fileExportFolder = Path.Combine(fileExportFolder, version);
+                }
+                else if(!string.IsNullOrEmpty(solution.Version))
+                {
+                    fileExportFolder = Path.Combine(fileExportFolder, solution.Version);
                 }
             }
 
@@ -581,7 +588,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteAction(entity, PerformExportSolution);
         }
 
-        private async Task PerformExportSolution(string folder, Solution solution, ExportSolutionConfig config, ExportSolutionOverrideInformation solutionInfo)
+        private async Task PerformExportSolution(string folder, Solution solution, ExportSolutionConfig config, ExportSolutionOverrideInformation solutionExportInfo)
         {
             if (_init > 0 || !_controlsEnabled)
             {
@@ -598,21 +605,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     _iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData.ConnectionId, solution.UniqueName, service.ConnectionData.GetSolutionUrl(solution.Id));
 
-                    if (solutionInfo.OverrideNameAndVersion)
+                    if (solutionExportInfo.OverrideNameAndVersion)
                     {
                         this.Dispatcher.Invoke(() =>
                         {
                             string text = null;
 
                             text = cmBUniqueName.Text;
-                            service.ConnectionData.AddLastExportSolutionOverrideUniqueName(solutionInfo.UniqueName);
+                            service.ConnectionData.AddLastExportSolutionOverrideUniqueName(solutionExportInfo.UniqueName);
                             cmBUniqueName.Text = text;
 
                             text = cmBDisplayName.Text;
-                            service.ConnectionData.AddLastExportSolutionOverrideDisplayName(solutionInfo.DisplayName);
+                            service.ConnectionData.AddLastExportSolutionOverrideDisplayName(solutionExportInfo.DisplayName);
                             cmBDisplayName.Text = text;
 
-                            if (!string.IsNullOrEmpty(solutionInfo.Version) && Version.TryParse(solutionInfo.Version, out Version ver))
+                            if (!string.IsNullOrEmpty(solutionExportInfo.Version) && Version.TryParse(solutionExportInfo.Version, out Version ver))
                             {
                                 var oldVersion = ver.ToString();
                                 var newVersion = new Version(ver.Major, ver.Minor, ver.Build, ver.Revision + 1).ToString();
@@ -625,7 +632,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     ExportSolutionHelper helper = new ExportSolutionHelper(service);
 
-                    var filePath = await helper.ExportAsync(config, solutionInfo);
+                    var filePath = await helper.ExportAsync(config, solutionExportInfo);
 
                     this.Dispatcher.Invoke(() =>
                     {
@@ -834,16 +841,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string question = string.Format("Are you sure want to clear solution {0}?", solution.UniqueName);
+            string question = string.Format(Properties.MessageBoxStrings.ClearSolutionFormat, solution.UniqueName);
 
-            if (MessageBox.Show(question, "Question", MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
+            if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
             {
                 return;
             }
 
             try
             {
-                ToggleControls(false, "Clearing solution...");
+                ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat);
 
                 var service = await GetService();
 
@@ -885,13 +892,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 SolutionComponentRepository repository = new SolutionComponentRepository(service);
                 await repository.ClearSolutionAsync(solution.UniqueName);
 
-                ToggleControls(true, "Clearing solution completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Clearing solution failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat);
             }
         }
 

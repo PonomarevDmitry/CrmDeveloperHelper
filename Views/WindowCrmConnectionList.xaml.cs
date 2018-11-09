@@ -1,17 +1,14 @@
-﻿using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Collections.ObjectModel;
 using System.Windows.Data;
-using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -383,7 +380,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
 
-                if (MessageBox.Show("Move CRM Connection to Archive?", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                string message = string.Format(Properties.MessageBoxStrings.MoveConnectionToArchiveFormat, connectionData.Name);
+
+                if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
                     if (connectionData.ConnectionId == _crmConfig.CurrentConnectionData?.ConnectionId)
                     {
@@ -474,7 +473,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionUserData user = lstVwUsers.SelectedItems[0] as ConnectionUserData;
 
-                if (MessageBox.Show("Delete CRM Connection User?", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                string message = string.Format(Properties.MessageBoxStrings.DeleteCRMConnectionUserFormat, user.Username);
+
+                if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
                     _crmConfig.Users.Remove(user);
                 }
@@ -623,7 +624,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
 
-                if (MessageBox.Show("Delete CRM Connection?", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                string message = string.Format(Properties.MessageBoxStrings.DeleteCRMConnectionFormat, connectionData.Name);
+
+                if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
                     this.Dispatcher.Invoke(() =>
                     {
@@ -650,7 +653,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
 
-            if (MessageBox.Show("Return CRM Connection to Connection List?", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            string message = string.Format(Properties.MessageBoxStrings.ReturnCRMConnectionToConnectionListFormat, connectionData.Name);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
                 this.Dispatcher.Invoke(() =>
                 {

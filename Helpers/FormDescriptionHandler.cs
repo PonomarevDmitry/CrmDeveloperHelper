@@ -1170,7 +1170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 }
                                 else
                                 {
-                                    attribute = string.Format("Form", attribute);
+                                    attribute = "Form";
                                 }
 
                                 name = string.Format("name=\"{0}\"", name);
@@ -1225,7 +1225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 else
                 {
-                    attribute = string.Format("Form", attribute);
+                    attribute = "Form";
                 }
 
                 result.Append("    ");

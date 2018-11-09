@@ -368,7 +368,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         message.AppendLine();
                     }
 
-                    message.Append("Folder does not exists.");
+                    message.Append(Properties.MessageBoxStrings.FolderDoesNotExists);
                 }
             }
             else
@@ -380,12 +380,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     message.AppendLine();
                 }
 
-                message.Append("Folder does not exists.");
+                message.Append(Properties.MessageBoxStrings.FolderDoesNotExists);
             }
 
             if (!result)
             {
-                MessageBox.Show(message.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(message.ToString(), Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             return result;
@@ -708,8 +708,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Publishing OptionSet {0}...", optionSetName);
+            
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingOptionSetFormat, optionSetName);
 
             this._iWriteToOutput.WriteToOutput("Start publishing OptionSet {0} at {1}", optionSetName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -723,13 +723,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing OptionSet {0} at {1}", optionSetName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, "OptionSet {0} published.", optionSetName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingOptionSetCompletedFormat, optionSetName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Publishing OptionSet {0} failed.", optionSetName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingOptionSetFailedFormat, optionSetName);
             }
         }
 

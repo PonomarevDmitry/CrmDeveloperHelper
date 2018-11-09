@@ -362,7 +362,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
 
-                if (MessageBox.Show("Move CRM Connection to Archive?", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                string message = string.Format(Properties.MessageBoxStrings.MoveConnectionToArchiveFormat, connectionData.Name);
+
+                if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
                     if (connectionData.ConnectionId == _crmConfig.CurrentConnectionData?.ConnectionId)
                     {
@@ -2169,7 +2171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (MessageBox.Show("Execute operation?", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel) != MessageBoxResult.OK)
+            if (MessageBox.Show(Properties.MessageBoxStrings.ExecuteOperation, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel) != MessageBoxResult.OK)
             {
                 return;
             }
@@ -2385,7 +2387,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (MessageBox.Show("Execute operations?", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel) != MessageBoxResult.OK)
+            if (MessageBox.Show(Properties.MessageBoxStrings.ExecuteOperations, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel) != MessageBoxResult.OK)
             {
                 return;
             }
@@ -3178,7 +3180,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (MessageBox.Show("Execute transfer operation?", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel) != MessageBoxResult.OK)
+            string message = string.Format(Properties.MessageBoxStrings.ExecuteTransferOperationFormat, connection1.Name, connection2.Name);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel) != MessageBoxResult.OK)
             {
                 return;
             }
@@ -3216,7 +3220,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (MessageBox.Show("Execute transfer operation?", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel) != MessageBoxResult.OK)
+            string message = string.Format(Properties.MessageBoxStrings.ExecuteTransferOperationFormat, connection2.Name, connection1.Name);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel) != MessageBoxResult.OK)
             {
                 return;
             }

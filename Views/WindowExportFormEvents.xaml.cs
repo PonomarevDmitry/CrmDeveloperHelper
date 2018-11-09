@@ -61,12 +61,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 else
                 {
-                    MessageBox.Show("Folder does not exists.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.MessageBoxStrings.FolderDoesNotExists, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Folder or FileName is empty.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.MessageBoxStrings.FolderOrFileNameIsEmpty, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

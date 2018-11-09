@@ -514,7 +514,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityDescription(string folder, Guid idWebResource, string name)
         {
-            ToggleControls(false, "Creating Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
             try
             {
@@ -535,13 +535,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, "Entity Description completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Entity Description failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
             }
         }
 
@@ -656,13 +656,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, "Exporting Xml {0} to File completed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Exporting Xml {0} to File failed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat, fieldName);
             }
         }
 
@@ -673,7 +673,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Updating Field {0}...", fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat, fieldName);
 
             try
             {
@@ -751,13 +751,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     service.Update(updateEntity);
                 }
 
-                ToggleControls(true, "Updating Field {0} completed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Updating Field {0} failed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat, fieldName);
             }
         }
 
@@ -1241,7 +1241,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformPublishWebResource(string folder, Guid idWebResource, string name)
         {
-            ToggleControls(false, "Publishing WebResource ...");
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingWebResourceFormat, name);
 
             try
             {
@@ -1255,13 +1255,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing WebResource {0} at {1}", name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, "Publishing WebResource completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingWebResourceCompletedFormat, name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Publishing WebResource failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingWebResourceFailedFormat, name);
             }
         }
     }

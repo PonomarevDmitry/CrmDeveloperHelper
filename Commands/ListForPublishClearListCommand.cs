@@ -1,6 +1,5 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System.Windows;
 
@@ -22,7 +21,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             helper.ShowListForPublish();
 
-            if (MessageBox.Show("Clear List from Publish?", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if (MessageBox.Show(Properties.MessageBoxStrings.ClearListForPublish, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
                 helper.ClearListForPublish();
             }

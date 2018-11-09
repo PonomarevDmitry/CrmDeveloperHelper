@@ -192,7 +192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading entities...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntitiesFormat);
 
             _itemsSourceEntityList.Clear();
             _itemsSourceAttributeList.Clear();
@@ -293,7 +293,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "{0} entities loaded.", results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat, results.Count());
 
             ShowExistingAttributes();
         }
@@ -305,7 +305,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading attributes...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingAttributesFormat);
 
             string entityLogicalName = string.Empty;
 
@@ -419,7 +419,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "{0} attributes loaded.", results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingAttributesCompletedFormat, results.Count());
         }
 
 
@@ -869,7 +869,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Publishing Entities: {0}...", entityNames.Count());
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityNames.Count());
 
             var entityNamesOrdered = string.Join(",", entityNames.OrderBy(s => s));
 
@@ -884,14 +884,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await repository.PublishEntitiesAsync(entityNames);
 
                 this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-                ToggleControls(true, "Entities {0} published", entityNamesOrdered);
+                
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityNamesOrdered);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "Publish Entity {0} failed", entityNamesOrdered);
+                
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityNamesOrdered);
             }
         }
 
@@ -1267,7 +1267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Saving Changes...");
+            ToggleControls(false, Properties.WindowStatusStrings.SavingChanges);
 
             this._iWriteToOutput.WriteToOutput("Start saving changes at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1342,7 +1342,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var entityNamesOrdered = string.Join(",", listForPublish.OrderBy(s => s));
 
-                        UpdateStatus("Publishing Entity {0}...", listForPublish.Count());
+                        UpdateStatus(Properties.WindowStatusStrings.PublishingEntitiesFormat, entityNamesOrdered);
 
                         this._iWriteToOutput.WriteToOutput("Start publishing entities {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1383,14 +1383,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput("End saving changes at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
                 }
-
-                ToggleControls(true, "Changes saved.");
+                
+                ToggleControls(true, Properties.WindowStatusStrings.SavingChangesCompleted);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "Saving Changes failed.");
+                
+                ToggleControls(true, Properties.WindowStatusStrings.SavingChangesFailed);
             }
         }
 

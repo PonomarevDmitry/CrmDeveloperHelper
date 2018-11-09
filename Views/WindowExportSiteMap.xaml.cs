@@ -166,8 +166,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Loading siteMaps...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingSiteMaps);
 
             this._itemsSource.Clear();
 
@@ -263,8 +263,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.lstVwSiteMaps.SelectedItem = this.lstVwSiteMaps.Items[0];
                 }
             });
-
-            ToggleControls(true, "{0} sitemaps loaded.", results.Count());
+            
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingSiteMapsCompletedFormat, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -500,8 +500,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Exporting Xml {0} to File...", fieldName);
+            
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldName);
 
             name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
 
@@ -518,14 +518,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string filePath = await CreateFileAsync(folder, name, idSiteMap, fieldTitle, xmlContent);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-                ToggleControls(true, "Exporting Xml {0} to File completed.", fieldName);
+                
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "Exporting Xml {0} to File failed.", fieldName);
+                
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat, fieldName);
             }
         }
 
@@ -535,8 +535,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Updating Field {0}...", fieldName);
+                        
+            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat, fieldName);
 
             name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
 
@@ -568,18 +568,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialogResult.GetValueOrDefault() == false)
                 {
-                    ToggleControls(true, "Updating Field {0} canceled.", fieldName);
+                    
+                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCanceledFormat, fieldName);
                     return;
                 }
 
-                _iWriteToOutput.WriteToOutput("Validating SiteMapXml...");
-                UpdateStatus("Validating SiteMapXml.");
+                _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.ValidatingXmlForFieldFormat, fieldName);
+                UpdateStatus(Properties.WindowStatusStrings.ValidatingXmlForFieldFormat, fieldName);
 
                 if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
                 {
-                    _iWriteToOutput.WriteToOutput("Text is not valid Xml.");
+                    _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.TextIsNotValidXml);
 
-                    ToggleControls(true, "Text is not valid Xml.");
+                    
+                    ToggleControls(true, Properties.WindowStatusStrings.TextIsNotValidXml);
 
                     _iWriteToOutput.ActivateOutputWindow();
                     return;
@@ -589,8 +591,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (!validateResult)
                 {
-                    ToggleControls(true, "Validating Xml for Field {0} failed.", fieldName);
-
+                    ToggleControls(true, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat, fieldName);
+                    
                     return;
                 }
 
@@ -603,14 +605,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 updateEntity.Attributes[fieldName] = newText;
 
                 service.Update(updateEntity);
-
-                ToggleControls(true, "Updating Field {0} completed.", fieldName);
+                
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "Updating Field {0} failed.", fieldName);
+                
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat, fieldName);
             }
         }
 
@@ -680,7 +682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityDescription(string folder, Guid idSiteMap, string name)
         {
-            ToggleControls(false, "Creating Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
             name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
 
@@ -702,14 +704,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
                 this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-                ToggleControls(true, "Entity Description completed.");
+                
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "Entity Description failed.");
+                
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
             }
         }
 
@@ -739,9 +741,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformPublishSiteMap(string folder, Guid idSiteMap, string name)
         {
-            ToggleControls(false, "Publishing SiteMap...");
-
             name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
+
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingSiteMapFormat, name, idSiteMap.ToString());
 
             try
             {
@@ -754,14 +756,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await repository.PublishSiteMapsAsync(new[] { idSiteMap });
 
                 this._iWriteToOutput.WriteToOutput("End publishing SiteMap{0} {1} at {2}", name, idSiteMap, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-                ToggleControls(true, "Publishing SiteMap completed.");
+                
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingSiteMapCompletedFormat, name, idSiteMap.ToString());
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "Publishing SiteMap failed.");
+                
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingSiteMapFailedFormat, name, idSiteMap.ToString());
             }
         }
 

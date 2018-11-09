@@ -18,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return string.Empty;
             }
 
-            Properties prop = null;
+            EnvDTE.Properties prop = null;
 
             string probKey = string.Empty;
             if (proj.ConfigurationManager.ActiveConfiguration.Properties == null)
@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     return string.Empty;
                 }
 
-                prop = proj.Properties.Item("ActiveConfiguration").Value as Properties;
+                prop = proj.Properties.Item("ActiveConfiguration").Value as EnvDTE.Properties;
                 if (TryGetPropertyByName(prop, "PrimaryOutput", out _))
                 {
                     probKey = "PrimaryOutput";
@@ -108,7 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Empty;
         }
 
-        public static bool TryGetPropertyByName(Properties properties, string propertyName, out Property result)
+        public static bool TryGetPropertyByName(EnvDTE.Properties properties, string propertyName, out Property result)
         {
             result = null;
 

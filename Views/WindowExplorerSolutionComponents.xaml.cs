@@ -573,7 +573,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityDescription(string folder, SolutionComponentViewItem solutionComponentViewItem)
         {
-            ToggleControls(false, "Creating Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
             string fileName = _descriptor.GetFileName(_service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, "EntityDescription", "txt");
 
@@ -612,7 +612,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            ToggleControls(true, "Entity Description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -1103,7 +1103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string question = string.Format("Are you sure want to delete components {0} from solution {1}?", solutionComponents.Count, _solution.UniqueName);
 
-            if (MessageBox.Show(question, "Question", MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
+            if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
             {
                 return;
             }
@@ -1168,16 +1168,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void miClearUnManagedSolution_Click(object sender, RoutedEventArgs e)
         {
-            string question = string.Format("Are you sure want to clear solution {0}?", _solution.UniqueName);
+            string question = string.Format(Properties.MessageBoxStrings.ClearSolutionFormat, _solution.UniqueName);
 
-            if (MessageBox.Show(question, "Question", MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
+            if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
             {
                 return;
             }
 
             try
             {
-                ToggleControls(false, "Clearing solution...");
+                ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat);
 
                 _commonConfig.Save();
 
@@ -1220,13 +1220,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _itemsSource.Clear();
                 });
 
-                ToggleControls(true, "Clearing solution completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Clearing solution failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat);
             }
         }
 
@@ -1433,7 +1433,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, "Creating file with Used Entities in Workflows...");
+                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsFormat);
 
                 var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, _service, _descriptor);
 
@@ -1455,13 +1455,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, "Creating file with Used Entities in Workflows completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsCompletedFormat);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Creating file with Used Entities in Workflows failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsFailedFormat);
             }
         }
 
@@ -1469,7 +1469,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, "Creating file with Used Not Exists Entities in Workflows...");
+                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFormat);
 
                 var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, _service, _descriptor);
 
@@ -1491,13 +1491,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, "Creating file with Used Not Exists Entities in Workflows completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsCompletedFormat);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Creating file with Used Not Exists Entities in Workflows failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFailedFormat);
             }
         }
 
@@ -1553,7 +1553,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, "Creating file with Solution Image...");
+                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFormat);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
 
@@ -1572,13 +1572,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, "Creating file with Solution Image completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Creating file with Solution Image failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFailedFormat);
             }
         }
 
@@ -1749,7 +1749,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, "Creating file with Components...");
+                ToggleControls(false, Properties.WindowStatusStrings.CreatingTextFileWithComponentsFormat, solution.UniqueName);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
 
@@ -1767,13 +1767,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, "Creating file with Components completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsCompletedFormat, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Creating file with Components failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsFailedFormat, solution.UniqueName);
             }
         }
 
@@ -1781,7 +1781,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, "Creating file with Missing Dependencies...");
+                ToggleControls(false, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesFormat);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
 
@@ -1814,13 +1814,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, "Creating file with Missing Dependencies completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesCompletedFormat);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Creating file with Missing Dependencies failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesFailedFormat);
             }
         }
 
@@ -1828,7 +1828,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, "Creating file with Dependencies for Uninstall...");
+                ToggleControls(false, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallFormat);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
 
@@ -1861,13 +1861,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, "Creating file with Dependencies for Uninstall completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallCompletedFormat);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Creating file with Dependencies for Uninstall failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallFailedFormat);
             }
         }
 
@@ -1969,7 +1969,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Publishing Entity {0}...", entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityName);
 
             this._iWriteToOutput.WriteToOutput("Start publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1980,14 +1980,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await repository.PublishEntitiesAsync(new[] { entityName });
 
                 this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-                ToggleControls(true, "Entity {0} published", entityName);
+                
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Publish Entity {0} failed", entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityName);
             }
         }
     }

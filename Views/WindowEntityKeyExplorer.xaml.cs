@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading entities...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntitiesFormat);
 
             _itemsSourceEntityList.Clear();
             _itemsSourceEntityKeyList.Clear();
@@ -292,7 +292,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "{0} entities loaded.", results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat, results.Count());
 
             ShowExistingEntityKeys();
         }
@@ -866,7 +866,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Publishing Entities: {0}...", entityNames.Count());
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityNames.Count());
 
             var entityNamesOrdered = string.Join(",", entityNames.OrderBy(s => s));
 
@@ -881,14 +881,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await repository.PublishEntitiesAsync(entityNames);
 
                 this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-                ToggleControls(true, "Entities {0} published", entityNamesOrdered);
+                
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityNamesOrdered);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Publish Entity {0} failed", entityNamesOrdered);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityNamesOrdered);
             }
         }
 

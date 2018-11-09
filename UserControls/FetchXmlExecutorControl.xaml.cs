@@ -177,19 +177,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            ToggleControls(false, "Excecuting Fetch...");
+            ToggleControls(false, Properties.WindowStatusStrings.ExecutingFetch);
 
             ClearGridAndTextBox();
 
             if (!TryLoadFileText())
             {
-                ToggleControls(true, "File not exists.");
+                ToggleControls(true, Properties.WindowStatusStrings.FileNotExists);
                 return;
             }
 
             if (!(cmBCurrentConnection.SelectedItem is ConnectionData connectionData))
             {
-                txtBErrorText.Text = "Connection is not selected.";
+                txtBErrorText.Text = Properties.WindowStatusStrings.ConnectionIsNotSelected;
 
                 tbErrorText.IsEnabled = true;
                 tbErrorText.Visibility = Visibility.Visible;
@@ -199,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 this._selectedItem = tbErrorText;
 
-                ToggleControls(true, "Connection is not selected.");
+                ToggleControls(true, Properties.WindowStatusStrings.ConnectionIsNotSelected);
 
                 return;
             }
@@ -210,7 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 StringBuilder text = new StringBuilder();
 
-                text.AppendLine("File text is not valid xml");
+                text.AppendLine(Properties.WindowStatusStrings.FileTextIsNotValidXml);
                 text.AppendFormat("File: {0}", this.FilePath).AppendLine();
                 text.AppendLine();
                 text.AppendLine();
@@ -229,7 +229,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 this._selectedItem = tbErrorText;
 
-                ToggleControls(true, "File text is not valid xml.");
+                ToggleControls(true, Properties.WindowStatusStrings.FileTextIsNotValidXml);
 
                 return;
             }
@@ -238,7 +238,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             if (CheckParametersAndReturnHasNew(doc, connectionData))
             {
-                ToggleControls(true, "Please, Fill New Parameters.");
+                ToggleControls(true, Properties.WindowStatusStrings.FillNewParameters);
 
                 return;
             }
@@ -247,7 +247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             FillParametersValues(doc, connectionData);
 
-            UpdateStatus("Executing Fetch.....");
+            UpdateStatus(Properties.WindowStatusStrings.ExecutingFetch);
 
             await ExecuteFetchAsync(doc, connectionData);
         }
@@ -266,7 +266,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 this._selectedItem = tbErrorText;
 
-                UpdateStatus("File not exists.");
+                UpdateStatus(Properties.WindowStatusStrings.FileNotExists);
 
                 return false;
             }
@@ -302,7 +302,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 LoadData(connectionData, entityCollection, fetchXml);
 
-                ToggleControls(true, "Fetch Query executed successfully. Records count: {0}.", entityCollection.Entities.Count);
+                ToggleControls(true, Properties.WindowStatusStrings.FetchQueryExecutedSuccessfullyFormat, entityCollection.Entities.Count);
             }
             catch (Exception ex)
             {
@@ -310,7 +310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 {
                     StringBuilder text = new StringBuilder();
 
-                    text.AppendLine("Fetch Execution Error");
+                    text.AppendLine(Properties.WindowStatusStrings.FetchExecutionError);
                     text.AppendLine();
 
                     var description = DTEHelper.GetExceptionDescription(ex);
@@ -327,7 +327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                     this._selectedItem = tbErrorText;
 
-                    ToggleControls(true, "Fetch Execution Error.");
+                    ToggleControls(true, Properties.WindowStatusStrings.FetchExecutionError);
                 });
 
                 return;
