@@ -375,7 +375,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private SystemForm GetSelectedEntity()
         {
-            return this.lstVwSystemForms.SelectedItems.OfType<EntityViewItem>().Select(e => e.SystemForm).SingleOrDefault();
+            return this.lstVwSystemForms.SelectedItems.OfType<EntityViewItem>().Count() == 1
+                ? this.lstVwSystemForms.SelectedItems.OfType<EntityViewItem>().Select(e => e.SystemForm).SingleOrDefault() : null;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

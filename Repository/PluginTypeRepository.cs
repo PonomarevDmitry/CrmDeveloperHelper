@@ -262,7 +262,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginType>()).SingleOrDefault();
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<PluginType>()).SingleOrDefault() : null;
         }
 
         internal PluginType FindPluginType(string name)
@@ -286,7 +288,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginType>()).SingleOrDefault();
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<PluginType>()).SingleOrDefault() : null;
         }
 
         internal Task<PluginType> FindPluginTypeByLikeNameAsync(string name)
@@ -315,7 +319,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginType>()).SingleOrDefault();
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<PluginType>()).SingleOrDefault() : null;
         }
 
         public async Task<PluginType> GetPluginTypeByIdAsync(Guid id)

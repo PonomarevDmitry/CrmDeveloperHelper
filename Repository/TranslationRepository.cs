@@ -316,7 +316,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return 0;
             }
 
-            var data = cell.Descendants().Where(IsData).SingleOrDefault();
+            var coll = cell.Descendants().Where(IsData);
+
+            var data = coll.Count() == 1 ? coll.SingleOrDefault() : null;
 
             if (data != null)
             {
@@ -336,7 +338,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return Guid.Empty;
             }
 
-            var data = cell.Descendants().Where(IsData).SingleOrDefault();
+            var coll = cell.Descendants().Where(IsData);
+
+            var data = coll.Count() == 1 ? coll.SingleOrDefault() : null;
 
             if (data != null)
             {
@@ -356,7 +360,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return string.Empty;
             }
 
-            var data = cell.Descendants().Where(IsData).SingleOrDefault();
+
+
+            var coll = cell.Descendants().Where(IsData);
+
+            var data = coll.Count() == 1 ? coll.SingleOrDefault() : null;
 
             if (data != null)
             {

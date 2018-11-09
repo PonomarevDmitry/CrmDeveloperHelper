@@ -210,7 +210,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 ColumnSet = columnSet ?? new ColumnSet(true),
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageRequest>()).SingleOrDefault();
+            var coll = _Service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<SdkMessageRequest>()).SingleOrDefault() : null;
         }
     }
 }

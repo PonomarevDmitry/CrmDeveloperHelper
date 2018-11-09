@@ -232,7 +232,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Report>()).SingleOrDefault();
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<Report>()).SingleOrDefault() : null;
         }
 
         private Report SearchSingleByFileName(string fileName)
@@ -257,9 +259,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            var collection = _service.RetrieveMultiple(query);
+            var coll = _service.RetrieveMultiple(query).Entities;
 
-            return collection.Entities.Select(e => e.ToEntity<Report>()).SingleOrDefault();
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<Report>()).SingleOrDefault() : null;
         }
 
         public Report FindReportBySignature(int lcid, Guid signatureId, ColumnSet columnSet)
@@ -284,7 +286,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Report>()).SingleOrDefault();
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<Report>()).SingleOrDefault() : null;
         }
     }
 }

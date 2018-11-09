@@ -897,7 +897,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private LinkedOptionSetMetadata GetSelectedEntity()
         {
-            return this.lstVwOptionSets.SelectedItems.OfType<LinkedOptionSetMetadata>().SingleOrDefault();
+            return this.lstVwOptionSets.SelectedItems.OfType<LinkedOptionSetMetadata>().Count() == 1
+                ? this.lstVwOptionSets.SelectedItems.OfType<LinkedOptionSetMetadata>().SingleOrDefault() : null;
         }
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -400,7 +400,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private SolutionImageComponent GetSelectedEntity()
         {
-            return this.lstVwComponents.SelectedItems.OfType<SolutionImageComponent>().SingleOrDefault();
+            return this.lstVwComponents.SelectedItems.OfType<SolutionImageComponent>().Count() == 1
+                ? this.lstVwComponents.SelectedItems.OfType<SolutionImageComponent>().SingleOrDefault() : null;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

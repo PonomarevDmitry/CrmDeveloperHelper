@@ -127,7 +127,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 query.Criteria.Conditions.Add(new ConditionExpression(SiteMap.Schema.Attributes.sitemapnameunique, ConditionOperator.Null));
             }
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SiteMap>()).SingleOrDefault();
+            var coll = _Service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<SiteMap>()).SingleOrDefault() : null;
         }
     }
 }

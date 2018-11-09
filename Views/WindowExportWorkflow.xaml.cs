@@ -567,7 +567,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Workflow GetSelectedEntity()
         {
-            return this.lstVwWorkflows.SelectedItems.OfType<EntityViewItem>().Select(e => e.Workflow).SingleOrDefault();
+            return this.lstVwWorkflows.SelectedItems.OfType<EntityViewItem>().Count() == 1
+                ? this.lstVwWorkflows.SelectedItems.OfType<EntityViewItem>().Select(e => e.Workflow).SingleOrDefault() : null;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

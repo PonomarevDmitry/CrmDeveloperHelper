@@ -437,14 +437,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private string GetSelectedEntity()
-        {
-            return this.lstVwEntities.SelectedItems.OfType<LinkedEntityMetadata>().Select(e => e.LogicalName).SingleOrDefault();
-        }
-
         private LinkedEntityMetadata GetSelectedLinkedEntityMetadata()
         {
-            return this.lstVwEntities.SelectedItems.OfType<LinkedEntityMetadata>().SingleOrDefault();
+            return this.lstVwEntities.SelectedItems.OfType<LinkedEntityMetadata>().Count() == 1
+                ? this.lstVwEntities.SelectedItems.OfType<LinkedEntityMetadata>().SingleOrDefault() : null;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -472,14 +468,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnDifferenceCSharpFile_Click(object sender, RoutedEventArgs e)
         {
-            string entityName = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
-            if (string.IsNullOrEmpty(entityName))
+            if (string.IsNullOrEmpty(entity?.LogicalName))
             {
                 return;
             }
 
-            ExecuteDifferenceCSharp(entityName);
+            ExecuteDifferenceCSharp(entity?.LogicalName);
         }
 
         private async Task ExecuteDifferenceCSharp(string entityName)
@@ -571,14 +567,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnDifferenceJavaScriptFile_Click(object sender, RoutedEventArgs e)
         {
-            string entityName = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
-            if (string.IsNullOrEmpty(entityName))
+            if (string.IsNullOrEmpty(entity?.LogicalName))
             {
                 return;
             }
 
-            ExecuteDifferenceJavaScript(entityName);
+            ExecuteDifferenceJavaScript(entity?.LogicalName);
         }
 
         private async Task ExecuteDifferenceJavaScript(string entityName)
@@ -657,26 +653,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnConnection1CSharp_Click(object sender, RoutedEventArgs e)
         {
-            string entityName = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
-            if (string.IsNullOrEmpty(entityName))
+            if (string.IsNullOrEmpty(entity?.LogicalName))
             {
                 return;
             }
 
-            CreateEntityMetadataFileCSharp(GetService1, entityName, txtBNameSpace1.Text.Trim());
+            CreateEntityMetadataFileCSharp(GetService1, entity?.LogicalName, txtBNameSpace1.Text.Trim());
         }
 
         private void btnConnection2CSharp_Click(object sender, RoutedEventArgs e)
         {
-            string entityName = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
-            if (string.IsNullOrEmpty(entityName))
+            if (string.IsNullOrEmpty(entity?.LogicalName))
             {
                 return;
             }
 
-            CreateEntityMetadataFileCSharp(GetService2, entityName, txtBNameSpace2.Text.Trim());
+            CreateEntityMetadataFileCSharp(GetService2, entity?.LogicalName, txtBNameSpace2.Text.Trim());
         }
 
         private async Task CreateEntityMetadataFileCSharp(Func<Task<IOrganizationServiceExtented>> getService, string entityName, string nameSpace)
@@ -720,26 +716,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnConnection1JavaScript_Click(object sender, RoutedEventArgs e)
         {
-            string entityName = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
-            if (string.IsNullOrEmpty(entityName))
+            if (string.IsNullOrEmpty(entity?.LogicalName))
             {
                 return;
             }
 
-            CreateEntityMetadataFileJavaScript(GetService1, entityName, txtBNameSpace1.Text.Trim());
+            CreateEntityMetadataFileJavaScript(GetService1, entity?.LogicalName, txtBNameSpace1.Text.Trim());
         }
 
         private void btnConnection2JavaScript_Click(object sender, RoutedEventArgs e)
         {
-            string entityName = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
-            if (string.IsNullOrEmpty(entityName))
+            if (string.IsNullOrEmpty(entity?.LogicalName))
             {
                 return;
             }
 
-            CreateEntityMetadataFileJavaScript(GetService2, entityName, txtBNameSpace2.Text.Trim());
+            CreateEntityMetadataFileJavaScript(GetService2, entity?.LogicalName, txtBNameSpace2.Text.Trim());
         }
 
         private async Task CreateEntityMetadataFileJavaScript(Func<Task<IOrganizationServiceExtented>> getService, string entityName, string nameSpace)
@@ -833,7 +829,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCompareRibbon_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
@@ -855,143 +851,143 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCompareSystemForms_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity);
+            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.LogicalName);
         }
 
         private async void btnCompareSavedQuery_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity);
+            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.LogicalName);
         }
 
         private async void btnCompareSavedChart_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity);
+            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.LogicalName);
         }
 
         private async void btnCompareWorkflows_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity);
+            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.LogicalName);
         }
 
         private async void btnEntityAttributeExplorer1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService1();
 
-            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity);
+            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnEntityAttributeExplorer2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService2();
 
-            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity);
+            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnEntityRelationshipOneToManyExplorer1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService1();
 
-            WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity);
+            WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnEntityRelationshipOneToManyExplorer2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService2();
 
-            WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity);
+            WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnEntityRelationshipManyToManyExplorer1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService1();
 
-            WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity);
+            WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnEntityRelationshipManyToManyExplorer2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService2();
 
-            WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity);
+            WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnEntityKeyExplorer1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService1();
 
-            WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity);
+            WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnEntityKeyExplorer2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService2();
 
-            WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity);
+            WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnCreateMetadataFile1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
@@ -1004,12 +1000,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity, entityMetadataList, null);
+            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList, null);
         }
 
         private async void btnExportRibbon1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
@@ -1022,7 +1018,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenEntityRibbonWindow(this._iWriteToOutput, service, _commonConfig, entity, entityMetadataList);
+            WindowHelper.OpenEntityRibbonWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
         }
 
         private async void btnGlobalOptionSets1_Click(object sender, RoutedEventArgs e)
@@ -1064,51 +1060,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnSystemForms1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService1();
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnSavedQuery1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService1();
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
+            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnSavedChart1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService1();
 
-            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
+            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnWorkflows1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService1();
 
-            WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
+            WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnAttributesDependentComponent1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
@@ -1121,45 +1117,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenAttributesDependentComponentWindow(this._iWriteToOutput, service, _commonConfig, entity, entityMetadataList);
+            WindowHelper.OpenAttributesDependentComponentWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
         }
 
         private async void btnPluginTree1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService1();
 
-            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty, string.Empty);
+            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty, string.Empty);
         }
 
         private async void btnMessageTree1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService1();
 
-            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
+            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnMessageRequestTree1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService1();
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnCreateMetadataFile2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
@@ -1172,12 +1168,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity, entityMetadataList, null);
+            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList, null);
         }
 
         private async void btnExportRibbon2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
@@ -1190,7 +1186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenEntityRibbonWindow(this._iWriteToOutput, service, _commonConfig, entity, entityMetadataList);
+            WindowHelper.OpenEntityRibbonWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
         }
 
         private async void btnGlobalOptionSets2_Click(object sender, RoutedEventArgs e)
@@ -1232,51 +1228,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnSystemForms2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService2();
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnSavedQuery2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService2();
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
+            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnSavedChart2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService2();
 
-            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
+            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnWorkflows2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService2();
 
-            WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
+            WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnAttributesDependentComponent2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
@@ -1289,40 +1285,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenAttributesDependentComponentWindow(this._iWriteToOutput, service, _commonConfig, entity, entityMetadataList);
+            WindowHelper.OpenAttributesDependentComponentWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
         }
 
         private async void btnPluginTree2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService2();
 
-            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty, string.Empty);
+            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty, string.Empty);
         }
 
         private async void btnMessageTree2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService2();
 
-            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
+            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnMessageRequestTree2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedLinkedEntityMetadata();
 
             _commonConfig.Save();
 
             var service = await GetService2();
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity, string.Empty);
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

@@ -350,7 +350,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Report GetSelectedEntity()
         {
-            return this.lstVwReports.SelectedItems.OfType<EntityViewItem>().Select(e => e.Report).SingleOrDefault();
+            return this.lstVwReports.SelectedItems.OfType<EntityViewItem>().Count() == 1
+                ? this.lstVwReports.SelectedItems.OfType<EntityViewItem>().Select(e => e.Report).SingleOrDefault() : null;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

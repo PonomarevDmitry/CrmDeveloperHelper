@@ -349,7 +349,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             var elements = docCustomizations.XPathSelectElements("ImportExportXml/Entities/Entity/EntityInfo/entity").Where(a => a.Attribute("Name") != null);
 
-            return elements.Where(a => string.Equals(entityName, (string)a.Attribute("Name"), StringComparison.InvariantCultureIgnoreCase)).Select(e => e.Parent.Parent).SingleOrDefault();
+            var filteredElements = elements.Where(a => string.Equals(entityName, (string)a.Attribute("Name"), StringComparison.InvariantCultureIgnoreCase)).Select(e => e.Parent.Parent);
+
+            return filteredElements.Count() == 1 ? filteredElements.SingleOrDefault() : null;
         }
 
         private void FillSolutionComponentInternal(ICollection<SolutionComponent> result, EntityMetadata metaData, int? behavior)

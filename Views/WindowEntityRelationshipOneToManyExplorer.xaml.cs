@@ -597,7 +597,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private EntityMetadataViewItem GetSelectedEntity()
         {
-            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().SingleOrDefault();
+            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().Count() == 1
+                ? this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().SingleOrDefault() : null;
         }
 
         private List<EntityMetadataViewItem> GetSelectedEntities()
@@ -609,7 +610,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private OneToManyRelationshipMetadataViewItem GetSelectedEntityRelationship()
         {
-            return this.lstVwEntityRelationships.SelectedItems.OfType<OneToManyRelationshipMetadataViewItem>().SingleOrDefault();
+            return this.lstVwEntityRelationships.SelectedItems.OfType<OneToManyRelationshipMetadataViewItem>().Count() == 1
+                ? this.lstVwEntityRelationships.SelectedItems.OfType<OneToManyRelationshipMetadataViewItem>().SingleOrDefault() : null;
         }
 
         private List<OneToManyRelationshipMetadataViewItem> GetSelectedEntityRelationships()

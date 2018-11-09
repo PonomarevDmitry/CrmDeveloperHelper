@@ -608,12 +608,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         },
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageProcessingStep>()).SingleOrDefault();
@@ -720,12 +714,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                             },
                         },
                     },
-                },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
                 },
             };
 

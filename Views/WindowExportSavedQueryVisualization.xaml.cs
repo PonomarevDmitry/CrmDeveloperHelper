@@ -369,7 +369,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private SavedQueryVisualization GetSelectedEntity()
         {
-            return this.lstVwCharts.SelectedItems.OfType<EntityViewItem>().Select(e => e.SavedQueryVisualization).SingleOrDefault();
+            return this.lstVwCharts.SelectedItems.OfType<EntityViewItem>().Count() == 1
+                ? this.lstVwCharts.SelectedItems.OfType<EntityViewItem>().Select(e => e.SavedQueryVisualization).SingleOrDefault() : null;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

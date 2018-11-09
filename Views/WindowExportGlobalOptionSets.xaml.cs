@@ -658,7 +658,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private OptionSetMetadataListViewItem GetSelectedEntity()
         {
-            return this.lstVwOptionSets.SelectedItems.OfType<OptionSetMetadataListViewItem>().SingleOrDefault();
+            return this.lstVwOptionSets.SelectedItems.OfType<OptionSetMetadataListViewItem>().Count() == 1
+                ? this.lstVwOptionSets.SelectedItems.OfType<OptionSetMetadataListViewItem>().SingleOrDefault() : null;
         }
 
         private async void btnCreateCSharpFileForSingleOptionSet_Click(object sender, RoutedEventArgs e)

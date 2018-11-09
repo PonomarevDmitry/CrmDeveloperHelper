@@ -478,7 +478,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private LinkedEntityMetadata GetSelectedEntity()
         {
-            return this.lstVwEntities.SelectedItems.OfType<LinkedEntityMetadata>().SingleOrDefault();
+            return this.lstVwEntities.SelectedItems.OfType<LinkedEntityMetadata>().Count() == 1
+                ? this.lstVwEntities.SelectedItems.OfType<LinkedEntityMetadata>().SingleOrDefault() : null;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

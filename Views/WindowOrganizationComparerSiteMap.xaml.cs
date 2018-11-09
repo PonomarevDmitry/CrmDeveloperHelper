@@ -424,7 +424,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private EntityViewItem GetSelectedEntity()
         {
-            return this.lstVwSiteMaps.SelectedItems.OfType<EntityViewItem>().SingleOrDefault();
+            return this.lstVwSiteMaps.SelectedItems.OfType<EntityViewItem>().Count() == 1
+                ? this.lstVwSiteMaps.SelectedItems.OfType<EntityViewItem>().SingleOrDefault() : null;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

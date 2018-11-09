@@ -312,7 +312,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private LinkedEntities<PluginAssembly> GetSelectedEntity()
         {
-            return this.lstVwPluginAssemblies.SelectedItems.OfType<EntityViewItem>().Select(e => e.Link).SingleOrDefault();
+            return this.lstVwPluginAssemblies.SelectedItems.OfType<EntityViewItem>().Count() == 1
+                ? this.lstVwPluginAssemblies.SelectedItems.OfType<EntityViewItem>().Select(e => e.Link).SingleOrDefault() : null;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

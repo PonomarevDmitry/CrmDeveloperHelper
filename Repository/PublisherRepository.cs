@@ -129,7 +129,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            var result = _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Publisher>()).SingleOrDefault();
+            var coll = _Service.RetrieveMultiple(query).Entities;
+
+            var result = coll.Count == 1 ? coll.Select(e => e.ToEntity<Publisher>()).SingleOrDefault() : null;
 
             if (result != null)
             {

@@ -129,7 +129,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntityReference()).SingleOrDefault();
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntityReference()).SingleOrDefault() : null;
         }
 
         public Task<List<SdkMessageFilter>> GetMessageFiltersByIdsAsync(Guid[] ids)
@@ -251,7 +253,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageFilter>()).SingleOrDefault();
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<SdkMessageFilter>()).SingleOrDefault() : null;
         }
     }
 }

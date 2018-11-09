@@ -374,7 +374,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private EntityMetadataListViewItem GetSelectedEntity()
         {
-            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataListViewItem>().SingleOrDefault();
+            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataListViewItem>().Count() == 1
+                ? this.lstVwEntities.SelectedItems.OfType<EntityMetadataListViewItem>().SingleOrDefault() : null;
         }
 
         #region Кнопки открытия других форм с информация о сущности.
