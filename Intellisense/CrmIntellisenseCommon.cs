@@ -116,9 +116,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 lines.Add(string.Format("Entity:      {0}", entityDescription));
             }
+
             if (!string.IsNullOrEmpty(attributeDescription))
             {
                 lines.Add(string.Format("Attribute:      {0}", attributeDescription));
+            }
+
+            if (optionMetadata is StateOptionMetadata stateOption)
+            {
+                lines.Add(string.Format("DefaultStatusValue:      {0}", stateOption.DefaultStatus));
+            }
+
+            if (optionMetadata is StatusOptionMetadata statusOption)
+            {
+                lines.Add(string.Format("State:      {0}", statusOption.State));
             }
 
             CreateFileHandler.FillLabelDisplayNameAndDescription(lines, true, optionMetadata.Label, optionMetadata.Description, "    ");
