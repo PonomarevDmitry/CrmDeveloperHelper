@@ -842,15 +842,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 message = string.Format(format, args);
             }
-            
-            var result = this.WriteToOutput(OutputStrings.StartOperationFormat
-                , message
-                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
-                );
 
             this.WriteToOutput(string.Empty);
 
-            return result;
+            return this.WriteToOutput(OutputStrings.StartOperationFormat
+                , message
+                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
+                );
         }
 
         public string WriteToOutputEndOperation(string format, params object[] args)
