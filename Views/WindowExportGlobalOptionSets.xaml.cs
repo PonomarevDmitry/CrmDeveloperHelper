@@ -246,8 +246,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Loading optionsets...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingOptionSets);
 
             this._itemsSource.Clear();
 
@@ -295,8 +295,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutput("Found {0} optionsets.", list.Count());
 
             LoadEntities(list);
-
-            ToggleControls(true, "{0} optionsets loaded.", list.Count());
+            
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingOptionSetsCompletedFormat, list.Count());
         }
 
         private static IEnumerable<OptionSetMetadata> FilterList(IEnumerable<OptionSetMetadata> list, string textName)
@@ -462,7 +462,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task CreateCSharpFile(IEnumerable<OptionSetMetadata> optionSets)
         {
-            if (optionSets == null)
+            if (optionSets == null || !optionSets.Any())
             {
                 return;
             }
@@ -479,66 +479,77 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating File...");
+            string optionSetsName = string.Join(",", optionSets.Select(o => o.Name).OrderBy(s => s));
 
-            this._iWriteToOutput.WriteToOutput("Start creating file with OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsFormat, optionSetsName);
 
-            string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
-            var constantType = _commonConfig.ConstantType;
-            var optionSetExportType = _commonConfig.OptionSetExportType;
-
-            string folder = txtBFolder.Text.Trim();
-            string nameSpace = txtBNameSpace.Text.Trim();
-
-            bool withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
-            bool allDescriptions = chBAllDescriptions.IsChecked.GetValueOrDefault();
-            bool withManagedInfo = chBWithManagedInfo.IsChecked.GetValueOrDefault();
-
-            string filePath = null;
-
-            var service = await GetService();
-
-            if (!string.IsNullOrEmpty(_filePath))
+            try
             {
-                filePath = _filePath;
-            }
-            else
-            {
-                if (optionSets.Count() == 1)
+                this._iWriteToOutput.WriteToOutput("Start creating file with OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
+                var constantType = _commonConfig.ConstantType;
+                var optionSetExportType = _commonConfig.OptionSetExportType;
+
+                string folder = txtBFolder.Text.Trim();
+                string nameSpace = txtBNameSpace.Text.Trim();
+
+                bool withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
+                bool allDescriptions = chBAllDescriptions.IsChecked.GetValueOrDefault();
+                bool withManagedInfo = chBWithManagedInfo.IsChecked.GetValueOrDefault();
+
+                string filePath = null;
+
+                var service = await GetService();
+
+                if (!string.IsNullOrEmpty(_filePath))
                 {
-                    string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, optionSets.First().Name);
-                    filePath = Path.Combine(folder, fileName);
+                    filePath = _filePath;
                 }
                 else
                 {
-                    string fileName = string.Format("{0}.GlobalOptionSets.cs", service.ConnectionData.Name);
-                    filePath = Path.Combine(folder, fileName);
+                    if (optionSets.Count() == 1)
+                    {
+                        string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, optionSets.First().Name);
+                        filePath = Path.Combine(folder, fileName);
+                    }
+                    else
+                    {
+                        string fileName = string.Format("{0}.GlobalOptionSets.cs", service.ConnectionData.Name);
+                        filePath = Path.Combine(folder, fileName);
+                    }
                 }
+
+                service.ConnectionData.NameSpaceOptionSets = nameSpace;
+
+                using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(
+                                    service
+                                    , _iWriteToOutput
+                                    , tabSpacer
+                                    , constantType
+                                    , optionSetExportType
+                                    , withDependentComponents
+                                    , withManagedInfo
+                                    , allDescriptions
+                                    ))
+                {
+                    await handler.CreateFileAsync(filePath, optionSets);
+                }
+
+                this._iWriteToOutput.WriteToOutput("Created file with OptionSets: {0}", filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                this._iWriteToOutput.WriteToOutput("End creating file with OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsCompletedFormat, optionSetsName);
             }
-
-            service.ConnectionData.NameSpaceOptionSets = nameSpace;
-
-            using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(
-                                service
-                                , _iWriteToOutput
-                                , tabSpacer
-                                , constantType
-                                , optionSetExportType
-                                , withDependentComponents
-                                , withManagedInfo
-                                , allDescriptions
-                                ))
+            catch (Exception ex)
             {
-                await handler.CreateFileAsync(filePath, optionSets);
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsFailedFormat, optionSetsName);
             }
-
-            this._iWriteToOutput.WriteToOutput("Created file with OptionSets: {0}", filePath);
-
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-            this._iWriteToOutput.WriteToOutput("End creating file with OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            ToggleControls(true, "File is created.");
         }
 
         private async void btnCreateJavaScriptFile_Click(object sender, RoutedEventArgs e)
@@ -570,7 +581,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating File...");
+            string optionSetsName = string.Join(",", optionSets.Select(o => o.Name).OrderBy(s => s));
+
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsFormat, optionSetsName);
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -616,13 +629,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, "File is created.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsCompletedFormat, optionSetsName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Operation failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsFailedFormat, optionSetsName);
             }
         }
 

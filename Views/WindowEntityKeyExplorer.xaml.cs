@@ -303,8 +303,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Loading entity keys...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntityKeys);
 
             string entityLogicalName = string.Empty;
 
@@ -415,8 +415,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.lstVwEntityKeys.SelectedItem = this.lstVwEntityKeys.Items[0];
                 }
             });
-
-            ToggleControls(true, "{0} entity keys loaded.", results.Count());
+            
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntityKeysCompletedFormat, results.Count());
         }
 
 

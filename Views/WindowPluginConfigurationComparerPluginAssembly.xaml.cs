@@ -103,6 +103,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             textBox.Text = string.Empty;
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginConfiguration);
 
             if (string.IsNullOrEmpty(filePath))
             {
@@ -122,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(ex);
 
                 pluginDescription = null;
             }
@@ -143,6 +145,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginConfigurationCompleted);
+
             ShowExistingAssemblies();
         }
 
@@ -162,8 +166,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void ShowExistingAssemblies()
         {
             this._itemsSource.Clear();
-
-            ToggleControls(false, "Loading Plugin Assemblies...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginAssemblies);
 
             if (this._pluginDescription1 != null && this._pluginDescription2 != null)
             {
@@ -216,8 +220,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _itemsSource.Add(new EntityViewItem(assembly.Entity1.Name, assembly));
                 }
             });
-
-            ToggleControls(true, "{0} Plugin Assemblies loaded.", filter.Count());
+            
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat, filter.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -367,7 +371,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
+            
             ToggleControls(false, "Creating descriptions...");
 
             DateTime now = DateTime.Now;
@@ -555,16 +559,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Creating description...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingDescription);
 
             string description = await handler.CreateDescriptionAsync(assembly);
 
             string filePath = await CreateDescriptionFileAsync(folder, pluginDescription.FilePath, assembly.Name, description);
 
             this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-            ToggleControls(true, "Description completed.");
+            
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
         }
 
         private void tSMIShowDifferencePluginAssemblyDescription_Click(object sender, RoutedEventArgs e)

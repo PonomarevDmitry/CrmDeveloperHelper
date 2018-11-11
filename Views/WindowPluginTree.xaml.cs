@@ -1184,7 +1184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingDescription);
 
             var service = await GetService();
 
@@ -1410,7 +1410,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
 
-            ToggleControls(true, "Creating description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
         }
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -219,8 +219,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Loading Solution Image...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingSolutionImage);
 
             try
             {
@@ -244,8 +244,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     txtBFilePath.Text = string.Empty;
                 }
             });
-
-            ToggleControls(true, "Solution Image loaded.");
+            
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionImageCompletedFormat);
 
             FilteringSolutionImageComponents();
         }
@@ -258,8 +258,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             this._itemsSource.Clear();
-
-            ToggleControls(false, "Filtering SolutionImage Components...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.FilteringSolutionImageComponents);
 
             IEnumerable<SolutionImageComponent> filter = null;
 
@@ -306,8 +306,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _itemsSource.Add(component);
             }
-
-            ToggleControls(true, "{0} SolutionImage Components loaded.", filter.Count());
+            
+            ToggleControls(true, Properties.WindowStatusStrings.FilteringSolutionImageComponentsCompletedFormat, filter.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)

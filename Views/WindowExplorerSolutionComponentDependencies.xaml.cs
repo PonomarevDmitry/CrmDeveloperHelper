@@ -202,8 +202,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading dependent components...");
-
             this._itemsSource.Clear();
 
             string textName = string.Empty;
@@ -227,6 +225,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var list = new List<SolutionComponent>();
 
+            string formatResult = Properties.WindowStatusStrings.LoadingRequiredComponentsCompletedFormat;
+
             try
             {
                 var repository = new DependencyRepository(this._service);
@@ -236,6 +236,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     case DependencyType.RequiredComponents:
                     default:
                         {
+                            ToggleControls(false, Properties.WindowStatusStrings.LoadingRequiredComponents);
+                            formatResult = Properties.WindowStatusStrings.LoadingRequiredComponentsCompletedFormat;
+
                             IEnumerable<Dependency> temp = await repository.GetRequiredComponentsAsync(_componentType, _objectId);
 
                             if (category.HasValue)
@@ -251,6 +254,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     case DependencyType.DependentComponents:
                         {
+                            ToggleControls(false, Properties.WindowStatusStrings.LoadingDependentComponents);
+                            formatResult = Properties.WindowStatusStrings.LoadingDependentComponentsCompletedFormat;
+
                             IEnumerable<Dependency> temp = await repository.GetDependentComponentsAsync(_componentType, _objectId);
 
                             if (category.HasValue)
@@ -266,6 +272,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     case DependencyType.DependenciesForDelete:
                         {
+                            ToggleControls(false, Properties.WindowStatusStrings.LoadingDependenciesForDelete);
+                            formatResult = Properties.WindowStatusStrings.LoadingDependenciesForDeleteCompletedFormat;
+
                             IEnumerable<Dependency> temp = await repository.GetDependenciesForDeleteAsync(_componentType, _objectId);
 
                             if (category.HasValue)
@@ -309,6 +318,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             enumerable = FilterList(enumerable, textName);
 
             LoadSolutionComponents(enumerable);
+
+            ToggleControls(true, "{0} solution dependent components.", enumerable.Count());
         }
 
         private static IEnumerable<SolutionComponentViewItem> FilterList(IEnumerable<SolutionComponentViewItem> list, string textName)
@@ -361,8 +372,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.lstVSolutionComponents.SelectedItem = this.lstVSolutionComponents.Items[0];
                 }
             });
-
-            ToggleControls(true, "{0} solution dependent components.", results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)

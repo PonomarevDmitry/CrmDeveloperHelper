@@ -61,6 +61,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Analizing Workflow {0} - {1} completed..
+        /// </summary>
+        internal static string AnalizingWorkflowCompletedFormat {
+            get {
+                return ResourceManager.GetString("AnalizingWorkflowCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analizing Workflow {0} - {1} failed..
+        /// </summary>
+        internal static string AnalizingWorkflowFailedFormat {
+            get {
+                return ResourceManager.GetString("AnalizingWorkflowFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analizing Workflow {0} - {1}....
+        /// </summary>
+        internal static string AnalizingWorkflowFormat {
+            get {
+                return ResourceManager.GetString("AnalizingWorkflowFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clearing solution {0} completed..
         /// </summary>
         internal static string ClearingSolutionCompletedFormat {
@@ -142,6 +169,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating description....
+        /// </summary>
+        internal static string CreatingDescription {
+            get {
+                return ResourceManager.GetString("CreatingDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating description completed..
+        /// </summary>
+        internal static string CreatingDescriptionCompleted {
+            get {
+                return ResourceManager.GetString("CreatingDescriptionCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating Entity Description....
         /// </summary>
         internal static string CreatingEntityDescription {
@@ -165,6 +210,87 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CreatingEntityDescriptionFailed {
             get {
                 return ResourceManager.GetString("CreatingEntityDescriptionFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating File for entity {0} completed..
+        /// </summary>
+        internal static string CreatingFileForEntityCompletedFormat {
+            get {
+                return ResourceManager.GetString("CreatingFileForEntityCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating File for entity {0} failed..
+        /// </summary>
+        internal static string CreatingFileForEntityFailedFormat {
+            get {
+                return ResourceManager.GetString("CreatingFileForEntityFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating File for entity {0}....
+        /// </summary>
+        internal static string CreatingFileForEntityFormat {
+            get {
+                return ResourceManager.GetString("CreatingFileForEntityFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating File for OptionSets completed: {0}..
+        /// </summary>
+        internal static string CreatingFileForOptionSetsCompletedFormat {
+            get {
+                return ResourceManager.GetString("CreatingFileForOptionSetsCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating File for OptionSets failed: {0}..
+        /// </summary>
+        internal static string CreatingFileForOptionSetsFailedFormat {
+            get {
+                return ResourceManager.GetString("CreatingFileForOptionSetsFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating File for OptionSets in {0} and {1}: {2} completed..
+        /// </summary>
+        internal static string CreatingFileForOptionSetsForConnectionsCompletedFormat {
+            get {
+                return ResourceManager.GetString("CreatingFileForOptionSetsForConnectionsCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating File for OptionSets in {0} and {1}: {2} failed..
+        /// </summary>
+        internal static string CreatingFileForOptionSetsForConnectionsFailedFormat {
+            get {
+                return ResourceManager.GetString("CreatingFileForOptionSetsForConnectionsFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating File for OptionSets in {0} and {1}: {2}....
+        /// </summary>
+        internal static string CreatingFileForOptionSetsForConnectionsFormat {
+            get {
+                return ResourceManager.GetString("CreatingFileForOptionSetsForConnectionsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating File for OptionSets: {0}....
+        /// </summary>
+        internal static string CreatingFileForOptionSetsFormat {
+            get {
+                return ResourceManager.GetString("CreatingFileForOptionSetsFormat", resourceCulture);
             }
         }
         
@@ -367,6 +493,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exporting BodyBinary {0} to File completed..
+        /// </summary>
+        internal static string ExportingBodyBinaryForFieldCompletedFormat {
+            get {
+                return ResourceManager.GetString("ExportingBodyBinaryForFieldCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting BodyBinary {0} to File failed..
+        /// </summary>
+        internal static string ExportingBodyBinaryForFieldFailedFormat {
+            get {
+                return ResourceManager.GetString("ExportingBodyBinaryForFieldFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting BodyBinary {0} to File....
+        /// </summary>
+        internal static string ExportingBodyBinaryForFieldFormat {
+            get {
+                return ResourceManager.GetString("ExportingBodyBinaryForFieldFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exporting Xml {0} to File completed..
         /// </summary>
         internal static string ExportingXmlFieldToFileCompletedFormat {
@@ -439,6 +592,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filtering SolutionImage Components....
+        /// </summary>
+        internal static string FilteringSolutionImageComponents {
+            get {
+                return ResourceManager.GetString("FilteringSolutionImageComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} SolutionImage Components loaded..
+        /// </summary>
+        internal static string FilteringSolutionImageComponentsCompletedFormat {
+            get {
+                return ResourceManager.GetString("FilteringSolutionImageComponentsCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filtering trace records....
+        /// </summary>
+        internal static string FilteringTraceFiles {
+            get {
+                return ResourceManager.GetString("FilteringTraceFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} trace records filtered..
+        /// </summary>
+        internal static string FilteringTraceFilesCompletedFormat {
+            get {
+                return ResourceManager.GetString("FilteringTraceFilesCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} attributes loaded..
         /// </summary>
         internal static string LoadingAttributesCompletedFormat {
@@ -493,6 +682,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading charts....
+        /// </summary>
+        internal static string LoadingCharts {
+            get {
+                return ResourceManager.GetString("LoadingCharts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} charts loaded..
+        /// </summary>
+        internal static string LoadingChartsCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingChartsCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Dependencies For Delete....
+        /// </summary>
+        internal static string LoadingDependenciesForDelete {
+            get {
+                return ResourceManager.GetString("LoadingDependenciesForDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} dependencies for delete loaded..
+        /// </summary>
+        internal static string LoadingDependenciesForDeleteCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingDependenciesForDeleteCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Dependent Components....
+        /// </summary>
+        internal static string LoadingDependentComponents {
+            get {
+                return ResourceManager.GetString("LoadingDependentComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} dependent components loaded..
+        /// </summary>
+        internal static string LoadingDependentComponentsCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingDependentComponentsCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} entities loaded..
         /// </summary>
         internal static string LoadingEntitiesCompletedFormat {
@@ -507,6 +750,168 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string LoadingEntitiesFormat {
             get {
                 return ResourceManager.GetString("LoadingEntitiesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading entity keys....
+        /// </summary>
+        internal static string LoadingEntityKeys {
+            get {
+                return ResourceManager.GetString("LoadingEntityKeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} entity keys loaded..
+        /// </summary>
+        internal static string LoadingEntityKeysCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingEntityKeysCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading forms....
+        /// </summary>
+        internal static string LoadingForms {
+            get {
+                return ResourceManager.GetString("LoadingForms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} forms loaded..
+        /// </summary>
+        internal static string LoadingFormsCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingFormsCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Missing Components....
+        /// </summary>
+        internal static string LoadingMissingComponents {
+            get {
+                return ResourceManager.GetString("LoadingMissingComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} missing components loaded..
+        /// </summary>
+        internal static string LoadingMissingComponentsCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingMissingComponentsCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading OptionSets....
+        /// </summary>
+        internal static string LoadingOptionSets {
+            get {
+                return ResourceManager.GetString("LoadingOptionSets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} OptionSets loaded..
+        /// </summary>
+        internal static string LoadingOptionSetsCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingOptionSetsCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Plugin Assemblies....
+        /// </summary>
+        internal static string LoadingPluginAssemblies {
+            get {
+                return ResourceManager.GetString("LoadingPluginAssemblies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Plugin Assemblies loaded..
+        /// </summary>
+        internal static string LoadingPluginAssembliesCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingPluginAssembliesCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading PluginConfiguration....
+        /// </summary>
+        internal static string LoadingPluginConfiguration {
+            get {
+                return ResourceManager.GetString("LoadingPluginConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading PluginConfiguration completed..
+        /// </summary>
+        internal static string LoadingPluginConfigurationCompleted {
+            get {
+                return ResourceManager.GetString("LoadingPluginConfigurationCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Reports....
+        /// </summary>
+        internal static string LoadingReports {
+            get {
+                return ResourceManager.GetString("LoadingReports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Reports loaded..
+        /// </summary>
+        internal static string LoadingReportsCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingReportsCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Required Components....
+        /// </summary>
+        internal static string LoadingRequiredComponents {
+            get {
+                return ResourceManager.GetString("LoadingRequiredComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} required components loaded..
+        /// </summary>
+        internal static string LoadingRequiredComponentsCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingRequiredComponentsCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading saved queries....
+        /// </summary>
+        internal static string LoadingSavedQueries {
+            get {
+                return ResourceManager.GetString("LoadingSavedQueries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} saved queries loaded..
+        /// </summary>
+        internal static string LoadingSavedQueriesCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingSavedQueriesCompletedFormat", resourceCulture);
             }
         }
         
@@ -529,6 +934,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading Solution Components....
+        /// </summary>
+        internal static string LoadingSolutionComponents {
+            get {
+                return ResourceManager.GetString("LoadingSolutionComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} solution components loaded..
+        /// </summary>
+        internal static string LoadingSolutionComponentsCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingSolutionComponentsCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Solution Image....
+        /// </summary>
+        internal static string LoadingSolutionImage {
+            get {
+                return ResourceManager.GetString("LoadingSolutionImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Solution Image completed..
+        /// </summary>
+        internal static string LoadingSolutionImageCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingSolutionImageCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading solutions....
         /// </summary>
         internal static string LoadingSolutions {
@@ -543,6 +984,78 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string LoadingSolutionsCompletedFormat {
             get {
                 return ResourceManager.GetString("LoadingSolutionsCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading trace files....
+        /// </summary>
+        internal static string LoadingTraceFiles {
+            get {
+                return ResourceManager.GetString("LoadingTraceFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} trace records loaded..
+        /// </summary>
+        internal static string LoadingTraceFilesCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingTraceFilesCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Uninstall Components....
+        /// </summary>
+        internal static string LoadingUninstallComponents {
+            get {
+                return ResourceManager.GetString("LoadingUninstallComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} uninstall components loaded..
+        /// </summary>
+        internal static string LoadingUninstallComponentsCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingUninstallComponentsCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading WebResources....
+        /// </summary>
+        internal static string LoadingWebResources {
+            get {
+                return ResourceManager.GetString("LoadingWebResources", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} WebResources loaded..
+        /// </summary>
+        internal static string LoadingWebResourcesCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingWebResourcesCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading workflows....
+        /// </summary>
+        internal static string LoadingWorkflows {
+            get {
+                return ResourceManager.GetString("LoadingWorkflows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} workflows loaded..
+        /// </summary>
+        internal static string LoadingWorkflowsCompletedFormat {
+            get {
+                return ResourceManager.GetString("LoadingWorkflowsCompletedFormat", resourceCulture);
             }
         }
         
@@ -709,6 +1222,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Registering Plugin Steps....
+        /// </summary>
+        internal static string RegisteringPluginSteps {
+            get {
+                return ResourceManager.GetString("RegisteringPluginSteps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registering Plugin Steps completed..
+        /// </summary>
+        internal static string RegisteringPluginStepsCompleted {
+            get {
+                return ResourceManager.GetString("RegisteringPluginStepsCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing solution components from {0} completed..
+        /// </summary>
+        internal static string RemovingSolutionComponentsFromSolutionCompletedFormat {
+            get {
+                return ResourceManager.GetString("RemovingSolutionComponentsFromSolutionCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing solution components from {0} failed..
+        /// </summary>
+        internal static string RemovingSolutionComponentsFromSolutionFailedFormat {
+            get {
+                return ResourceManager.GetString("RemovingSolutionComponentsFromSolutionFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing solution components from {0}....
+        /// </summary>
+        internal static string RemovingSolutionComponentsFromSolutionFormat {
+            get {
+                return ResourceManager.GetString("RemovingSolutionComponentsFromSolutionFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saving Changes....
         /// </summary>
         internal static string SavingChanges {
@@ -732,6 +1290,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string SavingChangesFailed {
             get {
                 return ResourceManager.GetString("SavingChangesFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference Entity Description....
+        /// </summary>
+        internal static string ShowingDifferenceEntityDescription {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceEntityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference Entity Description completed..
+        /// </summary>
+        internal static string ShowingDifferenceEntityDescriptionCompleted {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceEntityDescriptionCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference Entity Description failed..
+        /// </summary>
+        internal static string ShowingDifferenceEntityDescriptionFailed {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceEntityDescriptionFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference Xml {0} completed..
+        /// </summary>
+        internal static string ShowingDifferenceXmlForFieldCompletedFormat {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceXmlForFieldCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference Xml {0} failed..
+        /// </summary>
+        internal static string ShowingDifferenceXmlForFieldFailedFormat {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceXmlForFieldFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference Xml {0}....
+        /// </summary>
+        internal static string ShowingDifferenceXmlForFieldFormat {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceXmlForFieldFormat", resourceCulture);
             }
         }
         

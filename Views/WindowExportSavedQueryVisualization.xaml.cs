@@ -177,7 +177,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading charts...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingCharts);
 
             this._itemsSource.Clear();
 
@@ -279,7 +279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "{0} charts loaded.", results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingChartsCompletedFormat, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)

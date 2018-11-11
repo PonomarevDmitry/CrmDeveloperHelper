@@ -222,8 +222,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Loading forms...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingForms);
 
             this._itemsSource.Clear();
 
@@ -299,8 +299,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutput("Found {0} forms", list.Count());
 
             LoadEntities(list);
-
-            ToggleControls(true, "{0} forms loaded.", list.Count());
+            
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingFormsCompletedFormat, list.Count());
         }
 
         private static IEnumerable<LinkedEntities<SystemForm>> FilterList(IEnumerable<LinkedEntities<SystemForm>> list, string textName)
@@ -637,41 +637,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Showing Difference Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityDescription);
 
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            if (service1 != null && service2 != null)
+            try
             {
-                var repository1 = new SystemFormRepository(service1);
-                var repository2 = new SystemFormRepository(service2);
+                var service1 = await GetService1();
+                var service2 = await GetService2();
 
-                var systemForm1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var systemForm2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
-
-                var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(systemForm1, EntityFileNameFormatter.SystemFormIgnoreFields);
-                var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(systemForm2, EntityFileNameFormatter.SystemFormIgnoreFields);
-
-                if (showAllways || desc1 != desc2)
+                if (service1 != null && service2 != null)
                 {
-                    string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData.Name, systemForm1.ObjectTypeCode, systemForm1.Name, "EntityDescription", desc1);
-                    string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData.Name, systemForm2.ObjectTypeCode, systemForm2.Name, "EntityDescription", desc2);
+                    var repository1 = new SystemFormRepository(service1);
+                    var repository2 = new SystemFormRepository(service2);
 
-                    if (File.Exists(filePath1) && File.Exists(filePath2))
-                    {
-                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
-                    }
-                    else
-                    {
-                        this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                    var systemForm1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
+                    var systemForm2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
-                        this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                    var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(systemForm1, EntityFileNameFormatter.SystemFormIgnoreFields);
+                    var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(systemForm2, EntityFileNameFormatter.SystemFormIgnoreFields);
+
+                    if (showAllways || desc1 != desc2)
+                    {
+                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData.Name, systemForm1.ObjectTypeCode, systemForm1.Name, "EntityDescription", desc1);
+                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData.Name, systemForm2.ObjectTypeCode, systemForm2.Name, "EntityDescription", desc2);
+
+                        if (File.Exists(filePath1) && File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        }
+                        else
+                        {
+                            this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+
+                            this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        }
                     }
                 }
-            }
 
-            ToggleControls(true, "Showing Difference Entity Description completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionCompleted);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionFailed);
+            }
         }
 
         private void mIShowDifferenceFormDescription_Click(object sender, RoutedEventArgs e)
@@ -788,41 +797,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Showing Difference Xml {0}...", fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFormat, fieldName);
 
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            if (service1 != null && service2 != null)
+            try
             {
-                var repository1 = new SystemFormRepository(service1);
-                var repository2 = new SystemFormRepository(service2);
+                var service1 = await GetService1();
+                var service2 = await GetService2();
 
-                var systemForm1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(fieldName));
-                var systemForm2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(fieldName));
-
-                string xml1 = systemForm1.GetAttributeValue<string>(fieldName);
-                string xml2 = systemForm2.GetAttributeValue<string>(fieldName);
-
-                if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2, false, action).IsEqual)
+                if (service1 != null && service2 != null)
                 {
-                    string filePath1 = await CreateFileAsync(service1.ConnectionData.Name, linked.Entity1.ObjectTypeCode, linked.Entity1.Name, fieldTitle, xml1);
-                    string filePath2 = await CreateFileAsync(service2.ConnectionData.Name, linked.Entity2.ObjectTypeCode, linked.Entity2.Name, fieldTitle, xml2);
+                    var repository1 = new SystemFormRepository(service1);
+                    var repository2 = new SystemFormRepository(service2);
 
-                    if (File.Exists(filePath1) && File.Exists(filePath2))
-                    {
-                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
-                    }
-                    else
-                    {
-                        this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                    var systemForm1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(fieldName));
+                    var systemForm2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(fieldName));
 
-                        this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                    string xml1 = systemForm1.GetAttributeValue<string>(fieldName);
+                    string xml2 = systemForm2.GetAttributeValue<string>(fieldName);
+
+                    if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2, false, action).IsEqual)
+                    {
+                        string filePath1 = await CreateFileAsync(service1.ConnectionData.Name, linked.Entity1.ObjectTypeCode, linked.Entity1.Name, fieldTitle, xml1);
+                        string filePath2 = await CreateFileAsync(service2.ConnectionData.Name, linked.Entity2.ObjectTypeCode, linked.Entity2.Name, fieldTitle, xml2);
+
+                        if (File.Exists(filePath1) && File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        }
+                        else
+                        {
+                            this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+
+                            this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        }
                     }
                 }
-            }
 
-            ToggleControls(true, "Showing Difference Xml {0} completed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldCompletedFormat, fieldName);
+
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFailedFormat, fieldName);
+            }
         }
 
         private void mIShowDifferenceWebResouces_Click(object sender, RoutedEventArgs e)

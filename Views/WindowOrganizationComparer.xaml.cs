@@ -274,22 +274,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (lstVwConnections.SelectedItems.Count == 1)
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
-
-                ToggleControls(false, "Start Testing Connection...");
+                
+                ToggleControls(false, Properties.WindowStatusStrings.StartTestingConnectionFormat, connectionData.Name);
 
                 try
                 {
                     await QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
 
                     this._crmConfig.Save();
-
-                    ToggleControls(true, "Connected.");
+                    
+                    ToggleControls(true, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat, connectionData.Name);
                 }
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(ex);
-
-                    ToggleControls(true, "Connection failed. See Error in Output.");
+                    
+                    ToggleControls(true, Properties.WindowStatusStrings.ConnectionFailedFormat, connectionData.Name);
                 }
             }
         }
@@ -369,8 +369,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     if (connectionData.ConnectionId == _crmConfig.CurrentConnectionData?.ConnectionId)
                     {
                         _crmConfig.SetCurrentConnection(null);
-
-                        _iWriteToOutput.WriteToOutput("Current Connection is not selected.");
+                        
+                        _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.ConnectionIsNotSelected);
                         _iWriteToOutput.ActivateOutputWindow();
                     }
 

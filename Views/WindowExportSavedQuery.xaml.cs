@@ -182,7 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading saved queries...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingSavedQueries);
 
             this._itemsSource.Clear();
 
@@ -286,7 +286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "{0} saved query(ies) loaded.", results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingSavedQueriesCompletedFormat, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)

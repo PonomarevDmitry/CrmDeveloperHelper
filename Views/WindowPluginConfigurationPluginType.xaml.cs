@@ -98,7 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading Plugin Types...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginConfiguration);
 
             try
             {
@@ -122,6 +122,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     txtBFilePath.Text = string.Empty;
                 }
             });
+
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginConfigurationCompleted);
 
             ShowExistingPluginTypes();
         }

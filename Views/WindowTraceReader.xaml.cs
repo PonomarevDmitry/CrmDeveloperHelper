@@ -158,8 +158,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Loading trace files...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingTraceFiles);
 
             this._itemsSource.Clear();
 
@@ -186,7 +186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _loadedRecords = await taskFiles;
 
-            ToggleControls(true, "{0} trace records loaded.", _loadedRecords.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingTraceFilesCompletedFormat, _loadedRecords.Count());
 
             await FilterExistingTraceRecords();
         }
@@ -197,8 +197,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Filtering trace records...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.FilteringTraceFiles);
 
             this._itemsSource.Clear();
 
@@ -256,8 +256,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             list = await FilterTraceRecordsAsync(list, textName, date);
 
             LoadTraceRecords(list, dictUsers);
-
-            ToggleControls(true, "{0} trace records filtered.", list.Count());
+            
+            ToggleControls(true, Properties.WindowStatusStrings.FilteringTraceFilesCompletedFormat, list.Count());
         }
 
         private Task<IEnumerable<TraceRecord>> FilterTraceRecordsAsync(IEnumerable<TraceRecord> list, string textName, DateTime? date)

@@ -91,8 +91,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Loading Reports...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingReports);
 
             this._itemsSource.Clear();
 
@@ -195,8 +195,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.lstVwReports.SelectedItem = this.lstVwReports.Items[0];
                 }
             });
-
-            ToggleControls(true, "{0} Reports loaded.", results.Count());
+            
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingReportsCompletedFormat, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)

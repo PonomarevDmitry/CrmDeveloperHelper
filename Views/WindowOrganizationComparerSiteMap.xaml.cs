@@ -606,45 +606,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Showing Difference Xml {0}...", fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFormat, fieldName);
 
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            if (service1 != null && service2 != null)
+            try
             {
-                var repository1 = new SitemapRepository(service1);
-                var repository2 = new SitemapRepository(service2);
+                var service1 = await GetService1();
+                var service2 = await GetService2();
 
-                var sitemap1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var sitemap2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
-
-                string xml1 = sitemap1.GetAttributeValue<string>(fieldName);
-                string xml2 = sitemap2.GetAttributeValue<string>(fieldName);
-
-                if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                if (service1 != null && service2 != null)
                 {
-                    string name1 = !string.IsNullOrEmpty(sitemap1.SiteMapName) ? " " + sitemap1.SiteMapName : string.Empty;
-                    string name2 = !string.IsNullOrEmpty(sitemap2.SiteMapName) ? " " + sitemap2.SiteMapName : string.Empty;
+                    var repository1 = new SitemapRepository(service1);
+                    var repository2 = new SitemapRepository(service2);
 
-                    string filePath1 = await CreateFileAsync(service1.ConnectionData.Name, name1, sitemap1.Id, fieldTitle, xml1);
+                    var sitemap1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
+                    var sitemap2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
-                    string filePath2 = await CreateFileAsync(service2.ConnectionData.Name, name2, sitemap2.Id, fieldTitle, xml2);
+                    string xml1 = sitemap1.GetAttributeValue<string>(fieldName);
+                    string xml2 = sitemap2.GetAttributeValue<string>(fieldName);
 
-                    if (File.Exists(filePath1) && File.Exists(filePath2))
+                    if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
-                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
-                    }
-                    else
-                    {
-                        this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                        string name1 = !string.IsNullOrEmpty(sitemap1.SiteMapName) ? " " + sitemap1.SiteMapName : string.Empty;
+                        string name2 = !string.IsNullOrEmpty(sitemap2.SiteMapName) ? " " + sitemap2.SiteMapName : string.Empty;
 
-                        this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        string filePath1 = await CreateFileAsync(service1.ConnectionData.Name, name1, sitemap1.Id, fieldTitle, xml1);
+
+                        string filePath2 = await CreateFileAsync(service2.ConnectionData.Name, name2, sitemap2.Id, fieldTitle, xml2);
+
+                        if (File.Exists(filePath1) && File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        }
+                        else
+                        {
+                            this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+
+                            this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        }
                     }
                 }
-            }
 
-            ToggleControls(true, "Showing Difference Xml {0} completed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldCompletedFormat, fieldName);
+
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFailedFormat, fieldName);
+            }
         }
 
         private void ExecuteActionEntity(Guid idSiteMap, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, Task> action)
@@ -716,44 +726,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Showing Difference Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityDescription);
 
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            if (service1 != null && service2 != null)
+            try
             {
-                var repository1 = new SitemapRepository(service1);
-                var repository2 = new SitemapRepository(service2);
+                var service1 = await GetService1();
+                var service2 = await GetService2();
 
-                var sitemap1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var sitemap2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
-
-                var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(sitemap1, EntityFileNameFormatter.SiteMapIgnoreFields);
-                var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(sitemap2, EntityFileNameFormatter.SiteMapIgnoreFields);
-
-                if (showAllways || desc1 != desc2)
+                if (service1 != null && service2 != null)
                 {
-                    string name1 = !string.IsNullOrEmpty(sitemap1.SiteMapName) ? " " + sitemap1.SiteMapName : string.Empty;
-                    string name2 = !string.IsNullOrEmpty(sitemap2.SiteMapName) ? " " + sitemap2.SiteMapName : string.Empty;
+                    var repository1 = new SitemapRepository(service1);
+                    var repository2 = new SitemapRepository(service2);
 
-                    string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData.Name, name1, sitemap1.Id, "EntityDescription", desc1);
-                    string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData.Name, name2, sitemap2.Id, "EntityDescription", desc2);
+                    var sitemap1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
+                    var sitemap2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
-                    if (File.Exists(filePath1) && File.Exists(filePath2))
+                    var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(sitemap1, EntityFileNameFormatter.SiteMapIgnoreFields);
+                    var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(sitemap2, EntityFileNameFormatter.SiteMapIgnoreFields);
+
+                    if (showAllways || desc1 != desc2)
                     {
-                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
-                    }
-                    else
-                    {
-                        this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                        string name1 = !string.IsNullOrEmpty(sitemap1.SiteMapName) ? " " + sitemap1.SiteMapName : string.Empty;
+                        string name2 = !string.IsNullOrEmpty(sitemap2.SiteMapName) ? " " + sitemap2.SiteMapName : string.Empty;
 
-                        this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData.Name, name1, sitemap1.Id, "EntityDescription", desc1);
+                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData.Name, name2, sitemap2.Id, "EntityDescription", desc2);
+
+                        if (File.Exists(filePath1) && File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        }
+                        else
+                        {
+                            this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+
+                            this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        }
                     }
                 }
-            }
 
-            ToggleControls(true, "Showing Difference Entity Description completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionCompleted);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionFailed);
+            }
         }
 
         private void ExecuteActionDescription(Guid idSiteMap, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)
@@ -802,7 +821,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true, "Creating Entity Description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
         }
 
         private void mIExportSiteMap1EntityDescription_Click(object sender, RoutedEventArgs e)

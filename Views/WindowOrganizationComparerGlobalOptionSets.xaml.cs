@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntitiesFormat);
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingOptionSets);
 
             this._itemsSource.Clear();
 
@@ -270,7 +270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntities(list);
 
-            ToggleControls(true, "{0} optionsets loaded.", list.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingOptionSetsCompletedFormat, list.Count());
         }
 
         private static IEnumerable<LinkedOptionSetMetadata> FilterList(IEnumerable<LinkedOptionSetMetadata> list, string textName)
@@ -456,68 +456,82 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            string optionSetsName = string.Join(",", optionSets1.Select(o => o.Name).OrderBy(s => s));
+
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            string filePath1 = CreateFileName(optionSets1, service1.ConnectionData, "cs");
-            string filePath2 = CreateFileName(optionSets2, service2.ConnectionData, "cs");
-
-            ToggleControls(false, "Creating Files...");
-
-            this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
-            var constantType = _commonConfig.ConstantType;
-            var optionSetExportType = _commonConfig.OptionSetExportType;
-
-            var nameSpace1 = txtBNameSpace1.Text.Trim();
-            var nameSpace2 = txtBNameSpace2.Text.Trim();
-
-            var withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
-            var allDescriptions = chBAllDescriptions.IsChecked.GetValueOrDefault();
-            var withManagedInfo = chBWithManagedInfo.IsChecked.GetValueOrDefault();
-
-            service1.ConnectionData.NameSpaceOptionSets = nameSpace1;
-            service2.ConnectionData.NameSpaceOptionSets = nameSpace2;
-
-            using (var handler1 = new CreateGlobalOptionSetsFileCSharpHandler(service1, _iWriteToOutput, tabSpacer, constantType, optionSetExportType, withDependentComponents, withManagedInfo, allDescriptions))
+            if (service1 != null && service2 != null)
             {
-                var task1 = handler1.CreateFileAsync(filePath1, optionSets1);
-
-                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                try
                 {
-                    using (var handler2 = new CreateGlobalOptionSetsFileCSharpHandler(service2, _iWriteToOutput, tabSpacer, constantType, optionSetExportType, withDependentComponents, withManagedInfo, allDescriptions))
+                    ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
+
+                    string filePath1 = CreateFileName(optionSets1, service1.ConnectionData, "cs");
+                    string filePath2 = CreateFileName(optionSets2, service2.ConnectionData, "cs");
+
+                    this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                    string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
+                    var constantType = _commonConfig.ConstantType;
+                    var optionSetExportType = _commonConfig.OptionSetExportType;
+
+                    var nameSpace1 = txtBNameSpace1.Text.Trim();
+                    var nameSpace2 = txtBNameSpace2.Text.Trim();
+
+                    var withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
+                    var allDescriptions = chBAllDescriptions.IsChecked.GetValueOrDefault();
+                    var withManagedInfo = chBWithManagedInfo.IsChecked.GetValueOrDefault();
+
+                    service1.ConnectionData.NameSpaceOptionSets = nameSpace1;
+                    service2.ConnectionData.NameSpaceOptionSets = nameSpace2;
+
+                    using (var handler1 = new CreateGlobalOptionSetsFileCSharpHandler(service1, _iWriteToOutput, tabSpacer, constantType, optionSetExportType, withDependentComponents, withManagedInfo, allDescriptions))
                     {
-                        var task2 = handler2.CreateFileAsync(filePath2, optionSets2);
+                        var task1 = handler1.CreateFileAsync(filePath1, optionSets1);
 
-                        await task2;
+                        if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                        {
+                            using (var handler2 = new CreateGlobalOptionSetsFileCSharpHandler(service2, _iWriteToOutput, tabSpacer, constantType, optionSetExportType, withDependentComponents, withManagedInfo, allDescriptions))
+                            {
+                                var task2 = handler2.CreateFileAsync(filePath2, optionSets2);
+
+                                await task2;
+                            }
+                        }
+
+                        await task1;
                     }
+
+                    this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service1.ConnectionData.Name, filePath1);
+
+                    if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                    {
+                        this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service2.ConnectionData.Name, filePath2);
+                    }
+
+                    if (File.Exists(filePath1) && File.Exists(filePath2))
+                    {
+                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                    }
+                    else
+                    {
+                        this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+
+                        this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                    }
+
+                    this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                    ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsCompletedFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
                 }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(ex);
 
-                await task1;
+                    ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFailedFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
+                }
             }
-
-            this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service1.ConnectionData.Name, filePath1);
-
-            if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
-            {
-                this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service2.ConnectionData.Name, filePath2);
-            }
-
-            if (File.Exists(filePath1) && File.Exists(filePath2))
-            {
-                this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
-            }
-            else
-            {
-                this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
-
-                this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
-            }
-
-            this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            ToggleControls(true, "Files were created.");
         }
 
         private async void btnDifferenceJavaScriptFile_Click(object sender, RoutedEventArgs e)
@@ -558,6 +572,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            if (!optionSets1.Any() || !optionSets2.Any())
+            {
+                return;
+            }
+
             if (_init > 0 || !_controlsEnabled)
             {
                 return;
@@ -576,62 +595,76 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            string filePath1 = CreateFileName(optionSets1, service1.ConnectionData, "js");
-            string filePath2 = CreateFileName(optionSets2, service2.ConnectionData, "js");
+            string optionSetsName = string.Join(",", optionSets1.Select(o => o.Name).OrderBy(s => s));
 
-            ToggleControls(false, "Creating Files...");
-
-            this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
-            var constantType = _commonConfig.ConstantType;
-
-            var nameSpace1 = txtBNameSpace1.Text.Trim();
-            var nameSpace2 = txtBNameSpace2.Text.Trim();
-
-            var withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
-
-            service1.ConnectionData.NameSpaceOptionSets = nameSpace1;
-            service2.ConnectionData.NameSpaceOptionSets = nameSpace2;
-
-            using (var handler1 = new CreateGlobalOptionSetsFileJavaScriptHandler(service1, _iWriteToOutput, tabSpacer, withDependentComponents))
+            if (service1 != null && service2 != null)
             {
-                var task1 = handler1.CreateFileAsync(filePath1, optionSets1);
-
-                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                try
                 {
-                    using (var handler2 = new CreateGlobalOptionSetsFileJavaScriptHandler(service2, _iWriteToOutput, tabSpacer, withDependentComponents))
+                    ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
+
+                    string filePath1 = CreateFileName(optionSets1, service1.ConnectionData, "js");
+                    string filePath2 = CreateFileName(optionSets2, service2.ConnectionData, "js");
+
+                    this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                    string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
+                    var constantType = _commonConfig.ConstantType;
+
+                    var nameSpace1 = txtBNameSpace1.Text.Trim();
+                    var nameSpace2 = txtBNameSpace2.Text.Trim();
+
+                    var withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
+
+                    service1.ConnectionData.NameSpaceOptionSets = nameSpace1;
+                    service2.ConnectionData.NameSpaceOptionSets = nameSpace2;
+
+                    using (var handler1 = new CreateGlobalOptionSetsFileJavaScriptHandler(service1, _iWriteToOutput, tabSpacer, withDependentComponents))
                     {
-                        var task2 = handler2.CreateFileAsync(filePath2, optionSets2);
+                        var task1 = handler1.CreateFileAsync(filePath1, optionSets1);
 
-                        await task2;
+                        if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                        {
+                            using (var handler2 = new CreateGlobalOptionSetsFileJavaScriptHandler(service2, _iWriteToOutput, tabSpacer, withDependentComponents))
+                            {
+                                var task2 = handler2.CreateFileAsync(filePath2, optionSets2);
+
+                                await task2;
+                            }
+                        }
+
+                        await task1;
                     }
+
+                    this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service1.ConnectionData.Name, filePath1);
+
+                    if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                    {
+                        this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service2.ConnectionData.Name, filePath2);
+                    }
+
+                    if (File.Exists(filePath1) && File.Exists(filePath2))
+                    {
+                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                    }
+                    else
+                    {
+                        this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+
+                        this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                    }
+
+                    this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                    ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsCompletedFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
                 }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(ex);
 
-                await task1;
+                    ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFailedFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
+                }
             }
-
-            this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service1.ConnectionData.Name, filePath1);
-
-            if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
-            {
-                this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service2.ConnectionData.Name, filePath2);
-            }
-
-            if (File.Exists(filePath1) && File.Exists(filePath2))
-            {
-                this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
-            }
-            else
-            {
-                this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
-
-                this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
-            }
-
-            this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            ToggleControls(true, "Files were created.");
         }
 
         private void btnConnection1CSharp_Click(object sender, RoutedEventArgs e)
@@ -704,36 +737,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating File...");
+            string optionSetsName = string.Join(",", optionSets.Select(o => o.Name).OrderBy(s => s));
 
-            this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsFormat, optionSetsName);
 
-            string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
-            var constantType = _commonConfig.ConstantType;
-            var optionSetExportType = _commonConfig.OptionSetExportType;
-
-            var withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
-            var allDescriptions = chBAllDescriptions.IsChecked.GetValueOrDefault();
-            var withManagedInfo = chBWithManagedInfo.IsChecked.GetValueOrDefault();
-
-            var service = await getService();
-
-            string filePath = CreateFileName(optionSets, service.ConnectionData, "cs");
-
-            service.ConnectionData.NameSpaceOptionSets = nameSpace;
-
-            using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(service, _iWriteToOutput, tabSpacer, constantType, optionSetExportType, withDependentComponents, withManagedInfo, allDescriptions))
+            try
             {
-                await handler.CreateFileAsync(filePath, optionSets);
+                this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
+                var constantType = _commonConfig.ConstantType;
+                var optionSetExportType = _commonConfig.OptionSetExportType;
+
+                var withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
+                var allDescriptions = chBAllDescriptions.IsChecked.GetValueOrDefault();
+                var withManagedInfo = chBWithManagedInfo.IsChecked.GetValueOrDefault();
+
+                var service = await getService();
+
+                string filePath = CreateFileName(optionSets, service.ConnectionData, "cs");
+
+                service.ConnectionData.NameSpaceOptionSets = nameSpace;
+
+                using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(service, _iWriteToOutput, tabSpacer, constantType, optionSetExportType, withDependentComponents, withManagedInfo, allDescriptions))
+                {
+                    await handler.CreateFileAsync(filePath, optionSets);
+                }
+
+                this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service.ConnectionData.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsCompletedFormat, optionSetsName);
             }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service.ConnectionData.Name, filePath);
-
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-            this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            ToggleControls(true, "File is created.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsFailedFormat, optionSetsName);
+            }
         }
 
         private void btnConnection1JavaScript_Click(object sender, RoutedEventArgs e)
@@ -791,7 +835,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (optionSets == null)
+            if (optionSets == null || !optionSets.Any())
             {
                 return;
             }
@@ -806,32 +850,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating File...");
+            string optionSetsName = string.Join(",", optionSets.Select(o => o.Name).OrderBy(s => s));
 
-            this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsFormat, optionSetsName);
 
-            string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
-
-            var withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
-
-            var service = await getService();
-
-            string filePath = CreateFileName(optionSets, service.ConnectionData, "js");
-
-            service.ConnectionData.NameSpaceOptionSets = nameSpace;
-
-            using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(service, _iWriteToOutput, tabSpacer, withDependentComponents))
+            try
             {
-                await handler.CreateFileAsync(filePath, optionSets);
+                this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
+
+                var withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
+
+                var service = await getService();
+
+                string filePath = CreateFileName(optionSets, service.ConnectionData, "js");
+
+                service.ConnectionData.NameSpaceOptionSets = nameSpace;
+
+                using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(service, _iWriteToOutput, tabSpacer, withDependentComponents))
+                {
+                    await handler.CreateFileAsync(filePath, optionSets);
+                }
+
+                var message = string.Empty;
+
+                this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service.ConnectionData.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsCompletedFormat, optionSetsName);
             }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            var message = string.Empty;
-
-            this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service.ConnectionData.Name, filePath);
-
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-            ToggleControls(true, "File is created.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsFailedFormat, optionSetsName);
+            }
         }
 
         private void txtBFilter_KeyDown(object sender, KeyEventArgs e)

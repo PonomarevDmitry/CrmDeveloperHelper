@@ -170,7 +170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading Reports...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingReports);
 
             this._itemsSource.Clear();
 
@@ -326,7 +326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "{0} reports loaded.", results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingReportsCompletedFormat, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -673,43 +673,52 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
+            
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFormat, fieldName);
 
-            ToggleControls(false, "Showing Difference Xml {0}...", fieldName);
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            if (service1 != null && service2 != null)
+            try
             {
-                var repository1 = new ReportRepository(service1);
-                var repository2 = new ReportRepository(service2);
+                var service1 = await GetService1();
+                var service2 = await GetService2();
 
-                var report1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var report2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
-
-                string xml1 = report1.GetAttributeValue<string>(fieldName);
-                string xml2 = report2.GetAttributeValue<string>(fieldName);
-
-                if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                if (service1 != null && service2 != null)
                 {
-                    string filePath1 = await CreateFileAsync(service1.ConnectionData.Name, report1.Name, report1.Id, fieldTitle, xml1);
+                    var repository1 = new ReportRepository(service1);
+                    var repository2 = new ReportRepository(service2);
 
-                    string filePath2 = await CreateFileAsync(service2.ConnectionData.Name, report2.Name, report2.Id, fieldTitle, xml2);
+                    var report1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
+                    var report2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
-                    if (File.Exists(filePath1) && File.Exists(filePath2))
+                    string xml1 = report1.GetAttributeValue<string>(fieldName);
+                    string xml2 = report2.GetAttributeValue<string>(fieldName);
+
+                    if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
-                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
-                    }
-                    else
-                    {
-                        this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                        string filePath1 = await CreateFileAsync(service1.ConnectionData.Name, report1.Name, report1.Id, fieldTitle, xml1);
 
-                        this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        string filePath2 = await CreateFileAsync(service2.ConnectionData.Name, report2.Name, report2.Id, fieldTitle, xml2);
+
+                        if (File.Exists(filePath1) && File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        }
+                        else
+                        {
+                            this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+
+                            this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        }
                     }
                 }
-            }
 
-            ToggleControls(true, "Showing Difference Xml {0} completed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldCompletedFormat, fieldName);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFailedFormat, fieldName);
+            }
         }
 
         private void ExecuteActionOnEntity(Guid idReport, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, Task> action)
@@ -765,46 +774,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
+            
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingBodyBinaryForFieldFormat, fieldName);
 
-            ToggleControls(false, "Exporting BodyBinary {0} to File...", fieldName);
-
-            var service = await getService();
-
-            if (service != null)
+            try
             {
-                var repository = new ReportRepository(service);
+                var service = await getService();
 
-                Report reportWithBodyBinary = await repository.GetByIdAsync(idReport, new ColumnSet(true));
-
-                string extension = Path.GetExtension(reportWithBodyBinary.FileName);
-
-                string fileName = EntityFileNameFormatter.GetReportFileName(service.ConnectionData.Name, reportWithBodyBinary.Name, reportWithBodyBinary.Id, fieldTitle, extension);
-                string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                if (!string.IsNullOrEmpty(reportWithBodyBinary.BodyBinary))
+                if (service != null)
                 {
-                    var array = Convert.FromBase64String(reportWithBodyBinary.BodyBinary);
+                    var repository = new ReportRepository(service);
 
-                    File.WriteAllBytes(filePath, array);
+                    Report reportWithBodyBinary = await repository.GetByIdAsync(idReport, new ColumnSet(true));
 
-                    this._iWriteToOutput.WriteToOutput("Report {0} exported to {1}", reportWithBodyBinary.Name, filePath);
+                    string extension = Path.GetExtension(reportWithBodyBinary.FileName);
 
-                    if (File.Exists(filePath))
+                    string fileName = EntityFileNameFormatter.GetReportFileName(service.ConnectionData.Name, reportWithBodyBinary.Name, reportWithBodyBinary.Id, fieldTitle, extension);
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    if (!string.IsNullOrEmpty(reportWithBodyBinary.BodyBinary))
                     {
-                        if (_commonConfig.AfterCreateFileAction != FileAction.None)
+                        var array = Convert.FromBase64String(reportWithBodyBinary.BodyBinary);
+
+                        File.WriteAllBytes(filePath, array);
+
+                        this._iWriteToOutput.WriteToOutput("Report {0} exported to {1}", reportWithBodyBinary.Name, filePath);
+
+                        if (File.Exists(filePath))
                         {
-                            this._iWriteToOutput.SelectFileInFolder(filePath);
+                            if (_commonConfig.AfterCreateFileAction != FileAction.None)
+                            {
+                                this._iWriteToOutput.SelectFileInFolder(filePath);
+                            }
                         }
                     }
+                    else
+                    {
+                        this._iWriteToOutput.WriteToOutput("BodyBinary is empty.");
+                        this._iWriteToOutput.ActivateOutputWindow();
+                    }
                 }
-                else
-                {
-                    this._iWriteToOutput.WriteToOutput("BodyBinary is empty.");
-                    this._iWriteToOutput.ActivateOutputWindow();
-                }
-            }
 
-            ToggleControls(true, "Exporting BodyBinary {0} to File completed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingBodyBinaryForFieldCompletedFormat, fieldName);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingBodyBinaryForFieldFailedFormat, fieldName);
+            }
         }
 
         private void mIShowDifferenceEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -826,41 +844,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Showing Difference Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityDescription);
 
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            if (service1 != null && service2 != null)
+            try
             {
-                var repository1 = new ReportRepository(service1);
-                var repository2 = new ReportRepository(service2);
+                var service1 = await GetService1();
+                var service2 = await GetService2();
 
-                var report1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var report2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
-
-                var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(report1, EntityFileNameFormatter.ReportIgnoreFields);
-                var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(report2, EntityFileNameFormatter.ReportIgnoreFields);
-
-                if (showAllways || desc1 != desc2)
+                if (service1 != null && service2 != null)
                 {
-                    string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData.Name, report1.Name, report1.Id, "Description", desc1);
-                    string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData.Name, report2.Name, report2.Id, "Description", desc2);
+                    var repository1 = new ReportRepository(service1);
+                    var repository2 = new ReportRepository(service2);
 
-                    if (File.Exists(filePath1) && File.Exists(filePath2))
-                    {
-                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
-                    }
-                    else
-                    {
-                        this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                    var report1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
+                    var report2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
-                        this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                    var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(report1, EntityFileNameFormatter.ReportIgnoreFields);
+                    var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(report2, EntityFileNameFormatter.ReportIgnoreFields);
+
+                    if (showAllways || desc1 != desc2)
+                    {
+                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData.Name, report1.Name, report1.Id, "Description", desc1);
+                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData.Name, report2.Name, report2.Id, "Description", desc2);
+
+                        if (File.Exists(filePath1) && File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        }
+                        else
+                        {
+                            this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+
+                            this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        }
                     }
                 }
-            }
 
-            ToggleControls(true, "Showing Difference Entity Description completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionCompleted);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionFailed);
+            }
         }
 
         private void ExecuteActionDescription(Guid idReport, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)

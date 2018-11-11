@@ -767,8 +767,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating File...");
-
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat, entityName);
+            
             this._iWriteToOutput.WriteToOutput("Start extracting information at {0} for entity '{1}'", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), entityName);
 
             try
@@ -800,13 +800,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End extracting information at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, "File is created.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "File creation failed.");
+                
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat, entityName);
             }
         }
 

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AreYouSureDeleteComponentsFormat" xml:space="preserve">
+    <value>Are you sure want to delete components {0} from solution {1}?</value>
+  </data>
   <data name="ClearListForPublish" xml:space="preserve">
     <value>Clear List from Publish?</value>
   </data>

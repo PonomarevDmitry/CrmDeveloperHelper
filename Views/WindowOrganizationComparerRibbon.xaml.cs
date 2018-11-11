@@ -527,7 +527,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating File...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat);
 
             this._iWriteToOutput.WriteToOutput("Start exporting files with Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -611,7 +611,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating File...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat);
 
             this._iWriteToOutput.WriteToOutput("Start exporting files with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -810,7 +810,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating File...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat);
 
             this._iWriteToOutput.WriteToOutput("Start exporting files with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -900,7 +900,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating File...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat);
 
             this._iWriteToOutput.WriteToOutput("Start exporting files with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1095,7 +1095,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var filters = GetRibbonLocationFilters();
 
-            ToggleControls(false, "Creating File...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat);
 
             this._iWriteToOutput.WriteToOutput("Start exporting file with Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1121,7 +1121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End exporting file with Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            ToggleControls(true, "File is created.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat);
         }
 
         private void mIConnection1ApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -1151,7 +1151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating File...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat);
 
             this._iWriteToOutput.WriteToOutput("Start exporting file with Application RibbonDiffXml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1285,7 +1285,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var filters = GetRibbonLocationFilters();
 
-            ToggleControls(false, "Creating File...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat, entityName);
 
             this._iWriteToOutput.WriteToOutput("Start exporting file with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1311,7 +1311,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End exporting file with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            ToggleControls(true, "File is created.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat, entityName);
         }
 
         private void mIConnection1EntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -1355,7 +1355,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating File...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat);
 
             this._iWriteToOutput.WriteToOutput("Start exporting file with Entity RibbonDiffXml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1441,7 +1441,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End exporting file with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            ToggleControls(true, "File is created.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

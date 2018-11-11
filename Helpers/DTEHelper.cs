@@ -3657,7 +3657,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData != null)
             {
-                string message = string.Format(Resources.PublishAllInConnectionFormat, connectionData.Name);
+                string message = string.Format(Properties.MessageBoxStrings.PublishAllInConnectionFormat, connectionData.Name);
 
                 if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {

@@ -157,7 +157,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading webresources...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingWebResources);
 
             var textName = string.Empty;
 
@@ -321,7 +321,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "{0} webresources loaded.", results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingWebResourcesCompletedFormat, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -644,7 +644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true, "Creating Entity Description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
         }
 
         private void mIExportWebResource1EntityDescription_Click(object sender, RoutedEventArgs e)

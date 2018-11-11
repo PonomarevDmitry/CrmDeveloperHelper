@@ -326,7 +326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading workflows...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingWorkflows);
 
             this._itemsSource.Clear();
 
@@ -475,7 +475,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "{0} workflows loaded.", results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingWorkflowsCompletedFormat, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -894,8 +894,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Analizing Workflow...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.AnalizingWorkflowFormat, entityName, name);
 
             try
             {
@@ -921,7 +921,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldName, filePath);
-
+                    
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                 }
                 else
@@ -930,13 +930,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.ActivateOutputWindow();
                 }
 
-                ToggleControls(true, "Analizing Workflow completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.AnalizingWorkflowCompletedFormat, entityName, name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "Analizing Workflow failed.");
+                
+                ToggleControls(true, Properties.WindowStatusStrings.AnalizingWorkflowFailedFormat, entityName, name);
             }
         }
 
@@ -947,7 +947,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Analizing Workflow...");
+            ToggleControls(false, Properties.WindowStatusStrings.AnalizingWorkflowFormat);
 
             try
             {
@@ -982,13 +982,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.ActivateOutputWindow();
                 }
 
-                ToggleControls(true, "Analizing Workflow completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.AnalizingWorkflowCompletedFormat);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Analizing Workflow failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.AnalizingWorkflowFailedFormat);
             }
         }
 

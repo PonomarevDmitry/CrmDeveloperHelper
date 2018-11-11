@@ -199,8 +199,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading solution components...");
-
             this._itemsSource.Clear();
 
             string textName = string.Empty;
@@ -223,6 +221,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var solutionComponents = GetSolutionComponentsType();
 
             var list = new List<SolutionComponent>();
+
+            string formatResult = Properties.WindowStatusStrings.LoadingRequiredComponentsCompletedFormat;
 
             try
             {
@@ -249,7 +249,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     switch (solutionComponents)
                     {
                         case SolutionComponentsType.SolutionComponents:
+                        default:
                             {
+                                ToggleControls(false, Properties.WindowStatusStrings.LoadingSolutionComponents);
+                                formatResult = Properties.WindowStatusStrings.LoadingSolutionComponentsCompletedFormat;
+
                                 var repository = new SolutionComponentRepository(this._service);
 
                                 list = await repository.GetSolutionComponentsByTypeAsync(_solution.Id, category, new ColumnSet(SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
@@ -258,6 +262,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         case SolutionComponentsType.MissingComponents:
                             {
+                                ToggleControls(false, Properties.WindowStatusStrings.LoadingMissingComponents);
+                                formatResult = Properties.WindowStatusStrings.LoadingMissingComponentsCompletedFormat;
+
                                 var repository = new DependencyRepository(this._service);
 
                                 var temp = (await repository.GetSolutionMissingDependenciesAsync(_solution.UniqueName)).Select(e => e.RequiredToSolutionComponent());
@@ -283,6 +290,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         case SolutionComponentsType.UninstallComponents:
                             {
+                                ToggleControls(false, Properties.WindowStatusStrings.LoadingUninstallComponents);
+                                formatResult = Properties.WindowStatusStrings.LoadingUninstallComponentsCompletedFormat;
+
                                 var repository = new DependencyRepository(this._service);
 
                                 var temp = (await repository.GetSolutionDependenciesForUninstallAsync(_solution.UniqueName)).Select(en => en.RequiredToSolutionComponent());
@@ -304,9 +314,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                     }
                                 }
                             }
-                            break;
-
-                        default:
                             break;
                     }
 
@@ -340,6 +347,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             enumerable = FilterList(enumerable, textName);
 
             LoadSolutionComponents(enumerable);
+
+            ToggleControls(true, formatResult, enumerable.Count());
         }
 
         private static IEnumerable<SolutionComponentViewItem> FilterList(IEnumerable<SolutionComponentViewItem> list, string textName)
@@ -392,8 +401,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.lstVSolutionComponents.SelectedItem = this.lstVSolutionComponents.Items[0];
                 }
             });
-
-            ToggleControls(true, "{0} solution components loaded.", results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -1101,8 +1108,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            string question = string.Format("Are you sure want to delete components {0} from solution {1}?", solutionComponents.Count, _solution.UniqueName);
+            
+            string question = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteComponentsFormat, solutionComponents.Count, _solution.UniqueName);
 
             if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
             {
@@ -1111,8 +1118,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(false, "Removing solution components...");
-
+                ToggleControls(false, Properties.WindowStatusStrings.RemovingSolutionComponentsFromSolutionFormat, _solution.UniqueName);
+                
                 _commonConfig.Save();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
@@ -1156,14 +1163,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _itemsSource.Remove(item);
                     }
                 });
-
-                ToggleControls(true, "Removing solution components completed.");
+                
+                ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromSolutionCompletedFormat, _solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Removing solution components failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromSolutionFailedFormat, _solution.UniqueName);
             }
         }
 
@@ -1711,7 +1718,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     return;
                 }
-
+                
                 ToggleControls(false, _iWriteToOutput.WriteToOutput("Loading components from Zip-file..."));
 
                 List<SolutionComponent> solutionComponents = await _descriptor.LoadSolutionComponentsFromZipFileAsync(selectedPath);

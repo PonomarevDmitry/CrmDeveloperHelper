@@ -61,6 +61,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure want to delete components {0} from solution {1}?.
+        /// </summary>
+        internal static string AreYouSureDeleteComponentsFormat {
+            get {
+                return ResourceManager.GetString("AreYouSureDeleteComponentsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear List from Publish?.
         /// </summary>
         internal static string ClearListForPublish {

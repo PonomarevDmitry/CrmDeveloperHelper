@@ -696,22 +696,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var config = GetCSharpConfig(entityName);
 
-            ToggleControls(false, "Creating File...");
-
-            this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            var service = await getService();
-
-            using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
+            try
             {
-                string filePath = await handler.CreateFileAsync();
+                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat, entityName);
 
-                this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
+                this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                var service = await getService();
+
+                using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
+                {
+                    string filePath = await handler.CreateFileAsync();
+
+                    this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
+
+                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                }
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat, entityName);
             }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            ToggleControls(true, "File is created.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat, entityName);
+            }
         }
 
         private void btnConnection1JavaScript_Click(object sender, RoutedEventArgs e)
@@ -757,24 +766,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var config = GetJavaScriptConfig(entityName);
 
-            ToggleControls(false, "Creating File...");
-
-            this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            var service = await getService();
-
-            using (var handler = new CreateFileWithEntityMetadataJavaScriptHandler(config, service, _iWriteToOutput))
+            try
             {
-                string filePath = await handler.CreateFileAsync();
+                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat, entityName);
 
-                this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
+                this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                var service = await getService();
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                using (var handler = new CreateFileWithEntityMetadataJavaScriptHandler(config, service, _iWriteToOutput))
+                {
+                    string filePath = await handler.CreateFileAsync();
+
+                    this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
+
+                    this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                }
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat, entityName);
             }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
 
-            ToggleControls(true, "File is created.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat, entityName);
+            }
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

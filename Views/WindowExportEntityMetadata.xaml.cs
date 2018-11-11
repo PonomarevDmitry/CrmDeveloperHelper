@@ -753,7 +753,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task CreateEntityMetadataFileAsync(string entityName)
         {
-            ToggleControls(false, "Creating File...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat, entityName);
 
             try
             {
@@ -804,14 +804,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput(string.Empty);
 
                 this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-                ToggleControls(true, "File is created.");
+                
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat, entityName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "Creating File failed.");
+                
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat, entityName);
             }
         }
 
@@ -843,7 +843,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , chBWithDependentComponents.IsChecked.GetValueOrDefault()
                 );
 
-            ToggleControls(false, "Creating File...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat, entityName);
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -864,13 +864,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, "File is created.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "File creation failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat, entityName);
             }
         }
 
@@ -905,7 +905,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating File...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat, entityName);
 
             this._iWriteToOutput.WriteToOutput("Start getting file with Entity Xml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -928,13 +928,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End getting file with Entity Xml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, "File is created.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "File creation failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat, entityName);
             }
         }
 

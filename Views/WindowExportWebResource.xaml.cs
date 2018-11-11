@@ -187,7 +187,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading webresources...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingWebResources);
 
             this.trVWebResources.ItemsSource = null;
 
@@ -219,7 +219,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadWebResources(list);
 
-            ToggleControls(true, "{0} webresources loaded.", list.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingWebResourcesCompletedFormat, list.Count());
         }
 
         private void LoadWebResources(IEnumerable<WebResource> results)

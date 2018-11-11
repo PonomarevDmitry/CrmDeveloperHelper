@@ -908,7 +908,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.PublishingApplicationRibbon);
 
             this._iWriteToOutput.WriteToOutput("Start publishing Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
@@ -1071,9 +1071,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput("RibbonDiff Xml exported to {0}", filePath);
 
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-                    ToggleControls(true, "Exporting {0} RibbonDiffXml completed.", entity.EntityLogicalName);
                 }
+
+                ToggleControls(true, "Exporting {0} RibbonDiffXml completed.", entity.EntityLogicalName);
             }
             catch (Exception ex)
             {
@@ -1317,13 +1317,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await repository.PublishEntitiesAsync(new[] { entityName });
 
                 this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityName);
             }
         }

@@ -178,8 +178,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Loading workflows...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingWorkflows);
 
             this._itemsSource.Clear();
 
@@ -368,8 +368,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.lstVwWorkflows.SelectedItem = this.lstVwWorkflows.Items[0];
                 }
             });
-
-            ToggleControls(true, "{0} workflows loaded.", results.Count());
+            
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingWorkflowsCompletedFormat, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -689,51 +689,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Showing Difference Xml {0}...", fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFormat, fieldName);
 
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            if (service1 != null && service2 != null)
+            try
             {
-                var repository1 = new WorkflowRepository(service1);
-                var repository2 = new WorkflowRepository(service2);
+                var service1 = await GetService1();
+                var service2 = await GetService2();
 
-                var workflow1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var workflow2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
-
-                string xml1 = workflow1.GetAttributeValue<string>(fieldName);
-                string xml2 = workflow2.GetAttributeValue<string>(fieldName);
-
-                if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                if (service1 != null && service2 != null)
                 {
-                    string entityName1 = workflow1.PrimaryEntity;
-                    string entityName2 = workflow2.PrimaryEntity;
+                    var repository1 = new WorkflowRepository(service1);
+                    var repository2 = new WorkflowRepository(service2);
 
-                    string name1 = workflow1.Name;
-                    string name2 = workflow2.Name;
+                    var workflow1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
+                    var workflow2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
-                    string category1 = workflow1.FormattedValues[Workflow.Schema.Attributes.category];
-                    string category2 = workflow2.FormattedValues[Workflow.Schema.Attributes.category];
+                    string xml1 = workflow1.GetAttributeValue<string>(fieldName);
+                    string xml2 = workflow2.GetAttributeValue<string>(fieldName);
 
-                    string filePath1 = await CreateFileAsync(service1.ConnectionData.Name, entityName1, category1, name1, fieldTitle, xml1);
-
-                    string filePath2 = await CreateFileAsync(service2.ConnectionData.Name, entityName2, category2, name2, fieldTitle, xml2);
-
-                    if (File.Exists(filePath1) && File.Exists(filePath2))
+                    if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
-                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
-                    }
-                    else
-                    {
-                        this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                        string entityName1 = workflow1.PrimaryEntity;
+                        string entityName2 = workflow2.PrimaryEntity;
 
-                        this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        string name1 = workflow1.Name;
+                        string name2 = workflow2.Name;
+
+                        string category1 = workflow1.FormattedValues[Workflow.Schema.Attributes.category];
+                        string category2 = workflow2.FormattedValues[Workflow.Schema.Attributes.category];
+
+                        string filePath1 = await CreateFileAsync(service1.ConnectionData.Name, entityName1, category1, name1, fieldTitle, xml1);
+
+                        string filePath2 = await CreateFileAsync(service2.ConnectionData.Name, entityName2, category2, name2, fieldTitle, xml2);
+
+                        if (File.Exists(filePath1) && File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        }
+                        else
+                        {
+                            this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+
+                            this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        }
                     }
                 }
-            }
 
-            ToggleControls(true, "Showing Difference for Xml completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldCompletedFormat, fieldName);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFailedFormat, fieldName);
+            }
         }
 
         private async Task PerformShowingDifferenceCorrectedXamlAsync(LinkedEntities<Workflow> linked, bool showAllways, string fieldName, string fieldTitle)
@@ -1070,7 +1079,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingDescription);
 
             var service = await getService();
 
@@ -1091,7 +1100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true, "Creating Description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
         }
 
         private void mIExportWorkflow1EntityDescription_Click(object sender, RoutedEventArgs e)

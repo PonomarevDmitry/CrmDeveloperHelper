@@ -167,7 +167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading Reports...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingReports);
 
             this._itemsSource.Clear();
 
@@ -260,7 +260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "{0} Reports loaded.", results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingReportsCompletedFormat, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -736,43 +736,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportBodyBinary(string folder, Guid idReport, string name, string filename, string fieldName, string fieldTitle)
         {
-            ToggleControls(false, "Exporting BodyBinary {0} to File...", fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingBodyBinaryForFieldFormat, fieldName);
 
-            var service = await GetService();
-
-            var repository = new ReportRepository(service);
-            Report reportWithBodyBinary = await repository.GetByIdAsync(idReport, new ColumnSet(fieldName));
-
-            string extension = Path.GetExtension(filename);
-
-            string fileName = EntityFileNameFormatter.GetReportFileName(service.ConnectionData.Name, name, idReport, fieldTitle, extension);
-            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-            var body = reportWithBodyBinary.GetAttributeValue<string>(fieldName);
-
-            if (!string.IsNullOrEmpty(body))
+            try
             {
-                var array = Convert.FromBase64String(body);
+                var service = await GetService();
 
-                File.WriteAllBytes(filePath, array);
+                var repository = new ReportRepository(service);
+                Report reportWithBodyBinary = await repository.GetByIdAsync(idReport, new ColumnSet(fieldName));
 
-                this._iWriteToOutput.WriteToOutput("Report {0} exported to {1}", name, filePath);
+                string extension = Path.GetExtension(filename);
 
-                if (File.Exists(filePath))
+                string fileName = EntityFileNameFormatter.GetReportFileName(service.ConnectionData.Name, name, idReport, fieldTitle, extension);
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                var body = reportWithBodyBinary.GetAttributeValue<string>(fieldName);
+
+                if (!string.IsNullOrEmpty(body))
                 {
-                    if (_commonConfig.AfterCreateFileAction != FileAction.None)
+                    var array = Convert.FromBase64String(body);
+
+                    File.WriteAllBytes(filePath, array);
+
+                    this._iWriteToOutput.WriteToOutput("Report {0} exported to {1}", name, filePath);
+
+                    if (File.Exists(filePath))
                     {
-                        this._iWriteToOutput.SelectFileInFolder(filePath);
+                        if (_commonConfig.AfterCreateFileAction != FileAction.None)
+                        {
+                            this._iWriteToOutput.SelectFileInFolder(filePath);
+                        }
                     }
                 }
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput("BodyBinary is empty.");
-                this._iWriteToOutput.ActivateOutputWindow();
-            }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput("BodyBinary is empty.");
+                    this._iWriteToOutput.ActivateOutputWindow();
+                }
 
-            ToggleControls(true, "Exporting BodyBinary {0} to File completed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingBodyBinaryForFieldCompletedFormat, fieldName);
+
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingBodyBinaryForFieldFailedFormat, fieldName);
+            }
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

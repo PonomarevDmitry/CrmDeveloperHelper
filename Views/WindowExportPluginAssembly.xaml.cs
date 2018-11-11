@@ -166,7 +166,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading Plugin Assemblies...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginAssemblies);
 
             this._itemsSource.Clear();
 
@@ -198,7 +198,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadPluginAssemblies(list);
 
-            ToggleControls(true, "{0} Plugin Assemblies loaded.", list.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat, list.Count());
         }
 
         private class EntityViewItem

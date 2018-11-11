@@ -263,7 +263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading Plugin Configuration...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginConfiguration);
 
             this.trVPluginTree.ItemsSource = null;
             this.trVPluginTree.Items.Clear();
@@ -282,7 +282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 });
             }
 
-            ToggleControls(true, "Loading completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginConfigurationCompleted);
         }
 
         public List<PluginStage> GetStages()
@@ -1248,7 +1248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingDescription);
 
             StringBuilder result = new StringBuilder();
 
@@ -1290,7 +1290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
 
-            ToggleControls(true, "Creating description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
         }
 
         private void tSBLoadPluginConfiguraion_Click(object sender, RoutedEventArgs e)
@@ -1372,7 +1372,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Registering Steps...");
+            ToggleControls(false, Properties.WindowStatusStrings.RegisteringPluginSteps);
 
             ConnectionData connectionData = null;
 
@@ -1415,7 +1415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, "Registering Steps completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.RegisteringPluginStepsCompleted);
         }
     }
 }

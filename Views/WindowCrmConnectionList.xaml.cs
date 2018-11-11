@@ -388,7 +388,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         _crmConfig.SetCurrentConnection(null);
 
-                        _iWriteToOutput.WriteToOutput("Current Connection is not selected.");
+                        _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.ConnectionIsNotSelected);
                         _iWriteToOutput.ActivateOutputWindow();
                     }
 

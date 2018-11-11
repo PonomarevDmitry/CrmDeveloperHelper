@@ -185,7 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading forms...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingForms);
 
             this._itemsSource.Clear();
 
@@ -219,7 +219,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("Found {0} forms.", list.Count());
 
-            ToggleControls(true, "{0} forms loaded.", list.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingFormsCompletedFormat, list.Count());
         }
 
         private static IEnumerable<SystemForm> FilterList(IEnumerable<SystemForm> list, string textName)

@@ -169,7 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading Plugin Assemblies...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginAssemblies);
 
             this._itemsSource.Clear();
 
@@ -273,7 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "{0} Plugin Assemblies loaded.", results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -510,42 +510,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
+            
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityDescription);
 
-            ToggleControls(false, "Showing Difference Entity Description...");
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            if (service1 != null && service2 != null)
+            try
             {
-                var repository1 = new PluginAssemblyRepository(service1);
-                var repository2 = new PluginAssemblyRepository(service2);
+                var service1 = await GetService1();
+                var service2 = await GetService2();
 
-                var assembly1 = await repository1.GetAssemblyByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var assembly2 = await repository2.GetAssemblyByIdAsync(linked.Entity2.Id, new ColumnSet(true));
-
-                var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly1, EntityFileNameFormatter.PluginAssemblyIgnoreFields);
-                var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly2, EntityFileNameFormatter.PluginAssemblyIgnoreFields);
-
-                if (showAllways || desc1 != desc2)
+                if (service1 != null && service2 != null)
                 {
-                    string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData.Name, assembly1.Name, "EntityDescription", desc1);
-                    string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData.Name, assembly2.Name, "EntityDescription", desc2);
+                    var repository1 = new PluginAssemblyRepository(service1);
+                    var repository2 = new PluginAssemblyRepository(service2);
 
-                    if (File.Exists(filePath1) && File.Exists(filePath2))
-                    {
-                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
-                    }
-                    else
-                    {
-                        this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                    var assembly1 = await repository1.GetAssemblyByIdAsync(linked.Entity1.Id, new ColumnSet(true));
+                    var assembly2 = await repository2.GetAssemblyByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
-                        this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                    var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly1, EntityFileNameFormatter.PluginAssemblyIgnoreFields);
+                    var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly2, EntityFileNameFormatter.PluginAssemblyIgnoreFields);
+
+                    if (showAllways || desc1 != desc2)
+                    {
+                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData.Name, assembly1.Name, "EntityDescription", desc1);
+                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData.Name, assembly2.Name, "EntityDescription", desc2);
+
+                        if (File.Exists(filePath1) && File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        }
+                        else
+                        {
+                            this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+
+                            this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        }
                     }
                 }
-            }
 
-            ToggleControls(true, "Showing Difference Entity Description completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionCompleted);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionFailed);
+            }
         }
 
         private void mIExportPluginAssembly1AssemblyDescription_Click(object sender, RoutedEventArgs e)

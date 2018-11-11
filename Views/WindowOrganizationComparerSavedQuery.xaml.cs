@@ -179,8 +179,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Loading saved queries...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingSavedQueries);
 
             this._itemsSource.Clear();
 
@@ -254,8 +254,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutput("Found {0} saved query(ies)", list.Count());
 
             LoadEntities(list);
-
-            ToggleControls(true, "{0} saved query(ies) loaded.", list.Count());
+            
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingSavedQueriesCompletedFormat, list.Count());
         }
 
         private static IEnumerable<LinkedEntities<SavedQuery>> FilterList(IEnumerable<LinkedEntities<SavedQuery>> list, string textName)
@@ -645,41 +645,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Showing Difference Xml {0}...", fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFormat, fieldName);
 
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            if (service1 != null && service2 != null)
+            try
             {
-                var repository1 = new SavedQueryRepository(service1);
-                var repository2 = new SavedQueryRepository(service2);
+                var service1 = await GetService1();
+                var service2 = await GetService2();
 
-                var savedQuery1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var savedQuery2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
-
-                string xml1 = savedQuery1.GetAttributeValue<string>(fieldName);
-                string xml2 = savedQuery2.GetAttributeValue<string>(fieldName);
-
-                if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2, false, action).IsEqual)
+                if (service1 != null && service2 != null)
                 {
-                    string filePath1 = await CreateFileAsync(service1.ConnectionData.Name, savedQuery1.ReturnedTypeCode, savedQuery1.Name, fieldTitle, xml1);
-                    string filePath2 = await CreateFileAsync(service2.ConnectionData.Name, savedQuery2.ReturnedTypeCode, savedQuery2.Name, fieldTitle, xml2);
+                    var repository1 = new SavedQueryRepository(service1);
+                    var repository2 = new SavedQueryRepository(service2);
 
-                    if (File.Exists(filePath1) && File.Exists(filePath2))
-                    {
-                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
-                    }
-                    else
-                    {
-                        this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                    var savedQuery1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
+                    var savedQuery2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
-                        this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                    string xml1 = savedQuery1.GetAttributeValue<string>(fieldName);
+                    string xml2 = savedQuery2.GetAttributeValue<string>(fieldName);
+
+                    if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2, false, action).IsEqual)
+                    {
+                        string filePath1 = await CreateFileAsync(service1.ConnectionData.Name, savedQuery1.ReturnedTypeCode, savedQuery1.Name, fieldTitle, xml1);
+                        string filePath2 = await CreateFileAsync(service2.ConnectionData.Name, savedQuery2.ReturnedTypeCode, savedQuery2.Name, fieldTitle, xml2);
+
+                        if (File.Exists(filePath1) && File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        }
+                        else
+                        {
+                            this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+
+                            this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        }
                     }
                 }
-            }
 
-            ToggleControls(true, "Showing Difference Xml {0} completed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldCompletedFormat, fieldName);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFailedFormat, fieldName);
+            }            
         }
 
         private void mIExportSavedQuery1FetchXml_Click(object sender, RoutedEventArgs e)
@@ -820,41 +829,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Showing Difference Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityDescription);
 
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            if (service1 != null && service2 != null)
+            try
             {
-                var repository1 = new SavedQueryRepository(service1);
-                var repository2 = new SavedQueryRepository(service2);
+                var service1 = await GetService1();
+                var service2 = await GetService2();
 
-                var savedQuery1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var savedQuery2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
-
-                var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(savedQuery1, EntityFileNameFormatter.SavedQueryIgnoreFields);
-                var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(savedQuery2, EntityFileNameFormatter.SavedQueryIgnoreFields);
-
-                if (showAllways || desc1 != desc2)
+                if (service1 != null && service2 != null)
                 {
-                    string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData.Name, savedQuery1.ReturnedTypeCode, savedQuery1.Name, "EntityDescription", desc1);
-                    string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData.Name, savedQuery2.ReturnedTypeCode, savedQuery2.Name, "EntityDescription", desc2);
+                    var repository1 = new SavedQueryRepository(service1);
+                    var repository2 = new SavedQueryRepository(service2);
 
-                    if (File.Exists(filePath1) && File.Exists(filePath2))
-                    {
-                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
-                    }
-                    else
-                    {
-                        this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                    var savedQuery1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
+                    var savedQuery2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
-                        this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                    var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(savedQuery1, EntityFileNameFormatter.SavedQueryIgnoreFields);
+                    var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(savedQuery2, EntityFileNameFormatter.SavedQueryIgnoreFields);
+
+                    if (showAllways || desc1 != desc2)
+                    {
+                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData.Name, savedQuery1.ReturnedTypeCode, savedQuery1.Name, "EntityDescription", desc1);
+                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData.Name, savedQuery2.ReturnedTypeCode, savedQuery2.Name, "EntityDescription", desc2);
+
+                        if (File.Exists(filePath1) && File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        }
+                        else
+                        {
+                            this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+
+                            this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        }
                     }
                 }
-            }
 
-            ToggleControls(true, "Showing Difference Entity Description completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionCompleted);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionFailed);
+            }
         }
 
         private void ExecuteActionDescription(Guid idsavedquery, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)
@@ -901,7 +919,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true, "Creating Entity Description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
         }
 
         private void mIExportSavedQuery1EntityDescription_Click(object sender, RoutedEventArgs e)
