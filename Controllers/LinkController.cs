@@ -31,12 +31,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         internal void ExecuteClearingLastLink(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Clearing Last Link at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ClearingLastLink);
 
             try
             {
                 {
-                    this._iWriteToOutput.WriteToOutput("Checking Files Encoding");
+                    this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutput, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
@@ -53,7 +53,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Clearing Last Link at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ClearingLastLink);
             }
         }
 
@@ -61,11 +61,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
             this._iWriteToOutput.WriteToOutput("Connection to CRM:        {0}", connectionData.GetDescription());
             this._iWriteToOutput.WriteToOutput("DiscoveryService:         {0}", connectionData.DiscoveryUrl);
@@ -95,12 +95,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCreatingLastLinkReport(SelectedFile selectedFile, ConnectionData connectionData)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Creating Last Link for Report at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingLastLinkForReport);
 
             try
             {
                 {
-                    this._iWriteToOutput.WriteToOutput("Checking Files Encoding");
+                    this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutput, new List<SelectedFile>() { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
 
@@ -117,7 +117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Creating Last for Report Link at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingLastLinkForReport);
             }
         }
 
@@ -125,18 +125,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
             if (File.Exists(selectedFile.FilePath))
             {
@@ -223,12 +223,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCreatingLastLinkWebResourceMultiple(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Creating Last Link for WebResources at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingLastLinkForWebResources);
 
             try
             {
                 {
-                    this._iWriteToOutput.WriteToOutput("Checking Files Encoding");
+                    this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutput, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
@@ -245,7 +245,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Creating Last Link for WebResources at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingLastLinkForWebResources);
             }
         }
 
@@ -253,7 +253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
@@ -262,14 +262,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
             WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
@@ -344,7 +344,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningReport(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOpenComponent action)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Opening Report at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningReport);
 
             try
             {
@@ -356,7 +356,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Opening Report at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningReport);
             }
         }
 
@@ -364,18 +364,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
             ReportRepository reportRepository = new ReportRepository(service);
@@ -513,12 +513,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningWebResource(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOpenComponent action)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Opening WebResource at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningWebResource);
 
             try
             {
                 {
-                    this._iWriteToOutput.WriteToOutput("Checking Files Encoding");
+                    this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutput, new List<SelectedFile>() { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
 
@@ -535,7 +535,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Opening WebResource at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningWebResource);
             }
         }
 
@@ -543,18 +543,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
             WebResource webresource = null;
 
@@ -690,7 +690,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningSolutionAsync(CommonConfiguration commonConfig, ConnectionData connectionData, string solutionUniqueName, ActionOpenComponent action)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Opening Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningSolution);
 
             try
             {
@@ -702,7 +702,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Opening Solution at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningSolution);
             }
         }
 
@@ -710,18 +710,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
             var repository = new SolutionRepository(service);
 

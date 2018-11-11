@@ -120,7 +120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             iWriteToOutput.ActivateOutputWindow();
 
-            iWriteToOutput.WriteToOutput("Connect to CRM.");
+            iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
             iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -146,7 +146,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 await LoadOrganizationDataAsync(result, organizationDetail);
 
-                iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", result.CurrentServiceEndpoint);
+                iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, result.CurrentServiceEndpoint);
 
                 iWriteToOutput.WriteToOutput("Successfully connected to {0}.", connectionData.Name);
 

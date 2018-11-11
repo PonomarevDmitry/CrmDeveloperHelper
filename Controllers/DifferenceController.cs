@@ -26,12 +26,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteDifferenceWebResources(SelectedFile selectedFile, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Difference WebResource at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.DifferenceWebResource);
 
             try
             {
                 {
-                    this._iWriteToOutput.WriteToOutput("Checking Files Encoding");
+                    this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutput, new List<SelectedFile>() { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
 
@@ -48,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Difference WebResource at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.DifferenceWebResource);
             }
         }
 
@@ -56,7 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
@@ -66,14 +66,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
             WebResourceRepository webResourceRepository = new WebResourceRepository(service);
@@ -244,12 +244,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteThreeFileDifferenceWebResources(SelectedFile selectedFile, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start {3} Difference Local File, WebResources in {1} and {2} at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), connectionData1?.Name, connectionData2?.Name, differenceType);
+            string operation = string.Format(Properties.OperationNames.DifferenceLocalFileAndTwoWebResourcesFormat, differenceType, connectionData1?.Name, connectionData2?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
                 {
-                    this._iWriteToOutput.WriteToOutput("Checking Files Encoding");
+                    this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutput, new List<SelectedFile>() { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
 
@@ -266,7 +268,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End {3} Difference Local File, WebResources in {1} and {2} at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), connectionData1?.Name, connectionData2?.Name, differenceType);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -274,13 +276,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData1 == null)
             {
-                this._iWriteToOutput.WriteToOutput("No CRM Connection 1");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCRMConnection1);
                 return;
             }
-
+            
             if (connectionData2 == null)
             {
-                this._iWriteToOutput.WriteToOutput("No CRM Connection 2");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCRMConnection2);
                 return;
             }
 
@@ -293,7 +295,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
             this._iWriteToOutput.WriteToOutput(string.Empty);
             this._iWriteToOutput.WriteToOutput(connectionData1.GetConnectionDescription());
             this._iWriteToOutput.WriteToOutput(string.Empty);
@@ -506,12 +508,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Multi Difference {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            string operation = string.Format(Properties.OperationNames.MultiDifferenceFormat, openFilesType.ToString());
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
                 {
-                    this._iWriteToOutput.WriteToOutput("Checking Files Encoding");
+                    this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutput, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
@@ -528,7 +532,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Multi Difference {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -536,7 +540,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
@@ -594,7 +598,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteDifferenceReport(SelectedFile selectedFile, string fieldName, string fieldTitle, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Difference Report at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.DifferenceReport);
 
             try
             {
@@ -606,7 +610,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Difference Report at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.DifferenceReport);
             }
         }
 
@@ -614,7 +618,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
@@ -624,14 +628,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 fieldTitle = "OriginalBodyText";
             }
 
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
             ReportRepository reportRepository = new ReportRepository(service);
@@ -828,7 +832,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteThreeFileDifferenceReport(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start {3} Difference Local File, Reports in {1} and {2} at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), connectionData1?.Name, connectionData2?.Name, differenceType);
+            string operation = string.Format(Properties.OperationNames.DifferenceLocalFileAndTwoReports, differenceType, connectionData1?.Name, connectionData2?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -840,7 +846,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End {3} Difference Local File, Reports in {1} and {2} at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), connectionData1?.Name, connectionData2?.Name, differenceType);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -848,13 +854,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData1 == null)
             {
-                this._iWriteToOutput.WriteToOutput("No CRM Connection 1");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCRMConnection1);
                 return;
             }
 
             if (connectionData2 == null)
             {
-                this._iWriteToOutput.WriteToOutput("No CRM Connection 2");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCRMConnection2);
                 return;
             }
 
@@ -873,7 +879,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 fieldTitle = "OriginalBodyText";
             }
 
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
             this._iWriteToOutput.WriteToOutput(string.Empty);
             this._iWriteToOutput.WriteToOutput(connectionData1.GetConnectionDescription());
             this._iWriteToOutput.WriteToOutput(string.Empty);

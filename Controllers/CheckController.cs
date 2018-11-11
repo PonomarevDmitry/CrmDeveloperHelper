@@ -34,10 +34,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public async Task ExecuteCheckingEntitiesNames(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
             prefix = prefix.TrimEnd(' ', '_').Trim();
-
             prefix = string.Format("{0}_", prefix);
 
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Objects names for prefix '{1}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), prefix);
+            string operation = string.Format(Properties.OperationNames.CheckingCRMObjectsNamesForPrefix, prefix);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -49,7 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking CRM Objects names for prefix '{1}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), prefix);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -57,20 +58,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             List<string> wrongEntityNames = new List<string>();
             List<string> wrongEntityAttributes = new List<string>();
@@ -209,7 +210,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             prefix = prefix.TrimEnd(' ', '_');
             prefix = string.Format("{0}_", prefix);
 
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Objects names for prefix '{1}' and show dependent components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), prefix);
+            string operation = string.Format(Properties.OperationNames.CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat, prefix);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -221,7 +224,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking CRM Objects names for prefix '{1}' and show dependent components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), prefix);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -229,20 +232,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             Dictionary<string, string> wrongEntityNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
             Dictionary<string, string> wrongEntityAttributes = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
@@ -401,7 +404,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCheckingMarkedToDelete(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Objects marked to delete by '{1}' and show dependent components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), prefix);
+            string operation = string.Format(Properties.OperationNames.CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponents, prefix);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -413,7 +418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking CRM Objects marked to delete by '{1}' and show dependent components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), prefix);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -421,20 +426,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             Dictionary<string, string> wrongEntityNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
             Dictionary<string, string> wrongEntityAttributes = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
@@ -583,7 +588,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCheckingEntitiesOwnership(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Entity Ownership at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingCRMEntityOwnership);
 
             try
             {
@@ -595,7 +600,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking CRM Entity Ownership at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingCRMEntityOwnership);
             }
         }
 
@@ -603,20 +608,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
 
@@ -664,7 +669,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         internal void ExecuteCheckingFilesEncoding(List<SelectedFile> selectedFiles)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking Files Encoding at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingFilesEncoding);
 
             try
             {
@@ -676,7 +681,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking Files Encoding at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingFilesEncoding);
             }
         }
 
@@ -831,7 +836,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public void ExecuteOpenFilesWithoutUTF8Encoding(IEnumerable<SelectedFile> selectedFiles)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Opening Files without UTF8 Encoding at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningFilesWithoutUTF8Encoding);
 
             try
             {
@@ -852,7 +857,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Opening Files without UTF8 Encoding at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningFilesWithoutUTF8Encoding);
             }
         }
 
@@ -862,12 +867,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteShowingWebResourcesDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking CRM Objects names and show dependent components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingCRMObjectsNamesAndShowDependentComponents);
 
             try
             {
                 {
-                    this._iWriteToOutput.WriteToOutput("Checking Files Encoding");
+                    this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutput, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
@@ -884,7 +889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking CRM Objects names and show dependent components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingCRMObjectsNamesAndShowDependentComponents);
             }
         }
 
@@ -892,20 +897,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             var descriptor = new SolutionComponentDescriptor(service, true);
 
@@ -1039,7 +1044,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCheckingGlobalOptionSetDuplicates(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking Global OptionSet Duplicates on Entity at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingGlobalOptionSetDuplicatesOnEntity);
 
             try
             {
@@ -1051,7 +1056,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking Global OptionSet Duplicates on Entity at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingGlobalOptionSetDuplicatesOnEntity);
             }
         }
 
@@ -1059,20 +1064,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             var entityMetadataSource = new SolutionComponentMetadataSource(service);
 
@@ -1155,7 +1160,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteFindEntityElementsByName(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects names for '{1}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), name);
+            string operation = string.Format(Properties.OperationNames.FindingCRMObjectsNamesFormat, name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -1167,7 +1174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Finding CRM Objects names for '{1}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), name);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -1175,20 +1182,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             List<string> listEntityAttributes = new List<string>();
             List<string> listEntityRelationshipsManyToOne = new List<string>();
@@ -1293,7 +1300,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteFindEntityElementsContainsString(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects names contains '{1}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), name);
+            string operation = string.Format(Properties.OperationNames.FindingCRMObjectscontainsNameFormat, name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -1305,7 +1314,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Finding CRM Objects names contains '{1}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), name);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -1313,20 +1322,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             List<string> listEntityAttributes = new List<string>();
             List<string> listEntityRelationshipsManyToOne = new List<string>();
@@ -1431,7 +1440,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteFindEntityById(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects by Id '{1}', entityName '{2}', entityTypeCode '{3}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), entityId, entityName, entityTypeCode);
+            string operation = string.Format(Properties.OperationNames.FindingCRMObjectsByIdEntityNameEntityTypeCodeFormat, entityId, entityName, entityTypeCode);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -1443,7 +1454,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Finding CRM Objects by Id '{1}', entityName '{2}', entityTypeCode '{3}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), entityId, entityName, entityTypeCode);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -1451,20 +1462,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             EntityMetadataRepository repository = new EntityMetadataRepository(service);
 
@@ -1532,7 +1543,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteFindEntityByUniqueidentifier(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Finding CRM Objects by Uniqueidentifier '{1}', entityName '{2}', entityTypeCode '{3}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), entityId, entityName, entityTypeCode);
+            string operation = string.Format(Properties.OperationNames.FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCode, entityId, entityName, entityTypeCode);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -1544,7 +1557,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Finding CRM Objects by Uniqueidentifier '{1}', entityName '{2}', entityTypeCode '{3}' at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), entityId, entityName, entityTypeCode);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -1552,20 +1565,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             EntityMetadataRepository repository = new EntityMetadataRepository(service);
 
@@ -1634,7 +1647,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCheckingComponentTypeEnum(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking ComponentType Enum at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingComponentTypeEnum);
 
             try
             {
@@ -1646,7 +1659,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking ComponentType Enum at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingComponentTypeEnum);
             }
         }
 
@@ -1654,20 +1667,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             var hash = new HashSet<Tuple<int, Guid>>();
 
@@ -1770,7 +1783,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCreatingAllDependencyNodesDescription(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Creating all Dependency Nodes Description at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingAllDependencyNodesDescription);
 
             try
             {
@@ -1782,7 +1795,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Creating all Dependency Nodes Description at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingAllDependencyNodesDescription);
             }
         }
 
@@ -1790,20 +1803,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             var hash = new HashSet<Tuple<int, Guid>>();
 
@@ -1861,7 +1874,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCheckingWorkflowsUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking Workflows Used Entities at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingWorkflowsUsedEntities);
 
             try
             {
@@ -1873,7 +1886,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking Workflows Used Entities at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingWorkflowsUsedEntities);
             }
         }
 
@@ -1881,20 +1894,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             string fileName = string.Format("{0}.Workflows Used Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
@@ -1920,7 +1933,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking Workflows Used Not Existing Entities at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingWorkflowsUsedNotExistingEntities);
 
             try
             {
@@ -1932,7 +1945,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking Workflows Used Not Existing Entities at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingWorkflowsUsedNotExistingEntities);
             }
         }
 
@@ -1940,20 +1953,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             string fileName = string.Format("{0}.Workflows Used Not Existing Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 

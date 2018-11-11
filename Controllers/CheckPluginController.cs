@@ -108,7 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCheckingPluginImages(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking Plugin Images Duplicates at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingPluginImagesDuplicates);
 
             try
             {
@@ -120,7 +120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking Plugin Images Duplicates at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingPluginImagesDuplicates);
             }
         }
 
@@ -128,20 +128,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             var repository = new PluginSearchRepository(service);
 
@@ -246,7 +246,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCheckingPluginSteps(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking Plugin Steps Duplicates at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingPluginStepsDuplicates);
 
             try
             {
@@ -258,7 +258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking Plugin Steps Duplicates at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingPluginStepsDuplicates);
             }
         }
 
@@ -266,20 +266,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             var repository = new PluginSearchRepository(service);
 
@@ -394,7 +394,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCheckingPluginStepsRequiredComponents(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking Plugin Steps Required Components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingPluginStepsRequiredComponents);
 
             try
             {
@@ -406,7 +406,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking Plugin Steps Required Components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingPluginStepsRequiredComponents);
             }
         }
 
@@ -414,20 +414,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             var repository = new PluginSearchRepository(service);
 
@@ -653,7 +653,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCheckingPluginImagesRequiredComponents(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Checking Plugin Images Required Components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingPluginImagesRequiredComponents);
 
             try
             {
@@ -665,7 +665,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Checking Plugin Images Required Components at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingPluginImagesRequiredComponents);
             }
         }
 
@@ -673,20 +673,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Connect to CRM."));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint));
 
             var repository = new PluginSearchRepository(service);
             var repositoryImage = new SdkMessageProcessingStepImageRepository(service);

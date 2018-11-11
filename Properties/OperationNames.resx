@@ -1,0 +1,375 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddingComponentsIntoSolutionFormat" xml:space="preserve">
+    <value>Adding Components into Solution {0}</value>
+  </data>
+  <data name="AddingIntoPublishListFilesFormat" xml:space="preserve">
+    <value>Adding into Publish List Files {0}</value>
+  </data>
+  <data name="AddingPluginAssemblyIntoSolutionFormat" xml:space="preserve">
+    <value>Adding PluginAssembly into Solution {0}</value>
+  </data>
+  <data name="AddingPluginAssemblyProcessingStepsIntoSolutionFormat" xml:space="preserve">
+    <value>Adding PluginAssembly Processing Steps into Solution {0}</value>
+  </data>
+  <data name="AddingPluginTypeProcessingStepsIntoSolutionFormat" xml:space="preserve">
+    <value>Adding PluginType Processing Steps into Solution {0}</value>
+  </data>
+  <data name="AddingReportsIntoSolutionFormat" xml:space="preserve">
+    <value>Adding Reports into Solution {0}</value>
+  </data>
+  <data name="AddingWebResourcesIntoSolution" xml:space="preserve">
+    <value>Adding WebResources into Solution {0}</value>
+  </data>
+  <data name="CheckingComponentTypeEnum" xml:space="preserve">
+    <value>Checking ComponentType Enum</value>
+  </data>
+  <data name="CheckingCRMEntityOwnership" xml:space="preserve">
+    <value>Checking CRM Entity Ownership</value>
+  </data>
+  <data name="CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponents" xml:space="preserve">
+    <value>Checking CRM Objects marked to delete by '{0}' and show dependent components</value>
+  </data>
+  <data name="CheckingCRMObjectsNamesAndShowDependentComponents" xml:space="preserve">
+    <value>Checking CRM Objects names and show dependent components</value>
+  </data>
+  <data name="CheckingCRMObjectsNamesForPrefix" xml:space="preserve">
+    <value>Checking CRM Objects names for prefix '{0}'</value>
+  </data>
+  <data name="CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat" xml:space="preserve">
+    <value>Checking CRM Objects names for prefix '{0}' and show dependent components</value>
+  </data>
+  <data name="CheckingFilesEncoding" xml:space="preserve">
+    <value>Checking Files Encoding</value>
+  </data>
+  <data name="CheckingGlobalOptionSetDuplicatesOnEntity" xml:space="preserve">
+    <value>Checking Global OptionSet Duplicates on Entity</value>
+  </data>
+  <data name="CheckingManagedEntities" xml:space="preserve">
+    <value>Checking Managed Entities</value>
+  </data>
+  <data name="CheckingPluginImagesDuplicates" xml:space="preserve">
+    <value>Checking Plugin Images Duplicates</value>
+  </data>
+  <data name="CheckingPluginImagesRequiredComponents" xml:space="preserve">
+    <value>Checking Plugin Images Required Components</value>
+  </data>
+  <data name="CheckingPluginStepsDuplicates" xml:space="preserve">
+    <value>Checking Plugin Steps Duplicates</value>
+  </data>
+  <data name="CheckingPluginStepsRequiredComponents" xml:space="preserve">
+    <value>Checking Plugin Steps Required Components</value>
+  </data>
+  <data name="CheckingWorkflowsUsedEntities" xml:space="preserve">
+    <value>Checking Workflows Used Entities</value>
+  </data>
+  <data name="CheckingWorkflowsUsedNotExistingEntities" xml:space="preserve">
+    <value>Checking Workflows Used Not Existing Entities</value>
+  </data>
+  <data name="ClearingLastLink" xml:space="preserve">
+    <value>Clearing Last Link</value>
+  </data>
+  <data name="ComparingCrmPluginAssemblyAndLocalAssembly" xml:space="preserve">
+    <value>Comparing Crm PluginAssembly and Local Assembly</value>
+  </data>
+  <data name="ComparingFilesAndWebResources" xml:space="preserve">
+    <value>Comparing Files and WebResources</value>
+  </data>
+  <data name="ComparingFilesWithWrongEncodingAndWebResources" xml:space="preserve">
+    <value>Comparing Files with Wrong Encoding and WebResources</value>
+  </data>
+  <data name="CreatingAllDependencyNodesDescription" xml:space="preserve">
+    <value>Creating all Dependency Nodes Description</value>
+  </data>
+  <data name="CreatingFileWithEntityMetadata" xml:space="preserve">
+    <value>Creating File with Entity Metadata</value>
+  </data>
+  <data name="CreatingFileWithGlobalOptionSets" xml:space="preserve">
+    <value>Creating File with Global OptionSets</value>
+  </data>
+  <data name="CreatingLastLinkForReport" xml:space="preserve">
+    <value>Creating Last Link for Report</value>
+  </data>
+  <data name="CreatingLastLinkForWebResources" xml:space="preserve">
+    <value>Creating Last Link for WebResources</value>
+  </data>
+  <data name="CreatingPluginTypeDescription" xml:space="preserve">
+    <value>Creating PluginType Description</value>
+  </data>
+  <data name="DifferenceLocalFileAndTwoReports" xml:space="preserve">
+    <value>{0} Difference Local File, Reports in {1} and {2}</value>
+  </data>
+  <data name="DifferenceLocalFileAndTwoWebResourcesFormat" xml:space="preserve">
+    <value>{0} Difference Local File, WebResources in {1} and {2}</value>
+  </data>
+  <data name="DifferenceReport" xml:space="preserve">
+    <value>Difference Report</value>
+  </data>
+  <data name="DifferenceWebResource" xml:space="preserve">
+    <value>Difference WebResource</value>
+  </data>
+  <data name="DownloadingReport" xml:space="preserve">
+    <value>Downloading Report</value>
+  </data>
+  <data name="DownloadingWebResource" xml:space="preserve">
+    <value>Downloading WebResource</value>
+  </data>
+  <data name="ExportingCRMSolution" xml:space="preserve">
+    <value>Exporting CRM Solution</value>
+  </data>
+  <data name="ExportingEntityAttributesDependentComponents" xml:space="preserve">
+    <value>Exporting Entity Attributes Dependent Components</value>
+  </data>
+  <data name="ExportingOrganizationInformation" xml:space="preserve">
+    <value>Exporting Organization Information</value>
+  </data>
+  <data name="ExportingPluginAssembly" xml:space="preserve">
+    <value>Exporting Plugin Assembly</value>
+  </data>
+  <data name="ExportingPluginConfigurationXml" xml:space="preserve">
+    <value>Exporting Plugin Configuration Xml</value>
+  </data>
+  <data name="ExportingPluginConfigurationXmlIntoFolder" xml:space="preserve">
+    <value>Exporting Plugin Configuration Xml into Folder</value>
+  </data>
+  <data name="ExportingRibbonXml" xml:space="preserve">
+    <value>Exporting Ribbon Xml</value>
+  </data>
+  <data name="ExportingSitemapXml" xml:space="preserve">
+    <value>Exporting Sitemap Xml</value>
+  </data>
+  <data name="ExportingSystemFormsEvents" xml:space="preserve">
+    <value>Exporting System Forms Events</value>
+  </data>
+  <data name="ExportingSystemFormXml" xml:space="preserve">
+    <value>Exporting System Form FormXml</value>
+  </data>
+  <data name="ExportingSystemSavedQueryVisualizationXml" xml:space="preserve">
+    <value>Exporting System Chart (Saved Query Visualization) Xml</value>
+  </data>
+  <data name="ExportingSystemSavedQueryXml" xml:space="preserve">
+    <value>Exporting System View (Saved Query) Xml</value>
+  </data>
+  <data name="ExportingWorkflow" xml:space="preserve">
+    <value>Exporting Workflow</value>
+  </data>
+  <data name="ExportSolutionWindow" xml:space="preserve">
+    <value>Export Solution Window</value>
+  </data>
+  <data name="FindingCRMObjectsByIdEntityNameEntityTypeCodeFormat" xml:space="preserve">
+    <value>Finding CRM Objects by Id '{0}', entityName '{1}', entityTypeCode '{2}'</value>
+  </data>
+  <data name="FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCode" xml:space="preserve">
+    <value>Finding CRM Objects by Uniqueidentifier '{1}', entityName '{2}', entityTypeCode '{3}'</value>
+  </data>
+  <data name="FindingCRMObjectscontainsNameFormat" xml:space="preserve">
+    <value>Finding CRM Objects names contains '{0}'</value>
+  </data>
+  <data name="FindingCRMObjectsNamesFormat" xml:space="preserve">
+    <value>Finding CRM Objects names for '{0}'</value>
+  </data>
+  <data name="MultiDifferenceFormat" xml:space="preserve">
+    <value>Multi Difference {0}</value>
+  </data>
+  <data name="OpeningEntityAttributeExplorer" xml:space="preserve">
+    <value>Opening Entity Attribute Explorer</value>
+  </data>
+  <data name="OpeningEntityKeyExplorer" xml:space="preserve">
+    <value>Opening Entity Key Explorer</value>
+  </data>
+  <data name="OpeningEntityRelationshipManyToMany" xml:space="preserve">
+    <value>Opening Entity Relationship Many-To-Many</value>
+  </data>
+  <data name="OpeningEntityRelationshipOneToMany" xml:space="preserve">
+    <value>Opening Entity Relationship One-To-Many</value>
+  </data>
+  <data name="OpeningFilesFormat" xml:space="preserve">
+    <value>Opening Files {0}</value>
+  </data>
+  <data name="OpeningFilesWithoutUTF8Encoding" xml:space="preserve">
+    <value>Opening Files without UTF8 Encoding</value>
+  </data>
+  <data name="OpeningReport" xml:space="preserve">
+    <value>Opening Report</value>
+  </data>
+  <data name="OpeningSolution" xml:space="preserve">
+    <value>Opening Solution</value>
+  </data>
+  <data name="OpeningWebResource" xml:space="preserve">
+    <value>Opening WebResource</value>
+  </data>
+  <data name="PluginConfigurationAssemblyDescription" xml:space="preserve">
+    <value>Plugin Configuration Assembly Description</value>
+  </data>
+  <data name="PluginConfigurationComparer" xml:space="preserve">
+    <value>Plugin Configuration Comparer</value>
+  </data>
+  <data name="PluginConfigurationTypeDescription" xml:space="preserve">
+    <value>Plugin Configuration Type Description</value>
+  </data>
+  <data name="PublishingAllCustomization" xml:space="preserve">
+    <value>Publishing All Customization</value>
+  </data>
+  <data name="ShowingOrganizationComparer" xml:space="preserve">
+    <value>Showing Organization Comparer</value>
+  </data>
+  <data name="ShowingOrganizationDifferenceImageWindow" xml:space="preserve">
+    <value>Showing OrganizationDifferenceImage Window</value>
+  </data>
+  <data name="ShowingPluginConfigurationTree" xml:space="preserve">
+    <value>Showing Plugin Configuration Tree</value>
+  </data>
+  <data name="ShowingPluginTree" xml:space="preserve">
+    <value>Showing Plugin Tree</value>
+  </data>
+  <data name="ShowingSdkMessageRequestTree" xml:space="preserve">
+    <value>Showing Sdk Message Request Tree</value>
+  </data>
+  <data name="ShowingSdkMessageTree" xml:space="preserve">
+    <value>Showing Sdk Message Tree</value>
+  </data>
+  <data name="ShowingSolutionImageWindow" xml:space="preserve">
+    <value>Showing SolutionImage Window</value>
+  </data>
+  <data name="SolutionComponentExplorer" xml:space="preserve">
+    <value>Solution Component Explorer</value>
+  </data>
+  <data name="TraceReader" xml:space="preserve">
+    <value>Trace Reader</value>
+  </data>
+  <data name="UpdatingContentAndPublishing" xml:space="preserve">
+    <value>Updating Content and Publishing</value>
+  </data>
+  <data name="UpdatingContentWebResourcesEqualByTextAndPublishing" xml:space="preserve">
+    <value>Updating Content Web Resources equal by Text and Publishing</value>
+  </data>
+  <data name="UpdatingFileWithEntityMetadata" xml:space="preserve">
+    <value>Updating File with Entity Metadata</value>
+  </data>
+  <data name="UpdatingFileWithGlobalOptionSets" xml:space="preserve">
+    <value>Updating File with Global OptionSets</value>
+  </data>
+  <data name="UpdatingProxyClasses" xml:space="preserve">
+    <value>Updating Proxy Classes</value>
+  </data>
+  <data name="UpdatingReport" xml:space="preserve">
+    <value>Updating Report</value>
+  </data>
+</root>

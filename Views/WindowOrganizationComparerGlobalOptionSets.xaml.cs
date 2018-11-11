@@ -146,10 +146,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_cacheService.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput("Connection to CRM.");
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }
@@ -173,10 +173,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_cacheService.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput("Connection to CRM.");
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }

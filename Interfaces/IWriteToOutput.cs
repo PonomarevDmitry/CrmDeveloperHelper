@@ -7,6 +7,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
     {
         string WriteToOutput(string format, params object[] args);
 
+        string WriteToOutputStartOperation(string format, params object[] args);
+
+        string WriteToOutputEndOperation(string format, params object[] args);
+
         void WriteToOutputFilePathUri(string filePath);
 
         void WriteToOutputSolutionUri(Guid connectionId, string solutionUniqueName, string solutionUrl);

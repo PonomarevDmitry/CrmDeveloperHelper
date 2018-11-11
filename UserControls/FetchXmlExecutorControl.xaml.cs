@@ -779,10 +779,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
                 {
-                    DTEHelper.Singleton?.WriteToOutput("Connection to CRM.");
+                    DTEHelper.Singleton?.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     DTEHelper.Singleton?.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    DTEHelper.Singleton?.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+                    DTEHelper.Singleton?.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }

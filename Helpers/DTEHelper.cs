@@ -834,6 +834,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return str.ToString();
         }
 
+        public string WriteToOutputStartOperation(string format, params object[] args)
+        {
+            string message = format;
+
+            if (args != null && args.Any())
+            {
+                message = string.Format(format, args);
+            }
+            
+            var result = this.WriteToOutput(OutputStrings.StartOperationFormat
+                , message
+                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
+                );
+
+            this.WriteToOutput(string.Empty);
+
+            return result;
+        }
+
+        public string WriteToOutputEndOperation(string format, params object[] args)
+        {
+            string message = format;
+
+            if (args != null && args.Any())
+            {
+                message = string.Format(format, args);
+            }
+
+            var result = this.WriteToOutput(OutputStrings.EndOperationFormat
+                , message
+                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
+                );
+
+            this.WriteToOutput(string.Empty);
+
+            return result;
+        }
+
         public void WriteErrorToOutput(Exception ex, string message = null, params object[] args)
         {
             var description = GetExceptionDescription(ex);

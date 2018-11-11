@@ -28,13 +28,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteComparingFilesAndWebResources(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
         {
-            this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Comparing Files and WebResources at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(Properties.OperationNames.ComparingFilesAndWebResources);
 
             try
             {
                 {
-                    this._iWriteToOutputAndPublishList.WriteToOutput("Checking Files Encoding");
-
+                    this._iWriteToOutputAndPublishList.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
+                    
                     CheckController.CheckingFilesEncoding(this._iWriteToOutputAndPublishList, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
                     this._iWriteToOutputAndPublishList.WriteToOutput(string.Empty);
@@ -50,7 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutputAndPublishList.WriteToOutput("*********** End Comparing Files and WebResources at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(Properties.OperationNames.ComparingFilesAndWebResources);
             }
         }
 
@@ -75,21 +75,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                _iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return null;
             }
 
             var dictFilesEqualByTextNotContent = new List<Tuple<SelectedFile, WebResource>>();
             var dictFilesNotEqualByText = new List<Tuple<SelectedFile, WebResource, ContentCopareResult>>();
 
-            _iWriteToOutput.WriteToOutput("Connect to CRM.");
+            _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
             _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            _iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+            _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
             bool isconnectionDataDirty = false;
 
@@ -686,12 +686,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteAddingIntoPublishListFilesByType(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Adding into Publish List Files {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            string operation = string.Format(Properties.OperationNames.AddingIntoPublishListFilesFormat, openFilesType.ToString());
+
+            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(operation);
 
             try
             {
                 {
-                    this._iWriteToOutputAndPublishList.WriteToOutput("Checking Files Encoding");
+                    this._iWriteToOutputAndPublishList.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutputAndPublishList, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
@@ -708,7 +710,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutputAndPublishList.WriteToOutput("*********** End Adding into Publish List Files {0} at {1} *******************************************************", openFilesType.ToString(), DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -716,7 +718,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutputAndPublishList.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutputAndPublishList.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
@@ -738,7 +740,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteComparingFilesWithWrongEncoding(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
         {
-            this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Comparing Files with Wrong Encoding and WebResources at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(Properties.OperationNames.ComparingFilesWithWrongEncodingAndWebResources);
 
             try
             {
@@ -754,7 +756,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutputAndPublishList.WriteToOutput("*********** End Comparing Files with Wrong Encoding and WebResources at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(Properties.OperationNames.ComparingFilesWithWrongEncodingAndWebResources);
             }
         }
 
@@ -762,7 +764,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public void ExecuteOrganizationComparer(ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutputAndPublishList.WriteToOutput("*********** Start Showing Organization Comparer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(Properties.OperationNames.ShowingOrganizationComparer);
 
             try
             {
@@ -774,7 +776,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutputAndPublishList.WriteToOutput("*********** End Showing Organization Comparer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(Properties.OperationNames.ShowingOrganizationComparer);
             }
         }
 
@@ -800,18 +802,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                _iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return null;
             }
 
-            _iWriteToOutput.WriteToOutput("Connect to CRM.");
+            _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
             _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            _iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+            _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
             bool isconnectionDataDirty = false;
 

@@ -770,6 +770,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MessageBoxStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\OperationNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OperationNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\OutputStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OutputStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\WindowStatusStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1582,6 +1592,15 @@
     <EmbeddedResource Include="Properties\MessageBoxStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MessageBoxStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\OperationNames.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OperationNames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\OutputStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OutputStrings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\WindowStatusStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>

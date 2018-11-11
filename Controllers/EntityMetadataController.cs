@@ -31,24 +31,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCreatingFileWithEntityMetadata(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Creating File with Entity Metadata at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithEntityMetadata);
 
             try
             {
                 if (connectionData == null)
                 {
-                    this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
                 this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
-                this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, commonConfig, selection, null, null);
             }
@@ -58,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Creating File with Entity Metadata at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithEntityMetadata);
             }
         }
 
@@ -68,24 +68,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningEntityAttributeExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Opening Entity Attribute Explorer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningEntityAttributeExplorer);
 
             try
             {
                 if (connectionData == null)
                 {
-                    this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
                 this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
-                this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, commonConfig, selection);
             }
@@ -95,7 +95,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Opening Entity Attribute Explorer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningEntityAttributeExplorer);
             }
         }
 
@@ -103,24 +103,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningEntityKeyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Opening Entity Key Explorer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningEntityKeyExplorer);
 
             try
             {
                 if (connectionData == null)
                 {
-                    this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
                 this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
-                this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, commonConfig, selection);
             }
@@ -130,30 +130,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Opening Entity Key Explorer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningEntityKeyExplorer);
             }
         }
 
         public async Task ExecuteOpeningEntityRelationshipOneToManyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Opening Entity Relationship One-To-Many at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningEntityRelationshipOneToMany);
 
             try
             {
                 if (connectionData == null)
                 {
-                    this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
                 this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
-                this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, commonConfig, selection);
             }
@@ -163,30 +163,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Opening Entity Relationship One-To-Many Explorer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningEntityRelationshipOneToMany);
             }
         }
 
         public async Task ExecuteOpeningEntityRelationshipManyToManyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Opening Entity Relationship Many-To-Many at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningEntityRelationshipManyToMany);
 
             try
             {
                 if (connectionData == null)
                 {
-                    this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
                 this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
-                this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, commonConfig, selection);
             }
@@ -196,7 +196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Opening Entity Relationship Many-To-Many Explorer at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningEntityRelationshipManyToMany);
             }
         }
 
@@ -204,24 +204,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Creating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSets);
 
             try
             {
                 if (connectionData == null)
                 {
-                    this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
                 this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
-                this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenGlobalOptionSetsWindow(
                     this._iWriteToOutput
@@ -238,7 +238,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Creating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSets);
             }
         }
 
@@ -248,7 +248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteUpdateFileWithEntityMetadata(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Updating File with Entity Metadata at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.UpdatingFileWithEntityMetadata);
 
             try
             {
@@ -260,7 +260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Updating File with Entity Metadata at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.UpdatingFileWithEntityMetadata);
             }
         }
 
@@ -268,18 +268,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
             var descriptor = new SolutionComponentDescriptor(service, true);
 
@@ -367,7 +367,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteUpdatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
-            this._iWriteToOutput.WriteToOutput("*********** Start Updating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.UpdatingFileWithGlobalOptionSets);
 
             try
             {
@@ -379,7 +379,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutput("*********** End Updating File with Global OptionSets at {0} *******************************************************", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.UpdatingFileWithGlobalOptionSets);
             }
         }
 
@@ -387,18 +387,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput("No current CRM Connection.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput("Connect to CRM.");
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput("Current Service Endpoint: {0}", service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
             var descriptor = new SolutionComponentDescriptor(service, true);
 

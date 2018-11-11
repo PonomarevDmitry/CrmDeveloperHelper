@@ -54,7 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     _serviceSource = await QuickConnection.ConnectAsync(ConnectionSource);
                 }
 
-                var mess3 = string.Format("Current Service Endpoint: {0}", _serviceSource.CurrentServiceEndpoint);
+                var mess3 = string.Format(Properties.OutputStrings.CurrentServiceEndpointFormat, _serviceSource.CurrentServiceEndpoint);
 
                 if (service1IsNull)
                 {
@@ -90,7 +90,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     _serviceTarget = await QuickConnection.ConnectAsync(ConnectionTarget);
                 }
 
-                var mess3 = string.Format("Current Service Endpoint: {0}", _serviceTarget.CurrentServiceEndpoint);
+                var mess3 = string.Format(Properties.OutputStrings.CurrentServiceEndpointFormat, _serviceTarget.CurrentServiceEndpoint);
 
                 if (service2IsNull)
                 {
