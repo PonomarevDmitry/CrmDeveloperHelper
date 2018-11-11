@@ -132,6 +132,99 @@
   <data name="AnalizingWorkflowFormat" xml:space="preserve">
     <value>Analizing Workflow {0} - {1}...</value>
   </data>
+  <data name="CheckingConnectionRoleCategoriesFormat" xml:space="preserve">
+    <value>Checking ConnectionRole Categories in {0} and {1}...</value>
+  </data>
+  <data name="CheckingConnectionRolesFormat" xml:space="preserve">
+    <value>Checking ConnectionRoles in {0} and {1}...</value>
+  </data>
+  <data name="CheckingContractTemplatesFormat" xml:space="preserve">
+    <value>Checking Contract Templates in {0} and {1}...</value>
+  </data>
+  <data name="CheckingDefaultTranslationsFormat" xml:space="preserve">
+    <value>Checking Default Translations in {0} and {1}...</value>
+  </data>
+  <data name="CheckingDisplayStringsFormat" xml:space="preserve">
+    <value>Checking DisplayStrings in {0} and {1}...</value>
+  </data>
+  <data name="CheckingEMailTemplatesFormat" xml:space="preserve">
+    <value>Checking E-Mail Templates in {0} and {1}...</value>
+  </data>
+  <data name="CheckingEntitiesFormat" xml:space="preserve">
+    <value>Checking Entities in {0} and {1}...</value>
+  </data>
+  <data name="CheckingEntityLabelsFormat" xml:space="preserve">
+    <value>Checking Entity Labels in {0} and {1}...</value>
+  </data>
+  <data name="CheckingEntityMapsFormat" xml:space="preserve">
+    <value>Checking EntityMaps in {0} and {1}...</value>
+  </data>
+  <data name="CheckingFieldSecurityProfilesFormat" xml:space="preserve">
+    <value>Checking FieldSecurityProfiles in {0} and {1}...</value>
+  </data>
+  <data name="CheckingFieldTranslationsFormat" xml:space="preserve">
+    <value>Checking Field Translations in {0} and {1}...</value>
+  </data>
+  <data name="CheckingGlobalOptionSetsFormat" xml:space="preserve">
+    <value>Checking Global OptionSets in {0} and {1}...</value>
+  </data>
+  <data name="CheckingKBArticleTemplatesFormat" xml:space="preserve">
+    <value>Checking KB Article Templates in {0} and {1}...</value>
+  </data>
+  <data name="CheckingMailMergeTemplatesFormat" xml:space="preserve">
+    <value>Checking Mail Merge Templates in {0} and {1}...</value>
+  </data>
+  <data name="CheckingOrganizationsFormat" xml:space="preserve">
+    <value>Checking Organizations in {0} and {1}...</value>
+  </data>
+  <data name="CheckingPluginAssembliesFormat" xml:space="preserve">
+    <value>Checking PluginAssemblies in {0} and {1}...</value>
+  </data>
+  <data name="CheckingPluginStepsByIdsFormat" xml:space="preserve">
+    <value>Checking Plugin Steps by Ids in {0} and {1}...</value>
+  </data>
+  <data name="CheckingPluginStepsByPluginTypeNamesFormat" xml:space="preserve">
+    <value>Checking Plugin Steps by PluginType Names in {0} and {1}...</value>
+  </data>
+  <data name="CheckingPluginTypesFormat" xml:space="preserve">
+    <value>Checking PluginTypes in {0} and {1}...</value>
+  </data>
+  <data name="CheckingReportsFormat" xml:space="preserve">
+    <value>Checking Reports in {0} and {1}...</value>
+  </data>
+  <data name="CheckingRibbonsFormat" xml:space="preserve">
+    <value>Checking Ribbons in {0} and {1}...</value>
+  </data>
+  <data name="CheckingRibbonsWithDetailsFormat" xml:space="preserve">
+    <value>Checking Ribbons with details in {0} and {1}...</value>
+  </data>
+  <data name="CheckingSecurityRolesFormat" xml:space="preserve">
+    <value>Checking SecurityRoles in {0} and {1}...</value>
+  </data>
+  <data name="CheckingSitemapsFormat" xml:space="preserve">
+    <value>Checking SiteMaps in {0} and {1}...</value>
+  </data>
+  <data name="CheckingSystemChartsFormat" xml:space="preserve">
+    <value>Checking SystemCharts in {0} and {1}...</value>
+  </data>
+  <data name="CheckingSystemFormsFormat" xml:space="preserve">
+    <value>Checking System Forms in {0} and {1}...</value>
+  </data>
+  <data name="CheckingSystemSavedQueriesFormat" xml:space="preserve">
+    <value>CheckingSystem SavedQueries in {0} and {1}...</value>
+  </data>
+  <data name="CheckingWebResourcesFormat" xml:space="preserve">
+    <value>Checking WebResources in {0} and {1}...</value>
+  </data>
+  <data name="CheckingWebResourcesWithDetailsFormat" xml:space="preserve">
+    <value>Checking WebResources in {0} and {1}...</value>
+  </data>
+  <data name="CheckingWorkflowsFormat" xml:space="preserve">
+    <value>Checking Workflow in {0} and {1}...</value>
+  </data>
+  <data name="CheckingWorkflowsWithDetailsFormat" xml:space="preserve">
+    <value>Checking Workflows with details in {0} and {1}...</value>
+  </data>
   <data name="ClearingSolutionCompletedFormat" xml:space="preserve">
     <value>Clearing solution {0} completed.</value>
   </data>
@@ -140,6 +233,21 @@
   </data>
   <data name="ClearingSolutionFormat" xml:space="preserve">
     <value>Clearing solution {0}...</value>
+  </data>
+  <data name="ComparingConnectionsCompletedFormat" xml:space="preserve">
+    <value>Comparing Connections {0} and {1} completed.</value>
+  </data>
+  <data name="ComparingConnectionsFailedFormat" xml:space="preserve">
+    <value>Comparing Connections {0} and {1} failed.</value>
+  </data>
+  <data name="ComparingConnectionsFormat" xml:space="preserve">
+    <value>Comparing Connections {0} and {1}...</value>
+  </data>
+  <data name="ComparingPluginAssemblyWithLocalAssemblyCompletedFormat" xml:space="preserve">
+    <value>Comparing PluginAssembly with local Assembly for {0} completed.</value>
+  </data>
+  <data name="ComparingPluginAssemblyWithLocalAssemblyFormat" xml:space="preserve">
+    <value>Comparing PluginAssembly with local Assembly for {0}...</value>
   </data>
   <data name="ConnectedSuccessfullyFormat" xml:space="preserve">
     <value>Connected successfully to {0}.</value>
@@ -158,6 +266,15 @@
   </data>
   <data name="CopingSolutionComponentsToFromFormat" xml:space="preserve">
     <value>Coping solution components to {0} from {1}...</value>
+  </data>
+  <data name="CopingXmlFieldToClipboardCompletedFormat" xml:space="preserve">
+    <value>Coping Xml {0} to Clipboard completed.</value>
+  </data>
+  <data name="CopingXmlFieldToClipboardFailedFormat" xml:space="preserve">
+    <value>Coping Xml {0} to Clipboard failed.</value>
+  </data>
+  <data name="CopingXmlFieldToClipboardFormat" xml:space="preserve">
+    <value>Coping Xml {0} to Clipboard...</value>
   </data>
   <data name="CreatingDescription" xml:space="preserve">
     <value>Creating description...</value>
@@ -237,6 +354,12 @@
   <data name="CreatingNewSolutionFormat" xml:space="preserve">
     <value>Creating new Solution {0}...</value>
   </data>
+  <data name="CreatingPluginAssebmltyDescriptionCompletedFormat" xml:space="preserve">
+    <value>Creating PluginAssembly Description for {0} completed.</value>
+  </data>
+  <data name="CreatingPluginAssebmltyDescriptionFormat" xml:space="preserve">
+    <value>Creating PluginAssembly Description for {0}...</value>
+  </data>
   <data name="CreatingSolutionImageFromZipFileCompletedFormat" xml:space="preserve">
     <value>Creating Solution Image from zip-file completed.</value>
   </data>
@@ -294,6 +417,9 @@
   <data name="ExecutingFetch" xml:space="preserve">
     <value>Executing Fetch...</value>
   </data>
+  <data name="ExecutingValidateSavedQueryRequest" xml:space="preserve">
+    <value>Executing ValidateSavedQueryRequest...</value>
+  </data>
   <data name="ExportingApplicationRibbon" xml:space="preserve">
     <value>Exporting Application Ribbon...</value>
   </data>
@@ -317,6 +443,21 @@
   </data>
   <data name="ExportingBodyBinaryForFieldFormat" xml:space="preserve">
     <value>Exporting BodyBinary {0} to File...</value>
+  </data>
+  <data name="ExportingCorrectedXmlFieldToFileCompletedFormat" xml:space="preserve">
+    <value>Exporting Corrected Xml {0} to File completed.</value>
+  </data>
+  <data name="ExportingCorrectedXmlFieldToFileFailedFormat" xml:space="preserve">
+    <value>Exporting Corrected Xml {0} to File failed.</value>
+  </data>
+  <data name="ExportingCorrectedXmlFieldToFileFormat" xml:space="preserve">
+    <value>Exporting Corrected Xml {0} to File...</value>
+  </data>
+  <data name="ExportingPluginAssemblyBodyBinaryCompletedFormat" xml:space="preserve">
+    <value>Exporting PluginAssembly Body Binary for {0} completed.</value>
+  </data>
+  <data name="ExportingPluginAssemblyBodyBinaryFormat" xml:space="preserve">
+    <value>Exporting PluginAssembly Body Binary for {0}...</value>
   </data>
   <data name="ExportingRibbonDiffXmlForEntityCompletedFormat" xml:space="preserve">
     <value>Exporting RibbonDiffXml for entity {0} completed.</value>
@@ -404,6 +545,15 @@
   </data>
   <data name="LoadingChartsCompletedFormat" xml:space="preserve">
     <value>{0} charts loaded.</value>
+  </data>
+  <data name="LoadingComponentsFromZipFile" xml:space="preserve">
+    <value>Loading Components from zip-file...</value>
+  </data>
+  <data name="LoadingComponentsFromZipFileCompleted" xml:space="preserve">
+    <value>Loading Components from zip-file completed.</value>
+  </data>
+  <data name="LoadingComponentsFromZipFileFailed" xml:space="preserve">
+    <value>Loading Components from zip-file failed.</value>
   </data>
   <data name="LoadingDependenciesForDelete" xml:space="preserve">
     <value>Loading Dependencies For Delete...</value>
@@ -494,6 +644,9 @@
   </data>
   <data name="LoadingSolutionImageCompletedFormat" xml:space="preserve">
     <value>Loading Solution Image completed.</value>
+  </data>
+  <data name="LoadingSolutionImageFailedFormat" xml:space="preserve">
+    <value>Loading Solution Image failed.</value>
   </data>
   <data name="LoadingSolutions" xml:space="preserve">
     <value>Loading solutions...</value>
@@ -603,6 +756,21 @@
   <data name="SavingChangesFailed" xml:space="preserve">
     <value>Saving Changes failed.</value>
   </data>
+  <data name="ShowingDifferenceApplicationRibbons" xml:space="preserve">
+    <value>Showing Difference for ApplicationRibbons...</value>
+  </data>
+  <data name="ShowingDifferenceApplicationRibbonsCompleted" xml:space="preserve">
+    <value>Showing Difference for ApplicationRibbons completed.</value>
+  </data>
+  <data name="ShowingDifferenceApplicationRibbonsDiffXml" xml:space="preserve">
+    <value>Showing Difference for Applications RibbonDiffXml...</value>
+  </data>
+  <data name="ShowingDifferenceApplicationRibbonsDiffXmlCompleted" xml:space="preserve">
+    <value>Showing Difference for Applications RibbonDiffXml completed.</value>
+  </data>
+  <data name="ShowingDifferenceApplicationRibbonsDiffXmlFailed" xml:space="preserve">
+    <value>Showing Difference for Applications RibbonDiffXml failed.</value>
+  </data>
   <data name="ShowingDifferenceEntityDescription" xml:space="preserve">
     <value>Showing Difference Entity Description...</value>
   </data>
@@ -611,6 +779,39 @@
   </data>
   <data name="ShowingDifferenceEntityDescriptionFailed" xml:space="preserve">
     <value>Showing Difference Entity Description failed.</value>
+  </data>
+  <data name="ShowingDifferenceEntityDescriptions" xml:space="preserve">
+    <value>Showing Difference EntityDescriptions...</value>
+  </data>
+  <data name="ShowingDifferenceEntityDescriptionsCompleted" xml:space="preserve">
+    <value>Showing Difference EntityDescriptions completed.</value>
+  </data>
+  <data name="ShowingDifferenceForCorrectedFieldCompletedFormat" xml:space="preserve">
+    <value>Showing Difference for Corrected Xml {0} completed.</value>
+  </data>
+  <data name="ShowingDifferenceForCorrectedFieldFailedFormat" xml:space="preserve">
+    <value>Showing Difference for Corrected Xml {0} failed.</value>
+  </data>
+  <data name="ShowingDifferenceForCorrectedFieldFormat" xml:space="preserve">
+    <value>Showing Difference for Corrected Xml {0}...</value>
+  </data>
+  <data name="ShowingDifferenceRibbonDiffXmlForEntityCompletedFormat" xml:space="preserve">
+    <value>Showing Difference RibbonDiffXml for entity {0} completed.</value>
+  </data>
+  <data name="ShowingDifferenceRibbonDiffXmlForEntityFailedFormat" xml:space="preserve">
+    <value>Showing Difference RibbonDiffXml for entity {0} failed.</value>
+  </data>
+  <data name="ShowingDifferenceRibbonDiffXmlForEntityFormat" xml:space="preserve">
+    <value>Showing Difference RibbonDiffXml for entity {0}...</value>
+  </data>
+  <data name="ShowingDifferenceRibbonForEntityCompletedFormat" xml:space="preserve">
+    <value>Showing Difference Ribbon for entity {0} completed.</value>
+  </data>
+  <data name="ShowingDifferenceRibbonForEntityFailedFormat" xml:space="preserve">
+    <value>Showing Difference Ribbon for entity {0} failed.</value>
+  </data>
+  <data name="ShowingDifferenceRibbonForEntityFormat" xml:space="preserve">
+    <value>Showing Difference Ribbon for entity {0}...</value>
   </data>
   <data name="ShowingDifferenceXmlForFieldCompletedFormat" xml:space="preserve">
     <value>Showing Difference Xml {0} completed.</value>
@@ -626,6 +827,18 @@
   </data>
   <data name="TextIsNotValidXml" xml:space="preserve">
     <value>Text is not valid xml.</value>
+  </data>
+  <data name="TransferingAuditFormat" xml:space="preserve">
+    <value>Transferfing Audit from {0} to {1}...</value>
+  </data>
+  <data name="TransferingDataCompletedFormat" xml:space="preserve">
+    <value>Transferfing Data from {0} to {1} completed.</value>
+  </data>
+  <data name="TransferingDataFailedFormat" xml:space="preserve">
+    <value>Transferfing Data from {0} to {1} failed.</value>
+  </data>
+  <data name="TransferingDataFormat" xml:space="preserve">
+    <value>Transferfing Data from {0} to {1}...</value>
   </data>
   <data name="UpdatingApplicationRibbonDiffXml" xml:space="preserve">
     <value>Updating Application RibbonDiffXml...</value>

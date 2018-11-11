@@ -441,8 +441,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadWorkflows(IEnumerable<Workflow> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} workflows.", results.Count());
-
             this.lstVwWorkflows.Dispatcher.Invoke(() =>
             {
                 foreach (var entity in results
@@ -486,6 +484,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 message = string.Format(format, args);
             }
+
+            _iWriteToOutput.WriteToOutput(message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -761,7 +761,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldTitle);
 
             try
             {
@@ -864,8 +864,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Exporting Corrected Xml {0} to File...", fieldName);
+            
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileFormat, fieldTitle);
 
             try
             {
@@ -880,14 +880,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string filePath = await CreateCorrectedFileAsync(folder, entityName, category, name, fieldTitle, xmlContent);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-                ToggleControls(true, "Exporting Corrected Xml {0} to File completed.", fieldName);
+                
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileCompletedFormat, fieldTitle);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "Exporting Corrected Xml {0} to File failed.", fieldName);
+                
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileFailedFormat, fieldTitle);
             }
         }
 
@@ -1114,8 +1114,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Show Difference Xml and Corrected Xml {0}...", fieldName);
+            
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceForCorrectedFieldFormat, fieldName);
 
             var service = await GetService();
 
@@ -1139,7 +1139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
             }
 
-            ToggleControls(true, "Show Difference Xml and Corrected Xml {0} completed.", fieldName);
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceForCorrectedFieldCompletedFormat, fieldName);
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idWorkflow, string entityName, string name, string category)
@@ -1195,171 +1195,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             base.OnKeyDown(e);
-        }
-
-        private void mIExportWorkflowDependentComponents_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformCreatingFileWithDependentComponents);
-        }
-
-        private void mIExportWorkflowRequiredComponents_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformCreatingFileWithRequiredComponents);
-        }
-
-        private void mIExportWorkflowDependenciesForDelete_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformCreatingFileWithDependenciesForDelete);
-        }
-
-        private async Task PerformCreatingFileWithDependentComponents(string folder, Guid idWorkflow, string entityName, string name, string category)
-        {
-            this._iWriteToOutput.WriteToOutput("Starting downloading {0}", name);
-
-            var removeWrongFromName = FileOperations.RemoveWrongSymbols(name);
-
-            var service = await GetService();
-            var descriptor = await GetDescriptor();
-
-            var dependencyRepository = new DependencyRepository(service);
-
-            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
-            var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.Workflow, idWorkflow);
-
-            string description = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-            if (!string.IsNullOrEmpty(description))
-            {
-                string fileName = EntityFileNameFormatter.GetWorkflowFileName(
-                    service.ConnectionData.Name
-                    , entityName
-                    , category
-                    , removeWrongFromName
-                    , "Dependent Components"
-                    , "txt"
-                    );
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, description, new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput("Workflow {0} Dependent Components exported to {1}", name, filePath);
-
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput("Workflow {0} has no Dependent Components.", name);
-                this._iWriteToOutput.ActivateOutputWindow();
-            }
-        }
-
-        private async Task PerformCreatingFileWithRequiredComponents(string folder, Guid idWorkflow, string entityName, string name, string category)
-        {
-            this._iWriteToOutput.WriteToOutput("Starting downloading {0}", name);
-
-            var removeWrongFromName = FileOperations.RemoveWrongSymbols(name);
-
-            var service = await GetService();
-            var descriptor = await GetDescriptor();
-
-            var dependencyRepository = new DependencyRepository(service);
-
-            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
-            var coll = await dependencyRepository.GetRequiredComponentsAsync((int)ComponentType.Workflow, idWorkflow);
-
-            string description = await descriptorHandler.GetDescriptionRequiredAsync(coll);
-
-            if (!string.IsNullOrEmpty(description))
-            {
-                string fileName = EntityFileNameFormatter.GetWorkflowFileName(
-                    service.ConnectionData.Name
-                    , entityName
-                    , category
-                    , removeWrongFromName
-                    , "Required Components"
-                    , "txt"
-                    );
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, description, new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput("Workflow {0} Required Components exported to {1}", name, filePath);
-
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput("Workflow {0} has no Required Components.", name);
-                this._iWriteToOutput.ActivateOutputWindow();
-            }
-        }
-
-        private async Task PerformCreatingFileWithDependenciesForDelete(string folder, Guid idWorkflow, string entityName, string name, string category)
-        {
-            this._iWriteToOutput.WriteToOutput("Starting downloading {0}", name);
-
-            var removeWrongFromName = FileOperations.RemoveWrongSymbols(name);
-
-            var service = await GetService();
-            var descriptor = await GetDescriptor();
-
-            var dependencyRepository = new DependencyRepository(service);
-
-            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
-            var coll = await dependencyRepository.GetDependenciesForDeleteAsync((int)ComponentType.Workflow, idWorkflow);
-
-            string description = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-            if (!string.IsNullOrEmpty(description))
-            {
-                string fileName = EntityFileNameFormatter.GetWorkflowFileName(
-                    service.ConnectionData.Name
-                    , entityName
-                    , category
-                    , removeWrongFromName
-                    , "Dependencies For Delete"
-                    , "txt"
-                    );
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, description, new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput("Workflow {0} Dependencies For Delete exported to {1}", name, filePath);
-
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput("Workflow {0} has no Dependencies For Delete.", name);
-                this._iWriteToOutput.ActivateOutputWindow();
-            }
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)

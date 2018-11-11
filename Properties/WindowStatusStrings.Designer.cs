@@ -106,6 +106,285 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checking ConnectionRole Categories in {0} and {1}....
+        /// </summary>
+        internal static string CheckingConnectionRoleCategoriesFormat {
+            get {
+                return ResourceManager.GetString("CheckingConnectionRoleCategoriesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking ConnectionRoles in {0} and {1}....
+        /// </summary>
+        internal static string CheckingConnectionRolesFormat {
+            get {
+                return ResourceManager.GetString("CheckingConnectionRolesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Contract Templates in {0} and {1}....
+        /// </summary>
+        internal static string CheckingContractTemplatesFormat {
+            get {
+                return ResourceManager.GetString("CheckingContractTemplatesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Default Translations in {0} and {1}....
+        /// </summary>
+        internal static string CheckingDefaultTranslationsFormat {
+            get {
+                return ResourceManager.GetString("CheckingDefaultTranslationsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking DisplayStrings in {0} and {1}....
+        /// </summary>
+        internal static string CheckingDisplayStringsFormat {
+            get {
+                return ResourceManager.GetString("CheckingDisplayStringsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking E-Mail Templates in {0} and {1}....
+        /// </summary>
+        internal static string CheckingEMailTemplatesFormat {
+            get {
+                return ResourceManager.GetString("CheckingEMailTemplatesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Entities in {0} and {1}....
+        /// </summary>
+        internal static string CheckingEntitiesFormat {
+            get {
+                return ResourceManager.GetString("CheckingEntitiesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Entity Labels in {0} and {1}....
+        /// </summary>
+        internal static string CheckingEntityLabelsFormat {
+            get {
+                return ResourceManager.GetString("CheckingEntityLabelsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking EntityMaps in {0} and {1}....
+        /// </summary>
+        internal static string CheckingEntityMapsFormat {
+            get {
+                return ResourceManager.GetString("CheckingEntityMapsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking FieldSecurityProfiles in {0} and {1}....
+        /// </summary>
+        internal static string CheckingFieldSecurityProfilesFormat {
+            get {
+                return ResourceManager.GetString("CheckingFieldSecurityProfilesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Field Translations in {0} and {1}....
+        /// </summary>
+        internal static string CheckingFieldTranslationsFormat {
+            get {
+                return ResourceManager.GetString("CheckingFieldTranslationsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Global OptionSets in {0} and {1}....
+        /// </summary>
+        internal static string CheckingGlobalOptionSetsFormat {
+            get {
+                return ResourceManager.GetString("CheckingGlobalOptionSetsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking KB Article Templates in {0} and {1}....
+        /// </summary>
+        internal static string CheckingKBArticleTemplatesFormat {
+            get {
+                return ResourceManager.GetString("CheckingKBArticleTemplatesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Mail Merge Templates in {0} and {1}....
+        /// </summary>
+        internal static string CheckingMailMergeTemplatesFormat {
+            get {
+                return ResourceManager.GetString("CheckingMailMergeTemplatesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Organizations in {0} and {1}....
+        /// </summary>
+        internal static string CheckingOrganizationsFormat {
+            get {
+                return ResourceManager.GetString("CheckingOrganizationsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking PluginAssemblies in {0} and {1}....
+        /// </summary>
+        internal static string CheckingPluginAssembliesFormat {
+            get {
+                return ResourceManager.GetString("CheckingPluginAssembliesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Plugin Steps by Ids in {0} and {1}....
+        /// </summary>
+        internal static string CheckingPluginStepsByIdsFormat {
+            get {
+                return ResourceManager.GetString("CheckingPluginStepsByIdsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Plugin Steps by PluginType Names in {0} and {1}....
+        /// </summary>
+        internal static string CheckingPluginStepsByPluginTypeNamesFormat {
+            get {
+                return ResourceManager.GetString("CheckingPluginStepsByPluginTypeNamesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking PluginTypes in {0} and {1}....
+        /// </summary>
+        internal static string CheckingPluginTypesFormat {
+            get {
+                return ResourceManager.GetString("CheckingPluginTypesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Reports in {0} and {1}....
+        /// </summary>
+        internal static string CheckingReportsFormat {
+            get {
+                return ResourceManager.GetString("CheckingReportsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Ribbons in {0} and {1}....
+        /// </summary>
+        internal static string CheckingRibbonsFormat {
+            get {
+                return ResourceManager.GetString("CheckingRibbonsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Ribbons with details in {0} and {1}....
+        /// </summary>
+        internal static string CheckingRibbonsWithDetailsFormat {
+            get {
+                return ResourceManager.GetString("CheckingRibbonsWithDetailsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking SecurityRoles in {0} and {1}....
+        /// </summary>
+        internal static string CheckingSecurityRolesFormat {
+            get {
+                return ResourceManager.GetString("CheckingSecurityRolesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking SiteMaps in {0} and {1}....
+        /// </summary>
+        internal static string CheckingSitemapsFormat {
+            get {
+                return ResourceManager.GetString("CheckingSitemapsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking SystemCharts in {0} and {1}....
+        /// </summary>
+        internal static string CheckingSystemChartsFormat {
+            get {
+                return ResourceManager.GetString("CheckingSystemChartsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking System Forms in {0} and {1}....
+        /// </summary>
+        internal static string CheckingSystemFormsFormat {
+            get {
+                return ResourceManager.GetString("CheckingSystemFormsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CheckingSystem SavedQueries in {0} and {1}....
+        /// </summary>
+        internal static string CheckingSystemSavedQueriesFormat {
+            get {
+                return ResourceManager.GetString("CheckingSystemSavedQueriesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking WebResources in {0} and {1}....
+        /// </summary>
+        internal static string CheckingWebResourcesFormat {
+            get {
+                return ResourceManager.GetString("CheckingWebResourcesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking WebResources in {0} and {1}....
+        /// </summary>
+        internal static string CheckingWebResourcesWithDetailsFormat {
+            get {
+                return ResourceManager.GetString("CheckingWebResourcesWithDetailsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Workflow in {0} and {1}....
+        /// </summary>
+        internal static string CheckingWorkflowsFormat {
+            get {
+                return ResourceManager.GetString("CheckingWorkflowsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Workflows with details in {0} and {1}....
+        /// </summary>
+        internal static string CheckingWorkflowsWithDetailsFormat {
+            get {
+                return ResourceManager.GetString("CheckingWorkflowsWithDetailsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clearing solution {0} completed..
         /// </summary>
         internal static string ClearingSolutionCompletedFormat {
@@ -129,6 +408,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ClearingSolutionFormat {
             get {
                 return ResourceManager.GetString("ClearingSolutionFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comparing Connections {0} and {1} completed..
+        /// </summary>
+        internal static string ComparingConnectionsCompletedFormat {
+            get {
+                return ResourceManager.GetString("ComparingConnectionsCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comparing Connections {0} and {1} failed..
+        /// </summary>
+        internal static string ComparingConnectionsFailedFormat {
+            get {
+                return ResourceManager.GetString("ComparingConnectionsFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comparing Connections {0} and {1}....
+        /// </summary>
+        internal static string ComparingConnectionsFormat {
+            get {
+                return ResourceManager.GetString("ComparingConnectionsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comparing PluginAssembly with local Assembly for {0} completed..
+        /// </summary>
+        internal static string ComparingPluginAssemblyWithLocalAssemblyCompletedFormat {
+            get {
+                return ResourceManager.GetString("ComparingPluginAssemblyWithLocalAssemblyCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comparing PluginAssembly with local Assembly for {0}....
+        /// </summary>
+        internal static string ComparingPluginAssemblyWithLocalAssemblyFormat {
+            get {
+                return ResourceManager.GetString("ComparingPluginAssemblyWithLocalAssemblyFormat", resourceCulture);
             }
         }
         
@@ -183,6 +507,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CopingSolutionComponentsToFromFormat {
             get {
                 return ResourceManager.GetString("CopingSolutionComponentsToFromFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coping Xml {0} to Clipboard completed..
+        /// </summary>
+        internal static string CopingXmlFieldToClipboardCompletedFormat {
+            get {
+                return ResourceManager.GetString("CopingXmlFieldToClipboardCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coping Xml {0} to Clipboard failed..
+        /// </summary>
+        internal static string CopingXmlFieldToClipboardFailedFormat {
+            get {
+                return ResourceManager.GetString("CopingXmlFieldToClipboardFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coping Xml {0} to Clipboard....
+        /// </summary>
+        internal static string CopingXmlFieldToClipboardFormat {
+            get {
+                return ResourceManager.GetString("CopingXmlFieldToClipboardFormat", resourceCulture);
             }
         }
         
@@ -421,6 +772,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating PluginAssembly Description for {0} completed..
+        /// </summary>
+        internal static string CreatingPluginAssebmltyDescriptionCompletedFormat {
+            get {
+                return ResourceManager.GetString("CreatingPluginAssebmltyDescriptionCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating PluginAssembly Description for {0}....
+        /// </summary>
+        internal static string CreatingPluginAssebmltyDescriptionFormat {
+            get {
+                return ResourceManager.GetString("CreatingPluginAssebmltyDescriptionFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating Solution Image from zip-file completed..
         /// </summary>
         internal static string CreatingSolutionImageFromZipFileCompletedFormat {
@@ -592,6 +961,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Executing ValidateSavedQueryRequest....
+        /// </summary>
+        internal static string ExecutingValidateSavedQueryRequest {
+            get {
+                return ResourceManager.GetString("ExecutingValidateSavedQueryRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exporting Application Ribbon....
         /// </summary>
         internal static string ExportingApplicationRibbon {
@@ -660,6 +1038,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ExportingBodyBinaryForFieldFormat {
             get {
                 return ResourceManager.GetString("ExportingBodyBinaryForFieldFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting Corrected Xml {0} to File completed..
+        /// </summary>
+        internal static string ExportingCorrectedXmlFieldToFileCompletedFormat {
+            get {
+                return ResourceManager.GetString("ExportingCorrectedXmlFieldToFileCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting Corrected Xml {0} to File failed..
+        /// </summary>
+        internal static string ExportingCorrectedXmlFieldToFileFailedFormat {
+            get {
+                return ResourceManager.GetString("ExportingCorrectedXmlFieldToFileFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting Corrected Xml {0} to File....
+        /// </summary>
+        internal static string ExportingCorrectedXmlFieldToFileFormat {
+            get {
+                return ResourceManager.GetString("ExportingCorrectedXmlFieldToFileFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting PluginAssembly Body Binary for {0} completed..
+        /// </summary>
+        internal static string ExportingPluginAssemblyBodyBinaryCompletedFormat {
+            get {
+                return ResourceManager.GetString("ExportingPluginAssemblyBodyBinaryCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting PluginAssembly Body Binary for {0}....
+        /// </summary>
+        internal static string ExportingPluginAssemblyBodyBinaryFormat {
+            get {
+                return ResourceManager.GetString("ExportingPluginAssemblyBodyBinaryFormat", resourceCulture);
             }
         }
         
@@ -921,6 +1344,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string LoadingChartsCompletedFormat {
             get {
                 return ResourceManager.GetString("LoadingChartsCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Components from zip-file....
+        /// </summary>
+        internal static string LoadingComponentsFromZipFile {
+            get {
+                return ResourceManager.GetString("LoadingComponentsFromZipFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Components from zip-file completed..
+        /// </summary>
+        internal static string LoadingComponentsFromZipFileCompleted {
+            get {
+                return ResourceManager.GetString("LoadingComponentsFromZipFileCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Components from zip-file failed..
+        /// </summary>
+        internal static string LoadingComponentsFromZipFileFailed {
+            get {
+                return ResourceManager.GetString("LoadingComponentsFromZipFileFailed", resourceCulture);
             }
         }
         
@@ -1191,6 +1641,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string LoadingSolutionImageCompletedFormat {
             get {
                 return ResourceManager.GetString("LoadingSolutionImageCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Solution Image failed..
+        /// </summary>
+        internal static string LoadingSolutionImageFailedFormat {
+            get {
+                return ResourceManager.GetString("LoadingSolutionImageFailedFormat", resourceCulture);
             }
         }
         
@@ -1519,6 +1978,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Showing Difference for ApplicationRibbons....
+        /// </summary>
+        internal static string ShowingDifferenceApplicationRibbons {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceApplicationRibbons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference for ApplicationRibbons completed..
+        /// </summary>
+        internal static string ShowingDifferenceApplicationRibbonsCompleted {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceApplicationRibbonsCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference for Applications RibbonDiffXml....
+        /// </summary>
+        internal static string ShowingDifferenceApplicationRibbonsDiffXml {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceApplicationRibbonsDiffXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference for Applications RibbonDiffXml completed..
+        /// </summary>
+        internal static string ShowingDifferenceApplicationRibbonsDiffXmlCompleted {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceApplicationRibbonsDiffXmlCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference for Applications RibbonDiffXml failed..
+        /// </summary>
+        internal static string ShowingDifferenceApplicationRibbonsDiffXmlFailed {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceApplicationRibbonsDiffXmlFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Showing Difference Entity Description....
         /// </summary>
         internal static string ShowingDifferenceEntityDescription {
@@ -1542,6 +2046,105 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ShowingDifferenceEntityDescriptionFailed {
             get {
                 return ResourceManager.GetString("ShowingDifferenceEntityDescriptionFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference EntityDescriptions....
+        /// </summary>
+        internal static string ShowingDifferenceEntityDescriptions {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceEntityDescriptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference EntityDescriptions completed..
+        /// </summary>
+        internal static string ShowingDifferenceEntityDescriptionsCompleted {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceEntityDescriptionsCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference for Corrected Xml {0} completed..
+        /// </summary>
+        internal static string ShowingDifferenceForCorrectedFieldCompletedFormat {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceForCorrectedFieldCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference for Corrected Xml {0} failed..
+        /// </summary>
+        internal static string ShowingDifferenceForCorrectedFieldFailedFormat {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceForCorrectedFieldFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference for Corrected Xml {0}....
+        /// </summary>
+        internal static string ShowingDifferenceForCorrectedFieldFormat {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceForCorrectedFieldFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference RibbonDiffXml for entity {0} completed..
+        /// </summary>
+        internal static string ShowingDifferenceRibbonDiffXmlForEntityCompletedFormat {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceRibbonDiffXmlForEntityCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference RibbonDiffXml for entity {0} failed..
+        /// </summary>
+        internal static string ShowingDifferenceRibbonDiffXmlForEntityFailedFormat {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceRibbonDiffXmlForEntityFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference RibbonDiffXml for entity {0}....
+        /// </summary>
+        internal static string ShowingDifferenceRibbonDiffXmlForEntityFormat {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceRibbonDiffXmlForEntityFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference Ribbon for entity {0} completed..
+        /// </summary>
+        internal static string ShowingDifferenceRibbonForEntityCompletedFormat {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceRibbonForEntityCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference Ribbon for entity {0} failed..
+        /// </summary>
+        internal static string ShowingDifferenceRibbonForEntityFailedFormat {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceRibbonForEntityFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference Ribbon for entity {0}....
+        /// </summary>
+        internal static string ShowingDifferenceRibbonForEntityFormat {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceRibbonForEntityFormat", resourceCulture);
             }
         }
         
@@ -1587,6 +2190,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string TextIsNotValidXml {
             get {
                 return ResourceManager.GetString("TextIsNotValidXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferfing Audit from {0} to {1}....
+        /// </summary>
+        internal static string TransferingAuditFormat {
+            get {
+                return ResourceManager.GetString("TransferingAuditFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferfing Data from {0} to {1} completed..
+        /// </summary>
+        internal static string TransferingDataCompletedFormat {
+            get {
+                return ResourceManager.GetString("TransferingDataCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferfing Data from {0} to {1} failed..
+        /// </summary>
+        internal static string TransferingDataFailedFormat {
+            get {
+                return ResourceManager.GetString("TransferingDataFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferfing Data from {0} to {1}....
+        /// </summary>
+        internal static string TransferingDataFormat {
+            get {
+                return ResourceManager.GetString("TransferingDataFormat", resourceCulture);
             }
         }
         

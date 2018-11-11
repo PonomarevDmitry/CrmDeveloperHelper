@@ -611,7 +611,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating PluginAssembly Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionFormat);
 
             var service = await getService();
 
@@ -630,7 +630,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true, "PluginAssembly Description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionCompletedFormat);
         }
 
         private void mIExportPluginAssembly1EntityDescription_Click(object sender, RoutedEventArgs e)
@@ -683,7 +683,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformDownloadBinaryContent(Guid pluginAssemblyId, Func<Task<IOrganizationServiceExtented>> getService)
         {
-            ToggleControls(false, "Exporting PluginAssembly Body Binary...");
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryFormat);
 
             var service = await getService();
 
@@ -711,7 +711,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, "Exporting PluginAssembly Body Binary completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryCompletedFormat);
         }
 
         private async Task PerformExportEntityDescriptionToFileAsync(Guid pluginAssemblyId, Func<Task<IOrganizationServiceExtented>> getService)

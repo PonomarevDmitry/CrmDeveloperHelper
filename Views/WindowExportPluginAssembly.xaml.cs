@@ -241,6 +241,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
+            _iWriteToOutput.WriteToOutput(message);
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
                 this.stBIStatus.Content = message;
@@ -373,14 +375,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 await action(folder, idAssembly, name);
-
-                ToggleControls(true, "Operation completed.");
             }
             catch (Exception ex)
             {
                 DTEHelper.WriteExceptionToOutput(ex);
-
-                ToggleControls(true, "Operation failed.");
             }
         }
 
@@ -441,7 +439,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportAssemblyDescription(string folder, Guid idPluginAssembly, string name)
         {
-            ToggleControls(false, "Creating PluginAssembly Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionFormat, name);
 
             var service = await GetService();
 
@@ -455,8 +453,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutput("Assembly {0} Description exported to {1}", name, filePath);
 
             this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-            ToggleControls(true, "PluginAssembly Description completed.");
+            
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionCompletedFormat, name);
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idPluginAssembly, string name)
@@ -485,7 +483,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteExportAssembly(string folder, Guid idAssembly, string name)
         {
-            ToggleControls(false, "Exporting PluginAssembly Body Binary...");
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryFormat, name);
 
             var service = await GetService();
 
@@ -509,8 +507,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.SelectFileInFolder(filePath);
                 }
             }
-
-            ToggleControls(true, "Exporting PluginAssembly Body Binary completed.");
+            
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryCompletedFormat, name);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -523,165 +521,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             base.OnKeyDown(e);
-        }
-
-        private void mIExportPluginAssemblyDependentComponents_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteAction(entity.Id, entity.Name, PerformCreatingFileWithDependentComponents);
-        }
-
-        private void mIExportPluginAssemblyRequiredComponents_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteAction(entity.Id, entity.Name, PerformCreatingFileWithRequiredComponents);
-        }
-
-        private void mIExportPluginAssemblyDependenciesForDelete_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteAction(entity.Id, entity.Name, PerformCreatingFileWithDependenciesForDelete);
-        }
-
-        private async Task PerformCreatingFileWithDependentComponents(string folder, Guid idPluginAssembly, string name)
-        {
-            this._iWriteToOutput.WriteToOutput("Starting downloading {0}", name);
-
-            var removeWrongFromName = FileOperations.RemoveWrongSymbols(name);
-
-            var service = await GetService();
-            var descriptor = await GetDescriptor();
-
-            var dependencyRepository = new DependencyRepository(service);
-
-            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
-            var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.PluginAssembly, idPluginAssembly);
-
-            string description = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-            if (!string.IsNullOrEmpty(description))
-            {
-                string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(
-                    service.ConnectionData.Name
-                    , removeWrongFromName
-                    , "Dependent Components"
-                    , "txt"
-                    );
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, description, new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput("PluginAssembly {0} Dependent Components exported to {1}", name, filePath);
-
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput("PluginAssembly {0} has no Dependent Components.", name);
-                this._iWriteToOutput.ActivateOutputWindow();
-            }
-        }
-
-        private async Task PerformCreatingFileWithRequiredComponents(string folder, Guid idPluginAssembly, string name)
-        {
-            this._iWriteToOutput.WriteToOutput("Starting downloading {0}", name);
-
-            var removeWrongFromName = FileOperations.RemoveWrongSymbols(name);
-
-            var service = await GetService();
-            var descriptor = await GetDescriptor();
-
-            var dependencyRepository = new DependencyRepository(service);
-
-            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
-            var coll = await dependencyRepository.GetRequiredComponentsAsync((int)ComponentType.PluginAssembly, idPluginAssembly);
-
-            string description = await descriptorHandler.GetDescriptionRequiredAsync(coll);
-
-            if (!string.IsNullOrEmpty(description))
-            {
-                string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(
-                    service.ConnectionData.Name
-                    , removeWrongFromName
-                    , "Required Components"
-                    , "txt"
-                    );
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, description, new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput("PluginAssembly {0} Required Components exported to {1}", name, filePath);
-
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput("PluginAssembly {0} has no Required Components.", name);
-                this._iWriteToOutput.ActivateOutputWindow();
-            }
-        }
-
-        private async Task PerformCreatingFileWithDependenciesForDelete(string folder, Guid idPluginAssembly, string name)
-        {
-            this._iWriteToOutput.WriteToOutput("Starting downloading {0}", name);
-
-            var removeWrongFromName = FileOperations.RemoveWrongSymbols(name);
-
-            var service = await GetService();
-            var descriptor = await GetDescriptor();
-
-            var dependencyRepository = new DependencyRepository(service);
-
-            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
-            var coll = await dependencyRepository.GetDependenciesForDeleteAsync((int)ComponentType.PluginAssembly, idPluginAssembly);
-
-            string description = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-            if (!string.IsNullOrEmpty(description))
-            {
-                string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(
-                    service.ConnectionData.Name
-                    , removeWrongFromName
-                    , "Dependencies For Delete"
-                    , "txt"
-                    );
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, description, new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput("PluginAssembly {0} Dependencies For Delete exported to {1}", name, filePath);
-
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput("PluginAssembly {0} has no Dependencies For Delete.", name);
-                this._iWriteToOutput.ActivateOutputWindow();
-            }
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
@@ -809,7 +648,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformComparingAssembly(string folder, Guid idPluginAssembly, string name)
         {
-            ToggleControls(false, "Comparing PluginAssembly...");
+            ToggleControls(false, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyFormat, name);
 
             var controller = new PluginTypeDescriptionController(_iWriteToOutput);
 
@@ -818,8 +657,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string filePath = await controller.CreateFileWithAssemblyComparing(folder, service.ConnectionData, service, idPluginAssembly, name, null);
 
             this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-            ToggleControls(true, "Comparing PluginAssembly completed.");
+            
+            ToggleControls(true, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyCompletedFormat, name);
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

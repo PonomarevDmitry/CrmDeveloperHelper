@@ -261,8 +261,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadSavedQueries(IEnumerable<SavedQuery> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} saved query(ies).", results.Count());
-
             this.lstVwSavedQueries.Dispatcher.Invoke(() =>
             {
                 foreach (var entity in results
@@ -297,6 +295,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 message = string.Format(format, args);
             }
+
+            _iWriteToOutput.WriteToOutput(message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -535,7 +535,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldTitle);
 
             try
             {
@@ -567,8 +567,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Coping Xml {0} to Clipboard...", fieldName);
+            
+            ToggleControls(false, Properties.WindowStatusStrings.CopingXmlFieldToClipboardFormat, fieldTitle);
 
             try
             {
@@ -591,13 +591,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 Clipboard.SetText(xmlContent);
 
-                ToggleControls(true, "Coping Xml {0} to Clipboard completed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.CopingXmlFieldToClipboardCompletedFormat, fieldTitle);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Coping Xml {0} to Clipboard failed.", fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.CopingXmlFieldToClipboardFailedFormat, fieldTitle);
             }
         }
 
@@ -649,12 +649,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ContentCoparerHelper.ClearXsdSchema(newText, out newText);
 
-                _iWriteToOutput.WriteToOutput("Validating {0}...", fieldTitle);
-                UpdateStatus("Validating {0}.", fieldTitle);
+                UpdateStatus(Properties.WindowStatusStrings.ValidatingXmlForFieldFormat, fieldTitle);
 
                 if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.TextIsNotValidXml);
                     ToggleControls(true, Properties.WindowStatusStrings.TextIsNotValidXml);
 
                     _iWriteToOutput.ActivateOutputWindow();
@@ -672,7 +670,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (string.Equals(fieldName, SavedQuery.Schema.Attributes.fetchxml, StringComparison.InvariantCulture))
                 {
-                    _iWriteToOutput.WriteToOutput("Executing ValidateSavedQueryRequest.");
+                    UpdateStatus(Properties.WindowStatusStrings.ExecutingValidateSavedQueryRequest);
 
                     var request = new ValidateSavedQueryRequest()
                     {
@@ -898,168 +896,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             base.OnKeyDown(e);
-        }
-
-        private void mIExportSavedQueryDependentComponents_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteAction(entity.Id, entity.ReturnedTypeCode, entity.Name, PerformCreatingFileWithDependentComponents);
-        }
-
-        private void mIExportSavedQueryRequiredComponents_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteAction(entity.Id, entity.ReturnedTypeCode, entity.Name, PerformCreatingFileWithRequiredComponents);
-        }
-
-        private void mIExportSavedQueryDependenciesForDelete_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteAction(entity.Id, entity.ReturnedTypeCode, entity.Name, PerformCreatingFileWithDependenciesForDelete);
-        }
-
-        private async Task PerformCreatingFileWithDependentComponents(string folder, Guid idSavedQuery, string entityName, string name)
-        {
-            this._iWriteToOutput.WriteToOutput("Starting downloading {0}", name);
-
-            var removeWrongFromName = FileOperations.RemoveWrongSymbols(name);
-
-            var service = await GetService();
-            var descriptor = await GetDescriptor();
-
-            var dependencyRepository = new DependencyRepository(service);
-
-            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
-            var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.SavedQuery, idSavedQuery);
-
-            string description = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-            if (!string.IsNullOrEmpty(description))
-            {
-                string fileName = EntityFileNameFormatter.GetSavedQueryFileName(
-                    service.ConnectionData.Name
-                    , entityName
-                    , removeWrongFromName
-                    , "Dependent Components"
-                    , "txt"
-                    );
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, description, new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput("SavedQuery {0} Dependent Components exported to {1}", name, filePath);
-
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput("SavedQuery {0} has no Dependent Components.", name);
-                this._iWriteToOutput.ActivateOutputWindow();
-            }
-        }
-
-        private async Task PerformCreatingFileWithRequiredComponents(string folder, Guid idSavedQuery, string entityName, string name)
-        {
-            this._iWriteToOutput.WriteToOutput("Starting downloading {0}", name);
-
-            var removeWrongFromName = FileOperations.RemoveWrongSymbols(name);
-
-            var service = await GetService();
-            var descriptor = await GetDescriptor();
-
-            var dependencyRepository = new DependencyRepository(service);
-
-            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
-            var coll = await dependencyRepository.GetRequiredComponentsAsync((int)ComponentType.SavedQuery, idSavedQuery);
-
-            string description = await descriptorHandler.GetDescriptionRequiredAsync(coll);
-
-            if (!string.IsNullOrEmpty(description))
-            {
-                string fileName = EntityFileNameFormatter.GetSavedQueryFileName(
-                    service.ConnectionData.Name
-                    , entityName
-                    , removeWrongFromName
-                    , "Required Components"
-                    , "txt"
-                    );
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, description, new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput("SavedQuery {0} Required Components exported to {1}", name, filePath);
-
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput("SavedQuery {0} has no Required Components.", name);
-                this._iWriteToOutput.ActivateOutputWindow();
-            }
-        }
-
-        private async Task PerformCreatingFileWithDependenciesForDelete(string folder, Guid idSavedQuery, string entityName, string name)
-        {
-            this._iWriteToOutput.WriteToOutput("Starting downloading {0}", name);
-
-            var removeWrongFromName = FileOperations.RemoveWrongSymbols(name);
-
-            var service = await GetService();
-            var descriptor = await GetDescriptor();
-
-            var dependencyRepository = new DependencyRepository(service);
-
-            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
-            var coll = await dependencyRepository.GetDependenciesForDeleteAsync((int)ComponentType.SavedQuery, idSavedQuery);
-
-            string description = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-            if (!string.IsNullOrEmpty(description))
-            {
-                string fileName = EntityFileNameFormatter.GetSavedQueryFileName(
-                    service.ConnectionData.Name
-                    , entityName
-                    , removeWrongFromName
-                    , "Dependencies For Delete"
-                    , "txt"
-                    );
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, description, new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput("SavedQuery {0} Dependencies For Delete exported to {1}", name, filePath);
-
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput("SavedQuery {0} has no Dependencies For Delete.", name);
-                this._iWriteToOutput.ActivateOutputWindow();
-            }
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)

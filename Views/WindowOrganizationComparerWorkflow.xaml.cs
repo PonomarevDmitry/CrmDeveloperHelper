@@ -330,8 +330,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadEntities(IEnumerable<LinkedEntities<Workflow>> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} workflows.", results.Count());
-
             this.lstVwWorkflows.Dispatcher.Invoke(() =>
             {
                 foreach (var link in results
@@ -380,6 +378,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 message = string.Format(format, args);
             }
+
+            _iWriteToOutput.WriteToOutput(message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -751,8 +751,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Showing Difference for Corrected Xaml...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceForCorrectedFieldFormat, fieldTitle);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -801,8 +801,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
             }
-
-            ToggleControls(true, "Showing Difference for Corrected Xaml completed.");
+            
+            ToggleControls(true,  Properties.WindowStatusStrings.ShowingDifferenceForCorrectedFieldCompletedFormat, fieldTitle);
         }
 
         private void mIExportWorkflow1Xaml_Click(object sender, RoutedEventArgs e)
@@ -928,7 +928,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldTitle);
 
             var service = await getService();
 
@@ -949,7 +949,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat, fieldName);
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat, fieldTitle);
         }
 
         private async Task PerformExportCorrectedToFileAsync(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle)
@@ -958,8 +958,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Exporting Corrected Xaml...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileFormat, fieldTitle);
 
             var service = await getService();
 
@@ -977,14 +977,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string entityName = workflow.PrimaryEntity;
                 string name = workflow.Name;
-                string category = workflow.FormattedValues[Workflow.Schema.Attributes.category];
+                workflow.FormattedValues.TryGetValue(Workflow.Schema.Attributes.category, out var category);
 
                 string filePath = await CreateFileAsync(service.ConnectionData.Name, entityName, category, name, "CorrectedXaml", xml);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
-
-            ToggleControls(true, "Exporting Corrected Xaml completed.");
+            
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileCompletedFormat, fieldTitle);
         }
 
         private void mIShowDifferenceEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -1005,8 +1005,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Showing Difference Description...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptions);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -1048,8 +1048,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
             }
-
-            ToggleControls(true, "Showing Difference Description completed.");
+            
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionsCompleted);
         }
 
         private void ExecuteActionDescription(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)

@@ -268,7 +268,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
 
-                UpdateStatus("Start Testing Connection {0}...", connectionData.Name);
+                UpdateStatus(Properties.WindowStatusStrings.StartTestingConnectionFormat, connectionData.Name);
 
                 try
                 {
@@ -278,13 +278,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._crmConfig.Save();
 
-                    UpdateStatus("Successfully connected to {0}.", connectionData.Name);
+                    UpdateStatus(Properties.WindowStatusStrings.ConnectedSuccessfullyFormat, connectionData.Name);
                 }
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(ex);
 
-                    UpdateStatus("Connection to {0} failed. See Error in Output.", connectionData.Name);
+                    UpdateStatus(Properties.WindowStatusStrings.ConnectionFailedFormat, connectionData.Name);
                 }
             }
         }
@@ -555,7 +555,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
 
-                UpdateStatus("Start Testing Connection {0}...", connectionData.Name);
+                UpdateStatus(Properties.WindowStatusStrings.StartTestingConnectionFormat, connectionData.Name);
 
                 try
                 {
@@ -563,13 +563,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._crmConfig.Save();
 
-                    UpdateStatus("Successfully connected to {0}.", connectionData.Name);
+                    UpdateStatus(Properties.WindowStatusStrings.ConnectedSuccessfullyFormat, connectionData.Name);
                 }
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(ex);
 
-                    UpdateStatus("Connection to {0} failed. See Error in Output.", connectionData.Name);
+                    UpdateStatus(Properties.WindowStatusStrings.ConnectionFailedFormat, connectionData.Name);
                 }
             }
         }

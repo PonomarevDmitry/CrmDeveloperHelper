@@ -39,10 +39,6 @@
                 <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-                <Separator/>
-                <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportSystemChartDependentComponents_Click" />
-                <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportSystemChartRequiredComponents_Click" />
-                <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportSystemChartDependenciesForDelete_Click" />
             </MenuItem>
             <Separator/>
             <MenuItem Header="Get Other Entity Information">
@@ -150,10 +146,6 @@
                                 <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                                 <Separator/>
                                 <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-                                <Separator/>
-                                <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportSystemChartDependentComponents_Click" />
-                                <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportSystemChartRequiredComponents_Click" />
-                                <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportSystemChartDependenciesForDelete_Click" />
                             </MenuItem>
                             <Separator/>
                             <MenuItem Header="Get Other Entity Information">

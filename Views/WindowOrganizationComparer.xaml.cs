@@ -112,6 +112,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
+            _iWriteToOutput.WriteToOutput(message);
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
                 this.stBIStatus.Content = message;
@@ -274,7 +276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (lstVwConnections.SelectedItems.Count == 1)
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
-                
+
                 ToggleControls(false, Properties.WindowStatusStrings.StartTestingConnectionFormat, connectionData.Name);
 
                 try
@@ -282,13 +284,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
 
                     this._crmConfig.Save();
-                    
+
                     ToggleControls(true, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat, connectionData.Name);
                 }
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(ex);
-                    
+
                     ToggleControls(true, Properties.WindowStatusStrings.ConnectionFailedFormat, connectionData.Name);
                 }
             }
@@ -369,7 +371,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     if (connectionData.ConnectionId == _crmConfig.CurrentConnectionData?.ConnectionId)
                     {
                         _crmConfig.SetCurrentConnection(null);
-                        
+
                         _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.ConnectionIsNotSelected);
                         _iWriteToOutput.ActivateOutputWindow();
                     }
@@ -2192,7 +2194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Analizing organizations...");
+            ToggleControls(false, Properties.WindowStatusStrings.ComparingConnectionsFormat, connection1.Name, connection2.Name);
 
             this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -2204,16 +2206,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await function(comparer);
 
-                this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-                ToggleControls(true, "Analizing organizations completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ComparingConnectionsFormat, connection1.Name, connection2.Name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Analizing organizations failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ComparingConnectionsFormat, connection1.Name, connection2.Name);
             }
+
+            this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
         }
 
         #region Кнопки сравнения сред.
@@ -2408,13 +2410,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Analizing organizations...");
-
             this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
                 var source = new OrganizationComparerSource(connection1, connection2);
+
+                ToggleControls(false, Properties.WindowStatusStrings.ComparingConnectionsFormat, connection1.Name, connection2.Name);
 
                 OrganizationComparer comparer = new OrganizationComparer(source, this._iWriteToOutput, folder);
 
@@ -2422,30 +2424,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, "Analizing organizations completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ComparingConnectionsCompletedFormat, connection1.Name, connection2.Name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Analizing organizations failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ComparingConnectionsFailedFormat, connection1.Name, connection2.Name);
             }
+
+            this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
         }
 
         private async Task MultipleAnalize(List<Func<OrganizationComparer, Task>> functions, OrganizationComparer comparer)
         {
-            try
+            foreach (var function in functions)
             {
-                this._iWriteToOutput.WriteToOutput("Checking connections...");
-
-                foreach (var function in functions)
+                try
                 {
                     await function(comparer);
                 }
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                }
             }
         }
 
@@ -2460,7 +2462,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Global OptionSets...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingGlobalOptionSetsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckGlobalOptionSetsAsync();
 
@@ -2483,7 +2485,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking System Forms...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingSystemFormsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckSystemFormsAsync();
 
@@ -2506,7 +2508,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking System Saved Queries...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingSystemSavedQueriesFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckSystemSavedQueriesAsync();
 
@@ -2529,7 +2531,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking System Charts...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingSystemChartsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckSystemSavedQueryVisualizationsAsync();
 
@@ -2552,7 +2554,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Connection Roles...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingConnectionRolesFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckConnectionRolesAsync();
 
@@ -2575,7 +2577,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Connection Role Categories...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingConnectionRoleCategoriesFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckConnectionRoleCategoriesAsync();
 
@@ -2598,7 +2600,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Ribbons...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingRibbonsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckRibbonsAsync(false);
 
@@ -2621,7 +2623,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Ribbons with details...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingRibbonsWithDetailsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckRibbonsAsync(true);
 
@@ -2644,7 +2646,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Display Strings...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingDisplayStringsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckDisplayStringsAsync();
 
@@ -2667,7 +2669,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking WebResources...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingWebResourcesFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckWebResourcesAsync(false);
 
@@ -2690,7 +2692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking WebResources with details...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingWebResourcesWithDetailsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckWebResourcesAsync(true);
 
@@ -2713,7 +2715,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Sitemaps...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingSitemapsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckSiteMapsAsync();
 
@@ -2736,7 +2738,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Security Roles...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingSecurityRolesFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckSecurityRolesAsync();
 
@@ -2759,7 +2761,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Workflows...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingWorkflowsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckWorkflowsAsync(false);
 
@@ -2782,7 +2784,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Workflows with details...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingWorkflowsWithDetailsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckWorkflowsAsync(true);
 
@@ -2805,7 +2807,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Reports...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingReportsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckReportsAsync();
 
@@ -2828,7 +2830,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking E-Mail Templates...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingEMailTemplatesFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckEMailTemplatesAsync();
 
@@ -2851,7 +2853,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Mail Merge Templates...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingMailMergeTemplatesFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckMailMergeTemplatesAsync();
 
@@ -2874,7 +2876,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking KB Article Templates...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingKBArticleTemplatesFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckKBArticleTemplatesAsync();
 
@@ -2897,7 +2899,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Contract Templates...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingContractTemplatesFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckContractTemplatesAsync();
 
@@ -2920,7 +2922,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Field Security Profiles...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingFieldSecurityProfilesFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckFieldSecurityProfilesAsync();
 
@@ -2943,7 +2945,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Entities...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingEntitiesFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckEntitiesAsync();
 
@@ -2966,7 +2968,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Entity Labels...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingEntityLabelsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckEntityLabelsAsync();
 
@@ -2989,7 +2991,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Entity Maps...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingEntityMapsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckEntityMapsAsync();
 
@@ -3012,7 +3014,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Plugin Assemblies...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingPluginAssembliesFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckPluginAssembliesAsync();
 
@@ -3035,7 +3037,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Plugin Types...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingPluginTypesFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckPluginTypesAsync();
 
@@ -3058,7 +3060,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Plugin Steps by Plugin Type Names...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingPluginStepsByPluginTypeNamesFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckPluginStepsByPluginTypeNamesAsync();
 
@@ -3081,7 +3083,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Plugin Steps by Ids...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingPluginStepsByIdsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckPluginStepsByIdsAsync();
 
@@ -3104,7 +3106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Default Translations...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingDefaultTranslationsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckDefaultTranslationsAsync();
 
@@ -3127,7 +3129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Field Translations...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingFieldTranslationsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckFieldTranslationsAsync();
 
@@ -3150,7 +3152,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Checking Organizations...");
+                UpdateStatus(Properties.WindowStatusStrings.CheckingOrganizationsFormat, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckOrganizationsAsync();
 
@@ -3248,8 +3250,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteTrasnferOperation(Func<OrganizationCustomizationTransfer, Task> function, ConnectionData connectionSource, ConnectionData connectionTarget, string folder)
         {
-            ToggleControls(false, "Transfering...");
-
+            ToggleControls(false, Properties.WindowStatusStrings.TransferingDataFormat, connectionSource.Name, connectionTarget.Name);
+            
             this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
@@ -3260,13 +3262,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, "Transfering completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.TransferingDataCompletedFormat, connectionSource.Name, connectionTarget.Name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Transfering failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.TransferingDataFailedFormat, connectionSource.Name, connectionTarget.Name);
             }
         }
 
@@ -3284,7 +3286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus("Transfer Audit...");
+                UpdateStatus(Properties.WindowStatusStrings.TransferingAuditFormat, handler.ConnectionSource.Name, handler.ConnectionTarget.Name);
 
                 string filePath = await handler.TrasnferAuditAsync();
 

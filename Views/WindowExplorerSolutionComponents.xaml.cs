@@ -412,6 +412,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
+            _iWriteToOutput.WriteToOutput(message);
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
                 this.stBIStatus.Content = message;
@@ -1108,7 +1110,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             string question = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteComponentsFormat, solutionComponents.Count, _solution.UniqueName);
 
             if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
@@ -1119,7 +1121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 ToggleControls(false, Properties.WindowStatusStrings.RemovingSolutionComponentsFromSolutionFormat, _solution.UniqueName);
-                
+
                 _commonConfig.Save();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
@@ -1163,7 +1165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _itemsSource.Remove(item);
                     }
                 });
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromSolutionCompletedFormat, _solution.UniqueName);
             }
             catch (Exception ex)
@@ -1644,11 +1646,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (solutionImage == null)
                 {
-                    ToggleControls(true, _iWriteToOutput.WriteToOutput("Solution Image could not loaded."));
+                    ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionImageFailedFormat);
                     return;
                 }
 
-                UpdateStatus(_iWriteToOutput.WriteToOutput("Loaded {0} components from SolutionImage.", solutionImage.Components.Count));
+                UpdateStatus("Loaded {0} components from SolutionImage.", solutionImage.Components.Count);
 
                 if (solutionImage.Components.Count == 0)
                 {
@@ -1658,7 +1660,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var solutionComponents = await _descriptor.GetSolutionComponentsListAsync(solutionImage.Components);
 
-                UpdateStatus(_iWriteToOutput.WriteToOutput("Adding {0} components into Current Solution."), solutionComponents);
+                UpdateStatus("Adding {0} components into Current Solution.", solutionComponents);
 
                 if (solutionComponents.Count == 0)
                 {
@@ -1718,18 +1720,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     return;
                 }
-                
-                ToggleControls(false, _iWriteToOutput.WriteToOutput("Loading components from Zip-file..."));
+
+                ToggleControls(false, Properties.WindowStatusStrings.LoadingComponentsFromZipFile);
 
                 List<SolutionComponent> solutionComponents = await _descriptor.LoadSolutionComponentsFromZipFileAsync(selectedPath);
 
-                if (solutionComponents == null)
-                {
-                    ToggleControls(true, _iWriteToOutput.WriteToOutput("Zip-file could not loaded."));
-                    return;
-                }
-
-                UpdateStatus(_iWriteToOutput.WriteToOutput("Loaded {0} components from Zip-file.", solutionComponents.Count));
+                UpdateStatus("Loaded {0} components from Zip-file.", solutionComponents.Count);
 
                 if (solutionComponents.Count == 0)
                 {
@@ -1737,19 +1733,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                UpdateStatus(_iWriteToOutput.WriteToOutput("Adding {0} components into Current Solution.", solutionComponents.Count));
+                UpdateStatus("Adding {0} components into Current Solution.", solutionComponents.Count);
 
                 this._iWriteToOutput.ActivateOutputWindow();
 
                 await SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, _service, _descriptor, _commonConfig, _solution.UniqueName, solutionComponents, false);
 
-                ToggleControls(true, "Loading components from Zip-file completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.LoadingComponentsFromZipFileCompleted);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Loading components from Zip-file failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.LoadingComponentsFromZipFileFailed);
             }
         }
 
@@ -1988,7 +1984,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await repository.PublishEntitiesAsync(new[] { entityName });
 
                 this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityName);
             }
             catch (Exception ex)

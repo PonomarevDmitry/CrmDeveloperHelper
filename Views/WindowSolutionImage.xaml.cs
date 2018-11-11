@@ -244,6 +244,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     txtBFilePath.Text = string.Empty;
                 }
             });
+
+            if (this._solutionImage == null)
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionImageFailedFormat);
+                return;
+            }
             
             ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionImageCompletedFormat);
 
