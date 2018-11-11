@@ -334,7 +334,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "{0} entities loaded", results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)

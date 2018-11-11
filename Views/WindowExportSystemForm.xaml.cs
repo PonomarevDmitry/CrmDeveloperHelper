@@ -602,6 +602,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
+                ContentCoparerHelper.ClearXsdSchema(newText, out newText);
+
                 _iWriteToOutput.WriteToOutput("Validating FormXml...");
                 UpdateStatus("Validating FormXml.");
 

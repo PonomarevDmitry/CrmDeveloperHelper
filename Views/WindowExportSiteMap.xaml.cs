@@ -569,10 +569,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialogResult.GetValueOrDefault() == false)
                 {
-                    
                     ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCanceledFormat, fieldName);
                     return;
                 }
+
+                ContentCoparerHelper.ClearXsdSchema(newText, out newText);
 
                 _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.ValidatingXmlForFieldFormat, fieldName);
                 UpdateStatus(Properties.WindowStatusStrings.ValidatingXmlForFieldFormat, fieldName);
@@ -580,7 +581,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
                 {
                     _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.TextIsNotValidXml);
-
                     
                     ToggleControls(true, Properties.WindowStatusStrings.TextIsNotValidXml);
 

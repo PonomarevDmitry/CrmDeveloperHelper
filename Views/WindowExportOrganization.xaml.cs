@@ -519,15 +519,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialogResult.GetValueOrDefault())
                 {
+                    ContentCoparerHelper.ClearXsdSchema(newText, out newText);
+
+                    if (ContentCoparerHelper.TryParseXml(newText, out var doc))
                     {
-                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
-                        {
-                            newText = doc.ToString(SaveOptions.DisableFormatting);
-                        }
+                        newText = doc.ToString(SaveOptions.DisableFormatting);
                     }
 
-                    var updateEntity = new Organization();
-                    updateEntity.Id = organization.Id;
+                    var updateEntity = new Organization
+                    {
+                        Id = organization.Id
+                    };
                     updateEntity.Attributes[fieldName] = newText;
 
                     var service = await GetService();

@@ -1272,9 +1272,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             var fileText = txtBFetchXml.Text.Trim();
 
-            ContentCoparerHelper.ClearXsdSchema(fileText, out var newText);
+            ContentCoparerHelper.ClearXsdSchema(fileText, out fileText);
 
-            string jsCode = ContentCoparerHelper.FormatToJavaScript("fetchXml", newText);
+            string jsCode = ContentCoparerHelper.FormatToJavaScript("fetchXml", fileText);
 
             Clipboard.SetText(jsCode);
         }

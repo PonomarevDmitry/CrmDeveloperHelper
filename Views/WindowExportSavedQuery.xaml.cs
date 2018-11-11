@@ -584,9 +584,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     xmlContent = doc.ToString();
 
-                    ContentCoparerHelper.ClearXsdSchema(xmlContent, out var newText);
+                    ContentCoparerHelper.ClearXsdSchema(xmlContent, out xmlContent);
 
-                    xmlContent = ContentCoparerHelper.FormatToJavaScript(fieldName, newText);
+                    xmlContent = ContentCoparerHelper.FormatToJavaScript(fieldName, xmlContent);
                 }
 
                 Clipboard.SetText(xmlContent);
@@ -646,6 +646,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCanceledFormat, fieldName);
                     return;
                 }
+
+                ContentCoparerHelper.ClearXsdSchema(newText, out newText);
 
                 _iWriteToOutput.WriteToOutput("Validating {0}...", fieldTitle);
                 UpdateStatus("Validating {0}.", fieldTitle);
