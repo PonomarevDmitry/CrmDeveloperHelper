@@ -251,8 +251,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             list = FilterList(list, textName);
 
-            this._iWriteToOutput.WriteToOutput("Found {0} saved query(ies)", list.Count());
-
             LoadEntities(list);
             
             ToggleControls(true, Properties.WindowStatusStrings.LoadingSavedQueriesCompletedFormat, list.Count());

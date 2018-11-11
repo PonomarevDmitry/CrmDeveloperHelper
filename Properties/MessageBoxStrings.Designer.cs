@@ -259,6 +259,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PasswordIsEmpty {
+            get {
+                return ResourceManager.GetString("PasswordIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Prefix is empty..
         /// </summary>
         internal static string PrefixIsEmpty {
@@ -300,6 +309,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string SolutionVersionTextIsNotValidVersion {
             get {
                 return ResourceManager.GetString("SolutionVersionTextIsNotValidVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to save connection details. Error: {0}.
+        /// </summary>
+        internal static string UnableSaveConnectionFormat {
+            get {
+                return ResourceManager.GetString("UnableSaveConnectionFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string UserNameIsEmpty {
+            get {
+                return ResourceManager.GetString("UserNameIsEmpty", resourceCulture);
             }
         }
         

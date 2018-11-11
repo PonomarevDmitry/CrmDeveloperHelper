@@ -212,8 +212,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadPluginTypes(IEnumerable<PluginType> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} Plugin Types.", results.Count());
-
             this.lstVwPluginTypes.Dispatcher.Invoke(() =>
             {
                 foreach (var entity in results.OrderBy(ent => ent.TypeName))

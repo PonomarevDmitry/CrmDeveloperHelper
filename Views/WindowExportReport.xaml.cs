@@ -233,8 +233,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadReports(IEnumerable<Report> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} Reports.", results.Count());
-
             this.lstVwReports.Dispatcher.Invoke(() =>
             {
                 foreach (var report in results)

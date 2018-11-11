@@ -296,8 +296,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             list = FilterList(list, textName);
 
-            this._iWriteToOutput.WriteToOutput("Found {0} forms", list.Count());
-
             LoadEntities(list);
             
             ToggleControls(true, Properties.WindowStatusStrings.LoadingFormsCompletedFormat, list.Count());

@@ -387,8 +387,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadSolutionComponents(IEnumerable<SolutionComponentViewItem> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} solution components.", results.Count());
-
             this.lstVSolutionComponents.Dispatcher.Invoke(() =>
             {
                 foreach (var item in results.OrderBy(en => en.SolutionComponent.ComponentType.Value).ThenBy(en => en.Name))

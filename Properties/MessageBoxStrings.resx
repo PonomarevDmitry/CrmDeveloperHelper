@@ -201,4 +201,13 @@
   <data name="FileExtensionIsNotAllowedForWebResourceFormat" xml:space="preserve">
     <value>File Extension {0} is not allowed for WebResource.</value>
   </data>
+  <data name="PasswordIsEmpty" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnableSaveConnectionFormat" xml:space="preserve">
+    <value>Unable to save connection details. Error: {0}</value>
+  </data>
+  <data name="UserNameIsEmpty" xml:space="preserve">
+    <value />
+  </data>
 </root>

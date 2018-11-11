@@ -233,8 +233,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(ex);
             }
 
-            this._iWriteToOutput.WriteToOutput("Found {0} trace records.", list.Count());
-
             string textName = string.Empty;
 
             DateTime? date = null;

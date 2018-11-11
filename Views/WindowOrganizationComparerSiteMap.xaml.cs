@@ -309,8 +309,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadEntities(IEnumerable<LinkedEntities<SiteMap>> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} sitemaps.", results.Count());
-
             this.lstVwSiteMaps.Dispatcher.Invoke(() =>
             {
                 foreach (var link in results

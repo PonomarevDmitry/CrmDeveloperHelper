@@ -256,8 +256,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadEntities(IEnumerable<LinkedEntities<PluginAssembly>> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} Plugin Assemblies.", results.Count());
-
             this.lstVwPluginAssemblies.Dispatcher.Invoke(() =>
             {
                 foreach (var link in results.OrderBy(ent => ent.Entity1.Name))

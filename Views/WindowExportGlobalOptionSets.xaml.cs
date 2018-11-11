@@ -292,8 +292,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             list = FilterList(list, textName);
 
-            this._iWriteToOutput.WriteToOutput("Found {0} optionsets.", list.Count());
-
             LoadEntities(list);
             
             ToggleControls(true, Properties.WindowStatusStrings.LoadingOptionSetsCompletedFormat, list.Count());

@@ -1,4 +1,5 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Globalization;
 using System.Text;
@@ -40,8 +41,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 result = false;
 
                 if (builder.Length > 0) { builder.AppendLine(); }
-
-                builder.Append("Username is empty.");
+                
+                builder.Append(Properties.MessageBoxStrings.UserNameIsEmpty);
             }
 
             if (string.IsNullOrEmpty(this.passBPassword.Password))
@@ -50,7 +51,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (builder.Length > 0) { builder.AppendLine(); }
 
-                builder.Append("Password is empty.");
+                builder.Append(Properties.MessageBoxStrings.PasswordIsEmpty);
             }
 
             message = builder.ToString();
@@ -86,7 +87,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format("Unable to save connection details. Error: {0}", ex.Message), Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                string textError = string.Format(Properties.MessageBoxStrings.UnableSaveConnectionFormat, ex.Message);
+
+                DTEHelper.WriteExceptionToOutput(ex);
+
+                MessageBox.Show(textError, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             this.DialogResult = true;

@@ -310,8 +310,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadEntities(IEnumerable<LinkedEntities<SavedQueryVisualization>> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} charts.", results.Count());
-
             this.lstVwCharts.Dispatcher.Invoke(() =>
             {
                 foreach (var link in results

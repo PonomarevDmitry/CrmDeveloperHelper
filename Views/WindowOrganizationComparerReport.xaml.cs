@@ -309,8 +309,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadEntities(IEnumerable<LinkedEntities<Report>> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} reports.", results.Count());
-
             this.lstVwReports.Dispatcher.Invoke(() =>
             {
                 foreach (var link in results.OrderBy(ent => ent.Entity1.Name).ThenBy(ent => ent.Entity1.Name).ThenBy(ent => ent.Entity2?.Name))

@@ -194,8 +194,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(ex);
             }
 
-            this._iWriteToOutput.WriteToOutput("Found {0} Plugin Assemblies.", list.Count());
-
             LoadPluginAssemblies(list);
 
             ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat, list.Count());

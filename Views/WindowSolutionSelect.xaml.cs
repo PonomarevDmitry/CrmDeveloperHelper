@@ -140,8 +140,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 list = new List<Solution>();
             }
 
-            this._iWriteToOutput.WriteToOutput("Found {0} solutions.", list.Count());
-
             LoadSolutions(list);
 
             ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionsCompletedFormat, list.Count());

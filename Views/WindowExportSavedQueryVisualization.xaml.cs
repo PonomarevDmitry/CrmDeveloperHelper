@@ -259,8 +259,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadSystemCharts(IEnumerable<SavedQueryVisualization> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} charts.", results.Count());
-
             this.lstVwCharts.Dispatcher.Invoke(() =>
             {
                 foreach (var entity in results

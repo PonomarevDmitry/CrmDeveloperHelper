@@ -278,8 +278,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadEntities(IEnumerable<EntityMetadataViewItem> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} entity(ies).", results.Count());
-
             this.lstVwEntities.Dispatcher.Invoke(() =>
             {
                 foreach (var entity in results.OrderBy(s => s.LogicalName))
@@ -404,8 +402,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadAttributes(IEnumerable<AttributeMetadataViewItem> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} attributes.", results.Count());
-
             this.lstVwAttributes.Dispatcher.Invoke(() =>
             {
                 foreach (var entity in results.OrderBy(s => s.LogicalName))

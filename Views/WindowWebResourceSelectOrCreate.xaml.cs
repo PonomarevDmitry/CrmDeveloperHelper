@@ -174,8 +174,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 list = new List<WebResource>();
             }
 
-            this._iWriteToOutput.WriteToOutput("Found {0} webresources.", list.Count());
-
             LoadWebResources(list);
             
             ToggleControls(true, Properties.WindowStatusStrings.LoadingWebResourcesCompletedFormat, list.Count());

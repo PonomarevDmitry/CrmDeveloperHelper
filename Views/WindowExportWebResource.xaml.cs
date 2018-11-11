@@ -215,8 +215,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(ex);
             }
 
-            this._iWriteToOutput.WriteToOutput("Found {0} webresources.", list.Count());
-
             LoadWebResources(list);
 
             ToggleControls(true, Properties.WindowStatusStrings.LoadingWebResourcesCompletedFormat, list.Count());

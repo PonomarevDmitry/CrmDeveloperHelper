@@ -293,8 +293,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadEntities(IEnumerable<LinkedEntities<WebResource>> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} webresources.", results.Count());
-
             this.lstVwWebResources.Dispatcher.Invoke(() =>
             {
                 foreach (var link in results

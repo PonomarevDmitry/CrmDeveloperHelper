@@ -305,8 +305,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadEntities(IEnumerable<EntityMetadata> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} entity(ies).", results.Count());
-
             this.lstVwEntities.Dispatcher.Invoke(() =>
             {
                 foreach (var entity in results)
