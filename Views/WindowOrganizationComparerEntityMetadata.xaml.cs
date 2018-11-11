@@ -40,6 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
+            , string entityFilter
         )
         {
             _init++;
@@ -61,6 +62,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Resources["ConnectionName2"] = string.Format("Create from {0}", connection2.Name);
 
             LoadFromConfig();
+
+            txtBFilterEnitity.Text = entityFilter;
 
             txtBFilterEnitity.SelectionLength = 0;
             txtBFilterEnitity.SelectionStart = txtBFilterEnitity.Text.Length;
@@ -364,6 +367,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
+            _iWriteToOutput.WriteToOutput(message);
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
                 this.stBIStatus.Content = message;
@@ -497,7 +502,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             CreateFileWithEntityMetadataCSharpConfiguration config = GetCSharpConfig(entityName);
 
-            ToggleControls(false, "Creating Files...");
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityFormat, entityName);
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -535,7 +540,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
             }
 
-            ToggleControls(true, "Files are created.");
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityCompletedFormat, entityName);
         }
 
         private CreateFileWithEntityMetadataCSharpConfiguration GetCSharpConfig(string entityName)
@@ -595,8 +600,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             CreateFileWithEntityMetadataJavaScriptConfiguration config = GetJavaScriptConfig(entityName);
-
-            ToggleControls(false, "Creating Files...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataJavaScriptForEntityFormat, entityName);
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -634,7 +639,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
             }
 
-            ToggleControls(true, "Files are created.");
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataJavaScriptForEntityCompletedFormat, entityName);
         }
 
         private CreateFileWithEntityMetadataJavaScriptConfiguration GetJavaScriptConfig(string entityName)
@@ -854,17 +859,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerRibbonWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
+            WindowHelper.OpenOrganizationComparerRibbonWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.LogicalName);
         }
 
         private async void btnCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedLinkedEntityMetadata();
+
             _commonConfig.Save();
 
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
+            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.LogicalName);
         }
 
         private async void btnCompareSystemForms_Click(object sender, RoutedEventArgs e)

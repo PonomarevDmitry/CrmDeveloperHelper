@@ -166,7 +166,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Loading Plugin Types...");
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginTypes);
 
             this._itemsSource.Clear();
 
@@ -229,7 +229,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "{0} Plugin Types loaded.", results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginTypesCompletedFormat, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -240,6 +240,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 message = string.Format(format, args);
             }
+
+            _iWriteToOutput.WriteToOutput(message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -418,8 +420,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportPluginTypeDescription(string folder, Guid idPluginType, string name)
         {
-            ToggleControls(false, "Creating PluginType Description...");
-
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingPluginTypeDescriptionFormat, name);
+            
             var service = await GetService();
 
             string fileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, name, "Description");
@@ -455,7 +457,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
-            ToggleControls(true, "PluginType Description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingPluginTypeDescriptionCompletedFormat, name);
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idPluginType, string name)

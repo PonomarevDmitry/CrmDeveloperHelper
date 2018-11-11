@@ -429,6 +429,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
+            _iWriteToOutput.WriteToOutput(message);
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
                 this.stBIStatus.Content = message;
@@ -753,11 +755,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCompareMetadataFile_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             _commonConfig.Save();
 
             var service = await GetService();
 
-            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
+            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.LogicalName);
         }
 
         private async void btnCompareRibbon_Click(object sender, RoutedEventArgs e)
@@ -768,16 +772,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenOrganizationComparerRibbonWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
+            WindowHelper.OpenOrganizationComparerRibbonWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.LogicalName);
         }
 
         private async void btnCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             _commonConfig.Save();
 
             var service = await GetService();
 
-            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
+            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.LogicalName);
         }
 
         private async void btnCompareSystemForms_Click(object sender, RoutedEventArgs e)

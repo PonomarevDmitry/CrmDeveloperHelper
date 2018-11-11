@@ -329,6 +329,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
+            _iWriteToOutput.WriteToOutput(message);
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
                 this.stBIStatus.Content = message;
@@ -595,8 +597,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Exporting solution...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingSolutionFormat, solution.UniqueName);
 
             try
             {
@@ -679,13 +681,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput("Cannot get Service.");
                 }
 
-                ToggleControls(true, "Exporting solution completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingSolutionCompletedFormat, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Exporting solution failed.");
+
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingSolutionFailedFormat, solution.UniqueName);
             }
         }
 

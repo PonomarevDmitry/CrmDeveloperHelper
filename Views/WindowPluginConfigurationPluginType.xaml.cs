@@ -140,8 +140,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void ShowExistingPluginTypes()
         {
             this._itemsSource.Clear();
-
-            ToggleControls(false, "Loading Plugin Types...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginTypes);
 
             IEnumerable<PluginTypeFullInfo> filter = null;
 
@@ -178,8 +178,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _itemsSource.Add(plugintype);
             }
-
-            ToggleControls(true, "{0} Plugin Types loaded.", filter.Count());
+            
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginTypesCompletedFormat, filter.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -190,6 +190,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 message = string.Format(format, args);
             }
+
+            _iWriteToOutput.WriteToOutput(message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {

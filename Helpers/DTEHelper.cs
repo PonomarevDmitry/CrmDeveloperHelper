@@ -363,7 +363,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #region Получение списков файлов.
 
-        private string GetSelectedText()
+        public string GetSelectedText()
         {
             string result = string.Empty;
 
@@ -2563,7 +2563,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandlePluginTree()
+        public void HandleOpenPluginTree(string entityFilter, string pluginTypeFilter, string messageFilter)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -2572,8 +2572,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            string selection = GetSelectedText();
-
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow();
@@ -2581,7 +2579,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartShowingPluginTree(crmConfig.CurrentConnectionData, commonConfig, selection, null, null);
+                    Controller.StartShowingPluginTree(crmConfig.CurrentConnectionData, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
                 }
                 catch (Exception xE)
                 {
@@ -3116,13 +3114,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     WriteErrorToOutput(xE);
                 }
             }
-        }
-
-        public void HandleExportPluginTypeDescription()
-        {
-            string selection = GetSelectedText();
-
-            HandleExportPluginTypeDescription(selection);
         }
 
         public void HandleExportPluginTypeDescription(string selection)

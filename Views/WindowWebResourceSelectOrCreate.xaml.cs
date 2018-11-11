@@ -298,6 +298,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
+            _iWriteToOutput.WriteToOutput(message);
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
                 this.stBIStatus.Content = message;
@@ -434,15 +436,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Creating new WebResource...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.PreparingCreatingNewWebResource);
 
             var extension = _file.Extension;
 
             if (string.IsNullOrEmpty(extension) || !WebResourceRepository.IsSupportedExtension(extension))
             {
-                ToggleControls(true, "Creating new WebResource denied.");
-                MessageBox.Show(string.Format("File Extension {0} is not allowed", extension), "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingNewWebResourceDeniedFormat, extension);
+
+                var message = string.Format(Properties.MessageBoxStrings.FileExtensionIsNotAllowedForWebResourceFormat, extension);
+
+                MessageBox.Show(message, Properties.MessageBoxStrings.InformationTitle, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -467,7 +472,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (!dialogResult)
                 {
                     this.ForAllOther = false;
-                    ToggleControls(true, "Creating new WebResource canceled.");
+
+                    ToggleControls(true, Properties.WindowStatusStrings.CreatingNewWebResourceCanceled);
                     return;
                 }
 
@@ -480,8 +486,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (solution == null)
             {
                 this.ForAllOther = false;
-                ToggleControls(true, "Solution for creating new WebResource not selected.");
-
+                ToggleControls(true, Properties.WindowStatusStrings.SolutionForCreatingNewWebResouceNotSelected);
+                
                 return;
             }
 
@@ -494,7 +500,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (!dialogResult)
                 {
-                    ToggleControls(true, "Creating new WebResource canceled.");
+                    ToggleControls(true, Properties.WindowStatusStrings.CreatingNewWebResourceCanceled);
                     return;
                 }
             }
@@ -505,9 +511,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             name = WebResourceRepository.GenerateWebResouceName(name, solution.PublisherCustomizationPrefix);
 
-            this._iWriteToOutput.WriteToOutput("The webresource {0} will be create", _file.FriendlyFilePath);
-
-            UpdateStatus("Attempting to create Web Resource..");
+            UpdateStatus(Properties.WindowStatusStrings.CreatingNewWebResourceFormat, name);
 
             WebResourceRepository repository = new WebResourceRepository(_service);
 
@@ -521,11 +525,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this.Close();
 
-                ToggleControls(true, "Creating new WebResource finished.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingNewWebResourceCompletedFormat, name);
             }
             catch (Exception xE)
             {
-                ToggleControls(true, "Error.");
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingNewWebResourceFailed, name);
 
                 this._iWriteToOutput.WriteErrorToOutput(xE);
             }

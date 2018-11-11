@@ -319,7 +319,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSolutionComponents(enumerable);
 
-            ToggleControls(true, "{0} solution dependent components.", enumerable.Count());
+            ToggleControls(true, formatResult, enumerable.Count());
         }
 
         private static IEnumerable<SolutionComponentViewItem> FilterList(IEnumerable<SolutionComponentViewItem> list, string textName)
@@ -382,6 +382,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 message = string.Format(format, args);
             }
+
+            _iWriteToOutput.WriteToOutput(message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {

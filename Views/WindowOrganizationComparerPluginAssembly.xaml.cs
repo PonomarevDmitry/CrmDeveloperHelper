@@ -285,6 +285,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
+            _iWriteToOutput.WriteToOutput(message);
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
                 this.stBIStatus.Content = message;
@@ -456,7 +458,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Showing Difference Assembly Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionFormat, linked.Entity1.Name);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -489,7 +491,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, "Showing Difference Assembly Description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionCompletedFormat, linked.Entity1.Name);
         }
 
         private void mIShowDifferenceEntityDescription_Click(object sender, RoutedEventArgs e)

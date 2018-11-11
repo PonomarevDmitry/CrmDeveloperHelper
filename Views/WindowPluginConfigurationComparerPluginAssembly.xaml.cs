@@ -233,6 +233,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
+            _iWriteToOutput.WriteToOutput(message);
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
                 this.stBIStatus.Content = message;
@@ -372,8 +374,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
             
-            ToggleControls(false, "Creating descriptions...");
-
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionFormat, linked.Entity1.Name);
+            
             DateTime now = DateTime.Now;
 
             string desc1 = await _handler1.CreateDescriptionAsync(linked.Entity1);
@@ -396,7 +398,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, "Descriptions completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionCompletedFormat, linked.Entity1.Name);
         }
 
         private Task<string> CreateDescriptionFileAsync(string folder, string filePathConfiguration, string name, string description)

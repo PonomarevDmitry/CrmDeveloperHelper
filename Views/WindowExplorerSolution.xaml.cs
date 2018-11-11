@@ -280,6 +280,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
+            _iWriteToOutput.WriteToOutput(message);
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
                 this.stBIStatus.Content = message;
@@ -945,22 +947,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, "Analizing solutions...");
-
                 _commonConfig.Save();
 
                 var service = await GetService();
                 var descriptor = await GetDescriptor();
 
                 WindowHelper.OpenSolutionComponentDependenciesWindow(this._iWriteToOutput, service, descriptor, _commonConfig, solution.UniqueName, null);
-
-                ToggleControls(true, "Analizing solutions completed.");
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, "Analizing solutions failed.");
             }
         }
 
@@ -1162,8 +1158,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, "Analizing solutions...");
-
+                ToggleControls(false, Properties.WindowStatusStrings.AnalizingSolutionsFormat, solution1.UniqueName, solution2.UniqueName);
+                
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput("Analyzing Solution Components '{0}' and '{1}'.", solution1.UniqueName, solution2.UniqueName);
@@ -1175,13 +1171,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.FindUniqueComponentsInSolutionsAsync(solution1.Id, solution2.Id);
 
-                ToggleControls(true, "Analizing solutions completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.AnalizingSolutionsCompletedFormat, solution1.UniqueName, solution2.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Analizing solutions failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.AnalizingSolutionsFailedFormat, solution1.UniqueName, solution2.UniqueName);
             }
         }
 
@@ -1189,7 +1185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, "Analizing solutions...");
+                ToggleControls(false, Properties.WindowStatusStrings.AnalizingSolutionsFormat, solution1.UniqueName, solution2.UniqueName);
 
                 var service = await GetService();
                 var descriptor = await GetDescriptor();
@@ -1211,13 +1207,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, "Analizing solutions completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.AnalizingSolutionsCompletedFormat, solution1.UniqueName, solution2.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Analizing solutions failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.AnalizingSolutionsFailedFormat, solution1.UniqueName, solution2.UniqueName);
             }
         }
 

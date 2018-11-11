@@ -252,8 +252,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Loading OrganizationDifference Image...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingOrganizationDifferenceImage);
 
             try
             {
@@ -278,7 +278,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "OrganizationDifference Image loaded.");
+            if (this._OrganizationDifferenceImage == null)
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.LoadingOrganizationDifferenceImageFailed);
+                return;
+            }
+
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingOrganizationDifferenceImageCompleted);
 
             FilteringOrganizationDifferenceImageComponents();
         }
@@ -291,8 +297,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             this._itemsSource?.Clear();
-
-            ToggleControls(false, "Filtering OrganizationDifferenceImage Components...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.FilteringOrganizationDifferenceImageComponents);
 
             IEnumerable<SolutionImageComponent> filter = Enumerable.Empty<SolutionImageComponent>();
 
@@ -360,8 +366,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _itemsSource?.Add(component);
             }
-
-            ToggleControls(true, "{0} OrganizationDifferenceImage Components loaded.", filter.Count());
+            
+            ToggleControls(true, Properties.WindowStatusStrings.FilteringOrganizationDifferenceImageComponentsCompleted, filter.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -372,6 +378,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 message = string.Format(format, args);
             }
+
+            _iWriteToOutput.WriteToOutput(message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {

@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddingComponentsIntoSolutionFormat" xml:space="preserve">
+    <value>Adding {0} components into Solution {1}...</value>
+  </data>
   <data name="AddingInSolutionApplicationRibbonFormat" xml:space="preserve">
     <value>Adding in solution {0} ApplicationRibbon...</value>
   </data>
   <data name="AddingInSolutionEntityFormat" xml:space="preserve">
     <value>Adding in solution {0} entity {1}...</value>
+  </data>
+  <data name="AnalizingSolutionsCompletedFormat" xml:space="preserve">
+    <value>Analizing solutions {0} and {1} completed.</value>
+  </data>
+  <data name="AnalizingSolutionsFailedFormat" xml:space="preserve">
+    <value>Analizing solutions {0} and {1} failed.</value>
+  </data>
+  <data name="AnalizingSolutionsFormat" xml:space="preserve">
+    <value>Analizing solutions {0} and {1}...</value>
   </data>
   <data name="AnalizingWorkflowCompletedFormat" xml:space="preserve">
     <value>Analizing Workflow {0} - {1} completed.</value>
@@ -354,11 +366,32 @@
   <data name="CreatingNewSolutionFormat" xml:space="preserve">
     <value>Creating new Solution {0}...</value>
   </data>
+  <data name="CreatingNewWebResourceCanceled" xml:space="preserve">
+    <value>Creating new WebResource canceled.</value>
+  </data>
+  <data name="CreatingNewWebResourceCompletedFormat" xml:space="preserve">
+    <value>Creating new WebResource {0} completed.</value>
+  </data>
+  <data name="CreatingNewWebResourceDeniedFormat" xml:space="preserve">
+    <value>Creating new WebResource with extension {0} denied.</value>
+  </data>
+  <data name="CreatingNewWebResourceFailed" xml:space="preserve">
+    <value>Creating new WebResource failed.</value>
+  </data>
+  <data name="CreatingNewWebResourceFormat" xml:space="preserve">
+    <value>Creating new WebResource {0}...</value>
+  </data>
   <data name="CreatingPluginAssebmltyDescriptionCompletedFormat" xml:space="preserve">
     <value>Creating PluginAssembly Description for {0} completed.</value>
   </data>
   <data name="CreatingPluginAssebmltyDescriptionFormat" xml:space="preserve">
     <value>Creating PluginAssembly Description for {0}...</value>
+  </data>
+  <data name="CreatingPluginTypeDescriptionCompletedFormat" xml:space="preserve">
+    <value>Creating PluginType Description for {0} completed.</value>
+  </data>
+  <data name="CreatingPluginTypeDescriptionFormat" xml:space="preserve">
+    <value>Creating PluginType Description for {0}...</value>
   </data>
   <data name="CreatingSolutionImageFromZipFileCompletedFormat" xml:space="preserve">
     <value>Creating Solution Image from zip-file completed.</value>
@@ -483,6 +516,24 @@
   <data name="ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat" xml:space="preserve">
     <value>Exporting solution {0} and extracting RibbonDiffXml for entity {1}...</value>
   </data>
+  <data name="ExportingSolutionCompletedFormat" xml:space="preserve">
+    <value>Exporting solution {0} completed.</value>
+  </data>
+  <data name="ExportingSolutionFailedFormat" xml:space="preserve">
+    <value>Exporting solution {0} failed.</value>
+  </data>
+  <data name="ExportingSolutionFormat" xml:space="preserve">
+    <value>Exporting solution {0}...</value>
+  </data>
+  <data name="ExportingWebResourceContentCompletedFormat" xml:space="preserve">
+    <value>Exporting WebResource Content {0} completed.</value>
+  </data>
+  <data name="ExportingWebResourceContentFailedFormat" xml:space="preserve">
+    <value>Exporting WebResource Content {0} failed.</value>
+  </data>
+  <data name="ExportingWebResourceContentFormat" xml:space="preserve">
+    <value>Exporting WebResource Content {0}...</value>
+  </data>
   <data name="ExportingXmlFieldToFileCompletedFormat" xml:space="preserve">
     <value>Exporting Xml {0} to File completed.</value>
   </data>
@@ -507,6 +558,12 @@
   <data name="FillNewParameters" xml:space="preserve">
     <value>Please, Fill New Parameters.</value>
   </data>
+  <data name="FilteringOrganizationDifferenceImageComponents" xml:space="preserve">
+    <value>Filtering OrganizationDifferenceImage Components...</value>
+  </data>
+  <data name="FilteringOrganizationDifferenceImageComponentsCompleted" xml:space="preserve">
+    <value>{0} OrganizationDifferenceImage Components loaded.</value>
+  </data>
   <data name="FilteringSolutionImageComponents" xml:space="preserve">
     <value>Filtering SolutionImage Components...</value>
   </data>
@@ -521,6 +578,12 @@
   </data>
   <data name="ImportingSolutionFormat" xml:space="preserve">
     <value>Importing solution {0}...</value>
+  </data>
+  <data name="LoadedComponentsFromSolutionImage" xml:space="preserve">
+    <value>Loaded {0} components from SolutionImage.</value>
+  </data>
+  <data name="LoadedComponentsFromZipFileFormat" xml:space="preserve">
+    <value>Loaded {0} components from Zip-file.</value>
   </data>
   <data name="LoadingAttributesCompletedFormat" xml:space="preserve">
     <value>{0} attributes loaded.</value>
@@ -545,6 +608,15 @@
   </data>
   <data name="LoadingChartsCompletedFormat" xml:space="preserve">
     <value>{0} charts loaded.</value>
+  </data>
+  <data name="LoadingComponentsFromSolutionImage" xml:space="preserve">
+    <value>Loading components from Solution Image...</value>
+  </data>
+  <data name="LoadingComponentsFromSolutionImageCompleted" xml:space="preserve">
+    <value>Loading components from Solution Image completed.</value>
+  </data>
+  <data name="LoadingComponentsFromSolutionImageFailed" xml:space="preserve">
+    <value>Loading components from Solution Image failed.</value>
   </data>
   <data name="LoadingComponentsFromZipFile" xml:space="preserve">
     <value>Loading Components from zip-file...</value>
@@ -597,6 +669,21 @@
   <data name="LoadingOptionSetsCompletedFormat" xml:space="preserve">
     <value>{0} OptionSets loaded.</value>
   </data>
+  <data name="LoadingOrganizationDifferenceImage" xml:space="preserve">
+    <value>Loading OrganizationDifference Image...</value>
+  </data>
+  <data name="LoadingOrganizationDifferenceImageCompleted" xml:space="preserve">
+    <value>Loading OrganizationDifference Image completed.</value>
+  </data>
+  <data name="LoadingOrganizationDifferenceImageFailed" xml:space="preserve">
+    <value>Loading OrganizationDifference Image failed.</value>
+  </data>
+  <data name="LoadingOrganizations" xml:space="preserve">
+    <value>Loading organizations...</value>
+  </data>
+  <data name="LoadingOrganizationsCompletedFormat" xml:space="preserve">
+    <value>{0} organizations loaded.</value>
+  </data>
   <data name="LoadingPluginAssemblies" xml:space="preserve">
     <value>Loading Plugin Assemblies...</value>
   </data>
@@ -608,6 +695,18 @@
   </data>
   <data name="LoadingPluginConfigurationCompleted" xml:space="preserve">
     <value>Loading PluginConfiguration completed.</value>
+  </data>
+  <data name="LoadingPlugins" xml:space="preserve">
+    <value>Loading Plugins...</value>
+  </data>
+  <data name="LoadingPluginsCompleted" xml:space="preserve">
+    <value>Loading Plugins completed.</value>
+  </data>
+  <data name="LoadingPluginTypes" xml:space="preserve">
+    <value>Loading Plugin Types...</value>
+  </data>
+  <data name="LoadingPluginTypesCompletedFormat" xml:space="preserve">
+    <value>{0} Plugin Types loaded.</value>
   </data>
   <data name="LoadingReports" xml:space="preserve">
     <value>Loading Reports...</value>
@@ -626,6 +725,18 @@
   </data>
   <data name="LoadingSavedQueriesCompletedFormat" xml:space="preserve">
     <value>{0} saved queries loaded.</value>
+  </data>
+  <data name="LoadingSdkMessage" xml:space="preserve">
+    <value>Loading Sdk Messages...</value>
+  </data>
+  <data name="LoadingSdkMessageCompleted" xml:space="preserve">
+    <value>Loading Sdk Messages completed.</value>
+  </data>
+  <data name="LoadingSdkMessageRequests" xml:space="preserve">
+    <value>Loading Sdk Message Requests...</value>
+  </data>
+  <data name="LoadingSdkMessageRequestsCompleted" xml:space="preserve">
+    <value>Loading Sdk Message Requests completed.</value>
   </data>
   <data name="LoadingSiteMaps" xml:space="preserve">
     <value>Loading SiteMaps...</value>
@@ -677,6 +788,12 @@
   </data>
   <data name="LoadingWorkflowsCompletedFormat" xml:space="preserve">
     <value>{0} workflows loaded.</value>
+  </data>
+  <data name="NoComponentsToAdd" xml:space="preserve">
+    <value>No components to add.</value>
+  </data>
+  <data name="PreparingCreatingNewWebResource" xml:space="preserve">
+    <value>Preparing for creating new WebResource...</value>
   </data>
   <data name="PublishingApplicationRibbon" xml:space="preserve">
     <value>Publishing Application Ribbon...</value>
@@ -786,6 +903,18 @@
   <data name="ShowingDifferenceEntityDescriptionsCompleted" xml:space="preserve">
     <value>Showing Difference EntityDescriptions completed.</value>
   </data>
+  <data name="ShowingDifferenceEntityMetadataCSharpForEntityCompletedFormat" xml:space="preserve">
+    <value>Showing Difference C# Files for entity {0} completed.</value>
+  </data>
+  <data name="ShowingDifferenceEntityMetadataCSharpForEntityFormat" xml:space="preserve">
+    <value>Showing Difference C# Files for entity {0}...</value>
+  </data>
+  <data name="ShowingDifferenceEntityMetadataJavaScriptForEntityCompletedFormat" xml:space="preserve">
+    <value>Showing Difference JavaScript Files for entity {0} completed.</value>
+  </data>
+  <data name="ShowingDifferenceEntityMetadataJavaScriptForEntityFormat" xml:space="preserve">
+    <value>Showing Difference JavaScript Files for entity {0}...</value>
+  </data>
   <data name="ShowingDifferenceForCorrectedFieldCompletedFormat" xml:space="preserve">
     <value>Showing Difference for Corrected Xml {0} completed.</value>
   </data>
@@ -794,6 +923,30 @@
   </data>
   <data name="ShowingDifferenceForCorrectedFieldFormat" xml:space="preserve">
     <value>Showing Difference for Corrected Xml {0}...</value>
+  </data>
+  <data name="ShowingDifferenceForFieldsCompletedFormat" xml:space="preserve">
+    <value>Showing Difference for {0} and {1} completed.</value>
+  </data>
+  <data name="ShowingDifferenceForFieldsFormat" xml:space="preserve">
+    <value>Showing Difference for {0} and {1}...</value>
+  </data>
+  <data name="ShowingDifferenceFormDescriptionCompletedFormat" xml:space="preserve">
+    <value>Showing Difference Forms Descriptions for {0} - {1} completed.</value>
+  </data>
+  <data name="ShowingDifferenceFormDescriptionFormat" xml:space="preserve">
+    <value>Showing Difference Forms Descriptions for {0} - {1}...</value>
+  </data>
+  <data name="ShowingDifferenceFormWebResourcesCompletedFormat" xml:space="preserve">
+    <value>Showing Difference Forms WebResources for {0} - {1} completed.</value>
+  </data>
+  <data name="ShowingDifferenceFormWebResourcesFormat" xml:space="preserve">
+    <value>Showing Difference Forms WebResources for {0} - {1}...</value>
+  </data>
+  <data name="ShowingDifferencePluginAssemblyDescriptionCompletedFormat" xml:space="preserve">
+    <value>Showing Difference PluginAssembly Description for {0} completed.</value>
+  </data>
+  <data name="ShowingDifferencePluginAssemblyDescriptionFormat" xml:space="preserve">
+    <value>Showing Difference PluginAssembly Description for {0}...</value>
   </data>
   <data name="ShowingDifferenceRibbonDiffXmlForEntityCompletedFormat" xml:space="preserve">
     <value>Showing Difference RibbonDiffXml for entity {0} completed.</value>
@@ -813,6 +966,12 @@
   <data name="ShowingDifferenceRibbonForEntityFormat" xml:space="preserve">
     <value>Showing Difference Ribbon for entity {0}...</value>
   </data>
+  <data name="ShowingDifferenceWebResourcesCompletedFormat" xml:space="preserve">
+    <value>Showing Difference WebResources {0} completed.</value>
+  </data>
+  <data name="ShowingDifferenceWebResourcesFormat" xml:space="preserve">
+    <value>Showing Difference WebResources {0}...</value>
+  </data>
   <data name="ShowingDifferenceXmlForFieldCompletedFormat" xml:space="preserve">
     <value>Showing Difference Xml {0} completed.</value>
   </data>
@@ -821,6 +980,9 @@
   </data>
   <data name="ShowingDifferenceXmlForFieldFormat" xml:space="preserve">
     <value>Showing Difference Xml {0}...</value>
+  </data>
+  <data name="SolutionForCreatingNewWebResouceNotSelected" xml:space="preserve">
+    <value>Solution for creating new WebResource not selected. Creating new WebResource denied.</value>
   </data>
   <data name="StartTestingConnectionFormat" xml:space="preserve">
     <value>Start Testing Connection {0}...</value>

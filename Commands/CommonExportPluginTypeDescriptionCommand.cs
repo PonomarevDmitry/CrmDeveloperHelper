@@ -17,7 +17,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static void ActionExecute(DTEHelper helper)
         {
-            helper.HandleExportPluginTypeDescription();
+            string selection = helper.GetSelectedText();
+
+            helper.HandleExportPluginTypeDescription(selection);
         }
     }
 }

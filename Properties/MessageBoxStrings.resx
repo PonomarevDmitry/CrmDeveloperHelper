@@ -198,4 +198,7 @@
   <data name="WarningTitle" xml:space="preserve">
     <value>Warning</value>
   </data>
+  <data name="FileExtensionIsNotAllowedForWebResourceFormat" xml:space="preserve">
+    <value>File Extension {0} is not allowed for WebResource.</value>
+  </data>
 </root>

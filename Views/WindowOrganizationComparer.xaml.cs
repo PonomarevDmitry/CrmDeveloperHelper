@@ -1864,6 +1864,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , connection1
                 , connection2
+                , null
                 );
         }
 
@@ -1973,6 +1974,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , connection1
                 , connection2
+                , null
                 );
         }
 
@@ -2009,6 +2011,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , connection1
                 , connection2
+                , null
                 );
         }
 

@@ -242,8 +242,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Loading sdk message requests...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingSdkMessageRequests);
 
             this.trVSdkMessageRequestTree.ItemsSource = null;
 
@@ -287,7 +287,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 });
             }
 
-            ToggleControls(true, "Loading completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingSdkMessageRequestsCompleted);
         }
 
         private ObservableCollection<SdkMessageRequestTreeViewItem> LoadSdkMessageRequests(SdkMessageSearchResult search, View currentView)
@@ -626,6 +626,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 message = string.Format(format, args);
             }
+
+            _iWriteToOutput.WriteToOutput(message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {

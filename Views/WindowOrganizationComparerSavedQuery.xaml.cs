@@ -351,6 +351,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
+            _iWriteToOutput.WriteToOutput(message);
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
                 this.stBIStatus.Content = message;
@@ -1007,32 +1009,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCompareMetadataFile_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             _commonConfig.Save();
 
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
+            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.EntityName);
         }
 
         private async void btnCompareRibbon_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             _commonConfig.Save();
 
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerRibbonWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
+            WindowHelper.OpenOrganizationComparerRibbonWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.EntityName);
         }
 
         private async void btnCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             _commonConfig.Save();
 
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
+            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.EntityName);
         }
 
         private async void btnCompareSystemForms_Click(object sender, RoutedEventArgs e)
@@ -1044,7 +1052,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity.EntityName);
+            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.EntityName);
         }
 
         private async void btnCompareSavedChart_Click(object sender, RoutedEventArgs e)
@@ -1056,7 +1064,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity.EntityName);
+            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.EntityName);
         }
 
         private async void btnCompareWorkflows_Click(object sender, RoutedEventArgs e)
@@ -1068,7 +1076,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity.EntityName);
+            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.EntityName);
         }
 
         private async void btnEntityAttributeExplorer1_Click(object sender, RoutedEventArgs e)

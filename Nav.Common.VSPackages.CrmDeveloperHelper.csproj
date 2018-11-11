@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="Commands\AbstractCommand.Generic.cs" />
     <Compile Include="Commands\AddFilesIntoListForPublishCommand.cs" />
+    <Compile Include="Commands\CodeCSharpPluginTreeCommand.cs" />
     <Compile Include="Commands\CodeCSharpProjectCompareToCrmAssemblyInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceThreeFileCommand.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Commands\DocumentsCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
     <Compile Include="Commands\FileCSharpPluginAssemblyDescriptionCommand.cs" />
+    <Compile Include="Commands\FileCSharpPluginTreeCommand.cs" />
     <Compile Include="Commands\FileCSharpPluginTypeDescriptionCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectCompareToCrmAssemblyCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectCompareToCrmAssemblyInConnectionGroupCommand.cs" />
@@ -265,6 +267,7 @@
     <Compile Include="Commands\ProjectPluginAssemblyDescriptionCommand.cs" />
     <Compile Include="Commands\ProjectPluginAssemblyStepsAddIntoSolutionCommand.cs" />
     <Compile Include="Commands\ProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\ProjectPluginTreeCommand.cs" />
     <Compile Include="Commands\ProjectPluginTypeDescriptionCommand.cs" />
     <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Controllers\OpenFilesController.cs" />

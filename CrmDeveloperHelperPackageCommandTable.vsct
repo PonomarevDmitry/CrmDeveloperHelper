@@ -1913,6 +1913,13 @@
           <ButtonText>PluginAssembly Description</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="CodeCSharpPluginTreeCommandId" priority="0x0103" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>PluginTree</ButtonText>
+        </Strings>
+      </Button>
+      
 
 
       <Button guid="guidCommandSet" id="CodeCSharpUpdateProxyClassesCommandId" priority="0x0100" type="Button">
@@ -2658,6 +2665,17 @@
           <ButtonText>PluginAssembly Description</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="FileCSharpPluginTreeCommandId" priority="0x0103" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>PluginTree</ButtonText>
+        </Strings>
+      </Button>
+      
+
+
+
+
       <Button guid="guidCommandSet" id="FileCSharpUpdateProxyClassesCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
@@ -3481,9 +3499,14 @@
           <ButtonText>Plugin Assembly Description</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="ProjectPluginTreeCommandId" priority="0x0127" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>PluginTree</ButtonText>
+        </Strings>
+      </Button>
 
-
-
+      
 
 
 
@@ -6618,7 +6641,11 @@
     <CommandPlacement guid="guidCommandSet" id="CodeCSharpPluginAssemblyDescriptionCommandId" priority="0x0102">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginDescription" />
     </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpPluginTreeCommandId" priority="0x0103">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginDescription" />
+    </CommandPlacement>
 
+    
 
     <CommandPlacement guid="guidCommandSet" id="CodeCSharpUpdateProxyClassesCommandId" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupProxyClasses" />
@@ -7333,6 +7360,11 @@
     <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginAssemblyDescriptionCommandId" priority="0x0112">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginDescription" />
     </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginTreeCommandId" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginDescription" />
+    </CommandPlacement>
+
+    
 
     <CommandPlacement guid="guidCommandSet" id="FileCSharpUpdateProxyClassesCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupProxyClasses" />
@@ -7636,6 +7668,11 @@
     <CommandPlacement guid="guidCommandSet" id="ProjectPluginAssemblyDescriptionCommandId" priority="0x0123">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupDescription" />
     </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="ProjectPluginTreeCommandId" priority="0x0124">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupDescription" />
+    </CommandPlacement>
+
+    
 
   </CommandPlacements>
 
@@ -8593,7 +8630,7 @@
 
       <IDSymbol name="CodeCSharpPluginTypeDescriptionCommandId" value="0x2134" />
       <IDSymbol name="CodeCSharpPluginAssemblyDescriptionCommandId" value="0x2135" />
-
+      <IDSymbol name="CodeCSharpPluginTreeCommandId" value="0x2175" />
 
 
 
@@ -8801,6 +8838,7 @@
 
       <IDSymbol name="FileCSharpPluginTypeDescriptionCommandId" value="0x2136" />
       <IDSymbol name="FileCSharpPluginAssemblyDescriptionCommandId" value="0x2137" />
+      <IDSymbol name="FileCSharpPluginTreeCommandId" value="0x2176" />
 
       <IDSymbol name="FileCSharpUpdateProxyClassesCommandId" value="0x2058" />
 
@@ -8845,9 +8883,9 @@
 
       <IDSymbol name="ProjectPluginTypeDescriptionCommandId" value="0x2163" />
       <IDSymbol name="ProjectPluginAssemblyDescriptionCommandId" value="0x2164" />
+      <IDSymbol name="ProjectPluginTreeCommandId" value="0x2177" />
 
-
-
+      
 
       <IDSymbol name="CodePublishListAddCommandId" value="0x2070" />
       <IDSymbol name="CodePublishListRemoveCommandId" value="0x2071" />
@@ -9063,7 +9101,7 @@
 
 
 
-      <!--0x2175-->
+      <!--0x2178-->
 
     </GuidSymbol>
 

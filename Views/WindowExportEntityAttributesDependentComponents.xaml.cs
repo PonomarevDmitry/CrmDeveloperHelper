@@ -264,8 +264,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadEntities(IEnumerable<EntityMetadata> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} entity(ies)", results.Count());
-
             this.lstVwEntities.Dispatcher.Invoke(() =>
             {
                 foreach (var entity in results)
@@ -284,7 +282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "{0} entities loaded", results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -295,6 +293,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 message = string.Format(format, args);
             }
+
+            _iWriteToOutput.WriteToOutput(message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -585,11 +585,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCompareMetadataFile_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             _commonConfig.Save();
 
             var service = await GetService();
 
-            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
+            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.EntityLogicalName);
         }
 
         private async void btnCompareRibbon_Click(object sender, RoutedEventArgs e)
@@ -600,7 +602,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenOrganizationComparerRibbonWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
+            WindowHelper.OpenOrganizationComparerRibbonWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.EntityLogicalName);
         }
 
         private async void btnCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
@@ -611,7 +613,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
+            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.EntityLogicalName);
         }
 
         private async void btnCompareSystemForms_Click(object sender, RoutedEventArgs e)

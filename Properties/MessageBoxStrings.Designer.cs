@@ -196,6 +196,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File Extension {0} is not allowed for WebResource..
+        /// </summary>
+        internal static string FileExtensionIsNotAllowedForWebResourceFormat {
+            get {
+                return ResourceManager.GetString("FileExtensionIsNotAllowedForWebResourceFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Folder does not exists..
         /// </summary>
         internal static string FolderDoesNotExists {

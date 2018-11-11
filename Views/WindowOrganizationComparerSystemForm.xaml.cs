@@ -394,6 +394,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
+            _iWriteToOutput.WriteToOutput(message);
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
                 this.stBIStatus.Content = message;
@@ -701,8 +703,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Showing Difference Form Description...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceFormDescriptionFormat, linked.Entity1.ObjectTypeCode, linked.Entity1.Name);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -750,7 +752,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, "Showing Difference Form Description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceFormDescriptionCompletedFormat, linked.Entity1.ObjectTypeCode, linked.Entity1.Name);
         }
 
         private void mIShowDifferenceFormXml_Click(object sender, RoutedEventArgs e)
@@ -862,8 +864,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Showing Difference WebResources...");
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceFormWebResourcesFormat, linked.Entity1.ObjectTypeCode, linked.Entity1.Name);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -944,7 +945,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, "Showing Difference WebResources completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceFormWebResourcesFormat, linked.Entity1.ObjectTypeCode, linked.Entity1.Name);
         }
 
         private Task<string> CreateWebResourceAsync(string folder, string connectionName, string resName, WebResource webresource)
@@ -1242,8 +1243,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformDownloadWebResourcesAsync(Guid systemFormId, Func<Task<IOrganizationServiceExtented>> getService, Func<Task<SolutionComponentDescriptor>> getDescriptor)
         {
-            ToggleControls(false, "Downloading form's WebResources.");
-
             var service = await getService();
             var descriptor = await getDescriptor();
 
@@ -1252,6 +1251,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository = new SystemFormRepository(service);
 
                 var systemForm = await repository.GetByIdAsync(systemFormId, new ColumnSet(true));
+
+                ToggleControls(false, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesFormat, systemForm.ObjectTypeCode, systemForm.Name);
 
                 string formXml = systemForm.FormXml;
 
@@ -1299,9 +1300,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                 }
-            }
 
-            ToggleControls(true, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesCompletedFormat);
+                ToggleControls(false, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesCompletedFormat, systemForm.ObjectTypeCode, systemForm.Name);
+            }
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -1365,32 +1366,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCompareMetadataFile_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             _commonConfig.Save();
 
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
+            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.EntityName);
         }
 
         private async void btnCompareRibbon_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             _commonConfig.Save();
 
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerRibbonWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
+            WindowHelper.OpenOrganizationComparerRibbonWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.EntityName);
         }
 
         private async void btnCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             _commonConfig.Save();
 
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
+            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.EntityName);
         }
 
         private async void btnCompareSavedQuery_Click(object sender, RoutedEventArgs e)
@@ -1402,7 +1409,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity.EntityName);
+            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.EntityName);
         }
 
         private async void btnCompareSavedChart_Click(object sender, RoutedEventArgs e)
@@ -1414,7 +1421,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity.EntityName);
+            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.EntityName);
         }
 
         private async void btnCompareWorkflows_Click(object sender, RoutedEventArgs e)
@@ -1426,7 +1433,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity.EntityName);
+            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.EntityName);
         }
 
         private async void btnEntityAttributeExplorer1_Click(object sender, RoutedEventArgs e)

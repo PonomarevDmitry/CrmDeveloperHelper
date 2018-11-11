@@ -579,6 +579,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeCSharpProjectPluginTypeStepsAddIntoSolutionCommandId = 0x214D;
         public const int CodeCSharpPluginTypeDescriptionCommandId = 0x2134;
         public const int CodeCSharpPluginAssemblyDescriptionCommandId = 0x2135;
+        public const int CodeCSharpPluginTreeCommandId = 0x2175;
         public const int CodeCSharpUpdateProxyClassesCommandId = 0x200E;
         public const int CodeCSharpUpdateEntityMetadataFileCommandId = 0x200F;
         public const int CodeCSharpUpdateEntityMetadataFileWithEntitySelectCommandId = 0x2010;
@@ -670,6 +671,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int FileCSharpProjectPluginTypeStepsAddIntoSolutionCommandId = 0x2150;
         public const int FileCSharpPluginTypeDescriptionCommandId = 0x2136;
         public const int FileCSharpPluginAssemblyDescriptionCommandId = 0x2137;
+        public const int FileCSharpPluginTreeCommandId = 0x2176;
         public const int FileCSharpUpdateProxyClassesCommandId = 0x2058;
         public const int FileCSharpUpdateEntityMetadataFileCommandId = 0x2059;
         public const int FileCSharpUpdateEntityMetadataFileWithEntitySelectCommandId = 0x205A;
@@ -695,6 +697,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int ProjectPluginAssemblyStepsAddIntoSolutionCommandId = 0x2127;
         public const int ProjectPluginTypeDescriptionCommandId = 0x2163;
         public const int ProjectPluginAssemblyDescriptionCommandId = 0x2164;
+        public const int ProjectPluginTreeCommandId = 0x2177;
         public const int CodePublishListAddCommandId = 0x2070;
         public const int CodePublishListRemoveCommandId = 0x2071;
         public const int ListForPublishOpenFilesAllCommandId = 0x2013;

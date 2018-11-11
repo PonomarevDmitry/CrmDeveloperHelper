@@ -333,6 +333,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
+            _iWriteToOutput.WriteToOutput(message);
+
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
                 this.stBIStatus.Content = message;
@@ -563,7 +565,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Showing Description Entity Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityDescription);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -597,10 +599,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, "Showing Description Entity Description complted.");
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionCompleted);
         }
 
-        private void ExecuteActionDescription(Guid idWebResource, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)
+        private void ExecuteActionDescription(Guid idWebResource, string name, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, string, Func<Task<IOrganizationServiceExtented>>, Task> action)
         {
             if (_init > 0 || !_controlsEnabled)
             {
@@ -617,10 +619,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            action(idWebResource, getService);
+            action(idWebResource, name, getService);
         }
 
-        private async Task PerformExportDescriptionToFile(Guid idWebResource, Func<Task<IOrganizationServiceExtented>> getService)
+        private async Task PerformExportDescriptionToFile(Guid idWebResource, string name, Func<Task<IOrganizationServiceExtented>> getService)
         {
             if (_init > 0 || !_controlsEnabled)
             {
@@ -656,7 +658,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionDescription(link.Link.Entity1.Id, GetService1, PerformExportDescriptionToFile);
+            ExecuteActionDescription(link.Link.Entity1.Id, link.Link.Entity1.Name, GetService1, PerformExportDescriptionToFile);
         }
 
         private void mIExportWebResource2EntityDescription_Click(object sender, RoutedEventArgs e)
@@ -668,7 +670,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionDescription(link.Link.Entity2.Id, GetService2, PerformExportDescriptionToFile);
+            ExecuteActionDescription(link.Link.Entity2.Id, link.Link.Entity2.Name, GetService2, PerformExportDescriptionToFile);
         }
 
         private void mIExportWebResource1Content_Click(object sender, RoutedEventArgs e)
@@ -680,7 +682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionDescription(link.Link.Entity1.Id, GetService1, PerformDownloadWebResourceAsync);
+            ExecuteActionDescription(link.Link.Entity1.Id, link.Link.Entity1.Name, GetService1, PerformDownloadWebResourceAsync);
         }
 
         private void mIExportWebResource2Content_Click(object sender, RoutedEventArgs e)
@@ -692,17 +694,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionDescription(link.Link.Entity2.Id, GetService2, PerformDownloadWebResourceAsync);
+            ExecuteActionDescription(link.Link.Entity2.Id, link.Link.Entity2.Name, GetService2, PerformDownloadWebResourceAsync);
         }
 
-        private async Task PerformDownloadWebResourceAsync(Guid idWebResource, Func<Task<IOrganizationServiceExtented>> getService)
+        private async Task PerformDownloadWebResourceAsync(Guid idWebResource, string name, Func<Task<IOrganizationServiceExtented>> getService)
         {
             if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
 
-            ToggleControls(false, "Downloading WebResource...");
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingWebResourceContentFormat, name);
 
             var service = await getService();
 
@@ -721,7 +723,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true, "Downloading WebResource completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingWebResourceContentCompletedFormat, name);
         }
 
         private Task<string> CreateFileWithContentAsync(string connectionName, WebResource webresource)
@@ -768,8 +770,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Showing Difference WebResources...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceWebResourcesFormat, linked.Entity1.Name);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -800,7 +802,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, "Showing Difference WebResources completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceWebResourcesCompletedFormat, linked.Entity1.Name);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

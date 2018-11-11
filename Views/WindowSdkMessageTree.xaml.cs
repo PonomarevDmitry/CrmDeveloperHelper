@@ -222,8 +222,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Loading messages...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingSdkMessage);
 
             this.trVMessageTree.ItemsSource = null;
 
@@ -268,7 +268,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 });
             }
 
-            ToggleControls(true, "Loading completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingSdkMessageCompleted);
         }
 
         private ObservableCollection<PluginTreeViewItem> LoadMessages(IEnumerable<SdkMessage> search, View currentView)
@@ -516,6 +516,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 message = string.Format(format, args);
             }
+
+            _iWriteToOutput.WriteToOutput(message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {

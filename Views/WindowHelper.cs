@@ -913,6 +913,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
+            , string entityFilter
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -924,6 +925,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , connection1
                         , connection2
+                        , entityFilter
                         );
 
                     form.ShowDialog();
@@ -944,6 +946,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
+            , string entityFilter
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -975,6 +978,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
+            , string filter
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -986,6 +990,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , connection1
                         , connection2
+                        , filter
                         );
 
                     form.ShowDialog();

@@ -1628,8 +1628,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     return;
                 }
-
-                ToggleControls(false, _iWriteToOutput.WriteToOutput("Loading components from Solution Image..."));
+                
+                ToggleControls(false, Properties.WindowStatusStrings.LoadingComponentsFromSolutionImage);
 
                 SolutionImage solutionImage = null;
 
@@ -1649,22 +1649,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionImageFailedFormat);
                     return;
                 }
-
-                UpdateStatus("Loaded {0} components from SolutionImage.", solutionImage.Components.Count);
-
+                
+                UpdateStatus(Properties.WindowStatusStrings.LoadedComponentsFromSolutionImage, solutionImage.Components.Count);
+                
                 if (solutionImage.Components.Count == 0)
                 {
-                    ToggleControls(true, "No components to add.");
+                    ToggleControls(true, Properties.WindowStatusStrings.NoComponentsToAdd);
                     return;
                 }
 
                 var solutionComponents = await _descriptor.GetSolutionComponentsListAsync(solutionImage.Components);
-
-                UpdateStatus("Adding {0} components into Current Solution.", solutionComponents);
+                
+                UpdateStatus(Properties.WindowStatusStrings.AddingComponentsIntoSolutionFormat, solutionComponents.Count, _solution.UniqueName);
 
                 if (solutionComponents.Count == 0)
                 {
-                    ToggleControls(true, "No components to add.");
+                    ToggleControls(true, Properties.WindowStatusStrings.NoComponentsToAdd);
                     return;
                 }
 
@@ -1674,13 +1674,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, _service, _descriptor, _commonConfig, _solution.UniqueName, solutionComponents, false);
 
-                ToggleControls(true, "Loading components from Solution Image completed.");
+                ToggleControls(true, Properties.WindowStatusStrings.LoadingComponentsFromSolutionImageCompleted);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, "Loading components from Solution Image failed.");
+                ToggleControls(true, Properties.WindowStatusStrings.LoadingComponentsFromSolutionImageFailed);
             }
         }
 
@@ -1724,16 +1724,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(false, Properties.WindowStatusStrings.LoadingComponentsFromZipFile);
 
                 List<SolutionComponent> solutionComponents = await _descriptor.LoadSolutionComponentsFromZipFileAsync(selectedPath);
-
-                UpdateStatus("Loaded {0} components from Zip-file.", solutionComponents.Count);
+                
+                UpdateStatus(Properties.WindowStatusStrings.LoadedComponentsFromZipFileFormat, solutionComponents.Count);
 
                 if (solutionComponents.Count == 0)
                 {
-                    ToggleControls(true, "No components to add.");
+                    ToggleControls(true, Properties.WindowStatusStrings.NoComponentsToAdd);
                     return;
                 }
 
-                UpdateStatus("Adding {0} components into Current Solution.", solutionComponents.Count);
+                UpdateStatus(Properties.WindowStatusStrings.AddingComponentsIntoSolutionFormat, solutionComponents.Count, _solution.UniqueName);
 
                 this._iWriteToOutput.ActivateOutputWindow();
 

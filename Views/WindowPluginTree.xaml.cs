@@ -258,8 +258,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Loading plugins...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingPlugins);
 
             this.trVPluginTree.ItemsSource = null;
 
@@ -308,7 +308,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 });
             }
 
-            ToggleControls(true, "Loading completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginsCompleted);
         }
 
         public List<PluginStage> GetStages()
@@ -919,6 +919,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 message = string.Format(format, args);
             }
+
+            _iWriteToOutput.WriteToOutput(message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {

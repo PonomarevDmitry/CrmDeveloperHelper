@@ -136,8 +136,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Loading organizations...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingOrganizations);
 
             this._itemsSource.Clear();
 
@@ -205,8 +205,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadSavedOrganizations(IEnumerable<Organization> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} organizations.", results.Count());
-
             this.lstVwOrganizations.Dispatcher.Invoke(() =>
             {
                 foreach (var entity in results.OrderBy(ent => ent.Name))
@@ -222,7 +220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, "{0} organizations loaded.", results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingOrganizationsCompletedFormat, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -233,6 +231,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 message = string.Format(format, args);
             }
+
+            _iWriteToOutput.WriteToOutput(message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -785,8 +785,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-
-            ToggleControls(false, "Starting Difference...");
+            
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceForFieldsFormat, fieldTitle1, fieldTitle2);
 
             string xmlContent1 = organization.GetAttributeValue<string>(fieldName1);
             string filePath1 = await CreateFileAsync(folder, organization.Name, fieldTitle1, xmlContent1);
@@ -805,7 +805,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
             }
 
-            ToggleControls(true, "Difference completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceForFieldsCompletedFormat, fieldTitle1, fieldTitle2);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
