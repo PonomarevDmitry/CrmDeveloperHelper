@@ -5,14 +5,14 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Linq;
-using System.Xml.XPath;
-using System.Xml.Linq;
 using System.IO;
 using System.IO.Packaging;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -102,12 +102,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var response = (ExportSolutionResponse)_service.Execute(request);
 
+            var fileBody = response.ExportSolutionFile;
+
             if (!Directory.Exists(config.ExportFolder))
             {
                 Directory.CreateDirectory(config.ExportFolder);
             }
 
-            var fileBody = response.ExportSolutionFile;
 
             if (solutionInfo.OverrideNameAndVersion || solutionInfo.OverrideDescription)
             {
@@ -199,10 +200,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         using (Stream streamPart = part.GetStream(FileMode.Create, FileAccess.Write))
                         {
-                            XmlWriterSettings settings = new XmlWriterSettings();
-                            settings.OmitXmlDeclaration = true;
-                            settings.Indent = true;
-                            settings.Encoding = Encoding.UTF8;
+                            XmlWriterSettings settings = new XmlWriterSettings
+                            {
+                                OmitXmlDeclaration = true,
+                                Indent = true,
+                                Encoding = Encoding.UTF8
+                            };
 
                             using (XmlWriter xmlWriter = XmlWriter.Create(streamPart, settings))
                             {
@@ -229,12 +232,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result.ToString();
         }
 
-        public Task<string> ExportSolutionAndGetRibbonDiffAsync(string solutionUniqueName, string entityName)
+        public Task<byte[]> ExportSolutionAndGetBodyBinaryAsync(string solutionUniqueName)
         {
-            return Task.Run(() => ExportSolutionAndGetRibbonDiff(solutionUniqueName, entityName));
+            return Task.Run(() => ExportSolutionAndGetBodyBinary(solutionUniqueName));
         }
 
-        private string ExportSolutionAndGetRibbonDiff(string solutionUniqueName, string entityName)
+        private byte[] ExportSolutionAndGetBodyBinary(string solutionUniqueName)
         {
             ExportSolutionRequest request = new ExportSolutionRequest()
             {
@@ -244,8 +247,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var response = (ExportSolutionResponse)_service.Execute(request);
 
-            var fileBody = response.ExportSolutionFile;
+            return response.ExportSolutionFile;
+        }
 
+        public Task<string> ExportSolutionAndGetRibbonDiffAsync(string solutionUniqueName, string entityName)
+        {
+            return Task.Run(() => ExportSolutionAndGetRibbonDiff(solutionUniqueName, entityName));
+        }
+
+        private string ExportSolutionAndGetRibbonDiff(string solutionUniqueName, string entityName)
+        {
+            var fileBody = this.ExportSolutionAndGetBodyBinary(solutionUniqueName);
+
+            string result = GetRibbonDiffXmlForEntityFromSolutionBody(entityName, fileBody);
+
+            return result;
+        }
+
+        public static string GetRibbonDiffXmlForEntityFromSolutionBody(string entityName, byte[] fileBody)
+        {
             string result = string.Empty;
 
             using (MemoryStream memStream = new MemoryStream())
@@ -296,16 +316,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private string ExportSolutionAndGetApplicationRibbonDiff(string solutionUniqueName)
         {
-            ExportSolutionRequest request = new ExportSolutionRequest()
-            {
-                SolutionName = solutionUniqueName,
-                Managed = false,
-            };
+            var fileBody = this.ExportSolutionAndGetBodyBinary(solutionUniqueName);
 
-            var response = (ExportSolutionResponse)_service.Execute(request);
+            string result = GetApplicationRibbonDiffXmlFromSolutionBody(fileBody);
 
-            var fileBody = response.ExportSolutionFile;
+            return result;
+        }
 
+        public static string GetApplicationRibbonDiffXmlFromSolutionBody(byte[] fileBody)
+        {
             string result = string.Empty;
 
             using (MemoryStream memStream = new MemoryStream())
@@ -325,17 +344,145 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             doc = XDocument.Load(streamPart);
                         }
 
-                        var node = doc.XPathSelectElement("ImportExportXml/RibbonDiffXml");
+                        var ribbonDiffXml = doc.XPathSelectElement("ImportExportXml/RibbonDiffXml");
 
-                        if (node != null)
+                        if (ribbonDiffXml != null)
                         {
-                            result = node.ToString();
+                            result = ribbonDiffXml.ToString();
                         }
                     }
                 }
             }
 
             return result;
+        }
+
+        public static byte[] ReplaceRibbonDiffXmlForEntityInSolutionBody(string entityLogicalName, byte[] solutionBodyBinary, XElement newRibbonDiffXml)
+        {
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                memStream.Write(solutionBodyBinary, 0, solutionBodyBinary.Length);
+
+                using (ZipPackage package = (ZipPackage)ZipPackage.Open(memStream, FileMode.Open, FileAccess.ReadWrite))
+                {
+                    ZipPackagePart part = (ZipPackagePart)package.GetPart(new Uri("/customizations.xml", UriKind.Relative));
+
+                    if (part != null)
+                    {
+                        XDocument doc = null;
+
+                        using (Stream streamPart = part.GetStream(FileMode.Open, FileAccess.Read))
+                        {
+                            doc = XDocument.Load(streamPart);
+                        }
+
+                        var nodes = doc.XPathSelectElements("ImportExportXml/Entities/Entity");
+
+                        foreach (var item in nodes)
+                        {
+                            var elementName = item.Element("Name");
+
+                            if (elementName != null && string.Equals(elementName.Value, entityLogicalName, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                var ribbonDiffXml = item.Element("RibbonDiffXml");
+
+                                if (ribbonDiffXml != null)
+                                {
+                                    ribbonDiffXml.ReplaceWith(newRibbonDiffXml);
+                                }
+
+                                break;
+                            }
+                        }
+
+                        using (Stream streamPart = part.GetStream(FileMode.Create, FileAccess.Write))
+                        {
+                            XmlWriterSettings settings = new XmlWriterSettings
+                            {
+                                OmitXmlDeclaration = true,
+                                Indent = true,
+                                Encoding = Encoding.UTF8
+                            };
+
+                            using (XmlWriter xmlWriter = XmlWriter.Create(streamPart, settings))
+                            {
+                                doc.Save(xmlWriter);
+                            }
+                        }
+                    }
+                }
+
+                memStream.Position = 0;
+                byte[] result = memStream.ToArray();
+
+                return result;
+            }
+        }
+
+        public static byte[] ReplaceApplicationRibbonDiffXmlInSolutionBody(byte[] solutionBodyBinary, XElement newRibbonDiffXml)
+        {
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                memStream.Write(solutionBodyBinary, 0, solutionBodyBinary.Length);
+
+                using (ZipPackage package = (ZipPackage)ZipPackage.Open(memStream, FileMode.Open, FileAccess.ReadWrite))
+                {
+                    ZipPackagePart part = (ZipPackagePart)package.GetPart(new Uri("/customizations.xml", UriKind.Relative));
+
+                    if (part != null)
+                    {
+                        XDocument doc = null;
+
+                        using (Stream streamPart = part.GetStream(FileMode.Open, FileAccess.Read))
+                        {
+                            doc = XDocument.Load(streamPart);
+                        }
+
+                        var ribbonDiffXml = doc.XPathSelectElement("ImportExportXml/RibbonDiffXml");
+
+                        if (ribbonDiffXml != null)
+                        {
+                            ribbonDiffXml.ReplaceWith(newRibbonDiffXml);
+                        }
+
+                        using (Stream streamPart = part.GetStream(FileMode.Create, FileAccess.Write))
+                        {
+                            XmlWriterSettings settings = new XmlWriterSettings
+                            {
+                                OmitXmlDeclaration = true,
+                                Indent = true,
+                                Encoding = Encoding.UTF8
+                            };
+
+                            using (XmlWriter xmlWriter = XmlWriter.Create(streamPart, settings))
+                            {
+                                doc.Save(xmlWriter);
+                            }
+                        }
+                    }
+                }
+
+                memStream.Position = 0;
+                byte[] result = memStream.ToArray();
+
+                return result;
+            }
+        }
+
+        public Task ImportSolutionAsync(byte[] solutionBodyBinary)
+        {
+            return Task.Run(() => ImportSolution(solutionBodyBinary));
+        }
+
+        private void ImportSolution(byte[] solutionBodyBinary)
+        {
+            ImportSolutionRequest request = new ImportSolutionRequest()
+            {
+                CustomizationFile = solutionBodyBinary,
+                OverwriteUnmanagedCustomizations = true,
+            };
+
+            var response = (ImportSolutionResponse)_service.Execute(request);
         }
     }
 }

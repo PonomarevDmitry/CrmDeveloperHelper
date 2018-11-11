@@ -827,23 +827,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     newText = form.FieldText;
                 });
 
-                if (dialogResult.GetValueOrDefault())
+                if (dialogResult.GetValueOrDefault() == false)
                 {
-                    {
-                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
-                        {
-                            newText = doc.ToString(SaveOptions.DisableFormatting);
-                        }
-                    }
-
-                    var updateEntity = new Workflow
-                    {
-                        Id = idWorkflow
-                    };
-                    updateEntity.Attributes[fieldName] = newText;
-
-                    service.Update(updateEntity);
+                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat, fieldName);
+                    return;
                 }
+
+                {
+                    if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                    {
+                        newText = doc.ToString(SaveOptions.DisableFormatting);
+                    }
+                }
+
+                var updateEntity = new Workflow
+                {
+                    Id = idWorkflow
+                };
+                updateEntity.Attributes[fieldName] = newText;
+
+                service.Update(updateEntity);
 
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
             }
@@ -894,7 +897,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.AnalizingWorkflowFormat, entityName, name);
 
             try
@@ -921,7 +924,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldName, filePath);
-                    
+
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                 }
                 else
@@ -935,7 +938,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.AnalizingWorkflowFailedFormat, entityName, name);
             }
         }

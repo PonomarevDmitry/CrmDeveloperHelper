@@ -517,26 +517,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     newText = form.FieldText;
                 });
 
-                if (dialogResult.GetValueOrDefault())
+                if (dialogResult.GetValueOrDefault() == false)
                 {
-                    ContentCoparerHelper.ClearXsdSchema(newText, out newText);
-
-                    if (ContentCoparerHelper.TryParseXml(newText, out var doc))
-                    {
-                        newText = doc.ToString(SaveOptions.DisableFormatting);
-                    }
-
-                    var updateEntity = new Organization
-                    {
-                        Id = organization.Id
-                    };
-                    updateEntity.Attributes[fieldName] = newText;
-
-                    var service = await GetService();
-                    service.Update(updateEntity);
-
-                    organization.Attributes[fieldName] = newText;
+                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat, fieldName);
+                    return;
                 }
+
+                ContentCoparerHelper.ClearXsdSchema(newText, out newText);
+
+                if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                {
+                    newText = doc.ToString(SaveOptions.DisableFormatting);
+                }
+
+                var updateEntity = new Organization
+                {
+                    Id = organization.Id
+                };
+                updateEntity.Attributes[fieldName] = newText;
+
+                var service = await GetService();
+                service.Update(updateEntity);
+
+                organization.Attributes[fieldName] = newText;
 
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
             }

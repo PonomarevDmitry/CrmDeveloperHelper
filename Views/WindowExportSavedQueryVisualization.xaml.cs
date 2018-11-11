@@ -590,23 +590,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     newText = form.FieldText;
                 });
 
-                if (dialogResult.GetValueOrDefault())
+                if (dialogResult.GetValueOrDefault() == false)
                 {
-                    ContentCoparerHelper.ClearXsdSchema(newText, out newText);
+                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat, fieldName);
+                    return;
+                }
 
+                ContentCoparerHelper.ClearXsdSchema(newText, out newText);
+
+                {
                     if (ContentCoparerHelper.TryParseXml(newText, out var doc))
                     {
                         newText = doc.ToString(SaveOptions.DisableFormatting);
                     }
-
-                    var updateEntity = new SavedQueryVisualization
-                    {
-                        Id = idSavedQueryVisualization
-                    };
-                    updateEntity.Attributes[fieldName] = newText;
-
-                    service.Update(updateEntity);
                 }
+
+                var updateEntity = new SavedQueryVisualization
+                {
+                    Id = idSavedQueryVisualization
+                };
+                updateEntity.Attributes[fieldName] = newText;
+
+                service.Update(updateEntity);
 
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
             }

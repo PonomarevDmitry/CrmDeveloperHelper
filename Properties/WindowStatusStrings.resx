@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddingInSolutionApplicationRibbonFormat" xml:space="preserve">
+    <value>Adding in solution {0} ApplicationRibbon...</value>
+  </data>
+  <data name="AddingInSolutionEntityFormat" xml:space="preserve">
+    <value>Adding in solution {0} entity {1}...</value>
+  </data>
   <data name="AnalizingWorkflowCompletedFormat" xml:space="preserve">
     <value>Analizing Workflow {0} - {1} completed.</value>
   </data>
@@ -222,6 +228,9 @@
   <data name="CreatingFileWithUsedNotExistsEntitiesInWorkflowsFormat" xml:space="preserve">
     <value>Creating file with Used Not Exists Entities in Workflows for {0}...</value>
   </data>
+  <data name="CreatingNewSolutionFormat" xml:space="preserve">
+    <value>Creating new Solution {0}...</value>
+  </data>
   <data name="CreatingSolutionImageFromZipFileCompletedFormat" xml:space="preserve">
     <value>Creating Solution Image from zip-file completed.</value>
   </data>
@@ -258,8 +267,26 @@
   <data name="CreatingTextFileWithMissingDependenciesFormat" xml:space="preserve">
     <value>Creating text file with Missing Dependencies for {0}...</value>
   </data>
+  <data name="DeletingSolutionFormat" xml:space="preserve">
+    <value>Deleting solution {0}...</value>
+  </data>
   <data name="ExecutingFetch" xml:space="preserve">
     <value>Executing Fetch...</value>
+  </data>
+  <data name="ExportingApplicationRibbon" xml:space="preserve">
+    <value>Exporting Application Ribbon...</value>
+  </data>
+  <data name="ExportingApplicationRibbonCompleted" xml:space="preserve">
+    <value>Exporting Application Ribbon completed.</value>
+  </data>
+  <data name="ExportingApplicationRibbonDiffXml" xml:space="preserve">
+    <value>Exporting Application RibbonDiffXml...</value>
+  </data>
+  <data name="ExportingApplicationRibbonDiffXmlCompleted" xml:space="preserve">
+    <value>Exporting Application RibbonDiffXml completed.</value>
+  </data>
+  <data name="ExportingApplicationRibbonDiffXmlFailed" xml:space="preserve">
+    <value>Exporting Application RibbonDiffXml failed.</value>
   </data>
   <data name="ExportingBodyBinaryForFieldCompletedFormat" xml:space="preserve">
     <value>Exporting BodyBinary {0} to File completed.</value>
@@ -269,6 +296,30 @@
   </data>
   <data name="ExportingBodyBinaryForFieldFormat" xml:space="preserve">
     <value>Exporting BodyBinary {0} to File...</value>
+  </data>
+  <data name="ExportingRibbonDiffXmlForEntityCompletedFormat" xml:space="preserve">
+    <value>Exporting RibbonDiffXml for entity {0} completed.</value>
+  </data>
+  <data name="ExportingRibbonDiffXmlForEntityFailedFormat" xml:space="preserve">
+    <value>Exporting RibbonDiffXml for entity {0} failed.</value>
+  </data>
+  <data name="ExportingRibbonDiffXmlForEntityFormat" xml:space="preserve">
+    <value>Exporting RibbonDiffXml for entity {0}...</value>
+  </data>
+  <data name="ExportingRibbonForEntityCompletedFormat" xml:space="preserve">
+    <value>Exporting Ribbon for entity {0} completed.</value>
+  </data>
+  <data name="ExportingRibbonForEntityFailedFormat" xml:space="preserve">
+    <value>Exporting Ribbon for entity {0} failed.</value>
+  </data>
+  <data name="ExportingRibbonForEntityFormat" xml:space="preserve">
+    <value>Exporting Ribbon for entity {0}...</value>
+  </data>
+  <data name="ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat" xml:space="preserve">
+    <value>Exporting solution {0} and extracting Application RibbonDiffXml...</value>
+  </data>
+  <data name="ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat" xml:space="preserve">
+    <value>Exporting solution {0} and extracting RibbonDiffXml for entity {1}...</value>
   </data>
   <data name="ExportingXmlFieldToFileCompletedFormat" xml:space="preserve">
     <value>Exporting Xml {0} to File completed.</value>
@@ -305,6 +356,9 @@
   </data>
   <data name="FilteringTraceFilesCompletedFormat" xml:space="preserve">
     <value>{0} trace records filtered.</value>
+  </data>
+  <data name="ImportingSolutionFormat" xml:space="preserve">
+    <value>Importing solution {0}...</value>
   </data>
   <data name="LoadingAttributesCompletedFormat" xml:space="preserve">
     <value>{0} attributes loaded.</value>
@@ -552,6 +606,18 @@
   <data name="TextIsNotValidXml" xml:space="preserve">
     <value>Text is not valid xml.</value>
   </data>
+  <data name="UpdatingApplicationRibbonDiffXml" xml:space="preserve">
+    <value>Updating Application RibbonDiffXml...</value>
+  </data>
+  <data name="UpdatingApplicationRibbonDiffXmlCanceled" xml:space="preserve">
+    <value>Updating Application RibbonDiffXml canceled.</value>
+  </data>
+  <data name="UpdatingApplicationRibbonDiffXmlCompleted" xml:space="preserve">
+    <value>Updating Application RibbonDiffXml completed.</value>
+  </data>
+  <data name="UpdatingApplicationRibbonDiffXmlFailed" xml:space="preserve">
+    <value>Updating Application RibbonDiffXml failed.</value>
+  </data>
   <data name="UpdatingFieldCanceledFormat" xml:space="preserve">
     <value>Updating Field {0} canceled.</value>
   </data>
@@ -563,6 +629,30 @@
   </data>
   <data name="UpdatingFieldFormat" xml:space="preserve">
     <value>Updating Field {0}...</value>
+  </data>
+  <data name="UpdatingRibbonDiffXmlForEntityCanceledFormat" xml:space="preserve">
+    <value>Updating RibbonDiffXml for entity {0} canceled.</value>
+  </data>
+  <data name="UpdatingRibbonDiffXmlForEntityCompletedFormat" xml:space="preserve">
+    <value>Updating RibbonDiffXml for entity {0} completed.</value>
+  </data>
+  <data name="UpdatingRibbonDiffXmlForEntityFailedFormat" xml:space="preserve">
+    <value>Updating RibbonDiffXml for entity {0} failed.</value>
+  </data>
+  <data name="UpdatingRibbonDiffXmlForEntityFormat" xml:space="preserve">
+    <value>Updating RibbonDiffXml for entity {0}...</value>
+  </data>
+  <data name="ValidatingApplicationRibbonDiffXml" xml:space="preserve">
+    <value>Validating Application RibbonDiffXml...</value>
+  </data>
+  <data name="ValidatingApplicationRibbonDiffXmlFailed" xml:space="preserve">
+    <value>Validating Application RibbonDiffXml failed.</value>
+  </data>
+  <data name="ValidatingRibbonDiffXmlForEntityFailedFormat" xml:space="preserve">
+    <value>Validating RibbonDiffXml for entity {0} failed.</value>
+  </data>
+  <data name="ValidatingRibbonDiffXmlForEntityFormat" xml:space="preserve">
+    <value>Validating RibbonDiffXml for entity {0}...</value>
   </data>
   <data name="ValidatingXmlForFieldFailedFormat" xml:space="preserve">
     <value>Validating Xml for Field {0} failed.</value>

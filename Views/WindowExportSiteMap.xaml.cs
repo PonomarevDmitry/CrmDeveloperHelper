@@ -166,7 +166,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.LoadingSiteMaps);
 
             this._itemsSource.Clear();
@@ -244,8 +244,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadSiteMaps(IEnumerable<SiteMap> results)
         {
-            this._iWriteToOutput.WriteToOutput("Found {0} sitemaps.", results.Count());
-
             this.lstVwSiteMaps.Dispatcher.Invoke(() =>
             {
                 foreach (var entity in results
@@ -263,7 +261,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.lstVwSiteMaps.SelectedItem = this.lstVwSiteMaps.Items[0];
                 }
             });
-            
+
             ToggleControls(true, Properties.WindowStatusStrings.LoadingSiteMapsCompletedFormat, results.Count());
         }
 
@@ -275,6 +273,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 message = string.Format(format, args);
             }
+
+            _iWriteToOutput.WriteToOutput(message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -447,7 +447,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("SiteMap {0} {1} is empty.", name, fieldTitle);
+                this._iWriteToOutput.WriteToOutput("{0} SiteMap {1} {2} is empty.", connectionData.Name, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
@@ -501,7 +501,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldName);
 
             name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
@@ -519,13 +519,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string filePath = await CreateFileAsync(folder, name, idSiteMap, fieldTitle, xmlContent);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat, fieldName);
             }
         }
@@ -536,7 +536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-                        
+
             ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat, fieldName);
 
             name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
@@ -553,7 +553,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportSiteMapXmlAttributeOnNewLine);
 
-                string filePath = await CreateFileAsync(folder, name, idSiteMap, fieldTitle + " BackUp", xmlContent);
+                await CreateFileAsync(folder, name, idSiteMap, fieldTitle + " BackUp", xmlContent);
 
                 var newText = string.Empty;
                 bool? dialogResult = false;
@@ -575,13 +575,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ContentCoparerHelper.ClearXsdSchema(newText, out newText);
 
-                _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.ValidatingXmlForFieldFormat, fieldName);
                 UpdateStatus(Properties.WindowStatusStrings.ValidatingXmlForFieldFormat, fieldName);
 
                 if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.TextIsNotValidXml);
-                    
                     ToggleControls(true, Properties.WindowStatusStrings.TextIsNotValidXml);
 
                     _iWriteToOutput.ActivateOutputWindow();
@@ -593,7 +590,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (!validateResult)
                 {
                     ToggleControls(true, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat, fieldName);
-                    
+
                     return;
                 }
 
@@ -606,13 +603,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 updateEntity.Attributes[fieldName] = newText;
 
                 service.Update(updateEntity);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat, fieldName);
             }
         }
@@ -705,13 +702,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
                 this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
             }
         }
@@ -757,13 +754,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await repository.PublishSiteMapsAsync(new[] { idSiteMap });
 
                 this._iWriteToOutput.WriteToOutput("End publishing SiteMap{0} {1} at {2}", name, idSiteMap, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingSiteMapCompletedFormat, name, idSiteMap.ToString());
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingSiteMapFailedFormat, name, idSiteMap.ToString());
             }
         }
@@ -847,13 +844,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("PluginAssembly {0} Dependent Components exported to {1}", name, filePath);
+                this._iWriteToOutput.WriteToOutput("SiteMap {0} Dependent Components exported to {1}", name, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("PluginAssembly {0} has no Dependent Components.", name);
+                this._iWriteToOutput.WriteToOutput("SiteMap {0} has no Dependent Components.", name);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
         }
@@ -889,13 +886,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("PluginAssembly {0} Required Components exported to {1}", name, filePath);
+                this._iWriteToOutput.WriteToOutput("SiteMap {0} Required Components exported to {1}", name, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("PluginAssembly {0} has no Required Components.", name);
+                this._iWriteToOutput.WriteToOutput("SiteMap {0} has no Required Components.", name);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
         }
@@ -931,13 +928,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("PluginAssembly {0} Dependencies For Delete exported to {1}", name, filePath);
+                this._iWriteToOutput.WriteToOutput("SiteMap {0} Dependencies For Delete exported to {1}", name, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("PluginAssembly {0} has no Dependencies For Delete.", name);
+                this._iWriteToOutput.WriteToOutput("SiteMap {0} has no Dependencies For Delete.", name);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
         }

@@ -724,32 +724,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     newText = form.FieldText;
                 });
 
-                if (dialogResult.GetValueOrDefault())
+                if (dialogResult.GetValueOrDefault() == false)
                 {
-                    if (string.Equals(fieldName, WebResource.Schema.Attributes.content, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        var encoding = new UTF8Encoding(false);
-
-                        var bytes = encoding.GetBytes(newText);
-
-                        newText = Convert.ToBase64String(bytes);
-                    }
-                    else
-                    {
-                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
-                        {
-                            newText = doc.ToString(SaveOptions.DisableFormatting);
-                        }
-                    }
-
-                    var updateEntity = new WebResource
-                    {
-                        Id = idWebResource
-                    };
-                    updateEntity.Attributes[fieldName] = newText;
-
-                    service.Update(updateEntity);
+                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat, fieldName);
+                    return;
                 }
+
+                if (string.Equals(fieldName, WebResource.Schema.Attributes.content, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var encoding = new UTF8Encoding(false);
+
+                    var bytes = encoding.GetBytes(newText);
+
+                    newText = Convert.ToBase64String(bytes);
+                }
+                else
+                {
+                    if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                    {
+                        newText = doc.ToString(SaveOptions.DisableFormatting);
+                    }
+                }
+
+                var updateEntity = new WebResource
+                {
+                    Id = idWebResource
+                };
+                updateEntity.Attributes[fieldName] = newText;
+
+                service.Update(updateEntity);
 
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
             }

@@ -61,6 +61,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adding in solution {0} ApplicationRibbon....
+        /// </summary>
+        internal static string AddingInSolutionApplicationRibbonFormat {
+            get {
+                return ResourceManager.GetString("AddingInSolutionApplicationRibbonFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding in solution {0} entity {1}....
+        /// </summary>
+        internal static string AddingInSolutionEntityFormat {
+            get {
+                return ResourceManager.GetString("AddingInSolutionEntityFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Analizing Workflow {0} - {1} completed..
         /// </summary>
         internal static string AnalizingWorkflowCompletedFormat {
@@ -376,6 +394,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating new Solution {0}....
+        /// </summary>
+        internal static string CreatingNewSolutionFormat {
+            get {
+                return ResourceManager.GetString("CreatingNewSolutionFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating Solution Image from zip-file completed..
         /// </summary>
         internal static string CreatingSolutionImageFromZipFileCompletedFormat {
@@ -484,11 +511,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting solution {0}....
+        /// </summary>
+        internal static string DeletingSolutionFormat {
+            get {
+                return ResourceManager.GetString("DeletingSolutionFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Executing Fetch....
         /// </summary>
         internal static string ExecutingFetch {
             get {
                 return ResourceManager.GetString("ExecutingFetch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting Application Ribbon....
+        /// </summary>
+        internal static string ExportingApplicationRibbon {
+            get {
+                return ResourceManager.GetString("ExportingApplicationRibbon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting Application Ribbon completed..
+        /// </summary>
+        internal static string ExportingApplicationRibbonCompleted {
+            get {
+                return ResourceManager.GetString("ExportingApplicationRibbonCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting Application RibbonDiffXml....
+        /// </summary>
+        internal static string ExportingApplicationRibbonDiffXml {
+            get {
+                return ResourceManager.GetString("ExportingApplicationRibbonDiffXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting Application RibbonDiffXml completed..
+        /// </summary>
+        internal static string ExportingApplicationRibbonDiffXmlCompleted {
+            get {
+                return ResourceManager.GetString("ExportingApplicationRibbonDiffXmlCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting Application RibbonDiffXml failed..
+        /// </summary>
+        internal static string ExportingApplicationRibbonDiffXmlFailed {
+            get {
+                return ResourceManager.GetString("ExportingApplicationRibbonDiffXmlFailed", resourceCulture);
             }
         }
         
@@ -516,6 +597,78 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ExportingBodyBinaryForFieldFormat {
             get {
                 return ResourceManager.GetString("ExportingBodyBinaryForFieldFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting RibbonDiffXml for entity {0} completed..
+        /// </summary>
+        internal static string ExportingRibbonDiffXmlForEntityCompletedFormat {
+            get {
+                return ResourceManager.GetString("ExportingRibbonDiffXmlForEntityCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting RibbonDiffXml for entity {0} failed..
+        /// </summary>
+        internal static string ExportingRibbonDiffXmlForEntityFailedFormat {
+            get {
+                return ResourceManager.GetString("ExportingRibbonDiffXmlForEntityFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting RibbonDiffXml for entity {0}....
+        /// </summary>
+        internal static string ExportingRibbonDiffXmlForEntityFormat {
+            get {
+                return ResourceManager.GetString("ExportingRibbonDiffXmlForEntityFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting Ribbon for entity {0} completed..
+        /// </summary>
+        internal static string ExportingRibbonForEntityCompletedFormat {
+            get {
+                return ResourceManager.GetString("ExportingRibbonForEntityCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting Ribbon for entity {0} failed..
+        /// </summary>
+        internal static string ExportingRibbonForEntityFailedFormat {
+            get {
+                return ResourceManager.GetString("ExportingRibbonForEntityFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting Ribbon for entity {0}....
+        /// </summary>
+        internal static string ExportingRibbonForEntityFormat {
+            get {
+                return ResourceManager.GetString("ExportingRibbonForEntityFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting solution {0} and extracting Application RibbonDiffXml....
+        /// </summary>
+        internal static string ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat {
+            get {
+                return ResourceManager.GetString("ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting solution {0} and extracting RibbonDiffXml for entity {1}....
+        /// </summary>
+        internal static string ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat {
+            get {
+                return ResourceManager.GetString("ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat", resourceCulture);
             }
         }
         
@@ -624,6 +777,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FilteringTraceFilesCompletedFormat {
             get {
                 return ResourceManager.GetString("FilteringTraceFilesCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importing solution {0}....
+        /// </summary>
+        internal static string ImportingSolutionFormat {
+            get {
+                return ResourceManager.GetString("ImportingSolutionFormat", resourceCulture);
             }
         }
         
@@ -1366,6 +1528,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Updating Application RibbonDiffXml....
+        /// </summary>
+        internal static string UpdatingApplicationRibbonDiffXml {
+            get {
+                return ResourceManager.GetString("UpdatingApplicationRibbonDiffXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating Application RibbonDiffXml canceled..
+        /// </summary>
+        internal static string UpdatingApplicationRibbonDiffXmlCanceled {
+            get {
+                return ResourceManager.GetString("UpdatingApplicationRibbonDiffXmlCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating Application RibbonDiffXml completed..
+        /// </summary>
+        internal static string UpdatingApplicationRibbonDiffXmlCompleted {
+            get {
+                return ResourceManager.GetString("UpdatingApplicationRibbonDiffXmlCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating Application RibbonDiffXml failed..
+        /// </summary>
+        internal static string UpdatingApplicationRibbonDiffXmlFailed {
+            get {
+                return ResourceManager.GetString("UpdatingApplicationRibbonDiffXmlFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Updating Field {0} canceled..
         /// </summary>
         internal static string UpdatingFieldCanceledFormat {
@@ -1398,6 +1596,78 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string UpdatingFieldFormat {
             get {
                 return ResourceManager.GetString("UpdatingFieldFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating RibbonDiffXml for entity {0} canceled..
+        /// </summary>
+        internal static string UpdatingRibbonDiffXmlForEntityCanceledFormat {
+            get {
+                return ResourceManager.GetString("UpdatingRibbonDiffXmlForEntityCanceledFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating RibbonDiffXml for entity {0} completed..
+        /// </summary>
+        internal static string UpdatingRibbonDiffXmlForEntityCompletedFormat {
+            get {
+                return ResourceManager.GetString("UpdatingRibbonDiffXmlForEntityCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating RibbonDiffXml for entity {0} failed..
+        /// </summary>
+        internal static string UpdatingRibbonDiffXmlForEntityFailedFormat {
+            get {
+                return ResourceManager.GetString("UpdatingRibbonDiffXmlForEntityFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating RibbonDiffXml for entity {0}....
+        /// </summary>
+        internal static string UpdatingRibbonDiffXmlForEntityFormat {
+            get {
+                return ResourceManager.GetString("UpdatingRibbonDiffXmlForEntityFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validating Application RibbonDiffXml....
+        /// </summary>
+        internal static string ValidatingApplicationRibbonDiffXml {
+            get {
+                return ResourceManager.GetString("ValidatingApplicationRibbonDiffXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validating Application RibbonDiffXml failed..
+        /// </summary>
+        internal static string ValidatingApplicationRibbonDiffXmlFailed {
+            get {
+                return ResourceManager.GetString("ValidatingApplicationRibbonDiffXmlFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validating RibbonDiffXml for entity {0} failed..
+        /// </summary>
+        internal static string ValidatingRibbonDiffXmlForEntityFailedFormat {
+            get {
+                return ResourceManager.GetString("ValidatingRibbonDiffXmlForEntityFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validating RibbonDiffXml for entity {0}....
+        /// </summary>
+        internal static string ValidatingRibbonDiffXmlForEntityFormat {
+            get {
+                return ResourceManager.GetString("ValidatingRibbonDiffXmlForEntityFormat", resourceCulture);
             }
         }
         

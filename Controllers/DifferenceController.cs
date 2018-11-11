@@ -88,7 +88,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 Guid? selectedWebResourceId = null;
 
                 string selectedPath = string.Empty;
-                var t = new Thread((ThreadStart)(() =>
+                var t = new Thread(() =>
                 {
                     try
                     {
@@ -101,33 +101,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         DTEHelper.WriteExceptionToOutput(ex);
                     }
-                }));
+                });
                 t.SetApartmentState(ApartmentState.STA);
                 t.Start();
 
                 t.Join();
 
-                if (dialogResult.GetValueOrDefault())
-                {
-                    if (selectedWebResourceId.HasValue)
-                    {
-                        this._iWriteToOutput.WriteToOutput("Custom Web-resource is selected.");
-
-                        webresource = await webResourceRepository.FindByIdAsync(selectedWebResourceId.Value);
-
-                        connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
-
-                        connectionData.ConnectionConfiguration.Save();
-                    }
-                    else
-                    {
-                        this._iWriteToOutput.WriteToOutput("!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
-                    }
-                }
-                else
+                if (dialogResult.GetValueOrDefault() == false)
                 {
                     this._iWriteToOutput.WriteToOutput("Difference was cancelled.");
                     return;
+                }
+
+                if (selectedWebResourceId.HasValue)
+                {
+                    this._iWriteToOutput.WriteToOutput("Custom Web-resource is selected.");
+
+                    webresource = await webResourceRepository.FindByIdAsync(selectedWebResourceId.Value);
+
+                    connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
+
+                    connectionData.ConnectionConfiguration.Save();
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput("!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
                 }
             }
             else
@@ -168,7 +166,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         Guid? selectedWebResourceId = null;
 
                         string selectedPath = string.Empty;
-                        var t = new Thread((ThreadStart)(() =>
+                        var t = new Thread(() =>
                         {
                             try
                             {
@@ -181,7 +179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             {
                                 DTEHelper.WriteExceptionToOutput(ex);
                             }
-                        }));
+                        });
                         t.SetApartmentState(ApartmentState.STA);
                         t.Start();
 
@@ -650,7 +648,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     Guid? selectedReportId = null;
 
                     string selectedPath = string.Empty;
-                    var t = new Thread((ThreadStart)(() =>
+                    var t = new Thread(() =>
                     {
                         try
                         {
@@ -663,7 +661,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         {
                             DTEHelper.WriteExceptionToOutput(ex);
                         }
-                    }));
+                    });
                     t.SetApartmentState(ApartmentState.STA);
                     t.Start();
 
@@ -730,7 +728,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             Guid? selectedReportId = null;
 
                             string selectedPath = string.Empty;
-                            var t = new Thread((ThreadStart)(() =>
+                            var t = new Thread(() =>
                             {
                                 try
                                 {
@@ -743,7 +741,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 {
                                     DTEHelper.WriteExceptionToOutput(ex);
                                 }
-                            }));
+                            });
                             t.SetApartmentState(ApartmentState.STA);
                             t.Start();
 

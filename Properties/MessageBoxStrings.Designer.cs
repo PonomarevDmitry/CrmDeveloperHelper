@@ -61,6 +61,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure want to update RibbonDiff for entity {0}?.
+        /// </summary>
+        internal static string AreYourSureUpdateRibbonDiffForEntityFormat {
+            get {
+                return ResourceManager.GetString("AreYourSureUpdateRibbonDiffForEntityFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure want to delete components {0} from solution {1}?.
         /// </summary>
         internal static string AreYouSureDeleteComponentsFormat {
