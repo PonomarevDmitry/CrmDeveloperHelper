@@ -754,6 +754,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 service.Update(updateEntity);
 
+                UpdateStatus(Properties.WindowStatusStrings.PublishingWebResourceFormat, name);
+
+                {
+                    var repositoryPublish = new PublishActionsRepository(service);
+
+                    await repositoryPublish.PublishWebResourcesAsync(new[] { idWebResource });
+                }
+
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
             }
             catch (Exception ex)

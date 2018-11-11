@@ -217,8 +217,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSystemForms(list);
 
-            this._iWriteToOutput.WriteToOutput("Found {0} forms.", list.Count());
-
             ToggleControls(true, Properties.WindowStatusStrings.LoadingFormsCompletedFormat, list.Count());
         }
 
@@ -296,6 +294,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 message = string.Format(format, args);
             }
+
+            _iWriteToOutput.WriteToOutput(message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -603,13 +603,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 ContentCoparerHelper.ClearXsdSchema(newText, out newText);
-
-                _iWriteToOutput.WriteToOutput("Validating FormXml...");
-                UpdateStatus("Validating FormXml.");
+                
+                UpdateStatus(Properties.WindowStatusStrings.ValidatingXmlForFieldFormat, fieldName);
 
                 if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.TextIsNotValidXml);
                     ToggleControls(true, Properties.WindowStatusStrings.TextIsNotValidXml);
 
                     _iWriteToOutput.ActivateOutputWindow();
@@ -634,6 +632,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 updateEntity.Attributes[fieldName] = newText;
 
                 service.Update(updateEntity);
+
+                UpdateStatus(Properties.WindowStatusStrings.PublishingSystemFormFormat, entityName, name);
+
+                {
+                    var repositoryPublish = new PublishActionsRepository(service);
+
+                    await repositoryPublish.PublishDashboardsAsync(new[] { idSystemForm });
+                }
 
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
             }
@@ -845,8 +851,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportFormDescriptionToFileAsync(string folder, Guid idSystemForm, string entityName, string name)
         {
-            ToggleControls(false, "Creating Form Description...");
-
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingSystemFormDescriptionFormat, entityName, name);
+            
             var service = await GetService();
             var descriptor = await GetDescriptor();
             var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
@@ -886,8 +892,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
-            ToggleControls(true, "Creating Form Description completed.");
+            
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingSystemFormDescriptionCompletedFormat, entityName, name);
         }
 
         private void mIExportSystemFormFormXml_Click(object sender, RoutedEventArgs e)
@@ -916,8 +922,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformDownloadWebResources(string folder, Guid idSystemForm, string entityName, string name)
         {
-            ToggleControls(false, "Downloading form's WebResources...");
-
+            ToggleControls(false, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesFormat, entityName, name);
+            
             var service = await GetService();
             var descriptor = await GetDescriptor();
             var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
@@ -972,8 +978,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
-
-            ToggleControls(true, "Downloading form's WebResources completed.");
+            
+            ToggleControls(true, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesCompletedFormat, entityName, name);
         }
 
         private Task<string> CreateWebResourceAsync(string folder, string connectionName, string resName, WebResource webresource)
@@ -1022,8 +1028,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformCreateEntityJavaScriptFileBasedOnForm(string folder, Guid idSystemForm, string entityName, string name)
         {
-            ToggleControls(false, "Creating entity javascript file...");
-
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityJavaScriptFileOnFormFormat, entityName, name);
+            
             var service = await GetService();
             var descriptor = await GetDescriptor();
             var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
@@ -1079,7 +1085,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            ToggleControls(true, "Creating entity javascript file completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityJavaScriptFileOnFormCompletedFormat, entityName, name);
         }
 
         private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)

@@ -604,6 +604,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 service.Update(updateEntity);
 
+                UpdateStatus(Properties.WindowStatusStrings.PublishingSiteMapFormat, name, idSiteMap.ToString());
+
+                {
+                    var repositoryPublish = new PublishActionsRepository(service);
+
+                    await repositoryPublish.PublishSiteMapsAsync(new[] { idSiteMap });
+                }
+
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
             }
             catch (Exception ex)

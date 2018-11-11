@@ -613,6 +613,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 service.Update(updateEntity);
 
+                UpdateStatus(Properties.WindowStatusStrings.PublishingEntitiesFormat, entityName);
+
+                {
+                    var repositoryPublish = new PublishActionsRepository(service);
+
+                    await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
+                }
+
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
             }
             catch (Exception ex)

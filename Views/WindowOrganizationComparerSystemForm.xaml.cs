@@ -1128,7 +1128,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, "Creating Form Description...");
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingSystemFormDescriptionFormat);
 
             var service = await getService();
             var descriptor = await getDescription();
@@ -1169,7 +1169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, "Creating Form Description completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingSystemFormDescriptionCompletedFormat);
         }
 
         private void mIExportSystemForm1FormXml_Click(object sender, RoutedEventArgs e)
@@ -1301,7 +1301,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, "Downloading form's WebResources completed.");
+            ToggleControls(true, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesCompletedFormat);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

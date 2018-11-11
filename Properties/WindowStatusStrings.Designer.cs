@@ -232,6 +232,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating entity {0} javascript file based on form {1} completed..
+        /// </summary>
+        internal static string CreatingEntityJavaScriptFileOnFormCompletedFormat {
+            get {
+                return ResourceManager.GetString("CreatingEntityJavaScriptFileOnFormCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating entity {0} javascript file based on form {1}....
+        /// </summary>
+        internal static string CreatingEntityJavaScriptFileOnFormFormat {
+            get {
+                return ResourceManager.GetString("CreatingEntityJavaScriptFileOnFormFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating File for entity {0} completed..
         /// </summary>
         internal static string CreatingFileForEntityCompletedFormat {
@@ -430,6 +448,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating SystemForm Description for {0} - {1} completed..
+        /// </summary>
+        internal static string CreatingSystemFormDescriptionCompletedFormat {
+            get {
+                return ResourceManager.GetString("CreatingSystemFormDescriptionCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating SystemForm Description for {0} - {1} failed..
+        /// </summary>
+        internal static string CreatingSystemFormDescriptionFailedFormat {
+            get {
+                return ResourceManager.GetString("CreatingSystemFormDescriptionFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating SystemForm Description for {0} - {1}....
+        /// </summary>
+        internal static string CreatingSystemFormDescriptionFormat {
+            get {
+                return ResourceManager.GetString("CreatingSystemFormDescriptionFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating text file with Components for {0} completed..
         /// </summary>
         internal static string CreatingTextFileWithComponentsCompletedFormat {
@@ -516,6 +561,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string DeletingSolutionFormat {
             get {
                 return ResourceManager.GetString("DeletingSolutionFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading SystemForm&apos;s WebResources for {0} - {1} completed..
+        /// </summary>
+        internal static string DownloadingSystemFormWebResourcesCompletedFormat {
+            get {
+                return ResourceManager.GetString("DownloadingSystemFormWebResourcesCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading SystemForm&apos;s WebResources for {0} - {1}....
+        /// </summary>
+        internal static string DownloadingSystemFormWebResourcesFormat {
+            get {
+                return ResourceManager.GetString("DownloadingSystemFormWebResourcesFormat", resourceCulture);
             }
         }
         
