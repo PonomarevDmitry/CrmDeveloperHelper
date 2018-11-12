@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return Task.Run(() => FindByRequestName(requestName, columnSet));
         }
 
-        private SdkMessageRequest FindByRequestName(string requestName, ColumnSet columnSet)
+        public SdkMessageRequest FindByRequestName(string requestName, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {

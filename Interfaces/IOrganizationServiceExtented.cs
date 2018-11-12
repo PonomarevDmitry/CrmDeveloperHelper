@@ -2,6 +2,7 @@
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 {
@@ -16,5 +17,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         bool IsRequestExists(string requestName);
 
         T RetrieveByQuery<T>(string entityName, Guid id, ColumnSet columnSet) where T : Entity;
+
+        Task<T> RetrieveByQueryAsync<T>(string entityName, Guid id, ColumnSet columnSet) where T : Entity;
+
+        Task DeleteAsync(string entityName, Guid id);
     }
 }

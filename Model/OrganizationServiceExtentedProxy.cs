@@ -62,6 +62,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        public Task<T> RetrieveByQueryAsync<T>(string entityName, Guid id, ColumnSet columnSet) where T : Entity
+        {
+            return Task.Run(() => RetrieveByQuery<T>(entityName, id, columnSet));
+        }
+
         public T RetrieveByQuery<T>(string entityName, Guid id, ColumnSet columnSet) where T : Entity
         {
             try
@@ -112,6 +117,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 Helpers.DTEHelper.WriteExceptionToLog(ex);
                 throw;
             }
+        }
+
+        public Task DeleteAsync(string entityName, Guid id)
+        {
+            return Task.Run(() => Delete(entityName, id));
         }
 
         public void Delete(string entityName, Guid id)
@@ -470,11 +480,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             var repository = new SdkMessageRequestRepository(this);
 
-            var task = repository.FindByRequestNameAsync(requestName, new ColumnSet(false));
-
-            System.Threading.Tasks.Task.WaitAll(task);
-
-            var request = task.Result;
+            var request = repository.FindByRequestName(requestName, new ColumnSet(false));
 
             bool isRequestExists = request != null;
 

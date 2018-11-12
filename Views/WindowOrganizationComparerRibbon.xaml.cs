@@ -726,7 +726,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (solution1 != null)
                     {
-                        service1.Delete(solution1.LogicalName, solution1.Id);
+                        await service1.DeleteAsync(solution1.LogicalName, solution1.Id);
                     }
                 }
 
@@ -743,7 +743,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (solution2 != null)
                     {
-                        service2.Delete(solution2.LogicalName, solution2.Id);
+                        await service2.DeleteAsync(solution2.LogicalName, solution2.Id);
                     }
                 }
 
@@ -1008,7 +1008,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (solution1 != null)
                     {
-                        service1.Delete(solution1.LogicalName, solution1.Id);
+                        await service1.DeleteAsync(solution1.LogicalName, solution1.Id);
                     }
                 }
 
@@ -1025,7 +1025,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (solution2 != null)
                     {
-                        service2.Delete(solution2.LogicalName, solution2.Id);
+                        await service2.DeleteAsync(solution2.LogicalName, solution2.Id);
                     }
                 }
 
@@ -1212,7 +1212,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat, solutionUniqueName);
 
-                    service.Delete(solution.LogicalName, solution.Id);
+                    await service.DeleteAsync(solution.LogicalName, solution.Id);
 
                     ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlCompleted);
                 }
@@ -1407,7 +1407,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat, solutionUniqueName);
 
-                    service.Delete(solution.LogicalName, solution.Id);
+                    await service.DeleteAsync(solution.LogicalName, solution.Id);
 
                     ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityCompletedFormat, entity.LogicalName);
                 }
