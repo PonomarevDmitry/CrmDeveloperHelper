@@ -1386,7 +1386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }});
                     }
 
-                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat, entity.LogicalName);
+                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat, solutionUniqueName, entity.LogicalName);
 
                     var repository = new ExportSolutionHelper(service);
 

@@ -1056,4 +1056,7 @@
   <data name="ValidatingXmlForFieldFormat" xml:space="preserve">
     <value>Validating Xml for Field {0}...</value>
   </data>
+  <data name="NotFoundedDefaultPublisher" xml:space="preserve">
+    <value>Not founded Default Publisher.</value>
+  </data>
 </root>

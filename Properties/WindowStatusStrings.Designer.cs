@@ -2086,6 +2086,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not founded Default Publisher..
+        /// </summary>
+        internal static string NotFoundedDefaultPublisher {
+            get {
+                return ResourceManager.GetString("NotFoundedDefaultPublisher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preparing for creating new WebResource....
         /// </summary>
         internal static string PreparingCreatingNewWebResource {
