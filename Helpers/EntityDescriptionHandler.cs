@@ -167,7 +167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (value is BooleanManagedProperty booleanManaged)
             {
-                return string.Format("{0}        CanBeChanged = {1}", booleanManaged.Value, booleanManaged.CanBeChanged);
+                return string.Format("{0,-5}        CanBeChanged = {1,-5}", booleanManaged.Value, booleanManaged.CanBeChanged);
             }
 
             if (value is OptionSetValue optionSetValue)
@@ -266,7 +266,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (value is BooleanManagedProperty booleanManagedboolean)
             {
-                return string.Format("{0}    CanBeChanged = {1}", booleanManagedboolean.Value, booleanManagedboolean.CanBeChanged);
+                return string.Format("{0,-5}    CanBeChanged = {1,-5}", booleanManagedboolean.Value, booleanManagedboolean.CanBeChanged);
             }
 
             if (value is OptionSetValue optionSetValue)

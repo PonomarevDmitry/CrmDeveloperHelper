@@ -1,7 +1,7 @@
-﻿using System.Linq;
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -33,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             CommonHandlers.ActiveSolutionExplorerProjectAny(command, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, "Add Steps for PluginAssembly into Crm Solution");
+            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.ProjectPluginAssemblyStepsAddIntoSolutionCommand);
         }
     }
 }

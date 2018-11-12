@@ -91,10 +91,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 {
                     menuCommand.Enabled = menuCommand.Visible = true;
 
-                    string custom = this._isCustom ? " with Select" : string.Empty;
+                    string custom = this._isCustom ? " " + Properties.CommandNames.CodeReportShowDifferenceCommandCustom : string.Empty;
 
-                    string name = string.Format("Show Difference {0}{1}", _fieldTitle, custom);
-
+                    string name = string.Format(Properties.CommandNames.CodeReportShowDifferenceCommand, _fieldTitle, custom);
+                    
                     CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(this, menuCommand);
 
                     CommonHandlers.CorrectCommandNameForConnectionName(this, menuCommand, name);

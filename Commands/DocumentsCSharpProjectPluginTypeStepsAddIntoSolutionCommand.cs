@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsCSharp(command, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, "Add Steps for PluginType into Crm Solution");
+            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionCommand);
         }
 
         private static async void ActionExecute(DTEHelper helper)

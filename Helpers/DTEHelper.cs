@@ -1139,7 +1139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 else
                 {
-                    string message = string.Format("Continue create/update web resources and publish {0} files on\r\n{1}?", selectedFiles.Count, connectionData.GetDescriptionColumn());
+                    string message = string.Format(Properties.MessageBoxStrings.PublishWebResourcesFormat, selectedFiles.Count, connectionData.GetDescriptionColumn());
 
                     var dialog = new WindowConfirmPublish(message);
 
@@ -1199,8 +1199,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 else
                 {
-                    string message = string.Format("Seach equal by text among {0} files, update them and publish on\r\n{1}?", selectedFiles.Count, connectionData.GetDescription());
-
+                    string message = string.Format(Properties.MessageBoxStrings.PublishWebResourcesEqualByTextFormat, selectedFiles.Count, connectionData.GetDescription());
+                    
                     var dialog = new WindowConfirmPublish(message);
 
                     if (dialog.ShowDialog().GetValueOrDefault())

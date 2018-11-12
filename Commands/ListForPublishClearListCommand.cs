@@ -33,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
             CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceAny(command, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, "Clear List");
+            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.ListForPublishClearListCommand);
         }
     }
 }

@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CodeCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
+    <value>Compare with Crm PluginAssembly</value>
+  </data>
+  <data name="CodeCSharpProjectPluginAssemblyAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add PluginAssembly into Crm Solution</value>
+  </data>
+  <data name="CodeCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add Steps for PluginAssembly into Crm Solution</value>
+  </data>
+  <data name="CodeCSharpProjectPluginTypeStepsAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add Steps for PluginType into Crm Solution</value>
+  </data>
+  <data name="CodeCSharpUpdateEntityMetadataFileCommand" xml:space="preserve">
+    <value>Update EntityMetadata File</value>
+  </data>
+  <data name="CodeCSharpUpdateGlobalOptionSetsFileCommand" xml:space="preserve">
+    <value>Update Global OptionSets File</value>
+  </data>
+  <data name="CodeCSharpUpdateProxyClassesCommand" xml:space="preserve">
+    <value>Update Proxy Classes</value>
+  </data>
+  <data name="CodeReportAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add Report in Crm Solution</value>
+  </data>
+  <data name="CodeReportDownloadCommand" xml:space="preserve">
+    <value>Download Report</value>
+  </data>
+  <data name="CodeReportShowDifferenceCommand" xml:space="preserve">
+    <value>Show Difference {0}{1}</value>
+  </data>
+  <data name="CodeReportShowDifferenceCommandCustom" xml:space="preserve">
+    <value>with Select</value>
+  </data>
+  <data name="CodeReportUpdateCommand" xml:space="preserve">
+    <value>Update Report in Crm</value>
+  </data>
+  <data name="CodeWebResourceAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add WebResource in Crm Solution</value>
+  </data>
+  <data name="CodeWebResourceCompareWithDetailsCommand" xml:space="preserve">
+    <value>Compare File with details</value>
+  </data>
+  <data name="CodeWebResourceDownloadCommand" xml:space="preserve">
+    <value>Download WebResource</value>
+  </data>
+  <data name="CodeWebResourceShowDifferenceCommand" xml:space="preserve">
+    <value>Show Difference</value>
+  </data>
+  <data name="CodeWebResourceShowDifferenceCustomCommand" xml:space="preserve">
+    <value>Show Difference with Select</value>
+  </data>
+  <data name="CodeWebResourceUpdateContentPublishCommand" xml:space="preserve">
+    <value>Publish File</value>
+  </data>
+  <data name="CodeXmlExecuteFetchXmlRequestCommand" xml:space="preserve">
+    <value>Execute Fetch Xml</value>
+  </data>
+  <data name="CommandNameWithConnectionFormat" xml:space="preserve">
+    <value>{0} - {1}</value>
+  </data>
+  <data name="CommonCrmConnectionCommand" xml:space="preserve">
+    <value>Connection List</value>
+  </data>
+  <data name="CommonCrmConnectionTestCommand" xml:space="preserve">
+    <value>Test Connection</value>
+  </data>
+  <data name="CommonEntityAttributeExplorerCommand" xml:space="preserve">
+    <value>Entity Attribute Explorer</value>
+  </data>
+  <data name="CommonEntityKeyExplorerCommand" xml:space="preserve">
+    <value>Entity Key Explorer</value>
+  </data>
+  <data name="CommonEntityRelationshipManyToManyExplorerCommand" xml:space="preserve">
+    <value>Entity Relationship Many-To-Many Explorer</value>
+  </data>
+  <data name="CommonEntityRelationshipOneToManyExplorerCommand" xml:space="preserve">
+    <value>Entity Relationship One-To-Many Explorer</value>
+  </data>
+  <data name="CommonExportEntityMetadataCommand" xml:space="preserve">
+    <value>Entity Metadata</value>
+  </data>
+  <data name="CommonExportSolutionCommand" xml:space="preserve">
+    <value>Export Solution</value>
+  </data>
+  <data name="CommonExportSolutionComponentsCommand" xml:space="preserve">
+    <value>Solution Explorer</value>
+  </data>
+  <data name="CommonOpenCurrentConnectionCrmInWebCommand" xml:space="preserve">
+    <value>Open Crm WebSite</value>
+  </data>
+  <data name="CommonOpenOrganizationDifferenceImageCommand" xml:space="preserve">
+    <value>Open Organization Difference Image</value>
+  </data>
+  <data name="CommonOpenSolutionImageCommand" xml:space="preserve">
+    <value>Open SolutionImage</value>
+  </data>
+  <data name="DocumentsCSharpProjectPluginAssemblyAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add PluginAssembly into Crm Solution</value>
+  </data>
+  <data name="DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add Steps for PluginAssembly into Crm Solution</value>
+  </data>
+  <data name="DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add Steps for PluginType into Crm Solution</value>
+  </data>
+  <data name="DocumentsCSharpUpdateEntityMetadataFileCommand" xml:space="preserve">
+    <value>Update EntityMetadata File</value>
+  </data>
+  <data name="DocumentsCSharpUpdateGlobalOptionSetsFileCommand" xml:space="preserve">
+    <value>Update Global OptionSets File</value>
+  </data>
+  <data name="DocumentsReportAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add Opened Reports into Crm Solution</value>
+  </data>
+  <data name="DocumentsWebResourceAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add Opened WebResources in Crm Solution</value>
+  </data>
+  <data name="DocumentsWebResourceCompareCommand" xml:space="preserve">
+    <value>Compare Files</value>
+  </data>
+  <data name="DocumentsWebResourceCompareWithDetailsCommand" xml:space="preserve">
+    <value>Compare Files with details</value>
+  </data>
+  <data name="FileCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
+    <value>Compare with Crm PluginAssembly</value>
+  </data>
+  <data name="FileCSharpProjectPluginAssemblyAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add PluginAssembly into Crm Solution</value>
+  </data>
+  <data name="FileCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add Steps for PluginAssembly into Crm Solution</value>
+  </data>
+  <data name="FileCSharpProjectPluginTypeStepsAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add Steps for PluginType into Crm Solution</value>
+  </data>
+  <data name="FileCSharpUpdateEntityMetadataFileCommand" xml:space="preserve">
+    <value>Update EntityMetadata File</value>
+  </data>
+  <data name="FileCSharpUpdateGlobalOptionSetsFileCommand" xml:space="preserve">
+    <value>Update Global OptionSets File</value>
+  </data>
+  <data name="FileCSharpUpdateProxyClassesCommand" xml:space="preserve">
+    <value>Update Proxy Classes</value>
+  </data>
+  <data name="FileReportAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add Reports in Crm Solution</value>
+  </data>
+  <data name="FileReportDownloadCommand" xml:space="preserve">
+    <value>Download Report</value>
+  </data>
+  <data name="FileReportUpdateCommand" xml:space="preserve">
+    <value>Update Report in Crm</value>
+  </data>
+  <data name="FileWebResourceAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add WebResources in Crm Solution</value>
+  </data>
+  <data name="FileWebResourceCompareCommand" xml:space="preserve">
+    <value>Compare Files</value>
+  </data>
+  <data name="FileWebResourceCompareWithDetailsCommand" xml:space="preserve">
+    <value>Compare Files with details</value>
+  </data>
+  <data name="FileWebResourceDownloadCommand" xml:space="preserve">
+    <value>Download WebResource</value>
+  </data>
+  <data name="FileWebResourceShowDifferenceCommand" xml:space="preserve">
+    <value>Show Difference</value>
+  </data>
+  <data name="FileWebResourceShowDifferenceCustromCommand" xml:space="preserve">
+    <value>Show Difference with Select</value>
+  </data>
+  <data name="FileWebResourceUpdateContentPublishCommand" xml:space="preserve">
+    <value>Publish Files</value>
+  </data>
+  <data name="FolderAddPluginConfigurationFileCommand" xml:space="preserve">
+    <value>Plugin Configuration</value>
+  </data>
+  <data name="FolderAddSolutionFileCommand" xml:space="preserve">
+    <value>Crm Solution BackUp</value>
+  </data>
+  <data name="FolderCSharpUpdateEntityMetadataFileCommand" xml:space="preserve">
+    <value>Update EntityMetadata File (Recursive)</value>
+  </data>
+  <data name="FolderCSharpUpdateGlobalOptionSetsFileCommand" xml:space="preserve">
+    <value>Update Global OptionSets Files (Recursive)</value>
+  </data>
+  <data name="FolderWebResourceAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add WebResources in Crm Solution (Recursive)</value>
+  </data>
+  <data name="FolderWebResourceCompareCommand" xml:space="preserve">
+    <value>Compare files (Recursive)</value>
+  </data>
+  <data name="FolderWebResourceCompareWithDetailsCommand" xml:space="preserve">
+    <value>Compare files with details (Recursive)</value>
+  </data>
+  <data name="FolderWebResourceUpdateContentPublishCommand" xml:space="preserve">
+    <value>Publish Files (Recursive)</value>
+  </data>
+  <data name="ListForPublishAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add List in Crm Solution</value>
+  </data>
+  <data name="ListForPublishClearListCommand" xml:space="preserve">
+    <value>Clear List</value>
+  </data>
+  <data name="ListForPublishCompareCommand" xml:space="preserve">
+    <value>Compare files</value>
+  </data>
+  <data name="ListForPublishCompareWithDetailsCommand" xml:space="preserve">
+    <value>Compare files with details</value>
+  </data>
+  <data name="ListForPublishShowListCommand" xml:space="preserve">
+    <value>Show List</value>
+  </data>
+  <data name="ProjectCompareToCrmAssemblyCommand" xml:space="preserve">
+    <value>Compare with Crm PluginAssembly</value>
+  </data>
+  <data name="ProjectPluginAssemblyAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add PluginAssembly into Crm Solution</value>
+  </data>
+  <data name="ProjectPluginAssemblyStepsAddIntoSolutionCommand" xml:space="preserve">
+    <value>Add Steps for PluginAssembly into Crm Solution</value>
+  </data>
+</root>

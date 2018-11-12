@@ -259,7 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Password is empty..
         /// </summary>
         internal static string PasswordIsEmpty {
             get {
@@ -282,6 +282,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string PublishAllInConnectionFormat {
             get {
                 return ResourceManager.GetString("PublishAllInConnectionFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seach equal by text among {0} files, update them and publish on
+        ///{1}?.
+        /// </summary>
+        internal static string PublishWebResourcesEqualByTextFormat {
+            get {
+                return ResourceManager.GetString("PublishWebResourcesEqualByTextFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue create/update web resources and publish {0} files on
+        ///{1}?.
+        /// </summary>
+        internal static string PublishWebResourcesFormat {
+            get {
+                return ResourceManager.GetString("PublishWebResourcesFormat", resourceCulture);
             }
         }
         
@@ -322,7 +342,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to UserName is empty..
         /// </summary>
         internal static string UserNameIsEmpty {
             get {

@@ -202,12 +202,20 @@
     <value>File Extension {0} is not allowed for WebResource.</value>
   </data>
   <data name="PasswordIsEmpty" xml:space="preserve">
-    <value />
+    <value>Password is empty.</value>
   </data>
   <data name="UnableSaveConnectionFormat" xml:space="preserve">
     <value>Unable to save connection details. Error: {0}</value>
   </data>
   <data name="UserNameIsEmpty" xml:space="preserve">
-    <value />
+    <value>UserName is empty.</value>
+  </data>
+  <data name="PublishWebResourcesEqualByTextFormat" xml:space="preserve">
+    <value>Seach equal by text among {0} files, update them and publish on
+{1}?</value>
+  </data>
+  <data name="PublishWebResourcesFormat" xml:space="preserve">
+    <value>Continue create/update web resources and publish {0} files on
+{1}?</value>
   </data>
 </root>

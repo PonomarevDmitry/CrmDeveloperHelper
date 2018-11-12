@@ -751,7 +751,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                     if (value is BooleanManagedProperty booleanManagedProperty)
                     {
-                        value = string.Format("{0}        CanBeChanged = {1}", booleanManagedProperty.Value, booleanManagedProperty.CanBeChanged);
+                        value = string.Format("{0,-5}        CanBeChanged = {1,-5}", booleanManagedProperty.Value, booleanManagedProperty.CanBeChanged);
                     }
 
                     if (dataTable.Columns.IndexOf(columnName) == -1)

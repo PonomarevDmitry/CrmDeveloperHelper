@@ -21,8 +21,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(command, menuCommand);
 
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(command, menuCommand, FileOperations.SupportsCSharpType);
-
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, "Compare with Crm PluginAssembly");
+            
+            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeCSharpProjectCompareToCrmAssemblyCommand);
         }
 
         private static void ActionExecute(DTEHelper helper)

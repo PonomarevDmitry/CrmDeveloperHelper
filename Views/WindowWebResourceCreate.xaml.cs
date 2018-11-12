@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBName.Text = fileName;
             txtBDisplayName.Text = fileName;
 
-            txtBFilePath.Text = pathName.Replace("\\", "/");
+            txtBFilePath.Text = pathName.Replace('\\', '/');
 
             txtBSolutionName.Text = solutionName;
             txtBPublisherPrefix.Text = publisherPrefix;
