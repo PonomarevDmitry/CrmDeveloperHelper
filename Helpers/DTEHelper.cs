@@ -941,14 +941,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                     else
                     {
-                        if (outputWindowLocal.TextDocument.EndPoint.Line > 1)
-                        {
-                            outputWindowLocal.OutputString(Environment.NewLine);
-                            outputWindowLocal.OutputString(Environment.NewLine);
-                            outputWindowLocal.OutputString(Environment.NewLine);
-                            outputWindowLocal.OutputString(Environment.NewLine);
-                            outputWindowLocal.OutputString(Environment.NewLine);
-                        }
+                        outputWindowLocal.OutputString(Environment.NewLine);
+                        outputWindowLocal.OutputString(Environment.NewLine);
+                        outputWindowLocal.OutputString(Environment.NewLine);
+                        outputWindowLocal.OutputString(Environment.NewLine);
+                        outputWindowLocal.OutputString(Environment.NewLine);
                     }
                 }
             }
@@ -1200,7 +1197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 else
                 {
                     string message = string.Format(Properties.MessageBoxStrings.PublishWebResourcesEqualByTextFormat, selectedFiles.Count, connectionData.GetDescription());
-                    
+
                     var dialog = new WindowConfirmPublish(message);
 
                     if (dialog.ShowDialog().GetValueOrDefault())
