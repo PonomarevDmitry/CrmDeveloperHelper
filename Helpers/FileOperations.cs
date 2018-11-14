@@ -374,21 +374,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return directory;
         }
 
-        public static void CreateBackUpFile(string filePath)
+        public static void CreateBackUpFile(string filePath, Exception ex)
         {
             if (!File.Exists(filePath))
             {
                 return;
             }
 
+            DateTime date = DateTime.Now;
+
             var folder = Path.GetDirectoryName(filePath);
             var fileName = Path.GetFileNameWithoutExtension(filePath);
             var extension = Path.GetExtension(filePath);
 
-            var fileNewName = string.Format("{0} DataContractReadObject Crush at {1:yyyy.MM.dd HH-mm-ss}{2}", fileName, DateTime.Now, extension);
-            var fileNewPath = Path.Combine(folder, fileNewName);
+            {
+                var fileNewName = string.Format("{0} DataContractReadObject Crush at {1:yyyy.MM.dd HH-mm-ss}{2}", fileName, date, extension);
+                var fileNewPath = Path.Combine(folder, fileNewName);
 
-            File.Move(filePath, fileNewPath);
+                File.Move(filePath, fileNewPath);
+            }
+
+            {
+                var description = DTEHelper.GetExceptionDescription(ex);
+
+                var fileNewName = string.Format("{0} DataContractReadObject Crush at {1:yyyy.MM.dd HH-mm-ss} Exception Description.txt", fileName, date);
+                var fileNewPath = Path.Combine(folder, fileNewName);
+
+                File.WriteAllText(fileNewPath, description, new UTF8Encoding(false));
+            }
         }
 
         public static Uri GetSchemaResourceUri(string fileName)

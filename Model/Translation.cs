@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     DTEHelper.WriteExceptionToOutput(ex);
 
-                    FileOperations.CreateBackUpFile(dataPath);
+                    FileOperations.CreateBackUpFile(dataPath, ex);
 
                     result = null;
                 }
