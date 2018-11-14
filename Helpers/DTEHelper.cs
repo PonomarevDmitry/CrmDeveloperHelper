@@ -3292,7 +3292,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartOpenExportSolutionWindow(crmConfig.CurrentConnectionData, commonConfig);
+                    Controller.StartOpenExportSolutionWindow(null, crmConfig.CurrentConnectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {
@@ -3599,7 +3599,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartExportSolution(selectedItem, crmConfig.CurrentConnectionData, commonConfig);
+                    Controller.StartOpenExportSolutionWindow(selectedItem, crmConfig.CurrentConnectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {

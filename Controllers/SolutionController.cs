@@ -74,13 +74,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование решения.
 
-        public async Task ExecuteOpeningExportSolutionWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingSolution(EnvDTE.SelectedItem selectedItem, string filter, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportSolutionWindow);
-            
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingCRMSolution);
+
             try
             {
-                await OpeningExportSolutionWindow(connectionData, commonConfig);
+                await ExportingSolution(selectedItem, filter, connectionData, commonConfig);
             }
             catch (Exception xE)
             {
@@ -88,11 +88,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportSolutionWindow);
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingCRMSolution);
             }
         }
 
-        private async Task OpeningExportSolutionWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task ExportingSolution(EnvDTE.SelectedItem selectedItem, string filter, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             if (connectionData == null)
             {
@@ -100,7 +100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM); ;
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -109,7 +109,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenExportSolutionWindow(this._iWriteToOutput, service, commonConfig, null, null);
+            WindowHelper.OpenExportSolutionWindow(
+                this._iWriteToOutput
+                , service
+                , commonConfig
+                , selectedItem
+                , filter
+                );
         }
 
         #endregion Экспортирование решения.

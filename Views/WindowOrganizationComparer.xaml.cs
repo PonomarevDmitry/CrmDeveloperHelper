@@ -1665,7 +1665,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         _commonConfig.Save();
 
-                        ExportSolutionController contr = new ExportSolutionController(this._iWriteToOutput);
+                        SolutionController contr = new SolutionController(this._iWriteToOutput);
 
                         contr.ExecuteExportingSolution(null, string.Empty, connection1, _commonConfig);
                     }

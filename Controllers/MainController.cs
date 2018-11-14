@@ -26,7 +26,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         private readonly ExportPluginConfigurationController _exportPluginConfigurationController;
         private readonly CheckPluginController _checkPluginController;
         private readonly PluginTypeDescriptionController _pluginTypeDescriptionController;
-        private readonly ExportSolutionController _exportSolutionController;
         private readonly CrmSvcUtilController _crmSvcUtilController;
         private readonly CheckManagedEntitiesController _checkManagedEntitiesController;
         private readonly OpenFilesController _openFilesController;
@@ -53,7 +52,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._exportPluginConfigurationController = new ExportPluginConfigurationController(outputWindow);
             this._checkPluginController = new CheckPluginController(outputWindow);
             this._pluginTypeDescriptionController = new PluginTypeDescriptionController(outputWindow);
-            this._exportSolutionController = new ExportSolutionController(outputWindow);
             this._crmSvcUtilController = new CrmSvcUtilController(outputWindow);
             this._checkManagedEntitiesController = new CheckManagedEntitiesController(outputWindow);
             this._openFilesController = new OpenFilesController(outputWindow);
@@ -1034,13 +1032,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpenExportSolutionWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartOpenExportSolutionWindow(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._solutionController.ExecuteOpeningExportSolutionWindow(connectionData, commonConfig);
+                    this._solutionController.ExecuteExportingSolution(selectedItem, string.Empty, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -1347,23 +1345,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._checkController.ExecuteOpenFilesWithoutUTF8Encoding(selectedFiles);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartExportSolution(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._exportSolutionController.ExecuteExportingSolution(selectedItem, string.Empty, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

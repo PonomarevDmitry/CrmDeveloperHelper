@@ -371,7 +371,6 @@
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\EntityMetadataController.cs" />
     <Compile Include="Controllers\ExportPluginConfigurationController.cs" />
-    <Compile Include="Controllers\ExportSolutionController.cs" />
     <Compile Include="Controllers\ExportXmlController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\PluginTreeController.cs" />
