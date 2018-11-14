@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public class WorkflowUsedEntitiesHandler
     {
-        private Dictionary<string, Guid> _usedGuids;
-        private Dictionary<string, string[]> _usedCreateEntityReference;
-
         public Task<List<EntityReference>> GetWorkflowUsedEntitiesAsync(XElement doc)
         {
             return Task.Run(() => GetWorkflowUsedEntities(doc));
@@ -22,15 +20,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             List<EntityReference> result = new List<EntityReference>();
 
-            this._usedGuids = new Dictionary<string, Guid>(StringComparer.InvariantCultureIgnoreCase);
+            Dictionary<string, Guid> usedGuids = new Dictionary<string, Guid>(StringComparer.InvariantCultureIgnoreCase);
 
-            this._usedCreateEntityReference = new Dictionary<string, string[]>(StringComparer.InvariantCultureIgnoreCase);
+            Dictionary<string, string[]> usedCreateEntityReference = new Dictionary<string, string[]>(StringComparer.InvariantCultureIgnoreCase);
 
-            FillGuids(doc);
+            FillGuids(doc, usedGuids);
 
-            FillEntityReference(doc);
+            FillEntityReference(doc, usedCreateEntityReference);
 
-            foreach (var reference in this._usedCreateEntityReference)
+            foreach (var reference in usedCreateEntityReference)
             {
                 if (reference.Value.Length == 4)
                 {
@@ -39,9 +37,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     var key = reference.Value[2];
                     var type = reference.Value[3];
 
-                    if (_usedGuids.ContainsKey(key) && string.Equals(type, "Lookup", StringComparison.InvariantCultureIgnoreCase))
+                    if (usedGuids.ContainsKey(key) && string.Equals(type, "Lookup", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        var newValue = new EntityReference(entityName, _usedGuids[key])
+                        var newValue = new EntityReference(entityName, usedGuids[key])
                         {
                             Name = name,
                         };
@@ -62,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static readonly Regex regexParameters = new Regex(@"([^,]*),?", RegexOptions.Compiled);
 
-        private void FillGuids(XElement doc)
+        private void FillGuids(XElement doc, Dictionary<string, Guid> usedGuids)
         {
             var inArguments = doc.Descendants().Where(IsInArgumentCreateCrmType);
 
@@ -98,7 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             if (Guid.TryParse(arg1, out Guid tempGuid) && tempGuid != Guid.Empty)
                             {
-                                _usedGuids.Add(result, tempGuid);
+                                usedGuids.Add(result, tempGuid);
                             }
                         }
                     }
@@ -106,7 +104,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private void FillEntityReference(XElement doc)
+        private void FillEntityReference(XElement doc, Dictionary<string, string[]> usedCreateEntityReference)
         {
             var inArguments = doc.Descendants().Where(IsInArgumentCreateCrmType);
 
@@ -137,7 +135,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             split[i] = System.Net.WebUtility.HtmlDecode(split[i]).Trim('"', ' '); // XmlConvert.DecodeName();
                         }
 
-                        _usedCreateEntityReference.Add(result, split);
+                        usedCreateEntityReference.Add(result, split);
                     }
                 }
             }
@@ -269,6 +267,193 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return true;
         }
+
+        private static readonly string[] _attributesForCreateOrUpdate = new[] { "DisplayName", "Entity", "EntityName" };
+
+        private static bool IsCreateOrUpdateEntity(XElement element)
+        {
+            if (!string.Equals(element.Name.LocalName, "CreateEntity", StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(element.Name.LocalName, "UpdateEntity", StringComparison.InvariantCultureIgnoreCase)
+                )
+            {
+                return false;
+            }
+
+            foreach (var attrName in _attributesForCreateOrUpdate)
+            {
+                var attr = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, attrName, StringComparison.InvariantCultureIgnoreCase));
+
+                if (attr == null || string.IsNullOrEmpty(attr.Value))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static readonly string[] _attributesForSetEntityProperty = new[] { "Attribute", "EntityName", "Value" };
+
+        private static bool IsSetEntityProperty(XElement element, string entityVarible)
+        {
+            if (!string.Equals(element.Name.LocalName, "SetEntityProperty", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
+
+            {
+                var attr = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Entity", StringComparison.InvariantCultureIgnoreCase));
+
+                if (attr == null
+                    || !string.Equals(attr.Value, entityVarible, StringComparison.InvariantCultureIgnoreCase)
+                    )
+                {
+                    return false;
+                }
+            }
+
+            foreach (var attrName in _attributesForSetEntityProperty)
+            {
+                var attr = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, attrName, StringComparison.InvariantCultureIgnoreCase));
+
+                if (attr == null || string.IsNullOrEmpty(attr.Value))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static readonly string[] _attributesForGetEntityProperty = new[] { "Attribute", "EntityName" };
+
+        private static bool IsGetEntityProperty(XElement element)
+        {
+            if (!string.Equals(element.Name.LocalName, "GetEntityProperty", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
+
+            foreach (var attrName in _attributesForGetEntityProperty)
+            {
+                var attr = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, attrName, StringComparison.InvariantCultureIgnoreCase));
+
+                if (attr == null || string.IsNullOrEmpty(attr.Value))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public WorkflowAnalysis GetWorkflowAnalysis(XElement doc)
+        {
+            WorkflowAnalysis result = new WorkflowAnalysis();
+
+            result.CreateUpdateEntitySteps.AddRange(GetWorkflowEntityOperationsSteps(doc));
+
+            result.UsedEntityAttributes.AddRange(GetWorkflowUsedAttributes(doc));
+
+            return result;
+        }
+
+        private List<WorkflowCreateUpdateEntityStep> GetWorkflowEntityOperationsSteps(XElement doc)
+        {
+            List<WorkflowCreateUpdateEntityStep> result = new List<WorkflowCreateUpdateEntityStep>();
+
+            var stepsElements = doc.Descendants().Where(IsCreateOrUpdateEntity);
+
+            foreach (var stepElement in stepsElements)
+            {
+                var newStep = new WorkflowCreateUpdateEntityStep()
+                {
+                    DisplayName = stepElement.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "DisplayName", StringComparison.InvariantCultureIgnoreCase))?.Value,
+                    EntityName = stepElement.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "EntityName", StringComparison.InvariantCultureIgnoreCase))?.Value,
+                };
+
+                string entityVarible = stepElement.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Entity", StringComparison.InvariantCultureIgnoreCase))?.Value;
+
+                if (string.Equals(stepElement.Name.LocalName, "UpdateEntity", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    newStep.StepType = WorkflowCreateUpdateEntityStepType.Update;
+
+                    if (!string.IsNullOrEmpty(entityVarible)
+                        && entityVarible.IndexOf("[CreatedEntities(\"CreateStep", StringComparison.InvariantCultureIgnoreCase) > -1
+                        )
+                    {
+                        newStep.StepType = WorkflowCreateUpdateEntityStepType.UpdateCreated;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(entityVarible))
+                {
+                    var parentElement = stepElement.Parent;
+
+                    var setPropertiesList = parentElement.Descendants().Where(e => IsSetEntityProperty(e, entityVarible));
+
+                    foreach (var setElement in setPropertiesList)
+                    {
+                        var newSetAttribute = new WorkflowSetEntityPropertyStep()
+                        {
+                            EntityName = setElement.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "EntityName", StringComparison.InvariantCultureIgnoreCase))?.Value,
+                            Attribute = setElement.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Attribute", StringComparison.InvariantCultureIgnoreCase))?.Value,
+                            //Value = string.Empty,
+                            //StepType = WorkflowSetEntityPropertyStepType.Nullify,
+                        };
+
+                        //var attributeValue = setElement.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Value", StringComparison.InvariantCultureIgnoreCase))?.Value;
+
+                        //Tuple<WorkflowSetEntityPropertyStepType, string> findValue = FindValueInElements(setElement.ElementsBeforeSelf(), attributeValue);
+
+                        //if (findValue != null)
+                        //{
+                        //    newSetAttribute.StepType = findValue.Item1;
+                        //    newSetAttribute.Value = findValue.Item2;
+                        //}
+
+                        newStep.SetEntityPropertySteps.Add(newSetAttribute);
+                    }
+                }
+
+                result.Add(newStep);
+            }
+
+            return result;
+        }
+
+        private List<WorkflowGetEntityPropertyStep> GetWorkflowUsedAttributes(XElement doc)
+        {
+            List<WorkflowGetEntityPropertyStep> result = new List<WorkflowGetEntityPropertyStep>();
+
+            var getPropertiesList = doc.Descendants().Where(IsGetEntityProperty);
+
+            foreach (var getElement in getPropertiesList)
+            {
+                var newSetAttribute = new WorkflowGetEntityPropertyStep()
+                {
+                    EntityName = getElement.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "EntityName", StringComparison.InvariantCultureIgnoreCase))?.Value,
+                    Attribute = getElement.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Attribute", StringComparison.InvariantCultureIgnoreCase))?.Value,
+                    DisplayName = getElement
+                        .AncestorsAndSelf()
+                        .FirstOrDefault(e => e.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "DisplayName", StringComparison.InvariantCultureIgnoreCase)) != null)
+                        .Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "DisplayName", StringComparison.InvariantCultureIgnoreCase))
+                        ?.Value,
+                };
+
+                if (!string.Equals(newSetAttribute.Attribute, "!Process_Custom_Attribute_URL_", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    result.Add(newSetAttribute);
+                }
+            }
+
+            return result;
+        }
+
+        //private Tuple<WorkflowSetEntityPropertyStepType, string> FindValueInElements(IEnumerable<XElement> enumerable, string attributeValue)
+        //{
+        //    return null;
+        //}
 
         public static void ReplaceGuids(XElement doc)
         {

@@ -625,12 +625,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, idWorkflow, entityName, name, category);
         }
 
-        private Task<string> CreateFileAsync(string folder, string entityName, string category, string name, string fieldName, string xmlContent)
+        private Task<string> CreateFileAsync(string folder, string entityName, string category, string name, string fieldTitle, string xmlContent)
         {
-            return Task.Run(() => CreateFile(folder, entityName, category, name, fieldName, xmlContent));
+            return Task.Run(() => CreateFile(folder, entityName, category, name, fieldTitle, xmlContent));
         }
 
-        private string CreateFile(string folder, string entityName, string category, string name, string fieldName, string xmlContent)
+        private string CreateFile(string folder, string entityName, string category, string name, string fieldTitle, string xmlContent)
         {
             ConnectionData connectionData = null;
 
@@ -644,7 +644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return null;
             }
 
-            string fileName = EntityFileNameFormatter.GetWorkflowFileName(connectionData.Name, entityName, category, name, fieldName, "xml");
+            string fileName = EntityFileNameFormatter.GetWorkflowFileName(connectionData.Name, entityName, category, name, fieldTitle, "xml");
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(xmlContent))
@@ -658,7 +658,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", connectionData.Name, name, fieldName, filePath);
+                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", connectionData.Name, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -667,18 +667,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldName);
+                this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
             return filePath;
         }
 
-        private async Task<string> CreateCorrectedFileAsync(string folder, string entityName, string category, string name, string fieldName, string xmlContent)
+        private async Task<string> CreateCorrectedFileAsync(string folder, string entityName, string category, string name, string fieldTitle, string xmlContent)
         {
             var service = await GetService();
 
-            string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldName, "xml");
+            string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, "xml");
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(xmlContent))
@@ -691,7 +691,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldName, filePath);
+                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -700,7 +700,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldName);
+                this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
@@ -912,7 +912,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (!string.IsNullOrEmpty(xmlContent) && ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
                 {
-                    string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldName, "txt");
+                    string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, "txt");
                     string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                     var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(service, true));
@@ -923,7 +923,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldName, filePath);
+                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldTitle, filePath);
 
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                 }
@@ -950,7 +950,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.AnalizingWorkflowFormat);
+            ToggleControls(false, Properties.WindowStatusStrings.AnalizingWorkflowFormat, entityName, name);
 
             try
             {
@@ -964,7 +964,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (!string.IsNullOrEmpty(xmlContent) && ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
                 {
-                    string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldName, "txt");
+                    string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, "txt");
                     string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                     WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(service, true));
@@ -975,7 +975,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldName, filePath);
+                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldTitle, filePath);
 
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                 }
@@ -985,13 +985,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.ActivateOutputWindow();
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.AnalizingWorkflowCompletedFormat);
+                ToggleControls(true, Properties.WindowStatusStrings.AnalizingWorkflowCompletedFormat, entityName, name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.AnalizingWorkflowFailedFormat);
+                ToggleControls(true, Properties.WindowStatusStrings.AnalizingWorkflowFailedFormat, entityName, name);
+            }
+        }
+
+        private async Task PerformExportCreatedOrUpdatedEntitiesToFile(string folder, Guid idWorkflow, string entityName, string name, string category, string fieldName, string fieldTitle)
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false, Properties.WindowStatusStrings.AnalizingWorkflowFormat, entityName, name);
+
+            try
+            {
+                var service = await GetService();
+
+                WorkflowRepository repository = new WorkflowRepository(service);
+
+                Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
+
+                string xmlContent = workflow.GetAttributeValue<string>(fieldName);
+
+                if (!string.IsNullOrEmpty(xmlContent) && ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                {
+                    string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, "txt");
+                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                    WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(service, true));
+
+                    var stringBuider = new StringBuilder();
+
+                    await workflowDescriptor.GetDescriptionEntitesAndAttributesInWorkflowAsync(stringBuider, idWorkflow);
+
+                    File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldTitle, filePath);
+
+                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldName);
+                    this._iWriteToOutput.ActivateOutputWindow();
+                }
+
+                ToggleControls(true, Properties.WindowStatusStrings.AnalizingWorkflowCompletedFormat, entityName, name);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.AnalizingWorkflowFailedFormat, entityName, name);
             }
         }
 
@@ -1041,6 +1093,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.xaml, "UsedNotExistsEntities", PerformExportUsedNotExistsEntitesToFile);
+        }
+
+        private void mIExportWorkflowCreatedOrUpdatedEntities_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.xaml, "CreatedOrUpdatedEntities", PerformExportCreatedOrUpdatedEntitiesToFile);
         }
 
         private void mIExportWorkflowInputParameters_Click(object sender, RoutedEventArgs e)

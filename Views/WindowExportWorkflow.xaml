@@ -43,6 +43,7 @@
             <Separator/>
             <MenuItem Header="Used Entities" VerticalAlignment="Center" Click="mIExportWorkflowUsedEntities_Click"/>
             <MenuItem Header="Used Not Exists Entities" VerticalAlignment="Center" Click="mIExportWorkflowUsedNotExistsEntities_Click"/>
+            <MenuItem Header="Created or Updated Entities" VerticalAlignment="Center" Click="mIExportWorkflowCreatedOrUpdatedEntities_Click"/>
             <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
             <Separator/>
@@ -176,6 +177,7 @@
                             <Separator/>
                             <MenuItem Header="Used Entities" VerticalAlignment="Center" Click="mIExportWorkflowUsedEntities_Click"/>
                             <MenuItem Header="Used Not Exists Entities" VerticalAlignment="Center" Click="mIExportWorkflowUsedNotExistsEntities_Click"/>
+                            <MenuItem Header="Created or Updated Entities" VerticalAlignment="Center" Click="mIExportWorkflowCreatedOrUpdatedEntities_Click"/>
                             <Separator/>
                             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
                             <Separator/>

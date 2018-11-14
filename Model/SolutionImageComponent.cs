@@ -59,7 +59,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return this.ComponentType.GetHashCode()
+                ^ this.ObjectId.GetHashCode()
+                ^ StringComparer.InvariantCultureIgnoreCase.GetHashCode(this.SchemaName)
+                ^ StringComparer.InvariantCultureIgnoreCase.GetHashCode(this.ParentSchemaName)
+                ;
         }
     }
 }

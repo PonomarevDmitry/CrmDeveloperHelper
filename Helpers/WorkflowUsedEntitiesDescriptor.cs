@@ -2,6 +2,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
@@ -749,9 +750,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var handler = new WorkflowUsedEntitiesHandler();
 
-                strFile.AppendFormat("Entity {0}", workflow.PrimaryEntity).AppendLine();
-                strFile.AppendFormat("Category {0}", workflow.FormattedValues[Workflow.Schema.Attributes.category]).AppendLine();
-                strFile.AppendFormat("Name {0}", workflow.Name).AppendLine()
+                strFile
+                    .AppendFormat("Entity:   {0}", workflow.PrimaryEntity).AppendLine()
+                    .AppendFormat("Category: {0}", workflow.FormattedValues[Workflow.Schema.Attributes.category]).AppendLine()
+                    .AppendFormat("Name:     {0}", workflow.Name).AppendLine()
+                    .AppendFormat("Url:      {0}", _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.Workflow, idWorkflow)).AppendLine()
                     .AppendLine()
                     .AppendLine()
                     .AppendLine()
@@ -787,15 +790,112 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 Dictionary<EntityReference, HashSet<Guid>> list = (await handler.GetWorkflowUsedEntitiesAsync(doc)).ToDictionary(e => e, k => new HashSet<Guid>() { idWorkflow });
 
-                strFile.AppendFormat("Entity:   {0}", workflow.PrimaryEntity).AppendLine();
-                strFile.AppendFormat("Category: {0}", workflow.FormattedValues[Workflow.Schema.Attributes.category]).AppendLine();
-                strFile.AppendFormat("Name:     {0}", workflow.Name).AppendLine()
+                strFile
+                    .AppendFormat("Entity:   {0}", workflow.PrimaryEntity).AppendLine()
+                    .AppendFormat("Category: {0}", workflow.FormattedValues[Workflow.Schema.Attributes.category]).AppendLine()
+                    .AppendFormat("Name:     {0}", workflow.Name).AppendLine()
+                    .AppendFormat("Url:      {0}", _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.Workflow, idWorkflow)).AppendLine()
                     .AppendLine()
                     .AppendLine()
                     .AppendLine()
                     ;
 
                 await FillDescriptionNotExistsEntities(strFile, workflowsWithEntities, list);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
+        }
+
+        public async Task GetDescriptionEntitesAndAttributesInWorkflowAsync(StringBuilder strFile, Guid idWorkflow)
+        {
+            try
+            {
+                var repository = new WorkflowRepository(_service);
+
+                var workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
+
+                string xmlContent = ContentCoparerHelper.RemoveDiacritics(workflow.Xaml);
+
+                var doc = XElement.Parse(xmlContent);
+
+                var handler = new WorkflowUsedEntitiesHandler();
+
+                strFile
+                    .AppendFormat("Entity:   {0}", workflow.PrimaryEntity).AppendLine()
+                    .AppendFormat("Category: {0}", workflow.FormattedValues[Workflow.Schema.Attributes.category]).AppendLine()
+                    .AppendFormat("Name:     {0}", workflow.Name).AppendLine()
+                    .AppendFormat("Url:      {0}", _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.Workflow, idWorkflow)).AppendLine()
+                    .AppendLine()
+                    ;
+
+                WorkflowAnalysis analysis = handler.GetWorkflowAnalysis(doc);
+
+                if (analysis.UsedEntityAttributes.Any())
+                {
+                    strFile
+                        .AppendLine()
+                        .AppendLine()
+                        .AppendLine()
+                        .AppendLine(new string('-', 150))
+                        .AppendLine()
+                        .AppendLine()
+                        .AppendLine()
+                        ;
+
+                    var tableUsedAttributes = new FormatTextTableHandler();
+                    tableUsedAttributes.SetHeader("Entity", "Attribute", "StepName");
+
+                    foreach (var step in analysis.UsedEntityAttributes
+                        .OrderBy(e => e.EntityName)
+                        .ThenBy(e => e.Attribute)
+                        .ThenBy(e => e.DisplayName)
+                        )
+                    {
+                        tableUsedAttributes.AddLine(step.EntityName, step.Attribute, step.DisplayName);
+                    }
+
+                    strFile.AppendFormat("Used Attributes: {0}", analysis.UsedEntityAttributes.Count).AppendLine();
+
+                    tableUsedAttributes.GetFormatedLines(false).ForEach(s => strFile.AppendLine(tabspacer + s));
+                }
+
+                if (analysis.CreateUpdateEntitySteps.Any())
+                {
+                    strFile
+                        .AppendLine()
+                        .AppendLine()
+                        .AppendLine()
+                        .AppendLine(new string('-', 150))
+                        .AppendLine()
+                        .AppendLine()
+                        .AppendLine()
+                        ;
+
+                    strFile.AppendFormat("Created or Updated Entities {0}", analysis.CreateUpdateEntitySteps.Count).AppendLine();
+
+                    foreach (var step in analysis.CreateUpdateEntitySteps)
+                    {
+                        strFile.AppendFormat("Entity {0}    Operation {1}    StepName {2}    With Attributes {2}", step.EntityName, step.StepType, step.DisplayName, step.SetEntityPropertySteps.Count).AppendLine()
+                            ;
+
+                        var tableUsedAttributes = new FormatTextTableHandler();
+                        tableUsedAttributes.SetHeader("Attribute");
+
+                        foreach (var stepSet in step.SetEntityPropertySteps
+                            .OrderBy(e => e.EntityName)
+                            .ThenBy(e => e.Attribute)
+                            )
+                        {
+                            tableUsedAttributes.AddLine(stepSet.Attribute);
+                        }
+
+                        tableUsedAttributes.GetFormatedLines(false).ForEach(s => strFile.AppendLine(tabspacer + s));
+
+                        strFile.AppendLine().AppendLine();
+                    }
+                }
             }
             catch (Exception ex)
             {

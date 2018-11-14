@@ -551,14 +551,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return filePath;
         }
 
-        private Task<string> CreateDescriptionFileAsync(string connectionName, string entityName, string category, string name, string fieldName, string description)
+        private Task<string> CreateDescriptionFileAsync(string connectionName, string entityName, string category, string name, string fieldTitle, string description)
         {
-            return Task.Run(() => CreateDescriptionFile(connectionName, entityName, category, name, fieldName, description));
+            return Task.Run(() => CreateDescriptionFile(connectionName, entityName, category, name, fieldTitle, description));
         }
 
-        private string CreateDescriptionFile(string connectionName, string entityName, string category, string name, string fieldName, string description)
+        private string CreateDescriptionFile(string connectionName, string entityName, string category, string name, string fieldTitle, string description)
         {
-            string fileName = EntityFileNameFormatter.GetWorkflowFileName(connectionName, entityName, category, name, fieldName, "txt");
+            string fileName = EntityFileNameFormatter.GetWorkflowFileName(connectionName, entityName, category, name, fieldTitle, "txt");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(description))
@@ -567,7 +567,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} Workflow Entity Description {1} {2} exported to {3}", connectionName, name, fieldName, filePath);
+                    this._iWriteToOutput.WriteToOutput("{0} Workflow Entity Description {1} {2} exported to {3}", connectionName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -577,7 +577,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             else
             {
                 filePath = string.Empty;
-                this._iWriteToOutput.WriteToOutput("{0} Workflow Entity Description {1} {2} is empty.", connectionName, name, fieldName);
+                this._iWriteToOutput.WriteToOutput("{0} Workflow Entity Description {1} {2} is empty.", connectionName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
