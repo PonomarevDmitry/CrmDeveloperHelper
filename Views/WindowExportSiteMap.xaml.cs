@@ -93,6 +93,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBFolder.DataContext = _commonConfig;
 
             chBXmlAttributeOnNewLine.DataContext = _commonConfig;
+
+            chBSetXmlSchemas.DataContext = _commonConfig;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -434,6 +436,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
+                    if (_commonConfig.SetXmlSchemasDuringExport)
+                    {
+                        var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "SiteMapXml", StringComparison.InvariantCultureIgnoreCase));
+
+                        if (schemasResources != null)
+                        {
+                            string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(schemasResources.Item2);
+
+                            if (!string.IsNullOrEmpty(schemas))
+                            {
+                                xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemas);
+                            }
+                        }
+                    }
+
                     xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportSiteMapXmlAttributeOnNewLine);
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));

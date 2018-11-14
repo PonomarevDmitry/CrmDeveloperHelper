@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Resources;
 using System.Xml;
 using System.Xml.Linq;
 using Ude;
@@ -863,6 +865,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return result;
+        }
+
+        public static string HandleExportXsdSchemaIntoSchamasFolder(string[] fileNamesColl)
+        {
+            StringBuilder result = new StringBuilder();
+
+            try
+            {
+                foreach (var fileName in fileNamesColl)
+                {
+                    Uri uri = FileOperations.GetSchemaResourceUri(fileName);
+                    StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                    var doc = XDocument.Load(info.Stream);
+                    info.Stream.Dispose();
+
+                    var filePath = Path.Combine(FileOperations.GetSchemaXsdFolder(), fileName);
+
+                    doc.Save(filePath, SaveOptions.OmitDuplicateNamespaces);
+
+                    if (result.Length > 0)
+                    {
+                        result.Append(" ");
+                    }
+
+                    result.AppendFormat("{0} {1}", Path.GetFileNameWithoutExtension(fileName), new Uri(filePath).ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result.ToString();
         }
 
         public static string ReplaceXsdSchema(string text, string schemas)

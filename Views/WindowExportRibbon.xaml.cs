@@ -108,6 +108,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBFileAction.DataContext = _commonConfig;
 
+            chBSetXmlSchemas.DataContext = _commonConfig;
+
             txtBFolder.DataContext = _commonConfig;
         }
 
@@ -831,6 +833,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string ribbonDiffXml = await repository.ExportSolutionAndGetApplicationRibbonDiffAsync(solutionUniqueName);
 
+                    if (_commonConfig.SetXmlSchemasDuringExport)
+                    {
+                        var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+
+                        if (schemasResources != null)
+                        {
+                            string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(schemasResources.Item2);
+
+                            if (!string.IsNullOrEmpty(schemas))
+                            {
+                                ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemas);
+                            }
+                        }
+                    }
+
                     ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
 
                     {
@@ -859,12 +876,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIChangeApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        private void mIUpdateApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteActionOnApplicationRibbonAsync(PerformChangeApplicationRibbonDiffXml);
+            ExecuteActionOnApplicationRibbonAsync(PerformUpdateApplicationRibbonDiffXml);
         }
 
-        private async Task PerformChangeApplicationRibbonDiffXml()
+        private async Task PerformUpdateApplicationRibbonDiffXml()
         {
             if (_init > 0 || !_controlsEnabled)
             {
@@ -986,6 +1003,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         this._iWriteToOutput.WriteToOutput("Solution {0} Backup exported to {1}", solution.UniqueName, filePath);
 
                         this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                    }
+
+                    if (_commonConfig.SetXmlSchemasDuringExport)
+                    {
+                        var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+
+                        if (schemasResources != null)
+                        {
+                            string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(schemasResources.Item2);
+
+                            if (!string.IsNullOrEmpty(schemas))
+                            {
+                                ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemas);
+                            }
+                        }
                     }
 
                     ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
@@ -1238,6 +1270,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string ribbonDiffXml = await repository.ExportSolutionAndGetRibbonDiffAsync(solutionUniqueName, entity.EntityLogicalName);
 
+                    if (_commonConfig.SetXmlSchemasDuringExport)
+                    {
+                        var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+
+                        if (schemasResources != null)
+                        {
+                            string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(schemasResources.Item2);
+
+                            if (!string.IsNullOrEmpty(schemas))
+                            {
+                                ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemas);
+                            }
+                        }
+                    }
+
                     ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
 
                     {
@@ -1266,7 +1313,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIChangeEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        private void mIUpdateEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1400,6 +1447,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput("Solution {0} Backup exported to {1}", solution.UniqueName, filePath);
 
                     this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                }
+
+                if (_commonConfig.SetXmlSchemasDuringExport)
+                {
+                    var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+
+                    if (schemasResources != null)
+                    {
+                        string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(schemasResources.Item2);
+
+                        if (!string.IsNullOrEmpty(schemas))
+                        {
+                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemas);
+                        }
+                    }
                 }
 
                 ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);

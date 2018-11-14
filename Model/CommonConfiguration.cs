@@ -289,7 +289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.OnPropertyChanged(nameof(ExportSiteMapXmlAttributeOnNewLine));
             }
         }
-
+        
         private bool _GenerateAttributes;
         /// <summary>
         /// Генерировать атрибуты в файле с метаданными сущности
@@ -983,6 +983,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.OnPropertyChanging(nameof(SolutionExportManaged));
                 this._SolutionExportManaged = value;
                 this.OnPropertyChanged(nameof(SolutionExportManaged));
+            }
+        }
+        
+        private bool _SetXmlSchemasDuringExport;
+        /// <summary>
+        /// Генерировать атрибуты в файле с метаданными сущности
+        /// </summary>
+        [DataMember]
+        public bool SetXmlSchemasDuringExport
+        {
+            get
+            {
+                return _SetXmlSchemasDuringExport;
+            }
+            set
+            {
+                this.OnPropertyChanging(nameof(SetXmlSchemasDuringExport));
+                this._SetXmlSchemasDuringExport = value;
+                this.OnPropertyChanged(nameof(SetXmlSchemasDuringExport));
             }
         }
 

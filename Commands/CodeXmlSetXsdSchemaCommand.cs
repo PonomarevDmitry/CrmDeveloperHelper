@@ -105,7 +105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                             && objTextDoc is EnvDTE.TextDocument textDocument
                             )
                         {
-                            string schemas = helper.HandleExportXsdSchemaIntoSchamasFolder(selectedSchemas);
+                            string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(selectedSchemas);
 
                             if (!string.IsNullOrEmpty(schemas))
                             {

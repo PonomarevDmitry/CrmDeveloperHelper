@@ -108,6 +108,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFileAction.DataContext = _commonConfig;
 
             txtBFolder.DataContext = _commonConfig;
+
+            chBSetXmlSchemas.DataContext = _commonConfig;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -460,9 +462,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    if (string.Equals(extension, "xml", StringComparison.OrdinalIgnoreCase) && ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    if (string.Equals(extension, "xml", StringComparison.OrdinalIgnoreCase))
                     {
-                        xmlContent = doc.ToString();
+                        if (_commonConfig.SetXmlSchemasDuringExport)
+                        {
+                            var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "Fetch.xsd", StringComparison.InvariantCultureIgnoreCase));
+
+                            if (schemasResources != null)
+                            {
+                                string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(schemasResources.Item2);
+
+                                if (!string.IsNullOrEmpty(schemas))
+                                {
+                                    xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemas);
+                                }
+                            }
+                        }
+
+                        if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                        {
+                            xmlContent = doc.ToString();
+                        }
                     }
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
@@ -567,7 +587,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.CopingXmlFieldToClipboardFormat, fieldTitle);
 
             try
@@ -1479,13 +1499,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await repository.PublishEntitiesAsync(new[] { entityName });
 
                 this._iWriteToOutput.WriteToOutput("End publishing Entity {0} at {1}", entityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityName);
             }
         }

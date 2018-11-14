@@ -20,7 +20,7 @@
             <Separator/>
             <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
             <Separator/>
-            <MenuItem Header="Change Entity RibbonDiffXml" VerticalAlignment="Center" Click="mIChangeEntityRibbonDiffXml_Click"/>
+            <MenuItem Header="Update Entity RibbonDiffXml" VerticalAlignment="Center" Click="mIUpdateEntityRibbonDiffXml_Click"/>
             <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
             <Separator/>
@@ -133,6 +133,7 @@
         </DataGrid>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" Padding="10,0" VerticalAlignment="Bottom" Height="25" VerticalContentAlignment="Center" />
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="69,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Height="25" Width="254" />
+        <CheckBox x:Name="chBSetXmlSchemas" IsChecked="{Binding Path=SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" HorizontalAlignment="Left" Margin="345,0,0,74" Height="15" VerticalAlignment="Bottom"/>
         <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
@@ -159,7 +160,7 @@
                         <Separator/>
                         <MenuItem Header="Publish Application Ribbon" Click="btnPublishApplicationRibbon_Click"/>
                         <Separator/>
-                        <MenuItem Header="Change Application RibbonDiffXml" VerticalAlignment="Center" Click="mIChangeApplicationRibbonDiffXml_Click"/>
+                        <MenuItem Header="Update Application RibbonDiffXml" VerticalAlignment="Center" Click="mIUpdateApplicationRibbonDiffXml_Click"/>
                         <Separator/>
                         <MenuItem x:Name="mIAddApplicationIntoLastSolution" x:Uid="mIAddApplicationIntoLastSolution" Header="Add Application Ribbon into Last Crm Solution" VerticalAlignment="Center" />
                         <MenuItem Header="Add Application Ribbon into Crm Solution" VerticalAlignment="Center" Click="AddApplicationRibbonIntoCrmSolution_Click" />

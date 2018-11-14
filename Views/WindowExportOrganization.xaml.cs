@@ -1,4 +1,5 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -87,6 +88,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBFolder.DataContext = commonConfig;
 
             chBXmlAttributeOnNewLine.DataContext = commonConfig;
+
+            chBSetXmlSchemas.DataContext = commonConfig;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -136,7 +139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.LoadingOrganizations);
 
             this._itemsSource.Clear();
@@ -382,6 +385,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
+                    if (string.Equals(fieldTitle, Organization.Schema.Attributes.sitemapxml, StringComparison.OrdinalIgnoreCase)
+                        || string.Equals(fieldTitle, Organization.Schema.Attributes.referencesitemapxml, StringComparison.OrdinalIgnoreCase)
+                        )
+                    {
+                        if (_commonConfig.SetXmlSchemasDuringExport)
+                        {
+                            var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "SiteMapXml", StringComparison.InvariantCultureIgnoreCase));
+
+                            if (schemasResources != null)
+                            {
+                                string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(schemasResources.Item2);
+
+                                if (!string.IsNullOrEmpty(schemas))
+                                {
+                                    xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemas);
+                                }
+                            }
+                        }
+                    }
+
                     xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportOrganizationXmlAttributeOnNewLine);
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
@@ -785,7 +808,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceForFieldsFormat, fieldTitle1, fieldTitle2);
 
             string xmlContent1 = organization.GetAttributeValue<string>(fieldName1);

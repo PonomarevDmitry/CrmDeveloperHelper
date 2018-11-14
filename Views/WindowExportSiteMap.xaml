@@ -67,7 +67,8 @@
         </DataGrid>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" Padding="10,0" VerticalAlignment="Bottom" Height="25" VerticalContentAlignment="Center"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="59,0,0,69" Padding="10,0" VerticalAlignment="Bottom" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Height="25" Width="254" VerticalContentAlignment="Center" />
-        <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding ExportSiteMapXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" HorizontalAlignment="Left" Margin="377,0,0,74" Height="15" VerticalAlignment="Bottom"/>
+        <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding ExportSiteMapXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" HorizontalAlignment="Left" Margin="330,0,0,74" Height="15" VerticalAlignment="Bottom"/>
+        <CheckBox x:Name="chBSetXmlSchemas" IsChecked="{Binding Path=SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" HorizontalAlignment="Left" Margin="512,0,0,74" Height="15" VerticalAlignment="Bottom"/>
         <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">

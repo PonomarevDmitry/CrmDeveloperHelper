@@ -3853,60 +3853,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public string HandleExportXsdSchemaIntoSchamasFolder(string[] fileNamesColl)
-        {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (commonConfig == null)
-            {
-                return null;
-            }
-
-            ActivateOutputWindow();
-            WriteToOutputEmptyLines(commonConfig);
-
-            StringBuilder result = new StringBuilder();
-
-            try
-            {
-                foreach (var fileName in fileNamesColl)
-                {
-                    Uri uri = FileOperations.GetSchemaResourceUri(fileName);
-                    StreamResourceInfo info = Application.GetResourceStream(uri);
-
-                    var doc = XDocument.Load(info.Stream);
-                    info.Stream.Dispose();
-
-                    var filePath = Path.Combine(FileOperations.GetSchemaXsdFolder(), fileName);
-
-                    doc.Save(filePath, SaveOptions.OmitDuplicateNamespaces);
-
-                    this.WriteToOutput(string.Empty);
-                    this.WriteToOutput(string.Empty);
-                    this.WriteToOutput(string.Empty);
-
-                    this.WriteToOutput("{0} exported.", fileName);
-
-                    this.WriteToOutput(string.Empty);
-
-                    this.WriteToOutputFilePathUri(filePath);
-
-                    if (result.Length > 0)
-                    {
-                        result.Append(" ");
-                    }
-
-                    result.AppendFormat("{0} {1}", Path.GetFileNameWithoutExtension(fileName), new Uri(filePath).ToString());
-                }
-            }
-            catch (Exception xE)
-            {
-                WriteErrorToOutput(xE);
-            }
-
-            return result.ToString();
-        }
-
         public void HandleOpenXsdSchemaFolder()
         {
             var folder = FileOperations.GetSchemaXsdFolder();
