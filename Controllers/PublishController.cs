@@ -72,7 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             
             if (connectionData.IsReadOnly)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectionIsReadOnlyFormat, connectionData.Name);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectionIsReadOnlyFormat1, connectionData.Name);
                 return;
             }
 
@@ -83,7 +83,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             // Менеджер для публикации в CRM.
             PublishManager publishHelper = new PublishManager(this._iWriteToOutput, service);
@@ -276,7 +276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecutePublishingAll(ConnectionData connectionData)
         {
-            string operation = string.Format(Properties.OperationNames.PublishingAllCustomizationFormat, connectionData.Name);
+            string operation = string.Format(Properties.OperationNames.PublishingAllCustomizationFormat1, connectionData.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -308,7 +308,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             try
             {
@@ -316,13 +316,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 await repository.PublishAllXmlAsync();
 
-                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.PublishingAllCompletedFormat, connectionData.Name);
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.PublishingAllCompletedFormat1, connectionData.Name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.PublishingAllFailedFormat, connectionData.Name);
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.PublishingAllFailedFormat1, connectionData.Name);
             }
         }
 

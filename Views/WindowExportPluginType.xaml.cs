@@ -124,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -227,7 +227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginTypesCompletedFormat, results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginTypesCompletedFormat1, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -418,7 +418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportPluginTypeDescription(string folder, Guid idPluginType, string name)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingPluginTypeDescriptionFormat, name);
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingPluginTypeDescriptionFormat1, name);
             
             var service = await GetService();
 
@@ -455,7 +455,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingPluginTypeDescriptionCompletedFormat, name);
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingPluginTypeDescriptionCompletedFormat1, name);
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idPluginType, string name)

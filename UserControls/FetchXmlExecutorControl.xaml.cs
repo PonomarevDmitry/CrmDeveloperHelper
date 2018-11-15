@@ -256,7 +256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             if (!File.Exists(this.FilePath))
             {
-                txtBErrorText.Text = string.Format(Properties.MessageBoxStrings.FileNotExistsFormat, FilePath);
+                txtBErrorText.Text = string.Format(Properties.MessageBoxStrings.FileNotExistsFormat1, FilePath);
 
                 tbErrorText.IsEnabled = true;
                 tbErrorText.Visibility = Visibility.Visible;
@@ -302,7 +302,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 LoadData(connectionData, entityCollection, fetchXml);
 
-                ToggleControls(true, Properties.WindowStatusStrings.FetchQueryExecutedSuccessfullyFormat, entityCollection.Entities.Count);
+                ToggleControls(true, Properties.WindowStatusStrings.FetchQueryExecutedSuccessfullyFormat1, entityCollection.Entities.Count);
             }
             catch (Exception ex)
             {
@@ -782,7 +782,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     DTEHelper.Singleton?.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     DTEHelper.Singleton?.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    DTEHelper.Singleton?.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    DTEHelper.Singleton?.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }

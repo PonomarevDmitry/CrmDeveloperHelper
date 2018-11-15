@@ -176,7 +176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -218,7 +218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntitiesFormat);
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntities);
 
             this._itemsSource.Clear();
 
@@ -341,7 +341,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat, results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat1, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -812,11 +812,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         Version = "1.0.0.0",
                     };
 
-                    UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat, solutionUniqueName);
+                    UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
 
                     solution.Id = service.Create(solution);
 
-                    UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat, solutionUniqueName);
+                    UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat1, solutionUniqueName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(service);
@@ -829,7 +829,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }});
                     }
 
-                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat, solutionUniqueName);
+                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat1, solutionUniqueName);
 
                     var repository = new ExportSolutionHelper(service);
 
@@ -868,7 +868,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                     }
 
-                    UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat, solutionUniqueName);
+                    UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
 
                     await service.DeleteAsync(solution.LogicalName, solution.Id);
 
@@ -970,11 +970,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         Version = "1.0.0.0",
                     };
 
-                    UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat, solutionUniqueName);
+                    UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
 
                     solution.Id = service.Create(solution);
 
-                    UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat, solutionUniqueName);
+                    UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat1, solutionUniqueName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(service);
@@ -987,7 +987,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }});
                     }
 
-                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat, solutionUniqueName);
+                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat1, solutionUniqueName);
 
                     var repository = new ExportSolutionHelper(service);
 
@@ -1047,7 +1047,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     solutionBodyBinary = ExportSolutionHelper.ReplaceApplicationRibbonDiffXmlInSolutionBody(solutionBodyBinary, doc.Root);
 
-                    UpdateStatus(Properties.WindowStatusStrings.ImportingSolutionFormat, solutionUniqueName);
+                    UpdateStatus(Properties.WindowStatusStrings.ImportingSolutionFormat1, solutionUniqueName);
 
                     {
                         string fileName = string.Format("{0}.{1}_{2} Changed Solution Backup at {3}.zip"
@@ -1068,7 +1068,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     await repository.ImportSolutionAsync(solutionBodyBinary);
 
-                    UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat, solutionUniqueName);
+                    UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
 
                     await service.DeleteAsync(solution.LogicalName, solution.Id);
 
@@ -1197,7 +1197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonForEntityFormat, entity.EntityLogicalName);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonForEntityFormat1, entity.EntityLogicalName);
 
             var service = await GetService();
 
@@ -1221,7 +1221,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(ex);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityCompletedFormat, entity.EntityLogicalName);
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityCompletedFormat1, entity.EntityLogicalName);
         }
 
         private async Task PerformExportEntityRibbonDiffXml(EntityMetadataListViewItem entity)
@@ -1231,7 +1231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFormat, entity.EntityLogicalName);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFormat1, entity.EntityLogicalName);
 
             var service = await GetService();
 
@@ -1259,11 +1259,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         Version = "1.0.0.0",
                     };
 
-                    UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat, solutionUniqueName);
+                    UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
 
                     solution.Id = service.Create(solution);
 
-                    UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionEntityFormat, solutionUniqueName, entity.EntityLogicalName);
+                    UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionEntityFormat2, solutionUniqueName, entity.EntityLogicalName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(service);
@@ -1276,7 +1276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }});
                     }
 
-                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat, solutionUniqueName, entity.EntityLogicalName);
+                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat2, solutionUniqueName, entity.EntityLogicalName);
 
                     var repository = new ExportSolutionHelper(service);
 
@@ -1315,18 +1315,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                     }
 
-                    UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat, solutionUniqueName);
+                    UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
 
                     await service.DeleteAsync(solution.LogicalName, solution.Id);
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityCompletedFormat, entity.EntityLogicalName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityCompletedFormat1, entity.EntityLogicalName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFailedFormat, entity.EntityLogicalName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFailedFormat1, entity.EntityLogicalName);
             }
         }
 
@@ -1377,14 +1377,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (dialogResult.GetValueOrDefault() == false)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityCanceledFormat, entity.EntityLogicalName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityCanceledFormat1, entity.EntityLogicalName);
                 _iWriteToOutput.ActivateOutputWindow();
                 return;
             }
 
             ContentCoparerHelper.ClearXsdSchema(newText, out newText);
 
-            UpdateStatus(Properties.WindowStatusStrings.ValidatingRibbonDiffXmlForEntityFormat, entity.EntityLogicalName);
+            UpdateStatus(Properties.WindowStatusStrings.ValidatingRibbonDiffXmlForEntityFormat1, entity.EntityLogicalName);
 
             if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
             {
@@ -1397,12 +1397,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!validateResult)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.ValidatingRibbonDiffXmlForEntityFailedFormat, entity.EntityLogicalName);
+                ToggleControls(true, Properties.WindowStatusStrings.ValidatingRibbonDiffXmlForEntityFailedFormat1, entity.EntityLogicalName);
                 _iWriteToOutput.ActivateOutputWindow();
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityFormat, entity.EntityLogicalName);
+            ToggleControls(false, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityFormat1, entity.EntityLogicalName);
 
             var solutionUniqueName = string.Format("RibbonDiffXml_{0}", Guid.NewGuid());
 
@@ -1420,11 +1420,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Version = "1.0.0.0",
             };
 
-            UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat, solutionUniqueName);
+            UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
 
             solution.Id = service.Create(solution);
 
-            UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionEntityFormat, solutionUniqueName, entity.EntityLogicalName);
+            UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionEntityFormat2, solutionUniqueName, entity.EntityLogicalName);
 
             string finalStatus = string.Empty;
 
@@ -1441,7 +1441,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }});
                 }
 
-                UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat, solutionUniqueName, entity.EntityLogicalName);
+                UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat2, solutionUniqueName, entity.EntityLogicalName);
 
                 var repository = new ExportSolutionHelper(service);
 
@@ -1518,11 +1518,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
                 }
 
-                UpdateStatus(Properties.WindowStatusStrings.ImportingSolutionFormat, solutionUniqueName);
+                UpdateStatus(Properties.WindowStatusStrings.ImportingSolutionFormat1, solutionUniqueName);
 
                 await repository.ImportSolutionAsync(solutionBodyBinary);
 
-                UpdateStatus(Properties.WindowStatusStrings.PublishingEntitiesFormat, entity.EntityLogicalName);
+                UpdateStatus(Properties.WindowStatusStrings.PublishingEntitiesFormat1, entity.EntityLogicalName);
 
                 {
                     var repositoryPublish = new PublishActionsRepository(service);
@@ -1530,19 +1530,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await repositoryPublish.PublishEntitiesAsync(new[] { entity.EntityLogicalName });
                 }
 
-                finalStatus = string.Format(Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityCompletedFormat, entity.EntityLogicalName);
+                finalStatus = string.Format(Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityCompletedFormat1, entity.EntityLogicalName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                finalStatus = string.Format(Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityFailedFormat, entity.EntityLogicalName);
+                finalStatus = string.Format(Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityFailedFormat1, entity.EntityLogicalName);
 
                 _iWriteToOutput.ActivateOutputWindow();
             }
             finally
             {
-                UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat, solutionUniqueName);
+                UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
                 await service.DeleteAsync(solution.LogicalName, solution.Id);
             }
 
@@ -1822,9 +1822,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityName);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityName);
 
             try
             {
@@ -1834,16 +1834,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishEntitiesAsync(new[] { entityName });
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat1, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat1, entityName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat, entityName);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityName);
         }
 
         private void mIApplicationRibbon_SubmenuOpened(object sender, RoutedEventArgs e)

@@ -145,7 +145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -217,7 +217,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadWebResources(list);
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingWebResourcesCompletedFormat, list.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingWebResourcesCompletedFormat1, list.Count());
         }
 
         private void LoadWebResources(IEnumerable<WebResource> results)
@@ -574,7 +574,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportWebResourceContent(string folder, Guid idWebResource, string name)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingWebResourceContentFormat, name);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingWebResourceContentFormat1, name);
             
             try
             {
@@ -610,13 +610,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingWebResourceContentCompletedFormat, name);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingWebResourceContentCompletedFormat1, name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingWebResourceContentFailedFormat, name);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingWebResourceContentFailedFormat1, name);
             }
         }
 
@@ -639,7 +639,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldTitle);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
 
             try
             {
@@ -656,13 +656,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat, fieldTitle);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldTitle);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat, fieldTitle);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat1, fieldTitle);
             }
         }
 
@@ -673,7 +673,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat, fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat1, fieldName);
 
             try
             {
@@ -726,7 +726,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialogResult.GetValueOrDefault() == false)
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat, fieldName);
+                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat1, fieldName);
                     return;
                 }
 
@@ -754,7 +754,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 service.Update(updateEntity);
 
-                UpdateStatus(Properties.WindowStatusStrings.PublishingWebResourceFormat, name);
+                UpdateStatus(Properties.WindowStatusStrings.PublishingWebResourceFormat1, name);
 
                 {
                     var repositoryPublish = new PublishActionsRepository(service);
@@ -762,13 +762,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await repositoryPublish.PublishWebResourcesAsync(new[] { idWebResource });
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat1, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat1, fieldName);
             }
         }
 
@@ -1096,7 +1096,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformPublishWebResource(string folder, Guid idWebResource, string name)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingWebResourceFormat, name);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingWebResourceFormat1, name);
 
             try
             {
@@ -1110,13 +1110,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing WebResource {0} at {1}", name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingWebResourceCompletedFormat, name);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingWebResourceCompletedFormat1, name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingWebResourceFailedFormat, name);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingWebResourceFailedFormat1, name);
             }
         }
     }

@@ -146,7 +146,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 await LoadOrganizationDataAsync(result, organizationDetail);
 
-                iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, result.CurrentServiceEndpoint);
+                iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, result.CurrentServiceEndpoint);
 
                 iWriteToOutput.WriteToOutput("Successfully connected to {0}.", connectionData.Name);
 

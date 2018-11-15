@@ -125,7 +125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -258,7 +258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingReportsCompletedFormat, results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingReportsCompletedFormat1, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -511,7 +511,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldTitle);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
 
             try
             {
@@ -527,13 +527,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat1, fieldName);
             }
         }
 
@@ -544,7 +544,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat, fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat1, fieldName);
 
             try
             {
@@ -579,7 +579,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialogResult.GetValueOrDefault() == false)
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCanceledFormat);
+                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCanceledFormat1, fieldName);
                     return;
                 }
 
@@ -600,13 +600,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 service.Update(updateEntity);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat1, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat1, fieldName);
             }
         }
 
@@ -741,7 +741,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportBodyBinary(string folder, Guid idReport, string name, string filename, string fieldName, string fieldTitle)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingBodyBinaryForFieldFormat, fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingBodyBinaryForFieldFormat1, fieldName);
 
             try
             {
@@ -779,14 +779,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.ActivateOutputWindow();
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingBodyBinaryForFieldCompletedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingBodyBinaryForFieldCompletedFormat1, fieldName);
 
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingBodyBinaryForFieldFailedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingBodyBinaryForFieldFailedFormat1, fieldName);
             }
         }
 

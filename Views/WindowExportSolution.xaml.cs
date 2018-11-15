@@ -218,7 +218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -273,7 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSolutions(list);
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionsCompletedFormat, list.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionsCompletedFormat1, list.Count());
         }
 
         private class EntityViewItem
@@ -429,7 +429,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    string message = string.Format(Properties.MessageBoxStrings.ExportSolutionFormat, item.SolutionName);
+                    string message = string.Format(Properties.MessageBoxStrings.ExportSolutionFormat1, item.SolutionName);
 
                     if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                     {
@@ -596,7 +596,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
             
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingSolutionFormat, solution.UniqueName);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingSolutionFormat1, solution.UniqueName);
 
             try
             {
@@ -679,14 +679,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput("Cannot get Service.");
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingSolutionCompletedFormat, solution.UniqueName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingSolutionCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingSolutionFailedFormat, solution.UniqueName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingSolutionFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -843,7 +843,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string question = string.Format(Properties.MessageBoxStrings.ClearSolutionFormat, solution.UniqueName);
+            string question = string.Format(Properties.MessageBoxStrings.ClearSolutionFormat1, solution.UniqueName);
 
             if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
             {
@@ -852,7 +852,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat);
+                ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat1, solution.UniqueName);
 
                 var service = await GetService();
 
@@ -894,13 +894,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 SolutionComponentRepository repository = new SolutionComponentRepository(service);
                 await repository.ClearSolutionAsync(solution.UniqueName);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat);
+                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat);
+                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat1, solution.UniqueName);
             }
         }
 

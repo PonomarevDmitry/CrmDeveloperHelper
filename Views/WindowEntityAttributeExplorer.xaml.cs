@@ -150,7 +150,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -192,7 +192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntitiesFormat);
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntities);
 
             _itemsSourceEntityList.Clear();
             _itemsSourceAttributeList.Clear();
@@ -291,7 +291,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat, results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat1, results.Count());
 
             ShowExistingAttributes();
         }
@@ -303,7 +303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingAttributesFormat);
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingAttributes);
 
             string entityLogicalName = string.Empty;
 
@@ -415,7 +415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingAttributesCompletedFormat, results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingAttributesCompletedFormat1, results.Count());
         }
 
 
@@ -875,9 +875,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entityNamesOrdered = string.Join(",", entityNames.OrderBy(s => s));
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat, entityNamesOrdered);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityNamesOrdered);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityNamesOrdered);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityNamesOrdered);
 
             try
             {
@@ -887,16 +887,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishEntitiesAsync(entityNames);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityNamesOrdered);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat1, entityNamesOrdered);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityNamesOrdered);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat1, entityNamesOrdered);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat, entityNamesOrdered);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityNamesOrdered);
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1346,7 +1346,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var entityNamesOrdered = string.Join(",", listForPublish.OrderBy(s => s));
 
-                        UpdateStatus(Properties.WindowStatusStrings.PublishingEntitiesFormat, entityNamesOrdered);
+                        UpdateStatus(Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityNamesOrdered);
 
                         var repositoryPublish = new PublishActionsRepository(service);
 

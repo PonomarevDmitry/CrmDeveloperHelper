@@ -141,7 +141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -186,7 +186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _loadedRecords = await taskFiles;
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingTraceFilesCompletedFormat, _loadedRecords.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingTraceFilesCompletedFormat1, _loadedRecords.Count());
 
             await FilterExistingTraceRecords();
         }
@@ -255,7 +255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadTraceRecords(list, dictUsers);
             
-            ToggleControls(true, Properties.WindowStatusStrings.FilteringTraceFilesCompletedFormat, list.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.FilteringTraceFilesCompletedFormat1, list.Count());
         }
 
         private Task<IEnumerable<TraceRecord>> FilterTraceRecordsAsync(IEnumerable<TraceRecord> list, string textName, DateTime? date)

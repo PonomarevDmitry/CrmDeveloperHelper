@@ -63,18 +63,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure want to update RibbonDiff for entity {0}?.
         /// </summary>
-        internal static string AreYourSureUpdateRibbonDiffForEntityFormat {
+        internal static string AreYourSureUpdateRibbonDiffForEntityFormat1 {
             get {
-                return ResourceManager.GetString("AreYourSureUpdateRibbonDiffForEntityFormat", resourceCulture);
+                return ResourceManager.GetString("AreYourSureUpdateRibbonDiffForEntityFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Are you sure want to delete components {0} from solution {1}?.
         /// </summary>
-        internal static string AreYouSureDeleteComponentsFormat {
+        internal static string AreYouSureDeleteComponentsFormat2 {
             get {
-                return ResourceManager.GetString("AreYouSureDeleteComponentsFormat", resourceCulture);
+                return ResourceManager.GetString("AreYouSureDeleteComponentsFormat2", resourceCulture);
             }
         }
         
@@ -99,18 +99,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure want to clear solution {0}?.
         /// </summary>
-        internal static string ClearSolutionFormat {
+        internal static string ClearSolutionFormat1 {
             get {
-                return ResourceManager.GetString("ClearSolutionFormat", resourceCulture);
+                return ResourceManager.GetString("ClearSolutionFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Are you sure want to copy components from {0} to {1}?.
         /// </summary>
-        internal static string CopySolutionComponentsFromToFormat {
+        internal static string CopySolutionComponentsFromToFormat2 {
             get {
-                return ResourceManager.GetString("CopySolutionComponentsFromToFormat", resourceCulture);
+                return ResourceManager.GetString("CopySolutionComponentsFromToFormat2", resourceCulture);
             }
         }
         
@@ -135,18 +135,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Delete CRM Connection &apos;{0}&apos;?.
         /// </summary>
-        internal static string DeleteCRMConnectionFormat {
+        internal static string DeleteCRMConnectionFormat1 {
             get {
-                return ResourceManager.GetString("DeleteCRMConnectionFormat", resourceCulture);
+                return ResourceManager.GetString("DeleteCRMConnectionFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Delete CRM Connection User &apos;{0}&apos;?.
         /// </summary>
-        internal static string DeleteCRMConnectionUserFormat {
+        internal static string DeleteCRMConnectionUserFormat1 {
             get {
-                return ResourceManager.GetString("DeleteCRMConnectionUserFormat", resourceCulture);
+                return ResourceManager.GetString("DeleteCRMConnectionUserFormat1", resourceCulture);
             }
         }
         
@@ -225,36 +225,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Execute transfer operation from {0} to {1}?.
         /// </summary>
-        internal static string ExecuteTransferOperationFormat {
+        internal static string ExecuteTransferOperationFormat2 {
             get {
-                return ResourceManager.GetString("ExecuteTransferOperationFormat", resourceCulture);
+                return ResourceManager.GetString("ExecuteTransferOperationFormat2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Export solution {0}?.
         /// </summary>
-        internal static string ExportSolutionFormat {
+        internal static string ExportSolutionFormat1 {
             get {
-                return ResourceManager.GetString("ExportSolutionFormat", resourceCulture);
+                return ResourceManager.GetString("ExportSolutionFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to File Extension {0} is not allowed for WebResource..
         /// </summary>
-        internal static string FileExtensionIsNotAllowedForWebResourceFormat {
+        internal static string FileExtensionIsNotAllowedForWebResourceFormat1 {
             get {
-                return ResourceManager.GetString("FileExtensionIsNotAllowedForWebResourceFormat", resourceCulture);
+                return ResourceManager.GetString("FileExtensionIsNotAllowedForWebResourceFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to File not exists: {0}.
         /// </summary>
-        internal static string FileNotExistsFormat {
+        internal static string FileNotExistsFormat1 {
             get {
-                return ResourceManager.GetString("FileNotExistsFormat", resourceCulture);
+                return ResourceManager.GetString("FileNotExistsFormat1", resourceCulture);
             }
         }
         
@@ -315,9 +315,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Move CRM Connection &apos;{0}&apos; to Archive?.
         /// </summary>
-        internal static string MoveConnectionToArchiveFormat {
+        internal static string MoveConnectionToArchiveFormat1 {
             get {
-                return ResourceManager.GetString("MoveConnectionToArchiveFormat", resourceCulture);
+                return ResourceManager.GetString("MoveConnectionToArchiveFormat1", resourceCulture);
             }
         }
         
@@ -351,9 +351,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Publish all in {0}?.
         /// </summary>
-        internal static string PublishAllInConnectionFormat {
+        internal static string PublishAllInConnectionFormat1 {
             get {
-                return ResourceManager.GetString("PublishAllInConnectionFormat", resourceCulture);
+                return ResourceManager.GetString("PublishAllInConnectionFormat1", resourceCulture);
             }
         }
         
@@ -361,9 +361,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         ///   Looks up a localized string similar to Seach equal by text among {0} files, update them and publish on
         ///{1}?.
         /// </summary>
-        internal static string PublishWebResourcesEqualByTextFormat {
+        internal static string PublishWebResourcesEqualByTextFormat2 {
             get {
-                return ResourceManager.GetString("PublishWebResourcesEqualByTextFormat", resourceCulture);
+                return ResourceManager.GetString("PublishWebResourcesEqualByTextFormat2", resourceCulture);
             }
         }
         
@@ -371,9 +371,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         ///   Looks up a localized string similar to Continue create/update web resources and publish {0} files on
         ///{1}?.
         /// </summary>
-        internal static string PublishWebResourcesFormat {
+        internal static string PublishWebResourcesFormat2 {
             get {
-                return ResourceManager.GetString("PublishWebResourcesFormat", resourceCulture);
+                return ResourceManager.GetString("PublishWebResourcesFormat2", resourceCulture);
             }
         }
         
@@ -389,36 +389,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Register all Steps for Plugin Assembly in {0}?.
         /// </summary>
-        internal static string RegisterAllStepsForPluginAssemblyFormat {
+        internal static string RegisterAllStepsForPluginAssemblyFormat1 {
             get {
-                return ResourceManager.GetString("RegisterAllStepsForPluginAssemblyFormat", resourceCulture);
+                return ResourceManager.GetString("RegisterAllStepsForPluginAssemblyFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Register all Steps for Plugin Type in {0}?.
         /// </summary>
-        internal static string RegisterAllStepsForPluginTypeFormat {
+        internal static string RegisterAllStepsForPluginTypeFormat1 {
             get {
-                return ResourceManager.GetString("RegisterAllStepsForPluginTypeFormat", resourceCulture);
+                return ResourceManager.GetString("RegisterAllStepsForPluginTypeFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Register Plugin Step in {0}?.
         /// </summary>
-        internal static string RegisterPluginStepFormat {
+        internal static string RegisterPluginStepFormat1 {
             get {
-                return ResourceManager.GetString("RegisterPluginStepFormat", resourceCulture);
+                return ResourceManager.GetString("RegisterPluginStepFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Return CRM Connection &apos;{0}&apos; to Connection List?.
         /// </summary>
-        internal static string ReturnCRMConnectionToConnectionListFormat {
+        internal static string ReturnCRMConnectionToConnectionListFormat1 {
             get {
-                return ResourceManager.GetString("ReturnCRMConnectionToConnectionListFormat", resourceCulture);
+                return ResourceManager.GetString("ReturnCRMConnectionToConnectionListFormat1", resourceCulture);
             }
         }
         
@@ -470,9 +470,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unable to save connection details. Error: {0}.
         /// </summary>
-        internal static string UnableSaveConnectionFormat {
+        internal static string UnableSaveConnectionFormat1 {
             get {
-                return ResourceManager.GetString("UnableSaveConnectionFormat", resourceCulture);
+                return ResourceManager.GetString("UnableSaveConnectionFormat1", resourceCulture);
             }
         }
         

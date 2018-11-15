@@ -157,7 +157,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _itemsSource.Add(assembly);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat, filter.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat1, filter.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)

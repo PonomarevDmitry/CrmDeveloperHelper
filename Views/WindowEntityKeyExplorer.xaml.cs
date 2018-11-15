@@ -149,7 +149,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntitiesFormat);
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntities);
 
             _itemsSourceEntityList.Clear();
             _itemsSourceEntityKeyList.Clear();
@@ -290,7 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat, results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat1, results.Count());
 
             ShowExistingEntityKeys();
         }
@@ -414,7 +414,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
             
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntityKeysCompletedFormat, results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntityKeysCompletedFormat1, results.Count());
         }
 
 
@@ -874,9 +874,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entityNamesOrdered = string.Join(",", entityNames.OrderBy(s => s));
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat, entityNamesOrdered);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityNamesOrdered);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityNamesOrdered);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityNamesOrdered);
 
             try
             {
@@ -886,16 +886,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishEntitiesAsync(entityNames);
                 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityNamesOrdered);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat1, entityNamesOrdered);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityNamesOrdered);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat1, entityNamesOrdered);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat, entityNamesOrdered);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityNamesOrdered);
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -179,7 +179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _itemsSource.Add(plugintype);
             }
             
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginTypesCompletedFormat, filter.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginTypesCompletedFormat1, filter.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)

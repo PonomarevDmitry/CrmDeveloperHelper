@@ -3,11 +3,12 @@ using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -15,9 +16,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Collections.ObjectModel;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -124,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }
@@ -151,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }
@@ -271,7 +271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat, results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat1, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -456,7 +456,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionFormat, linked.Entity1.Name);
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionFormat1, linked.Entity1.Name);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -489,7 +489,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionCompletedFormat, linked.Entity1.Name);
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionCompletedFormat1, linked.Entity1.Name);
         }
 
         private void mIShowDifferenceEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -510,7 +510,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityDescription);
 
             try
@@ -566,7 +566,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionPluginAssemblyDescription(link.Link.Entity1.Id, GetService1, PerformExportAssemblyDescriptionToFileAsync);
+            ExecuteActionPluginAssemblyDescription(link.Link.Entity1.Id, link.Link.Entity1.Name, GetService1, PerformExportAssemblyDescriptionToFileAsync);
         }
 
         private void mIExportPluginAssembly2AssemblyDescription_Click(object sender, RoutedEventArgs e)
@@ -578,13 +578,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionPluginAssemblyDescription(link.Link.Entity2.Id, GetService2, PerformExportAssemblyDescriptionToFileAsync);
+            ExecuteActionPluginAssemblyDescription(link.Link.Entity2.Id, link.Link.Entity2.Name, GetService2, PerformExportAssemblyDescriptionToFileAsync);
         }
 
         private void ExecuteActionPluginAssemblyDescription(
             Guid pluginAssemblyId
+            , string assemblyName
             , Func<Task<IOrganizationServiceExtented>> getService
-            , Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)
+            , Func<Guid, string, Func<Task<IOrganizationServiceExtented>>, Task> action)
         {
             if (_init > 0 || !_controlsEnabled)
             {
@@ -601,17 +602,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            action(pluginAssemblyId, getService);
+            action(pluginAssemblyId, assemblyName, getService);
         }
 
-        private async Task PerformExportAssemblyDescriptionToFileAsync(Guid idAssembly, Func<Task<IOrganizationServiceExtented>> getService)
+        private async Task PerformExportAssemblyDescriptionToFileAsync(Guid idAssembly, string assemblyName, Func<Task<IOrganizationServiceExtented>> getService)
         {
             if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionFormat);
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionFormat1, assemblyName);
 
             var service = await getService();
 
@@ -630,7 +631,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionCompletedFormat);
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionCompletedFormat1, assemblyName);
         }
 
         private void mIExportPluginAssembly1EntityDescription_Click(object sender, RoutedEventArgs e)
@@ -642,7 +643,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionPluginAssemblyDescription(link.Link.Entity1.Id, GetService1, PerformExportEntityDescriptionToFileAsync);
+            ExecuteActionPluginAssemblyDescription(link.Link.Entity1.Id, link.Link.Entity1.Name, GetService1, PerformExportEntityDescriptionToFileAsync);
         }
 
         private void mIExportPluginAssembly2EntityDescription_Click(object sender, RoutedEventArgs e)
@@ -654,7 +655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionPluginAssemblyDescription(link.Link.Entity2.Id, GetService2, PerformExportEntityDescriptionToFileAsync);
+            ExecuteActionPluginAssemblyDescription(link.Link.Entity2.Id, link.Link.Entity2.Name, GetService2, PerformExportEntityDescriptionToFileAsync);
         }
 
         private void mIExportPluginAssembly1BinaryContent_Click(object sender, RoutedEventArgs e)
@@ -666,7 +667,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionPluginAssemblyDescription(link.Link.Entity1.Id, GetService1, PerformDownloadBinaryContent);
+            ExecuteActionPluginAssemblyDescription(link.Link.Entity1.Id, link.Link.Entity1.Name, GetService1, PerformDownloadBinaryContent);
         }
 
         private void mIExportPluginAssembly2BinaryContent_Click(object sender, RoutedEventArgs e)
@@ -678,12 +679,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionPluginAssemblyDescription(link.Link.Entity2.Id, GetService2, PerformDownloadBinaryContent);
+            ExecuteActionPluginAssemblyDescription(link.Link.Entity2.Id, link.Link.Entity2.Name, GetService2, PerformDownloadBinaryContent);
         }
 
-        private async Task PerformDownloadBinaryContent(Guid pluginAssemblyId, Func<Task<IOrganizationServiceExtented>> getService)
+        private async Task PerformDownloadBinaryContent(Guid pluginAssemblyId, string assemblyName, Func<Task<IOrganizationServiceExtented>> getService)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryFormat);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryFormat1, assemblyName);
 
             var service = await getService();
 
@@ -711,10 +712,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryCompletedFormat);
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryCompletedFormat1, assemblyName);
         }
 
-        private async Task PerformExportEntityDescriptionToFileAsync(Guid pluginAssemblyId, Func<Task<IOrganizationServiceExtented>> getService)
+        private async Task PerformExportEntityDescriptionToFileAsync(Guid pluginAssemblyId, string assemblyName, Func<Task<IOrganizationServiceExtented>> getService)
         {
             if (_init > 0 || !_controlsEnabled)
             {

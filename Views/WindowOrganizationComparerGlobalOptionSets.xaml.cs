@@ -149,7 +149,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }
@@ -176,7 +176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }
@@ -271,7 +271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntities(list);
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingOptionSetsCompletedFormat, list.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingOptionSetsCompletedFormat1, list.Count());
         }
 
         private static IEnumerable<LinkedOptionSetMetadata> FilterList(IEnumerable<LinkedOptionSetMetadata> list, string textName)
@@ -466,9 +466,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (service1 != null && service2 != null)
             {
-                this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat, optionSetsName);
+                this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat1, optionSetsName);
 
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
+                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFormat3, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
 
                 try
                 {
@@ -524,16 +524,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
                     }
 
-                    ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsCompletedFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
+                    ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsCompletedFormat3, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
                 }
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(ex);
 
-                    ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFailedFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
+                    ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFailedFormat3, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
                 }
 
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat, optionSetsName);
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat1, optionSetsName);
             }
         }
 
@@ -602,9 +602,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (service1 != null && service2 != null)
             {
-                this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat, optionSetsName);
+                this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat1, optionSetsName);
 
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
+                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFormat3, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
 
                 try
                 {
@@ -657,16 +657,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
                     }
 
-                    ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsCompletedFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
+                    ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsCompletedFormat3, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
                 }
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(ex);
 
-                    ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFailedFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
+                    ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFailedFormat3, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
                 }
 
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat, optionSetsName);
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat1, optionSetsName);
             }
         }
 
@@ -742,7 +742,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string optionSetsName = string.Join(",", optionSets.Select(o => o.Name).OrderBy(s => s));
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsFormat, optionSetsName);
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsFormat1, optionSetsName);
 
             try
             {
@@ -773,13 +773,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsCompletedFormat, optionSetsName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsCompletedFormat1, optionSetsName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsFailedFormat, optionSetsName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsFailedFormat1, optionSetsName);
             }
         }
 
@@ -855,7 +855,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string optionSetsName = string.Join(",", optionSets.Select(o => o.Name).OrderBy(s => s));
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsFormat, optionSetsName);
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsFormat1, optionSetsName);
 
             try
             {
@@ -882,13 +882,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsCompletedFormat, optionSetsName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsCompletedFormat1, optionSetsName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsFailedFormat, optionSetsName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsFailedFormat1, optionSetsName);
             }
         }
 

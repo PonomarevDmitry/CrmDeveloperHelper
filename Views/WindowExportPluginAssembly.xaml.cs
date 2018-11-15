@@ -124,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -196,7 +196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadPluginAssemblies(list);
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat, list.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat1, list.Count());
         }
 
         private class EntityViewItem
@@ -437,7 +437,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportAssemblyDescription(string folder, Guid idPluginAssembly, string name)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionFormat, name);
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionFormat1, name);
 
             var service = await GetService();
 
@@ -452,7 +452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionCompletedFormat, name);
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionCompletedFormat1, name);
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idPluginAssembly, string name)
@@ -481,7 +481,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteExportAssembly(string folder, Guid idAssembly, string name)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryFormat, name);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryFormat1, name);
 
             var service = await GetService();
 
@@ -506,7 +506,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
             
-            ToggleControls(true, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryCompletedFormat, name);
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryCompletedFormat1, name);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -646,7 +646,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformComparingAssembly(string folder, Guid idPluginAssembly, string name)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyFormat, name);
+            ToggleControls(false, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyFormat1, name);
 
             var controller = new PluginTypeDescriptionController(_iWriteToOutput);
 
@@ -656,7 +656,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             
-            ToggleControls(true, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyCompletedFormat, name);
+            ToggleControls(true, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyCompletedFormat1, name);
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

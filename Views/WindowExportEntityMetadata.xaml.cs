@@ -180,7 +180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -222,7 +222,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntitiesFormat);
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntities);
 
             _itemsSource.Clear();
 
@@ -323,7 +323,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat, results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat1, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -757,7 +757,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task CreateEntityMetadataFileAsync(string entityName)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityName);
 
             try
             {
@@ -809,13 +809,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
                 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
                 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityName);
             }
         }
 
@@ -847,7 +847,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , chBWithDependentComponents.IsChecked.GetValueOrDefault()
                 );
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityName);
 
             this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -868,13 +868,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityName);
             }
         }
 
@@ -909,7 +909,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityName);
 
             this._iWriteToOutput.WriteToOutput("Start getting file with Entity Xml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -932,13 +932,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End getting file with Entity Xml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityName);
             }
         }
 
@@ -949,9 +949,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityName);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityName);
 
             try
             {
@@ -961,16 +961,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishEntitiesAsync(new[] { entityName });
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat1, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat1, entityName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat, entityName);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityName);
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)

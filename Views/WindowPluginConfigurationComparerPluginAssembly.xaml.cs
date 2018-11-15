@@ -221,7 +221,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
             
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat, filter.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat1, filter.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -374,7 +374,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
             
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionFormat, linked.Entity1.Name);
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionFormat1, linked.Entity1.Name);
             
             DateTime now = DateTime.Now;
 
@@ -398,7 +398,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionCompletedFormat, linked.Entity1.Name);
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionCompletedFormat1, linked.Entity1.Name);
         }
 
         private Task<string> CreateDescriptionFileAsync(string folder, string filePathConfiguration, string name, string description)

@@ -112,7 +112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }
@@ -139,7 +139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }
@@ -319,7 +319,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingWebResourcesCompletedFormat, results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingWebResourcesCompletedFormat1, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -702,7 +702,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingWebResourceContentFormat, name);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingWebResourceContentFormat1, name);
 
             var service = await getService();
 
@@ -721,7 +721,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ExportingWebResourceContentCompletedFormat, name);
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingWebResourceContentCompletedFormat1, name);
         }
 
         private Task<string> CreateFileWithContentAsync(string connectionName, WebResource webresource)
@@ -769,7 +769,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
             
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceWebResourcesFormat, linked.Entity1.Name);
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceWebResourcesFormat1, linked.Entity1.Name);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -800,7 +800,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceWebResourcesCompletedFormat, linked.Entity1.Name);
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceWebResourcesCompletedFormat1, linked.Entity1.Name);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

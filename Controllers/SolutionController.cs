@@ -59,7 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             WindowHelper.OpenExplorerSolutionWindow(
                 _iWriteToOutput
@@ -107,7 +107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             WindowHelper.OpenExportSolutionWindow(
                 this._iWriteToOutput
@@ -190,7 +190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteAddingWebResourcesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingWebResourcesIntoSolution, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingWebResourcesIntoSolutionFormat1, solutionUniqueName);
 
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -228,7 +228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
             
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
             WebResourceRepository webResourceRepository = new WebResourceRepository(service);
@@ -396,7 +396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteAddingReportsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingReportsIntoSolutionFormat, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingReportsIntoSolutionFormat1, solutionUniqueName);
             
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -429,7 +429,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
             var reportRepository = new ReportRepository(service);
@@ -581,7 +581,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public static async Task AddSolutionComponentsGroupIntoSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, ComponentType componentType, IEnumerable<Guid> selectedObjects, RootComponentBehavior? rootComponentBehavior, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingComponentsIntoSolutionFormat, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingComponentsIntoSolutionFormat1, solutionUniqueName);
             
             iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -735,7 +735,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public static async Task AddSolutionComponentsCollectionIntoSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SolutionComponent> components, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingComponentsIntoSolutionFormat, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingComponentsIntoSolutionFormat1, solutionUniqueName);
 
             iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -908,7 +908,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteAddingPluginAssemblyIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyIntoSolutionFormat, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyIntoSolutionFormat1, solutionUniqueName);
             
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -947,7 +947,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var repository = new PluginAssemblyRepository(service);
 
@@ -1083,7 +1083,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteAddingPluginAssemblyProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyProcessingStepsIntoSolutionFormat, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyProcessingStepsIntoSolutionFormat1, solutionUniqueName);
             
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -1122,7 +1122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var repository = new PluginAssemblyRepository(service);
             var stepRepository = new SdkMessageProcessingStepRepository(service);
@@ -1297,7 +1297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteAddingPluginTypeProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingPluginTypeProcessingStepsIntoSolutionFormat, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingPluginTypeProcessingStepsIntoSolutionFormat1, solutionUniqueName);
             
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -1336,7 +1336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var repository = new PluginTypeRepository(service);
 

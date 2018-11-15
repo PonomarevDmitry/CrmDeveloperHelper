@@ -144,11 +144,11 @@
   <data name="CodeReportDownloadCommand" xml:space="preserve">
     <value>Download Report</value>
   </data>
-  <data name="CodeReportShowDifferenceCommand" xml:space="preserve">
-    <value>Show Difference {0}{1}</value>
-  </data>
   <data name="CodeReportShowDifferenceCommandCustom" xml:space="preserve">
     <value>with Select</value>
+  </data>
+  <data name="CodeReportShowDifferenceCommandFormat2" xml:space="preserve">
+    <value>Show Difference {0}{1}</value>
   </data>
   <data name="CodeReportUpdateCommand" xml:space="preserve">
     <value>Update Report in Crm</value>
@@ -174,7 +174,7 @@
   <data name="CodeXmlExecuteFetchXmlRequestCommand" xml:space="preserve">
     <value>Execute Fetch Xml</value>
   </data>
-  <data name="CommandNameWithConnectionFormat" xml:space="preserve">
+  <data name="CommandNameWithConnectionFormat2" xml:space="preserve">
     <value>{0} - {1}</value>
   </data>
   <data name="CommonCrmConnectionCommand" xml:space="preserve">
@@ -243,7 +243,7 @@
   <data name="FetchXmlExecutorDefaultName" xml:space="preserve">
     <value>FetchXmlExecutor</value>
   </data>
-  <data name="FetchXmlExecutorNameFormat" xml:space="preserve">
+  <data name="FetchXmlExecutorNameFormat2" xml:space="preserve">
     <value>{0} - {1}</value>
   </data>
   <data name="FileCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">

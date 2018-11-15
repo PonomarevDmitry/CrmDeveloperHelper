@@ -72,108 +72,108 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Connection {0} is ReadOnly. Operation is prohibited..
         /// </summary>
-        internal static string ConnectionIsReadOnlyFormat {
+        internal static string ConnectionIsReadOnlyFormat1 {
             get {
-                return ResourceManager.GetString("ConnectionIsReadOnlyFormat", resourceCulture);
+                return ResourceManager.GetString("ConnectionIsReadOnlyFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Current Service Endpoint: {0}.
         /// </summary>
-        internal static string CurrentServiceEndpointFormat {
+        internal static string CurrentServiceEndpointFormat1 {
             get {
-                return ResourceManager.GetString("CurrentServiceEndpointFormat", resourceCulture);
+                return ResourceManager.GetString("CurrentServiceEndpointFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to *********** End {0} at {1} *******************************************************.
         /// </summary>
-        internal static string EndOperationFormat {
+        internal static string EndOperationFormat2 {
             get {
-                return ResourceManager.GetString("EndOperationFormat", resourceCulture);
+                return ResourceManager.GetString("EndOperationFormat2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to GetAttributeMetadata(Guid {0}).
         /// </summary>
-        internal static string GetAttributeMetadataByGuidFormat {
+        internal static string GetAttributeMetadataByGuidFormat1 {
             get {
-                return ResourceManager.GetString("GetAttributeMetadataByGuidFormat", resourceCulture);
+                return ResourceManager.GetString("GetAttributeMetadataByGuidFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to GetAttributeMetadata(string {0}, string {1}).
         /// </summary>
-        internal static string GetAttributeMetadataByStringStringFormat {
+        internal static string GetAttributeMetadataByStringStringFormat2 {
             get {
-                return ResourceManager.GetString("GetAttributeMetadataByStringStringFormat", resourceCulture);
+                return ResourceManager.GetString("GetAttributeMetadataByStringStringFormat2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to GetEntityKeyMetadata(Guid {0}).
         /// </summary>
-        internal static string GetEntityKeyMetadataByGuidFormat {
+        internal static string GetEntityKeyMetadataByGuidFormat1 {
             get {
-                return ResourceManager.GetString("GetEntityKeyMetadataByGuidFormat", resourceCulture);
+                return ResourceManager.GetString("GetEntityKeyMetadataByGuidFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to GetEntityKeyMetadata(string {0}, string {1}).
         /// </summary>
-        internal static string GetEntityKeyMetadataByStringStringFormat {
+        internal static string GetEntityKeyMetadataByStringStringFormat2 {
             get {
-                return ResourceManager.GetString("GetEntityKeyMetadataByStringStringFormat", resourceCulture);
+                return ResourceManager.GetString("GetEntityKeyMetadataByStringStringFormat2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to GetEntityMetadata(Guid {0}).
         /// </summary>
-        internal static string GetEntityMetadataByGuidFormat {
+        internal static string GetEntityMetadataByGuidFormat1 {
             get {
-                return ResourceManager.GetString("GetEntityMetadataByGuidFormat", resourceCulture);
+                return ResourceManager.GetString("GetEntityMetadataByGuidFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to GetEntityMetadata(string {0}).
         /// </summary>
-        internal static string GetEntityMetadataByStringFormat {
+        internal static string GetEntityMetadataByStringFormat1 {
             get {
-                return ResourceManager.GetString("GetEntityMetadataByStringFormat", resourceCulture);
+                return ResourceManager.GetString("GetEntityMetadataByStringFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to GetEntityMetadata(string {0}, string[] {1}).
         /// </summary>
-        internal static string GetEntityMetadataByStringStringFormat {
+        internal static string GetEntityMetadataByStringStringFormat2 {
             get {
-                return ResourceManager.GetString("GetEntityMetadataByStringStringFormat", resourceCulture);
+                return ResourceManager.GetString("GetEntityMetadataByStringStringFormat2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to GetRelationshipMetadata(Guid {0}).
         /// </summary>
-        internal static string GetRelationshipMetadataByGuidFormat {
+        internal static string GetRelationshipMetadataByGuidFormat1 {
             get {
-                return ResourceManager.GetString("GetRelationshipMetadataByGuidFormat", resourceCulture);
+                return ResourceManager.GetString("GetRelationshipMetadataByGuidFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to GetRelationshipMetadata(string {0}).
         /// </summary>
-        internal static string GetRelationshipMetadataByStringFormat {
+        internal static string GetRelationshipMetadataByStringFormat1 {
             get {
-                return ResourceManager.GetString("GetRelationshipMetadataByStringFormat", resourceCulture);
+                return ResourceManager.GetString("GetRelationshipMetadataByStringFormat1", resourceCulture);
             }
         }
         
@@ -216,27 +216,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Published All in {0} Successfully..
         /// </summary>
-        internal static string PublishingAllCompletedFormat {
+        internal static string PublishingAllCompletedFormat1 {
             get {
-                return ResourceManager.GetString("PublishingAllCompletedFormat", resourceCulture);
+                return ResourceManager.GetString("PublishingAllCompletedFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Publishing All in {0} FAILED..
         /// </summary>
-        internal static string PublishingAllFailedFormat {
+        internal static string PublishingAllFailedFormat1 {
             get {
-                return ResourceManager.GetString("PublishingAllFailedFormat", resourceCulture);
+                return ResourceManager.GetString("PublishingAllFailedFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to *********** Start {0} at {1} *******************************************************.
         /// </summary>
-        internal static string StartOperationFormat {
+        internal static string StartOperationFormat2 {
             get {
-                return ResourceManager.GetString("StartOperationFormat", resourceCulture);
+                return ResourceManager.GetString("StartOperationFormat2", resourceCulture);
             }
         }
     }

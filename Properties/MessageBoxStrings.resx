@@ -117,19 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AreYourSureUpdateRibbonDiffForEntityFormat" xml:space="preserve">
+  <data name="AreYourSureUpdateRibbonDiffForEntityFormat1" xml:space="preserve">
     <value>Are you sure want to update RibbonDiff for entity {0}?</value>
   </data>
-  <data name="AreYouSureDeleteComponentsFormat" xml:space="preserve">
+  <data name="AreYouSureDeleteComponentsFormat2" xml:space="preserve">
     <value>Are you sure want to delete components {0} from solution {1}?</value>
   </data>
   <data name="ClearListForPublish" xml:space="preserve">
     <value>Clear List from Publish?</value>
   </data>
-  <data name="ClearSolutionFormat" xml:space="preserve">
+  <data name="ClearSolutionFormat1" xml:space="preserve">
     <value>Are you sure want to clear solution {0}?</value>
   </data>
-  <data name="CopySolutionComponentsFromToFormat" xml:space="preserve">
+  <data name="CopySolutionComponentsFromToFormat2" xml:space="preserve">
     <value>Are you sure want to copy components from {0} to {1}?</value>
   </data>
   <data name="DefaultDiscoveryServiceUrlTemplate" xml:space="preserve">
@@ -138,10 +138,10 @@
   <data name="DefaultOrganizationServiceUrlTemplate" xml:space="preserve">
     <value>http:////XRMServices/2011/Organization.svc</value>
   </data>
-  <data name="DeleteCRMConnectionFormat" xml:space="preserve">
+  <data name="DeleteCRMConnectionFormat1" xml:space="preserve">
     <value>Delete CRM Connection '{0}'?</value>
   </data>
-  <data name="DeleteCRMConnectionUserFormat" xml:space="preserve">
+  <data name="DeleteCRMConnectionUserFormat1" xml:space="preserve">
     <value>Delete CRM Connection User '{0}'?</value>
   </data>
   <data name="DeleteCrmSvcUtil" xml:space="preserve">
@@ -156,10 +156,10 @@
   <data name="ExecuteOperations" xml:space="preserve">
     <value>Execute operations?</value>
   </data>
-  <data name="ExecuteTransferOperationFormat" xml:space="preserve">
+  <data name="ExecuteTransferOperationFormat2" xml:space="preserve">
     <value>Execute transfer operation from {0} to {1}?</value>
   </data>
-  <data name="ExportSolutionFormat" xml:space="preserve">
+  <data name="ExportSolutionFormat1" xml:space="preserve">
     <value>Export solution {0}?</value>
   </data>
   <data name="FolderDoesNotExists" xml:space="preserve">
@@ -174,7 +174,7 @@
   <data name="InformationTitle" xml:space="preserve">
     <value>Information</value>
   </data>
-  <data name="MoveConnectionToArchiveFormat" xml:space="preserve">
+  <data name="MoveConnectionToArchiveFormat1" xml:space="preserve">
     <value>Move CRM Connection '{0}' to Archive?</value>
   </data>
   <data name="NameIsEmpty" xml:space="preserve">
@@ -183,13 +183,13 @@
   <data name="PrefixIsEmpty" xml:space="preserve">
     <value>Prefix is empty.</value>
   </data>
-  <data name="PublishAllInConnectionFormat" xml:space="preserve">
+  <data name="PublishAllInConnectionFormat1" xml:space="preserve">
     <value>Publish all in {0}?</value>
   </data>
   <data name="QuestionTitle" xml:space="preserve">
     <value>Question</value>
   </data>
-  <data name="ReturnCRMConnectionToConnectionListFormat" xml:space="preserve">
+  <data name="ReturnCRMConnectionToConnectionListFormat1" xml:space="preserve">
     <value>Return CRM Connection '{0}' to Connection List?</value>
   </data>
   <data name="SolutionVersionTextIsNotValidVersion" xml:space="preserve">
@@ -198,23 +198,23 @@
   <data name="WarningTitle" xml:space="preserve">
     <value>Warning</value>
   </data>
-  <data name="FileExtensionIsNotAllowedForWebResourceFormat" xml:space="preserve">
+  <data name="FileExtensionIsNotAllowedForWebResourceFormat1" xml:space="preserve">
     <value>File Extension {0} is not allowed for WebResource.</value>
   </data>
   <data name="PasswordIsEmpty" xml:space="preserve">
     <value>Password is empty.</value>
   </data>
-  <data name="UnableSaveConnectionFormat" xml:space="preserve">
+  <data name="UnableSaveConnectionFormat1" xml:space="preserve">
     <value>Unable to save connection details. Error: {0}</value>
   </data>
   <data name="UserNameIsEmpty" xml:space="preserve">
     <value>UserName is empty.</value>
   </data>
-  <data name="PublishWebResourcesEqualByTextFormat" xml:space="preserve">
+  <data name="PublishWebResourcesEqualByTextFormat2" xml:space="preserve">
     <value>Seach equal by text among {0} files, update them and publish on
 {1}?</value>
   </data>
-  <data name="PublishWebResourcesFormat" xml:space="preserve">
+  <data name="PublishWebResourcesFormat2" xml:space="preserve">
     <value>Continue create/update web resources and publish {0} files on
 {1}?</value>
   </data>
@@ -236,13 +236,13 @@
   <data name="FolderForExportDoesNotExists" xml:space="preserve">
     <value>Folder for Export files does not exist.</value>
   </data>
-  <data name="RegisterAllStepsForPluginAssemblyFormat" xml:space="preserve">
+  <data name="RegisterAllStepsForPluginAssemblyFormat1" xml:space="preserve">
     <value>Register all Steps for Plugin Assembly in {0}?</value>
   </data>
-  <data name="RegisterAllStepsForPluginTypeFormat" xml:space="preserve">
+  <data name="RegisterAllStepsForPluginTypeFormat1" xml:space="preserve">
     <value>Register all Steps for Plugin Type in {0}?</value>
   </data>
-  <data name="RegisterPluginStepFormat" xml:space="preserve">
+  <data name="RegisterPluginStepFormat1" xml:space="preserve">
     <value>Register Plugin Step in {0}?</value>
   </data>
   <data name="TextEditorProgramNotExists" xml:space="preserve">
@@ -257,7 +257,7 @@
   <data name="ThreeWayDifferenceArgumentsNotContainsF3" xml:space="preserve">
     <value>ThreeWay Difference arguments format does not contain %f3.</value>
   </data>
-  <data name="FileNotExistsFormat" xml:space="preserve">
+  <data name="FileNotExistsFormat1" xml:space="preserve">
     <value>File not exists: {0}</value>
   </data>
   <data name="InteractiveLogin" xml:space="preserve">

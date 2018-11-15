@@ -127,7 +127,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -264,7 +264,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingSiteMapsCompletedFormat, results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingSiteMapsCompletedFormat1, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -519,7 +519,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldTitle);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
 
             name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
 
@@ -537,13 +537,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat1, fieldName);
             }
         }
 
@@ -554,7 +554,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat, fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat1, fieldName);
 
             name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
 
@@ -586,13 +586,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialogResult.GetValueOrDefault() == false)
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCanceledFormat, fieldName);
+                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCanceledFormat1, fieldName);
                     return;
                 }
 
                 ContentCoparerHelper.ClearXsdSchema(newText, out newText);
 
-                UpdateStatus(Properties.WindowStatusStrings.ValidatingXmlForFieldFormat, fieldName);
+                UpdateStatus(Properties.WindowStatusStrings.ValidatingXmlForFieldFormat1, fieldName);
 
                 if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
                 {
@@ -606,7 +606,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (!validateResult)
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat, fieldName);
+                    ToggleControls(true, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat1, fieldName);
 
                     return;
                 }
@@ -621,7 +621,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 service.Update(updateEntity);
 
-                UpdateStatus(Properties.WindowStatusStrings.PublishingSiteMapFormat, name, idSiteMap.ToString());
+                UpdateStatus(Properties.WindowStatusStrings.PublishingSiteMapFormat2, name, idSiteMap.ToString());
 
                 {
                     var repositoryPublish = new PublishActionsRepository(service);
@@ -629,13 +629,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await repositoryPublish.PublishSiteMapsAsync(new[] { idSiteMap });
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat1, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat1, fieldName);
             }
         }
 
@@ -766,7 +766,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingSiteMapFormat, name, idSiteMap.ToString());
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingSiteMapFormat2, name, idSiteMap.ToString());
 
             try
             {
@@ -780,13 +780,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing SiteMap{0} {1} at {2}", name, idSiteMap, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingSiteMapCompletedFormat, name, idSiteMap.ToString());
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingSiteMapCompletedFormat2, name, idSiteMap.ToString());
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingSiteMapFailedFormat, name, idSiteMap.ToString());
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingSiteMapFailedFormat2, name, idSiteMap.ToString());
             }
         }
 

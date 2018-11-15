@@ -327,7 +327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -1349,15 +1349,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (step.PluginStep != null)
             {
-                message = string.Format(Properties.MessageBoxStrings.RegisterPluginStepFormat, connectionData?.Name);
+                message = string.Format(Properties.MessageBoxStrings.RegisterPluginStepFormat1, connectionData?.Name);
             }
             else if (step.PluginType != null)
             {
-                message = string.Format(Properties.MessageBoxStrings.RegisterAllStepsForPluginTypeFormat, connectionData?.Name);
+                message = string.Format(Properties.MessageBoxStrings.RegisterAllStepsForPluginTypeFormat1, connectionData?.Name);
             }
             else if (step.PluginAssembly != null)
             {
-                message = string.Format(Properties.MessageBoxStrings.RegisterAllStepsForPluginAssemblyFormat, connectionData?.Name);
+                message = string.Format(Properties.MessageBoxStrings.RegisterAllStepsForPluginAssemblyFormat1, connectionData?.Name);
             }
 
             if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
@@ -1382,7 +1382,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData.IsReadOnly)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectionIsReadOnlyFormat, connectionData.Name);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectionIsReadOnlyFormat1, connectionData.Name);
                 return;
             }
 

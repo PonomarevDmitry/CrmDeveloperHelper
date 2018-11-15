@@ -142,7 +142,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSolutions(list);
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionsCompletedFormat, list.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionsCompletedFormat1, list.Count());
         }
 
         private class EntityViewItem
@@ -424,7 +424,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string question = string.Format(Properties.MessageBoxStrings.ClearSolutionFormat, solution.UniqueName);
+            string question = string.Format(Properties.MessageBoxStrings.ClearSolutionFormat1, solution.UniqueName);
 
             if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
             {
@@ -434,7 +434,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 
-                ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat, solution.UniqueName);
+                ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat1, solution.UniqueName);
 
                 var descriptor = new SolutionComponentDescriptor(_service, true);
 
@@ -476,13 +476,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
                 await repository.ClearSolutionAsync(solution.UniqueName);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat, solution.UniqueName);
+                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat, solution.UniqueName);
+                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat1, solution.UniqueName);
             }
         }
     }

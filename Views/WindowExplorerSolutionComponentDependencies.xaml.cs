@@ -225,7 +225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var list = new List<SolutionComponent>();
 
-            string formatResult = Properties.WindowStatusStrings.LoadingRequiredComponentsCompletedFormat;
+            string formatResult = Properties.WindowStatusStrings.LoadingRequiredComponentsCompletedFormat1;
 
             try
             {
@@ -237,7 +237,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     default:
                         {
                             ToggleControls(false, Properties.WindowStatusStrings.LoadingRequiredComponents);
-                            formatResult = Properties.WindowStatusStrings.LoadingRequiredComponentsCompletedFormat;
+                            formatResult = Properties.WindowStatusStrings.LoadingRequiredComponentsCompletedFormat1;
 
                             IEnumerable<Dependency> temp = await repository.GetRequiredComponentsAsync(_componentType, _objectId);
 
@@ -255,7 +255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     case DependencyType.DependentComponents:
                         {
                             ToggleControls(false, Properties.WindowStatusStrings.LoadingDependentComponents);
-                            formatResult = Properties.WindowStatusStrings.LoadingDependentComponentsCompletedFormat;
+                            formatResult = Properties.WindowStatusStrings.LoadingDependentComponentsCompletedFormat1;
 
                             IEnumerable<Dependency> temp = await repository.GetDependentComponentsAsync(_componentType, _objectId);
 
@@ -273,7 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     case DependencyType.DependenciesForDelete:
                         {
                             ToggleControls(false, Properties.WindowStatusStrings.LoadingDependenciesForDelete);
-                            formatResult = Properties.WindowStatusStrings.LoadingDependenciesForDeleteCompletedFormat;
+                            formatResult = Properties.WindowStatusStrings.LoadingDependenciesForDeleteCompletedFormat1;
 
                             IEnumerable<Dependency> temp = await repository.GetDependenciesForDeleteAsync(_componentType, _objectId);
 
@@ -1053,9 +1053,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityName);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityName);
 
             try
             {
@@ -1063,16 +1063,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishEntitiesAsync(new[] { entityName });
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat1, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat1, entityName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat, entityName);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityName);
         }
 
         private async void mIAddEntityIntoCrmSolution_Click(object sender, RoutedEventArgs e)

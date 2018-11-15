@@ -63,63 +63,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Adding Components into Solution {0}.
         /// </summary>
-        internal static string AddingComponentsIntoSolutionFormat {
+        internal static string AddingComponentsIntoSolutionFormat1 {
             get {
-                return ResourceManager.GetString("AddingComponentsIntoSolutionFormat", resourceCulture);
+                return ResourceManager.GetString("AddingComponentsIntoSolutionFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Adding into Publish List Files {0}.
         /// </summary>
-        internal static string AddingIntoPublishListFilesFormat {
+        internal static string AddingIntoPublishListFilesFormat1 {
             get {
-                return ResourceManager.GetString("AddingIntoPublishListFilesFormat", resourceCulture);
+                return ResourceManager.GetString("AddingIntoPublishListFilesFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Adding PluginAssembly into Solution {0}.
         /// </summary>
-        internal static string AddingPluginAssemblyIntoSolutionFormat {
+        internal static string AddingPluginAssemblyIntoSolutionFormat1 {
             get {
-                return ResourceManager.GetString("AddingPluginAssemblyIntoSolutionFormat", resourceCulture);
+                return ResourceManager.GetString("AddingPluginAssemblyIntoSolutionFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Adding PluginAssembly Processing Steps into Solution {0}.
         /// </summary>
-        internal static string AddingPluginAssemblyProcessingStepsIntoSolutionFormat {
+        internal static string AddingPluginAssemblyProcessingStepsIntoSolutionFormat1 {
             get {
-                return ResourceManager.GetString("AddingPluginAssemblyProcessingStepsIntoSolutionFormat", resourceCulture);
+                return ResourceManager.GetString("AddingPluginAssemblyProcessingStepsIntoSolutionFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Adding PluginType Processing Steps into Solution {0}.
         /// </summary>
-        internal static string AddingPluginTypeProcessingStepsIntoSolutionFormat {
+        internal static string AddingPluginTypeProcessingStepsIntoSolutionFormat1 {
             get {
-                return ResourceManager.GetString("AddingPluginTypeProcessingStepsIntoSolutionFormat", resourceCulture);
+                return ResourceManager.GetString("AddingPluginTypeProcessingStepsIntoSolutionFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Adding Reports into Solution {0}.
         /// </summary>
-        internal static string AddingReportsIntoSolutionFormat {
+        internal static string AddingReportsIntoSolutionFormat1 {
             get {
-                return ResourceManager.GetString("AddingReportsIntoSolutionFormat", resourceCulture);
+                return ResourceManager.GetString("AddingReportsIntoSolutionFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Adding WebResources into Solution {0}.
         /// </summary>
-        internal static string AddingWebResourcesIntoSolution {
+        internal static string AddingWebResourcesIntoSolutionFormat1 {
             get {
-                return ResourceManager.GetString("AddingWebResourcesIntoSolution", resourceCulture);
+                return ResourceManager.GetString("AddingWebResourcesIntoSolutionFormat1", resourceCulture);
             }
         }
         
@@ -144,9 +144,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Checking CRM Objects marked to delete by &apos;{0}&apos; and show dependent components.
         /// </summary>
-        internal static string CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponents {
+        internal static string CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat1 {
             get {
-                return ResourceManager.GetString("CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponents", resourceCulture);
+                return ResourceManager.GetString("CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat1", resourceCulture);
             }
         }
         
@@ -160,20 +160,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Checking CRM Objects names for prefix &apos;{0}&apos;.
+        ///   Looks up a localized string similar to Checking CRM Objects names for prefix &apos;{0}&apos; and show dependent components.
         /// </summary>
-        internal static string CheckingCRMObjectsNamesForPrefix {
+        internal static string CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat1 {
             get {
-                return ResourceManager.GetString("CheckingCRMObjectsNamesForPrefix", resourceCulture);
+                return ResourceManager.GetString("CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Checking CRM Objects names for prefix &apos;{0}&apos; and show dependent components.
+        ///   Looks up a localized string similar to Checking CRM Objects names for prefix &apos;{0}&apos;.
         /// </summary>
-        internal static string CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat {
+        internal static string CheckingCRMObjectsNamesForPrefixFormat1 {
             get {
-                return ResourceManager.GetString("CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat", resourceCulture);
+                return ResourceManager.GetString("CheckingCRMObjectsNamesForPrefixFormat1", resourceCulture);
             }
         }
         
@@ -324,9 +324,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Creating File with Entity Metadata for {0}.
         /// </summary>
-        internal static string CreatingFileWithEntityMetadataForEntityFormat {
+        internal static string CreatingFileWithEntityMetadataForEntityFormat1 {
             get {
-                return ResourceManager.GetString("CreatingFileWithEntityMetadataForEntityFormat", resourceCulture);
+                return ResourceManager.GetString("CreatingFileWithEntityMetadataForEntityFormat1", resourceCulture);
             }
         }
         
@@ -342,9 +342,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Creating File with Global OptionSets Metadata for {0}.
         /// </summary>
-        internal static string CreatingFileWithGlobalOptionSetsForFormat {
+        internal static string CreatingFileWithGlobalOptionSetsForFormat1 {
             get {
-                return ResourceManager.GetString("CreatingFileWithGlobalOptionSetsForFormat", resourceCulture);
+                return ResourceManager.GetString("CreatingFileWithGlobalOptionSetsForFormat1", resourceCulture);
             }
         }
         
@@ -378,18 +378,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} Difference Local File, Reports in {1} and {2}.
         /// </summary>
-        internal static string DifferenceLocalFileAndTwoReports {
+        internal static string DifferenceLocalFileAndTwoReportsFormat3 {
             get {
-                return ResourceManager.GetString("DifferenceLocalFileAndTwoReports", resourceCulture);
+                return ResourceManager.GetString("DifferenceLocalFileAndTwoReportsFormat3", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0} Difference Local File, WebResources in {1} and {2}.
         /// </summary>
-        internal static string DifferenceLocalFileAndTwoWebResourcesFormat {
+        internal static string DifferenceLocalFileAndTwoWebResourcesFormat3 {
             get {
-                return ResourceManager.GetString("DifferenceLocalFileAndTwoWebResourcesFormat", resourceCulture);
+                return ResourceManager.GetString("DifferenceLocalFileAndTwoWebResourcesFormat3", resourceCulture);
             }
         }
         
@@ -558,45 +558,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Finding CRM Objects by Id &apos;{0}&apos;, entityName &apos;{1}&apos;, entityTypeCode &apos;{2}&apos;.
         /// </summary>
-        internal static string FindingCRMObjectsByIdEntityNameEntityTypeCodeFormat {
+        internal static string FindingCRMObjectsByIdEntityNameEntityTypeCodeFormat3 {
             get {
-                return ResourceManager.GetString("FindingCRMObjectsByIdEntityNameEntityTypeCodeFormat", resourceCulture);
+                return ResourceManager.GetString("FindingCRMObjectsByIdEntityNameEntityTypeCodeFormat3", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Finding CRM Objects by Uniqueidentifier &apos;{0}&apos;, entityName &apos;{1}&apos;, entityTypeCode &apos;{2}&apos;.
         /// </summary>
-        internal static string FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCode {
+        internal static string FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCodeFormat3 {
             get {
-                return ResourceManager.GetString("FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCode", resourceCulture);
+                return ResourceManager.GetString("FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCodeFormat3", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Finding CRM Objects names contains &apos;{0}&apos;.
         /// </summary>
-        internal static string FindingCRMObjectscontainsNameFormat {
+        internal static string FindingCRMObjectscontainsNameFormat1 {
             get {
-                return ResourceManager.GetString("FindingCRMObjectscontainsNameFormat", resourceCulture);
+                return ResourceManager.GetString("FindingCRMObjectscontainsNameFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Finding CRM Objects names for &apos;{0}&apos;.
         /// </summary>
-        internal static string FindingCRMObjectsNamesFormat {
+        internal static string FindingCRMObjectsNamesFormat1 {
             get {
-                return ResourceManager.GetString("FindingCRMObjectsNamesFormat", resourceCulture);
+                return ResourceManager.GetString("FindingCRMObjectsNamesFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Multi Difference {0}.
         /// </summary>
-        internal static string MultiDifferenceFormat {
+        internal static string MultiDifferenceFormat1 {
             get {
-                return ResourceManager.GetString("MultiDifferenceFormat", resourceCulture);
+                return ResourceManager.GetString("MultiDifferenceFormat1", resourceCulture);
             }
         }
         
@@ -639,9 +639,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Opening Files {0}.
         /// </summary>
-        internal static string OpeningFilesFormat {
+        internal static string OpeningFilesFormat1 {
             get {
-                return ResourceManager.GetString("OpeningFilesFormat", resourceCulture);
+                return ResourceManager.GetString("OpeningFilesFormat1", resourceCulture);
             }
         }
         
@@ -711,18 +711,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Publishing All Customization in {0}.
         /// </summary>
-        internal static string PublishingAllCustomizationFormat {
+        internal static string PublishingAllCustomizationFormat1 {
             get {
-                return ResourceManager.GetString("PublishingAllCustomizationFormat", resourceCulture);
+                return ResourceManager.GetString("PublishingAllCustomizationFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Publishing Entities {0}.
         /// </summary>
-        internal static string PublishingEntitiesFormat {
+        internal static string PublishingEntitiesFormat1 {
             get {
-                return ResourceManager.GetString("PublishingEntitiesFormat", resourceCulture);
+                return ResourceManager.GetString("PublishingEntitiesFormat1", resourceCulture);
             }
         }
         

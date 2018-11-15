@@ -120,40 +120,40 @@
   <data name="ConnectingToCRM" xml:space="preserve">
     <value>Connecting to CRM...</value>
   </data>
-  <data name="ConnectionIsReadOnlyFormat" xml:space="preserve">
+  <data name="ConnectionIsReadOnlyFormat1" xml:space="preserve">
     <value>Connection {0} is ReadOnly. Operation is prohibited.</value>
   </data>
-  <data name="CurrentServiceEndpointFormat" xml:space="preserve">
+  <data name="CurrentServiceEndpointFormat1" xml:space="preserve">
     <value>Current Service Endpoint: {0}</value>
   </data>
-  <data name="EndOperationFormat" xml:space="preserve">
+  <data name="EndOperationFormat2" xml:space="preserve">
     <value>*********** End {0} at {1} *******************************************************</value>
   </data>
-  <data name="GetAttributeMetadataByGuidFormat" xml:space="preserve">
+  <data name="GetAttributeMetadataByGuidFormat1" xml:space="preserve">
     <value>GetAttributeMetadata(Guid {0})</value>
   </data>
-  <data name="GetAttributeMetadataByStringStringFormat" xml:space="preserve">
+  <data name="GetAttributeMetadataByStringStringFormat2" xml:space="preserve">
     <value>GetAttributeMetadata(string {0}, string {1})</value>
   </data>
-  <data name="GetEntityKeyMetadataByGuidFormat" xml:space="preserve">
+  <data name="GetEntityKeyMetadataByGuidFormat1" xml:space="preserve">
     <value>GetEntityKeyMetadata(Guid {0})</value>
   </data>
-  <data name="GetEntityKeyMetadataByStringStringFormat" xml:space="preserve">
+  <data name="GetEntityKeyMetadataByStringStringFormat2" xml:space="preserve">
     <value>GetEntityKeyMetadata(string {0}, string {1})</value>
   </data>
-  <data name="GetEntityMetadataByGuidFormat" xml:space="preserve">
+  <data name="GetEntityMetadataByGuidFormat1" xml:space="preserve">
     <value>GetEntityMetadata(Guid {0})</value>
   </data>
-  <data name="GetEntityMetadataByStringFormat" xml:space="preserve">
+  <data name="GetEntityMetadataByStringFormat1" xml:space="preserve">
     <value>GetEntityMetadata(string {0})</value>
   </data>
-  <data name="GetEntityMetadataByStringStringFormat" xml:space="preserve">
+  <data name="GetEntityMetadataByStringStringFormat2" xml:space="preserve">
     <value>GetEntityMetadata(string {0}, string[] {1})</value>
   </data>
-  <data name="GetRelationshipMetadataByGuidFormat" xml:space="preserve">
+  <data name="GetRelationshipMetadataByGuidFormat1" xml:space="preserve">
     <value>GetRelationshipMetadata(Guid {0})</value>
   </data>
-  <data name="GetRelationshipMetadataByStringFormat" xml:space="preserve">
+  <data name="GetRelationshipMetadataByStringFormat1" xml:space="preserve">
     <value>GetRelationshipMetadata(string {0})</value>
   </data>
   <data name="NoCRMConnection1" xml:space="preserve">
@@ -168,13 +168,13 @@
   <data name="NothingToPublish" xml:space="preserve">
     <value>Nothing to publish.</value>
   </data>
-  <data name="PublishingAllCompletedFormat" xml:space="preserve">
+  <data name="PublishingAllCompletedFormat1" xml:space="preserve">
     <value>Published All in {0} Successfully.</value>
   </data>
-  <data name="PublishingAllFailedFormat" xml:space="preserve">
+  <data name="PublishingAllFailedFormat1" xml:space="preserve">
     <value>Publishing All in {0} FAILED.</value>
   </data>
-  <data name="StartOperationFormat" xml:space="preserve">
+  <data name="StartOperationFormat2" xml:space="preserve">
     <value>*********** Start {0} at {1} *******************************************************</value>
   </data>
 </root>

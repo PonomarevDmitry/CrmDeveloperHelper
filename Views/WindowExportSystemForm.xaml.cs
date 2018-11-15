@@ -145,7 +145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -219,7 +219,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSystemForms(list);
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingFormsCompletedFormat, list.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingFormsCompletedFormat1, list.Count());
         }
 
         private static IEnumerable<SystemForm> FilterList(IEnumerable<SystemForm> list, string textName)
@@ -545,7 +545,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat, fieldTitle);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
 
             try
             {
@@ -562,13 +562,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat1, fieldName);
             }
         }
 
@@ -579,7 +579,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat, fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat1, fieldName);
 
             try
             {
@@ -615,13 +615,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialogResult.GetValueOrDefault() == false)
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCanceledFormat, fieldName);
+                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCanceledFormat1, fieldName);
                     return;
                 }
 
                 ContentCoparerHelper.ClearXsdSchema(newText, out newText);
                 
-                UpdateStatus(Properties.WindowStatusStrings.ValidatingXmlForFieldFormat, fieldName);
+                UpdateStatus(Properties.WindowStatusStrings.ValidatingXmlForFieldFormat1, fieldName);
 
                 if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
                 {
@@ -635,7 +635,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (!validateResult)
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat, fieldName);
+                    ToggleControls(true, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat1, fieldName);
 
                     return;
                 }
@@ -650,7 +650,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 service.Update(updateEntity);
 
-                UpdateStatus(Properties.WindowStatusStrings.PublishingSystemFormFormat, entityName, name);
+                UpdateStatus(Properties.WindowStatusStrings.PublishingSystemFormFormat2, entityName, name);
 
                 {
                     var repositoryPublish = new PublishActionsRepository(service);
@@ -658,13 +658,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await repositoryPublish.PublishDashboardsAsync(new[] { idSystemForm });
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat1, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat1, fieldName);
             }
         }
 
@@ -784,7 +784,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
             
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingSystemFormFormat, entityName, name);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingSystemFormFormat2, entityName, name);
 
             this._iWriteToOutput.WriteToOutput("Start publishing SystemForm {0} - {1} at {2}", entityName, name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -798,13 +798,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("End publishing SystemForm {0} - {1} at {2}", entityName, name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingSystemFormCompletedFormat, entityName, name);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingSystemFormCompletedFormat2, entityName, name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingSystemFormFailedFormat, entityName, name);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingSystemFormFailedFormat2, entityName, name);
             }
         }
 
@@ -830,9 +830,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityName);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityName);
 
             try
             {
@@ -842,16 +842,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishEntitiesAsync(new[] { entityName });
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat1, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat1, entityName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat, entityName);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityName);
         }
 
         private void mIExportSystemFormDescription_Click(object sender, RoutedEventArgs e)
@@ -868,7 +868,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportFormDescriptionToFileAsync(string folder, Guid idSystemForm, string entityName, string name)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingSystemFormDescriptionFormat, entityName, name);
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingSystemFormDescriptionFormat2, entityName, name);
             
             var service = await GetService();
             var descriptor = await GetDescriptor();
@@ -910,7 +910,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingSystemFormDescriptionCompletedFormat, entityName, name);
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingSystemFormDescriptionCompletedFormat2, entityName, name);
         }
 
         private void mIExportSystemFormFormXml_Click(object sender, RoutedEventArgs e)
@@ -939,7 +939,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformDownloadWebResources(string folder, Guid idSystemForm, string entityName, string name)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesFormat, entityName, name);
+            ToggleControls(false, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesFormat2, entityName, name);
             
             var service = await GetService();
             var descriptor = await GetDescriptor();
@@ -996,7 +996,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
             
-            ToggleControls(true, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesCompletedFormat, entityName, name);
+            ToggleControls(true, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesCompletedFormat2, entityName, name);
         }
 
         private Task<string> CreateWebResourceAsync(string folder, string connectionName, string resName, WebResource webresource)
@@ -1045,7 +1045,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformCreateEntityJavaScriptFileBasedOnForm(string folder, Guid idSystemForm, string entityName, string name)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityJavaScriptFileOnFormFormat, entityName, name);
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityJavaScriptFileOnFormFormat2, entityName, name);
             
             var service = await GetService();
             var descriptor = await GetDescriptor();
@@ -1102,7 +1102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityJavaScriptFileOnFormCompletedFormat, entityName, name);
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityJavaScriptFileOnFormCompletedFormat2, entityName, name);
         }
 
         private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)

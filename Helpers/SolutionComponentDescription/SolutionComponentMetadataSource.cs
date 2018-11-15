@@ -324,7 +324,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetEntityMetadataByGuidFormat, idMetadata);
+                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetEntityMetadataByGuidFormat1, idMetadata);
 
                 return null;
             }
@@ -364,7 +364,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetEntityMetadataByGuidFormat, idMetadata);
+                    DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetEntityMetadataByGuidFormat1, idMetadata);
                 }
             }
 
@@ -405,7 +405,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetEntityMetadataByStringFormat, entityName);
+                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetEntityMetadataByStringFormat1, entityName);
 
                 return null;
             }
@@ -457,7 +457,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetEntityMetadataByStringStringFormat, entityName, string.Join(",", columnNames));
+                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetEntityMetadataByStringStringFormat2, entityName, string.Join(",", columnNames));
 
                 return null;
             }
@@ -505,7 +505,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetAttributeMetadataByGuidFormat, idAttribute);
+                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetAttributeMetadataByGuidFormat1, idAttribute);
 
                 return null;
             }
@@ -589,7 +589,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetAttributeMetadataByStringStringFormat, entityName, attributeName);
+                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetAttributeMetadataByStringStringFormat2, entityName, attributeName);
 
                 return null;
             }
@@ -627,7 +627,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetEntityKeyMetadataByGuidFormat, idKey);
+                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetEntityKeyMetadataByGuidFormat1, idKey);
 
                 return null;
             }
@@ -671,7 +671,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetEntityKeyMetadataByStringStringFormat, entityName, keyName);
+                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetEntityKeyMetadataByStringStringFormat2, entityName, keyName);
 
                 return null;
             }
@@ -709,7 +709,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetRelationshipMetadataByGuidFormat, idRelation);
+                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetRelationshipMetadataByGuidFormat1, idRelation);
 
                 return null;
             }
@@ -751,7 +751,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetRelationshipMetadataByStringFormat, relationName);
+                DTEHelper.WriteExceptionToLog(ex, Properties.OutputStrings.GetRelationshipMetadataByStringFormat1, relationName);
 
                 return null;
             }

@@ -845,7 +845,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             this.WriteToOutput(string.Empty);
 
-            return this.WriteToOutput(OutputStrings.StartOperationFormat
+            return this.WriteToOutput(OutputStrings.StartOperationFormat2
                 , message
                 , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
                 );
@@ -860,7 +860,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 message = string.Format(format, args);
             }
 
-            var result = this.WriteToOutput(OutputStrings.EndOperationFormat
+            var result = this.WriteToOutput(OutputStrings.EndOperationFormat2
                 , message
                 , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
                 );
@@ -1136,7 +1136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 else
                 {
-                    string message = string.Format(Properties.MessageBoxStrings.PublishWebResourcesFormat, selectedFiles.Count, connectionData.GetDescriptionColumn());
+                    string message = string.Format(Properties.MessageBoxStrings.PublishWebResourcesFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
 
                     var dialog = new WindowConfirmPublish(message);
 
@@ -1196,7 +1196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 else
                 {
-                    string message = string.Format(Properties.MessageBoxStrings.PublishWebResourcesEqualByTextFormat, selectedFiles.Count, connectionData.GetDescription());
+                    string message = string.Format(Properties.MessageBoxStrings.PublishWebResourcesEqualByTextFormat2, selectedFiles.Count, connectionData.GetDescription());
 
                     var dialog = new WindowConfirmPublish(message);
 
@@ -3681,7 +3681,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData != null)
             {
-                string message = string.Format(Properties.MessageBoxStrings.PublishAllInConnectionFormat, connectionData.Name);
+                string message = string.Format(Properties.MessageBoxStrings.PublishAllInConnectionFormat1, connectionData.Name);
 
                 if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {

@@ -73,7 +73,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
             WebResourceRepository webResourceRepository = new WebResourceRepository(service);
@@ -244,7 +244,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteThreeFileDifferenceWebResources(SelectedFile selectedFile, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
         {
-            string operation = string.Format(Properties.OperationNames.DifferenceLocalFileAndTwoWebResourcesFormat, differenceType, connectionData1?.Name, connectionData2?.Name);
+            string operation = string.Format(Properties.OperationNames.DifferenceLocalFileAndTwoWebResourcesFormat3, differenceType, connectionData1?.Name, connectionData2?.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -508,7 +508,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            string operation = string.Format(Properties.OperationNames.MultiDifferenceFormat, openFilesType.ToString());
+            string operation = string.Format(Properties.OperationNames.MultiDifferenceFormat1, openFilesType.ToString());
 
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -635,7 +635,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
             ReportRepository reportRepository = new ReportRepository(service);
@@ -832,7 +832,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteThreeFileDifferenceReport(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
         {
-            string operation = string.Format(Properties.OperationNames.DifferenceLocalFileAndTwoReports, differenceType, connectionData1?.Name, connectionData2?.Name);
+            string operation = string.Format(Properties.OperationNames.DifferenceLocalFileAndTwoReportsFormat3, differenceType, connectionData1?.Name, connectionData2?.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 

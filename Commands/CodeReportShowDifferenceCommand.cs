@@ -93,7 +93,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     string custom = this._isCustom ? " " + Properties.CommandNames.CodeReportShowDifferenceCommandCustom : string.Empty;
 
-                    string name = string.Format(Properties.CommandNames.CodeReportShowDifferenceCommand, _fieldTitle, custom);
+                    string name = string.Format(Properties.CommandNames.CodeReportShowDifferenceCommandFormat2, _fieldTitle, custom);
                     
                     CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(this, menuCommand);
 

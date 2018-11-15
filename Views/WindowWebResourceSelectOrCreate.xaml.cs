@@ -176,7 +176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadWebResources(list);
             
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingWebResourcesCompletedFormat, list.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingWebResourcesCompletedFormat1, list.Count());
         }
 
         private void LoadWebResources(IEnumerable<WebResource> results)
@@ -441,9 +441,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(extension) || !WebResourceRepository.IsSupportedExtension(extension))
             {
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingNewWebResourceDeniedFormat, extension);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingNewWebResourceDeniedFormat1, extension);
 
-                var message = string.Format(Properties.MessageBoxStrings.FileExtensionIsNotAllowedForWebResourceFormat, extension);
+                var message = string.Format(Properties.MessageBoxStrings.FileExtensionIsNotAllowedForWebResourceFormat1, extension);
 
                 MessageBox.Show(message, Properties.MessageBoxStrings.InformationTitle, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
@@ -509,7 +509,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             name = WebResourceRepository.GenerateWebResouceName(name, solution.PublisherCustomizationPrefix);
 
-            UpdateStatus(Properties.WindowStatusStrings.CreatingNewWebResourceFormat, name);
+            UpdateStatus(Properties.WindowStatusStrings.CreatingNewWebResourceFormat1, name);
 
             WebResourceRepository repository = new WebResourceRepository(_service);
 
@@ -523,7 +523,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this.Close();
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingNewWebResourceCompletedFormat, name);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingNewWebResourceCompletedFormat1, name);
             }
             catch (Exception xE)
             {

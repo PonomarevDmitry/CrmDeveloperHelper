@@ -158,7 +158,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }
@@ -185,7 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }
@@ -203,7 +203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntitiesFormat);
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntities);
 
             this._itemsSource.Clear();
 
@@ -394,7 +394,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat, results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat1, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -810,7 +810,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityFormat, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityFormat1, entityName);
 
             this._iWriteToOutput.WriteToOutput("Start exporting files with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -861,13 +861,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityCompletedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityCompletedFormat1, entityName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityFailedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityFailedFormat1, entityName);
             }
 
             this._iWriteToOutput.WriteToOutput("End exporting files with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
@@ -902,7 +902,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityFormat, entity.LogicalName);
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityFormat1, entity.LogicalName);
 
             this._iWriteToOutput.WriteToOutput("Start exporting files with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1091,13 +1091,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityCompletedFormat, entity.LogicalName);
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityCompletedFormat1, entity.LogicalName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityFailedFormat, entity.LogicalName);
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityFailedFormat1, entity.LogicalName);
             }
 
             this._iWriteToOutput.WriteToOutput("End exporting files with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
@@ -1132,7 +1132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var filters = GetRibbonLocationFilters();
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingApplicationRibbon);
 
             this._iWriteToOutput.WriteToOutput("Start exporting file with Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1158,7 +1158,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("End exporting file with Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat);
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonCompleted);
         }
 
         private void mIConnection1ApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -1219,11 +1219,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         Version = "1.0.0.0",
                     };
 
-                    UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat, solutionUniqueName);
+                    UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
 
                     solution.Id = service.Create(solution);
 
-                    UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat);
+                    UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat1, solutionUniqueName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(service);
@@ -1236,7 +1236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }});
                     }
 
-                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat);
+                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat1, solutionUniqueName);
 
                     var repository = new ExportSolutionHelper(service);
 
@@ -1255,7 +1255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                     }
 
-                    UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat, solutionUniqueName);
+                    UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
 
                     await service.DeleteAsync(solution.LogicalName, solution.Id);
 
@@ -1313,7 +1313,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var filters = GetRibbonLocationFilters();
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonForEntityFormat, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonForEntityFormat1, entityName);
 
             this._iWriteToOutput.WriteToOutput("Start exporting file with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1332,13 +1332,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityCompletedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityCompletedFormat1, entityName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityFailedFormat, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityFailedFormat1, entityName);
             }
 
             this._iWriteToOutput.WriteToOutput("End exporting file with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
@@ -1385,7 +1385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFormat, entity.LogicalName);
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFormat1, entity.LogicalName);
 
             this._iWriteToOutput.WriteToOutput("Start exporting file with Entity RibbonDiffXml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
@@ -1414,11 +1414,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         Version = "1.0.0.0",
                     };
 
-                    UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat, solutionUniqueName);
+                    UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
 
                     solution.Id = service.Create(solution);
 
-                    UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionEntityFormat, solutionUniqueName, entity.LogicalName);
+                    UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionEntityFormat2, solutionUniqueName, entity.LogicalName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(service);
@@ -1431,7 +1431,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }});
                     }
 
-                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat, solutionUniqueName, entity.LogicalName);
+                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat2, solutionUniqueName, entity.LogicalName);
 
                     var repository = new ExportSolutionHelper(service);
 
@@ -1470,18 +1470,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                     }
 
-                    UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat, solutionUniqueName);
+                    UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
 
                     await service.DeleteAsync(solution.LogicalName, solution.Id);
 
-                    ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityCompletedFormat, entity.LogicalName);
+                    ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityCompletedFormat1, entity.LogicalName);
                 }
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFailedFormat, entity.LogicalName);
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFailedFormat1, entity.LogicalName);
             }
 
             this._iWriteToOutput.WriteToOutput("End exporting file with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));

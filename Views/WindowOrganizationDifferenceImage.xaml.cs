@@ -197,7 +197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -367,7 +367,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _itemsSource?.Add(component);
             }
             
-            ToggleControls(true, Properties.WindowStatusStrings.FilteringOrganizationDifferenceImageComponentsCompleted, filter.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.FilteringOrganizationDifferenceImageComponentsCompletedFormat1, filter.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)

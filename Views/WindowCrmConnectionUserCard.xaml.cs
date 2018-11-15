@@ -87,7 +87,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                string textError = string.Format(Properties.MessageBoxStrings.UnableSaveConnectionFormat, ex.Message);
+                string textError = string.Format(Properties.MessageBoxStrings.UnableSaveConnectionFormat1, ex.Message);
 
                 DTEHelper.WriteExceptionToOutput(ex);
 

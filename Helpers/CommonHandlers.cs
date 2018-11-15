@@ -995,7 +995,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (!string.IsNullOrEmpty(connection))
                 {
-                    name = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat, name, connection);
+                    name = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, name, connection);
                 }
             }
 

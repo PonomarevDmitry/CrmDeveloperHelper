@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddingComponentsIntoSolutionFormat" xml:space="preserve">
+  <data name="AddingComponentsIntoSolutionFormat1" xml:space="preserve">
     <value>Adding Components into Solution {0}</value>
   </data>
-  <data name="AddingIntoPublishListFilesFormat" xml:space="preserve">
+  <data name="AddingIntoPublishListFilesFormat1" xml:space="preserve">
     <value>Adding into Publish List Files {0}</value>
   </data>
-  <data name="AddingPluginAssemblyIntoSolutionFormat" xml:space="preserve">
+  <data name="AddingPluginAssemblyIntoSolutionFormat1" xml:space="preserve">
     <value>Adding PluginAssembly into Solution {0}</value>
   </data>
-  <data name="AddingPluginAssemblyProcessingStepsIntoSolutionFormat" xml:space="preserve">
+  <data name="AddingPluginAssemblyProcessingStepsIntoSolutionFormat1" xml:space="preserve">
     <value>Adding PluginAssembly Processing Steps into Solution {0}</value>
   </data>
-  <data name="AddingPluginTypeProcessingStepsIntoSolutionFormat" xml:space="preserve">
+  <data name="AddingPluginTypeProcessingStepsIntoSolutionFormat1" xml:space="preserve">
     <value>Adding PluginType Processing Steps into Solution {0}</value>
   </data>
-  <data name="AddingReportsIntoSolutionFormat" xml:space="preserve">
+  <data name="AddingReportsIntoSolutionFormat1" xml:space="preserve">
     <value>Adding Reports into Solution {0}</value>
   </data>
-  <data name="AddingWebResourcesIntoSolution" xml:space="preserve">
+  <data name="AddingWebResourcesIntoSolutionFormat1" xml:space="preserve">
     <value>Adding WebResources into Solution {0}</value>
   </data>
   <data name="CheckingComponentTypeEnum" xml:space="preserve">
@@ -144,16 +144,16 @@
   <data name="CheckingCRMEntityOwnership" xml:space="preserve">
     <value>Checking CRM Entity Ownership</value>
   </data>
-  <data name="CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponents" xml:space="preserve">
+  <data name="CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat1" xml:space="preserve">
     <value>Checking CRM Objects marked to delete by '{0}' and show dependent components</value>
   </data>
   <data name="CheckingCRMObjectsNamesAndShowDependentComponents" xml:space="preserve">
     <value>Checking CRM Objects names and show dependent components</value>
   </data>
-  <data name="CheckingCRMObjectsNamesForPrefix" xml:space="preserve">
+  <data name="CheckingCRMObjectsNamesForPrefixFormat1" xml:space="preserve">
     <value>Checking CRM Objects names for prefix '{0}'</value>
   </data>
-  <data name="CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat" xml:space="preserve">
+  <data name="CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat1" xml:space="preserve">
     <value>Checking CRM Objects names for prefix '{0}' and show dependent components</value>
   </data>
   <data name="CheckingFilesEncoding" xml:space="preserve">
@@ -213,10 +213,10 @@
   <data name="CreatingPluginTypeDescription" xml:space="preserve">
     <value>Creating PluginType Description</value>
   </data>
-  <data name="DifferenceLocalFileAndTwoReports" xml:space="preserve">
+  <data name="DifferenceLocalFileAndTwoReportsFormat3" xml:space="preserve">
     <value>{0} Difference Local File, Reports in {1} and {2}</value>
   </data>
-  <data name="DifferenceLocalFileAndTwoWebResourcesFormat" xml:space="preserve">
+  <data name="DifferenceLocalFileAndTwoWebResourcesFormat3" xml:space="preserve">
     <value>{0} Difference Local File, WebResources in {1} and {2}</value>
   </data>
   <data name="DifferenceReport" xml:space="preserve">
@@ -273,19 +273,19 @@
   <data name="ExportSolutionWindow" xml:space="preserve">
     <value>Export Solution Window</value>
   </data>
-  <data name="FindingCRMObjectsByIdEntityNameEntityTypeCodeFormat" xml:space="preserve">
+  <data name="FindingCRMObjectsByIdEntityNameEntityTypeCodeFormat3" xml:space="preserve">
     <value>Finding CRM Objects by Id '{0}', entityName '{1}', entityTypeCode '{2}'</value>
   </data>
-  <data name="FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCode" xml:space="preserve">
+  <data name="FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCodeFormat3" xml:space="preserve">
     <value>Finding CRM Objects by Uniqueidentifier '{0}', entityName '{1}', entityTypeCode '{2}'</value>
   </data>
-  <data name="FindingCRMObjectscontainsNameFormat" xml:space="preserve">
+  <data name="FindingCRMObjectscontainsNameFormat1" xml:space="preserve">
     <value>Finding CRM Objects names contains '{0}'</value>
   </data>
-  <data name="FindingCRMObjectsNamesFormat" xml:space="preserve">
+  <data name="FindingCRMObjectsNamesFormat1" xml:space="preserve">
     <value>Finding CRM Objects names for '{0}'</value>
   </data>
-  <data name="MultiDifferenceFormat" xml:space="preserve">
+  <data name="MultiDifferenceFormat1" xml:space="preserve">
     <value>Multi Difference {0}</value>
   </data>
   <data name="OpeningEntityAttributeExplorer" xml:space="preserve">
@@ -300,7 +300,7 @@
   <data name="OpeningEntityRelationshipOneToMany" xml:space="preserve">
     <value>Opening Entity Relationship One-To-Many</value>
   </data>
-  <data name="OpeningFilesFormat" xml:space="preserve">
+  <data name="OpeningFilesFormat1" xml:space="preserve">
     <value>Opening Files {0}</value>
   </data>
   <data name="OpeningFilesWithoutUTF8Encoding" xml:space="preserve">
@@ -324,7 +324,7 @@
   <data name="PluginConfigurationTypeDescription" xml:space="preserve">
     <value>Plugin Configuration Type Description</value>
   </data>
-  <data name="PublishingAllCustomizationFormat" xml:space="preserve">
+  <data name="PublishingAllCustomizationFormat1" xml:space="preserve">
     <value>Publishing All Customization in {0}</value>
   </data>
   <data name="ShowingOrganizationComparer" xml:space="preserve">
@@ -375,13 +375,13 @@
   <data name="CreatingFileWithDescription" xml:space="preserve">
     <value>Creating file with Description</value>
   </data>
-  <data name="CreatingFileWithEntityMetadataForEntityFormat" xml:space="preserve">
+  <data name="CreatingFileWithEntityMetadataForEntityFormat1" xml:space="preserve">
     <value>Creating File with Entity Metadata for {0}</value>
   </data>
-  <data name="CreatingFileWithGlobalOptionSetsForFormat" xml:space="preserve">
+  <data name="CreatingFileWithGlobalOptionSetsForFormat1" xml:space="preserve">
     <value>Creating File with Global OptionSets Metadata for {0}</value>
   </data>
-  <data name="PublishingEntitiesFormat" xml:space="preserve">
+  <data name="PublishingEntitiesFormat1" xml:space="preserve">
     <value>Publishing Entities {0}</value>
   </data>
 </root>

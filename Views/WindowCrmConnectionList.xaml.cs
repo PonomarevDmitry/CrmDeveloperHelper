@@ -270,7 +270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
 
-                UpdateStatus(Properties.WindowStatusStrings.StartTestingConnectionFormat, connectionData.Name);
+                UpdateStatus(Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
 
                 try
                 {
@@ -280,13 +280,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._crmConfig.Save();
 
-                    UpdateStatus(Properties.WindowStatusStrings.ConnectedSuccessfullyFormat, connectionData.Name);
+                    UpdateStatus(Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
                 }
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(ex);
 
-                    UpdateStatus(Properties.WindowStatusStrings.ConnectionFailedFormat, connectionData.Name);
+                    UpdateStatus(Properties.WindowStatusStrings.ConnectionFailedFormat1, connectionData.Name);
                 }
             }
         }
@@ -382,7 +382,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
 
-                string message = string.Format(Properties.MessageBoxStrings.MoveConnectionToArchiveFormat, connectionData.Name);
+                string message = string.Format(Properties.MessageBoxStrings.MoveConnectionToArchiveFormat1, connectionData.Name);
 
                 if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
@@ -475,7 +475,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionUserData user = lstVwUsers.SelectedItems[0] as ConnectionUserData;
 
-                string message = string.Format(Properties.MessageBoxStrings.DeleteCRMConnectionUserFormat, user.Username);
+                string message = string.Format(Properties.MessageBoxStrings.DeleteCRMConnectionUserFormat1, user.Username);
 
                 if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
@@ -557,7 +557,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
 
-                UpdateStatus(Properties.WindowStatusStrings.StartTestingConnectionFormat, connectionData.Name);
+                UpdateStatus(Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
 
                 try
                 {
@@ -565,13 +565,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._crmConfig.Save();
 
-                    UpdateStatus(Properties.WindowStatusStrings.ConnectedSuccessfullyFormat, connectionData.Name);
+                    UpdateStatus(Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
                 }
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(ex);
 
-                    UpdateStatus(Properties.WindowStatusStrings.ConnectionFailedFormat, connectionData.Name);
+                    UpdateStatus(Properties.WindowStatusStrings.ConnectionFailedFormat1, connectionData.Name);
                 }
             }
         }
@@ -626,7 +626,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
 
-                string message = string.Format(Properties.MessageBoxStrings.DeleteCRMConnectionFormat, connectionData.Name);
+                string message = string.Format(Properties.MessageBoxStrings.DeleteCRMConnectionFormat1, connectionData.Name);
 
                 if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
@@ -655,7 +655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
 
-            string message = string.Format(Properties.MessageBoxStrings.ReturnCRMConnectionToConnectionListFormat, connectionData.Name);
+            string message = string.Format(Properties.MessageBoxStrings.ReturnCRMConnectionToConnectionListFormat1, connectionData.Name);
 
             if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {

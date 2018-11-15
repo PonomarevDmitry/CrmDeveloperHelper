@@ -142,20 +142,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Difference {0}{1}.
-        /// </summary>
-        internal static string CodeReportShowDifferenceCommand {
-            get {
-                return ResourceManager.GetString("CodeReportShowDifferenceCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to with Select.
         /// </summary>
         internal static string CodeReportShowDifferenceCommandCustom {
             get {
                 return ResourceManager.GetString("CodeReportShowDifferenceCommandCustom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Difference {0}{1}.
+        /// </summary>
+        internal static string CodeReportShowDifferenceCommandFormat2 {
+            get {
+                return ResourceManager.GetString("CodeReportShowDifferenceCommandFormat2", resourceCulture);
             }
         }
         
@@ -234,9 +234,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} - {1}.
         /// </summary>
-        internal static string CommandNameWithConnectionFormat {
+        internal static string CommandNameWithConnectionFormat2 {
             get {
-                return ResourceManager.GetString("CommandNameWithConnectionFormat", resourceCulture);
+                return ResourceManager.GetString("CommandNameWithConnectionFormat2", resourceCulture);
             }
         }
         
@@ -441,9 +441,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} - {1}.
         /// </summary>
-        internal static string FetchXmlExecutorNameFormat {
+        internal static string FetchXmlExecutorNameFormat2 {
             get {
-                return ResourceManager.GetString("FetchXmlExecutorNameFormat", resourceCulture);
+                return ResourceManager.GetString("FetchXmlExecutorNameFormat2", resourceCulture);
             }
         }
         

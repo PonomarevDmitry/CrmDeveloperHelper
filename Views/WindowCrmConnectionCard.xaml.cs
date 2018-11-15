@@ -264,7 +264,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnTestConnection_Click(object sender, RoutedEventArgs e)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.StartTestingConnectionFormat, this.ConnectionData.Name);
+            ToggleControls(false, Properties.WindowStatusStrings.StartTestingConnectionFormat1, this.ConnectionData.Name);
 
             try
             {
@@ -274,13 +274,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 LoadConnectionData(this.ConnectionData);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat, this.ConnectionData.Name);
+                ToggleControls(true, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, this.ConnectionData.Name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ConnectionFailedFormat, this.ConnectionData.Name);
+                ToggleControls(true, Properties.WindowStatusStrings.ConnectionFailedFormat1, this.ConnectionData.Name);
             }
         }
 
