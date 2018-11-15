@@ -726,8 +726,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
             }
             catch (Exception ex)
@@ -766,6 +764,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
 
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingSiteMapFormat2, name, idSiteMap.ToString());
+
             ToggleControls(false, Properties.WindowStatusStrings.PublishingSiteMapFormat2, name, idSiteMap.ToString());
 
             try
@@ -774,11 +774,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new PublishActionsRepository(service);
 
-                this._iWriteToOutput.WriteToOutput("Start publishing SiteMap{0} {1} at {2}", name, idSiteMap, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 await repository.PublishSiteMapsAsync(new[] { idSiteMap });
-
-                this._iWriteToOutput.WriteToOutput("End publishing SiteMap{0} {1} at {2}", name, idSiteMap, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingSiteMapCompletedFormat2, name, idSiteMap.ToString());
             }
@@ -788,6 +784,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingSiteMapFailedFormat2, name, idSiteMap.ToString());
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingSiteMapFormat2, name, idSiteMap.ToString());
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

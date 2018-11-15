@@ -473,11 +473,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, pluginType, null, service.ConnectionData);
 
-            this._iWriteToOutput.WriteToOutput("Plugin Type {0} Entity Description exported to {1}", name, filePath);
+            this._iWriteToOutput.WriteToOutput("PluginType {0} Entity Description exported to {1}", name, filePath);
 
             this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-            this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
         }

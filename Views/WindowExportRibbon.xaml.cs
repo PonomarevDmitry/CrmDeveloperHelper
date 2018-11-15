@@ -741,6 +741,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbon);
+
             ToggleControls(false, Properties.WindowStatusStrings.ExportingApplicationRibbon);
 
             var service = await GetService();
@@ -766,6 +768,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonCompleted);
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbon);
         }
 
         private void btnExportApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -779,6 +783,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbonDiffXml);
 
             ToggleControls(false, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXml);
 
@@ -881,6 +887,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlFailed);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbonDiffXml);
         }
 
         private void mIUpdateApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -894,6 +902,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.UpdatingApplicationRibbonDiffXml);
 
             ToggleControls(false, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXml);
 
@@ -1089,6 +1099,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlFailed);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.UpdatingApplicationRibbonDiffXml);
         }
 
         private async Task ExecuteActionOnEntityAsync(EntityMetadataListViewItem entityName, Func<EntityMetadataListViewItem, Task> action)
@@ -1142,9 +1154,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingApplicationRibbon);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingApplicationRibbon);
 
-            this._iWriteToOutput.WriteToOutput("Start publishing Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingApplicationRibbon);
 
             try
             {
@@ -1154,8 +1166,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishApplicationRibbonAsync();
 
-                this._iWriteToOutput.WriteToOutput("End publishing Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingApplicationRibbonCompleted);
             }
             catch (Exception ex)
@@ -1164,6 +1174,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingApplicationRibbonFailed);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingApplicationRibbon);
         }
 
         private void btnExportEntityRibbon_Click(object sender, RoutedEventArgs e)
@@ -1230,6 +1242,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat1, entity.EntityLogicalName);
 
             ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFormat1, entity.EntityLogicalName);
 
@@ -1328,6 +1342,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFailedFormat1, entity.EntityLogicalName);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat1, entity.EntityLogicalName);
         }
 
         private void mIUpdateEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)

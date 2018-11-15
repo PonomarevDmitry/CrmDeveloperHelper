@@ -753,8 +753,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
             }
             catch (Exception ex)
@@ -783,10 +781,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingSystemFormFormat2, entityName, name);
 
-            this._iWriteToOutput.WriteToOutput("Start publishing SystemForm {0} - {1} at {2}", entityName, name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingSystemFormFormat2, entityName, name);
+
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingSystemFormFormat2, entityName, name);
 
             try
             {
@@ -796,8 +794,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishDashboardsAsync(new[] { idSystemForm });
 
-                this._iWriteToOutput.WriteToOutput("End publishing SystemForm {0} - {1} at {2}", entityName, name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingSystemFormCompletedFormat2, entityName, name);
             }
             catch (Exception ex)
@@ -806,6 +802,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingSystemFormFailedFormat2, entityName, name);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingSystemFormFormat2, entityName, name);
         }
 
         private void btnPublishEntity_Click(object sender, RoutedEventArgs e)
@@ -908,8 +906,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
-            this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-            
             ToggleControls(true, Properties.WindowStatusStrings.CreatingSystemFormDescriptionCompletedFormat2, entityName, name);
         }
 
@@ -1099,8 +1095,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput("System Form {0} FormXml is empty.", name);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
-
-            this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityJavaScriptFileOnFormCompletedFormat2, entityName, name);
         }

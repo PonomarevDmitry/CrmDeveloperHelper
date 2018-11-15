@@ -533,8 +533,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
             }
             catch (Exception ex)
@@ -607,8 +605,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     this._iWriteToOutput.WriteToOutput("Web-resource not founded in CRM: {0}", name);
                 }
-
-                this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingWebResourceContentCompletedFormat1, name);
             }
@@ -1096,6 +1092,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformPublishWebResource(string folder, Guid idWebResource, string name)
         {
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingWebResourceFormat1, name);
+
             ToggleControls(false, Properties.WindowStatusStrings.PublishingWebResourceFormat1, name);
 
             try
@@ -1104,11 +1102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new PublishActionsRepository(service);
 
-                this._iWriteToOutput.WriteToOutput("Start publishing WebResource {0} at {1}", name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 await repository.PublishWebResourcesAsync(new[] { idWebResource });
-
-                this._iWriteToOutput.WriteToOutput("End publishing WebResource {0} at {1}", name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingWebResourceCompletedFormat1, name);
             }
@@ -1118,6 +1112,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingWebResourceFailedFormat1, name);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingWebResourceFormat1, name);
         }
     }
 }

@@ -553,6 +553,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityDescription(string folder, SolutionComponentViewItem solutionComponentViewItem)
         {
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingEntityDescription);
+
             ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
             string fileName = _descriptor.GetFileName(_service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, "EntityDescription", "txt");
@@ -590,9 +592,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-            this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
             ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingEntityDescription);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

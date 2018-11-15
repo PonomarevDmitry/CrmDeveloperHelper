@@ -2197,9 +2197,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
 
-            this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            ToggleControls(false, Properties.WindowStatusStrings.ComparingConnectionsFormat2);
 
             try
             {
@@ -2218,7 +2218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
             }
 
-            this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
         }
 
         #region Кнопки сравнения сред.
@@ -2413,7 +2413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
 
             try
             {
@@ -2425,8 +2425,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await MultipleAnalize(functions, comparer);
 
-                this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 ToggleControls(true, Properties.WindowStatusStrings.ComparingConnectionsCompletedFormat2, connection1.Name, connection2.Name);
             }
             catch (Exception ex)
@@ -2436,7 +2434,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.ComparingConnectionsFailedFormat2, connection1.Name, connection2.Name);
             }
 
-            this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
         }
 
         private async Task MultipleAnalize(List<Func<OrganizationComparer, Task>> functions, OrganizationComparer comparer)
@@ -3253,17 +3251,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteTrasnferOperation(Func<OrganizationCustomizationTransfer, Task> function, ConnectionData connectionSource, ConnectionData connectionTarget, string folder)
         {
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.TransferingDataFormat2, connectionSource.Name, connectionTarget.Name);
+
             ToggleControls(false, Properties.WindowStatusStrings.TransferingDataFormat2, connectionSource.Name, connectionTarget.Name);
-            
-            this._iWriteToOutput.WriteToOutput("Start operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
                 var trasnferHandler = new OrganizationCustomizationTransfer(connectionSource, connectionTarget, this._iWriteToOutput, folder);
 
                 await function(trasnferHandler);
-
-                this._iWriteToOutput.WriteToOutput("End operation at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                 ToggleControls(true, Properties.WindowStatusStrings.TransferingDataCompletedFormat2, connectionSource.Name, connectionTarget.Name);
             }
@@ -3273,6 +3269,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.TransferingDataFailedFormat2, connectionSource.Name, connectionTarget.Name);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.TransferingDataFormat2, connectionSource.Name, connectionTarget.Name);
         }
 
         private void tSMITransferAuditFrom1To2_Click(object sender, RoutedEventArgs e)

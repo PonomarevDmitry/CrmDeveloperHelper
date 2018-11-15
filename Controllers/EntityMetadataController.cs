@@ -423,7 +423,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (metadata != null)
                     {
-                        this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat1, metadata.Name);
+                        this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat1, metadata.Name);
 
                         string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
 
@@ -445,7 +445,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
 
-                        this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat1, metadata.Name);
+                        this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat1, metadata.Name);
 
                         continue;
                     }

@@ -757,6 +757,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task CreateEntityMetadataFileAsync(string entityName)
         {
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileForEntityFormat1, entityName);
+
             ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityName);
 
             try
@@ -783,8 +785,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.OptionSetExportType
                     );
 
-                this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 var service = await GetService();
 
                 string filePath = string.Empty;
@@ -807,8 +807,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput(string.Empty);
 
-                this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-                
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityName);
             }
             catch (Exception ex)
@@ -817,6 +815,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityName);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileForEntityFormat1, entityName);
         }
 
         private void btnCreateJavaScriptFile_Click(object sender, RoutedEventArgs e)
@@ -838,6 +838,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileForEntityFormat1, entityName);
+
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityName);
+
             string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
             var config = new CreateFileWithEntityMetadataJavaScriptConfiguration(
@@ -846,10 +850,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , tabSpacer
                 , chBWithDependentComponents.IsChecked.GetValueOrDefault()
                 );
-
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityName);
-
-            this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -866,8 +866,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput(string.Empty);
 
-                this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityName);
             }
             catch (Exception ex)
@@ -876,6 +874,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityName);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileForEntityFormat1, entityName);
         }
 
         private void btnExportEntityXml_Click(object sender, RoutedEventArgs e)
@@ -909,9 +909,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.GettingEntityXmlFormat1, entityName);
 
-            this._iWriteToOutput.WriteToOutput("Start getting file with Entity Xml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityName);
 
             try
             {
@@ -930,8 +930,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput(string.Empty);
 
-                this._iWriteToOutput.WriteToOutput("End getting file with Entity Xml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityName);
             }
             catch (Exception ex)
@@ -940,6 +938,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityName);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.GettingEntityXmlFormat1, entityName);
         }
 
         private async Task PublishEntityAsync(string entityName)

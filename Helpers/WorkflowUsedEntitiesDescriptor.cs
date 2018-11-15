@@ -48,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput(string.Empty);
 
-                strFile.AppendLine(this._iWriteToOutput.WriteToOutput("Analyzing Solution Workflows '{0}' at {1}.", solution.UniqueName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.AnalyzingSolutionWorkflowsFormat1, solution.UniqueName));
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
 
@@ -148,6 +148,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 await FillDescriptionUsedEntities(strFile, workflowsWithEntities, list);
+
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.AnalyzingSolutionWorkflowsFormat1, solution.UniqueName));
             }
             catch (Exception ex)
             {
@@ -171,7 +173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput(string.Empty);
 
-                strFile.AppendLine(this._iWriteToOutput.WriteToOutput("Analyzing Solution Workflows '{0}' at {1}.", solution.UniqueName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.AnalyzingSolutionWorkflowsFormat1, solution.UniqueName));
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
 
@@ -266,6 +268,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 await FillDescriptionNotExistsEntities(strFile, workflowsWithEntities, list);
+
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.AnalyzingSolutionWorkflowsFormat1, solution.UniqueName));
             }
             catch (Exception ex)
             {
@@ -285,7 +289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput(string.Empty);
 
-                strFile.AppendLine(this._iWriteToOutput.WriteToOutput("Analyzing Workflows at {0}.", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.AnalyzingWorkflows));
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
 
@@ -339,6 +343,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 await FillDescriptionUsedEntities(strFile, workflowsWithEntities, list);
+
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.AnalyzingWorkflows));
             }
             catch (Exception ex)
             {
@@ -524,7 +530,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput(string.Empty);
 
-                strFile.AppendLine(this._iWriteToOutput.WriteToOutput("Analyzing Workflows at {0}.", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.AnalyzingWorkflows));
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
 
@@ -573,6 +579,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 await FillDescriptionNotExistsEntities(strFile, workflowsWithEntities, list);
+
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.AnalyzingWorkflows));
             }
             catch (Exception ex)
             {

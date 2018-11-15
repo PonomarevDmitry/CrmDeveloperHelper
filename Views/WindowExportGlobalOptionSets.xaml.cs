@@ -481,12 +481,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string optionSetsName = string.Join(",", optionSets.Select(o => o.Name).OrderBy(s => s));
 
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat1, optionSetsName);
+
             ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsFormat1, optionSetsName);
 
             try
             {
-                this._iWriteToOutput.WriteToOutput("Start creating file with OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
                 var constantType = _commonConfig.ConstantType;
                 var optionSetExportType = _commonConfig.OptionSetExportType;
@@ -540,8 +540,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                this._iWriteToOutput.WriteToOutput("End creating file with OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsCompletedFormat1, optionSetsName);
             }
             catch (Exception ex)
@@ -550,6 +548,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsFailedFormat1, optionSetsName);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat1, optionSetsName);
         }
 
         private async void btnCreateJavaScriptFile_Click(object sender, RoutedEventArgs e)
@@ -583,9 +583,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string optionSetsName = string.Join(",", optionSets.Select(o => o.Name).OrderBy(s => s));
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsFormat1, optionSetsName);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat1, optionSetsName);
 
-            this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsFormat1, optionSetsName);
 
             try
             {
@@ -627,8 +627,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsCompletedFormat1, optionSetsName);
             }
             catch (Exception ex)
@@ -637,6 +635,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsFailedFormat1, optionSetsName);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat1, optionSetsName);
         }
 
         private void lstVwOptionSets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -722,10 +722,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingOptionSetFormat1, optionSetName);
 
-            this._iWriteToOutput.WriteToOutput("Start publishing OptionSet {0} at {1}", optionSetName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingOptionSetFormat1, optionSetName);
+
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingOptionSetFormat1, optionSetName);
 
             try
             {
@@ -735,8 +735,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishOptionSetsAsync(new[] { optionSetName });
 
-                this._iWriteToOutput.WriteToOutput("End publishing OptionSet {0} at {1}", optionSetName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingOptionSetCompletedFormat1, optionSetName);
             }
             catch (Exception ex)
@@ -745,6 +743,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingOptionSetFailedFormat1, optionSetName);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingOptionSetFormat1, optionSetName);
         }
 
         private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)

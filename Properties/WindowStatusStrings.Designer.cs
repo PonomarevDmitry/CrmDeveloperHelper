@@ -637,7 +637,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating File for entity {0} completed..
+        ///   Looks up a localized string similar to Creating File for {0} completed..
         /// </summary>
         internal static string CreatingFileForEntityCompletedFormat1 {
             get {
@@ -646,7 +646,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating File for entity {0} failed..
+        ///   Looks up a localized string similar to Creating File for {0} failed..
         /// </summary>
         internal static string CreatingFileForEntityFailedFormat1 {
             get {
@@ -655,7 +655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating File for entity {0}....
+        ///   Looks up a localized string similar to Creating File for {0}....
         /// </summary>
         internal static string CreatingFileForEntityFormat1 {
             get {
@@ -1186,7 +1186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporting RibbonDiffXml for entity {0} completed..
+        ///   Looks up a localized string similar to Exporting RibbonDiffXml for {0} completed..
         /// </summary>
         internal static string ExportingRibbonDiffXmlForEntityCompletedFormat1 {
             get {
@@ -1195,7 +1195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporting RibbonDiffXml for entity {0} failed..
+        ///   Looks up a localized string similar to Exporting RibbonDiffXml for {0} failed..
         /// </summary>
         internal static string ExportingRibbonDiffXmlForEntityFailedFormat1 {
             get {
@@ -1204,7 +1204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporting RibbonDiffXml for entity {0}....
+        ///   Looks up a localized string similar to Exporting RibbonDiffXml for {0}....
         /// </summary>
         internal static string ExportingRibbonDiffXmlForEntityFormat1 {
             get {
@@ -1213,7 +1213,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporting Ribbon for entity {0} completed..
+        ///   Looks up a localized string similar to Exporting Ribbon for {0} completed..
         /// </summary>
         internal static string ExportingRibbonForEntityCompletedFormat1 {
             get {
@@ -1222,7 +1222,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporting Ribbon for entity {0} failed..
+        ///   Looks up a localized string similar to Exporting Ribbon for {0} failed..
         /// </summary>
         internal static string ExportingRibbonForEntityFailedFormat1 {
             get {
@@ -1231,7 +1231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporting Ribbon for entity {0}....
+        ///   Looks up a localized string similar to Exporting Ribbon for {0}....
         /// </summary>
         internal static string ExportingRibbonForEntityFormat1 {
             get {
@@ -1249,7 +1249,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporting solution {0} and extracting RibbonDiffXml for entity {1}....
+        ///   Looks up a localized string similar to Exporting solution {0} and extracting RibbonDiffXml for {1}....
         /// </summary>
         internal static string ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat2 {
             get {

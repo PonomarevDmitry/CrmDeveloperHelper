@@ -124,6 +124,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Analyzing Solution {0} Workflows.
+        /// </summary>
+        internal static string AnalyzingSolutionWorkflowsFormat1 {
+            get {
+                return ResourceManager.GetString("AnalyzingSolutionWorkflowsFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analyzing Workflows.
+        /// </summary>
+        internal static string AnalyzingWorkflows {
+            get {
+                return ResourceManager.GetString("AnalyzingWorkflows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking ComponentType Enum.
         /// </summary>
         internal static string CheckingComponentTypeEnum {
@@ -268,6 +286,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comparing Connections {0} and {1}.
+        /// </summary>
+        internal static string ComparingConnectionsFormat2 {
+            get {
+                return ResourceManager.GetString("ComparingConnectionsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comparing Crm PluginAssembly and Local Assembly.
         /// </summary>
         internal static string ComparingCrmPluginAssemblyAndLocalAssembly {
@@ -300,6 +327,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CreatingAllDependencyNodesDescription {
             get {
                 return ResourceManager.GetString("CreatingAllDependencyNodesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating Entity Description.
+        /// </summary>
+        internal static string CreatingEntityDescription {
+            get {
+                return ResourceManager.GetString("CreatingEntityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating file with Entity Metadata for {0}.
+        /// </summary>
+        internal static string CreatingFileForEntityFormat1 {
+            get {
+                return ResourceManager.GetString("CreatingFileForEntityFormat1", resourceCulture);
             }
         }
         
@@ -342,9 +387,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Creating File with Global OptionSets Metadata for {0}.
         /// </summary>
-        internal static string CreatingFileWithGlobalOptionSetsForFormat1 {
+        internal static string CreatingFileWithGlobalOptionSetsFormat1 {
             get {
-                return ResourceManager.GetString("CreatingFileWithGlobalOptionSetsForFormat1", resourceCulture);
+                return ResourceManager.GetString("CreatingFileWithGlobalOptionSetsFormat1", resourceCulture);
             }
         }
         
@@ -430,6 +475,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exporting Application Ribbon.
+        /// </summary>
+        internal static string ExportingApplicationRibbon {
+            get {
+                return ResourceManager.GetString("ExportingApplicationRibbon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting Application Ribbon in {0} and {1}.
+        /// </summary>
+        internal static string ExportingApplicationRibbonConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("ExportingApplicationRibbonConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting Application RibbonDiffXml.
+        /// </summary>
+        internal static string ExportingApplicationRibbonDiffXml {
+            get {
+                return ResourceManager.GetString("ExportingApplicationRibbonDiffXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting Application RibbonDiffXml in {0} and {1}.
+        /// </summary>
+        internal static string ExportingApplicationRibbonDiffXmlConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("ExportingApplicationRibbonDiffXmlConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exporting CRM Solution.
         /// </summary>
         internal static string ExportingCRMSolution {
@@ -444,6 +525,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ExportingEntityAttributesDependentComponents {
             get {
                 return ResourceManager.GetString("ExportingEntityAttributesDependentComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting {0} Ribbon in {0} and {1}.
+        /// </summary>
+        internal static string ExportingEntityRibbonConnectionFormat3 {
+            get {
+                return ResourceManager.GetString("ExportingEntityRibbonConnectionFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting {0} RibbonDiffXml in {0} and {1}.
+        /// </summary>
+        internal static string ExportingEntityRibbonDiffXmlConnectionFormat3 {
+            get {
+                return ResourceManager.GetString("ExportingEntityRibbonDiffXmlConnectionFormat3", resourceCulture);
             }
         }
         
@@ -480,6 +579,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ExportingPluginConfigurationXmlIntoFolder {
             get {
                 return ResourceManager.GetString("ExportingPluginConfigurationXmlIntoFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting {0} RibbonDiffXml.
+        /// </summary>
+        internal static string ExportingRibbonDiffXmlForEntityFormat1 {
+            get {
+                return ResourceManager.GetString("ExportingRibbonDiffXmlForEntityFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting {0} Ribbon.
+        /// </summary>
+        internal static string ExportingRibbonForEntityFormat1 {
+            get {
+                return ResourceManager.GetString("ExportingRibbonForEntityFormat1", resourceCulture);
             }
         }
         
@@ -588,6 +705,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FindingCRMObjectsNamesFormat1 {
             get {
                 return ResourceManager.GetString("FindingCRMObjectsNamesFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting Entity Xml for {0}.
+        /// </summary>
+        internal static string GettingEntityXmlFormat1 {
+            get {
+                return ResourceManager.GetString("GettingEntityXmlFormat1", resourceCulture);
             }
         }
         
@@ -718,11 +844,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Publishing Application Ribbon.
+        /// </summary>
+        internal static string PublishingApplicationRibbon {
+            get {
+                return ResourceManager.GetString("PublishingApplicationRibbon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Publishing Entities {0}.
         /// </summary>
         internal static string PublishingEntitiesFormat1 {
             get {
                 return ResourceManager.GetString("PublishingEntitiesFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publishing OptionSet {0}.
+        /// </summary>
+        internal static string PublishingOptionSetFormat1 {
+            get {
+                return ResourceManager.GetString("PublishingOptionSetFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publishing SiteMap{0} {1}.
+        /// </summary>
+        internal static string PublishingSiteMapFormat2 {
+            get {
+                return ResourceManager.GetString("PublishingSiteMapFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publishing SystemForm {0} - {1}.
+        /// </summary>
+        internal static string PublishingSystemFormFormat2 {
+            get {
+                return ResourceManager.GetString("PublishingSystemFormFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publishing WebResource {0}.
+        /// </summary>
+        internal static string PublishingWebResourceFormat1 {
+            get {
+                return ResourceManager.GetString("PublishingWebResourceFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving Changes.
+        /// </summary>
+        internal static string SavingChanges {
+            get {
+                return ResourceManager.GetString("SavingChanges", resourceCulture);
             }
         }
         
@@ -804,6 +984,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string TraceReader {
             get {
                 return ResourceManager.GetString("TraceReader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfering Data from {0} to {1}.
+        /// </summary>
+        internal static string TransferingDataFormat2 {
+            get {
+                return ResourceManager.GetString("TransferingDataFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating Application RibbonDiffXml.
+        /// </summary>
+        internal static string UpdatingApplicationRibbonDiffXml {
+            get {
+                return ResourceManager.GetString("UpdatingApplicationRibbonDiffXml", resourceCulture);
             }
         }
         

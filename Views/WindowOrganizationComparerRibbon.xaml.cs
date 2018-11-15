@@ -532,15 +532,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceApplicationRibbons);
+            var service1 = await GetService1();
+            var service2 = await GetService2();
 
-            this._iWriteToOutput.WriteToOutput("Start exporting files with Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbonConnectionFormat2, service1.ConnectionData.Name, service1.ConnectionData.Name);
+
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceApplicationRibbons);
 
             try
             {
-                var service1 = await GetService1();
-                var service2 = await GetService2();
-
                 var filter = GetRibbonLocationFilters();
 
                 string fileName1 = EntityFileNameFormatter.GetApplicationRibbonFileName(service1.ConnectionData.Name);
@@ -589,9 +589,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(ex);
             }
 
-            this._iWriteToOutput.WriteToOutput("End exporting files with Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
             ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceApplicationRibbonsCompleted);
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbonConnectionFormat2, service1.ConnectionData.Name, service1.ConnectionData.Name);
         }
 
         private void mIDifferenceApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -616,17 +616,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceApplicationRibbonsDiffXml);
+            var service1 = await GetService1();
+            var service2 = await GetService2();
 
-            this._iWriteToOutput.WriteToOutput("Start exporting files with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbonDiffXmlConnectionFormat2, service1.ConnectionData.Name, service1.ConnectionData.Name);
+
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceApplicationRibbonsDiffXml);
 
             try
             {
                 var solutionUniqueName = string.Format("RibbonDiffXml_{0}", Guid.NewGuid());
                 solutionUniqueName = solutionUniqueName.Replace("-", "_");
-
-                var service1 = await GetService1();
-                var service2 = await GetService2();
 
                 string filePath1 = string.Empty;
                 string filePath2 = string.Empty;
@@ -769,8 +769,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
                 }
 
-                this._iWriteToOutput.WriteToOutput("End exporting files with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceApplicationRibbonsDiffXmlCompleted);
             }
             catch (Exception ex)
@@ -779,6 +777,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceApplicationRibbonsDiffXmlFailed);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbonDiffXmlConnectionFormat2, service1.ConnectionData.Name, service1.ConnectionData.Name);
         }
 
         private void mIDifferenceEntityRibbon_Click(object sender, RoutedEventArgs e)
@@ -810,15 +810,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityFormat1, entityName);
+            var service1 = await GetService1();
+            var service2 = await GetService2();
 
-            this._iWriteToOutput.WriteToOutput("Start exporting files with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingEntityRibbonConnectionFormat3, entityName, service1.ConnectionData.Name, service1.ConnectionData.Name);
+
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityFormat1, entityName);
 
             try
             {
-                var service1 = await GetService1();
-                var service2 = await GetService2();
-
                 string fileName1 = EntityFileNameFormatter.GetEntityRibbonFileName(service1.ConnectionData.Name, entityName);
                 string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
 
@@ -870,7 +870,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityFailedFormat1, entityName);
             }
 
-            this._iWriteToOutput.WriteToOutput("End exporting files with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingEntityRibbonConnectionFormat3, entityName, service1.ConnectionData.Name, service1.ConnectionData.Name);
         }
 
         private void mIDifferenceEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -902,17 +902,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityFormat1, entity.LogicalName);
+            var service1 = await GetService1();
+            var service2 = await GetService2();
 
-            this._iWriteToOutput.WriteToOutput("Start exporting files with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingEntityRibbonDiffXmlConnectionFormat3, entity.LogicalName, service1.ConnectionData.Name, service1.ConnectionData.Name);
+
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityFormat1, entity.LogicalName);
 
             try
             {
                 var solutionUniqueName = string.Format("RibbonDiffXml_{0}", Guid.NewGuid());
                 solutionUniqueName = solutionUniqueName.Replace("-", "_");
-
-                var service1 = await GetService1();
-                var service2 = await GetService2();
 
                 string filePath1 = string.Empty;
                 string filePath2 = string.Empty;
@@ -1100,7 +1100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityFailedFormat1, entity.LogicalName);
             }
 
-            this._iWriteToOutput.WriteToOutput("End exporting files with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingEntityRibbonDiffXmlConnectionFormat3, entity.LogicalName, service1.ConnectionData.Name, service1.ConnectionData.Name);
         }
 
         private void mIConnection1ApplicationRibbon_Click(object sender, RoutedEventArgs e)
@@ -1130,11 +1130,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbon);
+
             var filters = GetRibbonLocationFilters();
 
             ToggleControls(false, Properties.WindowStatusStrings.ExportingApplicationRibbon);
-
-            this._iWriteToOutput.WriteToOutput("Start exporting file with Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             try
             {
@@ -1156,9 +1156,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(ex);
             }
 
-            this._iWriteToOutput.WriteToOutput("End exporting file with Application Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
             ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonCompleted);
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbon);
         }
 
         private void mIConnection1ApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -1187,6 +1187,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbonDiffXml);
 
             ToggleControls(false, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXml);
 
@@ -1268,6 +1270,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlFailed);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbonDiffXml);
         }
 
         private void mIConnection1EntityRibbon_Click(object sender, RoutedEventArgs e)
@@ -1313,9 +1317,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var filters = GetRibbonLocationFilters();
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonForEntityFormat1, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingRibbonForEntityFormat1, entityName);
 
-            this._iWriteToOutput.WriteToOutput("Start exporting file with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonForEntityFormat1, entityName);
 
             try
             {
@@ -1341,7 +1345,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityFailedFormat1, entityName);
             }
 
-            this._iWriteToOutput.WriteToOutput("End exporting file with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingRibbonForEntityFormat1, entityName);
         }
 
         private void mIConnection1EntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -1385,9 +1389,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFormat1, entity.LogicalName);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat1, entity.LogicalName);
 
-            this._iWriteToOutput.WriteToOutput("Start exporting file with Entity RibbonDiffXml at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFormat1, entity.LogicalName);
 
             try
             {
@@ -1484,7 +1488,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFailedFormat1, entity.LogicalName);
             }
 
-            this._iWriteToOutput.WriteToOutput("End exporting file with Entity Ribbon at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat1, entity.LogicalName);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

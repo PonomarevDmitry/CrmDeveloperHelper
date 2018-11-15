@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AreYourSureUpdateRibbonDiffForEntityFormat1" xml:space="preserve">
-    <value>Are you sure want to update RibbonDiff for entity {0}?</value>
+    <value>Are you sure want to update {0} RibbonDiff?</value>
   </data>
   <data name="AreYouSureDeleteComponentsFormat2" xml:space="preserve">
     <value>Are you sure want to delete components {0} from solution {1}?</value>

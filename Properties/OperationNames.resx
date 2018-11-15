@@ -378,10 +378,76 @@
   <data name="CreatingFileWithEntityMetadataForEntityFormat1" xml:space="preserve">
     <value>Creating File with Entity Metadata for {0}</value>
   </data>
-  <data name="CreatingFileWithGlobalOptionSetsForFormat1" xml:space="preserve">
+  <data name="CreatingFileWithGlobalOptionSetsFormat1" xml:space="preserve">
     <value>Creating File with Global OptionSets Metadata for {0}</value>
   </data>
   <data name="PublishingEntitiesFormat1" xml:space="preserve">
     <value>Publishing Entities {0}</value>
+  </data>
+  <data name="AnalyzingSolutionWorkflowsFormat1" xml:space="preserve">
+    <value>Analyzing Solution {0} Workflows</value>
+  </data>
+  <data name="AnalyzingWorkflows" xml:space="preserve">
+    <value>Analyzing Workflows</value>
+  </data>
+  <data name="ComparingConnectionsFormat2" xml:space="preserve">
+    <value>Comparing Connections {0} and {1}</value>
+  </data>
+  <data name="CreatingEntityDescription" xml:space="preserve">
+    <value>Creating Entity Description</value>
+  </data>
+  <data name="CreatingFileForEntityFormat1" xml:space="preserve">
+    <value>Creating file with Entity Metadata for {0}</value>
+  </data>
+  <data name="ExportingApplicationRibbon" xml:space="preserve">
+    <value>Exporting Application Ribbon</value>
+  </data>
+  <data name="ExportingApplicationRibbonConnectionFormat2" xml:space="preserve">
+    <value>Exporting Application Ribbon in {0} and {1}</value>
+  </data>
+  <data name="ExportingApplicationRibbonDiffXml" xml:space="preserve">
+    <value>Exporting Application RibbonDiffXml</value>
+  </data>
+  <data name="ExportingApplicationRibbonDiffXmlConnectionFormat2" xml:space="preserve">
+    <value>Exporting Application RibbonDiffXml in {0} and {1}</value>
+  </data>
+  <data name="ExportingEntityRibbonConnectionFormat3" xml:space="preserve">
+    <value>Exporting {0} Ribbon in {0} and {1}</value>
+  </data>
+  <data name="ExportingEntityRibbonDiffXmlConnectionFormat3" xml:space="preserve">
+    <value>Exporting {0} RibbonDiffXml in {0} and {1}</value>
+  </data>
+  <data name="ExportingRibbonDiffXmlForEntityFormat1" xml:space="preserve">
+    <value>Exporting {0} RibbonDiffXml</value>
+  </data>
+  <data name="ExportingRibbonForEntityFormat1" xml:space="preserve">
+    <value>Exporting {0} Ribbon</value>
+  </data>
+  <data name="GettingEntityXmlFormat1" xml:space="preserve">
+    <value>Getting Entity Xml for {0}</value>
+  </data>
+  <data name="PublishingApplicationRibbon" xml:space="preserve">
+    <value>Publishing Application Ribbon</value>
+  </data>
+  <data name="PublishingOptionSetFormat1" xml:space="preserve">
+    <value>Publishing OptionSet {0}</value>
+  </data>
+  <data name="PublishingSiteMapFormat2" xml:space="preserve">
+    <value>Publishing SiteMap{0} {1}</value>
+  </data>
+  <data name="PublishingSystemFormFormat2" xml:space="preserve">
+    <value>Publishing SystemForm {0} - {1}</value>
+  </data>
+  <data name="PublishingWebResourceFormat1" xml:space="preserve">
+    <value>Publishing WebResource {0}</value>
+  </data>
+  <data name="SavingChanges" xml:space="preserve">
+    <value>Saving Changes</value>
+  </data>
+  <data name="TransferingDataFormat2" xml:space="preserve">
+    <value>Transfering Data from {0} to {1}</value>
+  </data>
+  <data name="UpdatingApplicationRibbonDiffXml" xml:space="preserve">
+    <value>Updating Application RibbonDiffXml</value>
   </data>
 </root>

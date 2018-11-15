@@ -310,13 +310,13 @@
     <value>Creating entity {0} javascript file based on form {1}...</value>
   </data>
   <data name="CreatingFileForEntityCompletedFormat1" xml:space="preserve">
-    <value>Creating File for entity {0} completed.</value>
+    <value>Creating File for {0} completed.</value>
   </data>
   <data name="CreatingFileForEntityFailedFormat1" xml:space="preserve">
-    <value>Creating File for entity {0} failed.</value>
+    <value>Creating File for {0} failed.</value>
   </data>
   <data name="CreatingFileForEntityFormat1" xml:space="preserve">
-    <value>Creating File for entity {0}...</value>
+    <value>Creating File for {0}...</value>
   </data>
   <data name="CreatingFileForOptionSetsCompletedFormat1" xml:space="preserve">
     <value>Creating File for OptionSets completed: {0}.</value>
@@ -493,28 +493,28 @@
     <value>Exporting PluginAssembly Body Binary for {0}...</value>
   </data>
   <data name="ExportingRibbonDiffXmlForEntityCompletedFormat1" xml:space="preserve">
-    <value>Exporting RibbonDiffXml for entity {0} completed.</value>
+    <value>Exporting RibbonDiffXml for {0} completed.</value>
   </data>
   <data name="ExportingRibbonDiffXmlForEntityFailedFormat1" xml:space="preserve">
-    <value>Exporting RibbonDiffXml for entity {0} failed.</value>
+    <value>Exporting RibbonDiffXml for {0} failed.</value>
   </data>
   <data name="ExportingRibbonDiffXmlForEntityFormat1" xml:space="preserve">
-    <value>Exporting RibbonDiffXml for entity {0}...</value>
+    <value>Exporting RibbonDiffXml for {0}...</value>
   </data>
   <data name="ExportingRibbonForEntityCompletedFormat1" xml:space="preserve">
-    <value>Exporting Ribbon for entity {0} completed.</value>
+    <value>Exporting Ribbon for {0} completed.</value>
   </data>
   <data name="ExportingRibbonForEntityFailedFormat1" xml:space="preserve">
-    <value>Exporting Ribbon for entity {0} failed.</value>
+    <value>Exporting Ribbon for {0} failed.</value>
   </data>
   <data name="ExportingRibbonForEntityFormat1" xml:space="preserve">
-    <value>Exporting Ribbon for entity {0}...</value>
+    <value>Exporting Ribbon for {0}...</value>
   </data>
   <data name="ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat1" xml:space="preserve">
     <value>Exporting solution {0} and extracting Application RibbonDiffXml...</value>
   </data>
   <data name="ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat2" xml:space="preserve">
-    <value>Exporting solution {0} and extracting RibbonDiffXml for entity {1}...</value>
+    <value>Exporting solution {0} and extracting RibbonDiffXml for {1}...</value>
   </data>
   <data name="ExportingSolutionCompletedFormat1" xml:space="preserve">
     <value>Exporting solution {0} completed.</value>

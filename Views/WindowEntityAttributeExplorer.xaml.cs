@@ -1271,9 +1271,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.SavingChanges);
+            
             ToggleControls(false, Properties.WindowStatusStrings.SavingChanges);
-
-            this._iWriteToOutput.WriteToOutput("Start saving changes at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
             HashSet<string> listForPublish = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -1380,8 +1380,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             _iWriteToOutput.WriteErrorToOutput(ex);
                         }
                     }
-
-                    this._iWriteToOutput.WriteToOutput("End saving changes at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.SavingChangesCompleted);
@@ -1392,6 +1390,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.SavingChangesFailed);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.SavingChanges);
         }
 
         #region Set Attributes Properties
