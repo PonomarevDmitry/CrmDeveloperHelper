@@ -277,7 +277,7 @@
     <value>Finding CRM Objects by Id '{0}', entityName '{1}', entityTypeCode '{2}'</value>
   </data>
   <data name="FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCode" xml:space="preserve">
-    <value>Finding CRM Objects by Uniqueidentifier '{1}', entityName '{2}', entityTypeCode '{3}'</value>
+    <value>Finding CRM Objects by Uniqueidentifier '{0}', entityName '{1}', entityTypeCode '{2}'</value>
   </data>
   <data name="FindingCRMObjectscontainsNameFormat" xml:space="preserve">
     <value>Finding CRM Objects names contains '{0}'</value>
@@ -324,8 +324,8 @@
   <data name="PluginConfigurationTypeDescription" xml:space="preserve">
     <value>Plugin Configuration Type Description</value>
   </data>
-  <data name="PublishingAllCustomization" xml:space="preserve">
-    <value>Publishing All Customization</value>
+  <data name="PublishingAllCustomizationFormat" xml:space="preserve">
+    <value>Publishing All Customization in {0}</value>
   </data>
   <data name="ShowingOrganizationComparer" xml:space="preserve">
     <value>Showing Organization Comparer</value>

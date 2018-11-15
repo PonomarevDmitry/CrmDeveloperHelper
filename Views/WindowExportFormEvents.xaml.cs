@@ -52,22 +52,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string folder = txtBFolder.Text.Trim();
             string fileName = txtBFileName.Text.Trim();
 
-            if (!string.IsNullOrEmpty(folder) && !string.IsNullOrEmpty(fileName))
-            {
-                if (Directory.Exists(folder))
-                {
-                    this.DialogResult = true;
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show(Properties.MessageBoxStrings.FolderDoesNotExists, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            else
+            if (string.IsNullOrEmpty(folder) || string.IsNullOrEmpty(fileName))
             {
                 MessageBox.Show(Properties.MessageBoxStrings.FolderOrFileNameIsEmpty, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
+
+            if (!Directory.Exists(folder))
+            {
+                MessageBox.Show(Properties.MessageBoxStrings.FolderDoesNotExists, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.DialogResult = true;
+            this.Close();
         }
     }
 }

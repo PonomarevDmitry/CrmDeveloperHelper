@@ -307,7 +307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return Task.Run(() => GetSolutionsVisibleUnmanaged(uniqueNames));
         }
 
-        private List<Solution> GetSolutionsVisibleUnmanaged(IEnumerable<string> uniqueNames)
+        public List<Solution> GetSolutionsVisibleUnmanaged(IEnumerable<string> uniqueNames)
         {
             QueryExpression query = new QueryExpression()
             {

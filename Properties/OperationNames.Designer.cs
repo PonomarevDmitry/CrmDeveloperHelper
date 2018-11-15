@@ -565,7 +565,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finding CRM Objects by Uniqueidentifier &apos;{1}&apos;, entityName &apos;{2}&apos;, entityTypeCode &apos;{3}&apos;.
+        ///   Looks up a localized string similar to Finding CRM Objects by Uniqueidentifier &apos;{0}&apos;, entityName &apos;{1}&apos;, entityTypeCode &apos;{2}&apos;.
         /// </summary>
         internal static string FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCode {
             get {
@@ -709,11 +709,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing All Customization.
+        ///   Looks up a localized string similar to Publishing All Customization in {0}.
         /// </summary>
-        internal static string PublishingAllCustomization {
+        internal static string PublishingAllCustomizationFormat {
             get {
-                return ResourceManager.GetString("PublishingAllCustomization", resourceCulture);
+                return ResourceManager.GetString("PublishingAllCustomizationFormat", resourceCulture);
             }
         }
         

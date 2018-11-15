@@ -4706,7 +4706,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// XML string that defines the navigation structure for the application. This is the site map from the previously upgraded build and is used in a 3-way merge during upgrade.
         /// </summary>
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("referencesitemapxml")]
-        [System.ObsoleteAttribute()]
         public string ReferenceSiteMapXml
         {
             [System.Diagnostics.DebuggerNonUserCode()]
@@ -5087,7 +5086,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// XML string that defines the navigation structure for the application.
         /// </summary>
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sitemapxml")]
-        [System.ObsoleteAttribute()]
         public string SiteMapXml
         {
             [System.Diagnostics.DebuggerNonUserCode()]

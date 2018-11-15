@@ -69,14 +69,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
-
+            
             if (connectionData.IsReadOnly)
             {
-                this._iWriteToOutput.WriteToOutput("Current Connection {0} is ReadOnly.", connectionData.Name);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectionIsReadOnlyFormat, connectionData.Name);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM); ;
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -128,7 +128,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             bool? dialogResult = null;
                             Guid? selectedWebResourceId = null;
 
-                            var t = new Thread((ThreadStart)(() =>
+                            var t = new Thread(() =>
                             {
                                 try
                                 {
@@ -145,7 +145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 {
                                     DTEHelper.WriteExceptionToOutput(ex);
                                 }
-                            }));
+                            });
                             t.SetApartmentState(ApartmentState.STA);
                             t.Start();
 
@@ -251,11 +251,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var compareResult = await CompareController.GetWebResourcesWithType(this._iWriteToOutput, selectedFiles, OpenFilesType.EqualByText, connectionData);
 
-            var filesToPublish = compareResult.Item2.Where(f => f.Item2 != null);
+            var filesToPublish = compareResult.Item2.Where(f => f.Item2 != null);            
 
             if (!filesToPublish.Any())
             {
-                this._iWriteToOutput.WriteToOutput("Nothing to publish.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NothingToPublish);
                 return;
             }
 
@@ -276,7 +276,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecutePublishingAll(ConnectionData connectionData)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingAllCustomization);
+            string operation = string.Format(Properties.OperationNames.PublishingAllCustomizationFormat, connectionData.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -288,7 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingAllCustomization);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -300,7 +302,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -314,13 +316,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 await repository.PublishAllXmlAsync();
 
-                _iWriteToOutput.WriteToOutput("Published All successfully.");
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.PublishingAllCompletedFormat, connectionData.Name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                _iWriteToOutput.WriteToOutput("Publishing All failed.");
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.PublishingAllFailedFormat, connectionData.Name);
             }
         }
 

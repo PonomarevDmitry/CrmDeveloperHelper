@@ -8,13 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowSelectFolderForExport : WindowBase
     {
-        public string SelectedFolder
-        {
-            get
-            {
-                return txtBFolder.Text.Trim();
-            }
-        }
+        public string SelectedFolder => txtBFolder.Text.Trim();
 
         public WindowSelectFolderForExport(string folder, FileAction fileAction)
         {
@@ -67,22 +61,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string folder = this.SelectedFolder;
 
-            if (!string.IsNullOrEmpty(folder))
-            {
-                if (Directory.Exists(folder))
-                {
-                    this.DialogResult = true;
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show(Properties.MessageBoxStrings.FolderDoesNotExists, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            else
+            if (string.IsNullOrEmpty(folder))
             {
                 MessageBox.Show(Properties.MessageBoxStrings.FolderDoesNotExists, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
+
+            if (!Directory.Exists(folder))
+            {
+                MessageBox.Show(Properties.MessageBoxStrings.FolderDoesNotExists, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.DialogResult = true;
+            this.Close();
         }
     }
 }

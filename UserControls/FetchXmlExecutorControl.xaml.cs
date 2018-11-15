@@ -256,7 +256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             if (!File.Exists(this.FilePath))
             {
-                txtBErrorText.Text = string.Format("File not exists: {0}", FilePath);
+                txtBErrorText.Text = string.Format(Properties.MessageBoxStrings.FileNotExistsFormat, FilePath);
 
                 tbErrorText.IsEnabled = true;
                 tbErrorText.Visibility = Visibility.Visible;

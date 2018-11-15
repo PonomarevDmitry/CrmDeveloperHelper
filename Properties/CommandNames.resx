@@ -240,6 +240,12 @@
   <data name="DocumentsWebResourceCompareWithDetailsCommand" xml:space="preserve">
     <value>Compare Files with details</value>
   </data>
+  <data name="FetchXmlExecutorDefaultName" xml:space="preserve">
+    <value>FetchXmlExecutor</value>
+  </data>
+  <data name="FetchXmlExecutorNameFormat" xml:space="preserve">
+    <value>{0} - {1}</value>
+  </data>
   <data name="FileCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
     <value>Compare with Crm PluginAssembly</value>
   </data>

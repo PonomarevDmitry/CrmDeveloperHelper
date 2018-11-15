@@ -1,13 +1,11 @@
-﻿using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.Crm.Sdk.Messages;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -18,7 +16,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         private IWriteToOutput _iWriteToOutput;
 
-        private IOrganizationServiceExtented _Service;
+        private readonly IOrganizationServiceExtented _Service;
 
         /// <summary>
         /// Конструктор для менеджера
@@ -55,28 +53,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         /// </summary>
         public void UpdateContentAndPublish()
         {
-            if (_Elements.Count > 0)
+            if (_Elements.Count == 0)
             {
-                string filesNames = string.Join("; ", this._Elements.Values.Select(element => element.SelectedFile.FileName).OrderBy(name => name));
-
-                this._iWriteToOutput.WriteToOutput("Attempting to update content and publish files: {0}", filesNames);
-
-                this._iWriteToOutput.WriteToOutput("Updating content...");
-
-                UpdateContent();
-
-                this._iWriteToOutput.WriteToOutput("Publishing...");
-
-                PublishResources();
-
-                string webResourcesNames = string.Join("; ", this._Elements.Values.Select(webRes => webRes.WebResource.Name).OrderBy(name => name));
-
-                this._iWriteToOutput.WriteToOutput("Published web-resources: {0}", webResourcesNames);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NothingToPublish);
+                return;
             }
-            else
+
+            this._iWriteToOutput.WriteToOutput("Updating WebResources content...");
+
+            UpdateContent();
+
+            this._iWriteToOutput.WriteToOutput("Publishing WebResources...");
+
+            PublishActionsRepository repository = new PublishActionsRepository(_Service);
+            repository.PublishWebResources(_Elements.Keys);
+
+            FormatTextTableHandler table = new FormatTextTableHandler();
+            table.SetHeader("WebResourceName", "WebResourceType");
+
+            foreach (var element in this._Elements.Values.OrderBy(e => e.WebResource.Name))
             {
-                this._iWriteToOutput.WriteToOutput("Nothing to publish.");
+                element.WebResource.FormattedValues.TryGetValue(WebResource.Schema.Attributes.webresourcetype, out var webresourcetype);
+                table.AddLine(element.WebResource.Name, webresourcetype);
             }
+
+            this._iWriteToOutput.WriteToOutput("Published web-resources: {0}", this._Elements.Values.Count);
+
+            var lines = table.GetFormatedLines(false);
+            lines.ForEach(item => _iWriteToOutput.WriteToOutput("    {0}", item));
         }
 
         /// <summary>
@@ -155,17 +159,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 lines.ForEach(item => _iWriteToOutput.WriteToOutput("    {0}", item));
             }
-        }
-
-        /// <summary>
-        /// Публикация обновленных веб-ресурсов
-        /// </summary>
-        /// <returns></returns>
-        private void PublishResources()
-        {
-            PublishActionsRepository repository = new PublishActionsRepository(_Service);
-
-            repository.PublishWebResources(_Elements.Keys);
         }
     }
 }

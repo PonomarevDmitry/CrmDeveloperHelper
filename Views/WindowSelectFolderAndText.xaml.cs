@@ -69,31 +69,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string folder = txtBFolder.Text.Trim();
             string text = txtBText.Text.Trim();
 
-            if (!string.IsNullOrEmpty(folder) && !string.IsNullOrEmpty(text))
-            {
-                if (Directory.Exists(folder))
-                {
-                    bool isValid = _checker?.Invoke(text) ?? true;
-
-                    if (isValid)
-                    {
-                        this.DialogResult = true;
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show(_message, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(Properties.MessageBoxStrings.FolderDoesNotExists, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            else
+            if (string.IsNullOrEmpty(folder) || string.IsNullOrEmpty(text))
             {
                 MessageBox.Show(Properties.MessageBoxStrings.FolderOrTextIsEmpty, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
+
+            if (!Directory.Exists(folder))
+            {
+                MessageBox.Show(Properties.MessageBoxStrings.FolderDoesNotExists, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            bool isValid = _checker?.Invoke(text) ?? true;
+
+            if (!isValid)
+            {
+                MessageBox.Show(_message, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.DialogResult = true;
+            this.Close();
         }
 
         private void btnCreateFile_Click(object sender, RoutedEventArgs e)

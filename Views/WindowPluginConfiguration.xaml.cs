@@ -65,7 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (message.Length > 0) { message.AppendLine(); }
 
-                    message.Append("Folder is empty.");
+                    message.Append(Properties.MessageBoxStrings.FolderOrFileNameIsEmpty);
                 }
                 else
                 {
@@ -82,18 +82,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (message.Length > 0) { message.AppendLine(); }
 
-                message.Append("FileName is empty.");
+                message.Append(Properties.MessageBoxStrings.FolderOrFileNameIsEmpty);
             }
 
             if (message.Length > 0)
             {
                 MessageBox.Show(message.ToString(), Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
-            else
-            {
-                this.DialogResult = true;
-                this.Close();
-            }
+
+            this.DialogResult = true;
+            this.Close();
         }
     }
 }

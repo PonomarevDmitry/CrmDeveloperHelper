@@ -97,7 +97,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (message.Length > 0) { message.AppendLine(); }
 
-                message.Append("Folder or Text is empty.");
+                message.Append(Properties.MessageBoxStrings.FolderOrTextIsEmpty);
             }
 
             string entityName = string.Empty;
@@ -140,14 +140,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (!entityId.HasValue)
             {
                 if (message.Length > 0) { message.AppendLine(); }
-
-                message.Append("Cannot parse text to valid Guid.");
+                
+                message.Append(Properties.MessageBoxStrings.CannotParseGuid);
             }
 
             if (message.Length > 0)
             {
                 MessageBox.Show(message.ToString(), Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-
                 return;
             }
 

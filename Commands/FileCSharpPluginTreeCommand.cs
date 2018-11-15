@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
-using System.Linq;
+using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -26,13 +26,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private async static void ActionExecute(DTEHelper helper)
         {
-            EnvDTE.SelectedItem item = helper.GetSingleSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
-
-            if (item != null)
+            try
             {
-                string fileType = await PropertiesHelper.GetTypeFullNameAsync(item);
+                EnvDTE.SelectedItem item = helper.GetSingleSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
 
-                helper.HandleOpenPluginTree(string.Empty, fileType, string.Empty);
+                if (item != null)
+                {
+                    string fileType = await PropertiesHelper.GetTypeFullNameAsync(item);
+
+                    helper.HandleOpenPluginTree(string.Empty, fileType, string.Empty);
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(ex);
             }
         }
     }

@@ -79,6 +79,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot parse text to valid Guid..
+        /// </summary>
+        internal static string CannotParseGuid {
+            get {
+                return ResourceManager.GetString("CannotParseGuid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear List from Publish?.
         /// </summary>
         internal static string ClearListForPublish {
@@ -151,6 +160,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Program for difference not exists..
+        /// </summary>
+        internal static string DifferenceProgramNotExists {
+            get {
+                return ResourceManager.GetString("DifferenceProgramNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Difference two files arguments format is empty..
+        /// </summary>
+        internal static string DifferenceTwoFilesArgumentsIsEmpty {
+            get {
+                return ResourceManager.GetString("DifferenceTwoFilesArgumentsIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Difference two files arguments format does not contain %f1..
+        /// </summary>
+        internal static string DifferenceTwoFilesArgumentsNotContainsF1 {
+            get {
+                return ResourceManager.GetString("DifferenceTwoFilesArgumentsNotContainsF1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Difference two files arguments format does not contain %f2..
+        /// </summary>
+        internal static string DifferenceTwoFilesArgumentsNotContainsF2 {
+            get {
+                return ResourceManager.GetString("DifferenceTwoFilesArgumentsNotContainsF2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         internal static string ErrorTitle {
@@ -205,11 +250,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File not exists: {0}.
+        /// </summary>
+        internal static string FileNotExistsFormat {
+            get {
+                return ResourceManager.GetString("FileNotExistsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Folder does not exists..
         /// </summary>
         internal static string FolderDoesNotExists {
             get {
                 return ResourceManager.GetString("FolderDoesNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder for Export files does not exist..
+        /// </summary>
+        internal static string FolderForExportDoesNotExists {
+            get {
+                return ResourceManager.GetString("FolderForExportDoesNotExists", resourceCulture);
             }
         }
         
@@ -237,6 +300,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string InformationTitle {
             get {
                 return ResourceManager.GetString("InformationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interactive Login.
+        /// </summary>
+        internal static string InteractiveLogin {
+            get {
+                return ResourceManager.GetString("InteractiveLogin", resourceCulture);
             }
         }
         
@@ -315,6 +387,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register all Steps for Plugin Assembly in {0}?.
+        /// </summary>
+        internal static string RegisterAllStepsForPluginAssemblyFormat {
+            get {
+                return ResourceManager.GetString("RegisterAllStepsForPluginAssemblyFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register all Steps for Plugin Type in {0}?.
+        /// </summary>
+        internal static string RegisterAllStepsForPluginTypeFormat {
+            get {
+                return ResourceManager.GetString("RegisterAllStepsForPluginTypeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register Plugin Step in {0}?.
+        /// </summary>
+        internal static string RegisterPluginStepFormat {
+            get {
+                return ResourceManager.GetString("RegisterPluginStepFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Return CRM Connection &apos;{0}&apos; to Connection List?.
         /// </summary>
         internal static string ReturnCRMConnectionToConnectionListFormat {
@@ -329,6 +428,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string SolutionVersionTextIsNotValidVersion {
             get {
                 return ResourceManager.GetString("SolutionVersionTextIsNotValidVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Program for edit text not exists..
+        /// </summary>
+        internal static string TextEditorProgramNotExists {
+            get {
+                return ResourceManager.GetString("TextEditorProgramNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThreeWay Difference arguments format does not contain %f1..
+        /// </summary>
+        internal static string ThreeWayDifferenceArgumentsNotContainsF1 {
+            get {
+                return ResourceManager.GetString("ThreeWayDifferenceArgumentsNotContainsF1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThreeWay Difference arguments format does not contain %f2..
+        /// </summary>
+        internal static string ThreeWayDifferenceArgumentsNotContainsF2 {
+            get {
+                return ResourceManager.GetString("ThreeWayDifferenceArgumentsNotContainsF2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThreeWay Difference arguments format does not contain %f3..
+        /// </summary>
+        internal static string ThreeWayDifferenceArgumentsNotContainsF3 {
+            get {
+                return ResourceManager.GetString("ThreeWayDifferenceArgumentsNotContainsF3", resourceCulture);
             }
         }
         

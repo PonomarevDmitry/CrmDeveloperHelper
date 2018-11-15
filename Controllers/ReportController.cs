@@ -59,7 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (connectionData.IsReadOnly)
             {
-                this._iWriteToOutput.WriteToOutput("Connection {0} is ReadOnly.", connectionData.Name);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectionIsReadOnlyFormat, connectionData.Name);
                 return;
             }
 

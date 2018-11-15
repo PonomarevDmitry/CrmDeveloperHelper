@@ -430,6 +430,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FetchXmlExecutor.
+        /// </summary>
+        internal static string FetchXmlExecutorDefaultName {
+            get {
+                return ResourceManager.GetString("FetchXmlExecutorDefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - {1}.
+        /// </summary>
+        internal static string FetchXmlExecutorNameFormat {
+            get {
+                return ResourceManager.GetString("FetchXmlExecutorNameFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Compare with Crm PluginAssembly.
         /// </summary>
         internal static string FileCSharpProjectCompareToCrmAssemblyCommand {

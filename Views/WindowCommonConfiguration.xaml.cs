@@ -167,11 +167,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         if (message.Length > 0) { message.AppendLine(); }
 
-                        message.Append("Folder for Export files does not exit.");
+                        message.Append(Properties.MessageBoxStrings.FolderDoesNotExists);
                     }
                 }
             }
-
+            
             {
                 string pathFile = txtBCompareProgram.Text.Trim();
 
@@ -185,23 +185,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             if (string.IsNullOrEmpty(format))
                             {
                                 if (message.Length > 0) { message.AppendLine(); }
-
-                                message.Append("Difference two files arguments format is empty.");
+                                
+                                message.Append(Properties.MessageBoxStrings.DifferenceTwoFilesArgumentsIsEmpty);
                             }
                             else
                             {
                                 if (!format.Contains("%f1"))
                                 {
                                     if (message.Length > 0) { message.AppendLine(); }
-
-                                    message.Append("Difference two files arguments format does not contain %f1.");
+                                    
+                                    message.Append(Properties.MessageBoxStrings.DifferenceTwoFilesArgumentsNotContainsF1);
                                 }
 
                                 if (!format.Contains("%f2"))
                                 {
                                     if (message.Length > 0) { message.AppendLine(); }
-
-                                    message.Append("Difference two files arguments format does not contain %f2.");
+                                    
+                                    message.Append(Properties.MessageBoxStrings.DifferenceTwoFilesArgumentsNotContainsF2);
                                 }
                             }
                         }
@@ -214,22 +214,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 if (!formatThreeWay.Contains("%f1"))
                                 {
                                     if (message.Length > 0) { message.AppendLine(); }
-
-                                    message.Append("ThreeWay Difference arguments format does not contain %f1.");
+                                    
+                                    message.Append(Properties.MessageBoxStrings.ThreeWayDifferenceArgumentsNotContainsF1);
                                 }
 
                                 if (!formatThreeWay.Contains("%f2"))
                                 {
                                     if (message.Length > 0) { message.AppendLine(); }
-
-                                    message.Append("ThreeWay Difference arguments format does not contain %f2.");
+                                    
+                                    message.Append(Properties.MessageBoxStrings.ThreeWayDifferenceArgumentsNotContainsF2);
                                 }
 
-                                if (!formatThreeWay.Contains("%fl"))
+                                if (!formatThreeWay.Contains("%f3"))
                                 {
                                     if (message.Length > 0) { message.AppendLine(); }
-
-                                    message.Append("ThreeWay Difference arguments format does not contain %fl.");
+                                    
+                                    message.Append(Properties.MessageBoxStrings.ThreeWayDifferenceArgumentsNotContainsF3);
                                 }
                             }
                         }
@@ -237,8 +237,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     else
                     {
                         if (message.Length > 0) { message.AppendLine(); }
-
-                        message.Append("Program for difference not exists.");
+                        
+                        message.Append(Properties.MessageBoxStrings.DifferenceProgramNotExists);
                     }
                 }
             }
@@ -251,8 +251,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     if (!File.Exists(pathFile))
                     {
                         if (message.Length > 0) { message.AppendLine(); }
-
-                        message.Append("Program for edit text not exists.");
+                        
+                        message.Append(Properties.MessageBoxStrings.TextEditorProgramNotExists);
                     }
                 }
             }

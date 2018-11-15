@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -27,11 +28,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static async void ActionExecute(DTEHelper helper)
         {
-            var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
+            try
+            {
+                var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
 
-            string fileType = await PropertiesHelper.GetTypeFullNameAsync(document);
+                string fileType = await PropertiesHelper.GetTypeFullNameAsync(document);
 
-            helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, true, fileType);
+                helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, true, fileType);
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(ex);
+            }
         }
     }
 }

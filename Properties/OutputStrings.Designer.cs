@@ -70,6 +70,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection {0} is ReadOnly. Operation is prohibited..
+        /// </summary>
+        internal static string ConnectionIsReadOnlyFormat {
+            get {
+                return ResourceManager.GetString("ConnectionIsReadOnlyFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Service Endpoint: {0}.
         /// </summary>
         internal static string CurrentServiceEndpointFormat {
@@ -84,6 +93,87 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string EndOperationFormat {
             get {
                 return ResourceManager.GetString("EndOperationFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GetAttributeMetadata(Guid {0}).
+        /// </summary>
+        internal static string GetAttributeMetadataByGuidFormat {
+            get {
+                return ResourceManager.GetString("GetAttributeMetadataByGuidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GetAttributeMetadata(string {0}, string {1}).
+        /// </summary>
+        internal static string GetAttributeMetadataByStringStringFormat {
+            get {
+                return ResourceManager.GetString("GetAttributeMetadataByStringStringFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GetEntityKeyMetadata(Guid {0}).
+        /// </summary>
+        internal static string GetEntityKeyMetadataByGuidFormat {
+            get {
+                return ResourceManager.GetString("GetEntityKeyMetadataByGuidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GetEntityKeyMetadata(string {0}, string {1}).
+        /// </summary>
+        internal static string GetEntityKeyMetadataByStringStringFormat {
+            get {
+                return ResourceManager.GetString("GetEntityKeyMetadataByStringStringFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GetEntityMetadata(Guid {0}).
+        /// </summary>
+        internal static string GetEntityMetadataByGuidFormat {
+            get {
+                return ResourceManager.GetString("GetEntityMetadataByGuidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GetEntityMetadata(string {0}).
+        /// </summary>
+        internal static string GetEntityMetadataByStringFormat {
+            get {
+                return ResourceManager.GetString("GetEntityMetadataByStringFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GetEntityMetadata(string {0}, string[] {1}).
+        /// </summary>
+        internal static string GetEntityMetadataByStringStringFormat {
+            get {
+                return ResourceManager.GetString("GetEntityMetadataByStringStringFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GetRelationshipMetadata(Guid {0}).
+        /// </summary>
+        internal static string GetRelationshipMetadataByGuidFormat {
+            get {
+                return ResourceManager.GetString("GetRelationshipMetadataByGuidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GetRelationshipMetadata(string {0}).
+        /// </summary>
+        internal static string GetRelationshipMetadataByStringFormat {
+            get {
+                return ResourceManager.GetString("GetRelationshipMetadataByStringFormat", resourceCulture);
             }
         }
         
@@ -111,6 +201,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string NoCurrentCRMConnection {
             get {
                 return ResourceManager.GetString("NoCurrentCRMConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nothing to publish..
+        /// </summary>
+        internal static string NothingToPublish {
+            get {
+                return ResourceManager.GetString("NothingToPublish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Published All in {0} Successfully..
+        /// </summary>
+        internal static string PublishingAllCompletedFormat {
+            get {
+                return ResourceManager.GetString("PublishingAllCompletedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publishing All in {0} FAILED..
+        /// </summary>
+        internal static string PublishingAllFailedFormat {
+            get {
+                return ResourceManager.GetString("PublishingAllFailedFormat", resourceCulture);
             }
         }
         

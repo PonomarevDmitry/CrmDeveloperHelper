@@ -85,7 +85,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 txtBOrganizationService.Text = connection.OrganizationUrl;
                 if (connection.User == null)
                 {
-                    txtBUser.Text = "Interactive Login";
+                    txtBUser.Text = Properties.MessageBoxStrings.InteractiveLogin;
                 }
                 else
                 {

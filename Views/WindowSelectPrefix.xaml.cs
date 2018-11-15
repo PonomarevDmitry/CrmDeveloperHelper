@@ -40,26 +40,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string text = txtBPrefix.Text.ToLower().Trim();
 
-            if (!string.IsNullOrEmpty(text))
-            {
-                bool isValid = _checker?.Invoke(text) ?? true;
-
-                if (isValid)
-                {
-                    this.Prefix = text;
-
-                    this.DialogResult = true;
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show(_message, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            else
+            if (string.IsNullOrEmpty(text))
             {
                 MessageBox.Show(Properties.MessageBoxStrings.PrefixIsEmpty, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
+
+            bool isValid = _checker?.Invoke(text) ?? true;
+
+            if (!isValid)
+            {
+                MessageBox.Show(_message, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.Prefix = text;
+
+            this.DialogResult = true;
+            this.Close();
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)

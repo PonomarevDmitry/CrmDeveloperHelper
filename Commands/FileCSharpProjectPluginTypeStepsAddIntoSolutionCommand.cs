@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System.Collections.Generic;
+using System;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
@@ -27,23 +28,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static async void ActionExecute(DTEHelper helper)
         {
-            var list = helper.GetListSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
-
-            var files = new List<string>();
-
-            foreach (var item in list)
+            try
             {
-                var typeNam = await PropertiesHelper.GetTypeFullNameAsync(item);
+                var list = helper.GetListSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
 
-                if (!string.IsNullOrEmpty(typeNam))
+                var files = new List<string>();
+
+                foreach (var item in list)
                 {
-                    files.Add(typeNam);
+                    var typeNam = await PropertiesHelper.GetTypeFullNameAsync(item);
+
+                    if (!string.IsNullOrEmpty(typeNam))
+                    {
+                        files.Add(typeNam);
+                    }
+                }
+
+                if (files.Any())
+                {
+                    helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, true, files.ToArray());
                 }
             }
-
-            if (files.Any())
+            catch (Exception ex)
             {
-                helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, true, files.ToArray());
+                DTEHelper.WriteExceptionToOutput(ex);
             }
         }
     }

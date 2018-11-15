@@ -1,5 +1,3 @@
-﻿using Microsoft.Xrm.Sdk;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -1102,7 +1100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         foreach (var button in list)
                         {
-                            button.IsEnabled = enabled;
+                            button.IsEnabled = enabled && !connectionData.IsReadOnly;
                         }
                     }
                 }
@@ -1247,7 +1245,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithDescription);
 
             ToggleControls(false, Properties.WindowStatusStrings.CreatingDescription);
@@ -1351,15 +1349,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (step.PluginStep != null)
             {
-                message = string.Format("Register Plugin Step in {0}?", connectionData?.Name);
+                message = string.Format(Properties.MessageBoxStrings.RegisterPluginStepFormat, connectionData?.Name);
             }
             else if (step.PluginType != null)
             {
-                message = string.Format("Register all Steps for Plugin Type in {0}?", connectionData?.Name);
+                message = string.Format(Properties.MessageBoxStrings.RegisterAllStepsForPluginTypeFormat, connectionData?.Name);
             }
             else if (step.PluginAssembly != null)
             {
-                message = string.Format("Register all Steps for Plugin Assembly in {0}?", connectionData?.Name);
+                message = string.Format(Properties.MessageBoxStrings.RegisterAllStepsForPluginAssemblyFormat, connectionData?.Name);
             }
 
             if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
@@ -1375,14 +1373,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.RegisteringPluginSteps);
-
             ConnectionData connectionData = null;
 
             cmBCurrentConnection.Dispatcher.Invoke(() =>
             {
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
+
+            if (connectionData.IsReadOnly)
+            {
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectionIsReadOnlyFormat, connectionData.Name);
+                return;
+            }
+
+            ToggleControls(false, Properties.WindowStatusStrings.RegisteringPluginSteps);
 
             if (connectionData != null && connectionData.IsReadOnly == false)
             {

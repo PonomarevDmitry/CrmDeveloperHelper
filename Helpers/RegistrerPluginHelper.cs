@@ -22,6 +22,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public async Task<string> RegisterPluginsForAssemblyAsync(string folder, Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginAssembly assembly)
         {
+            if (_service.ConnectionData.IsReadOnly)
+            {
+                return null;
+            }
+
             string fileName = string.Format("{0}.Plugin Register Operation at {1}.txt"
                 , _service.ConnectionData.Name
                 , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
@@ -30,15 +35,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             StringBuilder log = new StringBuilder();
-
-            if (_service.ConnectionData.IsReadOnly)
-            {
-                log.AppendFormat("Connection {0} is ReadOnly.", _service.ConnectionData.Name);
-
-                File.WriteAllText(filePath, log.ToString(), new UTF8Encoding(false));
-
-                return filePath;
-            }
 
             var repositoryAssembly = new PluginAssemblyRepository(_service);
             var repositoryType = new PluginTypeRepository(_service);
@@ -74,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 if (!string.IsNullOrEmpty(step.SecureConfiguration))
                                 {
                                     var entSecure = new Entity(Entities.SdkMessageProcessingStepSecureConfig.EntityLogicalName);
-                                    entSecure.Attributes["secureconfig"] = step.SecureConfiguration;
+                                    entSecure.Attributes[Entities.SdkMessageProcessingStepSecureConfig.Schema.Attributes.secureconfig] = step.SecureConfiguration;
 
                                     entSecure.Id = _service.Create(entSecure);
 
@@ -86,56 +82,58 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                     refSystemUser = repositorySystemUser.FindUser(step.RunInUserContext);
                                 }
 
-                                var entStep = new Entity(Entities.SdkMessageProcessingStep.EntityLogicalName);
+                                var entStep = new Entity(Entities.SdkMessageProcessingStep.EntityLogicalName)
+                                {
+                                    Id = step.Id
+                                };
 
-                                entStep.Id = step.Id;
+                                entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.asyncautodelete] = step.AsyncAutoDelete.GetValueOrDefault();
+                                entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.name] = step.Name;
+                                entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.description] = step.Description;
+                                entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.rank] = step.ExecutionOrder;
 
-                                entStep.Attributes["asyncautodelete"] = step.AsyncAutoDelete.GetValueOrDefault();
-                                entStep.Attributes["name"] = step.Name;
-                                entStep.Attributes["description"] = step.Description;
-                                entStep.Attributes["rank"] = step.ExecutionOrder;
+                                entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.stage] = new OptionSetValue((int)step.Stage);
+                                entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.mode] = new OptionSetValue((int)step.ExecutionMode);
 
-                                entStep.Attributes["stage"] = new OptionSetValue((int)step.Stage);
-                                entStep.Attributes["mode"] = new OptionSetValue((int)step.ExecutionMode);
+                                entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.supporteddeployment] = new OptionSetValue((int)step.SupportedDeploymentCode);
 
-                                entStep.Attributes["supporteddeployment"] = new OptionSetValue((int)step.SupportedDeploymentCode);
+                                entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.configuration] = step.UnsecureConfiguration;
 
-                                entStep.Attributes["configuration"] = step.UnsecureConfiguration;
+                                entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.filteringattributes] = string.Join(",", step.FilteringAttributes.OrderBy(s => s));
 
-                                entStep.Attributes["filteringattributes"] = string.Join(",", step.FilteringAttributes.OrderBy(s => s));
+                                entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.plugintypeid] = entPluginType.ToEntityReference();
 
-                                entStep.Attributes["plugintypeid"] = entPluginType.ToEntityReference();
+                                entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.eventhandler] = entPluginType.ToEntityReference();
 
-                                entStep.Attributes["eventhandler"] = entPluginType.ToEntityReference();
+                                entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.sdkmessageid] = entMessage.ToEntityReference();
 
-                                entStep.Attributes["sdkmessageid"] = entMessage.ToEntityReference();
+                                entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid] = refMessageFilter;
 
-                                entStep.Attributes["sdkmessagefilterid"] = refMessageFilter;
+                                entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.sdkmessageprocessingstepsecureconfigid] = refSecure;
 
-                                entStep.Attributes["sdkmessageprocessingstepsecureconfigid"] = refSecure;
-
-                                entStep.Attributes["impersonatinguserid"] = refSystemUser;
+                                entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.impersonatinguserid] = refSystemUser;
 
                                 entStep.Id = _service.Create(entStep);
 
                                 foreach (var image in step.PluginImages)
                                 {
-                                    var entImage = new Entity(Entities.SdkMessageProcessingStepImage.EntityLogicalName);
+                                    var entImage = new Entity(Entities.SdkMessageProcessingStepImage.EntityLogicalName)
+                                    {
+                                        Id = image.Id
+                                    };
 
-                                    entImage.Id = image.Id;
+                                    entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.sdkmessageprocessingstepid] = entStep.ToEntityReference();
 
-                                    entImage.Attributes["sdkmessageprocessingstepid"] = entStep.ToEntityReference();
+                                    entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.imagetype] = new OptionSetValue(image.ImageType.Value);
 
-                                    entImage.Attributes["imagetype"] = new OptionSetValue(image.ImageType.Value);
+                                    entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.name] = image.Name;
+                                    entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.entityalias] = image.EntityAlias;
 
-                                    entImage.Attributes["name"] = image.Name;
-                                    entImage.Attributes["entityalias"] = image.EntityAlias;
+                                    entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.customizationlevel] = image.CustomizationLevel;
+                                    entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.relatedattributename] = image.RelatedAttributeName;
+                                    entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.messagepropertyname] = image.MessagePropertyName;
 
-                                    entImage.Attributes["customizationlevel"] = image.CustomizationLevel;
-                                    entImage.Attributes["relatedattributename"] = image.RelatedAttributeName;
-                                    entImage.Attributes["messagepropertyname"] = image.MessagePropertyName;
-
-                                    entImage.Attributes["attributes"] = string.Join(",", image.Attributes.OrderBy(s => s));
+                                    entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.attributes] = string.Join(",", image.Attributes.OrderBy(s => s));
 
                                     _service.Create(entImage);
                                 }
@@ -146,8 +144,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                                     State = new OptionSetValue(step.StateCode.Value),
                                     Status = new OptionSetValue(step.StatusCode.Value),
-                                }
-                                );
+                                });
                             }
                             else
                             {
@@ -173,6 +170,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public async Task<string> RegisterPluginsForPluginTypeAsync(string folder, string assemblyName, Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginType pluginType)
         {
+            if (_service.ConnectionData.IsReadOnly)
+            {
+                return null;
+            }
+
             string fileName = string.Format("{0}.Plugin Register Operation at {1}.txt"
                 , _service.ConnectionData.Name
                 , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
@@ -181,15 +183,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             StringBuilder log = new StringBuilder();
-
-            if (_service.ConnectionData.IsReadOnly)
-            {
-                log.AppendFormat("Connection {0} is ReadOnly.", _service.ConnectionData.Name);
-
-                File.WriteAllText(filePath, log.ToString(), new UTF8Encoding(false));
-
-                return filePath;
-            }
 
             var repositoryAssembly = new PluginAssemblyRepository(_service);
             var repositoryType = new PluginTypeRepository(_service);
@@ -223,7 +216,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             if (!string.IsNullOrEmpty(step.SecureConfiguration))
                             {
                                 var entSecure = new Entity(Entities.SdkMessageProcessingStepSecureConfig.EntityLogicalName);
-                                entSecure.Attributes["secureconfig"] = step.SecureConfiguration;
+                                entSecure.Attributes[Entities.SdkMessageProcessingStepSecureConfig.Schema.Attributes.secureconfig] = step.SecureConfiguration;
 
                                 entSecure.Id = _service.Create(entSecure);
 
@@ -235,56 +228,58 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 refSystemUser = repositorySystemUser.FindUser(step.RunInUserContext);
                             }
 
-                            var entStep = new Entity(Entities.SdkMessageProcessingStep.EntityLogicalName);
+                            var entStep = new Entity(Entities.SdkMessageProcessingStep.EntityLogicalName)
+                            {
+                                Id = step.Id
+                            };
 
-                            entStep.Id = step.Id;
+                            entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.asyncautodelete] = step.AsyncAutoDelete.GetValueOrDefault();
+                            entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.name] = step.Name;
+                            entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.description] = step.Description;
+                            entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.rank] = step.ExecutionOrder;
 
-                            entStep.Attributes["asyncautodelete"] = step.AsyncAutoDelete.GetValueOrDefault();
-                            entStep.Attributes["name"] = step.Name;
-                            entStep.Attributes["description"] = step.Description;
-                            entStep.Attributes["rank"] = step.ExecutionOrder;
+                            entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.stage] = new OptionSetValue((int)step.Stage);
+                            entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.mode] = new OptionSetValue((int)step.ExecutionMode);
 
-                            entStep.Attributes["stage"] = new OptionSetValue((int)step.Stage);
-                            entStep.Attributes["mode"] = new OptionSetValue((int)step.ExecutionMode);
+                            entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.supporteddeployment] = new OptionSetValue((int)step.SupportedDeploymentCode);
 
-                            entStep.Attributes["supporteddeployment"] = new OptionSetValue((int)step.SupportedDeploymentCode);
+                            entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.configuration] = step.UnsecureConfiguration;
 
-                            entStep.Attributes["configuration"] = step.UnsecureConfiguration;
+                            entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.filteringattributes] = string.Join(",", step.FilteringAttributes.OrderBy(s => s));
 
-                            entStep.Attributes["filteringattributes"] = string.Join(",", step.FilteringAttributes.OrderBy(s => s));
+                            entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.plugintypeid] = entPluginType.ToEntityReference();
 
-                            entStep.Attributes["plugintypeid"] = entPluginType.ToEntityReference();
+                            entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.eventhandler] = entPluginType.ToEntityReference();
 
-                            entStep.Attributes["eventhandler"] = entPluginType.ToEntityReference();
+                            entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.sdkmessageid] = entMessage.ToEntityReference();
 
-                            entStep.Attributes["sdkmessageid"] = entMessage.ToEntityReference();
+                            entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid] = refMessageFilter;
 
-                            entStep.Attributes["sdkmessagefilterid"] = refMessageFilter;
+                            entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.sdkmessageprocessingstepsecureconfigid] = refSecure;
 
-                            entStep.Attributes["sdkmessageprocessingstepsecureconfigid"] = refSecure;
-
-                            entStep.Attributes["impersonatinguserid"] = refSystemUser;
+                            entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.impersonatinguserid] = refSystemUser;
 
                             entStep.Id = _service.Create(entStep);
 
                             foreach (var image in step.PluginImages)
                             {
-                                var entImage = new Entity(Entities.SdkMessageProcessingStepImage.EntityLogicalName);
+                                var entImage = new Entity(Entities.SdkMessageProcessingStepImage.EntityLogicalName)
+                                {
+                                    Id = image.Id
+                                };
 
-                                entImage.Id = image.Id;
+                                entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.sdkmessageprocessingstepid] = entStep.ToEntityReference();
 
-                                entImage.Attributes["sdkmessageprocessingstepid"] = entStep.ToEntityReference();
+                                entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.imagetype] = new OptionSetValue(image.ImageType.Value);
 
-                                entImage.Attributes["imagetype"] = new OptionSetValue(image.ImageType.Value);
+                                entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.name] = image.Name;
+                                entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.entityalias] = image.EntityAlias;
 
-                                entImage.Attributes["name"] = image.Name;
-                                entImage.Attributes["entityalias"] = image.EntityAlias;
+                                entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.customizationlevel] = image.CustomizationLevel;
+                                entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.relatedattributename] = image.RelatedAttributeName;
+                                entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.messagepropertyname] = image.MessagePropertyName;
 
-                                entImage.Attributes["customizationlevel"] = image.CustomizationLevel;
-                                entImage.Attributes["relatedattributename"] = image.RelatedAttributeName;
-                                entImage.Attributes["messagepropertyname"] = image.MessagePropertyName;
-
-                                entImage.Attributes["attributes"] = string.Join(",", image.Attributes.OrderBy(s => s));
+                                entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.attributes] = string.Join(",", image.Attributes.OrderBy(s => s));
 
                                 _service.Create(entImage);
                             }
@@ -295,8 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                                 State = new OptionSetValue(step.StateCode.Value),
                                 Status = new OptionSetValue(step.StatusCode.Value),
-                            }
-                            );
+                            });
                         }
                         else
                         {
@@ -321,6 +315,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public async Task<string> RegisterPluginsForPluginStepAsync(string folder, string assemblyName, string pluginType, Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginStep step)
         {
+            if (_service.ConnectionData.IsReadOnly)
+            {
+                return null;
+            }
+
             string fileName = string.Format("{0}.Plugin Register Operation at {1}.txt"
                 , _service.ConnectionData.Name
                 , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
@@ -329,15 +328,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             StringBuilder log = new StringBuilder();
-
-            if (_service.ConnectionData.IsReadOnly)
-            {
-                log.AppendFormat("Connection {0} is ReadOnly.", _service.ConnectionData.Name);
-
-                File.WriteAllText(filePath, log.ToString(), new UTF8Encoding(false));
-
-                return filePath;
-            }
 
             var repositoryAssembly = new PluginAssemblyRepository(_service);
             var repositoryType = new PluginTypeRepository(_service);
@@ -369,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         if (!string.IsNullOrEmpty(step.SecureConfiguration))
                         {
                             var entSecure = new Entity(Entities.SdkMessageProcessingStepSecureConfig.EntityLogicalName);
-                            entSecure.Attributes["secureconfig"] = step.SecureConfiguration;
+                            entSecure.Attributes[Entities.SdkMessageProcessingStepSecureConfig.Schema.Attributes.secureconfig] = step.SecureConfiguration;
 
                             entSecure.Id = _service.Create(entSecure);
 
@@ -381,56 +371,58 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             refSystemUser = repositorySystemUser.FindUser(step.RunInUserContext);
                         }
 
-                        var entStep = new Entity(Entities.SdkMessageProcessingStep.EntityLogicalName);
+                        var entStep = new Entity(Entities.SdkMessageProcessingStep.EntityLogicalName)
+                        {
+                            Id = step.Id
+                        };
 
-                        entStep.Id = step.Id;
+                        entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.asyncautodelete] = step.AsyncAutoDelete.GetValueOrDefault();
+                        entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.name] = step.Name;
+                        entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.description] = step.Description;
+                        entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.rank] = step.ExecutionOrder;
 
-                        entStep.Attributes["asyncautodelete"] = step.AsyncAutoDelete.GetValueOrDefault();
-                        entStep.Attributes["name"] = step.Name;
-                        entStep.Attributes["description"] = step.Description;
-                        entStep.Attributes["rank"] = step.ExecutionOrder;
+                        entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.stage] = new OptionSetValue((int)step.Stage);
+                        entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.mode] = new OptionSetValue((int)step.ExecutionMode);
 
-                        entStep.Attributes["stage"] = new OptionSetValue((int)step.Stage);
-                        entStep.Attributes["mode"] = new OptionSetValue((int)step.ExecutionMode);
+                        entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.supporteddeployment] = new OptionSetValue((int)step.SupportedDeploymentCode);
 
-                        entStep.Attributes["supporteddeployment"] = new OptionSetValue((int)step.SupportedDeploymentCode);
+                        entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.configuration] = step.UnsecureConfiguration;
 
-                        entStep.Attributes["configuration"] = step.UnsecureConfiguration;
+                        entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.filteringattributes] = string.Join(",", step.FilteringAttributes.OrderBy(s => s));
 
-                        entStep.Attributes["filteringattributes"] = string.Join(",", step.FilteringAttributes.OrderBy(s => s));
+                        entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.plugintypeid] = entPluginType.ToEntityReference();
 
-                        entStep.Attributes["plugintypeid"] = entPluginType.ToEntityReference();
+                        entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.eventhandler] = entPluginType.ToEntityReference();
 
-                        entStep.Attributes["eventhandler"] = entPluginType.ToEntityReference();
+                        entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.sdkmessageid] = entMessage.ToEntityReference();
 
-                        entStep.Attributes["sdkmessageid"] = entMessage.ToEntityReference();
+                        entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid] = refMessageFilter;
 
-                        entStep.Attributes["sdkmessagefilterid"] = refMessageFilter;
+                        entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.sdkmessageprocessingstepsecureconfigid] = refSecure;
 
-                        entStep.Attributes["sdkmessageprocessingstepsecureconfigid"] = refSecure;
-
-                        entStep.Attributes["impersonatinguserid"] = refSystemUser;
+                        entStep.Attributes[Entities.SdkMessageProcessingStep.Schema.Attributes.impersonatinguserid] = refSystemUser;
 
                         entStep.Id = _service.Create(entStep);
 
                         foreach (var image in step.PluginImages)
                         {
-                            var entImage = new Entity(Entities.SdkMessageProcessingStepImage.EntityLogicalName);
+                            var entImage = new Entity(Entities.SdkMessageProcessingStepImage.EntityLogicalName)
+                            {
+                                Id = image.Id
+                            };
 
-                            entImage.Id = image.Id;
+                            entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.sdkmessageprocessingstepid] = entStep.ToEntityReference();
 
-                            entImage.Attributes["sdkmessageprocessingstepid"] = entStep.ToEntityReference();
+                            entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.imagetype] = new OptionSetValue(image.ImageType.Value);
 
-                            entImage.Attributes["imagetype"] = new OptionSetValue(image.ImageType.Value);
+                            entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.name] = image.Name;
+                            entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.entityalias] = image.EntityAlias;
 
-                            entImage.Attributes["name"] = image.Name;
-                            entImage.Attributes["entityalias"] = image.EntityAlias;
+                            entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.customizationlevel] = image.CustomizationLevel;
+                            entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.relatedattributename] = image.RelatedAttributeName;
+                            entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.messagepropertyname] = image.MessagePropertyName;
 
-                            entImage.Attributes["customizationlevel"] = image.CustomizationLevel;
-                            entImage.Attributes["relatedattributename"] = image.RelatedAttributeName;
-                            entImage.Attributes["messagepropertyname"] = image.MessagePropertyName;
-
-                            entImage.Attributes["attributes"] = string.Join(",", image.Attributes.OrderBy(s => s));
+                            entImage.Attributes[Entities.SdkMessageProcessingStepImage.Schema.Attributes.attributes] = string.Join(",", image.Attributes.OrderBy(s => s));
 
                             _service.Create(entImage);
                         }
@@ -441,8 +433,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             State = new OptionSetValue(step.StateCode.Value),
                             Status = new OptionSetValue(step.StatusCode.Value),
-                        }
-                        );
+                        });
                     }
                     else
                     {
