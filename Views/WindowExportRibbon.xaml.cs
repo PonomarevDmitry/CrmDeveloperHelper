@@ -110,6 +110,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             chBSetXmlSchemas.DataContext = _commonConfig;
 
+            chBSetIntellisenseContext.DataContext = _commonConfig;
+
             txtBFolder.DataContext = _commonConfig;
         }
 
@@ -848,6 +850,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     }
 
+                    if (_commonConfig.SetIntellisenseContext)
+                    {
+                        ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, string.Empty);
+                    }
+
                     ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
 
                     {
@@ -1018,6 +1025,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemas);
                             }
                         }
+                    }
+
+                    if (_commonConfig.SetIntellisenseContext)
+                    {
+                        ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, string.Empty);
                     }
 
                     ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
@@ -1285,6 +1297,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     }
 
+                    if (_commonConfig.SetIntellisenseContext)
+                    {
+                        ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, entity.EntityLogicalName);
+                    }
+
                     ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
 
                     {
@@ -1462,6 +1479,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemas);
                         }
                     }
+                }
+
+                if (_commonConfig.SetIntellisenseContext)
+                {
+                    ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, entity.EntityLogicalName);
                 }
 
                 ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);

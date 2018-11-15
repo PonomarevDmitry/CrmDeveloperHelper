@@ -843,9 +843,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         }
 
         private const string patternXsi = " xmlns:xsi=\"([^\"]+)\"";
-        private const string patternXsiNamespace = @" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""";
+        private const string replaceXsiNamespace = " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"";
         private const string patternSchemaLocation = " xsi:schemaLocation=\"([^\"]+)\"";
-        private const string patternSchemaLocationFormat = " xsi:schemaLocation=\"{0}\"";
+        private const string replaceSchemaLocationFormat = " xsi:schemaLocation=\"{0}\"";
+
+        private const string patternIntellisenseContext = " xmlns:intellisenseContext=\"([^\"]+)\"";
+        private const string replaceIntellisenseContextNamespace = " xmlns:intellisenseContext=\"https://navicongroup.ru/XsdSchemas/IntellisenseContext\"";
+
+        private const string patternIntellisenseContextEntityName = " intellisenseContext:entityName=\"([^\"]*)\"";
+        private const string replaceIntellisenseContextEntityNameFormat = " intellisenseContext:entityName=\"{0}\"";
 
         public static bool ClearXsdSchema(string text, out string changeText)
         {
@@ -862,6 +868,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 result = true;
                 changeText = Regex.Replace(changeText, patternSchemaLocation, string.Empty, RegexOptions.IgnoreCase);
+            }
+
+            if (Regex.IsMatch(changeText, patternIntellisenseContext))
+            {
+                result = true;
+                changeText = Regex.Replace(changeText, patternIntellisenseContext, string.Empty, RegexOptions.IgnoreCase);
+            }
+
+            if (Regex.IsMatch(changeText, patternIntellisenseContextEntityName))
+            {
+                result = true;
+                changeText = Regex.Replace(changeText, patternIntellisenseContextEntityName, string.Empty, RegexOptions.IgnoreCase);
             }
 
             return result;
@@ -907,7 +925,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (Regex.IsMatch(result, patternXsi))
             {
-                result = Regex.Replace(result, patternXsi, patternXsiNamespace, RegexOptions.IgnoreCase);
+                result = Regex.Replace(result, patternXsi, replaceXsiNamespace, RegexOptions.IgnoreCase);
             }
             else
             {
@@ -915,13 +933,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (indexInsert.HasValue)
                 {
-                    result = result.Insert(indexInsert.Value, patternXsiNamespace);
+                    result = result.Insert(indexInsert.Value, replaceXsiNamespace);
                 }
             }
 
             if (Regex.IsMatch(result, patternSchemaLocation))
             {
-                result = Regex.Replace(result, patternSchemaLocation, string.Format(patternSchemaLocationFormat, schemas), RegexOptions.IgnoreCase);
+                result = Regex.Replace(result, patternSchemaLocation, string.Format(replaceSchemaLocationFormat, schemas), RegexOptions.IgnoreCase);
             }
             else
             {
@@ -929,7 +947,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (indexInsert.HasValue)
                 {
-                    result = result.Insert(indexInsert.Value, string.Format(patternSchemaLocationFormat, schemas));
+                    result = result.Insert(indexInsert.Value, string.Format(replaceSchemaLocationFormat, schemas));
+                }
+            }
+
+            return result;
+        }
+
+        public static string SetRibbonDiffXmlIntellisenseContextEntityName(string text, string entityName)
+        {
+            var result = text;
+
+            if (Regex.IsMatch(result, patternIntellisenseContext))
+            {
+                result = Regex.Replace(result, patternIntellisenseContext, replaceIntellisenseContextNamespace, RegexOptions.IgnoreCase);
+            }
+            else
+            {
+                int? indexInsert = FindIndexToInsert(result);
+
+                if (indexInsert.HasValue)
+                {
+                    result = result.Insert(indexInsert.Value, replaceIntellisenseContextNamespace);
+                }
+            }
+
+            if (Regex.IsMatch(result, patternIntellisenseContextEntityName))
+            {
+                result = Regex.Replace(result, patternIntellisenseContextEntityName, string.Format(replaceIntellisenseContextEntityNameFormat, entityName), RegexOptions.IgnoreCase);
+            }
+            else
+            {
+                int? indexInsert = FindIndexToInsert(result);
+
+                if (indexInsert.HasValue)
+                {
+                    result = result.Insert(indexInsert.Value, string.Format(replaceIntellisenseContextEntityNameFormat, entityName));
                 }
             }
 

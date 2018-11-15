@@ -1,14 +1,11 @@
-﻿using Microsoft.Xrm.Sdk.Metadata;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using System;
-using System.Linq;
-using System.Xml.XPath;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Collections.Concurrent;
-using System.Xml.Linq;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 {
@@ -55,28 +52,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public SortedSet<string> CheckExtensionProperties { get; private set; }
 
         [DataMember]
-        public ConcurrentDictionary<Guid, WebResource> WebResourcesHtml { get; private set; }
-
-        [DataMember]
-        public ConcurrentDictionary<Guid, WebResource> WebResourcesIcon { get; private set; }
-
-        [DataMember]
         public ConcurrentDictionary<Guid, SystemForm> Dashboards { get; private set; }
-
-        //[DataMember]
-        //public ConcurrentBag<string> Urls { get; private set; }
-
-        //[DataMember]
-        //public ConcurrentBag<string> Urls { get; private set; }
-
-        //[DataMember]
-        //public ConcurrentBag<string> Urls { get; private set; }
 
         public SiteMapIntellisenseData()
         {
             ClearData();
         }
 
+        [OnDeserializing]
         private void BeforeDeserialize(StreamingContext context)
         {
             if (Urls == null)
@@ -129,16 +112,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 this.CheckExtensionProperties = new SortedSet<string>(StringComparer.InvariantCultureIgnoreCase);
             }
 
-            if (WebResourcesHtml == null)
-            {
-                this.WebResourcesHtml = new ConcurrentDictionary<Guid, WebResource>();
-            }
-
-            if (WebResourcesIcon == null)
-            {
-                this.WebResourcesIcon = new ConcurrentDictionary<Guid, WebResource>();
-            }
-
             if (Dashboards == null)
             {
                 this.Dashboards = new ConcurrentDictionary<Guid, SystemForm>();
@@ -161,9 +134,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             this.GetStartedPanePathAdminOutlooks = new SortedSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
             this.CheckExtensionProperties = new SortedSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-            this.WebResourcesHtml = new ConcurrentDictionary<Guid, WebResource>();
-            this.WebResourcesIcon = new ConcurrentDictionary<Guid, WebResource>();
 
             this.Dashboards = new ConcurrentDictionary<Guid, SystemForm>();
         }
@@ -382,42 +352,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 if (!this.Dashboards.ContainsKey(item.Id))
                 {
                     this.Dashboards.TryAdd(item.Id, item);
-                }
-            }
-        }
-
-        public void LoadWebResourcesHtml(IEnumerable<WebResource> webResources)
-        {
-            if (!webResources.Any())
-            {
-                return;
-            }
-
-            this.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
-
-            foreach (var item in webResources)
-            {
-                if (!this.WebResourcesHtml.ContainsKey(item.Id))
-                {
-                    this.WebResourcesHtml.TryAdd(item.Id, item);
-                }
-            }
-        }
-
-        public void LoadWebResourcesIcon(IEnumerable<WebResource> webResources)
-        {
-            if (!webResources.Any())
-            {
-                return;
-            }
-
-            this.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
-
-            foreach (var item in webResources)
-            {
-                if (!this.WebResourcesIcon.ContainsKey(item.Id))
-                {
-                    this.WebResourcesIcon.TryAdd(item.Id, item);
                 }
             }
         }

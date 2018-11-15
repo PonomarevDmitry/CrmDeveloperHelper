@@ -985,11 +985,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.OnPropertyChanged(nameof(SolutionExportManaged));
             }
         }
-        
+
         private bool _SetXmlSchemasDuringExport;
-        /// <summary>
-        /// Генерировать атрибуты в файле с метаданными сущности
-        /// </summary>
         [DataMember]
         public bool SetXmlSchemasDuringExport
         {
@@ -1002,6 +999,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.OnPropertyChanging(nameof(SetXmlSchemasDuringExport));
                 this._SetXmlSchemasDuringExport = value;
                 this.OnPropertyChanged(nameof(SetXmlSchemasDuringExport));
+            }
+        }
+
+        private bool _SetIntellisenseContext;
+        [DataMember]
+        public bool SetIntellisenseContext
+        {
+            get
+            {
+                return _SetIntellisenseContext;
+            }
+            set
+            {
+                this.OnPropertyChanging(nameof(SetIntellisenseContext));
+                this._SetIntellisenseContext = value;
+                this.OnPropertyChanged(nameof(SetIntellisenseContext));
             }
         }
 

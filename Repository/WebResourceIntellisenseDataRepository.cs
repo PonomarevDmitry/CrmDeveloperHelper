@@ -8,13 +8,10 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Resources;
-using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
-    public class SiteMapIntellisenseDataRepository : IDisposable
+    public class WebResourceIntellisenseDataRepository : IDisposable
     {
         private readonly object _syncObjectService = new object();
 
@@ -23,15 +20,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private IOrganizationServiceExtented _service;
 
-        private ConnectionData _connectionData;
+        private readonly ConnectionData _connectionData;
 
-        private SiteMapIntellisenseData _siteMapIntellisenseData = new SiteMapIntellisenseData();
+        private WebResourceIntellisenseData _WebResourceIntellisenseData = new WebResourceIntellisenseData();
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        private static ConcurrentDictionary<Guid, SiteMapIntellisenseDataRepository> _staticCacheRepositories = new ConcurrentDictionary<Guid, SiteMapIntellisenseDataRepository>();
+        private static ConcurrentDictionary<Guid, WebResourceIntellisenseDataRepository> _staticCacheRepositories = new ConcurrentDictionary<Guid, WebResourceIntellisenseDataRepository>();
 
-        private SiteMapIntellisenseDataRepository(ConnectionData connectionData)
+        private WebResourceIntellisenseDataRepository(ConnectionData connectionData)
         {
             this._connectionData = connectionData ?? throw new ArgumentNullException(nameof(connectionData));
 
@@ -74,19 +71,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
         }
 
-        public SiteMapIntellisenseData GetSiteMapIntellisenseData()
+        public WebResourceIntellisenseData GetWebResourceIntellisenseData()
         {
             if (_cancellationTokenSource.IsCancellationRequested)
             {
                 return null;
             }
 
-            if (!_siteMapIntellisenseData.NextLoadFileDate.HasValue || _siteMapIntellisenseData.NextLoadFileDate < DateTime.Now)
+            if (!_WebResourceIntellisenseData.NextLoadFileDate.HasValue || _WebResourceIntellisenseData.NextLoadFileDate < DateTime.Now)
             {
                 StartGettingSiteMapsAsync();
             }
 
-            return _siteMapIntellisenseData;
+            return _WebResourceIntellisenseData;
         }
 
         private void StartGettingSiteMapsAsync()
@@ -122,103 +119,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             try
             {
-
                 var service = await GetServiceAsync();
 
-                _siteMapIntellisenseData.ClearData();
+                _WebResourceIntellisenseData.ClearData();
 
-                if (Version.TryParse(_connectionData.OrganizationVersion, out var organizationVersion))
                 {
-                    string version = "365.8.2";
+                    var repository = new WebResourceRepository(service);
 
-                    switch (organizationVersion.Major)
                     {
-                        case 5:
-                            version = "2011";
-                            break;
+                        var listWebResources = await repository.GetListByTypesAsync(
+                            new[] { (int)WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1 }
+                            , new ColumnSet
+                            (
+                                WebResource.Schema.Attributes.displayname
+                                , WebResource.Schema.Attributes.name
+                                , WebResource.Schema.Attributes.description
+                            )
+                        );
 
-                        case 6:
-                            version = "2013";
-                            break;
-
-                        case 7:
-                            if (organizationVersion.Minor == 0)
-                                version = "2015";
-                            else
-                                version = "2015SP1";
-                            break;
-
-                        case 8:
-                            if (organizationVersion.Minor == 0)
-                                version = "2016";
-                            else if (organizationVersion.Minor == 1)
-                                version = "2016SP1";
-                            else
-                                version = "365.8.2";
-                            break;
+                        _WebResourceIntellisenseData.LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesHtml);
                     }
 
-                    Uri uri = FileOperations.GetSiteMapResourceUri(version);
-                    StreamResourceInfo info = Application.GetResourceStream(uri);
-
-                    var doc = XDocument.Load(info.Stream);
-
-                    _siteMapIntellisenseData.LoadDataFromSiteMap(doc);
-
-                    info.Stream.Dispose();
-                }
-
-                {
-                    var repository = new SitemapRepository(service);
-
-                    var listSiteMaps = await repository.GetListAsync(new ColumnSet(SiteMap.Schema.Attributes.sitemapxml));
-
-                    foreach (var item in listSiteMaps)
                     {
-                        if (string.IsNullOrEmpty(item.SiteMapXml))
-                        {
-                            continue;
-                        }
+                        var listWebResources = await repository.GetListByTypesAsync(
+                            new[] { (int)WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3 }
+                            , new ColumnSet
+                            (
+                                WebResource.Schema.Attributes.displayname
+                                , WebResource.Schema.Attributes.name
+                                , WebResource.Schema.Attributes.description
+                            )
+                        );
 
-                        if (ContentCoparerHelper.TryParseXmlDocument(item.SiteMapXml, out var doc))
-                        {
-                            _siteMapIntellisenseData.LoadDataFromSiteMap(doc);
-                        }
+                        _WebResourceIntellisenseData.LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesJavaScript);
                     }
-                }
 
-                if (service.ConnectionData.OrganizationId.HasValue)
-                {
-                    var repository = new OrganizationRepository(service);
-
-                    var organization = await repository.GetByIdAsync(service.ConnectionData.OrganizationId.Value, new ColumnSet(Organization.Schema.Attributes.referencesitemapxml, Organization.Schema.Attributes.sitemapxml));
-
-                    if (organization != null)
                     {
-                        if (!string.IsNullOrEmpty(organization.ReferenceSiteMapXml))
-                        {
-                            if (ContentCoparerHelper.TryParseXmlDocument(organization.ReferenceSiteMapXml, out var doc))
+                        var listWebResources = await repository.GetListByTypesAsync(
+                            new[]
                             {
-                                _siteMapIntellisenseData.LoadDataFromSiteMap(doc);
+                                (int)WebResource.Schema.OptionSets.webresourcetype.PNG_format_5
+                                , (int)WebResource.Schema.OptionSets.webresourcetype.JPG_format_6
+                                , (int)WebResource.Schema.OptionSets.webresourcetype.GIF_format_7
+                                , (int)WebResource.Schema.OptionSets.webresourcetype.ICO_format_10
+                                , (int)WebResource.Schema.OptionSets.webresourcetype.SVG_format_11
                             }
-                        }
+                            , new ColumnSet
+                            (
+                                WebResource.Schema.Attributes.displayname
+                                , WebResource.Schema.Attributes.name
+                                , WebResource.Schema.Attributes.webresourcetype
+                                , WebResource.Schema.Attributes.content
+                                , WebResource.Schema.Attributes.description
+                            )
+                        );
 
-                        if (!string.IsNullOrEmpty(organization.SiteMapXml))
-                        {
-                            if (ContentCoparerHelper.TryParseXmlDocument(organization.SiteMapXml, out var doc))
-                            {
-                                _siteMapIntellisenseData.LoadDataFromSiteMap(doc);
-                            }
-                        }
+                        _WebResourceIntellisenseData.LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesIcon);
                     }
-                }
-
-                {
-                    var repository = new SystemFormRepository(service);
-
-                    var listSystemForms = await repository.GetListByTypeAsync((int)SystemForm.Schema.OptionSets.type.Dashboard_0, new ColumnSet(SystemForm.Schema.Attributes.objecttypecode, SystemForm.Schema.Attributes.name, SystemForm.Schema.Attributes.description));
-
-                    _siteMapIntellisenseData.LoadDashboards(listSystemForms);
                 }
             }
             catch (Exception ex)
@@ -234,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
         }
 
-        static SiteMapIntellisenseDataRepository()
+        static WebResourceIntellisenseDataRepository()
         {
             Task.Run(() => LoadIntellisenseRepository());
         }
@@ -259,7 +216,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
         }
 
-        public static SiteMapIntellisenseDataRepository GetRepository(ConnectionData connectionData)
+        public static WebResourceIntellisenseDataRepository GetRepository(ConnectionData connectionData)
         {
             if (connectionData == null)
             {
@@ -268,7 +225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!_staticCacheRepositories.ContainsKey(connectionData.ConnectionId))
             {
-                var repository = new SiteMapIntellisenseDataRepository(connectionData);
+                var repository = new WebResourceIntellisenseDataRepository(connectionData);
 
                 _staticCacheRepositories.TryAdd(connectionData.ConnectionId, repository);
             }

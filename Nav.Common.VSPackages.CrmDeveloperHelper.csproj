@@ -674,6 +674,9 @@
     <Compile Include="Intellisense\CustomUrlTagger.cs" />
     <Compile Include="Intellisense\CustomUrlTagProvider.cs" />
     <Compile Include="Intellisense\FetchXmlCompletionSource.cs" />
+    <Compile Include="Intellisense\FetchXmlCompletionSource.Fetch.cs" />
+    <Compile Include="Intellisense\FetchXmlCompletionSource.Ribbon.cs" />
+    <Compile Include="Intellisense\FetchXmlCompletionSource.SiteMap.cs" />
     <Compile Include="Intellisense\FetchXmlCompletionSourceProvider.cs" />
     <Compile Include="Intellisense\CrmTextViewCreationListener.cs" />
     <Compile Include="Intellisense\Model\AttributeIntellisenseData.cs" />
@@ -685,6 +688,7 @@
     <Compile Include="Intellisense\Model\OneToManyRelationshipIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\OptionSetIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\SiteMapIntellisenseData.cs" />
+    <Compile Include="Intellisense\Model\WebResourceIntellisenseData.cs" />
     <Compile Include="Intellisense\UrlCommandFilter.cs" />
     <Compile Include="Intellisense\UrlCommandFilterProvider.cs" />
     <Compile Include="Interfaces\IOrganizationComparerSource.cs" />
@@ -849,6 +853,7 @@
     <Compile Include="Repository\SystemUserRepository.cs" />
     <Compile Include="Repository\TemplateRepository.cs" />
     <Compile Include="Repository\TranslationRepository.cs" />
+    <Compile Include="Repository\WebResourceIntellisenseDataRepository.cs" />
     <Compile Include="Repository\WebResourceRepository.cs" />
     <Compile Include="Repository\WorkflowRepository.cs" />
     <Compile Include="ToolWindowPanes\FetchXmlExecutorToolWindowPane.cs" />

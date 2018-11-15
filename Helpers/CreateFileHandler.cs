@@ -1248,6 +1248,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Empty;
         }
 
+        public static string GetLocalizedLabel(List<Tuple<int, string>> lables)
+        {
+            if (lables == null || !lables.Any())
+            {
+                return string.Empty;
+            }
+
+            List<int> listLocale = new List<int>();
+
+            foreach (var item in lables)
+            {
+                if (!string.IsNullOrEmpty(item.Item2))
+                {
+                    if (!listLocale.Contains(item.Item1))
+                    {
+                        listLocale.Add(item.Item1);
+                    }
+                }
+            }
+
+            listLocale.Sort(new LocaleComparer());
+
+            var localeId = listLocale.FirstOrDefault();
+
+            if (localeId != default(int))
+            {
+                var locLabel = lables.FirstOrDefault(lbl => lbl.Item1 == localeId);
+
+                if (locLabel != null)
+                {
+                    if (!string.IsNullOrEmpty(locLabel.Item2))
+                    {
+                        return locLabel.Item2;
+                    }
+                }
+            }
+
+            return string.Empty;
+        }
+
         public static List<OptionItem> GetOptionItems(string entityName, string attributeName, OptionSetMetadata optionSet, List<StringMap> listStringMap)
         {
             var options = new List<OptionItem>();
