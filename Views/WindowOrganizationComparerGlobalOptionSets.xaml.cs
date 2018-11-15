@@ -2,20 +2,20 @@
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Collections.ObjectModel;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -459,21 +459,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string optionSetsName = string.Join(",", optionSets1.Select(o => o.Name).OrderBy(s => s));
-
             var service1 = await GetService1();
             var service2 = await GetService2();
 
+            string optionSetsName = string.Join(",", optionSets1.Select(o => o.Name).OrderBy(s => s));
+
             if (service1 != null && service2 != null)
             {
+                this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat, optionSetsName);
+
+                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
+
                 try
                 {
-                    ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
-
                     string filePath1 = CreateFileName(optionSets1, service1.ConnectionData, "cs");
                     string filePath2 = CreateFileName(optionSets2, service2.ConnectionData, "cs");
-
-                    this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                     string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
                     var constantType = _commonConfig.ConstantType;
@@ -524,8 +524,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
                     }
 
-                    this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                     ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsCompletedFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
                 }
                 catch (Exception ex)
@@ -534,6 +532,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFailedFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
                 }
+
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat, optionSetsName);
             }
         }
 
@@ -602,14 +602,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (service1 != null && service2 != null)
             {
+                this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat, optionSetsName);
+
+                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
+
                 try
                 {
-                    ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
-
                     string filePath1 = CreateFileName(optionSets1, service1.ConnectionData, "js");
                     string filePath2 = CreateFileName(optionSets2, service2.ConnectionData, "js");
-
-                    this._iWriteToOutput.WriteToOutput("Start creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                     string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
                     var constantType = _commonConfig.ConstantType;
@@ -657,8 +657,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
                     }
 
-                    this._iWriteToOutput.WriteToOutput("End creating file with Global OptionSets at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                     ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsCompletedFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
                 }
                 catch (Exception ex)
@@ -667,6 +665,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsFailedFormat, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
                 }
+
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat, optionSetsName);
             }
         }
 

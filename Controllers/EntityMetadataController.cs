@@ -329,7 +329,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             EntityMetadata = metadata
                         };
 
-                        this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata for {0} at {1}", config.EntityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                        this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat, config.EntityName);
 
                         using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
                         {
@@ -342,7 +342,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
 
-                        this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata for {0} at {1}", config.EntityName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                        this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat, config.EntityName);
 
                         continue;
                     }
@@ -423,7 +423,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (metadata != null)
                     {
-                        this._iWriteToOutput.WriteToOutput("Start creating file with OptionSet Metadata for {0} at {1}", metadata.Name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                        this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat, metadata.Name);
 
                         string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
 
@@ -445,7 +445,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
 
-                        this._iWriteToOutput.WriteToOutput("End creating file with OptionSet Metadata for {0} at {1}", metadata.Name, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+                        this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithGlobalOptionSetsForFormat, metadata.Name);
 
                         continue;
                     }

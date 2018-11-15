@@ -886,6 +886,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithDescription);
+
             ToggleControls(false, Properties.WindowStatusStrings.CreatingDescription);
 
             var service = await GetService();
@@ -1016,11 +1018,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 File.WriteAllText(filePath, result.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-                this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithDescription);
         }
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)

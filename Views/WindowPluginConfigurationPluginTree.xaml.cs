@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction;
 using System;
 using System.Collections.Generic;
@@ -15,9 +15,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using System.Windows.Data;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -35,8 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private ConnectionConfiguration _connectionConfig;
 
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-
-        bool _controlsEnabled = true;
+        private bool _controlsEnabled = true;
 
         private enum View
         {
@@ -139,9 +138,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (!string.IsNullOrEmpty(temp))
                 {
-                    View tempView;
 
-                    if (Enum.TryParse<View>(temp, out tempView))
+                    if (Enum.TryParse<View>(temp, out View tempView))
                     {
                         this._currentView = tempView;
 
@@ -1249,6 +1247,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
+            
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithDescription);
 
             ToggleControls(false, Properties.WindowStatusStrings.CreatingDescription);
 
@@ -1288,25 +1288,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 File.WriteAllText(filePath, result.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-
-                this._iWriteToOutput.WriteToOutput("End creating file at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithDescription);
         }
 
         private void tSBLoadPluginConfiguraion_Click(object sender, RoutedEventArgs e)
         {
             string selectedPath = string.Empty;
-            var t = new Thread((ThreadStart)(() =>
+            var t = new Thread(() =>
             {
                 try
                 {
-                    var openFileDialog1 = new Microsoft.Win32.OpenFileDialog();
-
-                    openFileDialog1.Filter = "Plugin Configuration (.xml)|*.xml";
-                    openFileDialog1.FilterIndex = 1;
-                    openFileDialog1.RestoreDirectory = true;
+                    var openFileDialog1 = new Microsoft.Win32.OpenFileDialog
+                    {
+                        Filter = "Plugin Configuration (.xml)|*.xml",
+                        FilterIndex = 1,
+                        RestoreDirectory = true
+                    };
 
                     if (openFileDialog1.ShowDialog().GetValueOrDefault())
                     {
@@ -1317,7 +1318,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     DTEHelper.WriteExceptionToOutput(ex);
                 }
-            }));
+            });
 
             t.SetApartmentState(ApartmentState.STA);
             t.Start();

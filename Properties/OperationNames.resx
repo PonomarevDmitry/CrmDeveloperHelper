@@ -202,7 +202,7 @@
     <value>Creating File with Entity Metadata</value>
   </data>
   <data name="CreatingFileWithGlobalOptionSets" xml:space="preserve">
-    <value>Creating File with Global OptionSets</value>
+    <value>Creating File with Global OptionSets Metadata</value>
   </data>
   <data name="CreatingLastLinkForReport" xml:space="preserve">
     <value>Creating Last Link for Report</value>
@@ -371,5 +371,17 @@
   </data>
   <data name="UpdatingReport" xml:space="preserve">
     <value>Updating Report</value>
+  </data>
+  <data name="CreatingFileWithDescription" xml:space="preserve">
+    <value>Creating file with Description</value>
+  </data>
+  <data name="CreatingFileWithEntityMetadataForEntityFormat" xml:space="preserve">
+    <value>Creating File with Entity Metadata for {0}</value>
+  </data>
+  <data name="CreatingFileWithGlobalOptionSetsForFormat" xml:space="preserve">
+    <value>Creating File with Global OptionSets Metadata for {0}</value>
+  </data>
+  <data name="PublishingEntitiesFormat" xml:space="preserve">
+    <value>Publishing Entities {0}</value>
   </data>
 </root>

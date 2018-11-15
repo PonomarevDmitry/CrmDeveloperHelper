@@ -301,7 +301,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.LoadingAttributesManyToManyRelationships);
 
             string entityLogicalName = string.Empty;
@@ -435,7 +435,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.lstVwEntityRelationships.SelectedItem = this.lstVwEntityRelationships.Items[0];
                 }
             });
-            
+
             ToggleControls(true, Properties.WindowStatusStrings.LoadingAttributesManyToManyRelationshipsCompletedFormat, results.Count());
         }
 
@@ -894,21 +894,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityNames.Count());
-
             var entityNamesOrdered = string.Join(",", entityNames.OrderBy(s => s));
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat, entityNamesOrdered);
+
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityNamesOrdered);
 
             try
             {
-                this._iWriteToOutput.WriteToOutput("Start publishing entities {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 var service = await GetService();
 
                 var repository = new PublishActionsRepository(service);
 
                 await repository.PublishEntitiesAsync(entityNames);
-
-                this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityNamesOrdered);
             }
@@ -918,6 +916,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityNamesOrdered);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat, entityNamesOrdered);
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)

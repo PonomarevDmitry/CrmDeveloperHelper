@@ -498,11 +498,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            CreateFileWithEntityMetadataCSharpConfiguration config = GetCSharpConfig(entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat, entityName);
 
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityFormat, entityName);
 
-            this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            CreateFileWithEntityMetadataCSharpConfiguration config = GetCSharpConfig(entityName);
 
             string filePath1 = string.Empty;
             string filePath2 = string.Empty;
@@ -512,19 +512,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             using (var handler1 = new CreateFileWithEntityMetadataCSharpHandler(config, service1, _iWriteToOutput))
             {
-                filePath1 = await handler1.CreateFileAsync();
+                var task1 = handler1.CreateFileAsync();
 
-                this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service1.ConnectionData.Name, config.EntityName, filePath1);
+                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                {
+                    using (var handler2 = new CreateFileWithEntityMetadataCSharpHandler(config, service2, _iWriteToOutput))
+                    {
+                        filePath2 = await handler2.CreateFileAsync();
+                    }
+                }
+
+                filePath1 = await task1;
             }
+
+            this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service1.ConnectionData.Name, config.EntityName, filePath1);
 
             if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
             {
-                using (var handler2 = new CreateFileWithEntityMetadataCSharpHandler(config, service2, _iWriteToOutput))
-                {
-                    filePath2 = await handler2.CreateFileAsync();
-
-                    this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service2.ConnectionData.Name, config.EntityName, filePath2);
-                }
+                this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service2.ConnectionData.Name, config.EntityName, filePath2);
             }
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -539,6 +544,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityCompletedFormat, entityName);
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat, entityName);
         }
 
         private CreateFileWithEntityMetadataCSharpConfiguration GetCSharpConfig(string entityName)
@@ -597,11 +604,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            CreateFileWithEntityMetadataJavaScriptConfiguration config = GetJavaScriptConfig(entityName);
-            
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat, entityName);
+
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataJavaScriptForEntityFormat, entityName);
 
-            this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+            CreateFileWithEntityMetadataJavaScriptConfiguration config = GetJavaScriptConfig(entityName);
 
             string filePath1 = string.Empty;
             string filePath2 = string.Empty;
@@ -611,19 +618,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             using (var handler1 = new CreateFileWithEntityMetadataJavaScriptHandler(config, service1, _iWriteToOutput))
             {
-                filePath1 = await handler1.CreateFileAsync();
+                var task1 = handler1.CreateFileAsync();
 
-                this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service1.ConnectionData.Name, config.EntityName, filePath1);
+                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                {
+                    using (var handler2 = new CreateFileWithEntityMetadataJavaScriptHandler(config, service2, _iWriteToOutput))
+                    {
+                        filePath2 = await handler2.CreateFileAsync();
+                    }
+                }
+
+                filePath1 = await task1;
             }
+
+            this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service1.ConnectionData.Name, config.EntityName, filePath1);
 
             if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
             {
-                using (var handler2 = new CreateFileWithEntityMetadataJavaScriptHandler(config, service2, _iWriteToOutput))
-                {
-                    filePath2 = await handler2.CreateFileAsync();
-
-                    this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service2.ConnectionData.Name, config.EntityName, filePath2);
-                }
+                this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service2.ConnectionData.Name, config.EntityName, filePath2);
             }
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -638,6 +650,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataJavaScriptForEntityCompletedFormat, entityName);
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat, entityName);
         }
 
         private CreateFileWithEntityMetadataJavaScriptConfiguration GetJavaScriptConfig(string entityName)
@@ -695,16 +709,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat, entityName);
+
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat, entityName);
+
             string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
             var config = GetCSharpConfig(entityName);
 
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat, entityName);
-
-                this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 var service = await getService();
 
                 using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
@@ -724,6 +738,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat, entityName);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat, entityName);
         }
 
         private void btnConnection1JavaScript_Click(object sender, RoutedEventArgs e)
@@ -767,14 +783,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat, entityName);
+
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat, entityName);
+
             var config = GetJavaScriptConfig(entityName);
 
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat, entityName);
-
-                this._iWriteToOutput.WriteToOutput("Start creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 var service = await getService();
 
                 using (var handler = new CreateFileWithEntityMetadataJavaScriptHandler(config, service, _iWriteToOutput))
@@ -782,8 +798,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string filePath = await handler.CreateFileAsync();
 
                     this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
-
-                    this._iWriteToOutput.WriteToOutput("End creating file with Entity Metadata at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                 }
@@ -796,6 +810,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat, entityName);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat, entityName);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

@@ -304,6 +304,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating file with Description.
+        /// </summary>
+        internal static string CreatingFileWithDescription {
+            get {
+                return ResourceManager.GetString("CreatingFileWithDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating File with Entity Metadata.
         /// </summary>
         internal static string CreatingFileWithEntityMetadata {
@@ -313,11 +322,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating File with Global OptionSets.
+        ///   Looks up a localized string similar to Creating File with Entity Metadata for {0}.
+        /// </summary>
+        internal static string CreatingFileWithEntityMetadataForEntityFormat {
+            get {
+                return ResourceManager.GetString("CreatingFileWithEntityMetadataForEntityFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating File with Global OptionSets Metadata.
         /// </summary>
         internal static string CreatingFileWithGlobalOptionSets {
             get {
                 return ResourceManager.GetString("CreatingFileWithGlobalOptionSets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating File with Global OptionSets Metadata for {0}.
+        /// </summary>
+        internal static string CreatingFileWithGlobalOptionSetsForFormat {
+            get {
+                return ResourceManager.GetString("CreatingFileWithGlobalOptionSetsForFormat", resourceCulture);
             }
         }
         
@@ -687,6 +714,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string PublishingAllCustomization {
             get {
                 return ResourceManager.GetString("PublishingAllCustomization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publishing Entities {0}.
+        /// </summary>
+        internal static string PublishingEntitiesFormat {
+            get {
+                return ResourceManager.GetString("PublishingEntitiesFormat", resourceCulture);
             }
         }
         

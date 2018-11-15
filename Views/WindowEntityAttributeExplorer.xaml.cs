@@ -516,7 +516,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private EntityMetadataViewItem GetSelectedEntity()
         {
-            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().Count() == 1 
+            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().Count() == 1
                 ? this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().SingleOrDefault() : null;
         }
 
@@ -873,30 +873,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityNames.Count());
-
             var entityNamesOrdered = string.Join(",", entityNames.OrderBy(s => s));
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat, entityNamesOrdered);
+
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat, entityNamesOrdered);
 
             try
             {
-                this._iWriteToOutput.WriteToOutput("Start publishing entities {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 var service = await GetService();
 
                 var repository = new PublishActionsRepository(service);
 
                 await repository.PublishEntitiesAsync(entityNames);
 
-                this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-                
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat, entityNamesOrdered);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat, entityNamesOrdered);
             }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat, entityNamesOrdered);
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1348,13 +1348,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         UpdateStatus(Properties.WindowStatusStrings.PublishingEntitiesFormat, entityNamesOrdered);
 
-                        this._iWriteToOutput.WriteToOutput("Start publishing entities {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                         var repositoryPublish = new PublishActionsRepository(service);
 
                         await repositoryPublish.PublishEntitiesAsync(listForPublish);
-
-                        this._iWriteToOutput.WriteToOutput("End publishing entity {0} at {1}", entityNamesOrdered, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
                     }
 
                     foreach (var attribute in listAttributesToChange.OrderBy(a => a.AttributeMetadata.EntityLogicalName).ThenBy(a => a.LogicalName))
@@ -1387,13 +1383,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput("End saving changes at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
                 }
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.SavingChangesCompleted);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.SavingChangesFailed);
             }
         }
