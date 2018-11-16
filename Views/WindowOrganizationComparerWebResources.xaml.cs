@@ -431,7 +431,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteAction(item.Link, false, PerformShowingDifferenceAllAsync);
+                    ExecuteAction(item.Link, true, PerformShowingDifferenceContentAsync);
                 }
             }
         }

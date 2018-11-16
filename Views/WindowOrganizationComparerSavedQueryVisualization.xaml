@@ -20,7 +20,7 @@
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                 <Separator/>
-                <MenuItem Header="Entity Ribbon" Click="btnCompareRibbon_Click"/>
+                <MenuItem Header="Entity Ribbon" Click="btnCompareApplicationRibbons_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
                 <Separator/>
@@ -43,8 +43,6 @@
                 <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer1_Click"/>
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer1_Click"/>
                 <Separator/>
-                <MenuItem Header="Ribbon" Click="btnExportRibbon1_Click"/>
-                <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets1_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnSystemForms1_Click"/>
@@ -53,7 +51,7 @@
                 <Separator/>
                 <MenuItem Header="Workflows" Click="btnWorkflows1_Click"/>
                 <Separator/>
-                <MenuItem Header="Attributes Dependencies" Click="btnAttributesDependentComponent1_Click"/>
+                <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon1_Click"/>
                 <Separator/>
                 <MenuItem Header="Plugin Tree" Click="btnPluginTree1_Click"/>
                 <MenuItem Header="Message Tree" Click="btnMessageTree1_Click"/>
@@ -73,8 +71,6 @@
                 <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer2_Click"/>
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer2_Click"/>
                 <Separator/>
-                <MenuItem Header="Ribbon" Click="btnExportRibbon2_Click"/>
-                <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets2_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnSystemForms2_Click"/>
@@ -83,7 +79,7 @@
                 <Separator/>
                 <MenuItem Header="Workflows" Click="btnWorkflows2_Click"/>
                 <Separator/>
-                <MenuItem Header="Attributes Dependencies" Click="btnAttributesDependentComponent2_Click"/>
+                <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon2_Click"/>
                 <Separator/>
                 <MenuItem Header="Plugin Tree" Click="btnPluginTree2_Click"/>
                 <MenuItem Header="Message Tree" Click="btnMessageTree2_Click"/>

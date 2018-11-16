@@ -1,17 +1,24 @@
-﻿using Microsoft.Xrm.Sdk.Metadata;
+﻿using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Metadata;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -22,6 +29,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly object sysObjectConnections = new object();
 
         private IWriteToOutput _iWriteToOutput;
+
+        private Popup _optionsExportEntityMetadata;
+        private Popup _optionsExportAttributesDependentComponents;
+        private Popup _optionsEntityRibbon;
 
         private Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
         private Dictionary<Guid, List<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, List<EntityMetadata>>();
@@ -55,6 +66,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
+            this._optionsExportEntityMetadata = new Popup
+            {
+                Child = new ExportEntityMetadataOptionsControl(_commonConfig),
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+            };
+            this._optionsExportAttributesDependentComponents = new Popup
+            {
+                Child = new ExportEntityAttributesDependentComponentsOptionsControl(_commonConfig),
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+            };
+            this._optionsEntityRibbon = new Popup
+            {
+                Child = new ExportEntityRibbonOptionsControl(_commonConfig),
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+            };
+
             tSDDBConnection1.Header = string.Format("Export from {0}", connection1.Name);
             tSDDBConnection2.Header = string.Format("Export from {0}", connection2.Name);
 
@@ -87,34 +123,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
-            txtBSpaceCount.DataContext = _commonConfig;
-
-            rBTab.DataContext = _commonConfig;
-            rBSpaces.DataContext = _commonConfig;
-
-            rBClasses.DataContext = _commonConfig;
-            rBEnums.DataContext = _commonConfig;
-
-            rBReadOnly.DataContext = _commonConfig;
-            rBConst.DataContext = _commonConfig;
-
-            chBAttributes.DataContext = _commonConfig;
-            chBManyToOne.DataContext = _commonConfig;
-            chBManyToMany.DataContext = _commonConfig;
-            chBOneToMany.DataContext = _commonConfig;
-            chBLocalOptionSets.DataContext = _commonConfig;
-            chBGlobalOptionSets.DataContext = _commonConfig;
-            chBStatus.DataContext = _commonConfig;
-            chBKeys.DataContext = _commonConfig;
-
-            chBIntoSchemaClass.DataContext = _commonConfig;
-
-            chBAllDescriptions.DataContext = _commonConfig;
-
-            chBWithDependentComponents.DataContext = _commonConfig;
-
-            chBWithManagedInfo.DataContext = _commonConfig;
-
             txtBNameSpace1.DataContext = cmBConnection1;
             txtBNameSpace2.DataContext = cmBConnection2;
 
@@ -552,25 +560,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
-            var result = new CreateFileWithEntityMetadataCSharpConfiguration(
-                            entityName
-                            , _commonConfig.FolderForExport
-                            , tabSpacer
-                            , chBAttributes.IsChecked.GetValueOrDefault()
-                            , chBStatus.IsChecked.GetValueOrDefault()
-                            , chBLocalOptionSets.IsChecked.GetValueOrDefault()
-                            , chBGlobalOptionSets.IsChecked.GetValueOrDefault()
-                            , chBOneToMany.IsChecked.GetValueOrDefault()
-                            , chBManyToOne.IsChecked.GetValueOrDefault()
-                            , chBManyToMany.IsChecked.GetValueOrDefault()
-                            , chBKeys.IsChecked.GetValueOrDefault()
-                            , chBAllDescriptions.IsChecked.GetValueOrDefault()
-                            , chBWithDependentComponents.IsChecked.GetValueOrDefault()
-                            , chBIntoSchemaClass.IsChecked.GetValueOrDefault()
-                            , chBWithManagedInfo.IsChecked.GetValueOrDefault()
-                            , _commonConfig.ConstantType
-                            , _commonConfig.OptionSetExportType
-                            );
+            var result = new CreateFileWithEntityMetadataCSharpConfiguration
+            (
+                entityName
+                , _commonConfig.FolderForExport
+                , tabSpacer
+                , _commonConfig.GenerateAttributes
+                , _commonConfig.GenerateStatus
+                , _commonConfig.GenerateLocalOptionSet
+                , _commonConfig.GenerateGlobalOptionSet
+                , _commonConfig.GenerateOneToMany
+                , _commonConfig.GenerateManyToOne
+                , _commonConfig.GenerateManyToMany
+                , _commonConfig.GenerateKeys
+                , _commonConfig.AllDescriptions
+                , _commonConfig.EntityMetadaOptionSetDependentComponents
+                , _commonConfig.GenerateIntoSchemaClass
+                , _commonConfig.WithManagedInfo
+                , _commonConfig.ConstantType
+                , _commonConfig.OptionSetExportType
+            );
 
             return result;
         }
@@ -662,7 +671,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityName
                 , _commonConfig.FolderForExport
                 , tabSpacer
-                , chBWithDependentComponents.IsChecked.GetValueOrDefault()
+                , _commonConfig.EntityMetadaOptionSetDependentComponents
                 );
 
             return result;
@@ -864,7 +873,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig);
         }
 
-        private async void btnCompareRibbon_Click(object sender, RoutedEventArgs e)
+        private async void btnCompareApplicationRibbons_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -873,7 +882,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerRibbonWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.LogicalName);
+            WindowHelper.OpenOrganizationComparerApplicationRibbonWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
         }
 
         private async void btnCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
@@ -1042,22 +1051,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList, null);
         }
 
-        private async void btnExportRibbon1_Click(object sender, RoutedEventArgs e)
+        private async void btnExportApplicationRibbon1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedLinkedEntityMetadata();
-
             _commonConfig.Save();
 
             var service = await GetService1();
 
-            IEnumerable<EntityMetadata> entityMetadataList = null;
-
-            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
-            }
-
-            WindowHelper.OpenEntityRibbonWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
+            WindowHelper.OpenApplicationRibbonWindow(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnGlobalOptionSets1_Click(object sender, RoutedEventArgs e)
@@ -1141,24 +1141,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
-        private async void btnAttributesDependentComponent1_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedLinkedEntityMetadata();
-
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            IEnumerable<EntityMetadata> entityMetadataList = null;
-
-            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
-            }
-
-            WindowHelper.OpenAttributesDependentComponentWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
-        }
-
         private async void btnPluginTree1_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
@@ -1210,22 +1192,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList, null);
         }
 
-        private async void btnExportRibbon2_Click(object sender, RoutedEventArgs e)
+        private async void btnExportApplicationRibbon2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedLinkedEntityMetadata();
-
             _commonConfig.Save();
 
             var service = await GetService2();
 
-            IEnumerable<EntityMetadata> entityMetadataList = null;
-
-            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
-            }
-
-            WindowHelper.OpenEntityRibbonWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
+            WindowHelper.OpenApplicationRibbonWindow(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnGlobalOptionSets2_Click(object sender, RoutedEventArgs e)
@@ -1309,24 +1282,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
-        private async void btnAttributesDependentComponent2_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedLinkedEntityMetadata();
-
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            IEnumerable<EntityMetadata> entityMetadataList = null;
-
-            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
-            }
-
-            WindowHelper.OpenAttributesDependentComponentWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
-        }
-
         private async void btnPluginTree2_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
@@ -1399,6 +1354,590 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     menuContextConnection2.Visibility = Visibility.Visible;
                 }
             }
+        }
+
+        private RibbonLocationFilters GetRibbonLocationFilters()
+        {
+            RibbonLocationFilters filter = RibbonLocationFilters.All;
+
+            if (_commonConfig.ExportRibbonXmlForm || _commonConfig.ExportRibbonXmlHomepageGrid || _commonConfig.ExportRibbonXmlSubGrid)
+            {
+                filter = 0;
+
+                if (_commonConfig.ExportRibbonXmlForm)
+                {
+                    filter |= RibbonLocationFilters.Form;
+                }
+
+                if (_commonConfig.ExportRibbonXmlHomepageGrid)
+                {
+                    filter |= RibbonLocationFilters.HomepageGrid;
+                }
+
+                if (_commonConfig.ExportRibbonXmlSubGrid)
+                {
+                    filter |= RibbonLocationFilters.SubGrid;
+                }
+            }
+
+            return filter;
+        }
+
+        private void mIDifferenceEntityRibbon_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null || string.IsNullOrEmpty(entity.LogicalName))
+            {
+                return;
+            }
+
+            ExecuteDifferenceEntityRibbon(entity.LogicalName);
+        }
+
+        private async Task ExecuteDifferenceEntityRibbon(string entityName)
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            var service1 = await GetService1();
+            var service2 = await GetService2();
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingEntityRibbonConnectionFormat3, entityName, service1.ConnectionData.Name, service1.ConnectionData.Name);
+
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityFormat1, entityName);
+
+            try
+            {
+                string fileName1 = EntityFileNameFormatter.GetEntityRibbonFileName(service1.ConnectionData.Name, entityName);
+                string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
+
+                string filePath2 = string.Empty;
+
+                var filter = GetRibbonLocationFilters();
+
+                var repository1 = new RibbonCustomizationRepository(service1);
+
+                var task1 = repository1.ExportEntityRibbonAsync(entityName, filter, filePath1, _commonConfig);
+
+                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                {
+                    var repository2 = new RibbonCustomizationRepository(service2);
+
+                    string fileName2 = EntityFileNameFormatter.GetEntityRibbonFileName(service2.ConnectionData.Name, entityName);
+                    filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
+
+                    var task2 = repository2.ExportEntityRibbonAsync(entityName, filter, filePath2, _commonConfig);
+
+                    await task2;
+                }
+
+                await task1;
+
+                this._iWriteToOutput.WriteToOutput("{0} Entity {1} Ribbon Xml exported to {2}", service1.ConnectionData.Name, entityName, filePath1);
+                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                {
+                    this._iWriteToOutput.WriteToOutput("{0} Entity {1} Ribbon Xml exported to {2}", service2.ConnectionData.Name, entityName, filePath2);
+                }
+
+                if (File.Exists(filePath1) && File.Exists(filePath2))
+                {
+                    this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                }
+                else
+                {
+                    this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+
+                    this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                }
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityCompletedFormat1, entityName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityFailedFormat1, entityName);
+            }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingEntityRibbonConnectionFormat3, entityName, service1.ConnectionData.Name, service1.ConnectionData.Name);
+        }
+
+        private void mIDifferenceEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null || string.IsNullOrEmpty(entity.LogicalName))
+            {
+                return;
+            }
+
+            ExecuteDifferenceEntityRibbonDiffXml(entity);
+        }
+
+        private async Task ExecuteDifferenceEntityRibbonDiffXml(LinkedEntityMetadata entity)
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            var service1 = await GetService1();
+            var service2 = await GetService2();
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingEntityRibbonDiffXmlConnectionFormat3, entity.LogicalName, service1.ConnectionData.Name, service1.ConnectionData.Name);
+
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityFormat1, entity.LogicalName);
+
+            try
+            {
+                var solutionUniqueName = string.Format("RibbonDiffXml_{0}", Guid.NewGuid());
+                solutionUniqueName = solutionUniqueName.Replace("-", "_");
+
+                string filePath1 = string.Empty;
+                string filePath2 = string.Empty;
+
+                Solution solution1 = null;
+                Solution solution2 = null;
+
+                Task<string> task1 = null;
+                Task<string> task2 = null;
+
+                {
+                    var repositoryPublisher1 = new PublisherRepository(service1);
+
+                    var publisherDefault1 = await repositoryPublisher1.GetDefaultPublisherAsync();
+
+                    if (publisherDefault1 != null)
+                    {
+                        solution1 = new Solution()
+                        {
+                            UniqueName = solutionUniqueName,
+                            FriendlyName = solutionUniqueName,
+
+                            Description = "Temporary solution for exporting RibbonDiffXml.",
+
+                            PublisherId = publisherDefault1.ToEntityReference(),
+
+                            Version = "1.0.0.0",
+                        };
+
+                        solution1.Id = service1.Create(solution1);
+
+                        {
+                            var repositorySolutionComponent = new SolutionComponentRepository(service1);
+
+                            await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
+                            {
+                                ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                                ObjectId = entity.EntityMetadata1.MetadataId.Value,
+                                RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                            }});
+                        }
+
+                        var repository = new ExportSolutionHelper(service1);
+
+                        task1 = repository.ExportSolutionAndGetRibbonDiffAsync(solutionUniqueName, entity.LogicalName);
+                    }
+                }
+
+                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                {
+                    var repositoryPublisher2 = new PublisherRepository(service2);
+
+                    var publisherDefault2 = await repositoryPublisher2.GetDefaultPublisherAsync();
+
+                    if (publisherDefault2 != null)
+                    {
+                        solution2 = new Solution()
+                        {
+                            UniqueName = solutionUniqueName,
+                            FriendlyName = solutionUniqueName,
+
+                            Description = "Temporary solution for exporting RibbonDiffXml.",
+
+                            PublisherId = publisherDefault2.ToEntityReference(),
+
+                            Version = "1.0.0.0",
+                        };
+
+                        solution2.Id = service2.Create(solution2);
+
+                        {
+                            var repositorySolutionComponent = new SolutionComponentRepository(service2);
+
+                            await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
+                            {
+                                ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                                ObjectId = entity.EntityMetadata2.MetadataId.Value,
+                                RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                            }});
+                        }
+
+                        var repository = new ExportSolutionHelper(service2);
+
+                        task2 = repository.ExportSolutionAndGetRibbonDiffAsync(solutionUniqueName, entity.LogicalName);
+                    }
+                }
+
+                if (task1 != null)
+                {
+                    string ribbonDiffXml = await task1;
+
+                    if (_commonConfig.SetXmlSchemasDuringExport)
+                    {
+                        var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+
+                        if (schemasResources != null)
+                        {
+                            string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(schemasResources.Item2);
+
+                            if (!string.IsNullOrEmpty(schemas))
+                            {
+                                ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemas);
+                            }
+                        }
+                    }
+
+                    if (_commonConfig.SetIntellisenseContext)
+                    {
+                        ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, entity.LogicalName);
+                    }
+
+                    ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+
+                    string fileName1 = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service1.ConnectionData.Name, entity.LogicalName);
+                    filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
+
+                    File.WriteAllText(filePath1, ribbonDiffXml, new UTF8Encoding(false));
+
+                    if (solution1 != null)
+                    {
+                        await service1.DeleteAsync(solution1.LogicalName, solution1.Id);
+                    }
+                }
+
+                if (task2 != null)
+                {
+                    string ribbonDiffXml = await task2;
+
+                    if (_commonConfig.SetXmlSchemasDuringExport)
+                    {
+                        var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+
+                        if (schemasResources != null)
+                        {
+                            string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(schemasResources.Item2);
+
+                            if (!string.IsNullOrEmpty(schemas))
+                            {
+                                ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemas);
+                            }
+                        }
+                    }
+
+                    if (_commonConfig.SetIntellisenseContext)
+                    {
+                        ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, entity.LogicalName);
+                    }
+
+                    ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+
+                    string fileName2 = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service2.ConnectionData.Name, entity.LogicalName);
+                    filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
+
+                    File.WriteAllText(filePath2, ribbonDiffXml, new UTF8Encoding(false));
+
+                    if (solution2 != null)
+                    {
+                        await service2.DeleteAsync(solution2.LogicalName, solution2.Id);
+                    }
+                }
+
+                this._iWriteToOutput.WriteToOutput("{0} Entity {1} Ribbon Xml exported to {2}", service1.ConnectionData.Name, entity.LogicalName, filePath1);
+                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                {
+                    this._iWriteToOutput.WriteToOutput("{0} Entity {1} Ribbon Xml exported to {2}", service2.ConnectionData.Name, entity.LogicalName, filePath2);
+                }
+
+                if (File.Exists(filePath1) && File.Exists(filePath2))
+                {
+                    this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                }
+                else
+                {
+                    this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+
+                    this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                }
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityCompletedFormat1, entity.LogicalName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityFailedFormat1, entity.LogicalName);
+            }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingEntityRibbonDiffXmlConnectionFormat3, entity.LogicalName, service1.ConnectionData.Name, service1.ConnectionData.Name);
+        }
+
+        private void mIConnection1EntityRibbon_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null || string.IsNullOrEmpty(entity.LogicalName))
+            {
+                return;
+            }
+
+            ExecuteCreatingEntityRibbon(GetService1, entity.LogicalName);
+        }
+
+        private void mIConnection2EntityRibbon_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null || string.IsNullOrEmpty(entity.LogicalName))
+            {
+                return;
+            }
+
+            ExecuteCreatingEntityRibbon(GetService2, entity.LogicalName);
+        }
+
+        private async Task ExecuteCreatingEntityRibbon(Func<Task<IOrganizationServiceExtented>> getService, string entityName)
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            var filters = GetRibbonLocationFilters();
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingRibbonForEntityFormat1, entityName);
+
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonForEntityFormat1, entityName);
+
+            try
+            {
+                var service = await getService();
+
+                string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityName);
+                string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                var repository = new RibbonCustomizationRepository(service);
+
+                await repository.ExportEntityRibbonAsync(entityName, filters, filePath, _commonConfig);
+
+                this._iWriteToOutput.WriteToOutput("Ribbon Xml exported to {0}", filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityCompletedFormat1, entityName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityFailedFormat1, entityName);
+            }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingRibbonForEntityFormat1, entityName);
+        }
+
+        private void mIConnection1EntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null || string.IsNullOrEmpty(entity.LogicalName))
+            {
+                return;
+            }
+
+            ExecuteCreatingEntityRibbonDiffXml(GetService1, entity.EntityMetadata1);
+        }
+
+        private void mIConnection2EntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null || string.IsNullOrEmpty(entity.LogicalName))
+            {
+                return;
+            }
+
+            ExecuteCreatingEntityRibbonDiffXml(GetService2, entity.EntityMetadata2);
+        }
+
+        private async Task ExecuteCreatingEntityRibbonDiffXml(Func<Task<IOrganizationServiceExtented>> getService, EntityMetadata entity)
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat1, entity.LogicalName);
+
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFormat1, entity.LogicalName);
+
+            try
+            {
+                var service = await getService();
+
+                var repositoryPublisher = new PublisherRepository(service);
+
+                var publisherDefault = await repositoryPublisher.GetDefaultPublisherAsync();
+
+                if (publisherDefault != null)
+                {
+                    var solutionUniqueName = string.Format("RibbonDiffXml_{0}", Guid.NewGuid());
+                    solutionUniqueName = solutionUniqueName.Replace("-", "_");
+
+                    var solution = new Solution()
+                    {
+                        UniqueName = solutionUniqueName,
+                        FriendlyName = solutionUniqueName,
+
+                        Description = "Temporary solution for exporting RibbonDiffXml.",
+
+                        PublisherId = publisherDefault.ToEntityReference(),
+
+                        Version = "1.0.0.0",
+                    };
+
+                    UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
+
+                    solution.Id = service.Create(solution);
+
+                    UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionEntityFormat2, solutionUniqueName, entity.LogicalName);
+
+                    {
+                        var repositorySolutionComponent = new SolutionComponentRepository(service);
+
+                        await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
+                        {
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                            ObjectId = entity.MetadataId.Value,
+                            RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                        }});
+                    }
+
+                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat2, solutionUniqueName, entity.LogicalName);
+
+                    var repository = new ExportSolutionHelper(service);
+
+                    string ribbonDiffXml = await repository.ExportSolutionAndGetRibbonDiffAsync(solutionUniqueName, entity.LogicalName);
+
+                    if (_commonConfig.SetXmlSchemasDuringExport)
+                    {
+                        var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+
+                        if (schemasResources != null)
+                        {
+                            string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(schemasResources.Item2);
+
+                            if (!string.IsNullOrEmpty(schemas))
+                            {
+                                ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemas);
+                            }
+                        }
+                    }
+
+                    if (_commonConfig.SetIntellisenseContext)
+                    {
+                        ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, entity.LogicalName);
+                    }
+
+                    ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+
+                    {
+                        string fileName = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service.ConnectionData.Name, entity.LogicalName);
+                        string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                        File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
+
+                        this._iWriteToOutput.WriteToOutput("RibbonDiff Xml exported to {0}", filePath);
+
+                        this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    }
+
+                    UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
+
+                    await service.DeleteAsync(solution.LogicalName, solution.Id);
+
+                    ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityCompletedFormat1, entity.LogicalName);
+                }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFailedFormat1, entity.LogicalName);
+            }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat1, entity.LogicalName);
+        }
+
+        private void miExportEntityMetadataOptions_Click(object sender, RoutedEventArgs e)
+        {
+            _optionsExportEntityMetadata.Focus();
+            _optionsExportEntityMetadata.IsOpen = true;
+        }
+
+        private void miExportAttributesDependentComponentsOptions_Click(object sender, RoutedEventArgs e)
+        {
+            _optionsExportAttributesDependentComponents.Focus();
+            _optionsExportAttributesDependentComponents.IsOpen = true;
+        }
+
+        private void miExportEntityRibbonOptions_Click(object sender, RoutedEventArgs e)
+        {
+            _optionsEntityRibbon.Focus();
+            _optionsEntityRibbon.IsOpen = true;
         }
     }
 }

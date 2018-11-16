@@ -18,7 +18,7 @@
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                 <Separator/>
-                <MenuItem Header="Entity Ribbon" Click="btnCompareRibbon_Click"/>
+                <MenuItem Header="Entity Ribbon" Click="btnCompareApplicationRibbons_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
                 <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
@@ -39,8 +39,6 @@
                 <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer1_Click"/>
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer1_Click"/>
                 <Separator/>
-                <MenuItem Header="Ribbon" Click="btnExportRibbon1_Click"/>
-                <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets1_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnSystemForms1_Click"/>
@@ -49,7 +47,7 @@
                 <Separator/>
                 <MenuItem Header="Workflows" Click="btnWorkflows1_Click"/>
                 <Separator/>
-                <MenuItem Header="Attributes Dependencies" Click="btnAttributesDependentComponent1_Click"/>
+                <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon1_Click"/>
                 <Separator/>
                 <MenuItem Header="Plugin Tree" Click="btnPluginTree1_Click"/>
                 <MenuItem Header="Message Tree" Click="btnMessageTree1_Click"/>
@@ -68,8 +66,6 @@
                 <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer2_Click"/>
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer2_Click"/>
                 <Separator/>
-                <MenuItem Header="Ribbon" Click="btnExportRibbon2_Click"/>
-                <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets2_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnSystemForms2_Click"/>
@@ -78,7 +74,7 @@
                 <Separator/>
                 <MenuItem Header="Workflows" Click="btnWorkflows2_Click"/>
                 <Separator/>
-                <MenuItem Header="Attributes Dependencies" Click="btnAttributesDependentComponent2_Click"/>
+                <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon2_Click"/>
                 <Separator/>
                 <MenuItem Header="Plugin Tree" Click="btnPluginTree2_Click"/>
                 <MenuItem Header="Message Tree" Click="btnMessageTree2_Click"/>
@@ -134,7 +130,7 @@
                 <TextBox x:Name="txtBSpaceCount" Text="{Binding Path=SpaceCount}" VerticalAlignment="Center" Margin="5" VerticalContentAlignment="Center" Width="65"/>
             </StackPanel>
         </GroupBox>
-        <CheckBox x:Name="chBWithDependentComponents" IsChecked="{Binding Path=CreateGlobalOptionSetsWithDependentComponents}" Content="With dependent components" HorizontalAlignment="Left" Margin="503,70,0,0" VerticalAlignment="Top" />
+        <CheckBox x:Name="chBWithDependentComponents" IsChecked="{Binding Path=GlobalOptionSetsWithDependentComponents}" Content="With dependent components" HorizontalAlignment="Left" Margin="503,70,0,0" VerticalAlignment="Top" />
         <CheckBox x:Name="chBAllDescriptions" IsChecked="{Binding Path=AllDescriptions}" Content="All descriptions" HorizontalAlignment="Left" Margin="503,90,0,0" VerticalAlignment="Top" />
         <CheckBox x:Name="chBWithManagedInfo" IsChecked="{Binding Path=WithManagedInfo}" Content="With Managed Info" HorizontalAlignment="Left" Margin="503,110,0,0" VerticalAlignment="Top"/>
 

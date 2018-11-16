@@ -34,6 +34,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static readonly Guid ToolsDiffCommandGuid = new Guid("5D4C0442-C0A2-4BE8-9B4D-AB1C28450942");
         private const int ToolsDiffCommandId = 256;
 
+        private bool _firstWriteToOutput = true;
+
         public DTE2 ApplicationObject { get; private set; }
 
         private MainController Controller;
@@ -814,6 +816,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     outputWindowLocal.OutputString(message);
                     outputWindowLocal.OutputString(Environment.NewLine);
 
+                    _firstWriteToOutput = false;
+
                     if (outputWindowLocal.TextDocument != null
                         && outputWindowLocal.TextDocument.Selection != null)
                     {
@@ -938,14 +942,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     if (config != null && config.ClearOutputWindowBeforeCRMOperation)
                     {
                         outputWindowLocal.Clear();
+                        _firstWriteToOutput = true;
                     }
                     else
                     {
-                        outputWindowLocal.OutputString(Environment.NewLine);
-                        outputWindowLocal.OutputString(Environment.NewLine);
-                        outputWindowLocal.OutputString(Environment.NewLine);
-                        outputWindowLocal.OutputString(Environment.NewLine);
-                        outputWindowLocal.OutputString(Environment.NewLine);
+                        if (!_firstWriteToOutput)
+                        {
+                            outputWindowLocal.OutputString(Environment.NewLine);
+                            outputWindowLocal.OutputString(Environment.NewLine);
+                            outputWindowLocal.OutputString(Environment.NewLine);
+                            outputWindowLocal.OutputString(Environment.NewLine);
+                            outputWindowLocal.OutputString(Environment.NewLine);
+
+                            _firstWriteToOutput = false;
+                        }
                     }
                 }
             }
@@ -2876,32 +2886,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 catch (Exception ex)
                 {
                     this.WriteErrorToOutput(ex);
-                }
-            }
-        }
-
-        public void HandleExportEntityAttributesDependentComponents()
-        {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-            string selection = GetSelectedText();
-
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
-            {
-                return;
-            }
-
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
-            {
-                ActivateOutputWindow();
-                WriteToOutputEmptyLines(commonConfig);
-
-                try
-                {
-                    Controller.StartExportEntityAttributesDependentComponents(selection, crmConfig.CurrentConnectionData, commonConfig);
-                }
-                catch (Exception xE)
-                {
-                    WriteErrorToOutput(xE);
                 }
             }
         }

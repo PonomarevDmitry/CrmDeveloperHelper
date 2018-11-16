@@ -1155,7 +1155,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIExportAttributesDependentComponents_Click(object sender, RoutedEventArgs e)
+        private void tSMIExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
 
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
@@ -1170,33 +1170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         _commonConfig.Save();
 
-                        contr.ExecuteExportingEntityAttributesDependentComponents(string.Empty, connection1, _commonConfig);
-                    }
-                    catch (Exception ex)
-                    {
-                        this._iWriteToOutput.WriteErrorToOutput(ex);
-                    }
-                });
-                backWorker.Start();
-            }
-        }
-
-        private void tSMIExportRibbon_Click(object sender, RoutedEventArgs e)
-        {
-
-            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
-
-            if (connection1 != null && connection2 == null)
-            {
-                var backWorker = new Thread(() =>
-                {
-                    try
-                    {
-                        ExportXmlController contr = new ExportXmlController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
-
-                        contr.ExecuteExportingRibbonXml(string.Empty, connection1, _commonConfig);
+                        contr.ExecuteExportingApplicationRibbonXml(string.Empty, connection1, _commonConfig);
                     }
                     catch (Exception ex)
                     {
@@ -1978,9 +1952,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 );
         }
 
-        private void tSMIDifferenceRibbons_Click(object sender, RoutedEventArgs e)
+        private void tSMIDifferenceApplicationRibbons_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
@@ -2006,12 +1979,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenOrganizationComparerRibbonWindow(
+            WindowHelper.OpenOrganizationComparerApplicationRibbonWindow(
                 this._iWriteToOutput
                 , _commonConfig
                 , connection1
                 , connection2
-                , null
                 );
         }
 

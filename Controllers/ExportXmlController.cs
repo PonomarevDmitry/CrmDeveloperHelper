@@ -72,15 +72,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Экспортирование Sitemap Xml.
 
-        #region Экспортирование RibbonXml.
+        #region Экспортирование ApplicationRibbon.
 
-        public async Task ExecuteExportingRibbonXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingApplicationRibbonXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingRibbonXml);
 
             try
             {
-                await ExportingRibbonXml(selection, connectionData, commonConfig);
+                await ExportingApplicationRibbonXml(selection, connectionData, commonConfig);
             }
             catch (Exception xE)
             {
@@ -92,7 +92,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ExportingRibbonXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task ExportingApplicationRibbonXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             if (connectionData == null)
             {
@@ -109,10 +109,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenEntityRibbonWindow(this._iWriteToOutput, service, commonConfig, selection, null);
+            WindowHelper.OpenApplicationRibbonWindow(this._iWriteToOutput, service, commonConfig);
         }
 
-        #endregion Экспортирование RibbonXml.
+        #endregion Экспортирование Ribbon.
 
         #region Экспортирование System View (Saved Query) LayoutXml and FethcXml.
 
@@ -377,48 +377,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Экспортирование списка событий форм.
-
-        #region Экспортирование зависимостей атрибутов.
-
-        public async Task ExecuteExportingEntityAttributesDependentComponents(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingEntityAttributesDependentComponents);
-
-            try
-            {
-                await ExportingEntityAttributesDependentComponents(selection, connectionData, commonConfig);
-            }
-            catch (Exception xE)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingEntityAttributesDependentComponents);
-            }
-        }
-
-        private async Task ExportingEntityAttributesDependentComponents(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
-
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-            WindowHelper.OpenAttributesDependentComponentWindow(this._iWriteToOutput, service, commonConfig, selection, null);
-        }
-
-        #endregion Экспортирование зависимостей атрибутов.
 
         #region Экспортирование Workflow.
 

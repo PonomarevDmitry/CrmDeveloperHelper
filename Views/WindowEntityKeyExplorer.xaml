@@ -31,8 +31,6 @@
                 <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
                 <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                 <Separator/>
-                <MenuItem Header="Ribbon" Click="btnExportRibbon_Click"/>
-                <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
@@ -41,7 +39,7 @@
                 <Separator/>
                 <MenuItem Header="Workflows" Click="btnWorkflows_Click"/>
                 <Separator/>
-                <MenuItem Header="Attributes Dependencies" Click="btnAttributesDependentComponent_Click"/>
+                <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click"/>
                 <Separator/>
                 <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click"/>
                 <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
@@ -53,7 +51,7 @@
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                 <Separator/>
-                <MenuItem Header="Entity Ribbon" Click="btnCompareRibbon_Click"/>
+                <MenuItem Header="Entity Ribbon" Click="btnCompareApplicationRibbons_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
                 <Separator/>
@@ -90,8 +88,6 @@
                     <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
                     <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                     <Separator/>
-                    <MenuItem Header="Ribbon" Click="btnExportRibbon_Click" />
-                    <Separator/>
                     <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
                     <Separator/>
                     <MenuItem Header="Forms" Click="btnSystemForms_Click" />
@@ -100,7 +96,7 @@
                     <Separator/>
                     <MenuItem Header="Workflows" Click="btnWorkflows_Click" />
                     <Separator/>
-                    <MenuItem Header="Attributes Dependencies" Click="btnAttributesDependentComponent_Click" />
+                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click" />
                     <Separator/>
                     <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click" />
                     <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
@@ -110,7 +106,7 @@
                 <MenuItem Header="Compare Information with other Organization" VerticalAlignment="Center">
                     <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                     <Separator/>
-                    <MenuItem Header="Entity Ribbon" Click="btnCompareRibbon_Click"/>
+                    <MenuItem Header="Entity Ribbon" Click="btnCompareApplicationRibbons_Click"/>
                     <Separator/>
                     <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
                     <Separator/>

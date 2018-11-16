@@ -563,9 +563,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportMouseDoubleClick(string folder, Guid idWebResource, string name)
         {
-            //await PerformExportEntityDescription(folder, idWebResource, name);
-
             await PerformExportWebResourceContent(folder, idWebResource, name);
+
+            //await PerformExportEntityDescription(folder, idWebResource, name);
 
             //await PerformExportXmlToFile(folder, idWebResource, name, WebResource.Schema.Attributes.dependencyxml, "DependencyXml);
         }

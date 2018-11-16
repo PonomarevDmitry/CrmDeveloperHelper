@@ -698,24 +698,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._exportXmlController.ExecuteExportingRibbonXml(selection, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartExportEntityAttributesDependentComponents(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._exportXmlController.ExecuteExportingEntityAttributesDependentComponents(selection, connectionData, commonConfig);
+                    this._exportXmlController.ExecuteExportingApplicationRibbonXml(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

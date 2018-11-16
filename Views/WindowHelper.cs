@@ -169,12 +169,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenEntityRibbonWindow(
+        public static void OpenApplicationRibbonWindow(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string entityName
-            , IEnumerable<EntityMetadata> entityMetadataList
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -185,41 +183,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput
                         , service
                         , commonConfig
-                        , entityName
-                        , entityMetadataList
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
-        }
-
-        public static void OpenAttributesDependentComponentWindow(
-            IWriteToOutput iWriteToOutput
-            , IOrganizationServiceExtented service
-            , CommonConfiguration commonConfig
-            , string entityName
-            , IEnumerable<EntityMetadata> entityMetadataList
-            )
-        {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExportEntityAttributesDependentComponents(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , entityName
-                        , entityMetadataList
                     );
 
                     form.ShowDialog();
@@ -941,19 +904,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenOrganizationComparerRibbonWindow(
+        public static void OpenOrganizationComparerApplicationRibbonWindow(
             IWriteToOutput iWriteToOutput
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
-            , string entityFilter
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
                 try
                 {
-                    var form = new WindowOrganizationComparerRibbon(
+                    var form = new WindowOrganizationComparerApplicationRibbon(
                         iWriteToOutput
                         , commonConfig
                         , connection1

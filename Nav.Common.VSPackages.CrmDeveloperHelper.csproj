@@ -171,13 +171,12 @@
     <Compile Include="Commands\CommonOpenSolutionImageCommand.cs" />
     <Compile Include="Commands\CommonPluginConfigurationCreateCommand.cs" />
     <Compile Include="Commands\CommonCrmConnectionCommand.cs" />
-    <Compile Include="Commands\CommonExportAttributesAndDependentComponentsCommand.cs" />
     <Compile Include="Commands\CommonExportEntityMetadataCommand.cs" />
     <Compile Include="Commands\CommonExportFormEventsCommand.cs" />
     <Compile Include="Commands\CommonExportGlobalOptionSetsCommand.cs" />
     <Compile Include="Commands\CommonExportOrganizationCommand.cs" />
     <Compile Include="Commands\CommonExportReportCommand.cs" />
-    <Compile Include="Commands\CommonExportRibbonXmlCommand.cs" />
+    <Compile Include="Commands\CommonExportApplicationRibbonXmlCommand.cs" />
     <Compile Include="Commands\CommonExportSiteMapCommand.cs" />
     <Compile Include="Commands\CommonExportSolutionComponentsCommand.cs" />
     <Compile Include="Commands\CommonExportSystemFormXmlCommand.cs" />
@@ -861,6 +860,15 @@
     <Compile Include="Repository\WebResourceRepository.cs" />
     <Compile Include="Repository\WorkflowRepository.cs" />
     <Compile Include="ToolWindowPanes\FetchXmlExecutorToolWindowPane.cs" />
+    <Compile Include="UserControls\ExportEntityAttributesDependentComponentsOptionsControl.xaml.cs">
+      <DependentUpon>ExportEntityAttributesDependentComponentsOptionsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ExportEntityMetadataOptionsControl.xaml.cs">
+      <DependentUpon>ExportEntityMetadataOptionsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ExportEntityRibbonOptionsControl.xaml.cs">
+      <DependentUpon>ExportEntityRibbonOptionsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\FetchXmlExecutorControl.xaml.cs">
       <DependentUpon>FetchXmlExecutorControl.xaml</DependentUpon>
     </Compile>
@@ -901,9 +909,6 @@
     <Compile Include="Views\WindowExplorerSolutionComponents.xaml.cs">
       <DependentUpon>WindowExplorerSolutionComponents.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportEntityAttributesDependentComponents.xaml.cs">
-      <DependentUpon>WindowExportEntityAttributesDependentComponents.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\WindowExportEntityMetadata.xaml.cs">
       <DependentUpon>WindowExportEntityMetadata.xaml</DependentUpon>
     </Compile>
@@ -925,8 +930,8 @@
     <Compile Include="Views\WindowExportReport.xaml.cs">
       <DependentUpon>WindowExportReport.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportRibbon.xaml.cs">
-      <DependentUpon>WindowExportRibbon.xaml</DependentUpon>
+    <Compile Include="Views\WindowExportApplicationRibbon.xaml.cs">
+      <DependentUpon>WindowExportApplicationRibbon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowExportSavedQuery.xaml.cs">
       <DependentUpon>WindowExportSavedQuery.xaml</DependentUpon>
@@ -968,8 +973,8 @@
     <Compile Include="Views\WindowOrganizationComparerReport.xaml.cs">
       <DependentUpon>WindowOrganizationComparerReport.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowOrganizationComparerRibbon.xaml.cs">
-      <DependentUpon>WindowOrganizationComparerRibbon.xaml</DependentUpon>
+    <Compile Include="Views\WindowOrganizationComparerApplicationRibbon.xaml.cs">
+      <DependentUpon>WindowOrganizationComparerApplicationRibbon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowOrganizationComparerSavedQuery.xaml.cs">
       <DependentUpon>WindowOrganizationComparerSavedQuery.xaml</DependentUpon>
@@ -1359,6 +1364,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UserControls\ExportEntityAttributesDependentComponentsOptionsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ExportEntityMetadataOptionsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ExportEntityRibbonOptionsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\FetchXmlExecutorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1411,10 +1428,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportEntityAttributesDependentComponents.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\WindowExportEntityMetadata.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1443,7 +1456,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportRibbon.xaml">
+    <Page Include="Views\WindowExportApplicationRibbon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1499,7 +1512,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowOrganizationComparerRibbon.xaml">
+    <Page Include="Views\WindowOrganizationComparerApplicationRibbon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

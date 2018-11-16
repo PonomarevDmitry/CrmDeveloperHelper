@@ -1067,7 +1067,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         entityName
                         , folder
                         , tabSpacer
-                        , false
+                        , _commonConfig.EntityMetadaOptionSetDependentComponents
                         );
 
                     XElement doc = XElement.Parse(formXml);
@@ -1350,26 +1350,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.ObjectTypeCode);
         }
 
-        private async void btnExportRibbon_Click(object sender, RoutedEventArgs e)
+        private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             _commonConfig.Save();
 
             var service = await GetService();
 
-            WindowHelper.OpenEntityRibbonWindow(this._iWriteToOutput, service, _commonConfig, entity?.ObjectTypeCode, null);
-        }
-
-        private async void btnAttributesDependentComponent_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenAttributesDependentComponentWindow(this._iWriteToOutput, service, _commonConfig, entity?.ObjectTypeCode, null);
+            WindowHelper.OpenApplicationRibbonWindow(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnSavedQuery_Click(object sender, RoutedEventArgs e)
@@ -1458,7 +1445,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.ObjectTypeCode);
         }
 
-        private async void btnCompareRibbon_Click(object sender, RoutedEventArgs e)
+        private async void btnCompareApplicationRibbons_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1466,7 +1453,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenOrganizationComparerRibbonWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.ObjectTypeCode);
+            WindowHelper.OpenOrganizationComparerApplicationRibbonWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
         }
 
         private async void btnCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)

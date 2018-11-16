@@ -1,27 +1,41 @@
+using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Resources;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Schema;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowExportEntityMetadata : WindowBase
     {
         private readonly object sysObjectConnections = new object();
+
+        private Popup _optionsExportEntityMetadata;
+        private Popup _optionsExportAttributesDependentComponents;
+        private Popup _optionsEntityRibbon;
 
         private IWriteToOutput _iWriteToOutput;
 
@@ -70,6 +84,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
+            this._optionsExportEntityMetadata = new Popup
+            {
+                Child = new ExportEntityMetadataOptionsControl(_commonConfig),
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+            };
+            this._optionsExportAttributesDependentComponents = new Popup
+            {
+                Child = new ExportEntityAttributesDependentComponentsOptionsControl(_commonConfig),
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+            };
+            this._optionsEntityRibbon = new Popup
+            {
+                Child = new ExportEntityRibbonOptionsControl(_commonConfig),
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+            };
+
             LoadFromConfig();
 
             txtBFilterEnitity.Text = filterEntity;
@@ -112,34 +151,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
-            txtBSpaceCount.DataContext = _commonConfig;
-
-            rBTab.DataContext = _commonConfig;
-            rBSpaces.DataContext = _commonConfig;
-
-            rBClasses.DataContext = _commonConfig;
-            rBEnums.DataContext = _commonConfig;
-
-            rBReadOnly.DataContext = _commonConfig;
-            rBConst.DataContext = _commonConfig;
-
-            chBAttributes.DataContext = _commonConfig;
-            chBManyToOne.DataContext = _commonConfig;
-            chBManyToMany.DataContext = _commonConfig;
-            chBOneToMany.DataContext = _commonConfig;
-            chBLocalOptionSets.DataContext = _commonConfig;
-            chBGlobalOptionSets.DataContext = _commonConfig;
-            chBStatus.DataContext = _commonConfig;
-            chBKeys.DataContext = _commonConfig;
-
-            chBIntoSchemaClass.DataContext = _commonConfig;
-
-            chBAllDescriptions.DataContext = _commonConfig;
-
-            chBWithDependentComponents.DataContext = _commonConfig;
-
-            chBWithManagedInfo.DataContext = _commonConfig;
-
             txtBNameSpace.DataContext = cmBCurrentConnection;
 
             cmBFileAction.DataContext = _commonConfig;
@@ -392,7 +403,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     bool enabled = this._controlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
 
-                    UIElement[] list = { btnCreateCSharpFile, btnCreateJavaScriptFile };
+                    UIElement[] list = { miEntityOperations };
 
                     foreach (var button in list)
                     {
@@ -421,25 +432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Кнопки открытия других форм с информация о сущности.
 
-        private async void btnExportRibbon_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            IEnumerable<EntityMetadata> entityMetadataList = null;
-
-            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
-            }
-
-            WindowHelper.OpenEntityRibbonWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, entityMetadataList);
-        }
-
-        private async void btnEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
+        private async void miEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -450,7 +443,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName);
         }
 
-        private async void btnEntityRelationshipOneToManyExplorer_Click(object sender, RoutedEventArgs e)
+        private async void miEntityRelationshipOneToManyExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -461,7 +454,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName);
         }
 
-        private async void btnEntityRelationshipManyToManyExplorer_Click(object sender, RoutedEventArgs e)
+        private async void miEntityRelationshipManyToManyExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -472,7 +465,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName);
         }
 
-        private async void btnEntityKeyExplorer_Click(object sender, RoutedEventArgs e)
+        private async void miEntityKeyExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -483,7 +476,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName);
         }
 
-        private async void btnGlobalOptionSets_Click(object sender, RoutedEventArgs e)
+        private async void miGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -520,7 +513,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 );
         }
 
-        private async void btnSystemForms_Click(object sender, RoutedEventArgs e)
+        private async void miSystemForms_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -531,7 +524,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty);
         }
 
-        private async void btnSavedQuery_Click(object sender, RoutedEventArgs e)
+        private async void miSavedQuery_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -542,7 +535,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty);
         }
 
-        private async void btnSavedChart_Click(object sender, RoutedEventArgs e)
+        private async void miSavedChart_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -553,7 +546,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty);
         }
 
-        private async void btnWorkflows_Click(object sender, RoutedEventArgs e)
+        private async void miWorkflows_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -564,25 +557,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty);
         }
 
-        private async void btnAttributesDependentComponent_Click(object sender, RoutedEventArgs e)
+        private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             _commonConfig.Save();
 
             var service = await GetService();
 
-            IEnumerable<EntityMetadata> entityMetadataList = null;
-
-            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
-            }
-
-            WindowHelper.OpenAttributesDependentComponentWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, entityMetadataList);
+            WindowHelper.OpenApplicationRibbonWindow(this._iWriteToOutput, service, _commonConfig);
         }
 
-        private async void btnPluginTree_Click(object sender, RoutedEventArgs e)
+        private async void miPluginTree_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -593,7 +577,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty, string.Empty);
         }
 
-        private async void btnMessageTree_Click(object sender, RoutedEventArgs e)
+        private async void miMessageTree_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -604,7 +588,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty);
         }
 
-        private async void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
+        private async void miMessageRequestTree_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -615,7 +599,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty);
         }
 
-        private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)
+        private async void miOrganizationComparer_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
@@ -624,7 +608,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig);
         }
 
-        private async void btnCompareMetadataFile_Click(object sender, RoutedEventArgs e)
+        private async void miCompareMetadataFile_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -635,7 +619,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.EntityLogicalName);
         }
 
-        private async void btnCompareRibbon_Click(object sender, RoutedEventArgs e)
+        private async void miCompareApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -643,10 +627,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenOrganizationComparerRibbonWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.EntityLogicalName);
+            WindowHelper.OpenOrganizationComparerApplicationRibbonWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
         }
 
-        private async void btnCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
+        private async void miCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -657,7 +641,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.EntityLogicalName);
         }
 
-        private async void btnCompareSystemForms_Click(object sender, RoutedEventArgs e)
+        private async void miCompareSystemForms_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -668,7 +652,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.EntityLogicalName);
         }
 
-        private async void btnCompareSavedQuery_Click(object sender, RoutedEventArgs e)
+        private async void miCompareSavedQuery_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -679,7 +663,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.EntityLogicalName);
         }
 
-        private async void btnCompareSavedChart_Click(object sender, RoutedEventArgs e)
+        private async void miCompareSavedChart_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -690,7 +674,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.EntityLogicalName);
         }
 
-        private async void btnCompareWorkflows_Click(object sender, RoutedEventArgs e)
+        private async void miCompareWorkflows_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -708,7 +692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void btnCreateCSharpFile_Click(object sender, RoutedEventArgs e)
+        private void miCreateCSharpFile_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -717,7 +701,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.EntityLogicalName, CreateEntityMetadataFileAsync);
+            ExecuteActionAsync(entity, CreateEntityMetadataFileAsync);
         }
 
         private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -728,12 +712,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteActionAsync(item.EntityLogicalName, CreateEntityMetadataFileAsync);
+                    ExecuteActionAsync(item, CreateEntityMetadataFileAsync);
                 }
             }
         }
 
-        private async Task ExecuteActionAsync(string entityName, Func<string, Task> action)
+        private async Task ExecuteActionAsync(EntityMetadataListViewItem entityMetadata, Func<EntityMetadataListViewItem, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -752,35 +736,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await action(entityName);
+            await action(entityMetadata);
         }
 
-        private async Task CreateEntityMetadataFileAsync(string entityName)
+        private async Task CreateEntityMetadataFileAsync(EntityMetadataListViewItem entityMetadata)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileForEntityFormat1, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileForEntityFormat1, entityMetadata.EntityLogicalName);
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityMetadata.EntityLogicalName);
 
             try
             {
                 string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
                 var config = new CreateFileWithEntityMetadataCSharpConfiguration(
-                    entityName
+                    entityMetadata.EntityLogicalName
                     , txtBFolder.Text.Trim()
                     , tabSpacer
-                    , chBAttributes.IsChecked.GetValueOrDefault()
-                    , chBStatus.IsChecked.GetValueOrDefault()
-                    , chBLocalOptionSets.IsChecked.GetValueOrDefault()
-                    , chBGlobalOptionSets.IsChecked.GetValueOrDefault()
-                    , chBOneToMany.IsChecked.GetValueOrDefault()
-                    , chBManyToOne.IsChecked.GetValueOrDefault()
-                    , chBManyToMany.IsChecked.GetValueOrDefault()
-                    , chBKeys.IsChecked.GetValueOrDefault()
-                    , chBAllDescriptions.IsChecked.GetValueOrDefault()
-                    , chBWithDependentComponents.IsChecked.GetValueOrDefault()
-                    , chBIntoSchemaClass.IsChecked.GetValueOrDefault()
-                    , chBWithManagedInfo.IsChecked.GetValueOrDefault()
+                    , _commonConfig.GenerateAttributes
+                    , _commonConfig.GenerateStatus
+                    , _commonConfig.GenerateLocalOptionSet
+                    , _commonConfig.GenerateGlobalOptionSet
+                    , _commonConfig.GenerateOneToMany
+                    , _commonConfig.GenerateManyToOne
+                    , _commonConfig.GenerateManyToMany
+                    , _commonConfig.GenerateKeys
+                    , _commonConfig.AllDescriptions
+                    , _commonConfig.EntityMetadaOptionSetDependentComponents
+                    , _commonConfig.GenerateIntoSchemaClass
+                    , _commonConfig.WithManagedInfo
                     , _commonConfig.ConstantType
                     , _commonConfig.OptionSetExportType
                     );
@@ -807,19 +791,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput(string.Empty);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityMetadata.EntityLogicalName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
                 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityMetadata.EntityLogicalName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileForEntityFormat1, entityName);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileForEntityFormat1, entityMetadata.EntityLogicalName);
         }
 
-        private void btnCreateJavaScriptFile_Click(object sender, RoutedEventArgs e)
+        private void miCreateJavaScriptFile_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -828,27 +812,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.EntityLogicalName, CreateEntityMetadataFileJSAsync);
+            ExecuteActionAsync(entity, CreateEntityMetadataFileJSAsync);
         }
 
-        private async Task CreateEntityMetadataFileJSAsync(string entityName)
+        private async Task CreateEntityMetadataFileJSAsync(EntityMetadataListViewItem entityMetadata)
         {
             if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileForEntityFormat1, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileForEntityFormat1, entityMetadata.EntityLogicalName);
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityMetadata.EntityLogicalName);
 
             string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
             var config = new CreateFileWithEntityMetadataJavaScriptConfiguration(
-                entityName
+                entityMetadata.EntityLogicalName
                 , txtBFolder.Text.Trim()
                 , tabSpacer
-                , chBWithDependentComponents.IsChecked.GetValueOrDefault()
+                , _commonConfig.EntityMetadaOptionSetDependentComponents
                 );
 
             try
@@ -866,19 +850,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput(string.Empty);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityMetadata.EntityLogicalName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityMetadata.EntityLogicalName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileForEntityFormat1, entityName);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileForEntityFormat1, entityMetadata.EntityLogicalName);
         }
 
-        private void btnExportEntityXml_Click(object sender, RoutedEventArgs e)
+        private void miCreateFileAttributesDependentComponents_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -887,31 +871,93 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.EntityLogicalName, CreateEntityXmlFileAsync);
+            ExecuteActionAsync(entity, StartCreateFileWithAttibuteDependentAsync);
         }
 
-        private void btnPublishEntity_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteActionAsync(entity.EntityLogicalName, PublishEntityAsync);
-        }
-
-        private async Task CreateEntityXmlFileAsync(string entityName)
+        private async Task StartCreateFileWithAttibuteDependentAsync(EntityMetadataListViewItem entityMetadata)
         {
             if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.GettingEntityXmlFormat1, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityMetadata.EntityLogicalName);
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityName);
+            this._iWriteToOutput.WriteToOutput("Start extracting information at {0} for entity '{1}'", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), entityMetadata.EntityLogicalName);
+
+            try
+            {
+                string folder = txtBFolder.Text.Trim();
+                bool allComponents = _commonConfig.AllDependentComponentsForAttributes;
+
+                var service = await GetService();
+
+                string fileName = string.Format("{0}.{1} attributes dependent components at {2}.txt", service.ConnectionData.Name, entityMetadata.EntityLogicalName, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                var dependencyRepository = new DependencyRepository(service);
+                var descriptor = new SolutionComponentDescriptor(service, true);
+                var descriptorHandler = new DependencyDescriptionHandler(descriptor);
+
+                var handler = new EntityAttributesDependentComponentsHandler(dependencyRepository, descriptor, descriptorHandler);
+
+                string message = await handler.CreateFileAsync(entityMetadata.EntityLogicalName, filePath, allComponents);
+
+                this._iWriteToOutput.WriteToOutput(message);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+
+                this._iWriteToOutput.WriteToOutput("End extracting information at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityMetadata.EntityLogicalName);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityMetadata.EntityLogicalName);
+            }
+        }
+
+        private void miExportEntityXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity, CreateEntityXmlFileAsync);
+        }
+
+        private void miPublishEntity_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity, PublishEntityAsync);
+        }
+
+        private async Task CreateEntityXmlFileAsync(EntityMetadataListViewItem entityMetadata)
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.GettingEntityXmlFormat1, entityMetadata.EntityLogicalName);
+
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityMetadata.EntityLogicalName);
 
             try
             {
@@ -919,39 +965,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new EntityMetadataRepository(service);
 
-                var fileName = string.Format("{0}.{1} - EntityXml at {2}.xml", service.ConnectionData.Name, entityName, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                var fileName = string.Format("{0}.{1} - EntityXml at {2}.xml", service.ConnectionData.Name, entityMetadata.EntityLogicalName, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
                 string filePath = Path.Combine(txtBFolder.Text.Trim(), FileOperations.RemoveWrongSymbols(fileName));
 
-                await repository.ExportEntityXmlAsync(entityName, filePath);
+                await repository.ExportEntityXmlAsync(entityMetadata.EntityLogicalName, filePath);
 
-                this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with EntityXml: {1}", entityName, filePath);
+                this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with EntityXml: {1}", entityMetadata.EntityLogicalName, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
                 this._iWriteToOutput.WriteToOutput(string.Empty);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityMetadata.EntityLogicalName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityMetadata.EntityLogicalName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.GettingEntityXmlFormat1, entityName);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.GettingEntityXmlFormat1, entityMetadata.EntityLogicalName);
         }
 
-        private async Task PublishEntityAsync(string entityName)
+        private async Task PublishEntityAsync(EntityMetadataListViewItem entityMetadata)
         {
             if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityMetadata.EntityLogicalName);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityMetadata.EntityLogicalName);
 
             try
             {
@@ -959,18 +1005,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new PublishActionsRepository(service);
 
-                await repository.PublishEntitiesAsync(new[] { entityName });
+                await repository.PublishEntitiesAsync(new[] { entityMetadata.EntityLogicalName });
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat1, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat1, entityMetadata.EntityLogicalName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat1, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat1, entityMetadata.EntityLogicalName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityName);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityMetadata.EntityLogicalName);
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -992,7 +1038,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnKeyDown(e);
         }
 
-        private void mIOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
+        private void miOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1009,7 +1055,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
+        private void miOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1026,7 +1072,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
+        private void miOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1102,7 +1148,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void miOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1119,7 +1165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, descriptor, _commonConfig, (int)ComponentType.Entity, entity.EntityMetadata.MetadataId.Value, null);
         }
 
-        private async void mIOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void miOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1161,6 +1207,490 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ShowExistingEntities();
             }
+        }
+
+        private void miExportEntityMetadataOptions_Click(object sender, RoutedEventArgs e)
+        {
+            _optionsExportEntityMetadata.Focus();
+            _optionsExportEntityMetadata.IsOpen = true;
+        }
+
+        private void miExportAttributesDependentComponentsOptions_Click(object sender, RoutedEventArgs e)
+        {
+            _optionsExportAttributesDependentComponents.Focus();
+            _optionsExportAttributesDependentComponents.IsOpen = true;
+        }
+
+        private void miExportEntityRibbonOptions_Click(object sender, RoutedEventArgs e)
+        {
+            _optionsEntityRibbon.Focus();
+            _optionsEntityRibbon.IsOpen = true;
+        }
+
+        private RibbonLocationFilters GetRibbonLocationFilters()
+        {
+            RibbonLocationFilters filter = RibbonLocationFilters.All;
+
+            if (_commonConfig.ExportRibbonXmlForm || _commonConfig.ExportRibbonXmlHomepageGrid || _commonConfig.ExportRibbonXmlSubGrid)
+            {
+                filter = 0;
+
+                if (_commonConfig.ExportRibbonXmlForm)
+                {
+                    filter |= RibbonLocationFilters.Form;
+                }
+
+                if (_commonConfig.ExportRibbonXmlHomepageGrid)
+                {
+                    filter |= RibbonLocationFilters.HomepageGrid;
+                }
+
+                if (_commonConfig.ExportRibbonXmlSubGrid)
+                {
+                    filter |= RibbonLocationFilters.SubGrid;
+                }
+            }
+
+            return filter;
+        }
+
+        private void miExportEntityRibbon_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity, PerformExportEntityRibbon);
+        }
+
+        private async Task PerformExportEntityRibbon(EntityMetadataListViewItem entityMetadata)
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonForEntityFormat1, entityMetadata.EntityLogicalName);
+
+            var service = await GetService();
+
+            string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityMetadata.EntityLogicalName);
+            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            try
+            {
+                RibbonLocationFilters filter = GetRibbonLocationFilters();
+
+                var repository = new RibbonCustomizationRepository(service);
+
+                await repository.ExportEntityRibbonAsync(entityMetadata.EntityLogicalName, filter, filePath, _commonConfig);
+
+                this._iWriteToOutput.WriteToOutput("{0} Ribbon exported to {1}", entityMetadata.EntityLogicalName, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
+
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityCompletedFormat1, entityMetadata.EntityLogicalName);
+        }
+
+        private void miExportEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity, PerformExportEntityRibbonDiffXml);
+        }
+
+        private async Task PerformExportEntityRibbonDiffXml(EntityMetadataListViewItem entityMetadata)
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat1, entityMetadata.EntityLogicalName);
+
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFormat1, entityMetadata.EntityLogicalName);
+
+            var service = await GetService();
+
+            try
+            {
+                var repositoryPublisher = new PublisherRepository(service);
+
+                var publisherDefault = await repositoryPublisher.GetDefaultPublisherAsync();
+
+                if (publisherDefault != null)
+                {
+                    var solutionUniqueName = string.Format("RibbonDiffXml_{0}", Guid.NewGuid());
+
+                    solutionUniqueName = solutionUniqueName.Replace("-", "_");
+
+                    var solution = new Solution()
+                    {
+                        UniqueName = solutionUniqueName,
+                        FriendlyName = solutionUniqueName,
+
+                        Description = "Temporary solution for exporting RibbonDiffXml.",
+
+                        PublisherId = publisherDefault.ToEntityReference(),
+
+                        Version = "1.0.0.0",
+                    };
+
+                    UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
+
+                    solution.Id = service.Create(solution);
+
+                    UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionEntityFormat2, solutionUniqueName, entityMetadata.EntityLogicalName);
+
+                    {
+                        var repositorySolutionComponent = new SolutionComponentRepository(service);
+
+                        await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
+                        {
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                            ObjectId = entityMetadata.EntityMetadata.MetadataId.Value,
+                            RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                        }});
+                    }
+
+                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat2, solutionUniqueName, entityMetadata.EntityLogicalName);
+
+                    var repository = new ExportSolutionHelper(service);
+
+                    string ribbonDiffXml = await repository.ExportSolutionAndGetRibbonDiffAsync(solutionUniqueName, entityMetadata.EntityLogicalName);
+
+                    if (_commonConfig.SetXmlSchemasDuringExport)
+                    {
+                        var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+
+                        if (schemasResources != null)
+                        {
+                            string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(schemasResources.Item2);
+
+                            if (!string.IsNullOrEmpty(schemas))
+                            {
+                                ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemas);
+                            }
+                        }
+                    }
+
+                    if (_commonConfig.SetIntellisenseContext)
+                    {
+                        ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, entityMetadata.EntityLogicalName);
+                    }
+
+                    ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+
+                    {
+                        string fileName = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service.ConnectionData.Name, entityMetadata.EntityLogicalName);
+                        string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                        File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
+
+                        this._iWriteToOutput.WriteToOutput("{0} RibbonDiff Xml exported to {1}", entityMetadata.EntityLogicalName, filePath);
+
+                        this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    }
+
+                    UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
+
+                    await service.DeleteAsync(solution.LogicalName, solution.Id);
+                }
+
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityCompletedFormat1, entityMetadata.EntityLogicalName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFailedFormat1, entityMetadata.EntityLogicalName);
+            }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat1, entityMetadata.EntityLogicalName);
+        }
+
+        private void miUpdateEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity, PerformUpdateEntityRibbonDiffXml);
+        }
+
+        private async Task PerformUpdateEntityRibbonDiffXml(EntityMetadataListViewItem entity)
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            var repositoryPublisher = new PublisherRepository(service);
+            var publisherDefault = await repositoryPublisher.GetDefaultPublisherAsync();
+
+            if (publisherDefault == null)
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.NotFoundedDefaultPublisher);
+                _iWriteToOutput.ActivateOutputWindow();
+                return;
+            }
+
+            var newText = string.Empty;
+            bool? dialogResult = false;
+
+            var title = string.Format("RibbonDiffXml for entity {0}", entity.EntityLogicalName);
+
+            this.Dispatcher.Invoke(() =>
+            {
+                var form = new WindowTextField("Enter " + title, title, string.Empty);
+
+                dialogResult = form.ShowDialog();
+
+                newText = form.FieldText;
+            });
+
+            if (dialogResult.GetValueOrDefault() == false)
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityCanceledFormat1, entity.EntityLogicalName);
+                _iWriteToOutput.ActivateOutputWindow();
+                return;
+            }
+
+            ContentCoparerHelper.ClearXsdSchema(newText, out newText);
+
+            UpdateStatus(Properties.WindowStatusStrings.ValidatingRibbonDiffXmlForEntityFormat1, entity.EntityLogicalName);
+
+            if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.TextIsNotValidXml);
+                _iWriteToOutput.ActivateOutputWindow();
+                return;
+            }
+
+            bool validateResult = await ValidateXmlDocumentAsync(doc);
+
+            if (!validateResult)
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.ValidatingRibbonDiffXmlForEntityFailedFormat1, entity.EntityLogicalName);
+                _iWriteToOutput.ActivateOutputWindow();
+                return;
+            }
+
+            ToggleControls(false, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityFormat1, entity.EntityLogicalName);
+
+            var solutionUniqueName = string.Format("RibbonDiffXml_{0}", Guid.NewGuid());
+
+            solutionUniqueName = solutionUniqueName.Replace("-", "_");
+
+            var solution = new Solution()
+            {
+                UniqueName = solutionUniqueName,
+                FriendlyName = solutionUniqueName,
+
+                Description = "Temporary solution for exporting RibbonDiffXml.",
+
+                PublisherId = publisherDefault.ToEntityReference(),
+
+                Version = "1.0.0.0",
+            };
+
+            UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
+
+            solution.Id = service.Create(solution);
+
+            UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionEntityFormat2, solutionUniqueName, entity.EntityLogicalName);
+
+            string finalStatus = string.Empty;
+
+            try
+            {
+                {
+                    var repositorySolutionComponent = new SolutionComponentRepository(service);
+
+                    await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
+                        {
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                            ObjectId = entity.EntityMetadata.MetadataId.Value,
+                            RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                        }});
+                }
+
+                UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat2, solutionUniqueName, entity.EntityLogicalName);
+
+                var repository = new ExportSolutionHelper(service);
+
+                var solutionBodyBinary = await repository.ExportSolutionAndGetBodyBinaryAsync(solutionUniqueName);
+
+                string ribbonDiffXml = ExportSolutionHelper.GetRibbonDiffXmlForEntityFromSolutionBody(entity.EntityLogicalName, solutionBodyBinary);
+
+                {
+                    string fileName = string.Format("{0}.{1}_{2} Solution Backup at {3}.zip"
+                        , service.ConnectionData.Name
+                        , solution.UniqueName
+                        , solution.Version
+                        , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                        );
+
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllBytes(filePath, solutionBodyBinary);
+
+                    this._iWriteToOutput.WriteToOutput("Solution {0} Backup exported to {1}", solution.UniqueName, filePath);
+
+                    this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                }
+
+                if (_commonConfig.SetXmlSchemasDuringExport)
+                {
+                    var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+
+                    if (schemasResources != null)
+                    {
+                        string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(schemasResources.Item2);
+
+                        if (!string.IsNullOrEmpty(schemas))
+                        {
+                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemas);
+                        }
+                    }
+                }
+
+                if (_commonConfig.SetIntellisenseContext)
+                {
+                    ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, entity.EntityLogicalName);
+                }
+
+                ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+
+                {
+                    string fileName = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service.ConnectionData.Name, entity.EntityLogicalName, "BackUp", "xml");
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput("{0} RibbonDiffXml BackUp exported to {0}", entity.EntityLogicalName, filePath);
+
+                    this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                }
+
+                solutionBodyBinary = ExportSolutionHelper.ReplaceRibbonDiffXmlForEntityInSolutionBody(entity.EntityLogicalName, solutionBodyBinary, doc.Root);
+
+                {
+                    string fileName = string.Format("{0}.{1}_{2} Changed Solution Backup at {3}.zip"
+                        , service.ConnectionData.Name
+                        , solution.UniqueName
+                        , solution.Version
+                        , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                        );
+
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllBytes(filePath, solutionBodyBinary);
+
+                    this._iWriteToOutput.WriteToOutput("Changed Solution {0} Backup exported to {1}", solution.UniqueName, filePath);
+
+                    this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                }
+
+                UpdateStatus(Properties.WindowStatusStrings.ImportingSolutionFormat1, solutionUniqueName);
+
+                await repository.ImportSolutionAsync(solutionBodyBinary);
+
+                UpdateStatus(Properties.WindowStatusStrings.PublishingEntitiesFormat1, entity.EntityLogicalName);
+
+                {
+                    var repositoryPublish = new PublishActionsRepository(service);
+
+                    await repositoryPublish.PublishEntitiesAsync(new[] { entity.EntityLogicalName });
+                }
+
+                finalStatus = string.Format(Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityCompletedFormat1, entity.EntityLogicalName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                finalStatus = string.Format(Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityFailedFormat1, entity.EntityLogicalName);
+
+                _iWriteToOutput.ActivateOutputWindow();
+            }
+            finally
+            {
+                UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
+                await service.DeleteAsync(solution.LogicalName, solution.Id);
+            }
+
+            ToggleControls(true, finalStatus);
+        }
+
+        private Task<bool> ValidateXmlDocumentAsync(XDocument doc)
+        {
+            return Task.Run(() => ValidateXmlDocument(doc));
+        }
+
+        private bool ValidateXmlDocument(XDocument doc)
+        {
+            XmlSchemaSet schemas = new XmlSchemaSet();
+
+            {
+                var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+
+                if (schemasResources != null)
+                {
+                    foreach (var fileName in schemasResources.Item2)
+                    {
+                        Uri uri = FileOperations.GetSchemaResourceUri(fileName);
+                        StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                        using (StreamReader reader = new StreamReader(info.Stream))
+                        {
+                            schemas.Add("", XmlReader.Create(reader));
+                        }
+                    }
+                }
+            }
+
+            List<ValidationEventArgs> errors = new List<ValidationEventArgs>();
+
+            doc.Validate(schemas, (o, e) =>
+            {
+                errors.Add(e);
+            });
+
+            if (errors.Count > 0)
+            {
+                _iWriteToOutput.WriteToOutput("RibbonDiff is not valid.");
+
+                foreach (var item in errors)
+                {
+                    _iWriteToOutput.WriteToOutput(string.Empty);
+                    _iWriteToOutput.WriteToOutput(string.Empty);
+                    _iWriteToOutput.WriteToOutput("Severity: {0}      Message: {1}", item.Severity, item.Message);
+                    _iWriteToOutput.WriteErrorToOutput(item.Exception);
+                }
+
+                _iWriteToOutput.ActivateOutputWindow();
+            }
+
+            return errors.Count == 0;
         }
     }
 }

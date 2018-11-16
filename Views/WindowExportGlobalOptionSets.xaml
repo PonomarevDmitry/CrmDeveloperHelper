@@ -30,7 +30,7 @@
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                 <Separator/>
-                <MenuItem Header="Entity Ribbon" Click="btnCompareRibbon_Click"/>
+                <MenuItem Header="Entity Ribbon" Click="btnCompareApplicationRibbons_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
                 <Separator/>
@@ -67,7 +67,7 @@
                 <TextBox x:Name="txtBSpaceCount" Text="{Binding Path=SpaceCount}" VerticalAlignment="Center" Margin="5" VerticalContentAlignment="Center" Width="65"/>
             </StackPanel>
         </GroupBox>
-        <CheckBox x:Name="chBWithDependentComponents" IsChecked="{Binding Path=CreateGlobalOptionSetsWithDependentComponents}" Content="With dependent components" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.845,0.733"/>
+        <CheckBox x:Name="chBWithDependentComponents" IsChecked="{Binding Path=GlobalOptionSetsWithDependentComponents}" Content="With dependent components" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.845,0.733"/>
         <CheckBox x:Name="chBAllDescriptions" IsChecked="{Binding Path=AllDescriptions}" Content="All descriptions" HorizontalAlignment="Left" Margin="190,131,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.845,0.733"/>
         <CheckBox x:Name="chBWithManagedInfo" IsChecked="{Binding Path=WithManagedInfo}" Content="With Managed Info" HorizontalAlignment="Left" Margin="296,131,0,0" VerticalAlignment="Top"/>
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,151,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="0" Height="18"/>

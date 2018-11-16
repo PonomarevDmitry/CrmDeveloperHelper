@@ -319,7 +319,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.GenerateManyToMany
                             , commonConfig.GenerateKeys
                             , commonConfig.AllDescriptions
-                            , commonConfig.CreateGlobalOptionSetsWithDependentComponents
+                            , commonConfig.EntityMetadaOptionSetDependentComponents
                             , commonConfig.GenerateIntoSchemaClass
                             , commonConfig.WithManagedInfo
                             , commonConfig.ConstantType
@@ -433,9 +433,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                    , tabSpacer
                                    , commonConfig.ConstantType
                                    , commonConfig.OptionSetExportType
-                                   , commonConfig.CreateGlobalOptionSetsWithDependentComponents
+                                   , commonConfig.GlobalOptionSetsWithDependentComponents
                                    , commonConfig.WithManagedInfo
-                                   , true
+                                   , commonConfig.AllDescriptions
                                    ))
                         {
                             await handler.CreateFileAsync(filePath, new[] { metadata });

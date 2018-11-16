@@ -51,7 +51,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             try
             {
-                FilterColumns(entityName, columnSet);
+                columnSet = FilterColumns(entityName, columnSet);
 
                 return _service.Retrieve(entityName, id, columnSet);
             }
@@ -251,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     Dictionary<string, string> aliases = GetAliases(query);
 
-                    FilterColumns(query.EntityName, query.ColumnSet);
+                    query.ColumnSet = FilterColumns(query.EntityName, query.ColumnSet);
 
                     FilterFilterExpression(query.EntityName, query.Criteria, aliases);
 
@@ -304,7 +304,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     && !string.IsNullOrEmpty(link.LinkToAttributeName)
                     )
                 {
-                    FilterColumns(link.LinkToEntityName, link.Columns);
+                    link.Columns = FilterColumns(link.LinkToEntityName, link.Columns);
 
                     FilterFilterExpression(link.LinkToEntityName, link.LinkCriteria, aliases);
 
@@ -429,29 +429,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             return this.ConnectionData.GetEntityIntellisenseData(entityName);
         }
 
-        private void FilterColumns(string entityName, ColumnSet columnSet)
+        private ColumnSet FilterColumns(string entityName, ColumnSet columnSet)
         {
             if (columnSet == null)
             {
-                return;
+                return null;
             }
 
             if (columnSet.AllColumns)
             {
-                return;
+                return columnSet;
             }
+
+            ColumnSet result = new ColumnSet();
+            result.Columns.AddRange(columnSet.Columns);
 
             HashSet<string> attributes = GetEntityAttributes(entityName);
 
             if (attributes != null)
             {
-                var toDelete = columnSet.Columns.Where(s => !attributes.Contains(s)).ToList();
+                var toDelete = result.Columns.Where(s => !attributes.Contains(s)).ToList();
 
                 foreach (var item in toDelete)
                 {
-                    columnSet.Columns.Remove(item);
+                    result.Columns.Remove(item);
                 }
             }
+
+            return result;
         }
 
         private void FilterAttributes(Entity entity)

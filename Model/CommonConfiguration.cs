@@ -506,22 +506,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _AllDependentComponents;
+        private bool _AllDependentComponentsForAttributes;
         /// <summary>
         /// Отображать все зависимые элементы
         /// </summary>
         [DataMember]
-        public bool AllDependentComponents
+        public bool AllDependentComponentsForAttributes
         {
             get
             {
-                return _AllDependentComponents;
+                return _AllDependentComponentsForAttributes;
             }
             set
             {
-                this.OnPropertyChanging(nameof(AllDependentComponents));
-                this._AllDependentComponents = value;
-                this.OnPropertyChanged(nameof(AllDependentComponents));
+                this.OnPropertyChanging(nameof(AllDependentComponentsForAttributes));
+                this._AllDependentComponentsForAttributes = value;
+                this.OnPropertyChanged(nameof(AllDependentComponentsForAttributes));
             }
         }
 
@@ -541,19 +541,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _CreateGlobalOptionSetsWithDependentComponents;
+        private bool _GlobalOptionSetsWithDependentComponents;
         [DataMember]
-        public bool CreateGlobalOptionSetsWithDependentComponents
+        public bool GlobalOptionSetsWithDependentComponents
         {
             get
             {
-                return _CreateGlobalOptionSetsWithDependentComponents;
+                return _GlobalOptionSetsWithDependentComponents;
             }
             set
             {
-                this.OnPropertyChanging(nameof(CreateGlobalOptionSetsWithDependentComponents));
-                this._CreateGlobalOptionSetsWithDependentComponents = value;
-                this.OnPropertyChanged(nameof(CreateGlobalOptionSetsWithDependentComponents));
+                this.OnPropertyChanging(nameof(GlobalOptionSetsWithDependentComponents));
+                this._GlobalOptionSetsWithDependentComponents = value;
+                this.OnPropertyChanged(nameof(GlobalOptionSetsWithDependentComponents));
             }
         }
 
@@ -740,25 +740,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 this._FormsEventsFileName = value;
                 this.OnPropertyChanged(nameof(FormsEventsFileName));
-            }
-        }
-
-        private bool _AllEnities;
-        /// <summary>
-        /// Отображать в списке все сущности, не только с отличиями
-        /// </summary>
-        [DataMember]
-        public bool AllEnities
-        {
-            get
-            {
-                return _AllEnities;
-            }
-            set
-            {
-                this.OnPropertyChanging(nameof(AllEnities));
-                this._AllEnities = value;
-                this.OnPropertyChanged(nameof(AllEnities));
             }
         }
 

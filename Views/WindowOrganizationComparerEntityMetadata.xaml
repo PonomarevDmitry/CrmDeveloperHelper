@@ -10,14 +10,16 @@
         <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
         <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            
+
             <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
                 <MenuItem Header="C# File" Click="btnDifferenceCSharpFile_Click" />
                 <MenuItem Header="JavaScript File" Click="btnDifferenceJavaScriptFile_Click"/>
                 <Separator/>
-                <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                <MenuItem Header="Show Difference Entity Ribbon" Click="mIDifferenceEntityRibbon_Click" />
                 <Separator/>
-                <MenuItem Header="Entity Ribbon" Click="btnCompareRibbon_Click"/>
+                <MenuItem Header="Show Difference Entity RibbonDiffXml" Click="mIDifferenceEntityRibbonDiffXml_Click" />
+                <Separator/>
+                <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
                 <Separator/>
@@ -28,10 +30,14 @@
                 <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
             </MenuItem>
             <Separator x:Uid="menuContextDifference" />
-            
+
             <MenuItem Header="{DynamicResource ConnectionName1}">
                 <MenuItem Header="Create C# File" Click="btnConnection1CSharp_Click" />
                 <MenuItem Header="Create JavaScript File" Click="btnConnection1JavaScript_Click"/>
+                <Separator/>
+                <MenuItem Header="Export Entity Ribbon" Click="mIConnection1EntityRibbon_Click" />
+                <Separator/>
+                <MenuItem Header="Export Entity RibbonDiffXml" Click="mIConnection1EntityRibbonDiffXml_Click" />
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
                 <Separator/>
@@ -39,8 +45,6 @@
                 <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer1_Click"/>
                 <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer1_Click"/>
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer1_Click"/>
-                <Separator/>
-                <MenuItem Header="Ribbon" Click="btnExportRibbon1_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets1_Click"/>
                 <Separator/>
@@ -50,7 +54,7 @@
                 <Separator/>
                 <MenuItem Header="Workflows" Click="btnWorkflows1_Click"/>
                 <Separator/>
-                <MenuItem Header="Attributes Dependencies" Click="btnAttributesDependentComponent1_Click"/>
+                <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon1_Click"/>
                 <Separator/>
                 <MenuItem Header="Plugin Tree" Click="btnPluginTree1_Click"/>
                 <MenuItem Header="Message Tree" Click="btnMessageTree1_Click"/>
@@ -62,14 +66,16 @@
                 <MenuItem Header="Create C# File" Click="btnConnection2CSharp_Click" />
                 <MenuItem Header="Create JavaScript File" Click="btnConnection2JavaScript_Click"/>
                 <Separator/>
+                <MenuItem Header="Export Entity Ribbon" Click="mIConnection2EntityRibbon_Click" />
+                <Separator/>
+                <MenuItem Header="Export Entity RibbonDiffXml" Click="mIConnection2EntityRibbonDiffXml_Click" />
+                <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
                 <Separator/>
                 <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer2_Click"/>
                 <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer2_Click"/>
                 <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer2_Click"/>
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer2_Click"/>
-                <Separator/>
-                <MenuItem Header="Ribbon" Click="btnExportRibbon2_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets2_Click"/>
                 <Separator/>
@@ -79,19 +85,31 @@
                 <Separator/>
                 <MenuItem Header="Workflows" Click="btnWorkflows2_Click"/>
                 <Separator/>
-                <MenuItem Header="Attributes Dependencies" Click="btnAttributesDependentComponent2_Click"/>
+                <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon2_Click"/>
                 <Separator/>
                 <MenuItem Header="Plugin Tree" Click="btnPluginTree2_Click"/>
                 <MenuItem Header="Message Tree" Click="btnMessageTree2_Click"/>
                 <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree2_Click"/>
             </MenuItem>
-          
+
         </ContextMenu>
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
     </src:WindowBase.Resources>
     <Grid>
+        <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                <MenuItem Header="Options">
+                    <MenuItem Header="Export EntityMetadata" Click="miExportEntityMetadataOptions_Click" />
+                    <Separator/>
+                    <MenuItem Header="Export Attributes Dependent Components" Click="miExportAttributesDependentComponentsOptions_Click" />
+                    <Separator/>
+                    <MenuItem Header="Export Ribbon" Click="miExportEntityRibbonOptions_Click" />
+                </MenuItem>
 
-        <Grid Height="55" Margin="10,10,10,0" VerticalAlignment="Top">
+            </Menu>
+        </ToolBar>
+
+        <Grid Height="55" Margin="10,38,10,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
@@ -115,40 +133,9 @@
             <Label Content="Namespace 2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="2"/>
             <TextBox x:Name="txtBNameSpace2" Text="{Binding Path=SelectedItem.NameSpaceClasses}"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="3"/>
         </Grid>
-        <CheckBox x:Name="chBAttributes" IsChecked="{Binding Path=GenerateAttributes}" Content="Attributes" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" />
-        <CheckBox x:Name="chBStatus" IsChecked="{Binding Path=GenerateStatus}" Content="Status and StatusReason" HorizontalAlignment="Left" Margin="87,69,0,0" VerticalAlignment="Top" />
-        <CheckBox x:Name="chBLocalOptionSets" IsChecked="{Binding Path=GenerateLocalOptionSet}" Content="Local OptionSets" HorizontalAlignment="Left" Margin="243,69,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBGlobalOptionSets" IsChecked="{Binding Path=GenerateGlobalOptionSet}" Content="Global OptionSets" HorizontalAlignment="Left" Margin="357,69,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBOneToMany" IsChecked="{Binding Path=GenerateOneToMany}" Content="One to Many" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBManyToOne" IsChecked="{Binding Path=GenerateManyToOne}" Content="Many to One" HorizontalAlignment="Left" Margin="104,89,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBManyToMany" IsChecked="{Binding Path=GenerateOneToMany}" Content="Many to Many" HorizontalAlignment="Left" Margin="198,89,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBIntoSchemaClass" IsChecked="{Binding Path=GenerateIntoSchemaClass}" Content="Into Schema class" HorizontalAlignment="Left" Margin="300,89,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBKeys" IsChecked="{Binding Path=GenerateKeys}" Content="Keys" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBAllDescriptions" IsChecked="{Binding Path=AllDescriptions}" Content="All descriptions" HorizontalAlignment="Left" Margin="68,109,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBWithDependentComponents" IsChecked="{Binding Path=EntityMetadaOptionSetDependentComponents}" Content="With dependent components for Global OptionSets" HorizontalAlignment="Left" Margin="174,109,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBWithManagedInfo" IsChecked="{Binding Path=WithManagedInfo}" Content="With Managed Info" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top"/>
-        <GroupBox HorizontalAlignment="Left" Margin="479,66,0,0" VerticalAlignment="Top" Width="173" Height="50" Header="Field Type">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <RadioButton x:Name="rBConst" IsChecked="{Binding Path=ConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.Constant}}" GroupName="ConstantType" Content="Const" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
-                <RadioButton x:Name="rBReadOnly" IsChecked="{Binding Path=ConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.ReadOnlyField}}" GroupName="ConstantType" Content="ReadOnly" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
-            </StackPanel>
-        </GroupBox>
-        <GroupBox Header="OptionSets Values" Margin="656,66,0,0" VerticalAlignment="Top" Height="50" HorizontalAlignment="Left" Width="150">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <RadioButton x:Name="rBEnums" IsChecked="{Binding Path=OptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Enums}}" GroupName="OptionSets"  Margin="5" Content="Enum" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                <RadioButton x:Name="rBClasses" GroupName="OptionSets" IsChecked="{Binding Path=OptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Classes}}" Content="Class" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            </StackPanel>
-        </GroupBox>
-        <GroupBox Header="Indent" HorizontalAlignment="Left" Margin="811,66,0,0" VerticalAlignment="Top" Width="90" Height="76">
-            <StackPanel>
-                <RadioButton x:Name="rBTab" IsChecked="{Binding Path=IndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}}" GroupName="IndentType" Content="Tab"/>
-                <RadioButton x:Name="rBSpaces" IsChecked="{Binding Path=IndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}}" GroupName="IndentType" Content="Spaces"/>
-                <TextBox x:Name="txtBSpaceCount" Height="23" Text="{Binding Path=SpaceCount}" />
-            </StackPanel>
-        </GroupBox>
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFilterEnitity" Height="26" Margin="51,149,12,0"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-        <DataGrid x:Name="lstVwEntities" AutoGenerateColumns="False" Margin="10,180,10,62" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtBFilterEnitity" Height="26" Margin="51,98,12,0"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        <DataGrid x:Name="lstVwEntities" AutoGenerateColumns="False" Margin="10,129,10,62" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -185,25 +172,86 @@
                 <ToolBarPanel Orientation="Horizontal" >
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem x:Name="btnDifferenceCSharpFile" Header="C# File" Click="btnDifferenceCSharpFile_Click" />
+                            <MenuItem Header="C# File" Click="btnDifferenceCSharpFile_Click" />
+                            <MenuItem Header="JavaScript File" Click="btnDifferenceJavaScriptFile_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="btnDifferenceJavaScriptFile" Header="JavaScript File" Click="btnDifferenceJavaScriptFile_Click"/>
+                            <MenuItem Header="Entity Ribbon" Click="mIDifferenceEntityRibbon_Click" />
+                            <Separator/>
+                            <MenuItem Header="Entity RibbonDiffXml" Click="mIDifferenceEntityRibbonDiffXml_Click" />
+                            <Separator/>
+                            <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
+                            <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
+                            <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
                         </MenuItem>
                     </Menu>
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
-                            <MenuItem x:Name="btnConnection1CSharp" Header="Create C# File" Click="btnConnection1CSharp_Click" />
+                            <MenuItem Header="Create C# File" Click="btnConnection1CSharp_Click" />
+                            <MenuItem Header="Create JavaScript File" Click="btnConnection1JavaScript_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="btnConnection1JavaScript" Header="Create JavaScript File" Click="btnConnection1JavaScript_Click"/>
+                            <MenuItem Header="Export Entity Ribbon" Click="mIConnection1EntityRibbon_Click" />
+                            <Separator/>
+                            <MenuItem Header="Export Entity RibbonDiffXml" Click="mIConnection1EntityRibbonDiffXml_Click" />
+                            <Separator/>
+                            <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer1_Click"/>
+                            <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer1_Click"/>
+                            <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer1_Click"/>
+                            <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer1_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets1_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Forms" Click="btnSystemForms1_Click"/>
+                            <MenuItem Header="Views" Click="btnSavedQuery1_Click"/>
+                            <MenuItem Header="Charts" Click="btnSavedChart1_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Workflows" Click="btnWorkflows1_Click"/>
+                            <Separator/>
+                            <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon1_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Plugin Tree" Click="btnPluginTree1_Click"/>
+                            <MenuItem Header="Message Tree" Click="btnMessageTree1_Click"/>
+                            <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree1_Click"/>
                         </MenuItem>
                     </Menu>
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
-                            <MenuItem x:Name="btnConnection2CSharp" Header="Create C# File" Click="btnConnection2CSharp_Click" />
+                            <MenuItem Header="Create C# File" Click="btnConnection2CSharp_Click" />
+                            <MenuItem Header="Create JavaScript File" Click="btnConnection2JavaScript_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="btnConnection2JavaScript" Header="Create JavaScript File" Click="btnConnection2JavaScript_Click"/>
+                            <MenuItem Header="Export Entity Ribbon" Click="mIConnection2EntityRibbon_Click" />
+                            <Separator/>
+                            <MenuItem Header="Export Entity RibbonDiffXml" Click="mIConnection2EntityRibbonDiffXml_Click" />
+                            <Separator/>
+                            <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer2_Click"/>
+                            <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer2_Click"/>
+                            <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer2_Click"/>
+                            <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer2_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets2_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Forms" Click="btnSystemForms2_Click"/>
+                            <MenuItem Header="Views" Click="btnSavedQuery2_Click"/>
+                            <MenuItem Header="Charts" Click="btnSavedChart2_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Workflows" Click="btnWorkflows2_Click"/>
+                            <Separator/>
+                            <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon2_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Plugin Tree" Click="btnPluginTree2_Click"/>
+                            <MenuItem Header="Message Tree" Click="btnMessageTree2_Click"/>
+                            <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree2_Click"/>
                         </MenuItem>
                     </Menu>
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />

@@ -256,7 +256,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonPublishAllInCrmConnectionCommand.Initialize(this);
             CommonCrmConnectionCommand.Initialize(this);
             CommonCrmConnectionTestCommand.Initialize(this);
-            CommonExportAttributesAndDependentComponentsCommand.Initialize(this);
             CommonExportEntityMetadataCommand.Initialize(this);
             CommonEntityAttributeExplorerCommand.Initialize(this);
             CommonEntityKeyExplorerCommand.Initialize(this);
@@ -268,7 +267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonExportPluginAssemblyDescriptionCommand.Initialize(this);
             CommonExportPluginTypeDescriptionCommand.Initialize(this);
             CommonExportReportCommand.Initialize(this);
-            CommonExportRibbonXmlCommand.Initialize(this);
+            CommonExportApplicationRibbonXmlCommand.Initialize(this);
             CommonExportSiteMapCommand.Initialize(this);
             CommonExportSolutionComponentsCommand.Initialize(this);
             CommonExportSolutionCommand.Initialize(this);

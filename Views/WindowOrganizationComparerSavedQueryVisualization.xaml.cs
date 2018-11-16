@@ -973,7 +973,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.EntityName);
         }
 
-        private async void btnCompareRibbon_Click(object sender, RoutedEventArgs e)
+        private async void btnCompareApplicationRibbons_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -982,7 +982,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerRibbonWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.EntityName);
+            WindowHelper.OpenOrganizationComparerApplicationRibbonWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
         }
 
         private async void btnCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
@@ -1132,15 +1132,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, null, null);
         }
 
-        private async void btnExportRibbon1_Click(object sender, RoutedEventArgs e)
+        private async void btnExportApplicationRibbon1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             _commonConfig.Save();
 
             var service = await GetService1();
 
-            WindowHelper.OpenEntityRibbonWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, null);
+            WindowHelper.OpenApplicationRibbonWindow(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnGlobalOptionSets1_Click(object sender, RoutedEventArgs e)
@@ -1205,17 +1203,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, string.Empty);
         }
 
-        private async void btnAttributesDependentComponent1_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenAttributesDependentComponentWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, null);
-        }
-
         private async void btnPluginTree1_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -1260,15 +1247,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, null, null);
         }
 
-        private async void btnExportRibbon2_Click(object sender, RoutedEventArgs e)
+        private async void btnExportApplicationRibbon2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             _commonConfig.Save();
 
             var service = await GetService2();
 
-            WindowHelper.OpenEntityRibbonWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, null);
+            WindowHelper.OpenApplicationRibbonWindow(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnGlobalOptionSets2_Click(object sender, RoutedEventArgs e)
@@ -1331,17 +1316,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService2();
 
             WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, string.Empty);
-        }
-
-        private async void btnAttributesDependentComponent2_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenAttributesDependentComponentWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, null);
         }
 
         private async void btnPluginTree2_Click(object sender, RoutedEventArgs e)

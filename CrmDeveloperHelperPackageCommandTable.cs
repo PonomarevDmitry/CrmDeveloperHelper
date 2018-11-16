@@ -351,8 +351,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents = 0x10DA;
         public const int commonMenu_GroupEntityInformation = 0x10DB;
         public const int commonMenu_GroupEntityInformation_MenuEntityInformation = 0x10DC;
-        public const int commonMenu_GroupEntityInformation_MenuEntityInformation_GroupAttributeDependencies = 0x10DD;
-        public const int commonMenu_GroupEntityInformation_MenuEntityInformation_GroupRibbon = 0x10DE;
+        public const int commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntityComponents = 0x10DD;
+        public const int commonMenu_GroupExport_MenuExport_GroupApplicationRibbon = 0x10DE;
         public const int commonMenu_GroupEntityInformation_MenuEntityInformation_GroupFormViewChart = 0x10DF;
         public const int commonMenu_GroupEntityInformation_MenuPluginInformation = 0x10E0;
         public const int commonMenu_GroupEntityInformation_MenuPluginInformation_GroupDescription = 0x10E1;
@@ -620,8 +620,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonEntityKeyExplorerCommandId = 0x2172;
         public const int CommonEntityRelationshipOneToManyExplorerCommandId = 0x2173;
         public const int CommonEntityRelationshipManyToManyExplorerCommandId = 0x2174;
-        public const int CommonExportAttributesAndDependentComponentsCommandId = 0x2030;
-        public const int CommonExportRibbonXmlCommandId = 0x2031;
+        public const int CommonExportApplicationRibbonXmlCommandId = 0x2031;
         public const int CommonExportSystemFormXmlCommandId = 0x2032;
         public const int CommonExportSystemSavedQueryXmlCommandId = 0x2033;
         public const int CommonExportSystemSavedQueryVisualizationXmlCommandId = 0x2034;

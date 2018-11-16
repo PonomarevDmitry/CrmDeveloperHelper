@@ -169,10 +169,6 @@
                                     <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                                     <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                                     <Separator Margin="10,0"/>
-                                    <MenuItem Header="Ribbon"  Click="tSMIExportRibbon_Click"/>
-                                    <Separator Margin="10,0"/>
-                                    <MenuItem Header="Attributes Dependent Components"  Click="tSMIExportAttributesDependentComponents_Click"/>
-                                    <Separator Margin="10,0"/>
                                     <MenuItem Header="System Form"  Click="tSMIExportSystemForms_Click"/>
                                     <MenuItem Header="System View"  Click="tSMIExportSystemViews_Click"/>
                                     <MenuItem Header="System Chart"  Click="tSMIExportSystemCharts_Click"/>
@@ -185,6 +181,8 @@
                                     <MenuItem Header="Message Tree" Click="tSMIExportSdkMessageTree_Click" />
                                     <MenuItem Header="Message Request Tree" Click="tSMIExportSdkMessageRequestTree_Click" />
                                 </MenuItem>
+                                <Separator Margin="10,0"/>
+                                <MenuItem Header="ApplicationRibbon"  Click="tSMIExportApplicationRibbon_Click"/>
                                 <Separator Margin="10,0"/>
                                 <MenuItem Header="Organization" Click="tSMIExportOrganization_Click" />
                                 <Separator Margin="10,0"/>
@@ -286,7 +284,7 @@
                                 <MenuItem Header="System Views" Click="tSMIDifferenceSystemSavedQueries_Click" />
                                 <MenuItem Header="System Charts" Click="tSMIDifferenceSystemCharts_Click" />
                                 <Separator Margin="10,0"/>
-                                <MenuItem Header="Ribbons" Click="tSMIDifferenceRibbons_Click" />
+                                <MenuItem Header="ApplicationRibbons" Click="tSMIDifferenceApplicationRibbons_Click" />
                                 <Separator Margin="10,0"/>
                                 <MenuItem Header="Global OptionSets" Click="tSMIDifferenceGlobalOptionSets_Click" />
                                 <Separator Margin="10,0"/>
