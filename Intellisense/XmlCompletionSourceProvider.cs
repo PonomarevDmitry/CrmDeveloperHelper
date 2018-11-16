@@ -14,7 +14,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
     [Order(Before = "high")]
     [Order(Before = Priority.High)]
     [Order(Before = Priority.Default)]
-    public class FetchXmlCompletionSourceProvider : ICompletionSourceProvider
+    public class XmlCompletionSourceProvider : ICompletionSourceProvider
     {
         [Import(typeof(ITextStructureNavigatorSelectorService))]
         public ITextStructureNavigatorSelectorService NavigatorService { get; set; }
@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
         public ICompletionSource TryCreateCompletionSource(ITextBuffer textBuffer)
         {
-            return new FetchXmlCompletionSource(this, textBuffer, ClassifierAggregatorService, NavigatorService, GlyphService);
+            return new XmlCompletionSource(this, textBuffer, ClassifierAggregatorService, NavigatorService, GlyphService);
         }
     }
 }

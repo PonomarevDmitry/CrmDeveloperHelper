@@ -18,7 +18,7 @@ using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 {
-    public sealed partial class FetchXmlCompletionSource : ICompletionSource, IDisposable
+    public sealed partial class XmlCompletionSource : ICompletionSource, IDisposable
     {
         private const string SourceNameMonikerDefaultSingle = "CrmXmlDefaultSingle.{8A22EFE3-4F6D-47A8-A511-82DE08260BA7}";
 
@@ -38,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         private const string SourceNameMonikerRibbonEnableRules = "CrmXmlRibbonEnableRules.{DD111F19-F2D0-4FAC-83F5-15DAD841A5E0}";
         private const string SourceNameMonikerRibbonDisplayRules = "CrmXmlRibbonDisplayRules.{F4EA811F-FE61-4E1D-84D8-1D0156C96D99}";
 
-        private readonly FetchXmlCompletionSourceProvider _sourceProvider;
+        private readonly XmlCompletionSourceProvider _sourceProvider;
 
         private ITextBuffer _buffer;
         private IClassifier _classifier;
@@ -48,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         private readonly ImageSource _builtInGlyph;
         private readonly IGlyphService _glyphService;
 
-        public FetchXmlCompletionSource(FetchXmlCompletionSourceProvider sourceProvider, ITextBuffer buffer, IClassifierAggregatorService classifier, ITextStructureNavigatorSelectorService navigator, IGlyphService glyphService)
+        public XmlCompletionSource(XmlCompletionSourceProvider sourceProvider, ITextBuffer buffer, IClassifierAggregatorService classifier, ITextStructureNavigatorSelectorService navigator, IGlyphService glyphService)
         {
             _sourceProvider = sourceProvider;
 

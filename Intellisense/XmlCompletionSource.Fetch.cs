@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 {
-    public sealed partial class FetchXmlCompletionSource
+    public sealed partial class XmlCompletionSource
     {
         private void FillSessionForFetchXml(ICompletionSession session, IList<CompletionSet> completionSets, ITextSnapshot snapshot, XElement doc, ConnectionIntellisenseDataRepository repository)
         {

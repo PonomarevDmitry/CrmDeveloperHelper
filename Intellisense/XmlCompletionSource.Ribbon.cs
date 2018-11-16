@@ -13,7 +13,7 @@ using System.Xml.XPath;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 {
-    public sealed partial class FetchXmlCompletionSource
+    public sealed partial class XmlCompletionSource
     {
         private static HashSet<string> _controlsWithImagesXmlElements = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
         {

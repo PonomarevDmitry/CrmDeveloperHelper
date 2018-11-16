@@ -673,11 +673,11 @@
     <Compile Include="Intellisense\CustomUrlClassifierProvider.cs" />
     <Compile Include="Intellisense\CustomUrlTagger.cs" />
     <Compile Include="Intellisense\CustomUrlTagProvider.cs" />
-    <Compile Include="Intellisense\FetchXmlCompletionSource.cs" />
-    <Compile Include="Intellisense\FetchXmlCompletionSource.Fetch.cs" />
-    <Compile Include="Intellisense\FetchXmlCompletionSource.Ribbon.cs" />
-    <Compile Include="Intellisense\FetchXmlCompletionSource.SiteMap.cs" />
-    <Compile Include="Intellisense\FetchXmlCompletionSourceProvider.cs" />
+    <Compile Include="Intellisense\XmlCompletionSource.cs" />
+    <Compile Include="Intellisense\XmlCompletionSource.Fetch.cs" />
+    <Compile Include="Intellisense\XmlCompletionSource.Ribbon.cs" />
+    <Compile Include="Intellisense\XmlCompletionSource.SiteMap.cs" />
+    <Compile Include="Intellisense\XmlCompletionSourceProvider.cs" />
     <Compile Include="Intellisense\CrmTextViewCreationListener.cs" />
     <Compile Include="Intellisense\Model\AttributeIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\ConnectionIntellisenseData.cs" />
