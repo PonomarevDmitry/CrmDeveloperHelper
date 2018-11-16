@@ -848,7 +848,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private const string replaceSchemaLocationFormat = " xsi:schemaLocation=\"{0}\"";
 
         private const string patternIntellisenseContext = " xmlns:intellisenseContext=\"([^\"]+)\"";
-        private const string replaceIntellisenseContextNamespace = " xmlns:intellisenseContext=\"https://navicongroup.ru/XsdSchemas/IntellisenseContext\"";
+        private const string replaceIntellisenseContextNamespace = " xmlns:intellisenseContext=\"{0}\"";
 
         private const string patternIntellisenseContextEntityName = " intellisenseContext:entityName=\"([^\"]*)\"";
         private const string replaceIntellisenseContextEntityNameFormat = " intellisenseContext:entityName=\"{0}\"";
@@ -960,7 +960,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (Regex.IsMatch(result, patternIntellisenseContext))
             {
-                result = Regex.Replace(result, patternIntellisenseContext, replaceIntellisenseContextNamespace, RegexOptions.IgnoreCase);
+                result = Regex.Replace(result, patternIntellisenseContext, string.Format(replaceIntellisenseContextNamespace, Intellisense.Model.RibbonIntellisenseData.IntellisenseContextNamespace), RegexOptions.IgnoreCase);
             }
             else
             {
@@ -968,7 +968,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (indexInsert.HasValue)
                 {
-                    result = result.Insert(indexInsert.Value, replaceIntellisenseContextNamespace);
+                    result = result.Insert(indexInsert.Value, string.Format(replaceIntellisenseContextNamespace, Intellisense.Model.RibbonIntellisenseData.IntellisenseContextNamespace));
                 }
             }
 

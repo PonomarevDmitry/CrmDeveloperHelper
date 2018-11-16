@@ -18,8 +18,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
     {
         private readonly object _syncObjectService = new object();
 
-        private readonly object _syncObjectTaskGettingSitemInformation = new object();
-        private Task _taskGettingSitemInformation;
+        private readonly object _syncObjectTaskGettingSiteMapInformation = new object();
+        private Task _taskGettingSiteMapInformation;
 
         private IOrganizationServiceExtented _service;
 
@@ -96,24 +96,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return;
             }
 
-            lock (_syncObjectTaskGettingSitemInformation)
+            lock (_syncObjectTaskGettingSiteMapInformation)
             {
-                if (_taskGettingSitemInformation != null)
+                if (_taskGettingSiteMapInformation != null)
                 {
-                    if (_taskGettingSitemInformation.Status == TaskStatus.RanToCompletion)
+                    if (_taskGettingSiteMapInformation.Status == TaskStatus.RanToCompletion)
                     {
-                        _taskGettingSitemInformation = null;
+                        _taskGettingSiteMapInformation = null;
                     }
-                    else if (_taskGettingSitemInformation.Status == TaskStatus.Faulted)
+                    else if (_taskGettingSiteMapInformation.Status == TaskStatus.Faulted)
                     {
-                        DTEHelper.WriteExceptionToLog(_taskGettingSitemInformation.Exception);
+                        DTEHelper.WriteExceptionToLog(_taskGettingSiteMapInformation.Exception);
 
-                        _taskGettingSitemInformation = Task.Run(() => StartGettingSiteMaps(), _cancellationTokenSource.Token);
+                        _taskGettingSiteMapInformation = Task.Run(() => StartGettingSiteMaps(), _cancellationTokenSource.Token);
                     }
                 }
                 else
                 {
-                    _taskGettingSitemInformation = Task.Run(() => StartGettingSiteMaps(), _cancellationTokenSource.Token);
+                    _taskGettingSiteMapInformation = Task.Run(() => StartGettingSiteMaps(), _cancellationTokenSource.Token);
                 }
             }
         }
@@ -227,9 +227,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             finally
             {
-                lock (_syncObjectTaskGettingSitemInformation)
+                lock (_syncObjectTaskGettingSiteMapInformation)
                 {
-                    _taskGettingSitemInformation = null;
+                    _taskGettingSiteMapInformation = null;
                 }
             }
         }

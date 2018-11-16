@@ -541,8 +541,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var filter = GetRibbonLocationFilters();
-
                 string fileName1 = EntityFileNameFormatter.GetApplicationRibbonFileName(service1.ConnectionData.Name);
                 string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
 
@@ -550,7 +548,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository1 = new RibbonCustomizationRepository(service1);
 
-                var task1 = repository1.ExportApplicationRibbon(filter, filePath1, _commonConfig);
+                var task1 = repository1.ExportApplicationRibbonAsync(filePath1, _commonConfig);
 
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
@@ -559,7 +557,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string fileName2 = EntityFileNameFormatter.GetApplicationRibbonFileName(service2.ConnectionData.Name);
                     filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
 
-                    var task2 = repository2.ExportApplicationRibbon(filter, filePath2, _commonConfig);
+                    var task2 = repository2.ExportApplicationRibbonAsync(filePath2, _commonConfig);
 
                     await task2;
                 }
@@ -828,7 +826,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository1 = new RibbonCustomizationRepository(service1);
 
-                var task1 = repository1.ExportEntityRibbon(entityName, filter, filePath1, _commonConfig);
+                var task1 = repository1.ExportEntityRibbonAsync(entityName, filter, filePath1, _commonConfig);
 
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
@@ -837,7 +835,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string fileName2 = EntityFileNameFormatter.GetEntityRibbonFileName(service2.ConnectionData.Name, entityName);
                     filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
 
-                    var task2 = repository2.ExportEntityRibbon(entityName, filter, filePath2, _commonConfig);
+                    var task2 = repository2.ExportEntityRibbonAsync(entityName, filter, filePath2, _commonConfig);
 
                     await task2;
                 }
@@ -1132,8 +1130,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbon);
 
-            var filters = GetRibbonLocationFilters();
-
             ToggleControls(false, Properties.WindowStatusStrings.ExportingApplicationRibbon);
 
             try
@@ -1145,7 +1141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new RibbonCustomizationRepository(service);
 
-                await repository.ExportApplicationRibbon(filters, filePath, _commonConfig);
+                await repository.ExportApplicationRibbonAsync(filePath, _commonConfig);
 
                 this._iWriteToOutput.WriteToOutput("{0} Application Ribbon Xml exported to {1}", service.ConnectionData.Name, filePath);
 
@@ -1330,7 +1326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new RibbonCustomizationRepository(service);
 
-                await repository.ExportEntityRibbon(entityName, filters, filePath, _commonConfig);
+                await repository.ExportEntityRibbonAsync(entityName, filters, filePath, _commonConfig);
 
                 this._iWriteToOutput.WriteToOutput("Ribbon Xml exported to {0}", filePath);
 

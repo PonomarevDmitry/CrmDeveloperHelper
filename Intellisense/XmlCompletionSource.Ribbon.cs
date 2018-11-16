@@ -3,11 +3,13 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
@@ -37,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             //, "Button"
         };
 
-        private static HashSet<string> _imagesXmlAttributes = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
+        public static HashSet<string> ImagesXmlAttributes = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
         {
             "Image16by16"
             , "Image32by32"
@@ -63,7 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             , "ToolTipDisabledCommandImage16by16"
         };
 
-        private static HashSet<string> _labelXmlAttributes = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
+        public static HashSet<string> LabelXmlAttributes = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
         {
             "LabelText"
             , "Alt"
@@ -119,6 +121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             , XElement doc
             , ConnectionIntellisenseDataRepository repositoryEntities
             , WebResourceIntellisenseDataRepository repositoryWebResource
+            , RibbonIntellisenseDataRepository repositoryRibbon
             )
         {
             SnapshotPoint currentPoint = (session.TextView.Caret.Position.BufferPosition) - 1;
@@ -214,19 +217,76 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             try
             {
-                if (_controlsWithImagesXmlElements.Contains(currentNodeName) && _imagesXmlAttributes.Contains(currentAttributeName))
+                RibbonIntellisenseData ribbonIntellisenseData = null;
+
+                XNamespace xNamespace = RibbonIntellisenseData.IntellisenseContextNamespace;
+
+                var attrEntityName = doc.Attribute(xNamespace + RibbonIntellisenseData.IntellisenseContextAttributeEntityName);
+
+                if (attrEntityName != null)
                 {
-                    FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+                    ribbonIntellisenseData = repositoryRibbon.GetRibbonIntellisenseData(attrEntityName.Value);
                 }
 
-                if (_labelXmlAttributes.Contains(currentAttributeName))
+                if (_controlsWithImagesXmlElements.Contains(currentNodeName) && ImagesXmlAttributes.Contains(currentAttributeName))
                 {
-                    FillLocLables(completionSets, applicableTo, doc, "LocLabels");
+                    FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+
+                    if (ribbonIntellisenseData != null)
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, ribbonIntellisenseData.Images, "Images");
+                    }
+                }
+
+                if (string.Equals(currentAttributeName, "ModernImage", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (ribbonIntellisenseData != null)
+                    {
+                        FillIntellisenseBySet(completionSets, applicableTo, ribbonIntellisenseData.ModernImages, "ModernImages");
+                    }
+                }
+
+                if (string.Equals(currentNodeName, "CustomAction", StringComparison.InvariantCultureIgnoreCase)
+                    && string.Equals(currentAttributeName, "Location", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (ribbonIntellisenseData != null)
+                    {
+                        var sorted = new SortedSet<string>(ribbonIntellisenseData.Locations.Keys);
+
+                        FillRibbonLocations(completionSets, applicableTo, sorted, "Locations");
+                    }
+                }
+
+                if (string.Equals(currentAttributeName, "Sequence", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (ribbonIntellisenseData != null)
+                    {
+                        FillRibbonSequences(completionSets, applicableTo, currentXmlNode, ribbonIntellisenseData.Locations, "Locations");
+                    }
+                }
+
+                if (LabelXmlAttributes.Contains(currentAttributeName))
+                {
+                    var localValues = FillLocLables(completionSets, applicableTo, doc, "LocLabels");
+
+                    if (ribbonIntellisenseData != null)
+                    {
+                        var sorted = new SortedSet<string>(ribbonIntellisenseData.LabelTexts.Where(s => !localValues.Contains(s)));
+
+                        FillIntellisenseBySet(completionSets, applicableTo, sorted, "Labels in Ribbon");
+                    }
                 }
 
                 if (_commandXmlAttributes.Contains(currentAttributeName))
                 {
-                    FillCommandsLocal(completionSets, applicableTo, doc, "Commands in RibbonDiffXml");
+                    var localValues = FillCommandsLocal(completionSets, applicableTo, doc, "Commands");
+
+                    if (ribbonIntellisenseData != null)
+                    {
+                        var sorted = new SortedSet<string>(ribbonIntellisenseData.CommandDefinitions.Keys.Where(s => !localValues.Contains(s)));
+
+                        FillIntellisenseBySet(completionSets, applicableTo, sorted, "Commands in Ribbon");
+                    }
                 }
 
                 if (string.Equals(currentNodeName, "EnableRule", StringComparison.InvariantCultureIgnoreCase)
@@ -237,7 +297,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     && string.Equals(currentXmlNode.Parent.Parent.Name.LocalName, "CommandDefinition", StringComparison.InvariantCultureIgnoreCase)
                     )
                 {
-                    FillEnableRulesLocal(completionSets, applicableTo, doc, "EnableRules in RibbonDiffXml");
+                    var localValues = FillEnableRulesLocal(completionSets, applicableTo, doc, "EnableRules");
+
+                    if (ribbonIntellisenseData != null)
+                    {
+                        var sorted = new SortedSet<string>(ribbonIntellisenseData.EnableRules.Keys.Where(s => !localValues.Contains(s)));
+
+                        FillIntellisenseBySet(completionSets, applicableTo, sorted, "EnableRules in Ribbon");
+                    }
                 }
 
                 if (string.Equals(currentNodeName, "DisplayRule", StringComparison.InvariantCultureIgnoreCase)
@@ -248,7 +315,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     && string.Equals(currentXmlNode.Parent.Parent.Name.LocalName, "CommandDefinition", StringComparison.InvariantCultureIgnoreCase)
                     )
                 {
-                    FillDisplayRulesLocal(completionSets, applicableTo, doc, "DisplayRules in RibbonDiffXml");
+                    var localValues = FillDisplayRulesLocal(completionSets, applicableTo, doc, "DisplayRules");
+
+                    if (ribbonIntellisenseData != null)
+                    {
+                        var sorted = new SortedSet<string>(ribbonIntellisenseData.DisplayRules.Keys.Where(s => !localValues.Contains(s)).Select(s => s));
+
+                        FillIntellisenseBySet(completionSets, applicableTo, sorted, "DisplayRules in Ribbon");
+                    }
                 }
 
                 if (string.Equals(currentAttributeName, "EntityName", StringComparison.InvariantCultureIgnoreCase))
@@ -261,10 +335,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     if (string.Equals(currentAttributeName, "Library", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillWebResourcesText(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesJavaScript?.Values?.ToList(), "WebResources");
+
+                        if (ribbonIntellisenseData != null)
+                        {
+                            FillIntellisenseBySet(completionSets, applicableTo, ribbonIntellisenseData.Libraries, "Library from Ribbon");
+                        }
                     }
                     else if (string.Equals(currentAttributeName, "FunctionName", StringComparison.InvariantCultureIgnoreCase))
                     {
-
+                        if (ribbonIntellisenseData != null)
+                        {
+                            FillIntellisenseBySet(completionSets, applicableTo, ribbonIntellisenseData.FunctionsNames, "FunctionName from Ribbon");
+                        }
                     }
                 }
                 else if (string.Equals(currentNodeName, "JavaScriptFunction", StringComparison.InvariantCultureIgnoreCase))
@@ -272,10 +354,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     if (string.Equals(currentAttributeName, "Library", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillWebResourcesText(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesJavaScript?.Values?.ToList(), "WebResources");
+
+                        if (ribbonIntellisenseData != null)
+                        {
+                            FillIntellisenseBySet(completionSets, applicableTo, ribbonIntellisenseData.Libraries, "Library from Ribbon");
+                        }
                     }
                     else if (string.Equals(currentAttributeName, "FunctionName", StringComparison.InvariantCultureIgnoreCase))
                     {
-
+                        if (ribbonIntellisenseData != null)
+                        {
+                            FillIntellisenseBySet(completionSets, applicableTo, ribbonIntellisenseData.FunctionsNames, "FunctionName from Ribbon");
+                        }
                     }
                 }
                 else if (string.Equals(currentNodeName, "Title", StringComparison.InvariantCultureIgnoreCase))
@@ -292,8 +382,94 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private void FillDisplayRulesLocal(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string name)
+        private void FillRibbonSequences(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement currentXmlNode, Dictionary<string, RibbonLocation> locations, string name)
         {
+            if (locations == null || !locations.Any())
+            {
+                return;
+            }
+
+            List<RibbonLocationControl> controls = null;
+
+            var customAction = currentXmlNode.AncestorsAndSelf().FirstOrDefault(e => string.Equals(e.Name.LocalName, "CustomAction", StringComparison.InvariantCultureIgnoreCase));
+
+            if (customAction != null
+                && customAction.Attribute("Location") != null
+                )
+            {
+                var location = customAction.Attribute("Location").Value;
+
+                if (!string.IsNullOrEmpty(location))
+                {
+                    if (location.EndsWith("._children", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        location = Regex.Replace(location, @"\._children", string.Empty, RegexOptions.IgnoreCase);
+                    }
+
+                    if (locations.ContainsKey(location))
+                    {
+                        controls = locations[location].Controls;
+                    }
+                }
+            }
+
+            if (controls != null && controls.Any())
+            {
+                List<CrmCompletion> list = new List<CrmCompletion>();
+
+                foreach (var control in controls)
+                {
+                    StringBuilder str = new StringBuilder();
+                    str.AppendFormat("ControlType:\t{0}", control.ControlType);
+
+                    if (!string.IsNullOrEmpty(control.Sequence))
+                    {
+                        str.AppendLine().AppendFormat("Sequence:\t{0}", control.Sequence);
+                    }
+
+                    if (!string.IsNullOrEmpty(control.Id))
+                    {
+                        str.AppendLine().AppendFormat("Id:\t\t{0}", control.Id);
+                    }
+
+                    if (!string.IsNullOrEmpty(control.LabelText))
+                    {
+                        str.AppendLine().AppendFormat("LabelText:\t{0}", control.LabelText);
+                    }
+
+                    if (!string.IsNullOrEmpty(control.Command))
+                    {
+                        str.AppendLine().AppendFormat("Command:\t{0}", control.Command);
+                    }
+
+                    list.Add(CreateCompletion(string.Format("{0} - {1}", control.Sequence, control.Id), control.Sequence, str.ToString(), _defaultGlyph, Enumerable.Empty<string>()));
+                }
+
+                completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonSequences, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            }
+        }
+
+        private void FillRibbonLocations(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, SortedSet<string> values, string name)
+        {
+            if (values == null || !values.Any())
+            {
+                return;
+            }
+
+            List<CrmCompletion> list = new List<CrmCompletion>();
+
+            foreach (var value in values)
+            {
+                list.Add(CreateCompletion(value, value + "._children", null, _defaultGlyph, Enumerable.Empty<string>()));
+            }
+
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonLocations, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+        }
+
+        private HashSet<string> FillDisplayRulesLocal(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string name)
+        {
+            HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
             List<CrmCompletion> list = new List<CrmCompletion>();
 
             var locLabelsList = doc.XPathSelectElements("./RuleDefinitions/DisplayRules/DisplayRule").Where(e => e.Attribute("Id") != null && !string.IsNullOrEmpty(e.Attribute("Id").Value));
@@ -302,14 +478,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 string id = (string)label.Attribute("Id");
 
+                result.Add(id);
+
                 list.Add(CreateCompletion(id, id, string.Empty, _defaultGlyph, Enumerable.Empty<string>()));
             }
 
             completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonDisplayRules, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+
+            return result;
         }
 
-        private void FillEnableRulesLocal(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string name)
+        private HashSet<string> FillEnableRulesLocal(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string name)
         {
+            HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
             List<CrmCompletion> list = new List<CrmCompletion>();
 
             var locLabelsList = doc.XPathSelectElements("./RuleDefinitions/EnableRules/EnableRule").Where(e => e.Attribute("Id") != null && !string.IsNullOrEmpty(e.Attribute("Id").Value));
@@ -318,14 +500,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 string id = (string)label.Attribute("Id");
 
+                result.Add(id);
+
                 list.Add(CreateCompletion(id, id, string.Empty, _defaultGlyph, Enumerable.Empty<string>()));
             }
 
             completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonEnableRules, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+
+            return result;
         }
 
-        private void FillCommandsLocal(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string name)
+        private HashSet<string> FillCommandsLocal(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string name)
         {
+            HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
             List<CrmCompletion> list = new List<CrmCompletion>();
 
             var locLabelsList = doc.XPathSelectElements("./CommandDefinitions/CommandDefinition").Where(e => e.Attribute("Id") != null && !string.IsNullOrEmpty(e.Attribute("Id").Value));
@@ -334,14 +522,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 string id = (string)label.Attribute("Id");
 
+                result.Add(id);
+
                 list.Add(CreateCompletion(id, id, string.Empty, _defaultGlyph, Enumerable.Empty<string>()));
             }
 
             completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonCommands, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+
+            return result;
         }
 
-        private void FillLocLables(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string name)
+        private HashSet<string> FillLocLables(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string name)
         {
+            HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
             List<CrmCompletion> list = new List<CrmCompletion>();
 
             var locLabelsList = doc.XPathSelectElements("./LocLabels/LocLabel").Where(e => e.Attribute("Id") != null && !string.IsNullOrEmpty(e.Attribute("Id").Value));
@@ -380,10 +574,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                 string insertText = string.Format("$LocLabels:{0}", id);
 
+                result.Add(insertText);
+
                 list.Add(CreateCompletion(id, insertText, str.ToString(), _defaultGlyph, compareValues));
             }
 
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerLocLables, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonLocLables, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+
+            return result;
         }
     }
 }

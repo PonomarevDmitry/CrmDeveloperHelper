@@ -32,11 +32,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         private const string SourceNameMonikerPrimaryAttributes = "CrmXmlPrimaryAttributes.{A9DA848E-6160-48AE-A41A-6CC15D30DB90}";
         private const string SourceNameMonikerReferenceAttributes = "CrmXmlReferenceAttributes.{9FEBA56B-4CFC-40E4-9C8C-E7699BEEB367}";
 
-        private const string SourceNameMonikerLocLables = "CrmXmlLocLables.{4B14E1D7-8F16-4D7C-A8F2-5C11E1F876FB}";
+        private const string SourceNameMonikerRibbonLocLables = "CrmXmlRibbonLocLables.{4B14E1D7-8F16-4D7C-A8F2-5C11E1F876FB}";
 
         private const string SourceNameMonikerRibbonCommands = "CrmXmlRibbonCommands.{F13A4D64-86AD-466D-B273-3CD8E9E741F7}";
         private const string SourceNameMonikerRibbonEnableRules = "CrmXmlRibbonEnableRules.{DD111F19-F2D0-4FAC-83F5-15DAD841A5E0}";
         private const string SourceNameMonikerRibbonDisplayRules = "CrmXmlRibbonDisplayRules.{F4EA811F-FE61-4E1D-84D8-1D0156C96D99}";
+
+        private const string SourceNameMonikerRibbonLocations = "CrmXmlRibbonLocations.{8FEA085A-B8DA-4037-A01E-E9CC0F89A943}";
+        private const string SourceNameMonikerRibbonSequences = "CrmXmlRibbonSequences.{0CD106F0-27BD-471B-9057-7873CF4E2E7A}";
 
         private readonly XmlCompletionSourceProvider _sourceProvider;
 
@@ -120,7 +123,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
                 var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
 
-                FillSessionForRibbonDiffXml(triggerPoint.Value, session, completionSets, snapshot, doc, repositoryEntities, repositoryWebResource);
+                var repositoryRibbon = RibbonIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+
+                FillSessionForRibbonDiffXml(triggerPoint.Value, session, completionSets, snapshot, doc, repositoryEntities, repositoryWebResource, repositoryRibbon);
             }
         }
 

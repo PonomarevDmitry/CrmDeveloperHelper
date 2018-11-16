@@ -752,11 +752,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                RibbonLocationFilters filter = GetRibbonLocationFilters();
-
                 var repository = new RibbonCustomizationRepository(service);
 
-                await repository.ExportApplicationRibbon(filter, filePath, _commonConfig);
+                await repository.ExportApplicationRibbonAsync(filePath, _commonConfig);
 
                 this._iWriteToOutput.WriteToOutput("Application Ribbon exported to {0}", filePath);
 
@@ -1222,7 +1220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new RibbonCustomizationRepository(service);
 
-                await repository.ExportEntityRibbon(entity.EntityLogicalName, filter, filePath, _commonConfig);
+                await repository.ExportEntityRibbonAsync(entity.EntityLogicalName, filter, filePath, _commonConfig);
 
                 this._iWriteToOutput.WriteToOutput("{0} Ribbon exported to {1}", entity.EntityLogicalName, filePath);
 

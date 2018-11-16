@@ -673,6 +673,9 @@
     <Compile Include="Intellisense\CustomUrlClassifierProvider.cs" />
     <Compile Include="Intellisense\CustomUrlTagger.cs" />
     <Compile Include="Intellisense\CustomUrlTagProvider.cs" />
+    <Compile Include="Intellisense\Model\RibbonIntellisenseData.cs" />
+    <Compile Include="Intellisense\Model\RibbonLocation.cs" />
+    <Compile Include="Intellisense\Model\RibbonLocationControl.cs" />
     <Compile Include="Intellisense\XmlCompletionSource.cs" />
     <Compile Include="Intellisense\XmlCompletionSource.Fetch.cs" />
     <Compile Include="Intellisense\XmlCompletionSource.Ribbon.cs" />
@@ -829,6 +832,7 @@
     <Compile Include="Repository\PublisherRepository.cs" />
     <Compile Include="Repository\ReportRepository.cs" />
     <Compile Include="Repository\RibbonCustomizationRepository.cs" />
+    <Compile Include="Repository\RibbonIntellisenseDataRepository.cs" />
     <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\SavedQueryRepository.cs" />
     <Compile Include="Repository\SavedQueryVisualizationRepository.cs" />

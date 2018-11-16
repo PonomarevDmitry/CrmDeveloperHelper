@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             if (!string.IsNullOrEmpty(entityDescription))
             {
-                lines.Add(string.Format("Entity:    {0}", entityDescription));
+                lines.Add(string.Format("Entity:\t{0}", entityDescription));
             }
 
             FillDescriptionAttribute(lines, attribute);
@@ -67,11 +67,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 {
                     string targets = string.Join(",", attribute.Targets.OrderBy(s => s));
 
-                    lines.Add(string.Format("Targets:    {0}", targets));
+                    lines.Add(string.Format("Targets:\t{0}", targets));
                 }
                 else
                 {
-                    lines.Add(string.Format("Targets Count: {0}", attribute.Targets.Count));
+                    lines.Add(string.Format("Targets Count:\t{0}", attribute.Targets.Count));
                 }
             }
 
@@ -101,7 +101,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             lines.Add(string.Empty);
 
-            lines.Add(string.Format("Attribute:      {0}", GetDisplayTextAttribute(entity.EntityLogicalName, attribute)));
+            lines.Add(string.Format("Attribute:\t{0}", GetDisplayTextAttribute(entity.EntityLogicalName, attribute)));
 
             FillDescriptionAttribute(lines, attribute);
 
@@ -114,22 +114,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             if (!string.IsNullOrEmpty(entityDescription))
             {
-                lines.Add(string.Format("Entity:      {0}", entityDescription));
+                lines.Add(string.Format("Entity:\t{0}", entityDescription));
             }
 
             if (!string.IsNullOrEmpty(attributeDescription))
             {
-                lines.Add(string.Format("Attribute:      {0}", attributeDescription));
+                lines.Add(string.Format("Attribute:\t{0}", attributeDescription));
             }
 
             if (optionMetadata is StateOptionMetadata stateOption)
             {
-                lines.Add(string.Format("DefaultStatusValue:      {0}", stateOption.DefaultStatus));
+                lines.Add(string.Format("DefaultStatusValue:\t{0}", stateOption.DefaultStatus));
             }
 
             if (optionMetadata is StatusOptionMetadata statusOption)
             {
-                lines.Add(string.Format("State:      {0}", statusOption.State));
+                lines.Add(string.Format("State:\t{0}", statusOption.State));
             }
 
             CreateFileHandler.FillLabelDisplayNameAndDescription(lines, true, optionMetadata.Label, optionMetadata.Description, "    ");
