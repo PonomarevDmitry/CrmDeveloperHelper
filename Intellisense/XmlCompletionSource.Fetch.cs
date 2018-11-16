@@ -875,80 +875,91 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 entityName = GetParentEntityName(nodeCondition);
             }
 
-            if (!string.IsNullOrEmpty(entityName) && !string.IsNullOrEmpty(attributeName))
+            FillEntityAttributeValues(completionSets, applicableTo, repository, entityName, attributeName);
+        }
+
+        private void FillEntityAttributeValues(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, ConnectionIntellisenseDataRepository repository, string entityName, string attributeName)
+        {
+            if (string.IsNullOrEmpty(entityName) || string.IsNullOrEmpty(attributeName))
             {
-                var entityData = repository.GetEntityAttributeIntellisense(entityName);
+                return;
+            }
 
-                if (entityData != null && entityData.Attributes != null)
+            var entityData = repository.GetEntityAttributeIntellisense(entityName);
+
+            if (entityData == null || entityData.Attributes == null)
+            {
+                return;
+            }
+
+            if (!entityData.Attributes.ContainsKey(attributeName))
+            {
+                return;
+            }
+
+            var attributeData = entityData.Attributes[attributeName];
+
+            if (attributeData.OptionSet != null && attributeData.OptionSet.IsBoolean)
+            {
+                List<CrmCompletion> list = new List<CrmCompletion>
                 {
-                    if (entityData.Attributes.ContainsKey(attributeName))
+                    CreateCompletion("0", "0", null, _defaultGlyph, Enumerable.Empty<string>()),
+                    CreateCompletion("1", "1", null, _defaultGlyph, Enumerable.Empty<string>()),
+                    CreateCompletion("false", "false", null, _defaultGlyph, Enumerable.Empty<string>()),
+                    CreateCompletion("true", "true", null, _defaultGlyph, Enumerable.Empty<string>())
+                };
+
+                if (attributeData.OptionSet != null && attributeData.OptionSet.OptionSetMetadata is BooleanOptionSetMetadata boolOptionSet)
+                {
+                    string entityDescription = CrmIntellisenseCommon.GetDisplayTextEntity(entityData);
+                    string attributeDescription = CrmIntellisenseCommon.GetDisplayTextAttribute(entityName, attributeData);
+
+                    if (boolOptionSet.FalseOption != null)
                     {
-                        var attributeData = entityData.Attributes[attributeName];
+                        string displayText = CrmIntellisenseCommon.GetDisplayTextOptionSetValue(entityData.EntityLogicalName, attributeData.LogicalName, boolOptionSet.FalseOption);
 
-                        if (attributeData.OptionSet != null && attributeData.OptionSet.IsBoolean)
-                        {
-                            List<CrmCompletion> list = new List<CrmCompletion>
-                            {
-                                CreateCompletion("0", "0", null, _defaultGlyph, Enumerable.Empty<string>()),
-                                CreateCompletion("1", "1", null, _defaultGlyph, Enumerable.Empty<string>()),
-                                CreateCompletion("false", "false", null, _defaultGlyph, Enumerable.Empty<string>()),
-                                CreateCompletion("true", "true", null, _defaultGlyph, Enumerable.Empty<string>())
-                            };
+                        List<string> compareValues = CrmIntellisenseCommon.GetCompareValues(boolOptionSet.FalseOption.Label);
 
-                            if (attributeData.OptionSet != null && attributeData.OptionSet.OptionSetMetadata is BooleanOptionSetMetadata boolOptionSet)
-                            {
-                                string entityDescription = CrmIntellisenseCommon.GetDisplayTextEntity(entityData);
-                                string attributeDescription = CrmIntellisenseCommon.GetDisplayTextAttribute(entityName, attributeData);
+                        list.Add(CreateCompletion(displayText, boolOptionSet.FalseOption.Value.ToString(), CrmIntellisenseCommon.CreateOptionValueDescription(entityDescription, attributeDescription, boolOptionSet.FalseOption), _defaultGlyph, compareValues));
+                    }
 
-                                if (boolOptionSet.FalseOption != null)
-                                {
-                                    string displayText = CrmIntellisenseCommon.GetDisplayTextOptionSetValue(entityData.EntityLogicalName, attributeData.LogicalName, boolOptionSet.FalseOption);
+                    if (boolOptionSet.TrueOption != null)
+                    {
+                        string displayText = CrmIntellisenseCommon.GetDisplayTextOptionSetValue(entityData.EntityLogicalName, attributeData.LogicalName, boolOptionSet.TrueOption);
 
-                                    List<string> compareValues = CrmIntellisenseCommon.GetCompareValues(boolOptionSet.FalseOption.Label);
+                        List<string> compareValues = CrmIntellisenseCommon.GetCompareValues(boolOptionSet.TrueOption.Label);
 
-                                    list.Add(CreateCompletion(displayText, boolOptionSet.FalseOption.Value.ToString(), CrmIntellisenseCommon.CreateOptionValueDescription(entityDescription, attributeDescription, boolOptionSet.FalseOption), _defaultGlyph, compareValues));
-                                }
+                        list.Add(CreateCompletion(displayText, boolOptionSet.TrueOption.Value.ToString(), CrmIntellisenseCommon.CreateOptionValueDescription(entityDescription, attributeDescription, boolOptionSet.TrueOption), _defaultGlyph, compareValues));
+                    }
+                }
 
-                                if (boolOptionSet.TrueOption != null)
-                                {
-                                    string displayText = CrmIntellisenseCommon.GetDisplayTextOptionSetValue(entityData.EntityLogicalName, attributeData.LogicalName, boolOptionSet.TrueOption);
+                completionSets.Add(new CrmCompletionSet(SourceNameMonikerDefaultSingle, string.Format("{0}.{1} Values", entityName, attributeName), applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            }
+            else if (attributeData.IsEntityNameAttribute)
+            {
+                FillEntityNamesInList(completionSets, applicableTo, repository, true, true);
+            }
+            else if (attributeData.OptionSet != null)
+            {
+                if (attributeData.OptionSet != null && attributeData.OptionSet.OptionSetMetadata is OptionSetMetadata optionSet)
+                {
+                    List<CrmCompletion> list = new List<CrmCompletion>();
 
-                                    List<string> compareValues = CrmIntellisenseCommon.GetCompareValues(boolOptionSet.TrueOption.Label);
+                    string entityDescription = CrmIntellisenseCommon.GetDisplayTextEntity(entityData);
+                    string attributeDescription = CrmIntellisenseCommon.GetDisplayTextAttribute(entityName, attributeData);
 
-                                    list.Add(CreateCompletion(displayText, boolOptionSet.TrueOption.Value.ToString(), CrmIntellisenseCommon.CreateOptionValueDescription(entityDescription, attributeDescription, boolOptionSet.TrueOption), _defaultGlyph, compareValues));
-                                }
-                            }
+                    foreach (var item in optionSet.Options.OrderBy(e => e.Value))
+                    {
+                        string displayText = CrmIntellisenseCommon.GetDisplayTextOptionSetValue(entityData.EntityLogicalName, attributeData.LogicalName, item);
 
-                            completionSets.Add(new CrmCompletionSet(SourceNameMonikerDefaultSingle, string.Format("{0}.{1} Values", entityName, attributeName), applicableTo, list, Enumerable.Empty<CrmCompletion>()));
-                        }
-                        else if (attributeData.IsEntityNameAttribute)
-                        {
-                            FillEntityNamesInList(completionSets, applicableTo, repository, true, true);
-                        }
-                        else if (attributeData.OptionSet != null)
-                        {
-                            if (attributeData.OptionSet != null && attributeData.OptionSet.OptionSetMetadata is OptionSetMetadata optionSet)
-                            {
-                                List<CrmCompletion> list = new List<CrmCompletion>();
+                        List<string> compareValues = CrmIntellisenseCommon.GetCompareValues(item.Label);
 
-                                string entityDescription = CrmIntellisenseCommon.GetDisplayTextEntity(entityData);
-                                string attributeDescription = CrmIntellisenseCommon.GetDisplayTextAttribute(entityName, attributeData);
+                        list.Add(CreateCompletion(displayText, item.Value.ToString(), CrmIntellisenseCommon.CreateOptionValueDescription(entityDescription, attributeDescription, item), _defaultGlyph, compareValues));
+                    }
 
-                                foreach (var item in optionSet.Options.OrderBy(e => e.Value))
-                                {
-                                    string displayText = CrmIntellisenseCommon.GetDisplayTextOptionSetValue(entityData.EntityLogicalName, attributeData.LogicalName, item);
-
-                                    List<string> compareValues = CrmIntellisenseCommon.GetCompareValues(item.Label);
-
-                                    list.Add(CreateCompletion(displayText, item.Value.ToString(), CrmIntellisenseCommon.CreateOptionValueDescription(entityDescription, attributeDescription, item), _defaultGlyph, compareValues));
-                                }
-
-                                if (list.Count > 0)
-                                {
-                                    completionSets.Add(new CrmCompletionSet(SourceNameMonikerDefaultSingle, string.Format("{0}.{1} Values", entityName, attributeName), applicableTo, list, Enumerable.Empty<CrmCompletion>()));
-                                }
-                            }
-                        }
+                    if (list.Count > 0)
+                    {
+                        completionSets.Add(new CrmCompletionSet(SourceNameMonikerDefaultSingle, string.Format("{0}.{1} Values", entityName, attributeName), applicableTo, list, Enumerable.Empty<CrmCompletion>()));
                     }
                 }
             }

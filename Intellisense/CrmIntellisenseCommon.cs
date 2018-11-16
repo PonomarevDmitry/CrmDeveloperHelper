@@ -114,7 +114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             if (!string.IsNullOrEmpty(entityDescription))
             {
-                lines.Add(string.Format("Entity:\t{0}", entityDescription));
+                lines.Add(string.Format("Entity:\t\t{0}", entityDescription));
             }
 
             if (!string.IsNullOrEmpty(attributeDescription))

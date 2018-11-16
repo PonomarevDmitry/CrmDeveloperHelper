@@ -508,16 +508,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             File.WriteAllBytes(filePath, byteXml);
         }
 
-        private byte[] ExportApplicationRibbonByteArray()
-        {
-            RetrieveApplicationRibbonRequest appribReq = new RetrieveApplicationRibbonRequest();
-            RetrieveApplicationRibbonResponse appribResp = (RetrieveApplicationRibbonResponse)_service.Execute(appribReq);
-
-            var byteXml = FileOperations.UnzipRibbon(appribResp.CompressedApplicationRibbonXml);
-
-            return byteXml;
-        }
-
         public Task ExportEntityRibbonAsync(string entityName, RibbonLocationFilters filter, string filePath, CommonConfiguration commonConfig)
         {
             return Task.Run(() => ExportingEntityRibbon(entityName, filter, filePath, commonConfig));
@@ -533,6 +523,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
 
             File.WriteAllBytes(filePath, byteXml);
+        }
+
+        private byte[] ExportApplicationRibbonByteArray()
+        {
+            RetrieveApplicationRibbonRequest appribReq = new RetrieveApplicationRibbonRequest();
+            RetrieveApplicationRibbonResponse appribResp = (RetrieveApplicationRibbonResponse)_service.Execute(appribReq);
+
+            var byteXml = FileOperations.UnzipRibbon(appribResp.CompressedApplicationRibbonXml);
+
+            return byteXml;
         }
 
         private byte[] ExportEntityRibbonByteArray(string entityName, RibbonLocationFilters filter)

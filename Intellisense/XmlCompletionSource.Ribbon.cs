@@ -325,9 +325,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     }
                 }
 
-                if (string.Equals(currentAttributeName, "EntityName", StringComparison.InvariantCultureIgnoreCase))
+                if (string.Equals(currentAttributeName, "EntityName", StringComparison.InvariantCultureIgnoreCase)
+                    &&
+                    (
+                        string.Equals(currentNodeName, "EntityRule", StringComparison.InvariantCultureIgnoreCase)
+                        || string.Equals(currentNodeName, "EntityPropertyRule", StringComparison.InvariantCultureIgnoreCase)
+                        || string.Equals(currentNodeName, "FormEntityContextRule", StringComparison.InvariantCultureIgnoreCase)
+                        || string.Equals(currentNodeName, "EntityPrivilegeRule", StringComparison.InvariantCultureIgnoreCase)
+                    ))
                 {
                     FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, false, false);
+                }
+                
+                if (string.Equals(currentNodeName, "ValueRule", StringComparison.InvariantCultureIgnoreCase)
+                   && string.Equals(currentAttributeName, "Field", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (attrEntityName != null
+                        && !string.IsNullOrEmpty(attrEntityName.Value)
+                        )
+                    {
+                        var entityIntellisenseData = repositoryEntities.GetEntitiesIntellisenseData();
+
+                        if (entityIntellisenseData != null
+                            && entityIntellisenseData.Entities.ContainsKey(attrEntityName.Value)
+                            )
+                        {
+                            FillEntityIntellisenseDataAttributes(completionSets, applicableTo, entityIntellisenseData.Entities[attrEntityName.Value]);
+                        }
+                    }
+                }
+
+                if (string.Equals(currentNodeName, "ValueRule", StringComparison.InvariantCultureIgnoreCase)
+                   && string.Equals(currentAttributeName, "Value", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (attrEntityName != null
+                        && !string.IsNullOrEmpty(attrEntityName.Value)
+                        && currentXmlNode.Attribute("Field") != null
+                        && !string.IsNullOrEmpty(currentXmlNode.Attribute("Field").Value)
+                        )
+                    {
+                        FillEntityAttributeValues(completionSets, applicableTo, repositoryEntities, attrEntityName.Value, currentXmlNode.Attribute("Field").Value);
+                    }
                 }
 
                 if (string.Equals(currentNodeName, "CustomRule", StringComparison.InvariantCultureIgnoreCase))
