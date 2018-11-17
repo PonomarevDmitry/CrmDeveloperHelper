@@ -470,12 +470,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             if (schemasResources != null)
                             {
-                                string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(schemasResources.Item2);
-
-                                if (!string.IsNullOrEmpty(schemas))
-                                {
-                                    xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemas);
-                                }
+                                xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources.Item2);
                             }
                         }
 
@@ -604,8 +599,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     xmlContent = doc.ToString();
 
-                    ContentCoparerHelper.ClearXsdSchema(xmlContent, out xmlContent);
-
                     xmlContent = ContentCoparerHelper.FormatToJavaScript(fieldName, xmlContent);
                 }
 
@@ -667,7 +660,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                ContentCoparerHelper.ClearXsdSchema(newText, out newText);
+                newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
 
                 UpdateStatus(Properties.WindowStatusStrings.ValidatingXmlForFieldFormat1, fieldTitle);
 

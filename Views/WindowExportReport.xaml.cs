@@ -583,7 +583,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                ContentCoparerHelper.ClearXsdSchema(newText, out newText);
+                newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
 
                 {
                     if (ContentCoparerHelper.TryParseXml(newText, out var doc))

@@ -124,6 +124,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add IntellisenseContext EntityName.
+        /// </summary>
+        internal static string AddRibbonDiffIntellisenseContextEntityName {
+            get {
+                return ResourceManager.GetString("AddRibbonDiffIntellisenseContextEntityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add XmlSchemaLocation.
+        /// </summary>
+        internal static string AddXmlSchemaLocation {
+            get {
+                return ResourceManager.GetString("AddXmlSchemaLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Analyzing Solution {0} Workflows.
         /// </summary>
         internal static string AnalyzingSolutionWorkflowsFormat1 {
@@ -894,6 +912,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string PublishingWebResourceFormat1 {
             get {
                 return ResourceManager.GetString("PublishingWebResourceFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove IntellisenseContext EntityName.
+        /// </summary>
+        internal static string RemoveRibbonDiffIntellisenseContextEntityName {
+            get {
+                return ResourceManager.GetString("RemoveRibbonDiffIntellisenseContextEntityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove XmlSchemaLocation.
+        /// </summary>
+        internal static string RemoveXmlSchemaLocation {
+            get {
+                return ResourceManager.GetString("RemoveXmlSchemaLocation", resourceCulture);
             }
         }
         

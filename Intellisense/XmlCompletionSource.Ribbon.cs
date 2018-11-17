@@ -336,7 +336,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 {
                     FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, false, false);
                 }
-                
+
+                if (string.Equals(currentNodeName, "RibbonDiffXml", StringComparison.InvariantCultureIgnoreCase)
+                    &&
+                    (
+                        string.Equals(currentAttributeName, RibbonIntellisenseData.IntellisenseContextAttributeEntityName, StringComparison.InvariantCultureIgnoreCase)
+                        || string.Equals(currentAttributeName, "intellisenseContext:" + RibbonIntellisenseData.IntellisenseContextAttributeEntityName, StringComparison.InvariantCultureIgnoreCase)
+                    ))
+                {
+                    FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, false, false);
+                }
+
                 if (string.Equals(currentNodeName, "ValueRule", StringComparison.InvariantCultureIgnoreCase)
                    && string.Equals(currentAttributeName, "Field", StringComparison.InvariantCultureIgnoreCase))
                 {

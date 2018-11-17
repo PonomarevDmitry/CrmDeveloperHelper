@@ -1,4 +1,10 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using EnvDTE;
+using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Text.Editor;
+using Microsoft.VisualStudio.Text.Operations;
+using Microsoft.VisualStudio.TextManager.Interop;
+using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
@@ -814,6 +820,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static string FormatToJavaScript(string fieldName, string xmlContent)
         {
+            xmlContent = RemoveAllCustomXmlAttributesAndNamespaces(xmlContent);
+
             IEnumerable<string> split = xmlContent
                 .Split(new[] { "\r\n" }, StringSplitOptions.None)
                 .SelectMany(s => s.Split(new[] { "\n\r" }, StringSplitOptions.None))
@@ -842,55 +850,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return str.ToString();
         }
 
-        private const string patternXsi = " xmlns:xsi=\"([^\"]+)\"";
-        private const string replaceXsiNamespace = " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"";
-        private const string patternSchemaLocation = " xsi:schemaLocation=\"([^\"]+)\"";
-        private const string replaceSchemaLocationFormat = " xsi:schemaLocation=\"{0}\"";
-
-        private const string patternIntellisenseContext = " xmlns:intellisenseContext=\"([^\"]+)\"";
-        private const string replaceIntellisenseContextNamespace = " xmlns:intellisenseContext=\"{0}\"";
-
-        private const string patternIntellisenseContextEntityName = " intellisenseContext:entityName=\"([^\"]*)\"";
-        private const string replaceIntellisenseContextEntityNameFormat = " intellisenseContext:entityName=\"{0}\"";
-
-        public static bool ClearXsdSchema(string text, out string changeText)
-        {
-            bool result = false;
-            changeText = text;
-
-            if (Regex.IsMatch(changeText, patternXsi))
-            {
-                result = true;
-                changeText = Regex.Replace(changeText, patternXsi, string.Empty, RegexOptions.IgnoreCase);
-            }
-
-            if (Regex.IsMatch(changeText, patternSchemaLocation))
-            {
-                result = true;
-                changeText = Regex.Replace(changeText, patternSchemaLocation, string.Empty, RegexOptions.IgnoreCase);
-            }
-
-            if (Regex.IsMatch(changeText, patternIntellisenseContext))
-            {
-                result = true;
-                changeText = Regex.Replace(changeText, patternIntellisenseContext, string.Empty, RegexOptions.IgnoreCase);
-            }
-
-            if (Regex.IsMatch(changeText, patternIntellisenseContextEntityName))
-            {
-                result = true;
-                changeText = Regex.Replace(changeText, patternIntellisenseContextEntityName, string.Empty, RegexOptions.IgnoreCase);
-            }
-
-            return result;
-        }
-
-        public static string HandleExportXsdSchemaIntoSchamasFolder(string[] fileNamesColl)
+        private static string HandleExportXsdSchemaIntoSchamasFolder(string[] fileNamesColl)
         {
             StringBuilder result = new StringBuilder();
 
             try
             {
+                string exportFolder = FileOperations.GetSchemaXsdFolder();
+
                 foreach (var fileName in fileNamesColl)
                 {
                     Uri uri = FileOperations.GetSchemaResourceUri(fileName);
@@ -899,7 +866,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     var doc = XDocument.Load(info.Stream);
                     info.Stream.Dispose();
 
-                    var filePath = Path.Combine(FileOperations.GetSchemaXsdFolder(), fileName);
+                    var filePath = Path.Combine(exportFolder, fileName);
 
                     doc.Save(filePath, SaveOptions.OmitDuplicateNamespaces);
 
@@ -919,8 +886,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result.ToString();
         }
 
-        public static string ReplaceXsdSchema(string text, string schemas)
+        private const string patternXsi = " xmlns:xsi=\"([^\"]+)\"";
+        private const string replaceXsiNamespace = " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"";
+        private const string patternSchemaLocation = " xsi:schemaLocation=\"([^\"]+)\"";
+        private const string replaceSchemaLocationFormat = " xsi:schemaLocation=\"{0}\"";
+
+        private const string patternIntellisenseContext = " xmlns:intellisenseContext=\"([^\"]+)\"";
+        private const string replaceIntellisenseContextNamespace = " xmlns:intellisenseContext=\"{0}\"";
+
+        private const string patternIntellisenseContextEntityName = " intellisenseContext:entityName=\"([^\"]*)\"";
+        private const string replaceIntellisenseContextEntityNameFormat = " intellisenseContext:entityName=\"{0}\"";
+
+        private static void GetTextViewAndMakeAction(Document document, string operationName, Action<IWpfTextView> action)
         {
+            var vsTextView = GetIVsTextView(document.FullName);
+
+            if (vsTextView == null)
+            {
+                return;
+            }
+
+            var wpfTextView = GetWpfTextView(vsTextView);
+            if (wpfTextView == null)
+            {
+                return;
+            }
+
+            var componentModel = (IComponentModel)CrmDeveloperHelperPackage.ServiceProvider.GetService(typeof(SComponentModel));
+            var undoHistoryRegistry = componentModel.DefaultExportProvider.GetExportedValue<ITextUndoHistoryRegistry>();
+
+            undoHistoryRegistry.TryGetHistory(wpfTextView.TextBuffer, out var history);
+
+            using (var undo = history?.CreateTransaction(operationName))
+            {
+                vsTextView.GetCaretPos(out var oldCaretLine, out var oldCaretColumn);
+                vsTextView.SetCaretPos(oldCaretLine, 0);
+
+                action(wpfTextView);
+
+                vsTextView.GetCaretPos(out var newCaretLine, out var newCaretColumn);
+                vsTextView.SetCaretPos(newCaretLine, oldCaretColumn);
+
+                undo?.Complete();
+            }
+        }
+
+        public static string ReplaceXsdSchema(string text, string[] fileNamesColl)
+        {
+            if (fileNamesColl == null || !fileNamesColl.Any())
+            {
+                return text;
+            }
+
+            string schemas = HandleExportXsdSchemaIntoSchamasFolder(fileNamesColl);
+
+            if (string.IsNullOrEmpty(schemas))
+            {
+                return text;
+            }
+
             var result = text;
 
             if (Regex.IsMatch(result, patternXsi))
@@ -954,13 +978,285 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
+        public static void ReplaceXsdSchemaInDocument(EnvDTE.Document document, string[] fileNamesColl)
+        {
+            if (fileNamesColl == null || !fileNamesColl.Any())
+            {
+                return;
+            }
+
+            string schemas = HandleExportXsdSchemaIntoSchamasFolder(fileNamesColl);
+
+            if (string.IsNullOrEmpty(schemas))
+            {
+                return;
+            }
+
+            GetTextViewAndMakeAction(document, Properties.OperationNames.AddXmlSchemaLocation, wpfTextView => ReplaceXsdSchemaInTextView(wpfTextView, schemas));
+        }
+
+        private static void ReplaceXsdSchemaInTextView(IWpfTextView wpfTextView, string schemas)
+        {
+            var snapshot = wpfTextView.TextSnapshot;
+
+            using (var edit = snapshot.TextBuffer.CreateEdit())
+            {
+                var hasModifed = false;
+
+                string text = snapshot.GetText();
+
+                {
+                    var match = Regex.Match(text, patternXsi);
+                    if (match.Success)
+                    {
+                        if (match.Value != replaceXsiNamespace)
+                        {
+                            hasModifed = true;
+                            edit.Replace(match.Index, match.Length, replaceXsiNamespace);
+                        }
+                    }
+                    else
+                    {
+                        int? indexInsert = FindIndexToInsert(text);
+
+                        if (indexInsert.HasValue)
+                        {
+                            hasModifed = true;
+                            edit.Insert(indexInsert.Value, replaceXsiNamespace);
+                        }
+                    }
+                }
+
+                {
+                    var newLocation = string.Format(replaceSchemaLocationFormat, schemas);
+
+                    var match = Regex.Match(text, patternSchemaLocation);
+                    if (match.Success)
+                    {
+                        if (match.Value != newLocation)
+                        {
+                            hasModifed = true;
+                            edit.Replace(match.Index, match.Length, newLocation);
+                        }
+                    }
+                    else
+                    {
+                        int? indexInsert = FindIndexToInsert(text);
+
+                        if (indexInsert.HasValue)
+                        {
+                            hasModifed = true;
+                            edit.Insert(indexInsert.Value, newLocation);
+                        }
+                    }
+                }
+
+                if (hasModifed)
+                {
+                    edit.Apply();
+                }
+            }
+        }
+
+        public static void InsertIntellisenseContextEntityNameInDocument(EnvDTE.Document document, string entityName)
+        {
+            GetTextViewAndMakeAction(document, Properties.OperationNames.AddXmlSchemaLocation, wpfTextView => InsertIntellisenseContextEntityNameInTextView(wpfTextView, entityName));
+        }
+
+        private static void InsertIntellisenseContextEntityNameInTextView(IWpfTextView wpfTextView, string entityName)
+        {
+            var snapshot = wpfTextView.TextSnapshot;
+
+            using (var edit = snapshot.TextBuffer.CreateEdit())
+            {
+                var hasModifed = false;
+
+                string text = snapshot.GetText();
+
+                {
+                    var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespace, Intellisense.Model.RibbonIntellisenseData.IntellisenseContextNamespace);
+
+                    var match = Regex.Match(text, patternIntellisenseContext);
+                    if (!match.Success)
+                    {
+                        int? indexInsert = FindIndexToInsert(text);
+
+                        if (indexInsert.HasValue)
+                        {
+                            hasModifed = true;
+                            edit.Insert(indexInsert.Value, intellisenseContextNamespace);
+                        }
+                    }
+                }
+
+                {
+                    var newEntityNameAttribute = string.Format(replaceIntellisenseContextEntityNameFormat, entityName);
+
+                    var match = Regex.Match(text, patternIntellisenseContextEntityName);
+                    if (!match.Success)
+                    {
+                        int? indexInsert = FindIndexToInsert(text);
+
+                        if (indexInsert.HasValue)
+                        {
+                            hasModifed = true;
+                            edit.Insert(indexInsert.Value, newEntityNameAttribute);
+                        }
+                    }
+                }
+
+                if (hasModifed)
+                {
+                    edit.Apply();
+                }
+            }
+        }
+
+        public static string RemoveAllCustomXmlAttributesAndNamespaces(string text)
+        {
+            string changeText = text;
+
+            if (Regex.IsMatch(changeText, patternXsi))
+            {
+                changeText = Regex.Replace(changeText, patternXsi, string.Empty, RegexOptions.IgnoreCase);
+            }
+
+            if (Regex.IsMatch(changeText, patternSchemaLocation))
+            {
+                changeText = Regex.Replace(changeText, patternSchemaLocation, string.Empty, RegexOptions.IgnoreCase);
+            }
+
+            if (Regex.IsMatch(changeText, patternIntellisenseContext))
+            {
+                changeText = Regex.Replace(changeText, patternIntellisenseContext, string.Empty, RegexOptions.IgnoreCase);
+            }
+
+            if (Regex.IsMatch(changeText, patternIntellisenseContextEntityName))
+            {
+                changeText = Regex.Replace(changeText, patternIntellisenseContextEntityName, string.Empty, RegexOptions.IgnoreCase);
+            }
+
+            return changeText;
+        }
+
+        public static void RemoveXsdSchemaInDocument(EnvDTE.Document document)
+        {
+            GetTextViewAndMakeAction(document, Properties.OperationNames.RemoveXmlSchemaLocation, RemoveXsdSchemaInTextView);
+        }
+
+        private static void RemoveXsdSchemaInTextView(IWpfTextView wpfTextView)
+        {
+            var snapshot = wpfTextView.TextSnapshot;
+
+            using (var edit = snapshot.TextBuffer.CreateEdit())
+            {
+                var hasModifed = false;
+
+                string text = snapshot.GetText();
+
+                {
+                    var match = Regex.Match(text, patternXsi);
+                    if (match.Success)
+                    {
+                        hasModifed = true;
+                        edit.Delete(match.Index, match.Length);
+                    }
+                }
+
+                {
+                    var match = Regex.Match(text, patternSchemaLocation);
+                    if (match.Success)
+                    {
+                        hasModifed = true;
+                        edit.Delete(match.Index, match.Length);
+                    }
+                }
+
+                if (hasModifed)
+                {
+                    edit.Apply();
+                }
+            }
+        }
+
+        public static void RemoveIntellisenseContextEntityNameInDocument(EnvDTE.Document document)
+        {
+            GetTextViewAndMakeAction(document, Properties.OperationNames.RemoveRibbonDiffIntellisenseContextEntityName, RemoveIntellisenseContextEntityNameInTextView);
+        }
+
+        private static void RemoveIntellisenseContextEntityNameInTextView(IWpfTextView wpfTextView)
+        {
+            var snapshot = wpfTextView.TextSnapshot;
+
+            using (var edit = snapshot.TextBuffer.CreateEdit())
+            {
+                var hasModifed = false;
+
+                string text = snapshot.GetText();
+
+                {
+                    var match = Regex.Match(text, patternIntellisenseContext);
+                    if (match.Success)
+                    {
+                        hasModifed = true;
+                        edit.Delete(match.Index, match.Length);
+                    }
+                }
+
+                {
+                    var match = Regex.Match(text, patternIntellisenseContextEntityName);
+                    if (match.Success)
+                    {
+                        hasModifed = true;
+                        edit.Delete(match.Index, match.Length);
+                    }
+                }
+
+                if (hasModifed)
+                {
+                    edit.Apply();
+                }
+            }
+        }
+
+        private static IVsTextView GetIVsTextView(string filePath)
+        {
+            if (CrmDeveloperHelperPackage.ServiceProvider == null)
+            {
+                return null;
+            }
+
+            return VsShellUtilities.IsDocumentOpen(CrmDeveloperHelperPackage.ServiceProvider, filePath, Guid.Empty, out var uiHierarchy,
+                out var itemId, out var windowFrame)
+                ? VsShellUtilities.GetTextView(windowFrame)
+                : null;
+        }
+
+        private static IWpfTextView GetWpfTextView(IVsTextView vTextView)
+        {
+            IWpfTextView view = null;
+            var userData = (IVsUserData)vTextView;
+
+            if (userData != null)
+            {
+                var guidViewHost = Microsoft.VisualStudio.Editor.DefGuidList.guidIWpfTextViewHost;
+                userData.GetData(ref guidViewHost, out var holder);
+                var viewHost = (IWpfTextViewHost)holder;
+                view = viewHost.TextView;
+            }
+
+            return view;
+        }
+
         public static string SetRibbonDiffXmlIntellisenseContextEntityName(string text, string entityName)
         {
             var result = text;
 
+            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespace, Intellisense.Model.RibbonIntellisenseData.IntellisenseContextNamespace);
+
             if (Regex.IsMatch(result, patternIntellisenseContext))
             {
-                result = Regex.Replace(result, patternIntellisenseContext, string.Format(replaceIntellisenseContextNamespace, Intellisense.Model.RibbonIntellisenseData.IntellisenseContextNamespace), RegexOptions.IgnoreCase);
+                result = Regex.Replace(result, patternIntellisenseContext, intellisenseContextNamespace, RegexOptions.IgnoreCase);
             }
             else
             {
@@ -968,13 +1264,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (indexInsert.HasValue)
                 {
-                    result = result.Insert(indexInsert.Value, string.Format(replaceIntellisenseContextNamespace, Intellisense.Model.RibbonIntellisenseData.IntellisenseContextNamespace));
+                    result = result.Insert(indexInsert.Value, intellisenseContextNamespace);
                 }
             }
 
+            var newEntityNameAttribute = string.Format(replaceIntellisenseContextEntityNameFormat, entityName);
+
             if (Regex.IsMatch(result, patternIntellisenseContextEntityName))
             {
-                result = Regex.Replace(result, patternIntellisenseContextEntityName, string.Format(replaceIntellisenseContextEntityNameFormat, entityName), RegexOptions.IgnoreCase);
+                result = Regex.Replace(result, patternIntellisenseContextEntityName, newEntityNameAttribute, RegexOptions.IgnoreCase);
             }
             else
             {
@@ -982,7 +1280,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (indexInsert.HasValue)
                 {
-                    result = result.Insert(indexInsert.Value, string.Format(replaceIntellisenseContextEntityNameFormat, entityName));
+                    result = result.Insert(indexInsert.Value, newEntityNameAttribute);
                 }
             }
 

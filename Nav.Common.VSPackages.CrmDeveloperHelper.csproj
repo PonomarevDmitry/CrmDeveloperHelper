@@ -132,11 +132,13 @@
     <Compile Include="Commands\CodeWebResourceShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeWebResourceShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\CodeWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
-    <Compile Include="Commands\CodeXmlClearXsdSchemaCommand.cs" />
+    <Compile Include="Commands\CodeXmlRemoveXsdSchemaCommand.cs" />
     <Compile Include="Commands\CodeXmlConvertFetchXmlToJavaScriptCodeCommand.cs" />
     <Compile Include="Commands\CodeXmlExecuteFetchXmlRequestCommand.cs" />
     <Compile Include="Commands\CodeXmlExecuteFetchXmlRequestInConnectionsCommand.cs" />
     <Compile Include="Commands\CodeXmlOpenXsdSchemaFolderCommand.cs" />
+    <Compile Include="Commands\CodeXmlRibbonDiffInsertIntellisenseContextCommand.cs" />
+    <Compile Include="Commands\CodeXmlRibbonDiffRemoveIntellisenseContextCommand.cs" />
     <Compile Include="Commands\CodeXmlSetXsdSchemaCommand.cs" />
     <Compile Include="Commands\CodeXmlShowDifferenceWithDefaultSitemapsCommand.cs" />
     <Compile Include="Commands\CommonCheckComponentTypeEnumCommand.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="Commands\CommonOpenCurrentConnectionCrmInWebCommand.cs" />
     <Compile Include="Commands\CommonOpenOrganizationDifferenceImageCommand.cs" />
     <Compile Include="Commands\CommonOpenSolutionImageCommand.cs" />
+    <Compile Include="Commands\CommonOpenXsdSchemaFolderCommand.cs" />
     <Compile Include="Commands\CommonPluginConfigurationCreateCommand.cs" />
     <Compile Include="Commands\CommonCrmConnectionCommand.cs" />
     <Compile Include="Commands\CommonExportEntityMetadataCommand.cs" />
@@ -1195,6 +1198,7 @@
     <Reference Include="Microsoft.VisualStudio.CommandBars, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.ComponentModelHost, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.CoreUtility, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.VisualStudio.CoreUtility.12.0.21005\lib\net45\Microsoft.VisualStudio.CoreUtility.dll</HintPath>
     </Reference>

@@ -1,10 +1,8 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.ComponentModel.Design;
-using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -100,24 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     if (document != null)
                     {
-                        var objTextDoc = document.Object("TextDocument");
-                        if (objTextDoc != null
-                            && objTextDoc is EnvDTE.TextDocument textDocument
-                            )
-                        {
-                            string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(selectedSchemas);
-
-                            if (!string.IsNullOrEmpty(schemas))
-                            {
-                                var editPoint = textDocument.StartPoint.CreateEditPoint();
-
-                                string text = editPoint.GetText(textDocument.EndPoint);
-
-                                text = ContentCoparerHelper.ReplaceXsdSchema(text, schemas);
-
-                                editPoint.ReplaceText(textDocument.EndPoint, text, 0);
-                            }
-                        }
+                        ContentCoparerHelper.ReplaceXsdSchemaInDocument(document, selectedSchemas);
                     }
                 }
             }

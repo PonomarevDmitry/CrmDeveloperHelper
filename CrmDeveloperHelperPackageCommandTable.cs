@@ -84,6 +84,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas = 0x1220;
         public const int codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder = 0x1225;
         public const int codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group = 0x1221;
+        public const int codeMenuXml_GroupIntellisenseContext = 0x1226;
         public const int codeMenuXml_GroupShowDifference = 0x1222;
         public const int codeMenuXml_GroupShowDifference_MenuSiteMaps = 0x1223;
         public const int codeMenuXml_GroupShowDifference_MenuSiteMaps_Group = 0x1224;
@@ -372,6 +373,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu_GroupExport_MenuExportDefaultSiteMaps = 0x121B;
         public const int commonMenu_GroupExport_MenuExportDefaultSiteMaps_Group = 0x121C;
         public const int commonMenu_GroupExport_MenuExportXsdSchemas = 0x121D;
+        public const int commonMenu_GroupExport_MenuExportXsdSchemas_GroupOpenFolder = 0x1227;
         public const int commonMenu_GroupExport_MenuExportXsdSchemas_Group = 0x121E;
         public const int commonMenu_GroupSolutions = 0x1199;
         public const int commonMenu_GroupSolutions_MenuSolutions = 0x119A;
@@ -562,8 +564,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeWebResourceLinkClearCommandId = 0x2008;
         public const int CodeXmlExecuteFetchXmlRequestCommandId = 0x2160;
         public const int CodeXmlConvertFetchXmlToJavaScriptCodeCommandId = 0x2161;
-        public const int CodeXmlClearXsdSchemaCommandId = 0x216E;
+        public const int CodeXmlRemoveXsdSchemaCommandId = 0x216E;
         public const int CodeXmlOpenXsdSchemaFolderCommandId = 0x216F;
+        public const int CodeXmlRibbonDiffInsertIntellisenseContextCommandId = 0x2178;
+        public const int CodeXmlRibbonDiffRemoveIntellisenseContextCommandId = 0x2179;
         public const int CodeReportLinkCreateCommandId = 0x2009;
         public const int CodeReportLinkClearCommandId = 0x200A;
         public const int CodeReportShowDifferenceOriginalBodyTextCommandId = 0x200B;
@@ -639,6 +643,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonExportSolutionComponentsCommandId = 0x203F;
         public const int CommonExportSolutionCommandId = 0x2151;
         public const int CommonOpenSolutionImageCommandId = 0x2170;
+        public const int CommonOpenXsdSchemaFolderCommandId = 0x217A;
         public const int CommonOrganizationComparerCommandId = 0x2040;
         public const int CommonOpenOrganizationDifferenceImageCommandId = 0x2171;
         public const int CommonCrmConnectionTestCommandId = 0x2115;

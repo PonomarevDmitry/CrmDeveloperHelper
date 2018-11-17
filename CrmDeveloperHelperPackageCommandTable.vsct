@@ -61,6 +61,7 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" priority="0x0601" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupIntellisenseContext" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifference" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifference_MenuSiteMaps_Group" priority="0x0601" />
 
@@ -349,7 +350,10 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport_GroupOther2" priority="0x060F" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExportDefaultSiteMaps_Group" priority="0x060F" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExportXsdSchemas_GroupOpenFolder" priority="0x060F" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExportXsdSchemas_Group" priority="0x060F" />
+
+
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions" priority="0x0604" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionExplorer" priority="0x0604" />
@@ -1462,13 +1466,27 @@
           <ButtonText>Set Xsd Schema Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CodeXmlClearXsdSchemaCommandId" priority="0x0100" type="Button">
+      <Button guid="guidCommandSet" id="CodeXmlRemoveXsdSchemaCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Clear Xsd Schema</ButtonText>
+          <ButtonText>Remove Xsd Schema</ButtonText>
         </Strings>
       </Button>
+
+      <Button guid="guidCommandSet" id="CodeXmlRibbonDiffInsertIntellisenseContextCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Insert IntellisenseContext EntityName Attribute</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="CodeXmlRibbonDiffRemoveIntellisenseContextCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Remove IntellisenseContext EntityName Attribute</ButtonText>
+        </Strings>
+      </Button>
+
+
 
       <Button guid="guidDynamicCommandSet" id="CodeXmlShowDifferenceWithDefaultSitemapsCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
@@ -1919,7 +1937,7 @@
           <ButtonText>PluginTree</ButtonText>
         </Strings>
       </Button>
-      
+
 
 
       <Button guid="guidCommandSet" id="CodeCSharpUpdateProxyClassesCommandId" priority="0x0100" type="Button">
@@ -2671,7 +2689,7 @@
           <ButtonText>PluginTree</ButtonText>
         </Strings>
       </Button>
-      
+
 
 
 
@@ -3506,7 +3524,7 @@
         </Strings>
       </Button>
 
-      
+
 
 
 
@@ -3971,7 +3989,7 @@
           <ButtonText>Entity Key Explorer</ButtonText>
         </Strings>
       </Button>
-      
+
 
 
 
@@ -4129,7 +4147,11 @@
           <ButtonText>Export Xsd Schemas Placeholder</ButtonText>
         </Strings>
       </Button>
-
+      <Button guid="guidCommandSet" id="CommonOpenXsdSchemaFolderCommandId" priority="0x0100" type="Button">
+        <Strings>
+          <ButtonText>Open Xsd Schema Default Folder</ButtonText>
+        </Strings>
+      </Button>
 
 
 
@@ -4605,14 +4627,15 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSelectFetch" priority="0x0603">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" priority="0x0604">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
-    </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifference" priority="0x0605">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-
-
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" priority="0x0606">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupIntellisenseContext" priority="0x0606">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
+    </CommandPlacement>
 
 
 
@@ -5557,8 +5580,14 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExportXsdSchemas" priority="0x0105">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExportXsdSchemas_Group" priority="0x0105">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExportXsdSchemas_GroupOpenFolder" priority="0x0105">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExportXsdSchemas" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExportXsdSchemas_Group" priority="0x0106">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExportXsdSchemas" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonOpenXsdSchemaFolderCommandId" priority="0x0104">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExportXsdSchemas_GroupOpenFolder" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonExportXsdSchemasCommandId" priority="0x0105">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExportXsdSchemas_Group" />
@@ -6114,7 +6143,7 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport_GroupApplicationRibbon" />
     </CommandPlacement>
 
-  
+
 
     <CommandPlacement guid="guidCommandSet" id="CommonExportSystemFormXmlCommandId" priority="0x011F">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupFormViewChart" />
@@ -6380,9 +6409,17 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlClearXsdSchemaCommandId" priority="0x107">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlRemoveXsdSchemaCommandId" priority="0x107">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
     </CommandPlacement>
+
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlRibbonDiffInsertIntellisenseContextCommandId" priority="0x107">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupIntellisenseContext" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlRibbonDiffRemoveIntellisenseContextCommandId" priority="0x107">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupIntellisenseContext" />
+    </CommandPlacement>
+
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifference_MenuSiteMaps" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifference" />
@@ -6639,7 +6676,7 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginDescription" />
     </CommandPlacement>
 
-    
+
 
     <CommandPlacement guid="guidCommandSet" id="CodeCSharpUpdateProxyClassesCommandId" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupProxyClasses" />
@@ -7358,7 +7395,7 @@
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginDescription" />
     </CommandPlacement>
 
-    
+
 
     <CommandPlacement guid="guidCommandSet" id="FileCSharpUpdateProxyClassesCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupProxyClasses" />
@@ -7666,7 +7703,7 @@
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupDescription" />
     </CommandPlacement>
 
-    
+
 
   </CommandPlacements>
 
@@ -7762,6 +7799,8 @@
       <IDSymbol name="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas" value="0x1220" />
       <IDSymbol name="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" value="0x1225" />
       <IDSymbol name="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" value="0x1221" />
+
+      <IDSymbol name="codeMenuXml_GroupIntellisenseContext" value="0x1226" />
 
       <IDSymbol name="codeMenuXml_GroupShowDifference" value="0x1222" />
 
@@ -8239,6 +8278,7 @@
       <IDSymbol name="commonMenu_GroupExport_MenuExportDefaultSiteMaps_Group" value="0x121C" />
 
       <IDSymbol name="commonMenu_GroupExport_MenuExportXsdSchemas" value="0x121D" />
+      <IDSymbol name="commonMenu_GroupExport_MenuExportXsdSchemas_GroupOpenFolder" value="0x1227" />
       <IDSymbol name="commonMenu_GroupExport_MenuExportXsdSchemas_Group" value="0x121E" />
 
       <IDSymbol name="commonMenu_GroupSolutions" value="0x1199" />
@@ -8383,7 +8423,7 @@
 
 
 
-      <!--0x1226-->
+      <!--0x1228-->
 
 
     </GuidSymbol>
@@ -8592,8 +8632,11 @@
 
       <IDSymbol name="CodeXmlExecuteFetchXmlRequestCommandId" value="0x2160" />
       <IDSymbol name="CodeXmlConvertFetchXmlToJavaScriptCodeCommandId" value="0x2161" />
-      <IDSymbol name="CodeXmlClearXsdSchemaCommandId" value="0x216E" />
+      <IDSymbol name="CodeXmlRemoveXsdSchemaCommandId" value="0x216E" />
       <IDSymbol name="CodeXmlOpenXsdSchemaFolderCommandId" value="0x216F" />
+
+      <IDSymbol name="CodeXmlRibbonDiffInsertIntellisenseContextCommandId" value="0x2178" />
+      <IDSymbol name="CodeXmlRibbonDiffRemoveIntellisenseContextCommandId" value="0x2179" />
 
 
 
@@ -8730,7 +8773,7 @@
       <IDSymbol name="CommonEntityKeyExplorerCommandId" value="0x2172" />
       <IDSymbol name="CommonEntityRelationshipOneToManyExplorerCommandId" value="0x2173" />
       <IDSymbol name="CommonEntityRelationshipManyToManyExplorerCommandId" value="0x2174" />
-      
+
 
 
 
@@ -8766,6 +8809,8 @@
       <IDSymbol name="CommonExportSolutionComponentsCommandId" value="0x203F" />
       <IDSymbol name="CommonExportSolutionCommandId" value="0x2151" />
       <IDSymbol name="CommonOpenSolutionImageCommandId" value="0x2170" />
+
+      <IDSymbol name="CommonOpenXsdSchemaFolderCommandId" value="0x217A" />
 
       <IDSymbol name="CommonOrganizationComparerCommandId" value="0x2040" />
       <IDSymbol name="CommonOpenOrganizationDifferenceImageCommandId" value="0x2171" />
@@ -8879,7 +8924,7 @@
       <IDSymbol name="ProjectPluginAssemblyDescriptionCommandId" value="0x2164" />
       <IDSymbol name="ProjectPluginTreeCommandId" value="0x2177" />
 
-      
+
 
       <IDSymbol name="CodePublishListAddCommandId" value="0x2070" />
       <IDSymbol name="CodePublishListRemoveCommandId" value="0x2071" />
@@ -9095,7 +9140,7 @@
 
 
 
-      <!--0x2178-->
+      <!--0x217B-->
 
     </GuidSymbol>
 

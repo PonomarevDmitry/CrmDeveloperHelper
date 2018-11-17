@@ -557,12 +557,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (schemasResources != null)
                         {
-                            string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(schemasResources.Item2);
-
-                            if (!string.IsNullOrEmpty(schemas))
-                            {
-                                ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemas);
-                            }
+                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources.Item2);
                         }
                     }
 
@@ -641,7 +636,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                ContentCoparerHelper.ClearXsdSchema(newText, out newText);
+                newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
 
                 UpdateStatus(Properties.WindowStatusStrings.ValidatingApplicationRibbonDiffXml);
 
@@ -738,12 +733,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (schemasResources != null)
                         {
-                            string schemas = ContentCoparerHelper.HandleExportXsdSchemaIntoSchamasFolder(schemasResources.Item2);
-
-                            if (!string.IsNullOrEmpty(schemas))
-                            {
-                                ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemas);
-                            }
+                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources.Item2);
                         }
                     }
 

@@ -450,4 +450,16 @@
   <data name="UpdatingApplicationRibbonDiffXml" xml:space="preserve">
     <value>Updating Application RibbonDiffXml</value>
   </data>
+  <data name="AddRibbonDiffIntellisenseContextEntityName" xml:space="preserve">
+    <value>Add IntellisenseContext EntityName</value>
+  </data>
+  <data name="AddXmlSchemaLocation" xml:space="preserve">
+    <value>Add XmlSchemaLocation</value>
+  </data>
+  <data name="RemoveRibbonDiffIntellisenseContextEntityName" xml:space="preserve">
+    <value>Remove IntellisenseContext EntityName</value>
+  </data>
+  <data name="RemoveXmlSchemaLocation" xml:space="preserve">
+    <value>Remove XmlSchemaLocation</value>
+  </data>
 </root>
