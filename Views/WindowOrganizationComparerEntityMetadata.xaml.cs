@@ -90,13 +90,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Placement = PlacementMode.Bottom,
                 StaysOpen = false,
             };
-
-            tSDDBConnection1.Header = string.Format("Export from {0}", connection1.Name);
-            tSDDBConnection2.Header = string.Format("Export from {0}", connection2.Name);
-
-            this.Resources["ConnectionName1"] = string.Format("Create from {0}", connection1.Name);
-            this.Resources["ConnectionName2"] = string.Format("Create from {0}", connection2.Name);
-
+            
+            tSDDBConnection1.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection1.Name);
+            tSDDBConnection2.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection2.Name);
+            
+            this.Resources["ConnectionName1"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection1.Name);
+            this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
+            
             LoadFromConfig();
 
             txtBFilterEnitity.Text = entityFilter;
@@ -532,12 +532,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 filePath1 = await task1;
             }
-
-            this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service1.ConnectionData.Name, config.EntityName, filePath1);
-
+            
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, config.EntityName, filePath1);
+            
             if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
             {
-                this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service2.ConnectionData.Name, config.EntityName, filePath2);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service2.ConnectionData.Name, config.EntityName, filePath2);
             }
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -640,11 +640,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 filePath1 = await task1;
             }
 
-            this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service1.ConnectionData.Name, config.EntityName, filePath1);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, config.EntityName, filePath1);
 
             if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
             {
-                this._iWriteToOutput.WriteToOutput("{0} For entity '{1}' created file with Metadata: {2}", service2.ConnectionData.Name, config.EntityName, filePath2);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service2.ConnectionData.Name, config.EntityName, filePath2);
             }
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -734,7 +734,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     string filePath = await handler.CreateFileAsync();
 
-                    this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                 }
@@ -806,7 +806,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     string filePath = await handler.CreateFileAsync();
 
-                    this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                 }
@@ -851,11 +851,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (connection1 != null && connection2 != null)
                 {
-                    tSDDBConnection1.Header = string.Format("Export from {0}", connection1.Name);
-                    tSDDBConnection2.Header = string.Format("Export from {0}", connection2.Name);
+                    tSDDBConnection1.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection1.Name);
+                    tSDDBConnection2.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection2.Name);
 
-                    this.Resources["ConnectionName1"] = string.Format("Create from {0}", connection1.Name);
-                    this.Resources["ConnectionName2"] = string.Format("Create from {0}", connection2.Name);
+                    this.Resources["ConnectionName1"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection1.Name);
+                    this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
 
                     UpdateButtonsEnable();
 
@@ -1608,11 +1608,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (_commonConfig.SetXmlSchemasDuringExport)
                     {
-                        var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
 
                         if (schemasResources != null)
                         {
-                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources.Item2);
+                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
                         }
                     }
 
@@ -1640,11 +1640,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (_commonConfig.SetXmlSchemasDuringExport)
                     {
-                        var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
 
                         if (schemasResources != null)
                         {
-                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources.Item2);
+                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
                         }
                     }
 
@@ -1864,11 +1864,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (_commonConfig.SetXmlSchemasDuringExport)
                     {
-                        var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
 
                         if (schemasResources != null)
                         {
-                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources.Item2);
+                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
                         }
                     }
 

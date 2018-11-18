@@ -299,7 +299,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static void ExportEntityDescription(string filePath, Entity entity, ICollection<string> list, ConnectionData connectionData)
         {
-            string content = EntityDescriptionHandler.GetEntityDescription(entity, list, connectionData);
+            string content = GetEntityDescription(entity, list, connectionData);
 
             File.WriteAllText(filePath, content, new UTF8Encoding(false));
         }

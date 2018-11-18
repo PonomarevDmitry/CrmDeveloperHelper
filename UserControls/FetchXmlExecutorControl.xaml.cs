@@ -1070,6 +1070,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, null, service.ConnectionData);
 
+                DTEHelper.Singleton?.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    , service.ConnectionData.Name
+                    , entityFull.LogicalName
+                    , filePath);
+
                 DTEHelper.Singleton?.PerformAction(filePath, commonConfig);
             }
         }
@@ -1185,6 +1190,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, null, service.ConnectionData);
+
+                DTEHelper.Singleton?.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    , service.ConnectionData.Name
+                    , entityFull.LogicalName
+                    , filePath);
 
                 DTEHelper.Singleton?.PerformAction(filePath, commonConfig);
             }

@@ -473,7 +473,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, pluginType, null, service.ConnectionData);
 
-            this._iWriteToOutput.WriteToOutput("PluginType {0} Entity Description exported to {1}", name, filePath);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                , service.ConnectionData.Name
+                , pluginType.LogicalName
+                , filePath);
 
             this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 

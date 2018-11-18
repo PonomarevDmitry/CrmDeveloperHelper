@@ -1223,7 +1223,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, workflow, EntityFileNameFormatter.WorkflowIgnoreFields, service.ConnectionData);
 
-                this._iWriteToOutput.WriteToOutput("Workflow Entity Description exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    , service.ConnectionData.Name
+                    , workflow.LogicalName
+                    , filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 

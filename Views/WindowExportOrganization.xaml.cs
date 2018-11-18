@@ -391,11 +391,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         if (_commonConfig.SetXmlSchemasDuringExport)
                         {
-                            var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "SiteMapXml", StringComparison.InvariantCultureIgnoreCase));
+                            var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaSiteMapXml);
 
                             if (schemasResources != null)
                             {
-                                xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources.Item2);
+                                xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources);
                             }
                         }
                     }
@@ -594,7 +594,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, organization, EntityFileNameFormatter.OrganizationIgnoreFields, service.ConnectionData);
 
-                this._iWriteToOutput.WriteToOutput("Organization Entity Description exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    , service.ConnectionData.Name
+                    , organization.LogicalName
+                    , filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 

@@ -340,6 +340,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create from {0}.
+        /// </summary>
+        internal static string CreateFromConnectionFormat1 {
+            get {
+                return ResourceManager.GetString("CreateFromConnectionFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating all Dependency Nodes Description.
         /// </summary>
         internal static string CreatingAllDependencyNodesDescription {
@@ -489,6 +498,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string DownloadingWebResource {
             get {
                 return ResourceManager.GetString("DownloadingWebResource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export from {0}.
+        /// </summary>
+        internal static string ExportFromConnectionFormat1 {
+            get {
+                return ResourceManager.GetString("ExportFromConnectionFormat1", resourceCulture);
             }
         }
         

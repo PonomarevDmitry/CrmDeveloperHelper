@@ -639,7 +639,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, report, EntityFileNameFormatter.ReportIgnoreFields, service.ConnectionData);
 
-                this._iWriteToOutput.WriteToOutput("Report Entity Description exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    , service.ConnectionData.Name
+                    , report.LogicalName
+                    , filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 

@@ -123,11 +123,38 @@
   <data name="ConnectionIsReadOnlyFormat1" xml:space="preserve">
     <value>Connection {0} is ReadOnly. Operation is prohibited.</value>
   </data>
+  <data name="CreatedEntityMetadataFileForConnectionFormat3" xml:space="preserve">
+    <value>{0}. For '{1}' created file with Metadata: {2}</value>
+  </data>
+  <data name="CreatedEntityXmlFileForConnectionFormat3" xml:space="preserve">
+    <value>{0}. For '{1}' created file with EntityXml: {2}</value>
+  </data>
+  <data name="CreatedGlobalOptionSetMetadataFileForConnectionFormat3" xml:space="preserve">
+    <value>{0}. For Global OptionSet '{1}' created file with Metadata: {2}</value>
+  </data>
   <data name="CurrentServiceEndpointFormat1" xml:space="preserve">
     <value>Current Service Endpoint: {0}</value>
   </data>
   <data name="EndOperationFormat2" xml:space="preserve">
-    <value>*********** End {0} at {1} *******************************************************</value>
+    <value>***********   End {0} at {1} *******************************************************</value>
+  </data>
+  <data name="ExportedAppliationRibbonDiffXmlForConnectionFormat2" xml:space="preserve">
+    <value>{0}. ApplicationRibbonDiffXml exported to file: {1}</value>
+  </data>
+  <data name="ExportedAppliationRibbonForConnectionFormat2" xml:space="preserve">
+    <value>{0}. ApplicationRibbon exported to file: {1}</value>
+  </data>
+  <data name="ExportedEntityDescriptionForConnectionFormat3" xml:space="preserve">
+    <value>{0}. {1} EntityDescription exported to {2}</value>
+  </data>
+  <data name="ExportedEntityRibbonDiffXmlForConnectionFormat3" xml:space="preserve">
+    <value>{0}. For '{1}' exported file with RibbonDiffXml: {2}</value>
+  </data>
+  <data name="ExportedEntityRibbonForConnectionFormat3" xml:space="preserve">
+    <value>{0}. For '{1}' exported file with Ribbon: {2}</value>
+  </data>
+  <data name="FileNotExistsFormat1" xml:space="preserve">
+    <value>File {0} not exists.</value>
   </data>
   <data name="GetAttributeMetadataByGuidFormat1" xml:space="preserve">
     <value>GetAttributeMetadata(Guid {0})</value>
@@ -176,5 +203,11 @@
   </data>
   <data name="StartOperationFormat2" xml:space="preserve">
     <value>*********** Start {0} at {1} *******************************************************</value>
+  </data>
+  <data name="TextIsNotValidForFieldFormat1" xml:space="preserve">
+    <value>Text is not valid for {0}.</value>
+  </data>
+  <data name="XmlValidationMessageFormat2" xml:space="preserve">
+    <value>Severity: {0}      Message: {1}</value>
   </data>
 </root>

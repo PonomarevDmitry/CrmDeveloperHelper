@@ -79,6 +79,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. For &apos;{1}&apos; created file with Metadata: {2}.
+        /// </summary>
+        internal static string CreatedEntityMetadataFileForConnectionFormat3 {
+            get {
+                return ResourceManager.GetString("CreatedEntityMetadataFileForConnectionFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. For &apos;{1}&apos; created file with EntityXml: {2}.
+        /// </summary>
+        internal static string CreatedEntityXmlFileForConnectionFormat3 {
+            get {
+                return ResourceManager.GetString("CreatedEntityXmlFileForConnectionFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. For Global OptionSet &apos;{1}&apos; created file with Metadata: {2}.
+        /// </summary>
+        internal static string CreatedGlobalOptionSetMetadataFileForConnectionFormat3 {
+            get {
+                return ResourceManager.GetString("CreatedGlobalOptionSetMetadataFileForConnectionFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Service Endpoint: {0}.
         /// </summary>
         internal static string CurrentServiceEndpointFormat1 {
@@ -88,11 +115,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *********** End {0} at {1} *******************************************************.
+        ///   Looks up a localized string similar to ***********   End {0} at {1} *******************************************************.
         /// </summary>
         internal static string EndOperationFormat2 {
             get {
                 return ResourceManager.GetString("EndOperationFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. ApplicationRibbonDiffXml exported to file: {1}.
+        /// </summary>
+        internal static string ExportedAppliationRibbonDiffXmlForConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("ExportedAppliationRibbonDiffXmlForConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. ApplicationRibbon exported to file: {1}.
+        /// </summary>
+        internal static string ExportedAppliationRibbonForConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("ExportedAppliationRibbonForConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. {1} EntityDescription exported to {2}.
+        /// </summary>
+        internal static string ExportedEntityDescriptionForConnectionFormat3 {
+            get {
+                return ResourceManager.GetString("ExportedEntityDescriptionForConnectionFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. For &apos;{1}&apos; exported file with RibbonDiffXml: {2}.
+        /// </summary>
+        internal static string ExportedEntityRibbonDiffXmlForConnectionFormat3 {
+            get {
+                return ResourceManager.GetString("ExportedEntityRibbonDiffXmlForConnectionFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. For &apos;{1}&apos; exported file with Ribbon: {2}.
+        /// </summary>
+        internal static string ExportedEntityRibbonForConnectionFormat3 {
+            get {
+                return ResourceManager.GetString("ExportedEntityRibbonForConnectionFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File {0} not exists..
+        /// </summary>
+        internal static string FileNotExistsFormat1 {
+            get {
+                return ResourceManager.GetString("FileNotExistsFormat1", resourceCulture);
             }
         }
         
@@ -237,6 +318,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string StartOperationFormat2 {
             get {
                 return ResourceManager.GetString("StartOperationFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text is not valid for {0}..
+        /// </summary>
+        internal static string TextIsNotValidForFieldFormat1 {
+            get {
+                return ResourceManager.GetString("TextIsNotValidForFieldFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Severity: {0}      Message: {1}.
+        /// </summary>
+        internal static string XmlValidationMessageFormat2 {
+            get {
+                return ResourceManager.GetString("XmlValidationMessageFormat2", resourceCulture);
             }
         }
     }

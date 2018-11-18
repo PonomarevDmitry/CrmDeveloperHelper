@@ -466,11 +466,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         if (_commonConfig.SetXmlSchemasDuringExport)
                         {
-                            var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "Fetch.xsd", StringComparison.InvariantCultureIgnoreCase));
+                            var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFetch);
 
                             if (schemasResources != null)
                             {
-                                xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources.Item2);
+                                xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources);
                             }
                         }
 
@@ -672,7 +672,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                bool validateResult = await ValidateXmlDocumentAsync(doc);
+                bool validateResult = await ValidateXmlDocumentAsync(doc, fieldTitle);
 
                 if (!validateResult)
                 {
@@ -720,21 +720,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private Task<bool> ValidateXmlDocumentAsync(XDocument doc)
+        private Task<bool> ValidateXmlDocumentAsync(XDocument doc, string fieldTitle)
         {
-            return Task.Run(() => ValidateXmlDocument(doc));
+            return Task.Run(() => ValidateXmlDocument(doc, fieldTitle));
         }
 
-        private bool ValidateXmlDocument(XDocument doc)
+        private bool ValidateXmlDocument(XDocument doc, string fieldTitle)
         {
             XmlSchemaSet schemas = new XmlSchemaSet();
 
             {
-                var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "Fetch.xsd", StringComparison.InvariantCultureIgnoreCase));
+                var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFetch);
 
                 if (schemasResources != null)
                 {
-                    foreach (var fileName in schemasResources.Item2)
+                    foreach (var fileName in schemasResources)
                     {
                         Uri uri = FileOperations.GetSchemaResourceUri(fileName);
                         StreamResourceInfo info = Application.GetResourceStream(uri);
@@ -756,16 +756,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (errors.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput("Text is not valid.");
-
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.TextIsNotValidForFieldFormat1, fieldTitle);
+                
                 foreach (var item in errors)
                 {
                     _iWriteToOutput.WriteToOutput(string.Empty);
                     _iWriteToOutput.WriteToOutput(string.Empty);
-                    _iWriteToOutput.WriteToOutput("Severity: {0}      Message: {1}", item.Severity, item.Message);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.XmlValidationMessageFormat2, item.Severity, item.Message);
                     _iWriteToOutput.WriteErrorToOutput(item.Exception);
                 }
-
+                
                 _iWriteToOutput.ActivateOutputWindow();
             }
 
@@ -872,9 +872,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(true));
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, savedQuery, EntityFileNameFormatter.SavedQueryIgnoreFields, service.ConnectionData);
-
-                this._iWriteToOutput.WriteToOutput("SavedQuery Entity Description exported to {0}", filePath);
-
+                
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    , service.ConnectionData.Name
+                    , savedQuery.LogicalName
+                    , filePath);
+                
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);

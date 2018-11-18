@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM); ;
 
                 this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -78,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM); ;
 
                 this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -113,7 +113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM); ;
 
                 this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -146,7 +146,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM); ;
 
                 this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -179,7 +179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM); ;
 
                 this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -214,7 +214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM); ;
 
                 this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -272,7 +272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM); ;
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -289,7 +289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!File.Exists(filePath))
                 {
-                    this._iWriteToOutput.WriteToOutput("File {0} not exists.", filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, filePath);
                     continue;
                 }
 
@@ -338,7 +338,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             await handler.CreateFileAsync(fileName);
                         }
 
-                        this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
+                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, config.EntityName, filePath);
 
                         this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
 
@@ -391,7 +391,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -408,7 +408,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!File.Exists(filePath))
                 {
-                    this._iWriteToOutput.WriteToOutput("File {0} not exists.", filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, filePath);
                     continue;
                 }
 
@@ -441,7 +441,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             await handler.CreateFileAsync(filePath, new[] { metadata });
                         }
 
-                        this._iWriteToOutput.WriteToOutput("For OptionSet '{0}' created file with Metadata: {1}", metadata.Name, filePath);
+                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, metadata.Name, filePath);
 
                         this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
 

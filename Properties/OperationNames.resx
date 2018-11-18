@@ -462,4 +462,10 @@
   <data name="RemoveXmlSchemaLocation" xml:space="preserve">
     <value>Remove XmlSchemaLocation</value>
   </data>
+  <data name="CreateFromConnectionFormat1" xml:space="preserve">
+    <value>Create from {0}</value>
+  </data>
+  <data name="ExportFromConnectionFormat1" xml:space="preserve">
+    <value>Export from {0}</value>
+  </data>
 </root>

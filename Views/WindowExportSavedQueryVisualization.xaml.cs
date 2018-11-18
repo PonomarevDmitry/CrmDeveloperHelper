@@ -456,11 +456,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (_commonConfig.SetXmlSchemasDuringExport)
                     {
-                        var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "VisualizationDataDescription.xsd", StringComparison.InvariantCultureIgnoreCase));
+                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaVisualizationDataDescription);
 
                         if (schemasResources != null)
                         {
-                            xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources.Item2);
+                            xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources);
                         }
                     }
 
@@ -697,7 +697,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, savedQueryVisualization, EntityFileNameFormatter.SavedQueryVisualizationIgnoreFields, service.ConnectionData);
 
-                this._iWriteToOutput.WriteToOutput("SystemChart Entity Description exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    , service.ConnectionData.Name
+                    , savedQueryVisualization.LogicalName
+                    , filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 

@@ -438,11 +438,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (_commonConfig.SetXmlSchemasDuringExport)
                     {
-                        var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "SiteMapXml", StringComparison.InvariantCultureIgnoreCase));
+                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaSiteMapXml);
 
                         if (schemasResources != null)
                         {
-                            xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources.Item2);
+                            xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources);
                         }
                     }
 
@@ -644,7 +644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             XmlSchemaSet schemas = new XmlSchemaSet();
 
             {
-                var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "SiteMapXml", StringComparison.InvariantCultureIgnoreCase));
+                var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaSiteMapXml);
 
                 if (schemasResources != null)
                 {
@@ -670,13 +670,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (errors.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput("SiteMapXml is not valid.");
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.TextIsNotValidForFieldFormat1, "SiteMapXml");
 
                 foreach (var item in errors)
                 {
                     _iWriteToOutput.WriteToOutput(string.Empty);
                     _iWriteToOutput.WriteToOutput(string.Empty);
-                    _iWriteToOutput.WriteToOutput("Severity: {0}      Message: {1}", item.Severity, item.Message);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.XmlValidationMessageFormat2, item.Severity, item.Message);
                     _iWriteToOutput.WriteErrorToOutput(item.Exception);
                 }
 
@@ -717,7 +717,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, sitemap, EntityFileNameFormatter.SiteMapIgnoreFields, service.ConnectionData);
 
-                this._iWriteToOutput.WriteToOutput("SiteMap Entity Description exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    , service.ConnectionData.Name
+                    , sitemap.LogicalName
+                    , filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 

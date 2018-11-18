@@ -459,11 +459,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (_commonConfig.SetXmlSchemasDuringExport)
                     {
-                        var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "FormXml", StringComparison.InvariantCultureIgnoreCase));
+                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFormXml);
 
                         if (schemasResources != null)
                         {
-                            xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources.Item2);
+                            xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources);
                         }
                     }
 
@@ -615,7 +615,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
-                
+
                 UpdateStatus(Properties.WindowStatusStrings.ValidatingXmlForFieldFormat1, fieldName);
 
                 if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
@@ -673,11 +673,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             XmlSchemaSet schemas = new XmlSchemaSet();
 
             {
-                var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "FormXml", StringComparison.InvariantCultureIgnoreCase));
+                var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFormXml);
 
                 if (schemasResources != null)
                 {
-                    foreach (var fileName in schemasResources.Item2)
+                    foreach (var fileName in schemasResources)
                     {
                         Uri uri = FileOperations.GetSchemaResourceUri(fileName);
                         StreamResourceInfo info = Application.GetResourceStream(uri);
@@ -699,13 +699,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (errors.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput("FormXml is not valid.");
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.TextIsNotValidForFieldFormat1, "FormXml");
 
                 foreach (var item in errors)
                 {
                     _iWriteToOutput.WriteToOutput(string.Empty);
                     _iWriteToOutput.WriteToOutput(string.Empty);
-                    _iWriteToOutput.WriteToOutput("Severity: {0}      Message: {1}", item.Severity, item.Message);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.XmlValidationMessageFormat2, item.Severity, item.Message);
                     _iWriteToOutput.WriteErrorToOutput(item.Exception);
                 }
 
@@ -744,7 +744,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, systemForm, EntityFileNameFormatter.SystemFormIgnoreFields, service.ConnectionData);
 
-                this._iWriteToOutput.WriteToOutput("SystemForm Entity Description exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    , service.ConnectionData.Name
+                    , systemForm.LogicalName
+                    , filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
@@ -862,7 +865,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformExportFormDescriptionToFileAsync(string folder, Guid idSystemForm, string entityName, string name)
         {
             ToggleControls(false, Properties.WindowStatusStrings.CreatingSystemFormDescriptionFormat2, entityName, name);
-            
+
             var service = await GetService();
             var descriptor = await GetDescriptor();
             var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
@@ -931,7 +934,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformDownloadWebResources(string folder, Guid idSystemForm, string entityName, string name)
         {
             ToggleControls(false, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesFormat2, entityName, name);
-            
+
             var service = await GetService();
             var descriptor = await GetDescriptor();
             var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
@@ -986,7 +989,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
-            
+
             ToggleControls(true, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesCompletedFormat2, entityName, name);
         }
 
@@ -1037,7 +1040,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformCreateEntityJavaScriptFileBasedOnForm(string folder, Guid idSystemForm, string entityName, string name)
         {
             ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityJavaScriptFileOnFormFormat2, entityName, name);
-            
+
             var service = await GetService();
             var descriptor = await GetDescriptor();
             var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
@@ -1268,7 +1271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
 
             ActivateControls(items, (nodeItem.SystemForm.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
-            
+
             bool hasEntity = !string.IsNullOrEmpty(nodeItem.SystemForm.ObjectTypeCode) && !string.Equals(nodeItem.SystemForm.ObjectTypeCode, "none", StringComparison.InvariantCultureIgnoreCase);
             ActivateControls(items, hasEntity, "contMnEntity");
             FillLastSolutionItems(connectionData, items, hasEntity, mIAddEntityIntoCrmSolutionLast_Click, "contMnAddEntityIntoSolutionLast");

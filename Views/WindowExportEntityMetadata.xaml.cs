@@ -785,7 +785,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     filePath = await handler.CreateFileAsync(fileName);
                 }
 
-                this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
@@ -843,7 +843,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     string filePath = await handler.CreateFileAsync();
 
-                    this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with Metadata: {1}", config.EntityName, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                 }
@@ -970,7 +970,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.ExportEntityXmlAsync(entityMetadata.EntityLogicalName, filePath);
 
-                this._iWriteToOutput.WriteToOutput("For entity '{0}' created file with EntityXml: {1}", entityMetadata.EntityLogicalName, filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityXmlFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.EntityLogicalName, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
@@ -1287,8 +1287,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository = new RibbonCustomizationRepository(service);
 
                 await repository.ExportEntityRibbonAsync(entityMetadata.EntityLogicalName, filter, filePath, _commonConfig);
-
-                this._iWriteToOutput.WriteToOutput("{0} Ribbon exported to {1}", entityMetadata.EntityLogicalName, filePath);
+                
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service.ConnectionData.Name, entityMetadata.EntityLogicalName, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
@@ -1374,11 +1374,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (_commonConfig.SetXmlSchemasDuringExport)
                     {
-                        var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
 
                         if (schemasResources != null)
                         {
-                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources.Item2);
+                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
                         }
                     }
 
@@ -1394,8 +1394,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                         File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
-
-                        this._iWriteToOutput.WriteToOutput("{0} RibbonDiff Xml exported to {1}", entityMetadata.EntityLogicalName, filePath);
+                        
+                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, entityMetadata.EntityLogicalName, filePath);
 
                         this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                     }
@@ -1537,12 +1537,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string ribbonDiffXml = ExportSolutionHelper.GetRibbonDiffXmlForEntityFromSolutionBody(entity.EntityLogicalName, solutionBodyBinary);
 
                 {
-                    string fileName = string.Format("{0}.{1}_{2} Solution Backup at {3}.zip"
-                        , service.ConnectionData.Name
-                        , solution.UniqueName
-                        , solution.Version
-                        , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                        );
+                    string fileName = EntityFileNameFormatter.GetSolutionFileName(service.ConnectionData.Name, solution.UniqueName, "Solution Backup", "zip");
 
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1555,11 +1550,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (_commonConfig.SetXmlSchemasDuringExport)
                 {
-                    var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+                    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
 
                     if (schemasResources != null)
                     {
-                        ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources.Item2);
+                        ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
                     }
                 }
 
@@ -1584,12 +1579,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 solutionBodyBinary = ExportSolutionHelper.ReplaceRibbonDiffXmlForEntityInSolutionBody(entity.EntityLogicalName, solutionBodyBinary, doc.Root);
 
                 {
-                    string fileName = string.Format("{0}.{1}_{2} Changed Solution Backup at {3}.zip"
-                        , service.ConnectionData.Name
-                        , solution.UniqueName
-                        , solution.Version
-                        , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                        );
+                    string fileName = EntityFileNameFormatter.GetSolutionFileName(service.ConnectionData.Name, solution.UniqueName, "Changed Solution Backup", "zip");
 
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1641,11 +1631,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             XmlSchemaSet schemas = new XmlSchemaSet();
 
             {
-                var schemasResources = CommonExportXsdSchemasCommand.ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, "RibbonXml", StringComparison.InvariantCultureIgnoreCase));
+                var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
 
                 if (schemasResources != null)
                 {
-                    foreach (var fileName in schemasResources.Item2)
+                    foreach (var fileName in schemasResources)
                     {
                         Uri uri = FileOperations.GetSchemaResourceUri(fileName);
                         StreamResourceInfo info = Application.GetResourceStream(uri);
@@ -1667,13 +1657,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (errors.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput("RibbonDiff is not valid.");
-
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.TextIsNotValidForFieldFormat1, "RibbonDiffXml");
+                
                 foreach (var item in errors)
                 {
                     _iWriteToOutput.WriteToOutput(string.Empty);
                     _iWriteToOutput.WriteToOutput(string.Empty);
-                    _iWriteToOutput.WriteToOutput("Severity: {0}      Message: {1}", item.Severity, item.Message);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.XmlValidationMessageFormat2, item.Severity, item.Message);
                     _iWriteToOutput.WriteErrorToOutput(item.Exception);
                 }
 
