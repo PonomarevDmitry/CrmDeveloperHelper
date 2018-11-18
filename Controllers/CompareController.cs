@@ -82,7 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var dictFilesEqualByTextNotContent = new List<Tuple<SelectedFile, WebResource>>();
             var dictFilesNotEqualByText = new List<Tuple<SelectedFile, WebResource, ContentCopareResult>>();
 
-            _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -555,7 +555,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (listNotExistsOnDisk.Count > 0)
             {
                 _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File NOT EXISTS: {0}", listNotExistsOnDisk.Count);
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, listNotExistsOnDisk.Count);
 
                 listNotExistsOnDisk.Sort();
 
@@ -806,7 +806,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return null;
             }
 
-            _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -920,7 +920,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (listNotExistsOnDisk.Count > 0)
             {
                 _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File NOT EXISTS: {0}", listNotExistsOnDisk.Count);
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, listNotExistsOnDisk.Count);
 
                 listNotExistsOnDisk.Sort();
 

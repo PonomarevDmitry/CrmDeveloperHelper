@@ -65,7 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             this._iWriteToOutput.WriteToOutput("Connection to CRM:        {0}", connectionData.GetDescription());
             this._iWriteToOutput.WriteToOutput("DiscoveryService:         {0}", connectionData.DiscoveryUrl);
@@ -129,7 +129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -192,7 +192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("File not exists: {0}", selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
             }
 
             connectionData.ConnectionConfiguration.Save();
@@ -262,7 +262,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -330,7 +330,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput("File not exists: {0}", selectedFile.FilePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                 }
             }
 
@@ -368,7 +368,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -466,7 +466,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("File not exists: {0}", selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
             }
 
             if (reportEntity != null)
@@ -503,7 +503,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("Report not founded in CRM: {0}", selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ReportNotFoundedInConnectionFormat2, connectionData.Name, selectedFile.FileName);
             }
         }
 
@@ -547,7 +547,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -645,7 +645,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("File not exists: {0}", selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
             }
 
             if (webresource != null)
@@ -714,7 +714,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 

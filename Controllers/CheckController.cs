@@ -143,7 +143,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
                     {
-                        wrongWebResourceNames.AddLine(string.Format("'{0}'", webResource.FormattedValues[WebResource.Schema.Attributes.webresourcetype]), name);
+                        wrongWebResourceNames.AddLine(webResource.FormattedValues[WebResource.Schema.Attributes.webresourcetype], name);
                     }
                 }
             }
@@ -176,11 +176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (content.Length > 0)
             {
-                string fileName = string.Format("{0}.Check Entity Names for prefix {1} at {2}.txt"
-                , connectionData.Name
-                , prefix
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                );
+                string fileName = EntityFileNameFormatter.GetCheckEntityNamesForPrefixFileName(connectionData.Name, prefix);
 
                 filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -191,13 +187,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("Objects in CRM were exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, commonConfig);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("No Objects in CRM were founded.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoObjectsInCRMWereFounded);
             }
         }
 
@@ -812,7 +808,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (listNotExistsOnDisk.Count > 0)
             {
                 iWriteToOutput.WriteToOutput(string.Empty);
-                iWriteToOutput.WriteToOutput("File NOT EXISTS: {0}", listNotExistsOnDisk.Count);
+                iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, listNotExistsOnDisk.Count);
 
                 listNotExistsOnDisk.Sort();
 
@@ -1009,7 +1005,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             WriteToContentList(listLastLinkEqualByContent, content, "Files NOT FOUNDED in CRM, but has Last Link: {0}");
 
-            WriteToContentList(listNotExistsOnDisk, content, "File NOT EXISTS: {0}");
+            WriteToContentList(listNotExistsOnDisk, content, Properties.OutputStrings.FileNotExistsFormat1);
 
             WriteToContentList(tableWithoutDependenComponents.GetFormatedLines(true), content, "Files without dependent components: {0}");
 
@@ -1284,13 +1280,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("Objects in CRM were exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, commonConfig);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("No Objects in CRM were founded.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoObjectsInCRMWereFounded);
             }
         }
 
@@ -1424,13 +1420,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("Objects in CRM were exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, commonConfig);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("No Objects in CRM were founded.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoObjectsInCRMWereFounded);
             }
         }
 
@@ -1511,11 +1507,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (finded)
             {
-                string fileName = string.Format("{0}.Finding CRM Objects by Id {1} at {2}.txt"
-                , connectionData.Name
-                , entityId
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                );
+                string fileName = EntityFileNameFormatter.GetFindingCRMObjectsByIdFileName(connectionData.Name, entityId);
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1525,14 +1517,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput("Objects in CRM were exported to {0}", filePath);
-
+                
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
+                
                 this._iWriteToOutput.PerformAction(filePath, commonConfig);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("No Objects in CRM were founded.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoObjectsInCRMWereFounded);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
         }
@@ -1615,11 +1607,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (finded)
             {
-                string fileName = string.Format("{0}.Finding CRM Objects by Uniqueidentifier {1} at {2}.txt"
-                    , connectionData.Name
-                    , entityId
-                    , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                );
+                string fileName = EntityFileNameFormatter.GetFindingCRMObjectsByUniqueidentifierFileName(connectionData.Name, entityId);
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1630,13 +1618,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("Objects in CRM were exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, commonConfig);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("No Objects in CRM were founded.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoObjectsInCRMWereFounded);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
         }

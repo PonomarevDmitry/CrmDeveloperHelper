@@ -468,4 +468,100 @@
   <data name="ExportFromConnectionFormat1" xml:space="preserve">
     <value>Export from {0}</value>
   </data>
+  <data name="CheckingConnectionRoleCategoriesFormat2" xml:space="preserve">
+    <value>Checking ConnectionRole Categories in {0} and {1}</value>
+  </data>
+  <data name="CheckingConnectionRolesFormat2" xml:space="preserve">
+    <value>Checking ConnectionRoles in {0} and {1}</value>
+  </data>
+  <data name="CheckingContractTemplatesFormat2" xml:space="preserve">
+    <value>Checking Contract Templates in {0} and {1}</value>
+  </data>
+  <data name="CheckingDefaultTranslationsFormat2" xml:space="preserve">
+    <value>Checking Default Translations in {0} and {1}</value>
+  </data>
+  <data name="CheckingDisplayStringsFormat2" xml:space="preserve">
+    <value>Checking DisplayStrings in {0} and {1}</value>
+  </data>
+  <data name="CheckingEMailTemplatesFormat2" xml:space="preserve">
+    <value>Checking E-Mail Templates in {0} and {1}</value>
+  </data>
+  <data name="CheckingEntitiesFormat2" xml:space="preserve">
+    <value>Checking Entities in {0} and {1}</value>
+  </data>
+  <data name="CheckingEntityLabelsFormat2" xml:space="preserve">
+    <value>Checking Entity Labels in {0} and {1}</value>
+  </data>
+  <data name="CheckingEntityMapsFormat2" xml:space="preserve">
+    <value>Checking EntityMaps in {0} and {1}</value>
+  </data>
+  <data name="CheckingFieldSecurityProfilesFormat2" xml:space="preserve">
+    <value>Checking FieldSecurityProfiles in {0} and {1}</value>
+  </data>
+  <data name="CheckingFieldTranslationsFormat2" xml:space="preserve">
+    <value>Checking Field Translations in {0} and {1}</value>
+  </data>
+  <data name="CheckingGlobalOptionSetsFormat2" xml:space="preserve">
+    <value>Checking Global OptionSets in {0} and {1}</value>
+  </data>
+  <data name="CheckingKBArticleTemplatesFormat2" xml:space="preserve">
+    <value>Checking KB Article Templates in {0} and {1}</value>
+  </data>
+  <data name="CheckingMailMergeTemplatesFormat2" xml:space="preserve">
+    <value>Checking Mail Merge Templates in {0} and {1}</value>
+  </data>
+  <data name="CheckingOrganizationsFormat2" xml:space="preserve">
+    <value>Checking Organizations in {0} and {1}</value>
+  </data>
+  <data name="CheckingPluginAssembliesFormat2" xml:space="preserve">
+    <value>Checking PluginAssemblies in {0} and {1}</value>
+  </data>
+  <data name="CheckingPluginStepsByIdsFormat2" xml:space="preserve">
+    <value>Checking Plugin Steps by Ids in {0} and {1}</value>
+  </data>
+  <data name="CheckingPluginStepsByPluginTypeNamesFormat2" xml:space="preserve">
+    <value>Checking Plugin Steps by PluginType Names in {0} and {1}</value>
+  </data>
+  <data name="CheckingPluginTypesFormat2" xml:space="preserve">
+    <value>Checking PluginTypes in {0} and {1}</value>
+  </data>
+  <data name="CheckingReportsFormat2" xml:space="preserve">
+    <value>Checking Reports in {0} and {1}</value>
+  </data>
+  <data name="CheckingRibbonsFormat2" xml:space="preserve">
+    <value>Checking Ribbons in {0} and {1}</value>
+  </data>
+  <data name="CheckingRibbonsWithDetailsFormat2" xml:space="preserve">
+    <value>Checking Ribbons with details in {0} and {1}</value>
+  </data>
+  <data name="CheckingSecurityRolesFormat2" xml:space="preserve">
+    <value>Checking SecurityRoles in {0} and {1}</value>
+  </data>
+  <data name="CheckingSitemapsFormat2" xml:space="preserve">
+    <value>Checking SiteMaps in {0} and {1}</value>
+  </data>
+  <data name="CheckingSystemChartsFormat2" xml:space="preserve">
+    <value>Checking SystemCharts in {0} and {1}</value>
+  </data>
+  <data name="CheckingSystemFormsFormat2" xml:space="preserve">
+    <value>Checking System Forms in {0} and {1}</value>
+  </data>
+  <data name="CheckingSystemSavedQueriesFormat2" xml:space="preserve">
+    <value>CheckingSystem SavedQueries in {0} and {1}</value>
+  </data>
+  <data name="CheckingWebResourcesFormat2" xml:space="preserve">
+    <value>Checking WebResources in {0} and {1}</value>
+  </data>
+  <data name="CheckingWebResourcesWithDetailsFormat2" xml:space="preserve">
+    <value>Checking WebResources in {0} and {1}</value>
+  </data>
+  <data name="CheckingWorkflowsFormat2" xml:space="preserve">
+    <value>Checking Workflow in {0} and {1}</value>
+  </data>
+  <data name="CheckingWorkflowsWithDetailsFormat2" xml:space="preserve">
+    <value>Checking Workflows with details in {0} and {1}</value>
+  </data>
+  <data name="TransferingAuditFormat2" xml:space="preserve">
+    <value>Transferfing Data from {0} to {1}</value>
+  </data>
 </root>

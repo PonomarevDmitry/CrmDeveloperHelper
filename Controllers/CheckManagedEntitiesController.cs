@@ -180,7 +180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (!hasInfo)
             {
                 content.AppendLine();
-                content.AppendFormat("No Objects in CRM were founded.").AppendLine();
+                content.AppendFormat(Properties.OutputStrings.NoObjectsInCRMWereFounded).AppendLine();
             }
 
             string filePath = string.Empty;
@@ -201,13 +201,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("Objects in CRM were exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, commonConfig);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("No Objects in CRM were founded.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoObjectsInCRMWereFounded);
             }
         }
 

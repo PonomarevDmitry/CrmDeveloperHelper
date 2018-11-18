@@ -120,7 +120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             iWriteToOutput.ActivateOutputWindow();
 
-            iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 

@@ -23,7 +23,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Assemblies started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingPluginAssembliesFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = _comparerSource.GetPluginAssembly1Async();
             var task2 = _comparerSource.GetPluginAssembly2Async();
@@ -216,11 +218,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Assemblies.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Assemblies ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} Plugin Assemblies.txt"
-                , this._OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Plugin Assemblies");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -242,7 +242,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Types started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingPluginTypesFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = _comparerSource.GetPluginType1Async();
             var task2 = _comparerSource.GetPluginType2Async();
@@ -330,11 +332,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Types.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Types ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} Plugin Types.txt"
-                , this._OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Plugin Types");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -378,7 +378,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Steps by Plugin Type Names started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingPluginStepsByPluginTypeNamesFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = _comparerSource.GetSdkMessageProcessingStep1Async();
             var task2 = _comparerSource.GetSdkMessageProcessingStep2Async();
@@ -887,11 +889,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Steps by Plugin Type Names.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Steps by Plugin Type Names ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} Plugin Steps by Plugin Type Names.txt"
-                , this._OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Plugin Steps by Plugin Type Names");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1028,7 +1028,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Steps by Ids started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingPluginStepsByIdsFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = _comparerSource.GetSdkMessageProcessingStep1Async();
             var task2 = _comparerSource.GetSdkMessageProcessingStep2Async();
@@ -1417,11 +1419,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Steps by Ids.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Plugin Steps by Ids ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} Plugin Steps by Ids.txt"
-                , this._OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Plugin Steps by Ids");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 

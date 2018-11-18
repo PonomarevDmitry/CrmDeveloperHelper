@@ -106,11 +106,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Connection: {0}.
+        /// </summary>
+        internal static string CurrentConnectionFormat1 {
+            get {
+                return ResourceManager.GetString("CurrentConnectionFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Service Endpoint Connection {0}: {1}.
+        /// </summary>
+        internal static string CurrentServiceEndpointConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("CurrentServiceEndpointConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Service Endpoint: {0}.
         /// </summary>
         internal static string CurrentServiceEndpointFormat1 {
             get {
                 return ResourceManager.GetString("CurrentServiceEndpointFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Difference was cancelled..
+        /// </summary>
+        internal static string DifferenceWasCancelled {
+            get {
+                return ResourceManager.GetString("DifferenceWasCancelled", resourceCulture);
             }
         }
         
@@ -169,7 +196,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File {0} not exists..
+        ///   Looks up a localized string similar to OrganizationDifferenceImage {0} and {1} exported to file: {2}.
+        /// </summary>
+        internal static string ExportedOrganizationDifferenceImageToFileFormat3 {
+            get {
+                return ResourceManager.GetString("ExportedOrganizationDifferenceImageToFileFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File not exists: {0}.
         /// </summary>
         internal static string FileNotExistsFormat1 {
             get {
@@ -286,11 +322,56 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No files for difference..
+        /// </summary>
+        internal static string NoFilesForDifference {
+            get {
+                return ResourceManager.GetString("NoFilesForDifference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Objects in CRM were founded..
+        /// </summary>
+        internal static string NoObjectsInCRMWereFounded {
+            get {
+                return ResourceManager.GetString("NoObjectsInCRMWereFounded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nothing to publish..
         /// </summary>
         internal static string NothingToPublish {
             get {
                 return ResourceManager.GetString("NothingToPublish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: No WebResources to add. All webresources already in Solution {1}..
+        /// </summary>
+        internal static string NoWebResourcesToAddInSolutionAllAllreadyInSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("NoWebResourcesToAddInSolutionAllAllreadyInSolutionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: No WebResources to add in solution {1}..
+        /// </summary>
+        internal static string NoWebResourcesToAddInSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("NoWebResourcesToAddInSolutionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Objects in CRM were exported to {0}.
+        /// </summary>
+        internal static string ObjectsInCRMWereExportedToFormat1 {
+            get {
+                return ResourceManager.GetString("ObjectsInCRMWereExportedToFormat1", resourceCulture);
             }
         }
         
@@ -313,6 +394,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Publish List is empty..
+        /// </summary>
+        internal static string PublishListIsEmpty {
+            get {
+                return ResourceManager.GetString("PublishListIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: Report not founded in CRM: {1}.
+        /// </summary>
+        internal static string ReportNotFoundedInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("ReportNotFoundedInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing Difference is not allowed for {0}..
+        /// </summary>
+        internal static string ShowingDifferenceIsNotAllowedForFormat1 {
+            get {
+                return ResourceManager.GetString("ShowingDifferenceIsNotAllowedForFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solution not selected. Adding canceled..
+        /// </summary>
+        internal static string SolutionNotSelected {
+            get {
+                return ResourceManager.GetString("SolutionNotSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting Compare Program for {0} files..
+        /// </summary>
+        internal static string StartingCompareProgramForCountFilesFormat1 {
+            get {
+                return ResourceManager.GetString("StartingCompareProgramForCountFilesFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to *********** Start {0} at {1} *******************************************************.
         /// </summary>
         internal static string StartOperationFormat2 {
@@ -327,6 +453,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string TextIsNotValidForFieldFormat1 {
             get {
                 return ResourceManager.GetString("TextIsNotValidForFieldFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: WebResource not founded in CRM: {1}.
+        /// </summary>
+        internal static string WebResourceNotFoundedInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("WebResourceNotFoundedInConnectionFormat2", resourceCulture);
             }
         }
         

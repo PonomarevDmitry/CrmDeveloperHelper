@@ -1027,7 +1027,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         }
                         else
                         {
-                            WriteToOutput("File not exists: {0}", selectedFile.FriendlyFilePath);
+                            WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FriendlyFilePath);
                         }
                     }
                 }
@@ -1086,7 +1086,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                WriteToOutput("Publish List is empty.");
+                WriteToOutput(Properties.OutputStrings.PublishListIsEmpty);
             }
         }
 
@@ -2064,7 +2064,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                this.WriteToOutput("Publish List is empty.");
+                this.WriteToOutput(Properties.OutputStrings.PublishListIsEmpty);
                 this.ActivateOutputWindow();
             }
         }

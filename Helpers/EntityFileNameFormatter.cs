@@ -53,11 +53,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(SolutionFormatFileMultiple, connectionName, uniquename1, uniquename2, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
-        private const string DifferenceFormatFile = "OrgCompare {0} OrganizationDifferenceImage at {1}.xml";
+        private const string DifferenceImageFormatFile = "OrgCompare {0} OrganizationDifferenceImage at {1}.xml";
 
-        internal static string GetDifferenceFileName(string organizationsString)
+        internal static string GetDifferenceImageFileName(string organizationsString)
         {
-            return string.Format(DifferenceFormatFile, organizationsString, GetDateString());
+            return string.Format(DifferenceImageFormatFile, organizationsString, GetDateString());
+        }
+
+        private const string DifferenceConnectionsFileNameFormat = "OrgCompare {0} at {1} {2}.txt";
+
+        internal static string GetDifferenceConnectionsForFieldFileName(string organizationsString, string fieldTitle)
+        {
+            return string.Format(DifferenceConnectionsFileNameFormat, organizationsString, GetDateString(), fieldTitle);
         }
 
         private const string SiteMapFormatFile = "{0}.SiteMap{1} {2} - {3} at {4}.{5}";
@@ -390,5 +397,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return string.Format("{0}.Entity {1} - {2} - {3} at {4}.{5}", connectionName, entity.LogicalName, entity.Id, fieldTitle, GetDateString(), extension.Trim('.'));
         }
+
+        private const string FindingCRMObjectsByUniqueidentifierFileNameFormat3 = "{0}.Finding CRM Objects by Uniqueidentifier {1} at {2}.txt";
+
+        public static string GetFindingCRMObjectsByUniqueidentifierFileName(string connectionName, Guid entityId)
+        {
+            return string.Format(FindingCRMObjectsByUniqueidentifierFileNameFormat3, connectionName, entityId, GetDateString());
+        }
+
+        private const string FindingCRMObjectsByIdFileNameFormat3 = "{0}.Finding CRM Objects by Id {1} at {2}.txt";
+
+        public static string GetFindingCRMObjectsByIdFileName(string connectionName, Guid entityId)
+        {
+            return string.Format(FindingCRMObjectsByIdFileNameFormat3, connectionName, entityId, GetDateString());
+        }
+
+        private const string CheckEntityNamesForPrefixFileNameFormat3 = "{0}.Check Entity Names for prefix {1} at {2}.txt";
+
+        public static string GetCheckEntityNamesForPrefixFileName(string connectionName, string prefix)
+        {
+            return string.Format(CheckEntityNamesForPrefixFileNameFormat3, connectionName, prefix, GetDateString());
+        }
+
+        
     }
 }

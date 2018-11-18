@@ -367,7 +367,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._crmConfig.Save();
 
-                _iWriteToOutput.WriteToOutput("Current Connection: {0}", connectionData.Name);
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
                 _iWriteToOutput.ActivateOutputWindow();
 
                 this.DialogResult = true;
@@ -682,7 +682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._crmConfig.Save();
 
-                    _iWriteToOutput.WriteToOutput("Current Connection: {0}", item.Name);
+                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentConnectionFormat1, item.Name);
                     _iWriteToOutput.ActivateOutputWindow();
 
                     this.DialogResult = true;

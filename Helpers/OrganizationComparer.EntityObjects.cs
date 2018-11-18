@@ -24,7 +24,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking System Forms started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingSystemFormsFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             FormDescriptionHandler handler1 = new FormDescriptionHandler(ImageBuilder.Descriptor1, new DependencyRepository(_comparerSource.Service1))
             {
@@ -305,15 +307,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in System Forms.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput(
-                "Checking System Forms ended at {0}"
-                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
-                ));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} System Forms.txt"
-                , this._OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                );
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "System Forms");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -335,9 +331,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking System Saved Queries started at {0}"
-                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
-                ));
+            string operation = string.Format(Properties.OperationNames.CheckingSystemSavedQueriesFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = _comparerSource.GetSavedQuery1Async();
             var task2 = _comparerSource.GetSavedQuery2Async();
@@ -615,11 +611,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in System Saved Queries.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking System Saved Queries ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} System Saved Queries.txt"
-                , this._OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "System Saved Queries");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -641,7 +635,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking System Saved Query Visualizations (Charts) started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingSystemChartsFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = _comparerSource.GetSavedQueryVisualization1Async();
             var task2 = _comparerSource.GetSavedQueryVisualization2Async();
@@ -877,11 +873,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in System Saved Query Visualizations (Charts).");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking System Saved Query Visualizations (Charts) ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} Saved Query Visualizations (Charts).txt"
-                , this._OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Saved Query Visualizations (Charts)");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 

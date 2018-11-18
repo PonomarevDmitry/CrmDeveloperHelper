@@ -132,8 +132,17 @@
   <data name="CreatedGlobalOptionSetMetadataFileForConnectionFormat3" xml:space="preserve">
     <value>{0}. For Global OptionSet '{1}' created file with Metadata: {2}</value>
   </data>
+  <data name="CurrentConnectionFormat1" xml:space="preserve">
+    <value>Current Connection: {0}</value>
+  </data>
+  <data name="CurrentServiceEndpointConnectionFormat2" xml:space="preserve">
+    <value>Current Service Endpoint Connection {0}: {1}</value>
+  </data>
   <data name="CurrentServiceEndpointFormat1" xml:space="preserve">
     <value>Current Service Endpoint: {0}</value>
+  </data>
+  <data name="DifferenceWasCancelled" xml:space="preserve">
+    <value>Difference was cancelled.</value>
   </data>
   <data name="EndOperationFormat2" xml:space="preserve">
     <value>***********   End {0} at {1} *******************************************************</value>
@@ -154,7 +163,7 @@
     <value>{0}. For '{1}' exported file with Ribbon: {2}</value>
   </data>
   <data name="FileNotExistsFormat1" xml:space="preserve">
-    <value>File {0} not exists.</value>
+    <value>File not exists: {0}</value>
   </data>
   <data name="GetAttributeMetadataByGuidFormat1" xml:space="preserve">
     <value>GetAttributeMetadata(Guid {0})</value>
@@ -192,8 +201,23 @@
   <data name="NoCurrentCRMConnection" xml:space="preserve">
     <value>No current CRM Connection.</value>
   </data>
+  <data name="NoFilesForDifference" xml:space="preserve">
+    <value>No files for difference.</value>
+  </data>
+  <data name="NoObjectsInCRMWereFounded" xml:space="preserve">
+    <value>No Objects in CRM were founded.</value>
+  </data>
   <data name="NothingToPublish" xml:space="preserve">
     <value>Nothing to publish.</value>
+  </data>
+  <data name="NoWebResourcesToAddInSolutionAllAllreadyInSolutionFormat2" xml:space="preserve">
+    <value>{0}: No WebResources to add. All webresources already in Solution {1}.</value>
+  </data>
+  <data name="NoWebResourcesToAddInSolutionFormat2" xml:space="preserve">
+    <value>{0}: No WebResources to add in solution {1}.</value>
+  </data>
+  <data name="ObjectsInCRMWereExportedToFormat1" xml:space="preserve">
+    <value>Objects in CRM were exported to {0}</value>
   </data>
   <data name="PublishingAllCompletedFormat1" xml:space="preserve">
     <value>Published All in {0} Successfully.</value>
@@ -201,13 +225,34 @@
   <data name="PublishingAllFailedFormat1" xml:space="preserve">
     <value>Publishing All in {0} FAILED.</value>
   </data>
+  <data name="PublishListIsEmpty" xml:space="preserve">
+    <value>Publish List is empty.</value>
+  </data>
+  <data name="ReportNotFoundedInConnectionFormat2" xml:space="preserve">
+    <value>{0}: Report not founded in CRM: {1}</value>
+  </data>
+  <data name="ShowingDifferenceIsNotAllowedForFormat1" xml:space="preserve">
+    <value>Showing Difference is not allowed for {0}.</value>
+  </data>
+  <data name="SolutionNotSelected" xml:space="preserve">
+    <value>Solution not selected. Adding canceled.</value>
+  </data>
+  <data name="StartingCompareProgramForCountFilesFormat1" xml:space="preserve">
+    <value>Starting Compare Program for {0} files.</value>
+  </data>
   <data name="StartOperationFormat2" xml:space="preserve">
     <value>*********** Start {0} at {1} *******************************************************</value>
   </data>
   <data name="TextIsNotValidForFieldFormat1" xml:space="preserve">
     <value>Text is not valid for {0}.</value>
   </data>
+  <data name="WebResourceNotFoundedInConnectionFormat2" xml:space="preserve">
+    <value>{0}: WebResource not founded in CRM: {1}</value>
+  </data>
   <data name="XmlValidationMessageFormat2" xml:space="preserve">
     <value>Severity: {0}      Message: {1}</value>
+  </data>
+  <data name="ExportedOrganizationDifferenceImageToFileFormat3" xml:space="preserve">
+    <value>OrganizationDifferenceImage {0} and {1} exported to file: {2}</value>
   </data>
 </root>

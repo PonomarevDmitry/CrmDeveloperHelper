@@ -25,7 +25,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Security Roles started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingSecurityRolesFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = _comparerSource.GetRole1Async();
             var task2 = _comparerSource.GetRole2Async();
@@ -386,11 +388,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Security Roles.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Security Roles ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} Security Roles.txt"
-                , this._OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Security Roles");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -572,7 +572,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Field Security Profiles started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingFieldSecurityProfilesFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = _comparerSource.GetFieldSecurityProfile1Async();
             var task2 = _comparerSource.GetFieldSecurityProfile2Async();
@@ -763,11 +765,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Field Security Profiles.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Field Security Profiles ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} Field Security Profiles.txt"
-                , this._OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Field Security Profiles");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 

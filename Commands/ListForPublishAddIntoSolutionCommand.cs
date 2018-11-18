@@ -23,7 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         private static void ActionExecute(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesFromListForPublish();
-
+            
             if (selectedFiles.Count > 0)
             {
                 helper.ShowListForPublish();
@@ -32,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
             else
             {
-                helper.WriteToOutput("Publish List is empty.");
+                helper.WriteToOutput(Properties.OutputStrings.PublishListIsEmpty);
                 helper.ActivateOutputWindow();
             }
         }

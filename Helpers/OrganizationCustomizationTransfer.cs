@@ -25,16 +25,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string _tabSpacer = "    ";
 
-        private IWriteToOutput _writeToOutput;
+        private IWriteToOutput _iWriteToOutput;
 
         private IOrganizationServiceExtented _serviceSource;
         private IOrganizationServiceExtented _serviceTarget;
 
-        public OrganizationCustomizationTransfer(ConnectionData connectionSource, ConnectionData connectionTarget, IWriteToOutput writeToOutput, string folder)
+        public OrganizationCustomizationTransfer(ConnectionData connectionSource, ConnectionData connectionTarget, IWriteToOutput iWriteToOutput, string folder)
         {
             this.ConnectionSource = connectionSource;
             this.ConnectionTarget = connectionTarget;
-            this._writeToOutput = writeToOutput;
+            this._iWriteToOutput = iWriteToOutput;
             this._folder = folder;
         }
 
@@ -49,8 +49,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (service1IsNull)
                 {
-                    _writeToOutput.WriteToOutput(mess1);
-                    _writeToOutput.WriteToOutput(mess2);
+                    _iWriteToOutput.WriteToOutput(mess1);
+                    _iWriteToOutput.WriteToOutput(mess2);
                     _serviceSource = await QuickConnection.ConnectAsync(ConnectionSource);
                 }
 
@@ -58,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (service1IsNull)
                 {
-                    _writeToOutput.WriteToOutput(mess3);
+                    _iWriteToOutput.WriteToOutput(mess3);
                 }
 
                 if (content != null)
@@ -71,7 +71,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (service1IsNull)
             {
-                _writeToOutput.WriteToOutput(string.Empty);
+                _iWriteToOutput.WriteToOutput(string.Empty);
             }
 
             if (content != null)
@@ -85,8 +85,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (service2IsNull)
                 {
-                    _writeToOutput.WriteToOutput(mess1);
-                    _writeToOutput.WriteToOutput(mess2);
+                    _iWriteToOutput.WriteToOutput(mess1);
+                    _iWriteToOutput.WriteToOutput(mess2);
                     _serviceTarget = await QuickConnection.ConnectAsync(ConnectionTarget);
                 }
 
@@ -94,7 +94,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (service2IsNull)
                 {
-                    _writeToOutput.WriteToOutput(mess3);
+                    _iWriteToOutput.WriteToOutput(mess3);
                 }
 
                 if (content != null)
@@ -122,7 +122,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(content);
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Transfer Audit started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.TransferingAuditFormat2, ConnectionSource.Name, ConnectionTarget.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var repositorySource = new EntityMetadataRepository(_serviceSource);
             var repositoryTarget = new EntityMetadataRepository(_serviceTarget);
@@ -132,11 +134,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listEntityMetadataSource = await taskSource;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entities in {0}: {1}", ConnectionSource.Name, listEntityMetadataSource.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Entities in {0}: {1}", ConnectionSource.Name, listEntityMetadataSource.Count()));
 
             var listEntityMetadataTarget = await taskTarget;
 
-            content.AppendLine(_writeToOutput.WriteToOutput("Entities in {0}: {1}", ConnectionTarget.Name, listEntityMetadataTarget.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput("Entities in {0}: {1}", ConnectionTarget.Name, listEntityMetadataTarget.Count()));
 
             var commonEntityMetadata = new List<LinkedEntities<EntityMetadata>>();
 
@@ -267,7 +269,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            content.AppendLine().AppendLine().AppendLine(_writeToOutput.WriteToOutput("Transfer Audit ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
             string fileName = string.Format("OrgTransfer Audit from {0} to {1} at {2}.txt"
                 , this.ConnectionSource.Name

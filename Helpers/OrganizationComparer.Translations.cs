@@ -23,7 +23,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Display Strings started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingDisplayStringsFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = _comparerSource.GetDisplayString1Async();
             var task2 = _comparerSource.GetDisplayString2Async();
@@ -246,11 +248,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Display Strings.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Display Strings ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} Display Strings.txt"
-                , this._OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Display Strings");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -272,7 +272,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Default Translations started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingDefaultTranslationsFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = TranslationRepository.GetDefaultTranslationFromCacheAsync(Connection1.ConnectionId, _comparerSource.Service1);
             var task2 = TranslationRepository.GetDefaultTranslationFromCacheAsync(Connection2.ConnectionId, _comparerSource.Service2);
@@ -297,11 +299,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 CompareTranslations(content, translation1, translation2);
 
-                content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Default Translations ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+                content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-                string fileName = string.Format("OrgCompare {0} at {1} Default Translations.txt"
-                    , this._OrgOrgName
-                    , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Default Translations");
 
                 string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -324,7 +324,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Field Translations started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingFieldTranslationsFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = TranslationRepository.GetFieldTranslationFromCacheAsync(Connection1.ConnectionId, _comparerSource.Service1);
             var task2 = TranslationRepository.GetFieldTranslationFromCacheAsync(Connection2.ConnectionId, _comparerSource.Service2);
@@ -358,11 +360,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 CompareTranslations(content, translation1, translation2);
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Field Translations ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} Field Translations.txt"
-                  , this._OrgOrgName
-                  , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Field Translations");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 

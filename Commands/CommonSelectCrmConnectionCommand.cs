@@ -100,9 +100,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     connectionConfig.SetCurrentConnection(connectionData.ConnectionId);
 
                     connectionConfig.Save();
-
+                    
                     var helper = DTEHelper.Create(applicationObject);
-                    helper.WriteToOutput("Current Connection: {0}", connectionData.Name);
+                    helper.WriteToOutput(Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
                     helper.ActivateOutputWindow();
                 }
             }

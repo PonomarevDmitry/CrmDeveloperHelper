@@ -25,7 +25,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Connection Roles started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingConnectionRolesFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var taskRole1 = _comparerSource.GetConnectionRole1Async();
             var taskRole2 = _comparerSource.GetConnectionRole2Async();
@@ -298,11 +300,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Connection Roles.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Connection Roles ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} Connection Roles.txt"
-                , this._OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Connection Roles");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -354,7 +354,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Connection Role Categories started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingConnectionRoleCategoriesFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             const string optionSetName = "connectionrole_category";
 
@@ -408,11 +410,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Connection Role Categories ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} Connection Role Category.txt"
-                , this._OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Connection Role Category");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 

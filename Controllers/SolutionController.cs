@@ -52,7 +52,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -100,7 +100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM); ;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -125,7 +125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void ExecuteOpeningSolutionImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ShowingSolutionImageWindow);
-            
+
             try
             {
                 OpeningSolutionImageWindow(connectionData, commonConfig);
@@ -215,19 +215,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
-            
+
             if (selectedFiles == null || !selectedFiles.Any())
             {
-                this._iWriteToOutput.WriteToOutput("No WebResources to add.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoWebResourcesToAddInSolutionFormat2, connectionData.Name, solutionUniqueName);
                 return;
             }
-            
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
-            
+
             this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
@@ -245,48 +245,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 foreach (var selectedFile in gr)
                 {
-                    if (File.Exists(selectedFile.FilePath))
+                    if (!File.Exists(selectedFile.FilePath))
                     {
-                        this._iWriteToOutput.WriteToOutput("Try to find web-resource by name: {0}. Searching...", selectedFile.Name);
+                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                        continue;
+                    }
 
-                        string key = selectedFile.FriendlyFilePath.ToLower();
+                    this._iWriteToOutput.WriteToOutput("Try to find web-resource by name: {0}. Searching...", selectedFile.Name);
 
-                        var contentFile = Convert.ToBase64String(File.ReadAllBytes(selectedFile.FilePath));
+                    string key = selectedFile.FriendlyFilePath.ToLower();
 
-                        var webresource = WebResourceRepository.FindWebResourceInDictionary(dict, key, gr.Key);
+                    var contentFile = Convert.ToBase64String(File.ReadAllBytes(selectedFile.FilePath));
 
-                        if (webresource != null)
-                        {
-                            var webName = webresource.Name;
+                    var webresource = WebResourceRepository.FindWebResourceInDictionary(dict, key, gr.Key);
 
-                            this._iWriteToOutput.WriteToOutput("WebResource founded by name. WebResourceId: {0} Name: {1}", webresource.Id, webName);
-                        }
-                        else
-                        {
-                            this._iWriteToOutput.WriteToOutput("WebResource not founded by name. FileName: {0}. Open linking dialog...", selectedFile.Name);
+                    if (webresource != null)
+                    {
+                        var webName = webresource.Name;
 
-                            Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                            if (webId.HasValue)
-                            {
-                                webresource = await webResourceRepository.FindByIdAsync(webId.Value);
-                            }
-                        }
-
-                        if (webresource != null)
-                        {
-                            // Запоминается файл
-                            connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
-
-                            if (!dictForAdding.ContainsKey(webresource.Id))
-                            {
-                                dictForAdding.Add(webresource.Id, webresource);
-                            }
-                        }
+                        this._iWriteToOutput.WriteToOutput("WebResource founded by name. WebResourceId: {0} Name: {1}", webresource.Id, webName);
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput("File not founded: {0}", selectedFile.FilePath);
+                        this._iWriteToOutput.WriteToOutput("WebResource not founded by name. FileName: {0}. Open linking dialog...", selectedFile.Name);
+
+                        Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
+                        if (webId.HasValue)
+                        {
+                            webresource = await webResourceRepository.FindByIdAsync(webId.Value);
+                        }
+                    }
+
+                    if (webresource != null)
+                    {
+                        // Запоминается файл
+                        connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
+
+                        if (!dictForAdding.ContainsKey(webresource.Id))
+                        {
+                            dictForAdding.Add(webresource.Id, webresource);
+                        }
                     }
                 }
             }
@@ -295,7 +294,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!dictForAdding.Any())
             {
-                this._iWriteToOutput.WriteToOutput("No WebResources to add.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoWebResourcesToAddInSolutionFormat2, connectionData.Name, solutionUniqueName);
                 return;
             }
 
@@ -342,7 +341,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (solution == null)
             {
-                this._iWriteToOutput.WriteToOutput("Solution not selected.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionNotSelected);
                 return;
             }
 
@@ -365,7 +364,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!dictForAdding.Any())
             {
-                this._iWriteToOutput.WriteToOutput("No WebResources to add. All webresources already in Solution {0}", solution.UniqueName);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoWebResourcesToAddInSolutionAllAllreadyInSolutionFormat2, connectionData.Name, solution.UniqueName);
                 return;
             }
 
@@ -397,7 +396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public async Task ExecuteAddingReportsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
             string operation = string.Format(Properties.OperationNames.AddingReportsIntoSolutionFormat1, solutionUniqueName);
-            
+
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
@@ -422,7 +421,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -467,12 +466,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput("Report not founded in CRM: {0}", selectedFile.FileName);
+                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ReportNotFoundedInConnectionFormat2, connectionData.Name, selectedFile.FileName);
                     }
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput("File not exists: {0}", selectedFile.FilePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                 }
             }
 
@@ -527,7 +526,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (solution == null)
             {
-                this._iWriteToOutput.WriteToOutput("Solution not selected.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionNotSelected);
                 return;
             }
 
@@ -582,7 +581,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public static async Task AddSolutionComponentsGroupIntoSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, ComponentType componentType, IEnumerable<Guid> selectedObjects, RootComponentBehavior? rootComponentBehavior, bool withSelect)
         {
             string operation = string.Format(Properties.OperationNames.AddingComponentsIntoSolutionFormat1, solutionUniqueName);
-            
+
             iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
@@ -671,7 +670,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (solution == null)
                 {
-                    iWriteToOutput.WriteToOutput("Solution not selected.");
+                    iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionNotSelected);
                     return;
                 }
 
@@ -853,7 +852,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (solution == null)
                 {
-                    iWriteToOutput.WriteToOutput("Solution not selected.");
+                    iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionNotSelected);
                     return;
                 }
 
@@ -909,7 +908,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public async Task ExecuteAddingPluginAssemblyIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
             string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyIntoSolutionFormat1, solutionUniqueName);
-            
+
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
@@ -940,7 +939,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -1023,7 +1022,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (solution == null)
                 {
-                    this._iWriteToOutput.WriteToOutput("Solution not selected.");
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionNotSelected);
                     return;
                 }
 
@@ -1084,7 +1083,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public async Task ExecuteAddingPluginAssemblyProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
             string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyProcessingStepsIntoSolutionFormat1, solutionUniqueName);
-            
+
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
@@ -1115,7 +1114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -1218,7 +1217,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (solution == null)
             {
-                this._iWriteToOutput.WriteToOutput("Solution not selected.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionNotSelected);
                 return;
             }
 
@@ -1298,7 +1297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public async Task ExecuteAddingPluginTypeProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
         {
             string operation = string.Format(Properties.OperationNames.AddingPluginTypeProcessingStepsIntoSolutionFormat1, solutionUniqueName);
-            
+
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
@@ -1329,7 +1328,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);;
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
             this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
 
@@ -1433,7 +1432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (solution == null)
             {
-                this._iWriteToOutput.WriteToOutput("Solution not selected.");
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionNotSelected);
                 return;
             }
 

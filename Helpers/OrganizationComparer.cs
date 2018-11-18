@@ -70,7 +70,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Global OptionSets started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingGlobalOptionSetsFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = _comparerSource.GetOptionSetMetadata1Async();
             var task2 = _comparerSource.GetOptionSetMetadata2Async();
@@ -297,11 +299,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Global OptionSets.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Global OptionSets ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} Global OptionSets.txt"
-                , _OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Global OptionSets");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -323,12 +323,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            string withDetailsName = withDetails ? " with details" : string.Empty;
+            string operation = string.Format(Properties.OperationNames.CheckingWebResourcesFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking WebResources{0} started at {1}"
-                , withDetailsName
-                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
-                ));
+            if (withDetails)
+            {
+                operation = string.Format(Properties.OperationNames.CheckingWebResourcesWithDetailsFormat2, Connection1.Name, Connection2.Name);
+            }
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = _comparerSource.GetWebResource1Async();
             var task2 = _comparerSource.GetWebResource2Async();
@@ -688,16 +690,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in WebResources.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking WebResources{0} ended at {1}"
-                , withDetailsName
-                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
-                ));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} WebResources{2}.txt"
-                , _OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                , withDetailsName
-                );
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, string.Format("WebResources{0}", withDetails ? " with details" : string.Empty));
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -734,7 +729,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var task1 = _comparerSource.GetSiteMap1Async();
             var task2 = _comparerSource.GetSiteMap2Async();
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Sitemaps started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingSitemapsFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             List<SiteMap> list1 = await task1;
 
@@ -915,11 +912,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Sitemaps.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Sitemaps ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} Sitemaps.txt"
-                , _OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Sitemaps");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -941,7 +936,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Organizations started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingOrganizationsFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = _comparerSource.GetOrganization1Async(new ColumnSet(true));
             var task2 = _comparerSource.GetOrganization2Async(new ColumnSet(true));
@@ -1074,11 +1071,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Organizations ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} Organizations.txt"
-                , _OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Organizations");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1098,7 +1093,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Reports started at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
+            string operation = string.Format(Properties.OperationNames.CheckingReportsFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = _comparerSource.GetReport1Async();
             var task2 = _comparerSource.GetReport2Async();
@@ -1368,11 +1365,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Reports.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Reports ended at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)));
-
-            string fileName = string.Format("OrgCompare {0} at {1} Reports.txt"
-                , _OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Reports");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1492,12 +1487,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
-            string withDetailsName = withDetails ? " with details" : string.Empty;
+            string operation = string.Format(Properties.OperationNames.CheckingWorkflowsFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Checking Workflows{0} started at {1}"
-                , withDetailsName
-                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture))
-                );
+            if (withDetails)
+            {
+                operation = string.Format(Properties.OperationNames.CheckingWorkflowsWithDetailsFormat2, Connection1.Name, Connection2.Name);
+            }
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
             var task1 = _comparerSource.GetWorkflow1Async();
             var task2 = _comparerSource.GetWorkflow2Async();
@@ -1784,16 +1781,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Workflows.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutput("Checking Workflows{0} ended at {1}"
-                , withDetailsName
-                , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture))
-                );
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = string.Format("OrgCompare {0} at {1} Workflows{2}.txt"
-                , _OrgOrgName
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                , withDetailsName
-                );
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, string.Format("Workflows{0}", withDetails ? " with details" : string.Empty));
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1806,15 +1796,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task SaveOrganizationDifferenceImage()
         {
-            string fileName = EntityFileNameFormatter.GetDifferenceFileName(_OrgOrgName);
+            string fileName = EntityFileNameFormatter.GetDifferenceImageFileName(_OrgOrgName);
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
             var image = await ImageBuilder.GetImage();
 
             image.Save(filePath);
-
-            _iWriteToOutput.WriteToOutput("OrganizationDifferenceImage {0} and {1} exported into file {2}", Connection1.Name, Connection2.Name, filePath);
+            
+            _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedOrganizationDifferenceImageToFileFormat3, Connection1.Name, Connection2.Name, filePath);
 
             _iWriteToOutput.WriteToOutputFilePathUri(filePath);
         }

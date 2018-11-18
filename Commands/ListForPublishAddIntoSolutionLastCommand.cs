@@ -129,7 +129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                         }
                         else
                         {
-                            helper.WriteToOutput("Publish List is empty.");
+                            helper.WriteToOutput(Properties.OutputStrings.PublishListIsEmpty);
                             helper.ActivateOutputWindow();
                         }
                     }

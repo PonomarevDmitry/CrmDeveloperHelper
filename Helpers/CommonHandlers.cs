@@ -980,7 +980,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                helper.WriteToOutput("Publish List is empty.");
+                helper.WriteToOutput(Properties.OutputStrings.PublishListIsEmpty);
             }
 
             return selectedFiles;
