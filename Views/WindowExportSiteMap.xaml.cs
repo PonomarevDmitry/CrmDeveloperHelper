@@ -648,7 +648,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (schemasResources != null)
                 {
-                    foreach (var fileName in schemasResources.Item2)
+                    foreach (var fileName in schemasResources)
                     {
                         Uri uri = FileOperations.GetSchemaResourceUri(fileName);
                         StreamResourceInfo info = Application.GetResourceStream(uri);
