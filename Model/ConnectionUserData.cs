@@ -160,7 +160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
             catch (Exception ex)
             {
-                DTEHelper.Singleton?.WriteToOutput("Error while Decrypting password for user {0}. Setting default password - 'empty'.", this.Username);
+                DTEHelper.Singleton?.WriteToOutput(Properties.OutputStrings.DecryptingPasswordErrorFormat1, this.Username);
                 this.Password = "empty";
                 DTEHelper.WriteExceptionToLog(ex);
             }

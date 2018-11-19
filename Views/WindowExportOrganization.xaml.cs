@@ -404,7 +404,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} Organization {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, Organization.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -413,7 +413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("Organization {0} {1} is empty.", name, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Organization.Schema.EntityLogicalName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 

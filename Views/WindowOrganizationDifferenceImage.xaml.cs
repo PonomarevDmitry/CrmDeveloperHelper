@@ -601,7 +601,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
-                _iWriteToOutput.WriteToOutput("SolutionComponent not found in Crm Connection {0}.", service.ConnectionData.Name);
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionComponentNotFoundInConnectionFormat1, service.ConnectionData.Name);
                 _iWriteToOutput.ActivateOutputWindow();
                 return;
             }
@@ -630,7 +630,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
-                _iWriteToOutput.WriteToOutput("SolutionComponent not found in Crm Connection {0}.", service.ConnectionData.Name);
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionComponentNotFoundInConnectionFormat1, service.ConnectionData.Name);
                 _iWriteToOutput.ActivateOutputWindow();
                 return;
             }
@@ -664,7 +664,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
-                _iWriteToOutput.WriteToOutput("SolutionComponent not found in Crm Connection {0}.", service.ConnectionData.Name);
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionComponentNotFoundInConnectionFormat1, service.ConnectionData.Name);
                 _iWriteToOutput.ActivateOutputWindow();
                 return;
             }
@@ -696,7 +696,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
-                _iWriteToOutput.WriteToOutput("SolutionComponent not found in Crm Connection {0}.", service.ConnectionData.Name);
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionComponentNotFoundInConnectionFormat1, service.ConnectionData.Name);
                 _iWriteToOutput.ActivateOutputWindow();
                 return;
             }
@@ -745,7 +745,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
-                _iWriteToOutput.WriteToOutput("SolutionComponent not found in Crm Connection {0}.", service.ConnectionData.Name);
+                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionComponentNotFoundInConnectionFormat1, service.ConnectionData.Name);
                 _iWriteToOutput.ActivateOutputWindow();
                 return;
             }

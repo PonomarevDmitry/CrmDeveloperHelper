@@ -582,11 +582,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         SolutionRepository repository = new SolutionRepository(service);
 
-                        var solutionsTask = repository.GetSolutionsVisibleUnmanagedAsync(listSolutionNames);
+                        var solutionsTask = repository.GetSolutionsVisibleUnmanaged(listSolutionNames);
 
-                        solutionsTask.Wait();
-
-                        var lastSolutions = solutionsTask.Result.ToDictionary(s => s.UniqueName, StringComparer.InvariantCultureIgnoreCase);
+                        var lastSolutions = solutionsTask.ToDictionary(s => s.UniqueName, StringComparer.InvariantCultureIgnoreCase);
 
                         var listTo = listSolutionNames.Where(s => lastSolutions.ContainsKey(s)).Select(s => lastSolutions[s]).ToList();
 
@@ -891,8 +889,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
-
-                this._iWriteToOutput.WriteToOutput("Solution Image was export into file '{0}'", filePath);
+                
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
@@ -1943,7 +1941,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, components);
 
-                this._iWriteToOutput.WriteToOutput("Solution Image was export into file '{0}'", filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                 

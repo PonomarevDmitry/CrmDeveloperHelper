@@ -995,6 +995,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetTextViewAndMakeAction(document, Properties.OperationNames.AddXmlSchemaLocation, wpfTextView => ReplaceXsdSchemaInTextView(wpfTextView, schemas));
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Microsoft.VisualStudio.Text.ITextEdit.Insert(System.Int32,System.String)")]
         private static void ReplaceXsdSchemaInTextView(IWpfTextView wpfTextView, string schemas)
         {
             var snapshot = wpfTextView.TextSnapshot;
@@ -1063,6 +1064,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetTextViewAndMakeAction(document, Properties.OperationNames.AddXmlSchemaLocation, wpfTextView => InsertIntellisenseContextEntityNameInTextView(wpfTextView, entityName));
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Microsoft.VisualStudio.Text.ITextEdit.Insert(System.Int32,System.String)")]
         private static void InsertIntellisenseContextEntityNameInTextView(IWpfTextView wpfTextView, string entityName)
         {
             var snapshot = wpfTextView.TextSnapshot;

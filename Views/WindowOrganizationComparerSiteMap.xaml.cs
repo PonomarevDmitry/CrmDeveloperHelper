@@ -494,7 +494,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} SiteMap {1} {2} exported to {3}", connectionName, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionName, SiteMap.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -503,7 +503,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("SiteMap {0} {1} is empty.", name, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionName, SiteMap.Schema.EntityLogicalName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
@@ -526,7 +526,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} SiteMap Entity Description {1} {2} exported to {3}", connectionName, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionName, SiteMap.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -536,7 +536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             else
             {
                 filePath = string.Empty;
-                this._iWriteToOutput.WriteToOutput("{0} SiteMap Entity Description {1} {2} is empty.", connectionName, name, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionName, SiteMap.Schema.EntityLogicalName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 

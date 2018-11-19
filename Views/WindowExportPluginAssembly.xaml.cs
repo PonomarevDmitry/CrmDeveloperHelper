@@ -448,7 +448,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await handler.CreateFileWithDescriptionAsync(filePath, idPluginAssembly, name, DateTime.Now);
 
-            this._iWriteToOutput.WriteToOutput("Assembly {0} Description exported to {1}", name, filePath);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginAssembly.Schema.EntityLogicalName, name, "Description", filePath);
 
             this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             
@@ -497,7 +497,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             File.WriteAllBytes(filePath, array);
 
-            this._iWriteToOutput.WriteToOutput("Plugin Assembly {0} exported to {1}", name, filePath);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginAssembly.Schema.EntityLogicalName, name, "Content", filePath);
 
             if (File.Exists(filePath))
             {

@@ -492,7 +492,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} Report {1} {2} exported to {3}", connectionName, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionName, Report.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -501,21 +501,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("Report {0} {1} is empty.", name, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionName, Report.Schema.EntityLogicalName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
             return filePath;
         }
 
-        private Task<string> CreateDescriptionFileAsync(string connectionName, string name, Guid id, string fieldName, string description)
+        private Task<string> CreateDescriptionFileAsync(string connectionName, string name, Guid id, string fieldTitle, string description)
         {
-            return Task.Run(() => CreateDescriptionFile(connectionName, name, id, fieldName, description));
+            return Task.Run(() => CreateDescriptionFile(connectionName, name, id, fieldTitle, description));
         }
 
-        private string CreateDescriptionFile(string connectionName, string name, Guid id, string fieldName, string description)
+        private string CreateDescriptionFile(string connectionName, string name, Guid id, string fieldTitle, string description)
         {
-            string fileName = EntityFileNameFormatter.GetReportFileName(connectionName, name, id, fieldName, "txt");
+            string fileName = EntityFileNameFormatter.GetReportFileName(connectionName, name, id, fieldTitle, "txt");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(description))
@@ -524,7 +524,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} Report Entity Description {1} {2} exported to {3}", connectionName, name, fieldName, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionName, Report.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -534,7 +534,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             else
             {
                 filePath = string.Empty;
-                this._iWriteToOutput.WriteToOutput("{0} Report Entity Description {1} {2} is empty.", connectionName, name, fieldName);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionName, Report.Schema.EntityLogicalName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 

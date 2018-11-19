@@ -474,7 +474,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} SystemForm {1} {2} exported to {3}", connectionData.Name, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SystemForm.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -483,7 +483,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("SystemForm {0} {1} is empty.", name, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, SystemForm.Schema.EntityLogicalName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
@@ -889,7 +889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, desc, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("SystemForm {0} Form Description exported to {0}", name, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "FormDescription", filePath);
 
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                 }
@@ -900,7 +900,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("SystemForm {0} FormXml is empty.", name);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "FormXml");
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
@@ -981,7 +981,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("System Form {0} FormXml is empty.", name);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "FormXml");
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
@@ -1079,7 +1079,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         filePath = await handlerCreate.CreateFileAsync(fileName, tabs);
                     }
 
-                    this._iWriteToOutput.WriteToOutput("System Form {0} Entity Metadata exported to {1}", name, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "Entity Metadata", filePath);
 
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                 }
@@ -1090,7 +1090,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("System Form {0} FormXml is empty.", name);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "FormXml");
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 

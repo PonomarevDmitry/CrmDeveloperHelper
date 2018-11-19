@@ -61,6 +61,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Added into Publish List: {0}.
+        /// </summary>
+        internal static string AddedInPublishListFormat1 {
+            get {
+                return ResourceManager.GetString("AddedInPublishListFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connecting to CRM....
         /// </summary>
         internal static string ConnectingToCRM {
@@ -133,6 +142,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while Decrypting Password for user {0}. Setting default password - &apos;empty&apos;..
+        /// </summary>
+        internal static string DecryptingPasswordErrorFormat1 {
+            get {
+                return ResourceManager.GetString("DecryptingPasswordErrorFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Difference was cancelled..
         /// </summary>
         internal static string DifferenceWasCancelled {
@@ -147,6 +165,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string EndOperationFormat2 {
             get {
                 return ResourceManager.GetString("EndOperationFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. {1} {2} {3} exported to file: {4}.
+        /// </summary>
+        internal static string EntityFieldExportedToFormat5 {
+            get {
+                return ResourceManager.GetString("EntityFieldExportedToFormat5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. {1} {2} {3} is empty..
+        /// </summary>
+        internal static string EntityFieldIsEmptyFormat4 {
+            get {
+                return ResourceManager.GetString("EntityFieldIsEmptyFormat4", resourceCulture);
             }
         }
         
@@ -205,11 +241,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. SolutionImage exported to file: {1}.
+        /// </summary>
+        internal static string ExportedSolutionImageForConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("ExportedSolutionImageForConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File not exists: {0}.
         /// </summary>
         internal static string FileNotExistsFormat1 {
             get {
                 return ResourceManager.GetString("FileNotExistsFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files already in Publish List: {0}.
+        /// </summary>
+        internal static string FilesAlreadyInPublishListFormat1 {
+            get {
+                return ResourceManager.GetString("FilesAlreadyInPublishListFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files not in Publish List: {0}.
+        /// </summary>
+        internal static string FilesNotInPublishListFormat1 {
+            get {
+                return ResourceManager.GetString("FilesNotInPublishListFormat1", resourceCulture);
             }
         }
         
@@ -403,6 +466,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Removed from Publish List: {0}.
+        /// </summary>
+        internal static string RemovedFromPublishListFormat1 {
+            get {
+                return ResourceManager.GetString("RemovedFromPublishListFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: Report not founded in CRM: {1}.
         /// </summary>
         internal static string ReportNotFoundedInConnectionFormat2 {
@@ -417,6 +489,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ShowingDifferenceIsNotAllowedForFormat1 {
             get {
                 return ResourceManager.GetString("ShowingDifferenceIsNotAllowedForFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SolutionComponent not found in Connection {0}..
+        /// </summary>
+        internal static string SolutionComponentNotFoundInConnectionFormat1 {
+            get {
+                return ResourceManager.GetString("SolutionComponentNotFoundInConnectionFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solution &apos;{0}&apos; has {1} components and {2} that not exists in &apos;{3}&apos;..
+        /// </summary>
+        internal static string SolutionComponentsCountAndUniqueFormat4 {
+            get {
+                return ResourceManager.GetString("SolutionComponentsCountAndUniqueFormat4", resourceCulture);
             }
         }
         
@@ -453,6 +543,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string TextIsNotValidForFieldFormat1 {
             get {
                 return ResourceManager.GetString("TextIsNotValidForFieldFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating Attributes:.
+        /// </summary>
+        internal static string UpdatingAttributes {
+            get {
+                return ResourceManager.GetString("UpdatingAttributes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating Entities:.
+        /// </summary>
+        internal static string UpdatingEntities {
+            get {
+                return ResourceManager.GetString("UpdatingEntities", resourceCulture);
             }
         }
         

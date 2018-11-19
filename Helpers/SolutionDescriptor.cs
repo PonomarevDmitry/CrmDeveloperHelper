@@ -282,9 +282,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var componentsOnlyIn1 = GetComponentsInFirstNotSecond(components1, components2);
             var componentsOnlyIn2 = GetComponentsInFirstNotSecond(components2, components1);
-
-            this._iWriteToOutput.WriteToOutput("Solution '{0}' has {1} components and {2} that not exists in '{3}'.", solution1.UniqueName, components1.Count.ToString(), componentsOnlyIn1.Count.ToString(), solution2.UniqueName);
-            this._iWriteToOutput.WriteToOutput("Solution '{0}' has {1} components and {2} that not exists in '{3}'.", solution2.UniqueName, components2.Count.ToString(), componentsOnlyIn2.Count.ToString(), solution1.UniqueName);
+            
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionComponentsCountAndUniqueFormat4, solution1.UniqueName, components1.Count.ToString(), componentsOnlyIn1.Count.ToString(), solution2.UniqueName);
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionComponentsCountAndUniqueFormat4, solution2.UniqueName, components2.Count.ToString(), componentsOnlyIn2.Count.ToString(), solution1.UniqueName);
         }
 
         public Task CreateFileWithUniqueComponentsInSolution1Async(
@@ -367,12 +367,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this._iWriteToOutput.WriteToOutput(message);
                 strFile.AppendLine(message);
 
-                message = string.Format("Solution '{0}' has {1} components and {2} that not exists in '{3}'.", sourceName, componentsSourceCount, componentesOnlyInSource.Count, solutionTargetUniqueName);
+                message = string.Format(Properties.OutputStrings.SolutionComponentsCountAndUniqueFormat4, sourceName, componentsSourceCount, componentesOnlyInSource.Count, solutionTargetUniqueName);
 
                 this._iWriteToOutput.WriteToOutput(message);
                 strFile.AppendLine(message);
 
-                message = string.Format("Solution '{0}' has {1} components and {2} that not exists in '{3}'.", solutionTargetUniqueName, componentsTargetCount, componentesOnlyInTargetCount, sourceName);
+                message = string.Format(Properties.OutputStrings.SolutionComponentsCountAndUniqueFormat4, solutionTargetUniqueName, componentsTargetCount, componentesOnlyInTargetCount, sourceName);
 
                 this._iWriteToOutput.WriteToOutput(message);
                 strFile.AppendLine(message);

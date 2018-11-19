@@ -505,7 +505,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} System View (Saved Query) {1} {2} exported to {3}", connectionName, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionName, SavedQuery.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -514,21 +514,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("System View (Saved Query) {0} {1} is empty.", name, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionName, SavedQuery.Schema.EntityLogicalName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
             return filePath;
         }
 
-        private Task<string> CreateDescriptionFileAsync(string connectionName, string entityName, string name, string fieldName, string description)
+        private Task<string> CreateDescriptionFileAsync(string connectionName, string entityName, string name, string fieldTitle, string description)
         {
-            return Task.Run(() => CreateDescriptionFile(connectionName, entityName, name, fieldName, description));
+            return Task.Run(() => CreateDescriptionFile(connectionName, entityName, name, fieldTitle, description));
         }
 
-        private string CreateDescriptionFile(string connectionName, string entityName, string name, string fieldName, string description)
+        private string CreateDescriptionFile(string connectionName, string entityName, string name, string fieldTitle, string description)
         {
-            string fileName = EntityFileNameFormatter.GetSavedQueryFileName(connectionName, entityName, name, fieldName, "txt");
+            string fileName = EntityFileNameFormatter.GetSavedQueryFileName(connectionName, entityName, name, fieldTitle, "txt");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(description))
@@ -537,7 +537,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} Saved Query Entity Description {1} {2} exported to {3}", connectionName, name, fieldName, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionName, SavedQuery.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -547,7 +547,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             else
             {
                 filePath = string.Empty;
-                this._iWriteToOutput.WriteToOutput("{0} Saved Query Entity Description {1} {2} is empty.", connectionName, name, fieldName);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionName, SavedQuery.Schema.EntityLogicalName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 

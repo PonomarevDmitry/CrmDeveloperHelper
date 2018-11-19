@@ -29,6 +29,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         private const string _outputWindowName = "Crm Developer Helper";
 
+        private const string _tabSpacer = "    ";
+
         private const int timeDelay = 2000;
 
         private static readonly Guid ToolsDiffCommandGuid = new Guid("5D4C0442-C0A2-4BE8-9B4D-AB1C28450942");
@@ -1002,59 +1004,103 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void AddToListForPublish(IEnumerable<SelectedFile> selectedFiles)
         {
-            if (selectedFiles.Any())
+            if (!selectedFiles.Any())
             {
-                ActivateOutputWindow();
+                return;
+            }
 
-                WriteToOutput(string.Empty);
+            ActivateOutputWindow();
 
-                foreach (SelectedFile selectedFile in selectedFiles)
+            WriteToOutput(string.Empty);
+
+            FormatTextTableHandler tableAlreadyInPublishList = new FormatTextTableHandler();
+            tableAlreadyInPublishList.SetHeader("FileName", "FriendlyFilePath");
+
+            FormatTextTableHandler tableAddedInPublishList = new FormatTextTableHandler();
+            tableAddedInPublishList.SetHeader("FileName", "FriendlyFilePath");
+
+            foreach (SelectedFile selectedFile in selectedFiles.OrderBy(f => f.FriendlyFilePath).ThenBy(f => f.FileName))
+            {
+                if (!string.IsNullOrEmpty(selectedFile.FilePath))
                 {
-                    if (!string.IsNullOrEmpty(selectedFile.FilePath))
+                    if (File.Exists(selectedFile.FilePath))
                     {
-                        if (File.Exists(selectedFile.FilePath))
+                        if (!_ListForPublish.Contains(selectedFile.FilePath))
                         {
-                            if (!_ListForPublish.Contains(selectedFile.FilePath))
-                            {
-                                _ListForPublish.Add(selectedFile.FilePath);
+                            _ListForPublish.Add(selectedFile.FilePath);
 
-                                WriteToOutput("Added into Publish List: {0}", selectedFile.FriendlyFilePath);
-                            }
-                            else
-                            {
-                                WriteToOutput("File already in Publish List: {0}", selectedFile.FriendlyFilePath);
-                            }
+                            tableAddedInPublishList.AddLine(selectedFile.FileName, selectedFile.FriendlyFilePath);
                         }
                         else
                         {
-                            WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FriendlyFilePath);
+                            tableAlreadyInPublishList.AddLine(selectedFile.FileName, selectedFile.FriendlyFilePath);
                         }
                     }
+                    else
+                    {
+                        WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FriendlyFilePath);
+                    }
                 }
+            }
+
+            if (tableAlreadyInPublishList.Count > 0)
+            {
+                WriteToOutput(Properties.OutputStrings.FilesAlreadyInPublishListFormat1, tableAlreadyInPublishList.Count);
+
+                tableAlreadyInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(_tabSpacer + s));
+            }
+
+            if (tableAddedInPublishList.Count > 0)
+            {
+                WriteToOutput(Properties.OutputStrings.AddedInPublishListFormat1, tableAddedInPublishList.Count);
+                
+                tableAddedInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(_tabSpacer + s));
             }
         }
 
         public void RemoveFromListForPublish(List<SelectedFile> selectedFiles)
         {
-            if (selectedFiles.Count > 0)
+            if (!selectedFiles.Any())
             {
-                ActivateOutputWindow();
+                return;
+            }
 
-                WriteToOutput(string.Empty);
+            ActivateOutputWindow();
 
-                foreach (SelectedFile selectedFile in selectedFiles)
+            WriteToOutput(string.Empty);
+
+            FormatTextTableHandler tableNotInPublishList = new FormatTextTableHandler();
+            tableNotInPublishList.SetHeader("FileName", "FriendlyFilePath");
+
+            FormatTextTableHandler tableRemovedFromPublishList = new FormatTextTableHandler();
+            tableRemovedFromPublishList.SetHeader("FileName", "FriendlyFilePath");
+
+            foreach (SelectedFile selectedFile in selectedFiles.OrderBy(f => f.FriendlyFilePath).ThenBy(f => f.FileName))
+            {
+                if (_ListForPublish.Contains(selectedFile.FilePath))
                 {
-                    if (_ListForPublish.Contains(selectedFile.FilePath))
-                    {
-                        _ListForPublish.Remove(selectedFile.FilePath);
+                    _ListForPublish.Remove(selectedFile.FilePath);
 
-                        WriteToOutput("Removed from Publish List: {0}", selectedFile.FriendlyFilePath);
-                    }
-                    else
-                    {
-                        WriteToOutput("File not in Publish List: {0}", selectedFile.FriendlyFilePath);
-                    }
+                    tableRemovedFromPublishList.AddLine(selectedFile.FileName, selectedFile.FriendlyFilePath);
                 }
+                else
+                {
+                    tableNotInPublishList.AddLine(selectedFile.FileName, selectedFile.FriendlyFilePath);
+                }
+            }
+
+            if (tableNotInPublishList.Count > 0)
+            {
+                WriteToOutput(Properties.OutputStrings.FilesNotInPublishListFormat1, tableNotInPublishList.Count);
+                
+                tableNotInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(_tabSpacer + s));
+            }
+
+            if (tableRemovedFromPublishList.Count > 0)
+            {
+                WriteToOutput(Properties.OutputStrings.RemovedFromPublishListFormat1, tableRemovedFromPublishList.Count);
+                
+                tableRemovedFromPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(_tabSpacer + s));
             }
         }
 

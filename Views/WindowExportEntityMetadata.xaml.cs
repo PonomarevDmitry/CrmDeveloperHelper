@@ -881,16 +881,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityMetadata.EntityLogicalName);
+            var service = await GetService();
+            
+            string operation = string.Format(Properties.OperationNames.CreatingFileWithAttributesDependentComponentsFormat2, service.ConnectionData.Name, entityMetadata.EntityLogicalName);
 
-            this._iWriteToOutput.WriteToOutput("Start extracting information at {0} for entity '{1}'", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture), entityMetadata.EntityLogicalName);
+            _iWriteToOutput.WriteToOutputStartOperation(operation);
+
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityMetadata.EntityLogicalName);
 
             try
             {
                 string folder = txtBFolder.Text.Trim();
                 bool allComponents = _commonConfig.AllDependentComponentsForAttributes;
-
-                var service = await GetService();
 
                 string fileName = string.Format("{0}.{1} attributes dependent components at {2}.txt", service.ConnectionData.Name, entityMetadata.EntityLogicalName, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -912,8 +914,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
-                this._iWriteToOutput.WriteToOutput("End extracting information at {0}", DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
-
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityMetadata.EntityLogicalName);
             }
             catch (Exception ex)
@@ -922,6 +922,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityMetadata.EntityLogicalName);
             }
+
+            _iWriteToOutput.WriteToOutputEndOperation(operation);
         }
 
         private void miExportEntityXml_Click(object sender, RoutedEventArgs e)

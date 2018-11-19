@@ -255,4 +255,40 @@
   <data name="ExportedOrganizationDifferenceImageToFileFormat3" xml:space="preserve">
     <value>OrganizationDifferenceImage {0} and {1} exported to file: {2}</value>
   </data>
+  <data name="DecryptingPasswordErrorFormat1" xml:space="preserve">
+    <value>Error while Decrypting Password for user {0}. Setting default password - 'empty'.</value>
+  </data>
+  <data name="EntityFieldExportedToFormat5" xml:space="preserve">
+    <value>{0}. {1} {2} {3} exported to file: {4}</value>
+  </data>
+  <data name="EntityFieldIsEmptyFormat4" xml:space="preserve">
+    <value>{0}. {1} {2} {3} is empty.</value>
+  </data>
+  <data name="ExportedSolutionImageForConnectionFormat2" xml:space="preserve">
+    <value>{0}. SolutionImage exported to file: {1}</value>
+  </data>
+  <data name="SolutionComponentNotFoundInConnectionFormat1" xml:space="preserve">
+    <value>SolutionComponent not found in Connection {0}.</value>
+  </data>
+  <data name="SolutionComponentsCountAndUniqueFormat4" xml:space="preserve">
+    <value>Solution '{0}' has {1} components and {2} that not exists in '{3}'.</value>
+  </data>
+  <data name="UpdatingAttributes" xml:space="preserve">
+    <value>Updating Attributes:</value>
+  </data>
+  <data name="UpdatingEntities" xml:space="preserve">
+    <value>Updating Entities:</value>
+  </data>
+  <data name="AddedInPublishListFormat1" xml:space="preserve">
+    <value>Added into Publish List: {0}</value>
+  </data>
+  <data name="FilesAlreadyInPublishListFormat1" xml:space="preserve">
+    <value>Files already in Publish List: {0}</value>
+  </data>
+  <data name="FilesNotInPublishListFormat1" xml:space="preserve">
+    <value>Files not in Publish List: {0}</value>
+  </data>
+  <data name="RemovedFromPublishListFormat1" xml:space="preserve">
+    <value>Removed from Publish List: {0}</value>
+  </data>
 </root>

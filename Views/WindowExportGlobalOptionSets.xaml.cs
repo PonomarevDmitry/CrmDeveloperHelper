@@ -536,8 +536,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await handler.CreateFileAsync(filePath, optionSets);
                 }
 
-                this._iWriteToOutput.WriteToOutput("Created file with OptionSets: {0}", filePath);
-
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, filePath);
+                
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsCompletedFormat1, optionSetsName);
@@ -623,7 +623,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await handler.CreateFileAsync(filePath, optionSets);
                 }
 
-                this._iWriteToOutput.WriteToOutput("Created file with Global OptionSets: {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 

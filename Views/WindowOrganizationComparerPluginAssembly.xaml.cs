@@ -742,14 +742,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
         }
 
-        private Task<string> CreateDescriptionFileAsync(string connectionName, string name, string fieldName, string description)
+        private Task<string> CreateDescriptionFileAsync(string connectionName, string name, string fieldTitle, string description)
         {
-            return Task.Run(() => CreateDescriptionFile(connectionName, name, fieldName, description));
+            return Task.Run(() => CreateDescriptionFile(connectionName, name, fieldTitle, description));
         }
 
-        private string CreateDescriptionFile(string connectionName, string name, string fieldName, string description)
+        private string CreateDescriptionFile(string connectionName, string name, string fieldTitle, string description)
         {
-            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(connectionName, name, fieldName, "txt");
+            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(connectionName, name, fieldTitle, "txt");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(description))
@@ -758,7 +758,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} Plugin Assembly Entity Description {1} {2} exported to {3}", connectionName, name, fieldName, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionName, PluginAssembly.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -768,7 +768,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             else
             {
                 filePath = string.Empty;
-                this._iWriteToOutput.WriteToOutput("{0} Plugin Assembly Entity Description {1} {2} is empty.", connectionName, name, fieldName);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionName, PluginAssembly.Schema.EntityLogicalName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 

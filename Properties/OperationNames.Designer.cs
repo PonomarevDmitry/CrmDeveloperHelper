@@ -655,6 +655,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: Creating File with attributes dependent components for {1}.
+        /// </summary>
+        internal static string CreatingFileWithAttributesDependentComponentsFormat2 {
+            get {
+                return ResourceManager.GetString("CreatingFileWithAttributesDependentComponentsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating file with Description.
         /// </summary>
         internal static string CreatingFileWithDescription {

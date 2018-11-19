@@ -1275,8 +1275,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (listAttributesToChange.Any())
                     {
-                        this._iWriteToOutput.WriteToOutput("Updating Attributes:");
-
+                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.UpdatingAttributes);
+                        
                         foreach (var attribute in listAttributesToChange.OrderBy(a => a.AttributeMetadata.EntityLogicalName).ThenBy(a => a.LogicalName))
                         {
                             this._iWriteToOutput.WriteToOutput("    {0}.{1}", attribute.AttributeMetadata.EntityLogicalName, attribute.LogicalName);
@@ -1296,8 +1296,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (listEntitiesToChange.Any())
                     {
-                        this._iWriteToOutput.WriteToOutput("Updating Entities:");
-
+                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.UpdatingEntities);
+                        
                         foreach (var entityMetadata in listEntitiesToChange.OrderBy(a => a.LogicalName))
                         {
                             this._iWriteToOutput.WriteToOutput("    {0}", entityMetadata.LogicalName);

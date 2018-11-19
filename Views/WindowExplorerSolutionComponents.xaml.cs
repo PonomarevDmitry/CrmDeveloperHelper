@@ -1574,7 +1574,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
 
-                this._iWriteToOutput.WriteToOutput("Solution Image was export into file '{0}'", filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 

@@ -548,7 +548,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} System Form {1} {2} exported to {3}", connectionName, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionName, SystemForm.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -557,21 +557,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("{0} System Form {1} {2} is empty.", connectionName, name, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionName, SystemForm.Schema.EntityLogicalName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
             return filePath;
         }
 
-        private Task<string> CreateDescriptionFileAsync(string connectionName, string entityName, string name, string fieldName, string description)
+        private Task<string> CreateDescriptionFileAsync(string connectionName, string entityName, string name, string fieldTitle, string description)
         {
-            return Task.Run(() => CreateDescriptionFile(connectionName, entityName, name, fieldName, description));
+            return Task.Run(() => CreateDescriptionFile(connectionName, entityName, name, fieldTitle, description));
         }
 
-        private string CreateDescriptionFile(string connectionName, string entityName, string name, string fieldName, string description)
+        private string CreateDescriptionFile(string connectionName, string entityName, string name, string fieldTitle, string description)
         {
-            string fileName = EntityFileNameFormatter.GetSystemFormFileName(connectionName, entityName, name, fieldName, "txt");
+            string fileName = EntityFileNameFormatter.GetSystemFormFileName(connectionName, entityName, name, fieldTitle, "txt");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(description))
@@ -580,7 +580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} System Form Entity Description {1} {2} exported to {3}", connectionName, name, fieldName, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionName, SystemForm.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -590,7 +590,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             else
             {
                 filePath = string.Empty;
-                this._iWriteToOutput.WriteToOutput("{0} System Form Entity Description {1} {2} is empty.", connectionName, name, fieldName);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionName, SystemForm.Schema.EntityLogicalName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
@@ -1152,7 +1152,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         string filePath = await CreateDescriptionFileAsync(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, "FormDescription", formDescritpion);
 
-                        this._iWriteToOutput.WriteToOutput("SystemForm {0} Form Description exported to {0}", systemForm.Name, filePath);
+                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "FormDescription", filePath);
 
                         this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                     }
@@ -1163,7 +1163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput("SystemForm {0} FormXml is empty.", systemForm.Name);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "FormXml");
                     this._iWriteToOutput.ActivateOutputWindow();
                 }
             }
@@ -1296,7 +1296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput("System Form {0} FormXml is empty.", systemForm.Name);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "FormXml");
                     this._iWriteToOutput.ActivateOutputWindow();
                 }
 

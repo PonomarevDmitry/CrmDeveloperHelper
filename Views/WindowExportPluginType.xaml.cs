@@ -445,13 +445,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (hasDescription)
             {
-                this._iWriteToOutput.WriteToOutput("PluginType {0} Description exported to {1}", name, filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginType.Schema.EntityLogicalName, name, "Description", filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("PluginType {0} Description is empty.", name);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, PluginType.Schema.EntityLogicalName, name, "Description");
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 

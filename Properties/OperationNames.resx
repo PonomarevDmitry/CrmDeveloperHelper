@@ -564,4 +564,7 @@
   <data name="TransferingAuditFormat2" xml:space="preserve">
     <value>Transferfing Data from {0} to {1}</value>
   </data>
+  <data name="CreatingFileWithAttributesDependentComponentsFormat2" xml:space="preserve">
+    <value>{0}: Creating File with attributes dependent components for {1}</value>
+  </data>
 </root>

@@ -260,11 +260,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await task1;
 
-                this._iWriteToOutput.WriteToOutput("{0} ApplicationRibbon Xml exported to {1}", service1.ConnectionData.Name, filePath1);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service1.ConnectionData.Name, filePath1);
 
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
-                    this._iWriteToOutput.WriteToOutput("{0} ApplicationRibbon Xml exported to {1}", service2.ConnectionData.Name, filePath2);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service2.ConnectionData.Name, filePath2);
                 }
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -445,11 +445,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         await service2.DeleteAsync(solution2.LogicalName, solution2.Id);
                     }
                 }
-
-                this._iWriteToOutput.WriteToOutput("{0} Application RibbonDiffXml exported to {1}", service1.ConnectionData.Name, filePath1);
+                
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service1.ConnectionData.Name, filePath1);
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
-                    this._iWriteToOutput.WriteToOutput("{0} Application RibbonDiffXml exported to {1}", service2.ConnectionData.Name, filePath2);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service2.ConnectionData.Name, filePath2);
                 }
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -516,8 +516,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository = new RibbonCustomizationRepository(service);
 
                 await repository.ExportApplicationRibbonAsync(filePath, _commonConfig);
-
-                this._iWriteToOutput.WriteToOutput("{0} Application Ribbon Xml exported to {1}", service.ConnectionData.Name, filePath);
+                
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
             }
@@ -621,8 +621,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                         File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
-
-                        this._iWriteToOutput.WriteToOutput("Application RibbonDiffXml exported to {0}", filePath);
+                        
+                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath);
 
                         this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                     }

@@ -657,8 +657,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
-
-                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", connectionData.Name, name, fieldTitle, filePath);
+                    
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -667,7 +667,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
@@ -691,7 +691,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -700,7 +700,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
             }
 
@@ -923,13 +923,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle, filePath);
 
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldName);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle);
                     this._iWriteToOutput.ActivateOutputWindow();
                 }
 
@@ -975,13 +975,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle, filePath);
 
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldName);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle);
                     this._iWriteToOutput.ActivateOutputWindow();
                 }
 
@@ -1027,13 +1027,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput("{0} Workflow {1} {2} exported to {3}", service.ConnectionData.Name, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle, filePath);
 
                     this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput("Workflow {0} {1} is empty.", name, fieldName);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle);
                     this._iWriteToOutput.ActivateOutputWindow();
                 }
 
