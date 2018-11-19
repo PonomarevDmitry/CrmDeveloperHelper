@@ -701,7 +701,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllBytes(filePath, array);
 
-                this._iWriteToOutput.WriteToOutput("{0} Plugin Assembly {1} exported to {2}", service.ConnectionData.Name, assembly.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginAssembly.Schema.EntityLogicalName, assembly.Name, "Content", filePath);
 
                 if (File.Exists(filePath))
                 {

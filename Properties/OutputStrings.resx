@@ -291,4 +291,22 @@
   <data name="RemovedFromPublishListFormat1" xml:space="preserve">
     <value>Removed from Publish List: {0}</value>
   </data>
+  <data name="ConnectionFailedFormat1" xml:space="preserve">
+    <value>Connection to {0} failed.</value>
+  </data>
+  <data name="QuickConnectionBusinessUnitIdFormat1" xml:space="preserve">
+    <value>BusinessUnitId :    {0}</value>
+  </data>
+  <data name="QuickConnectionOrganizationIdFormat1" xml:space="preserve">
+    <value>OrganizationId :    {0}</value>
+  </data>
+  <data name="QuickConnectionUserIdFormat1" xml:space="preserve">
+    <value>UserId         :    {0}</value>
+  </data>
+  <data name="SuccessfullyConnectedFormat1" xml:space="preserve">
+    <value>Successfully connected to {0}.</value>
+  </data>
+  <data name="WhoAmIRequestExecutedSuccessfully" xml:space="preserve">
+    <value>WhoAmIRequest executed successfully.</value>
+  </data>
 </root>

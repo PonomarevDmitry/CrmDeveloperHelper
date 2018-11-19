@@ -90,13 +90,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Placement = PlacementMode.Bottom,
                 StaysOpen = false,
             };
-            
+
             tSDDBConnection1.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection1.Name);
             tSDDBConnection2.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection2.Name);
-            
+
             this.Resources["ConnectionName1"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection1.Name);
             this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
-            
+
             LoadFromConfig();
 
             txtBFilterEnitity.Text = entityFilter;
@@ -532,9 +532,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 filePath1 = await task1;
             }
-            
+
             this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, config.EntityName, filePath1);
-            
+
             if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
             {
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service2.ConnectionData.Name, config.EntityName, filePath2);
@@ -1446,10 +1446,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await task1;
 
-                this._iWriteToOutput.WriteToOutput("{0} Entity {1} Ribbon Xml exported to {2}", service1.ConnectionData.Name, entityName, filePath1);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service1.ConnectionData.Name, entityName, filePath1);
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
-                    this._iWriteToOutput.WriteToOutput("{0} Entity {1} Ribbon Xml exported to {2}", service2.ConnectionData.Name, entityName, filePath2);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service2.ConnectionData.Name, entityName, filePath2);
                 }
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -1666,10 +1666,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                this._iWriteToOutput.WriteToOutput("{0} Entity {1} Ribbon Xml exported to {2}", service1.ConnectionData.Name, entity.LogicalName, filePath1);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service1.ConnectionData.Name, entity.LogicalName, filePath1);
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
-                    this._iWriteToOutput.WriteToOutput("{0} Entity {1} Ribbon Xml exported to {2}", service2.ConnectionData.Name, entity.LogicalName, filePath2);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service2.ConnectionData.Name, entity.LogicalName, filePath2);
                 }
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -1753,7 +1753,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.ExportEntityRibbonAsync(entityName, filters, filePath, _commonConfig);
 
-                this._iWriteToOutput.WriteToOutput("Ribbon Xml exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service.ConnectionData.Name, entityName, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
@@ -1885,7 +1885,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
 
-                        this._iWriteToOutput.WriteToOutput("RibbonDiff Xml exported to {0}", filePath);
+                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service.ConnectionData.Name, entity.LogicalName, filePath);
 
                         this._iWriteToOutput.PerformAction(filePath, _commonConfig);
                     }

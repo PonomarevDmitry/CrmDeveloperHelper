@@ -1,4 +1,4 @@
-﻿using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk.Discovery;
@@ -9,12 +9,8 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.DirectoryServices.AccountManagement;
 using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices;
-using System.ServiceModel.Description;
 using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
@@ -113,7 +109,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static Task<bool> TestConnectAsync(ConnectionData connectionData, IWriteToOutput iWriteToOutput)
         {
-            return Task.Run(async() => await TestConnect(connectionData, iWriteToOutput));
+            return Task.Run(async () => await TestConnect(connectionData, iWriteToOutput));
         }
 
         private static async Task<bool> TestConnect(ConnectionData connectionData, IWriteToOutput iWriteToOutput)
@@ -135,11 +131,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     WhoAmIResponse whoresponse = (WhoAmIResponse)service.Execute(new WhoAmIRequest());
 
-                    iWriteToOutput.WriteToOutput("WhoAmIRequest executed successfully.");
+                    iWriteToOutput.WriteToOutput(Properties.OutputStrings.WhoAmIRequestExecutedSuccessfully);
 
-                    iWriteToOutput.WriteToOutput("OrganizationId :    {0}", whoresponse.OrganizationId);
-                    iWriteToOutput.WriteToOutput("BusinessUnitId :    {0}", whoresponse.BusinessUnitId);
-                    iWriteToOutput.WriteToOutput("UserId         :    {0}", whoresponse.UserId);
+                    iWriteToOutput.WriteToOutput(Properties.OutputStrings.QuickConnectionOrganizationIdFormat1, whoresponse.OrganizationId);
+                    iWriteToOutput.WriteToOutput(Properties.OutputStrings.QuickConnectionBusinessUnitIdFormat1, whoresponse.BusinessUnitId);
+                    iWriteToOutput.WriteToOutput(Properties.OutputStrings.QuickConnectionUserIdFormat1, whoresponse.UserId);
                 }
 
                 var result = new OrganizationServiceExtentedProxy(service, connectionData);
@@ -148,7 +144,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, result.CurrentServiceEndpoint);
 
-                iWriteToOutput.WriteToOutput("Successfully connected to {0}.", connectionData.Name);
+                iWriteToOutput.WriteToOutput(Properties.OutputStrings.SuccessfullyConnectedFormat1, connectionData.Name);
 
                 return true;
             }
@@ -156,7 +152,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 iWriteToOutput.WriteErrorToOutput(ex);
 
-                iWriteToOutput.WriteToOutput("Connection to {0} failed.", connectionData.Name);
+                iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
 
                 return false;
             }

@@ -505,12 +505,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         await task1;
                     }
-
-                    this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service1.ConnectionData.Name, filePath1);
+                    
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service1.ConnectionData.Name, optionSetsName, filePath1);
 
                     if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                     {
-                        this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service2.ConnectionData.Name, filePath2);
+                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service2.ConnectionData.Name, optionSetsName, filePath2);
                     }
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -639,11 +639,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         await task1;
                     }
 
-                    this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service1.ConnectionData.Name, filePath1);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service1.ConnectionData.Name, optionSetsName, filePath1);
 
                     if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                     {
-                        this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service2.ConnectionData.Name, filePath2);
+                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service2.ConnectionData.Name, optionSetsName, filePath2);
                     }
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -767,7 +767,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await handler.CreateFileAsync(filePath, optionSets);
                 }
 
-                this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service.ConnectionData.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
@@ -878,7 +878,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var message = string.Empty;
 
-                this._iWriteToOutput.WriteToOutput("{0} Created file with Global OptionSets: {1}", service.ConnectionData.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 

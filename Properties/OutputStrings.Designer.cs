@@ -79,6 +79,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection to {0} failed..
+        /// </summary>
+        internal static string ConnectionFailedFormat1 {
+            get {
+                return ResourceManager.GetString("ConnectionFailedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connection {0} is ReadOnly. Operation is prohibited..
         /// </summary>
         internal static string ConnectionIsReadOnlyFormat1 {
@@ -466,6 +475,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BusinessUnitId :    {0}.
+        /// </summary>
+        internal static string QuickConnectionBusinessUnitIdFormat1 {
+            get {
+                return ResourceManager.GetString("QuickConnectionBusinessUnitIdFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OrganizationId :    {0}.
+        /// </summary>
+        internal static string QuickConnectionOrganizationIdFormat1 {
+            get {
+                return ResourceManager.GetString("QuickConnectionOrganizationIdFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UserId         :    {0}.
+        /// </summary>
+        internal static string QuickConnectionUserIdFormat1 {
+            get {
+                return ResourceManager.GetString("QuickConnectionUserIdFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Removed from Publish List: {0}.
         /// </summary>
         internal static string RemovedFromPublishListFormat1 {
@@ -538,6 +574,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Successfully connected to {0}..
+        /// </summary>
+        internal static string SuccessfullyConnectedFormat1 {
+            get {
+                return ResourceManager.GetString("SuccessfullyConnectedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Text is not valid for {0}..
         /// </summary>
         internal static string TextIsNotValidForFieldFormat1 {
@@ -570,6 +615,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string WebResourceNotFoundedInConnectionFormat2 {
             get {
                 return ResourceManager.GetString("WebResourceNotFoundedInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WhoAmIRequest executed successfully..
+        /// </summary>
+        internal static string WhoAmIRequestExecutedSuccessfully {
+            get {
+                return ResourceManager.GetString("WhoAmIRequestExecutedSuccessfully", resourceCulture);
             }
         }
         

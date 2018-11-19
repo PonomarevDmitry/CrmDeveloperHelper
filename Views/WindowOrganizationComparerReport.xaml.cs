@@ -798,7 +798,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         File.WriteAllBytes(filePath, array);
 
-                        this._iWriteToOutput.WriteToOutput("Report {0} exported to {1}", reportWithBodyBinary.Name, filePath);
+                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, Report.Schema.EntityLogicalName, reportWithBodyBinary.Name, fieldTitle, filePath);
 
                         if (File.Exists(filePath))
                         {
@@ -810,7 +810,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput("BodyBinary is empty.");
+                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Report.Schema.EntityLogicalName, reportWithBodyBinary.Name, fieldTitle);
                         this._iWriteToOutput.ActivateOutputWindow();
                     }
                 }
