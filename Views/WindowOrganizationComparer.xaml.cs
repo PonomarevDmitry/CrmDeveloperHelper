@@ -2171,7 +2171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
 
-            ToggleControls(false, Properties.WindowStatusStrings.ComparingConnectionsFormat2);
+            ToggleControls(false, Properties.WindowStatusStrings.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
 
             try
             {

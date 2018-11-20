@@ -2086,6 +2086,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not founded ApplicationRibbon RibbonCustomization entity..
+        /// </summary>
+        internal static string NotFoundedApplicationRibbonRibbonCustomization {
+            get {
+                return ResourceManager.GetString("NotFoundedApplicationRibbonRibbonCustomization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not founded Default Publisher..
         /// </summary>
         internal static string NotFoundedDefaultPublisher {

@@ -1059,4 +1059,7 @@
   <data name="NotFoundedDefaultPublisher" xml:space="preserve">
     <value>Not founded Default Publisher.</value>
   </data>
+  <data name="NotFoundedApplicationRibbonRibbonCustomization" xml:space="preserve">
+    <value>Not founded ApplicationRibbon RibbonCustomization entity.</value>
+  </data>
 </root>

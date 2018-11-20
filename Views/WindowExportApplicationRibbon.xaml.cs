@@ -461,9 +461,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 var repository = new RibbonCustomizationRepository(service);
-                
+
                 await repository.ExportApplicationRibbonAsync(filePath, _commonConfig);
-                
+
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
@@ -496,98 +496,112 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            var repositoryPublisher = new PublisherRepository(service);
+            var publisherDefault = await repositoryPublisher.GetDefaultPublisherAsync();
+
+            if (publisherDefault == null)
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.NotFoundedDefaultPublisher);
+                _iWriteToOutput.ActivateOutputWindow();
+                return;
+            }
+
+            var repositoryRibbonCustomization = new RibbonCustomizationRepository(service);
+
+            var ribbonCustomization = await repositoryRibbonCustomization.FindApplicationRibbonCustomizationAsync();
+
+            if (ribbonCustomization == null)
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.NotFoundedApplicationRibbonRibbonCustomization);
+                _iWriteToOutput.ActivateOutputWindow();
+                return;
+            }
+
+            var solutionUniqueName = string.Format("RibbonDiffXml_{0}", Guid.NewGuid());
+            solutionUniqueName = solutionUniqueName.Replace("-", "_");
+
+            var solution = new Solution()
+            {
+                UniqueName = solutionUniqueName,
+                FriendlyName = solutionUniqueName,
+
+                Description = "Temporary solution for exporting RibbonDiffXml.",
+
+                PublisherId = publisherDefault.ToEntityReference(),
+
+                Version = "1.0.0.0",
+            };
+
+            UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
+
+            solution.Id = service.Create(solution);
+
+            string finalStatus = string.Empty;
+
             try
             {
-                var repositoryPublisher = new PublisherRepository(service);
+                UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat1, solutionUniqueName);
 
-                var publisherDefault = await repositoryPublisher.GetDefaultPublisherAsync();
-
-                var repositoryRibbonCustomization = new RibbonCustomizationRepository(service);
-
-                var ribbonCustomization = await repositoryRibbonCustomization.FindApplicationRibbonCustomizationAsync();
-
-                if (publisherDefault != null && ribbonCustomization != null)
                 {
-                    var solutionUniqueName = string.Format("RibbonDiffXml_{0}", Guid.NewGuid());
+                    var repositorySolutionComponent = new SolutionComponentRepository(service);
 
-                    solutionUniqueName = solutionUniqueName.Replace("-", "_");
-
-                    var solution = new Solution()
+                    await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
                     {
-                        UniqueName = solutionUniqueName,
-                        FriendlyName = solutionUniqueName,
-
-                        Description = "Temporary solution for exporting RibbonDiffXml.",
-
-                        PublisherId = publisherDefault.ToEntityReference(),
-
-                        Version = "1.0.0.0",
-                    };
-
-                    UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
-
-                    solution.Id = service.Create(solution);
-
-                    UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat1, solutionUniqueName);
-
-                    {
-                        var repositorySolutionComponent = new SolutionComponentRepository(service);
-
-                        await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
-                        {
-                            ComponentType = new OptionSetValue((int)ComponentType.RibbonCustomization),
-                            ObjectId = ribbonCustomization.Id,
-                            RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
-                        }});
-                    }
-
-                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat1, solutionUniqueName);
-
-                    var repository = new ExportSolutionHelper(service);
-
-                    string ribbonDiffXml = await repository.ExportSolutionAndGetApplicationRibbonDiffAsync(solutionUniqueName);
-
-                    if (_commonConfig.SetXmlSchemasDuringExport)
-                    {
-                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
-
-                        if (schemasResources != null)
-                        {
-                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
-                        }
-                    }
-
-                    if (_commonConfig.SetIntellisenseContext)
-                    {
-                        ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, string.Empty);
-                    }
-
-                    ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
-
-                    {
-                        string fileName = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(service.ConnectionData.Name);
-                        string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                        File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
-                        
-                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath);
-
-                        this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-                    }
-
-                    UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
-
-                    await service.DeleteAsync(solution.LogicalName, solution.Id);
-
-                    ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlCompleted);
+                        ComponentType = new OptionSetValue((int)ComponentType.RibbonCustomization),
+                        ObjectId = ribbonCustomization.Id,
+                        RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                    }});
                 }
+
+                UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat1, solutionUniqueName);
+
+                var repository = new ExportSolutionHelper(service);
+
+                string ribbonDiffXml = await repository.ExportSolutionAndGetApplicationRibbonDiffAsync(solutionUniqueName);
+
+                if (_commonConfig.SetXmlSchemasDuringExport)
+                {
+                    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
+
+                    if (schemasResources != null)
+                    {
+                        ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
+                    }
+                }
+
+                if (_commonConfig.SetIntellisenseContext)
+                {
+                    ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, string.Empty);
+                }
+
+                ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+
+                {
+                    string fileName = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(service.ConnectionData.Name);
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath);
+
+                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                }
+
+                finalStatus = string.Format(Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlCompleted);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlFailed);
+                finalStatus = string.Format(Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlFailed);
             }
+            finally
+            {
+                UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
+                await service.DeleteAsync(solution.LogicalName, solution.Id);
+            }
+
+            ToggleControls(true, finalStatus);
 
             this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbonDiffXml);
         }
@@ -608,183 +622,195 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXml);
 
+            var newText = string.Empty;
+            bool? dialogResult = false;
+
+            var title = "Application RibbonDiffXml for entity {0}";
+
+            this.Dispatcher.Invoke(() =>
+            {
+                var form = new WindowTextField("Enter " + title, title, string.Empty);
+
+                dialogResult = form.ShowDialog();
+
+                newText = form.FieldText;
+            });
+
+            if (dialogResult.GetValueOrDefault() == false)
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlCanceled);
+                return;
+            }
+
+            newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+
+            UpdateStatus(Properties.WindowStatusStrings.ValidatingApplicationRibbonDiffXml);
+
+            if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.TextIsNotValidXml);
+
+                _iWriteToOutput.ActivateOutputWindow();
+                return;
+            }
+
+            bool validateResult = await ValidateXmlDocumentAsync(doc);
+
+            if (!validateResult)
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.ValidatingApplicationRibbonDiffXmlFailed);
+                return;
+            }
+
             var service = await GetService();
+
+
+            var repositoryPublisher = new PublisherRepository(service);
+            var publisherDefault = await repositoryPublisher.GetDefaultPublisherAsync();
+
+            if (publisherDefault == null)
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.NotFoundedDefaultPublisher);
+                _iWriteToOutput.ActivateOutputWindow();
+                return;
+            }
+
+            var repositoryRibbonCustomization = new RibbonCustomizationRepository(service);
+
+            var ribbonCustomization = await repositoryRibbonCustomization.FindApplicationRibbonCustomizationAsync();
+
+            if (ribbonCustomization == null)
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.NotFoundedApplicationRibbonRibbonCustomization);
+                _iWriteToOutput.ActivateOutputWindow();
+                return;
+            }
+
+            var solutionUniqueName = string.Format("RibbonDiffXml_{0}", Guid.NewGuid());
+            solutionUniqueName = solutionUniqueName.Replace("-", "_");
+
+            var solution = new Solution()
+            {
+                UniqueName = solutionUniqueName,
+                FriendlyName = solutionUniqueName,
+
+                Description = "Temporary solution for exporting RibbonDiffXml.",
+
+                PublisherId = publisherDefault.ToEntityReference(),
+
+                Version = "1.0.0.0",
+            };
+
+            UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
+
+            solution.Id = service.Create(solution);
+
+            string finalStatus = string.Empty;
 
             try
             {
-                var newText = string.Empty;
-                bool? dialogResult = false;
+                UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat1, solutionUniqueName);
 
-                var title = "Application RibbonDiffXml for entity {0}";
-
-                this.Dispatcher.Invoke(() =>
                 {
-                    var form = new WindowTextField("Enter " + title, title, string.Empty);
+                    var repositorySolutionComponent = new SolutionComponentRepository(service);
 
-                    dialogResult = form.ShowDialog();
-
-                    newText = form.FieldText;
-                });
-
-                if (dialogResult.GetValueOrDefault() == false)
-                {
-                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlCanceled);
-                    return;
+                    await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
+                    {
+                        ComponentType = new OptionSetValue((int)ComponentType.RibbonCustomization),
+                        ObjectId = ribbonCustomization.Id,
+                        RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                    }});
                 }
 
-                newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+                UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat1, solutionUniqueName);
 
-                UpdateStatus(Properties.WindowStatusStrings.ValidatingApplicationRibbonDiffXml);
+                var repository = new ExportSolutionHelper(service);
 
-                if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
+                var solutionBodyBinary = await repository.ExportSolutionAndGetBodyBinaryAsync(solutionUniqueName);
+
+                string ribbonDiffXml = ExportSolutionHelper.GetApplicationRibbonDiffXmlFromSolutionBody(solutionBodyBinary);
+
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.TextIsNotValidXml);
+                    string fileName = EntityFileNameFormatter.GetSolutionFileName(service.ConnectionData.Name, solution.UniqueName, "Solution Backup", "zip");
 
-                    _iWriteToOutput.ActivateOutputWindow();
-                    return;
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllBytes(filePath, solutionBodyBinary);
+
+                    this._iWriteToOutput.WriteToOutput("Solution {0} Backup exported to {1}", solution.UniqueName, filePath);
+
+                    this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
                 }
 
-                bool validateResult = await ValidateXmlDocumentAsync(doc);
-
-                if (!validateResult)
+                if (_commonConfig.SetXmlSchemasDuringExport)
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.ValidatingApplicationRibbonDiffXmlFailed);
-                    return;
-                }
+                    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
 
-
-
-
-                var repositoryPublisher = new PublisherRepository(service);
-
-                var publisherDefault = await repositoryPublisher.GetDefaultPublisherAsync();
-
-                var repositoryRibbonCustomization = new RibbonCustomizationRepository(service);
-
-                var ribbonCustomization = await repositoryRibbonCustomization.FindApplicationRibbonCustomizationAsync();
-
-                if (publisherDefault != null && ribbonCustomization != null)
-                {
-                    var solutionUniqueName = string.Format("RibbonDiffXml_{0}", Guid.NewGuid());
-
-                    solutionUniqueName = solutionUniqueName.Replace("-", "_");
-
-                    var solution = new Solution()
+                    if (schemasResources != null)
                     {
-                        UniqueName = solutionUniqueName,
-                        FriendlyName = solutionUniqueName,
-
-                        Description = "Temporary solution for exporting RibbonDiffXml.",
-
-                        PublisherId = publisherDefault.ToEntityReference(),
-
-                        Version = "1.0.0.0",
-                    };
-
-                    UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
-
-                    solution.Id = service.Create(solution);
-
-                    UpdateStatus(Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat1, solutionUniqueName);
-
-                    {
-                        var repositorySolutionComponent = new SolutionComponentRepository(service);
-
-                        await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
-                        {
-                            ComponentType = new OptionSetValue((int)ComponentType.RibbonCustomization),
-                            ObjectId = ribbonCustomization.Id,
-                            RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
-                        }});
-                    }
-
-                    UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat1, solutionUniqueName);
-
-                    var repository = new ExportSolutionHelper(service);
-
-                    var solutionBodyBinary = await repository.ExportSolutionAndGetBodyBinaryAsync(solutionUniqueName);
-
-                    string ribbonDiffXml = ExportSolutionHelper.GetApplicationRibbonDiffXmlFromSolutionBody(solutionBodyBinary);
-
-                    {
-                        string fileName = EntityFileNameFormatter.GetSolutionFileName(service.ConnectionData.Name, solution.UniqueName, "Solution Backup", "zip");
-
-                        string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                        File.WriteAllBytes(filePath, solutionBodyBinary);
-
-                        this._iWriteToOutput.WriteToOutput("Solution {0} Backup exported to {1}", solution.UniqueName, filePath);
-
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
-                    }
-
-                    if (_commonConfig.SetXmlSchemasDuringExport)
-                    {
-                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
-
-                        if (schemasResources != null)
-                        {
-                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
-                        }
-                    }
-
-                    if (_commonConfig.SetIntellisenseContext)
-                    {
-                        ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, string.Empty);
-                    }
-
-                    ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
-
-                    {
-                        string fileName = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(service.ConnectionData.Name, "BackUp", "xml");
-                        string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                        File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
-
-                        this._iWriteToOutput.WriteToOutput("Application RibbonDiffXml BackUp exported to {0}", filePath);
-
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
-                    }
-
-                    solutionBodyBinary = ExportSolutionHelper.ReplaceApplicationRibbonDiffXmlInSolutionBody(solutionBodyBinary, doc.Root);
-
-                    UpdateStatus(Properties.WindowStatusStrings.ImportingSolutionFormat1, solutionUniqueName);
-
-                    {
-                        string fileName = EntityFileNameFormatter.GetSolutionFileName(service.ConnectionData.Name, solution.UniqueName, "Changed Solution Backup", "zip");
-
-                        string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                        File.WriteAllBytes(filePath, solutionBodyBinary);
-
-                        this._iWriteToOutput.WriteToOutput("Changed Solution {0} Backup exported to {1}", solution.UniqueName, filePath);
-
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
-                    }
-
-                    await repository.ImportSolutionAsync(solutionBodyBinary);
-
-                    UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
-
-                    await service.DeleteAsync(solution.LogicalName, solution.Id);
-
-                    UpdateStatus(Properties.WindowStatusStrings.PublishingApplicationRibbon);
-
-                    {
-                        var repositoryPublish = new PublishActionsRepository(service);
-
-                        await repositoryPublish.PublishApplicationRibbonAsync();
+                        ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
                     }
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlCompleted);
+                if (_commonConfig.SetIntellisenseContext)
+                {
+                    ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, string.Empty);
+                }
+
+                ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+
+                {
+                    string fileName = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(service.ConnectionData.Name, "BackUp", "xml");
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput("Application RibbonDiffXml BackUp exported to {0}", filePath);
+
+                    this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                }
+
+                solutionBodyBinary = ExportSolutionHelper.ReplaceApplicationRibbonDiffXmlInSolutionBody(solutionBodyBinary, doc.Root);
+
+                UpdateStatus(Properties.WindowStatusStrings.ImportingSolutionFormat1, solutionUniqueName);
+
+                {
+                    string fileName = EntityFileNameFormatter.GetSolutionFileName(service.ConnectionData.Name, solution.UniqueName, "Changed Solution Backup", "zip");
+
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllBytes(filePath, solutionBodyBinary);
+
+                    this._iWriteToOutput.WriteToOutput("Changed Solution {0} Backup exported to {1}", solution.UniqueName, filePath);
+
+                    this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                }
+
+                await repository.ImportSolutionAsync(solutionBodyBinary);
+
+                UpdateStatus(Properties.WindowStatusStrings.PublishingApplicationRibbon);
+
+                {
+                    var repositoryPublish = new PublishActionsRepository(service);
+
+                    await repositoryPublish.PublishApplicationRibbonAsync();
+                }
+
+                finalStatus = string.Format(Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlCompleted);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlFailed);
+                finalStatus = string.Format(Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlFailed);
             }
+            finally
+            {
+                UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
+                await service.DeleteAsync(solution.LogicalName, solution.Id);
+            }
+
+            ToggleControls(true, finalStatus);
 
             this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.UpdatingApplicationRibbonDiffXml);
         }
