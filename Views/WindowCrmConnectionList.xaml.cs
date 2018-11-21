@@ -210,6 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this.Dispatcher.Invoke(() =>
                 {
+                    connectionData.ConnectionConfiguration = this._crmConfig;
                     this._crmConfig.Connections.Add(connectionData);
                 });
             }
@@ -254,6 +255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     this.Dispatcher.Invoke(() =>
                     {
+                        connectionData.ConnectionConfiguration = this._crmConfig;
                         this._crmConfig.Connections.Add(connectionData);
                     });
                 }
@@ -297,6 +299,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
 
+                connectionData.ConnectionConfiguration = this._crmConfig;
                 int index = _crmConfig.Connections.IndexOf(connectionData);
 
                 if (index != 0)
@@ -321,6 +324,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
 
+                connectionData.ConnectionConfiguration = this._crmConfig;
                 int index = _crmConfig.Connections.IndexOf(connectionData);
 
                 if (index != _crmConfig.Connections.Count - 1)
@@ -396,8 +400,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this.Dispatcher.Invoke(() =>
                     {
+                        connectionData.ConnectionConfiguration = this._crmConfig;
                         _crmConfig.ArchiveConnections.Add(connectionData);
-
                         _crmConfig.Connections.Remove(connectionData);
                     });
                 }
@@ -661,8 +665,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this.Dispatcher.Invoke(() =>
                 {
+                    connectionData.ConnectionConfiguration = this._crmConfig;
                     _crmConfig.Connections.Add(connectionData);
-
                     _crmConfig.ArchiveConnections.Remove(connectionData);
                 });
             }
