@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             bool service2IsNull = this.Service2 == null;
 
             {
-                var mess1 = "Connection 1 to CRM.";
+                var mess1 = Properties.OutputStrings.ConnectingToCRM;
                 var mess2 = Connection1.GetConnectionDescription();
 
                 if (service1IsNull)
@@ -71,7 +71,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             {
-                var mess1 = "Connection 2 to CRM.";
+                var mess1 = Properties.OutputStrings.ConnectingToCRM;
                 var mess2 = Connection2.GetConnectionDescription();
 
                 if (service2IsNull)

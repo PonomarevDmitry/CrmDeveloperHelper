@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ConnectionRoleAssociationsInConnectionFormat2" xml:space="preserve">
+    <value>Connection Role Associations in {0}: {1}</value>
+  </data>
+  <data name="ConnectionRoleCategoriesNoDifference" xml:space="preserve">
+    <value>No difference in Connection Role Categories.</value>
+  </data>
+  <data name="ConnectionRoleCategoryFileName" xml:space="preserve">
+    <value>Connection Role Category</value>
+  </data>
+  <data name="ConnectionRoleObjectTypeCodesInConnectionFormat2" xml:space="preserve">
+    <value>Connection Role ObjectTypeCodes in {0}: {1}</value>
+  </data>
+  <data name="ConnectionRolesCommonFormat3" xml:space="preserve">
+    <value>Common Roles in {0} and {1}: {2}</value>
+  </data>
+  <data name="ConnectionRolesDifferentFormat3" xml:space="preserve">
+    <value>Connection Roles DIFFERENT in {0} and {1}: {2}</value>
+  </data>
+  <data name="ConnectionRolesFileName" xml:space="preserve">
+    <value>Connection Roles</value>
+  </data>
+  <data name="ConnectionRolesInConnectionFormat2" xml:space="preserve">
+    <value>Connection Roles in {0}: {1}</value>
+  </data>
+  <data name="ConnectionRolesNoDifference" xml:space="preserve">
+    <value>No difference in Connection Roles.</value>
+  </data>
+  <data name="ConnectionRolesOnlyExistsInConnectionFormat2" xml:space="preserve">
+    <value>Connection Roles ONLY EXISTS in {0}: {1}</value>
+  </data>
+  <data name="GlobalOptionSetDifferentFormat3" xml:space="preserve">
+    <value>Global OptionSet {0} DIFFERENT in {1} and {2}</value>
+  </data>
+  <data name="GlobalOptionSetNotExistsInConnectionsFormat3" xml:space="preserve">
+    <value>Global OptionSet {0} NOT EXISTS in organizations {1} and {2}.</value>
+  </data>
+  <data name="GlobalOptionSetOnlyExistsInConnectionFormat2" xml:space="preserve">
+    <value>Global OptionSet {0} ONLY EXISTS in {0}.</value>
+  </data>
+  <data name="PrefixAssociatedConnectionRoles" xml:space="preserve">
+    <value>Associated Connection Roles</value>
+  </data>
+  <data name="PrefixAssociatedObjectTypeCodes" xml:space="preserve">
+    <value>Associated Object Type Codes</value>
+  </data>
+  <data name="PrefixOnlyInConnectionFormat3" xml:space="preserve">
+    <value>{0} ONLY in {1}: {2}</value>
+  </data>
+  <data name="GlobalOptionSetsCommonFormat3" xml:space="preserve">
+    <value>Common Global OptionSets in {0} and {1}: {2}</value>
+  </data>
+  <data name="GlobalOptionSetsDifferentFormat3" xml:space="preserve">
+    <value>Global OptionSets DIFFERENT in {0} and {1}: {2}</value>
+  </data>
+  <data name="GlobalOptionSetsFileName" xml:space="preserve">
+    <value>Global OptionSets</value>
+  </data>
+  <data name="GlobalOptionSetsInConnectionFormat2" xml:space="preserve">
+    <value>Global OptionSets in {0}: {1}</value>
+  </data>
+  <data name="GlobalOptionSetsNoDifference" xml:space="preserve">
+    <value>No difference in Global OptionSets.</value>
+  </data>
+  <data name="GlobalOptionSetsOnlyExistsInConnectionFormat2" xml:space="preserve">
+    <value>Global OptionSets ONLY EXISTS in {0}: {1}</value>
+  </data>
+  <data name="GlobalOptionSetsDifferentDetailsFormat3" xml:space="preserve">
+    <value>Global OptionSets DIFFERENT Details in {0} and {1}: {2}</value>
+  </data>
+  <data name="SiteMapsCommonFormat3" xml:space="preserve">
+    <value>Common SiteMaps in {0} and {1}: {2}</value>
+  </data>
+  <data name="SiteMapsDifferentFormat3" xml:space="preserve">
+    <value>SiteMaps DIFFERENT in {0} and {1}: {2}</value>
+  </data>
+  <data name="SiteMapsFileName" xml:space="preserve">
+    <value>SiteMaps</value>
+  </data>
+  <data name="SiteMapsInConnectionFormat2" xml:space="preserve">
+    <value>SiteMaps in {0}: {1}</value>
+  </data>
+  <data name="SiteMapsNoDifference" xml:space="preserve">
+    <value>No difference in SiteMaps.</value>
+  </data>
+  <data name="SiteMapsOnlyExistsInConnectionFormat2" xml:space="preserve">
+    <value>SiteMaps ONLY EXISTS in {0}: {1}</value>
+  </data>
+  <data name="FieldDifferenceReasonFormat3" xml:space="preserve">
+    <value>{0} - {1} {2}</value>
+  </data>
+  <data name="InCaseDifference" xml:space="preserve">
+    <value>InCase</value>
+  </data>
+  <data name="OrganizationsCommonFormat3" xml:space="preserve">
+    <value>Common Organizations in {0} and {1}: {2}</value>
+  </data>
+  <data name="OrganizationsDifferentFormat3" xml:space="preserve">
+    <value>Organizations DIFFERENT in {0} and {1}: {2}</value>
+  </data>
+  <data name="OrganizationsFileName" xml:space="preserve">
+    <value>Organizations</value>
+  </data>
+  <data name="OrganizationsInConnectionFormat2" xml:space="preserve">
+    <value>Organizations in {0}: {1}</value>
+  </data>
+  <data name="OrganizationsNoDifference" xml:space="preserve">
+    <value>No difference in Organizations.</value>
+  </data>
+  <data name="OrganizationsOnlyExistsInConnectionFormat2" xml:space="preserve">
+    <value>Organizations ONLY EXISTS in {0}: {1}</value>
+  </data>
+  <data name="ReportsCommonFormat3" xml:space="preserve">
+    <value>Common Reports in {0} and {1}: {2}</value>
+  </data>
+  <data name="ReportsDifferentFormat3" xml:space="preserve">
+    <value>Reports DIFFERENT in {0} and {1}: {2}</value>
+  </data>
+  <data name="ReportsFileName" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="ReportsInConnectionFormat2" xml:space="preserve">
+    <value>Reports in {0}: {1}</value>
+  </data>
+  <data name="ReportsNoDifference" xml:space="preserve">
+    <value>No difference in Reports.</value>
+  </data>
+  <data name="ReportsOnlyExistsInConnectionFormat2" xml:space="preserve">
+    <value>Reports ONLY EXISTS in {0}: {1}</value>
+  </data>
+  <data name="ReportsCommonBySignatureFormat3" xml:space="preserve">
+    <value>Common Reports by Signature in {0} and {1}: {2}</value>
+  </data>
+  <data name="ReportsDifferentBySignatureFormat3" xml:space="preserve">
+    <value>Reports by Signature DIFFERENT in {0} and {1}: {2}</value>
+  </data>
+  <data name="WorkflowsCommonFormat3" xml:space="preserve">
+    <value>Common Workflows in {0} and {1}: {2}</value>
+  </data>
+  <data name="WorkflowsDifferentFormat3" xml:space="preserve">
+    <value>Workflows DIFFERENT in {0} and {1}: {2}</value>
+  </data>
+  <data name="WorkflowsFileName" xml:space="preserve">
+    <value>Workflows</value>
+  </data>
+  <data name="WorkflowsInConnectionFormat2" xml:space="preserve">
+    <value>Workflows in {0}: {1}</value>
+  </data>
+  <data name="WorkflowsNoDifference" xml:space="preserve">
+    <value>No difference in Workflows.</value>
+  </data>
+  <data name="WorkflowsOnlyExistsInConnectionFormat2" xml:space="preserve">
+    <value>Workflows ONLY EXISTS in {0}: {1}</value>
+  </data>
+  <data name="WorkflowsProcessingCommon" xml:space="preserve">
+    <value>Processing Common Workflows</value>
+  </data>
+  <data name="FullDifference" xml:space="preserve">
+    <value>Differes</value>
+  </data>
+  <data name="WorkflowsDifferentInformationFormat3" xml:space="preserve">
+    <value>Workflows DIFFERENT information in {0} and {1}: {2}</value>
+  </data>
+  <data name="EntitiesCommonFormat3" xml:space="preserve">
+    <value>Common Entities in {0} and {1}: {2}</value>
+  </data>
+  <data name="EntitiesDifferentFormat3" xml:space="preserve">
+    <value>Entities DIFFERENT in {0} and {1}: {2}</value>
+  </data>
+  <data name="EntitiesFileName" xml:space="preserve">
+    <value>Entities</value>
+  </data>
+  <data name="EntitiesInConnectionFormat2" xml:space="preserve">
+    <value>Entities in {0}: {1}</value>
+  </data>
+  <data name="EntitiesNoDifference" xml:space="preserve">
+    <value>No difference in Entities.</value>
+  </data>
+  <data name="EntitiesOnlyExistsInConnectionFormat2" xml:space="preserve">
+    <value>Entities ONLY EXISTS in {0}: {1}</value>
+  </data>
+  <data name="EntitiesProcessingCommon" xml:space="preserve">
+    <value>Processing Common Entities</value>
+  </data>
+  <data name="EntitiesDifferentDetailsFormat3" xml:space="preserve">
+    <value>Entities DIFFERENT in {0} and {1}: {2}</value>
+  </data>
+  <data name="EntityLabelsFileName" xml:space="preserve">
+    <value>Entity Labels</value>
+  </data>
+  <data name="EntityMapsCommonFormat3" xml:space="preserve">
+    <value>Common Entity Maps in {0} and {1}: {2}</value>
+  </data>
+  <data name="EntityMapsDifferentFormat3" xml:space="preserve">
+    <value>Entity Maps DIFFERENT in {0} and {1}: {2}</value>
+  </data>
+  <data name="EntityMapsFileName" xml:space="preserve">
+    <value>Entity Maps</value>
+  </data>
+  <data name="EntityMapsInConnectionFormat2" xml:space="preserve">
+    <value>Entity Maps in {0}: {1}</value>
+  </data>
+  <data name="EntityMapsNoDifference" xml:space="preserve">
+    <value>No difference in Entity Maps.</value>
+  </data>
+  <data name="EntityMapsOnlyExistsInConnectionFormat2" xml:space="preserve">
+    <value>Entity Maps ONLY EXISTS in {0}: {1}</value>
+  </data>
+  <data name="AttributeMapsInConnectionFormat2" xml:space="preserve">
+    <value>Attribute Maps in {0}: {1}</value>
+  </data>
+  <data name="EntityMapsDifferentDetailsFormat3" xml:space="preserve">
+    <value>Entity Maps DIFFERENT Details in {0} and {1}: {2}</value>
+  </data>
+  <data name="AttributeMapFormat2" xml:space="preserve">
+    <value>{0} -> {1}</value>
+  </data>
+  <data name="AttributeMapsOnlyExistsInConnectionFormat2" xml:space="preserve">
+    <value>Attribute Maps ONLY EXISTS in {0}: {1}</value>
+  </data>
+  
+</root>

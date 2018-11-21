@@ -178,7 +178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             reason = compare.GetCompareDescription();
                         }
 
-                        tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
+                        tabDiff.AddLine(fieldName, string.Empty, string.Format(Properties.OrganizationComparerStrings.FieldDifferenceReasonFormat3, Connection1.Name, Connection2.Name, reason));
                     }
                 }
 
@@ -441,7 +441,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 reason = compare.GetCompareDescription();
                             }
 
-                            tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
+                            tabDiff.AddLine(fieldName, string.Empty, string.Format(Properties.OrganizationComparerStrings.FieldDifferenceReasonFormat3, Connection1.Name, Connection2.Name, reason));
                         }
                     }
                 }
@@ -674,7 +674,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             reason = compare.GetCompareDescription();
                         }
 
-                        tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
+                        tabDiff.AddLine(fieldName, string.Empty, string.Format(Properties.OrganizationComparerStrings.FieldDifferenceReasonFormat3, Connection1.Name, Connection2.Name, reason));
                     }
                 }
 
@@ -926,7 +926,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             reason = compare.GetCompareDescription();
                         }
 
-                        tabDiff.AddLine(fieldName, string.Empty, string.Format("{0} - {1} {2}", Connection1.Name, Connection2.Name, reason));
+                        tabDiff.AddLine(fieldName, string.Empty, string.Format(Properties.OrganizationComparerStrings.FieldDifferenceReasonFormat3, Connection1.Name, Connection2.Name, reason));
                     }
                 }
 

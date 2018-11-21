@@ -795,6 +795,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OperationNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\OrganizationComparerStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrganizationComparerStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\OutputStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1637,6 +1642,11 @@
     <EmbeddedResource Include="Properties\OperationNames.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>OperationNames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\OrganizationComparerStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OrganizationComparerStrings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\OutputStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>

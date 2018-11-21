@@ -448,6 +448,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}   Total: {1}.
+        /// </summary>
+        internal static string ProgressReporterHeader {
+            get {
+                return ResourceManager.GetString("ProgressReporterHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}...   {1} %.
+        /// </summary>
+        internal static string ProgressReporterStep {
+            get {
+                return ResourceManager.GetString("ProgressReporterStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Published All in {0} Successfully..
         /// </summary>
         internal static string PublishingAllCompletedFormat1 {

@@ -2,11 +2,11 @@
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
-    class ProgressReporter
+    public class ProgressReporter
     {
         private IWriteToOutput _writeToOutput;
-        private int _total;
-        private string _procedureName;
+        private readonly int _total;
+        private readonly string _procedureName;
 
         private int _current;
         public int _level = 0;
@@ -18,10 +18,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._total = total;
             this._procedureName = procedureName;
             this._percentStep = percentStep;
-
+            
             if (total > 0)
             {
-                _writeToOutput.WriteToOutput("{0}   Total: {1}", this._procedureName, total);
+                _writeToOutput.WriteToOutput(Properties.OutputStrings.ProgressReporterHeader, this._procedureName, total);
             }
         }
 
@@ -33,12 +33,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         }
         private void WriteProgressMessage()
         {
-            double proc = _total > 0 ? (double)_current * 100 / (double)_total : 0;
+            double proc = _total > 0 ? (double)_current * 100 / _total : 0;
 
             if (proc >= _level)
             {
-                _writeToOutput.WriteToOutput("{0}...   {1} %", this._procedureName, _level.ToString("D2"));
-
+                _writeToOutput.WriteToOutput(Properties.OutputStrings.ProgressReporterStep, this._procedureName, _level.ToString("D2"));
+                
                 _level += _percentStep;
             }
         }
