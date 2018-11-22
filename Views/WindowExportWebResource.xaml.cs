@@ -1029,6 +1029,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , (int)ComponentType.WebResource
                 , entity.WebResourceId.Value
+                , null
             );
         }
 

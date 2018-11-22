@@ -928,6 +928,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig
                     , (int)ComponentType.RibbonCustomization
                     , ribbonCustomization.Id
+                    , null
                 );
             }
         }

@@ -1172,7 +1172,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , (int)ComponentType.SavedQueryVisualization
                 , entity.Id
-                );
+                , null
+            );
         }
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -958,6 +958,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , (int)ComponentType.SiteMap
                 , entity.Id
+                , null
             );
         }
 

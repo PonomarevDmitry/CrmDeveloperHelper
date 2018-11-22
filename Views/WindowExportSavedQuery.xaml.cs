@@ -1388,6 +1388,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , (int)ComponentType.SavedQuery
                 , entity.Id
+                , null
             );
         }
 

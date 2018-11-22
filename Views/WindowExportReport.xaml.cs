@@ -985,6 +985,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , (int)ComponentType.Report
                 , entity.Id
+                , null
             );
         }
 

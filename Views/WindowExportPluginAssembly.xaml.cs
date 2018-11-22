@@ -723,6 +723,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , (int)ComponentType.PluginAssembly
                 , entity.Id
+                , null
             );
         }
 

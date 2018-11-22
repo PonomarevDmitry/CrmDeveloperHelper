@@ -14,11 +14,24 @@
         </ContextMenu>
     </src:WindowBase.Resources>
     <Grid>
-        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="26" Margin="58,10,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="cmBFilter" Height="26" Margin="58,41,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExplorerSolutionFilter}" ItemsSource="{Binding Path=SelectedItem.LastSelectedSolutionsUniqueName}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-        <GroupBox Header="Solutions" Margin="10,67,10,69">
+        <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                <MenuItem Header="Options">
+                    <MenuItem Header="Export Solution" Click="miExportSolutionOptions_Click" />
+                </MenuItem>
+            </Menu>
+        </ToolBar>
+
+        <Label Content="Solution Export Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <ComboBox x:Name="cmBExportFolder" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Height="23" Margin="133,38,10,0" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+
+        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="58,66,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
+
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <ComboBox x:Name="cmBFilter" Height="23" Margin="58,94,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExplorerSolutionFilter}" ItemsSource="{Binding Path=SelectedItem.LastSelectedSolutionsUniqueName}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+
+        <GroupBox Header="Solutions" Margin="10,122,10,69">
             <DockPanel LastChildFill="True">
                 <ToolBar Height="Auto" Width="Auto" VerticalAlignment="Top" DockPanel.Dock="Top" >
                     <ToolBar.Resources>
@@ -35,18 +48,16 @@
                         </DockPanel.Resources>
                         <ToolBarPanel Orientation="Horizontal" >
                             <Menu x:Name="menuShow" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" IsEnabled="False" >
-                                <MenuItem x:Name="tSDDBShow" Header="Show" VerticalAlignment="Center" Padding="3" Margin="6,2" IsEnabled="False" />
+                                <MenuItem x:Name="tSDDBShow" Header="Selected Solutions" VerticalAlignment="Center" Padding="3" Margin="6,2" IsEnabled="False" />
                             </Menu>
 
                             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
                                 <MenuItem Header="Solution Actions" VerticalAlignment="Center" Padding="3" Margin="6,2">
-                                    <MenuItem HorizontalAlignment="Left" Header="Export Solution" Click="miExportSolution_Click" />
-                                    <Separator/>
-                                    <MenuItem HorizontalAlignment="Left" Header="Create New Solution" Click="miCreateNewSolution_Click" />
+                                    <MenuItem Header="Create New Solution" Click="miCreateNewSolution_Click" />
                                     <Separator />
-                                    <MenuItem HorizontalAlignment="Left" Header="Open Solution List in Web" Click="mIOpenSolutionListInWeb_Click" />
+                                    <MenuItem Header="Open Solution List in Web" Click="mIOpenSolutionListInWeb_Click" />
                                     <Separator />
-                                    <MenuItem HorizontalAlignment="Left" Header="Open Customization in Web" Click="mIOpenCustomizationInWeb_Click" />
+                                    <MenuItem Header="Open Customization in Web" Click="mIOpenCustomizationInWeb_Click" />
                                     <Separator />
                                     <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
                                     <Separator />
@@ -130,9 +141,10 @@
         </ToolBar>
         <StatusBar VerticalAlignment="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
+            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalContentAlignment="Center" VerticalAlignment="Center" />
             <StatusBarItem x:Name="stBIStatus" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
+
     </Grid>
 </src:WindowBase>

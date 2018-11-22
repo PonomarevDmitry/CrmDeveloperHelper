@@ -505,6 +505,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , int? componentType
             , Guid? objectId
+            , EnvDTE.SelectedItem selectedItem
             )
         {
             var worker = new Thread(() =>
@@ -517,6 +518,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , componentType
                         , objectId
+                        , selectedItem
                     );
 
                     form.ShowDialog();
@@ -673,39 +675,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , selection
                     );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
-        }
-
-        public static void OpenExportSolutionWindow(
-            IWriteToOutput iWriteToOutput
-            , IOrganizationServiceExtented service
-            , CommonConfiguration commonConfig
-            , EnvDTE.SelectedItem selectedItem
-            , string filter
-            )
-        {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExportSolution(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , selectedItem
-                        , filter
-                        );
 
                     form.ShowDialog();
                 }

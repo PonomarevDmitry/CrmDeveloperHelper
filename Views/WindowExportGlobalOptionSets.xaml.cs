@@ -893,6 +893,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , (int)ComponentType.OptionSet
                 , entity.OptionSetMetadata.MetadataId.Value
+                , null
             );
         }
 

@@ -951,22 +951,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _SolutionExportManaged;
-        [DataMember]
-        public bool SolutionExportManaged
-        {
-            get
-            {
-                return _SolutionExportManaged;
-            }
-            set
-            {
-                this.OnPropertyChanging(nameof(SolutionExportManaged));
-                this._SolutionExportManaged = value;
-                this.OnPropertyChanged(nameof(SolutionExportManaged));
-            }
-        }
-
         private bool _SetXmlSchemasDuringExport;
         [DataMember]
         public bool SetXmlSchemasDuringExport

@@ -1116,6 +1116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , (int)ComponentType.Entity
                 , entity.EntityMetadata.MetadataId.Value
+                , null
             );
         }
 
@@ -1172,6 +1173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , (int)ComponentType.EntityKey
                 , entityKey.EntityKeyMetadata.MetadataId.Value
+                , null
             );
         }
 

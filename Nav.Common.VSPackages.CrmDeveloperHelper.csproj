@@ -163,7 +163,6 @@
     <Compile Include="Commands\CommonEntityRelationshipOneToManyExplorerCommand.cs" />
     <Compile Include="Commands\CommonExportDefaultSitemapsCommand.cs" />
     <Compile Include="Commands\CommonExportOpenLastSelectedSolutionCommand.cs" />
-    <Compile Include="Commands\CommonExportSolutionCommand.cs" />
     <Compile Include="Commands\CommonExportXsdSchemasCommand.cs" />
     <Compile Include="Commands\CommonFindEntityObjectsByIdCommand.cs" />
     <Compile Include="Commands\CommonFindEntityObjectsByUniqueidentifierCommand.cs" />
@@ -877,6 +876,9 @@
     <Compile Include="UserControls\ExportEntityRibbonOptionsControl.xaml.cs">
       <DependentUpon>ExportEntityRibbonOptionsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ExportSolutionOptionsControl.xaml.cs">
+      <DependentUpon>ExportSolutionOptionsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\FetchXmlExecutorControl.xaml.cs">
       <DependentUpon>FetchXmlExecutorControl.xaml</DependentUpon>
     </Compile>
@@ -949,9 +951,6 @@
     </Compile>
     <Compile Include="Views\WindowExportSiteMap.xaml.cs">
       <DependentUpon>WindowExportSiteMap.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WindowExportSolution.xaml.cs">
-      <DependentUpon>WindowExportSolution.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowExplorerSolution.xaml.cs">
       <DependentUpon>WindowExplorerSolution.xaml</DependentUpon>
@@ -1385,6 +1384,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\ExportSolutionOptionsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\FetchXmlExecutorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1478,10 +1481,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowExportSiteMap.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\WindowExportSolution.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

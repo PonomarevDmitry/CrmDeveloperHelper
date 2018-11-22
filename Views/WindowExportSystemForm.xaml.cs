@@ -1555,6 +1555,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , (int)ComponentType.SystemForm
                 , entity.Id
+                , null
             );
         }
 

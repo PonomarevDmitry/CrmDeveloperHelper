@@ -1357,7 +1357,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         _commonConfig.Save();
 
-                        contr.ExecuteOpeningSolutionComponentWindow(connection1, _commonConfig);
+                        contr.ExecuteOpeningSolutionComponentWindow(null, connection1, _commonConfig);
                     }
                     catch (Exception ex)
                     {
@@ -1629,31 +1629,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     this._iWriteToOutput.WriteErrorToOutput(ex);
                 }
-            }
-        }
-
-        private void tSMIExportSolution_Click(object sender, RoutedEventArgs e)
-        {
-            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
-
-            if (connection1 != null && connection2 == null)
-            {
-                var backWorker = new Thread(() =>
-                {
-                    try
-                    {
-                        _commonConfig.Save();
-
-                        SolutionController contr = new SolutionController(this._iWriteToOutput);
-
-                        contr.ExecuteExportingSolution(null, string.Empty, connection1, _commonConfig);
-                    }
-                    catch (Exception ex)
-                    {
-                        this._iWriteToOutput.WriteErrorToOutput(ex);
-                    }
-                });
-                backWorker.Start();
             }
         }
 

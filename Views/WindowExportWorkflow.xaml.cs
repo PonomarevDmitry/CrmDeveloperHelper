@@ -1758,6 +1758,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , (int)ComponentType.Workflow
                 , entity.Id
+                , null
             );
         }
 

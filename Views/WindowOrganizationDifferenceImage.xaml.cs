@@ -709,6 +709,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig
                     , item.ComponentType.Value
                     , item.ObjectId.Value
+                    , null
                 );
             }
         }

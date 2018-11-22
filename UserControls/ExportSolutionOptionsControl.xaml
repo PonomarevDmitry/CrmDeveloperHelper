@@ -1,0 +1,109 @@
+﻿<UserControl x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.ExportSolutionOptionsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.UserControls"
+             xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+             mc:Ignorable="d"
+             BorderThickness="1"
+             BorderBrush="Black"
+             Width="963" 
+             Height="265">
+    <UserControl.Resources>
+        <helpers:BoolToOppositeBoolConverter x:Key="BoolInverter"/>
+    </UserControl.Resources>
+    <Grid Background="White">
+        <DockPanel Margin="10,0" VerticalAlignment="Top" Height="105" LastChildFill="True">
+
+            <GroupBox Header="Common Settings" DockPanel.Dock="Left">
+                <Grid>
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type CheckBox}">
+                            <Setter Property="Padding" Value="2"/>
+                            <Setter Property="Margin" Value="3"/>
+                        </Style>
+                        <Style TargetType="{x:Type RadioButton}">
+                            <Setter Property="Padding" Value="2"/>
+                            <Setter Property="Margin" Value="3"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="chBAutoNumbering" IsChecked="{Binding Path=ExportSolutionExportAutoNumberingSettings}" Grid.Column="0" Grid.Row="0" Content="Auto-numbering" HorizontalAlignment="Left" VerticalAlignment="Stretch" VerticalContentAlignment="Center" />
+                    <CheckBox x:Name="chBCalendar" IsChecked="{Binding Path=ExportSolutionExportCalendarSettings}" Grid.Column="0" Grid.Row="1" Content="Calendar" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"  />
+                    <CheckBox x:Name="chBCustomization" IsChecked="{Binding Path=ExportSolutionExportCustomizationSettings}" Grid.Column="0" Grid.Row="2" Content="Customization" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"  />
+                    <CheckBox x:Name="chBEmailTracking" IsChecked="{Binding Path=ExportSolutionExportEmailTrackingSettings}" Grid.Column="1" Grid.Row="0" Content="Email tracking" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"   />
+                    <CheckBox x:Name="chBGeneral" IsChecked="{Binding Path=ExportSolutionExportGeneralSettings}" Grid.Column="1" Grid.Row="1" Content="General" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"  />
+                    <CheckBox x:Name="chBMarketing" IsChecked="{Binding Path=ExportSolutionExportMarketingSettings}" Grid.Column="1" Grid.Row="2" Content="Marketing" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"  />
+                    <CheckBox x:Name="chBOutlookSynchronization" IsChecked="{Binding Path=ExportSolutionExportOutlookSynchronizationSettings}" Grid.Column="2" Grid.Row="0" Content="Outlook Synchronization" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"   />
+                    <CheckBox x:Name="chBRelashionshipRoles" IsChecked="{Binding Path=ExportSolutionExportRelationshipRoles}" Grid.Column="2" Grid.Row="1" Content="Relashionship Roles" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"   />
+                    <CheckBox x:Name="chBISVConfig" IsChecked="{Binding Path=ExportSolutionExportIsvConfig}" Grid.Column="2" Grid.Row="2" Content="ISV Config" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"  />
+                    <CheckBox x:Name="chBSales" IsChecked="{Binding Path=ExportSolutionExportSales}" Grid.Column="3" Grid.Row="0" Content="Sales" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"   />
+                    <CheckBox x:Name="chBExternalApplications" IsChecked="{Binding Path=ExportSolutionExportExternalApplications}" Grid.Column="3" Grid.Row="1" Content="External Applications" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"   />
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Connection Settings">
+                <Grid Margin="10,0" VerticalAlignment="Top" Height="84">
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type CheckBox}">
+                            <Setter Property="Padding" Value="2"/>
+                            <Setter Property="Margin" Value="3"/>
+                        </Style>
+                        <Style TargetType="{x:Type RadioButton}">
+                            <Setter Property="Padding" Value="2"/>
+                            <Setter Property="Margin" Value="3"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <RadioButton x:Name="rBUnmanaged" IsChecked="{Binding Path=SelectedItem.SolutionExportManaged, Converter={StaticResource BoolInverter}}" Grid.Column="0" Grid.Row="3" Content="Unmanaged" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"   />
+                    <RadioButton x:Name="rBManaged" IsChecked="{Binding Path=SelectedItem.SolutionExportManaged}" Grid.Row="3" Grid.Column="1" Content="Managed" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"  />
+
+                    <CheckBox x:Name="chBOverrideSolutionNameAndVersion" IsChecked="{Binding Path=SelectedItem.ExportSolutionOverrideSolutionNameAndVersion}" Grid.Row="0" Grid.Column="0" Content="Override Solution Name And Version" HorizontalAlignment="Left" VerticalAlignment="Stretch"  VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="chBOverrideSolutionDescription" IsChecked="{Binding Path=SelectedItem.ExportSolutionOverrideSolutionDescription}" Grid.Row="1" Grid.Column="0" Content="Override Solution Description" HorizontalAlignment="Left" VerticalAlignment="Stretch"  VerticalContentAlignment="Center"/>
+
+                    <CheckBox x:Name="chBCreateFolderForVersion" IsChecked="{Binding Path=SelectedItem.ExportSolutionCreateFolderForVersion}" Grid.Row="0" Grid.Column="1" Content="Create Folder for Version" HorizontalAlignment="Left" VerticalAlignment="Stretch"  VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="chBCopyFileToClipBoard" IsChecked="{Binding Path=SelectedItem.ExportSolutionCopyFileToClipBoard}" Grid.Row="1" Grid.Column="1" Content="Copy File to Clipboard" HorizontalAlignment="Left" VerticalAlignment="Stretch"  VerticalContentAlignment="Center"/>
+                </Grid>
+            </GroupBox>
+
+        </DockPanel>
+
+
+
+
+
+
+
+        <Label Content="UniqueName" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <ComboBox x:Name="cmBUniqueName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExportSolutionOverrideUniqueName}" ItemsSource="{Binding Path=SelectedItem.LastExportSolutionOverrideUniqueName}" Height="23" Margin="85,110,165,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+        <Label Content="DisplayName" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <ComboBox x:Name="cmBDisplayName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExportSolutionOverrideDisplayName}" ItemsSource="{Binding Path=SelectedItem.LastExportSolutionOverrideDisplayName}" Height="23" Margin="85,138,165,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+        <Label Content="Version" Margin="0,110,120,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="40"/>
+        <ComboBox x:Name="cmBVersion" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExportSolutionOverrideVersion}" ItemsSource="{Binding Path=SelectedItem.LastExportSolutionOverrideVersion}" Height="23" Margin="0,110,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="105"/>
+
+        <Label Content="Description" Margin="10,166,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
+        <TextBox x:Name="txtBDescription" Text="{Binding SelectedItem.ExportSolutionOverrideDescription}" Margin="85,166,10,10" VerticalContentAlignment="Top"/>
+    </Grid>
+</UserControl>

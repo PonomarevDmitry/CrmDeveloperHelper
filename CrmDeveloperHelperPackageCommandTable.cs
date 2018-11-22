@@ -641,7 +641,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonExportWorkflowCommandId = 0x203D;
         public const int CommonExportReportCommandId = 0x203E;
         public const int CommonExportSolutionComponentsCommandId = 0x203F;
-        public const int CommonExportSolutionCommandId = 0x2151;
         public const int CommonOpenSolutionImageCommandId = 0x2170;
         public const int CommonOpenXsdSchemaFolderCommandId = 0x217A;
         public const int CommonOrganizationComparerCommandId = 0x2040;

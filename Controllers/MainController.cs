@@ -998,30 +998,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpenSolutionComponentExplorerWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartOpenSolutionComponentExplorerWindow(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._solutionController.ExecuteOpeningSolutionComponentWindow(connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartOpenExportSolutionWindow(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._solutionController.ExecuteExportingSolution(selectedItem, string.Empty, connectionData, commonConfig);
+                    this._solutionController.ExecuteOpeningSolutionComponentWindow(selectedItem, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

@@ -26,13 +26,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Solution Explorer.
 
-        public async Task ExecuteOpeningSolutionComponentWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningSolutionComponentWindow(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.SolutionComponentExplorer);
 
             try
             {
-                await OpeningSolutionComponentWindow(connectionData, commonConfig);
+                await OpeningSolutionComponentWindow(selectedItem, connectionData, commonConfig);
             }
             catch (Exception xE)
             {
@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpeningSolutionComponentWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task OpeningSolutionComponentWindow(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             if (connectionData == null)
             {
@@ -67,58 +67,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 , commonConfig
                 , null
                 , null
+                , selectedItem
             );
         }
 
         #endregion Solution Explorer.
-
-        #region Экспортирование решения.
-
-        public async Task ExecuteExportingSolution(EnvDTE.SelectedItem selectedItem, string filter, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingCRMSolution);
-
-            try
-            {
-                await ExportingSolution(selectedItem, filter, connectionData, commonConfig);
-            }
-            catch (Exception xE)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingCRMSolution);
-            }
-        }
-
-        private async Task ExportingSolution(EnvDTE.SelectedItem selectedItem, string filter, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-            WindowHelper.OpenExportSolutionWindow(
-                this._iWriteToOutput
-                , service
-                , commonConfig
-                , selectedItem
-                , filter
-                );
-        }
-
-        #endregion Экспортирование решения.
 
         #region Окна с образами.
 

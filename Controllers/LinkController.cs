@@ -498,6 +498,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         , commonConfig
                         , (int)ComponentType.Report
                         , reportEntity.Id
+                        , null
                     );
                 }
             }
@@ -677,6 +678,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         , commonConfig
                         , (int)ComponentType.WebResource
                         , webresource.Id
+                        , null
                     );
                 }
             }
@@ -733,6 +735,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     _iWriteToOutput
                     , service
                     , commonConfig
+                    , null
                     , null
                     , null
                 );

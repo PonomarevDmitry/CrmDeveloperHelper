@@ -4,6 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -29,10 +31,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private CommonConfiguration _commonConfig;
         private ConnectionConfiguration _connectionConfig;
 
+        private EnvDTE.SelectedItem _selectedItem;
+
         private Guid? _objectId;
         private int? _componentType;
 
         private bool _controlsEnabled = true;
+
+        private Popup _optionsExportSolution;
+        private ExportSolutionOptionsControl _optionsExportSolutionOptionsControl;
 
         private ObservableCollection<EntityViewItem> _itemsSource;
 
@@ -49,6 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , int? componentType
             , Guid? objectId
+            , EnvDTE.SelectedItem selectedItem
             )
         {
             _init++;
@@ -57,6 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
+            this._selectedItem = selectedItem;
             this._connectionConfig = service.ConnectionData.ConnectionConfiguration;
             this._objectId = objectId;
             this._componentType = componentType;
@@ -69,8 +78,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.LastSelectedSolutionsUniqueName, _syncCacheObjects[service.ConnectionData.ConnectionId]);
+            BindingOperations.EnableCollectionSynchronization(service.ConnectionData.LastSolutionExportFolders, _syncCacheObjects[service.ConnectionData.ConnectionId]);
 
             InitializeComponent();
+
+            cmBExportFolder.Text = service.ConnectionData.ExportSolutionFolder;
+            cmBFilter.Text = service.ConnectionData.ExplorerSolutionFilter;
+
+            this._optionsExportSolutionOptionsControl = new ExportSolutionOptionsControl(_commonConfig, cmBCurrentConnection);
+            this._optionsExportSolution = new Popup
+            {
+                Child = this._optionsExportSolutionOptionsControl,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+            };
 
             LoadFromConfig();
 
@@ -113,6 +136,75 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFilter.DataContext = cmBCurrentConnection;
 
             cmBFilter.Text = (cmBCurrentConnection.SelectedItem as ConnectionData)?.ExplorerSolutionFilter;
+
+            if (this._selectedItem != null)
+            {
+                string exportFolder = string.Empty;
+
+                if (_selectedItem.ProjectItem != null)
+                {
+                    exportFolder = _selectedItem.ProjectItem.FileNames[1];
+                }
+                else if (_selectedItem.Project != null)
+                {
+                    string relativePath = GetRelativePath(_selectedItem.Project);
+
+                    string solutionPath = Path.GetDirectoryName(_selectedItem.DTE.Solution.FullName);
+
+                    exportFolder = Path.Combine(solutionPath, relativePath);
+                }
+
+                cmBExportFolder.IsReadOnly = true;
+                cmBExportFolder.Text = exportFolder;
+            }
+            else
+            {
+                //Text="{Binding Path=SelectedItem.ExportSolutionFolder}" ItemsSource="{Binding Path=SelectedItem.LastSolutionExportFolders}" 
+                {
+                    Binding binding = new Binding
+                    {
+                        Path = new PropertyPath("SelectedItem.ExportSolutionFolder")
+                    };
+                    BindingOperations.SetBinding(cmBExportFolder, ComboBox.TextProperty, binding);
+                }
+
+                {
+                    Binding binding = new Binding
+                    {
+                        Path = new PropertyPath("SelectedItem.LastSolutionExportFolders")
+                    };
+                    BindingOperations.SetBinding(cmBExportFolder, ComboBox.ItemsSourceProperty, binding);
+                }
+
+                cmBExportFolder.DataContext = cmBCurrentConnection;
+            }
+        }
+
+        private string GetRelativePath(EnvDTE.Project project)
+        {
+            List<string> names = new List<string>();
+
+            if (project != null)
+            {
+                AddNamesRecursive(names, project);
+            }
+
+            names.Reverse();
+
+            return string.Join(@"\", names);
+        }
+
+        private void AddNamesRecursive(List<string> names, EnvDTE.Project project)
+        {
+            if (project != null)
+            {
+                names.Add(project.Name);
+
+                if (project.ParentProjectItem != null && project.ParentProjectItem.ContainingProject != null)
+                {
+                    AddNamesRecursive(names, project.ParentProjectItem.ContainingProject);
+                }
+            }
         }
 
         protected override void OnClosed(EventArgs e)
@@ -120,17 +212,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
             _connectionConfig.Save();
 
+            _optionsExportSolutionOptionsControl.DetachCollections();
+
             cmBCurrentConnection.DataContext = null;
             cmBFilter.DataContext = null;
 
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
             BindingOperations.ClearAllBindings(cmBFilter);
+            BindingOperations.ClearAllBindings(cmBExportFolder);
 
             cmBFilter.Items.DetachFromSourceCollection();
             cmBCurrentConnection.Items.DetachFromSourceCollection();
+            cmBExportFolder.Items.DetachFromSourceCollection();
 
             cmBFilter.ItemsSource = null;
             cmBCurrentConnection.ItemsSource = null;
+            cmBExportFolder.ItemsSource = null;
 
             base.OnClosed(e);
         }
@@ -663,7 +760,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             MenuItem mIOpenComponentsInWindow = new MenuItem()
             {
-                Header = string.Format("Open Components in Window for {0}", solution.UniqueNameEscapeUnderscore),
+                Header = string.Format("Open Solution Components in Window for {0}", solution.UniqueNameEscapeUnderscore),
                 Tag = solution,
             };
             mIOpenComponentsInWindow.Click += mIOpenComponentsInWindow_Click;
@@ -684,7 +781,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             MenuItem mICreateSolutionImageIn = new MenuItem()
             {
-                Header = string.Format("Create Solution Image in {0}", solution.UniqueNameEscapeUnderscore),
+                Header = string.Format("Create Solution Image for {0}", solution.UniqueNameEscapeUnderscore),
                 Tag = solution,
             };
             mICreateSolutionImageIn.Click += mICreateSolutionImageIn_Click;
@@ -712,6 +809,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
 
 
+
             itemCollection.Add(mIOpenComponentsInWindow);
             itemCollection.Add(new Separator());
             itemCollection.Add(mIOpenSolutionInWeb);
@@ -734,11 +832,237 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             itemCollection.Add(mIUsedNotExistsEntitiesInWorkflows);
             itemCollection.Add(new Separator());
             itemCollection.Add(mICreateSolutionImageIn);
+
+            if (solution.IsManaged.GetValueOrDefault() == false)
+            {
+                MenuItem mIExportSolution = new MenuItem()
+                {
+                    Header = string.Format("Export Solution {0}", solution.UniqueNameEscapeUnderscore),
+                    Tag = solution,
+                };
+                mIExportSolution.Click += mIExportSolution_Click;
+
+                itemCollection.Add(new Separator());
+                itemCollection.Add(mIExportSolution);
+            }
+
             itemCollection.Add(new Separator());
             itemCollection.Add(mIComponentsIn);
             itemCollection.Add(new Separator());
             itemCollection.Add(mIMissingComponentsIn);
             itemCollection.Add(mIUninstallComponentsIn);
+        }
+
+        private async void mIExportSolution_Click(object sender, RoutedEventArgs e)
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            if (!(sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+                && solution.IsManaged.GetValueOrDefault() == false
+                ))
+            {
+                return;
+            }
+
+            if (solution == null)
+            {
+                return;
+            }
+
+            string exportFolder = string.Empty;
+
+            cmBExportFolder.Dispatcher.Invoke(() =>
+            {
+                exportFolder = cmBExportFolder.Text?.Trim();
+            });
+
+            if (string.IsNullOrEmpty(exportFolder))
+            {
+                return;
+            }
+
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            var fileExportFolder = exportFolder;
+
+            var uniqueName = connectionData.ExportSolutionOverrideUniqueName?.Trim();
+            var displayName = connectionData.ExportSolutionOverrideDisplayName?.Trim();
+            var version = connectionData.ExportSolutionOverrideVersion?.Trim();
+
+            var description = connectionData.ExportSolutionOverrideDescription?.Trim();
+
+            if (connectionData.ExportSolutionOverrideSolutionNameAndVersion)
+            {
+                if (!string.IsNullOrEmpty(version))
+                {
+                    if (!Version.TryParse(version, out Version ver))
+                    {
+                        MessageBox.Show(Properties.MessageBoxStrings.SolutionVersionTextIsNotValidVersion, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    version = ver.ToString();
+                }
+            }
+
+            if (connectionData.ExportSolutionCreateFolderForVersion)
+            {
+                if (!string.IsNullOrEmpty(version))
+                {
+                    fileExportFolder = Path.Combine(fileExportFolder, version);
+                }
+                else if (!string.IsNullOrEmpty(solution.Version))
+                {
+                    fileExportFolder = Path.Combine(fileExportFolder, solution.Version);
+                }
+            }
+
+            if (!Directory.Exists(fileExportFolder))
+            {
+                Directory.CreateDirectory(fileExportFolder);
+            }
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            ExportSolutionOverrideInformation solutionExportInfo = new ExportSolutionOverrideInformation(
+                connectionData.ExportSolutionOverrideSolutionNameAndVersion
+                , uniqueName
+                , displayName
+                , version
+                , connectionData.ExportSolutionOverrideSolutionDescription
+                , description
+                );
+
+            ExportSolutionConfig config = new ExportSolutionConfig()
+            {
+                ExportAutoNumberingSettings = _commonConfig.ExportSolutionExportAutoNumberingSettings,
+                ExportCalendarSettings = _commonConfig.ExportSolutionExportCalendarSettings,
+                ExportCustomizationSettings = _commonConfig.ExportSolutionExportCustomizationSettings,
+                ExportEmailTrackingSettings = _commonConfig.ExportSolutionExportEmailTrackingSettings,
+                ExportExternalApplications = _commonConfig.ExportSolutionExportExternalApplications,
+                ExportGeneralSettings = _commonConfig.ExportSolutionExportGeneralSettings,
+                ExportIsvConfig = _commonConfig.ExportSolutionExportIsvConfig,
+                ExportMarketingSettings = _commonConfig.ExportSolutionExportMarketingSettings,
+                ExportOutlookSynchronizationSettings = _commonConfig.ExportSolutionExportOutlookSynchronizationSettings,
+                ExportRelationshipRoles = _commonConfig.ExportSolutionExportRelationshipRoles,
+                ExportSales = _commonConfig.ExportSolutionExportSales,
+
+                Managed = connectionData.SolutionExportManaged,
+
+                IdSolution = solution.Id,
+
+                ConnectionName = connectionData.Name,
+
+                ExportFolder = fileExportFolder,
+            };
+
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingSolutionFormat1, solution.UniqueName);
+
+            try
+            {
+                var service = await GetService();
+
+                if (service != null)
+                {
+                    _iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData.ConnectionId, solution.UniqueName, service.ConnectionData.GetSolutionUrl(solution.Id));
+
+                    if (solutionExportInfo.OverrideNameAndVersion)
+                    {
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            _optionsExportSolutionOptionsControl.StoreTextValues();
+
+                            service.ConnectionData.AddLastExportSolutionOverrideUniqueName(solutionExportInfo.UniqueName);
+                            service.ConnectionData.AddLastExportSolutionOverrideDisplayName(solutionExportInfo.DisplayName);
+
+                            _optionsExportSolutionOptionsControl.RestoreTextValues();
+
+                            if (!string.IsNullOrEmpty(solutionExportInfo.Version) && Version.TryParse(solutionExportInfo.Version, out Version ver))
+                            {
+                                var oldVersion = ver.ToString();
+                                var newVersion = new Version(ver.Major, ver.Minor, ver.Build, ver.Revision + 1).ToString();
+
+                                service.ConnectionData.AddLastExportSolutionOverrideVersion(newVersion, oldVersion);
+
+                                _optionsExportSolutionOptionsControl.SetNewVersion(newVersion);
+                            }
+                        });
+                    }
+
+                    ExportSolutionHelper helper = new ExportSolutionHelper(service);
+
+                    var filePath = await helper.ExportAsync(config, solutionExportInfo);
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        if (service.ConnectionData.ExportSolutionCopyFileToClipBoard)
+                        {
+                            Clipboard.SetFileDropList(new System.Collections.Specialized.StringCollection() { filePath });
+                        }
+                    });
+
+                    this._iWriteToOutput.WriteToOutput("Solution {0} exported to {1}", solution.UniqueName, filePath);
+
+                    if (this._selectedItem != null)
+                    {
+                        if (_selectedItem.ProjectItem != null)
+                        {
+                            _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
+
+                            _selectedItem.ProjectItem.ContainingProject.Save();
+                        }
+                        else if (_selectedItem.Project != null)
+                        {
+                            _selectedItem.Project.ProjectItems.AddFromFile(filePath);
+
+                            _selectedItem.Project.Save();
+                        }
+                    }
+                    else
+                    {
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            var text = cmBExportFolder.Text;
+
+                            service.ConnectionData.AddLastSolutionExportFolder(exportFolder);
+
+                            cmBExportFolder.Text = text;
+                        });
+                    }
+
+                    this._iWriteToOutput.SelectFileInFolder(filePath);
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput("Cannot get Service.");
+                }
+
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingSolutionCompletedFormat1, solution.UniqueName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingSolutionFailedFormat1, solution.UniqueName);
+            }
         }
 
         private void miSelectSolutionAsLast_Click(object sender, RoutedEventArgs e)
@@ -889,7 +1213,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
-                
+
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
@@ -1155,7 +1479,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 ToggleControls(false, Properties.WindowStatusStrings.AnalizingSolutionsFormat2, solution1.UniqueName, solution2.UniqueName);
-                
+
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput("Analyzing Solution Components '{0}' and '{1}'.", solution1.UniqueName, solution2.UniqueName);
@@ -1479,28 +1803,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void miExportSolution_Click(object sender, RoutedEventArgs e)
-        {
-            string name = lstVwSolutions.SelectedItems
-                .OfType<EntityViewItem>()
-                .Where(en => en.Solution != null)
-                .OrderBy(en => en.Solution.UniqueName)
-                .Select(en => en.Solution)
-                .FirstOrDefault()?.UniqueName;
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenExportSolutionWindow(
-                this._iWriteToOutput
-                , service
-                , _commonConfig
-                , null
-                , name
-                );
-        }
-
         private void miCreateNewSolution_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
@@ -1552,7 +1854,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformClearUnmanagedSolution(string folder, Solution solution)
         {
             try
-            {                
+            {
                 ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat1, solution.UniqueName);
 
                 var service = await GetService();
@@ -1595,13 +1897,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(service);
                 await repository.ClearSolutionAsync(solution.UniqueName);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat1, solution.UniqueName);
             }
         }
@@ -1681,13 +1983,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput("Solution Used Entities was export into file '{0}'", filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
             }
         }
@@ -1720,13 +2022,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput("Solution Used Not Exists Entities was export into file '{0}'", filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
             }
         }
@@ -1825,7 +2127,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _syncCacheObjects.Add(connectionData.ConnectionId, syncObject);
 
                         BindingOperations.EnableCollectionSynchronization(connectionData.LastSelectedSolutionsUniqueName, syncObject);
+                        BindingOperations.EnableCollectionSynchronization(connectionData.LastSolutionExportFolders, _syncCacheObjects[connectionData.ConnectionId]);
                     }
+
+                    var text = cmBExportFolder.Text;
+
+                    connectionData.AddLastSolutionExportFolder(_commonConfig.FolderForExport);
+
+                    cmBExportFolder.Text = text;
                 }
             });
 
@@ -1944,15 +2253,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFileCompleted);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFileFailed);
             }
+        }
+
+        private void miExportSolutionOptions_Click(object sender, RoutedEventArgs e)
+        {
+            this._optionsExportSolution.Focus();
+            this._optionsExportSolution.IsOpen = true;
         }
     }
 }

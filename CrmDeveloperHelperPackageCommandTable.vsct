@@ -4098,12 +4098,6 @@
           <ButtonText>Solution Explorer</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CommonExportSolutionCommandId" priority="0x012C" type="Button">
-        <CommandFlag>TextChanges</CommandFlag>
-        <Strings>
-          <ButtonText>Export Solution</ButtonText>
-        </Strings>
-      </Button>
       <Button guid="guidCommandSet" id="CommonOpenSolutionImageCommandId" priority="0x012C" type="Button">
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
@@ -6199,9 +6193,6 @@
     </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="CommonExportSolutionComponentsCommandId" priority="0x0120">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionExplorer" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonExportSolutionCommandId" priority="0x0120">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionExplorer" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CommonOpenSolutionImageCommandId" priority="0x0120">
@@ -8807,7 +8798,6 @@
       <IDSymbol name="CommonExportWorkflowCommandId" value="0x203D" />
       <IDSymbol name="CommonExportReportCommandId" value="0x203E" />
       <IDSymbol name="CommonExportSolutionComponentsCommandId" value="0x203F" />
-      <IDSymbol name="CommonExportSolutionCommandId" value="0x2151" />
       <IDSymbol name="CommonOpenSolutionImageCommandId" value="0x2170" />
 
       <IDSymbol name="CommonOpenXsdSchemaFolderCommandId" value="0x217A" />

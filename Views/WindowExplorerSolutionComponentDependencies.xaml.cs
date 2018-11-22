@@ -119,7 +119,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         private const string paramComponentType = "ComponentType";
-        private const string paramDependencyType = "DependencyType";
 
         private void LoadConfiguration()
         {
@@ -139,15 +138,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
             }
-
-            {
-                var categoryValue = winConfig.GetValueInt(paramDependencyType);
-
-                if (categoryValue.HasValue && 0 <= categoryValue && categoryValue < cmBDependencyType.Items.Count)
-                {
-                    cmBDependencyType.SelectedIndex = categoryValue.Value;
-                }
-            }
         }
 
         protected override void SaveConfigurationInternal(WindowSettings winConfig)
@@ -162,8 +152,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             winConfig.DictInt[paramComponentType] = categoryValue;
-
-            winConfig.DictInt[paramDependencyType] = cmBDependencyType.SelectedIndex;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -968,6 +956,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , entity.SolutionComponent.ComponentType.Value
                 , entity.SolutionComponent.ObjectId.Value
+                , null
             );
         }
 

@@ -802,6 +802,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private bool _SolutionExportManaged;
+        [DataMember]
+        public bool SolutionExportManaged
+        {
+            get
+            {
+                return _SolutionExportManaged;
+            }
+            set
+            {
+                this.OnPropertyChanging(nameof(SolutionExportManaged));
+                this._SolutionExportManaged = value;
+                this.OnPropertyChanged(nameof(SolutionExportManaged));
+            }
+        }
+
         private string _TraceReaderFilter;
         [DataMember]
         public string TraceReaderFilter

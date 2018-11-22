@@ -196,7 +196,6 @@
                                 <MenuItem Header="Reports"  Click="tSMIExportReports_Click"/>
                                 <Separator Margin="10,0"/>
                                 <MenuItem Header="Solution Explorer"  Click="tSMIExportSolutionComponents_Click"/>
-                                <MenuItem Header="Export Solution"  Click="tSMIExportSolution_Click"/>
                                 <MenuItem Header="Open SolutionImage Window"  Click="tSMIOpenSolutionImage_Click"/>
                             </MenuItem>
                         </Menu>
