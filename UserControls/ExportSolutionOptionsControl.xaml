@@ -75,14 +75,14 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <RadioButton x:Name="rBUnmanaged" IsChecked="{Binding Path=SelectedItem.SolutionExportManaged, Converter={StaticResource BoolInverter}}" Grid.Column="0" Grid.Row="3" Content="Unmanaged" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"   />
-                    <RadioButton x:Name="rBManaged" IsChecked="{Binding Path=SelectedItem.SolutionExportManaged}" Grid.Row="3" Grid.Column="1" Content="Managed" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"  />
+                    <RadioButton x:Name="rBUnmanaged" IsChecked="{Binding Path=SelectionBoxItem.SolutionExportManaged, Converter={StaticResource BoolInverter}}" Grid.Column="0" Grid.Row="3" Content="Unmanaged" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"   />
+                    <RadioButton x:Name="rBManaged" IsChecked="{Binding Path=SelectionBoxItem.SolutionExportManaged}" Grid.Row="3" Grid.Column="1" Content="Managed" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"  />
 
-                    <CheckBox x:Name="chBOverrideSolutionNameAndVersion" IsChecked="{Binding Path=SelectedItem.ExportSolutionOverrideSolutionNameAndVersion}" Grid.Row="0" Grid.Column="0" Content="Override Solution Name And Version" HorizontalAlignment="Left" VerticalAlignment="Stretch"  VerticalContentAlignment="Center"/>
-                    <CheckBox x:Name="chBOverrideSolutionDescription" IsChecked="{Binding Path=SelectedItem.ExportSolutionOverrideSolutionDescription}" Grid.Row="1" Grid.Column="0" Content="Override Solution Description" HorizontalAlignment="Left" VerticalAlignment="Stretch"  VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="chBOverrideSolutionNameAndVersion" IsChecked="{Binding Path=SelectionBoxItem.ExportSolutionOverrideSolutionNameAndVersion}" Grid.Row="0" Grid.Column="0" Content="Override Solution Name And Version" HorizontalAlignment="Left" VerticalAlignment="Stretch"  VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="chBOverrideSolutionDescription" IsChecked="{Binding Path=SelectionBoxItem.ExportSolutionOverrideSolutionDescription}" Grid.Row="1" Grid.Column="0" Content="Override Solution Description" HorizontalAlignment="Left" VerticalAlignment="Stretch"  VerticalContentAlignment="Center"/>
 
-                    <CheckBox x:Name="chBCreateFolderForVersion" IsChecked="{Binding Path=SelectedItem.ExportSolutionCreateFolderForVersion}" Grid.Row="0" Grid.Column="1" Content="Create Folder for Version" HorizontalAlignment="Left" VerticalAlignment="Stretch"  VerticalContentAlignment="Center"/>
-                    <CheckBox x:Name="chBCopyFileToClipBoard" IsChecked="{Binding Path=SelectedItem.ExportSolutionCopyFileToClipBoard}" Grid.Row="1" Grid.Column="1" Content="Copy File to Clipboard" HorizontalAlignment="Left" VerticalAlignment="Stretch"  VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="chBCreateFolderForVersion" IsChecked="{Binding Path=SelectionBoxItem.ExportSolutionCreateFolderForVersion}" Grid.Row="0" Grid.Column="1" Content="Create Folder for Version" HorizontalAlignment="Left" VerticalAlignment="Stretch"  VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="chBCopyFileToClipBoard" IsChecked="{Binding Path=SelectionBoxItem.ExportSolutionCopyFileToClipBoard}" Grid.Row="1" Grid.Column="1" Content="Copy File to Clipboard" HorizontalAlignment="Left" VerticalAlignment="Stretch"  VerticalContentAlignment="Center"/>
                 </Grid>
             </GroupBox>
 

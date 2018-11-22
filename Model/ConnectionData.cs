@@ -721,6 +721,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 if (_ExportSolutionOverrideUniqueName == value)
                 {

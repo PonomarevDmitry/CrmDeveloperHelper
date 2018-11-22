@@ -33,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             this._cmBCurrentConnection = cmBCurrentConnection;
 
             BindCollections(_cmBCurrentConnection.SelectedItem as ConnectionData);
-
+            
             cmBCurrentConnection.SelectionChanged += CmBCurrentConnection_SelectionChanged;
 
             LoadFromConfig();

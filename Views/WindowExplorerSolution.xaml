@@ -15,11 +15,7 @@
     </src:WindowBase.Resources>
     <Grid>
         <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Options">
-                    <MenuItem Header="Export Solution" Click="miExportSolutionOptions_Click" />
-                </MenuItem>
-            </Menu>
+            <Button Content="Export Solution Options" Click="miExportSolutionOptions_Click"/> 
         </ToolBar>
 
         <Label Content="Solution Export Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
