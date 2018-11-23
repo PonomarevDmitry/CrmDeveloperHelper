@@ -89,6 +89,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 if (_Name == value)
                 {
@@ -117,6 +121,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 this.OnPropertyChanging(nameof(GroupName));
                 this._GroupName = value;
@@ -138,6 +146,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 if (!string.IsNullOrEmpty(value))
                 {
                     value = value.Trim();
+                }
+                else
+                {
+                    value = string.Empty;
                 }
 
                 if (_DiscoveryUrl == value)
@@ -165,6 +177,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 if (_UniqueOrgName == value)
                 {
@@ -190,6 +206,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 if (!string.IsNullOrEmpty(value))
                 {
                     value = value.Trim();
+                }
+                else
+                {
+                    value = string.Empty;
                 }
 
                 if (_OrganizationUrl == value)
@@ -217,6 +237,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 if (_PublicUrl == value)
                 {
@@ -243,6 +267,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 if (_OrganizationVersion == value)
                 {
@@ -265,6 +293,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 if (!string.IsNullOrEmpty(value))
                 {
                     value = value.Trim();
+                }
+                else
+                {
+                    value = string.Empty;
                 }
 
                 if (_FriendlyName == value)
@@ -311,6 +343,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 if (_OrganizationState == value)
                 {
@@ -335,6 +371,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 if (!string.IsNullOrEmpty(value))
                 {
                     value = value.Trim();
+                }
+                else
+                {
+                    value = string.Empty;
                 }
 
                 if (_UrlName == value)
@@ -361,6 +401,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 if (_DefaultLanguage == value)
                 {
@@ -386,6 +430,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 if (_InstalledLanguagePacks == value)
                 {
@@ -410,6 +458,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 if (!string.IsNullOrEmpty(value))
                 {
                     value = value.Trim();
+                }
+                else
+                {
+                    value = string.Empty;
                 }
 
                 if (_BaseCurrency == value)
@@ -441,6 +493,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 this._NameSpaceClasses = value;
                 this.OnPropertyChanged(nameof(NameSpaceClasses));
@@ -460,6 +516,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 this._NameSpaceOptionSets = value;
                 this.OnPropertyChanged(nameof(NameSpaceOptionSets));
@@ -477,12 +537,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 if (_ServiceContextName == value)
                 {
                     return;
                 }
-
 
                 this.OnPropertyChanging(nameof(ServiceContextName));
                 this._ServiceContextName = value;
@@ -555,6 +618,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 if (_SelectSolutionFilter == value)
                 {
@@ -578,6 +645,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 if (_ExplorerSolutionFilter == value)
                 {
@@ -587,29 +658,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.OnPropertyChanging(nameof(ExplorerSolutionFilter));
                 this._ExplorerSolutionFilter = value;
                 this.OnPropertyChanged(nameof(ExplorerSolutionFilter));
-            }
-        }
-
-        private string _ExportSolutionFilter;
-        [DataMember]
-        public string ExportSolutionFilter
-        {
-            get => _ExportSolutionFilter;
-            set
-            {
-                if (!string.IsNullOrEmpty(value))
-                {
-                    value = value.Trim();
-                }
-
-                if (_ExportSolutionFilter == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(ExportSolutionFilter));
-                this._ExportSolutionFilter = value;
-                this.OnPropertyChanged(nameof(ExportSolutionFilter));
             }
         }
 
@@ -638,75 +686,75 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _ExportSolutionOverrideSolutionNameAndVersion;
+        private bool _ExportSolutionIsOverrideSolutionNameAndVersion;
         [DataMember]
-        public bool ExportSolutionOverrideSolutionNameAndVersion
+        public bool ExportSolutionIsOverrideSolutionNameAndVersion
         {
-            get => _ExportSolutionOverrideSolutionNameAndVersion;
+            get => _ExportSolutionIsOverrideSolutionNameAndVersion;
             set
             {
-                if (_ExportSolutionOverrideSolutionNameAndVersion == value)
+                if (_ExportSolutionIsOverrideSolutionNameAndVersion == value)
                 {
                     return;
                 }
 
-                this.OnPropertyChanging(nameof(ExportSolutionOverrideSolutionNameAndVersion));
-                this._ExportSolutionOverrideSolutionNameAndVersion = value;
-                this.OnPropertyChanged(nameof(ExportSolutionOverrideSolutionNameAndVersion));
+                this.OnPropertyChanging(nameof(ExportSolutionIsOverrideSolutionNameAndVersion));
+                this._ExportSolutionIsOverrideSolutionNameAndVersion = value;
+                this.OnPropertyChanged(nameof(ExportSolutionIsOverrideSolutionNameAndVersion));
             }
         }
 
-        private bool _ExportSolutionOverrideSolutionDescription;
+        private bool _ExportSolutionIsOverrideSolutionDescription;
         [DataMember]
-        public bool ExportSolutionOverrideSolutionDescription
+        public bool ExportSolutionIsOverrideSolutionDescription
         {
-            get => _ExportSolutionOverrideSolutionDescription;
+            get => _ExportSolutionIsOverrideSolutionDescription;
             set
             {
-                if (_ExportSolutionOverrideSolutionDescription == value)
+                if (_ExportSolutionIsOverrideSolutionDescription == value)
                 {
                     return;
                 }
 
-                this.OnPropertyChanging(nameof(ExportSolutionOverrideSolutionDescription));
-                this._ExportSolutionOverrideSolutionDescription = value;
-                this.OnPropertyChanged(nameof(ExportSolutionOverrideSolutionDescription));
+                this.OnPropertyChanging(nameof(ExportSolutionIsOverrideSolutionDescription));
+                this._ExportSolutionIsOverrideSolutionDescription = value;
+                this.OnPropertyChanged(nameof(ExportSolutionIsOverrideSolutionDescription));
             }
         }
 
-        private bool _ExportSolutionCreateFolderForVersion;
+        private bool _ExportSolutionIsCreateFolderForVersion;
         [DataMember]
-        public bool ExportSolutionCreateFolderForVersion
+        public bool ExportSolutionIsCreateFolderForVersion
         {
-            get => _ExportSolutionCreateFolderForVersion;
+            get => _ExportSolutionIsCreateFolderForVersion;
             set
             {
-                if (_ExportSolutionCreateFolderForVersion == value)
+                if (_ExportSolutionIsCreateFolderForVersion == value)
                 {
                     return;
                 }
 
-                this.OnPropertyChanging(nameof(ExportSolutionCreateFolderForVersion));
-                this._ExportSolutionCreateFolderForVersion = value;
-                this.OnPropertyChanged(nameof(ExportSolutionCreateFolderForVersion));
+                this.OnPropertyChanging(nameof(ExportSolutionIsCreateFolderForVersion));
+                this._ExportSolutionIsCreateFolderForVersion = value;
+                this.OnPropertyChanged(nameof(ExportSolutionIsCreateFolderForVersion));
             }
         }
 
-        private bool _ExportSolutionCopyFileToClipBoard;
+        private bool _ExportSolutionIsCopyFileToClipBoard;
         [DataMember]
-        public bool ExportSolutionCopyFileToClipBoard
+        public bool ExportSolutionIsCopyFileToClipBoard
         {
-            get => _ExportSolutionCopyFileToClipBoard;
+            get => _ExportSolutionIsCopyFileToClipBoard;
             set
             {
-                if (_ExportSolutionCopyFileToClipBoard == value)
+                if (_ExportSolutionIsCopyFileToClipBoard == value)
                 {
                     return;
                 }
 
-                this.OnPropertyChanging(nameof(ExportSolutionCopyFileToClipBoard));
-                this._ExportSolutionCopyFileToClipBoard = value;
-                this.OnPropertyChanged(nameof(ExportSolutionCopyFileToClipBoard));
+                this.OnPropertyChanging(nameof(ExportSolutionIsCopyFileToClipBoard));
+                this._ExportSolutionIsCopyFileToClipBoard = value;
+                this.OnPropertyChanged(nameof(ExportSolutionIsCopyFileToClipBoard));
             }
         }
 
@@ -748,6 +796,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 if (_ExportSolutionOverrideDisplayName == value)
                 {
@@ -770,6 +822,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 if (!string.IsNullOrEmpty(value))
                 {
                     value = value.Trim();
+                }
+                else
+                {
+                    value = string.Empty;
                 }
 
                 if (_ExportSolutionOverrideVersion == value)
@@ -794,6 +850,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     value = value.Trim();
                 }
+                else
+                {
+                    value = string.Empty;
+                }
 
                 if (_ExportSolutionOverrideDescription == value)
                 {
@@ -806,19 +866,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _SolutionExportManaged;
+        private bool _ExportSolutionManaged;
         [DataMember]
-        public bool SolutionExportManaged
+        public bool ExportSolutionManaged
         {
             get
             {
-                return _SolutionExportManaged;
+                return _ExportSolutionManaged;
             }
             set
             {
-                this.OnPropertyChanging(nameof(SolutionExportManaged));
-                this._SolutionExportManaged = value;
-                this.OnPropertyChanged(nameof(SolutionExportManaged));
+                this.OnPropertyChanging(nameof(ExportSolutionManaged));
+                this._ExportSolutionManaged = value;
+                this.OnPropertyChanged(nameof(ExportSolutionManaged));
             }
         }
 
@@ -832,6 +892,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 if (!string.IsNullOrEmpty(value))
                 {
                     value = value.Trim();
+                }
+                else
+                {
+                    value = string.Empty;
                 }
 
                 if (_TraceReaderFilter == value)
@@ -855,6 +919,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 if (!string.IsNullOrEmpty(value))
                 {
                     value = value.Trim();
+                }
+                else
+                {
+                    value = string.Empty;
                 }
 
                 if (_TraceReaderFolder == value)

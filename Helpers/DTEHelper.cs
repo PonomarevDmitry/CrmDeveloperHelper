@@ -108,6 +108,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private const string loggerOutput = "OutputLogger";
         private const string loggerErrors = "ErrorLogger";
 
+        private const string _logLayout = "${newline}${newline}${newline}${newline}${newline}${newline}${longdate}|${level}${newline}${message}${newline}${newline}${exception}${newline}${newline}${stacktrace:format=Raw:topFrames=10}";
+
         static DTEHelper()
         {
             ConfigureNLog();
@@ -143,7 +145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     WriteBom = true,
                     CreateDirs = true,
                     FileName = Path.Combine(FileOperations.GetLogsPath(), @"Log ${date:format=yyyy-MM-dd}.log"),
-                    Layout = "${newline}${newline}${newline}${newline}${newline}${newline}${longdate}|${level}${newline}${message}${newline}${newline}${exception}${newline}${newline}${stacktrace:format=Raw:topFrames=7}"
+                    Layout = _logLayout,
                 };
 
                 config.AddTarget(loggerErrors, targetGenFile);
@@ -225,7 +227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         message = string.Format(message, args);
                     }
 
-                    Log.Info(message);
+                    Log.Error(message);
                 }
 
                 Log.Error(ex, description);

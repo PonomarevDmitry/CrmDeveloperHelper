@@ -92,6 +92,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 PlacementTarget = toolBarHeader,
                 Placement = PlacementMode.Bottom,
                 StaysOpen = false,
+                Focusable = true,
             };
 
             LoadFromConfig();
@@ -904,7 +905,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var description = connectionData.ExportSolutionOverrideDescription?.Trim() ?? string.Empty;
 
-            if (connectionData.ExportSolutionOverrideSolutionNameAndVersion)
+            if (connectionData.ExportSolutionIsOverrideSolutionNameAndVersion)
             {
                 if (!string.IsNullOrEmpty(version))
                 {
@@ -918,7 +919,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            if (connectionData.ExportSolutionCreateFolderForVersion)
+            if (connectionData.ExportSolutionIsCreateFolderForVersion)
             {
                 if (!string.IsNullOrEmpty(version))
                 {
@@ -941,11 +942,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ExportSolutionOverrideInformation solutionExportInfo = new ExportSolutionOverrideInformation(
-                connectionData.ExportSolutionOverrideSolutionNameAndVersion
+                connectionData.ExportSolutionIsOverrideSolutionNameAndVersion
                 , uniqueName
                 , displayName
                 , version
-                , connectionData.ExportSolutionOverrideSolutionDescription
+                , connectionData.ExportSolutionIsOverrideSolutionDescription
                 , description
                 );
 
@@ -963,7 +964,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ExportRelationshipRoles = _commonConfig.ExportSolutionExportRelationshipRoles,
                 ExportSales = _commonConfig.ExportSolutionExportSales,
 
-                Managed = connectionData.SolutionExportManaged,
+                Managed = connectionData.ExportSolutionManaged,
 
                 IdSolution = solution.Id,
 
@@ -1011,7 +1012,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this.Dispatcher.Invoke(() =>
                     {
-                        if (service.ConnectionData.ExportSolutionCopyFileToClipBoard)
+                        if (service.ConnectionData.ExportSolutionIsCopyFileToClipBoard)
                         {
                             Clipboard.SetFileDropList(new System.Collections.Specialized.StringCollection() { filePath });
                         }
@@ -2274,8 +2275,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void miExportSolutionOptions_Click(object sender, RoutedEventArgs e)
         {
-            this._optionsExportSolution.Focus();
             this._optionsExportSolution.IsOpen = true;
+            this._optionsExportSolution.Child.Focus();
         }
     }
 }

@@ -14,6 +14,8 @@
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
     </UserControl.Resources>
     <Grid Background="White">
+
+        
         <CheckBox x:Name="chBAttributes" IsChecked="{Binding Path=GenerateAttributes}" Content="Attributes" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" />
         <CheckBox x:Name="chBStatus" IsChecked="{Binding Path=GenerateStatus}" Content="Status and StatusReason" HorizontalAlignment="Left" Margin="87,10,0,0" VerticalAlignment="Top" />
         <CheckBox x:Name="chBLocalOptionSets" IsChecked="{Binding Path=GenerateLocalOptionSet}" Content="Local OptionSets" HorizontalAlignment="Left" Margin="243,10,0,0" VerticalAlignment="Top"/>

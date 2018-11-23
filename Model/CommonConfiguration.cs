@@ -185,7 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _ExportRibbonXmlForm;
+        private bool _ExportRibbonXmlForm = true;
         /// <summary>
         /// Экспортировать риббон расположения Form
         /// </summary>
@@ -204,7 +204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _ExportRibbonXmlHomepageGrid;
+        private bool _ExportRibbonXmlHomepageGrid = true;
         /// <summary>
         /// Экспортировать риббон расположения HomepageGrid 
         /// </summary>
@@ -223,7 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _ExportRibbonXmlSubGrid;
+        private bool _ExportRibbonXmlSubGrid = true;
         /// <summary>
         /// Экспортировать риббон расположения SubGrid
         /// </summary>
@@ -290,7 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
         
-        private bool _GenerateAttributes;
+        private bool _GenerateAttributes = true;
         /// <summary>
         /// Генерировать атрибуты в файле с метаданными сущности
         /// </summary>
@@ -309,7 +309,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateManyToOne;
+        private bool _GenerateManyToOne = true;
         /// <summary>
         /// Генерировать связи Many To One (N:1) в файле с метаданными сущности
         /// </summary>
@@ -328,7 +328,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateOneToMany;
+        private bool _GenerateOneToMany = true;
         /// <summary>
         /// Генерировать One To Many (1:N) в файле с метаданными сущности
         /// </summary>
@@ -347,7 +347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateManyToMany;
+        private bool _GenerateManyToMany = true;
         /// <summary>
         /// Генерировать Many To Many (N:N) в файле с метаданными сущности
         /// </summary>
@@ -366,7 +366,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateLocalOptionSet;
+        private bool _GenerateLocalOptionSet = true;
         /// <summary>
         /// Генерировать enum для значений Picklist-ов в файле с метаданными сущности
         /// </summary>
@@ -385,7 +385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateGlobalOptionSet;
+        private bool _GenerateGlobalOptionSet = false;
         [DataMember]
         public bool GenerateGlobalOptionSet
         {
@@ -401,7 +401,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateStatus;
+        private bool _GenerateStatus = true;
         /// <summary>
         /// Генерировать enum для значения Statecode и Statuscode в файле с метаданными сущности
         /// </summary>
@@ -420,7 +420,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateKeys;
+        private bool _GenerateKeys = true;
         /// <summary>
         /// Генерировать уникальные ключи
         /// </summary>
@@ -951,7 +951,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _SetXmlSchemasDuringExport;
+        private bool _SetXmlSchemasDuringExport = true;
         [DataMember]
         public bool SetXmlSchemasDuringExport
         {
@@ -967,7 +967,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _SetIntellisenseContext;
+        private bool _SetIntellisenseContext = true;
         [DataMember]
         public bool SetIntellisenseContext
         {

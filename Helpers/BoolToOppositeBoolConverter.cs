@@ -22,15 +22,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value == null)
-            {
-                return false;
-            }
+            return Binding.DoNothing;
 
-            if (targetType != typeof(bool) && targetType != typeof(bool?))
-                throw new InvalidOperationException("The target must be a boolean");
+            //if (value == null)
+            //{
+            //    return true;
+            //}
 
-            return !(bool)value;
+            //if (targetType != typeof(bool) && targetType != typeof(bool?))
+            //    throw new InvalidOperationException("The target must be a boolean");
+
+            //return !(bool)value;
         }
 
         #endregion IValueConverter Members

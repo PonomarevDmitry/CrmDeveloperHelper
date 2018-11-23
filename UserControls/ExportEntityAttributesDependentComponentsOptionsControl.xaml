@@ -16,6 +16,6 @@
     </UserControl.Resources>
     <Grid Background="White">
         <RadioButton x:Name="rBAllcomponents" IsChecked="{Binding Path=AllDependentComponentsForAttributes}" Content="All components" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="rBWorkflowPlugin" IsChecked="{Binding Path=AllDependentComponentsForAttributes, Converter={StaticResource BoolInverter}}" Content="Only Workflow, Plugin Step, Plugin Step Image" HorizontalAlignment="Left" Margin="152,10,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="rBWorkflowPlugin" IsChecked="{Binding Path=AllDependentComponentsForAttributes, Converter={StaticResource BoolInverter}, Mode=OneWay}" Content="Only Workflow, Plugin Step, Plugin Step Image" HorizontalAlignment="Left" Margin="152,10,0,0" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

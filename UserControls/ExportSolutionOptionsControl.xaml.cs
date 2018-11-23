@@ -33,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             this._cmBCurrentConnection = cmBCurrentConnection;
 
             BindCollections(_cmBCurrentConnection.SelectedItem as ConnectionData);
-            
+
             cmBCurrentConnection.SelectionChanged += CmBCurrentConnection_SelectionChanged;
 
             LoadFromConfig();
@@ -75,8 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             chBRelashionshipRoles.DataContext = _commonConfig;
             chBSales.DataContext = _commonConfig;
 
-            rBManaged.DataContext = _cmBCurrentConnection;
-            rBUnmanaged.DataContext = _cmBCurrentConnection;
+            chBManaged.DataContext = _cmBCurrentConnection;
 
             chBOverrideSolutionNameAndVersion.DataContext = _cmBCurrentConnection;
             chBOverrideSolutionDescription.DataContext = _cmBCurrentConnection;
