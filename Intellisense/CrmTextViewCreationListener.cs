@@ -10,7 +10,7 @@ using System.ComponentModel.Composition;
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 {
     [Export(typeof(IVsTextViewCreationListener))]
-    [Name("FetchXmlHandler")]
+    [Name("CrmXmlHandler")]
     [ContentType("XML")]
     [ContentType(CrmPathContentTypeDefinition.CrmPathContentType)]
     [TextViewRole(PredefinedTextViewRoles.Editable)]

@@ -598,7 +598,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             finally
             {
                 UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
-                await service.DeleteAsync(solution.LogicalName, solution.Id);
+
+                try
+                {
+                    await service.DeleteAsync(solution.LogicalName, solution.Id);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                }
             }
 
             ToggleControls(true, finalStatus);
@@ -807,7 +815,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             finally
             {
                 UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
-                await service.DeleteAsync(solution.LogicalName, solution.Id);
+
+                try
+                {
+                    await service.DeleteAsync(solution.LogicalName, solution.Id);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                }
             }
 
             ToggleControls(true, finalStatus);

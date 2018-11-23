@@ -1419,7 +1419,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             finally
             {
                 UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
-                await service.DeleteAsync(solution.LogicalName, solution.Id);
+
+                try
+                {
+                    await service.DeleteAsync(solution.LogicalName, solution.Id);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                }
             }
 
             ToggleControls(true, finalStatus);
@@ -1531,11 +1539,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repositorySolutionComponent = new SolutionComponentRepository(service);
 
                     await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
-                        {
-                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
-                            ObjectId = entity.EntityMetadata.MetadataId.Value,
-                            RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
-                        }});
+                    {
+                        ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        ObjectId = entity.EntityMetadata.MetadataId.Value,
+                        RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                    }});
                 }
 
                 UpdateStatus(Properties.WindowStatusStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat2, solutionUniqueName, entity.EntityLogicalName);
@@ -1625,7 +1633,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             finally
             {
                 UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
-                await service.DeleteAsync(solution.LogicalName, solution.Id);
+
+                try
+                {
+                    await service.DeleteAsync(solution.LogicalName, solution.Id);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                }
             }
 
             ToggleControls(true, finalStatus);

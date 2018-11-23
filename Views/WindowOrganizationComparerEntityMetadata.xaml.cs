@@ -1630,7 +1630,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (solution1 != null)
                     {
-                        await service1.DeleteAsync(solution1.LogicalName, solution1.Id);
+                        try
+                        {
+                            await service1.DeleteAsync(solution1.LogicalName, solution1.Id);
+                        }
+                        catch (Exception ex)
+                        {
+                            this._iWriteToOutput.WriteErrorToOutput(ex);
+                        }
                     }
                 }
 
@@ -1662,7 +1669,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (solution2 != null)
                     {
-                        await service2.DeleteAsync(solution2.LogicalName, solution2.Id);
+                        try
+                        {
+                            await service2.DeleteAsync(solution2.LogicalName, solution2.Id);
+                        }
+                        catch (Exception ex)
+                        {
+                            this._iWriteToOutput.WriteErrorToOutput(ex);
+                        }
                     }
                 }
 
@@ -1907,7 +1921,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             finally
             {
                 UpdateStatus(Properties.WindowStatusStrings.DeletingSolutionFormat1, solutionUniqueName);
-                await service.DeleteAsync(solution.LogicalName, solution.Id);
+
+                try
+                {
+                    await service.DeleteAsync(solution.LogicalName, solution.Id);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                }
             }
 
             ToggleControls(true, finalStatus);
