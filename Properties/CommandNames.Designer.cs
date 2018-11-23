@@ -304,6 +304,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Organization.
+        /// </summary>
+        internal static string CommonExportOrganizationCommand {
+            get {
+                return ResourceManager.GetString("CommonExportOrganizationCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export Solution.
         /// </summary>
         internal static string CommonExportSolutionCommand {

@@ -4,16 +4,16 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class FileWebResourceShowDifferenceCustromCommand : AbstractCommand
+    internal sealed class FileWebResourceShowDifferenceCustomCommand : AbstractCommand
     {
-        private FileWebResourceShowDifferenceCustromCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileWebResourceShowDifferenceCustromCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileWebResourceShowDifferenceCustomCommand(Package package)
+            : base(package, PackageGuids.guidCommandSet, PackageIds.FileWebResourceShowDifferenceCustomCommandId, ActionExecute, ActionBeforeQueryStatus) { }
 
-        public static FileWebResourceShowDifferenceCustromCommand Instance { get; private set; }
+        public static FileWebResourceShowDifferenceCustomCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new FileWebResourceShowDifferenceCustromCommand(package);
+            Instance = new FileWebResourceShowDifferenceCustomCommand(package);
         }
 
         private static void ActionExecute(DTEHelper helper)

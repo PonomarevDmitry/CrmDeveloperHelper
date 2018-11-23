@@ -125,7 +125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceLinkCreateCommand.Initialize(this);
             FileWebResourceShowDependentComponentsCommand.Initialize(this);
             FileWebResourceShowDifferenceCommand.Initialize(this);
-            FileWebResourceShowDifferenceCustromCommand.Initialize(this);
+            FileWebResourceShowDifferenceCustomCommand.Initialize(this);
             FileWebResourceShowDifferenceInConnectionGroupCommand.Initialize(this);
             FileWebResourceShowDifferenceThreeFileCommand.Initialize(this);
             FileWebResourceUpdateContentPublishCommand.Initialize(this);

@@ -198,6 +198,9 @@
   <data name="CommonExportEntityMetadataCommand" xml:space="preserve">
     <value>Entity Metadata</value>
   </data>
+  <data name="CommonExportOrganizationCommand" xml:space="preserve">
+    <value>Organization</value>
+  </data>
   <data name="CommonExportSolutionCommand" xml:space="preserve">
     <value>Export Solution</value>
   </data>

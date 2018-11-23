@@ -2167,7 +2167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             worker.Start();
         }
 
-        public void TestCurrentConnection()
+        public void TestConnection(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -2176,12 +2176,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            if (connectionData == null)
+            {
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (crmConfig != null && connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow();
                 WriteToOutputEmptyLines(commonConfig);
 
-                QuickConnection.TestConnectAsync(crmConfig.CurrentConnectionData, this);
+                QuickConnection.TestConnectAsync(connectionData, this);
             }
         }
 

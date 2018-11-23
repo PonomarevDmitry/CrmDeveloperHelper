@@ -350,7 +350,7 @@
     <Compile Include="Commands\FileWebResourceLinkCreateCommand.cs" />
     <Compile Include="Commands\FileWebResourceShowDependentComponentsCommand.cs" />
     <Compile Include="Commands\FileWebResourceShowDifferenceCommand.cs" />
-    <Compile Include="Commands\FileWebResourceShowDifferenceCustromCommand.cs" />
+    <Compile Include="Commands\FileWebResourceShowDifferenceCustomCommand.cs" />
     <Compile Include="Commands\FileWebResourceUpdateContentPublishCommand.cs" />
     <Compile Include="Commands\FileWebResourceUpdateContentPublishEqualByTextCommand.cs" />
     <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileCommand.cs" />

@@ -39,6 +39,7 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" priority="0x0601"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceCustom" priority="0x0601"/>      
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDependentComponents" priority="0x0602"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile" priority="0x0603"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" priority="0x0604"/>
@@ -165,12 +166,13 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish_MenuPublish_GroupConnectionGroup" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish_MenuPublishEqualByText_GroupConnectionGroup" priority="0x0601" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" priority="0x0602" />      
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuConnectionGroup_GroupConnectionGroup" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" priority="0x0601"/>
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceCustom" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDependentComponents" priority="0x0603" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile" priority="0x0604" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" priority="0x0605" />
@@ -421,6 +423,7 @@
 
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectConnection_GroupSelectConnection" priority="0x0607" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnection_Group" priority="0x0607" />
 
     </Groups>
 
@@ -1004,7 +1007,12 @@
 
 
 
-
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnection" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Test Connection</ButtonText>
+          <MenuText>Test Connection</MenuText>
+        </Strings>
+      </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectConnection" priority="0x0107" type="Menu">
         <Strings>
@@ -2346,7 +2354,7 @@
           <ButtonText>Show Difference</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceShowDifferenceCustromCommandId" priority="0x0111" type="Button">
+      <Button guid="guidCommandSet" id="FileWebResourceShowDifferenceCustomCommandId" priority="0x0111" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
@@ -4051,6 +4059,7 @@
 
 
       <Button guid="guidCommandSet" id="CommonExportOrganizationCommandId" priority="0x0125" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Organization</ButtonText>
         </Strings>
@@ -4439,10 +4448,13 @@
         </Strings>
       </Button>
 
-      <Button guid="guidCommandSet" id="CommonCrmConnectionTestCommandId" priority="0x012F" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionTestCommandId" priority="0x012F" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Test Connection</ButtonText>
+          <ButtonText>Test Connection Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonSelectCrmConnectionCommandId" priority="0x012F" type="Button">
@@ -4584,28 +4596,31 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" priority="0x0601">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple" priority="0x0601">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple" priority="0x0602">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDependentComponents" priority="0x0602">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceCustom" priority="0x0603">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile" priority="0x0603">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDependentComponents" priority="0x0604">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" priority="0x0604">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile" priority="0x0605">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupDownloadWebResource" priority="0x0605">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" priority="0x0606">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb" priority="0x0606">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupDownloadWebResource" priority="0x0607">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupAddIntoSolution" priority="0x0606">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb" priority="0x0608">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLastLink" priority="0x0607">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupAddIntoSolution" priority="0x0609">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLastLink" priority="0x060A">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
 
@@ -4870,34 +4885,37 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish" priority="0x0601">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" priority="0x0602">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" priority="0x0603">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple" priority="0x0602">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple" priority="0x0604">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDependentComponents" priority="0x0603">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDependentComponents" priority="0x0605">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile" priority="0x0604">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceCustom" priority="0x0606">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" priority="0x0605">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile" priority="0x0607">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding" priority="0x0608">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" priority="0x0608">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupDownload" priority="0x0609">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding" priority="0x0609">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb" priority="0x060A">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupDownload" priority="0x060A">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupAddIntoSolution" priority="0x060A">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb" priority="0x060B">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLastLink" priority="0x060B">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupAddIntoSolution" priority="0x060C">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLastLink" priority="0x060D">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
 
@@ -5934,11 +5952,17 @@
 
 
 
-
-
-    <CommandPlacement guid="guidCommandSet" id="CommonCrmConnectionTestCommandId" priority="0x012E">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnection" priority="0x012E">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
     </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnection_Group" priority="0x012E">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnection" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCrmConnectionTestCommandId" priority="0x012E">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnection_Group" />
+    </CommandPlacement>
+    
+  
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectConnection" priority="0x012F">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
@@ -6240,9 +6264,6 @@
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceCommandId" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceCustomCommandId" priority="0x0102">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" />
-    </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuConnectionGroup" priority="0x0103">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" />
@@ -6283,6 +6304,10 @@
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceShowDifferenceThreeWayCommandId" priority="0x0106">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" />
+    </CommandPlacement>
+    
+    <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceCustomCommandId" priority="0x0102">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceCustom" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDependentComponentsCommandId" priority="0x0102">
@@ -6957,9 +6982,6 @@
     <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDifferenceCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDifferenceCustromCommandId" priority="0x0111">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" />
-    </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuConnectionGroup" priority="0x0112">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" />
@@ -6999,6 +7021,10 @@
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceShowDifferenceThreeWayCommandId" priority="0x0115">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" />
+    </CommandPlacement>
+    
+    <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDifferenceCustomCommandId" priority="0x0111">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceCustom" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDependentComponentsCommandId" priority="0x0110">
@@ -7741,6 +7767,8 @@
 
       <IDSymbol name="codeMenuWebResource_GroupShowDifferenceMultiple" value="0x1193" />
 
+      <IDSymbol name="codeMenuWebResource_GroupShowDifferenceCustom" value="0x122A" />
+
       <IDSymbol name="codeMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections" value="0x116C" />
       <IDSymbol name="codeMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" value="0x116D" />
 
@@ -7995,6 +8023,8 @@
 
       <IDSymbol name="fileMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay" value="0x1164" />
       <IDSymbol name="fileMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" value="0x1165" />
+
+      <IDSymbol name="fileMenuWebResource_GroupShowDifferenceCustom" value="0x122B" />
 
       <IDSymbol name="fileMenuWebResource_GroupShowDependentComponents" value="0x1012" />
       <IDSymbol name="fileMenuWebResource_GroupCompareFile" value="0x1013" />
@@ -8412,9 +8442,12 @@
       <IDSymbol name="commonMenu_GroupConfiguration_MenuSelectConnection" value="0x1101" />
       <IDSymbol name="commonMenu_GroupConfiguration_MenuSelectConnection_GroupSelectConnection" value="0x1103" />
 
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuTestConnection" value="0x1228" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuTestConnection_Group" value="0x1229" />
 
 
-      <!--0x1228-->
+
+      <!--0x122C-->
 
 
     </GuidSymbol>
@@ -8576,6 +8609,10 @@
       <IDSymbol name="CodeXmlSetXsdSchemaCommandId" value="4350" />
 
       <IDSymbol name="CodeXmlShowDifferenceWithDefaultSitemapsCommandId" value="4375" />
+
+      <IDSymbol name="CommonCrmConnectionTestCommandId" value="4400" />
+
+      <!--4450-->
 
     </GuidSymbol>
 
@@ -8804,7 +8841,6 @@
 
       <IDSymbol name="CommonOrganizationComparerCommandId" value="0x2040" />
       <IDSymbol name="CommonOpenOrganizationDifferenceImageCommandId" value="0x2171" />
-      <IDSymbol name="CommonCrmConnectionTestCommandId" value="0x2115" />
 
       <IDSymbol name="CommonCrmConnectionCommandId" value="0x2041" />
       <IDSymbol name="CommonConfigCommandId" value="0x2042" />
@@ -8826,7 +8862,7 @@
       <IDSymbol name="FileWebResourceUpdateContentPublishCommandId" value="0x2043" />
 
       <IDSymbol name="FileWebResourceShowDifferenceCommandId" value="0x2045" />
-      <IDSymbol name="FileWebResourceShowDifferenceCustromCommandId" value="0x2046" />
+      <IDSymbol name="FileWebResourceShowDifferenceCustomCommandId" value="0x2046" />
 
       <IDSymbol name="FileWebResourceShowDependentComponentsCommandId" value="0x2047" />
 

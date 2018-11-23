@@ -51,6 +51,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuWebResource_GroupShowDifference_MenuConnectionGroup = 0x1130;
         public const int codeMenuWebResource_GroupShowDifference_MenuConnectionGroup_GroupConnectionGroup = 0x1131;
         public const int codeMenuWebResource_GroupShowDifferenceMultiple = 0x1193;
+        public const int codeMenuWebResource_GroupShowDifferenceCustom = 0x122A;
         public const int codeMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections = 0x116C;
         public const int codeMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup = 0x116D;
         public const int codeMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne = 0x118D;
@@ -197,6 +198,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int fileMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup = 0x1192;
         public const int fileMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay = 0x1164;
         public const int fileMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup = 0x1165;
+        public const int fileMenuWebResource_GroupShowDifferenceCustom = 0x122B;
         public const int fileMenuWebResource_GroupShowDependentComponents = 0x1012;
         public const int fileMenuWebResource_GroupCompareFile = 0x1013;
         public const int fileMenuWebResource_GroupOpenMultiAdd = 0x1014;
@@ -454,6 +456,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2_MenuAppModule_GroupConnections = 0x11CF;
         public const int commonMenu_GroupConfiguration_MenuSelectConnection = 0x1101;
         public const int commonMenu_GroupConfiguration_MenuSelectConnection_GroupSelectConnection = 0x1103;
+        public const int commonMenu_GroupConfiguration_MenuTestConnection = 0x1228;
+        public const int commonMenu_GroupConfiguration_MenuTestConnection_Group = 0x1229;
         public const int CommonSelectCrmConnectionCommandId = 0x0064;
         public const int CodeWebResourceAddIntoSolutionLastCommandId = 0x00C8;
         public const int CodeReportAddIntoSolutionLastCommandId = 0x00DC;
@@ -552,6 +556,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonExportXsdSchemasCommandId = 0x10E5;
         public const int CodeXmlSetXsdSchemaCommandId = 0x10FE;
         public const int CodeXmlShowDifferenceWithDefaultSitemapsCommandId = 0x1117;
+        public const int CommonCrmConnectionTestCommandId = 0x1130;
         public const int CodeWebResourceUpdateContentPublishCommandId = 0x2000;
         public const int CodeWebResourceShowDifferenceCommandId = 0x2001;
         public const int CodeWebResourceShowDifferenceCustomCommandId = 0x2002;
@@ -645,13 +650,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonOpenXsdSchemaFolderCommandId = 0x217A;
         public const int CommonOrganizationComparerCommandId = 0x2040;
         public const int CommonOpenOrganizationDifferenceImageCommandId = 0x2171;
-        public const int CommonCrmConnectionTestCommandId = 0x2115;
         public const int CommonCrmConnectionCommandId = 0x2041;
         public const int CommonConfigCommandId = 0x2042;
         public const int CommonOpenCurrentConnectionCrmInWebCommandId = 0x214A;
         public const int FileWebResourceUpdateContentPublishCommandId = 0x2043;
         public const int FileWebResourceShowDifferenceCommandId = 0x2045;
-        public const int FileWebResourceShowDifferenceCustromCommandId = 0x2046;
+        public const int FileWebResourceShowDifferenceCustomCommandId = 0x2046;
         public const int FileWebResourceShowDependentComponentsCommandId = 0x2047;
         public const int FileWebResourceCompareCommandId = 0x2048;
         public const int FileWebResourceCompareWithDetailsCommandId = 0x2049;
