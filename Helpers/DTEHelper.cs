@@ -1140,7 +1140,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #endregion Методы для работы со списком на публикацию.
 
-        public void HandleFileCompareCommand(List<SelectedFile> selectedFiles, bool withDetails)
+        public void HandleFileCompareCommand(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -1149,14 +1149,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null && selectedFiles.Count > 0)
+            if (connectionData == null)
+            {
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (crmConfig != null && connectionData != null && commonConfig != null && selectedFiles.Count > 0)
             {
                 ActivateOutputWindow();
                 WriteToOutputEmptyLines(commonConfig);
 
                 try
                 {
-                    Controller.StartComparing(selectedFiles, crmConfig.CurrentConnectionData, withDetails);
+                    Controller.StartComparing(selectedFiles, connectionData, withDetails);
                 }
                 catch (Exception xE)
                 {
@@ -2100,7 +2105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleFileCompareListForPublishCommand(bool withDetails)
+        public void HandleFileCompareListForPublishCommand(ConnectionData connectionData, bool withDetails)
         {
             List<SelectedFile> selectedFiles = this.GetSelectedFilesFromListForPublish();
 
@@ -2108,7 +2113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 this.ShowListForPublish();
 
-                this.HandleFileCompareCommand(selectedFiles, withDetails);
+                this.HandleFileCompareCommand(connectionData, selectedFiles, withDetails);
             }
             else
             {

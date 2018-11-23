@@ -51,6 +51,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeWebResourceCheckEncodingCommand.Initialize(this);
             CodeWebResourceCompareWithDetailsCommand.Initialize(this);
+            CodeWebResourceCompareInConnectionGroupCommand.Initialize(this);
             CodeWebResourceShowDifferenceCommand.Initialize(this);
             CodeWebResourceShowDifferenceCustomCommand.Initialize(this);
             CodeWebResourceShowDifferenceInConnectionGroupCommand.Initialize(this);
@@ -119,6 +120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceCheckEncodingOpenFilesCommand.Initialize(this);
             FileWebResourceCompareCommand.Initialize(this);
             FileWebResourceCompareWithDetailsCommand.Initialize(this);
+            FileWebResourceCompareInConnectionGroupCommand.Initialize(this);
             FileWebResourceDownloadCommand.Initialize(this);
             FileWebResourceOpenInWebCommand.Initialize(this);
             FileWebResourceLinkClearCommand.Initialize(this);
@@ -167,6 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             DocumentsWebResourceCheckEncodingCompareWithDetailsFilesCommand.Initialize(this);
             DocumentsWebResourceCompareCommand.Initialize(this);
             DocumentsWebResourceCompareWithDetailsCommand.Initialize(this);
+            DocumentsWebResourceCompareInConnectionGroupCommand.Initialize(this);
             DocumentsWebResouceLinkClearCommand.Initialize(this);
             DocumentsWebResouceLinkCreateCommand.Initialize(this);
             DocumentsWebResourceShowDependentComponentsCommand.Initialize(this);
@@ -203,6 +206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderWebResourceCheckEncodingOpenFilesCommand.Initialize(this);
             FolderWebResourceCompareCommand.Initialize(this);
             FolderWebResourceCompareWithDetailsCommand.Initialize(this);
+            FolderWebResourceCompareInConnectionGroupCommand.Initialize(this);
             FolderWebResourceLinkClearCommand.Initialize(this);
             FolderWebResourceLinkCreateCommand.Initialize(this);
             FolderWebResourceShowDependentComponentsCommand.Initialize(this);
@@ -230,6 +234,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ListForPublishClearListCommand.Initialize(this);
             ListForPublishCompareCommand.Initialize(this);
             ListForPublishCompareWithDetailsCommand.Initialize(this);
+            ListForPublishCompareInConnectionGroupCommand.Initialize(this);
             ListForPublishFilesAddCommand.Initialize(this);
             ListForPublishFilesRemoveCommand.Initialize(this);
             ListForPublishPerformPublishEqualByTextCommand.Initialize(this);

@@ -655,7 +655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compare files (Recursive).
+        ///   Looks up a localized string similar to Compare Files (Recursive).
         /// </summary>
         internal static string FolderWebResourceCompareCommand {
             get {
@@ -664,7 +664,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compare files with details (Recursive).
+        ///   Looks up a localized string similar to Compare Files with details (Recursive).
         /// </summary>
         internal static string FolderWebResourceCompareWithDetailsCommand {
             get {
@@ -700,7 +700,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compare files.
+        ///   Looks up a localized string similar to Compare Files.
         /// </summary>
         internal static string ListForPublishCompareCommand {
             get {
@@ -709,7 +709,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compare files with details.
+        ///   Looks up a localized string similar to Compare Files with details.
         /// </summary>
         internal static string ListForPublishCompareWithDetailsCommand {
             get {

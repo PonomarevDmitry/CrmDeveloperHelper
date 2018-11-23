@@ -42,6 +42,7 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceCustom" priority="0x0601"/>      
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDependentComponents" priority="0x0602"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile" priority="0x0603"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile_MenuConnection_Group" priority="0x0603"/>      
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" priority="0x0604"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupDownloadWebResource" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb" priority="0x0605"/>
@@ -124,6 +125,8 @@
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishEqualByText_GroupConnectionGroup" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupShowDependentComponents" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile" priority="0x0601" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile_MenuConnection_Group" priority="0x0601" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile_MenuConnectionWithDetails_Group" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" priority="0x0601" />
@@ -175,6 +178,8 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceCustom" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDependentComponents" priority="0x0603" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile" priority="0x0604" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile_MenuConnection_Group" priority="0x0604" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile_MenuConnectionWithDetails_Group" priority="0x0604" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" priority="0x0605" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding" priority="0x0608" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" priority="0x0608" />
@@ -243,7 +248,11 @@
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupPublish_MenuPublish_GroupConnectionGroup" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupPublish_MenuPublishEqualByText_GroupConnectionGroup" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupShowDependentComponents" priority="0x0603" />
+      
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile" priority="0x0604" />
+
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile_MenuConnection_Group" priority="0x0604" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile_MenuConnectionWithDetails_Group" priority="0x0604" />
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd" priority="0x0605" />
 
@@ -291,7 +300,10 @@
 
 
 
-      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompare" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile" priority="0x0602" />
+      
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile_MenuConnection_Group" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile_MenuConnectionWithDetails_Group" priority="0x0602" />
 
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupByText" priority="0x0608" />
@@ -441,6 +453,13 @@
         </Strings>
       </Menu>
 
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile_MenuConnection" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Compare File with details in Connection Group</ButtonText>
+          <MenuText>Compare File with details in Connection Group</MenuText>
+        </Strings>
+      </Menu>
+
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml" priority="0x0201" type="Menu">
         <Strings>
           <ButtonText>Crm XML</ButtonText>
@@ -501,6 +520,24 @@
           <MenuText>Publish equal by Text</MenuText>
         </Strings>
       </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile_MenuConnection" priority="0x0201" type="Menu">
+        <Strings>
+          <ButtonText>Compare Files in Connection Group</ButtonText>
+          <MenuText>Compare Files in Connection Group</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile_MenuConnectionWithDetails" priority="0x0201" type="Menu">
+        <Strings>
+          <ButtonText>Compare Files with details in Connection Group</ButtonText>
+          <MenuText>Compare Files with details in Connection Group</MenuText>
+        </Strings>
+      </Menu>
+
+
+
+      
+
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" priority="0x0201" type="Menu">
         <Strings>
           <ButtonText>Multi Difference</ButtonText>
@@ -589,6 +626,20 @@
         </Strings>
       </Menu>
 
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile_MenuConnection" priority="0x0201" type="Menu">
+        <Strings>
+          <ButtonText>Compare Files in Connection Group</ButtonText>
+          <MenuText>Compare Files in Connection Group</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile_MenuConnectionWithDetails" priority="0x0201" type="Menu">
+        <Strings>
+          <ButtonText>Compare Files with details in Connection Group</ButtonText>
+          <MenuText>Compare Files with details in Connection Group</MenuText>
+        </Strings>
+      </Menu>
+      
+
       <Menu guid="guidGroupAndMenuSet" id="fileMenuReport" priority="0x0205" type="Menu">
         <Strings>
           <ButtonText>Crm Reports</ButtonText>
@@ -623,6 +674,20 @@
           <MenuText>Publish equal by Text (Recursive)</MenuText>
         </Strings>
       </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile_MenuConnection" priority="0x0201" type="Menu">
+        <Strings>
+          <ButtonText>Compare Files (Recursive) in Connection Group</ButtonText>
+          <MenuText>Compare Files (Recursive) in Connection Group</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile_MenuConnectionWithDetails" priority="0x0201" type="Menu">
+        <Strings>
+          <ButtonText>Compare Files with details (Recursive) in Connection Group</ButtonText>
+          <MenuText>Compare Files with details (Recursive) in Connection Group</MenuText>
+        </Strings>
+      </Menu>
+
       <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen" priority="0x020B" type="Menu">
         <Strings>
           <ButtonText>Open Files (Recursive)</ButtonText>
@@ -991,22 +1056,6 @@
       </Menu>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnection" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Test Connection</ButtonText>
@@ -1020,6 +1069,22 @@
           <MenuText>Select Connection</MenuText>
         </Strings>
       </Menu>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupAddIntoSolution_MenuLastSolution" priority="0x0107" type="Menu">
         <Strings>
@@ -1265,6 +1330,7 @@
           <MenuText>Open WebResource in Web</MenuText>
         </Strings>
       </Menu>
+      
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWeb" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Open WebResource Dependent Components in Web</ButtonText>
@@ -1309,6 +1375,8 @@
         </Strings>
       </Menu>
 
+      
+      
       <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenInWeb" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Open WebResource in Web</ButtonText>
@@ -1356,6 +1424,21 @@
         <Strings>
           <ButtonText>Open Solutions Containing Report in Window</ButtonText>
           <MenuText>Open Solutions Containing Report in Window</MenuText>
+        </Strings>
+      </Menu>
+
+      
+
+      <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile_MenuConnection" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Compare Files in Connection Group</ButtonText>
+          <MenuText>Compare Files in Connection Group</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile_MenuConnectionWithDetails" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Compare Files with details in Connection Group</ButtonText>
+          <MenuText>Compare Files with details in Connection Group</MenuText>
         </Strings>
       </Menu>
 
@@ -1585,6 +1668,18 @@
           <ButtonText>Compare File with details</ButtonText>
         </Strings>
       </Button>
+
+      <Button guid="guidDynamicCommandSet" id="CodeWebResourceCompareWithDetailsInConnectionGroupCommandId" priority="0x0103" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Compare File with details in Connection Group Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      
+      
       <Button guid="guidCommandSet" id="CodeWebResourceCheckEncodingCommandId" priority="0x0104" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
@@ -2031,7 +2126,26 @@
           <ButtonText>Compare Files with details</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceCompareInConnectionGroupCommandId" priority="0x0111" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Compare Files in Connection Group Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceCompareWithDetailsInConnectionGroupCommandId" priority="0x0111" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Compare Files with details in Connection Group Placeholder</ButtonText>
+        </Strings>
+      </Button>
 
+      
 
 
       <Button guid="guidCommandSet" id="DocumentsWebResourceCheckEncodingCommandId" priority="0x0110" type="Button">
@@ -2417,6 +2531,24 @@
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Compare Files with details</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceCompareInConnectionGroupCommandId" priority="0x0111" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Compare Files in Connection Group Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceCompareWithDetailsInConnectionGroupCommandId" priority="0x0111" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Compare Files with details in Connection Group Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3070,14 +3202,33 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare files (Recursive)</ButtonText>
+          <ButtonText>Compare Files (Recursive)</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="FolderWebResourceCompareWithDetailsCommandId" priority="0x0114" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare files with details (Recursive)</ButtonText>
+          <ButtonText>Compare Files with details (Recursive)</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidDynamicCommandSet" id="FolderWebResourceCompareInConnectionGroupCommandId" priority="0x0111" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Compare Files (Recursive) in Connection Group Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FolderWebResourceCompareWithDetailsInConnectionGroupCommandId" priority="0x0111" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Compare Files with details (Recursive) in Connection Group Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3542,14 +3693,33 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare files</ButtonText>
+          <ButtonText>Compare Files</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="ListForPublishCompareWithDetailsCommandId" priority="0x0104" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare files with details</ButtonText>
+          <ButtonText>Compare Files with details</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidDynamicCommandSet" id="ListForPublishCompareInConnectionGroupCommandId" priority="0x0111" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Compare Files in Connection Group Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="ListForPublishCompareWithDetailsInConnectionGroupCommandId" priority="0x0111" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Compare Files with details in Connection Group Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5296,7 +5466,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd" priority="0x0601">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompare" priority="0x0602">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile" priority="0x0602">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupAddIntoSolution" priority="0x0604">
@@ -5469,13 +5639,31 @@
 
 
     <CommandPlacement guid="guidCommandSet" id="ListForPublishCompareCommandId" priority="0x0103">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompare" />
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="ListForPublishCompareWithDetailsCommandId" priority="0x0104">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompare" />
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile_MenuConnection" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile_MenuConnection_Group" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile_MenuConnection" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishCompareInConnectionGroupCommandId" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile_MenuConnection_Group" />
+    </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile_MenuConnectionWithDetails" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile_MenuConnectionWithDetails_Group" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile_MenuConnectionWithDetails" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishCompareWithDetailsInConnectionGroupCommandId" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile_MenuConnectionWithDetails_Group" />
+    </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="ListForPublishShowListCommandId" priority="0x0107">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupShowList" />
@@ -6314,8 +6502,18 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDependentComponents" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CodeWebResourceCompareWithDetailsCommandId" priority="0x0103">
+    <CommandPlacement guid="guidCommandSet" id="CodeWebResourceCompareWithDetailsCommandId" priority="0x0102">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile_MenuConnection" priority="0x0103">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile_MenuConnection_Group" priority="0x0103">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile_MenuConnection" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceCompareWithDetailsInConnectionGroupCommandId" priority="0x0103">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile_MenuConnection_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceCheckEncodingCommandId" priority="0x0104">
@@ -6753,7 +6951,25 @@
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile_MenuConnection" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile_MenuConnection_Group" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile_MenuConnection" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceCompareInConnectionGroupCommandId" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile_MenuConnection_Group" />
+    </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile_MenuConnectionWithDetails" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile_MenuConnectionWithDetails_Group" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile_MenuConnectionWithDetails" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceCompareWithDetailsInConnectionGroupCommandId" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile_MenuConnectionWithDetails_Group" />
+    </CommandPlacement>
 
 
 
@@ -7038,7 +7254,25 @@
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile_MenuConnection" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile_MenuConnection_Group" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile_MenuConnection" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceCompareInConnectionGroupCommandId" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile_MenuConnection_Group" />
+    </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile_MenuConnectionWithDetails" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile_MenuConnectionWithDetails_Group" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile_MenuConnectionWithDetails" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceCompareWithDetailsInConnectionGroupCommandId" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile_MenuConnectionWithDetails_Group" />
+    </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="FileOpenFilesAllCommandId" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupByText" />
@@ -7471,6 +7705,27 @@
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile_MenuConnection" priority="0x0115">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile_MenuConnection_Group" priority="0x0115">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile_MenuConnection" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceCompareInConnectionGroupCommandId" priority="0x0115">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile_MenuConnection_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile_MenuConnectionWithDetails" priority="0x0116">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile_MenuConnectionWithDetails_Group" priority="0x0116">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile_MenuConnectionWithDetails" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceCompareWithDetailsInConnectionGroupCommandId" priority="0x0116">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile_MenuConnectionWithDetails_Group" />
+    </CommandPlacement>
+    
+
     <CommandPlacement guid="guidCommandSet" id="FolderOpenFilesAllCommandId" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupByText" />
     </CommandPlacement>
@@ -7779,7 +8034,11 @@
       <IDSymbol name="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" value="0x1163" />
 
       <IDSymbol name="codeMenuWebResource_GroupShowDependentComponents" value="0x1003" />
+      
       <IDSymbol name="codeMenuWebResource_GroupCompareFile" value="0x1004" />
+      <IDSymbol name="codeMenuWebResource_GroupCompareFile_MenuConnection" value="0x122C" />
+      <IDSymbol name="codeMenuWebResource_GroupCompareFile_MenuConnection_Group" value="0x122D" />
+
       <IDSymbol name="codeMenuWebResource_GroupCheckFileEncoding" value="0x1005" />
       <IDSymbol name="codeMenuWebResource_GroupDownloadWebResource" value="0x1006" />
       <IDSymbol name="codeMenuWebResource_GroupOpenInWeb" value="0x107D" />
@@ -7931,6 +8190,12 @@
       <IDSymbol name="documentsMenuWebResource_GroupShowDependentComponents" value="0x1170" />
       <IDSymbol name="documentsMenuWebResource_GroupCompareFile" value="0x1171" />
 
+      <IDSymbol name="documentsMenuWebResource_GroupCompareFile_MenuConnection" value="0x122E" />
+      <IDSymbol name="documentsMenuWebResource_GroupCompareFile_MenuConnection_Group" value="0x122F" />
+
+      <IDSymbol name="documentsMenuWebResource_GroupCompareFile_MenuConnectionWithDetails" value="0x1230" />
+      <IDSymbol name="documentsMenuWebResource_GroupCompareFile_MenuConnectionWithDetails_Group" value="0x1231" />
+
       <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd" value="0x1172" />
 
       <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" value="0x1173" />
@@ -8028,6 +8293,12 @@
 
       <IDSymbol name="fileMenuWebResource_GroupShowDependentComponents" value="0x1012" />
       <IDSymbol name="fileMenuWebResource_GroupCompareFile" value="0x1013" />
+
+      <IDSymbol name="fileMenuWebResource_GroupCompareFile_MenuConnection" value="0x1232" />
+      <IDSymbol name="fileMenuWebResource_GroupCompareFile_MenuConnection_Group" value="0x1233" />
+      
+      <IDSymbol name="fileMenuWebResource_GroupCompareFile_MenuConnectionWithDetails" value="0x1234" />
+      <IDSymbol name="fileMenuWebResource_GroupCompareFile_MenuConnectionWithDetails_Group" value="0x1235" />
 
       <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd" value="0x1014" />
 
@@ -8142,6 +8413,12 @@
       <IDSymbol name="folderMenuWebResource_GroupShowDependentComponents" value="0x1063" />
       <IDSymbol name="folderMenuWebResource_GroupCompareFile" value="0x1064" />
 
+      <IDSymbol name="folderMenuWebResource_GroupCompareFile_MenuConnection" value="0x1236" />
+      <IDSymbol name="folderMenuWebResource_GroupCompareFile_MenuConnection_Group" value="0x1237" />
+      
+      <IDSymbol name="folderMenuWebResource_GroupCompareFile_MenuConnectionWithDetails" value="0x1238" />
+      <IDSymbol name="folderMenuWebResource_GroupCompareFile_MenuConnectionWithDetails_Group" value="0x1239" />
+
       <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd" value="0x1065" />
 
       <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen" value="0x1066" />
@@ -8210,7 +8487,13 @@
 
       <IDSymbol name="listForPublishMenu" value="0x10A1" />
 
-      <IDSymbol name="listForPublishMenu_GroupCompare" value="0x10A2" />
+      <IDSymbol name="listForPublishMenu_GroupCompareFile" value="0x10A2" />
+
+      <IDSymbol name="listForPublishMenu_GroupCompareFile_MenuConnection" value="0x123A" />
+      <IDSymbol name="listForPublishMenu_GroupCompareFile_MenuConnection_Group" value="0x123B" />
+      
+      <IDSymbol name="listForPublishMenu_GroupCompareFile_MenuConnectionWithDetails" value="0x123C" />
+      <IDSymbol name="listForPublishMenu_GroupCompareFile_MenuConnectionWithDetails_Group" value="0x123D" />
 
       <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd" value="0x10A3" />
 
@@ -8447,7 +8730,7 @@
 
 
 
-      <!--0x122C-->
+      <!--0x123E-->
 
 
     </GuidSymbol>
@@ -8612,7 +8895,23 @@
 
       <IDSymbol name="CommonCrmConnectionTestCommandId" value="4400" />
 
-      <!--4450-->
+      <IDSymbol name="CodeWebResourceCompareWithDetailsInConnectionGroupCommandId" value="4450" />
+
+      <IDSymbol name="DocumentsWebResourceCompareInConnectionGroupCommandId" value="4500" />
+      <IDSymbol name="DocumentsWebResourceCompareWithDetailsInConnectionGroupCommandId" value="4550" />
+
+      <IDSymbol name="FileWebResourceCompareInConnectionGroupCommandId" value="4600" />
+      <IDSymbol name="FileWebResourceCompareWithDetailsInConnectionGroupCommandId" value="4650" />
+
+      <IDSymbol name="FolderWebResourceCompareInConnectionGroupCommandId" value="4700" />
+      <IDSymbol name="FolderWebResourceCompareWithDetailsInConnectionGroupCommandId" value="4750" />
+
+      <IDSymbol name="ListForPublishCompareInConnectionGroupCommandId" value="4800" />
+      <IDSymbol name="ListForPublishCompareWithDetailsInConnectionGroupCommandId" value="4850" />
+
+      <!--4900-->
+
+      
 
     </GuidSymbol>
 

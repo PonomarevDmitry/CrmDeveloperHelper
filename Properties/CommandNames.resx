@@ -316,10 +316,10 @@
     <value>Add WebResources in Crm Solution (Recursive)</value>
   </data>
   <data name="FolderWebResourceCompareCommand" xml:space="preserve">
-    <value>Compare files (Recursive)</value>
+    <value>Compare Files (Recursive)</value>
   </data>
   <data name="FolderWebResourceCompareWithDetailsCommand" xml:space="preserve">
-    <value>Compare files with details (Recursive)</value>
+    <value>Compare Files with details (Recursive)</value>
   </data>
   <data name="FolderWebResourceUpdateContentPublishCommand" xml:space="preserve">
     <value>Publish Files (Recursive)</value>
@@ -331,10 +331,10 @@
     <value>Clear List</value>
   </data>
   <data name="ListForPublishCompareCommand" xml:space="preserve">
-    <value>Compare files</value>
+    <value>Compare Files</value>
   </data>
   <data name="ListForPublishCompareWithDetailsCommand" xml:space="preserve">
-    <value>Compare files with details</value>
+    <value>Compare Files with details</value>
   </data>
   <data name="ListForPublishShowListCommand" xml:space="preserve">
     <value>Show List</value>
