@@ -59,14 +59,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
 
-            var syncObject = new object();
-            _syncCacheObjects.Add(service.ConnectionData.ConnectionId, syncObject);
-
             BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
 
-            BindingOperations.EnableCollectionSynchronization(service.ConnectionData.TraceReaderLastFilters, syncObject);
-            BindingOperations.EnableCollectionSynchronization(service.ConnectionData.TraceReaderLastFolders, syncObject);
-            BindingOperations.EnableCollectionSynchronization(service.ConnectionData.TraceReaderSelectedFolders, syncObject);
+            BindCollections(service.ConnectionData);
 
             InitializeComponent();
 
@@ -467,24 +462,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
-                if (connectionData != null)
-                {
-                    if (!_syncCacheObjects.ContainsKey(connectionData.ConnectionId))
-                    {
-                        var syncObject = new object();
-
-                        _syncCacheObjects.Add(connectionData.ConnectionId, syncObject);
-
-                        BindingOperations.EnableCollectionSynchronization(connectionData.TraceReaderLastFilters, syncObject);
-                        BindingOperations.EnableCollectionSynchronization(connectionData.TraceReaderLastFolders, syncObject);
-                        BindingOperations.EnableCollectionSynchronization(connectionData.TraceReaderSelectedFolders, syncObject);
-                    }
-                }
+                BindCollections(connectionData);
             });
 
             if (connectionData != null)
             {
                 OpenFilesInFoldersAsync();
+            }
+        }
+
+        private void BindCollections(ConnectionData connectionData)
+        {
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            if (!_syncCacheObjects.ContainsKey(connectionData.ConnectionId))
+            {
+                _syncCacheObjects.Add(connectionData.ConnectionId, new object());
+
+                BindingOperations.EnableCollectionSynchronization(connectionData.TraceReaderLastFilters, _syncCacheObjects[connectionData.ConnectionId]);
+                BindingOperations.EnableCollectionSynchronization(connectionData.TraceReaderLastFolders, _syncCacheObjects[connectionData.ConnectionId]);
+                BindingOperations.EnableCollectionSynchronization(connectionData.TraceReaderSelectedFolders, _syncCacheObjects[connectionData.ConnectionId]);
             }
         }
 

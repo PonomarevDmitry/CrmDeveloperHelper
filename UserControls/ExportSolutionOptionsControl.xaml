@@ -10,7 +10,7 @@
              BorderBrush="Black" 
              Focusable="True"
              Width="963" 
-             Height="265">
+             Height="296">
     <Grid Background="White">
         <DockPanel Margin="10,0" VerticalAlignment="Top" Height="105" LastChildFill="True">
 
@@ -84,16 +84,20 @@
             </GroupBox>
         </DockPanel>
 
-        <Label Content="UniqueName" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="cmBUniqueName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExportSolutionOverrideUniqueName}" ItemsSource="{Binding Path=SelectedItem.LastExportSolutionOverrideUniqueName}" Height="23" Margin="85,110,165,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <Label Content="Export Folder" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <ComboBox x:Name="cmBExportFolder" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Height="23" Margin="85,110,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" />
 
-        <Label Content="DisplayName" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="cmBDisplayName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExportSolutionOverrideDisplayName}" ItemsSource="{Binding Path=SelectedItem.LastExportSolutionOverrideDisplayName}" Height="23" Margin="85,138,165,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <Label Content="UniqueName" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <ComboBox x:Name="cmBUniqueName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExportSolutionOverrideUniqueName}" ItemsSource="{Binding Path=SelectedItem.LastExportSolutionOverrideUniqueName}" Height="23" Margin="85,138,165,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
 
-        <Label Content="Version" Margin="0,110,120,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="40"/>
-        <ComboBox x:Name="cmBVersion" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExportSolutionOverrideVersion}" ItemsSource="{Binding Path=SelectedItem.LastExportSolutionOverrideVersion}" Height="23" Margin="0,110,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="105"/>
+        <Label Content="DisplayName" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <ComboBox x:Name="cmBDisplayName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExportSolutionOverrideDisplayName}" ItemsSource="{Binding Path=SelectedItem.LastExportSolutionOverrideDisplayName}" Height="23" Margin="85,166,165,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
 
-        <Label Content="Description" Margin="10,166,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
-        <TextBox x:Name="txtBDescription" Text="{Binding SelectedItem.ExportSolutionOverrideDescription}" Margin="85,166,10,10" VerticalContentAlignment="Top"/>
+        <Label Content="Version" Margin="0,138,120,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="40"/>
+        <ComboBox x:Name="cmBVersion" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExportSolutionOverrideVersion}" ItemsSource="{Binding Path=SelectedItem.LastExportSolutionOverrideVersion}" Height="23" Margin="0,138,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="105"/>
+
+        <Label Content="Description" Margin="10,194,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
+        <TextBox x:Name="txtBDescription" Text="{Binding SelectedItem.ExportSolutionOverrideDescription}" Margin="85,194,10,10" VerticalContentAlignment="Top"/>
+
     </Grid>
 </UserControl>

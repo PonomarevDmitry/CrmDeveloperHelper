@@ -79,11 +79,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
 
-            BindCollections(service.ConnectionData);
-
-            cmBExportFolder.Text = service.ConnectionData.ExportSolutionFolder;
-            cmBFilter.Text = service.ConnectionData.ExplorerSolutionFilter;
-
             this._optionsExportSolutionOptionsControl = new ExportSolutionOptionsControl(_commonConfig, cmBCurrentConnection);
             this._optionsExportSolutionOptionsControl.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
@@ -98,6 +93,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadFromConfig();
 
+            cmBFilter.Text = service.ConnectionData.ExplorerSolutionFilter;
+
             sepClearSolutionComponentFilter.IsEnabled = btnClearSolutionComponentFilter.IsEnabled = _objectId.HasValue && _componentType.HasValue;
             sepClearSolutionComponentFilter.Visibility = btnClearSolutionComponentFilter.Visibility = (_objectId.HasValue && _componentType.HasValue) ? Visibility.Visible : Visibility.Collapsed;
 
@@ -110,6 +107,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             service.ConnectionData.LastSelectedSolutionsUniqueName.CollectionChanged -= LastSelectedSolutionsUniqueName_CollectionChanged;
             service.ConnectionData.LastSelectedSolutionsUniqueName.CollectionChanged += LastSelectedSolutionsUniqueName_CollectionChanged;
+
+            BindCollections(service.ConnectionData);
 
             _init--;
 
@@ -136,8 +135,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBFilter.DataContext = cmBCurrentConnection;
 
-            cmBFilter.Text = (cmBCurrentConnection.SelectedItem as ConnectionData)?.ExplorerSolutionFilter;
-
             if (this._selectedItem != null)
             {
                 string exportFolder = string.Empty;
@@ -155,29 +152,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     exportFolder = Path.Combine(solutionPath, relativePath);
                 }
 
-                cmBExportFolder.IsReadOnly = true;
-                cmBExportFolder.Text = exportFolder;
+                _optionsExportSolutionOptionsControl.SetExportFolderReadOnly(exportFolder);
             }
             else
             {
-                //Text="{Binding Path=SelectedItem.ExportSolutionFolder}" ItemsSource="{Binding Path=SelectedItem.LastSolutionExportFolders}" 
-                {
-                    Binding binding = new Binding
-                    {
-                        Path = new PropertyPath("SelectedItem.ExportSolutionFolder")
-                    };
-                    BindingOperations.SetBinding(cmBExportFolder, ComboBox.TextProperty, binding);
-                }
-
-                {
-                    Binding binding = new Binding
-                    {
-                        Path = new PropertyPath("SelectedItem.LastSolutionExportFolders")
-                    };
-                    BindingOperations.SetBinding(cmBExportFolder, ComboBox.ItemsSourceProperty, binding);
-                }
-
-                cmBExportFolder.DataContext = cmBCurrentConnection;
+                _optionsExportSolutionOptionsControl.BindExportFolder();
             }
         }
 
@@ -220,15 +199,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
             BindingOperations.ClearAllBindings(cmBFilter);
-            BindingOperations.ClearAllBindings(cmBExportFolder);
 
             cmBFilter.Items.DetachFromSourceCollection();
             cmBCurrentConnection.Items.DetachFromSourceCollection();
-            cmBExportFolder.Items.DetachFromSourceCollection();
 
             cmBFilter.ItemsSource = null;
             cmBCurrentConnection.ItemsSource = null;
-            cmBExportFolder.ItemsSource = null;
 
             base.OnClosed(e);
         }
@@ -874,18 +850,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string exportFolder = string.Empty;
-
-            cmBExportFolder.Dispatcher.Invoke(() =>
-            {
-                exportFolder = cmBExportFolder.Text?.Trim();
-            });
-
-            if (string.IsNullOrEmpty(exportFolder))
-            {
-                return;
-            }
-
             ConnectionData connectionData = null;
 
             cmBCurrentConnection.Dispatcher.Invoke(() =>
@@ -894,6 +858,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
 
             if (connectionData == null)
+            {
+                return;
+            }
+
+            string exportFolder = string.Empty;
+
+            exportFolder = _optionsExportSolutionOptionsControl.GetExportFolder();
+
+            if (string.IsNullOrEmpty(exportFolder))
             {
                 return;
             }
@@ -1040,11 +1013,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         this.Dispatcher.Invoke(() =>
                         {
-                            var text = cmBExportFolder.Text;
+                            _optionsExportSolutionOptionsControl.StoreTextValues();
 
                             service.ConnectionData.AddLastSolutionExportFolder(exportFolder);
 
-                            cmBExportFolder.Text = text;
+                            _optionsExportSolutionOptionsControl.RestoreTextValues();
                         });
                     }
 
@@ -2154,18 +2127,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _syncCacheObjects.Add(connectionData.ConnectionId, new object());
 
                 BindingOperations.EnableCollectionSynchronization(connectionData.LastSelectedSolutionsUniqueName, _syncCacheObjects[connectionData.ConnectionId]);
-                BindingOperations.EnableCollectionSynchronization(connectionData.LastSolutionExportFolders, _syncCacheObjects[connectionData.ConnectionId]);
 
+                BindingOperations.EnableCollectionSynchronization(connectionData.LastSolutionExportFolders, _syncCacheObjects[connectionData.ConnectionId]);
                 BindingOperations.EnableCollectionSynchronization(connectionData.LastExportSolutionOverrideUniqueName, _syncCacheObjects[connectionData.ConnectionId]);
                 BindingOperations.EnableCollectionSynchronization(connectionData.LastExportSolutionOverrideDisplayName, _syncCacheObjects[connectionData.ConnectionId]);
                 BindingOperations.EnableCollectionSynchronization(connectionData.LastExportSolutionOverrideVersion, _syncCacheObjects[connectionData.ConnectionId]);
             }
 
-            var text = cmBExportFolder.Text;
+            _optionsExportSolutionOptionsControl.StoreTextValues();
 
             connectionData.AddLastSolutionExportFolder(_commonConfig.FolderForExport);
 
-            cmBExportFolder.Text = text;
+            _optionsExportSolutionOptionsControl.RestoreTextValues();
         }
 
         private void lstVwSolutions_MouseDoubleClick(object sender, MouseButtonEventArgs e)

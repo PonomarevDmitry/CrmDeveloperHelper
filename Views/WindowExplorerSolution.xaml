@@ -15,19 +15,16 @@
     </src:WindowBase.Resources>
     <Grid>
         <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
-            <Button Content="Export Solution Options" Click="miExportSolutionOptions_Click"/> 
+            <Button Content="Export Solution Options" Click="miExportSolutionOptions_Click"/>
         </ToolBar>
 
-        <Label Content="Solution Export Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="cmBExportFolder" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Height="23" Margin="133,38,10,0" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="58,38,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
 
-        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="58,66,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <ComboBox x:Name="cmBFilter" Height="23" Margin="58,66,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExplorerSolutionFilter}" ItemsSource="{Binding Path=SelectedItem.LastSelectedSolutionsUniqueName}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
 
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="cmBFilter" Height="23" Margin="58,94,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExplorerSolutionFilter}" ItemsSource="{Binding Path=SelectedItem.LastSelectedSolutionsUniqueName}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-
-        <GroupBox Header="Solutions" Margin="10,122,10,69">
+        <GroupBox Header="Solutions" Margin="10,94,10,69">
             <DockPanel LastChildFill="True">
                 <ToolBar Height="Auto" Width="Auto" VerticalAlignment="Top" DockPanel.Dock="Top" >
                     <ToolBar.Resources>

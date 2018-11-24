@@ -134,12 +134,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             this.FilePath = filePath;
             this._connectionConfig = connectionData.ConnectionConfiguration;
 
-            var syncObject = new object();
-
-            _syncCacheObjects.Add(connectionData.ConnectionId, syncObject);
-
             BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
-            BindingOperations.EnableCollectionSynchronization(connectionData.FetchXmlRequestParameterList, syncObject);
+
+            BindCollections(connectionData);
 
             cmBCurrentConnection.ItemsSource = _connectionConfig.Connections;
             cmBCurrentConnection.SelectedItem = connectionData;
@@ -911,14 +908,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 
                 if (cmBCurrentConnection.SelectedItem is ConnectionData connectionData)
                 {
-                    if (!_syncCacheObjects.ContainsKey(connectionData.ConnectionId))
-                    {
-                        var syncObject = new object();
-
-                        _syncCacheObjects.Add(connectionData.ConnectionId, syncObject);
-
-                        BindingOperations.EnableCollectionSynchronization(connectionData.FetchXmlRequestParameterList, syncObject);
-                    }
+                    BindCollections(connectionData);
                 }
             });
 
@@ -927,6 +917,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             if (!_controlsEnabled)
             {
                 return;
+            }
+        }
+
+        private void BindCollections(ConnectionData connectionData)
+        {
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            if (!_syncCacheObjects.ContainsKey(connectionData.ConnectionId))
+            {
+                _syncCacheObjects.Add(connectionData.ConnectionId, new object());
+
+                BindingOperations.EnableCollectionSynchronization(connectionData.FetchXmlRequestParameterList, _syncCacheObjects[connectionData.ConnectionId]);
             }
         }
 

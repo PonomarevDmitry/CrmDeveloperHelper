@@ -1,6 +1,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -15,6 +16,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private string _textUniqueName;
         private string _textDisplayName;
+        private string _textExportFolder;
 
         public ExportSolutionOptionsControl(CommonConfiguration commonConfig, ComboBox cmBCurrentConnection)
         {
@@ -23,6 +25,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             this._commonConfig = commonConfig;
             this._cmBCurrentConnection = cmBCurrentConnection;
 
+            LoadFromConfig();
+
             if (_cmBCurrentConnection.SelectedItem is ConnectionData connectionData)
             {
                 BindCollections(connectionData);
@@ -30,11 +34,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 cmBUniqueName.Text = connectionData.ExportSolutionOverrideUniqueName;
                 cmBDisplayName.Text = connectionData.ExportSolutionOverrideDisplayName;
                 cmBVersion.Text = connectionData.ExportSolutionOverrideVersion;
+                cmBExportFolder.Text = connectionData.ExportSolutionOverrideVersion;
+                cmBExportFolder.Text = connectionData.ExportSolutionFolder;
             }
 
             cmBCurrentConnection.SelectionChanged += CmBCurrentConnection_SelectionChanged;
-
-            LoadFromConfig();
         }
 
         private void CmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -53,6 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 _syncCacheObjects.Add(connectionData.ConnectionId, new object());
 
+                BindingOperations.EnableCollectionSynchronization(connectionData.LastSolutionExportFolders, _syncCacheObjects[connectionData.ConnectionId]);
                 BindingOperations.EnableCollectionSynchronization(connectionData.LastExportSolutionOverrideUniqueName, _syncCacheObjects[connectionData.ConnectionId]);
                 BindingOperations.EnableCollectionSynchronization(connectionData.LastExportSolutionOverrideDisplayName, _syncCacheObjects[connectionData.ConnectionId]);
                 BindingOperations.EnableCollectionSynchronization(connectionData.LastExportSolutionOverrideVersion, _syncCacheObjects[connectionData.ConnectionId]);
@@ -92,26 +97,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             BindingOperations.ClearAllBindings(cmBUniqueName);
             BindingOperations.ClearAllBindings(cmBDisplayName);
             BindingOperations.ClearAllBindings(cmBVersion);
+            BindingOperations.ClearAllBindings(cmBExportFolder);
 
             cmBUniqueName.Items.DetachFromSourceCollection();
             cmBDisplayName.Items.DetachFromSourceCollection();
             cmBVersion.Items.DetachFromSourceCollection();
+            cmBExportFolder.Items.DetachFromSourceCollection();
 
             cmBUniqueName.ItemsSource = null;
             cmBDisplayName.ItemsSource = null;
             cmBVersion.ItemsSource = null;
+            cmBExportFolder.ItemsSource = null;
         }
 
         public void StoreTextValues()
         {
             this._textUniqueName = cmBUniqueName.Text;
             this._textDisplayName = cmBDisplayName.Text;
+            this._textExportFolder = cmBExportFolder.Text;
         }
 
         public void RestoreTextValues()
         {
             cmBUniqueName.Text = _textUniqueName;
             cmBDisplayName.Text = _textDisplayName;
+            cmBExportFolder.Text = _textExportFolder;
         }
 
         public void SetNewVersion(string newVersion)
@@ -144,5 +154,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             base.OnKeyDown(e);
         }
+
+        public void SetExportFolderReadOnly(string exportFolder)
+        {
+            cmBExportFolder.IsReadOnly = true;
+            cmBExportFolder.Text = exportFolder;
+        }
+
+        public void BindExportFolder()
+        {
+            //Text="{Binding Path=SelectedItem.ExportSolutionFolder}" ItemsSource="{Binding Path=SelectedItem.LastSolutionExportFolders}" 
+            {
+                Binding binding = new Binding
+                {
+                    Path = new PropertyPath("SelectedItem.ExportSolutionFolder")
+                };
+                BindingOperations.SetBinding(cmBExportFolder, ComboBox.TextProperty, binding);
+            }
+
+            {
+                Binding binding = new Binding
+                {
+                    Path = new PropertyPath("SelectedItem.LastSolutionExportFolders")
+                };
+                BindingOperations.SetBinding(cmBExportFolder, ComboBox.ItemsSourceProperty, binding);
+            }
+
+            cmBExportFolder.DataContext = _cmBCurrentConnection;
+        }
+
+        public string GetExportFolder() => cmBExportFolder.Text?.Trim();
     }
 }
