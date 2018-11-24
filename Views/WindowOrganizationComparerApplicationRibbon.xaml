@@ -13,9 +13,7 @@
     <Grid>
         <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Options">
-                    <MenuItem Header="Export Ribbon" Click="miExportEntityRibbonOptions_Click" />
-                </MenuItem>
+                <MenuItem Header="Options" Click="miExportEntityRibbonOptions_Click" />
             </Menu>
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">

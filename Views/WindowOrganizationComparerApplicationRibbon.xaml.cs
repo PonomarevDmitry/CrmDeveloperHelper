@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
 
-        private Popup _optionsEntityRibbon;
+        private Popup _optionsPopup;
 
         private CommonConfiguration _commonConfig;
         private ConnectionConfiguration _connectionConfig;
@@ -55,13 +55,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            this._optionsEntityRibbon = new Popup
+            var child = new ExportEntityRibbonOptionsControl(_commonConfig);
+            child.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
             {
-                Child = new ExportEntityRibbonOptionsControl(_commonConfig),
+                Child = child,
 
                 PlacementTarget = toolBarHeader,
                 Placement = PlacementMode.Bottom,
                 StaysOpen = false,
+                Focusable = true,
             };
 
             tSDDBConnection1.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection1.Name);
@@ -91,6 +94,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnClosed(e);
 
             _commonConfig.Save();
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                if (e.Key == Key.Escape
+                    || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+                    )
+                {
+                    if (_optionsPopup.IsOpen)
+                    {
+                        _optionsPopup.IsOpen = false;
+                        e.Handled = true;
+                    }
+                }
+            }
+
+            base.OnKeyDown(e);
         }
 
         private async Task<IOrganizationServiceExtented> GetService1()
@@ -1043,8 +1065,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void miExportEntityRibbonOptions_Click(object sender, RoutedEventArgs e)
         {
-            _optionsEntityRibbon.Focus();
-            _optionsEntityRibbon.IsOpen = true;
+            _optionsPopup.IsOpen = true;
+            _optionsPopup.Child.Focus();
+        }
+
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
+            }
         }
     }
 }

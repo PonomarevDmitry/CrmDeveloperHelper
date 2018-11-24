@@ -7,45 +7,65 @@
              xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
              xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
              mc:Ignorable="d" 
+             Focusable="True" 
              BorderThickness="1"
              BorderBrush="Black"
-             Height="129" Width="592">
+             Height="265" Width="620">
     <UserControl.Resources>
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+        <helpers:BoolToOppositeBoolConverter x:Key="BoolInverter"/>
     </UserControl.Resources>
     <Grid Background="White">
-
-        
-        <CheckBox x:Name="chBAttributes" IsChecked="{Binding Path=GenerateAttributes}" Content="Attributes" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" />
-        <CheckBox x:Name="chBStatus" IsChecked="{Binding Path=GenerateStatus}" Content="Status and StatusReason" HorizontalAlignment="Left" Margin="87,10,0,0" VerticalAlignment="Top" />
-        <CheckBox x:Name="chBLocalOptionSets" IsChecked="{Binding Path=GenerateLocalOptionSet}" Content="Local OptionSets" HorizontalAlignment="Left" Margin="243,10,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBGlobalOptionSets" IsChecked="{Binding Path=GenerateGlobalOptionSet}" Content="Global OptionSets" HorizontalAlignment="Left" Margin="357,10,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBManyToMany" IsChecked="{Binding Path=GenerateManyToMany}" Content="Many to Many" HorizontalAlignment="Left" Margin="198,30,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBManyToOne" IsChecked="{Binding Path=GenerateManyToOne}" Content="Many to One" HorizontalAlignment="Left" Margin="104,30,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBOneToMany" IsChecked="{Binding Path=GenerateOneToMany}" Content="One to Many" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBIntoSchemaClass" IsChecked="{Binding Path=GenerateIntoSchemaClass}" Content="Into Schema class" HorizontalAlignment="Left" Margin="300,30,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBWithManagedInfo" IsChecked="{Binding Path=WithManagedInfo}" Content="With Managed Info" HorizontalAlignment="Left" Margin="419,30,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBKeys" IsChecked="{Binding Path=GenerateKeys}" Content="Keys" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBAllDescriptions" IsChecked="{Binding Path=AllDescriptions}" Content="All descriptions" HorizontalAlignment="Left" Margin="68,50,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chBWithDependentComponents" IsChecked="{Binding Path=EntityMetadaOptionSetDependentComponents}" Content="With dependent components for Global OptionSets" HorizontalAlignment="Left" Margin="174,50,0,0" VerticalAlignment="Top"/>
-        <GroupBox HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Width="173" Height="50" Header="Field Type">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <RadioButton x:Name="rBConst" IsChecked="{Binding Path=ConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.Constant}}" GroupName="ConstantType" Content="Const" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" />
-                <RadioButton x:Name="rBReadOnly" IsChecked="{Binding Path=ConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.ReadOnlyField}}" GroupName="ConstantType" Content="ReadOnly" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5"/>
-            </StackPanel>
+        <GroupBox Header="EntityMetadata Options" Height="142" VerticalAlignment="Top" Margin="10,0">
+            <Grid>
+                <CheckBox x:Name="chBAttributes" IsChecked="{Binding Path=GenerateAttributes}" Content="Attributes" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" />
+                <CheckBox x:Name="chBStatus" IsChecked="{Binding Path=GenerateStatus}" Content="Status and StatusReason" HorizontalAlignment="Left" Margin="87,10,0,0" VerticalAlignment="Top" />
+                <CheckBox x:Name="chBLocalOptionSets" IsChecked="{Binding Path=GenerateLocalOptionSet}" Content="Local OptionSets" HorizontalAlignment="Left" Margin="243,10,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBGlobalOptionSets" IsChecked="{Binding Path=GenerateGlobalOptionSet}" Content="Global OptionSets" HorizontalAlignment="Left" Margin="357,10,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBOneToMany" IsChecked="{Binding Path=GenerateOneToMany}" Content="One to Many" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBManyToOne" IsChecked="{Binding Path=GenerateManyToOne}" Content="Many to One" HorizontalAlignment="Left" Margin="104,30,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBManyToMany" IsChecked="{Binding Path=GenerateManyToMany}" Content="Many to Many" HorizontalAlignment="Left" Margin="198,30,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBIntoSchemaClass" IsChecked="{Binding Path=GenerateIntoSchemaClass}" Content="Into Schema class" HorizontalAlignment="Left" Margin="300,30,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBWithManagedInfo" IsChecked="{Binding Path=WithManagedInfo}" Content="With Managed Info" HorizontalAlignment="Left" Margin="419,30,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBKeys" IsChecked="{Binding Path=GenerateKeys}" Content="Keys" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBAllDescriptions" IsChecked="{Binding Path=AllDescriptions}" Content="All descriptions" HorizontalAlignment="Left" Margin="68,50,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBWithDependentComponents" IsChecked="{Binding Path=EntityMetadaOptionSetDependentComponents}" Content="With dependent components for Global OptionSets" HorizontalAlignment="Left" Margin="174,50,0,0" VerticalAlignment="Top"/>
+                <GroupBox HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Width="173" Height="50" Header="Field Type">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <RadioButton x:Name="rBConst" IsChecked="{Binding Path=ConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.Constant}}" GroupName="ConstantType" Content="Const" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" />
+                        <RadioButton x:Name="rBReadOnly" IsChecked="{Binding Path=ConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.ReadOnlyField}}" GroupName="ConstantType" Content="ReadOnly" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="OptionSets Values" Margin="188,70,0,0" VerticalAlignment="Top" Height="50" HorizontalAlignment="Left" Width="150">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <RadioButton x:Name="rBEnums" IsChecked="{Binding Path=OptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Enums}}" GroupName="OptionSets"  Margin="5" Content="Enum" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                        <RadioButton x:Name="rBClasses" IsChecked="{Binding Path=OptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Classes}}" GroupName="OptionSets" Content="Class" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Indent" HorizontalAlignment="Left" Margin="343,70,0,0" VerticalAlignment="Top" Width="236" Height="50">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <RadioButton x:Name="rBTab" IsChecked="{Binding Path=IndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}}" Margin="3,0" GroupName="IndentType" Content="Tab" VerticalAlignment="Center"/>
+                        <RadioButton x:Name="rBSpaces" IsChecked="{Binding Path=IndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}}" Margin="3,0" GroupName="IndentType" Content="Spaces" VerticalAlignment="Center"/>
+                        <TextBox x:Name="txtBSpaceCount" Text="{Binding Path=SpaceCount}" Margin="3,0" Height="23" VerticalContentAlignment="Center" Width="111" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
         </GroupBox>
-        <GroupBox Header="OptionSets Values" Margin="188,70,0,0" VerticalAlignment="Top" Height="50" HorizontalAlignment="Left" Width="150">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <RadioButton x:Name="rBEnums" IsChecked="{Binding Path=OptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Enums}}" GroupName="OptionSets"  Margin="5" Content="Enum" HorizontalAlignment="Right" VerticalAlignment="Center" />
-                <RadioButton x:Name="rBClasses" IsChecked="{Binding Path=OptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Classes}}" GroupName="OptionSets" Content="Class" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            </StackPanel>
+        <GroupBox Header="Entity Ribbon Options" Height="111" Margin="10,147,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="288">
+            <Grid>
+                <CheckBox x:Name="chBForm" IsChecked="{Binding Path=ExportRibbonXmlForm}" Content="Form" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" />
+                <CheckBox x:Name="chBHomepageGrid" IsChecked="{Binding Path=ExportRibbonXmlHomepageGrid}" Content="HomepageGrid" HorizontalAlignment="Left" Margin="77,10,0,0" VerticalAlignment="Top" />
+                <CheckBox x:Name="chBSubGrid" IsChecked="{Binding Path=ExportRibbonXmlSubGrid}" Content="SubGrid" HorizontalAlignment="Left" Margin="197,10,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding Path=ExportRibbonXmlXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBSetXmlSchemas" IsChecked="{Binding Path=SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" HorizontalAlignment="Left" Margin="10,50,0,0" Height="15" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBSetIntellisenseContext" IsChecked="{Binding SetIntellisenseContext}" Content="Set Intellisense Context" HorizontalAlignment="Left" Margin="10,70,0,0" Height="15" VerticalAlignment="Top"/>
+            </Grid>
         </GroupBox>
-        <GroupBox Header="Indent" HorizontalAlignment="Left" Margin="343,70,0,0" VerticalAlignment="Top" Width="236" Height="50">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <RadioButton x:Name="rBTab" IsChecked="{Binding Path=IndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}}" Margin="3,0" GroupName="IndentType" Content="Tab" VerticalAlignment="Center"/>
-                <RadioButton x:Name="rBSpaces" IsChecked="{Binding Path=IndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}}" Margin="3,0" GroupName="IndentType" Content="Spaces" VerticalAlignment="Center"/>
-                <TextBox x:Name="txtBSpaceCount" Text="{Binding Path=SpaceCount}" Margin="3,0" Height="23" VerticalContentAlignment="Center" Width="111" VerticalAlignment="Center"/>
-            </StackPanel>
+        <GroupBox Header="Attributes Dependent Components Options" HorizontalAlignment="Left" Height="111" Margin="303,147,0,0" VerticalAlignment="Top" Width="305">
+            <Grid>
+                <RadioButton x:Name="rBAllcomponents" IsChecked="{Binding Path=AllDependentComponentsForAttributes}" Content="All components" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="rBWorkflowPlugin" IsChecked="{Binding Path=AllDependentComponentsForAttributes, Converter={StaticResource BoolInverter}, Mode=OneWay}" Content="Only Workflow, Plugin Step, Plugin Step Image" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
+            </Grid>
         </GroupBox>
     </Grid>
 </UserControl>

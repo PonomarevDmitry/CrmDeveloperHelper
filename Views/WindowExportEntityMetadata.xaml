@@ -80,13 +80,7 @@
     <Grid>
         <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Options">
-                    <MenuItem Header="Export EntityMetadata" Click="miExportEntityMetadataOptions_Click" />
-                    <Separator/>
-                    <MenuItem Header="Export Attributes Dependent Components" Click="miExportAttributesDependentComponentsOptions_Click" />
-                    <Separator/>
-                    <MenuItem Header="Export Ribbon" Click="miExportEntityRibbonOptions_Click" />
-                </MenuItem>
+                <MenuItem Header="Options" Click="miExportEntityMetadataOptions_Click" />
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                 <MenuItem Header="Open Entity Information" VerticalAlignment="Center">
                     <MenuItem Header="Entity Attribute Explorer" Click="miEntityAttributeExplorer_Click"/>

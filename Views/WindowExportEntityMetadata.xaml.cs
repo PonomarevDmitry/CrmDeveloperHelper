@@ -33,9 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private Popup _optionsExportEntityMetadata;
-        private Popup _optionsExportAttributesDependentComponents;
-        private Popup _optionsEntityRibbon;
+        private Popup _optionsPopup;
 
         private IWriteToOutput _iWriteToOutput;
 
@@ -84,29 +82,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            this._optionsExportEntityMetadata = new Popup
+            var child = new ExportEntityMetadataOptionsControl(_commonConfig);
+            child.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
             {
-                Child = new ExportEntityMetadataOptionsControl(_commonConfig),
+                Child = child,
 
                 PlacementTarget = toolBarHeader,
                 Placement = PlacementMode.Bottom,
                 StaysOpen = false,
-            };
-            this._optionsExportAttributesDependentComponents = new Popup
-            {
-                Child = new ExportEntityAttributesDependentComponentsOptionsControl(_commonConfig),
-
-                PlacementTarget = toolBarHeader,
-                Placement = PlacementMode.Bottom,
-                StaysOpen = false,
-            };
-            this._optionsEntityRibbon = new Popup
-            {
-                Child = new ExportEntityRibbonOptionsControl(_commonConfig),
-
-                PlacementTarget = toolBarHeader,
-                Placement = PlacementMode.Bottom,
-                StaysOpen = false,
+                Focusable = true,
             };
 
             LoadFromConfig();
@@ -1037,6 +1022,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            if (!e.Handled)
+            {
+                if (e.Key == Key.Escape
+                    || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+                    )
+                {
+                    if (_optionsPopup.IsOpen)
+                    {
+                        _optionsPopup.IsOpen = false;
+                        e.Handled = true;
+                    }
+                }
+            }
+
             base.OnKeyDown(e);
         }
 
@@ -1214,20 +1213,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void miExportEntityMetadataOptions_Click(object sender, RoutedEventArgs e)
         {
-            _optionsExportEntityMetadata.Focus();
-            _optionsExportEntityMetadata.IsOpen = true;
+            _optionsPopup.IsOpen = true;
+            _optionsPopup.Child.Focus();
         }
 
-        private void miExportAttributesDependentComponentsOptions_Click(object sender, RoutedEventArgs e)
+        private void Child_CloseClicked(object sender, EventArgs e)
         {
-            _optionsExportAttributesDependentComponents.Focus();
-            _optionsExportAttributesDependentComponents.IsOpen = true;
-        }
-
-        private void miExportEntityRibbonOptions_Click(object sender, RoutedEventArgs e)
-        {
-            _optionsEntityRibbon.Focus();
-            _optionsEntityRibbon.IsOpen = true;
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
+            }
         }
 
         private RibbonLocationFilters GetRibbonLocationFilters()

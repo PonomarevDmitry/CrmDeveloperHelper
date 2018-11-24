@@ -1,18 +1,7 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 {
@@ -43,6 +32,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             chBSetXmlSchemas.DataContext = _commonConfig;
 
             chBSetIntellisenseContext.DataContext = _commonConfig;
+        }
+
+        public event EventHandler<EventArgs> CloseClicked;
+
+        public void OnCloseClicked()
+        {
+            CloseClicked?.Invoke(this, new EventArgs());
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                if (e.Key == Key.Escape
+                    || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+                    )
+                {
+                    e.Handled = true;
+
+                    OnCloseClicked();
+
+                    return;
+                }
+            }
+
+            base.OnKeyDown(e);
         }
     }
 }

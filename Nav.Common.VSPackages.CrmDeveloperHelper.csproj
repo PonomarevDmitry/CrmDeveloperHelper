@@ -872,9 +872,6 @@
     <Compile Include="Repository\WebResourceRepository.cs" />
     <Compile Include="Repository\WorkflowRepository.cs" />
     <Compile Include="ToolWindowPanes\FetchXmlExecutorToolWindowPane.cs" />
-    <Compile Include="UserControls\ExportEntityAttributesDependentComponentsOptionsControl.xaml.cs">
-      <DependentUpon>ExportEntityAttributesDependentComponentsOptionsControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ExportEntityMetadataOptionsControl.xaml.cs">
       <DependentUpon>ExportEntityMetadataOptionsControl.xaml</DependentUpon>
     </Compile>
@@ -1377,10 +1374,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UserControls\ExportEntityAttributesDependentComponentsOptionsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\ExportEntityMetadataOptionsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

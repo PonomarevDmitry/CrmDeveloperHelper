@@ -98,14 +98,7 @@
     <Grid>
         <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Options">
-                    <MenuItem Header="Export EntityMetadata" Click="miExportEntityMetadataOptions_Click" />
-                    <Separator/>
-                    <MenuItem Header="Export Attributes Dependent Components" Click="miExportAttributesDependentComponentsOptions_Click" />
-                    <Separator/>
-                    <MenuItem Header="Export Ribbon" Click="miExportEntityRibbonOptions_Click" />
-                </MenuItem>
-
+                <MenuItem Header="Options" Click="miExportEntityMetadataOptions_Click" />
             </Menu>
         </ToolBar>
 

@@ -38,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private bool _controlsEnabled = true;
 
-        private Popup _optionsExportSolution;
+        private Popup _optionsPopup;
         private ExportSolutionOptionsControl _optionsExportSolutionOptionsControl;
 
         private ObservableCollection<EntityViewItem> _itemsSource;
@@ -85,7 +85,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFilter.Text = service.ConnectionData.ExplorerSolutionFilter;
 
             this._optionsExportSolutionOptionsControl = new ExportSolutionOptionsControl(_commonConfig, cmBCurrentConnection);
-            this._optionsExportSolution = new Popup
+            this._optionsExportSolutionOptionsControl.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
             {
                 Child = this._optionsExportSolutionOptionsControl,
 
@@ -1917,6 +1918,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ShowExistingSolutions();
             }
 
+            if (!e.Handled)
+            {
+                if (e.Key == Key.Escape
+                    || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+                    )
+                {
+                    if (_optionsPopup.IsOpen)
+                    {
+                        _optionsPopup.IsOpen = false;
+                        e.Handled = true;
+                    }
+                }
+            }
+
             base.OnKeyDown(e);
         }
 
@@ -2275,8 +2290,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void miExportSolutionOptions_Click(object sender, RoutedEventArgs e)
         {
-            this._optionsExportSolution.IsOpen = true;
-            this._optionsExportSolution.Child.Focus();
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
+            }
         }
     }
 }
