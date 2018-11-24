@@ -763,6 +763,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Difference Ribbon.
+        /// </summary>
+        internal static string DifferenceRibbon {
+            get {
+                return ResourceManager.GetString("DifferenceRibbon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Difference WebResource.
         /// </summary>
         internal static string DifferenceWebResource {

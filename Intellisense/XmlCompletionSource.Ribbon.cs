@@ -219,13 +219,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 RibbonIntellisenseData ribbonIntellisenseData = null;
 
-                XNamespace xNamespace = RibbonIntellisenseData.IntellisenseContextNamespace;
-
-                var attrEntityName = doc.Attribute(xNamespace + RibbonIntellisenseData.IntellisenseContextAttributeEntityName);
+                var attrEntityName = doc.Attribute(RibbonIntellisenseData.IntellisenseContextAttributeEntityName);
 
                 if (attrEntityName != null)
                 {
-                    ribbonIntellisenseData = repositoryRibbon.GetRibbonIntellisenseData(attrEntityName.Value);
+                    if (!string.IsNullOrEmpty(attrEntityName.Value))
+                    {
+                        var connectionIntellisense = repositoryEntities.GetEntitiesIntellisenseData();
+
+                        if (connectionIntellisense != null
+                            && connectionIntellisense.Entities != null
+                            && connectionIntellisense.Entities.ContainsKey(attrEntityName.Value)
+                            )
+                        {
+                            ribbonIntellisenseData = repositoryRibbon.GetRibbonIntellisenseData(attrEntityName.Value);
+                        }
+                    }
+                    else
+                    {
+                        ribbonIntellisenseData = repositoryRibbon.GetRibbonIntellisenseData(string.Empty);
+                    }
                 }
 
                 if (_controlsWithImagesXmlElements.Contains(currentNodeName) && ImagesXmlAttributes.Contains(currentAttributeName))
@@ -337,11 +350,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, false, false);
                 }
 
-                if (string.Equals(currentNodeName, "RibbonDiffXml", StringComparison.InvariantCultureIgnoreCase)
+                if (string.Equals(currentAttributeName, RibbonIntellisenseData.NameIntellisenseContextName + ":" + RibbonIntellisenseData.IntellisenseContextAttributeEntityName, StringComparison.InvariantCultureIgnoreCase)
                     &&
                     (
-                        string.Equals(currentAttributeName, RibbonIntellisenseData.IntellisenseContextAttributeEntityName, StringComparison.InvariantCultureIgnoreCase)
-                        || string.Equals(currentAttributeName, "intellisenseContext:" + RibbonIntellisenseData.IntellisenseContextAttributeEntityName, StringComparison.InvariantCultureIgnoreCase)
+                        string.Equals(currentNodeName, "RibbonDiffXml", StringComparison.InvariantCultureIgnoreCase)
+                        || string.Equals(currentNodeName, "RibbonDefinitions", StringComparison.InvariantCultureIgnoreCase)
                     ))
                 {
                     FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, false, false);

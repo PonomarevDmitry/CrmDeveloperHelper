@@ -141,6 +141,10 @@
     <Compile Include="Commands\CodeXmlRibbonDiffInsertIntellisenseContextCommand.cs" />
     <Compile Include="Commands\CodeXmlRibbonDiffRemoveIntellisenseContextCommand.cs" />
     <Compile Include="Commands\CodeXmlSetXsdSchemaCommand.cs" />
+    <Compile Include="Commands\CodeXmlShowDifferenceRibbonCommand.cs" />
+    <Compile Include="Commands\CodeXmlShowDifferenceRibbonDiffXmlCommand.cs" />
+    <Compile Include="Commands\CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\CodeXmlShowDifferenceRibbonInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeXmlShowDifferenceWithDefaultSitemapsCommand.cs" />
     <Compile Include="Commands\CommonCheckComponentTypeEnumCommand.cs" />
     <Compile Include="Commands\CommonCheckEntitiesNamesAndShowDependentComponentsCommand.cs" />

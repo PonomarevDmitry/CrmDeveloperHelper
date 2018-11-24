@@ -477,18 +477,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            string fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(service.ConnectionData.Name);
-            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
             try
             {
                 var repository = new RibbonCustomizationRepository(service);
 
-                await repository.ExportApplicationRibbonAsync(filePath, _commonConfig);
+                string ribbonXml = await repository.ExportApplicationRibbonAsync();
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
+                if (_commonConfig.SetIntellisenseContext)
+                {
+                    ribbonXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonXml, string.Empty);
+                }
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+
+                {
+                    string fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(service.ConnectionData.Name);
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllText(filePath, ribbonXml, new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
+
+                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                }
             }
             catch (Exception ex)
             {

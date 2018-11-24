@@ -315,4 +315,13 @@
   <data name="ProgressReporterStep" xml:space="preserve">
     <value>{0}...   {1} %</value>
   </data>
+  <data name="EntityNotExistsInConnectionFormat2" xml:space="preserve">
+    <value>Entity {0} NOT EXISTS in {1}</value>
+  </data>
+  <data name="FileNotContainsXmlAttributeFormat2" xml:space="preserve">
+    <value>File does not contain Xml Attribute {0}: {1}</value>
+  </data>
+  <data name="FileTextIsNotXmlFormat1" xml:space="preserve">
+    <value>File text is not Xml: {0}</value>
+  </data>
 </root>

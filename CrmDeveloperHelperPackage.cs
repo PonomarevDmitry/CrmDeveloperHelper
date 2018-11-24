@@ -75,6 +75,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlRibbonDiffInsertIntellisenseContextCommand.Initialize(this);
             CodeXmlRibbonDiffRemoveIntellisenseContextCommand.Initialize(this);
             CodeXmlShowDifferenceWithDefaultSitemapsCommand.Initialize(this);
+            CodeXmlShowDifferenceRibbonCommand.Initialize(this);
+            CodeXmlShowDifferenceRibbonInConnectionGroupCommand.Initialize(this);
+            CodeXmlShowDifferenceRibbonDiffXmlCommand.Initialize(this);
+            CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand.Initialize(this);
 
             CodePublishListAddCommand.Initialize(this);
             CodePublishListRemoveCommand.Initialize(this);

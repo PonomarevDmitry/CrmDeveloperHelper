@@ -567,4 +567,7 @@
   <data name="CreatingFileWithAttributesDependentComponentsFormat2" xml:space="preserve">
     <value>{0}: Creating File with attributes dependent components for {1}</value>
   </data>
+  <data name="DifferenceRibbon" xml:space="preserve">
+    <value>Difference Ribbon</value>
+  </data>
 </root>

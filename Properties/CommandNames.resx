@@ -174,6 +174,18 @@
   <data name="CodeXmlExecuteFetchXmlRequestCommand" xml:space="preserve">
     <value>Execute Fetch Xml</value>
   </data>
+  <data name="CodeXmlShowDifferenceApplicationRibbonCommand" xml:space="preserve">
+    <value>Show Difference ApplicationRibbon</value>
+  </data>
+  <data name="CodeXmlShowDifferenceApplicationRibbonDiffXmlCommand" xml:space="preserve">
+    <value>Show Difference Application RibbonDiffXml</value>
+  </data>
+  <data name="CodeXmlShowDifferenceEntityRibbonCommandFormat1" xml:space="preserve">
+    <value>Show Difference {0} Ribbon</value>
+  </data>
+  <data name="CodeXmlShowDifferenceEntityRibbonDiffXmlCommandFormat1" xml:space="preserve">
+    <value>Show Difference {0} RibbonDiffXml</value>
+  </data>
   <data name="CommandNameWithConnectionFormat2" xml:space="preserve">
     <value>{0} - {1}</value>
   </data>

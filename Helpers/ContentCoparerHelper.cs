@@ -650,46 +650,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public static byte[] FormatXmlWithXmlAttributeOnNewLine(byte[] byteXml)
-        {
-            byte[] result = new byte[0];
-
-            XElement doc = null;
-
-            using (MemoryStream memStream = new MemoryStream())
-            {
-                memStream.Write(byteXml, 0, byteXml.Length);
-
-                memStream.Position = 0;
-
-                doc = XElement.Load(memStream);
-            }
-
-            SortAttributes(doc);
-
-            XmlWriterSettings settings = new XmlWriterSettings
-            {
-                OmitXmlDeclaration = true,
-                Indent = true,
-                NewLineOnAttributes = true,
-                Encoding = Encoding.UTF8
-            };
-
-            using (MemoryStream memStream = new MemoryStream())
-            {
-                using (XmlWriter xmlWriter = XmlWriter.Create(memStream, settings))
-                {
-                    doc.Save(xmlWriter);
-                }
-
-                memStream.Position = 0;
-
-                result = memStream.ToArray();
-            }
-
-            return result;
-        }
-
         public static string FormatXml(string xml, bool xmlAttributeOnNewLine)
         {
             if (!TryParseXml(xml, out XElement doc))
@@ -891,11 +851,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private const string patternSchemaLocation = " xsi:schemaLocation=\"([^\"]+)\"";
         private const string replaceSchemaLocationFormat = " xsi:schemaLocation=\"{0}\"";
 
-        private const string patternIntellisenseContext = " xmlns:intellisenseContext=\"([^\"]+)\"";
-        private const string replaceIntellisenseContextNamespace = " xmlns:intellisenseContext=\"{0}\"";
+        private static readonly string patternIntellisenseContext = string.Format(replaceIntellisenseContextNamespaceFormat1, "([^\"]+)");
+        private const string replaceIntellisenseContextNamespaceFormat1 = " xmlns:"+ Intellisense.Model.RibbonIntellisenseData.NameIntellisenseContextName + "=\"{0}\"";
 
-        private const string patternIntellisenseContextEntityName = " intellisenseContext:entityName=\"([^\"]*)\"";
-        private const string replaceIntellisenseContextEntityNameFormat = " intellisenseContext:entityName=\"{0}\"";
+        private static readonly string patternIntellisenseContextEntityName = string.Format(replaceIntellisenseContextEntityNameFormat1, "([^\"]*)");
+        private const string replaceIntellisenseContextEntityNameFormat1 = " "+ Intellisense.Model.RibbonIntellisenseData.NameIntellisenseContextName + ":" + Intellisense.Model.RibbonIntellisenseData.NameIntellisenseContextAttributeEntityName + "=\"{0}\"";
 
         private static void GetTextViewAndMakeAction(Document document, string operationName, Action<IWpfTextView> action)
         {
@@ -1076,7 +1036,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 string text = snapshot.GetText();
 
                 {
-                    var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespace, Intellisense.Model.RibbonIntellisenseData.IntellisenseContextNamespace);
+                    var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.RibbonIntellisenseData.IntellisenseContextNamespace.NamespaceName);
 
                     var match = Regex.Match(text, patternIntellisenseContext);
                     if (!match.Success)
@@ -1092,7 +1052,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 {
-                    var newEntityNameAttribute = string.Format(replaceIntellisenseContextEntityNameFormat, entityName);
+                    var newEntityNameAttribute = string.Format(replaceIntellisenseContextEntityNameFormat1, entityName);
 
                     var match = Regex.Match(text, patternIntellisenseContextEntityName);
                     if (!match.Success)
@@ -1254,7 +1214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             var result = text;
 
-            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespace, Intellisense.Model.RibbonIntellisenseData.IntellisenseContextNamespace);
+            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.RibbonIntellisenseData.IntellisenseContextNamespace.NamespaceName);
 
             if (Regex.IsMatch(result, patternIntellisenseContext))
             {
@@ -1270,7 +1230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            var newEntityNameAttribute = string.Format(replaceIntellisenseContextEntityNameFormat, entityName);
+            var newEntityNameAttribute = string.Format(replaceIntellisenseContextEntityNameFormat1, entityName);
 
             if (Regex.IsMatch(result, patternIntellisenseContextEntityName))
             {

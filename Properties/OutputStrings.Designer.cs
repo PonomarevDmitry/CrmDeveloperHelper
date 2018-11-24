@@ -196,6 +196,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entity {0} NOT EXISTS in {1}.
+        /// </summary>
+        internal static string EntityNotExistsInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("EntityNotExistsInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. ApplicationRibbonDiffXml exported to file: {1}.
         /// </summary>
         internal static string ExportedAppliationRibbonDiffXmlForConnectionFormat2 {
@@ -259,6 +268,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File does not contain Xml Attribute {0}: {1}.
+        /// </summary>
+        internal static string FileNotContainsXmlAttributeFormat2 {
+            get {
+                return ResourceManager.GetString("FileNotContainsXmlAttributeFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File not exists: {0}.
         /// </summary>
         internal static string FileNotExistsFormat1 {
@@ -282,6 +300,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FilesNotInPublishListFormat1 {
             get {
                 return ResourceManager.GetString("FilesNotInPublishListFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File text is not Xml: {0}.
+        /// </summary>
+        internal static string FileTextIsNotXmlFormat1 {
+            get {
+                return ResourceManager.GetString("FileTextIsNotXmlFormat1", resourceCulture);
             }
         }
         

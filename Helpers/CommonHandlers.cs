@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -36,8 +37,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        internal static bool CheckActiveDocumentIsXmlWithRoot(EnvDTE80.DTE2 applicationObject, string rootName)
+        internal static bool CheckActiveDocumentIsXmlWithRoot(EnvDTE80.DTE2 applicationObject, params string[] rootNames)
         {
+            if (rootNames == null || !rootNames.Any())
+            {
+                return false;
+            }
+
             bool result = false;
 
             if (applicationObject.ActiveWindow != null
@@ -62,7 +68,72 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             {
                                 if (ContentCoparerHelper.TryParseXml(text, out var doc))
                                 {
-                                    result = string.Equals(doc.Name.LocalName, rootName, StringComparison.InvariantCultureIgnoreCase);
+                                    string docRootName = doc.Name.ToString();
+
+                                    foreach (var item in rootNames)
+                                    {
+                                        if (string.Equals(docRootName, item, StringComparison.InvariantCultureIgnoreCase))
+                                        {
+                                            result = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
+        internal static bool CheckActiveDocumentIsXmlWithRootWithAttribute(
+            EnvDTE80.DTE2 applicationObject
+            , string rootName
+            , XName attributeName
+            , out XAttribute attribute
+        )
+        {
+            bool result = false;
+            attribute = null;
+
+            if (applicationObject.ActiveWindow != null
+                && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
+                && applicationObject.ActiveWindow.Document != null
+                )
+            {
+                try
+                {
+                    string file = applicationObject.ActiveWindow.Document.FullName.ToString().ToLower();
+
+                    if (FileOperations.SupportsXmlType(file))
+                    {
+                        var objTextDoc = applicationObject.ActiveWindow.Document.Object("TextDocument");
+                        if (objTextDoc != null
+                            && objTextDoc is TextDocument textDocument
+                            )
+                        {
+                            string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
+
+                            if (!string.IsNullOrEmpty(text))
+                            {
+                                if (ContentCoparerHelper.TryParseXml(text, out var doc))
+                                {
+                                    string docRootName = doc.Name.ToString();
+
+                                    if (string.Equals(docRootName, rootName, StringComparison.InvariantCultureIgnoreCase))
+                                    {
+                                        attribute = doc.Attribute(attributeName);
+
+                                        result = attribute != null;
+                                    }
                                 }
                             }
                         }
@@ -359,13 +430,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        internal static void ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(IServiceProviderOwner command, OleMenuCommand menuCommand, string rootName)
+        internal static void ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(IServiceProviderOwner command, OleMenuCommand menuCommand, params string[] rootNames)
         {
             bool visible = false;
 
             if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
             {
-                visible = CheckActiveDocumentIsXmlWithRoot(applicationObject, rootName);
+                visible = CheckActiveDocumentIsXmlWithRoot(applicationObject, rootNames);
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        internal static void ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(
+            IServiceProviderOwner command
+            , OleMenuCommand menuCommand
+            , string rootName
+            , XName attributeName
+            , out XAttribute attribute
+        )
+        {
+            bool visible = false;
+            attribute = null;
+
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                visible = CheckActiveDocumentIsXmlWithRootWithAttribute(applicationObject, rootName, attributeName, out attribute);
             }
 
             if (visible == false)

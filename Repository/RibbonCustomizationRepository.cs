@@ -491,38 +491,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
-        public Task ExportApplicationRibbonAsync(string filePath, CommonConfiguration commonConfig)
+        public Task<string> ExportApplicationRibbonAsync()
         {
-            return Task.Run(() => ExportingApplicationRibbon(filePath, commonConfig));
+            return Task.Run(() => ExportingApplicationRibbon());
         }
 
-        private void ExportingApplicationRibbon(string filePath, CommonConfiguration commonConfig)
+        private string ExportingApplicationRibbon()
         {
             byte[] byteXml = ExportApplicationRibbonByteArray();
 
-            if (commonConfig != null && commonConfig.ExportRibbonXmlXmlAttributeOnNewLine)
+            XElement doc = null;
+
+            using (MemoryStream memStream = new MemoryStream())
             {
-                byteXml = ContentCoparerHelper.FormatXmlWithXmlAttributeOnNewLine(byteXml);
+                memStream.Write(byteXml, 0, byteXml.Length);
+
+                memStream.Position = 0;
+
+                doc = XElement.Load(memStream);
             }
 
-            File.WriteAllBytes(filePath, byteXml);
+            return doc.ToString();
         }
 
-        public Task ExportEntityRibbonAsync(string entityName, RibbonLocationFilters filter, string filePath, CommonConfiguration commonConfig)
+        public Task<string> ExportEntityRibbonAsync(string entityName, RibbonLocationFilters filter)
         {
-            return Task.Run(() => ExportingEntityRibbon(entityName, filter, filePath, commonConfig));
+            return Task.Run(() => ExportingEntityRibbon(entityName, filter));
         }
 
-        private void ExportingEntityRibbon(string entityName, RibbonLocationFilters filter, string filePath, CommonConfiguration commonConfig)
+        private string ExportingEntityRibbon(string entityName, RibbonLocationFilters filter)
         {
             byte[] byteXml = ExportEntityRibbonByteArray(entityName, filter);
 
-            if (commonConfig != null && commonConfig.ExportRibbonXmlXmlAttributeOnNewLine)
+            XElement doc = null;
+
+            using (MemoryStream memStream = new MemoryStream())
             {
-                byteXml = ContentCoparerHelper.FormatXmlWithXmlAttributeOnNewLine(byteXml);
+                memStream.Write(byteXml, 0, byteXml.Length);
+
+                memStream.Position = 0;
+
+                doc = XElement.Load(memStream);
             }
 
-            File.WriteAllBytes(filePath, byteXml);
+            return doc.ToString();
         }
 
         private byte[] ExportApplicationRibbonByteArray()

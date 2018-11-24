@@ -1176,5 +1176,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public bool DifferenceProgramExists() => !string.IsNullOrEmpty(this.CompareProgram) && File.Exists(this.CompareProgram) && !string.IsNullOrEmpty(this.CompareArgumentsFormat);
 
         public bool DifferenceThreeWayAvaliable() => !string.IsNullOrEmpty(this.CompareProgram) && File.Exists(this.CompareProgram) && !string.IsNullOrEmpty(this.CompareArgumentsThreeWayFormat);
+
+        public Microsoft.Crm.Sdk.Messages.RibbonLocationFilters GetRibbonLocationFilters()
+        {
+            Microsoft.Crm.Sdk.Messages.RibbonLocationFilters filter = Microsoft.Crm.Sdk.Messages.RibbonLocationFilters.All;
+
+            if (this.ExportRibbonXmlForm || this.ExportRibbonXmlHomepageGrid || this.ExportRibbonXmlSubGrid)
+            {
+                filter = 0;
+
+                if (this.ExportRibbonXmlForm)
+                {
+                    filter |= Microsoft.Crm.Sdk.Messages.RibbonLocationFilters.Form;
+                }
+
+                if (this.ExportRibbonXmlHomepageGrid)
+                {
+                    filter |= Microsoft.Crm.Sdk.Messages.RibbonLocationFilters.HomepageGrid;
+                }
+
+                if (this.ExportRibbonXmlSubGrid)
+                {
+                    filter |= Microsoft.Crm.Sdk.Messages.RibbonLocationFilters.SubGrid;
+                }
+            }
+
+            return filter;
+        }
     }
 }
