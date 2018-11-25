@@ -149,7 +149,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     update.Attributes[Report.Schema.Attributes.bodytext] = File.ReadAllText(selectedFile.FilePath);
 
-                    service.Update(update);
+                    await service.UpdateAsync(update);
 
                     this._iWriteToOutput.WriteToOutput("Report updated in CRM: {0} - {1} - {2}", reportEntity.Name, reportEntity.FileName, reportEntity.ReportNameOnSRS);
                 }

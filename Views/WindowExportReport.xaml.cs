@@ -598,7 +598,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 };
                 updateEntity.Attributes[fieldName] = newText;
 
-                service.Update(updateEntity);
+                await service.UpdateAsync(updateEntity);
 
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat1, fieldName);
             }

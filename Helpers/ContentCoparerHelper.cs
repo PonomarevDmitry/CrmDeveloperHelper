@@ -854,6 +854,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static readonly string patternIntellisenseContext = string.Format(replaceIntellisenseContextNamespaceFormat1, "([^\"]+)");
         private const string replaceIntellisenseContextNamespaceFormat1 = " xmlns:"+ Intellisense.Model.RibbonIntellisenseData.NameIntellisenseContextName + "=\"{0}\"";
 
+        private const string patternIntellisenseContextAttributes = " " + Intellisense.Model.RibbonIntellisenseData.NameIntellisenseContextName + ":([^\"]*)=\"([^\"]*)\"";
+
         private static readonly string patternIntellisenseContextEntityName = string.Format(replaceIntellisenseContextEntityNameFormat1, "([^\"]*)");
         private const string replaceIntellisenseContextEntityNameFormat1 = " "+ Intellisense.Model.RibbonIntellisenseData.NameIntellisenseContextName + ":" + Intellisense.Model.RibbonIntellisenseData.NameIntellisenseContextAttributeEntityName + "=\"{0}\"";
 
@@ -1036,8 +1038,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 string text = snapshot.GetText();
 
                 {
-                    var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.RibbonIntellisenseData.IntellisenseContextNamespace.NamespaceName);
-
                     var match = Regex.Match(text, patternIntellisenseContext);
                     if (!match.Success)
                     {
@@ -1046,14 +1046,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         if (indexInsert.HasValue)
                         {
                             hasModifed = true;
+
+                            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.RibbonIntellisenseData.IntellisenseContextNamespace.NamespaceName);
+
                             edit.Insert(indexInsert.Value, intellisenseContextNamespace);
                         }
                     }
                 }
 
                 {
-                    var newEntityNameAttribute = string.Format(replaceIntellisenseContextEntityNameFormat1, entityName);
-
                     var match = Regex.Match(text, patternIntellisenseContextEntityName);
                     if (!match.Success)
                     {
@@ -1062,6 +1063,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         if (indexInsert.HasValue)
                         {
                             hasModifed = true;
+
+                            var newEntityNameAttribute = string.Format(replaceIntellisenseContextEntityNameFormat1, entityName);
+
                             edit.Insert(indexInsert.Value, newEntityNameAttribute);
                         }
                     }
@@ -1093,9 +1097,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 changeText = Regex.Replace(changeText, patternIntellisenseContext, string.Empty, RegexOptions.IgnoreCase);
             }
 
-            if (Regex.IsMatch(changeText, patternIntellisenseContextEntityName))
+            if (Regex.IsMatch(changeText, patternIntellisenseContextAttributes))
             {
-                changeText = Regex.Replace(changeText, patternIntellisenseContextEntityName, string.Empty, RegexOptions.IgnoreCase);
+                changeText = Regex.Replace(changeText, patternIntellisenseContextAttributes, string.Empty, RegexOptions.IgnoreCase);
             }
 
             return changeText;

@@ -657,7 +657,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
-                    
+
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
@@ -846,7 +846,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 };
                 updateEntity.Attributes[fieldName] = newText;
 
-                service.Update(updateEntity);
+                await service.UpdateAsync(updateEntity);
 
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat1, fieldName);
             }
@@ -864,7 +864,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileFormat1, fieldTitle);
 
             try
@@ -880,13 +880,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string filePath = await CreateCorrectedFileAsync(folder, entityName, category, name, fieldTitle, xmlContent);
 
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileCompletedFormat1, fieldTitle);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileFailedFormat1, fieldTitle);
             }
         }
@@ -1178,7 +1178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceForCorrectedFieldFormat1, fieldName);
 
             var service = await GetService();

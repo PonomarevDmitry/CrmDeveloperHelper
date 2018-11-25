@@ -643,7 +643,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 };
                 updateEntity.Attributes[fieldName] = newText;
 
-                service.Update(updateEntity);
+                await service.UpdateAsync(updateEntity);
 
                 UpdateStatus(Properties.WindowStatusStrings.PublishingSystemFormFormat2, entityName, name);
 

@@ -32,6 +32,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.CurrentServiceEndpoint = service.ServiceManagement?.CurrentServiceEndpoint?.Address?.Uri?.ToString();
         }
 
+        public Task<Guid> CreateAsync(Entity entity)
+        {
+            return Task.Run(() => Create(entity));
+        }
+
         public Guid Create(Entity entity)
         {
             try
@@ -102,6 +107,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
 
             return null;
+        }
+
+        public Task UpdateAsync(Entity entity)
+        {
+            return Task.Run(() => Update(entity));
         }
 
         public void Update(Entity entity)

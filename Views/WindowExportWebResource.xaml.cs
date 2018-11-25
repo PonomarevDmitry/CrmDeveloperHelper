@@ -576,7 +576,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformExportWebResourceContent(string folder, Guid idWebResource, string name)
         {
             ToggleControls(false, Properties.WindowStatusStrings.ExportingWebResourceContentFormat1, name);
-            
+
             try
             {
                 var service = await GetService();
@@ -751,7 +751,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 };
                 updateEntity.Attributes[fieldName] = newText;
 
-                service.Update(updateEntity);
+                await service.UpdateAsync(updateEntity);
 
                 UpdateStatus(Properties.WindowStatusStrings.PublishingWebResourceFormat1, name);
 

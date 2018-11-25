@@ -700,7 +700,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 };
                 updateEntity.Attributes[fieldName] = newText;
 
-                service.Update(updateEntity);
+                await service.UpdateAsync(updateEntity);
 
                 UpdateStatus(Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityName);
 
@@ -757,7 +757,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (errors.Count > 0)
             {
                 _iWriteToOutput.WriteToOutput(Properties.OutputStrings.TextIsNotValidForFieldFormat1, fieldTitle);
-                
+
                 foreach (var item in errors)
                 {
                     _iWriteToOutput.WriteToOutput(string.Empty);
@@ -765,7 +765,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(Properties.OutputStrings.XmlValidationMessageFormat2, item.Severity, item.Message);
                     _iWriteToOutput.WriteErrorToOutput(item.Exception);
                 }
-                
+
                 _iWriteToOutput.ActivateOutputWindow();
             }
 
@@ -872,12 +872,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(true));
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, savedQuery, EntityFileNameFormatter.SavedQueryIgnoreFields, service.ConnectionData);
-                
+
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                     , service.ConnectionData.Name
                     , savedQuery.LogicalName
                     , filePath);
-                
+
                 this._iWriteToOutput.PerformAction(filePath, _commonConfig);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);

@@ -567,7 +567,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
 
-            solution.Id = service.Create(solution);
+            solution.Id = await service.CreateAsync(solution);
 
             string finalStatus = string.Empty;
 
@@ -744,7 +744,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
 
-            solution.Id = service.Create(solution);
+            solution.Id = await service.CreateAsync(solution);
 
             string finalStatus = string.Empty;
 

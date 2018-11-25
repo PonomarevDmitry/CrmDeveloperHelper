@@ -727,7 +727,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
 
-            solution.Id = service.Create(solution);
+            solution.Id = await service.CreateAsync(solution);
 
             string filePath1 = selectedFile.FilePath;
             string fileTitle1 = selectedFile.FileName;

@@ -549,14 +549,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var service = await GetService();
+
             ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat1, fieldName);
 
             name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
 
             try
             {
-                var service = await GetService();
-
                 var repository = new SitemapRepository(service);
 
                 var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(fieldName));
@@ -614,7 +614,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 };
                 updateEntity.Attributes[fieldName] = newText;
 
-                service.Update(updateEntity);
+                await service.UpdateAsync(updateEntity);
 
                 UpdateStatus(Properties.WindowStatusStrings.PublishingSiteMapFormat2, name, idSiteMap.ToString());
 

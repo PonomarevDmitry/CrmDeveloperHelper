@@ -555,7 +555,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 updateEntity.Attributes[fieldName] = newText;
 
                 var service = await GetService();
-                service.Update(updateEntity);
+                await service.UpdateAsync(updateEntity);
 
                 organization.Attributes[fieldName] = newText;
 

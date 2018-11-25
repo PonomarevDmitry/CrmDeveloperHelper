@@ -403,7 +403,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             Version = "1.0.0.0",
                         };
 
-                        solution1.Id = service1.Create(solution1);
+                        solution1.Id = await service1.CreateAsync(solution1);
 
                         {
                             var repositorySolutionComponent = new SolutionComponentRepository(service1);
@@ -444,7 +444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             Version = "1.0.0.0",
                         };
 
-                        solution2.Id = service2.Create(solution2);
+                        solution2.Id = await service2.CreateAsync(solution2);
 
                         {
                             var repositorySolutionComponent = new SolutionComponentRepository(service2);
@@ -678,7 +678,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
 
-            solution.Id = service.Create(solution);
+            solution.Id = await service.CreateAsync(solution);
 
             string finalStatus = string.Empty;
 

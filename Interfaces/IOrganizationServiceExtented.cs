@@ -20,6 +20,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         Task<T> RetrieveByQueryAsync<T>(string entityName, Guid id, ColumnSet columnSet) where T : Entity;
 
+        Task<Guid> CreateAsync(Entity entity);
+
+        Task UpdateAsync(Entity entity);
+
         Task DeleteAsync(string entityName, Guid id);
     }
 }
