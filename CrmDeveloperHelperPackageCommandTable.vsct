@@ -39,10 +39,10 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOne_GroupConnectionGroup" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" priority="0x0601"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceCustom" priority="0x0601"/>      
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceCustom" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDependentComponents" priority="0x0602"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile" priority="0x0603"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile_MenuConnection_Group" priority="0x0603"/>      
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile_MenuConnection_Group" priority="0x0603"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" priority="0x0604"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupDownloadWebResource" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb" priority="0x0605"/>
@@ -65,6 +65,7 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupIntellisenseContext" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap" priority="0x0601" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuConnection_Group" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuSiteMaps_Group" priority="0x0601" />
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon" priority="0x0601" />
@@ -73,7 +74,10 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbonDiffXml" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbonDiffXml_MenuConnection_Group" priority="0x0601" />
 
-      
+      <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateRibbonDiffXml" priority="0x0601" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateRibbonDiffXml_MenuConnection_Group" priority="0x0601" />
+
+
 
 
 
@@ -175,7 +179,7 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish_MenuPublish_GroupConnectionGroup" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish_MenuPublishEqualByText_GroupConnectionGroup" priority="0x0601" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" priority="0x0602" />      
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuConnectionGroup_GroupConnectionGroup" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuTwoConnections_GroupConnectionGroup" priority="0x0601"/>
@@ -254,7 +258,7 @@
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupPublish_MenuPublish_GroupConnectionGroup" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupPublish_MenuPublishEqualByText_GroupConnectionGroup" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupShowDependentComponents" priority="0x0603" />
-      
+
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile" priority="0x0604" />
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile_MenuConnection_Group" priority="0x0604" />
@@ -307,7 +311,7 @@
 
 
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile" priority="0x0602" />
-      
+
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile_MenuConnection_Group" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile_MenuConnectionWithDetails_Group" priority="0x0602" />
 
@@ -484,6 +488,13 @@
           <MenuText>Set Xsd Schema</MenuText>
         </Strings>
       </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuConnection" priority="0x0204" type="Menu">
+        <Strings>
+          <ButtonText>Show Difference SiteMap</ButtonText>
+          <MenuText>Show Difference SiteMap</MenuText>
+        </Strings>
+      </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuSiteMaps" priority="0x0204" type="Menu">
         <Strings>
           <ButtonText>Show Difference with Default SiteMap</ButtonText>
@@ -504,7 +515,14 @@
         </Strings>
       </Menu>
 
-      
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateRibbonDiffXml_MenuConnection" priority="0x0204" type="Menu">
+        <Strings>
+          <ButtonText>Update RibbonDiffXml</ButtonText>
+          <MenuText>Update RibbonDiffXml</MenuText>
+        </Strings>
+      </Menu>
+
+
 
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport" priority="0x0202" type="Menu">
@@ -554,7 +572,7 @@
 
 
 
-      
+
 
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" priority="0x0201" type="Menu">
         <Strings>
@@ -656,7 +674,7 @@
           <MenuText>Compare Files with details in Connection Group</MenuText>
         </Strings>
       </Menu>
-      
+
 
       <Menu guid="guidGroupAndMenuSet" id="fileMenuReport" priority="0x0205" type="Menu">
         <Strings>
@@ -1348,7 +1366,7 @@
           <MenuText>Open WebResource in Web</MenuText>
         </Strings>
       </Menu>
-      
+
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWeb" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Open WebResource Dependent Components in Web</ButtonText>
@@ -1393,8 +1411,8 @@
         </Strings>
       </Menu>
 
-      
-      
+
+
       <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenInWeb" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Open WebResource in Web</ButtonText>
@@ -1445,7 +1463,7 @@
         </Strings>
       </Menu>
 
-      
+
 
       <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupCompareFile_MenuConnection" priority="0x0107" type="Menu">
         <Strings>
@@ -1595,9 +1613,24 @@
         </Strings>
       </Button>
 
+      <Button guid="guidCommandSet" id="CodeXmlShowDifferenceSiteMapCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Show Difference SiteMap</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CodeXmlShowDifferenceSiteMapInConnectionGroupCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Show Difference SiteMap Placeholder</ButtonText>
+        </Strings>
+      </Button>
 
-
-      <Button guid="guidDynamicCommandSet" id="CodeXmlShowDifferenceWithDefaultSitemapsCommandId" priority="0x0100" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeXmlShowDifferenceSiteMapDefaultCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
@@ -1641,7 +1674,24 @@
         </Strings>
       </Button>
 
-      
+      <Button guid="guidCommandSet" id="CodeXmlUpdateRibbonDiffXmlCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Update RibbonDiffXml</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Update RibbonDiffXml in Connection Group Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+
 
       <Button guid="guidCommandSet" id="CodePublishListAddCommandId" priority="0x0123" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -1729,8 +1779,8 @@
           <ButtonText>Compare File with details in Connection Group Placeholder</ButtonText>
         </Strings>
       </Button>
-      
-      
+
+
       <Button guid="guidCommandSet" id="CodeWebResourceCheckEncodingCommandId" priority="0x0104" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
@@ -2196,7 +2246,7 @@
         </Strings>
       </Button>
 
-      
+
 
 
       <Button guid="guidCommandSet" id="DocumentsWebResourceCheckEncodingCommandId" priority="0x0110" type="Button">
@@ -4857,22 +4907,27 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSelectFetch" priority="0x0603">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap" priority="0x0605">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon" priority="0x0606">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbonDiffXml" priority="0x0607">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-    
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" priority="0x0608">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateRibbonDiffXml" priority="0x0608">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupIntellisenseContext" priority="0x0609">
+
+
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" priority="0x0609">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupIntellisenseContext" priority="0x060A">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
 
@@ -6209,8 +6264,8 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonCrmConnectionTestCommandId" priority="0x012E">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnection_Group" />
     </CommandPlacement>
-    
-  
+
+
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectConnection" priority="0x012F">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
@@ -6553,7 +6608,7 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceShowDifferenceThreeWayCommandId" priority="0x0106">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceCustomCommandId" priority="0x0102">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceCustom" />
     </CommandPlacement>
@@ -6695,13 +6750,28 @@
     </CommandPlacement>
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuSiteMaps" priority="0x108">
+
+
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlShowDifferenceSiteMapCommandId" priority="0x107">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuSiteMaps_Group" priority="0x108">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuConnection" priority="0x108">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuConnection_Group" priority="0x108">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuConnection" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlShowDifferenceSiteMapInConnectionGroupCommandId" priority="0x108">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuConnection_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuSiteMaps" priority="0x109">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuSiteMaps_Group" priority="0x109">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuSiteMaps" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlShowDifferenceWithDefaultSitemapsCommandId" priority="0x108">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlShowDifferenceSiteMapDefaultCommandId" priority="0x109">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuSiteMaps_Group" />
     </CommandPlacement>
 
@@ -6731,6 +6801,21 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommandId" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbonDiffXml_MenuConnection_Group" />
     </CommandPlacement>
+
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlUpdateRibbonDiffXmlCommandId" priority="0x107">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateRibbonDiffXml" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateRibbonDiffXml_MenuConnection" priority="0x108">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateRibbonDiffXml" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateRibbonDiffXml_MenuConnection_Group" priority="0x108">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateRibbonDiffXml_MenuConnection" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommandId" priority="0x108">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateRibbonDiffXml_MenuConnection_Group" />
+    </CommandPlacement>
+
+
 
 
     <CommandPlacement guid="guidCommandSet" id="CodeReportUpdateCommandId" priority="0x0100">
@@ -7319,7 +7404,7 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceShowDifferenceThreeWayCommandId" priority="0x0115">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDifferenceCustomCommandId" priority="0x0111">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceCustom" />
     </CommandPlacement>
@@ -7805,7 +7890,7 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceCompareWithDetailsInConnectionGroupCommandId" priority="0x0116">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile_MenuConnectionWithDetails_Group" />
     </CommandPlacement>
-    
+
 
     <CommandPlacement guid="guidCommandSet" id="FolderOpenFilesAllCommandId" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupByText" />
@@ -8115,7 +8200,7 @@
       <IDSymbol name="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWay_GroupConnectionGroup" value="0x1163" />
 
       <IDSymbol name="codeMenuWebResource_GroupShowDependentComponents" value="0x1003" />
-      
+
       <IDSymbol name="codeMenuWebResource_GroupCompareFile" value="0x1004" />
       <IDSymbol name="codeMenuWebResource_GroupCompareFile_MenuConnection" value="0x122C" />
       <IDSymbol name="codeMenuWebResource_GroupCompareFile_MenuConnection_Group" value="0x122D" />
@@ -8163,6 +8248,9 @@
 
       <IDSymbol name="codeMenuXml_GroupShowDifferenceSiteMap" value="0x1222" />
 
+      <IDSymbol name="codeMenuXml_GroupShowDifferenceSiteMap_MenuConnection" value="0x1247" />
+      <IDSymbol name="codeMenuXml_GroupShowDifferenceSiteMap_MenuConnection_Group" value="0x1248" />
+
       <IDSymbol name="codeMenuXml_GroupShowDifferenceSiteMap_MenuSiteMaps" value="0x1223" />
       <IDSymbol name="codeMenuXml_GroupShowDifferenceSiteMap_MenuSiteMaps_Group" value="0x1224" />
 
@@ -8173,6 +8261,12 @@
       <IDSymbol name="codeMenuXml_GroupShowDifferenceRibbonDiffXml" value="0x1241" />
       <IDSymbol name="codeMenuXml_GroupShowDifferenceRibbonDiffXml_MenuConnection" value="0x1242" />
       <IDSymbol name="codeMenuXml_GroupShowDifferenceRibbonDiffXml_MenuConnection_Group" value="0x1243" />
+
+      <IDSymbol name="codeMenuXml_GroupUpdateRibbonDiffXml" value="0x1244" />
+      <IDSymbol name="codeMenuXml_GroupUpdateRibbonDiffXml_MenuConnection" value="0x1245" />
+      <IDSymbol name="codeMenuXml_GroupUpdateRibbonDiffXml_MenuConnection_Group" value="0x1246" />
+
+
 
 
       <IDSymbol name="codeMenuReport" value="0x100B" />
@@ -8385,7 +8479,7 @@
 
       <IDSymbol name="fileMenuWebResource_GroupCompareFile_MenuConnection" value="0x1232" />
       <IDSymbol name="fileMenuWebResource_GroupCompareFile_MenuConnection_Group" value="0x1233" />
-      
+
       <IDSymbol name="fileMenuWebResource_GroupCompareFile_MenuConnectionWithDetails" value="0x1234" />
       <IDSymbol name="fileMenuWebResource_GroupCompareFile_MenuConnectionWithDetails_Group" value="0x1235" />
 
@@ -8504,7 +8598,7 @@
 
       <IDSymbol name="folderMenuWebResource_GroupCompareFile_MenuConnection" value="0x1236" />
       <IDSymbol name="folderMenuWebResource_GroupCompareFile_MenuConnection_Group" value="0x1237" />
-      
+
       <IDSymbol name="folderMenuWebResource_GroupCompareFile_MenuConnectionWithDetails" value="0x1238" />
       <IDSymbol name="folderMenuWebResource_GroupCompareFile_MenuConnectionWithDetails_Group" value="0x1239" />
 
@@ -8580,7 +8674,7 @@
 
       <IDSymbol name="listForPublishMenu_GroupCompareFile_MenuConnection" value="0x123A" />
       <IDSymbol name="listForPublishMenu_GroupCompareFile_MenuConnection_Group" value="0x123B" />
-      
+
       <IDSymbol name="listForPublishMenu_GroupCompareFile_MenuConnectionWithDetails" value="0x123C" />
       <IDSymbol name="listForPublishMenu_GroupCompareFile_MenuConnectionWithDetails_Group" value="0x123D" />
 
@@ -8819,7 +8913,7 @@
 
 
 
-      <!-- 0x1244 -->
+      <!-- 0x1249 -->
 
 
     </GuidSymbol>
@@ -8980,7 +9074,7 @@
 
       <IDSymbol name="CodeXmlSetXsdSchemaCommandId" value="4350" />
 
-      <IDSymbol name="CodeXmlShowDifferenceWithDefaultSitemapsCommandId" value="4375" />
+      <IDSymbol name="CodeXmlShowDifferenceSiteMapDefaultCommandId" value="4375" />
 
       <IDSymbol name="CommonCrmConnectionTestCommandId" value="4400" />
 
@@ -9000,8 +9094,11 @@
 
       <IDSymbol name="CodeXmlShowDifferenceRibbonInConnectionGroupCommandId" value="4900" />
       <IDSymbol name="CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommandId" value="4950" />
+      <IDSymbol name="CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommandId" value="5000" />
 
-      <!-- 5000 -->
+      <IDSymbol name="CodeXmlShowDifferenceSiteMapInConnectionGroupCommandId" value="5050" />
+      
+      <!-- 6000 -->
 
     </GuidSymbol>
 
@@ -9055,10 +9152,13 @@
       <IDSymbol name="CodeXmlRibbonDiffInsertIntellisenseContextCommandId" value="0x2178" />
       <IDSymbol name="CodeXmlRibbonDiffRemoveIntellisenseContextCommandId" value="0x2179" />
 
+      <IDSymbol name="CodeXmlShowDifferenceSiteMapCommandId" value="0x217E" />
+
       <IDSymbol name="CodeXmlShowDifferenceRibbonCommandId" value="0x217B" />
       <IDSymbol name="CodeXmlShowDifferenceRibbonDiffXmlCommandId" value="0x217C" />
-      
-      
+      <IDSymbol name="CodeXmlUpdateRibbonDiffXmlCommandId" value="0x217D" />
+
+
 
 
       <IDSymbol name="CodeReportLinkCreateCommandId" value="0x2009" />
@@ -9558,7 +9658,7 @@
 
 
 
-      <!-- 0x217D -->
+      <!-- 0x217F -->
 
     </GuidSymbol>
 

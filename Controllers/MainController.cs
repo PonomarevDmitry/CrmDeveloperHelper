@@ -234,6 +234,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartSiteMapDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteDifferenceSiteMap(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartRibbonDiffXmlDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
@@ -241,6 +258,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._entityMetadataController.ExecuteDifferenceRibbonDiffXml(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartRibbonDiffXmlUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteUpdateRibbonDiffXml(selectedFile, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

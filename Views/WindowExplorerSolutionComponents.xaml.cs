@@ -1234,7 +1234,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _service.ConnectionData.AddLastSelectedSolution(_solution.UniqueName);
 
-            _iWriteToOutput.WriteToOutputSolutionUri(_service.ConnectionData.ConnectionId, _solution.UniqueName, _service.ConnectionData.GetSolutionUrl(_solution.Id));
+            _iWriteToOutput.WriteToOutputSolutionUri(_service.ConnectionData, _solution.UniqueName, _solution.Id);
         }
 
         #region Кнопки открытия других форм с информация о сущности.

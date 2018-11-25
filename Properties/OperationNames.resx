@@ -570,4 +570,13 @@
   <data name="DifferenceRibbon" xml:space="preserve">
     <value>Difference Ribbon</value>
   </data>
+  <data name="UpdatingRibbon" xml:space="preserve">
+    <value>Updating RibbonDiffXml</value>
+  </data>
+  <data name="DifferenceRibbonDiffXml" xml:space="preserve">
+    <value>Difference RibbonDiffXml</value>
+  </data>
+  <data name="DifferenceSiteMap" xml:space="preserve">
+    <value>Difference SiteMap</value>
+  </data>
 </root>

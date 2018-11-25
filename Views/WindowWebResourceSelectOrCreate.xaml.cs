@@ -489,7 +489,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputSolutionUri(_connectionData.ConnectionId, solution.UniqueName, _connectionData.GetSolutionUrl(solution.Id));
+            this._iWriteToOutput.WriteToOutputSolutionUri(_connectionData, solution.UniqueName, solution.Id);
 
             var formWebResourceInfo = new WindowWebResourceCreate(_file.FileName, _file.FriendlyFilePath, solution.UniqueName, solution.PublisherCustomizationPrefix);
 

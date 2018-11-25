@@ -9,15 +9,15 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand : IServiceProviderOwner
+    internal sealed class CodeXmlShowDifferenceSiteMapInConnectionGroupCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommandId;
+        private const int _baseIdStart = PackageIds.CodeXmlShowDifferenceSiteMapInConnectionGroupCommandId;
 
-        private CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand(Package package)
+        private CodeXmlShowDifferenceSiteMapInConnectionGroupCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -40,11 +40,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand Instance { get; private set; }
+        public static CodeXmlShowDifferenceSiteMapInConnectionGroupCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand(package);
+            Instance = new CodeXmlShowDifferenceSiteMapInConnectionGroupCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -65,23 +65,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     {
                         var connectionData = list[index];
 
+                        menuCommand.Text = connectionData.Name;
+
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(this, menuCommand, "RibbonDiffXml", Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName, out var attribute);
+                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(this, menuCommand, "SiteMap");
 
-                        if (attribute != null)
-                        {
-                            string entityName = attribute.Value;
+                        //CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(this, menuCommand, "SiteMap", Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName, out var attribute);
 
-                            if (string.IsNullOrEmpty(entityName))
-                            {
-                                entityName = "ApplicationRibbon";
-                            }
+                        //if (attribute != null)
+                        //{
+                        //    string entityName = attribute.Value;
 
-                            string nameCommand = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, entityName, connectionData.Name);
+                        //    if (string.IsNullOrEmpty(entityName))
+                        //    {
+                        //        entityName = "ApplicationRibbon";
+                        //    }
 
-                            menuCommand.Text = nameCommand;
-                        }
+                        //    string nameCommand = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, entityName, connectionData.Name);
+
+                        //    menuCommand.Text = nameCommand;
+                        //}
                     }
                 }
             }
@@ -123,7 +127,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     if (selectedFiles.Count == 1)
                     {
-                        helper.HandleRibbonDiffXmlDifferenceCommand(connectionData, selectedFiles.FirstOrDefault());
+                        helper.HandleSiteMapDifferenceCommand(connectionData, selectedFiles.FirstOrDefault());
                     }
                 }
             }

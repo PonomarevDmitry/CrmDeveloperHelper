@@ -1055,7 +1055,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (tableAddedInPublishList.Count > 0)
             {
                 WriteToOutput(Properties.OutputStrings.AddedInPublishListFormat1, tableAddedInPublishList.Count);
-                
+
                 tableAddedInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(_tabSpacer + s));
             }
         }
@@ -1094,14 +1094,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (tableNotInPublishList.Count > 0)
             {
                 WriteToOutput(Properties.OutputStrings.FilesNotInPublishListFormat1, tableNotInPublishList.Count);
-                
+
                 tableNotInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(_tabSpacer + s));
             }
 
             if (tableRemovedFromPublishList.Count > 0)
             {
                 WriteToOutput(Properties.OutputStrings.RemovedFromPublishListFormat1, tableRemovedFromPublishList.Count);
-                
+
                 tableRemovedFromPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(_tabSpacer + s));
             }
         }
@@ -1888,6 +1888,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleSiteMapDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow();
+                WriteToOutputEmptyLines(commonConfig);
+
+                try
+                {
+                    Controller.StartSiteMapDifference(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception xE)
+                {
+                    WriteErrorToOutput(xE);
+                }
+            }
+        }
+
         public void HandleRibbonDiffXmlDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
             if (selectedFile == null)
@@ -1919,6 +1954,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 catch (Exception xE)
                 {
                     WriteErrorToOutput(xE);
+                }
+            }
+        }
+
+        public void HandleRibbonDiffXmlUpdateCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow();
+                WriteToOutputEmptyLines(commonConfig);
+
+                if (connectionData.IsReadOnly)
+                {
+                    this.WriteToOutput(Properties.OutputStrings.ConnectionIsReadOnlyFormat1, connectionData.Name);
+                    return;
+                }
+
+                string message = string.Format(Properties.MessageBoxStrings.PublishRibbonDiffXmlFormat2, selectedFile.FileName, connectionData.GetDescription());
+
+                var dialog = new WindowConfirmPublish(message, false);
+
+                if (dialog.ShowDialog().GetValueOrDefault())
+                {
+                    try
+                    {
+                        Controller.StartRibbonDiffXmlUpdate(selectedFile, connectionData, commonConfig);
+                    }
+                    catch (Exception xE)
+                    {
+                        WriteErrorToOutput(xE);
+                    }
                 }
             }
         }
@@ -3992,31 +4075,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
 
+            this.WriteToOutput(string.Empty);
             this.WriteToOutput("File Uri                   :    {0}", uriFile);
+            this.WriteToOutput(string.Empty);
             this.WriteToOutput("Open File in Visual Studio :    {0}", uriFile.Replace("file:", "openinvisualstudio:"));
             if (File.Exists(commonConfig.TextEditorProgram))
             {
+                this.WriteToOutput(string.Empty);
                 this.WriteToOutput("Open File in TextEditor    :    {0}", uriFile.Replace("file:", "openintexteditor:"));
             }
+            this.WriteToOutput(string.Empty);
             this.WriteToOutput("Select File in Folder      :    {0}", uriFile.Replace("file:", "selectfileinfolder:"));
+            this.WriteToOutput(string.Empty);
         }
 
-        public void WriteToOutputSolutionUri(Guid connectionId, string solutionUniqueName, string solutionUrl)
+        public void WriteToOutputSolutionUri(ConnectionData connectionData, string solutionUniqueName, Guid solutionId)
         {
             if (string.IsNullOrEmpty(solutionUniqueName))
             {
                 return;
             }
 
+            string solutionUrl = connectionData.GetSolutionUrl(solutionId);
+
             string urlOpenSolution = string.Format("{0}:///crm.com?ConnectionId={1}&SolutionUniqueName={2}"
                 , UrlCommandFilter.PrefixOpenSolution
-                , connectionId.ToString()
+                , connectionData.ConnectionId.ToString()
                 , HttpUtility.UrlEncode(solutionUniqueName)
                 );
 
+            this.WriteToOutput(string.Empty);
             this.WriteToOutput("Selected Solution        : {0}", solutionUniqueName);
+            this.WriteToOutput(string.Empty);
+            this.WriteToOutput("Solution List in Web     : {0}", connectionData.GetOpenCrmWebSiteUrl(OpenCrmWebSiteType.Solutions));
+            this.WriteToOutput(string.Empty);
             this.WriteToOutput("Open Solution in Web     : {0}", solutionUrl);
+            this.WriteToOutput(string.Empty);
             this.WriteToOutput("Open Solution in Windows : {0}", urlOpenSolution);
+            this.WriteToOutput(string.Empty);
         }
 
         public void SelectFileInFolder(string filePath)
@@ -4104,7 +4200,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (!hideFilePathUri)
             {
-                this.WriteToOutput(string.Empty);
                 this.WriteToOutput(string.Empty);
                 this.WriteToOutput(string.Empty);
 

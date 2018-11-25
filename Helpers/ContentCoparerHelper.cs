@@ -852,12 +852,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private const string replaceSchemaLocationFormat = " xsi:schemaLocation=\"{0}\"";
 
         private static readonly string patternIntellisenseContext = string.Format(replaceIntellisenseContextNamespaceFormat1, "([^\"]+)");
-        private const string replaceIntellisenseContextNamespaceFormat1 = " xmlns:"+ Intellisense.Model.RibbonIntellisenseData.NameIntellisenseContextName + "=\"{0}\"";
+        private const string replaceIntellisenseContextNamespaceFormat1 = " xmlns:"+ Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + "=\"{0}\"";
 
-        private const string patternIntellisenseContextAttributes = " " + Intellisense.Model.RibbonIntellisenseData.NameIntellisenseContextName + ":([^\"]*)=\"([^\"]*)\"";
+        private const string patternIntellisenseContextAttributes = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":([^\"]*)=\"([^\"]*)\"";
 
         private static readonly string patternIntellisenseContextEntityName = string.Format(replaceIntellisenseContextEntityNameFormat1, "([^\"]*)");
-        private const string replaceIntellisenseContextEntityNameFormat1 = " "+ Intellisense.Model.RibbonIntellisenseData.NameIntellisenseContextName + ":" + Intellisense.Model.RibbonIntellisenseData.NameIntellisenseContextAttributeEntityName + "=\"{0}\"";
+        private const string replaceIntellisenseContextEntityNameFormat1 = " "+ Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeEntityName + "=\"{0}\"";
 
         private static void GetTextViewAndMakeAction(Document document, string operationName, Action<IWpfTextView> action)
         {
@@ -1047,7 +1047,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             hasModifed = true;
 
-                            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.RibbonIntellisenseData.IntellisenseContextNamespace.NamespaceName);
+                            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
 
                             edit.Insert(indexInsert.Value, intellisenseContextNamespace);
                         }
@@ -1218,7 +1218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             var result = text;
 
-            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.RibbonIntellisenseData.IntellisenseContextNamespace.NamespaceName);
+            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
 
             if (Regex.IsMatch(result, patternIntellisenseContext))
             {

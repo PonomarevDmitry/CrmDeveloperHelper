@@ -1024,6 +1024,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting solution {0} failed..
+        /// </summary>
+        internal static string DeletingSolutionFailedFormat1 {
+            get {
+                return ResourceManager.GetString("DeletingSolutionFailedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deleting solution {0}....
         /// </summary>
         internal static string DeletingSolutionFormat1 {
@@ -2856,6 +2865,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ValidatingApplicationRibbonDiffXmlFailed {
             get {
                 return ResourceManager.GetString("ValidatingApplicationRibbonDiffXmlFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validating RibbonDiffXml....
+        /// </summary>
+        internal static string ValidatingRibbonDiffXml {
+            get {
+                return ResourceManager.GetString("ValidatingRibbonDiffXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validating RibbonDiffXml failed..
+        /// </summary>
+        internal static string ValidatingRibbonDiffXmlFailed {
+            get {
+                return ResourceManager.GetString("ValidatingRibbonDiffXmlFailed", resourceCulture);
             }
         }
         

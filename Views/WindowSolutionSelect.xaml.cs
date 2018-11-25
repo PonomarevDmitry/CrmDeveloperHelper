@@ -321,7 +321,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._service.ConnectionData.AddLastSelectedSolution(solution.UniqueName);
 
-            _iWriteToOutput.WriteToOutputSolutionUri(_service.ConnectionData.ConnectionId, solution.UniqueName, _service.ConnectionData.GetSolutionUrl(solution.Id));
+            _iWriteToOutput.WriteToOutputSolutionUri(_service.ConnectionData, solution.UniqueName, solution.Id);
 
             cmBFilter.Text = text;
 
@@ -362,7 +362,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._service.ConnectionData.AddLastSelectedSolution(this._lastSolution.UniqueName);
 
-                _iWriteToOutput.WriteToOutputSolutionUri(_service.ConnectionData.ConnectionId, _lastSolution.UniqueName, _service.ConnectionData.GetSolutionUrl(_lastSolution.Id));
+                _iWriteToOutput.WriteToOutputSolutionUri(_service.ConnectionData, _lastSolution.UniqueName, _lastSolution.Id);
 
                 this.DialogResult = true;
             }

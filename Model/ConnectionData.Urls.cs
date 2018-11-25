@@ -46,9 +46,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public void OpenCrmWebSite(OpenCrmWebSiteType crmWebSiteType)
         {
+            var uri = GetOpenCrmWebSiteUrl(crmWebSiteType);
+
+            if (!IsValidUri(uri)) return;
+
+            System.Diagnostics.Process.Start(uri);
+        }
+
+        public string GetOpenCrmWebSiteUrl(OpenCrmWebSiteType crmWebSiteType)
+        {
             if (!TryGetPublicUrl(out string publicUrl))
             {
-                return;
+                return null;
             }
 
             string relativeUrl = string.Empty;
@@ -65,9 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             var uri = publicUrl.TrimEnd('/') + relativeUrl;
 
-            if (!IsValidUri(uri)) return;
-
-            System.Diagnostics.Process.Start(uri);
+            return uri;
         }
 
         private string GetRelativeUrl(OpenCrmWebSiteType crmWebSiteType)

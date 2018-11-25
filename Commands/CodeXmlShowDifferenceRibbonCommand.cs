@@ -1,10 +1,9 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -32,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(command, menuCommand, "RibbonDefinitions", Intellisense.Model.RibbonIntellisenseData.IntellisenseContextAttributeEntityName, out var attribute);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(command, menuCommand, "RibbonDefinitions", Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName, out var attribute);
 
             if (attribute != null)
             {

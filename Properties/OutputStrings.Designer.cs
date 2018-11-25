@@ -574,6 +574,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. SiteMap with unique name &apos;{1}&apos; not founded..
+        /// </summary>
+        internal static string SiteMapNotFoundedFormat2 {
+            get {
+                return ResourceManager.GetString("SiteMapNotFoundedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SolutionComponent not found in Connection {0}..
         /// </summary>
         internal static string SolutionComponentNotFoundInConnectionFormat1 {

@@ -358,6 +358,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Publish RibbonDiffXml in {0} on
+        ///{1}?.
+        /// </summary>
+        internal static string PublishRibbonDiffXmlFormat2 {
+            get {
+                return ResourceManager.GetString("PublishRibbonDiffXmlFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Seach equal by text among {0} files, update them and publish on
         ///{1}?.
         /// </summary>

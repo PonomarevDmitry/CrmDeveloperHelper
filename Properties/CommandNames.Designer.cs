@@ -268,6 +268,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Difference SiteMap.
+        /// </summary>
+        internal static string CodeXmlShowDifferenceSiteMapCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlShowDifferenceSiteMapCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Application RibbonDiffXml.
+        /// </summary>
+        internal static string CodeXmlUpdateApplicationRibbonDiffXmlCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlUpdateApplicationRibbonDiffXmlCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update {0} RibbonDiffXml.
+        /// </summary>
+        internal static string CodeXmlUpdateEntityRibbonDiffXmlCommandFormat1 {
+            get {
+                return ResourceManager.GetString("CodeXmlUpdateEntityRibbonDiffXmlCommandFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - {1}.
         /// </summary>
         internal static string CommandNameWithConnectionFormat2 {

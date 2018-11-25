@@ -772,6 +772,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Difference RibbonDiffXml.
+        /// </summary>
+        internal static string DifferenceRibbonDiffXml {
+            get {
+                return ResourceManager.GetString("DifferenceRibbonDiffXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Difference SiteMap.
+        /// </summary>
+        internal static string DifferenceSiteMap {
+            get {
+                return ResourceManager.GetString("DifferenceSiteMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Difference WebResource.
         /// </summary>
         internal static string DifferenceWebResource {
@@ -1416,6 +1434,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string UpdatingReport {
             get {
                 return ResourceManager.GetString("UpdatingReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating RibbonDiffXml.
+        /// </summary>
+        internal static string UpdatingRibbon {
+            get {
+                return ResourceManager.GetString("UpdatingRibbon", resourceCulture);
             }
         }
     }

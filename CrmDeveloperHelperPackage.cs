@@ -74,11 +74,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlRemoveXsdSchemaCommand.Initialize(this);
             CodeXmlRibbonDiffInsertIntellisenseContextCommand.Initialize(this);
             CodeXmlRibbonDiffRemoveIntellisenseContextCommand.Initialize(this);
-            CodeXmlShowDifferenceWithDefaultSitemapsCommand.Initialize(this);
+            CodeXmlShowDifferenceSiteMapDefaultCommand.Initialize(this);
+            CodeXmlShowDifferenceSiteMapCommand.Initialize(this);
+            CodeXmlShowDifferenceSiteMapInConnectionGroupCommand.Initialize(this);
             CodeXmlShowDifferenceRibbonCommand.Initialize(this);
             CodeXmlShowDifferenceRibbonInConnectionGroupCommand.Initialize(this);
             CodeXmlShowDifferenceRibbonDiffXmlCommand.Initialize(this);
             CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand.Initialize(this);
+            CodeXmlUpdateRibbonDiffXmlCommand.Initialize(this);
+            CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand.Initialize(this);
 
             CodePublishListAddCommand.Initialize(this);
             CodePublishListRemoveCommand.Initialize(this);
@@ -181,6 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(this);
             DocumentsWebResourceAddIntoSolutionCommand.Initialize(this);
             DocumentsWebResourceAddIntoSolutionLastCommand.Initialize(this);
+
             DocumentsReportLinkClearCommand.Initialize(this);
             DocumentsReportAddIntoSolutionCommand.Initialize(this);
             DocumentsReportAddIntoSolutionLastCommand.Initialize(this);
@@ -219,12 +224,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(this);
             FolderWebResourceAddIntoSolutionCommand.Initialize(this);
             FolderWebResourceAddIntoSolutionLastCommand.Initialize(this);
+
             FolderCSharpUpdateEntityMetadataFileCommand.Initialize(this);
             FolderCSharpUpdateGlobalOptionSetsFileCommand.Initialize(this);
 
 
             ProjectCompareToCrmAssemblyCommand.Initialize(this);
             ProjectCompareToCrmAssemblyInConnectionGroupCommand.Initialize(this);
+
             ProjectPluginAssemblyAddIntoSolutionCommand.Initialize(this);
             ProjectPluginAssemblyAddIntoSolutionLastCommand.Initialize(this);
             ProjectPluginAssemblyStepsAddIntoSolutionCommand.Initialize(this);

@@ -12,12 +12,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
     [DataContract]
     public class RibbonIntellisenseData
     {
-        public const string NameIntellisenseContextAttributeEntityName = "entityName";
-        public const string NameIntellisenseContextName = "intellisenseContext";
-
-        public static readonly XNamespace IntellisenseContextNamespace = "https://navicongroup.ru/XsdSchemas/IntellisenseContext";
-        public static readonly XName IntellisenseContextAttributeEntityName = IntellisenseContextNamespace + NameIntellisenseContextAttributeEntityName;
-
         private const int _loadPeriodInMinutes = 5;
 
         public DateTime? NextLoadFileDate { get; set; }

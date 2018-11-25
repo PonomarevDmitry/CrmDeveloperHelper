@@ -219,7 +219,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 RibbonIntellisenseData ribbonIntellisenseData = null;
 
-                var attrEntityName = doc.Attribute(RibbonIntellisenseData.IntellisenseContextAttributeEntityName);
+                var attrEntityName = doc.Attribute(IntellisenseContext.IntellisenseContextAttributeEntityName);
 
                 if (attrEntityName != null)
                 {
@@ -280,13 +280,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                 if (LabelXmlAttributes.Contains(currentAttributeName))
                 {
-                    var localValues = FillLocLables(completionSets, applicableTo, doc, "LocLabels");
+                    bool isTitleElement = string.Equals(currentNodeName, "Title", StringComparison.InvariantCultureIgnoreCase)
+                        && currentXmlNode.Parent != null
+                        && string.Equals(currentXmlNode.Parent.Name.LocalName, "Titles", StringComparison.InvariantCultureIgnoreCase)
+                        && currentXmlNode.Parent.Parent != null
+                        && string.Equals(currentXmlNode.Parent.Parent.Name.LocalName, "LocLabel", StringComparison.InvariantCultureIgnoreCase);
 
-                    if (ribbonIntellisenseData != null)
+                    if (!isTitleElement)
                     {
-                        var sorted = new SortedSet<string>(ribbonIntellisenseData.LabelTexts.Where(s => !localValues.Contains(s)));
+                        var localValues = FillLocLables(completionSets, applicableTo, doc, "LocLabels");
 
-                        FillIntellisenseBySet(completionSets, applicableTo, sorted, "Labels in Ribbon");
+                        if (ribbonIntellisenseData != null)
+                        {
+                            var sorted = new SortedSet<string>(ribbonIntellisenseData.LabelTexts.Where(s => !localValues.Contains(s)));
+
+                            FillIntellisenseBySet(completionSets, applicableTo, sorted, "Labels in Ribbon");
+                        }
                     }
                 }
 
@@ -350,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, false, false);
                 }
 
-                if (string.Equals(currentAttributeName, RibbonIntellisenseData.NameIntellisenseContextName + ":" + RibbonIntellisenseData.IntellisenseContextAttributeEntityName, StringComparison.InvariantCultureIgnoreCase)
+                if (string.Equals(currentAttributeName, IntellisenseContext.NameIntellisenseContextName + ":" + IntellisenseContext.IntellisenseContextAttributeEntityName, StringComparison.InvariantCultureIgnoreCase)
                     &&
                     (
                         string.Equals(currentNodeName, "RibbonDiffXml", StringComparison.InvariantCultureIgnoreCase)

@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -7,16 +7,16 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CodeXmlShowDifferenceRibbonDiffXmlCommand : AbstractCommand
+    internal sealed class CodeXmlUpdateRibbonDiffXmlCommand : AbstractCommand
     {
-        private CodeXmlShowDifferenceRibbonDiffXmlCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlShowDifferenceRibbonDiffXmlCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeXmlUpdateRibbonDiffXmlCommand(Package package)
+            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlUpdateRibbonDiffXmlCommandId, ActionExecute, ActionBeforeQueryStatus) { }
 
-        public static CodeXmlShowDifferenceRibbonDiffXmlCommand Instance { get; private set; }
+        public static CodeXmlUpdateRibbonDiffXmlCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CodeXmlShowDifferenceRibbonDiffXmlCommand(package);
+            Instance = new CodeXmlUpdateRibbonDiffXmlCommand(package);
         }
 
         private static void ActionExecute(DTEHelper helper)
@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
             if (selectedFiles.Count == 1)
             {
-                helper.HandleRibbonDiffXmlDifferenceCommand(null, selectedFiles.FirstOrDefault());
+                helper.HandleRibbonDiffXmlUpdateCommand(null, selectedFiles.FirstOrDefault());
             }
         }
 
@@ -37,12 +37,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             {
                 string entityName = attribute.Value;
 
-                string nameCommand = Properties.CommandNames.CodeXmlShowDifferenceApplicationRibbonDiffXmlCommand;
+                string nameCommand = Properties.CommandNames.CodeXmlUpdateApplicationRibbonDiffXmlCommand;
 
                 if (!string.IsNullOrEmpty(entityName))
                 {
-                    nameCommand = string.Format(Properties.CommandNames.CodeXmlShowDifferenceEntityRibbonDiffXmlCommandFormat1, entityName);
+                    nameCommand = string.Format(Properties.CommandNames.CodeXmlUpdateEntityRibbonDiffXmlCommandFormat1, entityName);
                 }
+
+                CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(command, menuCommand);
 
                 CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, nameCommand);
             }

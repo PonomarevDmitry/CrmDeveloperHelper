@@ -13,7 +13,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         void WriteToOutputFilePathUri(string filePath);
 
-        void WriteToOutputSolutionUri(Guid connectionId, string solutionUniqueName, string solutionUrl);
+        void WriteToOutputSolutionUri(ConnectionData connectionData, string solutionUniqueName, Guid solutionId);
 
         void WriteErrorToOutput(Exception ex, string message = null, params object[] args);
 

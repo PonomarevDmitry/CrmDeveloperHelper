@@ -145,7 +145,11 @@
     <Compile Include="Commands\CodeXmlShowDifferenceRibbonDiffXmlCommand.cs" />
     <Compile Include="Commands\CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeXmlShowDifferenceRibbonInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\CodeXmlShowDifferenceWithDefaultSitemapsCommand.cs" />
+    <Compile Include="Commands\CodeXmlShowDifferenceSiteMapCommand.cs" />
+    <Compile Include="Commands\CodeXmlShowDifferenceSiteMapDefaultCommand.cs" />
+    <Compile Include="Commands\CodeXmlShowDifferenceSiteMapInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\CodeXmlUpdateRibbonDiffXmlCommand.cs" />
+    <Compile Include="Commands\CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CommonCheckComponentTypeEnumCommand.cs" />
     <Compile Include="Commands\CommonCheckEntitiesNamesAndShowDependentComponentsCommand.cs" />
     <Compile Include="Commands\CommonCheckEntitiesNamesCommand.cs" />
@@ -683,6 +687,7 @@
     <Compile Include="Intellisense\CustomUrlClassifierProvider.cs" />
     <Compile Include="Intellisense\CustomUrlTagger.cs" />
     <Compile Include="Intellisense\CustomUrlTagProvider.cs" />
+    <Compile Include="Intellisense\Model\IntellisenseContext.cs" />
     <Compile Include="Intellisense\Model\RibbonIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\RibbonLocation.cs" />
     <Compile Include="Intellisense\Model\RibbonLocationControl.cs" />

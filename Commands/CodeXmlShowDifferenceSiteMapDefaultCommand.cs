@@ -8,15 +8,15 @@ using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CodeXmlShowDifferenceWithDefaultSitemapsCommand : IServiceProviderOwner
+    internal sealed class CodeXmlShowDifferenceSiteMapDefaultCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => _package;
 
-        private const int _baseIdStart = PackageIds.CodeXmlShowDifferenceWithDefaultSitemapsCommandId;
+        private const int _baseIdStart = PackageIds.CodeXmlShowDifferenceSiteMapDefaultCommandId;
 
-        private CodeXmlShowDifferenceWithDefaultSitemapsCommand(Package package)
+        private CodeXmlShowDifferenceSiteMapDefaultCommand(Package package)
         {
             _package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -41,11 +41,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static CodeXmlShowDifferenceWithDefaultSitemapsCommand Instance { get; private set; }
+        public static CodeXmlShowDifferenceSiteMapDefaultCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CodeXmlShowDifferenceWithDefaultSitemapsCommand(package);
+            Instance = new CodeXmlShowDifferenceSiteMapDefaultCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)

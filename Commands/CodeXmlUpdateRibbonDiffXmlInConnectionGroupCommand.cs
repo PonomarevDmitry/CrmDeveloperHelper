@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -9,15 +9,15 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand : IServiceProviderOwner
+    internal sealed class CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommandId;
+        private const int _baseIdStart = PackageIds.CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommandId;
 
-        private CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand(Package package)
+        private CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -40,11 +40,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand Instance { get; private set; }
+        public static CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand(package);
+            Instance = new CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -65,22 +65,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     {
                         var connectionData = list[index];
 
-                        menuCommand.Enabled = menuCommand.Visible = true;
-
-                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(this, menuCommand, "RibbonDiffXml", Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName, out var attribute);
-
-                        if (attribute != null)
+                        if (!connectionData.IsReadOnly)
                         {
-                            string entityName = attribute.Value;
+                            menuCommand.Enabled = menuCommand.Visible = true;
 
-                            if (string.IsNullOrEmpty(entityName))
+                            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(this, menuCommand, "RibbonDiffXml", Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName, out var attribute);
+
+                            if (attribute != null)
                             {
-                                entityName = "ApplicationRibbon";
+                                string entityName = attribute.Value;
+
+                                if (string.IsNullOrEmpty(entityName))
+                                {
+                                    entityName = "ApplicationRibbon";
+                                }
+
+                                string nameCommand = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, entityName, connectionData.Name);
+
+                                menuCommand.Text = nameCommand;
                             }
-
-                            string nameCommand = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, entityName, connectionData.Name);
-
-                            menuCommand.Text = nameCommand;
                         }
                     }
                 }
@@ -123,7 +126,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     if (selectedFiles.Count == 1)
                     {
-                        helper.HandleRibbonDiffXmlDifferenceCommand(connectionData, selectedFiles.FirstOrDefault());
+                        helper.HandleRibbonDiffXmlUpdateCommand(connectionData, selectedFiles.FirstOrDefault());
                     }
                 }
             }

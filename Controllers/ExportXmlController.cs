@@ -1,8 +1,9 @@
-﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
 using System;
@@ -19,7 +20,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
     /// </summary>
     public class ExportXmlController
     {
-        private IWriteToOutput _iWriteToOutput = null;
+        private readonly IWriteToOutput _iWriteToOutput = null;
 
         /// <summary>
         /// Конструктор контроллера
@@ -524,5 +525,124 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Trace Reader.
+
+        public async Task ExecuteDifferenceSiteMap(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.DifferenceSiteMap);
+
+            try
+            {
+                await DifferenceSiteMap(selectedFile, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.DifferenceSiteMap);
+            }
+        }
+
+        private async Task DifferenceSiteMap(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (!File.Exists(selectedFile.FilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            //string fileText = File.ReadAllText(selectedFile.FilePath);
+
+            //if (!ContentCoparerHelper.TryParseXml(fileText, out var doc))
+            //{
+            //    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
+            //    return;
+            //}
+
+            //var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
+
+            //if (attribute == null)
+            //{
+            //    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), selectedFile.FilePath);
+            //    return;
+            //}
+
+            //string siteMapUniqueName = attribute.Value;
+
+            string siteMapUniqueName = string.Empty;
+
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            var repository = new SitemapRepository(service);
+
+            var siteMap = repository.FindByExactName(siteMapUniqueName, new ColumnSet(true));
+
+            if (siteMap == null)
+            {
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.SiteMapNotFoundedFormat2, connectionData.Name, SiteMap.Schema.EntityLogicalName, siteMapUniqueName);
+                this._iWriteToOutput.ActivateOutputWindow();
+                return;
+            }
+
+            string xmlContent = siteMap.GetAttributeValue<string>(SiteMap.Schema.Attributes.sitemapxml);
+
+            string fieldTitle = "SiteMapXml";
+
+            string name = !string.IsNullOrEmpty(siteMap.SiteMapNameUnique) ? " " + siteMap.SiteMapNameUnique : string.Empty;
+
+            string fileTitle2 = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, name, siteMap.Id, fieldTitle, "xml");
+            string filePath2 = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
+
+            if (!string.IsNullOrEmpty(xmlContent))
+            {
+                try
+                {
+                    if (commonConfig.SetXmlSchemasDuringExport)
+                    {
+                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaSiteMapXml);
+
+                        if (schemasResources != null)
+                        {
+                            xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources);
+                        }
+                    }
+
+                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, commonConfig.ExportSiteMapXmlAttributeOnNewLine);
+
+                    File.WriteAllText(filePath2, xmlContent, new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SiteMap.Schema.EntityLogicalName, name, fieldTitle, filePath2);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                }
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, SiteMap.Schema.EntityLogicalName, name, fieldTitle);
+                this._iWriteToOutput.ActivateOutputWindow();
+                return;
+            }
+
+            string filePath1 = selectedFile.FilePath;
+            string fileTitle1 = selectedFile.FileName;
+
+            this._iWriteToOutput.ProcessStartProgramComparer(commonConfig, filePath1, filePath2, fileTitle1, fileTitle2);
+        }
     }
 }

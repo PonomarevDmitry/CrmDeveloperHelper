@@ -4,11 +4,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowConfirmPublish : WindowBase
     {
-        public WindowConfirmPublish(string message)
+        public WindowConfirmPublish(string message, bool showNotPromt = true)
         {
             InitializeComponent();
 
             lblText.Content = message;
+
+            if (!showNotPromt)
+            {
+                chBDoNotPromtPublishMessage.IsEnabled = false;
+                chBDoNotPromtPublishMessage.Visibility = Visibility.Collapsed;
+            }
         }
 
         /// <summary>

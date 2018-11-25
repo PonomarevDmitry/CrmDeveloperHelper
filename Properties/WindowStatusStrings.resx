@@ -1062,4 +1062,13 @@
   <data name="NotFoundedApplicationRibbonRibbonCustomization" xml:space="preserve">
     <value>Not founded ApplicationRibbon RibbonCustomization entity.</value>
   </data>
+  <data name="ValidatingRibbonDiffXml" xml:space="preserve">
+    <value>Validating RibbonDiffXml...</value>
+  </data>
+  <data name="ValidatingRibbonDiffXmlFailed" xml:space="preserve">
+    <value>Validating RibbonDiffXml failed.</value>
+  </data>
+  <data name="DeletingSolutionFailedFormat1" xml:space="preserve">
+    <value>Deleting solution {0} failed.</value>
+  </data>
 </root>

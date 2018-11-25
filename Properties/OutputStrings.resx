@@ -324,4 +324,7 @@
   <data name="FileTextIsNotXmlFormat1" xml:space="preserve">
     <value>File text is not Xml: {0}</value>
   </data>
+  <data name="SiteMapNotFoundedFormat2" xml:space="preserve">
+    <value>{0}. SiteMap with unique name '{1}' not founded.</value>
+  </data>
 </root>

@@ -263,4 +263,8 @@
   <data name="InteractiveLogin" xml:space="preserve">
     <value>Interactive Login</value>
   </data>
+  <data name="PublishRibbonDiffXmlFormat2" xml:space="preserve">
+    <value>Publish RibbonDiffXml in {0} on
+{1}?</value>
+  </data>
 </root>

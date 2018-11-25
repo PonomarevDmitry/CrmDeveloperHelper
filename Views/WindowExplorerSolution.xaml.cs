@@ -955,7 +955,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service != null)
                 {
-                    _iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData.ConnectionId, solution.UniqueName, service.ConnectionData.GetSolutionUrl(solution.Id));
+                    _iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData, solution.UniqueName, solution.Id);
 
                     if (solutionExportInfo.OverrideNameAndVersion)
                     {
@@ -1056,7 +1056,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         connectionData.AddLastSelectedSolution(solution.UniqueName);
 
-                        _iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
+                        _iWriteToOutput.WriteToOutputSolutionUri(connectionData, solution.UniqueName, solution.Id);
 
                         cmBFilter.Text = text;
                     }

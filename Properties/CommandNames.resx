@@ -186,6 +186,15 @@
   <data name="CodeXmlShowDifferenceEntityRibbonDiffXmlCommandFormat1" xml:space="preserve">
     <value>Show Difference {0} RibbonDiffXml</value>
   </data>
+  <data name="CodeXmlShowDifferenceSiteMapCommand" xml:space="preserve">
+    <value>Show Difference SiteMap</value>
+  </data>
+  <data name="CodeXmlUpdateApplicationRibbonDiffXmlCommand" xml:space="preserve">
+    <value>Update Application RibbonDiffXml</value>
+  </data>
+  <data name="CodeXmlUpdateEntityRibbonDiffXmlCommandFormat1" xml:space="preserve">
+    <value>Update {0} RibbonDiffXml</value>
+  </data>
   <data name="CommandNameWithConnectionFormat2" xml:space="preserve">
     <value>{0} - {1}</value>
   </data>

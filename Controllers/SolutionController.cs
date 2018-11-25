@@ -289,7 +289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
+                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData, solution.UniqueName, solution.Id);
             }
 
             if (solution == null)
@@ -474,7 +474,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
+                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData, solution.UniqueName, solution.Id);
             }
 
             if (solution == null)
@@ -618,7 +618,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 else
                 {
-                    iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData.ConnectionId, solution.UniqueName, service.ConnectionData.GetSolutionUrl(solution.Id));
+                    iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData, solution.UniqueName, solution.Id);
                 }
 
                 if (solution == null)
@@ -800,7 +800,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 else
                 {
-                    iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData.ConnectionId, solution.UniqueName, service.ConnectionData.GetSolutionUrl(solution.Id));
+                    iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData, solution.UniqueName, solution.Id);
                 }
 
                 if (solution == null)
@@ -970,7 +970,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
+                    this._iWriteToOutput.WriteToOutputSolutionUri(connectionData, solution.UniqueName, solution.Id);
                 }
 
                 if (solution == null)
@@ -1165,7 +1165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
+                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData, solution.UniqueName, solution.Id);
             }
 
             if (solution == null)
@@ -1380,7 +1380,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData.ConnectionId, solution.UniqueName, connectionData.GetSolutionUrl(solution.Id));
+                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData, solution.UniqueName, solution.Id);
             }
 
             if (solution == null)
