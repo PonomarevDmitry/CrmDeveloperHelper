@@ -467,6 +467,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     string ribbonDiffXml = await task1;
 
+                    if (_commonConfig.SetXmlSchemasDuringExport)
+                    {
+                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
+
+                        if (schemasResources != null)
+                        {
+                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
+                        }
+                    }
+
+                    if (_commonConfig.SetIntellisenseContext)
+                    {
+                        ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, string.Empty);
+                    }
+
                     ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
 
                     string fileName1 = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(service1.ConnectionData.Name);
@@ -490,6 +505,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (task2 != null)
                 {
                     string ribbonDiffXml = await task2;
+
+                    if (_commonConfig.SetXmlSchemasDuringExport)
+                    {
+                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
+
+                        if (schemasResources != null)
+                        {
+                            ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
+                        }
+                    }
+
+                    if (_commonConfig.SetIntellisenseContext)
+                    {
+                        ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, string.Empty);
+                    }
 
                     ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
 
@@ -702,6 +732,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository = new ExportSolutionHelper(service);
 
                 string ribbonDiffXml = await repository.ExportSolutionAndGetApplicationRibbonDiffAsync(solutionUniqueName);
+
+                if (_commonConfig.SetXmlSchemasDuringExport)
+                {
+                    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
+
+                    if (schemasResources != null)
+                    {
+                        ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
+                    }
+                }
+
+                if (_commonConfig.SetIntellisenseContext)
+                {
+                    ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, string.Empty);
+                }
 
                 ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
 

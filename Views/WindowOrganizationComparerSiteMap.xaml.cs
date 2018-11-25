@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
@@ -91,6 +92,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFileAction.DataContext = _commonConfig;
 
             chBXmlAttributeOnNewLine.DataContext = _commonConfig;
+
+            chBSetXmlSchemas.DataContext = _commonConfig;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -490,6 +493,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
+                    if (_commonConfig.SetXmlSchemasDuringExport)
+                    {
+                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaSiteMapXml);
+
+                        if (schemasResources != null)
+                        {
+                            xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources);
+                        }
+                    }
+
                     xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportSiteMapXmlAttributeOnNewLine);
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));

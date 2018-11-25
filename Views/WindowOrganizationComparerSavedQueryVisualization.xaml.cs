@@ -19,6 +19,7 @@ using System.Xml.Linq;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
 using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -99,6 +100,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void LoadFromConfig()
         {
             cmBFileAction.DataContext = _commonConfig;
+
+            chBSetXmlSchemas.DataContext = _commonConfig;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -490,6 +493,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
+                    if (_commonConfig.SetXmlSchemasDuringExport)
+                    {
+                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaVisualizationDataDescription);
+
+                        if (schemasResources != null)
+                        {
+                            xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources);
+                        }
+                    }
+
                     if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
                     {
                         xmlContent = doc.ToString();
