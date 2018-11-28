@@ -122,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LastSelectedSolutionsUniqueName_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            this.Dispatcher.Invoke(FillCopyComponentsToLastSelectedSolutions);
+            this.Dispatcher.Invoke(FillCopyComponentsToLastSelectedSolutionsAsync);
         }
 
         private void LoadFromConfig()
@@ -612,7 +612,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         tSDDBClearUnmanagedSolution.IsEnabled = tSDDBClearUnmanagedSolution.Items.Count > 0;
                     }
 
-                    FillCopyComponentsToLastSelectedSolutions();
+                    FillCopyComponentsToLastSelectedSolutionsAsync();
                 }
                 catch (Exception ex)
                 {
@@ -621,7 +621,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void FillCopyComponentsToLastSelectedSolutions()
+        private async Task FillCopyComponentsToLastSelectedSolutionsAsync()
         {
             bool enabled = this._controlsEnabled;
 
@@ -648,15 +648,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (listSolutionNames.Any() && listFrom.Any())
                     {
-                        var serviceTask = GetService();
-
-                        serviceTask.Wait();
-
-                        var service = serviceTask.Result;
+                        var service = await GetService();
 
                         SolutionRepository repository = new SolutionRepository(service);
 
-                        var solutionsTask = repository.GetSolutionsVisibleUnmanaged(listSolutionNames);
+                        var solutionsTask = await repository.GetSolutionsVisibleUnmanagedAsync(listSolutionNames);
 
                         var lastSolutions = solutionsTask.ToDictionary(s => s.UniqueName, StringComparer.InvariantCultureIgnoreCase);
 
@@ -2093,13 +2089,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 added.LastSelectedSolutionsUniqueName.CollectionChanged += LastSelectedSolutionsUniqueName_CollectionChanged;
             }
 
-            FillCopyComponentsToLastSelectedSolutions();
-
-            this.Dispatcher.Invoke(() =>
-            {
-                this._itemsSource?.Clear();
-            });
-
             ConnectionData connectionData = null;
 
             cmBCurrentConnection.Dispatcher.Invoke(() =>
@@ -2109,8 +2098,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 BindCollections(connectionData);
             });
 
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource?.Clear();
+            });
+
             if (connectionData != null)
             {
+                FillCopyComponentsToLastSelectedSolutionsAsync();
+
                 ShowExistingSolutions();
             }
         }

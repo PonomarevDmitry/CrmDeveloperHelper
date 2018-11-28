@@ -359,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, false, false);
                 }
 
-                if (string.Equals(currentAttributeName, IntellisenseContext.NameIntellisenseContextName + ":" + IntellisenseContext.IntellisenseContextAttributeEntityName, StringComparison.InvariantCultureIgnoreCase)
+                if (string.Equals(currentAttributeName, IntellisenseContext.NameIntellisenseContextName + ":" + IntellisenseContext.NameIntellisenseContextAttributeEntityName, StringComparison.InvariantCultureIgnoreCase)
                     &&
                     (
                         string.Equals(currentNodeName, "RibbonDiffXml", StringComparison.InvariantCultureIgnoreCase)

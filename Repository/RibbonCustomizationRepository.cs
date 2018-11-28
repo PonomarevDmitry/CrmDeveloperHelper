@@ -871,6 +871,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 await repository.ImportSolutionAsync(solutionBodyBinary);
 
+                await DeleteSolution(iWriteToOutput, solution);
 
                 {
                     var repositoryPublish = new PublishActionsRepository(_service);
@@ -1003,10 +1004,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private async Task DeleteSolution(IWriteToOutput iWriteToOutput, Solution solution)
         {
+            if (solution.Id == Guid.Empty)
+            {
+                return;
+            }
+
             try
             {
                 iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.DeletingSolutionFormat1, solution.UniqueName);
                 await _service.DeleteAsync(solution.LogicalName, solution.Id);
+                solution.Id = Guid.Empty;
             }
             catch (Exception ex)
             {

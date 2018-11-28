@@ -34,7 +34,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 cmBUniqueName.Text = connectionData.ExportSolutionOverrideUniqueName;
                 cmBDisplayName.Text = connectionData.ExportSolutionOverrideDisplayName;
                 cmBVersion.Text = connectionData.ExportSolutionOverrideVersion;
-                cmBExportFolder.Text = connectionData.ExportSolutionOverrideVersion;
                 cmBExportFolder.Text = connectionData.ExportSolutionFolder;
             }
 
