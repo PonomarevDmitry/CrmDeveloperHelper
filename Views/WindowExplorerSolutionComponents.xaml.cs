@@ -604,7 +604,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("{0} {1} Entity Description exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+            this._iWriteToOutput.PerformAction(filePath);
 
             ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
         }
@@ -679,7 +679,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("{0} {1} Dependent Components exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             else
             {
@@ -710,7 +710,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("{0} {1} Required Components exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             else
             {
@@ -741,7 +741,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("{0} {1} Dependencies For Delete exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             else
             {
@@ -1448,7 +1448,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Solution Used Entities was export into file '{0}'", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
             }
@@ -1484,7 +1484,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Solution Used Not Exists Entities was export into file '{0}'", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
             }
@@ -1565,7 +1565,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
             }
@@ -1754,7 +1754,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Solution Components was export into file '{0}'", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsCompletedFormat1, solution.UniqueName);
             }
@@ -1801,7 +1801,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Solution {0} was export into file '{1}'", showString, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesCompletedFormat1, solution.UniqueName);
             }
@@ -1848,7 +1848,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Solution {0} was export into file '{1}'", showString, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallCompletedFormat1, solution.UniqueName);
             }

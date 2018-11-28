@@ -30,7 +30,7 @@
         <Label Content="Entity Url" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Height="26"/>
         <TextBox x:Name="txtBEntityUrl" Margin="10,158,10,48"  TabIndex="2147483647" AcceptsReturn="True"/>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,12" VerticalContentAlignment="Center" Padding="10,0" Width="53" Height="31" VerticalAlignment="Bottom"/>
-        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,12" Padding="10,0" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" Height="31" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="254" />
+        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,12" Padding="10,0" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" Height="31" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="254" />
         <Button x:Name="btnCreateFile" Content="Create File" Margin="0,0,127,12" Click="btnCreateFile_Click" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="103" Height="25"/>
         <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,12" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
     </Grid>

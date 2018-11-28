@@ -1,0 +1,17 @@
+﻿<src:WindowBase
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowFileActionByExtension"
+        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+        Title="FileAction by Extension" Height="145" Width="437" WindowStartupLocation="Manual">
+    <Grid>
+        <Label Content="Extension" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="53" Padding="0" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBExtension" Height="26" Margin="81,10,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2147483647"/>
+        <Label Content="Action" HorizontalAlignment="Left" Margin="10,41,0,0" Padding="0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="26" Width="53" />
+        <ComboBox x:Name="cmBFileAction" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="81,41,10,0" Padding="10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" Height="26" />
+        <Button x:Name="btnOk" Content="Ok" Margin="0,0,127,10" Click="btnOk_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="103"/>
+        <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,10" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+    </Grid>
+</src:WindowBase>

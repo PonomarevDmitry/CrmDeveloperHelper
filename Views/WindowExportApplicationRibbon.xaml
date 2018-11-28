@@ -11,6 +11,8 @@
                 <MenuItem Header="ApplicationRibbon" VerticalAlignment="Center" SubmenuOpened="miApplicationRibbon_SubmenuOpened">
                     <MenuItem Header="Export Application Ribbon" Click="miExportApplicationRibbon_Click"/>
                     <Separator/>
+                    <MenuItem Header="Export Application Ribbon Archive" Click="miExportApplicationRibbonArchive_Click"/>
+                    <Separator/>
                     <MenuItem Header="Export Application RibbonDiffXml" Click="miExportApplicationRibbonDiffXml_Click"/>
                     <Separator/>
                     <MenuItem Header="Publish Application Ribbon" Click="miPublishApplicationRibbon_Click"/>
@@ -71,7 +73,7 @@
         <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="51,38,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
 
         <Label Content="Action" HorizontalAlignment="Left" Margin="9,66,0,0" Padding="10,0" VerticalAlignment="Top" Height="25" VerticalContentAlignment="Center" />
-        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,66,0,0" Padding="10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Height="25" Width="254" />
+        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,66,0,0" Padding="10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Height="25" Width="254" />
 
         <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>

@@ -235,7 +235,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 fileTitle2 = connectionData.Name + "." + selectedFile.FileName + " - " + filePath2;
             }
 
-            this._iWriteToOutput.ProcessStartProgramComparer(commonConfig, filePath1, filePath2, fileTitle1, fileTitle2);
+            this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
         #endregion Различия файла и веб-ресурса.
@@ -428,7 +428,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     break;
 
                 case ShowDifferenceThreeFileType.TwoConnections:
-                    this._iWriteToOutput.ProcessStartProgramComparer(commonConfig, filePath1, filePath2, fileTitle1, fileTitle2);
+                    this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, fileTitle1, fileTitle2);
                     break;
 
                 case ShowDifferenceThreeFileType.ThreeWay:
@@ -449,18 +449,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
             {
-                this._iWriteToOutput.ProcessStartProgramComparerThreeWayFile(commonConfig, fileLocalPath, filePath1, filePath2, fileLocalTitle, fileTitle1, fileTitle2);
+                this._iWriteToOutput.ProcessStartProgramComparerThreeWayFile(fileLocalPath, filePath1, filePath2, fileLocalTitle, fileTitle1, fileTitle2);
             }
             else
             {
                 if (File.Exists(filePath1))
                 {
-                    this._iWriteToOutput.ProcessStartProgramComparer(commonConfig, fileLocalPath, filePath1, fileLocalTitle, fileTitle1);
+                    this._iWriteToOutput.ProcessStartProgramComparer(fileLocalPath, filePath1, fileLocalTitle, fileTitle1);
                 }
 
                 if (File.Exists(filePath2))
                 {
-                    this._iWriteToOutput.ProcessStartProgramComparer(commonConfig, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
+                    this._iWriteToOutput.ProcessStartProgramComparer(fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
                 }
             }
         }
@@ -473,17 +473,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (existsFileLocal && existsFile1)
             {
-                this._iWriteToOutput.ProcessStartProgramComparer(commonConfig, fileLocalPath, filePath1, fileLocalTitle, fileTitle1);
+                this._iWriteToOutput.ProcessStartProgramComparer(fileLocalPath, filePath1, fileLocalTitle, fileTitle1);
             }
 
             if (existsFileLocal && existsFile2)
             {
-                this._iWriteToOutput.ProcessStartProgramComparer(commonConfig, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
+                this._iWriteToOutput.ProcessStartProgramComparer(fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
             }
 
             if (existsFile1 && existsFile2)
             {
-                this._iWriteToOutput.ProcessStartProgramComparer(commonConfig, filePath1, filePath2, fileTitle1, fileTitle2);
+                this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, fileTitle1, fileTitle2);
             }
 
             int total = Convert.ToInt32(existsFileLocal) + Convert.ToInt32(existsFile1) + Convert.ToInt32(existsFile2);
@@ -491,13 +491,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (total == 1)
             {
                 _iWriteToOutput.WriteToOutputFilePathUri(fileLocalPath);
-                _iWriteToOutput.OpenFile(fileLocalPath, commonConfig);
+                _iWriteToOutput.OpenFile(fileLocalPath);
 
                 _iWriteToOutput.WriteToOutputFilePathUri(fileLocalPath);
-                _iWriteToOutput.OpenFile(filePath1, commonConfig);
+                _iWriteToOutput.OpenFile(filePath1);
 
                 _iWriteToOutput.WriteToOutputFilePathUri(fileLocalPath);
-                _iWriteToOutput.OpenFile(filePath2, commonConfig);
+                _iWriteToOutput.OpenFile(filePath2);
             }
         }
 
@@ -583,7 +583,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     string file2 = tempFilePath;
                     string fileTitle2 = connectionData.Name + "." + selectedFile.FileName + " - " + tempFilePath;
 
-                    this._iWriteToOutput.ProcessStartProgramComparer(commonConfig, file1, file2, fileTitle1, fileTitle2);
+                    this._iWriteToOutput.ProcessStartProgramComparer(file1, file2, fileTitle1, fileTitle2);
                 }
             }
         }
@@ -817,7 +817,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileTitle1 = selectedFile.FileName;
             string fileTitle2 = connectionData.Name + "." + selectedFile.FileName + " - " + temporaryFilePath;
 
-            this._iWriteToOutput.ProcessStartProgramComparer(commonConfig, file1, file2, fileTitle1, fileTitle2);
+            this._iWriteToOutput.ProcessStartProgramComparer(file1, file2, fileTitle1, fileTitle2);
         }
 
         #endregion Различия отчета и файла.
@@ -1017,7 +1017,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     break;
 
                 case ShowDifferenceThreeFileType.TwoConnections:
-                    this._iWriteToOutput.ProcessStartProgramComparer(commonConfig, filePath1, filePath2, fileTitle1, fileTitle2);
+                    this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, fileTitle1, fileTitle2);
                     break;
 
                 case ShowDifferenceThreeFileType.ThreeWay:

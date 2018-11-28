@@ -320,13 +320,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
                 {
-                    this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                    this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                 }
                 else
                 {
-                    this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath1);
 
-                    this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath2);
                 }
             }
             catch (Exception ex)
@@ -465,13 +465,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
                 {
-                    this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                    this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                 }
                 else
                 {
-                    this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath1);
 
-                    this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath2);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceApplicationRibbonsDiffXmlCompleted);
@@ -540,7 +540,67 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
+
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonCompleted);
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbon);
+        }
+
+        private void mIConnection1ApplicationRibbonArchive_Click(object sender, RoutedEventArgs e)
+        {
+            ExecuteCreatingApplicationRibbonArchive(GetService1);
+        }
+
+        private void mIConnection2ApplicationRibbonArchive_Click(object sender, RoutedEventArgs e)
+        {
+            ExecuteCreatingApplicationRibbonArchive(GetService2);
+        }
+
+        private async Task ExecuteCreatingApplicationRibbonArchive(Func<Task<IOrganizationServiceExtented>> getService)
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbon);
+
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingApplicationRibbon);
+
+            try
+            {
+                var service = await getService();
+
+                var repository = new RibbonCustomizationRepository(service);
+
+                var ribbonBody = await repository.ExportApplicationRibbonByteArrayAsync();
+
+                {
+                    string fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(service.ConnectionData.Name, "zip");
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllBytes(filePath, ribbonBody);
+
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
+
+                    this._iWriteToOutput.PerformAction(filePath);
                 }
             }
             catch (Exception ex)
@@ -642,7 +702,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlCompleted);

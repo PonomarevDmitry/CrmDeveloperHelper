@@ -675,13 +675,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
-                            this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                            this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                         }
                         else
                         {
-                            this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                            this._iWriteToOutput.PerformAction(filePath1);
 
-                            this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                            this._iWriteToOutput.PerformAction(filePath2);
                         }
                     }
                 }
@@ -752,13 +752,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
                     {
-                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                     }
                     else
                     {
-                        this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                        this._iWriteToOutput.PerformAction(filePath1);
 
-                        this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        this._iWriteToOutput.PerformAction(filePath2);
                     }
                 }
             }
@@ -835,13 +835,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
-                            this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                            this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                         }
                         else
                         {
-                            this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                            this._iWriteToOutput.PerformAction(filePath1);
 
-                            this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                            this._iWriteToOutput.PerformAction(filePath2);
                         }
                     }
                 }
@@ -933,13 +933,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                                     if (File.Exists(localFilePath1) && File.Exists(localFilePath2))
                                     {
-                                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, localFilePath1, localFilePath2, Path.GetFileName(localFilePath1), Path.GetFileName(localFilePath2));
+                                        this._iWriteToOutput.ProcessStartProgramComparer(localFilePath1, localFilePath2, Path.GetFileName(localFilePath1), Path.GetFileName(localFilePath2));
                                     }
                                     else
                                     {
-                                        this._iWriteToOutput.PerformAction(localFilePath1, _commonConfig);
+                                        this._iWriteToOutput.PerformAction(localFilePath1);
 
-                                        this._iWriteToOutput.PerformAction(localFilePath2, _commonConfig);
+                                        this._iWriteToOutput.PerformAction(localFilePath2);
                                     }
                                 }
                             }
@@ -1032,7 +1032,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = await CreateFileAsync(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, xmlContent);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
@@ -1079,7 +1079,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = await CreateDescriptionFileAsync(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, "EntityDescription", description);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
@@ -1167,7 +1167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "FormDescription", filePath);
 
-                        this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                        this._iWriteToOutput.PerformAction(filePath);
                     }
                     catch (Exception ex)
                     {
@@ -1315,7 +1315,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 foreach (var filePath in files)
                 {
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath);
                 }
             }
 

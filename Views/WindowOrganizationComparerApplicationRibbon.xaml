@@ -40,6 +40,8 @@
                 <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
                     <MenuItem Header="Export Application Ribbon" Click="mIConnection1ApplicationRibbon_Click"  />
                     <Separator/>
+                    <MenuItem Header="Export Application Ribbon Archive" Click="mIConnection1ApplicationRibbonArchive_Click"  />
+                    <Separator/>
                     <MenuItem Header="Export Application RibbonDiffXml" Click="mIConnection1ApplicationRibbonDiffXml_Click"  />
                     <Separator/>
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
@@ -68,6 +70,8 @@
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
                     <MenuItem Header="Export Application Ribbon" Click="mIConnection2ApplicationRibbon_Click" />
+                    <Separator/>
+                    <MenuItem Header="Export Application Ribbon Archive" Click="mIConnection2ApplicationRibbonArchive_Click"  />
                     <Separator/>
                     <MenuItem Header="Export Application RibbonDiffXml" Click="mIConnection2ApplicationRibbonDiffXml_Click" />
                     <Separator/>
@@ -124,7 +128,7 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Label Content="Action" HorizontalAlignment="Left" Padding="10,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
-                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" Padding="10,0" Width="180" SelectedIndex="0" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />
+                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" Padding="10,0" Width="180" SelectedIndex="0" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />
                 </ToolBarPanel>
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>

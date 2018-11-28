@@ -564,7 +564,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = await CreateFileAsync(folder, entityName, name, fieldTitle, xmlContent, "xml");
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
             }
@@ -878,7 +878,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , savedQuery.LogicalName
                     , filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
             }

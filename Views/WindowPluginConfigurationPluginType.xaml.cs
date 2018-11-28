@@ -384,7 +384,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("PluginType {0} description exported to {1}", pluginType.PluginType.TypeName, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             else
             {

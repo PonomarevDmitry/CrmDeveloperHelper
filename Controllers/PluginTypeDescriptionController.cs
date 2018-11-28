@@ -184,7 +184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string filePath = await CreateFileWithAssemblyComparing(commonConfig.FolderForExport, connectionData, service, assembly.Id, assembly.Name, defaultFolder);
 
-            this._iWriteToOutput.PerformAction(filePath, commonConfig);
+            this._iWriteToOutput.PerformAction(filePath);
         }
 
         public async Task<string> CreateFileWithAssemblyComparing(string folder, ConnectionData connection, IOrganizationServiceExtented service, Guid idPluginAssembly, string assemblyName, string defaultFolder)

@@ -123,7 +123,7 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Label Content="Action" HorizontalAlignment="Left" Padding="10,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
-                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" VerticalAlignment="Stretch" IsReadOnly="True" Padding="10,0" Width="170" SelectedIndex="0" HorizontalAlignment="Left"  VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />
+                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" VerticalAlignment="Stretch" IsReadOnly="True" Padding="10,0" Width="170" SelectedIndex="0" HorizontalAlignment="Left"  VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />
                     <Label Content="Group by" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" />
                     <ComboBox x:Name="cmBGroupBy" SelectedItem="{Binding Path=ComponentsGroupBy}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ComponentsGroupBy}}}"  VerticalAlignment="Stretch" IsReadOnly="True" Width="155" SelectedIndex="1" HorizontalAlignment="Left"  VerticalContentAlignment="Center"  HorizontalContentAlignment="Stretch" />
                 </ToolBarPanel>

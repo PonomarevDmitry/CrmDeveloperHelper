@@ -494,7 +494,52 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
+
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonCompleted);
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbon);
+        }
+
+        private void miExportApplicationRibbonArchive_Click(object sender, RoutedEventArgs e)
+        {
+            ExecuteActionOnApplicationRibbonAsync(PerformExportApplicationRibbonArchive);
+        }
+
+        private async Task PerformExportApplicationRibbonArchive()
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbon);
+
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingApplicationRibbon);
+
+            var service = await GetService();
+
+            try
+            {
+                var repository = new RibbonCustomizationRepository(service);
+
+                var ribbonBody = await repository.ExportApplicationRibbonByteArrayAsync();
+
+                {
+                    string fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(service.ConnectionData.Name, "zip");
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllBytes(filePath, ribbonBody);
+
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
+
+                    this._iWriteToOutput.PerformAction(filePath);
                 }
             }
             catch (Exception ex)
@@ -581,7 +626,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlCompleted);

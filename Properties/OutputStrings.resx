@@ -327,4 +327,7 @@
   <data name="SiteMapNotFoundedFormat2" xml:space="preserve">
     <value>{0}. SiteMap with unique name '{1}' not founded.</value>
   </data>
+  <data name="ExportedEntityRibbonArchiveForConnectionFormat3" xml:space="preserve">
+    <value>{0}. For '{1}' exported file with Ribbon Archive: {2}</value>
+  </data>
 </root>

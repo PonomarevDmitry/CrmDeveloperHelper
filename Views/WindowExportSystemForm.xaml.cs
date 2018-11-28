@@ -555,7 +555,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = await CreateFileAsync(folder, entityName, name, fieldTitle, xmlContent);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
             }
@@ -749,7 +749,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , systemForm.LogicalName
                     , filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
             }
@@ -891,7 +891,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "FormDescription", filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath);
                 }
                 catch (Exception ex)
                 {
@@ -987,7 +987,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             foreach (var filePath in files)
             {
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesCompletedFormat2, entityName, name);
@@ -1081,7 +1081,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "Entity Metadata", filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath);
                 }
                 catch (Exception ex)
                 {

@@ -450,7 +450,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginAssembly.Schema.EntityLogicalName, name, "Description", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+            this._iWriteToOutput.PerformAction(filePath);
             
             ToggleControls(true, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionCompletedFormat1, name);
         }
@@ -475,7 +475,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , assembly.LogicalName
                 , filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+            this._iWriteToOutput.PerformAction(filePath);
 
             ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
         }
@@ -501,7 +501,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (File.Exists(filePath))
             {
-                if (_commonConfig.AfterCreateFileAction != FileAction.None)
+                if (_commonConfig.DefaultFileAction != FileAction.None)
                 {
                     this._iWriteToOutput.SelectFileInFolder(filePath);
                 }
@@ -655,7 +655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string filePath = await controller.CreateFileWithAssemblyComparing(folder, service.ConnectionData, service, idPluginAssembly, name, null);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+            this._iWriteToOutput.PerformAction(filePath);
             
             ToggleControls(true, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyCompletedFormat1, name);
         }

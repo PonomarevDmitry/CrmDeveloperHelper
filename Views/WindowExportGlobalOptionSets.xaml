@@ -92,7 +92,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" Padding="10,0" VerticalAlignment="Bottom" Height="25" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="69,0,0,69" Padding="10,0" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="254" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Height="25" />
+        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="69,0,0,69" Padding="10,0" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="254" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Height="25" />
         <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">

@@ -732,7 +732,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection1 != null && connection2 == null)
             {
-                var dialog = new WindowSelectFolderForExport(_commonConfig.FolderForExport, _commonConfig.AfterCreateFileAction);
+                var dialog = new WindowSelectFolderForExport(_commonConfig.FolderForExport, _commonConfig.DefaultFileAction);
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
@@ -764,7 +764,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection1 != null && connection2 == null)
             {
-                var dialog = new WindowSelectFolderForExport(_commonConfig.FolderForExport, _commonConfig.AfterCreateFileAction);
+                var dialog = new WindowSelectFolderForExport(_commonConfig.FolderForExport, _commonConfig.DefaultFileAction);
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
@@ -2421,7 +2421,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Global OptionSets in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2444,7 +2444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check System Forms in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2467,7 +2467,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check System Saved Queries in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2490,7 +2490,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check System Saved Query Visualizations (Charts) in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2513,7 +2513,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Connection Roles in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2536,7 +2536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Connection Role Categories in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2559,7 +2559,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Ribbons in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2582,7 +2582,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Ribbons with details in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2605,7 +2605,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Display Strings in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2628,7 +2628,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check WebResources in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2651,7 +2651,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check WebResources with details in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2674,7 +2674,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Sitemaps in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2697,7 +2697,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Security Roles in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2720,7 +2720,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Workflows in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2743,7 +2743,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Workflows with details in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2766,7 +2766,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Reports in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2789,7 +2789,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check E-Mail Templates in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2812,7 +2812,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Mail Merge Templates in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2835,7 +2835,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check KB Article Templates in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2858,7 +2858,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Contract Templates in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2881,7 +2881,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Field Security Profiles in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2904,7 +2904,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Entities in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2927,7 +2927,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Entity Labels in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2950,7 +2950,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Entity Maps in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2973,7 +2973,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Plugin Assemblies in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -2996,7 +2996,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Plugin Types in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -3019,7 +3019,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Plugin Steps by Plugin Type Names in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -3042,7 +3042,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Plugin Steps by Ids in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -3065,7 +3065,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Default Translations in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -3088,7 +3088,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Field Translations in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -3111,7 +3111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Check Organizations in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -3245,7 +3245,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput("Transfer Audit Log from {0} to {1} exported into file {2}", handler.ConnectionSource.Name, handler.ConnectionTarget.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {

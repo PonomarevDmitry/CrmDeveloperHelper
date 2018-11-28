@@ -447,7 +447,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginType.Schema.EntityLogicalName, name, "Description", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             else
             {
@@ -478,7 +478,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , pluginType.LogicalName
                 , filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+            this._iWriteToOutput.PerformAction(filePath);
 
             ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
         }

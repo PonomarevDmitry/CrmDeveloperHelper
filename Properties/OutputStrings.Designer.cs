@@ -232,6 +232,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. For &apos;{1}&apos; exported file with Ribbon Archive: {2}.
+        /// </summary>
+        internal static string ExportedEntityRibbonArchiveForConnectionFormat3 {
+            get {
+                return ResourceManager.GetString("ExportedEntityRibbonArchiveForConnectionFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. For &apos;{1}&apos; exported file with RibbonDiffXml: {2}.
         /// </summary>
         internal static string ExportedEntityRibbonDiffXmlForConnectionFormat3 {

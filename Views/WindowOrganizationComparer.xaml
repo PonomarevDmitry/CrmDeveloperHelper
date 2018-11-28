@@ -409,7 +409,7 @@
             </ListView>
         </DockPanel>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,32" Height="25" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="69,0,0,33" Padding="10,0" Height="25" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="254" />
+        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="69,0,0,33" Padding="10,0" Height="25" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="254" />
         <Button x:Name="btnClose" Content="Close" Margin="0,0,10,38" Click="btnClose_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
         <StatusBar Height="24" VerticalAlignment="Bottom">
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>

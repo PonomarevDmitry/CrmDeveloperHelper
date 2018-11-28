@@ -137,7 +137,7 @@
                     <Button x:Name="tSBLoadPluginConfiguraion" HorizontalAlignment="Left" Content="Load Plugin Configuration" Click="tSBLoadPluginConfiguraion_Click" />
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Label Content="Action" HorizontalAlignment="Left"  Padding="10,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
-                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}"  IsReadOnly="True" Padding="10,0" SelectedIndex="0" Width="260" VerticalContentAlignment="Center" VerticalAlignment="Stretch" />
+                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}"  IsReadOnly="True" Padding="10,0" SelectedIndex="0" Width="260" VerticalContentAlignment="Center" VerticalAlignment="Stretch" />
                 </ToolBarPanel>
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>

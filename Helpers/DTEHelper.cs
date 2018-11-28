@@ -2141,12 +2141,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null && selectedFiles.Count > 0)
             {
-                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.AfterCreateFileAction);
+                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.DefaultFileAction);
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {
                     commonConfig.FolderForExport = form.SelectedFolder;
-                    commonConfig.AfterCreateFileAction = form.GetFileAction();
+                    commonConfig.DefaultFileAction = form.GetFileAction();
 
                     commonConfig.Save();
 
@@ -2176,12 +2176,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
             {
-                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.AfterCreateFileAction);
+                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.DefaultFileAction);
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {
                     commonConfig.FolderForExport = form.SelectedFolder;
-                    commonConfig.AfterCreateFileAction = form.GetFileAction();
+                    commonConfig.DefaultFileAction = form.GetFileAction();
 
                     commonConfig.Save();
 
@@ -2211,12 +2211,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
             {
-                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.AfterCreateFileAction);
+                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.DefaultFileAction);
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {
                     commonConfig.FolderForExport = form.SelectedFolder;
-                    commonConfig.AfterCreateFileAction = form.GetFileAction();
+                    commonConfig.DefaultFileAction = form.GetFileAction();
 
                     commonConfig.Save();
 
@@ -3876,12 +3876,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (commonConfig != null)
             {
-                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.AfterCreateFileAction);
+                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.DefaultFileAction);
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {
                     commonConfig.FolderForExport = form.SelectedFolder;
-                    commonConfig.AfterCreateFileAction = form.GetFileAction();
+                    commonConfig.DefaultFileAction = form.GetFileAction();
 
                     commonConfig.Save();
 
@@ -3911,7 +3911,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         this.WriteToOutputFilePathUri(filePath);
 
-                        PerformAction(filePath, commonConfig, true);
+                        PerformAction(filePath, true);
                     }
                     catch (Exception xE)
                     {
@@ -3962,7 +3962,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 this.WriteToOutputFilePathUri(filePath);
 
-                this.ProcessStartProgramComparer(commonConfig, selectedFile.FilePath, filePath, selectedFile.FileName, fileName);
+                this.ProcessStartProgramComparer(selectedFile.FilePath, filePath, selectedFile.FileName, fileName);
             }
             catch (Exception xE)
             {
@@ -3976,12 +3976,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (commonConfig != null)
             {
-                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.AfterCreateFileAction);
+                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.DefaultFileAction);
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {
                     commonConfig.FolderForExport = form.SelectedFolder;
-                    commonConfig.AfterCreateFileAction = form.GetFileAction();
+                    commonConfig.DefaultFileAction = form.GetFileAction();
 
                     commonConfig.Save();
 
@@ -4012,7 +4012,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             this.WriteToOutputFilePathUri(filePath);
 
-                            PerformAction(filePath, commonConfig, true);
+                            PerformAction(filePath, true);
                         }
                     }
                     catch (Exception xE)
@@ -4191,7 +4191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void PerformAction(string filePath, CommonConfiguration commonConfig, bool hideFilePathUri = false)
+        public void PerformAction(string filePath, bool hideFilePathUri = false)
         {
             if (!File.Exists(filePath))
             {
@@ -4206,28 +4206,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.WriteToOutputFilePathUri(filePath);
             }
 
-            if (commonConfig.AfterCreateFileAction == FileAction.OpenFileInTextEditor || commonConfig.AfterCreateFileAction == FileAction.OpenFileInVisualStudio)
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            FileAction fileAction = commonConfig.GetFileActionByExtension(Path.GetExtension(filePath));
+
+            if (fileAction == FileAction.OpenFileInTextEditor || fileAction == FileAction.OpenFileInVisualStudio)
             {
-                OpenFile(filePath, commonConfig);
+                OpenFile(filePath);
             }
-            else if (commonConfig.AfterCreateFileAction == FileAction.SelectFileInFolder)
+            else if (fileAction == FileAction.SelectFileInFolder)
             {
                 SelectFileInFolder(filePath);
             }
         }
 
-        public void OpenFile(string filePath, CommonConfiguration commonConfig)
+        public void OpenFile(string filePath)
         {
-            if (File.Exists(filePath))
+            if (!File.Exists(filePath))
             {
-                if (commonConfig.AfterCreateFileAction == FileAction.OpenFileInTextEditor && File.Exists(commonConfig.TextEditorProgram))
-                {
-                    OpenFileInTextEditor(filePath, commonConfig);
-                }
-                else
-                {
-                    OpenFileInVisualStudio(filePath);
-                }
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            FileAction fileAction = commonConfig.GetFileActionByExtension(Path.GetExtension(filePath));
+
+            if (fileAction == FileAction.OpenFileInTextEditor && File.Exists(commonConfig.TextEditorProgram))
+            {
+                OpenFileInTextEditor(filePath);
+            }
+            else
+            {
+                OpenFileInVisualStudio(filePath);
             }
         }
 
@@ -4400,8 +4410,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void OpenFileInTextEditor(string filePath, CommonConfiguration commonConfig)
+        public void OpenFileInTextEditor(string filePath)
         {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
             if (File.Exists(filePath) && File.Exists(commonConfig.TextEditorProgram))
             {
                 this.WriteToOutput("Opening in Text Editor file {0}", filePath);
@@ -4434,8 +4446,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void ProcessStartProgramComparer(CommonConfiguration commonConfig, string filePath1, string filePath2, string fileTitle1, string fileTitle2)
+        public void ProcessStartProgramComparer(string filePath1, string filePath2, string fileTitle1, string fileTitle2)
         {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
             if (File.Exists(filePath1) && File.Exists(filePath2))
             {
                 this.WriteToOutput(string.Empty);
@@ -4520,14 +4534,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                this.OpenFile(filePath1, commonConfig);
+                this.OpenFile(filePath1);
 
-                this.OpenFile(filePath2, commonConfig);
+                this.OpenFile(filePath2);
             }
         }
 
-        public void ProcessStartProgramComparerThreeWayFile(CommonConfiguration commonConfig, string fileLocalPath, string filePath1, string filePath2, string fileLocalTitle, string fileTitle1, string fileTitle2)
+        public void ProcessStartProgramComparerThreeWayFile(string fileLocalPath, string filePath1, string filePath2, string fileLocalTitle, string fileTitle1, string fileTitle2)
         {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
             if (!commonConfig.DifferenceThreeWayAvaliable())
             {
                 this.WriteToOutput("There is no valid configuration for ThreeWay Difference.");
@@ -4596,11 +4612,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                this.OpenFile(fileLocalPath, commonConfig);
+                this.OpenFile(fileLocalPath);
 
-                this.OpenFile(filePath1, commonConfig);
+                this.OpenFile(filePath1);
 
-                this.OpenFile(filePath2, commonConfig);
+                this.OpenFile(filePath2);
             }
         }
     }

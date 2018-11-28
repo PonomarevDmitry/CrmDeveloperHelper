@@ -21,18 +21,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         void ActivateVisualStudioWindow();
 
-        void PerformAction(string filePath, CommonConfiguration commonConfig, bool hideFilePathUri = false);
+        void PerformAction(string filePath, bool hideFilePathUri = false);
 
-        void OpenFile(string filePath, CommonConfiguration commonConfig);
+        void OpenFile(string filePath);
 
         void OpenFileInVisualStudio(string filePath);
 
-        void OpenFileInTextEditor(string filePath, CommonConfiguration commonConfig);
+        void OpenFileInTextEditor(string filePath);
 
         void SelectFileInFolder(string filePath);
 
-        void ProcessStartProgramComparer(CommonConfiguration commonConfig, string file1, string file2, string fileTitle1, string fileTitle2);
+        void ProcessStartProgramComparer(string file1, string file2, string fileTitle1, string fileTitle2);
 
-        void ProcessStartProgramComparerThreeWayFile(CommonConfiguration commonConfig, string fileLocalPath, string filePath1, string filePath2, string fileLocalTitle, string fileTitle1, string fileTitle2);
+        void ProcessStartProgramComparerThreeWayFile(string fileLocalPath, string filePath1, string filePath2, string fileLocalTitle, string fileTitle1, string fileTitle2);
     }
 }

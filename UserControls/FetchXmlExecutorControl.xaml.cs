@@ -1080,7 +1080,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     , entityFull.LogicalName
                     , filePath);
 
-                DTEHelper.Singleton?.PerformAction(filePath, commonConfig);
+                DTEHelper.Singleton?.PerformAction(filePath);
             }
         }
 
@@ -1201,7 +1201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     , entityFull.LogicalName
                     , filePath);
 
-                DTEHelper.Singleton?.PerformAction(filePath, commonConfig);
+                DTEHelper.Singleton?.PerformAction(filePath);
             }
         }
 

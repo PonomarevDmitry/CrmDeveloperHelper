@@ -182,7 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 {
                     var commonConfig = CommonConfiguration.Get();
 
-                    DTEHelper.Singleton?.OpenFileInTextEditor(uri.LocalPath, commonConfig);
+                    DTEHelper.Singleton?.OpenFileInTextEditor(uri.LocalPath);
                 }
 
                 return true;

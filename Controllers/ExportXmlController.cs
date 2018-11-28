@@ -280,7 +280,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string filePath = await CreateFormsEventsFile(service, commonConfig.FolderForExport, commonConfig.FormsEventsFileName, connectionData.Name, commonConfig.FormsEventsOnlyWithFormLibraries);
 
-            this._iWriteToOutput.PerformAction(filePath, commonConfig);
+            this._iWriteToOutput.PerformAction(filePath);
         }
 
         private async Task<string> CreateFormsEventsFile(IOrganizationServiceExtented service, string fileFolder, string fileNameFormat, string connectionDataName, bool onlyWithFormLibraries)
@@ -642,7 +642,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string filePath1 = selectedFile.FilePath;
             string fileTitle1 = selectedFile.FileName;
 
-            this._iWriteToOutput.ProcessStartProgramComparer(commonConfig, filePath1, filePath2, fileTitle1, fileTitle2);
+            this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, fileTitle1, fileTitle2);
         }
     }
 }

@@ -767,7 +767,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 this._iWriteToOutput.WriteToOutput(string.Empty);
 
@@ -825,7 +825,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath);
                 }
 
                 this._iWriteToOutput.WriteToOutput(string.Empty);
@@ -892,7 +892,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput(message);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityMetadata.EntityLogicalName);
             }
@@ -954,7 +954,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityXmlFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.EntityLogicalName, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 this._iWriteToOutput.WriteToOutput(string.Empty);
 
@@ -1264,7 +1264,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service.ConnectionData.Name, entityMetadata.EntityLogicalName, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
+
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityCompletedFormat1, entityMetadata.EntityLogicalName);
+        }
+
+        private void miExportEntityRibbonArchive_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity, PerformExportEntityRibbonArchive);
+        }
+
+        private async Task PerformExportEntityRibbonArchive(EntityMetadataListViewItem entityMetadata)
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonForEntityFormat1, entityMetadata.EntityLogicalName);
+
+            var service = await GetService();
+
+            try
+            {
+                var repository = new RibbonCustomizationRepository(service);
+
+                var bodyEntityRibbon = await repository.ExportEntityRibbonByteArrayAsync(entityMetadata.EntityLogicalName, _commonConfig.GetRibbonLocationFilters());
+
+                string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityMetadata.EntityLogicalName, "zip");
+                string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllBytes(filePath, bodyEntityRibbon);
+
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service.ConnectionData.Name, entityMetadata.EntityLogicalName, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath);
             }
             catch (Exception ex)
             {
@@ -1336,7 +1382,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service.ConnectionData.Name, entityMetadata.EntityLogicalName, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityCompletedFormat1, entityMetadata.EntityLogicalName);

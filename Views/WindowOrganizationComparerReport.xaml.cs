@@ -700,13 +700,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
-                            this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                            this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                         }
                         else
                         {
-                            this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                            this._iWriteToOutput.PerformAction(filePath1);
 
-                            this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                            this._iWriteToOutput.PerformAction(filePath2);
                         }
                     }
                 }
@@ -762,7 +762,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = await CreateFileAsync(service.ConnectionData.Name, report.Name, report.Id, fieldTitle, xmlContent);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
@@ -802,7 +802,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (File.Exists(filePath))
                         {
-                            if (_commonConfig.AfterCreateFileAction != FileAction.None)
+                            if (_commonConfig.DefaultFileAction != FileAction.None)
                             {
                                 this._iWriteToOutput.SelectFileInFolder(filePath);
                             }
@@ -869,13 +869,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
-                            this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                            this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                         }
                         else
                         {
-                            this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                            this._iWriteToOutput.PerformAction(filePath1);
 
-                            this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                            this._iWriteToOutput.PerformAction(filePath2);
                         }
                     }
                 }
@@ -931,7 +931,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = await CreateDescriptionFileAsync(service.ConnectionData.Name, report.Name, report.Id, "Description", description);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);

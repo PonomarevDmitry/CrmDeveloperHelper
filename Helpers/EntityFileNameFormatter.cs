@@ -94,11 +94,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(SavedQueryFormatFile, connectionName, entityName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
-        private const string ApplicationRibbonFormatFile = "{0}.ApplicationRibbon at {1}.xml";
+        private const string ApplicationRibbonFormatFile = "{0}.ApplicationRibbon at {1}.{2}";
 
-        internal static string GetApplicationRibbonFileName(string connectionName)
+        internal static string GetApplicationRibbonFileName(string connectionName, string extension = "xml")
         {
-            return string.Format(ApplicationRibbonFormatFile, connectionName, GetDateString());
+            return string.Format(ApplicationRibbonFormatFile, connectionName, GetDateString(), extension.Trim('.'));
         }
 
         private const string ApplicationRibbonFormatFileFieldTitle = "{0}.ApplicationRibbon - {1} at {2}.{3}";
@@ -122,11 +122,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(ApplicationRibbonDiffXmlFormatFileFieldTitle, connectionName, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
-        private const string EntityRibbonFormatFile = "{0}.{1}.Ribbon at {2}.xml";
+        private const string EntityRibbonFormatFile = "{0}.{1}.Ribbon at {2}.{3}";
 
-        internal static string GetEntityRibbonFileName(string connectionName, string entityName)
+        internal static string GetEntityRibbonFileName(string connectionName, string entityName, string extension = "xml")
         {
-            return string.Format(EntityRibbonFormatFile, connectionName, entityName, GetDateString());
+            return string.Format(EntityRibbonFormatFile, connectionName, entityName, GetDateString(), extension.Trim('.'));
         }
 
         private const string EntityRibbonFormatFileFieldTitle = "{0}.{1}.Ribbon - {2} at {3}.{4}";

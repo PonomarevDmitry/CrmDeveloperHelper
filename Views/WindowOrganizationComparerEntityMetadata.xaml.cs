@@ -527,13 +527,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
             {
-                this._iWriteToOutput.ProcessStartProgramComparer(_commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
             }
             else
             {
-                this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath1);
 
-                this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath2);
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityCompletedFormat1, entityName);
@@ -634,13 +634,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
             {
-                this._iWriteToOutput.ProcessStartProgramComparer(_commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
             }
             else
             {
-                this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath1);
 
-                this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath2);
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataJavaScriptForEntityCompletedFormat1, entityName);
@@ -721,7 +721,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityName);
@@ -793,7 +793,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityName);
@@ -1449,13 +1449,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
                 {
-                    this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                    this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                 }
                 else
                 {
-                    this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath1);
 
-                    this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath2);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityCompletedFormat1, entityName);
@@ -1595,13 +1595,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
                 {
-                    this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                    this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                 }
                 else
                 {
-                    this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath1);
 
-                    this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath2);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityCompletedFormat1, entity.LogicalName);
@@ -1683,7 +1683,81 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service.ConnectionData.Name, entityName, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityCompletedFormat1, entityName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityFailedFormat1, entityName);
+            }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingRibbonForEntityFormat1, entityName);
+        }
+
+        private void mIConnection1EntityRibbonArchive_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null || string.IsNullOrEmpty(entity.LogicalName))
+            {
+                return;
+            }
+
+            ExecuteCreatingEntityRibbonArchive(GetService1, entity.LogicalName);
+        }
+
+        private void mIConnection2EntityRibbonArchive_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null || string.IsNullOrEmpty(entity.LogicalName))
+            {
+                return;
+            }
+
+            ExecuteCreatingEntityRibbonArchive(GetService2, entity.LogicalName);
+        }
+
+        private async Task ExecuteCreatingEntityRibbonArchive(Func<Task<IOrganizationServiceExtented>> getService, string entityName)
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingRibbonForEntityFormat1, entityName);
+
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonForEntityFormat1, entityName);
+
+            try
+            {
+                var service = await getService();
+
+                var repository = new RibbonCustomizationRepository(service);
+
+                var ribbonBody = await repository.ExportEntityRibbonByteArrayAsync(entityName, _commonConfig.GetRibbonLocationFilters());
+
+                string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityName, "zip");
+                string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllBytes(filePath, ribbonBody);
+
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonArchiveForConnectionFormat3, service.ConnectionData.Name, entityName, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityCompletedFormat1, entityName);
             }
@@ -1781,7 +1855,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityCompletedFormat1, entityMetadata.LogicalName);

@@ -1,6 +1,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -19,6 +20,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private CommonConfiguration _config;
 
+        private ObservableCollection<ListViewItem> _sourceFileActions = new ObservableCollection<ListViewItem>();
+
         public WindowCommonConfiguration(CommonConfiguration config)
         {
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
@@ -30,6 +33,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(this._config.Utils, sysObjectUtils);
 
             lstVwUtils.ItemsSource = this._config.Utils;
+
+            foreach (var extension in _config.FileActionsByExtensions.Keys.OrderBy(s => s))
+            {
+                _sourceFileActions.Add(new ListViewItem()
+                {
+                    Extension = extension,
+                    FileAction = _config.FileActionsByExtensions[extension],
+                });
+            }
+
+            lstVwFileActions.ItemsSource = _sourceFileActions;
 
             LoadFields();
         }
@@ -171,7 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
             }
-            
+
             {
                 string pathFile = txtBCompareProgram.Text.Trim();
 
@@ -185,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             if (string.IsNullOrEmpty(format))
                             {
                                 if (message.Length > 0) { message.AppendLine(); }
-                                
+
                                 message.Append(Properties.MessageBoxStrings.DifferenceTwoFilesArgumentsIsEmpty);
                             }
                             else
@@ -193,14 +207,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 if (!format.Contains("%f1"))
                                 {
                                     if (message.Length > 0) { message.AppendLine(); }
-                                    
+
                                     message.Append(Properties.MessageBoxStrings.DifferenceTwoFilesArgumentsNotContainsF1);
                                 }
 
                                 if (!format.Contains("%f2"))
                                 {
                                     if (message.Length > 0) { message.AppendLine(); }
-                                    
+
                                     message.Append(Properties.MessageBoxStrings.DifferenceTwoFilesArgumentsNotContainsF2);
                                 }
                             }
@@ -214,22 +228,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 if (!formatThreeWay.Contains("%f1"))
                                 {
                                     if (message.Length > 0) { message.AppendLine(); }
-                                    
+
                                     message.Append(Properties.MessageBoxStrings.ThreeWayDifferenceArgumentsNotContainsF1);
                                 }
 
                                 if (!formatThreeWay.Contains("%f2"))
                                 {
                                     if (message.Length > 0) { message.AppendLine(); }
-                                    
+
                                     message.Append(Properties.MessageBoxStrings.ThreeWayDifferenceArgumentsNotContainsF2);
                                 }
 
-                                if (!formatThreeWay.Contains("%f3"))
+                                if (!formatThreeWay.Contains("%fl"))
                                 {
                                     if (message.Length > 0) { message.AppendLine(); }
-                                    
-                                    message.Append(Properties.MessageBoxStrings.ThreeWayDifferenceArgumentsNotContainsF3);
+
+                                    message.Append(Properties.MessageBoxStrings.ThreeWayDifferenceArgumentsNotContainsFLocal);
                                 }
                             }
                         }
@@ -237,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     else
                     {
                         if (message.Length > 0) { message.AppendLine(); }
-                        
+
                         message.Append(Properties.MessageBoxStrings.DifferenceProgramNotExists);
                     }
                 }
@@ -251,7 +265,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     if (!File.Exists(pathFile))
                     {
                         if (message.Length > 0) { message.AppendLine(); }
-                        
+
                         message.Append(Properties.MessageBoxStrings.TextEditorProgramNotExists);
                     }
                 }
@@ -408,6 +422,118 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                 }
             });
+        }
+
+        private class ListViewItem
+        {
+            public string Extension { get; set; }
+
+            public FileAction FileAction { get; set; }
+        }
+
+        private void lstVwFileActions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateButtonsFileActions();
+        }
+
+        private void UpdateButtonsFileActions()
+        {
+            this.lstVwFileActions.Dispatcher.Invoke(() =>
+            {
+                try
+                {
+                    bool enabled = this.lstVwFileActions.SelectedItems.Count > 0;
+
+                    UIElement[] list = { tSBFileActionEdit, tSBFileActionDelete };
+
+                    foreach (var button in list)
+                    {
+                        button.IsEnabled = enabled;
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            });
+        }
+
+        private void tSBFileActionCreate_Click(object sender, RoutedEventArgs e)
+        {
+            var form = new WindowFileActionByExtension(string.Empty, _config.DefaultFileAction);
+
+            if (form.ShowDialog().GetValueOrDefault())
+            {
+                string extension = form.SelectedExtension;
+                var fileAction = form.GetFileAction();
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    if (!string.IsNullOrEmpty(extension) && !_config.FileActionsByExtensions.ContainsKey(extension))
+                    {
+                        _config.FileActionsByExtensions.TryAdd(extension, fileAction);
+                        _sourceFileActions.Add(new ListViewItem()
+                        {
+                            Extension = extension,
+                            FileAction = fileAction,
+                        });
+                    }
+                });
+            }
+
+            UpdateButtonsFileActions();
+        }
+
+        private void tSBFileActionEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstVwFileActions.SelectedItems.Count == 1)
+            {
+                ListViewItem itemExtension = lstVwFileActions.SelectedItems[0] as ListViewItem;
+
+                var form = new WindowFileActionByExtension(itemExtension.Extension, itemExtension.FileAction);
+
+                if (form.ShowDialog().GetValueOrDefault())
+                {
+                    string extension = form.SelectedExtension.ToLower();
+                    var fileAction = form.GetFileAction();
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        if (!string.IsNullOrEmpty(extension))
+                        {
+                            _sourceFileActions.Remove(itemExtension);
+                            _config.FileActionsByExtensions.TryRemove(itemExtension.Extension, out _);
+
+                            _config.FileActionsByExtensions.TryAdd(extension, fileAction);
+                            _sourceFileActions.Add(new ListViewItem()
+                            {
+                                Extension = extension,
+                                FileAction = fileAction,
+                            });
+                        }
+                    });
+                }
+
+                UpdateButtonsFileActions();
+            }
+        }
+
+        private void tSBFileActionDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstVwFileActions.SelectedItems.Count == 1)
+            {
+                ListViewItem itemExtension = lstVwFileActions.SelectedItems[0] as ListViewItem;
+
+                string message = string.Format(Properties.MessageBoxStrings.DeleteFileActionFormat1, itemExtension.Extension);
+
+                if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                {
+                    _sourceFileActions.Remove(itemExtension);
+
+                    _config.FileActionsByExtensions.TryRemove(itemExtension.Extension, out _);
+                }
+
+                UpdateButtonsFileActions();
+            }
         }
     }
 }

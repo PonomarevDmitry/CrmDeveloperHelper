@@ -653,7 +653,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (File.Exists(record.TraceFile.FilePath))
             {
-                this._iWriteToOutput.PerformAction(record.TraceFile.FilePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(record.TraceFile.FilePath);
             }
         }
     }

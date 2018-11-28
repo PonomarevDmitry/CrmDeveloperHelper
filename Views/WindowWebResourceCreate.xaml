@@ -16,8 +16,8 @@
         <Label Content="Publisher Prefix" HorizontalAlignment="Left" Margin="10,198,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
         <TextBox x:Name="txtBPublisherPrefix" Height="26" Margin="164,198,10,0"   VerticalAlignment="Top"  IsReadOnlyCaretVisible="True" IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" VerticalContentAlignment="Center"/>
         <Label Content="Web Resource Description" HorizontalAlignment="Left" Margin="10,224,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBDescription" Margin="10,250,10,35"   AcceptsReturn="True" AutoWordSelection="True" />
-        <Button x:Name="btnCreate" Content="Create" Margin="0,0,127,10" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89" Click="btnCreate_Click"/>
-        <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,10" Click="btnCancel_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+        <TextBox x:Name="txtBDescription" Margin="10,250,10,40"   AcceptsReturn="True" AutoWordSelection="True" />
+        <Button x:Name="btnCreate" Content="Create" Margin="0,0,127,10" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89" Click="btnCreate_Click"/>
+        <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,10" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
     </Grid>
 </src:WindowBase>

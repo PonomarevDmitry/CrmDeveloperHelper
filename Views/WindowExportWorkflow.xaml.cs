@@ -775,7 +775,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = await CreateFileAsync(folder, entityName, category, name, fieldTitle, xmlContent);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
             }
@@ -879,7 +879,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = await CreateCorrectedFileAsync(folder, entityName, category, name, fieldTitle, xmlContent);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileCompletedFormat1, fieldTitle);
             }
@@ -925,7 +925,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath);
                 }
                 else
                 {
@@ -977,7 +977,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath);
                 }
                 else
                 {
@@ -1029,7 +1029,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                    this._iWriteToOutput.PerformAction(filePath);
                 }
                 else
                 {
@@ -1194,13 +1194,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
             {
-                this._iWriteToOutput.ProcessStartProgramComparer(_commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
             }
             else
             {
-                this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath1);
 
-                this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath2);
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceForCorrectedFieldCompletedFormat1, fieldName);
@@ -1228,7 +1228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , workflow.LogicalName
                     , filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
             }

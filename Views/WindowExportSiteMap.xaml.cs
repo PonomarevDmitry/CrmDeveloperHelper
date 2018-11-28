@@ -530,7 +530,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = await CreateFileAsync(folder, name, idSiteMap, fieldTitle, xmlContent);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
             }
@@ -722,7 +722,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , sitemap.LogicalName
                     , filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
             }

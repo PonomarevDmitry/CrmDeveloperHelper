@@ -515,13 +515,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
                     {
-                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                     }
                     else
                     {
-                        this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                        this._iWriteToOutput.PerformAction(filePath1);
 
-                        this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        this._iWriteToOutput.PerformAction(filePath2);
                     }
 
                     ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsCompletedFormat3, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
@@ -648,13 +648,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
                     {
-                        this._iWriteToOutput.ProcessStartProgramComparer(this._commonConfig, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                     }
                     else
                     {
-                        this._iWriteToOutput.PerformAction(filePath1, _commonConfig);
+                        this._iWriteToOutput.PerformAction(filePath1);
 
-                        this._iWriteToOutput.PerformAction(filePath2, _commonConfig);
+                        this._iWriteToOutput.PerformAction(filePath2);
                     }
 
                     ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsForConnectionsCompletedFormat3, service1.ConnectionData.Name, service2.ConnectionData.Name, optionSetsName);
@@ -769,7 +769,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsCompletedFormat1, optionSetsName);
             }
@@ -880,7 +880,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForOptionSetsCompletedFormat1, optionSetsName);
             }

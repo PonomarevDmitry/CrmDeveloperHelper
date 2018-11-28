@@ -115,7 +115,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="25" Width="53"/>
-        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=AfterCreateFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Height="25" Width="254" />
+        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Height="25" Width="254" />
         <CheckBox x:Name="chBSetXmlSchemas" IsChecked="{Binding Path=SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" HorizontalAlignment="Left" Margin="345,0,0,74" Height="15" VerticalAlignment="Bottom"/>
         <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>

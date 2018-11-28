@@ -525,7 +525,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = await CreateFileAsync(folder, name, idReport, fieldTitle, xmlContent);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
             }
@@ -644,7 +644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , report.LogicalName
                     , filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
             }
@@ -768,7 +768,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (File.Exists(filePath))
                     {
-                        if (_commonConfig.AfterCreateFileAction != FileAction.None)
+                        if (_commonConfig.DefaultFileAction != FileAction.None)
                         {
                             this._iWriteToOutput.SelectFileInFolder(filePath);
                         }

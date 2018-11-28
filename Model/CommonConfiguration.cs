@@ -1,5 +1,6 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -16,9 +17,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
     {
         private static CommonConfiguration _singleton;
 
-        private static object _syncObject = new object();
+        private static readonly object _syncObject = new object();
 
-        private static object _syncObjectFile = new object();
+        private static readonly object _syncObjectFile = new object();
 
         /// <summary>
         /// Путь к файлу конфигурации
@@ -32,10 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string FolderForExport
         {
-            get
-            {
-                return _FolderForExport;
-            }
+            get => _FolderForExport;
             set
             {
                 this.OnPropertyChanging(nameof(FolderForExport));
@@ -57,10 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool DoNotPropmPublishMessage
         {
-            get
-            {
-                return _DoNotPropmPublishMessage;
-            }
+            get => _DoNotPropmPublishMessage;
             set
             {
                 this.OnPropertyChanging(nameof(DoNotPropmPublishMessage));
@@ -76,10 +71,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ClearOutputWindowBeforeCRMOperation
         {
-            get
-            {
-                return _ClearOutputWindowBeforeCRMOperation;
-            }
+            get => _ClearOutputWindowBeforeCRMOperation;
             set
             {
                 this.OnPropertyChanging(nameof(ClearOutputWindowBeforeCRMOperation));
@@ -95,10 +87,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string CompareProgram
         {
-            get
-            {
-                return _CompareProgram;
-            }
+            get => _CompareProgram;
             set
             {
                 this.OnPropertyChanging(nameof(CompareProgram));
@@ -120,10 +109,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string TextEditorProgram
         {
-            get
-            {
-                return _TextEditorProgram;
-            }
+            get => _TextEditorProgram;
             set
             {
                 this.OnPropertyChanging(nameof(TextEditorProgram));
@@ -145,10 +131,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string CompareArgumentsFormat
         {
-            get
-            {
-                return _CompareArgumentsFormat;
-            }
+            get => _CompareArgumentsFormat;
             set
             {
                 this.OnPropertyChanging(nameof(CompareArgumentsFormat));
@@ -167,10 +150,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string CompareArgumentsThreeWayFormat
         {
-            get
-            {
-                return _CompareArgumentsThreeWayFormat;
-            }
+            get => _CompareArgumentsThreeWayFormat;
             set
             {
                 this.OnPropertyChanging(nameof(CompareArgumentsThreeWayFormat));
@@ -192,10 +172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportRibbonXmlForm
         {
-            get
-            {
-                return _ExportRibbonXmlForm;
-            }
+            get => _ExportRibbonXmlForm;
             set
             {
                 this.OnPropertyChanging(nameof(ExportRibbonXmlForm));
@@ -211,10 +188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportRibbonXmlHomepageGrid
         {
-            get
-            {
-                return _ExportRibbonXmlHomepageGrid;
-            }
+            get => _ExportRibbonXmlHomepageGrid;
             set
             {
                 this.OnPropertyChanging(nameof(ExportRibbonXmlHomepageGrid));
@@ -230,10 +204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportRibbonXmlSubGrid
         {
-            get
-            {
-                return _ExportRibbonXmlSubGrid;
-            }
+            get => _ExportRibbonXmlSubGrid;
             set
             {
                 this.OnPropertyChanging(nameof(ExportRibbonXmlSubGrid));
@@ -246,10 +217,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportRibbonXmlXmlAttributeOnNewLine
         {
-            get
-            {
-                return _ExportRibbonXmlAttributeOnNewLine;
-            }
+            get => _ExportRibbonXmlAttributeOnNewLine;
             set
             {
                 this.OnPropertyChanging(nameof(ExportRibbonXmlXmlAttributeOnNewLine));
@@ -262,10 +230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportOrganizationXmlAttributeOnNewLine
         {
-            get
-            {
-                return _ExportOrganizationXmlAttributeOnNewLine;
-            }
+            get => _ExportOrganizationXmlAttributeOnNewLine;
             set
             {
                 this.OnPropertyChanging(nameof(ExportOrganizationXmlAttributeOnNewLine));
@@ -278,10 +243,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSiteMapXmlAttributeOnNewLine
         {
-            get
-            {
-                return _ExportSiteMapXmlAttributeOnNewLine;
-            }
+            get => _ExportSiteMapXmlAttributeOnNewLine;
             set
             {
                 this.OnPropertyChanging(nameof(ExportSiteMapXmlAttributeOnNewLine));
@@ -289,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.OnPropertyChanged(nameof(ExportSiteMapXmlAttributeOnNewLine));
             }
         }
-        
+
         private bool _GenerateAttributes = true;
         /// <summary>
         /// Генерировать атрибуты в файле с метаданными сущности
@@ -297,10 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool GenerateAttributes
         {
-            get
-            {
-                return _GenerateAttributes;
-            }
+            get => _GenerateAttributes;
             set
             {
                 this.OnPropertyChanging(nameof(GenerateAttributes));
@@ -316,10 +275,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool GenerateManyToOne
         {
-            get
-            {
-                return _GenerateManyToOne;
-            }
+            get => _GenerateManyToOne;
             set
             {
                 this.OnPropertyChanging(nameof(GenerateManyToOne));
@@ -335,10 +291,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool GenerateOneToMany
         {
-            get
-            {
-                return _GenerateOneToMany;
-            }
+            get => _GenerateOneToMany;
             set
             {
                 this.OnPropertyChanging(nameof(GenerateOneToMany));
@@ -354,10 +307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool GenerateManyToMany
         {
-            get
-            {
-                return _GenerateManyToMany;
-            }
+            get => _GenerateManyToMany;
             set
             {
                 this.OnPropertyChanging(nameof(GenerateManyToMany));
@@ -373,10 +323,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool GenerateLocalOptionSet
         {
-            get
-            {
-                return _GenerateLocalOptionSet;
-            }
+            get => _GenerateLocalOptionSet;
             set
             {
                 this.OnPropertyChanging(nameof(GenerateLocalOptionSet));
@@ -389,10 +336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool GenerateGlobalOptionSet
         {
-            get
-            {
-                return _GenerateGlobalOptionSet;
-            }
+            get => _GenerateGlobalOptionSet;
             set
             {
                 this.OnPropertyChanging(nameof(GenerateGlobalOptionSet));
@@ -408,10 +352,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool GenerateStatus
         {
-            get
-            {
-                return _GenerateStatus;
-            }
+            get => _GenerateStatus;
             set
             {
                 this.OnPropertyChanging(nameof(GenerateStatus));
@@ -427,10 +368,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool GenerateKeys
         {
-            get
-            {
-                return _GenerateKeys;
-            }
+            get => _GenerateKeys;
             set
             {
                 this.OnPropertyChanging(nameof(GenerateKeys));
@@ -443,10 +381,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool GenerateIntoSchemaClass
         {
-            get
-            {
-                return _GenerateIntoSchemaClass;
-            }
+            get => _GenerateIntoSchemaClass;
             set
             {
                 this.OnPropertyChanging(nameof(GenerateIntoSchemaClass));
@@ -459,10 +394,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool WithManagedInfo
         {
-            get
-            {
-                return _WithManagedInfo;
-            }
+            get => _WithManagedInfo;
             set
             {
                 this.OnPropertyChanging(nameof(WithManagedInfo));
@@ -478,10 +410,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool AllDescriptions
         {
-            get
-            {
-                return _AllDescriptions;
-            }
+            get => _AllDescriptions;
             set
             {
                 this.OnPropertyChanging(nameof(AllDescriptions));
@@ -494,10 +423,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool EntityMetadaOptionSetDependentComponents
         {
-            get
-            {
-                return _EntityMetadaOptionSetDependentComponents;
-            }
+            get => _EntityMetadaOptionSetDependentComponents;
             set
             {
                 this.OnPropertyChanging(nameof(EntityMetadaOptionSetDependentComponents));
@@ -513,10 +439,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool AllDependentComponentsForAttributes
         {
-            get
-            {
-                return _AllDependentComponentsForAttributes;
-            }
+            get => _AllDependentComponentsForAttributes;
             set
             {
                 this.OnPropertyChanging(nameof(AllDependentComponentsForAttributes));
@@ -529,10 +452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool FormsEventsOnlyWithFormLibraries
         {
-            get
-            {
-                return _FormsEventsOnlyWithFormLibraries;
-            }
+            get => _FormsEventsOnlyWithFormLibraries;
             set
             {
                 this.OnPropertyChanging(nameof(FormsEventsOnlyWithFormLibraries));
@@ -545,10 +465,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool GlobalOptionSetsWithDependentComponents
         {
-            get
-            {
-                return _GlobalOptionSetsWithDependentComponents;
-            }
+            get => _GlobalOptionSetsWithDependentComponents;
             set
             {
                 this.OnPropertyChanging(nameof(GlobalOptionSetsWithDependentComponents));
@@ -557,25 +474,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private FileAction _AfterCreateFileAction = FileAction.None;
+        private FileAction _DefaultFileAction = FileAction.None;
         [DataMember]
         [TypeConverter("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
-        public FileAction AfterCreateFileAction
+        public FileAction DefaultFileAction
         {
-            get
-            {
-                return _AfterCreateFileAction;
-            }
+            get => _DefaultFileAction;
             set
             {
-                if (_AfterCreateFileAction == value)
+                if (_DefaultFileAction == value)
                 {
                     return;
                 }
 
-                this.OnPropertyChanging(nameof(AfterCreateFileAction));
-                this._AfterCreateFileAction = value;
-                this.OnPropertyChanged(nameof(AfterCreateFileAction));
+                this.OnPropertyChanging(nameof(DefaultFileAction));
+                this._DefaultFileAction = value;
+                this.OnPropertyChanged(nameof(DefaultFileAction));
             }
         }
 
@@ -583,10 +497,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public ComponentsGroupBy ComponentsGroupBy
         {
-            get
-            {
-                return _ComponentsGroupBy;
-            }
+            get => _ComponentsGroupBy;
             set
             {
                 if (_ComponentsGroupBy == value)
@@ -607,10 +518,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public int SpaceCount
         {
-            get
-            {
-                return _SpaceCount;
-            }
+            get => _SpaceCount;
             set
             {
                 if (_SpaceCount == value)
@@ -631,10 +539,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public IndentType IndentType
         {
-            get
-            {
-                return _IndentType;
-            }
+            get => _IndentType;
             set
             {
                 if (_IndentType == value)
@@ -655,10 +560,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public ConstantType ConstantType
         {
-            get
-            {
-                return _ConstantType;
-            }
+            get => _ConstantType;
             set
             {
                 if (_ConstantType == value)
@@ -676,10 +578,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public OptionSetExportType OptionSetExportType
         {
-            get
-            {
-                return _OptionSetExportType;
-            }
+            get => _OptionSetExportType;
             set
             {
                 if (_OptionSetExportType == value)
@@ -700,10 +599,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string PluginConfigurationFileName
         {
-            get
-            {
-                return _PluginConfigurationFileName;
-            }
+            get => _PluginConfigurationFileName;
             set
             {
                 this.OnPropertyChanging(nameof(PluginConfigurationFileName));
@@ -725,10 +621,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public string FormsEventsFileName
         {
-            get
-            {
-                return _FormsEventsFileName;
-            }
+            get => _FormsEventsFileName;
             set
             {
                 this.OnPropertyChanging(nameof(FormsEventsFileName));
@@ -749,10 +642,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         /// </summary>
         public bool ExportSolutionExportAutoNumberingSettings
         {
-            get
-            {
-                return _ExportSolutionExportAutoNumberingSettings;
-            }
+            get => _ExportSolutionExportAutoNumberingSettings;
             set
             {
                 this.OnPropertyChanging(nameof(ExportSolutionExportAutoNumberingSettings));
@@ -768,10 +658,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSolutionExportCalendarSettings
         {
-            get
-            {
-                return _ExportSolutionExportCalendarSettings;
-            }
+            get => _ExportSolutionExportCalendarSettings;
             set
             {
                 this.OnPropertyChanging(nameof(ExportSolutionExportCalendarSettings));
@@ -787,10 +674,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSolutionExportCustomizationSettings
         {
-            get
-            {
-                return _ExportSolutionExportCustomizationSettings;
-            }
+            get => _ExportSolutionExportCustomizationSettings;
             set
             {
                 this.OnPropertyChanging(nameof(ExportSolutionExportCustomizationSettings));
@@ -806,10 +690,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSolutionExportEmailTrackingSettings
         {
-            get
-            {
-                return _ExportSolutionExportEmailTrackingSettings;
-            }
+            get => _ExportSolutionExportEmailTrackingSettings;
             set
             {
                 this.OnPropertyChanging(nameof(ExportSolutionExportEmailTrackingSettings));
@@ -825,10 +706,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSolutionExportExternalApplications
         {
-            get
-            {
-                return _ExportSolutionExportExternalApplications;
-            }
+            get => _ExportSolutionExportExternalApplications;
             set
             {
                 this.OnPropertyChanging(nameof(ExportSolutionExportExternalApplications));
@@ -844,10 +722,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSolutionExportGeneralSettings
         {
-            get
-            {
-                return _ExportSolutionExportGeneralSettings;
-            }
+            get => _ExportSolutionExportGeneralSettings;
             set
             {
                 this.OnPropertyChanging(nameof(ExportSolutionExportGeneralSettings));
@@ -863,10 +738,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSolutionExportIsvConfig
         {
-            get
-            {
-                return _ExportSolutionExportIsvConfig;
-            }
+            get => _ExportSolutionExportIsvConfig;
             set
             {
                 this.OnPropertyChanging(nameof(ExportSolutionExportIsvConfig));
@@ -882,10 +754,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSolutionExportMarketingSettings
         {
-            get
-            {
-                return _ExportSolutionExportMarketingSettings;
-            }
+            get => _ExportSolutionExportMarketingSettings;
             set
             {
                 this.OnPropertyChanging(nameof(ExportSolutionExportMarketingSettings));
@@ -901,10 +770,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSolutionExportOutlookSynchronizationSettings
         {
-            get
-            {
-                return _ExportSolutionExportOutlookSynchronizationSettings;
-            }
+            get => _ExportSolutionExportOutlookSynchronizationSettings;
             set
             {
                 this.OnPropertyChanging(nameof(ExportSolutionExportOutlookSynchronizationSettings));
@@ -920,10 +786,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSolutionExportRelationshipRoles
         {
-            get
-            {
-                return _ExportSolutionExportRelationshipRoles;
-            }
+            get => _ExportSolutionExportRelationshipRoles;
             set
             {
                 this.OnPropertyChanging(nameof(ExportSolutionExportRelationshipRoles));
@@ -939,10 +802,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSolutionExportSales
         {
-            get
-            {
-                return _ExportSolutionExportSales;
-            }
+            get => _ExportSolutionExportSales;
             set
             {
                 this.OnPropertyChanging(nameof(ExportSolutionExportSales));
@@ -955,10 +815,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool SetXmlSchemasDuringExport
         {
-            get
-            {
-                return _SetXmlSchemasDuringExport;
-            }
+            get => _SetXmlSchemasDuringExport;
             set
             {
                 this.OnPropertyChanging(nameof(SetXmlSchemasDuringExport));
@@ -971,10 +828,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool SetIntellisenseContext
         {
-            get
-            {
-                return _SetIntellisenseContext;
-            }
+            get => _SetIntellisenseContext;
             set
             {
                 this.OnPropertyChanging(nameof(SetIntellisenseContext));
@@ -986,6 +840,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public ObservableCollection<CrmSvcUtil> Utils { get; private set; }
 
+        [DataMember]
+        public ConcurrentDictionary<string, FileAction> FileActionsByExtensions { get; private set; }
+
         private const string defaultPluginConfigurationFileName = "Plugins Configuration";
         private const string defaultFormsEventsFileName = "System Forms Events";
 
@@ -995,6 +852,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.FormsEventsFileName = defaultFormsEventsFileName;
 
             this.Utils = new ObservableCollection<CrmSvcUtil>();
+            this.FileActionsByExtensions = new ConcurrentDictionary<string, FileAction>(StringComparer.InvariantCultureIgnoreCase);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -1086,6 +944,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 this.Utils = new ObservableCollection<CrmSvcUtil>();
             }
+
+            if (this.FileActionsByExtensions == null)
+            {
+                this.FileActionsByExtensions = new ConcurrentDictionary<string, FileAction>(StringComparer.InvariantCultureIgnoreCase);
+            }
         }
 
         [OnDeserialized]
@@ -1124,9 +987,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 try
                 {
-                    XmlWriterSettings settings = new XmlWriterSettings();
-                    settings.Indent = true;
-                    settings.Encoding = Encoding.UTF8;
+                    XmlWriterSettings settings = new XmlWriterSettings
+                    {
+                        Indent = true,
+                        Encoding = Encoding.UTF8
+                    };
 
                     using (XmlWriter xmlWriter = XmlWriter.Create(memoryStream, settings))
                     {
@@ -1171,11 +1036,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             Save(this.Path);
         }
 
-        public bool TextEditorProgramExists() => !string.IsNullOrEmpty(this.TextEditorProgram) && File.Exists(this.TextEditorProgram);
+        public bool TextEditorProgramExists()
+        {
+            return !string.IsNullOrEmpty(this.TextEditorProgram) && File.Exists(this.TextEditorProgram);
+        }
 
-        public bool DifferenceProgramExists() => !string.IsNullOrEmpty(this.CompareProgram) && File.Exists(this.CompareProgram) && !string.IsNullOrEmpty(this.CompareArgumentsFormat);
+        public bool DifferenceProgramExists()
+        {
+            return !string.IsNullOrEmpty(this.CompareProgram) && File.Exists(this.CompareProgram) && !string.IsNullOrEmpty(this.CompareArgumentsFormat);
+        }
 
-        public bool DifferenceThreeWayAvaliable() => !string.IsNullOrEmpty(this.CompareProgram) && File.Exists(this.CompareProgram) && !string.IsNullOrEmpty(this.CompareArgumentsThreeWayFormat);
+        public bool DifferenceThreeWayAvaliable()
+        {
+            return !string.IsNullOrEmpty(this.CompareProgram) && File.Exists(this.CompareProgram) && !string.IsNullOrEmpty(this.CompareArgumentsThreeWayFormat);
+        }
 
         public Microsoft.Crm.Sdk.Messages.RibbonLocationFilters GetRibbonLocationFilters()
         {
@@ -1202,6 +1076,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
 
             return filter;
+        }
+
+        public FileAction GetFileActionByExtension(string extension)
+        {
+            if (this.FileActionsByExtensions.ContainsKey(extension))
+            {
+                return this.FileActionsByExtensions[extension];
+            }
+
+            return this.DefaultFileAction;
         }
     }
 }

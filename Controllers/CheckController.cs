@@ -189,7 +189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             else
             {
@@ -386,7 +386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput("Created file with CRM Objects names for prefix '{0}' and show dependent components: {1}", prefix, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             else
             {
@@ -549,7 +549,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput("Created file with CRM Objects marked to delete by '{0}' and show dependent components: {1}", prefix, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             else
             {
@@ -656,7 +656,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput("Created file with Entities with Ownership: {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, commonConfig);
+            this._iWriteToOutput.PerformAction(filePath);
         }
 
         #endregion Проверка уровня собственности сущностей.
@@ -1026,7 +1026,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput("Created file with web-resources dependent components: {0}", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             else
             {
@@ -1146,7 +1146,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput("Created file with Checking Global OptionSet Duplicates on Entity: {0}", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
         }
 
@@ -1282,7 +1282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             else
             {
@@ -1422,7 +1422,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             else
             {
@@ -1520,7 +1520,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
                 
-                this._iWriteToOutput.PerformAction(filePath, commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             else
             {
@@ -1620,7 +1620,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             else
             {
@@ -1756,7 +1756,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput("New ComponentTypes were exported to {0}", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             else
             {
@@ -1854,7 +1854,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput("Dependency Nodes Description were exported to {0}", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
         }
 
@@ -1916,7 +1916,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput("Created file with Workflows Used Entities: {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, commonConfig);
+            this._iWriteToOutput.PerformAction(filePath);
         }
 
         public async Task ExecuteCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
@@ -1975,7 +1975,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput("Created file with Workflows Used Not Existing Entities: {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, commonConfig);
+            this._iWriteToOutput.PerformAction(filePath);
         }
 
         private void WriteToContentDictionary(StringBuilder content, Dictionary<string, string> dict, string formatList)

@@ -1285,7 +1285,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, result.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
@@ -1413,7 +1413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (File.Exists(filePath))
                     {
-                        this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+                        this._iWriteToOutput.PerformAction(filePath);
                     }
                 }
                 catch (Exception ex)

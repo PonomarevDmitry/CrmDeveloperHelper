@@ -254,8 +254,8 @@
   <data name="ThreeWayDifferenceArgumentsNotContainsF2" xml:space="preserve">
     <value>ThreeWay Difference arguments format does not contain %f2.</value>
   </data>
-  <data name="ThreeWayDifferenceArgumentsNotContainsF3" xml:space="preserve">
-    <value>ThreeWay Difference arguments format does not contain %f3.</value>
+  <data name="ThreeWayDifferenceArgumentsNotContainsFLocal" xml:space="preserve">
+    <value>ThreeWay Difference arguments format does not contain %flt.</value>
   </data>
   <data name="FileNotExistsFormat1" xml:space="preserve">
     <value>File not exists: {0}</value>
@@ -266,5 +266,8 @@
   <data name="PublishRibbonDiffXmlFormat2" xml:space="preserve">
     <value>Publish RibbonDiffXml in {0} on
 {1}?</value>
+  </data>
+  <data name="DeleteFileActionFormat1" xml:space="preserve">
+    <value>Delete FileAction for {0}</value>
   </data>
 </root>

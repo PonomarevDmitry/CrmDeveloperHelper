@@ -325,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutput("Assembly {0} Description exported to {1}", pluginAssembly.Name, filePath);
 
-            this._iWriteToOutput.PerformAction(filePath, _commonConfig);
+            this._iWriteToOutput.PerformAction(filePath);
         }
 
         private void tSBLoadPluginConfiguration_Click(object sender, RoutedEventArgs e)

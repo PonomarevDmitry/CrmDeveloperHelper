@@ -8,6 +8,7 @@
         <BitmapImage x:Key="ImageUp" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/IndexUp.png" />
         <BitmapImage x:Key="ImageDown" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/IndexDown.png" />
         <BitmapImage x:Key="ImageDelete" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Delete.png" />
+        <BitmapImage x:Key="ImageEdit" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Edit.png" />
     </src:WindowBase.Resources>
     <Grid>
         <TabControl Margin="10,10,10,68">
@@ -138,6 +139,76 @@
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
                                                 <TextBlock Text="{Binding Version}" Margin="6,3"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="FileActions by Extensions">
+                <DockPanel LastChildFill="True">
+                    <ToolBar VerticalAlignment="Top" DockPanel.Dock="Top" >
+                        <ToolBar.Resources>
+                            <Style TargetType="{x:Type ToolBarPanel}">
+                                <Setter Property="Orientation" Value="Vertical"/>
+                            </Style>
+                        </ToolBar.Resources>
+                        <DockPanel>
+                            <DockPanel.Resources>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                    <Setter Property="Margin" Value="3" />
+                                    <Setter Property="Padding" Value="5" />
+                                </Style>
+                            </DockPanel.Resources>
+                            <ToolBarPanel Orientation="Horizontal" >
+                                <Button x:Name="tSBFileActionCreate" HorizontalAlignment="Left" Click="tSBFileActionCreate_Click">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Create</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                                <Button x:Name="tSBFileActionEdit" HorizontalAlignment="Left" IsEnabled="False" Click="tSBFileActionEdit_Click">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageEdit}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Edit</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </ToolBarPanel>
+                            <Button x:Name="tSBFileActionDelete" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBFileActionDelete_Click">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Delete</TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </DockPanel>
+                    </ToolBar>
+                    <ListView x:Name="lstVwFileActions" SelectionMode="Single" SelectionChanged="lstVwFileActions_SelectionChanged" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Right" Height="Auto" Width="Auto"  >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalContentAlignment"  Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Extension" Width="300">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding Extension}" Margin="6,3"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="File Action" Width="300">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding FileAction}" Margin="6,3"/>
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>

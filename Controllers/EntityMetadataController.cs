@@ -598,7 +598,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath2);
             }
 
-            this._iWriteToOutput.ProcessStartProgramComparer(commonConfig, filePath1, filePath2, fileTitle1, fileTitle2);
+            this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
         public async Task ExecuteDifferenceRibbonDiffXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
@@ -734,7 +734,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath2);
             }
 
-            this._iWriteToOutput.ProcessStartProgramComparer(commonConfig, filePath1, filePath2, fileTitle1, fileTitle2);
+            this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
         public async Task ExecuteUpdateRibbonDiffXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)

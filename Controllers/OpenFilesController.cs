@@ -74,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     foreach (var item in orderEnumrator)
                     {
                         this._iWriteToOutput.WriteToOutputFilePathUri(item.FilePath);
-                        this._iWriteToOutput.OpenFileInTextEditor(item.FilePath, commonConfig);
+                        this._iWriteToOutput.OpenFileInTextEditor(item.FilePath);
                     }
                 }
                 else

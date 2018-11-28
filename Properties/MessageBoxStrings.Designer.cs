@@ -160,6 +160,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete FileAction for {0}.
+        /// </summary>
+        internal static string DeleteFileActionFormat1 {
+            get {
+                return ResourceManager.GetString("DeleteFileActionFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Program for difference not exists..
         /// </summary>
         internal static string DifferenceProgramNotExists {
@@ -469,11 +478,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ThreeWay Difference arguments format does not contain %f3..
+        ///   Looks up a localized string similar to ThreeWay Difference arguments format does not contain %flt..
         /// </summary>
-        internal static string ThreeWayDifferenceArgumentsNotContainsF3 {
+        internal static string ThreeWayDifferenceArgumentsNotContainsFLocal {
             get {
-                return ResourceManager.GetString("ThreeWayDifferenceArgumentsNotContainsF3", resourceCulture);
+                return ResourceManager.GetString("ThreeWayDifferenceArgumentsNotContainsFLocal", resourceCulture);
             }
         }
         

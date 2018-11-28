@@ -62,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var filePath = await CreatePluginDescription(connectionData, service, commonConfig.FolderForExport, commonConfig.PluginConfigurationFileName, connectionData.Name);
 
-            this._iWriteToOutput.PerformAction(filePath, commonConfig);
+            this._iWriteToOutput.PerformAction(filePath);
         }
 
         private async Task<string> CreatePluginDescription(ConnectionData connectionData, IOrganizationServiceExtented service, string fileFolder, string fileNameFormat, string connectionDataName)
@@ -273,7 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 selectedItem.Project.ProjectItems.AddFromFile(filePath);
             }
 
-            this._iWriteToOutput.PerformAction(filePath, commonConfig);
+            this._iWriteToOutput.PerformAction(filePath);
         }
 
         private string GetRelativePath(EnvDTE.Project project)

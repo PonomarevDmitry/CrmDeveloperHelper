@@ -975,6 +975,9 @@
     <Compile Include="Views\WindowExportWorkflow.xaml.cs">
       <DependentUpon>WindowExportWorkflow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowFileActionByExtension.xaml.cs">
+      <DependentUpon>WindowFileActionByExtension.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowHelper.cs" />
     <Compile Include="Views\WindowOrganizationComparer.xaml.cs">
       <DependentUpon>WindowOrganizationComparer.xaml</DependentUpon>
@@ -1504,6 +1507,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowExportWorkflow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowFileActionByExtension.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

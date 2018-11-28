@@ -203,7 +203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath, commonConfig);
+                this._iWriteToOutput.PerformAction(filePath);
             }
             else
             {

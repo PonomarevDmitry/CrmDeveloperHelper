@@ -222,6 +222,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 arrayXml = this.ExportApplicationRibbonByteArray();
             }
 
+            arrayXml = FileOperations.UnzipRibbon(arrayXml);
+
             XDocument doc = null;
 
             using (MemoryStream memStream = new MemoryStream())
@@ -505,6 +507,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             byte[] byteXml = ExportApplicationRibbonByteArray();
 
+            byteXml = FileOperations.UnzipRibbon(byteXml);
+
             XElement doc = null;
 
             using (MemoryStream memStream = new MemoryStream())
@@ -528,6 +532,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             byte[] byteXml = ExportEntityRibbonByteArray(entityName, filter);
 
+            byteXml = FileOperations.UnzipRibbon(byteXml);
+
             XElement doc = null;
 
             using (MemoryStream memStream = new MemoryStream())
@@ -542,14 +548,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return doc.ToString();
         }
 
+        public Task<byte[]> ExportApplicationRibbonByteArrayAsync()
+        {
+            return Task.Run(() => ExportApplicationRibbonByteArray());
+        }
+
         private byte[] ExportApplicationRibbonByteArray()
         {
             RetrieveApplicationRibbonRequest appribReq = new RetrieveApplicationRibbonRequest();
             RetrieveApplicationRibbonResponse appribResp = (RetrieveApplicationRibbonResponse)_service.Execute(appribReq);
 
-            var byteXml = FileOperations.UnzipRibbon(appribResp.CompressedApplicationRibbonXml);
+            return appribResp.CompressedApplicationRibbonXml;
+        }
 
-            return byteXml;
+        public Task<byte[]> ExportEntityRibbonByteArrayAsync(string entityName, RibbonLocationFilters filter)
+        {
+            return Task.Run(() => ExportEntityRibbonByteArray(entityName, filter));
         }
 
         private byte[] ExportEntityRibbonByteArray(string entityName, RibbonLocationFilters filter)
@@ -562,9 +576,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             RetrieveEntityRibbonResponse entRibResp = (RetrieveEntityRibbonResponse)_service.Execute(entRibReq);
 
-            var byteXml = FileOperations.UnzipRibbon(entRibResp.CompressedEntityXml);
-
-            return byteXml;
+            return entRibResp.CompressedEntityXml;
         }
 
         public Task<RibbonCustomization> FindApplicationRibbonCustomizationAsync()
