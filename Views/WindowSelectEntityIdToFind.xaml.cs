@@ -61,7 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var item in connectionData.IntellisenseData.Entities.Keys.OrderBy(s => s))
                 {
-                    cmBEntityTypeName.Items.Add(item);
+                    cmBEntityTypeNameOrCode.Items.Add(item);
                 }
             }
         }
@@ -106,24 +106,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             TryParseUrl(out var urlEntityName, out var urlObjectTypeCode, out var urlEntityId);
 
-            string textEntityName = cmBEntityTypeName.Text?.Trim(' ', '<', '>');
-            string textEntityTypeCode = txtBEntityTypeCode.Text?.Trim(' ', '<', '>');
+            string text = cmBEntityTypeNameOrCode.Text?.Trim(' ', '<', '>');
             string textEntityId = txtBEntityId.Text?.Trim(' ', '<', '>');
 
-            if (!string.IsNullOrEmpty(textEntityName))
+            if (!string.IsNullOrEmpty(text))
             {
-                entityName = textEntityName;
+                if (int.TryParse(text, out int tempInt))
+                {
+                    entityTypeCode = tempInt;
+                }
+                else
+                {
+                    entityName = text;
+                }
             }
-            else if (!string.IsNullOrEmpty(urlEntityName))
+
+            if (string.IsNullOrEmpty(entityName)
+                && !string.IsNullOrEmpty(urlEntityName)
+                )
             {
                 entityName = urlEntityName;
             }
 
-            if (!string.IsNullOrEmpty(textEntityTypeCode) && int.TryParse(textEntityTypeCode, out int tempInt))
-            {
-                entityTypeCode = tempInt;
-            }
-            else if (urlObjectTypeCode.HasValue)
+            if (!entityTypeCode.HasValue
+                && urlObjectTypeCode.HasValue
+                )
             {
                 entityTypeCode = urlObjectTypeCode;
             }

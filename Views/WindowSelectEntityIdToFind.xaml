@@ -11,23 +11,11 @@
         <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="10,26,10,0"   VerticalAlignment="Top" TabIndex="2147483647" VerticalContentAlignment="Center"/>
         <Label Content="Entity Id" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Height="26"/>
         <TextBox x:Name="txtBEntityId" Height="23" Margin="10,75,10,0"   VerticalAlignment="Top" TabIndex="2147483647" VerticalContentAlignment="Center"/>
-        <Grid Height="29" Margin="10,103,10,0" VerticalAlignment="Top">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="20*"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="EntityTypeName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Margin="0,2,0,1" Grid.RowSpan="2"/>
-            <ComboBox x:Name="cmBEntityTypeName" Height="23" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Grid.Column="1" Margin="0,3" Grid.RowSpan="2" VerticalContentAlignment="Center" VerticalAlignment="Center" />
 
-            <Label Content="EntityTypeCode" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Margin="0,2,0,1" Grid.RowSpan="2"/>
-            <TextBox x:Name="txtBEntityTypeCode" Height="23" Grid.Column="3" Margin="0,3" Grid.RowSpan="2" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-        </Grid>
-        <Label Content="Entity Url" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Height="26"/>
+        <Label Content="EntityType Name or Code" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Column="0" Margin="10,103,0,0" Padding="0" Height="23" Width="141"/>
+        <ComboBox x:Name="cmBEntityTypeNameOrCode" Height="23" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Margin="156,103,10,0" VerticalContentAlignment="Center" VerticalAlignment="Top" />
+
+        <Label Content="Entity Url" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" Height="26"/>
         <TextBox x:Name="txtBEntityUrl" Margin="10,158,10,48"  TabIndex="2147483647" AcceptsReturn="True"/>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,12" VerticalContentAlignment="Center" Padding="10,0" Width="53" Height="31" VerticalAlignment="Bottom"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,12" Padding="10,0" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" Height="31" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="254" />
