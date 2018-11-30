@@ -11,9 +11,9 @@
                 <MenuItem Header="ApplicationRibbon" VerticalAlignment="Center" SubmenuOpened="miApplicationRibbon_SubmenuOpened">
                     <MenuItem Header="Export Application Ribbon" Click="miExportApplicationRibbon_Click"/>
                     <Separator/>
-                    <MenuItem Header="Export Application Ribbon Archive" Click="miExportApplicationRibbonArchive_Click"/>
-                    <Separator/>
                     <MenuItem Header="Export Application RibbonDiffXml" Click="miExportApplicationRibbonDiffXml_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Export Application Ribbon Archive" Click="miExportApplicationRibbonArchive_Click"/>
                     <Separator/>
                     <MenuItem Header="Publish Application Ribbon" Click="miPublishApplicationRibbon_Click"/>
                     <Separator/>

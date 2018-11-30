@@ -40,9 +40,9 @@
                 <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
                     <MenuItem Header="Export Application Ribbon" Click="mIConnection1ApplicationRibbon_Click"  />
                     <Separator/>
-                    <MenuItem Header="Export Application Ribbon Archive" Click="mIConnection1ApplicationRibbonArchive_Click"  />
-                    <Separator/>
                     <MenuItem Header="Export Application RibbonDiffXml" Click="mIConnection1ApplicationRibbonDiffXml_Click"  />
+                    <Separator/>
+                    <MenuItem Header="Export Application Ribbon Archive" Click="mIConnection1ApplicationRibbonArchive_Click"  />
                     <Separator/>
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
                     <Separator/>
@@ -71,9 +71,9 @@
                 <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
                     <MenuItem Header="Export Application Ribbon" Click="mIConnection2ApplicationRibbon_Click" />
                     <Separator/>
-                    <MenuItem Header="Export Application Ribbon Archive" Click="mIConnection2ApplicationRibbonArchive_Click"  />
-                    <Separator/>
                     <MenuItem Header="Export Application RibbonDiffXml" Click="mIConnection2ApplicationRibbonDiffXml_Click" />
+                    <Separator/>
+                    <MenuItem Header="Export Application Ribbon Archive" Click="mIConnection2ApplicationRibbonArchive_Click"  />
                     <Separator/>
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
                     <Separator/>
@@ -98,7 +98,7 @@
                 </MenuItem>
             </Menu>
         </ToolBar>
-        
+
         <Grid Height="25" Margin="10,38,10,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

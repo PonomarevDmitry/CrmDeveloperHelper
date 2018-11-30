@@ -37,9 +37,9 @@
                 <Separator/>
                 <MenuItem Header="Export Entity Ribbon" Click="mIConnection1EntityRibbon_Click" />
                 <Separator/>
-                <MenuItem Header="Export Entity Ribbon Archive" Click="mIConnection1EntityRibbonArchive_Click" />
-                <Separator/>
                 <MenuItem Header="Export Entity RibbonDiffXml" Click="mIConnection1EntityRibbonDiffXml_Click" />
+                <Separator/>
+                <MenuItem Header="Export Entity Ribbon Archive" Click="mIConnection1EntityRibbonArchive_Click" />
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
                 <Separator/>
@@ -70,9 +70,9 @@
                 <Separator/>
                 <MenuItem Header="Export Entity Ribbon" Click="mIConnection2EntityRibbon_Click" />
                 <Separator/>
-                <MenuItem Header="Export Entity Ribbon Archive" Click="mIConnection2EntityRibbonArchive_Click" />
-                <Separator/>
                 <MenuItem Header="Export Entity RibbonDiffXml" Click="mIConnection2EntityRibbonDiffXml_Click" />
+                <Separator/>
+                <MenuItem Header="Export Entity Ribbon Archive" Click="mIConnection2EntityRibbonArchive_Click" />
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
                 <Separator/>
@@ -195,9 +195,9 @@
                             <Separator/>
                             <MenuItem Header="Export Entity Ribbon" Click="mIConnection1EntityRibbon_Click" />
                             <Separator/>
-                            <MenuItem Header="Export Entity Ribbon Archive" Click="mIConnection1EntityRibbonArchive_Click" />
-                            <Separator/>
                             <MenuItem Header="Export Entity RibbonDiffXml" Click="mIConnection1EntityRibbonDiffXml_Click" />
+                            <Separator/>
+                            <MenuItem Header="Export Entity Ribbon Archive" Click="mIConnection1EntityRibbonArchive_Click" />
                             <Separator/>
                             <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
                             <Separator/>
@@ -229,9 +229,9 @@
                             <Separator/>
                             <MenuItem Header="Export Entity Ribbon" Click="mIConnection2EntityRibbon_Click" />
                             <Separator/>
-                            <MenuItem Header="Export Entity Ribbon Archive" Click="mIConnection2EntityRibbonArchive_Click" />
-                            <Separator/>
                             <MenuItem Header="Export Entity RibbonDiffXml" Click="mIConnection2EntityRibbonDiffXml_Click" />
+                            <Separator/>
+                            <MenuItem Header="Export Entity Ribbon Archive" Click="mIConnection2EntityRibbonArchive_Click" />
                             <Separator/>
                             <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
                             <Separator/>
