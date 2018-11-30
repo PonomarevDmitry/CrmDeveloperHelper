@@ -709,6 +709,8 @@
     <Compile Include="Intellisense\Model\WebResourceIntellisenseData.cs" />
     <Compile Include="Intellisense\UrlCommandFilter.cs" />
     <Compile Include="Intellisense\UrlCommandFilterProvider.cs" />
+    <Compile Include="Intellisense\XmlGoToDefinitionCommandHandler.cs" />
+    <Compile Include="Intellisense\XmlGoToDefinitionCreationListener.cs" />
     <Compile Include="Interfaces\IOrganizationComparerSource.cs" />
     <Compile Include="Interfaces\IOrganizationServiceExtented.cs" />
     <Compile Include="Interfaces\ISolutionComponentDescriptionBuilder.cs" />

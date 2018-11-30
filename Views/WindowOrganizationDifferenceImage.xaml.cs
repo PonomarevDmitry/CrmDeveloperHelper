@@ -144,6 +144,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBCurrentConnection.Items.DetachFromSourceCollection();
 
+            cmBCurrentConnection.DataContext = null;
             cmBCurrentConnection.ItemsSource = null;
 
             base.OnClosed(e);

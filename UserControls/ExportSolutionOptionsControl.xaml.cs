@@ -103,6 +103,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             cmBVersion.Items.DetachFromSourceCollection();
             cmBExportFolder.Items.DetachFromSourceCollection();
 
+            cmBUniqueName.DataContext = null;
+            cmBDisplayName.DataContext = null;
+            cmBVersion.DataContext = null;
+            cmBExportFolder.DataContext = null;
+
             cmBUniqueName.ItemsSource = null;
             cmBDisplayName.ItemsSource = null;
             cmBVersion.ItemsSource = null;
@@ -125,6 +130,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         public void SetNewVersion(string newVersion)
         {
+            if (_cmBCurrentConnection.SelectedItem is ConnectionData connectionData)
+            {
+                connectionData.ExportSolutionOverrideVersion = newVersion;
+            }
+
             cmBVersion.Text = newVersion;
         }
 

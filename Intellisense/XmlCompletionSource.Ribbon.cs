@@ -94,7 +94,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             , "LayoutTitle"
         };
 
-        private static HashSet<string> _commandXmlAttributes = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
+        public static HashSet<string> CommandXmlAttributes = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
         {
             "Command"
             , "QueryCommand"
@@ -299,7 +299,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     }
                 }
 
-                if (_commandXmlAttributes.Contains(currentAttributeName))
+                if (CommandXmlAttributes.Contains(currentAttributeName))
                 {
                     var localValues = FillCommandsLocal(completionSets, applicableTo, doc, "Commands");
 

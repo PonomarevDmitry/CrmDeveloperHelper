@@ -114,6 +114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             cmBCurrentConnection.Items.DetachFromSourceCollection();
 
+            cmBCurrentConnection.DataContext = null;
             cmBCurrentConnection.ItemsSource = null;
 
             var settings = GetUserControlSettings();

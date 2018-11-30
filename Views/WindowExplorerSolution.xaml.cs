@@ -112,7 +112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _init--;
 
-            cmBFilter.Focus();
+            FocusOnComboBoxTextBox(cmBFilter);
 
             if (service != null)
             {
@@ -202,6 +202,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBFilter.Items.DetachFromSourceCollection();
             cmBCurrentConnection.Items.DetachFromSourceCollection();
+
+            cmBFilter.DataContext = null;
+            cmBCurrentConnection.DataContext = null;
 
             cmBFilter.ItemsSource = null;
             cmBCurrentConnection.ItemsSource = null;

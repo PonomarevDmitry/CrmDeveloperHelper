@@ -79,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBEntityName.Text = entityFilter;
             txtBMessageFilter.Text = messageFilter;
 
-            cmBEntityName.Focus();
+            FocusOnComboBoxTextBox(cmBEntityName);
 
             cmBCurrentConnection.ItemsSource = _connectionConfig.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
@@ -106,6 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBCurrentConnection.Items.DetachFromSourceCollection();
 
+            cmBCurrentConnection.DataContext = null;
             cmBCurrentConnection.ItemsSource = null;
 
             base.OnClosed(e);

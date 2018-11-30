@@ -59,7 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBFilter.DataContext = this._service.ConnectionData;
 
-            cmBFilter.Focus();
+            FocusOnComboBoxTextBox(cmBFilter);
 
             if (_service != null)
             {
@@ -433,7 +433,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                
+
                 ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat1, solution.UniqueName);
 
                 var descriptor = new SolutionComponentDescriptor(_service, true);

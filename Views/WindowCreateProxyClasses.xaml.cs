@@ -57,6 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBCrmSvcUtil.Items.DetachFromSourceCollection();
 
+            cmBCrmSvcUtil.DataContext = null;
             cmBCrmSvcUtil.ItemsSource = null;
 
             base.OnClosed(e);

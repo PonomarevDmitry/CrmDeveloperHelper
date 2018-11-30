@@ -1,8 +1,8 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -422,6 +422,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     yield return child;
                 }
+            }
+        }
+
+        protected void FocusOnComboBoxTextBox(ComboBox comboBox)
+        {
+            comboBox.Loaded -= ComboBox_Loaded;
+            comboBox.Loaded -= ComboBox_Loaded;
+            comboBox.Loaded += ComboBox_Loaded;
+        }
+
+        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+
+            PerformFocus(comboBox);
+        }
+
+        private void PerformFocus(ComboBox comboBox)
+        {
+            if (comboBox == null)
+            {
+                return;
+            }
+
+            comboBox.Focus();
+            Keyboard.Focus(comboBox);
+
+            if (comboBox.Template.FindName("PART_EditableTextBox", comboBox) is TextBox textBox)
+            {
+                textBox.SelectionStart = textBox.Text.Length;
+                textBox.SelectionLength = 0;
+                textBox.Focus();
             }
         }
     }
