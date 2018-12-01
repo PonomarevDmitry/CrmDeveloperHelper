@@ -1078,8 +1078,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnEntityRelationshipOneToManyExplorer1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             _commonConfig.Save();
 
             var service = await GetService1();
@@ -1089,8 +1087,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnEntityRelationshipOneToManyExplorer2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             _commonConfig.Save();
 
             var service = await GetService2();
@@ -1100,8 +1096,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnEntityRelationshipManyToManyExplorer1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             _commonConfig.Save();
 
             var service = await GetService1();
@@ -1111,8 +1105,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnEntityRelationshipManyToManyExplorer2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             _commonConfig.Save();
 
             var service = await GetService2();
@@ -1122,8 +1114,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnEntityKeyExplorer1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             _commonConfig.Save();
 
             var service = await GetService1();
@@ -1133,13 +1123,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnEntityKeyExplorer2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             _commonConfig.Save();
 
             var service = await GetService2();
 
             WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, null);
+        }
+
+        private async void btnEntitySecurityRolesExplorer1_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService1();
+
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, null);
+        }
+
+        private async void btnEntitySecurityRolesExplorer2_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService2();
+
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, null);
         }
 
         private async void btnCreateMetadataFile1_Click(object sender, RoutedEventArgs e)

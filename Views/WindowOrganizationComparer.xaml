@@ -169,6 +169,8 @@
                                     <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                                     <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                                     <Separator Margin="10,0"/>
+                                    <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                                    <Separator Margin="10,0"/>
                                     <MenuItem Header="System Form"  Click="tSMIExportSystemForms_Click"/>
                                     <MenuItem Header="System View"  Click="tSMIExportSystemViews_Click"/>
                                     <MenuItem Header="System Chart"  Click="tSMIExportSystemCharts_Click"/>

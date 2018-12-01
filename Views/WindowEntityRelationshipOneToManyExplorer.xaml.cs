@@ -338,7 +338,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingAttributesOneToManyRelationships);
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingOneToManyRelationships);
 
             string entityLogicalName = string.Empty;
 
@@ -497,7 +497,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingAttributesOneToManyRelationshipsCompletedFormat1, results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingOneToManyRelationshipsCompletedFormat1, results.Count());
         }
 
 
@@ -673,6 +673,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
 
             WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+        }
+
+        private async void miEntitySecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)

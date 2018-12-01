@@ -1283,5 +1283,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return indexInsert;
         }
+
+        public static void ClearRoot(XDocument doc)
+        {
+            var attributesToRemove = doc.Root
+                .Attributes()
+                .Where(a => a.IsNamespaceDeclaration
+                    || a.Name.Namespace == Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace
+                    || a.Name.Namespace == Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstance
+                    || a.Name.Namespace == XNamespace.Xmlns
+                )
+                .ToList();
+
+            foreach (var item in attributesToRemove)
+            {
+                item.Remove();
+            }
+        }
     }
 }

@@ -366,6 +366,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             list = FilterAttributeList(list, textName);
 
             LoadAttributes(list);
+
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingAttributesCompletedFormat1, list.Count());
         }
 
         private static IEnumerable<AttributeMetadataViewItem> FilterAttributeList(IEnumerable<AttributeMetadataViewItem> list, string textName)
@@ -415,8 +417,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.lstVwAttributes.SelectedItem = this.lstVwAttributes.Items[0];
                 }
             });
-
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingAttributesCompletedFormat1, results.Count());
         }
 
 
@@ -592,6 +592,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
 
             WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+        }
+
+        private async void miEntitySecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)

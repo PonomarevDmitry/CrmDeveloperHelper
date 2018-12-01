@@ -579,4 +579,7 @@
   <data name="DifferenceSiteMap" xml:space="preserve">
     <value>Difference SiteMap</value>
   </data>
+  <data name="OpeningEntitySecurityRoles" xml:space="preserve">
+    <value>Opening Entity SecurityRoles</value>
+  </data>
 </root>

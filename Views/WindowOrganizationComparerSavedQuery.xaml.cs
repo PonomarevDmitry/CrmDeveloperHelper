@@ -1178,6 +1178,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityName);
         }
 
+        private async void btnEntitySecurityRolesExplorer1_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService1();
+
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityName);
+        }
+
+        private async void btnEntitySecurityRolesExplorer2_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService2();
+
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityName);
+        }
+
         private async void btnCreateMetadataFile1_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();

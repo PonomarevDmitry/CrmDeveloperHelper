@@ -9,6 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             public static partial class EntityAliasFields
             {
                 public const string BusinessUnitParentBusinessUnit = BusinessUnit.Schema.EntityLogicalName + "." + BusinessUnit.Schema.Attributes.parentbusinessunitid;
+
+                public const string RoleTemplateName = Role.Schema.Attributes.roletemplateid + "." + RoleTemplate.Schema.Attributes.name;
             }
         }
 
@@ -18,13 +20,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 if (this.Attributes.ContainsKey(Schema.EntityAliasFields.BusinessUnitParentBusinessUnit)
                     && this.Attributes[Schema.EntityAliasFields.BusinessUnitParentBusinessUnit] != null
-                    && this.Attributes[Schema.EntityAliasFields.BusinessUnitParentBusinessUnit] is AliasedValue
+                    && this.Attributes[Schema.EntityAliasFields.BusinessUnitParentBusinessUnit] is AliasedValue aliasedValue
                     )
                 {
-                    return (EntityReference)this.GetAttributeValue<AliasedValue>(Schema.EntityAliasFields.BusinessUnitParentBusinessUnit).Value;
+                    return (EntityReference)aliasedValue.Value;
                 }
 
                 return null;
+            }
+        }
+
+        public string RoleTemplateName
+        {
+            get
+            {
+                if (this.Attributes.ContainsKey(Schema.EntityAliasFields.RoleTemplateName)
+                    && this.Attributes[Schema.EntityAliasFields.RoleTemplateName] != null
+                    && this.Attributes[Schema.EntityAliasFields.RoleTemplateName] is AliasedValue aliasedValue
+                    )
+                {
+                    return (string)aliasedValue.Value;
+                }
+
+                return string.Empty;
             }
         }
     }

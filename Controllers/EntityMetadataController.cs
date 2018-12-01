@@ -202,6 +202,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
+        public async Task ExecuteOpeningEntitySecurityRolesExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningEntitySecurityRoles);
+
+            try
+            {
+                if (connectionData == null)
+                {
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                    return;
+                }
+
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+
+                this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+
+                // Подключаемся к CRM.
+                var service = await QuickConnection.ConnectAsync(connectionData);
+
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+                WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, commonConfig, selection);
+            }
+            catch (Exception xE)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(xE);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningEntitySecurityRoles);
+            }
+        }
+
         #endregion Открытие Entity Explorers.
 
         #region Создание файла с глобальными OptionSet-ами.

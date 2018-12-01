@@ -361,6 +361,7 @@
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation" priority="0x0603" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntityComponents" priority="0x0609" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntitySecurityRoles" priority="0x0609" />      
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupFormViewChart" priority="0x060B" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupDescription" priority="0x060A" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" priority="0x060B" />
@@ -4268,6 +4269,12 @@
           <ButtonText>Entity Key Explorer</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="CommonEntitySecurityRolesExplorerCommandId" priority="0x0101" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Entity SecurityRoles</ButtonText>
+        </Strings>
+      </Button>
 
 
 
@@ -6326,6 +6333,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntityComponents" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation" />
     </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntitySecurityRoles" priority="0x0601">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation" />
+    </CommandPlacement>
+
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupFormViewChart" priority="0x060B">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation" />
@@ -6459,6 +6470,11 @@
     <CommandPlacement guid="guidCommandSet" id="CommonEntityKeyExplorerCommandId" priority="0x0103">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntityComponents" />
     </CommandPlacement>
+
+    <CommandPlacement guid="guidCommandSet" id="CommonEntitySecurityRolesExplorerCommandId" priority="0x0103">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntitySecurityRoles" />
+    </CommandPlacement>
+    
 
     <CommandPlacement guid="guidCommandSet" id="CommonExportApplicationRibbonXmlCommandId" priority="0x011E">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport_GroupApplicationRibbon" />
@@ -8739,6 +8755,7 @@
 
       <IDSymbol name="commonMenu_GroupEntityInformation_MenuEntityInformation" value="0x10DC" />
       <IDSymbol name="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntityComponents" value="0x10DD" />
+      <IDSymbol name="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntitySecurityRoles" value="0x1249" />
       <IDSymbol name="commonMenu_GroupExport_MenuExport_GroupApplicationRibbon" value="0x10DE" />
       <IDSymbol name="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupFormViewChart" value="0x10DF" />
 
@@ -8913,7 +8930,7 @@
 
 
 
-      <!-- 0x1249 -->
+      <!-- 0x124A -->
 
 
     </GuidSymbol>
@@ -9293,9 +9310,10 @@
       <IDSymbol name="CommonEntityKeyExplorerCommandId" value="0x2172" />
       <IDSymbol name="CommonEntityRelationshipOneToManyExplorerCommandId" value="0x2173" />
       <IDSymbol name="CommonEntityRelationshipManyToManyExplorerCommandId" value="0x2174" />
+      <IDSymbol name="CommonEntitySecurityRolesExplorerCommandId" value="0x217F" />
 
 
-
+      
 
 
       <IDSymbol name="CommonExportApplicationRibbonXmlCommandId" value="0x2031" />
@@ -9658,7 +9676,7 @@
 
 
 
-      <!-- 0x217F -->
+      <!-- 0x2180 -->
 
     </GuidSymbol>
 

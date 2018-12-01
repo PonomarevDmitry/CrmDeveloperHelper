@@ -40,10 +40,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 if (this.Attributes.ContainsKey(Schema.EntityAliasFields.PublisherCustomizationPrefix)
                     && this.Attributes[Schema.EntityAliasFields.PublisherCustomizationPrefix] != null
-                    && this.Attributes[Schema.EntityAliasFields.PublisherCustomizationPrefix] is AliasedValue
+                    && this.Attributes[Schema.EntityAliasFields.PublisherCustomizationPrefix] is AliasedValue aliasedValue
                     )
                 {
-                    return (string)this.GetAttributeValue<AliasedValue>(Schema.EntityAliasFields.PublisherCustomizationPrefix).Value;
+                    return (string)aliasedValue.Value;
                 }
 
                 return string.Empty;

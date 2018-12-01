@@ -1160,6 +1160,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void miEntitySecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
+
+            if (connection1 != null && connection2 == null)
+            {
+                var backWorker = new Thread(() =>
+                {
+                    try
+                    {
+                        var contr = new EntityMetadataController(this._iWriteToOutput);
+
+                        _commonConfig.Save();
+
+                        contr.ExecuteOpeningEntitySecurityRolesExplorer(string.Empty, connection1, _commonConfig);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                });
+                backWorker.Start();
+            }
+        }
+
         private void tSMIExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
 

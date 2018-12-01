@@ -642,7 +642,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private static bool ValidateXmlDocument(IWriteToOutput iWriteToOutput, XDocument doc)
         {
-            ClearRoot(doc);
+            ContentCoparerHelper.ClearRoot(doc);
 
             XmlSchemaSet schemas = new XmlSchemaSet();
 
@@ -689,23 +689,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return errors.Count == 0;
         }
 
-        private static void ClearRoot(XDocument doc)
-        {
-            var attributesToRemove = doc.Root
-                .Attributes()
-                .Where(a => a.IsNamespaceDeclaration
-                    || a.Name.Namespace == Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace
-                    || a.Name.Namespace == Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstance
-                    || a.Name.Namespace == XNamespace.Xmlns
-                )
-                .ToList();
-
-            foreach (var item in attributesToRemove)
-            {
-                item.Remove();
-            }
-        }
-
         public async Task PerformUpdateRibbonDiffXml(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, XDocument doc, EntityMetadata entityMetadata, RibbonCustomization ribbonCustomization)
         {
             if (entityMetadata == null && ribbonCustomization == null)
@@ -713,7 +696,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 throw new ArgumentException("entityMetadata or ribbonCustomization");
             }
 
-            ClearRoot(doc);
+            ContentCoparerHelper.ClearRoot(doc);
 
             Publisher publisherDefault = null;
 

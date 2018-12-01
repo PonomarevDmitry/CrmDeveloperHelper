@@ -303,7 +303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingAttributesManyToManyRelationships);
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingManyToManyRelationships);
 
             string entityLogicalName = string.Empty;
 
@@ -346,15 +346,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             }
                         }
 
-                        HashSet<Guid> hashGuid = new HashSet<Guid>();
                         var coll = new List<ManyToManyRelationshipMetadataViewItem>();
 
                         foreach (var item in connectionEntityManyToMany[entityLogicalName])
                         {
-                            if (hashGuid.Add(item.ManyToManyRelationshipMetadata.MetadataId.Value))
-                            {
-                                coll.Add(item);
-                            }
+                            coll.Add(item);
                         }
 
                         list = coll;
@@ -437,7 +433,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingAttributesManyToManyRelationshipsCompletedFormat1, results.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingManyToManyRelationshipsCompletedFormat1, results.Count());
         }
 
 
@@ -613,6 +609,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
 
             WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+        }
+
+        private async void miEntitySecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)

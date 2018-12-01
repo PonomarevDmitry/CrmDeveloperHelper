@@ -78,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkToEntityName = RoleTemplate.Schema.EntityLogicalName,
                         LinkToAttributeName = RoleTemplate.Schema.EntityPrimaryIdAttribute,
 
-                        EntityAlias = RoleTemplate.Schema.EntityLogicalName,
+                        EntityAlias = Role.Schema.Attributes.roletemplateid,
 
                         Columns = new ColumnSet(RoleTemplate.Schema.Attributes.name),
                     },
@@ -149,7 +149,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             values.AddRange(new[]
             {
                 entity.Name
-                , EntityDescriptionHandler.GetAttributeString(entity, RoleTemplate.Schema.EntityLogicalName + "." + RoleTemplate.Schema.Attributes.name)
+                , entity.RoleTemplateName
                 , businessUnit
                 , entity.IsCustomizable?.Value.ToString()
                 , behavior
@@ -247,7 +247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return new TupleList<string, string>
                 {
                     {  Role.Schema.Attributes.name, "Name" }
-                    , { RoleTemplate.Schema.EntityLogicalName + "." + RoleTemplate.Schema.Attributes.name, "RoleTemplate" }
+                    , { Role.Schema.Attributes.roletemplateid + "." + RoleTemplate.Schema.Attributes.name, "RoleTemplate" }
                     , { Role.Schema.Attributes.businessunitid, "BusinessUnit" }
                     , { Role.Schema.Attributes.iscustomizable, "IsCustomizable" }
                     , { Role.Schema.Attributes.ismanaged, "IsManaged" }

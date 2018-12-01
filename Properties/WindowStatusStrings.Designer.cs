@@ -1492,42 +1492,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loading many-to-many relationships....
-        /// </summary>
-        internal static string LoadingAttributesManyToManyRelationships {
-            get {
-                return ResourceManager.GetString("LoadingAttributesManyToManyRelationships", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} many-to-many relationships loaded..
-        /// </summary>
-        internal static string LoadingAttributesManyToManyRelationshipsCompletedFormat1 {
-            get {
-                return ResourceManager.GetString("LoadingAttributesManyToManyRelationshipsCompletedFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Loading one-to-many relationships....
-        /// </summary>
-        internal static string LoadingAttributesOneToManyRelationships {
-            get {
-                return ResourceManager.GetString("LoadingAttributesOneToManyRelationships", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} one-to-many relationships loaded..
-        /// </summary>
-        internal static string LoadingAttributesOneToManyRelationshipsCompletedFormat1 {
-            get {
-                return ResourceManager.GetString("LoadingAttributesOneToManyRelationshipsCompletedFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Loading charts....
         /// </summary>
         internal static string LoadingCharts {
@@ -1672,6 +1636,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading entity security roles....
+        /// </summary>
+        internal static string LoadingEntitySecurityRoles {
+            get {
+                return ResourceManager.GetString("LoadingEntitySecurityRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} security roles loaded..
+        /// </summary>
+        internal static string LoadingEntitySecurityRolesCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingEntitySecurityRolesCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading forms....
         /// </summary>
         internal static string LoadingForms {
@@ -1690,6 +1672,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading many-to-many relationships....
+        /// </summary>
+        internal static string LoadingManyToManyRelationships {
+            get {
+                return ResourceManager.GetString("LoadingManyToManyRelationships", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} many-to-many relationships loaded..
+        /// </summary>
+        internal static string LoadingManyToManyRelationshipsCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingManyToManyRelationshipsCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading Missing Components....
         /// </summary>
         internal static string LoadingMissingComponents {
@@ -1704,6 +1704,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string LoadingMissingComponentsCompletedFormat1 {
             get {
                 return ResourceManager.GetString("LoadingMissingComponentsCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading one-to-many relationships....
+        /// </summary>
+        internal static string LoadingOneToManyRelationships {
+            get {
+                return ResourceManager.GetString("LoadingOneToManyRelationships", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} one-to-many relationships loaded..
+        /// </summary>
+        internal static string LoadingOneToManyRelationshipsCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingOneToManyRelationshipsCompletedFormat1", resourceCulture);
             }
         }
         

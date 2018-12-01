@@ -12,10 +12,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 if (this.Attributes.ContainsKey(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode)
                     && this.Attributes[SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode] != null
-                    && this.Attributes[SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode] is AliasedValue
+                    && this.Attributes[SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode] is AliasedValue aliasedValue
                     )
                 {
-                    return (string)this.GetAttributeValue<AliasedValue>(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode).Value;
+                    return (string)aliasedValue.Value;
                 }
 
                 return "none";
@@ -28,10 +28,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 if (this.Attributes.ContainsKey(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode)
                     && this.Attributes[SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode] != null
-                    && this.Attributes[SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode] is AliasedValue
+                    && this.Attributes[SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode] is AliasedValue aliasedValue
                     )
                 {
-                    return (string)this.GetAttributeValue<AliasedValue>(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode).Value;
+                    return (string)aliasedValue.Value;
                 }
 
                 return "none";

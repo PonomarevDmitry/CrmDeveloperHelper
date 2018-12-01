@@ -1,4 +1,6 @@
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
+using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
@@ -18,7 +20,7 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowEntityKeyExplorer : WindowBase
+    public partial class WindowEntitySecurityRoleExplorer : WindowBase
     {
         private readonly object sysObjectConnections = new object();
 
@@ -31,18 +33,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private ObservableCollection<EntityMetadataViewItem> _itemsSourceEntityList;
 
-        private ObservableCollection<EntityKeyMetadataViewItem> _itemsSourceEntityKeyList;
+        private ObservableCollection<RolePrivilegeViewItem> _itemsSourceSecurityRoleList;
 
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
         private Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
         private Dictionary<Guid, IEnumerable<EntityMetadataViewItem>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadataViewItem>>();
+        private Dictionary<Guid, IEnumerable<Role>> _cacheRoles = new Dictionary<Guid, IEnumerable<Role>>();
 
-        private Dictionary<Guid, Dictionary<string, IEnumerable<EntityKeyMetadataViewItem>>> _cacheEntityKeyMetadata = new Dictionary<Guid, Dictionary<string, IEnumerable<EntityKeyMetadataViewItem>>>();
+        private Dictionary<Guid, Dictionary<string, IEnumerable<RolePrivilegeViewItem>>> _cacheRolePrivilege = new Dictionary<Guid, Dictionary<string, IEnumerable<RolePrivilegeViewItem>>>();
 
         private int _init = 0;
 
-        public WindowEntityKeyExplorer(
+        public WindowEntitySecurityRoleExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -75,8 +78,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _itemsSourceEntityList = new ObservableCollection<EntityMetadataViewItem>();
             lstVwEntities.ItemsSource = _itemsSourceEntityList;
 
-            _itemsSourceEntityKeyList = new ObservableCollection<EntityKeyMetadataViewItem>();
-            lstVwEntityKeys.ItemsSource = _itemsSourceEntityKeyList;
+            _itemsSourceSecurityRoleList = new ObservableCollection<RolePrivilegeViewItem>();
+            lstVwSecurityRoles.ItemsSource = _itemsSourceSecurityRoleList;
 
             UpdateButtonsEnable();
 
@@ -195,7 +198,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(false, Properties.WindowStatusStrings.LoadingEntities);
 
             _itemsSourceEntityList.Clear();
-            _itemsSourceEntityKeyList.Clear();
+            _itemsSourceSecurityRoleList.Clear();
 
             IEnumerable<EntityMetadataViewItem> list = Enumerable.Empty<EntityMetadataViewItem>();
 
@@ -209,11 +212,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         EntityMetadataRepository repository = new EntityMetadataRepository(service);
 
-                        var task = repository.GetEntitiesForEntityAttributeExplorerAsync(EntityFilters.Entity);
+                        var task = repository.GetEntitiesForEntityAttributeExplorerAsync(EntityFilters.Entity | EntityFilters.Privileges);
 
                         var temp = await task;
 
                         _cacheEntityMetadata.Add(service.ConnectionData.ConnectionId, temp.Select(e => new EntityMetadataViewItem(e)).ToList());
+                    }
+
+                    if (!_cacheRoles.ContainsKey(service.ConnectionData.ConnectionId))
+                    {
+                        RoleRepository repository = new RoleRepository(service);
+
+                        var roles = await repository.GetListAsync(new ColumnSet(Role.Schema.Attributes.name, Role.Schema.Attributes.businessunitid, Role.Schema.Attributes.roletemplateid));
+
+                        _cacheRoles.Add(service.ConnectionData.ConnectionId, roles);
                     }
 
                     list = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
@@ -293,30 +305,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat1, results.Count());
 
-            ShowExistingEntityKeys();
+            ShowExistingSecurityRoles();
         }
 
-        private async Task ShowExistingEntityKeys()
+        private async Task ShowExistingSecurityRoles()
         {
             if (_init > 0 || !_controlsEnabled)
             {
                 return;
             }
-            
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntityKeys);
 
-            string entityLogicalName = string.Empty;
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntitySecurityRoles);
+
+            EntityMetadata entityMetadata = null;
 
             this.Dispatcher.Invoke(() =>
             {
-                _itemsSourceEntityKeyList.Clear();
+                _itemsSourceSecurityRoleList.Clear();
 
-                entityLogicalName = GetSelectedEntity()?.LogicalName;
+                entityMetadata = GetSelectedEntity()?.EntityMetadata;
             });
 
-            IEnumerable<EntityKeyMetadataViewItem> list = Enumerable.Empty<EntityKeyMetadataViewItem>();
+            IEnumerable<RolePrivilegeViewItem> list = Enumerable.Empty<RolePrivilegeViewItem>();
 
-            if (!string.IsNullOrEmpty(entityLogicalName))
+            if (entityMetadata != null)
             {
                 try
                 {
@@ -324,28 +336,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (service != null)
                     {
-                        if (!_cacheEntityKeyMetadata.ContainsKey(service.ConnectionData.ConnectionId))
+                        if (!_cacheRolePrivilege.ContainsKey(service.ConnectionData.ConnectionId))
                         {
-                            _cacheEntityKeyMetadata.Add(service.ConnectionData.ConnectionId, new Dictionary<string, IEnumerable<EntityKeyMetadataViewItem>>(StringComparer.InvariantCultureIgnoreCase));
+                            _cacheRolePrivilege.Add(service.ConnectionData.ConnectionId, new Dictionary<string, IEnumerable<RolePrivilegeViewItem>>(StringComparer.InvariantCultureIgnoreCase));
                         }
 
-                        var cacheEntityKey = _cacheEntityKeyMetadata[service.ConnectionData.ConnectionId];
+                        var connectionRolePrivileges = _cacheRolePrivilege[service.ConnectionData.ConnectionId];
 
-                        if (!cacheEntityKey.ContainsKey(entityLogicalName))
+                        if (!connectionRolePrivileges.ContainsKey(entityMetadata.LogicalName)
+                            && _cacheRoles.ContainsKey(service.ConnectionData.ConnectionId)
+                            && entityMetadata.Privileges != null && entityMetadata.Privileges.Any()
+                            )
                         {
-                            var repository = new EntityMetadataRepository(service);
+                            var roles = _cacheRoles[service.ConnectionData.ConnectionId];
 
-                            var metadata = await repository.GetEntityMetadataAttributesAsync(entityLogicalName, EntityFilters.All);
+                            var repository = new SecurityRolePrivilegesRepository(service);
 
-                            if (metadata != null && metadata.Keys != null)
+                            var listRolePrivilege = await repository.GetEntitySecurityRolesAsync(roles.Select(r => r.RoleId.Value), entityMetadata.Privileges?.Select(p => p.PrivilegeId));
+
+                            connectionRolePrivileges.Add(entityMetadata.LogicalName, roles.Select(r => new RolePrivilegeViewItem(r, listRolePrivilege.Where(rp => rp.RoleId == r.RoleId), entityMetadata.Privileges)).ToList());
+                        }
+
+                        if (connectionRolePrivileges.ContainsKey(entityMetadata.LogicalName))
+                        {
+                            var coll = new List<RolePrivilegeViewItem>();
+
+                            foreach (var item in connectionRolePrivileges[entityMetadata.LogicalName])
                             {
-                                cacheEntityKey.Add(entityLogicalName, metadata.Keys.Select(e => new EntityKeyMetadataViewItem(e)).ToList());
+                                coll.Add(item);
                             }
-                        }
 
-                        if (cacheEntityKey.ContainsKey(entityLogicalName))
-                        {
-                            list = cacheEntityKey[entityLogicalName];
+                            list = coll;
                         }
                     }
                 }
@@ -357,17 +378,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string textName = string.Empty;
 
-            txtBFilterEntityKey.Dispatcher.Invoke(() =>
+            txtBFilterSecurityRole.Dispatcher.Invoke(() =>
             {
-                textName = txtBFilterEntityKey.Text.Trim().ToLower();
+                textName = txtBFilterSecurityRole.Text.Trim().ToLower();
             });
 
-            list = FilterEntityKeyList(list, textName);
+            list = FilterSecurityRoleList(list, textName);
 
-            LoadEntityKeys(list);
+            LoadSecurityRoles(list);
+
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitySecurityRolesCompletedFormat1, list.Count());
         }
 
-        private static IEnumerable<EntityKeyMetadataViewItem> FilterEntityKeyList(IEnumerable<EntityKeyMetadataViewItem> list, string textName)
+        private static IEnumerable<RolePrivilegeViewItem> FilterSecurityRoleList(IEnumerable<RolePrivilegeViewItem> list, string textName)
         {
             if (!string.IsNullOrEmpty(textName))
             {
@@ -375,24 +398,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (Guid.TryParse(textName, out Guid tempGuid))
                 {
-                    list = list.Where(ent => ent.EntityKeyMetadata.MetadataId == tempGuid);
+                    list = list.Where(ent => ent.Role.RoleId == tempGuid);
                 }
                 else
                 {
                     list = list
                     .Where(ent =>
-                        ent.LogicalName.ToLower().Contains(textName)
-                        || (ent.DisplayName != null && ent.EntityKeyMetadata.DisplayName.LocalizedLabels
-                            .Where(l => !string.IsNullOrEmpty(l.Label))
-                            .Any(lbl => lbl.Label.ToLower().Contains(textName)))
-
-                    //|| (ent.Description != null && ent.Description.LocalizedLabels
-                    //    .Where(l => !string.IsNullOrEmpty(l.Label))
-                    //    .Any(lbl => lbl.Label.ToLower().Contains(textName)))
-
-                    //|| (ent.DisplayCollectionName != null && ent.DisplayCollectionName.LocalizedLabels
-                    //    .Where(l => !string.IsNullOrEmpty(l.Label))
-                    //    .Any(lbl => lbl.Label.ToLower().Contains(textName)))
+                        (ent.RoleName?.ToLower()?.Contains(textName)).GetValueOrDefault()
+                        || (ent.RoleTemplateName?.ToLower()?.Contains(textName)).GetValueOrDefault()
                     );
                 }
             }
@@ -400,22 +413,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return list;
         }
 
-        private void LoadEntityKeys(IEnumerable<EntityKeyMetadataViewItem> results)
+        private void LoadSecurityRoles(IEnumerable<RolePrivilegeViewItem> results)
         {
-            this.lstVwEntityKeys.Dispatcher.Invoke(() =>
+            this.lstVwSecurityRoles.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in results.OrderBy(s => s.LogicalName))
+                foreach (var entity in results
+                    .OrderBy(s => s.RoleName)
+                    .ThenBy(s => s.RoleTemplateName)
+                    .ThenBy(s => s.Role.Id)
+                )
                 {
-                    _itemsSourceEntityKeyList.Add(entity);
+                    _itemsSourceSecurityRoleList.Add(entity);
                 }
 
-                if (this.lstVwEntityKeys.Items.Count == 1)
+                if (this.lstVwSecurityRoles.Items.Count == 1)
                 {
-                    this.lstVwEntityKeys.SelectedItem = this.lstVwEntityKeys.Items[0];
+                    this.lstVwSecurityRoles.SelectedItem = this.lstVwSecurityRoles.Items[0];
                 }
             });
-            
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntityKeysCompletedFormat1, results.Count());
         }
 
 
@@ -483,7 +498,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwEntities != null && this.lstVwEntities.SelectedItems.Count > 0;
 
                     UIElement[] list = { };
 
@@ -506,11 +521,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void txtBFilterEntityKey_KeyDown(object sender, KeyEventArgs e)
+        private void txtBFilterSecurityRole_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingEntityKeys();
+                ShowExistingSecurityRoles();
             }
         }
 
@@ -527,15 +542,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return result;
         }
 
-        private EntityKeyMetadataViewItem GetSelectedEntityKey()
+        private RolePrivilegeViewItem GetSelectedSecurityRole()
         {
-            return this.lstVwEntityKeys.SelectedItems.OfType<EntityKeyMetadataViewItem>().Count() == 1
-                ? this.lstVwEntityKeys.SelectedItems.OfType<EntityKeyMetadataViewItem>().SingleOrDefault() : null;
+            return this.lstVwSecurityRoles.SelectedItems.OfType<RolePrivilegeViewItem>().Count() == 1
+                ? this.lstVwSecurityRoles.SelectedItems.OfType<RolePrivilegeViewItem>().SingleOrDefault() : null;
         }
 
-        private List<EntityKeyMetadataViewItem> GetSelectedEntityKeys()
+        private List<RolePrivilegeViewItem> GetSelectedSecurityRoles()
         {
-            List<EntityKeyMetadataViewItem> result = this.lstVwEntityKeys.SelectedItems.OfType<EntityKeyMetadataViewItem>().ToList();
+            List<RolePrivilegeViewItem> result = this.lstVwSecurityRoles.SelectedItems.OfType<RolePrivilegeViewItem>().ToList();
 
             return result;
         }
@@ -591,6 +606,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
 
             WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+        }
+
+        private async void btnEntityKeyExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void miEntitySecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
@@ -870,7 +896,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository = new PublishActionsRepository(service);
 
                 await repository.PublishEntitiesAsync(entityNames);
-                
+
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat1, entityNamesOrdered);
             }
             catch (Exception ex)
@@ -885,7 +911,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowExistingEntityKeys();
+            ShowExistingSecurityRoles();
 
             UpdateButtonsEnable();
         }
@@ -921,23 +947,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIOpenEntityKeyInWeb_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenSecurityRoleInWeb_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
-            var entityKey = GetSelectedEntityKey();
+            var role = GetSelectedSecurityRole();
 
-            if (entity == null || entityKey == null)
+            if (entity == null || role == null)
             {
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            var service = await GetService();
 
-            if (connectionData != null)
-            {
-                connectionData.OpenEntityKeyMetadataInWeb(entity.EntityMetadata.MetadataId.Value, entityKey.EntityKeyMetadata.MetadataId.Value);
-            }
+            service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.Role, role.Role.RoleId.Value);
         }
 
         private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
@@ -999,27 +1022,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void AddEntityKeyIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddSecurityRoleIntoCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            await AddEntityKeyIntoSolution(true, null);
+            await AddSecurityRoleIntoSolution(true, null);
         }
 
-        private async void AddEntityKeyIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddSecurityRoleIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag != null
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                await AddEntityKeyIntoSolution(false, solutionUniqueName);
+                await AddSecurityRoleIntoSolution(false, solutionUniqueName);
             }
         }
 
-        private async Task AddEntityKeyIntoSolution(bool withSelect, string solutionUniqueName)
+        private async Task AddSecurityRoleIntoSolution(bool withSelect, string solutionUniqueName)
         {
-            var entityKeyList = GetSelectedEntityKeys();
+            var roleList = GetSelectedSecurityRoles();
 
-            if (entityKeyList == null || !entityKeyList.Any())
+            if (roleList == null || !roleList.Any())
             {
                 return;
             }
@@ -1033,7 +1056,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow();
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.EntityKey, entityKeyList.Select(item => item.EntityKeyMetadata.MetadataId.Value).ToList(), null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Role, roleList.Select(item => item.Role.RoleId.Value).ToList(), null, withSelect);
             }
             catch (Exception ex)
             {
@@ -1058,7 +1081,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void ContextMenuEntityKey_Opened(object sender, RoutedEventArgs e)
+        private void ContextMenuSecurityRole_Opened(object sender, RoutedEventArgs e)
         {
             if (sender is ContextMenu contextMenu)
             {
@@ -1071,7 +1094,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
                 });
 
-                FillLastSolutionItems(connectionData, items, true, AddEntityKeyIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+                FillLastSolutionItems(connectionData, items, true, AddSecurityRoleIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
             }
         }
 
@@ -1132,11 +1155,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private void mIEntityKeyOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
+        private void mISecurityRoleOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
         {
-            var entityKey = GetSelectedEntityKey();
+            var role = GetSelectedSecurityRole();
 
-            if (entityKey == null)
+            if (role == null)
             {
                 return;
             }
@@ -1145,15 +1168,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.EntityKey, entityKey.EntityKeyMetadata.MetadataId.Value);
+                connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.Role, role.Role.RoleId.Value);
             }
         }
 
-        private async void mIEntityKeyOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mISecurityRoleOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
         {
-            var entityKey = GetSelectedEntityKey();
+            var role = GetSelectedSecurityRole();
 
-            if (entityKey == null)
+            if (role == null)
             {
                 return;
             }
@@ -1163,14 +1186,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
             var descriptor = await GetDescriptor();
 
-            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, descriptor, _commonConfig, (int)ComponentType.EntityKey, entityKey.EntityKeyMetadata.MetadataId.Value, null);
+            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, descriptor, _commonConfig, (int)ComponentType.Role, role.Role.RoleId.Value, null);
         }
 
-        private async void mIEntityKeyOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mISecurityRoleOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
         {
-            var entityKey = GetSelectedEntityKey();
+            var role = GetSelectedSecurityRole();
 
-            if (entityKey == null)
+            if (role == null)
             {
                 return;
             }
@@ -1183,8 +1206,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput
                 , service
                 , _commonConfig
-                , (int)ComponentType.EntityKey
-                , entityKey.EntityKeyMetadata.MetadataId.Value
+                , (int)ComponentType.Role
+                , role.Role.RoleId.Value
                 , null
             );
         }
@@ -1194,7 +1217,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Dispatcher.Invoke(() =>
             {
                 this._itemsSourceEntityList?.Clear();
-                this._itemsSourceEntityKeyList?.Clear();
+                this._itemsSourceSecurityRoleList?.Clear();
             });
 
             if (_init > 0 || !_controlsEnabled)
@@ -1231,7 +1254,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIClearEntityKeyCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        private void mIClearSecurityRoleCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = null;
 
@@ -1242,11 +1265,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                _cacheEntityKeyMetadata.Remove(connectionData.ConnectionId);
+                _cacheRoles.Remove(connectionData.ConnectionId);
+                _cacheRolePrivilege.Remove(connectionData.ConnectionId);
 
                 UpdateButtonsEnable();
 
-                ShowExistingEntityKeys();
+                ShowExistingSecurityRoles();
             }
         }
     }

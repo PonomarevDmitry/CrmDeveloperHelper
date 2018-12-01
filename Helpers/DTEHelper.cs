@@ -108,7 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private const string loggerOutput = "OutputLogger";
         private const string loggerErrors = "ErrorLogger";
 
-        private const string _logLayout = "${newline}${newline}${newline}${newline}${newline}${newline}${longdate}|${level}${newline}${message}${newline}${newline}${exception}${newline}${newline}${stacktrace:format=Raw:topFrames=10}";
+        private readonly static string _logLayout = new string('-', 150) + "${newline}${newline}${newline}${newline}${newline}${newline}${longdate}|${level}${newline}${message}${newline}${newline}${exception}${newline}${newline}${stacktrace:format=Raw:topFrames=10}${newline}" + new string('-', 150);
 
         static DTEHelper()
         {
@@ -218,8 +218,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var description = GetExceptionDescription(ex);
 
-                Log.Info(new string('-', 150));
-
                 if (!string.IsNullOrEmpty(message))
                 {
                     if (args != null && args.Length > 0)
@@ -231,7 +229,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 Log.Error(ex, description);
-                Log.Info(new string('-', 150));
             }
         }
 
@@ -3231,6 +3228,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleOpenEntitySecurityRolesExplorer()
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            string selection = GetSelectedText();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow();
+                WriteToOutputEmptyLines(commonConfig);
+
+                try
+                {
+                    Controller.StartOpenEntitySecurityRolesExplorer(selection, crmConfig.CurrentConnectionData, commonConfig);
+                }
+                catch (Exception xE)
+                {
+                    WriteErrorToOutput(xE);
+                }
+            }
+        }
+        
         public void HandleExportFormEvents()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();

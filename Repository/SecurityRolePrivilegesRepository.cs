@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -39,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 NoLock = true,
 
                 ColumnSet = new ColumnSet(true),
-
+                
                 LinkEntities =
                 {
                     new LinkEntity()
@@ -77,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             };
 
             var result = new List<Privilege>();
-
+            
             try
             {
                 while (true)
@@ -98,6 +99,74 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             catch (Exception ex)
             {
                 Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
+        public Task<List<RolePrivileges>> GetEntitySecurityRolesAsync(IEnumerable<Guid> roles, IEnumerable<Guid> privileges)
+        {
+            return Task.Run(() => GetEntitySecurityRoles(roles, privileges));
+        }
+
+        private List<RolePrivileges> GetEntitySecurityRoles(IEnumerable<Guid> roles, IEnumerable<Guid> privileges)
+        {
+            var result = new List<RolePrivileges>();
+
+            if (roles == null || !roles.Any())
+            {
+                return result;
+            }
+
+            if (privileges == null || !privileges.Any())
+            {
+                return result;
+            }
+
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = RolePrivileges.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(RolePrivileges.Schema.Attributes.roleid, ConditionOperator.In, roles.ToArray()),
+                        new ConditionExpression(RolePrivileges.Schema.Attributes.privilegeid, ConditionOperator.In, privileges.ToArray()),
+                    },
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                }
+            };
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+                    
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<RolePrivileges>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
             }
 
             return result;

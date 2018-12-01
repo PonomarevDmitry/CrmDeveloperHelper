@@ -57,6 +57,8 @@
                 <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                 <Separator/>
+                <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                <Separator/>
                 <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
                 <MenuItem Header="Charts" Click="btnSavedChart_Click"/>
                 <Separator/>
@@ -170,6 +172,8 @@
                                 <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
                                 <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
                                 <Separator/>
                                 <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
                                 <MenuItem Header="Charts" Click="btnSavedChart_Click"/>

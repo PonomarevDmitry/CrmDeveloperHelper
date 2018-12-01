@@ -6,7 +6,7 @@
 namespace Nav.Common.VSPackages.CrmDeveloperHelper
 {
     using System;
-    
+
     /// <summary>
     /// Helper class that exposes all GUIDs used across VS Package.
     /// </summary>
@@ -384,6 +384,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu_GroupEntityInformation = 0x10DB;
         public const int commonMenu_GroupEntityInformation_MenuEntityInformation = 0x10DC;
         public const int commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntityComponents = 0x10DD;
+        public const int commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntitySecurityRoles = 0x1249;
         public const int commonMenu_GroupExport_MenuExport_GroupApplicationRibbon = 0x10DE;
         public const int commonMenu_GroupEntityInformation_MenuEntityInformation_GroupFormViewChart = 0x10DF;
         public const int commonMenu_GroupEntityInformation_MenuPluginInformation = 0x10E0;
@@ -675,6 +676,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonEntityKeyExplorerCommandId = 0x2172;
         public const int CommonEntityRelationshipOneToManyExplorerCommandId = 0x2173;
         public const int CommonEntityRelationshipManyToManyExplorerCommandId = 0x2174;
+        public const int CommonEntitySecurityRolesExplorerCommandId = 0x217F;
         public const int CommonExportApplicationRibbonXmlCommandId = 0x2031;
         public const int CommonExportSystemFormXmlCommandId = 0x2032;
         public const int CommonExportSystemSavedQueryXmlCommandId = 0x2033;

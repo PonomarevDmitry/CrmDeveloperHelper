@@ -1542,6 +1542,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity);
         }
 
+        private async void miEntitySecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity);
+        }
+
         private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();

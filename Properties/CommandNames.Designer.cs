@@ -358,6 +358,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entity SecurityRoles Explorer.
+        /// </summary>
+        internal static string CommonEntitySecurityRolesExplorerCommand {
+            get {
+                return ResourceManager.GetString("CommonEntitySecurityRolesExplorerCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entity Metadata.
         /// </summary>
         internal static string CommonExportEntityMetadataCommand {

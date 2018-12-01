@@ -1114,6 +1114,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opening Entity SecurityRoles.
+        /// </summary>
+        internal static string OpeningEntitySecurityRoles {
+            get {
+                return ResourceManager.GetString("OpeningEntitySecurityRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opening Files {0}.
         /// </summary>
         internal static string OpeningFilesFormat1 {

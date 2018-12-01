@@ -216,6 +216,9 @@
   <data name="CommonEntityRelationshipOneToManyExplorerCommand" xml:space="preserve">
     <value>Entity Relationship One-To-Many Explorer</value>
   </data>
+  <data name="CommonEntitySecurityRolesExplorerCommand" xml:space="preserve">
+    <value>Entity SecurityRoles Explorer</value>
+  </data>
   <data name="CommonExportEntityMetadataCommand" xml:space="preserve">
     <value>Entity Metadata</value>
   </data>

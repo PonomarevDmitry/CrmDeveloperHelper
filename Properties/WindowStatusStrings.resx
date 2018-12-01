@@ -591,16 +591,16 @@
   <data name="LoadingAttributes" xml:space="preserve">
     <value>Loading attributes...</value>
   </data>
-  <data name="LoadingAttributesManyToManyRelationships" xml:space="preserve">
+  <data name="LoadingManyToManyRelationships" xml:space="preserve">
     <value>Loading many-to-many relationships...</value>
   </data>
-  <data name="LoadingAttributesManyToManyRelationshipsCompletedFormat1" xml:space="preserve">
+  <data name="LoadingManyToManyRelationshipsCompletedFormat1" xml:space="preserve">
     <value>{0} many-to-many relationships loaded.</value>
   </data>
-  <data name="LoadingAttributesOneToManyRelationships" xml:space="preserve">
+  <data name="LoadingOneToManyRelationships" xml:space="preserve">
     <value>Loading one-to-many relationships...</value>
   </data>
-  <data name="LoadingAttributesOneToManyRelationshipsCompletedFormat1" xml:space="preserve">
+  <data name="LoadingOneToManyRelationshipsCompletedFormat1" xml:space="preserve">
     <value>{0} one-to-many relationships loaded.</value>
   </data>
   <data name="LoadingCharts" xml:space="preserve">
@@ -1070,5 +1070,11 @@
   </data>
   <data name="DeletingSolutionFailedFormat1" xml:space="preserve">
     <value>Deleting solution {0} failed.</value>
+  </data>
+  <data name="LoadingEntitySecurityRoles" xml:space="preserve">
+    <value>Loading entity security roles...</value>
+  </data>
+  <data name="LoadingEntitySecurityRolesCompletedFormat1" xml:space="preserve">
+    <value>{0} security roles loaded.</value>
   </data>
 </root>

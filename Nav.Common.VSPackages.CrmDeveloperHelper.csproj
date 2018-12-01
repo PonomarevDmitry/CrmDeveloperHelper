@@ -170,6 +170,7 @@
     <Compile Include="Commands\CommonEntityKeyExplorerCommand.cs" />
     <Compile Include="Commands\CommonEntityRelationshipManyToManyExplorerCommand.cs" />
     <Compile Include="Commands\CommonEntityRelationshipOneToManyExplorerCommand.cs" />
+    <Compile Include="Commands\CommonEntitySecurityRolesExplorerCommand.cs" />
     <Compile Include="Commands\CommonExportDefaultSitemapsCommand.cs" />
     <Compile Include="Commands\CommonExportOpenLastSelectedSolutionCommand.cs" />
     <Compile Include="Commands\CommonExportXsdSchemasCommand.cs" />
@@ -593,6 +594,7 @@
     <Compile Include="Helpers\PluginsAndWorkflowLoader.cs" />
     <Compile Include="Helpers\PluginTypeConfigurationDescriptionHandler.cs" />
     <Compile Include="Helpers\PluginTypeDescriptionHandler.cs" />
+    <Compile Include="Helpers\PrivilegeDepthConverter.cs" />
     <Compile Include="Helpers\ProgressReporter.cs" />
     <Compile Include="Helpers\PropertiesHelper.cs" />
     <Compile Include="Helpers\PublishManager.cs" />
@@ -765,6 +767,7 @@
     <Compile Include="Model\PluginSearchResult.cs" />
     <Compile Include="Model\PluginStage.cs" />
     <Compile Include="Model\PluginTreeViewItem.cs" />
+    <Compile Include="Model\RolePrivilegeViewItem.cs" />
     <Compile Include="Model\SdkMessageRequestTreeViewItem.cs" />
     <Compile Include="Model\SdkMessageSearchResult.cs" />
     <Compile Include="Model\SelectedFile.cs" />
@@ -926,6 +929,9 @@
     <Compile Include="Views\WindowEntityRelationshipOneToManyExplorer.xaml.cs">
       <DependentUpon>WindowEntityRelationshipOneToManyExplorer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowEntitySecurityRoleExplorer.xaml.cs">
+      <DependentUpon>WindowEntitySecurityRoleExplorer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowExplorerSolutionComponentDependencies.xaml.cs">
       <DependentUpon>WindowExplorerSolutionComponentDependencies.xaml</DependentUpon>
     </Compile>
@@ -1082,6 +1088,11 @@
     <Content Include="app.config">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Resources\PrivilegeDepths\ico_18_role_B.gif" />
+    <Resource Include="Resources\PrivilegeDepths\ico_18_role_D.gif" />
+    <Resource Include="Resources\PrivilegeDepths\ico_18_role_G.gif" />
+    <Resource Include="Resources\PrivilegeDepths\ico_18_role_L.gif" />
+    <Resource Include="Resources\PrivilegeDepths\ico_18_role_X.gif" />
     <Resource Include="Resources\SiteMaps\SiteMap.2011.xml" />
     <Resource Include="Resources\SiteMaps\SiteMap.2013.xml" />
     <Resource Include="Resources\SiteMaps\SiteMap.2015.xml" />
@@ -1142,7 +1153,7 @@
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>
       <Generator>VsctGenerator</Generator>
-      <LastGenOutput>CrmDeveloperHelperPackageCommandTable.cs</LastGenOutput>
+      <LastGenOutput>CrmDeveloperHelperPackageCommandTable1.cs</LastGenOutput>
     </VSCTCompile>
     <Resource Include="Resources\16x16_refresh.ico" />
     <Resource Include="Resources\Add.png" />
@@ -1441,6 +1452,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowEntityRelationshipOneToManyExplorer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowEntitySecurityRoleExplorer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

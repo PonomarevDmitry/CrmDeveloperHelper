@@ -20,10 +20,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 if (this.Attributes.ContainsKey(Schema.EntityAliasFields.EntityMapIdSourceEntityName)
                     && this.Attributes[Schema.EntityAliasFields.EntityMapIdSourceEntityName] != null
-                    && this.Attributes[Schema.EntityAliasFields.EntityMapIdSourceEntityName] is AliasedValue
+                    && this.Attributes[Schema.EntityAliasFields.EntityMapIdSourceEntityName] is AliasedValue aliasedValue
                     )
                 {
-                    return (string)this.GetAttributeValue<AliasedValue>(Schema.EntityAliasFields.EntityMapIdSourceEntityName).Value;
+                    return (string)aliasedValue.Value;
                 }
 
                 return "none";
@@ -36,10 +36,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 if (this.Attributes.ContainsKey(Schema.EntityAliasFields.EntityMapIdTargetEntityName)
                     && this.Attributes[Schema.EntityAliasFields.EntityMapIdTargetEntityName] != null
-                    && this.Attributes[Schema.EntityAliasFields.EntityMapIdTargetEntityName] is AliasedValue
+                    && this.Attributes[Schema.EntityAliasFields.EntityMapIdTargetEntityName] is AliasedValue aliasedValue
                     )
                 {
-                    return (string)this.GetAttributeValue<AliasedValue>(Schema.EntityAliasFields.EntityMapIdTargetEntityName).Value;
+                    return (string)aliasedValue.Value;
                 }
 
                 return "none";
