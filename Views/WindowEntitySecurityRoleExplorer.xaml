@@ -204,6 +204,12 @@
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
 
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="Ch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Is Changed" />
+                            </DataGridCheckBoxColumn.Header>
+                        </DataGridCheckBoxColumn>
+
                         <DataGridTextColumn Header="Role Name" Width="200" Binding="{Binding RoleName, Mode=OneTime}" />
                         <DataGridTextColumn Header="RoleTemplate" Width="200" Binding="{Binding RoleTemplateName, Mode=OneTime}" />
                         <DataGridTextColumn Header="BusinessUnit" Width="200" Binding="{Binding BusinessUnitName, Mode=OneTime}" />
@@ -271,6 +277,12 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsCustomizable, Mode=OneTime}">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="Cust" Margin="0" Padding="0" ToolTip="Is Customizable" />
+                            </DataGridCheckBoxColumn.Header>
+                        </DataGridCheckBoxColumn>
 
                     </DataGrid.Columns>
                 </DataGrid>

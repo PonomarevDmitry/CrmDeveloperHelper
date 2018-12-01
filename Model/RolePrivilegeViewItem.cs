@@ -31,6 +31,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string RoleTemplateName => Role.RoleTemplateName;
 
+        public bool IsManaged => (Role?.IsManaged).GetValueOrDefault();
+
+        public bool IsCustomizable => (Role?.IsCustomizable?.Value).GetValueOrDefault();
+
+        public bool IsCustomizableCanBeChanged => (Role?.IsCustomizable?.CanBeChanged).GetValueOrDefault();
+
         private PrivilegeDepth? _initialCreate;
         private PrivilegeDepth? _initialRead;
         private PrivilegeDepth? _initialUpdate;
@@ -209,7 +215,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             get => AvailableCreate ? _CreateRight : null;
             set
             {
-                if (!AvailableCreate || _CreateRight == value)
+                if (!AvailableCreate || !IsCustomizable || _CreateRight == value)
                 {
                     return;
                 }
@@ -226,7 +232,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             get => AvailableRead ? _ReadRight : null;
             set
             {
-                if (!AvailableRead || _ReadRight == value)
+                if (!AvailableRead || !IsCustomizable || _ReadRight == value)
                 {
                     return;
                 }
@@ -243,7 +249,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             get => AvailableUpdate ? _UpdateRight : null;
             set
             {
-                if (!AvailableUpdate || _UpdateRight == value)
+                if (!AvailableUpdate || !IsCustomizable || _UpdateRight == value)
                 {
                     return;
                 }
@@ -260,7 +266,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             get => AvailableDelete ? _DeleteRight : null;
             set
             {
-                if (!AvailableDelete || _DeleteRight == value)
+                if (!AvailableDelete || !IsCustomizable || _DeleteRight == value
+                    )
                 {
                     return;
                 }
@@ -277,7 +284,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             get => AvailableAppend ? _AppendRight : null;
             set
             {
-                if (!AvailableAppend || _AppendRight == value)
+                if (!AvailableAppend || !IsCustomizable || _AppendRight == value)
                 {
                     return;
                 }
@@ -294,7 +301,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             get => AvailableAppendTo ? _AppendToRight : null;
             set
             {
-                if (!AvailableAppendTo || _AppendToRight == value)
+                if (!AvailableAppendTo || !IsCustomizable || _AppendToRight == value)
                 {
                     return;
                 }
@@ -311,7 +318,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             get => AvailableShare ? _ShareRight : null;
             set
             {
-                if (!AvailableShare || _ShareRight == value)
+                if (!AvailableShare || !IsCustomizable || _ShareRight == value)
                 {
                     return;
                 }
@@ -328,7 +335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             get => AvailableAssign ? _AssignRight : null;
             set
             {
-                if (!AvailableAssign || _AssignRight == value)
+                if (!AvailableAssign || !IsCustomizable || _AssignRight == value)
                 {
                     return;
                 }

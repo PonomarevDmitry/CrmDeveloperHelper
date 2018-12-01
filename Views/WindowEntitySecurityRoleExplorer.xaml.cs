@@ -223,7 +223,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         RoleRepository repository = new RoleRepository(service);
 
-                        var roles = await repository.GetListAsync(new ColumnSet(Role.Schema.Attributes.name, Role.Schema.Attributes.businessunitid, Role.Schema.Attributes.roletemplateid));
+                        var roles = await repository.GetListAsync(
+                            new ColumnSet(
+                                Role.Schema.Attributes.name
+                                , Role.Schema.Attributes.businessunitid
+                                , Role.Schema.Attributes.ismanaged
+                                , Role.Schema.Attributes.iscustomizable
+                                ));
 
                         _cacheRoles.Add(service.ConnectionData.ConnectionId, roles);
                     }
