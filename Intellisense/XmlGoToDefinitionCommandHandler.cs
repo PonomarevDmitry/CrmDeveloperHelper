@@ -100,22 +100,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             var spans = _classifier.GetClassificationSpans(new SnapshotSpan(snapshot, 0, snapshot.Length));
 
             var firstSpans = spans
-                .Where(s => s.Span.Start <= currentPoint.Position)
+                .Where(s => s.Span.Start < currentPoint.Position)
                 .OrderByDescending(s => s.Span.Start.Position)
                 .ToList();
-
+            
             var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
 
             var lastSpans = spans
-                .Where(s => s.Span.End >= currentPoint.Position)
-                .OrderBy(s => s.Span.Start.Position)
-                .ToList();
+                 .Where(s => s.Span.Start >= currentPoint.Position)
+                 .OrderBy(s => s.Span.Start.Position)
+                 .ToList();
 
             var lastDelimiter = lastSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
 
             SnapshotSpan? extentTemp = null;
 
-            if (firstDelimiter != null && lastDelimiter != null && firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
+            if (firstDelimiter != null && firstDelimiter.Span.GetText() == "\"\"" && firstDelimiter.Span.Contains(currentPoint))
+            {
+                extentTemp = new SnapshotSpan(firstDelimiter.Span.Start.Add(1), firstDelimiter.Span.Start.Add(1));
+            }
+            else if (firstDelimiter != null && lastDelimiter != null && firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
             {
                 extentTemp = new SnapshotSpan(firstDelimiter.Span.End, lastDelimiter.Span.Start);
             }
@@ -126,12 +130,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
 
             var extent = extentTemp.Value;
-            var currentValue = extent.GetText();
 
-            if (string.IsNullOrEmpty(currentValue))
-            {
-                return false;
-            }
+            var currentValue = extent.GetText();
 
             var currentXmlNode = GetCurrentXmlNode(doc, extent);
 
@@ -148,6 +148,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 .ToList();
 
             var containingAttributeValue = containingAttributeSpans.FirstOrDefault();
+
+            if (containingAttributeValue == null)
+            {
+                containingAttributeValue = spans
+                    .Where(s => s.Span.Contains(extent.Start)
+                        && s.Span.Contains(extent)
+                        && s.ClassificationType.IsOfType("XML Attribute Quotes")
+                        && s.Span.GetText() == "\"\""
+                    )
+                    .OrderByDescending(s => s.Span.Start.Position)
+                    .FirstOrDefault();
+            }
 
             if (containingAttributeValue == null)
             {
@@ -174,17 +186,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                 if (!isTitleElement)
                 {
-                    if (currentValue.StartsWith("$LocLabels:", StringComparison.InvariantCultureIgnoreCase))
+                    if (!string.IsNullOrEmpty(currentValue))
                     {
-                        var labelId = currentValue.Substring(11);
-
-                        var localLabelList = doc.XPathSelectElements("./LocLabels/LocLabel").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, labelId, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                        if (localLabelList.Count == 1)
+                        if (currentValue.StartsWith("$LocLabels:", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            var xmlElement = localLabelList[0];
+                            var labelId = currentValue.Substring(11);
 
-                            if (MoveToElement(snapshot, xmlElement))
+                            var elements = doc.XPathSelectElements("./LocLabels/LocLabel").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, labelId, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+                            if (elements.Count == 1)
+                            {
+                                var xmlElement = elements[0];
+
+                                if (TryMoveToElement(snapshot, xmlElement))
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var elements = doc.XPathSelectElements("./LocLabels").ToList();
+
+                        if (elements.Count == 1)
+                        {
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
                             {
                                 return true;
                             }
@@ -195,30 +224,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             if (XmlCompletionSource.CommandXmlAttributes.Contains(currentAttributeName))
             {
+                if (!string.IsNullOrEmpty(currentValue))
                 {
-                    var elements = doc.XPathSelectElements("./CommandDefinitions/CommandDefinition").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                    if (elements.Count == 1)
                     {
-                        var xmlElement = elements[0];
+                        var elements = doc.XPathSelectElements("./CommandDefinitions/CommandDefinition").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
-                        if (MoveToElement(snapshot, xmlElement))
+                        if (elements.Count == 1)
                         {
-                            return true;
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+
+                    {
+                        var elements = doc.XPathSelectElements("./RibbonDefinition/CommandDefinitions/CommandDefinition").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+                        if (elements.Count == 1)
+                        {
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
-
+                else
                 {
-                    var elements = doc.XPathSelectElements("./RibbonDefinition/CommandDefinitions/CommandDefinition").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                    if (elements.Count == 1)
                     {
-                        var xmlElement = elements[0];
+                        var elements = doc.XPathSelectElements("./CommandDefinitions").ToList();
 
-                        if (MoveToElement(snapshot, xmlElement))
+                        if (elements.Count == 1)
                         {
-                            return true;
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+
+                    {
+                        var elements = doc.XPathSelectElements("./RibbonDefinition/CommandDefinitions").ToList();
+
+                        if (elements.Count == 1)
+                        {
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -232,30 +294,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     && string.Equals(currentXmlNode.Parent.Parent.Name.LocalName, "CommandDefinition", StringComparison.InvariantCultureIgnoreCase)
                     )
             {
+                if (!string.IsNullOrEmpty(currentValue))
                 {
-                    var elements = doc.XPathSelectElements("./RuleDefinitions/EnableRules/EnableRule").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                    if (elements.Count == 1)
                     {
-                        var xmlElement = elements[0];
+                        var elements = doc.XPathSelectElements("./RuleDefinitions/EnableRules/EnableRule").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
-                        if (MoveToElement(snapshot, xmlElement))
+                        if (elements.Count == 1)
                         {
-                            return true;
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+
+                    {
+                        var elements = doc.XPathSelectElements("./RibbonDefinition/RuleDefinitions/EnableRules/EnableRule").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+                        if (elements.Count == 1)
+                        {
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
-
+                else
                 {
-                    var elements = doc.XPathSelectElements("./RibbonDefinition/RuleDefinitions/EnableRules/EnableRule").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                    if (elements.Count == 1)
                     {
-                        var xmlElement = elements[0];
+                        var elements = doc.XPathSelectElements("./RuleDefinitions/EnableRules").ToList();
 
-                        if (MoveToElement(snapshot, xmlElement))
+                        if (elements.Count == 1)
                         {
-                            return true;
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+
+                    {
+                        var elements = doc.XPathSelectElements("./RibbonDefinition/RuleDefinitions/EnableRules").ToList();
+
+                        if (elements.Count == 1)
+                        {
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -269,30 +364,64 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 && string.Equals(currentXmlNode.Parent.Parent.Name.LocalName, "CommandDefinition", StringComparison.InvariantCultureIgnoreCase)
                 )
             {
+                if (!string.IsNullOrEmpty(currentValue))
                 {
-                    var elements = doc.XPathSelectElements("./RuleDefinitions/DisplayRules/DisplayRule").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                    if (elements.Count == 1)
                     {
-                        var xmlElement = elements[0];
+                        var elements = doc.XPathSelectElements("./RuleDefinitions/DisplayRules/DisplayRule").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
-                        if (MoveToElement(snapshot, xmlElement))
+                        if (elements.Count == 1)
                         {
-                            return true;
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(currentValue))
+                    {
+                        var elements = doc.XPathSelectElements("./RibbonDefinition/RuleDefinitions/DisplayRules/DisplayRule").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+                        if (elements.Count == 1)
+                        {
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
-
+                else
                 {
-                    var elements = doc.XPathSelectElements("./RibbonDefinition/RuleDefinitions/DisplayRules/DisplayRule").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                    if (elements.Count == 1)
                     {
-                        var xmlElement = elements[0];
+                        var elements = doc.XPathSelectElements("./RuleDefinitions/DisplayRules").ToList();
 
-                        if (MoveToElement(snapshot, xmlElement))
+                        if (elements.Count == 1)
                         {
-                            return true;
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+
+                    {
+                        var elements = doc.XPathSelectElements("./RibbonDefinition/RuleDefinitions/DisplayRules").ToList();
+
+                        if (elements.Count == 1)
+                        {
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -301,7 +430,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             return false;
         }
 
-        private bool MoveToElement(ITextSnapshot snapshot, XElement xmlElement)
+        private bool TryMoveToElement(ITextSnapshot snapshot, XElement xmlElement)
         {
             var lineNumber = (xmlElement as IXmlLineInfo)?.LineNumber;
 
