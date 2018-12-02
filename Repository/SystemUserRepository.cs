@@ -73,14 +73,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(filter))
             {
-                query.Criteria = new FilterExpression(LogicalOperator.Or)
+                if (Guid.TryParse(filter, out Guid id))
                 {
-                    Conditions =
+                    query.Criteria.Conditions.Add(new ConditionExpression(SystemUser.Schema.Attributes.systemuserid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria = new FilterExpression(LogicalOperator.Or)
                     {
-                        new ConditionExpression(SystemUser.Schema.Attributes.fullname, ConditionOperator.Like, "%" + filter + "%"),
-                        new ConditionExpression(SystemUser.Schema.Attributes.domainname, ConditionOperator.Like, "%" + filter + "%"),
-                    },
-                };
+                        Conditions =
+                        {
+                            new ConditionExpression(SystemUser.Schema.Attributes.fullname, ConditionOperator.Like, "%" + filter + "%"),
+                            new ConditionExpression(SystemUser.Schema.Attributes.domainname, ConditionOperator.Like, "%" + filter + "%"),
+                        },
+                    };
+                }
             }
 
             var result = new List<SystemUser>();
@@ -159,14 +166,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(filter))
             {
-                query.Criteria = new FilterExpression(LogicalOperator.Or)
+                if (Guid.TryParse(filter, out Guid id))
                 {
-                    Conditions =
+                    query.Criteria.Conditions.Add(new ConditionExpression(SystemUser.Schema.Attributes.systemuserid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria = new FilterExpression(LogicalOperator.Or)
                     {
-                        new ConditionExpression(SystemUser.Schema.Attributes.fullname, ConditionOperator.Like, "%" + filter + "%"),
-                        new ConditionExpression(SystemUser.Schema.Attributes.domainname, ConditionOperator.Like, "%" + filter + "%"),
-                    },
-                };
+                        Conditions =
+                        {
+                            new ConditionExpression(SystemUser.Schema.Attributes.fullname, ConditionOperator.Like, "%" + filter + "%"),
+                            new ConditionExpression(SystemUser.Schema.Attributes.domainname, ConditionOperator.Like, "%" + filter + "%"),
+                        },
+                    };
+                }
             }
 
             var result = new List<SystemUser>();
@@ -257,14 +271,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(filter))
             {
-                query.Criteria = new FilterExpression(LogicalOperator.Or)
+                if (Guid.TryParse(filter, out Guid id))
                 {
-                    Conditions =
+                    query.Criteria.Conditions.Add(new ConditionExpression(SystemUser.Schema.Attributes.systemuserid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria = new FilterExpression(LogicalOperator.Or)
                     {
-                        new ConditionExpression(SystemUser.Schema.Attributes.fullname, ConditionOperator.Like, "%" + filter + "%"),
-                        new ConditionExpression(SystemUser.Schema.Attributes.domainname, ConditionOperator.Like, "%" + filter + "%"),
-                    },
-                };
+                        Conditions =
+                        {
+                            new ConditionExpression(SystemUser.Schema.Attributes.fullname, ConditionOperator.Like, "%" + filter + "%"),
+                            new ConditionExpression(SystemUser.Schema.Attributes.domainname, ConditionOperator.Like, "%" + filter + "%"),
+                        },
+                    };
+                }
             }
 
             var result = new List<SystemUser>();

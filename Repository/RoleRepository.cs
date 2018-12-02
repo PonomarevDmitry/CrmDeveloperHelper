@@ -79,7 +79,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(filterRole))
             {
-                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.name, ConditionOperator.Like, "%" + filterRole + "%"));
+                if (Guid.TryParse(filterRole, out Guid id))
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.roleid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.name, ConditionOperator.Like, "%" + filterRole + "%"));
+                }
             }
 
             var result = new List<Role>();
@@ -215,7 +222,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(filterRole))
             {
-                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.name, ConditionOperator.Like, "%" + filterRole + "%"));
+                if (Guid.TryParse(filterRole, out Guid id))
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.roleid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.name, ConditionOperator.Like, "%" + filterRole + "%"));
+                }
             }
 
             var result = new List<Role>();
@@ -324,7 +338,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(filterRole))
             {
-                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.name, ConditionOperator.Like, "%" + filterRole + "%"));
+                if (Guid.TryParse(filterRole, out Guid id))
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.roleid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.name, ConditionOperator.Like, "%" + filterRole + "%"));
+                }
             }
 
             var result = new List<Role>();
@@ -461,7 +482,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(filterRole))
             {
-                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.name, ConditionOperator.Like, "%" + filterRole + "%"));
+                if (Guid.TryParse(filterRole, out Guid id))
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.roleid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.name, ConditionOperator.Like, "%" + filterRole + "%"));
+                }
             }
 
             var result = new List<Role>();

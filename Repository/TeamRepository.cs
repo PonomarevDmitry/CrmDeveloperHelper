@@ -71,7 +71,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(filter))
             {
-                query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.name, ConditionOperator.Like, "%" + filter + "%"));
+                if (Guid.TryParse(filter, out Guid id))
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.teamid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.name, ConditionOperator.Like, "%" + filter + "%"));
+                }
             }
 
             var result = new List<Team>();
@@ -166,7 +173,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(filter))
             {
-                query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.name, ConditionOperator.Like, "%" + filter + "%"));
+                if (Guid.TryParse(filter, out Guid id))
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.teamid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.name, ConditionOperator.Like, "%" + filter + "%"));
+                }
             }
 
             var result = new List<Team>();
@@ -257,7 +271,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(filter))
             {
-                query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.name, ConditionOperator.Like, "%" + filter + "%"));
+                if (Guid.TryParse(filter, out Guid id))
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.teamid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.name, ConditionOperator.Like, "%" + filter + "%"));
+                }
             }
 
             var result = new List<Team>();
