@@ -2893,6 +2893,87 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleOpenSystemUsersExplorer()
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            string selection = GetSelectedText();
+
+            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow();
+                WriteToOutputEmptyLines(commonConfig);
+
+                try
+                {
+                    Controller.StartShowingSystemUserExplorer(crmConfig.CurrentConnectionData, commonConfig, selection);
+                }
+                catch (Exception xE)
+                {
+                    WriteErrorToOutput(xE);
+                }
+            }
+        }
+        
+        public void HandleOpenTeamsExplorer()
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            string selection = GetSelectedText();
+
+            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow();
+                WriteToOutputEmptyLines(commonConfig);
+
+                try
+                {
+                    Controller.StartShowingTeamsExplorer(crmConfig.CurrentConnectionData, commonConfig, selection);
+                }
+                catch (Exception xE)
+                {
+                    WriteErrorToOutput(xE);
+                }
+            }
+        }
+
+        public void HandleOpenSecurityRolesExplorer()
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            string selection = GetSelectedText();
+
+            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow();
+                WriteToOutputEmptyLines(commonConfig);
+
+                try
+                {
+                    Controller.StartShowingSecurityRolesExplorer(crmConfig.CurrentConnectionData, commonConfig, selection);
+                }
+                catch (Exception xE)
+                {
+                    WriteErrorToOutput(xE);
+                }
+            }
+        }
+
         public void HandlePluginConfigurationCreate()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();

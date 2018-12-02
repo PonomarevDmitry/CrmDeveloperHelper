@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 NoLock = true,
 
                 ColumnSet = new ColumnSet(true),
-                
+
                 LinkEntities =
                 {
                     new LinkEntity()
@@ -78,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             };
 
             var result = new List<Privilege>();
-            
+
             try
             {
                 while (true)
@@ -152,7 +152,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 while (true)
                 {
                     var coll = _service.RetrieveMultiple(query);
-                    
+
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<RolePrivileges>()));
 
                     if (!coll.MoreRecords)
@@ -197,6 +197,77 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 default:
                     return string.Format("{0} - Unknown", mask);
             }
+        }
+
+        public static PrivilegeDepth? ConvertMaskToPrivilegeDepth(int value)
+        {
+            switch (value)
+            {
+                case 1:
+                    return PrivilegeDepth.Basic;
+
+                case 2:
+                    return PrivilegeDepth.Local;
+
+                case 4:
+                    return PrivilegeDepth.Deep;
+
+                case 8:
+                    return PrivilegeDepth.Global;
+            }
+
+            return null;
+        }
+
+        public Task<IEnumerable<RolePrivilege>> GetUserPrivilegesAsync(Guid idUser)
+        {
+            return Task.Run(() => GetUserPrivileges(idUser));
+        }
+
+        private IEnumerable<RolePrivilege> GetUserPrivileges(Guid idUser)
+        {
+            var request = new RetrieveUserPrivilegesRequest()
+            {
+                UserId = idUser,
+            };
+
+            var response = (RetrieveUserPrivilegesResponse)_service.Execute(request);
+
+            return response.RolePrivileges;
+        }
+
+        public Task<IEnumerable<RolePrivilege>> GetTeamPrivilegesAsync(Guid idTeam)
+        {
+            return Task.Run(() => GetTeamPrivileges(idTeam));
+        }
+
+        private IEnumerable<RolePrivilege> GetTeamPrivileges(Guid idTeam)
+        {
+            var request = new RetrieveTeamPrivilegesRequest()
+            {
+                TeamId = idTeam,
+            };
+
+            var response = (RetrieveTeamPrivilegesResponse)_service.Execute(request);
+
+            return response.RolePrivileges;
+        }
+
+        public Task<IEnumerable<RolePrivilege>> GetRolePrivilegesAsync(Guid idRole)
+        {
+            return Task.Run(() => GetRolePrivileges(idRole));
+        }
+
+        private IEnumerable<RolePrivilege> GetRolePrivileges(Guid idRole)
+        {
+            var request = new RetrieveRolePrivilegesRoleRequest()
+            {
+                RoleId = idRole,
+            };
+
+            var response = (RetrieveRolePrivilegesRoleResponse)_service.Execute(request);
+
+            return response.RolePrivileges;
         }
     }
 }

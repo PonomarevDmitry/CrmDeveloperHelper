@@ -1897,6 +1897,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading security role users....
+        /// </summary>
+        internal static string LoadingRoleSystemUsers {
+            get {
+                return ResourceManager.GetString("LoadingRoleSystemUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} security role users loaded..
+        /// </summary>
+        internal static string LoadingRoleSystemUsersCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingRoleSystemUsersCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading security role teams....
+        /// </summary>
+        internal static string LoadingRoleTeams {
+            get {
+                return ResourceManager.GetString("LoadingRoleTeams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} security role teams loaded..
+        /// </summary>
+        internal static string LoadingRoleTeamsCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingRoleTeamsCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading saved queries....
         /// </summary>
         internal static string LoadingSavedQueries {
@@ -1947,6 +1983,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string LoadingSdkMessageRequestsCompleted {
             get {
                 return ResourceManager.GetString("LoadingSdkMessageRequestsCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading security roles....
+        /// </summary>
+        internal static string LoadingSecurityRoles {
+            get {
+                return ResourceManager.GetString("LoadingSecurityRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} security roles loaded..
+        /// </summary>
+        internal static string LoadingSecurityRolesCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingSecurityRolesCompletedFormat1", resourceCulture);
             }
         }
         
@@ -2028,6 +2082,114 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string LoadingSolutionsCompletedFormat1 {
             get {
                 return ResourceManager.GetString("LoadingSolutionsCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading system users....
+        /// </summary>
+        internal static string LoadingSystemUsers {
+            get {
+                return ResourceManager.GetString("LoadingSystemUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} system users loaded..
+        /// </summary>
+        internal static string LoadingSystemUsersCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingSystemUsersCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading user security roles....
+        /// </summary>
+        internal static string LoadingSystemUserSecurityRoles {
+            get {
+                return ResourceManager.GetString("LoadingSystemUserSecurityRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User security roles loaded..
+        /// </summary>
+        internal static string LoadingSystemUserSecurityRolesCompleted {
+            get {
+                return ResourceManager.GetString("LoadingSystemUserSecurityRolesCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading user teams....
+        /// </summary>
+        internal static string LoadingSystemUserTeams {
+            get {
+                return ResourceManager.GetString("LoadingSystemUserTeams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} user teams loaded..
+        /// </summary>
+        internal static string LoadingSystemUserTeamsCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingSystemUserTeamsCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading teams....
+        /// </summary>
+        internal static string LoadingTeams {
+            get {
+                return ResourceManager.GetString("LoadingTeams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} teams loaded..
+        /// </summary>
+        internal static string LoadingTeamsCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingTeamsCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading team security roles....
+        /// </summary>
+        internal static string LoadingTeamSecurityRoles {
+            get {
+                return ResourceManager.GetString("LoadingTeamSecurityRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} user security roles loaded..
+        /// </summary>
+        internal static string LoadingTeamSecurityRolesCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingTeamSecurityRolesCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading team members....
+        /// </summary>
+        internal static string LoadingTeamSystemUsers {
+            get {
+                return ResourceManager.GetString("LoadingTeamSystemUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} team members loaded..
+        /// </summary>
+        internal static string LoadingTeamSystemUsersCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingTeamSystemUsersCompletedFormat1", resourceCulture);
             }
         }
         

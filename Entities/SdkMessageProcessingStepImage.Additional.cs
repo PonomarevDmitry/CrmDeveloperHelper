@@ -13,9 +13,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 if (this.Attributes.ContainsKey(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode)
                     && this.Attributes[SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode] != null
                     && this.Attributes[SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode] is AliasedValue aliasedValue
+                    && aliasedValue.Value is string aliasedValueValue
                     )
                 {
-                    return (string)aliasedValue.Value;
+                    return aliasedValueValue;
                 }
 
                 return "none";
@@ -29,9 +30,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 if (this.Attributes.ContainsKey(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode)
                     && this.Attributes[SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode] != null
                     && this.Attributes[SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode] is AliasedValue aliasedValue
+                    && aliasedValue.Value is string aliasedValueValue
                     )
                 {
-                    return (string)aliasedValue.Value;
+                    return aliasedValueValue;
                 }
 
                 return "none";

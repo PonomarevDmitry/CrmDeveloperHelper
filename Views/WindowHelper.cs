@@ -173,6 +173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
+            , IEnumerable<EntityMetadata> entityMetadataList
             , string entityName
             )
         {
@@ -184,6 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput
                         , service
                         , commonConfig
+                        , entityMetadataList
                         , entityName
                         );
 
@@ -478,6 +480,105 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , entityFilter
                         , messageFilter
+                    );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        public static void OpenSystemUsersExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , IEnumerable<EntityMetadata> entityMetadataList
+            , string filter
+            )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowSystemUserExplorer(
+                        iWriteToOutput
+                        , service
+                        , commonConfig
+                        , entityMetadataList
+                        , filter
+                    );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        public static void OpenTeamsExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , IEnumerable<EntityMetadata> entityMetadataList
+            , string filter
+            )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowTeamExplorer(
+                        iWriteToOutput
+                        , service
+                        , commonConfig
+                        , entityMetadataList
+                        , filter
+                    );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        public static void OpenRolesExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , IEnumerable<EntityMetadata> entityMetadataList
+            , string filter
+            )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowRoleExplorer(
+                        iWriteToOutput
+                        , service
+                        , commonConfig
+                        , entityMetadataList
+                        , filter
                     );
 
                     form.ShowDialog();

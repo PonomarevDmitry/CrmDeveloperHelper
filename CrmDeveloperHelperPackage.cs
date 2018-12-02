@@ -296,6 +296,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonExportWebResourceCommand.Initialize(this);
             CommonExportWorkflowCommand.Initialize(this);
 
+            CommonSystemUsersExplorerCommand.Initialize(this);
+            CommonTeamsExplorerCommand.Initialize(this);
+            CommonSecurityRolesExplorerCommand.Initialize(this);
+
             CommonExportDefaultSitemapsCommand.Initialize(this);
             CommonExportXsdSchemasCommand.Initialize(this);
             CommonOpenXsdSchemaFolderCommand.Initialize(this);

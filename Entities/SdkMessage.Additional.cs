@@ -36,10 +36,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode] != null
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode] is AliasedValue aliasedValue
                     && aliasedValue.Value != null
-                    && aliasedValue.Value is string result
+                    && aliasedValue.Value is string aliasedValueValue
                     )
                 {
-                    return result;
+                    return aliasedValueValue;
                 }
 
                 return "none";
@@ -54,10 +54,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode] != null
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode] is AliasedValue aliasedValue
                     && aliasedValue.Value != null
-                    && aliasedValue.Value is string result
+                    && aliasedValue.Value is string aliasedValueValue
                     )
                 {
-                    return result;
+                    return aliasedValueValue;
                 }
 
                 return "none";
@@ -72,10 +72,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageFilterId] != null
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageFilterId] is AliasedValue aliasedValue
                     && aliasedValue.Value != null
-                    && aliasedValue.Value is Guid result
+                    && aliasedValue.Value is Guid aliasedValueValue
                     )
                 {
-                    return result;
+                    return aliasedValueValue;
                 }
 
                 return null;

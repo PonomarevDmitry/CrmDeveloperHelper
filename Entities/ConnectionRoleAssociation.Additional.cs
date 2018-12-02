@@ -19,9 +19,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 if (this.Attributes.ContainsKey(Schema.EntityAliasFields.ConnectionRoleName)
                     && this.Attributes[Schema.EntityAliasFields.ConnectionRoleName] != null
                     && this.Attributes[Schema.EntityAliasFields.ConnectionRoleName] is AliasedValue aliasedValue
+                    && aliasedValue.Value is string aliasedValueValue
                     )
                 {
-                    return (string)aliasedValue.Value;
+                    return aliasedValueValue;
                 }
 
                 return "none";

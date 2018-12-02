@@ -465,7 +465,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName);
+            IEnumerable<EntityMetadata> entityMetadataList = null;
+
+            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
+            {
+                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
+            }
+
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.EntityLogicalName);
         }
 
         private async void miGlobalOptionSets_Click(object sender, RoutedEventArgs e)

@@ -602,7 +602,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, entity?.LogicalName);
         }
 
         private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)

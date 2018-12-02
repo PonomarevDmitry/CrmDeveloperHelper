@@ -1077,4 +1077,58 @@
   <data name="LoadingEntitySecurityRolesCompletedFormat1" xml:space="preserve">
     <value>{0} security roles loaded.</value>
   </data>
+  <data name="LoadingSystemUsers" xml:space="preserve">
+    <value>Loading system users...</value>
+  </data>
+  <data name="LoadingSystemUsersCompletedFormat1" xml:space="preserve">
+    <value>{0} system users loaded.</value>
+  </data>
+  <data name="LoadingSystemUserSecurityRoles" xml:space="preserve">
+    <value>Loading user security roles...</value>
+  </data>
+  <data name="LoadingSystemUserSecurityRolesCompleted" xml:space="preserve">
+    <value>User security roles loaded.</value>
+  </data>
+  <data name="LoadingSystemUserTeams" xml:space="preserve">
+    <value>Loading user teams...</value>
+  </data>
+  <data name="LoadingSystemUserTeamsCompletedFormat1" xml:space="preserve">
+    <value>{0} user teams loaded.</value>
+  </data>
+  <data name="LoadingTeams" xml:space="preserve">
+    <value>Loading teams...</value>
+  </data>
+  <data name="LoadingTeamsCompletedFormat1" xml:space="preserve">
+    <value>{0} teams loaded.</value>
+  </data>
+  <data name="LoadingTeamSecurityRoles" xml:space="preserve">
+    <value>Loading team security roles...</value>
+  </data>
+  <data name="LoadingTeamSecurityRolesCompletedFormat1" xml:space="preserve">
+    <value>{0} user security roles loaded.</value>
+  </data>
+  <data name="LoadingTeamSystemUsers" xml:space="preserve">
+    <value>Loading team members...</value>
+  </data>
+  <data name="LoadingTeamSystemUsersCompletedFormat1" xml:space="preserve">
+    <value>{0} team members loaded.</value>
+  </data>
+  <data name="LoadingRoleSystemUsers" xml:space="preserve">
+    <value>Loading security role users...</value>
+  </data>
+  <data name="LoadingRoleSystemUsersCompletedFormat1" xml:space="preserve">
+    <value>{0} security role users loaded.</value>
+  </data>
+  <data name="LoadingSecurityRoles" xml:space="preserve">
+    <value>Loading security roles...</value>
+  </data>
+  <data name="LoadingSecurityRolesCompletedFormat1" xml:space="preserve">
+    <value>{0} security roles loaded.</value>
+  </data>
+  <data name="LoadingRoleTeams" xml:space="preserve">
+    <value>Loading security role teams...</value>
+  </data>
+  <data name="LoadingRoleTeamsCompletedFormat1" xml:space="preserve">
+    <value>{0} security role teams loaded.</value>
+  </data>
 </root>

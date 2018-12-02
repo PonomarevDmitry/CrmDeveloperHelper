@@ -53,7 +53,7 @@
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                 <Separator/>
-                <MenuItem Header="Entity Ribbon" Click="btnCompareApplicationRibbons_Click"/>
+                <MenuItem Header="Application Ribbon" Click="btnCompareApplicationRibbons_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
                 <Separator/>
@@ -110,7 +110,7 @@
                 <MenuItem Header="Compare Information with other Organization" VerticalAlignment="Center">
                     <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                     <Separator/>
-                    <MenuItem Header="Entity Ribbon" Click="btnCompareApplicationRibbons_Click"/>
+                    <MenuItem Header="Application Ribbon" Click="btnCompareApplicationRibbons_Click"/>
                     <Separator/>
                     <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
                     <Separator/>

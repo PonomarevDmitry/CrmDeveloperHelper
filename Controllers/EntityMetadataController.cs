@@ -223,7 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-                WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, commonConfig, selection);
+                WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, commonConfig, null, selection);
             }
             catch (Exception xE)
             {

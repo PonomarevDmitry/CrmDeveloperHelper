@@ -18,7 +18,7 @@
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                 <Separator/>
-                <MenuItem Header="Entity Ribbon" Click="btnCompareApplicationRibbons_Click"/>
+                <MenuItem Header="Application Ribbon" Click="btnCompareApplicationRibbons_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
                 <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>

@@ -1550,7 +1550,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity);
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, entity?.PrimaryEntity);
         }
 
         private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)

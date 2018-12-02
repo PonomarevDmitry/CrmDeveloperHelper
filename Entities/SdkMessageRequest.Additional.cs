@@ -35,10 +35,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 if (this.Attributes.ContainsKey(Schema.EntityAliasFields.SdkMessageId)
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageId] != null
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageId] is AliasedValue aliasedValue
-                    && aliasedValue.Value is EntityReference reference
+                    && aliasedValue.Value is EntityReference aliasedValueValue
                     )
                 {
-                    return reference.Id;
+                    return aliasedValueValue.Id;
                 }
 
                 return null;
@@ -52,10 +52,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 if (this.Attributes.ContainsKey(Schema.EntityAliasFields.SdkMessageName)
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageName] != null
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageName] is AliasedValue aliasedValue
-                    && aliasedValue.Value is string name
+                    && aliasedValue.Value is string aliasedValueValue
                     )
                 {
-                    return name;
+                    return aliasedValueValue;
                 }
 
                 return "Unknown";
@@ -69,10 +69,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 if (this.Attributes.ContainsKey(Schema.EntityAliasFields.Namespace)
                     && this.Attributes[Schema.EntityAliasFields.Namespace] != null
                     && this.Attributes[Schema.EntityAliasFields.Namespace] is AliasedValue aliasedValue
-                    && aliasedValue.Value is string name
+                    && aliasedValue.Value is string aliasedValueValue
                     )
                 {
-                    return name;
+                    return aliasedValueValue;
                 }
 
                 return "None";

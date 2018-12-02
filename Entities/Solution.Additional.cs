@@ -41,9 +41,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 if (this.Attributes.ContainsKey(Schema.EntityAliasFields.PublisherCustomizationPrefix)
                     && this.Attributes[Schema.EntityAliasFields.PublisherCustomizationPrefix] != null
                     && this.Attributes[Schema.EntityAliasFields.PublisherCustomizationPrefix] is AliasedValue aliasedValue
+                    && aliasedValue.Value is string aliasedValueValue
                     )
                 {
-                    return (string)aliasedValue.Value;
+                    return aliasedValueValue;
                 }
 
                 return string.Empty;

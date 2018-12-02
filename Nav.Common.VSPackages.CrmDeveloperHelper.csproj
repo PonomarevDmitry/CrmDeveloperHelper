@@ -201,7 +201,10 @@
     <Compile Include="Commands\CommonPublishAllInCrmConnectionCommand.cs" />
     <Compile Include="Commands\CommonSdkMessageRequestTreeCommand.cs" />
     <Compile Include="Commands\CommonSdkMessageTreeCommand.cs" />
+    <Compile Include="Commands\CommonSecurityRolesExplorerCommand.cs" />
     <Compile Include="Commands\CommonSelectCrmConnectionCommand.cs" />
+    <Compile Include="Commands\CommonSystemUsersExplorerCommand.cs" />
+    <Compile Include="Commands\CommonTeamsExplorerCommand.cs" />
     <Compile Include="Commands\CommonTraceReaderCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyAddIntoSolutionCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
@@ -288,6 +291,7 @@
     <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Controllers\OpenFilesController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="CrmDeveloperHelperPackageCommandTable.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -337,6 +341,11 @@
     <Compile Include="Entities\SdkMessageResponse.Generated.cs" />
     <Compile Include="Entities\SdkMessageResponseField.cs" />
     <Compile Include="Entities\SdkMessageResponseField.Generated.cs" />
+    <Compile Include="Entities\SystemUserRoles.Generated.cs" />
+    <Compile Include="Entities\Team.Additional.cs" />
+    <Compile Include="Entities\TeamMembership.Generated.cs" />
+    <Compile Include="Entities\TeamRoles.Generated.cs" />
+    <Compile Include="Entities\TeamTemplate.Generated.cs" />
     <Compile Include="Entities\WebWizard.Generated.cs" />
     <Compile Include="Helpers\BoolToOppositeBoolConverter.cs" />
     <Compile Include="Helpers\CommonHandlers.cs" />
@@ -732,6 +741,7 @@
     <Compile Include="Model\EntityKeyMetadataViewItem.cs" />
     <Compile Include="Model\EntityMetadataListViewItem.cs" />
     <Compile Include="Model\EntityMetadataViewItem.cs" />
+    <Compile Include="Model\EntityPrivilegeViewItem.cs" />
     <Compile Include="Model\EntityTreeViewItem.cs" />
     <Compile Include="Model\ExportSolutionConfig.cs" />
     <Compile Include="Model\ExportSolutionOverrideInformation.cs" />
@@ -880,6 +890,7 @@
     <Compile Include="Repository\StringMapRepository.cs" />
     <Compile Include="Repository\SystemFormRepository.cs" />
     <Compile Include="Repository\SystemUserRepository.cs" />
+    <Compile Include="Repository\TeamRepository.cs" />
     <Compile Include="Repository\TemplateRepository.cs" />
     <Compile Include="Repository\TranslationRepository.cs" />
     <Compile Include="Repository\WebResourceIntellisenseDataRepository.cs" />
@@ -1041,6 +1052,9 @@
     <Compile Include="Views\WindowPluginConfigurationPluginType.xaml.cs">
       <DependentUpon>WindowPluginConfigurationPluginType.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowRoleExplorer.xaml.cs">
+      <DependentUpon>WindowRoleExplorer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowSdkMessageRequestTree.xaml.cs">
       <DependentUpon>WindowSdkMessageRequestTree.xaml</DependentUpon>
     </Compile>
@@ -1070,6 +1084,12 @@
     </Compile>
     <Compile Include="Views\WindowSolutionSelect.xaml.cs">
       <DependentUpon>WindowSolutionSelect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowSystemUserExplorer.xaml.cs">
+      <DependentUpon>WindowSystemUserExplorer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowTeamExplorer.xaml.cs">
+      <DependentUpon>WindowTeamExplorer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowTextField.xaml.cs">
       <DependentUpon>WindowTextField.xaml</DependentUpon>
@@ -1603,6 +1623,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\WindowRoleExplorer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\WindowSdkMessageRequestTree.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1640,6 +1664,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowSolutionSelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowSystemUserExplorer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowTeamExplorer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

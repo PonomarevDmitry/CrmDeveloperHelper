@@ -177,7 +177,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var repository = new SystemUserRepository(service);
 
-                    var list = await repository.GetListAsync(new ColumnSet(SystemUser.Schema.EntityPrimaryIdAttribute, SystemUser.Schema.Attributes.fullname));
+                    var list = await repository.GetListAsync(null, new ColumnSet(SystemUser.Schema.EntityPrimaryIdAttribute, SystemUser.Schema.Attributes.fullname));
 
                     _systemUserCache.Add(service.ConnectionData.ConnectionId, list.ToDictionary(e => e.Id));
                 }

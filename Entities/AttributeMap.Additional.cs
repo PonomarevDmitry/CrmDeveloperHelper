@@ -21,9 +21,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 if (this.Attributes.ContainsKey(Schema.EntityAliasFields.EntityMapIdSourceEntityName)
                     && this.Attributes[Schema.EntityAliasFields.EntityMapIdSourceEntityName] != null
                     && this.Attributes[Schema.EntityAliasFields.EntityMapIdSourceEntityName] is AliasedValue aliasedValue
+                    && aliasedValue.Value is string aliasedValueValue
                     )
                 {
-                    return (string)aliasedValue.Value;
+                    return aliasedValueValue;
                 }
 
                 return "none";
@@ -37,9 +38,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 if (this.Attributes.ContainsKey(Schema.EntityAliasFields.EntityMapIdTargetEntityName)
                     && this.Attributes[Schema.EntityAliasFields.EntityMapIdTargetEntityName] != null
                     && this.Attributes[Schema.EntityAliasFields.EntityMapIdTargetEntityName] is AliasedValue aliasedValue
+                    && aliasedValue.Value is string aliasedValueValue
                     )
                 {
-                    return (string)aliasedValue.Value;
+                    return aliasedValueValue;
                 }
 
                 return "none";

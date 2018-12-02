@@ -1,6 +1,7 @@
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -98,29 +99,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                     if (rolePrivilege != null && rolePrivilege.PrivilegeDepthMask.HasValue)
                     {
-                        return ConvertMaskToPrivilegeDepth(rolePrivilege.PrivilegeDepthMask.Value);
+                        return SecurityRolePrivilegesRepository.ConvertMaskToPrivilegeDepth(rolePrivilege.PrivilegeDepthMask.Value);
                     }
                 }
-            }
-
-            return null;
-        }
-
-        private PrivilegeDepth? ConvertMaskToPrivilegeDepth(int value)
-        {
-            switch (value)
-            {
-                case 1:
-                    return PrivilegeDepth.Basic;
-
-                case 2:
-                    return PrivilegeDepth.Local;
-
-                case 4:
-                    return PrivilegeDepth.Deep;
-
-                case 8:
-                    return PrivilegeDepth.Global;
             }
 
             return null;

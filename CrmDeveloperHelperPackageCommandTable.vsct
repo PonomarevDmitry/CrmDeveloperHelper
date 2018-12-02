@@ -366,6 +366,10 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupDescription" priority="0x060A" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" priority="0x060B" />
 
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation" priority="0x060B" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" priority="0x060B" />
+      
+
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupExport" priority="0x0604" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport_GroupOrganization" priority="0x060C" />
@@ -855,6 +859,14 @@
           <MenuText>Plugin Information</MenuText>
         </Strings>
       </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu" priority="0x0106" type="Menu">
+        <Strings>
+          <ButtonText>Security</ButtonText>
+          <MenuText>Security</MenuText>
+        </Strings>
+      </Menu>
+      
 
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport" priority="0x0107" type="Menu">
         <Strings>
@@ -4332,8 +4344,23 @@
         </Strings>
       </Button>
 
+      <Button guid="guidCommandSet" id="CommonSystemUsersExplorerCommandId" priority="0x0124" type="Button">
+        <Strings>
+          <ButtonText>SystemUsers Explorer</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="CommonTeamsExplorerCommandId" priority="0x0124" type="Button">
+        <Strings>
+          <ButtonText>Teams Explorer</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="CommonSecurityRolesExplorerCommandId" priority="0x0124" type="Button">
+        <Strings>
+          <ButtonText>SecurityRoles Explorer</ButtonText>
+        </Strings>
+      </Button>
 
-
+      
 
 
       <Button guid="guidCommandSet" id="CommonExportOrganizationCommandId" priority="0x0125" type="Button">
@@ -5851,6 +5878,9 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupExport" priority="0x0604">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation" priority="0x0603">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
+    </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions" priority="0x0605">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
@@ -5884,6 +5914,11 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation" priority="0x0106">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation" />
     </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu" priority="0x0107">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation" />
+    </CommandPlacement>
+
+    
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport" />
@@ -6349,6 +6384,12 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" priority="0x060B">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu" />
+    </CommandPlacement>
+
+    
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport_GroupOrganization" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport" />
     </CommandPlacement>
@@ -6508,7 +6549,20 @@
     <CommandPlacement guid="guidCommandSet" id="CommonSdkMessageRequestTreeCommandId" priority="0x0126">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
     </CommandPlacement>
-
+    
+    <CommandPlacement guid="guidCommandSet" id="CommonEntitySecurityRolesExplorerCommandId" priority="0x0103">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonSystemUsersExplorerCommandId" priority="0x0126">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonTeamsExplorerCommandId" priority="0x0126">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonSecurityRolesExplorerCommandId" priority="0x0126">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" />
+    </CommandPlacement>
+    
 
     <CommandPlacement guid="guidCommandSet" id="CommonExportOrganizationCommandId" priority="0x0125">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport_GroupOrganization" />
@@ -8756,14 +8810,18 @@
       <IDSymbol name="commonMenu_GroupEntityInformation_MenuEntityInformation" value="0x10DC" />
       <IDSymbol name="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntityComponents" value="0x10DD" />
       <IDSymbol name="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntitySecurityRoles" value="0x1249" />
-      <IDSymbol name="commonMenu_GroupExport_MenuExport_GroupApplicationRibbon" value="0x10DE" />
       <IDSymbol name="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupFormViewChart" value="0x10DF" />
+      <IDSymbol name="commonMenu_GroupExport_MenuExport_GroupApplicationRibbon" value="0x10DE" />
 
       <IDSymbol name="commonMenu_GroupEntityInformation_MenuPluginInformation" value="0x10E0" />
       <IDSymbol name="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupDescription" value="0x10E1" />
       <IDSymbol name="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" value="0x10E2" />
 
+      <IDSymbol name="commonMenu_GroupSecurityInformation" value="0x124A" />
+      <IDSymbol name="commonMenu_GroupSecurityInformation_Menu" value="0x124B" />
+      <IDSymbol name="commonMenu_GroupSecurityInformation_Menu_Group" value="0x124C" />
 
+      
       <IDSymbol name="commonMenu_GroupPluginConfiguration" value="0x10E3" />
       <IDSymbol name="commonMenu_GroupPluginConfiguration_MenuPluginConfiguration" value="0x10E4" />
       <IDSymbol name="commonMenu_GroupPluginConfiguration_MenuPluginConfiguration_GroupCreate" value="0x10E5" />
@@ -8930,7 +8988,7 @@
 
 
 
-      <!-- 0x124A -->
+      <!-- 0x124D -->
 
 
     </GuidSymbol>
@@ -9333,7 +9391,11 @@
 
       <IDSymbol name="CommonSdkMessageRequestTreeCommandId" value="0x2117" />
 
+      <IDSymbol name="CommonSystemUsersExplorerCommandId" value="0x2180" />
+      <IDSymbol name="CommonTeamsExplorerCommandId" value="0x2181" />
+      <IDSymbol name="CommonSecurityRolesExplorerCommandId" value="0x2182" />
 
+      
 
 
 
@@ -9676,7 +9738,7 @@
 
 
 
-      <!-- 0x2180 -->
+      <!-- 0x2183 -->
 
     </GuidSymbol>
 

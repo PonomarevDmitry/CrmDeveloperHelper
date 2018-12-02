@@ -44,12 +44,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return coll.Count == 1 ? coll.Select(e => e.ToEntityReference()).SingleOrDefault() : null;
         }
 
-        public Task<List<SystemUser>> GetListAsync(ColumnSet columnSet)
+        public Task<List<SystemUser>> GetListAsync(string filter, ColumnSet columnSet)
         {
-            return Task.Run(() => GetList(columnSet));
+            return Task.Run(() => GetList(filter, columnSet));
         }
 
-        private List<SystemUser> GetList(ColumnSet columnSet)
+        private List<SystemUser> GetList(string filter, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -61,7 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 Orders =
                 {
-                    new OrderExpression(Report.Schema.Attributes.name, OrderType.Ascending),
+                    new OrderExpression(SystemUser.Schema.Attributes.fullname, OrderType.Ascending),
                 },
 
                 PageInfo = new PagingInfo()
@@ -70,6 +70,202 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Count = 5000,
                 },
             };
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                query.Criteria = new FilterExpression(LogicalOperator.Or)
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SystemUser.Schema.Attributes.fullname, ConditionOperator.Like, "%" + filter + "%"),
+                        new ConditionExpression(SystemUser.Schema.Attributes.domainname, ConditionOperator.Like, "%" + filter + "%"),
+                    },
+                };
+            }
+
+            var result = new List<SystemUser>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SystemUser>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
+        public Task<List<SystemUser>> GetUsersByTeamAsync(Guid idTeam, string filter, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetUsersByTeam(idTeam, filter, columnSet));
+        }
+
+        private List<SystemUser> GetUsersByTeam(Guid idTeam, string filter, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = SystemUser.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = SystemUser.EntityLogicalName,
+                        LinkFromAttributeName = SystemUser.PrimaryIdAttribute,
+
+                        LinkToEntityName = TeamMembership.Schema.EntityLogicalName,
+                        LinkToAttributeName = TeamMembership.Schema.Attributes.systemuserid,
+
+                        LinkCriteria =
+                        {
+                            Conditions =
+                            {
+                                new ConditionExpression(TeamMembership.Schema.Attributes.teamid, ConditionOperator.Equal, idTeam),
+                            },
+                        },
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(SystemUser.Schema.Attributes.fullname, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                query.Criteria = new FilterExpression(LogicalOperator.Or)
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SystemUser.Schema.Attributes.fullname, ConditionOperator.Like, "%" + filter + "%"),
+                        new ConditionExpression(SystemUser.Schema.Attributes.domainname, ConditionOperator.Like, "%" + filter + "%"),
+                    },
+                };
+            }
+
+            var result = new List<SystemUser>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SystemUser>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
+        public Task<List<SystemUser>> GetUsersByRoleAsync(Guid idRole, string filter, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetUsersByRole(idRole, filter, columnSet));
+        }
+
+        private List<SystemUser> GetUsersByRole(Guid idRole, string filter, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = SystemUser.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = SystemUser.EntityLogicalName,
+                        LinkFromAttributeName = SystemUser.PrimaryIdAttribute,
+
+                        LinkToEntityName = SystemUserRoles.Schema.EntityLogicalName,
+                        LinkToAttributeName = SystemUserRoles.Schema.Attributes.systemuserid,
+
+                        LinkEntities =
+                        {
+                            new LinkEntity()
+                            {
+                                LinkFromEntityName = SystemUserRoles.Schema.EntityLogicalName,
+                                LinkFromAttributeName = SystemUserRoles.Schema.Attributes.roleid,
+
+                                LinkToEntityName = Role.Schema.EntityLogicalName,
+                                LinkToAttributeName = Role.Schema.Attributes.roleid,
+
+                                LinkCriteria =
+                                {
+                                    Conditions =
+                                    {
+                                        new ConditionExpression(Role.Schema.Attributes.parentrootroleid, ConditionOperator.Equal, idRole),
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(SystemUser.Schema.Attributes.fullname, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                query.Criteria = new FilterExpression(LogicalOperator.Or)
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SystemUser.Schema.Attributes.fullname, ConditionOperator.Like, "%" + filter + "%"),
+                        new ConditionExpression(SystemUser.Schema.Attributes.domainname, ConditionOperator.Like, "%" + filter + "%"),
+                    },
+                };
+            }
 
             var result = new List<SystemUser>();
 

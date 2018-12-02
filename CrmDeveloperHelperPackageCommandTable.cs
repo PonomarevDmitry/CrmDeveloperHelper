@@ -385,11 +385,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu_GroupEntityInformation_MenuEntityInformation = 0x10DC;
         public const int commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntityComponents = 0x10DD;
         public const int commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntitySecurityRoles = 0x1249;
-        public const int commonMenu_GroupExport_MenuExport_GroupApplicationRibbon = 0x10DE;
         public const int commonMenu_GroupEntityInformation_MenuEntityInformation_GroupFormViewChart = 0x10DF;
+        public const int commonMenu_GroupExport_MenuExport_GroupApplicationRibbon = 0x10DE;
         public const int commonMenu_GroupEntityInformation_MenuPluginInformation = 0x10E0;
         public const int commonMenu_GroupEntityInformation_MenuPluginInformation_GroupDescription = 0x10E1;
         public const int commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree = 0x10E2;
+        public const int commonMenu_GroupSecurityInformation = 0x124A;
+        public const int commonMenu_GroupSecurityInformation_Menu = 0x124B;
+        public const int commonMenu_GroupSecurityInformation_Menu_Group = 0x124C;
         public const int commonMenu_GroupPluginConfiguration = 0x10E3;
         public const int commonMenu_GroupPluginConfiguration_MenuPluginConfiguration = 0x10E4;
         public const int commonMenu_GroupPluginConfiguration_MenuPluginConfiguration_GroupCreate = 0x10E5;
@@ -686,6 +689,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonPluginTreeCommandId = 0x2037;
         public const int CommonSdkMessageTreeCommandId = 0x2116;
         public const int CommonSdkMessageRequestTreeCommandId = 0x2117;
+        public const int CommonSystemUsersExplorerCommandId = 0x2180;
+        public const int CommonTeamsExplorerCommandId = 0x2181;
+        public const int CommonSecurityRolesExplorerCommandId = 0x2182;
         public const int CommonExportOrganizationCommandId = 0x2038;
         public const int CommonExportGlobalOptionSetsCommandId = 0x2039;
         public const int CommonExportSiteMapCommandId = 0x203A;

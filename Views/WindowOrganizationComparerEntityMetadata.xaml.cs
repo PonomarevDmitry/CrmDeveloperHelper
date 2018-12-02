@@ -1041,7 +1041,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+            IEnumerable<EntityMetadata> entityMetadataList = null;
+
+            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
+            {
+                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
+            }
+
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.LogicalName);
         }
 
         private async void btnEntitySecurityRolesExplorer2_Click(object sender, RoutedEventArgs e)
@@ -1052,7 +1059,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+            IEnumerable<EntityMetadata> entityMetadataList = null;
+
+            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
+            {
+                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
+            }
+
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.LogicalName);
         }
 
         private async void btnCreateMetadataFile1_Click(object sender, RoutedEventArgs e)

@@ -59,7 +59,7 @@
                     <Separator/>
                     <MenuItem Header="Global OptionSets" Click="miCompareGlobalOptionSets_Click"/>
                     <Separator/>
-                    <MenuItem Header="Entity Ribbon" Click="miCompareRibbon_Click"/>
+                    <MenuItem Header="Application Ribbon" Click="miCompareRibbon_Click"/>
                     <Separator/>
                     <MenuItem Header="Forms" Click="miCompareSystemForms_Click"/>
                     <MenuItem Header="Views" Click="miCompareSavedQuery_Click"/>

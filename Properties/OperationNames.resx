@@ -582,4 +582,13 @@
   <data name="OpeningEntitySecurityRoles" xml:space="preserve">
     <value>Opening Entity SecurityRoles</value>
   </data>
+  <data name="OpeningSystemUsersExplorer" xml:space="preserve">
+    <value>Opening SystemUsers Explorer</value>
+  </data>
+  <data name="OpeningTeamsExplorer" xml:space="preserve">
+    <value>Opening Teams Explorer</value>
+  </data>
+  <data name="OpeningSecurityRolesExplorer" xml:space="preserve">
+    <value>Opening SecurityRoles Explorer</value>
+  </data>
 </root>

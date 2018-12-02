@@ -35,8 +35,6 @@
                 <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                 <Separator/>
-                <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
-                <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
@@ -57,7 +55,7 @@
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                 <Separator/>
-                <MenuItem Header="Entity Ribbon" Click="btnCompareApplicationRibbons_Click"/>
+                <MenuItem Header="Application Ribbon" Click="btnCompareApplicationRibbons_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
                 <Separator/>
@@ -95,8 +93,6 @@
                     <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                     <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                     <Separator/>
-                    <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
-                    <Separator/>
                     <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
                     <Separator/>
                     <MenuItem Header="Forms" Click="btnSystemForms_Click" />
@@ -115,7 +111,7 @@
                 <MenuItem Header="Compare Information with other Organization" VerticalAlignment="Center">
                     <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                     <Separator/>
-                    <MenuItem Header="Entity Ribbon" Click="btnCompareApplicationRibbons_Click"/>
+                    <MenuItem Header="Application Ribbon" Click="btnCompareApplicationRibbons_Click"/>
                     <Separator/>
                     <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
                     <Separator/>
@@ -127,8 +123,6 @@
                 </MenuItem>
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                 <MenuItem Header="Clear Entity Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click" VerticalAlignment="Center" />
-                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                <MenuItem Header="Clear SecurityRoles Cache and Refresh" Click="mIClearSecurityRoleCacheAndRefresh_Click" VerticalAlignment="Center" />
             </Menu>
         </ToolBar>
         <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">

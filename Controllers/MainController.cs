@@ -31,6 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         private readonly OpenFilesController _openFilesController;
         private readonly ReportController _reportController;
         private readonly LinkController _linkController;
+        private readonly SecurityController _securityController;
 
         /// <summary>
         /// Конструктор контроллера для публикации
@@ -57,6 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._openFilesController = new OpenFilesController(outputWindow);
             this._reportController = new ReportController(outputWindow);
             this._linkController = new LinkController(outputWindow);
+            this._securityController = new SecurityController(outputWindow);
         }
 
         /// <summary>
@@ -912,7 +914,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             worker.Start();
         }
-        
+
         public void StartOpenEntitySecurityRolesExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
@@ -1277,6 +1279,57 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._pluginTreeController.ExecuteShowingSdkMessageRequestTree(connectionData, commonConfig, entityFilter, messageFilter);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartShowingSystemUserExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string filter)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._securityController.ExecuteShowingSystemUserExplorer(filter, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartShowingTeamsExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string filter)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._securityController.ExecuteShowingTeamsExplorer(filter, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartShowingSecurityRolesExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string filter)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._securityController.ExecuteShowingSecurityRolesExplorer(filter, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

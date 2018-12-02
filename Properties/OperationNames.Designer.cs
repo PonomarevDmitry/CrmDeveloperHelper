@@ -1150,11 +1150,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opening SecurityRoles Explorer.
+        /// </summary>
+        internal static string OpeningSecurityRolesExplorer {
+            get {
+                return ResourceManager.GetString("OpeningSecurityRolesExplorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opening Solution.
         /// </summary>
         internal static string OpeningSolution {
             get {
                 return ResourceManager.GetString("OpeningSolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening SystemUsers Explorer.
+        /// </summary>
+        internal static string OpeningSystemUsersExplorer {
+            get {
+                return ResourceManager.GetString("OpeningSystemUsersExplorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening Teams Explorer.
+        /// </summary>
+        internal static string OpeningTeamsExplorer {
+            get {
+                return ResourceManager.GetString("OpeningTeamsExplorer", resourceCulture);
             }
         }
         

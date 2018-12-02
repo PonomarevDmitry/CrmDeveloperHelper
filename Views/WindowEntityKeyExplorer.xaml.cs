@@ -36,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
         private Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
-        private Dictionary<Guid, IEnumerable<EntityMetadataViewItem>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadataViewItem>>();
+        private Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
 
         private Dictionary<Guid, Dictionary<string, IEnumerable<EntityKeyMetadataViewItem>>> _cacheEntityKeyMetadata = new Dictionary<Guid, Dictionary<string, IEnumerable<EntityKeyMetadataViewItem>>>();
 
@@ -209,14 +209,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         EntityMetadataRepository repository = new EntityMetadataRepository(service);
 
-                        var task = repository.GetEntitiesForEntityAttributeExplorerAsync(EntityFilters.Entity);
+                        var temp = await repository.GetEntitiesForEntityAttributeExplorerAsync(EntityFilters.Entity);
 
-                        var temp = await task;
-
-                        _cacheEntityMetadata.Add(service.ConnectionData.ConnectionId, temp.Select(e => new EntityMetadataViewItem(e)).ToList());
+                        _cacheEntityMetadata.Add(service.ConnectionData.ConnectionId, temp);
                     }
 
-                    list = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
+                    list = _cacheEntityMetadata[service.ConnectionData.ConnectionId].Select(e => new EntityMetadataViewItem(e)).ToList();
                 }
             }
             catch (Exception ex)
@@ -554,7 +552,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
             {
-                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId].Select(i => i.EntityMetadata).ToList();
+                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
             WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList, null);
@@ -601,7 +599,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+            IEnumerable<EntityMetadata> entityMetadataList = null;
+
+            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
+            {
+                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
+            }
+
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.LogicalName);
         }
 
         private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
