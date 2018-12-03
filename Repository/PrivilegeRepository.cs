@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
-    public class SecurityRoleRepository
+    public class PrivilegeRepository
     {
         /// <summary>
         /// Сервис CRM
@@ -20,65 +20,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// Конструктор репозитория
         /// </summary>
         /// <param name="service"></param>
-        public SecurityRoleRepository(IOrganizationServiceExtented service)
+        public PrivilegeRepository(IOrganizationServiceExtented service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<Role>> GetListParentRolesAsync()
+        public Task<List<Privilege>> GetListAsync()
         {
-            return Task.Run(() => GetListParentRoles());
+            return Task.Run(() => GetList());
         }
 
-        private List<Role> GetListParentRoles()
+        private List<Privilege> GetList()
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = Role.EntityLogicalName,
+                EntityName = Privilege.EntityLogicalName,
 
                 NoLock = true,
 
                 ColumnSet = new ColumnSet(true),
 
-                Criteria =
-                {
-                    Conditions =
-                    {
-                        new ConditionExpression(Role.Schema.Attributes.parentroleid, ConditionOperator.Null),
-                    },
-                },
-
-                LinkEntities =
-                {
-                    new LinkEntity()
-                    {
-                        JoinOperator = JoinOperator.LeftOuter,
-
-                        LinkFromEntityName = Role.EntityLogicalName,
-                        LinkFromAttributeName = Role.Schema.Attributes.businessunitid,
-
-                        LinkToEntityName = BusinessUnit.EntityLogicalName,
-                        LinkToAttributeName = BusinessUnit.PrimaryIdAttribute,
-
-                        EntityAlias = BusinessUnit.EntityLogicalName,
-
-                        Columns = new ColumnSet(BusinessUnit.Schema.Attributes.parentbusinessunitid),
-                    },
-                },
-
                 Orders =
                 {
-                    new OrderExpression(Role.Schema.Attributes.name, OrderType.Ascending),
+                    new OrderExpression(Privilege.Schema.Attributes.name, OrderType.Ascending),
                 },
 
                 PageInfo = new PagingInfo()
                 {
                     PageNumber = 1,
                     Count = 5000,
-                },
+                }
             };
 
-            var result = new List<Role>();
+            var result = new List<Privilege>();
 
             try
             {
@@ -86,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     var coll = _service.RetrieveMultiple(query);
 
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Role>()));
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Privilege>()));
 
                     if (!coll.MoreRecords)
                     {

@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
@@ -256,6 +259,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { "suppsolution.uniquename", "SupportingName" }
                     , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
+        }
+
+        public static IEnumerable<DataGridColumn> GetDataGridColumn()
+        {
+            //<DataGridTextColumn Header="Role Name" Width="200" Binding="{Binding Name, Mode=OneTime}" />
+            //<DataGridTextColumn Header="RoleTemplate" Width="200" Binding="{Binding RoleTemplateName, Mode=OneTime}" />
+            //<DataGridTextColumn Header="BusinessUnit" Width="200" Binding="{Binding BusinessUnitId.Name, Mode=OneTime}" />
+
+            return new List<DataGridColumn>()
+            {
+                new DataGridTextColumn()
+                {
+                    Header = "Role Name",
+                    Width = new DataGridLength(200),
+                    Binding = new Binding
+                    {
+                        Path = new PropertyPath("Name"),
+                        Mode = BindingMode.OneTime,
+                    },
+                },
+
+                new DataGridTextColumn()
+                {
+                    Header = "RoleTemplate",
+                    Width = new DataGridLength(200),
+                    Binding = new Binding
+                    {
+                        Path = new PropertyPath("RoleTemplateName"),
+                        Mode = BindingMode.OneTime,
+                    },
+                },
+
+                new DataGridTextColumn()
+                {
+                    Header = "BusinessUnit",
+                    Width = new DataGridLength(200),
+                    Binding = new Binding
+                    {
+                        Path = new PropertyPath("BusinessUnitId.Name"),
+                        Mode = BindingMode.OneTime,
+                    },
+                },
+            };
         }
     }
 }

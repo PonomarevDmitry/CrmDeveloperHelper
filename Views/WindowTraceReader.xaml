@@ -19,7 +19,7 @@
             <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
             <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalContentAlignment="Center" VerticalAlignment="Center" />
-            <StatusBarItem x:Name="stBIStatus" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
         <ToolBar VerticalAlignment="Bottom" Height="Auto" Width="Auto" DockPanel.Dock="Bottom">
             <ToolBar.Resources>

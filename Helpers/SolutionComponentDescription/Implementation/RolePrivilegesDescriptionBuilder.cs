@@ -163,7 +163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 EntityDescriptionHandler.GetAttributeString(entity, "role.name")
                 , businessUnit
                 , EntityDescriptionHandler.GetAttributeString(entity, "privilege.name")
-                , SecurityRolePrivilegesRepository.GetPrivilegeDepthMaskName(entity.PrivilegeDepthMask.Value)
+                , RolePrivilegesRepository.GetPrivilegeDepthMaskName(entity.PrivilegeDepthMask.Value)
                 , behavior
             });
 
@@ -190,7 +190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (entity != null)
             {
-                return SecurityRolePrivilegesRepository.GetPrivilegeDepthMaskName(entity.ToEntity<RolePrivileges>().PrivilegeDepthMask.Value);
+                return RolePrivilegesRepository.GetPrivilegeDepthMaskName(entity.ToEntity<RolePrivileges>().PrivilegeDepthMask.Value);
             }
 
             return base.GetDisplayName(component);

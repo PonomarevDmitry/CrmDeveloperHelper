@@ -880,9 +880,8 @@
     <Compile Include="Repository\SdkMessageRequestRepository.cs" />
     <Compile Include="Repository\SdkMessageResponseFieldRepository.cs" />
     <Compile Include="Repository\SdkMessageResponseRepository.cs" />
-    <Compile Include="Repository\SecurityPrivilegesRepository.cs" />
-    <Compile Include="Repository\SecurityRolePrivilegesRepository.cs" />
-    <Compile Include="Repository\SecurityRoleRepository.cs" />
+    <Compile Include="Repository\PrivilegeRepository.cs" />
+    <Compile Include="Repository\RolePrivilegesRepository.cs" />
     <Compile Include="Repository\SiteMapIntellisenseDataRepository.cs" />
     <Compile Include="Repository\SitemapRepository.cs" />
     <Compile Include="Repository\SolutionComponentRepository.cs" />
@@ -942,6 +941,9 @@
     </Compile>
     <Compile Include="Views\WindowEntitySecurityRoleExplorer.xaml.cs">
       <DependentUpon>WindowEntitySecurityRoleExplorer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowEntitySelect.xaml.cs">
+      <DependentUpon>WindowEntitySelect.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowExplorerSolutionComponentDependencies.xaml.cs">
       <DependentUpon>WindowExplorerSolutionComponentDependencies.xaml</DependentUpon>
@@ -1476,6 +1478,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowEntitySecurityRoleExplorer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowEntitySelect.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

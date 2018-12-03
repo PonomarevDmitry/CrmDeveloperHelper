@@ -351,6 +351,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 , Team.Schema.Attributes.teamtype
                                 , Team.Schema.Attributes.regardingobjectid
                                 , Team.Schema.Attributes.teamtemplateid
+                                , Team.Schema.Attributes.isdefault
                                 ));
                 }
             }
@@ -429,7 +430,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (entityMetadataList.Any())
                         {
-                            var repository = new SecurityRolePrivilegesRepository(service);
+                            var repository = new RolePrivilegesRepository(service);
 
                             var privileges = await repository.GetTeamPrivilegesAsync(team.Id);
 
@@ -517,6 +518,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControl(cmBCurrentConnection, enabled);
 
             ToggleProgressBar(enabled);
+
+            UpdateSecurityRolesButtons();
+
+            UpdateSystemUsersButtons();
+
+            UpdateTeamButtons();
         }
 
         private void ToggleProgressBar(bool enabled)
@@ -1023,6 +1030,89 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             RefreshTeamInfo();
         }
 
+        private void lstVwSecurityRoles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateSecurityRolesButtons();
+        }
+
+        private void UpdateSecurityRolesButtons()
+        {
+            this.lstVwSecurityRoles.Dispatcher.Invoke(() =>
+            {
+                try
+                {
+                    bool enabled = this._controlsEnabled && this.lstVwSecurityRoles != null && this.lstVwSecurityRoles.SelectedItems.Count > 0;
+
+                    UIElement[] list = { btnRemoveRoleFromTeam };
+
+                    foreach (var button in list)
+                    {
+                        button.IsEnabled = enabled;
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            });
+        }
+
+        private void lstVwSystemUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateSystemUsersButtons();
+        }
+
+        private void UpdateSystemUsersButtons()
+        {
+            this.lstVwSystemUsers.Dispatcher.Invoke(() =>
+            {
+                try
+                {
+                    var team = GetSelectedTeam();
+
+                    bool enabled = this._controlsEnabled 
+                        && team != null 
+                        && !team.IsDefault.GetValueOrDefault() 
+                        && this.lstVwSystemUsers != null 
+                        && this.lstVwSystemUsers.SelectedItems.Count > 0;
+
+                    UIElement[] list = { };
+
+                    foreach (var button in list)
+                    {
+                        button.IsEnabled = enabled;
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            });
+        }
+
+        private void UpdateTeamButtons()
+        {
+            this.lstVwTeams.Dispatcher.Invoke(() =>
+            {
+                try
+                {
+                    bool enabled = this._controlsEnabled
+                        && this.lstVwTeams != null
+                        && this.lstVwTeams.SelectedItems.OfType<Team>().Count() == 1
+                        && !(this.lstVwTeams.SelectedItems.OfType<Team>().FirstOrDefault()?.IsDefault).GetValueOrDefault()
+                        ;
+
+                    UIElement[] list = { btnAddUserToTeam };
+
+                    foreach (var button in list)
+                    {
+                        button.IsEnabled = enabled;
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            });
+        }
+
         private async Task RefreshTeamInfo()
         {
             try
@@ -1266,6 +1356,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void mICopyEntityInstanceIdToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
+                || contextMenu.DataContext == null
+                || !(contextMenu.DataContext is Entity entity)
+                )
+            {
+                return;
+            }
+
+            Clipboard.SetText(entity.Id.ToString());
+        }
+
+        private void mICopyEntityInstanceUrlToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
+                || contextMenu.DataContext == null
+                || !(contextMenu.DataContext is Entity entity)
+                )
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                var url = connectionData.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
+
+                Clipboard.SetText(url);
+            }
+        }
+
         private async void mIOpenEntityExplorer_Click(object sender, RoutedEventArgs e)
         {
             if (!(e.OriginalSource is MenuItem menuItem))
@@ -1386,6 +1519,111 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
             }
+        }
+
+        private async void btnAssignRoleToTeam_Click(object sender, RoutedEventArgs e)
+        {
+            var team = GetSelectedTeam();
+
+            if (team == null || team.TeamType?.Value == (int)Team.Schema.OptionSets.teamtype.Access_1)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            var repository = new RoleRepository(service);
+
+            Func<string, Task<IEnumerable<Entity>>> getter = (string filter) => repository.GetAvailableRolesForTeamAsync(filter, team.Id, new ColumnSet(
+                                Role.Schema.Attributes.name
+                                , Role.Schema.Attributes.businessunitid
+                                , Role.Schema.Attributes.ismanaged
+                                , Role.Schema.Attributes.iscustomizable
+                                ));
+
+            IEnumerable<DataGridColumn> columns = Helpers.SolutionComponentDescription.Implementation.RoleDescriptionBuilder.GetDataGridColumn();
+
+            var form = new WindowEntitySelect(_iWriteToOutput, service.ConnectionData, Role.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            try
+            {
+                var repositoryRolePrivileges = new RolePrivilegesRepository(service);
+
+                await repositoryRolePrivileges.AssignRolesToTeamAsync(team.Id, new[] { form.SelectedEntity.Id });
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+            }
+
+            RefreshTeamInfo();
+        }
+
+        private async void btnRemoveRoleFromTeam_Click(object sender, RoutedEventArgs e)
+        {
+            var team = GetSelectedTeam();
+
+            var roleList = GetSelectedRoles();
+
+            if (team == null || roleList == null || !roleList.Any())
+            {
+                return;
+            }
+
+            string rolesName = string.Join(",", roleList.Select(u => u.Name).OrderBy(s => s));
+            string teamsName = team.Name;
+
+            string message = string.Format(Properties.MessageBoxStrings.AreYouSureRemoveRolesFromTeamsFormat2, rolesName, teamsName);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
+            {
+                return;
+            }
+
+            string operationName = string.Format(Properties.OperationNames.RemovingRolesFromTeamsFormat2, rolesName, teamsName);
+
+            _iWriteToOutput.WriteToOutputStartOperation(operationName);
+
+            ToggleControls(false, Properties.WindowStatusStrings.RemovingRolesFromTeamsFormat2, rolesName, teamsName);
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new RolePrivilegesRepository(service);
+
+                await repository.RemoveRolesFromTeamAsync(team.Id, roleList.Select(r => r.Id));
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+            }
+
+            ToggleControls(true, Properties.WindowStatusStrings.RemovingRolesFromTeamsCompletedFormat2, rolesName, teamsName);
+
+            _iWriteToOutput.WriteToOutputEndOperation(operationName);
+
+            RefreshTeamInfo();
+        }
+
+        private void btnAddUserToTeam_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnRemoveUserFromTeam_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

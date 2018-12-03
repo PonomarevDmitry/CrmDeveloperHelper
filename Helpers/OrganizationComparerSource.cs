@@ -343,12 +343,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public virtual Task<List<Role>> GetRole1Async()
         {
-            return new SecurityRoleRepository(Service1).GetListParentRolesAsync();
+            return new RoleRepository(Service1).GetListAsync(null, new ColumnSet(true));
         }
 
         public virtual Task<List<Role>> GetRole2Async()
         {
-            return new SecurityRoleRepository(Service2).GetListParentRolesAsync();
+            return new RoleRepository(Service2).GetListAsync(null, new ColumnSet(true));
         }
 
         public virtual Task<List<FieldSecurityProfile>> GetFieldSecurityProfile1Async()

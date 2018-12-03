@@ -18,6 +18,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 public const string TeamBusinessUnitName = Team.Schema.Attributes.teamid + "." + Team.Schema.Attributes.businessunitid;
 
                 public const string TeamId = Team.Schema.Attributes.teamid + "." + Team.Schema.Attributes.teamid;
+
+                public const string TeamIsDefault = Team.Schema.Attributes.teamid + "." + Team.Schema.Attributes.isdefault;
             }
         }
 
@@ -103,6 +105,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 }
 
                 return null;
+            }
+        }
+
+        public bool TeamIsDefault
+        {
+            get
+            {
+                if (this.Attributes.ContainsKey(Schema.EntityAliasFields.TeamIsDefault)
+                    && this.Attributes[Schema.EntityAliasFields.TeamIsDefault] != null
+                    && this.Attributes[Schema.EntityAliasFields.TeamIsDefault] is AliasedValue aliasedValue
+                    && aliasedValue.Value is bool aliasedValueValue
+                    )
+                {
+                    return aliasedValueValue;
+                }
+
+                return false;
             }
         }
     }

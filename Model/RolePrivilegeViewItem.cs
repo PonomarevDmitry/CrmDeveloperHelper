@@ -99,7 +99,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                     if (rolePrivilege != null && rolePrivilege.PrivilegeDepthMask.HasValue)
                     {
-                        return SecurityRolePrivilegesRepository.ConvertMaskToPrivilegeDepth(rolePrivilege.PrivilegeDepthMask.Value);
+                        return RolePrivilegesRepository.ConvertMaskToPrivilegeDepth(rolePrivilege.PrivilegeDepthMask.Value);
                     }
                 }
             }

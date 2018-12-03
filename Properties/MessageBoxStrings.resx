@@ -270,4 +270,10 @@
   <data name="DeleteFileActionFormat1" xml:space="preserve">
     <value>Delete FileAction for {0}</value>
   </data>
+  <data name="AreYouSureRemoveRolesFromUsersFormat2" xml:space="preserve">
+    <value>Are you sure want to remove roles {0} from users {1}?</value>
+  </data>
+  <data name="AreYouSureRemoveRolesFromTeamsFormat2" xml:space="preserve">
+    <value>Are you sure want to remove roles {0} from teams {1}?</value>
+  </data>
 </root>

@@ -2482,6 +2482,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Removing roles {0} from team {1} completed..
+        /// </summary>
+        internal static string RemovingRolesFromTeamsCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("RemovingRolesFromTeamsCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing roles {0} from teams {1}....
+        /// </summary>
+        internal static string RemovingRolesFromTeamsFormat2 {
+            get {
+                return ResourceManager.GetString("RemovingRolesFromTeamsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing roles {0} from users {1} completed..
+        /// </summary>
+        internal static string RemovingRolesFromUsersCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("RemovingRolesFromUsersCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing roles {0} from users {1}....
+        /// </summary>
+        internal static string RemovingRolesFromUsersFormat2 {
+            get {
+                return ResourceManager.GetString("RemovingRolesFromUsersFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Removing solution components from {0} completed..
         /// </summary>
         internal static string RemovingSolutionComponentsFromSolutionCompletedFormat1 {

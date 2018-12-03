@@ -49,7 +49,7 @@
         </ToolBar>
         <StatusBar Height="24" VerticalAlignment="Bottom">
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>
 </src:WindowBase>

@@ -347,7 +347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 , Role.Schema.Attributes.iscustomizable
                                 ));
 
-                            var repository = new SecurityRolePrivilegesRepository(service);
+                            var repository = new RolePrivilegesRepository(service);
 
                             var listRolePrivilege = await repository.GetEntitySecurityRolesAsync(roles.Select(r => r.RoleId.Value), entityMetadata.Privileges?.Select(p => p.PrivilegeId));
 

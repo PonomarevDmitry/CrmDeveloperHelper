@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var list1 = await task1;
 
-            var taskPriv1 = new SecurityPrivilegesRepository(_comparerSource.Service1).GetListAsync();
+            var taskPriv1 = new PrivilegeRepository(_comparerSource.Service1).GetListAsync();
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles in {0}: {1}", Connection1.Name, list1.Count()));
 
@@ -42,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var list2 = await task2;
 
-            var taskPriv2 = new SecurityPrivilegesRepository(_comparerSource.Service2).GetListAsync();
+            var taskPriv2 = new PrivilegeRepository(_comparerSource.Service2).GetListAsync();
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles in {0}: {1}", Connection2.Name, list2.Count()));
 
@@ -50,7 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listPrivilege1 = (await taskPriv1).Select(e => e.Name);
 
-            var taskPrivRole1 = new SecurityRolePrivilegesRepository(_comparerSource.Service1).GetListAsync(list1.Select(e => e.RoleId.Value));
+            var taskPrivRole1 = new RolePrivilegesRepository(_comparerSource.Service1).GetListAsync(list1.Select(e => e.RoleId.Value));
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Security Privileges in {0}: {1}", Connection1.Name, listPrivilege1.Count()));
 
@@ -59,7 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listPrivilege2 = (await taskPriv2).Select(e => e.Name);
 
-            var taskPrivRole2 = new SecurityRolePrivilegesRepository(_comparerSource.Service2).GetListAsync(list2.Select(e => e.RoleId.Value));
+            var taskPrivRole2 = new RolePrivilegesRepository(_comparerSource.Service2).GetListAsync(list2.Select(e => e.RoleId.Value));
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Security Privileges in {0}: {1}", Connection2.Name, listPrivilege2.Count()));
 
@@ -432,9 +432,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     var privilegedepthmask1 = (int)item1.GetAttributeValue<AliasedValue>("roleprivileges.privilegedepthmask").Value;
 
-                    tableOnlyIn1.AddLine(name1, SecurityRolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmask1));
+                    tableOnlyIn1.AddLine(name1, RolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmask1));
 
-                    tableOnlyIn2.CalculateLineLengths(name1, SecurityRolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmask1));
+                    tableOnlyIn2.CalculateLineLengths(name1, RolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmask1));
                 }
             }
 
@@ -461,9 +461,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     var privilegedepthmask2 = (int)item2.GetAttributeValue<AliasedValue>("roleprivileges.privilegedepthmask").Value;
 
-                    tableOnlyIn2.AddLine(name2, SecurityRolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmask2));
+                    tableOnlyIn2.AddLine(name2, RolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmask2));
 
-                    tableOnlyIn1.CalculateLineLengths(name2, SecurityRolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmask2));
+                    tableOnlyIn1.CalculateLineLengths(name2, RolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmask2));
                 }
             }
 
@@ -490,7 +490,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (privilegedepthmask1 != privilegedepthmask2)
                     {
-                        tableDifferent.AddLine(name1, SecurityRolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmask1), SecurityRolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmask2));
+                        tableDifferent.AddLine(name1, RolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmask1), RolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmask2));
                     }
                 }
             }

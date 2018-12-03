@@ -13,6 +13,11 @@
             <MenuItem Header="Open User in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" />
             <Separator />
             <MenuItem Header="Open User List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
+            <Separator />
+            <MenuItem Header="Clipboard">
+                <MenuItem Header="Copy User Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                <MenuItem Header="Copy User Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+            </MenuItem>
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuRole" Opened="ContextMenuRole_Opened">
@@ -21,9 +26,16 @@
             <MenuItem Header="Open Role List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
             <Separator />
             <MenuItem Header="Open Role Explorer" VerticalAlignment="Center" Click="mIOpenEntityExplorer_Click" />
+            <Separator />
+            <MenuItem Header="Clipboard">
+                <MenuItem Header="Copy Role Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                <MenuItem Header="Copy Role Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+            </MenuItem>
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddRoleIntoCrmSolution_Click" />
+            <Separator/>
+            <MenuItem Header="Remove Role from User" VerticalAlignment="Center" Click="btnRemoveRoleFromUser_Click" />
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuRoleByTeam" Opened="ContextMenuRoleByTeam_Opened">
@@ -33,9 +45,19 @@
             <Separator />
             <MenuItem Header="Open Role Explorer" VerticalAlignment="Center" Click="mIOpenEntityExplorer_Click" />
             <Separator />
-            <MenuItem Header="Open Team in Web" VerticalAlignment="Center" Click="mIOpenRoleTeamInWeb_Click" />
+            <MenuItem Header="Clipboard">
+                <MenuItem Header="Copy Role Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                <MenuItem Header="Copy Role Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+            </MenuItem>
             <Separator />
-            <MenuItem Header="Open Team Explorer" VerticalAlignment="Center" Click="mIOpenRoleTeamExplorer_Click" />
+            <MenuItem Header="Team">
+                <MenuItem Header="Open Team in Web" VerticalAlignment="Center" Click="mIOpenRoleTeamInWeb_Click" />
+                <Separator />
+                <MenuItem Header="Open Team Explorer" VerticalAlignment="Center" Click="mIOpenRoleTeamExplorer_Click" />
+                <Separator />
+                <MenuItem Header="Copy Team Id to Clipboard" VerticalAlignment="Center" Click="mICopyRoleTeamIdToClipboard_Click" />
+                <MenuItem Header="Copy Team Url to Clipboard" VerticalAlignment="Center" Click="mICopyRoleTeamUrlToClipboard_Click" />
+            </MenuItem>
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddRoleByTeamIntoCrmSolution_Click" />
@@ -47,6 +69,13 @@
             <MenuItem Header="Open Team List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
             <Separator />
             <MenuItem Header="Open Team Explorer" VerticalAlignment="Center" Click="mIOpenEntityExplorer_Click" />
+            <Separator />
+            <MenuItem Header="Clipboard">
+                <MenuItem Header="Copy Team Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                <MenuItem Header="Copy Team Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+            </MenuItem>
+            <Separator/>
+            <MenuItem Header="Remove User from Team" VerticalAlignment="Center" Click="btnRemoveUserFromTeam_Click" />
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuEntityPrivileges" Opened="ContextMenuEntityPrivileges_Opened">
@@ -159,7 +188,7 @@
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-            <StatusBarItem x:Name="stBIStatus" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
         <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
@@ -214,6 +243,11 @@
             <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2">
                 <TabItem Header="Roles">
                     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True" >
+                        <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
+                            <Button x:Name="btnAssignRoleToUser" Content="Assing Role to User" Click="btnAssignRoleToUser_Click"/>
+                            <Separator Margin="20,0" />
+                            <Button x:Name="btnRemoveRoleFromUser" IsEnabled="False" Content="Remove Role from User" Click="btnRemoveRoleFromUser_Click"/>
+                        </ToolBar>
                         <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -231,7 +265,7 @@
                                 <RowDefinition Height="50*"/>
                             </Grid.RowDefinitions>
 
-                            <DataGrid x:Name="lstVwSecurityRoles" Grid.Row="0" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick"  Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
+                            <DataGrid x:Name="lstVwSecurityRoles" Grid.Row="0" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick"  Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" SelectionChanged="lstVwSecurityRoles_SelectionChanged" Grid.Column="2">
                                 <DataGrid.Resources>
                                     <Style TargetType="{x:Type DataGridColumnHeader}">
                                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -272,6 +306,12 @@
 
                                     <DataGridTextColumn Header="Team" Width="200" Binding="{Binding TeamName, Mode=OneTime}" />
 
+                                    <DataGridCheckBoxColumn Width="Auto" Binding="{Binding TeamIsDefault, Mode=OneTime}">
+                                        <DataGridCheckBoxColumn.Header>
+                                            <Label Content="D" Margin="0" Padding="0" ToolTip="IsDefault" />
+                                        </DataGridCheckBoxColumn.Header>
+                                    </DataGridCheckBoxColumn>
+
                                     <DataGridTextColumn Header="Team BusinessUnit" Width="200" Binding="{Binding TeamBusinessUnitName, Mode=OneTime}" />
 
                                 </DataGrid.Columns>
@@ -282,6 +322,11 @@
 
                 <TabItem Header="Teams">
                     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True" >
+                        <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
+                            <Button x:Name="btnAddUserToTeam" Content="Add User to Team" Click="btnAddUserToTeam_Click"/>
+                            <Separator Margin="20,0" />
+                            <Button x:Name="btnRemoveUserFromTeam" IsEnabled="False" Content="Remove User from Team" Click="btnRemoveUserFromTeam_Click"/>
+                        </ToolBar>
                         <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -292,7 +337,7 @@
                             <TextBox x:Name="txtBFilterTeams"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterTeams_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
                         </Grid>
 
-                        <DataGrid x:Name="lstVwTeams" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick"  Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
+                        <DataGrid x:Name="lstVwTeams" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="LstVwTeams_SelectionChanged" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -309,6 +354,12 @@
 
                                 <DataGridTextColumn Header="Type" Width="200" Binding="{Binding TeamTypeName, Mode=OneTime}" />
 
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsDefault, Mode=OneTime}">
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="D" Margin="0" Padding="0" ToolTip="IsDefault" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
                                 <DataGridTextColumn Header="BusinessUnit" Width="200" Binding="{Binding BusinessUnitId.Name, Mode=OneTime}" />
 
                                 <DataGridTextColumn Header="TeamTemplate" Width="200" Binding="{Binding TeamTemplateName, Mode=OneTime}" />
@@ -322,6 +373,10 @@
 
                 <TabItem Header="Entity Privileges">
                     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True" >
+
+                        <ToolBar Margin="0" VerticalAlignment="Top" Height="27" DockPanel.Dock="Top">
+                        </ToolBar>
+
                         <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>

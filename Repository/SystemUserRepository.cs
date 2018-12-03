@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
@@ -313,6 +316,213 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
 
             return result;
+        }
+
+        public Task<IEnumerable<Entity>> GetAvailableUsersForRoleAsync(string filterUser, Guid idRole, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetAvailableUsersForRole(filterUser, idRole, columnSet));
+        }
+
+        private IEnumerable<Entity> GetAvailableUsersForRole(string filterUser, Guid idRole, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = SystemUser.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression( SystemUser.Schema.Attributes.isdisabled, ConditionOperator.Equal, false),
+                        new ConditionExpression(Role.EntityLogicalName, Role.Schema.Attributes.roleid, ConditionOperator.Null),
+                    },
+                },
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = SystemUser.Schema.EntityLogicalName,
+                        LinkFromAttributeName = SystemUser.Schema.Attributes.businessunitid,
+
+                        LinkToEntityName = Role.EntityLogicalName,
+                        LinkToAttributeName = Role.Schema.Attributes.businessunitid,
+
+                        LinkCriteria =
+                        {
+                            Conditions =
+                            {
+                                new ConditionExpression(Role.Schema.Attributes.parentrootroleid, ConditionOperator.Equal, idRole),
+                            },
+                        },
+                    },
+
+                    new LinkEntity()
+                    {
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        LinkFromEntityName = SystemUser.Schema.EntityLogicalName,
+                        LinkFromAttributeName = SystemUser.Schema.Attributes.systemuserid,
+
+                        LinkToEntityName = SystemUserRoles.Schema.EntityLogicalName,
+                        LinkToAttributeName = SystemUserRoles.Schema.Attributes.systemuserid,
+
+                        LinkEntities =
+                        {
+                            new LinkEntity()
+                            {
+                                JoinOperator = JoinOperator.LeftOuter,
+
+                                LinkFromEntityName = SystemUserRoles.Schema.EntityLogicalName,
+                                LinkFromAttributeName = SystemUserRoles.Schema.Attributes.roleid,
+
+                                LinkToEntityName = Role.EntityLogicalName,
+                                LinkToAttributeName = Role.Schema.Attributes.roleid,
+
+                                EntityAlias = Role.EntityLogicalName,
+
+                                LinkCriteria =
+                                {
+                                    Conditions =
+                                    {
+                                        new ConditionExpression(Role.Schema.Attributes.parentrootroleid, ConditionOperator.Equal, idRole),
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(SystemUser.Schema.Attributes.fullname, OrderType.Ascending),
+                    new OrderExpression(SystemUser.Schema.Attributes.businessunitid, OrderType.Ascending),
+                    new OrderExpression(SystemUser.Schema.Attributes.domainname, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            if (!string.IsNullOrEmpty(filterUser))
+            {
+                if (Guid.TryParse(filterUser, out Guid id))
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(SystemUser.Schema.Attributes.systemuserid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria.AddFilter(new FilterExpression(LogicalOperator.Or)
+                    {
+                        Conditions =
+                        {
+                            new ConditionExpression(SystemUser.Schema.Attributes.fullname, ConditionOperator.Like, "%" + filterUser + "%"),
+                            new ConditionExpression(SystemUser.Schema.Attributes.domainname, ConditionOperator.Like, "%" + filterUser + "%"),
+                        },
+                    });
+                }
+            }
+
+            var result = new List<SystemUser>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SystemUser>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
+        public static IEnumerable<DataGridColumn> GetDataGridColumn()
+        {
+            //<DataGridTextColumn Header="Domain Name" Width="120" Binding="{Binding DomainName, Mode=OneTime}" />
+
+            //<DataGridTextColumn Header="FullName" Width="260" Binding="{Binding FullName, Mode=OneTime}" />
+
+            //<DataGridTextColumn Header="BusinessUnit" Width="120" Binding="{Binding BusinessUnitId.Name, Mode=OneTime}" />
+
+            //<DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsDisabled, Mode=OneTime}">
+            //    <DataGridCheckBoxColumn.Header>
+            //        <Label Content="Dis" Margin="0" Padding="0" ToolTip="IsDisabled" />
+            //    </DataGridCheckBoxColumn.Header>
+            //</DataGridCheckBoxColumn>
+
+            return new List<DataGridColumn>()
+            {
+                new DataGridTextColumn()
+                {
+                    Header = "Domain Name",
+                    Width = new DataGridLength(120),
+                    Binding = new Binding
+                    {
+                        Path = new PropertyPath("DomainName"),
+                        Mode = BindingMode.OneTime,
+                    },
+                },
+
+                new DataGridTextColumn()
+                {
+                    Header = "FullName",
+                    Width = new DataGridLength(260),
+                    Binding = new Binding
+                    {
+                        Path = new PropertyPath("FullName"),
+                        Mode = BindingMode.OneTime,
+                    },
+                },
+
+                new DataGridTextColumn()
+                {
+                    Header = "BusinessUnit",
+                    Width = new DataGridLength(120),
+                    Binding = new Binding
+                    {
+                        Path = new PropertyPath("BusinessUnitId.Name"),
+                        Mode = BindingMode.OneTime,
+                    },
+                },
+
+                new DataGridCheckBoxColumn()
+                {
+                    Header = new System.Windows.Controls.Label()
+                    {
+                        Content = "Dis",
+                        Padding = new Thickness(0),
+                        Margin = new Thickness(0),
+                        ToolTip = "IsDisabled",
+                    },
+                    Width = new DataGridLength(100, DataGridLengthUnitType.Auto),
+                    Binding = new Binding
+                    {
+                        Path = new PropertyPath("IsDisabled"),
+                        Mode = BindingMode.OneTime,
+                    },
+                },
+            };
         }
     }
 }

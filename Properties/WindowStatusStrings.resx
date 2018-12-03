@@ -1131,4 +1131,16 @@
   <data name="LoadingRoleTeamsCompletedFormat1" xml:space="preserve">
     <value>{0} security role teams loaded.</value>
   </data>
+  <data name="RemovingRolesFromUsersCompletedFormat2" xml:space="preserve">
+    <value>Removing roles {0} from users {1} completed.</value>
+  </data>
+  <data name="RemovingRolesFromUsersFormat2" xml:space="preserve">
+    <value>Removing roles {0} from users {1}...</value>
+  </data>
+  <data name="RemovingRolesFromTeamsCompletedFormat2" xml:space="preserve">
+    <value>Removing roles {0} from team {1} completed.</value>
+  </data>
+  <data name="RemovingRolesFromTeamsFormat2" xml:space="preserve">
+    <value>Removing roles {0} from teams {1}...</value>
+  </data>
 </root>

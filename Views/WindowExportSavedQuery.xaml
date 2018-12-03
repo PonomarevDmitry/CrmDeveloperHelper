@@ -22,10 +22,12 @@
             <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add Entity into Last Crm Solution" VerticalAlignment="Center"  />
             <MenuItem x:Uid="contMnAddEntityIntoSolution"     Header="Add Entity into Crm Solution" VerticalAlignment="Center" Click="mIAddEntityIntoCrmSolution_Click" />
             <Separator x:Uid="contMnAddEntityIntoSolution" />
-            
-            <MenuItem Header="Copy Fetch XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />
-            <MenuItem Header="Copy Layout XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
-            <MenuItem Header="Copy ColumnSet XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
+
+            <MenuItem Header="Clipboard">
+                <MenuItem Header="Copy Fetch XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />
+                <MenuItem Header="Copy Layout XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
+                <MenuItem Header="Copy ColumnSet XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
+            </MenuItem>
             <Separator/>
             
             <MenuItem Header="Fetch XML" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXml_Click"/>
@@ -141,9 +143,11 @@
                             <Separator />
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
                             <Separator/>
-                            <MenuItem Header="Copy Fetch XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />
-                            <MenuItem Header="Copy Layout XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
-                            <MenuItem Header="Copy ColumnSet XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
+                            <MenuItem Header="Clipboard">
+                                <MenuItem Header="Copy Fetch XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />
+                                <MenuItem Header="Copy Layout XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
+                                <MenuItem Header="Copy ColumnSet XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
+                            </MenuItem>
                             <Separator/>
                             <MenuItem Header="Fetch XML" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXml_Click"/>
                             <MenuItem Header="Layout XML" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXml_Click"/>
@@ -214,7 +218,7 @@
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
             <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus" Content="StatusMessage" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>
 </src:WindowBase>

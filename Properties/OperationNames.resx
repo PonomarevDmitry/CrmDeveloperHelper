@@ -591,4 +591,10 @@
   <data name="OpeningSecurityRolesExplorer" xml:space="preserve">
     <value>Opening SecurityRoles Explorer</value>
   </data>
+  <data name="RemovingRolesFromTeamsFormat2" xml:space="preserve">
+    <value>Removing Roles {0} from Teams {1}</value>
+  </data>
+  <data name="RemovingRolesFromUsersFormat2" xml:space="preserve">
+    <value>Removing Roles {0} from Users {1}</value>
+  </data>
 </root>
