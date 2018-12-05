@@ -86,6 +86,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     },
                 },
 
+                Orders =
+                {
+                    new OrderExpression(Role.Schema.Attributes.name, OrderType.Ascending),
+                },
+
                 PageInfo = new PagingInfo()
                 {
                     PageNumber = 1,
@@ -535,12 +540,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
-        public Task<IEnumerable<Entity>> GetAvailableRolesForUserAsync(string filterRole, Guid idUser, ColumnSet columnSet)
+        public Task<IEnumerable<Role>> GetAvailableRolesForUserAsync(string filterRole, Guid idUser, ColumnSet columnSet)
         {
             return Task.Run(() => GetAvailableRolesForUser(filterRole, idUser, columnSet));
         }
 
-        private IEnumerable<Entity> GetAvailableRolesForUser(string filterRole, Guid idUser, ColumnSet columnSet)
+        private IEnumerable<Role> GetAvailableRolesForUser(string filterRole, Guid idUser, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -678,12 +683,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
-        public Task<IEnumerable<Entity>> GetAvailableRolesForTeamAsync(string filterRole, Guid idTeam, ColumnSet columnSet)
+        public Task<IEnumerable<Role>> GetAvailableRolesForTeamAsync(string filterRole, Guid idTeam, ColumnSet columnSet)
         {
             return Task.Run(() => GetAvailableRolesForTeam(filterRole, idTeam, columnSet));
         }
 
-        private IEnumerable<Entity> GetAvailableRolesForTeam(string filterRole, Guid idTeam, ColumnSet columnSet)
+        private IEnumerable<Role> GetAvailableRolesForTeam(string filterRole, Guid idTeam, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {

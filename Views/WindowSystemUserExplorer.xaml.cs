@@ -241,7 +241,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwSystemUsers.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in list.OrderBy(s => s.FullName))
+                foreach (var entity in list.OrderBy(s => s.FullName).ThenBy(s => s.DomainName))
                 {
                     _itemsSourceSystemUsers.Add(entity);
                 }
@@ -313,7 +313,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwSecurityRoles.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in list.OrderBy(s => s.Name))
+                foreach (var entity in list.OrderBy(s => s.Name).ThenBy(s => s.BusinessUnitId?.Name))
                 {
                     _itemsSourceRoles.Add(entity);
                 }
@@ -326,7 +326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwSecurityRolesByTeams.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in listByTeams.OrderBy(s => s.Name))
+                foreach (var entity in listByTeams.OrderBy(s => s.Name).ThenBy(s => s.BusinessUnitId?.Name))
                 {
                     _itemsSourceRolesByTeams.Add(entity);
                 }
@@ -388,7 +388,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwTeams.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in list.OrderBy(s => s.TeamType?.Value).ThenBy(s => s.Name))
+                foreach (var entity in list
+                    .OrderBy(s => s.TeamType?.Value)
+                    .ThenBy(s => s.RegardingObjectId?.LogicalName)
+                    .ThenBy(s => s.TeamTemplateName)
+                    .ThenBy(s => s.Name)
+                )
                 {
                     _itemsSourceTeams.Add(entity);
                 }
@@ -439,6 +444,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
 
+                    entityMetadataList = entityMetadataList.Where(e => e.Privileges != null && e.Privileges.Any());
+
                     if (user != null)
                     {
                         string textName = string.Empty;
@@ -447,8 +454,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             textName = txtBEntityFilter.Text.Trim().ToLower();
                         });
-
-                        entityMetadataList = entityMetadataList.Where(e => e.Privileges != null && e.Privileges.Any());
 
                         entityMetadataList = FilterEntityList(entityMetadataList, textName);
 
@@ -539,9 +544,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(cmBCurrentConnection, enabled);
-
-            ToggleProgressBar(enabled);
+            ToggleControl(enabled, cmBCurrentConnection, btnRefreshEntites, btnRefreshRoles, btnRefreshSystemUsers, btnRefreshTeams, tSProgressBar);
 
             UpdateSystemUsersButtons();
 
@@ -550,32 +553,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateTeamsButtons();
         }
 
-        private void ToggleProgressBar(bool enabled)
+        private void ToggleControl(bool enabled, params Control[] controlsArray)
         {
-            if (tSProgressBar == null)
+            foreach (var control in controlsArray)
             {
-                return;
+                if (control == null)
+                {
+                    continue;
+                }
+
+                control.Dispatcher.Invoke(() =>
+                {
+                    if (control is TextBox textBox)
+                    {
+                        textBox.IsReadOnly = !enabled;
+                    }
+                    else if (control is ProgressBar progressBar)
+                    {
+                        progressBar.IsIndeterminate = !enabled;
+                    }
+                    else
+                    {
+                        control.IsEnabled = enabled;
+                    }
+                });
             }
-
-            this.tSProgressBar.Dispatcher.Invoke(() =>
-            {
-                tSProgressBar.IsIndeterminate = !enabled;
-            });
-        }
-
-        private void ToggleControl(Control c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                if (c is TextBox)
-                {
-                    ((TextBox)c).IsReadOnly = !enabled;
-                }
-                else
-                {
-                    c.IsEnabled = enabled;
-                }
-            });
         }
 
         private void UpdateSystemUsersButtons()
@@ -584,9 +586,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwSystemUsers != null && this.lstVwSystemUsers.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled
+                        && this.lstVwSystemUsers != null
+                        && this.lstVwSystemUsers.SelectedItems.OfType<SystemUser>().Any(u => !u.IsDisabled.GetValueOrDefault());
 
-                    UIElement[] list = { };
+                    UIElement[] list = { btnAssignRoleToUser, btnAddUserToTeam };
 
                     foreach (var button in list)
                     {
@@ -639,6 +643,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 result = this.lstVwSystemUsers.SelectedItems.OfType<SystemUser>().Count() == 1
                     ? this.lstVwSystemUsers.SelectedItems.OfType<SystemUser>().SingleOrDefault() : null;
+            });
+
+            return result;
+        }
+
+        private List<SystemUser> GetSelectedSystemUsers()
+        {
+            List<SystemUser> result = null;
+
+            lstVwSystemUsers.Dispatcher.Invoke(() =>
+            {
+                result = this.lstVwSystemUsers.SelectedItems.OfType<SystemUser>().Where(u => !u.IsDisabled.GetValueOrDefault()).ToList();
+            });
+
+            return result;
+        }
+
+        private List<Team> GetSelectedTeams()
+        {
+            List<Team> result = null;
+
+            lstVwTeams.Dispatcher.Invoke(() =>
+            {
+                result = this.lstVwTeams.SelectedItems.OfType<Team>().Where(u => !u.IsDefault.GetValueOrDefault()).ToList();
             });
 
             return result;
@@ -1056,7 +1084,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var entityNamesOrdered = string.Join(",", entityNames.OrderBy(s => s));
+            var entityNamesOrdered = string.Join(", ", entityNames.OrderBy(s => s));
 
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityNamesOrdered);
 
@@ -1269,15 +1297,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.Dispatcher.Invoke(() =>
-            {
-                this._itemsSourceSystemUsers?.Clear();
-                this._itemsSourceTeams?.Clear();
-                this._itemsSourceRoles?.Clear();
-                this._itemsSourceRolesByTeams?.Clear();
-                this._itemsSourceEntityPrivileges?.Clear();
-            });
-
             if (_init > 0 || !_controlsEnabled)
             {
                 return;
@@ -1287,8 +1306,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                UpdateSystemUsersButtons();
-
                 ShowExistingSystemUsers();
             }
         }
@@ -1306,7 +1323,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _cacheEntityMetadata.Remove(connectionData.ConnectionId);
 
-                ShowSystemUserEntityPrivileges();
+                RefreshSystemUserInfo();
             }
         }
 
@@ -1317,9 +1334,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
-                || contextMenu.DataContext == null
-                || !(contextMenu.DataContext is Entity entity)
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
                 )
             {
                 return;
@@ -1340,9 +1356,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
-                || contextMenu.DataContext == null
-                || !(contextMenu.DataContext is Entity entity)
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
                 )
             {
                 return;
@@ -1358,9 +1373,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
-                || contextMenu.DataContext == null
-                || !(contextMenu.DataContext is Entity entity)
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
                 )
             {
                 return;
@@ -1383,9 +1397,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
-                || contextMenu.DataContext == null
-                || !(contextMenu.DataContext is Entity entity)
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
                 )
             {
                 return;
@@ -1423,9 +1436,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
-                || contextMenu.DataContext == null
-                || !(contextMenu.DataContext is Entity entity)
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
                 )
             {
                 return;
@@ -1446,9 +1458,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
-                || contextMenu.DataContext == null
-                || !(contextMenu.DataContext is Role role)
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Role role)
                 || !role.TeamId.HasValue
                 )
             {
@@ -1470,9 +1481,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
-                || contextMenu.DataContext == null
-                || !(contextMenu.DataContext is Role role)
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Role role)
                 || !role.TeamId.HasValue
                 )
             {
@@ -1489,9 +1499,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
-                || contextMenu.DataContext == null
-                || !(contextMenu.DataContext is Role role)
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Role role)
                 || !role.TeamId.HasValue
                 )
             {
@@ -1515,9 +1524,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
-                || contextMenu.DataContext == null
-                || !(contextMenu.DataContext is Role role)
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Role role)
                 || !role.TeamId.HasValue
                 )
             {
@@ -1665,7 +1673,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwSecurityRoles != null && this.lstVwSecurityRoles.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled
+                        && this.lstVwSecurityRoles != null
+                        && this.lstVwSecurityRoles.SelectedItems.Count > 0;
 
                     UIElement[] list = { btnRemoveRoleFromUser };
 
@@ -1682,9 +1692,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnAssignRoleToUser_Click(object sender, RoutedEventArgs e)
         {
-            var user = GetSelectedSystemUser();
+            var userList = GetSelectedSystemUsers();
 
-            if (user == null)
+            if (userList == null || !userList.Any())
             {
                 return;
             }
@@ -1693,12 +1703,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repository = new RoleRepository(service);
 
-            Func<string, Task<IEnumerable<Entity>>> getter = (string filter) => repository.GetAvailableRolesForUserAsync(filter, user.Id, new ColumnSet(
-                                Role.Schema.Attributes.name
-                                , Role.Schema.Attributes.businessunitid
-                                , Role.Schema.Attributes.ismanaged
-                                , Role.Schema.Attributes.iscustomizable
-                                ));
+            Func<string, Task<IEnumerable<Entity>>> getter = null;
+
+            if (userList.Count() == 1)
+            {
+                var user = userList.First();
+
+                getter = (string filter) => Task.Run(async () => await repository.GetAvailableRolesForUserAsync(filter, user.Id, new ColumnSet(
+                                 Role.Schema.Attributes.name
+                                 , Role.Schema.Attributes.businessunitid
+                                 , Role.Schema.Attributes.ismanaged
+                                 , Role.Schema.Attributes.iscustomizable
+                                 )) as IEnumerable<Entity>);
+            }
+            else
+            {
+                getter = (string filter) => Task.Run(async () => await repository.GetListAsync(filter, new ColumnSet(
+                                 Role.Schema.Attributes.name
+                                 , Role.Schema.Attributes.businessunitid
+                                 , Role.Schema.Attributes.ismanaged
+                                 , Role.Schema.Attributes.iscustomizable
+                                 )) as IEnumerable<Entity>);
+            }
 
             IEnumerable<DataGridColumn> columns = Helpers.SolutionComponentDescription.Implementation.RoleDescriptionBuilder.GetDataGridColumn();
 
@@ -1714,15 +1740,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            try
-            {
-                var repositoryRolePrivileges = new RolePrivilegesRepository(service);
+            var repositoryRolePrivileges = new RolePrivilegesRepository(service);
 
-                await repositoryRolePrivileges.AssignRolesToUserAsync(user.Id, new[] { form.SelectedEntity.Id });
-            }
-            catch (Exception ex)
+            foreach (var user in userList)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
+                try
+                {
+                    await repositoryRolePrivileges.AssignRolesToUserAsync(user.Id, new[] { form.SelectedEntity.Id });
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(ex);
+                }
             }
 
             RefreshSystemUserInfo();
@@ -1739,7 +1768,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string rolesName = string.Join(",", roleList.Select(r => r.Name).OrderBy(s => s));
+            string rolesName = string.Join(", ", roleList.Select(r => r.Name).OrderBy(s => s));
             string usersName = string.Format("{0} - {1}", user.DomainName, user.FullName);
 
             string message = string.Format(Properties.MessageBoxStrings.AreYouSureRemoveRolesFromUsersFormat2, rolesName, usersName);
@@ -1775,14 +1804,111 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             RefreshSystemUserInfo();
         }
 
-        private void btnAddUserToTeam_Click(object sender, RoutedEventArgs e)
+        private async void btnAddUserToTeam_Click(object sender, RoutedEventArgs e)
         {
+            var userList = GetSelectedSystemUsers();
 
+            if (userList == null || !userList.Any())
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            var repository = new TeamRepository(service);
+
+            Func<string, Task<IEnumerable<Entity>>> getter = null;
+
+            if (userList.Count == 1)
+            {
+                var user = userList.First();
+
+                getter = (string filter) => Task.Run(async () => await repository.GetAvailableTeamsForUserAsync(filter, user.Id, new ColumnSet(
+                                Team.Schema.Attributes.name
+                                , Team.Schema.Attributes.businessunitid
+                                , Team.Schema.Attributes.isdefault
+                                )) as IEnumerable<Entity>);
+            }
+            else
+            {
+                getter = (string filter) => Task.Run(async () => await repository.GetNotDefaultTeamsAsync(filter, new ColumnSet(
+                                Team.Schema.Attributes.name
+                                , Team.Schema.Attributes.businessunitid
+                                , Team.Schema.Attributes.isdefault
+                                )) as IEnumerable<Entity>);
+            }
+
+            IEnumerable<DataGridColumn> columns = TeamRepository.GetDataGridColumn();
+
+            var form = new WindowEntitySelect(_iWriteToOutput, service.ConnectionData, Team.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            try
+            {
+                await repository.AddUsersToTeamAsync(form.SelectedEntity.Id, userList.Select(r => r.Id));
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+            }
+
+            RefreshSystemUserInfo();
         }
 
-        private void btnRemoveUserFromTeam_Click(object sender, RoutedEventArgs e)
+        private async void btnRemoveUserFromTeam_Click(object sender, RoutedEventArgs e)
         {
+            var user = GetSelectedSystemUser();
 
+            var teamList = GetSelectedTeams();
+
+            if (user == null || teamList == null || !teamList.Any())
+            {
+                return;
+            }
+
+            string usersName = string.Format("{0} - {1}", user.DomainName, user.FullName);
+            string teamsName = string.Join(", ", teamList.Select(r => r.Name).OrderBy(s => s));
+
+            string message = string.Format(Properties.MessageBoxStrings.AreYouSureRemoveUsersFromTeamsFormat2, usersName, teamsName);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
+            {
+                return;
+            }
+
+            string operationName = string.Format(Properties.OperationNames.RemovingUsersFromTeamsFormat2, usersName, teamsName);
+
+            _iWriteToOutput.WriteToOutputStartOperation(operationName);
+
+            ToggleControls(false, Properties.WindowStatusStrings.RemovingUsersFromTeamsFormat2, usersName, teamsName);
+
+            try
+            {
+                var service = await GetService();
+
+                var repository = new TeamRepository(service);
+
+                await repository.RemoveUserFromTeamsAsync(user.Id, teamList.Select(r => r.Id));
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+            }
+
+            ToggleControls(true, Properties.WindowStatusStrings.RemovingUsersFromTeamsCompletedFormat2, usersName, teamsName);
+
+            _iWriteToOutput.WriteToOutputEndOperation(operationName);
+
+            RefreshSystemUserInfo();
         }
 
         private void LstVwTeams_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1811,6 +1937,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                 }
             });
+        }
+
+        private void btnRefreshSystemUsers_Click(object sender, RoutedEventArgs e)
+        {
+            ShowExistingSystemUsers();
+        }
+
+        private void btnRefreshRoles_Click(object sender, RoutedEventArgs e)
+        {
+            ShowSystemUserRoles();
+        }
+
+        private void btnRefreshTeams_Click(object sender, RoutedEventArgs e)
+        {
+            ShowSystemUserTeams();
+        }
+
+        private void btnRefreshEntites_Click(object sender, RoutedEventArgs e)
+        {
+            ShowSystemUserEntityPrivileges();
         }
     }
 }

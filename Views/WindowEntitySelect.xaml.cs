@@ -41,12 +41,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
+            this.Name = string.Format("WindowEntitySelect_{0}", entityName);
+            lstVwEntities.Name = string.Format("lstVwEntities{0}", entityName);
+
             this._listGetter = listGetter;
             this._entityName = entityName;
             this._connectionData = connectionData;
             this._iWriteToOutput = outputWindow;
-
-            lstVwEntities.Name = string.Format("lstVwEntities{0}", entityName);
 
             foreach (var column in columns)
             {
@@ -283,9 +284,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
-                || contextMenu.DataContext == null
-                || !(contextMenu.DataContext is Entity entity)
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
                 )
             {
                 return;
@@ -301,9 +301,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
-                || contextMenu.DataContext == null
-                || !(contextMenu.DataContext is Entity entity)
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
                 )
             {
                 return;
@@ -319,9 +318,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
-                || contextMenu.DataContext == null
-                || !(contextMenu.DataContext is Entity entity)
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
                 )
             {
                 return;

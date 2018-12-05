@@ -97,6 +97,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure want to remove users {0} from teams {1}?.
+        /// </summary>
+        internal static string AreYouSureRemoveUsersFromTeamsFormat2 {
+            get {
+                return ResourceManager.GetString("AreYouSureRemoveUsersFromTeamsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot parse text to valid Guid..
         /// </summary>
         internal static string CannotParseGuid {

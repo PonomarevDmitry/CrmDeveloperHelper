@@ -6,6 +6,8 @@
         Title="Security Roles Explorer" Height="538.662" Width="1233" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
 
+        <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
+
         <helpers:PrivilegeDepthConverter x:Key="privilegeDepthConverter" />
         <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
 
@@ -116,48 +118,12 @@
     </src:WindowBase.Resources>
     <DockPanel LastChildFill="True">
         <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Open Entity Information" VerticalAlignment="Center">
-                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
-                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
-                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
-                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnSystemForms_Click" />
-                    <MenuItem Header="Views" Click="btnSavedQuery_Click" />
-                    <MenuItem Header="Charts" Click="btnSavedChart_Click" />
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnWorkflows_Click" />
-                    <Separator/>
-                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click" />
-                    <Separator/>
-                    <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click" />
-                    <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
-                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
-                </MenuItem>
-                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                <MenuItem Header="Compare Information with other Organization" VerticalAlignment="Center">
-                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Application Ribbon" Click="btnCompareApplicationRibbons_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
-                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
-                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
-                </MenuItem>
-                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                <MenuItem Header="Clear Entity Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click" VerticalAlignment="Center" />
-            </Menu>
+            <Button x:Name="btnRefreshRoles" HorizontalAlignment="Left" Click="btnRefreshRoles_Click">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Roles</TextBlock>
+                </StackPanel>
+            </Button>
         </ToolBar>
         <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
@@ -184,7 +150,7 @@
                     <TextBox x:Name="txtBFilterRole"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterRole_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
                 </Grid>
 
-                <DataGrid x:Name="lstVwSecurityRoles" Grid.Row="0" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="lstVwRole_SelectionChanged" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
+                <DataGrid x:Name="lstVwSecurityRoles" Grid.Row="0" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="lstVwSecurityRoles_SelectionChanged" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -213,6 +179,13 @@
                     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True" >
 
                         <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
+                            <Button x:Name="btnRefreshSystemUsers" HorizontalAlignment="Left" Click="btnRefreshSystemUsers_Click">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Users</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Separator Margin="20,0" />
                             <Button x:Name="btnAssignRoleToUser" Content="Assing Role to User" Click="btnAssignRoleToUser_Click"/>
                             <Separator Margin="20,0" />
                             <Button x:Name="btnRemoveRoleFromUser" IsEnabled="False" Content="Remove Role from User" Click="btnRemoveRoleFromUser_Click"/>
@@ -262,6 +235,13 @@
                     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True" >
                         
                         <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
+                            <Button x:Name="btnRefreshTeams" HorizontalAlignment="Left" Click="btnRefreshTeams_Click">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Teams</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Separator Margin="20,0" />
                             <Button x:Name="btnAssignRoleToTeam" Content="Assing Role to Team" Click="btnAssignRoleToTeam_Click"/>
                             <Separator Margin="20,0" />
                             <Button x:Name="btnRemoveRoleFromTeam" IsEnabled="False" Content="Remove Role from Team" Click="btnRemoveRoleFromTeam_Click"/>
@@ -307,6 +287,63 @@
 
                 <TabItem Header="Entity Privileges">
                     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True" >
+
+                        <ToolBar Margin="0" VerticalAlignment="Top" Height="27" DockPanel.Dock="Top">
+                            <Button x:Name="btnRefreshEntites" HorizontalAlignment="Left" Click="btnRefreshEntites_Click">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Entites</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Separator Margin="20,0" />
+                            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                                <MenuItem Header="Open Entity Information" VerticalAlignment="Center">
+                                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
+                                    <Separator/>
+                                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
+                                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
+                                    <Separator/>
+                                    <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                                    <Separator/>
+                                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
+                                    <Separator/>
+                                    <MenuItem Header="Forms" Click="btnSystemForms_Click" />
+                                    <MenuItem Header="Views" Click="btnSavedQuery_Click" />
+                                    <MenuItem Header="Charts" Click="btnSavedChart_Click" />
+                                    <Separator/>
+                                    <MenuItem Header="Workflows" Click="btnWorkflows_Click" />
+                                    <Separator/>
+                                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click" />
+                                    <Separator/>
+                                    <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click" />
+                                    <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
+                                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
+                                </MenuItem>
+                            </Menu>
+                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                                <MenuItem Header="Compare Information with other Organization" VerticalAlignment="Center">
+                                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                                    <Separator/>
+                                    <MenuItem Header="Application Ribbon" Click="btnCompareApplicationRibbons_Click"/>
+                                    <Separator/>
+                                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
+                                    <Separator/>
+                                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
+                                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
+                                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                                    <Separator/>
+                                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                                </MenuItem>
+                            </Menu>
+                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                                <MenuItem Header="Clear Entity Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click" VerticalAlignment="Center" />
+                            </Menu>
+                        </ToolBar>
+
                         <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>

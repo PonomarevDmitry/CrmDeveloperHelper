@@ -2545,6 +2545,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Removing users {0} from teams {1} completed..
+        /// </summary>
+        internal static string RemovingUsersFromTeamsCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("RemovingUsersFromTeamsCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing users {0} from teams {1}....
+        /// </summary>
+        internal static string RemovingUsersFromTeamsFormat2 {
+            get {
+                return ResourceManager.GetString("RemovingUsersFromTeamsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saving Changes....
         /// </summary>
         internal static string SavingChanges {

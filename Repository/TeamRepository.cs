@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -165,7 +166,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Orders =
                 {
                     new OrderExpression(Team.Schema.Attributes.teamtype, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.teamtemplateid, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.regardingobjectid, OrderType.Ascending),
                     new OrderExpression(Team.Schema.Attributes.name, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.businessunitid, OrderType.Ascending),
                 },
 
                 PageInfo = new PagingInfo()
@@ -454,12 +458,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             };
         }
 
-        public Task<IEnumerable<Entity>> GetAvailableTeamsForRoleAsync(string filterTeam, Guid idRole, ColumnSet columnSet)
+        public Task<IEnumerable<Team>> GetAvailableTeamsForRoleAsync(string filterTeam, Guid idRole, ColumnSet columnSet)
         {
             return Task.Run(() => GetAvailableTeamsForRole(filterTeam, idRole, columnSet));
         }
 
-        private IEnumerable<Entity> GetAvailableTeamsForRole(string filterTeam, Guid idRole, ColumnSet columnSet)
+        private IEnumerable<Team> GetAvailableTeamsForRole(string filterTeam, Guid idRole, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -467,14 +471,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = Team.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? new ColumnSet(true),                
 
                 Criteria =
                 {
                     Conditions =
                     {
                         new ConditionExpression(Team.Schema.Attributes.teamtype, ConditionOperator.Equal, (int)Team.Schema.OptionSets.teamtype.Owner_0),
-                        new ConditionExpression(Role.EntityLogicalName, Role.Schema.Attributes.roleid, ConditionOperator.Null),
                     },
                 },
 
@@ -496,6 +499,116 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                             },
                         },
                     },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(Team.Schema.Attributes.teamtype, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.teamtemplateid, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.regardingobjectid, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.name, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.businessunitid, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            if (!string.IsNullOrEmpty(filterTeam))
+            {
+                if (Guid.TryParse(filterTeam, out Guid id))
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.teamid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.name, ConditionOperator.Like, "%" + filterTeam + "%"));
+                }
+            }
+
+            var result = new List<Team>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Team>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            {
+                var teams = GetTeamsByRole(idRole, null, new ColumnSet(false));
+
+                var hashSetTeamsWithRole = new HashSet<Guid>(teams.Select(t => t.Id));
+
+                var teamsToRemove = result.Where(t => hashSetTeamsWithRole.Contains(t.Id)).ToList();
+
+                foreach (var team in teamsToRemove)
+                {
+                    result.Remove(team);
+                }
+            }
+
+            return result;
+        }
+
+        public Task<IEnumerable<Team>> GetAvailableTeamsForUserAsync(string filterTeam, Guid idUser, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetAvailableTeamsForUser(filterTeam, idUser, columnSet));
+        }
+
+        private IEnumerable<Team> GetAvailableTeamsForUser(string filterTeam, Guid idUser, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = Team.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Team.Schema.Attributes.isdefault, ConditionOperator.Equal, false),
+                        new ConditionExpression(TeamMembership.Schema.EntityLogicalName ,TeamMembership.Schema.Attributes.teammembershipid, ConditionOperator.Null),
+                    },
+                },
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        LinkFromEntityName = Team.Schema.EntityLogicalName,
+                        LinkFromAttributeName = Team.Schema.Attributes.teamtemplateid,
+
+                        LinkToEntityName = TeamTemplate.Schema.EntityLogicalName,
+                        LinkToAttributeName = TeamTemplate.Schema.Attributes.teamtemplateid,
+
+                        EntityAlias = Team.Schema.Attributes.teamtemplateid,
+
+                        Columns = new ColumnSet(TeamTemplate.Schema.Attributes.teamtemplatename),
+                    },
 
                     new LinkEntity()
                     {
@@ -504,30 +617,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromEntityName = Team.Schema.EntityLogicalName,
                         LinkFromAttributeName = Team.Schema.Attributes.teamid,
 
-                        LinkToEntityName = TeamRoles.Schema.EntityLogicalName,
-                        LinkToAttributeName = TeamRoles.Schema.Attributes.teamid,
+                        LinkToEntityName = TeamMembership.Schema.EntityLogicalName,
+                        LinkToAttributeName = TeamMembership.Schema.Attributes.teamid,
 
-                        LinkEntities =
+                        EntityAlias = TeamMembership.Schema.EntityLogicalName,
+
+                        LinkCriteria =
                         {
-                            new LinkEntity()
+                            Conditions =
                             {
-                                JoinOperator = JoinOperator.LeftOuter,
-
-                                LinkFromEntityName = TeamRoles.Schema.EntityLogicalName,
-                                LinkFromAttributeName = TeamRoles.Schema.Attributes.roleid,
-
-                                LinkToEntityName = Role.EntityLogicalName,
-                                LinkToAttributeName = Role.Schema.Attributes.roleid,
-
-                                EntityAlias = Role.EntityLogicalName,
-
-                                LinkCriteria =
-                                {
-                                    Conditions =
-                                    {
-                                        new ConditionExpression(Role.Schema.Attributes.parentrootroleid, ConditionOperator.Equal, idRole),
-                                    },
-                                },
+                                new ConditionExpression(TeamMembership.Schema.Attributes.systemuserid, ConditionOperator.Equal, idUser),
                             },
                         },
                     },
@@ -535,6 +634,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 Orders =
                 {
+                    new OrderExpression(Team.Schema.Attributes.teamtype, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.teamtemplateid, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.regardingobjectid, OrderType.Ascending),
                     new OrderExpression(Team.Schema.Attributes.name, OrderType.Ascending),
                     new OrderExpression(Team.Schema.Attributes.businessunitid, OrderType.Ascending),
                 },
@@ -583,6 +685,462 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
 
             return result;
+        }
+
+        public Task<IEnumerable<Team>> GetOwnerTeamsAsync(string filterTeam, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetOwnerTeams(filterTeam, columnSet));
+        }
+
+        private IEnumerable<Team> GetOwnerTeams(string filterTeam, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = Team.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Team.Schema.Attributes.teamtype, ConditionOperator.Equal, (int)Team.Schema.OptionSets.teamtype.Owner_0),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(Team.Schema.Attributes.teamtype, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.teamtemplateid, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.regardingobjectid, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.name, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.businessunitid, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            if (!string.IsNullOrEmpty(filterTeam))
+            {
+                if (Guid.TryParse(filterTeam, out Guid id))
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.teamid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.name, ConditionOperator.Like, "%" + filterTeam + "%"));
+                }
+            }
+
+            var result = new List<Team>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Team>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
+        public Task<IEnumerable<Team>> GetNotDefaultTeamsAsync(string filterTeam, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetNotDefaultTeams(filterTeam, columnSet));
+        }
+
+        private IEnumerable<Team> GetNotDefaultTeams(string filterTeam, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = Team.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        LinkFromEntityName = Team.Schema.EntityLogicalName,
+                        LinkFromAttributeName = Team.Schema.Attributes.teamtemplateid,
+
+                        LinkToEntityName = TeamTemplate.Schema.EntityLogicalName,
+                        LinkToAttributeName = TeamTemplate.Schema.Attributes.teamtemplateid,
+
+                        EntityAlias = Team.Schema.Attributes.teamtemplateid,
+
+                        Columns = new ColumnSet(TeamTemplate.Schema.Attributes.teamtemplatename),
+                    },
+                },
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Team.Schema.Attributes.isdefault, ConditionOperator.Equal, false),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(Team.Schema.Attributes.teamtype, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.teamtemplateid, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.regardingobjectid, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.name, OrderType.Ascending),
+                    new OrderExpression(Team.Schema.Attributes.businessunitid, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            if (!string.IsNullOrEmpty(filterTeam))
+            {
+                if (Guid.TryParse(filterTeam, out Guid id))
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.teamid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.name, ConditionOperator.Like, "%" + filterTeam + "%"));
+                }
+            }
+
+            var result = new List<Team>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Team>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
+        public Task RemoveUserFromTeamsAsync(Guid idUser, IEnumerable<Guid> teamList)
+        {
+            return Task.Run(() => RemoveUserFromTeams(idUser, teamList));
+        }
+
+        private void RemoveUserFromTeams(Guid idUser, IEnumerable<Guid> teamList)
+        {
+            if (teamList == null || !teamList.Any())
+            {
+                return;
+            }
+
+            var hashSet = new HashSet<Guid>(teamList);
+
+            var userTeams = GetUserTeams(idUser, teamList.ToArray());
+
+            var teamsToRemove = userTeams.Where(r => hashSet.Contains(r)).ToArray();
+
+            if (!teamsToRemove.Any())
+            {
+                return;
+            }
+
+            var userArray = new[] { idUser };
+
+            foreach (var idTeam in teamsToRemove)
+            {
+                var request = new RemoveMembersTeamRequest()
+                {
+                    TeamId = idTeam,
+                    MemberIds = userArray,
+                };
+
+                var response = (RemoveMembersTeamResponse)_service.Execute(request);
+            }
+        }
+
+        private List<Guid> GetUserTeams(Guid idUser, Guid[] teamArray)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = Team.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(false),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Team.Schema.Attributes.teamid, ConditionOperator.In, teamArray),
+                    },
+                },
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = Team.Schema.EntityLogicalName,
+                        LinkFromAttributeName = Team.Schema.Attributes.teamid,
+
+                        LinkToEntityName = TeamMembership.Schema.EntityLogicalName,
+                        LinkToAttributeName = TeamMembership.Schema.Attributes.teamid,
+
+                        LinkCriteria =
+                        {
+                            Conditions =
+                            {
+                                new ConditionExpression(TeamMembership.Schema.Attributes.systemuserid, ConditionOperator.Equal, idUser),
+                            },
+                        },
+                    },
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<Guid>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.Id));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
+        public Task RemoveUsersFromTeamAsync(Guid idTeam, IEnumerable<Guid> userList)
+        {
+            return Task.Run(() => RemoveUsersFromTeam(idTeam, userList));
+        }
+
+        private void RemoveUsersFromTeam(Guid idTeam, IEnumerable<Guid> userList)
+        {
+            if (userList == null || !userList.Any())
+            {
+                return;
+            }
+
+            var hashSet = new HashSet<Guid>(userList);
+
+            var teamUsers = GetTeamUsers(idTeam, userList.ToArray());
+
+            var usersToRemove = teamUsers.Where(r => hashSet.Contains(r)).ToArray();
+
+            if (!usersToRemove.Any())
+            {
+                return;
+            }
+
+            var request = new RemoveMembersTeamRequest()
+            {
+                TeamId = idTeam,
+                MemberIds = usersToRemove,
+            };
+
+            var response = (RemoveMembersTeamResponse)_service.Execute(request);
+        }
+
+        private List<Guid> GetTeamUsers(Guid idTeam, Guid[] userArray)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = SystemUser.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(false),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SystemUser.Schema.Attributes.systemuserid, ConditionOperator.In, userArray),
+                    },
+                },
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = SystemUser.Schema.EntityLogicalName,
+                        LinkFromAttributeName = SystemUser.Schema.Attributes.systemuserid,
+
+                        LinkToEntityName = TeamMembership.Schema.EntityLogicalName,
+                        LinkToAttributeName = TeamMembership.Schema.Attributes.systemuserid,
+
+                        LinkCriteria =
+                        {
+                            Conditions =
+                            {
+                                new ConditionExpression(TeamMembership.Schema.Attributes.teamid, ConditionOperator.Equal, idTeam),
+                            },
+                        },
+                    },
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<Guid>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.Id));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
+        public Task AddUsersToTeamAsync(Guid idTeam, IEnumerable<Guid> userList)
+        {
+            return Task.Run(() => AddUsersToTeam(idTeam, userList));
+        }
+
+        private void AddUsersToTeam(Guid idTeam, IEnumerable<Guid> userList)
+        {
+            if (userList == null || !userList.Any())
+            {
+                return;
+            }
+
+            var teamUsers = GetTeamUsers(idTeam, userList.ToArray());
+
+            var hashSet = new HashSet<Guid>(teamUsers);
+
+            var usersToAdd = userList.Where(r => !hashSet.Contains(r)).ToArray();
+
+            if (!usersToAdd.Any())
+            {
+                return;
+            }
+
+            var request = new AddMembersTeamRequest()
+            {
+                TeamId = idTeam,
+                MemberIds = usersToAdd,
+            };
+
+            var response = (AddMembersTeamResponse)_service.Execute(request);
+        }
+
+        public Task AddUserFromTeamsAsync(Guid idUser, IEnumerable<Guid> teamList)
+        {
+            return Task.Run(() => AddUserFromTeams(idUser, teamList));
+        }
+
+        private void AddUserFromTeams(Guid idUser, IEnumerable<Guid> teamList)
+        {
+            if (teamList == null || !teamList.Any())
+            {
+                return;
+            }
+
+            var userTeams = GetUserTeams(idUser, teamList.ToArray());
+
+            var hashSet = new HashSet<Guid>(userTeams);
+
+            var teamsToAdd = teamList.Where(r => !hashSet.Contains(r)).ToArray();
+
+            if (!teamsToAdd.Any())
+            {
+                return;
+            }
+
+            var userArray = new[] { idUser };
+
+            foreach (var idTeam in teamsToAdd)
+            {
+                var request = new AddMembersTeamRequest()
+                {
+                    TeamId = idTeam,
+                    MemberIds = userArray,
+                };
+
+                var response = (AddMembersTeamResponse)_service.Execute(request);
+            }
         }
     }
 }

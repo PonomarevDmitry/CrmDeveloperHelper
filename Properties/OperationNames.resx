@@ -597,4 +597,7 @@
   <data name="RemovingRolesFromUsersFormat2" xml:space="preserve">
     <value>Removing Roles {0} from Users {1}</value>
   </data>
+  <data name="RemovingUsersFromTeamsFormat2" xml:space="preserve">
+    <value>Removing Users {0} from Teams {1}</value>
+  </data>
 </root>
