@@ -1084,16 +1084,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var service = await GetService();
+
             var entityNamesOrdered = string.Join(", ", entityNames.OrderBy(s => s));
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityNamesOrdered);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
 
             ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityNamesOrdered);
 
             try
             {
-                var service = await GetService();
-
                 var repository = new PublishActionsRepository(service);
 
                 await repository.PublishEntitiesAsync(entityNames);
@@ -1107,7 +1107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat1, entityNamesOrdered);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityNamesOrdered);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
         }
 
         private void lstVwSystemUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1778,7 +1778,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string operationName = string.Format(Properties.OperationNames.RemovingRolesFromUsersFormat2, rolesName, usersName);
+            var service = await GetService();
+
+            string operationName = string.Format(Properties.OperationNames.RemovingRolesFromUsersFormat3, service.ConnectionData.Name, rolesName, usersName);
 
             _iWriteToOutput.WriteToOutputStartOperation(operationName);
 
@@ -1786,8 +1788,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var service = await GetService();
-
                 var repository = new RolePrivilegesRepository(service);
 
                 await repository.RemoveRolesFromUserAsync(user.Id, roleList.Select(r => r.Id));
@@ -1885,7 +1885,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string operationName = string.Format(Properties.OperationNames.RemovingUsersFromTeamsFormat2, usersName, teamsName);
+            var service = await GetService();
+
+            string operationName = string.Format(Properties.OperationNames.RemovingUsersFromTeamsFormat3, service.ConnectionData.Name, usersName, teamsName);
 
             _iWriteToOutput.WriteToOutputStartOperation(operationName);
 
@@ -1893,8 +1895,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var service = await GetService();
-
                 var repository = new TeamRepository(service);
 
                 await repository.RemoveUserFromTeamsAsync(user.Id, teamList.Select(r => r.Id));

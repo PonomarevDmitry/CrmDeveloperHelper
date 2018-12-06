@@ -117,101 +117,101 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddingComponentsIntoSolutionFormat1" xml:space="preserve">
-    <value>Adding Components into Solution {0}</value>
+  <data name="AddingComponentsIntoSolutionFormat2" xml:space="preserve">
+    <value>{0}. Adding Components into Solution {1}</value>
   </data>
-  <data name="AddingIntoPublishListFilesFormat1" xml:space="preserve">
-    <value>Adding into Publish List Files {0}</value>
+  <data name="AddingIntoPublishListFilesFormat2" xml:space="preserve">
+    <value>{0}. Adding into Publish List Files {1}</value>
   </data>
-  <data name="AddingPluginAssemblyIntoSolutionFormat1" xml:space="preserve">
-    <value>Adding PluginAssembly into Solution {0}</value>
+  <data name="AddingPluginAssemblyIntoSolutionFormat2" xml:space="preserve">
+    <value>{0}. Adding PluginAssembly into Solution {1}</value>
   </data>
-  <data name="AddingPluginAssemblyProcessingStepsIntoSolutionFormat1" xml:space="preserve">
-    <value>Adding PluginAssembly Processing Steps into Solution {0}</value>
+  <data name="AddingPluginAssemblyProcessingStepsIntoSolutionFormat2" xml:space="preserve">
+    <value>{0}. Adding PluginAssembly Processing Steps into Solution {1}</value>
   </data>
-  <data name="AddingPluginTypeProcessingStepsIntoSolutionFormat1" xml:space="preserve">
-    <value>Adding PluginType Processing Steps into Solution {0}</value>
+  <data name="AddingPluginTypeProcessingStepsIntoSolutionFormat2" xml:space="preserve">
+    <value>{0}. Adding PluginType Processing Steps into Solution {1}</value>
   </data>
-  <data name="AddingReportsIntoSolutionFormat1" xml:space="preserve">
-    <value>Adding Reports into Solution {0}</value>
+  <data name="AddingReportsIntoSolutionFormat2" xml:space="preserve">
+    <value>{0}. Adding Reports into Solution {1}</value>
   </data>
-  <data name="AddingWebResourcesIntoSolutionFormat1" xml:space="preserve">
-    <value>Adding WebResources into Solution {0}</value>
+  <data name="AddingWebResourcesIntoSolutionFormat2" xml:space="preserve">
+    <value>{0}. Adding WebResources into Solution {1}</value>
   </data>
-  <data name="CheckingComponentTypeEnum" xml:space="preserve">
-    <value>Checking ComponentType Enum</value>
+  <data name="CheckingComponentTypeEnumFormat1" xml:space="preserve">
+    <value>{0}. Checking ComponentType Enum</value>
   </data>
-  <data name="CheckingCRMEntityOwnership" xml:space="preserve">
-    <value>Checking CRM Entity Ownership</value>
+  <data name="CheckingCRMEntityOwnershipFormat1" xml:space="preserve">
+    <value>{0}. Checking CRM Entity Ownership</value>
   </data>
-  <data name="CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat1" xml:space="preserve">
-    <value>Checking CRM Objects marked to delete by '{0}' and show dependent components</value>
+  <data name="CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat2" xml:space="preserve">
+    <value>{0}. Checking CRM Objects marked to delete by '{1}' and show dependent components</value>
   </data>
   <data name="CheckingCRMObjectsNamesAndShowDependentComponents" xml:space="preserve">
-    <value>Checking CRM Objects names and show dependent components</value>
+    <value>{0}. Checking CRM Objects names and show dependent components</value>
   </data>
-  <data name="CheckingCRMObjectsNamesForPrefixFormat1" xml:space="preserve">
-    <value>Checking CRM Objects names for prefix '{0}'</value>
+  <data name="CheckingCRMObjectsNamesForPrefixFormat2" xml:space="preserve">
+    <value>{0}. Checking CRM Objects names for prefix '{1}'</value>
   </data>
-  <data name="CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat1" xml:space="preserve">
-    <value>Checking CRM Objects names for prefix '{0}' and show dependent components</value>
+  <data name="CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat2" xml:space="preserve">
+    <value>{0}. Checking CRM Objects names for prefix '{1}' and show dependent components</value>
   </data>
   <data name="CheckingFilesEncoding" xml:space="preserve">
     <value>Checking Files Encoding</value>
   </data>
-  <data name="CheckingGlobalOptionSetDuplicatesOnEntity" xml:space="preserve">
-    <value>Checking Global OptionSet Duplicates on Entity</value>
+  <data name="CheckingGlobalOptionSetDuplicatesOnEntityFormat1" xml:space="preserve">
+    <value>{0}. Checking Global OptionSet Duplicates on Entity</value>
   </data>
-  <data name="CheckingManagedEntities" xml:space="preserve">
-    <value>Checking Managed Entities</value>
+  <data name="CheckingManagedEntitiesFormat1" xml:space="preserve">
+    <value>{0}. Checking Managed Entities</value>
   </data>
-  <data name="CheckingPluginImagesDuplicates" xml:space="preserve">
-    <value>Checking Plugin Images Duplicates</value>
+  <data name="CheckingPluginImagesDuplicatesFormat1" xml:space="preserve">
+    <value>{0}. Checking Plugin Images Duplicates</value>
   </data>
-  <data name="CheckingPluginImagesRequiredComponents" xml:space="preserve">
-    <value>Checking Plugin Images Required Components</value>
+  <data name="CheckingPluginImagesRequiredComponentsFormat1" xml:space="preserve">
+    <value>{0}. Checking Plugin Images Required Components</value>
   </data>
-  <data name="CheckingPluginStepsDuplicates" xml:space="preserve">
-    <value>Checking Plugin Steps Duplicates</value>
+  <data name="CheckingPluginStepsDuplicatesFormat1" xml:space="preserve">
+    <value>{0}. Checking Plugin Steps Duplicates</value>
   </data>
-  <data name="CheckingPluginStepsRequiredComponents" xml:space="preserve">
-    <value>Checking Plugin Steps Required Components</value>
+  <data name="CheckingPluginStepsRequiredComponentsFormat1" xml:space="preserve">
+    <value>{0}. Checking Plugin Steps Required Components</value>
   </data>
-  <data name="CheckingWorkflowsUsedEntities" xml:space="preserve">
-    <value>Checking Workflows Used Entities</value>
+  <data name="CheckingWorkflowsUsedEntitiesFormat1" xml:space="preserve">
+    <value>{0}. Checking Workflows Used Entities</value>
   </data>
-  <data name="CheckingWorkflowsUsedNotExistingEntities" xml:space="preserve">
-    <value>Checking Workflows Used Not Existing Entities</value>
+  <data name="CheckingWorkflowsUsedNotExistingEntitiesFormat1" xml:space="preserve">
+    <value>{0}. Checking Workflows Used Not Existing Entities</value>
   </data>
-  <data name="ClearingLastLink" xml:space="preserve">
-    <value>Clearing Last Link</value>
+  <data name="ClearingLastLinkFormat1" xml:space="preserve">
+    <value>{0}. Clearing Last Link</value>
   </data>
-  <data name="ComparingCrmPluginAssemblyAndLocalAssembly" xml:space="preserve">
-    <value>Comparing Crm PluginAssembly and Local Assembly</value>
+  <data name="ComparingCrmPluginAssemblyAndLocalAssemblyFormat1" xml:space="preserve">
+    <value>{0}. Comparing Crm PluginAssembly and Local Assembly</value>
   </data>
-  <data name="ComparingFilesAndWebResources" xml:space="preserve">
-    <value>Comparing Files and WebResources</value>
+  <data name="ComparingFilesAndWebResourcesFormat1" xml:space="preserve">
+    <value>{0}. Comparing Files and WebResources</value>
   </data>
-  <data name="ComparingFilesWithWrongEncodingAndWebResources" xml:space="preserve">
-    <value>Comparing Files with Wrong Encoding and WebResources</value>
+  <data name="ComparingFilesWithWrongEncodingAndWebResourcesFormat1" xml:space="preserve">
+    <value>{0}. Comparing Files with Wrong Encoding and WebResources</value>
   </data>
-  <data name="CreatingAllDependencyNodesDescription" xml:space="preserve">
-    <value>Creating all Dependency Nodes Description</value>
+  <data name="CreatingAllDependencyNodesDescriptionFormat1" xml:space="preserve">
+    <value>{0}. Creating all Dependency Nodes Description</value>
   </data>
-  <data name="CreatingFileWithEntityMetadata" xml:space="preserve">
-    <value>Creating File with Entity Metadata</value>
+  <data name="CreatingFileWithEntityMetadataFormat1" xml:space="preserve">
+    <value>{0}. Creating File with Entity Metadata</value>
   </data>
-  <data name="CreatingFileWithGlobalOptionSets" xml:space="preserve">
-    <value>Creating File with Global OptionSets Metadata</value>
+  <data name="CreatingFileWithGlobalOptionSetsFormat1" xml:space="preserve">
+    <value>{0}. Creating File with Global OptionSets Metadata</value>
   </data>
-  <data name="CreatingLastLinkForReport" xml:space="preserve">
-    <value>Creating Last Link for Report</value>
+  <data name="CreatingLastLinkForReportFormat1" xml:space="preserve">
+    <value>{0}. Creating Last Link for Report</value>
   </data>
-  <data name="CreatingLastLinkForWebResources" xml:space="preserve">
-    <value>Creating Last Link for WebResources</value>
+  <data name="CreatingLastLinkForWebResourcesFormat1" xml:space="preserve">
+    <value>{0}. Creating Last Link for WebResources</value>
   </data>
-  <data name="CreatingPluginTypeDescription" xml:space="preserve">
-    <value>Creating PluginType Description</value>
+  <data name="CreatingPluginTypeDescriptionFormat1" xml:space="preserve">
+    <value>{0}. Creating PluginType Description</value>
   </data>
   <data name="DifferenceLocalFileAndTwoReportsFormat3" xml:space="preserve">
     <value>{0} Difference Local File, Reports in {1} and {2}</value>
@@ -219,101 +219,101 @@
   <data name="DifferenceLocalFileAndTwoWebResourcesFormat3" xml:space="preserve">
     <value>{0} Difference Local File, WebResources in {1} and {2}</value>
   </data>
-  <data name="DifferenceReport" xml:space="preserve">
-    <value>Difference Report</value>
+  <data name="DifferenceReportFormat1" xml:space="preserve">
+    <value>{0}. Difference Report</value>
   </data>
-  <data name="DifferenceWebResource" xml:space="preserve">
-    <value>Difference WebResource</value>
+  <data name="DifferenceWebResourceFormat1" xml:space="preserve">
+    <value>{0}. Difference WebResource</value>
   </data>
-  <data name="DownloadingReport" xml:space="preserve">
-    <value>Downloading Report</value>
+  <data name="DownloadingReportFormat1" xml:space="preserve">
+    <value>{0}. Downloading Report</value>
   </data>
-  <data name="DownloadingWebResource" xml:space="preserve">
-    <value>Downloading WebResource</value>
+  <data name="DownloadingWebResourceFormat1" xml:space="preserve">
+    <value>{0}. Downloading WebResource</value>
   </data>
-  <data name="ExportingCRMSolution" xml:space="preserve">
-    <value>Exporting CRM Solution</value>
+  <data name="ExportingCRMSolutionFormat1" xml:space="preserve">
+    <value>{0}. Exporting CRM Solution</value>
   </data>
-  <data name="ExportingEntityAttributesDependentComponents" xml:space="preserve">
-    <value>Exporting Entity Attributes Dependent Components</value>
+  <data name="ExportingEntityAttributesDependentComponentsFormat1" xml:space="preserve">
+    <value>{0}. Exporting Entity Attributes Dependent Components</value>
   </data>
-  <data name="ExportingOrganizationInformation" xml:space="preserve">
-    <value>Exporting Organization Information</value>
+  <data name="ExportingOrganizationInformationFormat1" xml:space="preserve">
+    <value>{0}. Exporting Organization Information</value>
   </data>
-  <data name="ExportingPluginAssembly" xml:space="preserve">
-    <value>Exporting Plugin Assembly</value>
+  <data name="ExportingPluginAssemblyFormat1" xml:space="preserve">
+    <value>{0}. Exporting Plugin Assembly</value>
   </data>
-  <data name="ExportingPluginConfigurationXml" xml:space="preserve">
-    <value>Exporting Plugin Configuration Xml</value>
+  <data name="ExportingPluginConfigurationXmlFormat1" xml:space="preserve">
+    <value>{0}. Exporting Plugin Configuration Xml</value>
   </data>
-  <data name="ExportingPluginConfigurationXmlIntoFolder" xml:space="preserve">
-    <value>Exporting Plugin Configuration Xml into Folder</value>
+  <data name="ExportingPluginConfigurationXmlIntoFolderFormat1" xml:space="preserve">
+    <value>{0}. Exporting Plugin Configuration Xml into Folder</value>
   </data>
-  <data name="ExportingRibbonXml" xml:space="preserve">
-    <value>Exporting Ribbon Xml</value>
+  <data name="ExportingRibbonXmlFormat1" xml:space="preserve">
+    <value>{0}. Exporting Ribbon Xml</value>
   </data>
-  <data name="ExportingSitemapXml" xml:space="preserve">
-    <value>Exporting Sitemap Xml</value>
+  <data name="ExportingSitemapXmlFormat1" xml:space="preserve">
+    <value>{0}. Exporting Sitemap Xml</value>
   </data>
-  <data name="ExportingSystemFormsEvents" xml:space="preserve">
-    <value>Exporting System Forms Events</value>
+  <data name="ExportingSystemFormsEventsFormat1" xml:space="preserve">
+    <value>{0}. Exporting System Forms Events</value>
   </data>
-  <data name="ExportingSystemFormXml" xml:space="preserve">
-    <value>Exporting System Form FormXml</value>
+  <data name="ExportingSystemFormXmlFormat1" xml:space="preserve">
+    <value>{0}. Exporting System Form FormXml</value>
   </data>
-  <data name="ExportingSystemSavedQueryVisualizationXml" xml:space="preserve">
-    <value>Exporting System Chart (Saved Query Visualization) Xml</value>
+  <data name="ExportingSystemSavedQueryVisualizationXmlFormat1" xml:space="preserve">
+    <value>{0}. Exporting System Chart (Saved Query Visualization) Xml</value>
   </data>
-  <data name="ExportingSystemSavedQueryXml" xml:space="preserve">
-    <value>Exporting System View (Saved Query) Xml</value>
+  <data name="ExportingSystemSavedQueryXmlFormat1" xml:space="preserve">
+    <value>{0}. Exporting System View (Saved Query) Xml</value>
   </data>
-  <data name="ExportingWorkflow" xml:space="preserve">
-    <value>Exporting Workflow</value>
+  <data name="ExportingWorkflowFormat1" xml:space="preserve">
+    <value>{0}. Exporting Workflow</value>
   </data>
-  <data name="ExportSolutionWindow" xml:space="preserve">
-    <value>Export Solution Window</value>
+  <data name="ExportSolutionWindowFormat1" xml:space="preserve">
+    <value>{0}. Export Solution Window</value>
   </data>
-  <data name="FindingCRMObjectsByIdEntityNameEntityTypeCodeFormat3" xml:space="preserve">
-    <value>Finding CRM Objects by Id '{0}', entityName '{1}', entityTypeCode '{2}'</value>
+  <data name="FindingCRMObjectsByIdEntityNameEntityTypeCodeFormat4" xml:space="preserve">
+    <value>{0}. Finding CRM Objects by Id '{1}', entityName '{2}', entityTypeCode '{3}'</value>
   </data>
-  <data name="FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCodeFormat3" xml:space="preserve">
-    <value>Finding CRM Objects by Uniqueidentifier '{0}', entityName '{1}', entityTypeCode '{2}'</value>
+  <data name="FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCodeFormat4" xml:space="preserve">
+    <value>{0}. Finding CRM Objects by Uniqueidentifier '{1}', entityName '{2}', entityTypeCode '{3}'</value>
   </data>
-  <data name="FindingCRMObjectscontainsNameFormat1" xml:space="preserve">
-    <value>Finding CRM Objects names contains '{0}'</value>
+  <data name="FindingCRMObjectscontainsNameFormat2" xml:space="preserve">
+    <value>{0}. Finding CRM Objects names contains '{1}'</value>
   </data>
-  <data name="FindingCRMObjectsNamesFormat1" xml:space="preserve">
-    <value>Finding CRM Objects names for '{0}'</value>
+  <data name="FindingCRMObjectsNamesFormat2" xml:space="preserve">
+    <value>{0}. Finding CRM Objects names for '{1}'</value>
   </data>
-  <data name="MultiDifferenceFormat1" xml:space="preserve">
-    <value>Multi Difference {0}</value>
+  <data name="MultiDifferenceFormat2" xml:space="preserve">
+    <value>{0}. Multi Difference {1}</value>
   </data>
-  <data name="OpeningEntityAttributeExplorer" xml:space="preserve">
-    <value>Opening Entity Attribute Explorer</value>
+  <data name="OpeningEntityAttributeExplorerFormat1" xml:space="preserve">
+    <value>{0}. Opening Entity Attribute Explorer</value>
   </data>
-  <data name="OpeningEntityKeyExplorer" xml:space="preserve">
-    <value>Opening Entity Key Explorer</value>
+  <data name="OpeningEntityKeyExplorerFormat1" xml:space="preserve">
+    <value>{0}. Opening Entity Key Explorer</value>
   </data>
-  <data name="OpeningEntityRelationshipManyToMany" xml:space="preserve">
-    <value>Opening Entity Relationship Many-To-Many</value>
+  <data name="OpeningEntityRelationshipManyToManyFormat1" xml:space="preserve">
+    <value>{0}. Opening Entity Relationship Many-To-Many</value>
   </data>
-  <data name="OpeningEntityRelationshipOneToMany" xml:space="preserve">
-    <value>Opening Entity Relationship One-To-Many</value>
+  <data name="OpeningEntityRelationshipOneToManyFormat1" xml:space="preserve">
+    <value>{0}. Opening Entity Relationship One-To-Many</value>
   </data>
-  <data name="OpeningFilesFormat1" xml:space="preserve">
-    <value>Opening Files {0}</value>
+  <data name="OpeningFilesFormat2" xml:space="preserve">
+    <value>{0}. Opening Files {1}</value>
   </data>
   <data name="OpeningFilesWithoutUTF8Encoding" xml:space="preserve">
     <value>Opening Files without UTF8 Encoding</value>
   </data>
-  <data name="OpeningReport" xml:space="preserve">
-    <value>Opening Report</value>
+  <data name="OpeningReportFormat1" xml:space="preserve">
+    <value>{0}. Opening Report</value>
   </data>
-  <data name="OpeningSolution" xml:space="preserve">
-    <value>Opening Solution</value>
+  <data name="OpeningSolutionFormat1" xml:space="preserve">
+    <value>{0}. Opening Solution</value>
   </data>
-  <data name="OpeningWebResource" xml:space="preserve">
-    <value>Opening WebResource</value>
+  <data name="OpeningWebResourceFormat1" xml:space="preserve">
+    <value>{0}. Opening WebResource</value>
   </data>
   <data name="PluginConfigurationAssemblyDescription" xml:space="preserve">
     <value>Plugin Configuration Assembly Description</value>
@@ -325,7 +325,7 @@
     <value>Plugin Configuration Type Description</value>
   </data>
   <data name="PublishingAllCustomizationFormat1" xml:space="preserve">
-    <value>Publishing All Customization in {0}</value>
+    <value>{0}. Publishing All Customization in {0}</value>
   </data>
   <data name="ShowingOrganizationComparer" xml:space="preserve">
     <value>Showing Organization Comparer</value>
@@ -333,122 +333,125 @@
   <data name="ShowingOrganizationDifferenceImageWindow" xml:space="preserve">
     <value>Showing OrganizationDifferenceImage Window</value>
   </data>
-  <data name="ShowingPluginConfigurationTree" xml:space="preserve">
-    <value>Showing Plugin Configuration Tree</value>
+  <data name="ShowingPluginConfigurationTreeFormat1" xml:space="preserve">
+    <value>{0}. Showing Plugin Configuration Tree</value>
   </data>
-  <data name="ShowingPluginTree" xml:space="preserve">
-    <value>Showing Plugin Tree</value>
+  <data name="ShowingPluginTreeFormat1" xml:space="preserve">
+    <value>{0}. Showing Plugin Tree</value>
   </data>
-  <data name="ShowingSdkMessageRequestTree" xml:space="preserve">
-    <value>Showing Sdk Message Request Tree</value>
+  <data name="ShowingSdkMessageRequestTreeFormat1" xml:space="preserve">
+    <value>{0}. Showing Sdk Message Request Tree</value>
   </data>
-  <data name="ShowingSdkMessageTree" xml:space="preserve">
-    <value>Showing Sdk Message Tree</value>
+  <data name="ShowingSdkMessageTreeFormat1" xml:space="preserve">
+    <value>{0}. Showing Sdk Message Tree</value>
   </data>
-  <data name="ShowingSolutionImageWindow" xml:space="preserve">
-    <value>Showing SolutionImage Window</value>
+  <data name="ShowingSolutionImageWindowFormat1" xml:space="preserve">
+    <value>{0}. Showing SolutionImage Window</value>
   </data>
-  <data name="SolutionComponentExplorer" xml:space="preserve">
-    <value>Solution Component Explorer</value>
+  <data name="SolutionComponentExplorerFormat1" xml:space="preserve">
+    <value>{0}. Solution Component Explorer</value>
   </data>
-  <data name="TraceReader" xml:space="preserve">
-    <value>Trace Reader</value>
+  <data name="TraceReaderFormat1" xml:space="preserve">
+    <value>{0}. Trace Reader</value>
   </data>
-  <data name="UpdatingContentAndPublishing" xml:space="preserve">
-    <value>Updating Content and Publishing</value>
+  <data name="UpdatingContentAndPublishingFormat1" xml:space="preserve">
+    <value>{0}. Updating Content and Publishing</value>
   </data>
-  <data name="UpdatingContentWebResourcesEqualByTextAndPublishing" xml:space="preserve">
-    <value>Updating Content Web Resources equal by Text and Publishing</value>
+  <data name="UpdatingContentWebResourcesEqualByTextAndPublishingFormat1" xml:space="preserve">
+    <value>{0}. Updating Content Web Resources equal by Text and Publishing</value>
   </data>
-  <data name="UpdatingFileWithEntityMetadata" xml:space="preserve">
-    <value>Updating File with Entity Metadata</value>
+  <data name="UpdatingFileWithEntityMetadataFormat1" xml:space="preserve">
+    <value>{0}. Updating File with Entity Metadata</value>
   </data>
-  <data name="UpdatingFileWithGlobalOptionSets" xml:space="preserve">
-    <value>Updating File with Global OptionSets</value>
+  <data name="UpdatingFileWithGlobalOptionSetsFormat1" xml:space="preserve">
+    <value>{0}. Updating File with Global OptionSets</value>
   </data>
-  <data name="UpdatingProxyClasses" xml:space="preserve">
-    <value>Updating Proxy Classes</value>
+  <data name="UpdatingProxyClassesFormat1" xml:space="preserve">
+    <value>{0}. Updating Proxy Classes</value>
   </data>
-  <data name="UpdatingReport" xml:space="preserve">
-    <value>Updating Report</value>
+  <data name="UpdatingReportFormat1" xml:space="preserve">
+    <value>{0}. Updating Report</value>
   </data>
   <data name="CreatingFileWithDescription" xml:space="preserve">
     <value>Creating file with Description</value>
   </data>
-  <data name="CreatingFileWithEntityMetadataForEntityFormat1" xml:space="preserve">
-    <value>Creating File with Entity Metadata for {0}</value>
+  <data name="CreatingFileWithDescriptionFormat1" xml:space="preserve">
+    <value>{0}. Creating file with Description</value>
   </data>
-  <data name="CreatingFileWithGlobalOptionSetsFormat1" xml:space="preserve">
-    <value>Creating File with Global OptionSets Metadata for {0}</value>
+  <data name="CreatingFileWithEntityMetadataForEntityFormat2" xml:space="preserve">
+    <value>{0}. Creating File with Entity Metadata for {1}</value>
   </data>
-  <data name="PublishingEntitiesFormat1" xml:space="preserve">
-    <value>Publishing Entities {0}</value>
+  <data name="CreatingFileWithGlobalOptionSetsFormat2" xml:space="preserve">
+    <value>{0}. Creating File with Global OptionSets Metadata for {1}</value>
   </data>
-  <data name="AnalyzingSolutionWorkflowsFormat1" xml:space="preserve">
-    <value>Analyzing Solution {0} Workflows</value>
+  <data name="PublishingEntitiesFormat2" xml:space="preserve">
+    <value>{0}. Publishing Entities {1}</value>
   </data>
-  <data name="AnalyzingWorkflows" xml:space="preserve">
-    <value>Analyzing Workflows</value>
+  <data name="AnalyzingSolutionWorkflowsFormat2" xml:space="preserve">
+    <value>{0}. Analyzing Solution {1} Workflows</value>
+  </data>
+  <data name="AnalyzingWorkflowsFormat1" xml:space="preserve">
+    <value>{0}. Analyzing Workflows</value>
   </data>
   <data name="ComparingConnectionsFormat2" xml:space="preserve">
     <value>Comparing Connections {0} and {1}</value>
   </data>
-  <data name="CreatingEntityDescription" xml:space="preserve">
-    <value>Creating Entity Description</value>
+  <data name="CreatingEntityDescriptionFormat1" xml:space="preserve">
+    <value>{0}. Creating Entity Description</value>
   </data>
-  <data name="CreatingFileForEntityFormat1" xml:space="preserve">
-    <value>Creating file with Entity Metadata for {0}</value>
+  <data name="CreatingFileForEntityFormat2" xml:space="preserve">
+    <value>{0}. Creating file with Entity Metadata for {1}</value>
   </data>
-  <data name="ExportingApplicationRibbon" xml:space="preserve">
-    <value>Exporting Application Ribbon</value>
+  <data name="ExportingApplicationRibbonFormat1" xml:space="preserve">
+    <value>{0}. Exporting Application Ribbon</value>
   </data>
   <data name="ExportingApplicationRibbonConnectionFormat2" xml:space="preserve">
     <value>Exporting Application Ribbon in {0} and {1}</value>
   </data>
-  <data name="ExportingApplicationRibbonDiffXml" xml:space="preserve">
-    <value>Exporting Application RibbonDiffXml</value>
+  <data name="ExportingApplicationRibbonDiffXmlFormat1" xml:space="preserve">
+    <value>{0}. Exporting Application RibbonDiffXml</value>
   </data>
   <data name="ExportingApplicationRibbonDiffXmlConnectionFormat2" xml:space="preserve">
     <value>Exporting Application RibbonDiffXml in {0} and {1}</value>
   </data>
   <data name="ExportingEntityRibbonConnectionFormat3" xml:space="preserve">
-    <value>Exporting {0} Ribbon in {0} and {1}</value>
+    <value>Exporting {0} Ribbon in {1} and {2}</value>
   </data>
   <data name="ExportingEntityRibbonDiffXmlConnectionFormat3" xml:space="preserve">
-    <value>Exporting {0} RibbonDiffXml in {0} and {1}</value>
+    <value>Exporting {0} RibbonDiffXml in {1} and {2}</value>
   </data>
-  <data name="ExportingRibbonDiffXmlForEntityFormat1" xml:space="preserve">
-    <value>Exporting {0} RibbonDiffXml</value>
+  <data name="ExportingRibbonDiffXmlForEntityFormat2" xml:space="preserve">
+    <value>{0}. Exporting {1} RibbonDiffXml</value>
   </data>
-  <data name="ExportingRibbonForEntityFormat1" xml:space="preserve">
-    <value>Exporting {0} Ribbon</value>
+  <data name="ExportingRibbonForEntityFormat2" xml:space="preserve">
+    <value>{0}. Exporting {1} Ribbon</value>
   </data>
-  <data name="GettingEntityXmlFormat1" xml:space="preserve">
-    <value>Getting Entity Xml for {0}</value>
+  <data name="GettingEntityXmlFormat2" xml:space="preserve">
+    <value>{0}. Getting Entity Xml for {1}</value>
   </data>
-  <data name="PublishingApplicationRibbon" xml:space="preserve">
-    <value>Publishing Application Ribbon</value>
+  <data name="PublishingApplicationRibbonFormat1" xml:space="preserve">
+    <value>{0}. Publishing Application Ribbon</value>
   </data>
-  <data name="PublishingOptionSetFormat1" xml:space="preserve">
-    <value>Publishing OptionSet {0}</value>
+  <data name="PublishingOptionSetFormat2" xml:space="preserve">
+    <value>{0}. Publishing OptionSet {1}</value>
   </data>
-  <data name="PublishingSiteMapFormat2" xml:space="preserve">
-    <value>Publishing SiteMap{0} {1}</value>
+  <data name="PublishingSiteMapFormat3" xml:space="preserve">
+    <value>{0}. Publishing SiteMap{1} {2}</value>
   </data>
-  <data name="PublishingSystemFormFormat2" xml:space="preserve">
-    <value>Publishing SystemForm {0} - {1}</value>
+  <data name="PublishingSystemFormFormat3" xml:space="preserve">
+    <value>{0}. Publishing SystemForm {1} - {2}</value>
   </data>
-  <data name="PublishingWebResourceFormat1" xml:space="preserve">
-    <value>Publishing WebResource {0}</value>
+  <data name="PublishingWebResourceFormat2" xml:space="preserve">
+    <value>{0}. Publishing WebResource {1}</value>
   </data>
-  <data name="SavingChanges" xml:space="preserve">
-    <value>Saving Changes</value>
+  <data name="SavingChangesFormat1" xml:space="preserve">
+    <value>{0}. Saving Changes</value>
   </data>
   <data name="TransferingDataFormat2" xml:space="preserve">
     <value>Transfering Data from {0} to {1}</value>
   </data>
-  <data name="UpdatingApplicationRibbonDiffXml" xml:space="preserve">
-    <value>Updating Application RibbonDiffXml</value>
+  <data name="UpdatingApplicationRibbonDiffXmlFormat1" xml:space="preserve">
+    <value>{0}. Updating Application RibbonDiffXml</value>
   </data>
   <data name="AddRibbonDiffIntellisenseContextEntityName" xml:space="preserve">
     <value>Add IntellisenseContext EntityName</value>
@@ -565,39 +568,42 @@
     <value>Transferfing Data from {0} to {1}</value>
   </data>
   <data name="CreatingFileWithAttributesDependentComponentsFormat2" xml:space="preserve">
-    <value>{0}: Creating File with attributes dependent components for {1}</value>
+    <value>{0}. Creating File with attributes dependent components for {1}</value>
   </data>
-  <data name="DifferenceRibbon" xml:space="preserve">
-    <value>Difference Ribbon</value>
+  <data name="DifferenceRibbonFormat1" xml:space="preserve">
+    <value>{0}. Difference Ribbon</value>
   </data>
-  <data name="UpdatingRibbon" xml:space="preserve">
-    <value>Updating RibbonDiffXml</value>
+  <data name="UpdatingRibbonFormat1" xml:space="preserve">
+    <value>{0}. Updating RibbonDiffXml</value>
   </data>
-  <data name="DifferenceRibbonDiffXml" xml:space="preserve">
-    <value>Difference RibbonDiffXml</value>
+  <data name="DifferenceRibbonDiffXmlFormat1" xml:space="preserve">
+    <value>{0}. Difference RibbonDiffXml</value>
   </data>
-  <data name="DifferenceSiteMap" xml:space="preserve">
-    <value>Difference SiteMap</value>
+  <data name="DifferenceSiteMapFormat1" xml:space="preserve">
+    <value>{0}. Difference SiteMap</value>
   </data>
-  <data name="OpeningEntitySecurityRoles" xml:space="preserve">
-    <value>Opening Entity SecurityRoles</value>
+  <data name="OpeningEntitySecurityRolesFormat1" xml:space="preserve">
+    <value>{0}. Opening Entity SecurityRoles</value>
   </data>
-  <data name="OpeningSystemUsersExplorer" xml:space="preserve">
-    <value>Opening SystemUsers Explorer</value>
+  <data name="OpeningSystemUsersExplorerFormat1" xml:space="preserve">
+    <value>{0}. Opening SystemUsers Explorer</value>
   </data>
-  <data name="OpeningTeamsExplorer" xml:space="preserve">
-    <value>Opening Teams Explorer</value>
+  <data name="OpeningTeamsExplorerFormat1" xml:space="preserve">
+    <value>{0}. Opening Teams Explorer</value>
   </data>
-  <data name="OpeningSecurityRolesExplorer" xml:space="preserve">
-    <value>Opening SecurityRoles Explorer</value>
+  <data name="OpeningSecurityRolesExplorerFormat1" xml:space="preserve">
+    <value>{0}. Opening SecurityRoles Explorer</value>
   </data>
-  <data name="RemovingRolesFromTeamsFormat2" xml:space="preserve">
-    <value>Removing Roles {0} from Teams {1}</value>
+  <data name="RemovingRolesFromTeamsFormat3" xml:space="preserve">
+    <value>{0}. Removing Roles {1} from Teams {2}</value>
   </data>
-  <data name="RemovingRolesFromUsersFormat2" xml:space="preserve">
-    <value>Removing Roles {0} from Users {1}</value>
+  <data name="RemovingRolesFromUsersFormat3" xml:space="preserve">
+    <value>{0}. Removing Roles {1} from Users {2}</value>
   </data>
-  <data name="RemovingUsersFromTeamsFormat2" xml:space="preserve">
-    <value>Removing Users {0} from Teams {1}</value>
+  <data name="RemovingUsersFromTeamsFormat3" xml:space="preserve">
+    <value>{0}. Removing Users {1} from Teams {2}</value>
+  </data>
+  <data name="CreatingFileWithEntityMetadataForEntityConnectionsFormat3" xml:space="preserve">
+    <value>Creating File with Entity Metadata for {0} in {1} and {2}</value>
   </data>
 </root>

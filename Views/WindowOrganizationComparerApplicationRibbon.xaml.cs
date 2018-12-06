@@ -513,14 +513,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbon);
+            var service = await getService();
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
 
             ToggleControls(false, Properties.WindowStatusStrings.ExportingApplicationRibbon);
 
             try
             {
-                var service = await getService();
-
                 var repository = new RibbonCustomizationRepository(service);
 
                 string ribbonXml = await repository.ExportApplicationRibbonAsync();
@@ -550,7 +550,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonCompleted);
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbon);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
         }
 
         private void mIConnection1ApplicationRibbonArchive_Click(object sender, RoutedEventArgs e)
@@ -580,14 +580,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbon);
+            var service = await getService();
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
 
             ToggleControls(false, Properties.WindowStatusStrings.ExportingApplicationRibbon);
 
             try
             {
-                var service = await getService();
-
                 var repository = new RibbonCustomizationRepository(service);
 
                 var ribbonBody = await repository.ExportApplicationRibbonByteArrayAsync();
@@ -610,7 +610,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonCompleted);
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbon);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
         }
 
         private void mIConnection1ApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -640,11 +640,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbonDiffXml);
+            var service = await getService();
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
 
             ToggleControls(false, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXml);
-
-            var service = await getService();
 
             var repositoryPublisher = new PublisherRepository(service);
             var publisherDefault = await repositoryPublisher.GetDefaultPublisherAsync();
@@ -714,7 +714,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlFailed);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbonDiffXml);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
         }
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)

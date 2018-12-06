@@ -541,7 +541,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityDescription(string folder, SolutionComponentViewItem solutionComponentViewItem)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingEntityDescription);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingEntityDescriptionFormat1, _service.ConnectionData.Name);
 
             ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
@@ -582,7 +582,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingEntityDescription);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingEntityDescriptionFormat1, _service.ConnectionData.Name);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -1044,7 +1044,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat2, _service.ConnectionData.Name, entityName);
 
             ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityName);
 
@@ -1063,7 +1063,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat1, entityName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityName);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat2, _service.ConnectionData.Name, entityName);
         }
 
         private async void mIAddEntityIntoCrmSolution_Click(object sender, RoutedEventArgs e)

@@ -1097,14 +1097,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformPublishWebResource(string folder, Guid idWebResource, string name)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingWebResourceFormat1, name);
+            var service = await GetService();
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingWebResourceFormat2, service.ConnectionData.Name, name);
 
             ToggleControls(false, Properties.WindowStatusStrings.PublishingWebResourceFormat1, name);
 
             try
             {
-                var service = await GetService();
-
                 var repository = new PublishActionsRepository(service);
 
                 await repository.PublishWebResourcesAsync(new[] { idWebResource });
@@ -1118,7 +1118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingWebResourceFailedFormat1, name);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingWebResourceFormat1, name);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingWebResourceFormat2, service.ConnectionData.Name, name);
         }
     }
 }

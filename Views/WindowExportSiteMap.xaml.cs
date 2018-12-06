@@ -763,15 +763,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingSiteMapFormat2, name, idSiteMap.ToString());
+            var service = await GetService();
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingSiteMapFormat3, service.ConnectionData.Name, name, idSiteMap.ToString());
 
             ToggleControls(false, Properties.WindowStatusStrings.PublishingSiteMapFormat2, name, idSiteMap.ToString());
 
             try
             {
-                var service = await GetService();
-
-                var repository = new PublishActionsRepository(service);
+               var repository = new PublishActionsRepository(service);
 
                 await repository.PublishSiteMapsAsync(new[] { idSiteMap });
 
@@ -784,7 +784,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingSiteMapFailedFormat2, name, idSiteMap.ToString());
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingSiteMapFormat2, name, idSiteMap.ToString());
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingSiteMapFormat3, service.ConnectionData.Name, name, idSiteMap.ToString());
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

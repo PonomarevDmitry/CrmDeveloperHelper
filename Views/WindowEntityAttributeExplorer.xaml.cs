@@ -858,16 +858,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var service = await GetService();
+
             var entityNamesOrdered = string.Join(",", entityNames.OrderBy(s => s));
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityNamesOrdered);
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
 
             ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityNamesOrdered);
 
             try
             {
-                var service = await GetService();
-
                 var repository = new PublishActionsRepository(service);
 
                 await repository.PublishEntitiesAsync(entityNames);
@@ -881,7 +881,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat1, entityNamesOrdered);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat1, entityNamesOrdered);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1258,8 +1258,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.SavingChanges);
-            
             ToggleControls(false, Properties.WindowStatusStrings.SavingChanges);
 
             HashSet<string> listForPublish = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
@@ -1270,6 +1268,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service != null)
                 {
+                    this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.SavingChangesFormat1, service.ConnectionData.Name);
+
                     var listEntitiesToChange = new List<EntityMetadataViewItem>();
                     var listAttributesToChange = new List<AttributeMetadataViewItem>();
 
@@ -1367,6 +1367,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             _iWriteToOutput.WriteErrorToOutput(ex);
                         }
                     }
+
+                    this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.SavingChangesFormat1, service.ConnectionData.Name);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.SavingChangesCompleted);
@@ -1377,8 +1379,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.SavingChangesFailed);
             }
-
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.SavingChanges);
         }
 
         #region Set Attributes Properties

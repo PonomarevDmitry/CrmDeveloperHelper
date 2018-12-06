@@ -724,14 +724,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingOptionSetFormat1, optionSetName);
+            var service = await GetService();
+
+            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingOptionSetFormat2, service.ConnectionData.Name, optionSetName);
 
             ToggleControls(false, Properties.WindowStatusStrings.PublishingOptionSetFormat1, optionSetName);
 
             try
             {
-                var service = await GetService();
-
                 var repository = new PublishActionsRepository(service);
 
                 await repository.PublishOptionSetsAsync(new[] { optionSetName });
@@ -745,7 +745,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.PublishingOptionSetFailedFormat1, optionSetName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingOptionSetFormat1, optionSetName);
+            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingOptionSetFormat2, service.ConnectionData.Name, optionSetName);
         }
 
         private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
