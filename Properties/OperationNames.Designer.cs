@@ -61,7 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Adding Components into Solution {1}.
+        ///   Looks up a localized string similar to {0} - Adding Components into Solution {1}.
         /// </summary>
         internal static string AddingComponentsIntoSolutionFormat2 {
             get {
@@ -70,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Adding into Publish List Files {1}.
+        ///   Looks up a localized string similar to {0} - Adding into Publish List Files {1}.
         /// </summary>
         internal static string AddingIntoPublishListFilesFormat2 {
             get {
@@ -79,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Adding PluginAssembly into Solution {1}.
+        ///   Looks up a localized string similar to {0} - Adding PluginAssembly into Solution {1}.
         /// </summary>
         internal static string AddingPluginAssemblyIntoSolutionFormat2 {
             get {
@@ -88,7 +88,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Adding PluginAssembly Processing Steps into Solution {1}.
+        ///   Looks up a localized string similar to {0} - Adding PluginAssembly Processing Steps into Solution {1}.
         /// </summary>
         internal static string AddingPluginAssemblyProcessingStepsIntoSolutionFormat2 {
             get {
@@ -97,7 +97,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Adding PluginType Processing Steps into Solution {1}.
+        ///   Looks up a localized string similar to {0} - Adding PluginType Processing Steps into Solution {1}.
         /// </summary>
         internal static string AddingPluginTypeProcessingStepsIntoSolutionFormat2 {
             get {
@@ -106,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Adding Reports into Solution {1}.
+        ///   Looks up a localized string similar to {0} - Adding Reports into Solution {1}.
         /// </summary>
         internal static string AddingReportsIntoSolutionFormat2 {
             get {
@@ -115,7 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Adding WebResources into Solution {1}.
+        ///   Looks up a localized string similar to {0} - Adding WebResources into Solution {1}.
         /// </summary>
         internal static string AddingWebResourcesIntoSolutionFormat2 {
             get {
@@ -142,7 +142,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Analyzing Solution {1} Workflows.
+        ///   Looks up a localized string similar to {0} - Analyzing Solution {1} Workflows.
         /// </summary>
         internal static string AnalyzingSolutionWorkflowsFormat2 {
             get {
@@ -151,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Analyzing Workflows.
+        ///   Looks up a localized string similar to {0} - Analyzing Workflows.
         /// </summary>
         internal static string AnalyzingWorkflowsFormat1 {
             get {
@@ -160,7 +160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Checking ComponentType Enum.
+        ///   Looks up a localized string similar to {0} - Checking ComponentType Enum.
         /// </summary>
         internal static string CheckingComponentTypeEnumFormat1 {
             get {
@@ -196,7 +196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Checking CRM Entity Ownership.
+        ///   Looks up a localized string similar to {0} - Checking CRM Entity Ownership.
         /// </summary>
         internal static string CheckingCRMEntityOwnershipFormat1 {
             get {
@@ -205,7 +205,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Checking CRM Objects marked to delete by &apos;{1}&apos; and show dependent components.
+        ///   Looks up a localized string similar to {0} - Checking CRM Objects marked to delete by &apos;{1}&apos; and show dependent components.
         /// </summary>
         internal static string CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat2 {
             get {
@@ -214,7 +214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Checking CRM Objects names and show dependent components.
+        ///   Looks up a localized string similar to {0} - Checking CRM Objects names and show dependent components.
         /// </summary>
         internal static string CheckingCRMObjectsNamesAndShowDependentComponents {
             get {
@@ -223,7 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Checking CRM Objects names for prefix &apos;{1}&apos; and show dependent components.
+        ///   Looks up a localized string similar to {0} - Checking CRM Objects names for prefix &apos;{1}&apos; and show dependent components.
         /// </summary>
         internal static string CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat2 {
             get {
@@ -232,7 +232,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Checking CRM Objects names for prefix &apos;{1}&apos;.
+        ///   Looks up a localized string similar to {0} - Checking CRM Objects names for prefix &apos;{1}&apos;.
         /// </summary>
         internal static string CheckingCRMObjectsNamesForPrefixFormat2 {
             get {
@@ -322,7 +322,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Checking Global OptionSet Duplicates on Entity.
+        ///   Looks up a localized string similar to {0} - Checking Global OptionSet Duplicates on Entity.
         /// </summary>
         internal static string CheckingGlobalOptionSetDuplicatesOnEntityFormat1 {
             get {
@@ -358,7 +358,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Checking Managed Entities.
+        ///   Looks up a localized string similar to {0} - Checking Managed Entities.
         /// </summary>
         internal static string CheckingManagedEntitiesFormat1 {
             get {
@@ -385,7 +385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Checking Plugin Images Duplicates.
+        ///   Looks up a localized string similar to {0} - Checking Plugin Images Duplicates.
         /// </summary>
         internal static string CheckingPluginImagesDuplicatesFormat1 {
             get {
@@ -394,7 +394,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Checking Plugin Images Required Components.
+        ///   Looks up a localized string similar to {0} - Checking Plugin Images Required Components.
         /// </summary>
         internal static string CheckingPluginImagesRequiredComponentsFormat1 {
             get {
@@ -421,7 +421,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Checking Plugin Steps Duplicates.
+        ///   Looks up a localized string similar to {0} - Checking Plugin Steps Duplicates.
         /// </summary>
         internal static string CheckingPluginStepsDuplicatesFormat1 {
             get {
@@ -430,7 +430,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Checking Plugin Steps Required Components.
+        ///   Looks up a localized string similar to {0} - Checking Plugin Steps Required Components.
         /// </summary>
         internal static string CheckingPluginStepsRequiredComponentsFormat1 {
             get {
@@ -547,7 +547,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Checking Workflows Used Entities.
+        ///   Looks up a localized string similar to {0} - Checking Workflows Used Entities.
         /// </summary>
         internal static string CheckingWorkflowsUsedEntitiesFormat1 {
             get {
@@ -556,7 +556,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Checking Workflows Used Not Existing Entities.
+        ///   Looks up a localized string similar to {0} - Checking Workflows Used Not Existing Entities.
         /// </summary>
         internal static string CheckingWorkflowsUsedNotExistingEntitiesFormat1 {
             get {
@@ -574,7 +574,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Clearing Last Link.
+        ///   Looks up a localized string similar to {0} - Clearing Last Link.
         /// </summary>
         internal static string ClearingLastLinkFormat1 {
             get {
@@ -592,7 +592,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Comparing Crm PluginAssembly and Local Assembly.
+        ///   Looks up a localized string similar to {0} - Comparing Crm PluginAssembly and Local Assembly.
         /// </summary>
         internal static string ComparingCrmPluginAssemblyAndLocalAssemblyFormat1 {
             get {
@@ -601,7 +601,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Comparing Files and WebResources.
+        ///   Looks up a localized string similar to {0} - Comparing Files and WebResources.
         /// </summary>
         internal static string ComparingFilesAndWebResourcesFormat1 {
             get {
@@ -610,7 +610,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Comparing Files with Wrong Encoding and WebResources.
+        ///   Looks up a localized string similar to {0} - Comparing Files with Wrong Encoding and WebResources.
         /// </summary>
         internal static string ComparingFilesWithWrongEncodingAndWebResourcesFormat1 {
             get {
@@ -628,7 +628,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Creating all Dependency Nodes Description.
+        ///   Looks up a localized string similar to {0} - Creating all Dependency Nodes Description.
         /// </summary>
         internal static string CreatingAllDependencyNodesDescriptionFormat1 {
             get {
@@ -637,7 +637,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Creating Entity Description.
+        ///   Looks up a localized string similar to {0} - Creating Entity Description.
         /// </summary>
         internal static string CreatingEntityDescriptionFormat1 {
             get {
@@ -646,7 +646,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Creating file with Entity Metadata for {1}.
+        ///   Looks up a localized string similar to {0} - Creating file with Entity Metadata for {1}.
         /// </summary>
         internal static string CreatingFileForEntityFormat2 {
             get {
@@ -655,7 +655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Creating File with attributes dependent components for {1}.
+        ///   Looks up a localized string similar to {0} - Creating File with attributes dependent components for {1}.
         /// </summary>
         internal static string CreatingFileWithAttributesDependentComponentsFormat2 {
             get {
@@ -673,7 +673,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Creating file with Description.
+        ///   Looks up a localized string similar to {0} - Creating file with Description.
         /// </summary>
         internal static string CreatingFileWithDescriptionFormat1 {
             get {
@@ -691,7 +691,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Creating File with Entity Metadata for {1}.
+        ///   Looks up a localized string similar to {0} - Creating File with Entity Metadata for {1}.
         /// </summary>
         internal static string CreatingFileWithEntityMetadataForEntityFormat2 {
             get {
@@ -700,7 +700,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Creating File with Entity Metadata.
+        ///   Looks up a localized string similar to {0} - Creating File with Entity Metadata.
         /// </summary>
         internal static string CreatingFileWithEntityMetadataFormat1 {
             get {
@@ -709,7 +709,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Creating File with Global OptionSets Metadata.
+        ///   Looks up a localized string similar to {0} - Creating File with Global OptionSets Metadata.
         /// </summary>
         internal static string CreatingFileWithGlobalOptionSetsFormat1 {
             get {
@@ -718,7 +718,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Creating File with Global OptionSets Metadata for {1}.
+        ///   Looks up a localized string similar to {0} - Creating File with Global OptionSets Metadata for {1}.
         /// </summary>
         internal static string CreatingFileWithGlobalOptionSetsFormat2 {
             get {
@@ -727,7 +727,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Creating Last Link for Report.
+        ///   Looks up a localized string similar to {0} - Creating Last Link for Report.
         /// </summary>
         internal static string CreatingLastLinkForReportFormat1 {
             get {
@@ -736,7 +736,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Creating Last Link for WebResources.
+        ///   Looks up a localized string similar to {0} - Creating Last Link for WebResources.
         /// </summary>
         internal static string CreatingLastLinkForWebResourcesFormat1 {
             get {
@@ -745,7 +745,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Creating PluginType Description.
+        ///   Looks up a localized string similar to {0} - Creating PluginType Description.
         /// </summary>
         internal static string CreatingPluginTypeDescriptionFormat1 {
             get {
@@ -772,7 +772,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Difference Report.
+        ///   Looks up a localized string similar to {0} - Difference Report.
         /// </summary>
         internal static string DifferenceReportFormat1 {
             get {
@@ -781,7 +781,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Difference RibbonDiffXml.
+        ///   Looks up a localized string similar to {0} - Difference RibbonDiffXml.
         /// </summary>
         internal static string DifferenceRibbonDiffXmlFormat1 {
             get {
@@ -790,7 +790,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Difference Ribbon.
+        ///   Looks up a localized string similar to {0} - Difference Ribbon.
         /// </summary>
         internal static string DifferenceRibbonFormat1 {
             get {
@@ -799,7 +799,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Difference SiteMap.
+        ///   Looks up a localized string similar to {0} - Difference SiteMap.
         /// </summary>
         internal static string DifferenceSiteMapFormat1 {
             get {
@@ -808,7 +808,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Difference WebResource.
+        ///   Looks up a localized string similar to {0} - Difference WebResource.
         /// </summary>
         internal static string DifferenceWebResourceFormat1 {
             get {
@@ -817,7 +817,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Downloading Report.
+        ///   Looks up a localized string similar to {0} - Downloading Report.
         /// </summary>
         internal static string DownloadingReportFormat1 {
             get {
@@ -826,7 +826,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Downloading WebResource.
+        ///   Looks up a localized string similar to {0} - Downloading WebResource.
         /// </summary>
         internal static string DownloadingWebResourceFormat1 {
             get {
@@ -862,7 +862,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting Application RibbonDiffXml.
+        ///   Looks up a localized string similar to {0} - Exporting Application RibbonDiffXml.
         /// </summary>
         internal static string ExportingApplicationRibbonDiffXmlFormat1 {
             get {
@@ -871,7 +871,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting Application Ribbon.
+        ///   Looks up a localized string similar to {0} - Exporting Application Ribbon.
         /// </summary>
         internal static string ExportingApplicationRibbonFormat1 {
             get {
@@ -880,7 +880,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting CRM Solution.
+        ///   Looks up a localized string similar to {0} - Exporting CRM Solution.
         /// </summary>
         internal static string ExportingCRMSolutionFormat1 {
             get {
@@ -889,7 +889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting Entity Attributes Dependent Components.
+        ///   Looks up a localized string similar to {0} - Exporting Entity Attributes Dependent Components.
         /// </summary>
         internal static string ExportingEntityAttributesDependentComponentsFormat1 {
             get {
@@ -916,7 +916,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting Organization Information.
+        ///   Looks up a localized string similar to {0} - Exporting Organization Information.
         /// </summary>
         internal static string ExportingOrganizationInformationFormat1 {
             get {
@@ -925,7 +925,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting Plugin Assembly.
+        ///   Looks up a localized string similar to {0} - Exporting Plugin Assembly.
         /// </summary>
         internal static string ExportingPluginAssemblyFormat1 {
             get {
@@ -934,7 +934,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting Plugin Configuration Xml.
+        ///   Looks up a localized string similar to {0} - Exporting Plugin Configuration Xml.
         /// </summary>
         internal static string ExportingPluginConfigurationXmlFormat1 {
             get {
@@ -943,7 +943,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting Plugin Configuration Xml into Folder.
+        ///   Looks up a localized string similar to {0} - Exporting Plugin Configuration Xml into Folder.
         /// </summary>
         internal static string ExportingPluginConfigurationXmlIntoFolderFormat1 {
             get {
@@ -952,7 +952,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting {1} RibbonDiffXml.
+        ///   Looks up a localized string similar to {0} - Exporting {1} RibbonDiffXml.
         /// </summary>
         internal static string ExportingRibbonDiffXmlForEntityFormat2 {
             get {
@@ -961,7 +961,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting {1} Ribbon.
+        ///   Looks up a localized string similar to {0} - Exporting {1} Ribbon.
         /// </summary>
         internal static string ExportingRibbonForEntityFormat2 {
             get {
@@ -970,7 +970,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting Ribbon Xml.
+        ///   Looks up a localized string similar to {0} - Exporting Ribbon Xml.
         /// </summary>
         internal static string ExportingRibbonXmlFormat1 {
             get {
@@ -979,7 +979,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting Sitemap Xml.
+        ///   Looks up a localized string similar to {0} - Exporting Sitemap Xml.
         /// </summary>
         internal static string ExportingSitemapXmlFormat1 {
             get {
@@ -988,7 +988,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting System Forms Events.
+        ///   Looks up a localized string similar to {0} - Exporting System Forms Events.
         /// </summary>
         internal static string ExportingSystemFormsEventsFormat1 {
             get {
@@ -997,7 +997,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting System Form FormXml.
+        ///   Looks up a localized string similar to {0} - Exporting System Form FormXml.
         /// </summary>
         internal static string ExportingSystemFormXmlFormat1 {
             get {
@@ -1006,7 +1006,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting System Chart (Saved Query Visualization) Xml.
+        ///   Looks up a localized string similar to {0} - Exporting System Chart (Saved Query Visualization) Xml.
         /// </summary>
         internal static string ExportingSystemSavedQueryVisualizationXmlFormat1 {
             get {
@@ -1015,7 +1015,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting System View (Saved Query) Xml.
+        ///   Looks up a localized string similar to {0} - Exporting System View (Saved Query) Xml.
         /// </summary>
         internal static string ExportingSystemSavedQueryXmlFormat1 {
             get {
@@ -1024,7 +1024,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Exporting Workflow.
+        ///   Looks up a localized string similar to {0} - Exporting Workflow.
         /// </summary>
         internal static string ExportingWorkflowFormat1 {
             get {
@@ -1033,7 +1033,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Export Solution Window.
+        ///   Looks up a localized string similar to {0} - Export Solution Window.
         /// </summary>
         internal static string ExportSolutionWindowFormat1 {
             get {
@@ -1042,7 +1042,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Finding CRM Objects by Id &apos;{1}&apos;, entityName &apos;{2}&apos;, entityTypeCode &apos;{3}&apos;.
+        ///   Looks up a localized string similar to {0} - Finding CRM Objects by Id &apos;{1}&apos;, entityName &apos;{2}&apos;, entityTypeCode &apos;{3}&apos;.
         /// </summary>
         internal static string FindingCRMObjectsByIdEntityNameEntityTypeCodeFormat4 {
             get {
@@ -1051,7 +1051,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Finding CRM Objects by Uniqueidentifier &apos;{1}&apos;, entityName &apos;{2}&apos;, entityTypeCode &apos;{3}&apos;.
+        ///   Looks up a localized string similar to {0} - Finding CRM Objects by Uniqueidentifier &apos;{1}&apos;, entityName &apos;{2}&apos;, entityTypeCode &apos;{3}&apos;.
         /// </summary>
         internal static string FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCodeFormat4 {
             get {
@@ -1060,7 +1060,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Finding CRM Objects names contains &apos;{1}&apos;.
+        ///   Looks up a localized string similar to {0} - Finding CRM Objects names contains &apos;{1}&apos;.
         /// </summary>
         internal static string FindingCRMObjectscontainsNameFormat2 {
             get {
@@ -1069,7 +1069,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Finding CRM Objects names for &apos;{1}&apos;.
+        ///   Looks up a localized string similar to {0} - Finding CRM Objects names for &apos;{1}&apos;.
         /// </summary>
         internal static string FindingCRMObjectsNamesFormat2 {
             get {
@@ -1078,7 +1078,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Getting Entity Xml for {1}.
+        ///   Looks up a localized string similar to {0} - Getting Entity Xml for {1}.
         /// </summary>
         internal static string GettingEntityXmlFormat2 {
             get {
@@ -1087,7 +1087,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Multi Difference {1}.
+        ///   Looks up a localized string similar to {0} - Multi Difference {1}.
         /// </summary>
         internal static string MultiDifferenceFormat2 {
             get {
@@ -1096,7 +1096,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Opening Entity Attribute Explorer.
+        ///   Looks up a localized string similar to {0} - Opening Entity Attribute Explorer.
         /// </summary>
         internal static string OpeningEntityAttributeExplorerFormat1 {
             get {
@@ -1105,7 +1105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Opening Entity Key Explorer.
+        ///   Looks up a localized string similar to {0} - Opening Entity Key Explorer.
         /// </summary>
         internal static string OpeningEntityKeyExplorerFormat1 {
             get {
@@ -1114,7 +1114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Opening Entity Relationship Many-To-Many.
+        ///   Looks up a localized string similar to {0} - Opening Entity Relationship Many-To-Many.
         /// </summary>
         internal static string OpeningEntityRelationshipManyToManyFormat1 {
             get {
@@ -1123,7 +1123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Opening Entity Relationship One-To-Many.
+        ///   Looks up a localized string similar to {0} - Opening Entity Relationship One-To-Many.
         /// </summary>
         internal static string OpeningEntityRelationshipOneToManyFormat1 {
             get {
@@ -1132,7 +1132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Opening Entity SecurityRoles.
+        ///   Looks up a localized string similar to {0} - Opening Entity SecurityRoles.
         /// </summary>
         internal static string OpeningEntitySecurityRolesFormat1 {
             get {
@@ -1141,7 +1141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Opening Files {1}.
+        ///   Looks up a localized string similar to {0} - Opening Files {1}.
         /// </summary>
         internal static string OpeningFilesFormat2 {
             get {
@@ -1159,7 +1159,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Opening Report.
+        ///   Looks up a localized string similar to {0} - Opening Report.
         /// </summary>
         internal static string OpeningReportFormat1 {
             get {
@@ -1168,7 +1168,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Opening SecurityRoles Explorer.
+        ///   Looks up a localized string similar to {0} - Opening SecurityRoles Explorer.
         /// </summary>
         internal static string OpeningSecurityRolesExplorerFormat1 {
             get {
@@ -1177,7 +1177,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Opening Solution.
+        ///   Looks up a localized string similar to {0} - Opening Solution.
         /// </summary>
         internal static string OpeningSolutionFormat1 {
             get {
@@ -1186,7 +1186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Opening SystemUsers Explorer.
+        ///   Looks up a localized string similar to {0} - Opening SystemUsers Explorer.
         /// </summary>
         internal static string OpeningSystemUsersExplorerFormat1 {
             get {
@@ -1195,7 +1195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Opening Teams Explorer.
+        ///   Looks up a localized string similar to {0} - Opening Teams Explorer.
         /// </summary>
         internal static string OpeningTeamsExplorerFormat1 {
             get {
@@ -1204,7 +1204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Opening WebResource.
+        ///   Looks up a localized string similar to {0} - Opening WebResource.
         /// </summary>
         internal static string OpeningWebResourceFormat1 {
             get {
@@ -1240,7 +1240,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Publishing All Customization in {0}.
+        ///   Looks up a localized string similar to {0} - Publishing All Customization in {0}.
         /// </summary>
         internal static string PublishingAllCustomizationFormat1 {
             get {
@@ -1249,7 +1249,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Publishing Application Ribbon.
+        ///   Looks up a localized string similar to {0} - Publishing Application Ribbon.
         /// </summary>
         internal static string PublishingApplicationRibbonFormat1 {
             get {
@@ -1258,7 +1258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Publishing Entities {1}.
+        ///   Looks up a localized string similar to {0} - Publishing Entities {1}.
         /// </summary>
         internal static string PublishingEntitiesFormat2 {
             get {
@@ -1267,7 +1267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Publishing OptionSet {1}.
+        ///   Looks up a localized string similar to {0} - Publishing OptionSet {1}.
         /// </summary>
         internal static string PublishingOptionSetFormat2 {
             get {
@@ -1276,7 +1276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Publishing SiteMap{1} {2}.
+        ///   Looks up a localized string similar to {0} - Publishing SiteMap{1} {2}.
         /// </summary>
         internal static string PublishingSiteMapFormat3 {
             get {
@@ -1285,7 +1285,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Publishing SystemForm {1} - {2}.
+        ///   Looks up a localized string similar to {0} - Publishing SystemForm {1} - {2}.
         /// </summary>
         internal static string PublishingSystemFormFormat3 {
             get {
@@ -1294,7 +1294,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Publishing WebResource {1}.
+        ///   Looks up a localized string similar to {0} - Publishing WebResource {1}.
         /// </summary>
         internal static string PublishingWebResourceFormat2 {
             get {
@@ -1321,7 +1321,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Removing Roles {1} from Teams {2}.
+        ///   Looks up a localized string similar to {0} - Removing Roles {1} from Teams {2}.
         /// </summary>
         internal static string RemovingRolesFromTeamsFormat3 {
             get {
@@ -1330,7 +1330,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Removing Roles {1} from Users {2}.
+        ///   Looks up a localized string similar to {0} - Removing Roles {1} from Users {2}.
         /// </summary>
         internal static string RemovingRolesFromUsersFormat3 {
             get {
@@ -1339,7 +1339,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Removing Users {1} from Teams {2}.
+        ///   Looks up a localized string similar to {0} - Removing Users {1} from Teams {2}.
         /// </summary>
         internal static string RemovingUsersFromTeamsFormat3 {
             get {
@@ -1348,7 +1348,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Saving Changes.
+        ///   Looks up a localized string similar to {0} - Saving Changes.
         /// </summary>
         internal static string SavingChangesFormat1 {
             get {
@@ -1375,7 +1375,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Showing Plugin Configuration Tree.
+        ///   Looks up a localized string similar to {0} - Showing Plugin Configuration Tree.
         /// </summary>
         internal static string ShowingPluginConfigurationTreeFormat1 {
             get {
@@ -1384,7 +1384,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Showing Plugin Tree.
+        ///   Looks up a localized string similar to {0} - Showing Plugin Tree.
         /// </summary>
         internal static string ShowingPluginTreeFormat1 {
             get {
@@ -1393,7 +1393,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Showing Sdk Message Request Tree.
+        ///   Looks up a localized string similar to {0} - Showing Sdk Message Request Tree.
         /// </summary>
         internal static string ShowingSdkMessageRequestTreeFormat1 {
             get {
@@ -1402,7 +1402,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Showing Sdk Message Tree.
+        ///   Looks up a localized string similar to {0} - Showing Sdk Message Tree.
         /// </summary>
         internal static string ShowingSdkMessageTreeFormat1 {
             get {
@@ -1411,7 +1411,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Showing SolutionImage Window.
+        ///   Looks up a localized string similar to {0} - Showing SolutionImage Window.
         /// </summary>
         internal static string ShowingSolutionImageWindowFormat1 {
             get {
@@ -1420,7 +1420,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Solution Component Explorer.
+        ///   Looks up a localized string similar to {0} - Solution Component Explorer.
         /// </summary>
         internal static string SolutionComponentExplorerFormat1 {
             get {
@@ -1429,7 +1429,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Trace Reader.
+        ///   Looks up a localized string similar to {0} - Trace Reader.
         /// </summary>
         internal static string TraceReaderFormat1 {
             get {
@@ -1456,7 +1456,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Updating Application RibbonDiffXml.
+        ///   Looks up a localized string similar to {0} - Updating Application RibbonDiffXml.
         /// </summary>
         internal static string UpdatingApplicationRibbonDiffXmlFormat1 {
             get {
@@ -1465,7 +1465,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Updating Content and Publishing.
+        ///   Looks up a localized string similar to {0} - Updating Content and Publishing.
         /// </summary>
         internal static string UpdatingContentAndPublishingFormat1 {
             get {
@@ -1474,7 +1474,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Updating Content Web Resources equal by Text and Publishing.
+        ///   Looks up a localized string similar to {0} - Updating Content Web Resources equal by Text and Publishing.
         /// </summary>
         internal static string UpdatingContentWebResourcesEqualByTextAndPublishingFormat1 {
             get {
@@ -1483,7 +1483,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Updating File with Entity Metadata.
+        ///   Looks up a localized string similar to {0} - Updating File with Entity Metadata.
         /// </summary>
         internal static string UpdatingFileWithEntityMetadataFormat1 {
             get {
@@ -1492,7 +1492,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Updating File with Global OptionSets.
+        ///   Looks up a localized string similar to {0} - Updating File with Global OptionSets.
         /// </summary>
         internal static string UpdatingFileWithGlobalOptionSetsFormat1 {
             get {
@@ -1501,7 +1501,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Updating Proxy Classes.
+        ///   Looks up a localized string similar to {0} - Updating Proxy Classes.
         /// </summary>
         internal static string UpdatingProxyClassesFormat1 {
             get {
@@ -1510,7 +1510,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Updating Report.
+        ///   Looks up a localized string similar to {0} - Updating Report.
         /// </summary>
         internal static string UpdatingReportFormat1 {
             get {
@@ -1519,7 +1519,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Updating RibbonDiffXml.
+        ///   Looks up a localized string similar to {0} - Updating RibbonDiffXml.
         /// </summary>
         internal static string UpdatingRibbonFormat1 {
             get {
