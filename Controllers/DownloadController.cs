@@ -24,7 +24,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteDownloadCustomWebResources(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.DownloadingWebResource);
+            string operation = string.Format(Properties.OperationNames.DownloadingWebResourceFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -36,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.DownloadingWebResource);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -66,7 +68,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteDownloadCustomReport(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.DownloadingReport);
+            string operation = string.Format(Properties.OperationNames.DownloadingReportFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -78,7 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.DownloadingReport);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 

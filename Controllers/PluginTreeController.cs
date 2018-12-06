@@ -24,7 +24,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string pluginTypeFilter, string messageFilter)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ShowingPluginTree);
+            string operation = string.Format(Properties.OperationNames.ShowingPluginTreeFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -36,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ShowingPluginTree);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -66,7 +68,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteShowingSdkMessageTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ShowingSdkMessageTree);
+            string operation = string.Format(Properties.OperationNames.ShowingSdkMessageTreeFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -78,7 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ShowingSdkMessageTree);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -108,7 +112,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ShowingSdkMessageRequestTree);
+            string operation = string.Format(Properties.OperationNames.ShowingSdkMessageRequestTreeFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -120,7 +126,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ShowingSdkMessageRequestTree);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -150,7 +156,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public void ExecuteShowingPluginConfigurationTree(ConnectionData connectionData, CommonConfiguration commonConfig, string filePath)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ShowingPluginConfigurationTree);
+            string operation = string.Format(Properties.OperationNames.ShowingPluginConfigurationTreeFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -162,7 +170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ShowingPluginConfigurationTree);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 

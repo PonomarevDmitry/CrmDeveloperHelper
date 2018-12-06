@@ -21,7 +21,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteUpdatingProxyClasses(string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.UpdatingProxyClasses);
+            string operation = string.Format(Properties.OperationNames.UpdatingProxyClassesFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -33,7 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.UpdatingProxyClasses);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 

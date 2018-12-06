@@ -31,7 +31,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         internal void ExecuteClearingLastLink(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ClearingLastLink);
+            string operation = string.Format(Properties.OperationNames.ClearingLastLinkFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -53,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ClearingLastLink);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -95,7 +97,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCreatingLastLinkReport(SelectedFile selectedFile, ConnectionData connectionData)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingLastLinkForReport);
+            string operation = string.Format(Properties.OperationNames.CreatingLastLinkForReportFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -117,7 +121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingLastLinkForReport);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -223,7 +227,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCreatingLastLinkWebResourceMultiple(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingLastLinkForWebResources);
+            string operation = string.Format(Properties.OperationNames.CreatingLastLinkForWebResourcesFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -245,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingLastLinkForWebResources);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -344,7 +350,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningReport(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOpenComponent action)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningReport);
+            string operation = string.Format(Properties.OperationNames.OpeningReportFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -356,7 +364,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningReport);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -514,7 +522,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningWebResource(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOpenComponent action)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningWebResource);
+            string operation = string.Format(Properties.OperationNames.OpeningWebResourceFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -536,7 +546,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningWebResource);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -692,7 +702,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningSolutionAsync(CommonConfiguration commonConfig, ConnectionData connectionData, string solutionUniqueName, ActionOpenComponent action)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningSolution);
+            string operation = string.Format(Properties.OperationNames.OpeningSolutionFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -704,7 +716,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningSolution);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 

@@ -28,7 +28,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningSolutionComponentWindow(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.SolutionComponentExplorer);
+            string operation = string.Format(Properties.OperationNames.SolutionComponentExplorerFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -40,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.SolutionComponentExplorer);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -77,7 +79,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public void ExecuteOpeningSolutionImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ShowingSolutionImageWindow);
+            string operation = string.Format(Properties.OperationNames.ShowingSolutionImageWindowFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -89,7 +93,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ShowingSolutionImageWindow);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -143,7 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteAddingWebResourcesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingWebResourcesIntoSolutionFormat1, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingWebResourcesIntoSolutionFormat2, connectionData?.Name, solutionUniqueName);
 
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -348,7 +352,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteAddingReportsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingReportsIntoSolutionFormat1, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingReportsIntoSolutionFormat2, connectionData?.Name, solutionUniqueName);
 
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -533,7 +537,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public static async Task AddSolutionComponentsGroupIntoSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, ComponentType componentType, IEnumerable<Guid> selectedObjects, RootComponentBehavior? rootComponentBehavior, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingComponentsIntoSolutionFormat1, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingComponentsIntoSolutionFormat2, service?.ConnectionData?.Name, solutionUniqueName);
 
             iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -687,7 +691,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public static async Task AddSolutionComponentsCollectionIntoSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SolutionComponent> components, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingComponentsIntoSolutionFormat1, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingComponentsIntoSolutionFormat2, service?.ConnectionData?.Name, solutionUniqueName);
 
             iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -860,7 +864,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteAddingPluginAssemblyIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyIntoSolutionFormat1, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyIntoSolutionFormat2, connectionData?.Name, solutionUniqueName);
 
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -1035,7 +1039,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteAddingPluginAssemblyProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyProcessingStepsIntoSolutionFormat1, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyProcessingStepsIntoSolutionFormat2, connectionData?.Name, solutionUniqueName);
 
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
@@ -1249,7 +1253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteAddingPluginTypeProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingPluginTypeProcessingStepsIntoSolutionFormat1, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingPluginTypeProcessingStepsIntoSolutionFormat2, connectionData?.Name, solutionUniqueName);
 
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 

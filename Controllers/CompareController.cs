@@ -28,7 +28,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteComparingFilesAndWebResources(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
         {
-            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(Properties.OperationNames.ComparingFilesAndWebResources);
+            string operation = string.Format(Properties.OperationNames.ComparingFilesAndWebResourcesFormat1, connectionData?.Name);
+
+            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -50,7 +52,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(Properties.OperationNames.ComparingFilesAndWebResources);
+                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -686,7 +688,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteAddingIntoPublishListFilesByType(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            string operation = string.Format(Properties.OperationNames.AddingIntoPublishListFilesFormat1, openFilesType.ToString());
+            string operation = string.Format(Properties.OperationNames.AddingIntoPublishListFilesFormat2, connectionData?.Name, openFilesType.ToString());
 
             this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(operation);
 
@@ -740,7 +742,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteComparingFilesWithWrongEncoding(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
         {
-            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(Properties.OperationNames.ComparingFilesWithWrongEncodingAndWebResources);
+            string operation = string.Format(Properties.OperationNames.ComparingFilesWithWrongEncodingAndWebResourcesFormat1, connectionData?.Name);
+
+            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -756,7 +760,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(Properties.OperationNames.ComparingFilesWithWrongEncodingAndWebResources);
+                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(operation);
             }
         }
 

@@ -24,16 +24,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteShowingSystemUserExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningSystemUsersExplorer);
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            string operation = string.Format(Properties.OperationNames.OpeningSystemUsersExplorerFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
-                if (connectionData == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
-                    return;
-                }
-
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
                 this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
@@ -51,22 +53,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningSystemUsersExplorer);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
         
         public async Task ExecuteShowingTeamsExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningTeamsExplorer);
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            string operation = string.Format(Properties.OperationNames.OpeningTeamsExplorerFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
-                if (connectionData == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
-                    return;
-                }
-
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
                 this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
@@ -84,22 +88,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningTeamsExplorer);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
         public async Task ExecuteShowingSecurityRolesExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningSecurityRolesExplorer);
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            string operation = string.Format(Properties.OperationNames.OpeningSecurityRolesExplorerFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
-                if (connectionData == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
-                    return;
-                }
-
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
 
                 this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
@@ -117,7 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningSecurityRolesExplorer);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 

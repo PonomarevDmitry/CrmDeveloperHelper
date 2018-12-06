@@ -108,7 +108,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCheckingPluginImages(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingPluginImagesDuplicates);
+            string operation = string.Format(Properties.OperationNames.CheckingPluginImagesDuplicatesFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -120,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingPluginImagesDuplicates);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -246,7 +248,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCheckingPluginSteps(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingPluginStepsDuplicates);
+            string operation = string.Format(Properties.OperationNames.CheckingPluginStepsDuplicatesFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -258,7 +262,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingPluginStepsDuplicates);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -394,7 +398,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCheckingPluginStepsRequiredComponents(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingPluginStepsRequiredComponents);
+            string operation = string.Format(Properties.OperationNames.CheckingPluginStepsRequiredComponentsFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -406,7 +412,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingPluginStepsRequiredComponents);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -653,7 +659,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCheckingPluginImagesRequiredComponents(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingPluginImagesRequiredComponents);
+            string operation = string.Format(Properties.OperationNames.CheckingPluginImagesRequiredComponentsFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -665,7 +673,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingPluginImagesRequiredComponents);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 

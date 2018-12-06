@@ -36,7 +36,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// <param name="config"></param>
         public async Task ExecuteUpdateContentAndPublish(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.UpdatingContentAndPublishing);
+            string operation = string.Format(Properties.OperationNames.UpdatingContentAndPublishingFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -58,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.UpdatingContentAndPublishing);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
@@ -208,7 +210,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// <param name="config"></param>
         public async Task ExecuteUpdateContentAndPublishEqualByText(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.UpdatingContentWebResourcesEqualByTextAndPublishing);
+            string operation = string.Format(Properties.OperationNames.UpdatingContentWebResourcesEqualByTextAndPublishingFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
@@ -230,7 +234,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.UpdatingContentWebResourcesEqualByTextAndPublishing);
+                this._iWriteToOutput.WriteToOutputEndOperation(operation);
             }
         }
 
