@@ -434,7 +434,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
 
-                ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat1, solution.UniqueName);
+                ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat2, _service.ConnectionData.Name, solution.UniqueName);
 
                 var descriptor = new SolutionComponentDescriptor(_service, true);
 
@@ -476,13 +476,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
                 await repository.ClearSolutionAsync(solution.UniqueName);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat2, _service.ConnectionData.Name, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat2, _service.ConnectionData.Name, solution.UniqueName);
             }
         }
     }

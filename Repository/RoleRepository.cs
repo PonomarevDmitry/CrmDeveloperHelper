@@ -137,6 +137,101 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
+        public Task<List<Role>> GetListByIdListAsync(IEnumerable<Guid> ids, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListByIdList(ids, columnSet));
+        }
+
+        private List<Role> GetListByIdList(IEnumerable<Guid> ids, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = Role.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Role.Schema.Attributes.roleid, ConditionOperator.In, ids.ToArray())
+                    },
+                },
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        LinkFromEntityName = Role.EntityLogicalName,
+                        LinkFromAttributeName = Role.Schema.Attributes.roletemplateid,
+
+                        LinkToEntityName = RoleTemplate.Schema.EntityLogicalName,
+                        LinkToAttributeName = RoleTemplate.Schema.EntityPrimaryIdAttribute,
+
+                        EntityAlias = Role.Schema.Attributes.roletemplateid,
+
+                        Columns = new ColumnSet(RoleTemplate.Schema.Attributes.name),
+                    },
+
+                    new LinkEntity()
+                    {
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        LinkFromEntityName = Role.EntityLogicalName,
+                        LinkFromAttributeName = Role.Schema.Attributes.businessunitid,
+
+                        LinkToEntityName = BusinessUnit.EntityLogicalName,
+                        LinkToAttributeName = BusinessUnit.PrimaryIdAttribute,
+
+                        EntityAlias = BusinessUnit.EntityLogicalName,
+
+                        Columns = new ColumnSet(BusinessUnit.Schema.Attributes.parentbusinessunitid),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(Role.Schema.Attributes.name, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<Role>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Role>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
         public Role FindRoleByTemplate(Guid roleTemplateId, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()

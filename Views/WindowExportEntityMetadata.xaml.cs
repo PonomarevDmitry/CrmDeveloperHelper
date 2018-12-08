@@ -1000,7 +1000,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityMetadata.EntityLogicalName);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityMetadata.EntityLogicalName);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityMetadata.EntityLogicalName);
 
             try
             {
@@ -1008,13 +1008,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishEntitiesAsync(new[] { entityMetadata.EntityLogicalName });
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat1, entityMetadata.EntityLogicalName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityMetadata.EntityLogicalName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat1, entityMetadata.EntityLogicalName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityMetadata.EntityLogicalName);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityMetadata.EntityLogicalName);
@@ -1449,9 +1449,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 newText = form.FieldText;
             });
 
+            var service = await GetService();
+
             if (dialogResult.GetValueOrDefault() == false)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityCanceledFormat1, entity.EntityLogicalName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityCanceledFormat2, service.ConnectionData.Name, entity.EntityLogicalName);
                 _iWriteToOutput.ActivateOutputWindow();
                 return;
             }
@@ -1476,8 +1478,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
-
             var repositoryPublisher = new PublisherRepository(service);
             var publisherDefault = await repositoryPublisher.GetDefaultPublisherAsync();
 
@@ -1488,7 +1488,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityFormat1, entity.EntityLogicalName);
+            ToggleControls(false, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityFormat2, service.ConnectionData.Name, entity.EntityLogicalName);
 
             var repositoryRibbonCustomization = new RibbonCustomizationRepository(service);
 
@@ -1496,13 +1496,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 await repositoryRibbonCustomization.PerformUpdateRibbonDiffXml(_iWriteToOutput, _commonConfig, doc, entity.EntityMetadata, null);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityCompletedFormat1, entity.EntityLogicalName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityCompletedFormat2, service.ConnectionData.Name, entity.EntityLogicalName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityFailedFormat1, entity.EntityLogicalName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityFailedFormat2, service.ConnectionData.Name, entity.EntityLogicalName);
             }
         }
     }

@@ -728,7 +728,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingOptionSetFormat2, service.ConnectionData.Name, optionSetName);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingOptionSetFormat1, optionSetName);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingOptionSetFormat2, service.ConnectionData.Name, optionSetName);
 
             try
             {
@@ -736,13 +736,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishOptionSetsAsync(new[] { optionSetName });
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingOptionSetCompletedFormat1, optionSetName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingOptionSetCompletedFormat2, service.ConnectionData.Name, optionSetName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingOptionSetFailedFormat1, optionSetName);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingOptionSetFailedFormat2, service.ConnectionData.Name, optionSetName);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingOptionSetFormat2, service.ConnectionData.Name, optionSetName);

@@ -1387,7 +1387,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.RegisteringPluginSteps);
+            ToggleControls(false, Properties.WindowStatusStrings.RegisteringPluginStepsFormat1, connectionData.Name);
 
             if (connectionData != null && connectionData.IsReadOnly == false)
             {
@@ -1423,7 +1423,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.RegisteringPluginStepsCompleted);
+            ToggleControls(true, Properties.WindowStatusStrings.RegisteringPluginStepsCompletedFormat1, connectionData.Name);
         }
     }
 }

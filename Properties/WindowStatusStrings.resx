@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddingComponentsIntoSolutionFormat2" xml:space="preserve">
-    <value>Adding {0} components into Solution {1}...</value>
+  <data name="AddingComponentsIntoSolutionFormat3" xml:space="preserve">
+    <value>{0}. Adding {1} components into Solution {2}...</value>
   </data>
-  <data name="AddingInSolutionApplicationRibbonFormat1" xml:space="preserve">
-    <value>Adding in solution {0} ApplicationRibbon...</value>
+  <data name="AddingInSolutionApplicationRibbonFormat2" xml:space="preserve">
+    <value>{0}. Adding in solution {1} ApplicationRibbon...</value>
   </data>
-  <data name="AddingInSolutionEntityFormat2" xml:space="preserve">
-    <value>Adding in solution {0} entity {1}...</value>
+  <data name="AddingInSolutionEntityFormat3" xml:space="preserve">
+    <value>{0}. Adding in solution {1} entity {2}...</value>
   </data>
   <data name="AnalizingSolutionsCompletedFormat2" xml:space="preserve">
     <value>Analizing solutions {0} and {1} completed.</value>
@@ -237,14 +237,14 @@
   <data name="CheckingWorkflowsWithDetailsFormat2" xml:space="preserve">
     <value>Checking Workflows with details in {0} and {1}...</value>
   </data>
-  <data name="ClearingSolutionCompletedFormat1" xml:space="preserve">
-    <value>Clearing solution {0} completed.</value>
+  <data name="ClearingSolutionCompletedFormat2" xml:space="preserve">
+    <value>{0}. Clearing solution {1} completed.</value>
   </data>
-  <data name="ClearingSolutionFailedFormat1" xml:space="preserve">
-    <value>Clearing solution {0} failed.</value>
+  <data name="ClearingSolutionFailedFormat2" xml:space="preserve">
+    <value>{0}. Clearing solution {1} failed.</value>
   </data>
-  <data name="ClearingSolutionFormat1" xml:space="preserve">
-    <value>Clearing solution {0}...</value>
+  <data name="ClearingSolutionFormat2" xml:space="preserve">
+    <value>{0}. Clearing solution {1}...</value>
   </data>
   <data name="ComparingConnectionsCompletedFormat2" xml:space="preserve">
     <value>Comparing Connections {0} and {1} completed.</value>
@@ -795,83 +795,83 @@
   <data name="PreparingCreatingNewWebResource" xml:space="preserve">
     <value>Preparing for creating new WebResource...</value>
   </data>
-  <data name="PublishingApplicationRibbon" xml:space="preserve">
-    <value>Publishing Application Ribbon...</value>
+  <data name="PublishingApplicationRibbonFormat1" xml:space="preserve">
+    <value>{0}. Publishing Application Ribbon...</value>
   </data>
-  <data name="PublishingApplicationRibbonCompleted" xml:space="preserve">
-    <value>Publishing Application Ribbon completed.</value>
+  <data name="PublishingApplicationRibbonCompletedFormat1" xml:space="preserve">
+    <value>{0}. Publishing Application Ribbon completed.</value>
   </data>
-  <data name="PublishingApplicationRibbonFailed" xml:space="preserve">
-    <value>Publishing Application Ribbon failed.</value>
+  <data name="PublishingApplicationRibbonFailedFormat1" xml:space="preserve">
+    <value>{0}. Publishing Application Ribbon failed.</value>
   </data>
-  <data name="PublishingEntitiesCompletedFormat1" xml:space="preserve">
-    <value>Published Entities: {0}.</value>
+  <data name="PublishingEntitiesCompletedFormat2" xml:space="preserve">
+    <value>{0}. Published Entities: {1}.</value>
   </data>
-  <data name="PublishingEntitiesFailedFormat1" xml:space="preserve">
-    <value>Publish Entity {0} failed.</value>
+  <data name="PublishingEntitiesFailedFormat2" xml:space="preserve">
+    <value>{0}. Publishing Entities: {1} failed.</value>
   </data>
-  <data name="PublishingEntitiesFormat1" xml:space="preserve">
-    <value>Publishing Entities: {0}...</value>
+  <data name="PublishingEntitiesFormat2" xml:space="preserve">
+    <value>{0}. Publishing Entities: {1}...</value>
   </data>
-  <data name="PublishingOptionSetCompletedFormat1" xml:space="preserve">
-    <value>Publishing OptionSet {0} completed.</value>
+  <data name="PublishingOptionSetCompletedFormat2" xml:space="preserve">
+    <value>{0}. Publishing OptionSet {1} completed.</value>
   </data>
-  <data name="PublishingOptionSetFailedFormat1" xml:space="preserve">
-    <value>Publishing OptionSet {0} failed.</value>
+  <data name="PublishingOptionSetFailedFormat2" xml:space="preserve">
+    <value>{0}. Publishing OptionSet {1} failed.</value>
   </data>
-  <data name="PublishingOptionSetFormat1" xml:space="preserve">
-    <value>Publishing OptionSet {0}...</value>
+  <data name="PublishingOptionSetFormat2" xml:space="preserve">
+    <value>{0}. Publishing OptionSet {1}...</value>
   </data>
-  <data name="PublishingSiteMapCompletedFormat2" xml:space="preserve">
-    <value>Publishing SiteMap{0} {1} completed.</value>
+  <data name="PublishingSiteMapCompletedFormat3" xml:space="preserve">
+    <value>{0}. Publishing SiteMap{1} {2} completed.</value>
   </data>
-  <data name="PublishingSiteMapFailedFormat2" xml:space="preserve">
-    <value>Publishing SiteMap{0} {1} failed.</value>
+  <data name="PublishingSiteMapFailedFormat3" xml:space="preserve">
+    <value>{0}. Publishing SiteMap{1} {2} failed.</value>
   </data>
-  <data name="PublishingSiteMapFormat2" xml:space="preserve">
-    <value>Publishing SiteMap{0} {1}...</value>
+  <data name="PublishingSiteMapFormat3" xml:space="preserve">
+    <value>{0}. Publishing SiteMap{1} {2}...</value>
   </data>
-  <data name="PublishingSystemFormCompletedFormat2" xml:space="preserve">
-    <value>Publishing SystemForm {0} - {1} completed.</value>
+  <data name="PublishingSystemFormCompletedFormat3" xml:space="preserve">
+    <value>{0}. Publishing SystemForm {1} - {2} completed.</value>
   </data>
-  <data name="PublishingSystemFormFailedFormat2" xml:space="preserve">
-    <value>Publishing SystemForm {0} - {1} failed.</value>
+  <data name="PublishingSystemFormFailedFormat3" xml:space="preserve">
+    <value>{0}. Publishing SystemForm {1} - {2} failed.</value>
   </data>
-  <data name="PublishingSystemFormFormat2" xml:space="preserve">
-    <value>Publishing SystemForm {0} - {1}...</value>
+  <data name="PublishingSystemFormFormat3" xml:space="preserve">
+    <value>{0}. Publishing SystemForm {1} - {2}...</value>
   </data>
-  <data name="PublishingWebResourceCompletedFormat1" xml:space="preserve">
-    <value>Publishing WebResource {0} completed.</value>
+  <data name="PublishingWebResourceCompletedFormat2" xml:space="preserve">
+    <value>{0}. Publishing WebResource {1} completed.</value>
   </data>
-  <data name="PublishingWebResourceFailedFormat1" xml:space="preserve">
-    <value>Publishing WebResource {0} failed.</value>
+  <data name="PublishingWebResourceFailedFormat2" xml:space="preserve">
+    <value>{0}. Publishing WebResource {1} failed.</value>
   </data>
-  <data name="PublishingWebResourceFormat1" xml:space="preserve">
-    <value>Publishing WebResource {0}...</value>
+  <data name="PublishingWebResourceFormat2" xml:space="preserve">
+    <value>{0}. Publishing WebResource {1}...</value>
   </data>
-  <data name="RegisteringPluginSteps" xml:space="preserve">
-    <value>Registering Plugin Steps...</value>
+  <data name="RegisteringPluginStepsFormat1" xml:space="preserve">
+    <value>{0}. Registering Plugin Steps...</value>
   </data>
-  <data name="RegisteringPluginStepsCompleted" xml:space="preserve">
-    <value>Registering Plugin Steps completed.</value>
+  <data name="RegisteringPluginStepsCompletedFormat1" xml:space="preserve">
+    <value>{0}. Registering Plugin Steps completed.</value>
   </data>
-  <data name="RemovingSolutionComponentsFromSolutionCompletedFormat1" xml:space="preserve">
-    <value>Removing solution components from {0} completed.</value>
+  <data name="RemovingSolutionComponentsFromSolutionCompletedFormat2" xml:space="preserve">
+    <value>{0}. Removing solution components from {1} completed.</value>
   </data>
-  <data name="RemovingSolutionComponentsFromSolutionFailedFormat1" xml:space="preserve">
-    <value>Removing solution components from {0} failed.</value>
+  <data name="RemovingSolutionComponentsFromSolutionFailedFormat2" xml:space="preserve">
+    <value>{0}. Removing solution components from {1} failed.</value>
   </data>
-  <data name="RemovingSolutionComponentsFromSolutionFormat1" xml:space="preserve">
-    <value>Removing solution components from {0}...</value>
+  <data name="RemovingSolutionComponentsFromSolutionFormat2" xml:space="preserve">
+    <value>{0}. Removing solution components from {1}...</value>
   </data>
-  <data name="SavingChanges" xml:space="preserve">
-    <value>Saving Changes...</value>
+  <data name="SavingChangesFormat1" xml:space="preserve">
+    <value>{0}. Saving Changes...</value>
   </data>
-  <data name="SavingChangesCompleted" xml:space="preserve">
-    <value>Changes saved.</value>
+  <data name="SavingChangesCompletedFormat1" xml:space="preserve">
+    <value>{0}. Changes saved.</value>
   </data>
-  <data name="SavingChangesFailed" xml:space="preserve">
-    <value>Saving Changes failed.</value>
+  <data name="SavingChangesFailedFormat1" xml:space="preserve">
+    <value>{0}. Saving Changes failed.</value>
   </data>
   <data name="ShowingDifferenceApplicationRibbons" xml:space="preserve">
     <value>Showing Difference for ApplicationRibbons...</value>
@@ -1002,41 +1002,41 @@
   <data name="TransferingDataFormat2" xml:space="preserve">
     <value>Transferfing Data from {0} to {1}...</value>
   </data>
-  <data name="UpdatingApplicationRibbonDiffXml" xml:space="preserve">
-    <value>Updating Application RibbonDiffXml...</value>
+  <data name="UpdatingApplicationRibbonDiffXmlFormat1" xml:space="preserve">
+    <value>{0}. Updating Application RibbonDiffXml...</value>
   </data>
-  <data name="UpdatingApplicationRibbonDiffXmlCanceled" xml:space="preserve">
-    <value>Updating Application RibbonDiffXml canceled.</value>
+  <data name="UpdatingApplicationRibbonDiffXmlCanceledFormat1" xml:space="preserve">
+    <value>{0}. Updating Application RibbonDiffXml canceled.</value>
   </data>
-  <data name="UpdatingApplicationRibbonDiffXmlCompleted" xml:space="preserve">
-    <value>Updating Application RibbonDiffXml completed.</value>
+  <data name="UpdatingApplicationRibbonDiffXmlCompletedFormat1" xml:space="preserve">
+    <value>{0}. Updating Application RibbonDiffXml completed.</value>
   </data>
-  <data name="UpdatingApplicationRibbonDiffXmlFailed" xml:space="preserve">
-    <value>Updating Application RibbonDiffXml failed.</value>
+  <data name="UpdatingApplicationRibbonDiffXmlFailedFormat1" xml:space="preserve">
+    <value>{0}. Updating Application RibbonDiffXml failed.</value>
   </data>
-  <data name="UpdatingFieldCanceledFormat1" xml:space="preserve">
-    <value>Updating Field {0} canceled.</value>
+  <data name="UpdatingFieldCanceledFormat2" xml:space="preserve">
+    <value>{0}. Updating Field {1} canceled.</value>
   </data>
-  <data name="UpdatingFieldCompletedFormat1" xml:space="preserve">
-    <value>Updating Field {0} completed.</value>
+  <data name="UpdatingFieldCompletedFormat2" xml:space="preserve">
+    <value>{0}. Updating Field {1} completed.</value>
   </data>
-  <data name="UpdatingFieldFailedFormat1" xml:space="preserve">
-    <value>Updating Field {0} failed.</value>
+  <data name="UpdatingFieldFailedFormat2" xml:space="preserve">
+    <value>{0}. Updating Field {1} failed.</value>
   </data>
-  <data name="UpdatingFieldFormat1" xml:space="preserve">
-    <value>Updating Field {0}...</value>
+  <data name="UpdatingFieldFormat2" xml:space="preserve">
+    <value>{0}. Updating Field {1}...</value>
   </data>
-  <data name="UpdatingRibbonDiffXmlForEntityCanceledFormat1" xml:space="preserve">
-    <value>Updating RibbonDiffXml for {0} canceled.</value>
+  <data name="UpdatingRibbonDiffXmlForEntityCanceledFormat2" xml:space="preserve">
+    <value>{0}. Updating RibbonDiffXml for {1} canceled.</value>
   </data>
-  <data name="UpdatingRibbonDiffXmlForEntityCompletedFormat1" xml:space="preserve">
-    <value>Updating RibbonDiffXml for {0} completed.</value>
+  <data name="UpdatingRibbonDiffXmlForEntityCompletedFormat2" xml:space="preserve">
+    <value>{0}. Updating RibbonDiffXml for {1} completed.</value>
   </data>
-  <data name="UpdatingRibbonDiffXmlForEntityFailedFormat1" xml:space="preserve">
-    <value>Updating RibbonDiffXml for {0} failed.</value>
+  <data name="UpdatingRibbonDiffXmlForEntityFailedFormat2" xml:space="preserve">
+    <value>{0}. Updating RibbonDiffXml for {1} failed.</value>
   </data>
-  <data name="UpdatingRibbonDiffXmlForEntityFormat1" xml:space="preserve">
-    <value>Updating RibbonDiffXml for {0}...</value>
+  <data name="UpdatingRibbonDiffXmlForEntityFormat2" xml:space="preserve">
+    <value>{0}. Updating RibbonDiffXml for {1}...</value>
   </data>
   <data name="ValidatingApplicationRibbonDiffXml" xml:space="preserve">
     <value>Validating Application RibbonDiffXml...</value>
@@ -1131,22 +1131,40 @@
   <data name="LoadingRoleTeamsCompletedFormat1" xml:space="preserve">
     <value>{0} security role teams loaded.</value>
   </data>
-  <data name="RemovingRolesFromUsersCompletedFormat2" xml:space="preserve">
-    <value>Removing roles {0} from users {1} completed.</value>
+  <data name="RemovingRolesFromUsersCompletedFormat3" xml:space="preserve">
+    <value>{0}. Removing roles {1} from users {2} completed.</value>
   </data>
-  <data name="RemovingRolesFromUsersFormat2" xml:space="preserve">
-    <value>Removing roles {0} from users {1}...</value>
+  <data name="RemovingRolesFromUsersFormat3" xml:space="preserve">
+    <value>{0}. Removing roles {1} from users {2}...</value>
   </data>
-  <data name="RemovingRolesFromTeamsCompletedFormat2" xml:space="preserve">
-    <value>Removing roles {0} from team {1} completed.</value>
+  <data name="RemovingRolesFromTeamsCompletedFormat3" xml:space="preserve">
+    <value>{0}. Removing roles {1} from team {2} completed.</value>
   </data>
-  <data name="RemovingRolesFromTeamsFormat2" xml:space="preserve">
-    <value>Removing roles {0} from teams {1}...</value>
+  <data name="RemovingRolesFromTeamsFormat3" xml:space="preserve">
+    <value>{0}. Removing roles {1} from teams {2}...</value>
   </data>
-  <data name="RemovingUsersFromTeamsCompletedFormat2" xml:space="preserve">
-    <value>Removing users {0} from teams {1} completed.</value>
+  <data name="RemovingUsersFromTeamsCompletedFormat3" xml:space="preserve">
+    <value>{0}. Removing users {1} from teams {2} completed.</value>
   </data>
-  <data name="RemovingUsersFromTeamsFormat2" xml:space="preserve">
-    <value>Removing users {0} from teams {1}...</value>
+  <data name="RemovingUsersFromTeamsFormat3" xml:space="preserve">
+    <value>{0}. Removing users {1} from teams {2}...</value>
+  </data>
+  <data name="AddingUsersToTeamsCompletedFormat3" xml:space="preserve">
+    <value>{0}. Adding users {1} to teams {2} completed.</value>
+  </data>
+  <data name="AddingUsersToTeamsFormat3" xml:space="preserve">
+    <value>{0}. Adding users {1} to teams {2}...</value>
+  </data>
+  <data name="AssigningRolesToTeamsCompletedFormat3" xml:space="preserve">
+    <value>{0}. Assigning roles {1} to teams {2} completed.</value>
+  </data>
+  <data name="AssigningRolesToTeamsFormat3" xml:space="preserve">
+    <value>{0}. Assigning roles {1} to teams {2}...</value>
+  </data>
+  <data name="AssigningRolesToUsersCompletedFormat3" xml:space="preserve">
+    <value>{0}. Assigning roles {1} to users {2} completed.</value>
+  </data>
+  <data name="AssigningRolesToUsersFormat3" xml:space="preserve">
+    <value>{0}. Assigning roles {1} to users {2}...</value>
   </data>
 </root>

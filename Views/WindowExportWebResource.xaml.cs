@@ -673,13 +673,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat1, fieldName);
+            var service = await GetService();
+
+            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
 
             try
             {
-                var service = await GetService();
-
-                WebResourceRepository webResourceRepository = new WebResourceRepository(service);
+                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
                 var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
 
@@ -726,7 +726,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialogResult.GetValueOrDefault() == false)
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat1, fieldName);
+                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat2, service.ConnectionData.Name, fieldName);
                     return;
                 }
 
@@ -754,7 +754,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await service.UpdateAsync(updateEntity);
 
-                UpdateStatus(Properties.WindowStatusStrings.PublishingWebResourceFormat1, name);
+                UpdateStatus(Properties.WindowStatusStrings.PublishingWebResourceFormat2, service.ConnectionData.Name, name);
 
                 {
                     var repositoryPublish = new PublishActionsRepository(service);
@@ -762,13 +762,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await repositoryPublish.PublishWebResourcesAsync(new[] { idWebResource });
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat1, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat2, service.ConnectionData.Name, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat1, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat2, service.ConnectionData.Name, fieldName);
             }
         }
 
@@ -1101,7 +1101,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingWebResourceFormat2, service.ConnectionData.Name, name);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingWebResourceFormat1, name);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingWebResourceFormat2, service.ConnectionData.Name, name);
 
             try
             {
@@ -1109,13 +1109,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishWebResourcesAsync(new[] { idWebResource });
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingWebResourceCompletedFormat1, name);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingWebResourceCompletedFormat2, service.ConnectionData.Name, name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingWebResourceFailedFormat1, name);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingWebResourceFailedFormat2, service.ConnectionData.Name, name);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingWebResourceFormat2, service.ConnectionData.Name, name);

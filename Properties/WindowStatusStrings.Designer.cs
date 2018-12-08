@@ -61,29 +61,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adding {0} components into Solution {1}....
+        ///   Looks up a localized string similar to {0}. Adding {1} components into Solution {2}....
         /// </summary>
-        internal static string AddingComponentsIntoSolutionFormat2 {
+        internal static string AddingComponentsIntoSolutionFormat3 {
             get {
-                return ResourceManager.GetString("AddingComponentsIntoSolutionFormat2", resourceCulture);
+                return ResourceManager.GetString("AddingComponentsIntoSolutionFormat3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adding in solution {0} ApplicationRibbon....
+        ///   Looks up a localized string similar to {0}. Adding in solution {1} ApplicationRibbon....
         /// </summary>
-        internal static string AddingInSolutionApplicationRibbonFormat1 {
+        internal static string AddingInSolutionApplicationRibbonFormat2 {
             get {
-                return ResourceManager.GetString("AddingInSolutionApplicationRibbonFormat1", resourceCulture);
+                return ResourceManager.GetString("AddingInSolutionApplicationRibbonFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adding in solution {0} entity {1}....
+        ///   Looks up a localized string similar to {0}. Adding in solution {1} entity {2}....
         /// </summary>
-        internal static string AddingInSolutionEntityFormat2 {
+        internal static string AddingInSolutionEntityFormat3 {
             get {
-                return ResourceManager.GetString("AddingInSolutionEntityFormat2", resourceCulture);
+                return ResourceManager.GetString("AddingInSolutionEntityFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Adding users {1} to teams {2} completed..
+        /// </summary>
+        internal static string AddingUsersToTeamsCompletedFormat3 {
+            get {
+                return ResourceManager.GetString("AddingUsersToTeamsCompletedFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Adding users {1} to teams {2}....
+        /// </summary>
+        internal static string AddingUsersToTeamsFormat3 {
+            get {
+                return ResourceManager.GetString("AddingUsersToTeamsFormat3", resourceCulture);
             }
         }
         
@@ -138,6 +156,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string AnalizingWorkflowFormat2 {
             get {
                 return ResourceManager.GetString("AnalizingWorkflowFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning roles {1} to teams {2} completed..
+        /// </summary>
+        internal static string AssigningRolesToTeamsCompletedFormat3 {
+            get {
+                return ResourceManager.GetString("AssigningRolesToTeamsCompletedFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning roles {1} to teams {2}....
+        /// </summary>
+        internal static string AssigningRolesToTeamsFormat3 {
+            get {
+                return ResourceManager.GetString("AssigningRolesToTeamsFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning roles {1} to users {2} completed..
+        /// </summary>
+        internal static string AssigningRolesToUsersCompletedFormat3 {
+            get {
+                return ResourceManager.GetString("AssigningRolesToUsersCompletedFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning roles {1} to users {2}....
+        /// </summary>
+        internal static string AssigningRolesToUsersFormat3 {
+            get {
+                return ResourceManager.GetString("AssigningRolesToUsersFormat3", resourceCulture);
             }
         }
         
@@ -421,29 +475,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clearing solution {0} completed..
+        ///   Looks up a localized string similar to {0}. Clearing solution {1} completed..
         /// </summary>
-        internal static string ClearingSolutionCompletedFormat1 {
+        internal static string ClearingSolutionCompletedFormat2 {
             get {
-                return ResourceManager.GetString("ClearingSolutionCompletedFormat1", resourceCulture);
+                return ResourceManager.GetString("ClearingSolutionCompletedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clearing solution {0} failed..
+        ///   Looks up a localized string similar to {0}. Clearing solution {1} failed..
         /// </summary>
-        internal static string ClearingSolutionFailedFormat1 {
+        internal static string ClearingSolutionFailedFormat2 {
             get {
-                return ResourceManager.GetString("ClearingSolutionFailedFormat1", resourceCulture);
+                return ResourceManager.GetString("ClearingSolutionFailedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clearing solution {0}....
+        ///   Looks up a localized string similar to {0}. Clearing solution {1}....
         /// </summary>
-        internal static string ClearingSolutionFormat1 {
+        internal static string ClearingSolutionFormat2 {
             get {
-                return ResourceManager.GetString("ClearingSolutionFormat1", resourceCulture);
+                return ResourceManager.GetString("ClearingSolutionFormat2", resourceCulture);
             }
         }
         
@@ -2302,290 +2356,290 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing Application Ribbon....
+        ///   Looks up a localized string similar to {0}. Publishing Application Ribbon completed..
         /// </summary>
-        internal static string PublishingApplicationRibbon {
+        internal static string PublishingApplicationRibbonCompletedFormat1 {
             get {
-                return ResourceManager.GetString("PublishingApplicationRibbon", resourceCulture);
+                return ResourceManager.GetString("PublishingApplicationRibbonCompletedFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing Application Ribbon completed..
+        ///   Looks up a localized string similar to {0}. Publishing Application Ribbon failed..
         /// </summary>
-        internal static string PublishingApplicationRibbonCompleted {
+        internal static string PublishingApplicationRibbonFailedFormat1 {
             get {
-                return ResourceManager.GetString("PublishingApplicationRibbonCompleted", resourceCulture);
+                return ResourceManager.GetString("PublishingApplicationRibbonFailedFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing Application Ribbon failed..
+        ///   Looks up a localized string similar to {0}. Publishing Application Ribbon....
         /// </summary>
-        internal static string PublishingApplicationRibbonFailed {
+        internal static string PublishingApplicationRibbonFormat1 {
             get {
-                return ResourceManager.GetString("PublishingApplicationRibbonFailed", resourceCulture);
+                return ResourceManager.GetString("PublishingApplicationRibbonFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Published Entities: {0}..
+        ///   Looks up a localized string similar to {0}. Published Entities: {1}..
         /// </summary>
-        internal static string PublishingEntitiesCompletedFormat1 {
+        internal static string PublishingEntitiesCompletedFormat2 {
             get {
-                return ResourceManager.GetString("PublishingEntitiesCompletedFormat1", resourceCulture);
+                return ResourceManager.GetString("PublishingEntitiesCompletedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publish Entity {0} failed..
+        ///   Looks up a localized string similar to {0}. Publishing Entities: {1} failed..
         /// </summary>
-        internal static string PublishingEntitiesFailedFormat1 {
+        internal static string PublishingEntitiesFailedFormat2 {
             get {
-                return ResourceManager.GetString("PublishingEntitiesFailedFormat1", resourceCulture);
+                return ResourceManager.GetString("PublishingEntitiesFailedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing Entities: {0}....
+        ///   Looks up a localized string similar to {0}. Publishing Entities: {1}....
         /// </summary>
-        internal static string PublishingEntitiesFormat1 {
+        internal static string PublishingEntitiesFormat2 {
             get {
-                return ResourceManager.GetString("PublishingEntitiesFormat1", resourceCulture);
+                return ResourceManager.GetString("PublishingEntitiesFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing OptionSet {0} completed..
+        ///   Looks up a localized string similar to {0}. Publishing OptionSet {1} completed..
         /// </summary>
-        internal static string PublishingOptionSetCompletedFormat1 {
+        internal static string PublishingOptionSetCompletedFormat2 {
             get {
-                return ResourceManager.GetString("PublishingOptionSetCompletedFormat1", resourceCulture);
+                return ResourceManager.GetString("PublishingOptionSetCompletedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing OptionSet {0} failed..
+        ///   Looks up a localized string similar to {0}. Publishing OptionSet {1} failed..
         /// </summary>
-        internal static string PublishingOptionSetFailedFormat1 {
+        internal static string PublishingOptionSetFailedFormat2 {
             get {
-                return ResourceManager.GetString("PublishingOptionSetFailedFormat1", resourceCulture);
+                return ResourceManager.GetString("PublishingOptionSetFailedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing OptionSet {0}....
+        ///   Looks up a localized string similar to {0}. Publishing OptionSet {1}....
         /// </summary>
-        internal static string PublishingOptionSetFormat1 {
+        internal static string PublishingOptionSetFormat2 {
             get {
-                return ResourceManager.GetString("PublishingOptionSetFormat1", resourceCulture);
+                return ResourceManager.GetString("PublishingOptionSetFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing SiteMap{0} {1} completed..
+        ///   Looks up a localized string similar to {0}. Publishing SiteMap{1} {2} completed..
         /// </summary>
-        internal static string PublishingSiteMapCompletedFormat2 {
+        internal static string PublishingSiteMapCompletedFormat3 {
             get {
-                return ResourceManager.GetString("PublishingSiteMapCompletedFormat2", resourceCulture);
+                return ResourceManager.GetString("PublishingSiteMapCompletedFormat3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing SiteMap{0} {1} failed..
+        ///   Looks up a localized string similar to {0}. Publishing SiteMap{1} {2} failed..
         /// </summary>
-        internal static string PublishingSiteMapFailedFormat2 {
+        internal static string PublishingSiteMapFailedFormat3 {
             get {
-                return ResourceManager.GetString("PublishingSiteMapFailedFormat2", resourceCulture);
+                return ResourceManager.GetString("PublishingSiteMapFailedFormat3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing SiteMap{0} {1}....
+        ///   Looks up a localized string similar to {0}. Publishing SiteMap{1} {2}....
         /// </summary>
-        internal static string PublishingSiteMapFormat2 {
+        internal static string PublishingSiteMapFormat3 {
             get {
-                return ResourceManager.GetString("PublishingSiteMapFormat2", resourceCulture);
+                return ResourceManager.GetString("PublishingSiteMapFormat3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing SystemForm {0} - {1} completed..
+        ///   Looks up a localized string similar to {0}. Publishing SystemForm {1} - {2} completed..
         /// </summary>
-        internal static string PublishingSystemFormCompletedFormat2 {
+        internal static string PublishingSystemFormCompletedFormat3 {
             get {
-                return ResourceManager.GetString("PublishingSystemFormCompletedFormat2", resourceCulture);
+                return ResourceManager.GetString("PublishingSystemFormCompletedFormat3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing SystemForm {0} - {1} failed..
+        ///   Looks up a localized string similar to {0}. Publishing SystemForm {1} - {2} failed..
         /// </summary>
-        internal static string PublishingSystemFormFailedFormat2 {
+        internal static string PublishingSystemFormFailedFormat3 {
             get {
-                return ResourceManager.GetString("PublishingSystemFormFailedFormat2", resourceCulture);
+                return ResourceManager.GetString("PublishingSystemFormFailedFormat3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing SystemForm {0} - {1}....
+        ///   Looks up a localized string similar to {0}. Publishing SystemForm {1} - {2}....
         /// </summary>
-        internal static string PublishingSystemFormFormat2 {
+        internal static string PublishingSystemFormFormat3 {
             get {
-                return ResourceManager.GetString("PublishingSystemFormFormat2", resourceCulture);
+                return ResourceManager.GetString("PublishingSystemFormFormat3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing WebResource {0} completed..
+        ///   Looks up a localized string similar to {0}. Publishing WebResource {1} completed..
         /// </summary>
-        internal static string PublishingWebResourceCompletedFormat1 {
+        internal static string PublishingWebResourceCompletedFormat2 {
             get {
-                return ResourceManager.GetString("PublishingWebResourceCompletedFormat1", resourceCulture);
+                return ResourceManager.GetString("PublishingWebResourceCompletedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing WebResource {0} failed..
+        ///   Looks up a localized string similar to {0}. Publishing WebResource {1} failed..
         /// </summary>
-        internal static string PublishingWebResourceFailedFormat1 {
+        internal static string PublishingWebResourceFailedFormat2 {
             get {
-                return ResourceManager.GetString("PublishingWebResourceFailedFormat1", resourceCulture);
+                return ResourceManager.GetString("PublishingWebResourceFailedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing WebResource {0}....
+        ///   Looks up a localized string similar to {0}. Publishing WebResource {1}....
         /// </summary>
-        internal static string PublishingWebResourceFormat1 {
+        internal static string PublishingWebResourceFormat2 {
             get {
-                return ResourceManager.GetString("PublishingWebResourceFormat1", resourceCulture);
+                return ResourceManager.GetString("PublishingWebResourceFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registering Plugin Steps....
+        ///   Looks up a localized string similar to {0}. Registering Plugin Steps completed..
         /// </summary>
-        internal static string RegisteringPluginSteps {
+        internal static string RegisteringPluginStepsCompletedFormat1 {
             get {
-                return ResourceManager.GetString("RegisteringPluginSteps", resourceCulture);
+                return ResourceManager.GetString("RegisteringPluginStepsCompletedFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registering Plugin Steps completed..
+        ///   Looks up a localized string similar to {0}. Registering Plugin Steps....
         /// </summary>
-        internal static string RegisteringPluginStepsCompleted {
+        internal static string RegisteringPluginStepsFormat1 {
             get {
-                return ResourceManager.GetString("RegisteringPluginStepsCompleted", resourceCulture);
+                return ResourceManager.GetString("RegisteringPluginStepsFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removing roles {0} from team {1} completed..
+        ///   Looks up a localized string similar to {0}. Removing roles {1} from team {2} completed..
         /// </summary>
-        internal static string RemovingRolesFromTeamsCompletedFormat2 {
+        internal static string RemovingRolesFromTeamsCompletedFormat3 {
             get {
-                return ResourceManager.GetString("RemovingRolesFromTeamsCompletedFormat2", resourceCulture);
+                return ResourceManager.GetString("RemovingRolesFromTeamsCompletedFormat3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removing roles {0} from teams {1}....
+        ///   Looks up a localized string similar to {0}. Removing roles {1} from teams {2}....
         /// </summary>
-        internal static string RemovingRolesFromTeamsFormat2 {
+        internal static string RemovingRolesFromTeamsFormat3 {
             get {
-                return ResourceManager.GetString("RemovingRolesFromTeamsFormat2", resourceCulture);
+                return ResourceManager.GetString("RemovingRolesFromTeamsFormat3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removing roles {0} from users {1} completed..
+        ///   Looks up a localized string similar to {0}. Removing roles {1} from users {2} completed..
         /// </summary>
-        internal static string RemovingRolesFromUsersCompletedFormat2 {
+        internal static string RemovingRolesFromUsersCompletedFormat3 {
             get {
-                return ResourceManager.GetString("RemovingRolesFromUsersCompletedFormat2", resourceCulture);
+                return ResourceManager.GetString("RemovingRolesFromUsersCompletedFormat3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removing roles {0} from users {1}....
+        ///   Looks up a localized string similar to {0}. Removing roles {1} from users {2}....
         /// </summary>
-        internal static string RemovingRolesFromUsersFormat2 {
+        internal static string RemovingRolesFromUsersFormat3 {
             get {
-                return ResourceManager.GetString("RemovingRolesFromUsersFormat2", resourceCulture);
+                return ResourceManager.GetString("RemovingRolesFromUsersFormat3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removing solution components from {0} completed..
+        ///   Looks up a localized string similar to {0}. Removing solution components from {1} completed..
         /// </summary>
-        internal static string RemovingSolutionComponentsFromSolutionCompletedFormat1 {
+        internal static string RemovingSolutionComponentsFromSolutionCompletedFormat2 {
             get {
-                return ResourceManager.GetString("RemovingSolutionComponentsFromSolutionCompletedFormat1", resourceCulture);
+                return ResourceManager.GetString("RemovingSolutionComponentsFromSolutionCompletedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removing solution components from {0} failed..
+        ///   Looks up a localized string similar to {0}. Removing solution components from {1} failed..
         /// </summary>
-        internal static string RemovingSolutionComponentsFromSolutionFailedFormat1 {
+        internal static string RemovingSolutionComponentsFromSolutionFailedFormat2 {
             get {
-                return ResourceManager.GetString("RemovingSolutionComponentsFromSolutionFailedFormat1", resourceCulture);
+                return ResourceManager.GetString("RemovingSolutionComponentsFromSolutionFailedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removing solution components from {0}....
+        ///   Looks up a localized string similar to {0}. Removing solution components from {1}....
         /// </summary>
-        internal static string RemovingSolutionComponentsFromSolutionFormat1 {
+        internal static string RemovingSolutionComponentsFromSolutionFormat2 {
             get {
-                return ResourceManager.GetString("RemovingSolutionComponentsFromSolutionFormat1", resourceCulture);
+                return ResourceManager.GetString("RemovingSolutionComponentsFromSolutionFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removing users {0} from teams {1} completed..
+        ///   Looks up a localized string similar to {0}. Removing users {1} from teams {2} completed..
         /// </summary>
-        internal static string RemovingUsersFromTeamsCompletedFormat2 {
+        internal static string RemovingUsersFromTeamsCompletedFormat3 {
             get {
-                return ResourceManager.GetString("RemovingUsersFromTeamsCompletedFormat2", resourceCulture);
+                return ResourceManager.GetString("RemovingUsersFromTeamsCompletedFormat3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removing users {0} from teams {1}....
+        ///   Looks up a localized string similar to {0}. Removing users {1} from teams {2}....
         /// </summary>
-        internal static string RemovingUsersFromTeamsFormat2 {
+        internal static string RemovingUsersFromTeamsFormat3 {
             get {
-                return ResourceManager.GetString("RemovingUsersFromTeamsFormat2", resourceCulture);
+                return ResourceManager.GetString("RemovingUsersFromTeamsFormat3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saving Changes....
+        ///   Looks up a localized string similar to {0}. Changes saved..
         /// </summary>
-        internal static string SavingChanges {
+        internal static string SavingChangesCompletedFormat1 {
             get {
-                return ResourceManager.GetString("SavingChanges", resourceCulture);
+                return ResourceManager.GetString("SavingChangesCompletedFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Changes saved..
+        ///   Looks up a localized string similar to {0}. Saving Changes failed..
         /// </summary>
-        internal static string SavingChangesCompleted {
+        internal static string SavingChangesFailedFormat1 {
             get {
-                return ResourceManager.GetString("SavingChangesCompleted", resourceCulture);
+                return ResourceManager.GetString("SavingChangesFailedFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saving Changes failed..
+        ///   Looks up a localized string similar to {0}. Saving Changes....
         /// </summary>
-        internal static string SavingChangesFailed {
+        internal static string SavingChangesFormat1 {
             get {
-                return ResourceManager.GetString("SavingChangesFailed", resourceCulture);
+                return ResourceManager.GetString("SavingChangesFormat1", resourceCulture);
             }
         }
         
@@ -2977,110 +3031,110 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating Application RibbonDiffXml....
+        ///   Looks up a localized string similar to {0}. Updating Application RibbonDiffXml canceled..
         /// </summary>
-        internal static string UpdatingApplicationRibbonDiffXml {
+        internal static string UpdatingApplicationRibbonDiffXmlCanceledFormat1 {
             get {
-                return ResourceManager.GetString("UpdatingApplicationRibbonDiffXml", resourceCulture);
+                return ResourceManager.GetString("UpdatingApplicationRibbonDiffXmlCanceledFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating Application RibbonDiffXml canceled..
+        ///   Looks up a localized string similar to {0}. Updating Application RibbonDiffXml completed..
         /// </summary>
-        internal static string UpdatingApplicationRibbonDiffXmlCanceled {
+        internal static string UpdatingApplicationRibbonDiffXmlCompletedFormat1 {
             get {
-                return ResourceManager.GetString("UpdatingApplicationRibbonDiffXmlCanceled", resourceCulture);
+                return ResourceManager.GetString("UpdatingApplicationRibbonDiffXmlCompletedFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating Application RibbonDiffXml completed..
+        ///   Looks up a localized string similar to {0}. Updating Application RibbonDiffXml failed..
         /// </summary>
-        internal static string UpdatingApplicationRibbonDiffXmlCompleted {
+        internal static string UpdatingApplicationRibbonDiffXmlFailedFormat1 {
             get {
-                return ResourceManager.GetString("UpdatingApplicationRibbonDiffXmlCompleted", resourceCulture);
+                return ResourceManager.GetString("UpdatingApplicationRibbonDiffXmlFailedFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating Application RibbonDiffXml failed..
+        ///   Looks up a localized string similar to {0}. Updating Application RibbonDiffXml....
         /// </summary>
-        internal static string UpdatingApplicationRibbonDiffXmlFailed {
+        internal static string UpdatingApplicationRibbonDiffXmlFormat1 {
             get {
-                return ResourceManager.GetString("UpdatingApplicationRibbonDiffXmlFailed", resourceCulture);
+                return ResourceManager.GetString("UpdatingApplicationRibbonDiffXmlFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating Field {0} canceled..
+        ///   Looks up a localized string similar to {0}. Updating Field {1} canceled..
         /// </summary>
-        internal static string UpdatingFieldCanceledFormat1 {
+        internal static string UpdatingFieldCanceledFormat2 {
             get {
-                return ResourceManager.GetString("UpdatingFieldCanceledFormat1", resourceCulture);
+                return ResourceManager.GetString("UpdatingFieldCanceledFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating Field {0} completed..
+        ///   Looks up a localized string similar to {0}. Updating Field {1} completed..
         /// </summary>
-        internal static string UpdatingFieldCompletedFormat1 {
+        internal static string UpdatingFieldCompletedFormat2 {
             get {
-                return ResourceManager.GetString("UpdatingFieldCompletedFormat1", resourceCulture);
+                return ResourceManager.GetString("UpdatingFieldCompletedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating Field {0} failed..
+        ///   Looks up a localized string similar to {0}. Updating Field {1} failed..
         /// </summary>
-        internal static string UpdatingFieldFailedFormat1 {
+        internal static string UpdatingFieldFailedFormat2 {
             get {
-                return ResourceManager.GetString("UpdatingFieldFailedFormat1", resourceCulture);
+                return ResourceManager.GetString("UpdatingFieldFailedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating Field {0}....
+        ///   Looks up a localized string similar to {0}. Updating Field {1}....
         /// </summary>
-        internal static string UpdatingFieldFormat1 {
+        internal static string UpdatingFieldFormat2 {
             get {
-                return ResourceManager.GetString("UpdatingFieldFormat1", resourceCulture);
+                return ResourceManager.GetString("UpdatingFieldFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating RibbonDiffXml for {0} canceled..
+        ///   Looks up a localized string similar to {0}. Updating RibbonDiffXml for {1} canceled..
         /// </summary>
-        internal static string UpdatingRibbonDiffXmlForEntityCanceledFormat1 {
+        internal static string UpdatingRibbonDiffXmlForEntityCanceledFormat2 {
             get {
-                return ResourceManager.GetString("UpdatingRibbonDiffXmlForEntityCanceledFormat1", resourceCulture);
+                return ResourceManager.GetString("UpdatingRibbonDiffXmlForEntityCanceledFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating RibbonDiffXml for {0} completed..
+        ///   Looks up a localized string similar to {0}. Updating RibbonDiffXml for {1} completed..
         /// </summary>
-        internal static string UpdatingRibbonDiffXmlForEntityCompletedFormat1 {
+        internal static string UpdatingRibbonDiffXmlForEntityCompletedFormat2 {
             get {
-                return ResourceManager.GetString("UpdatingRibbonDiffXmlForEntityCompletedFormat1", resourceCulture);
+                return ResourceManager.GetString("UpdatingRibbonDiffXmlForEntityCompletedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating RibbonDiffXml for {0} failed..
+        ///   Looks up a localized string similar to {0}. Updating RibbonDiffXml for {1} failed..
         /// </summary>
-        internal static string UpdatingRibbonDiffXmlForEntityFailedFormat1 {
+        internal static string UpdatingRibbonDiffXmlForEntityFailedFormat2 {
             get {
-                return ResourceManager.GetString("UpdatingRibbonDiffXmlForEntityFailedFormat1", resourceCulture);
+                return ResourceManager.GetString("UpdatingRibbonDiffXmlForEntityFailedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating RibbonDiffXml for {0}....
+        ///   Looks up a localized string similar to {0}. Updating RibbonDiffXml for {1}....
         /// </summary>
-        internal static string UpdatingRibbonDiffXmlForEntityFormat1 {
+        internal static string UpdatingRibbonDiffXmlForEntityFormat2 {
             get {
-                return ResourceManager.GetString("UpdatingRibbonDiffXmlForEntityFormat1", resourceCulture);
+                return ResourceManager.GetString("UpdatingRibbonDiffXmlForEntityFormat2", resourceCulture);
             }
         }
         

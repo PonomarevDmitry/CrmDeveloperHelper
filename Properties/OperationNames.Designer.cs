@@ -115,6 +115,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Adding Users {1} to Teams {2}.
+        /// </summary>
+        internal static string AddingUsersToTeamsFormat3 {
+            get {
+                return ResourceManager.GetString("AddingUsersToTeamsFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Adding WebResources into Solution {1}.
         /// </summary>
         internal static string AddingWebResourcesIntoSolutionFormat2 {
@@ -156,6 +165,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string AnalyzingWorkflowsFormat1 {
             get {
                 return ResourceManager.GetString("AnalyzingWorkflowsFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Assigning Roles {1} to Teams {2}.
+        /// </summary>
+        internal static string AssigningRolesToTeamsFormat3 {
+            get {
+                return ResourceManager.GetString("AssigningRolesToTeamsFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Assigning Roles {1} to Users {2}.
+        /// </summary>
+        internal static string AssigningRolesToUsersFormat3 {
+            get {
+                return ResourceManager.GetString("AssigningRolesToUsersFormat3", resourceCulture);
             }
         }
         

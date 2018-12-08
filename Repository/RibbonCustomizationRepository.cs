@@ -738,7 +738,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 if (entityMetadata != null)
                 {
 
-                    iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.AddingInSolutionEntityFormat2, solutionUniqueName, entityMetadata.LogicalName);
+                    iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.AddingInSolutionEntityFormat3, _service.ConnectionData.Name, solutionUniqueName, entityMetadata.LogicalName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(_service);
@@ -755,7 +755,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
                 else if (ribbonCustomization != null)
                 {
-                    iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat1, solutionUniqueName);
+                    iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat2, _service.ConnectionData.Name, solutionUniqueName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(_service);
@@ -873,13 +873,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                     if (entityMetadata != null)
                     {
-                        iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityMetadata.LogicalName);
+                        iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, entityMetadata.LogicalName);
 
                         await repositoryPublish.PublishEntitiesAsync(new[] { entityMetadata.LogicalName });
                     }
                     else if (ribbonCustomization != null)
                     {
-                        iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.PublishingApplicationRibbon);
+                        iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.PublishingApplicationRibbonFormat1, _service.ConnectionData.Name);
 
                         await repositoryPublish.PublishApplicationRibbonAsync();
                     }
@@ -939,7 +939,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 if (entityMetadata != null)
                 {
-                    iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.AddingInSolutionEntityFormat2, solutionUniqueName, entityMetadata.LogicalName);
+                    iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.AddingInSolutionEntityFormat3, _service.ConnectionData.Name, solutionUniqueName, entityMetadata.LogicalName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(_service);
@@ -956,7 +956,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
                 else if (ribbonCustomization != null)
                 {
-                    iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat1, solutionUniqueName);
+                    iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat2, _service.ConnectionData.Name, solutionUniqueName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(_service);

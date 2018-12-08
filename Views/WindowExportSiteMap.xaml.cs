@@ -552,7 +552,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat1, fieldName);
+            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
 
             name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
 
@@ -582,7 +582,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialogResult.GetValueOrDefault() == false)
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCanceledFormat1, fieldName);
+                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCanceledFormat2, service.ConnectionData.Name, fieldName);
                     return;
                 }
 
@@ -617,7 +617,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await service.UpdateAsync(updateEntity);
 
-                UpdateStatus(Properties.WindowStatusStrings.PublishingSiteMapFormat2, name, idSiteMap.ToString());
+                UpdateStatus(Properties.WindowStatusStrings.PublishingSiteMapFormat3, service.ConnectionData.Name, name, idSiteMap.ToString());
 
                 {
                     var repositoryPublish = new PublishActionsRepository(service);
@@ -625,13 +625,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await repositoryPublish.PublishSiteMapsAsync(new[] { idSiteMap });
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat1, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat2, service.ConnectionData.Name, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat1, fieldName);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat2, service.ConnectionData.Name, fieldName);
             }
         }
 
@@ -767,7 +767,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingSiteMapFormat3, service.ConnectionData.Name, name, idSiteMap.ToString());
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingSiteMapFormat2, name, idSiteMap.ToString());
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingSiteMapFormat3, service.ConnectionData.Name, name, idSiteMap.ToString());
 
             try
             {
@@ -775,13 +775,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishSiteMapsAsync(new[] { idSiteMap });
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingSiteMapCompletedFormat2, name, idSiteMap.ToString());
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingSiteMapCompletedFormat3, service.ConnectionData.Name, name, idSiteMap.ToString());
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingSiteMapFailedFormat2, name, idSiteMap.ToString());
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingSiteMapFailedFormat3, service.ConnectionData.Name, name, idSiteMap.ToString());
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingSiteMapFormat3, service.ConnectionData.Name, name, idSiteMap.ToString());

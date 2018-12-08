@@ -326,6 +326,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     }
                 },
 
+                Orders =
+                {
+                    new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
+                },
+
                 PageInfo =
                 {
                     Count = 5000,
@@ -337,8 +342,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 query.Criteria.AddCondition(WebResource.Schema.Attributes.name, ConditionOperator.Like, "%" + name + "%");
             }
-
-            query.AddOrder(WebResource.Schema.Attributes.name, OrderType.Ascending);
 
             List<WebResource> result = new List<WebResource>();
 
@@ -847,6 +850,68 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 )
             {
                 result = string.Format("{0}_{1}", publisherPrefix, result);
+            }
+
+            return result;
+        }
+
+        public Task<List<WebResource>> GetListByIdListAsync(IEnumerable<Guid> ids, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListByIdList(ids, columnSet));
+        }
+
+        private List<WebResource> GetListByIdList(IEnumerable<Guid> ids, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = WebResource.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(WebResource.Schema.EntityPrimaryIdAttribute, ConditionOperator.In, ids.ToArray()),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<WebResource>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _Service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<WebResource>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
             }
 
             return result;

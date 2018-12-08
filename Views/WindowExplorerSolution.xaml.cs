@@ -1826,12 +1826,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformClearUnmanagedSolution(string folder, Solution solution)
         {
+            var service = await GetService();
+            var descriptor = await GetDescriptor();
+
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat1, solution.UniqueName);
-
-                var service = await GetService();
-                var descriptor = await GetDescriptor();
+                ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat2, service.ConnectionData.Name, solution.UniqueName);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -1871,13 +1871,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 SolutionComponentRepository repository = new SolutionComponentRepository(service);
                 await repository.ClearSolutionAsync(solution.UniqueName);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat2, service.ConnectionData.Name, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat2, service.ConnectionData.Name, solution.UniqueName);
             }
         }
 

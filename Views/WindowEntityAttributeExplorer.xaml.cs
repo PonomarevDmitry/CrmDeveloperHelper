@@ -864,7 +864,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityNamesOrdered);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
 
             try
             {
@@ -872,13 +872,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishEntitiesAsync(entityNames);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat1, entityNamesOrdered);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityNamesOrdered);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat1, entityNamesOrdered);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityNamesOrdered);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
@@ -1258,126 +1258,123 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.SavingChanges);
+            var service = await GetService();
+
+            ToggleControls(false, Properties.WindowStatusStrings.SavingChangesFormat1, service.ConnectionData.Name);
 
             HashSet<string> listForPublish = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
             try
             {
-                var service = await GetService();
+                this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.SavingChangesFormat1, service.ConnectionData.Name);
 
-                if (service != null)
+                var listEntitiesToChange = new List<EntityMetadataViewItem>();
+                var listAttributesToChange = new List<AttributeMetadataViewItem>();
+
+                if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
                 {
-                    this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.SavingChangesFormat1, service.ConnectionData.Name);
+                    listEntitiesToChange.AddRange(_cacheEntityMetadata[service.ConnectionData.ConnectionId].Where(item => item.IsChanged));
+                }
 
-                    var listEntitiesToChange = new List<EntityMetadataViewItem>();
-                    var listAttributesToChange = new List<AttributeMetadataViewItem>();
+                if (_cacheAttributeMetadata.ContainsKey(service.ConnectionData.ConnectionId))
+                {
+                    var dict = _cacheAttributeMetadata[service.ConnectionData.ConnectionId];
 
-                    if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-                    {
-                        listEntitiesToChange.AddRange(_cacheEntityMetadata[service.ConnectionData.ConnectionId].Where(item => item.IsChanged));
-                    }
+                    listAttributesToChange.AddRange(dict.Values.SelectMany(item => item.Where(a => a.IsChanged)));
+                }
 
-                    if (_cacheAttributeMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-                    {
-                        var dict = _cacheAttributeMetadata[service.ConnectionData.ConnectionId];
+                var repository = new EntityMetadataRepository(service);
 
-                        listAttributesToChange.AddRange(dict.Values.SelectMany(item => item.Where(a => a.IsChanged)));
-                    }
-
-                    var repository = new EntityMetadataRepository(service);
-
-                    if (listAttributesToChange.Any())
-                    {
-                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.UpdatingAttributes);
-                        
-                        foreach (var attribute in listAttributesToChange.OrderBy(a => a.AttributeMetadata.EntityLogicalName).ThenBy(a => a.LogicalName))
-                        {
-                            this._iWriteToOutput.WriteToOutput("    {0}.{1}", attribute.AttributeMetadata.EntityLogicalName, attribute.LogicalName);
-
-                            listForPublish.Add(attribute.AttributeMetadata.EntityLogicalName);
-
-                            try
-                            {
-                                await repository.UpdateAttributeMetadataAsync(attribute.AttributeMetadata);
-                            }
-                            catch (Exception ex)
-                            {
-                                _iWriteToOutput.WriteErrorToOutput(ex);
-                            }
-                        }
-                    }
-
-                    if (listEntitiesToChange.Any())
-                    {
-                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.UpdatingEntities);
-                        
-                        foreach (var entityMetadata in listEntitiesToChange.OrderBy(a => a.LogicalName))
-                        {
-                            this._iWriteToOutput.WriteToOutput("    {0}", entityMetadata.LogicalName);
-
-                            listForPublish.Add(entityMetadata.LogicalName);
-
-                            try
-                            {
-                                await repository.UpdateEntityMetadataAsync(entityMetadata.EntityMetadata);
-                            }
-                            catch (Exception ex)
-                            {
-                                _iWriteToOutput.WriteErrorToOutput(ex);
-                            }
-                        }
-                    }
-
-                    if (listForPublish.Any())
-                    {
-                        var entityNamesOrdered = string.Join(",", listForPublish.OrderBy(s => s));
-
-                        UpdateStatus(Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityNamesOrdered);
-
-                        var repositoryPublish = new PublishActionsRepository(service);
-
-                        await repositoryPublish.PublishEntitiesAsync(listForPublish);
-                    }
+                if (listAttributesToChange.Any())
+                {
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.UpdatingAttributes);
 
                     foreach (var attribute in listAttributesToChange.OrderBy(a => a.AttributeMetadata.EntityLogicalName).ThenBy(a => a.LogicalName))
                     {
+                        this._iWriteToOutput.WriteToOutput("    {0}.{1}", attribute.AttributeMetadata.EntityLogicalName, attribute.LogicalName);
+
+                        listForPublish.Add(attribute.AttributeMetadata.EntityLogicalName);
+
                         try
                         {
-                            var metadata = await repository.GetAttributeMetadataAsync(attribute.AttributeMetadata.MetadataId.Value);
-
-                            attribute.LoadMetadata(metadata);
+                            await repository.UpdateAttributeMetadataAsync(attribute.AttributeMetadata);
                         }
                         catch (Exception ex)
                         {
                             _iWriteToOutput.WriteErrorToOutput(ex);
                         }
                     }
+                }
+
+                if (listEntitiesToChange.Any())
+                {
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.UpdatingEntities);
 
                     foreach (var entityMetadata in listEntitiesToChange.OrderBy(a => a.LogicalName))
                     {
+                        this._iWriteToOutput.WriteToOutput("    {0}", entityMetadata.LogicalName);
+
+                        listForPublish.Add(entityMetadata.LogicalName);
+
                         try
                         {
-                            var metadata = await repository.GetEntityMetadataAttributesAsync(entityMetadata.EntityMetadata.MetadataId.Value, EntityFilters.Entity);
-
-                            entityMetadata.LoadMetadata(metadata);
+                            await repository.UpdateEntityMetadataAsync(entityMetadata.EntityMetadata);
                         }
                         catch (Exception ex)
                         {
                             _iWriteToOutput.WriteErrorToOutput(ex);
                         }
                     }
-
-                    this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.SavingChangesFormat1, service.ConnectionData.Name);
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.SavingChangesCompleted);
+                if (listForPublish.Any())
+                {
+                    var entityNamesOrdered = string.Join(",", listForPublish.OrderBy(s => s));
+
+                    UpdateStatus(Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
+
+                    var repositoryPublish = new PublishActionsRepository(service);
+
+                    await repositoryPublish.PublishEntitiesAsync(listForPublish);
+                }
+
+                foreach (var attribute in listAttributesToChange.OrderBy(a => a.AttributeMetadata.EntityLogicalName).ThenBy(a => a.LogicalName))
+                {
+                    try
+                    {
+                        var metadata = await repository.GetAttributeMetadataAsync(attribute.AttributeMetadata.MetadataId.Value);
+
+                        attribute.LoadMetadata(metadata);
+                    }
+                    catch (Exception ex)
+                    {
+                        _iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                }
+
+                foreach (var entityMetadata in listEntitiesToChange.OrderBy(a => a.LogicalName))
+                {
+                    try
+                    {
+                        var metadata = await repository.GetEntityMetadataAttributesAsync(entityMetadata.EntityMetadata.MetadataId.Value, EntityFilters.Entity);
+
+                        entityMetadata.LoadMetadata(metadata);
+                    }
+                    catch (Exception ex)
+                    {
+                        _iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                }
+
+                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.SavingChangesFormat1, service.ConnectionData.Name);
+
+                ToggleControls(true, Properties.WindowStatusStrings.SavingChangesCompletedFormat1, service.ConnectionData.Name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.SavingChangesFailed);
+                ToggleControls(true, Properties.WindowStatusStrings.SavingChangesFailedFormat1, service.ConnectionData.Name);
             }
         }
 

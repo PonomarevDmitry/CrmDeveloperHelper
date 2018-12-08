@@ -1090,7 +1090,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat1, entityNamesOrdered);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
 
             try
             {
@@ -1098,13 +1098,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishEntitiesAsync(entityNames);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat1, entityNamesOrdered);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityNamesOrdered);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat1, entityNamesOrdered);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityNamesOrdered);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
@@ -1740,19 +1740,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var role = form.SelectedEntity.ToEntity<Role>();
+
+            string usersName = string.Join(", ", userList.Select(r => string.Format("{0} - {1}", r.DomainName, r.FullName)).OrderBy(s => s));
+            string rolesName = role.Name;
+
+            string operationName = string.Format(Properties.OperationNames.AssigningRolesToUsersFormat3, service.ConnectionData.Name, rolesName, usersName);
+
+            _iWriteToOutput.WriteToOutputStartOperation(operationName);
+
+            ToggleControls(false, Properties.WindowStatusStrings.AssigningRolesToUsersFormat3, service.ConnectionData.Name, rolesName, usersName);
+
             var repositoryRolePrivileges = new RolePrivilegesRepository(service);
 
             foreach (var user in userList)
             {
                 try
                 {
-                    await repositoryRolePrivileges.AssignRolesToUserAsync(user.Id, new[] { form.SelectedEntity.Id });
+                    await repositoryRolePrivileges.AssignRolesToUserAsync(user.Id, new[] { role.Id });
                 }
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(ex);
                 }
             }
+
+            ToggleControls(true, Properties.WindowStatusStrings.AssigningRolesToUsersCompletedFormat3, service.ConnectionData.Name, rolesName, usersName);
+
+            _iWriteToOutput.WriteToOutputEndOperation(operationName);
 
             RefreshSystemUserInfo();
         }
@@ -1784,7 +1799,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputStartOperation(operationName);
 
-            ToggleControls(false, Properties.WindowStatusStrings.RemovingRolesFromUsersFormat2, rolesName, usersName);
+            ToggleControls(false, Properties.WindowStatusStrings.RemovingRolesFromUsersFormat3, service.ConnectionData.Name, rolesName, usersName);
 
             try
             {
@@ -1797,7 +1812,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.WriteErrorToOutput(ex);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.RemovingRolesFromUsersCompletedFormat2, rolesName, usersName);
+            ToggleControls(true, Properties.WindowStatusStrings.RemovingRolesFromUsersCompletedFormat3, service.ConnectionData.Name, rolesName, usersName);
 
             _iWriteToOutput.WriteToOutputEndOperation(operationName);
 
@@ -1852,6 +1867,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var team = form.SelectedEntity.ToEntity<Team>();
+
+            string usersName = string.Join(", ", userList.Select(r => string.Format("{0} - {1}", r.DomainName, r.FullName)).OrderBy(s => s));
+            string teamsName = team.Name;
+
+            string operationName = string.Format(Properties.OperationNames.AddingUsersToTeamsFormat3, service.ConnectionData.Name, usersName, teamsName);
+
+            _iWriteToOutput.WriteToOutputStartOperation(operationName);
+
+            ToggleControls(false, Properties.WindowStatusStrings.AddingUsersToTeamsFormat3, service.ConnectionData.Name, usersName, teamsName);
+
             try
             {
                 await repository.AddUsersToTeamAsync(form.SelectedEntity.Id, userList.Select(r => r.Id));
@@ -1860,6 +1886,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
             }
+
+            ToggleControls(true, Properties.WindowStatusStrings.AddingUsersToTeamsCompletedFormat3, service.ConnectionData.Name, usersName, teamsName);
+
+            _iWriteToOutput.WriteToOutputEndOperation(operationName);
 
             RefreshSystemUserInfo();
         }
@@ -1891,7 +1921,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputStartOperation(operationName);
 
-            ToggleControls(false, Properties.WindowStatusStrings.RemovingUsersFromTeamsFormat2, usersName, teamsName);
+            ToggleControls(false, Properties.WindowStatusStrings.RemovingUsersFromTeamsFormat3, service.ConnectionData.Name, usersName, teamsName);
 
             try
             {
@@ -1904,7 +1934,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.WriteErrorToOutput(ex);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.RemovingUsersFromTeamsCompletedFormat2, usersName, teamsName);
+            ToggleControls(true, Properties.WindowStatusStrings.RemovingUsersFromTeamsCompletedFormat3, service.ConnectionData.Name, usersName, teamsName);
 
             _iWriteToOutput.WriteToOutputEndOperation(operationName);
 

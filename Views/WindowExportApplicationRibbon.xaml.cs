@@ -658,7 +658,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.UpdatingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXml);
+            ToggleControls(false, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
 
             var newText = string.Empty;
             bool? dialogResult = false;
@@ -676,7 +676,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (dialogResult.GetValueOrDefault() == false)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlCanceled);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlCanceledFormat1, service.ConnectionData.Name);
                 return;
             }
 
@@ -726,13 +726,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 await repositoryRibbonCustomization.PerformUpdateRibbonDiffXml(_iWriteToOutput, _commonConfig, doc, null, ribbonCustomization);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlCompleted);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlCompletedFormat1, service.ConnectionData.Name);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlFailed);
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlFailedFormat1, service.ConnectionData.Name);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.UpdatingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
@@ -749,7 +749,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingApplicationRibbonFormat1, service.ConnectionData.Name);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingApplicationRibbon);
+            ToggleControls(false, Properties.WindowStatusStrings.PublishingApplicationRibbonFormat1, service.ConnectionData.Name);
 
             try
             {
@@ -757,13 +757,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishApplicationRibbonAsync();
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingApplicationRibbonCompleted);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingApplicationRibbonCompletedFormat1, service.ConnectionData.Name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingApplicationRibbonFailed);
+                ToggleControls(true, Properties.WindowStatusStrings.PublishingApplicationRibbonFailedFormat1, service.ConnectionData.Name);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingApplicationRibbonFormat1, service.ConnectionData.Name);
