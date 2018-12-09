@@ -533,8 +533,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 string xmlContent = organization.GetAttributeValue<string>(fieldName);
 
-                xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportXmlAttributeOnNewLine);
-
                 string filePath = await CreateFileAsync(folder, organization.Name, fieldTitle + " BackUp", xmlContent);
 
                 var newText = string.Empty;

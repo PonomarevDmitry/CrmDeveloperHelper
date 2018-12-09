@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Linq;
 using System.ComponentModel.Design;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -62,7 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     {
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(this, menuCommand, "SiteMap");
+                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(this, menuCommand, out _, "SiteMap");
                     }
                 }
             }

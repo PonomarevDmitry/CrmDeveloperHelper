@@ -642,7 +642,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                bool validateResult = await ValidateXmlDocumentAsync(doc);
+                bool validateResult = await SystemFormRepository.ValidateXmlDocumentAsync(_iWriteToOutput, doc);
 
                 if (!validateResult)
                 {
@@ -677,58 +677,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat2, service.ConnectionData.Name, fieldName);
             }
-        }
-
-        private Task<bool> ValidateXmlDocumentAsync(XDocument doc)
-        {
-            return Task.Run(() => ValidateXmlDocument(doc));
-        }
-
-        private bool ValidateXmlDocument(XDocument doc)
-        {
-            XmlSchemaSet schemas = new XmlSchemaSet();
-
-            {
-                var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFormXml);
-
-                if (schemasResources != null)
-                {
-                    foreach (var fileName in schemasResources)
-                    {
-                        Uri uri = FileOperations.GetSchemaResourceUri(fileName);
-                        StreamResourceInfo info = Application.GetResourceStream(uri);
-
-                        using (StreamReader reader = new StreamReader(info.Stream))
-                        {
-                            schemas.Add("", XmlReader.Create(reader));
-                        }
-                    }
-                }
-            }
-
-            List<ValidationEventArgs> errors = new List<ValidationEventArgs>();
-
-            doc.Validate(schemas, (o, e) =>
-            {
-                errors.Add(e);
-            });
-
-            if (errors.Count > 0)
-            {
-                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.TextIsNotValidForFieldFormat1, "FormXml");
-
-                foreach (var item in errors)
-                {
-                    _iWriteToOutput.WriteToOutput(string.Empty);
-                    _iWriteToOutput.WriteToOutput(string.Empty);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.XmlValidationMessageFormat2, item.Severity, item.Message);
-                    _iWriteToOutput.WriteErrorToOutput(item.Exception);
-                }
-
-                _iWriteToOutput.ActivateOutputWindow();
-            }
-
-            return errors.Count == 0;
         }
 
         private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)

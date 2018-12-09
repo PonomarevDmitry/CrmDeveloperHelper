@@ -69,23 +69,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(this, menuCommand, "SiteMap");
+                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(this, menuCommand, out var doc, "SiteMap");
 
-                        //CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(this, menuCommand, "SiteMap", Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName, out var attribute);
+                        if (doc != null)
+                        {
+                            string siteMapUniqueName = "Default";
 
-                        //if (attribute != null)
-                        //{
-                        //    string entityName = attribute.Value;
+                            var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSiteMapNameUnique);
 
-                        //    if (string.IsNullOrEmpty(entityName))
-                        //    {
-                        //        entityName = "ApplicationRibbon";
-                        //    }
+                            if (attribute != null && !string.IsNullOrEmpty(attribute.Value))
+                            {
+                                siteMapUniqueName = attribute.Value;
+                            }
 
-                        //    string nameCommand = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, entityName, connectionData.Name);
-
-                        //    menuCommand.Text = nameCommand;
-                        //}
+                            menuCommand.Text = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, siteMapUniqueName, connectionData.Name);
+                        }
                     }
                 }
             }

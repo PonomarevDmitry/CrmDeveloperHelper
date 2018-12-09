@@ -826,11 +826,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Difference SavedQuery.
+        /// </summary>
+        internal static string DifferenceSavedQueryFormat1 {
+            get {
+                return ResourceManager.GetString("DifferenceSavedQueryFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Difference SiteMap.
         /// </summary>
         internal static string DifferenceSiteMapFormat1 {
             get {
                 return ResourceManager.GetString("DifferenceSiteMapFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Difference SystemForm.
+        /// </summary>
+        internal static string DifferenceSystemFormFormat1 {
+            get {
+                return ResourceManager.GetString("DifferenceSystemFormFormat1", resourceCulture);
             }
         }
         
@@ -1551,6 +1569,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string UpdatingRibbonFormat1 {
             get {
                 return ResourceManager.GetString("UpdatingRibbonFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Updating SavedQuery.
+        /// </summary>
+        internal static string UpdatingSavedQueryFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingSavedQueryFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Updating SiteMap.
+        /// </summary>
+        internal static string UpdatingSiteMapFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingSiteMapFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Updating SystemForm.
+        /// </summary>
+        internal static string UpdatingSystemFormFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingSystemFormFormat1", resourceCulture);
             }
         }
     }

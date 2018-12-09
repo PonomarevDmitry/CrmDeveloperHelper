@@ -37,8 +37,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        internal static bool CheckActiveDocumentIsXmlWithRoot(EnvDTE80.DTE2 applicationObject, params string[] rootNames)
+        internal static bool CheckActiveDocumentIsXmlWithRoot(EnvDTE80.DTE2 applicationObject, out XElement doc, params string[] rootNames)
         {
+            doc = null;
+
             if (rootNames == null || !rootNames.Any())
             {
                 return false;
@@ -66,7 +68,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             if (!string.IsNullOrEmpty(text))
                             {
-                                if (ContentCoparerHelper.TryParseXml(text, out var doc))
+                                if (ContentCoparerHelper.TryParseXml(text, out doc))
                                 {
                                     string docRootName = doc.Name.ToString();
 
@@ -96,9 +98,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static bool CheckActiveDocumentIsXmlWithRootWithAttribute(
             EnvDTE80.DTE2 applicationObject
-            , string rootName
             , XName attributeName
             , out XAttribute attribute
+            , params string[] rootNames
         )
         {
             bool result = false;
@@ -128,11 +130,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 {
                                     string docRootName = doc.Name.ToString();
 
-                                    if (string.Equals(docRootName, rootName, StringComparison.InvariantCultureIgnoreCase))
+                                    foreach (var rootName in rootNames)
                                     {
-                                        attribute = doc.Attribute(attributeName);
+                                        if (string.Equals(docRootName, rootName, StringComparison.InvariantCultureIgnoreCase))
+                                        {
+                                            attribute = doc.Attribute(attributeName);
 
-                                        result = attribute != null;
+                                            result = attribute != null;
+                                            break;
+                                        }
                                     }
                                 }
                             }
@@ -430,13 +436,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        internal static void ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(IServiceProviderOwner command, OleMenuCommand menuCommand, params string[] rootNames)
+        internal static void ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(IServiceProviderOwner command, OleMenuCommand menuCommand, out XElement doc, params string[] rootNames)
         {
+            doc = null;
             bool visible = false;
 
             if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
             {
-                visible = CheckActiveDocumentIsXmlWithRoot(applicationObject, rootNames);
+                visible = CheckActiveDocumentIsXmlWithRoot(applicationObject, out doc, rootNames);
             }
 
             if (visible == false)
@@ -448,9 +455,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         internal static void ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(
             IServiceProviderOwner command
             , OleMenuCommand menuCommand
-            , string rootName
             , XName attributeName
             , out XAttribute attribute
+            , params string[] rootNames
         )
         {
             bool visible = false;
@@ -458,7 +465,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
             {
-                visible = CheckActiveDocumentIsXmlWithRootWithAttribute(applicationObject, rootName, attributeName, out attribute);
+                visible = CheckActiveDocumentIsXmlWithRootWithAttribute(applicationObject, attributeName, out attribute, rootNames);
             }
 
             if (visible == false)

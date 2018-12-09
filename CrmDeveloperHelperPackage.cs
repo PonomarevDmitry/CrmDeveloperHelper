@@ -74,13 +74,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlRemoveXsdSchemaCommand.Initialize(this);
             CodeXmlRibbonDiffInsertIntellisenseContextCommand.Initialize(this);
             CodeXmlRibbonDiffRemoveIntellisenseContextCommand.Initialize(this);
+
             CodeXmlShowDifferenceSiteMapDefaultCommand.Initialize(this);
             CodeXmlShowDifferenceSiteMapCommand.Initialize(this);
             CodeXmlShowDifferenceSiteMapInConnectionGroupCommand.Initialize(this);
+
+            CodeXmlUpdateSiteMapCommand.Initialize(this);
+            CodeXmlUpdateSiteMapInConnectionGroupCommand.Initialize(this);
+
+            CodeXmlShowDifferenceSystemFormCommand.Initialize(this);
+            CodeXmlShowDifferenceSystemFormInConnectionGroupCommand.Initialize(this);
+
+            CodeXmlUpdateSystemFormCommand.Initialize(this);
+            CodeXmlUpdateSystemFormInConnectionGroupCommand.Initialize(this);
+
+            CodeXmlShowDifferenceSavedQueryCommand.Initialize(this);
+            CodeXmlShowDifferenceSavedQueryInConnectionGroupCommand.Initialize(this);
+
+            CodeXmlUpdateSavedQueryCommand.Initialize(this);
+            CodeXmlUpdateSavedQueryInConnectionGroupCommand.Initialize(this);
+
             CodeXmlShowDifferenceRibbonCommand.Initialize(this);
             CodeXmlShowDifferenceRibbonInConnectionGroupCommand.Initialize(this);
             CodeXmlShowDifferenceRibbonDiffXmlCommand.Initialize(this);
             CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand.Initialize(this);
+
             CodeXmlUpdateRibbonDiffXmlCommand.Initialize(this);
             CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand.Initialize(this);
 

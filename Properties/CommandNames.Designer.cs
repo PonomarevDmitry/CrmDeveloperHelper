@@ -268,11 +268,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Difference SiteMap.
+        ///   Looks up a localized string similar to Show Difference SavedQuery.
+        /// </summary>
+        internal static string CodeXmlShowDifferenceSavedQueryCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlShowDifferenceSavedQueryCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Difference SiteMap &quot;{0}&quot;.
+        /// </summary>
+        internal static string CodeXmlShowDifferenceSiteMapByNameCommandFormat1 {
+            get {
+                return ResourceManager.GetString("CodeXmlShowDifferenceSiteMapByNameCommandFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Difference SiteMap Default.
         /// </summary>
         internal static string CodeXmlShowDifferenceSiteMapCommand {
             get {
                 return ResourceManager.GetString("CodeXmlShowDifferenceSiteMapCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Difference SystemForm.
+        /// </summary>
+        internal static string CodeXmlShowDifferenceSystemFormCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlShowDifferenceSystemFormCommand", resourceCulture);
             }
         }
         
@@ -291,6 +318,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeXmlUpdateEntityRibbonDiffXmlCommandFormat1 {
             get {
                 return ResourceManager.GetString("CodeXmlUpdateEntityRibbonDiffXmlCommandFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update SavedQuery.
+        /// </summary>
+        internal static string CodeXmlUpdateSavedQueryCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlUpdateSavedQueryCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update SiteMap &quot;{0}&quot;.
+        /// </summary>
+        internal static string CodeXmlUpdateSiteMapByNameCommandFormat1 {
+            get {
+                return ResourceManager.GetString("CodeXmlUpdateSiteMapByNameCommandFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update SiteMap Default.
+        /// </summary>
+        internal static string CodeXmlUpdateSiteMapCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlUpdateSiteMapCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update SystemForm.
+        /// </summary>
+        internal static string CodeXmlUpdateSystemFormCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlUpdateSystemFormCommand", resourceCulture);
             }
         }
         

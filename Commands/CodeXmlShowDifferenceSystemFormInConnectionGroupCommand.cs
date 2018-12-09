@@ -1,22 +1,23 @@
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    public sealed class CodeXmlExecuteFetchXmlRequestInConnectionsCommand : IServiceProviderOwner
+    internal sealed class CodeXmlShowDifferenceSystemFormInConnectionGroupCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.CodeXmlExecuteFetchXmlRequestInConnectionsCommandId;
+        private const int _baseIdStart = PackageIds.CodeXmlShowDifferenceSystemFormInConnectionGroupCommandId;
 
-        private CodeXmlExecuteFetchXmlRequestInConnectionsCommand(Package package)
+        private CodeXmlShowDifferenceSystemFormInConnectionGroupCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -39,11 +40,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static CodeXmlExecuteFetchXmlRequestInConnectionsCommand Instance { get; private set; }
+        public static CodeXmlShowDifferenceSystemFormInConnectionGroupCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CodeXmlExecuteFetchXmlRequestInConnectionsCommand(package);
+            Instance = new CodeXmlShowDifferenceSystemFormInConnectionGroupCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -58,17 +59,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var connectionConfig = ConnectionConfiguration.Get();
 
-                    var connections = connectionConfig.GetConnectionsWithoutCurrent();
+                    var list = connectionConfig.GetConnectionsByGroupWithoutCurrent();
 
-                    if (0 <= index && index < connections.Count)
+                    if (0 <= index && index < list.Count)
                     {
-                        var connectionData = connections[index];
+                        var connectionData = list[index];
 
-                        menuCommand.Text = connectionData.NameWithCurrentMark;
+                        menuCommand.Text = connectionData.Name;
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(this, menuCommand, out _, "fetch");
+                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(this, menuCommand, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId, out var attribute, "FormXml");
+
+                        if (attribute == null
+                            || !Guid.TryParse(attribute.Value, out _)
+                            )
+                        {
+                            menuCommand.Enabled = menuCommand.Visible = false;
+                        }
                     }
                 }
             }
@@ -96,35 +104,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var index = menuCommand.CommandID.ID - _baseIdStart;
 
-                var connectionConfig = ConnectionConfiguration.Get();
+                var connectionConfig = Model.ConnectionConfiguration.Get();
 
-                var connections = connectionConfig.GetConnectionsWithoutCurrent();
+                var list = connectionConfig.GetConnectionsByGroupWithoutCurrent();
 
-                if (0 <= index && index < connections.Count)
+                if (0 <= index && index < list.Count)
                 {
-                    var connectionData = connections[index];
+                    var connectionData = list[index];
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    var selectedFile = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).FirstOrDefault();
+                    List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType);
 
-                    if (selectedFile == null)
+                    if (selectedFiles.Count == 1)
                     {
-                        return;
+                        helper.HandleSystemFormDifferenceCommand(connectionData, selectedFiles.FirstOrDefault());
                     }
-
-                    if (helper.ApplicationObject.ActiveWindow != null
-                       && helper.ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
-                       && helper.ApplicationObject.ActiveWindow.Document != null
-                       )
-                    {
-                        if (!helper.ApplicationObject.ActiveWindow.Document.Saved)
-                        {
-                            helper.ApplicationObject.ActiveWindow.Document.Save();
-                        }
-                    }
-
-                    helper.HandleExecutingFetchXml(connectionData, selectedFile);
                 }
             }
             catch (Exception ex)

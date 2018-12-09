@@ -167,10 +167,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 , caretPoint.Value.Snapshot.CreateTrackingPoint(caretPoint.Value.Position, PointTrackingMode.Positive)
                 , true);
 
-            //subscribe to the Dismissed event on the session 
-            _session.Dismissed += this.OnSessionDismissed;
+            if (_session != null)
+            {
+                //subscribe to the Dismissed event on the session 
+                _session.Dismissed += this.OnSessionDismissed;
 
-            _session.Start();
+                _session.Start();
+            }
 
             return true;
         }

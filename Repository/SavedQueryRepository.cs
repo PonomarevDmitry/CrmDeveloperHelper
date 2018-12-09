@@ -1,12 +1,20 @@
 ﻿using Microsoft.Crm.Sdk;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Resources;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Schema;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
@@ -209,6 +217,94 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             };
 
             return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SavedQuery>()).SingleOrDefault();
+        }
+
+        public static string GetFieldNameByXmlRoot(string rootNodeName)
+        {
+            if (string.Equals(rootNodeName, "fetch", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return SavedQuery.Schema.Attributes.fetchxml;
+            }
+            else if (string.Equals(rootNodeName, "grid", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return SavedQuery.Schema.Attributes.layoutxml;
+            }
+            else if (string.Equals(rootNodeName, "columnset", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return SavedQuery.Schema.Attributes.columnsetxml;
+            }
+
+            throw new ArgumentException(string.Format("Unknown xml root node name - {0}", rootNodeName));
+        }
+
+        public static string GetFieldTitleByXmlRoot(string rootNodeName)
+        {
+            if (string.Equals(rootNodeName, "fetch", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return "FetchXml";
+            }
+            else if (string.Equals(rootNodeName, "grid", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return "LayoutXml";
+            }
+            else if (string.Equals(rootNodeName, "columnset", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return "ColumnSetXml";
+            }
+
+            throw new ArgumentException(string.Format("Unknown xml root node name - {0}", rootNodeName));
+        }
+
+        public static Task<bool> ValidateXmlDocumentAsync(IWriteToOutput iWriteToOutput, XDocument doc, string fieldTitle)
+        {
+            return Task.Run(() => ValidateXmlDocument(iWriteToOutput, doc, fieldTitle));
+        }
+
+        private static bool ValidateXmlDocument(IWriteToOutput iWriteToOutput, XDocument doc, string fieldTitle)
+        {
+            XmlSchemaSet schemas = new XmlSchemaSet();
+
+            {
+                var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFetch);
+
+                if (schemasResources != null)
+                {
+                    foreach (var fileName in schemasResources)
+                    {
+                        Uri uri = FileOperations.GetSchemaResourceUri(fileName);
+                        StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                        using (StreamReader reader = new StreamReader(info.Stream))
+                        {
+                            schemas.Add("", XmlReader.Create(reader));
+                        }
+                    }
+                }
+            }
+
+            List<ValidationEventArgs> errors = new List<ValidationEventArgs>();
+
+            doc.Validate(schemas, (o, e) =>
+            {
+                errors.Add(e);
+            });
+
+            if (errors.Count > 0)
+            {
+                iWriteToOutput.WriteToOutput(Properties.OutputStrings.TextIsNotValidForFieldFormat1, fieldTitle);
+
+                foreach (var item in errors)
+                {
+                    iWriteToOutput.WriteToOutput(string.Empty);
+                    iWriteToOutput.WriteToOutput(string.Empty);
+                    iWriteToOutput.WriteToOutput(Properties.OutputStrings.XmlValidationMessageFormat2, item.Severity, item.Message);
+                    iWriteToOutput.WriteErrorToOutput(item.Exception);
+                }
+
+                iWriteToOutput.ActivateOutputWindow();
+            }
+
+            return errors.Count == 0;
         }
     }
 }

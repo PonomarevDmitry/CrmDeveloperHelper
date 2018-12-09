@@ -69,7 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                         {
                             menuCommand.Enabled = menuCommand.Visible = true;
 
-                            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(this, menuCommand, "RibbonDiffXml", Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName, out var attribute);
+                            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(this, menuCommand, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName, out var attribute, "RibbonDiffXml");
 
                             if (attribute != null)
                             {

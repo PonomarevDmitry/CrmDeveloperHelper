@@ -145,11 +145,21 @@
     <Compile Include="Commands\CodeXmlShowDifferenceRibbonDiffXmlCommand.cs" />
     <Compile Include="Commands\CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeXmlShowDifferenceRibbonInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\CodeXmlShowDifferenceSavedQueryCommand.cs" />
+    <Compile Include="Commands\CodeXmlShowDifferenceSavedQueryInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeXmlShowDifferenceSiteMapCommand.cs" />
     <Compile Include="Commands\CodeXmlShowDifferenceSiteMapDefaultCommand.cs" />
     <Compile Include="Commands\CodeXmlShowDifferenceSiteMapInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\CodeXmlShowDifferenceSystemFormCommand.cs" />
+    <Compile Include="Commands\CodeXmlShowDifferenceSystemFormInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeXmlUpdateRibbonDiffXmlCommand.cs" />
     <Compile Include="Commands\CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\CodeXmlUpdateSavedQueryCommand.cs" />
+    <Compile Include="Commands\CodeXmlUpdateSavedQueryInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\CodeXmlUpdateSiteMapCommand.cs" />
+    <Compile Include="Commands\CodeXmlUpdateSiteMapInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\CodeXmlUpdateSystemFormCommand.cs" />
+    <Compile Include="Commands\CodeXmlUpdateSystemFormInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CommonCheckComponentTypeEnumCommand.cs" />
     <Compile Include="Commands\CommonCheckEntitiesNamesAndShowDependentComponentsCommand.cs" />
     <Compile Include="Commands\CommonCheckEntitiesNamesCommand.cs" />
@@ -1179,8 +1189,8 @@
     <VSCTCompile Include="CrmDeveloperHelperPackageCommandTable.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>
-      <Generator>VsctGenerator</Generator>
       <LastGenOutput>CrmDeveloperHelperPackageCommandTable1.cs</LastGenOutput>
+      <Generator>VsctGenerator</Generator>
     </VSCTCompile>
     <Resource Include="Resources\16x16_refresh.ico" />
     <Resource Include="Resources\Add.png" />

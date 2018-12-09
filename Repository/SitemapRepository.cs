@@ -1,11 +1,19 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Resources;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Schema;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
@@ -130,6 +138,58 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             var coll = _Service.RetrieveMultiple(query).Entities;
 
             return coll.Count == 1 ? coll.Select(e => e.ToEntity<SiteMap>()).SingleOrDefault() : null;
+        }
+
+        public static Task<bool> ValidateXmlDocumentAsync(IWriteToOutput iWriteToOutput, XDocument doc)
+        {
+            return Task.Run(() => ValidateXmlDocument(iWriteToOutput, doc));
+        }
+
+        private static bool ValidateXmlDocument(IWriteToOutput iWriteToOutput, XDocument doc)
+        {
+            XmlSchemaSet schemas = new XmlSchemaSet();
+
+            {
+                var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaSiteMapXml);
+
+                if (schemasResources != null)
+                {
+                    foreach (var fileName in schemasResources)
+                    {
+                        Uri uri = FileOperations.GetSchemaResourceUri(fileName);
+                        StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                        using (StreamReader reader = new StreamReader(info.Stream))
+                        {
+                            schemas.Add("", XmlReader.Create(reader));
+                        }
+                    }
+                }
+            }
+
+            List<ValidationEventArgs> errors = new List<ValidationEventArgs>();
+
+            doc.Validate(schemas, (o, e) =>
+            {
+                errors.Add(e);
+            });
+
+            if (errors.Count > 0)
+            {
+                iWriteToOutput.WriteToOutput(Properties.OutputStrings.TextIsNotValidForFieldFormat1, "SiteMapXml");
+
+                foreach (var item in errors)
+                {
+                    iWriteToOutput.WriteToOutput(string.Empty);
+                    iWriteToOutput.WriteToOutput(string.Empty);
+                    iWriteToOutput.WriteToOutput(Properties.OutputStrings.XmlValidationMessageFormat2, item.Severity, item.Message);
+                    iWriteToOutput.WriteErrorToOutput(item.Exception);
+                }
+
+                iWriteToOutput.ActivateOutputWindow();
+            }
+
+            return errors.Count == 0;
         }
     }
 }

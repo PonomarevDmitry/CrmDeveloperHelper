@@ -1,22 +1,23 @@
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    public sealed class CodeXmlExecuteFetchXmlRequestInConnectionsCommand : IServiceProviderOwner
+    internal sealed class CodeXmlUpdateSiteMapInConnectionGroupCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.CodeXmlExecuteFetchXmlRequestInConnectionsCommandId;
+        private const int _baseIdStart = PackageIds.CodeXmlUpdateSiteMapInConnectionGroupCommandId;
 
-        private CodeXmlExecuteFetchXmlRequestInConnectionsCommand(Package package)
+        private CodeXmlUpdateSiteMapInConnectionGroupCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -39,11 +40,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static CodeXmlExecuteFetchXmlRequestInConnectionsCommand Instance { get; private set; }
+        public static CodeXmlUpdateSiteMapInConnectionGroupCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CodeXmlExecuteFetchXmlRequestInConnectionsCommand(package);
+            Instance = new CodeXmlUpdateSiteMapInConnectionGroupCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -58,17 +59,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var connectionConfig = ConnectionConfiguration.Get();
 
-                    var connections = connectionConfig.GetConnectionsWithoutCurrent();
+                    var list = connectionConfig.GetConnectionsByGroupWithoutCurrent();
 
-                    if (0 <= index && index < connections.Count)
+                    if (0 <= index && index < list.Count)
                     {
-                        var connectionData = connections[index];
+                        var connectionData = list[index];
 
-                        menuCommand.Text = connectionData.NameWithCurrentMark;
+                        menuCommand.Text = connectionData.Name;
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(this, menuCommand, out _, "fetch");
+                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(this, menuCommand, out var doc, "SiteMap");
+
+                        if (doc != null)
+                        {
+                            string siteMapUniqueName = "Default";
+
+                            var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSiteMapNameUnique);
+
+                            if (attribute != null && !string.IsNullOrEmpty(attribute.Value))
+                            {
+                                siteMapUniqueName = attribute.Value;
+                            }
+
+                            menuCommand.Text = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, siteMapUniqueName, connectionData.Name);
+                        }
                     }
                 }
             }
@@ -96,35 +111,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var index = menuCommand.CommandID.ID - _baseIdStart;
 
-                var connectionConfig = ConnectionConfiguration.Get();
+                var connectionConfig = Model.ConnectionConfiguration.Get();
 
-                var connections = connectionConfig.GetConnectionsWithoutCurrent();
+                var list = connectionConfig.GetConnectionsByGroupWithoutCurrent();
 
-                if (0 <= index && index < connections.Count)
+                if (0 <= index && index < list.Count)
                 {
-                    var connectionData = connections[index];
+                    var connectionData = list[index];
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    var selectedFile = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).FirstOrDefault();
+                    List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType);
 
-                    if (selectedFile == null)
+                    if (selectedFiles.Count == 1)
                     {
-                        return;
+                        helper.HandleSiteMapUpdateCommand(connectionData, selectedFiles.FirstOrDefault());
                     }
-
-                    if (helper.ApplicationObject.ActiveWindow != null
-                       && helper.ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
-                       && helper.ApplicationObject.ActiveWindow.Document != null
-                       )
-                    {
-                        if (!helper.ApplicationObject.ActiveWindow.Document.Saved)
-                        {
-                            helper.ApplicationObject.ActiveWindow.Document.Save();
-                        }
-                    }
-
-                    helper.HandleExecutingFetchXml(connectionData, selectedFile);
                 }
             }
             catch (Exception ex)

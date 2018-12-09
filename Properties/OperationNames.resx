@@ -615,4 +615,19 @@
   <data name="AssigningRolesToUsersFormat3" xml:space="preserve">
     <value>{0} - Assigning Roles {1} to Users {2}</value>
   </data>
+  <data name="UpdatingSiteMapFormat1" xml:space="preserve">
+    <value>{0} - Updating SiteMap</value>
+  </data>
+  <data name="DifferenceSystemFormFormat1" xml:space="preserve">
+    <value>{0} - Difference SystemForm</value>
+  </data>
+  <data name="UpdatingSystemFormFormat1" xml:space="preserve">
+    <value>{0} - Updating SystemForm</value>
+  </data>
+  <data name="DifferenceSavedQueryFormat1" xml:space="preserve">
+    <value>{0} - Difference SavedQuery</value>
+  </data>
+  <data name="UpdatingSavedQueryFormat1" xml:space="preserve">
+    <value>{0} - Updating SavedQuery</value>
+  </data>
 </root>

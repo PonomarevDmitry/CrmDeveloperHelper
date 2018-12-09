@@ -647,18 +647,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                 var repository = new SavedQueryRepository(service);
+                var repository = new SavedQueryRepository(service);
 
                 var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(fieldName, SavedQuery.Schema.Attributes.querytype));
 
                 string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
-
-                {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var tempDoc))
-                    {
-                        xmlContent = tempDoc.ToString();
-                    }
-                }
 
                 string filePath = await CreateFileAsync(folder, idSavedQuery, entityName, name, fieldTitle + " BackUp", xmlContent, "xml");
 
@@ -692,7 +685,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                bool validateResult = await ValidateXmlDocumentAsync(doc, fieldTitle);
+                bool validateResult = await SavedQueryRepository.ValidateXmlDocumentAsync(_iWriteToOutput, doc, fieldTitle);
 
                 if (!validateResult)
                 {
@@ -710,7 +703,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         FetchXml = newText,
                         QueryType = savedQuery.QueryType.GetValueOrDefault()
                     };
-
+                    
                     service.Execute(request);
                 }
 
@@ -738,58 +731,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat2, service.ConnectionData.Name, fieldName);
             }
-        }
-
-        private Task<bool> ValidateXmlDocumentAsync(XDocument doc, string fieldTitle)
-        {
-            return Task.Run(() => ValidateXmlDocument(doc, fieldTitle));
-        }
-
-        private bool ValidateXmlDocument(XDocument doc, string fieldTitle)
-        {
-            XmlSchemaSet schemas = new XmlSchemaSet();
-
-            {
-                var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFetch);
-
-                if (schemasResources != null)
-                {
-                    foreach (var fileName in schemasResources)
-                    {
-                        Uri uri = FileOperations.GetSchemaResourceUri(fileName);
-                        StreamResourceInfo info = Application.GetResourceStream(uri);
-
-                        using (StreamReader reader = new StreamReader(info.Stream))
-                        {
-                            schemas.Add("", XmlReader.Create(reader));
-                        }
-                    }
-                }
-            }
-
-            List<ValidationEventArgs> errors = new List<ValidationEventArgs>();
-
-            doc.Validate(schemas, (o, e) =>
-            {
-                errors.Add(e);
-            });
-
-            if (errors.Count > 0)
-            {
-                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.TextIsNotValidForFieldFormat1, fieldTitle);
-
-                foreach (var item in errors)
-                {
-                    _iWriteToOutput.WriteToOutput(string.Empty);
-                    _iWriteToOutput.WriteToOutput(string.Empty);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.XmlValidationMessageFormat2, item.Severity, item.Message);
-                    _iWriteToOutput.WriteErrorToOutput(item.Exception);
-                }
-
-                _iWriteToOutput.ActivateOutputWindow();
-            }
-
-            return errors.Count == 0;
         }
 
         private void mIExportSavedQueryFetchXml_Click(object sender, RoutedEventArgs e)

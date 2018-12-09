@@ -574,6 +574,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. SavedQuery with id &apos;{1}&apos; not founded..
+        /// </summary>
+        internal static string SavedQueryNotFoundedFormat2 {
+            get {
+                return ResourceManager.GetString("SavedQueryNotFoundedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Showing Difference is not allowed for {0}..
         /// </summary>
         internal static string ShowingDifferenceIsNotAllowedForFormat1 {
@@ -646,6 +655,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. SystemForm with id &apos;{1}&apos; not founded..
+        /// </summary>
+        internal static string SystemFormNotFoundedFormat2 {
+            get {
+                return ResourceManager.GetString("SystemFormNotFoundedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Text is not valid for {0}..
         /// </summary>
         internal static string TextIsNotValidForFieldFormat1 {
@@ -687,6 +705,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string WhoAmIRequestExecutedSuccessfully {
             get {
                 return ResourceManager.GetString("WhoAmIRequestExecutedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xml Attribute {0} not Valid Guid &quot;{1}&quot; in file: {2}.
+        /// </summary>
+        internal static string XmlAttributeNotValidGuidFormat3 {
+            get {
+                return ResourceManager.GetString("XmlAttributeNotValidGuidFormat3", resourceCulture);
             }
         }
         
