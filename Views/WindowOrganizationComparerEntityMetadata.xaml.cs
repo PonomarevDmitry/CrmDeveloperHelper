@@ -1453,10 +1453,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (_commonConfig.SetIntellisenseContext)
                     {
-                        ribbonXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonXml, entityName);
+                        ribbonXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonXml, entityName);
                     }
 
-                    ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+                    ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportXmlAttributeOnNewLine);
 
                     string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service1.ConnectionData.Name, entityName);
                     filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1468,10 +1468,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (_commonConfig.SetIntellisenseContext)
                     {
-                        ribbonXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonXml, entityName);
+                        ribbonXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonXml, entityName);
                     }
 
-                    ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+                    ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportXmlAttributeOnNewLine);
 
                     string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service2.ConnectionData.Name, entityName);
                     filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1575,16 +1575,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             if (schemasResources != null)
                             {
-                                ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
+                                ribbonDiffXml = ContentCoparerHelper.SetXsdSchema(ribbonDiffXml, schemasResources);
                             }
                         }
 
                         if (_commonConfig.SetIntellisenseContext)
                         {
-                            ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, entity.LogicalName);
+                            ribbonDiffXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonDiffXml, entity.LogicalName);
                         }
 
-                        ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+                        ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportXmlAttributeOnNewLine);
 
                         string fileName1 = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service1.ConnectionData.Name, entity.LogicalName);
                         filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
@@ -1605,16 +1605,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             if (schemasResources != null)
                             {
-                                ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
+                                ribbonDiffXml = ContentCoparerHelper.SetXsdSchema(ribbonDiffXml, schemasResources);
                             }
                         }
 
                         if (_commonConfig.SetIntellisenseContext)
                         {
-                            ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, entity.LogicalName);
+                            ribbonDiffXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonDiffXml, entity.LogicalName);
                         }
 
-                        ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+                        ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportXmlAttributeOnNewLine);
 
                         string fileName2 = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service2.ConnectionData.Name, entity.LogicalName);
                         filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
@@ -1707,10 +1707,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (_commonConfig.SetIntellisenseContext)
                 {
-                    ribbonXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonXml, entityName);
+                    ribbonXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonXml, entityName);
                 }
 
-                ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+                ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportXmlAttributeOnNewLine);
 
                 string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityName);
                 string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1872,16 +1872,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (schemasResources != null)
                     {
-                        ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
+                        ribbonDiffXml = ContentCoparerHelper.SetXsdSchema(ribbonDiffXml, schemasResources);
                     }
                 }
 
                 if (_commonConfig.SetIntellisenseContext)
                 {
-                    ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, entityMetadata.LogicalName);
+                    ribbonDiffXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonDiffXml, entityMetadata.LogicalName);
                 }
 
-                ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+                ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportXmlAttributeOnNewLine);
 
                 {
                     string fileName = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service.ConnectionData.Name, entityMetadata.LogicalName);

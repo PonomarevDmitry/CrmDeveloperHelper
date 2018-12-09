@@ -852,12 +852,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private const string replaceSchemaLocationFormat = " xsi:schemaLocation=\"{0}\"";
 
         private static readonly string patternIntellisenseContext = string.Format(replaceIntellisenseContextNamespaceFormat1, "([^\"]+)");
-        private const string replaceIntellisenseContextNamespaceFormat1 = " xmlns:"+ Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + "=\"{0}\"";
+        private const string replaceIntellisenseContextNamespaceFormat1 = " xmlns:" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + "=\"{0}\"";
 
         private const string patternIntellisenseContextAttributes = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":([^\"]*)=\"([^\"]*)\"";
 
         private static readonly string patternIntellisenseContextEntityName = string.Format(replaceIntellisenseContextEntityNameFormat1, "([^\"]*)");
-        private const string replaceIntellisenseContextEntityNameFormat1 = " "+ Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeEntityName + "=\"{0}\"";
+        private const string replaceIntellisenseContextEntityNameFormat1 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeEntityName + "=\"{0}\"";
+
+        private static readonly string patternIntellisenseContextSavedQueryId = string.Format(replaceIntellisenseContextSavedQueryIdFormat1, "([^\"]*)");
+        private const string replaceIntellisenseContextSavedQueryIdFormat1 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeSavedQueryId + "=\"{0}\"";
+
+        private static readonly string patternIntellisenseContextFormId = string.Format(replaceIntellisenseContextFormIdFormat1, "([^\"]*)");
+        private const string replaceIntellisenseContextFormIdFormat1 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeFormId + "=\"{0}\"";
+
+        private static readonly string patternIntellisenseContextSiteMapNameUnique = string.Format(replaceIntellisenseContextSiteMapNameUniqueFormat1, "([^\"]*)");
+        private const string replaceIntellisenseContextSiteMapNameUniqueFormat1 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeSiteMapNameUnique + "=\"{0}\"";
 
         private static void GetTextViewAndMakeAction(Document document, string operationName, Action<IWpfTextView> action)
         {
@@ -893,7 +902,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public static string ReplaceXsdSchema(string text, string[] fileNamesColl)
+        public static string SetXsdSchema(string text, string[] fileNamesColl)
         {
             if (fileNamesColl == null || !fileNamesColl.Any())
             {
@@ -907,11 +916,82 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return text;
             }
 
-            var result = text;
+            var newAttribute = string.Format(replaceSchemaLocationFormat, schemas);
 
-            if (Regex.IsMatch(result, patternXsi))
+            string result = text;
+
+            result = ReplaceOrInsertAttribute(result, patternXsi, replaceXsiNamespace);
+
+            result = ReplaceOrInsertAttribute(result, patternSchemaLocation, newAttribute);
+
+            return result;
+        }
+
+        public static string SetIntellisenseContextRibbonDiffXmlEntityName(string text, string entityName)
+        {
+            var newEntityNameAttribute = string.Format(replaceIntellisenseContextEntityNameFormat1, entityName);
+
+            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
+
+            string result = text;
+
+            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, intellisenseContextNamespace);
+
+            result = ReplaceOrInsertAttribute(result, patternIntellisenseContextEntityName, newEntityNameAttribute);
+
+            return result;
+        }
+
+        public static string SetIntellisenseContextFormId(string text, Guid formid)
+        {
+            var newEntityNameAttribute = string.Format(replaceIntellisenseContextFormIdFormat1, formid.ToString());
+
+            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
+
+            string result = text;
+
+            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, intellisenseContextNamespace);
+
+            result = ReplaceOrInsertAttribute(result, patternIntellisenseContextFormId, newEntityNameAttribute);
+
+            return result;
+        }
+
+        public static string SetIntellisenseContextSavedQueryId(string text, Guid savedQueryId)
+        {
+            var newEntityNameAttribute = string.Format(replaceIntellisenseContextSavedQueryIdFormat1, savedQueryId.ToString());
+
+            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
+
+            string result = text;
+
+            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, intellisenseContextNamespace);
+
+            result = ReplaceOrInsertAttribute(result, patternIntellisenseContextSavedQueryId, newEntityNameAttribute);
+
+            return result;
+        }
+
+        public static string SetIntellisenseContextSiteMapNameUnique(string text, string siteMapNameUnique)
+        {
+            var newEntityNameAttribute = string.Format(replaceIntellisenseContextSiteMapNameUniqueFormat1, siteMapNameUnique);
+
+            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
+
+            string result = text;
+
+            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, intellisenseContextNamespace);
+
+            result = ReplaceOrInsertAttribute(result, patternIntellisenseContextSiteMapNameUnique, newEntityNameAttribute);
+
+            return result;
+        }
+
+        private static string ReplaceOrInsertAttribute(string result, string patternAttribute, string newAttribute)
+        {
+            if (Regex.IsMatch(result, patternAttribute))
             {
-                result = Regex.Replace(result, patternXsi, replaceXsiNamespace, RegexOptions.IgnoreCase);
+                result = Regex.Replace(result, patternAttribute, newAttribute, RegexOptions.IgnoreCase);
             }
             else
             {
@@ -919,21 +999,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (indexInsert.HasValue)
                 {
-                    result = result.Insert(indexInsert.Value, replaceXsiNamespace);
-                }
-            }
-
-            if (Regex.IsMatch(result, patternSchemaLocation))
-            {
-                result = Regex.Replace(result, patternSchemaLocation, string.Format(replaceSchemaLocationFormat, schemas), RegexOptions.IgnoreCase);
-            }
-            else
-            {
-                int? indexInsert = FindIndexToInsert(result);
-
-                if (indexInsert.HasValue)
-                {
-                    result = result.Insert(indexInsert.Value, string.Format(replaceSchemaLocationFormat, schemas));
+                    result = result.Insert(indexInsert.Value, newAttribute);
                 }
             }
 
@@ -1212,45 +1278,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return view;
-        }
-
-        public static string SetRibbonDiffXmlIntellisenseContextEntityName(string text, string entityName)
-        {
-            var result = text;
-
-            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
-
-            if (Regex.IsMatch(result, patternIntellisenseContext))
-            {
-                result = Regex.Replace(result, patternIntellisenseContext, intellisenseContextNamespace, RegexOptions.IgnoreCase);
-            }
-            else
-            {
-                int? indexInsert = FindIndexToInsert(result);
-
-                if (indexInsert.HasValue)
-                {
-                    result = result.Insert(indexInsert.Value, intellisenseContextNamespace);
-                }
-            }
-
-            var newEntityNameAttribute = string.Format(replaceIntellisenseContextEntityNameFormat1, entityName);
-
-            if (Regex.IsMatch(result, patternIntellisenseContextEntityName))
-            {
-                result = Regex.Replace(result, patternIntellisenseContextEntityName, newEntityNameAttribute, RegexOptions.IgnoreCase);
-            }
-            else
-            {
-                int? indexInsert = FindIndexToInsert(result);
-
-                if (indexInsert.HasValue)
-                {
-                    result = result.Insert(indexInsert.Value, newEntityNameAttribute);
-                }
-            }
-
-            return result;
         }
 
         private static int? FindIndexToInsert(string result)

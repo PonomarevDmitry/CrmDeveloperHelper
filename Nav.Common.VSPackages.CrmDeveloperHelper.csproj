@@ -597,6 +597,7 @@
     <Compile Include="Helpers\OrganizationComparer.Templates.cs" />
     <Compile Include="Helpers\OrganizationComparer.Translations.cs" />
     <Compile Include="Helpers\OrganizationComparerSource.cs" />
+    <Compile Include="Helpers\OrganizationComparerSourceBySolutionImage.cs" />
     <Compile Include="Helpers\OrganizationCustomizationTransfer.cs" />
     <Compile Include="Helpers\PluginAssemblyDescriptionHandler.cs" />
     <Compile Include="Helpers\PluginConfigurationAssemblyDescriptionHandler.cs" />
@@ -807,6 +808,7 @@
     <Compile Include="Model\WorkflowGetEntityPropertyStep.cs" />
     <Compile Include="Model\WorkflowSetEntityPropertyStep.cs" />
     <Compile Include="Model\WorkflowSetEntityPropertyStepType.cs" />
+    <Compile Include="Model\XmlOptionsControls.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\CommandNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -899,8 +901,11 @@
     <Compile Include="UserControls\ExportEntityMetadataOptionsControl.xaml.cs">
       <DependentUpon>ExportEntityMetadataOptionsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ExportEntityRibbonOptionsControl.xaml.cs">
-      <DependentUpon>ExportEntityRibbonOptionsControl.xaml</DependentUpon>
+    <Compile Include="UserControls\ExportGlobalOptionSetMetadataOptionsControl.xaml.cs">
+      <DependentUpon>ExportGlobalOptionSetMetadataOptionsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ExportXmlOptionsControl.xaml.cs">
+      <DependentUpon>ExportXmlOptionsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ExportSolutionOptionsControl.xaml.cs">
       <DependentUpon>ExportSolutionOptionsControl.xaml</DependentUpon>
@@ -1425,7 +1430,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ExportEntityRibbonOptionsControl.xaml">
+    <Page Include="UserControls\ExportGlobalOptionSetMetadataOptionsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ExportXmlOptionsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1711,6 +1720,7 @@
     <EmbeddedResource Include="Properties\OperationNames.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>OperationNames.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\OrganizationComparerStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>

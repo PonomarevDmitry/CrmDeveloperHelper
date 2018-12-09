@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -32,6 +34,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private ConnectionConfiguration _connectionConfig;
 
         private ObservableCollection<LinkedOptionSetMetadata> _itemsSource;
+
+        private Popup _optionsPopup;
 
         private bool _controlsEnabled = true;
 
@@ -56,6 +60,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            var child = new ExportGlobalOptionSetMetadataOptionsControl(_commonConfig);
+            child.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
+            {
+                Child = child,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
 
             tSDDBConnection1.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection1.Name);
             tSDDBConnection2.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection2.Name);
@@ -89,23 +105,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
-            txtBSpaceCount.DataContext = _commonConfig;
-
-            rBTab.DataContext = _commonConfig;
-            rBSpaces.DataContext = _commonConfig;
-
-            rBClasses.DataContext = _commonConfig;
-            rBEnums.DataContext = _commonConfig;
-
-            rBReadOnly.DataContext = _commonConfig;
-            rBConst.DataContext = _commonConfig;
-
             txtBNameSpace1.DataContext = cmBConnection1;
             txtBNameSpace2.DataContext = cmBConnection2;
-
-            chBWithDependentComponents.DataContext = _commonConfig;
-            chBAllDescriptions.DataContext = _commonConfig;
-            chBWithManagedInfo.DataContext = _commonConfig;
 
             cmBFileAction.DataContext = _commonConfig;
         }
@@ -482,9 +483,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var nameSpace1 = txtBNameSpace1.Text.Trim();
                     var nameSpace2 = txtBNameSpace2.Text.Trim();
 
-                    var withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
-                    var allDescriptions = chBAllDescriptions.IsChecked.GetValueOrDefault();
-                    var withManagedInfo = chBWithManagedInfo.IsChecked.GetValueOrDefault();
+                    var withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
+                    var allDescriptions = _commonConfig.AllDescriptions;
+                    var withManagedInfo = _commonConfig.WithManagedInfo;
 
                     service1.ConnectionData.NameSpaceOptionSets = nameSpace1;
                     service2.ConnectionData.NameSpaceOptionSets = nameSpace2;
@@ -617,7 +618,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var nameSpace1 = txtBNameSpace1.Text.Trim();
                     var nameSpace2 = txtBNameSpace2.Text.Trim();
 
-                    var withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
+                    var withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
 
                     service1.ConnectionData.NameSpaceOptionSets = nameSpace1;
                     service2.ConnectionData.NameSpaceOptionSets = nameSpace2;
@@ -752,9 +753,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var constantType = _commonConfig.ConstantType;
                 var optionSetExportType = _commonConfig.OptionSetExportType;
 
-                var withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
-                var allDescriptions = chBAllDescriptions.IsChecked.GetValueOrDefault();
-                var withManagedInfo = chBWithManagedInfo.IsChecked.GetValueOrDefault();
+                var withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
+                var allDescriptions = _commonConfig.AllDescriptions;
+                var withManagedInfo = _commonConfig.WithManagedInfo;
 
                 var service = await getService();
 
@@ -863,7 +864,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
-                var withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
+                var withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
 
                 var service = await getService();
 
@@ -909,6 +910,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 e.Handled = true;
 
                 ShowExistingOptionSets();
+            }
+
+            if (!e.Handled)
+            {
+                if (e.Key == Key.Escape
+                    || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+                    )
+                {
+                    if (_optionsPopup.IsOpen)
+                    {
+                        _optionsPopup.IsOpen = false;
+                        e.Handled = true;
+                    }
+                }
             }
 
             base.OnKeyDown(e);
@@ -1394,6 +1409,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     menuContextConnection2.IsEnabled = true;
                     menuContextConnection2.Visibility = Visibility.Visible;
                 }
+            }
+        }
+
+        private void miOptions_Click(object sender, RoutedEventArgs e)
+        {
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
             }
         }
     }

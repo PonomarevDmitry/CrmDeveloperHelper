@@ -40,11 +40,16 @@
         </ContextMenu>
     </src:WindowBase.Resources>
     <Grid>
-        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23" Padding="0" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="48,10,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFilter" Height="23" Margin="48,38,10,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-        <DataGrid x:Name="lstVwSiteMaps" AutoGenerateColumns="False" Margin="10,66,10,99" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+
+        <ToolBar x:Name="toolBarHeader" Margin="0" VerticalAlignment="Top" Height="33">
+            <Button Content="Options" Click="miOptions_Click"/>
+        </ToolBar>
+
+        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top" Height="23" Padding="0" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="48,111,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,139,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFilter" Height="23" Margin="48,139,10,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        <DataGrid x:Name="lstVwSiteMaps" AutoGenerateColumns="False" Margin="10,167,10,99" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -67,8 +72,6 @@
         </DataGrid>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" Padding="10,0" VerticalAlignment="Bottom" Height="25" VerticalContentAlignment="Center"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="59,0,0,69" Padding="10,0" VerticalAlignment="Bottom" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Height="25" Width="254" VerticalContentAlignment="Center" />
-        <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding ExportSiteMapXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" HorizontalAlignment="Left" Margin="330,0,0,74" Height="15" VerticalAlignment="Bottom"/>
-        <CheckBox x:Name="chBSetXmlSchemas" IsChecked="{Binding Path=SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" HorizontalAlignment="Left" Margin="512,0,0,74" Height="15" VerticalAlignment="Bottom"/>
         <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">

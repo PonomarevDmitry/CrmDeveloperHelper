@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.ExportXmlOptionsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.UserControls"
+             mc:Ignorable="d"  
+             Focusable="True"
+             BorderThickness="1"
+             BorderBrush="Black"
+             Height="Auto" 
+             Width="Auto">
+    <StackPanel Background="White" Orientation="Vertical">
+        <GroupBox x:Name="grBRibbon" Header="Ribbon" Margin="5">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <CheckBox x:Name="chBForm" IsChecked="{Binding Path=ExportRibbonXmlForm}" Content="Form" HorizontalAlignment="Left" Margin="5" />
+                <CheckBox x:Name="chBHomepageGrid" IsChecked="{Binding Path=ExportRibbonXmlHomepageGrid}" Content="HomepageGrid" HorizontalAlignment="Left"  Margin="5" />
+                <CheckBox x:Name="chBSubGrid" IsChecked="{Binding Path=ExportRibbonXmlSubGrid}" Content="SubGrid" HorizontalAlignment="Left" Margin="5" />
+            </StackPanel>
+        </GroupBox>
+        <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding Path=ExportXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" Margin="5"/>
+        <CheckBox x:Name="chBSetXmlSchemas" IsChecked="{Binding Path=SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" Margin="5"/>
+        <CheckBox x:Name="chBSetIntellisenseContext" IsChecked="{Binding Path=SetIntellisenseContext}" Content="Set Intellisense Context" Margin="5"/>
+    </StackPanel>
+</UserControl>

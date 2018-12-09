@@ -637,11 +637,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         if (schemasResources != null)
                         {
-                            xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources);
+                            xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
                         }
                     }
 
-                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, commonConfig.ExportSiteMapXmlAttributeOnNewLine);
+                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, commonConfig.ExportXmlAttributeOnNewLine);
 
                     File.WriteAllText(filePath2, xmlContent, new UTF8Encoding(false));
 

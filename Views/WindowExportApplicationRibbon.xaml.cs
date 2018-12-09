@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var child = new ExportEntityRibbonOptionsControl(_commonConfig);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.All);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -482,10 +482,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (_commonConfig.SetIntellisenseContext)
                 {
-                    ribbonXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonXml, string.Empty);
+                    ribbonXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonXml, string.Empty);
                 }
 
-                ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+                ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportXmlAttributeOnNewLine);
 
                 {
                     string fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(service.ConnectionData.Name);
@@ -608,16 +608,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (schemasResources != null)
                     {
-                        ribbonDiffXml = ContentCoparerHelper.ReplaceXsdSchema(ribbonDiffXml, schemasResources);
+                        ribbonDiffXml = ContentCoparerHelper.SetXsdSchema(ribbonDiffXml, schemasResources);
                     }
                 }
 
                 if (_commonConfig.SetIntellisenseContext)
                 {
-                    ribbonDiffXml = ContentCoparerHelper.SetRibbonDiffXmlIntellisenseContextEntityName(ribbonDiffXml, string.Empty);
+                    ribbonDiffXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonDiffXml, string.Empty);
                 }
 
-                ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportRibbonXmlXmlAttributeOnNewLine);
+                ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportXmlAttributeOnNewLine);
 
                 {
                     string fileName = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(service.ConnectionData.Name);

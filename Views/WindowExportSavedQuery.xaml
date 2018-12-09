@@ -18,7 +18,7 @@
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
             <Separator/>
-            
+
             <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add Entity into Last Crm Solution" VerticalAlignment="Center"  />
             <MenuItem x:Uid="contMnAddEntityIntoSolution"     Header="Add Entity into Crm Solution" VerticalAlignment="Center" Click="mIAddEntityIntoCrmSolution_Click" />
             <Separator x:Uid="contMnAddEntityIntoSolution" />
@@ -29,11 +29,11 @@
                 <MenuItem Header="Copy ColumnSet XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
             </MenuItem>
             <Separator/>
-            
+
             <MenuItem Header="Fetch XML" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXml_Click"/>
             <MenuItem Header="Layout XML" VerticalAlignment="Center" Click="mIExportSavedQueryLayoutXml_Click"/>
             <MenuItem Header="ColumnSet XML" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXml_Click"/>
-            
+
             <Separator x:Uid="controlChangeEntityAttribute"/>
             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery Attribute" VerticalAlignment="Center">
                 <MenuItem Header="Fetch XML" VerticalAlignment="Center" Click="mIUpdateSavedQueryFetchXml_Click"/>
@@ -93,11 +93,16 @@
         </ContextMenu>
     </src:WindowBase.Resources>
     <Grid>
-        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23" Padding="0" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="48,10,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFilter" Height="23" Margin="48,38,10,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-        <DataGrid x:Name="lstVwSavedQueries" AutoGenerateColumns="False" Margin="10,66,10,99" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+
+        <ToolBar x:Name="toolBarHeader" Margin="0" VerticalAlignment="Top" Height="33">
+            <Button Content="Options" Click="miOptions_Click"/>
+        </ToolBar>
+
+        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="23" Padding="0" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="48,38,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFilter" Height="23" Margin="48,66,10,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        <DataGrid x:Name="lstVwSavedQueries" AutoGenerateColumns="False" Margin="10,94,10,99" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -120,7 +125,6 @@
         </DataGrid>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="25" Width="53"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Height="25" Width="254" />
-        <CheckBox x:Name="chBSetXmlSchemas" IsChecked="{Binding Path=SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" HorizontalAlignment="Left" Margin="345,0,0,74" Height="15" VerticalAlignment="Bottom"/>
         <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">

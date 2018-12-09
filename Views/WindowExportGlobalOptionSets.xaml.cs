@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -37,6 +39,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
         private Dictionary<Guid, IEnumerable<OptionSetMetadata>> _cacheOptionSetMetadata = new Dictionary<Guid, IEnumerable<OptionSetMetadata>>();
+
+        private Popup _optionsPopup;
 
         private int _init = 0;
 
@@ -77,6 +81,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             InitializeComponent();
+
+            var child = new ExportGlobalOptionSetMetadataOptionsControl(_commonConfig);
+            child.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
+            {
+                Child = child,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
 
             LoadFromConfig();
 
@@ -127,22 +143,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
-            txtBSpaceCount.DataContext = _commonConfig;
-
-            rBTab.DataContext = _commonConfig;
-            rBSpaces.DataContext = _commonConfig;
-
-            rBClasses.DataContext = _commonConfig;
-            rBEnums.DataContext = _commonConfig;
-
-            rBReadOnly.DataContext = _commonConfig;
-            rBConst.DataContext = _commonConfig;
-
             txtBNameSpace.DataContext = cmBCurrentConnection;
-
-            chBAllDescriptions.DataContext = _commonConfig;
-            chBWithDependentComponents.DataContext = _commonConfig;
-            chBWithManagedInfo.DataContext = _commonConfig;
 
             cmBFileAction.DataContext = _commonConfig;
 
@@ -495,9 +496,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string folder = txtBFolder.Text.Trim();
                 string nameSpace = txtBNameSpace.Text.Trim();
 
-                bool withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
-                bool allDescriptions = chBAllDescriptions.IsChecked.GetValueOrDefault();
-                bool withManagedInfo = chBWithManagedInfo.IsChecked.GetValueOrDefault();
+                bool withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
+                bool allDescriptions = _commonConfig.AllDescriptions;
+                bool withManagedInfo = _commonConfig.WithManagedInfo;
 
                 string filePath = null;
 
@@ -595,7 +596,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string folder = txtBFolder.Text.Trim();
                 string nameSpace = txtBNameSpace.Text.Trim();
 
-                bool withDependentComponents = chBWithDependentComponents.IsChecked.GetValueOrDefault();
+                bool withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
 
                 string filePath = null;
 
@@ -665,6 +666,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 e.Handled = true;
 
                 ShowExistingOptionSets();
+            }
+
+            if (!e.Handled)
+            {
+                if (e.Key == Key.Escape
+                    || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+                    )
+                {
+                    if (_optionsPopup.IsOpen)
+                    {
+                        _optionsPopup.IsOpen = false;
+                        e.Handled = true;
+                    }
+                }
             }
 
             base.OnKeyDown(e);
@@ -989,6 +1004,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (connectionData != null)
             {
                 ShowExistingOptionSets();
+            }
+        }
+
+        private void miOptions_Click(object sender, RoutedEventArgs e)
+        {
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
             }
         }
     }

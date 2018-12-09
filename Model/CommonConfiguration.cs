@@ -213,42 +213,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _ExportRibbonXmlAttributeOnNewLine;
+        private bool _ExportXmlAttributeOnNewLine;
         [DataMember]
-        public bool ExportRibbonXmlXmlAttributeOnNewLine
+        public bool ExportXmlAttributeOnNewLine
         {
-            get => _ExportRibbonXmlAttributeOnNewLine;
+            get => _ExportXmlAttributeOnNewLine;
             set
             {
-                this.OnPropertyChanging(nameof(ExportRibbonXmlXmlAttributeOnNewLine));
-                this._ExportRibbonXmlAttributeOnNewLine = value;
-                this.OnPropertyChanged(nameof(ExportRibbonXmlXmlAttributeOnNewLine));
-            }
-        }
-
-        private bool _ExportOrganizationXmlAttributeOnNewLine;
-        [DataMember]
-        public bool ExportOrganizationXmlAttributeOnNewLine
-        {
-            get => _ExportOrganizationXmlAttributeOnNewLine;
-            set
-            {
-                this.OnPropertyChanging(nameof(ExportOrganizationXmlAttributeOnNewLine));
-                this._ExportOrganizationXmlAttributeOnNewLine = value;
-                this.OnPropertyChanged(nameof(ExportOrganizationXmlAttributeOnNewLine));
-            }
-        }
-
-        private bool _ExportSiteMapXmlAttributeOnNewLine;
-        [DataMember]
-        public bool ExportSiteMapXmlAttributeOnNewLine
-        {
-            get => _ExportSiteMapXmlAttributeOnNewLine;
-            set
-            {
-                this.OnPropertyChanging(nameof(ExportSiteMapXmlAttributeOnNewLine));
-                this._ExportSiteMapXmlAttributeOnNewLine = value;
-                this.OnPropertyChanged(nameof(ExportSiteMapXmlAttributeOnNewLine));
+                this.OnPropertyChanging(nameof(ExportXmlAttributeOnNewLine));
+                this._ExportXmlAttributeOnNewLine = value;
+                this.OnPropertyChanged(nameof(ExportXmlAttributeOnNewLine));
             }
         }
 

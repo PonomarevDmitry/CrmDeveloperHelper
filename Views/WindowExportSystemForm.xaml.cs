@@ -6,6 +6,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Resources;
@@ -42,6 +44,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
         private Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
+
+        private Popup _optionsPopup;
 
         private int _init = 0;
 
@@ -71,6 +75,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.XmlFull);
+            child.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
+            {
+                Child = child,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
 
             LoadFromConfig();
 
@@ -110,8 +126,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFileAction.DataContext = _commonConfig;
 
             txtBFolder.DataContext = _commonConfig;
-
-            chBSetXmlSchemas.DataContext = _commonConfig;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -431,12 +445,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, idSystemForm, entityName, name);
         }
 
-        private Task<string> CreateFileAsync(string folder, string entityName, string name, string fieldTitle, string xmlContent)
+        private Task<string> CreateFileAsync(string folder, Guid formId, string entityName, string name, string fieldTitle, string xmlContent)
         {
-            return Task.Run(() => CreateFile(folder, entityName, name, fieldTitle, xmlContent));
+            return Task.Run(() => CreateFile(folder, formId, entityName, name, fieldTitle, xmlContent));
         }
 
-        private string CreateFile(string folder, string entityName, string name, string fieldTitle, string xmlContent)
+        private string CreateFile(string folder, Guid formId, string entityName, string name, string fieldTitle, string xmlContent)
         {
             ConnectionData connectionData = null;
 
@@ -463,14 +477,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (schemasResources != null)
                         {
-                            xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources);
+                            xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
                         }
                     }
 
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    if (_commonConfig.SetIntellisenseContext)
                     {
-                        xmlContent = doc.ToString();
+                        xmlContent = ContentCoparerHelper.SetIntellisenseContextFormId(xmlContent, formId);
                     }
+
+                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportXmlAttributeOnNewLine);
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
@@ -553,7 +569,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = systemForm.GetAttributeValue<string>(fieldName);
 
-                string filePath = await CreateFileAsync(folder, entityName, name, fieldTitle, xmlContent);
+                string filePath = await CreateFileAsync(folder, idSystemForm, entityName, name, fieldTitle, xmlContent);
 
                 this._iWriteToOutput.PerformAction(filePath);
 
@@ -593,7 +609,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                string filePath = await CreateFileAsync(folder, entityName, name, fieldTitle + " BackUp", xmlContent);
+                string filePath = await CreateFileAsync(folder, idSystemForm, entityName, name, fieldTitle + " BackUp", xmlContent);
 
                 var newText = string.Empty;
 
@@ -1114,6 +1130,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 e.Handled = true;
 
                 ShowExistingSystemForms();
+            }
+
+            if (!e.Handled)
+            {
+                if (e.Key == Key.Escape
+                    || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+                    )
+                {
+                    if (_optionsPopup.IsOpen)
+                    {
+                        _optionsPopup.IsOpen = false;
+                        e.Handled = true;
+                    }
+                }
             }
 
             base.OnKeyDown(e);
@@ -1639,6 +1669,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (connectionData != null)
             {
                 connectionData.OpenEntityListInWeb(entity.ObjectTypeCode);
+            }
+        }
+
+        private void miOptions_Click(object sender, RoutedEventArgs e)
+        {
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
             }
         }
     }

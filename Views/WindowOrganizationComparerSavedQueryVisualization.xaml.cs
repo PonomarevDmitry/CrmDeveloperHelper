@@ -20,6 +20,8 @@ using System.Collections.ObjectModel;
 using System.Windows.Data;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
+using System.Windows.Controls.Primitives;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -37,6 +39,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private ConnectionConfiguration _connectionConfig;
 
         private ObservableCollection<EntityViewItem> _itemsSource;
+
+        private Popup _optionsPopup;
 
         private bool _controlsEnabled = true;
 
@@ -62,6 +66,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.SetXmlSchemas);
+            child.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
+            {
+                Child = child,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
 
             tSDDBConnection1.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection1.Name);
             tSDDBConnection2.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection2.Name);
@@ -100,8 +116,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void LoadFromConfig()
         {
             cmBFileAction.DataContext = _commonConfig;
-
-            chBSetXmlSchemas.DataContext = _commonConfig;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -499,7 +513,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (schemasResources != null)
                         {
-                            xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources);
+                            xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
                         }
                     }
 
@@ -922,6 +936,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 e.Handled = true;
 
                 ShowExistingCharts();
+            }
+
+            if (!e.Handled)
+            {
+                if (e.Key == Key.Escape
+                    || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+                    )
+                {
+                    if (_optionsPopup.IsOpen)
+                    {
+                        _optionsPopup.IsOpen = false;
+                        e.Handled = true;
+                    }
+                }
             }
 
             base.OnKeyDown(e);
@@ -1426,6 +1454,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     menuContextConnection2.IsEnabled = true;
                     menuContextConnection2.Visibility = Visibility.Visible;
                 }
+            }
+        }
+
+        private void miOptions_Click(object sender, RoutedEventArgs e)
+        {
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
             }
         }
     }

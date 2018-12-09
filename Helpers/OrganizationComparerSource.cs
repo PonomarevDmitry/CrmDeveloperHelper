@@ -181,57 +181,82 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return this._EntityMetadataCollection2;
         }
 
-        public virtual Task<List<EntityMap>> GetEntityMap1Async()
+        public Task<List<EntityMap>> GetEntityMap1Async()
         {
-            return new EntityMapRepository(Service1).GetListAsync();
+            return GetEntityMapAsync(Service1);
         }
 
-        public virtual Task<List<EntityMap>> GetEntityMap2Async()
+        public Task<List<EntityMap>> GetEntityMap2Async()
         {
-            return new EntityMapRepository(Service2).GetListAsync();
+            return GetEntityMapAsync(Service2);
         }
 
-        public virtual Task<List<AttributeMap>> GetAttributeMap1Async()
+        protected virtual Task<List<EntityMap>> GetEntityMapAsync(IOrganizationServiceExtented service)
         {
-            return new AttributeMapRepository(Service1).GetListAsync();
+            return new EntityMapRepository(service).GetListAsync();
         }
 
-        public virtual Task<List<AttributeMap>> GetAttributeMap2Async()
+        public Task<List<AttributeMap>> GetAttributeMap1Async()
         {
-            return new AttributeMapRepository(Service2).GetListAsync();
+            return GetAttributeMapAsync(Service1);
         }
 
-        public virtual Task<List<OptionSetMetadata>> GetOptionSetMetadata1Async()
+        public Task<List<AttributeMap>> GetAttributeMap2Async()
         {
-            return new OptionSetRepository(Service1).GetOptionSetsAsync();
+            return GetAttributeMapAsync(Service2);
         }
 
-        public virtual Task<List<OptionSetMetadata>> GetOptionSetMetadata2Async()
+        protected virtual Task<List<AttributeMap>> GetAttributeMapAsync(IOrganizationServiceExtented service)
         {
-            return new OptionSetRepository(Service2).GetOptionSetsAsync();
+            return new AttributeMapRepository(service).GetListAsync();
         }
 
-        public virtual Task<List<WebResource>> GetWebResource1Async()
+        public Task<List<OptionSetMetadata>> GetOptionSetMetadata1Async()
         {
-            return new WebResourceRepository(Service1).GetListAllWithContentAsync();
+            return GetOptionSetMetadataAsync(Service1);
         }
 
-        public virtual Task<List<WebResource>> GetWebResource2Async()
+        public Task<List<OptionSetMetadata>> GetOptionSetMetadata2Async()
         {
-            return new WebResourceRepository(Service2).GetListAllWithContentAsync();
+            return GetOptionSetMetadataAsync(Service2);
         }
 
-        public virtual Task<List<SiteMap>> GetSiteMap1Async(ColumnSet columnSet = null)
+        protected virtual Task<List<OptionSetMetadata>> GetOptionSetMetadataAsync(IOrganizationServiceExtented service)
         {
-            return new SitemapRepository(Service1).GetListAsync(columnSet);
+            return new OptionSetRepository(service).GetOptionSetsAsync();
         }
 
-        public virtual Task<List<SiteMap>> GetSiteMap2Async(ColumnSet columnSet = null)
+        public Task<List<WebResource>> GetWebResource1Async()
         {
-            return new SitemapRepository(Service2).GetListAsync(columnSet);
+            return GetWebResourceAsync(Service1);
         }
 
-        public virtual Task<Organization> GetOrganization1Async(ColumnSet columnSet)
+        public Task<List<WebResource>> GetWebResource2Async()
+        {
+            return GetWebResourceAsync(Service2);
+        }
+
+        protected virtual Task<List<WebResource>> GetWebResourceAsync(IOrganizationServiceExtented service)
+        {
+            return new WebResourceRepository(service).GetListAllWithContentAsync();
+        }
+
+        public Task<List<SiteMap>> GetSiteMap1Async(ColumnSet columnSet = null)
+        {
+            return GetSiteMapAsync(Service1, columnSet);
+        }
+
+        public Task<List<SiteMap>> GetSiteMap2Async(ColumnSet columnSet = null)
+        {
+            return GetSiteMapAsync(Service2, columnSet);
+        }
+
+        protected virtual Task<List<SiteMap>> GetSiteMapAsync(IOrganizationServiceExtented service, ColumnSet columnSet = null)
+        {
+            return new SitemapRepository(service).GetListAsync(columnSet);
+        }
+
+        public Task<Organization> GetOrganization1Async(ColumnSet columnSet)
         {
             if (Connection1.OrganizationId.HasValue)
             {
@@ -241,7 +266,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return null;
         }
 
-        public virtual Task<Organization> GetOrganization2Async(ColumnSet columnSet)
+        public Task<Organization> GetOrganization2Async(ColumnSet columnSet)
         {
             if (Connection2.OrganizationId.HasValue)
             {
@@ -251,224 +276,334 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return null;
         }
 
-        public virtual Task<List<Report>> GetReport1Async()
+        public Task<List<Report>> GetReport1Async()
         {
-            return new ReportRepository(Service1).GetListAllForCompareAsync();
+            return GetReportAsync(Service1);
         }
 
-        public virtual Task<List<Report>> GetReport2Async()
+        public Task<List<Report>> GetReport2Async()
         {
-            return new ReportRepository(Service2).GetListAllForCompareAsync();
+            return GetReportAsync(Service2);
         }
 
-        public virtual Task<List<Workflow>> GetWorkflow1Async()
+        protected virtual Task<List<Report>> GetReportAsync(IOrganizationServiceExtented service)
         {
-            return new WorkflowRepository(Service1).GetListAsync(null, null, null, null);
+            return new ReportRepository(service).GetListAllForCompareAsync();
         }
 
-        public virtual Task<List<Workflow>> GetWorkflow2Async()
+        public Task<List<Workflow>> GetWorkflow1Async()
         {
-            return new WorkflowRepository(Service2).GetListAsync(null, null, null, null);
+            return GetWorkflowAsync(Service1);
         }
 
-        public virtual Task<List<SystemForm>> GetSystemForm1Async()
+        public Task<List<Workflow>> GetWorkflow2Async()
         {
-            return new SystemFormRepository(Service1).GetListAsync(null, null);
+            return GetWorkflowAsync(Service2);
         }
 
-        public virtual Task<List<SystemForm>> GetSystemForm2Async()
+        protected virtual Task<List<Workflow>> GetWorkflowAsync(IOrganizationServiceExtented service)
         {
-            return new SystemFormRepository(Service2).GetListAsync(null, null);
+            return new WorkflowRepository(service).GetListAsync(null, null, null, null);
         }
 
-        public virtual Task<List<SavedQuery>> GetSavedQuery1Async()
+        public Task<List<SystemForm>> GetSystemForm1Async()
         {
-            return new SavedQueryRepository(Service1).GetListAsync(null, null);
+            return GetSystemFormAsync(Service1);
         }
 
-        public virtual Task<List<SavedQuery>> GetSavedQuery2Async()
+        public Task<List<SystemForm>> GetSystemForm2Async()
         {
-            return new SavedQueryRepository(Service2).GetListAsync(null, null);
+            return GetSystemFormAsync(Service2);
         }
 
-        public virtual Task<List<SavedQueryVisualization>> GetSavedQueryVisualization1Async()
+        protected virtual Task<List<SystemForm>> GetSystemFormAsync(IOrganizationServiceExtented service)
         {
-            return new SavedQueryVisualizationRepository(Service1).GetListAsync(null, null);
+            return new SystemFormRepository(service).GetListAsync(null, null);
         }
 
-        public virtual Task<List<SavedQueryVisualization>> GetSavedQueryVisualization2Async()
+        public Task<List<SavedQuery>> GetSavedQuery1Async()
         {
-            return new SavedQueryVisualizationRepository(Service2).GetListAsync(null, null);
+            return GetSavedQueryAsync(Service1);
         }
 
-        public virtual Task<List<PluginAssembly>> GetPluginAssembly1Async()
+        public Task<List<SavedQuery>> GetSavedQuery2Async()
         {
-            return new PluginAssemblyRepository(Service1).GetPluginAssembliesAsync(null, null);
+            return GetSavedQueryAsync(Service2);
         }
 
-        public virtual Task<List<PluginAssembly>> GetPluginAssembly2Async()
+        protected virtual Task<List<SavedQuery>> GetSavedQueryAsync(IOrganizationServiceExtented service)
         {
-            return new PluginAssemblyRepository(Service2).GetPluginAssembliesAsync(null, null);
+            return new SavedQueryRepository(service).GetListAsync(null, null);
         }
 
-        public virtual Task<List<PluginType>> GetPluginType1Async()
+        public Task<List<SavedQueryVisualization>> GetSavedQueryVisualization1Async()
         {
-            return new PluginTypeRepository(Service1).GetPluginTypesAsync(null, null);
+            return GetSavedQueryVisualizationAsync(Service1);
         }
 
-        public virtual Task<List<PluginType>> GetPluginType2Async()
+        public Task<List<SavedQueryVisualization>> GetSavedQueryVisualization2Async()
         {
-            return new PluginTypeRepository(Service2).GetPluginTypesAsync(null, null);
+            return GetSavedQueryVisualizationAsync(Service2);
         }
 
-        public virtual Task<List<SdkMessageProcessingStep>> GetSdkMessageProcessingStep1Async()
+        protected virtual Task<List<SavedQueryVisualization>> GetSavedQueryVisualizationAsync(IOrganizationServiceExtented service)
         {
-            return new SdkMessageProcessingStepRepository(Service1).GetAllSdkMessageProcessingStepAsync(null, null, null);
+            return new SavedQueryVisualizationRepository(service).GetListAsync(null, null);
         }
 
-        public virtual Task<List<SdkMessageProcessingStep>> GetSdkMessageProcessingStep2Async()
+        public Task<List<PluginAssembly>> GetPluginAssembly1Async()
         {
-            return new SdkMessageProcessingStepRepository(Service2).GetAllSdkMessageProcessingStepAsync(null, null, null);
+            return GetPluginAssemblyAsync(Service1);
         }
 
-        public virtual Task<List<SdkMessageProcessingStepImage>> GetSdkMessageProcessingStepImage1Async()
+        public Task<List<PluginAssembly>> GetPluginAssembly2Async()
         {
-            return new SdkMessageProcessingStepImageRepository(Service1).GetAllImagesAsync();
+            return GetPluginAssemblyAsync(Service2);
         }
 
-        public virtual Task<List<SdkMessageProcessingStepImage>> GetSdkMessageProcessingStepImage2Async()
+        protected virtual Task<List<PluginAssembly>> GetPluginAssemblyAsync(IOrganizationServiceExtented service)
         {
-            return new SdkMessageProcessingStepImageRepository(Service2).GetAllImagesAsync();
+            return new PluginAssemblyRepository(service).GetPluginAssembliesAsync(null, null);
         }
 
-        public virtual Task<List<Role>> GetRole1Async()
+        public Task<List<PluginType>> GetPluginType1Async()
         {
-            return new RoleRepository(Service1).GetListAsync(null, new ColumnSet(true));
+            return GetPluginTypeAsync(Service1);
         }
 
-        public virtual Task<List<Role>> GetRole2Async()
+        public Task<List<PluginType>> GetPluginType2Async()
         {
-            return new RoleRepository(Service2).GetListAsync(null, new ColumnSet(true));
+            return GetPluginTypeAsync(Service2);
         }
 
-        public virtual Task<List<FieldSecurityProfile>> GetFieldSecurityProfile1Async()
+        protected virtual Task<List<PluginType>> GetPluginTypeAsync(IOrganizationServiceExtented service)
         {
-            return new FieldSecurityProfileRepository(Service1).GetListAsync();
+            return new PluginTypeRepository(service).GetPluginTypesAsync(null, null);
         }
 
-        public virtual Task<List<FieldSecurityProfile>> GetFieldSecurityProfile2Async()
+        public Task<List<SdkMessageProcessingStep>> GetSdkMessageProcessingStep1Async()
         {
-            return new FieldSecurityProfileRepository(Service2).GetListAsync();
+            return GetSdkMessageProcessingStepAsync(Service1);
         }
 
-        public virtual Task<List<FieldPermission>> GetFieldPermission1Async()
+        public Task<List<SdkMessageProcessingStep>> GetSdkMessageProcessingStep2Async()
+        {
+            return GetSdkMessageProcessingStepAsync(Service2);
+        }
+
+        protected virtual Task<List<SdkMessageProcessingStep>> GetSdkMessageProcessingStepAsync(IOrganizationServiceExtented service)
+        {
+            return new SdkMessageProcessingStepRepository(service).GetAllSdkMessageProcessingStepAsync(null, null, null);
+        }
+
+        public Task<List<SdkMessageProcessingStepImage>> GetSdkMessageProcessingStepImage1Async()
+        {
+            return GetSdkMessageProcessingStepImageAsync(Service1);
+        }
+
+        public Task<List<SdkMessageProcessingStepImage>> GetSdkMessageProcessingStepImage2Async()
+        {
+            return GetSdkMessageProcessingStepImageAsync(Service2);
+        }
+
+        protected virtual Task<List<SdkMessageProcessingStepImage>> GetSdkMessageProcessingStepImageAsync(IOrganizationServiceExtented service)
+        {
+            return new SdkMessageProcessingStepImageRepository(service).GetAllImagesAsync();
+        }
+
+        public Task<List<Role>> GetRole1Async()
+        {
+            return GetRoleAsync(Service1);
+        }
+
+        public Task<List<Role>> GetRole2Async()
+        {
+            return GetRoleAsync(Service2);
+        }
+
+        protected virtual Task<List<Role>> GetRoleAsync(IOrganizationServiceExtented service)
+        {
+            return new RoleRepository(service).GetListAsync(null, new ColumnSet(true));
+        }
+
+        public Task<List<FieldSecurityProfile>> GetFieldSecurityProfile1Async()
+        {
+            return GetFieldSecurityProfileAsync(Service1);
+        }
+
+        public Task<List<FieldSecurityProfile>> GetFieldSecurityProfile2Async()
+        {
+            return GetFieldSecurityProfileAsync(Service2);
+        }
+
+        protected virtual Task<List<FieldSecurityProfile>> GetFieldSecurityProfileAsync(IOrganizationServiceExtented service)
+        {
+            return new FieldSecurityProfileRepository(service).GetListAsync();
+        }
+
+        public Task<List<FieldPermission>> GetFieldPermission1Async()
         {
             return new FieldPermissionRepository(Service1).GetListAsync();
         }
 
-        public virtual Task<List<FieldPermission>> GetFieldPermission2Async()
+        public Task<List<FieldPermission>> GetFieldPermission2Async()
         {
             return new FieldPermissionRepository(Service2).GetListAsync();
         }
 
-        public virtual Task<List<MailMergeTemplate>> GetMailMergeTemplate1Async()
+        protected virtual Task<List<FieldSecurityProfile>> GetFieldPermissionAsync(IOrganizationServiceExtented service)
         {
-            return new MailMergeTemplateRepository(Service1).GetListAsync();
+            return new FieldSecurityProfileRepository(service).GetListAsync();
         }
 
-        public virtual Task<List<MailMergeTemplate>> GetMailMergeTemplate2Async()
+        public Task<List<MailMergeTemplate>> GetMailMergeTemplate1Async()
         {
-            return new MailMergeTemplateRepository(Service2).GetListAsync();
+            return GetMailMergeTemplateAsync(Service1);
         }
 
-        public virtual Task<List<Template>> GetTemplate1Async()
+        public Task<List<MailMergeTemplate>> GetMailMergeTemplate2Async()
         {
-            return new TemplateRepository(Service1).GetListAsync();
+            return GetMailMergeTemplateAsync(Service2);
         }
 
-        public virtual Task<List<Template>> GetTemplate2Async()
+        protected virtual Task<List<MailMergeTemplate>> GetMailMergeTemplateAsync(IOrganizationServiceExtented service)
         {
-            return new TemplateRepository(Service2).GetListAsync();
+            return new MailMergeTemplateRepository(service).GetListAsync();
         }
 
-        public virtual Task<List<KbArticleTemplate>> GetKbArticleTemplate1Async()
+        public Task<List<Template>> GetTemplate1Async()
         {
-            return new KbArticleTemplateRepository(Service1).GetListAsync();
+            return GetTemplateAsync(Service1);
         }
 
-        public virtual Task<List<KbArticleTemplate>> GetKbArticleTemplate2Async()
+        public Task<List<Template>> GetTemplate2Async()
         {
-            return new KbArticleTemplateRepository(Service2).GetListAsync();
+            return GetTemplateAsync(Service2);
         }
 
-        public virtual Task<List<ContractTemplate>> GetContractTemplate1Async()
+        protected virtual Task<List<Template>> GetTemplateAsync(IOrganizationServiceExtented service)
         {
-            return new ContractTemplateRepository(Service1).GetListAsync();
+            return new TemplateRepository(service).GetListAsync();
         }
 
-        public virtual Task<List<ContractTemplate>> GetContractTemplate2Async()
+        public Task<List<KbArticleTemplate>> GetKbArticleTemplate1Async()
         {
-            return new ContractTemplateRepository(Service2).GetListAsync();
+            return GetKbArticleTemplateAsync(Service1);
         }
 
-        public virtual Task<List<DisplayString>> GetDisplayString1Async()
+        public Task<List<KbArticleTemplate>> GetKbArticleTemplate2Async()
         {
-            return new DisplayStringRepository(Service1).GetListAsync();
+            return GetKbArticleTemplateAsync(Service2);
         }
 
-        public virtual Task<List<DisplayString>> GetDisplayString2Async()
+        protected virtual Task<List<KbArticleTemplate>> GetKbArticleTemplateAsync(IOrganizationServiceExtented service)
         {
-            return new DisplayStringRepository(Service2).GetListAsync();
+            return new KbArticleTemplateRepository(service).GetListAsync();
         }
 
-        public virtual Task<List<DisplayStringMap>> GetDisplayStringMap1Async()
+        public Task<List<ContractTemplate>> GetContractTemplate1Async()
         {
-            return new DisplayStringMapRepository(Service1).GetListAsync();
+            return GetContractTemplateAsync(Service1);
         }
 
-        public virtual Task<List<DisplayStringMap>> GetDisplayStringMap2Async()
+        public Task<List<ContractTemplate>> GetContractTemplate2Async()
         {
-            return new DisplayStringMapRepository(Service2).GetListAsync();
+            return GetContractTemplateAsync(Service2);
         }
 
-        public virtual Task<HashSet<string>> GetEntitiesWithRibbonCustomization1Async()
+        protected virtual Task<List<ContractTemplate>> GetContractTemplateAsync(IOrganizationServiceExtented service)
         {
-            return new RibbonCustomizationRepository(Service1).GetEntitiesWithRibbonCustomizationAsync();
+            return new ContractTemplateRepository(service).GetListAsync();
         }
 
-        public virtual Task<HashSet<string>> GetEntitiesWithRibbonCustomization2Async()
+        public Task<List<DisplayString>> GetDisplayString1Async()
         {
-            return new RibbonCustomizationRepository(Service2).GetEntitiesWithRibbonCustomizationAsync();
+            return GetDisplayStringAsync(Service1);
         }
 
-        public virtual Task<List<ConnectionRole>> GetConnectionRole1Async()
+        public Task<List<DisplayString>> GetDisplayString2Async()
         {
-            return new ConnectionRoleRepository(Service1).GetListAsync();
+            return GetDisplayStringAsync(Service2);
         }
 
-        public virtual Task<List<ConnectionRole>> GetConnectionRole2Async()
+        protected virtual Task<List<DisplayString>> GetDisplayStringAsync(IOrganizationServiceExtented service)
         {
-            return new ConnectionRoleRepository(Service2).GetListAsync();
+            return new DisplayStringRepository(service).GetListAsync();
         }
 
-        public virtual Task<List<ConnectionRoleAssociation>> GetConnectionRoleAssociation1Async()
+        public Task<List<DisplayStringMap>> GetDisplayStringMap1Async()
         {
-            return new ConnectionRoleAssociationRepository(Service1).GetListAsync();
+            return GetDisplayStringMapAsync(Service1);
         }
 
-        public virtual Task<List<ConnectionRoleAssociation>> GetConnectionRoleAssociation2Async()
+        public Task<List<DisplayStringMap>> GetDisplayStringMap2Async()
         {
-            return new ConnectionRoleAssociationRepository(Service2).GetListAsync();
+            return GetDisplayStringMapAsync(Service2);
         }
 
-        public virtual Task<List<ConnectionRoleObjectTypeCode>> GetConnectionRoleObjectTypeCode1Async()
+        protected virtual Task<List<DisplayStringMap>> GetDisplayStringMapAsync(IOrganizationServiceExtented service)
         {
-            return new ConnectionRoleObjectTypeCodeRepository(Service1).GetListAsync();
+            return new DisplayStringMapRepository(service).GetListAsync();
         }
 
-        public virtual Task<List<ConnectionRoleObjectTypeCode>> GetConnectionRoleObjectTypeCode2Async()
+        public Task<HashSet<string>> GetEntitiesWithRibbonCustomization1Async()
         {
-            return new ConnectionRoleObjectTypeCodeRepository(Service2).GetListAsync();
+            return GetEntitiesWithRibbonCustomizationAsync(Service1);
+        }
+
+        public Task<HashSet<string>> GetEntitiesWithRibbonCustomization2Async()
+        {
+            return GetEntitiesWithRibbonCustomizationAsync(Service2);
+        }
+
+        protected virtual Task<HashSet<string>> GetEntitiesWithRibbonCustomizationAsync(IOrganizationServiceExtented service)
+        {
+            return new RibbonCustomizationRepository(service).GetEntitiesWithRibbonCustomizationAsync();
+        }
+
+        public Task<List<ConnectionRole>> GetConnectionRole1Async()
+        {
+            return GetConnectionRoleAsync(Service1);
+        }
+
+        public Task<List<ConnectionRole>> GetConnectionRole2Async()
+        {
+            return GetConnectionRoleAsync(Service2);
+        }
+
+        protected virtual Task<List<ConnectionRole>> GetConnectionRoleAsync(IOrganizationServiceExtented service)
+        {
+            return new ConnectionRoleRepository(service).GetListAsync();
+        }
+
+        public Task<List<ConnectionRoleAssociation>> GetConnectionRoleAssociation1Async()
+        {
+            return GetConnectionRoleAssociationAsync(Service1);
+        }
+
+        public Task<List<ConnectionRoleAssociation>> GetConnectionRoleAssociation2Async()
+        {
+            return GetConnectionRoleAssociationAsync(Service2);
+        }
+
+        protected virtual Task<List<ConnectionRoleAssociation>> GetConnectionRoleAssociationAsync(IOrganizationServiceExtented service)
+        {
+            return new ConnectionRoleAssociationRepository(service).GetListAsync();
+        }
+
+        public Task<List<ConnectionRoleObjectTypeCode>> GetConnectionRoleObjectTypeCode1Async()
+        {
+            return GetConnectionRoleObjectTypeCodeAsync(Service1);
+        }
+
+        public Task<List<ConnectionRoleObjectTypeCode>> GetConnectionRoleObjectTypeCode2Async()
+        {
+            return GetConnectionRoleObjectTypeCodeAsync(Service2);
+        }
+
+        protected virtual Task<List<ConnectionRoleObjectTypeCode>> GetConnectionRoleObjectTypeCodeAsync(IOrganizationServiceExtented service)
+        {
+            return new ConnectionRoleObjectTypeCodeRepository(service).GetListAsync();
         }
     }
 }

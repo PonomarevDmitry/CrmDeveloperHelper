@@ -6,6 +6,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Resources;
@@ -41,6 +43,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
         private Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
+        private Popup _optionsPopup;
+
         private int _init = 0;
 
         public WindowExportSiteMap(
@@ -63,6 +67,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.XmlFull);
+            child.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
+            {
+                Child = child,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
 
             LoadFromConfig();
 
@@ -91,10 +107,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFileAction.DataContext = _commonConfig;
 
             txtBFolder.DataContext = _commonConfig;
-
-            chBXmlAttributeOnNewLine.DataContext = _commonConfig;
-
-            chBSetXmlSchemas.DataContext = _commonConfig;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -374,14 +386,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteAction(item.SiteMap.Id, item.SiteMap.SiteMapName, PerformExportMouseDoubleClick);
+                    ExecuteAction(item.SiteMap.Id, item.SiteMap.SiteMapName, item.SiteMap.SiteMapNameUnique, PerformExportMouseDoubleClick);
                 }
             }
         }
 
-        private async Task PerformExportMouseDoubleClick(string folder, Guid idSiteMap, string name)
+        private async Task PerformExportMouseDoubleClick(string folder, Guid idSiteMap, string name, string nameUnique)
         {
-            await PerformExportXmlToFile(folder, idSiteMap, name, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml");
+            await PerformExportXmlToFile(folder, idSiteMap, name, nameUnique, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml");
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -389,7 +401,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private async Task ExecuteAction(Guid idSiteMap, string name, Func<string, Guid, string, Task> action)
+        private async Task ExecuteAction(Guid idSiteMap, string name, string nameUnique, Func<string, Guid, string, string, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -408,15 +420,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await action(folder, idSiteMap, name);
+            await action(folder, idSiteMap, name, nameUnique);
         }
 
-        private Task<string> CreateFileAsync(string folder, string name, Guid id, string fieldTitle, string xmlContent)
+        private Task<string> CreateFileAsync(string folder, string name, string nameUnique, Guid id, string fieldTitle, string xmlContent)
         {
-            return Task.Run(() => CreateFile(folder, name, id, fieldTitle, xmlContent));
+            return Task.Run(() => CreateFile(folder, name, nameUnique, id, fieldTitle, xmlContent));
         }
 
-        private string CreateFile(string folder, string name, Guid id, string fieldTitle, string xmlContent)
+        private string CreateFile(string folder, string name, string nameUnique, Guid id, string fieldTitle, string xmlContent)
         {
             ConnectionData connectionData = null;
 
@@ -443,11 +455,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (schemasResources != null)
                         {
-                            xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources);
+                            xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
                         }
                     }
 
-                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportSiteMapXmlAttributeOnNewLine);
+                    if (_commonConfig.SetIntellisenseContext)
+                    {
+                        xmlContent = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(xmlContent, nameUnique);
+                    }
+
+                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportXmlAttributeOnNewLine);
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
@@ -476,17 +493,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.SiteMapName, PerformExportAllXml);
+            ExecuteAction(entity.Id, entity.SiteMapName, entity.SiteMapNameUnique, PerformExportAllXml);
         }
 
-        private async Task PerformExportAllXml(string folder, Guid idSiteMap, string name)
+        private async Task PerformExportAllXml(string folder, Guid idSiteMap, string name, string nameUnique)
         {
-            await PerformExportEntityDescription(folder, idSiteMap, name);
+            await PerformExportEntityDescription(folder, idSiteMap, name, nameUnique);
 
-            await PerformExportXmlToFile(folder, idSiteMap, name, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml");
+            await PerformExportXmlToFile(folder, idSiteMap, name, nameUnique, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml");
         }
 
-        private async Task ExecuteActionEntity(Guid idSiteMap, string name, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, Task> action)
+        private async Task ExecuteActionEntity(Guid idSiteMap, string name, string nameUnique, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, string, Task> action)
         {
             if (_init > 0 || !_controlsEnabled)
             {
@@ -505,10 +522,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await action(folder, idSiteMap, name, fieldName, fieldTitle);
+            await action(folder, idSiteMap, name, nameUnique, fieldName, fieldTitle);
         }
 
-        private async Task PerformExportXmlToFile(string folder, Guid idSiteMap, string name, string fieldName, string fieldTitle)
+        private async Task PerformExportXmlToFile(string folder, Guid idSiteMap, string name, string nameUnique, string fieldName, string fieldTitle)
         {
             if (_init > 0 || !_controlsEnabled)
             {
@@ -516,8 +533,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
-
-            name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
 
             try
             {
@@ -529,7 +544,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = sitemap.GetAttributeValue<string>(fieldName);
 
-                string filePath = await CreateFileAsync(folder, name, idSiteMap, fieldTitle, xmlContent);
+                string filePath = await CreateFileAsync(folder, name, nameUnique, idSiteMap, fieldTitle, xmlContent);
 
                 this._iWriteToOutput.PerformAction(filePath);
 
@@ -543,7 +558,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformUpdateEntityField(string folder, Guid idSiteMap, string name, string fieldName, string fieldTitle)
+        private async Task PerformUpdateEntityField(string folder, Guid idSiteMap, string name, string nameUnique, string fieldName, string fieldTitle)
         {
             if (_init > 0 || !_controlsEnabled)
             {
@@ -554,8 +569,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
 
-            name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
-
             try
             {
                 var repository = new SitemapRepository(service);
@@ -564,9 +577,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = sitemap.GetAttributeValue<string>(fieldName);
 
-                xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportSiteMapXmlAttributeOnNewLine);
+                xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportXmlAttributeOnNewLine);
 
-                await CreateFileAsync(folder, name, idSiteMap, fieldTitle + " BackUp", xmlContent);
+                await CreateFileAsync(folder, name, nameUnique, idSiteMap, fieldTitle + " BackUp", xmlContent);
 
                 var newText = string.Empty;
                 bool? dialogResult = false;
@@ -696,14 +709,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.SiteMapName, PerformExportEntityDescription);
+            ExecuteAction(entity.Id, entity.SiteMapName, entity.SiteMapNameUnique, PerformExportEntityDescription);
         }
 
-        private async Task PerformExportEntityDescription(string folder, Guid idSiteMap, string name)
+        private async Task PerformExportEntityDescription(string folder, Guid idSiteMap, string name, string nameUnique)
         {
             ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
-
-            name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
 
             try
             {
@@ -744,7 +755,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.SiteMapName, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml", PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.SiteMapName, entity.SiteMapNameUnique, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml", PerformExportXmlToFile);
         }
 
         private void btnPublishSiteMap_Click(object sender, RoutedEventArgs e)
@@ -756,13 +767,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.SiteMapName, PerformPublishSiteMap);
+            ExecuteAction(entity.Id, entity.SiteMapName, entity.SiteMapNameUnique, PerformPublishSiteMap);
         }
 
-        private async Task PerformPublishSiteMap(string folder, Guid idSiteMap, string name)
+        private async Task PerformPublishSiteMap(string folder, Guid idSiteMap, string name, string nameUnique)
         {
-            name = !string.IsNullOrEmpty(name) ? " " + name : string.Empty;
-
             var service = await GetService();
 
             this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingSiteMapFormat3, service.ConnectionData.Name, name, idSiteMap.ToString());
@@ -771,7 +780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-               var repository = new PublishActionsRepository(service);
+                var repository = new PublishActionsRepository(service);
 
                 await repository.PublishSiteMapsAsync(new[] { idSiteMap });
 
@@ -794,6 +803,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 e.Handled = true;
 
                 ShowExistingSiteMaps();
+            }
+
+            if (!e.Handled)
+            {
+                if (e.Key == Key.Escape
+                    || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+                    )
+                {
+                    if (_optionsPopup.IsOpen)
+                    {
+                        _optionsPopup.IsOpen = false;
+                        e.Handled = true;
+                    }
+                }
             }
 
             base.OnKeyDown(e);
@@ -992,7 +1015,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.SiteMapName, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml", PerformUpdateEntityField);
+            ExecuteActionEntity(entity.Id, entity.SiteMapName, entity.SiteMapNameUnique, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml", PerformUpdateEntityField);
+        }
+
+        private void miOptions_Click(object sender, RoutedEventArgs e)
+        {
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
+            }
         }
     }
 }

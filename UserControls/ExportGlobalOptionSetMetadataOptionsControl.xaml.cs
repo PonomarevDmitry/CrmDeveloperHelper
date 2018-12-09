@@ -6,13 +6,13 @@ using System.Windows.Input;
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 {
     /// <summary>
-    /// Interaction logic for ExportEntityRibbonOptionsControl.xaml
+    /// Interaction logic for ExportGlobalOptionSetMetadataOptionsControl.xaml
     /// </summary>
-    public partial class ExportEntityRibbonOptionsControl : UserControl
+    public partial class ExportGlobalOptionSetMetadataOptionsControl : UserControl
     {
         private CommonConfiguration _commonConfig;
 
-        public ExportEntityRibbonOptionsControl(CommonConfiguration commonConfig)
+        public ExportGlobalOptionSetMetadataOptionsControl(CommonConfiguration commonConfig)
         {
             InitializeComponent();
 
@@ -23,15 +23,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void LoadFromConfig()
         {
-            chBForm.DataContext = _commonConfig;
-            chBHomepageGrid.DataContext = _commonConfig;
-            chBSubGrid.DataContext = _commonConfig;
+            txtBSpaceCount.DataContext = _commonConfig;
 
-            chBXmlAttributeOnNewLine.DataContext = _commonConfig;
+            rBTab.DataContext = _commonConfig;
+            rBSpaces.DataContext = _commonConfig;
 
-            chBSetXmlSchemas.DataContext = _commonConfig;
+            rBClasses.DataContext = _commonConfig;
+            rBEnums.DataContext = _commonConfig;
 
-            chBSetIntellisenseContext.DataContext = _commonConfig;
+            rBReadOnly.DataContext = _commonConfig;
+            rBConst.DataContext = _commonConfig;
+
+            chBAllDescriptions.DataContext = _commonConfig;
+
+            chBWithDependentComponents.DataContext = _commonConfig;
+
+            chBWithManagedInfo.DataContext = _commonConfig;
         }
 
         public event EventHandler<EventArgs> CloseClicked;

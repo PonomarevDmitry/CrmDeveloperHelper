@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Xml.Linq;
@@ -36,6 +38,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private ConnectionConfiguration _connectionConfig;
 
         private ObservableCollection<EntityViewItem> _itemsSource;
+
+        private Popup _optionsPopup;
 
         private bool _controlsEnabled = true;
 
@@ -61,6 +65,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.XmlFull);
+            child.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
+            {
+                Child = child,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
 
             tSDDBConnection1.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection1.Name);
             tSDDBConnection2.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection2.Name);
@@ -99,8 +115,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void LoadFromConfig()
         {
             cmBFileAction.DataContext = _commonConfig;
-
-            chBSetXmlSchemas.DataContext = _commonConfig;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -530,12 +544,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             action(linked, showAllways);
         }
 
-        private Task<string> CreateFileAsync(string connectionName, string entityName, string name, string fieldTitle, string xmlContent)
+        private Task<string> CreateFileAsync(string connectionName, Guid formId, string entityName, string name, string fieldTitle, string xmlContent)
         {
-            return Task.Run(() => CreateFile(connectionName, entityName, name, fieldTitle, xmlContent));
+            return Task.Run(() => CreateFile(connectionName, formId, entityName, name, fieldTitle, xmlContent));
         }
 
-        private string CreateFile(string connectionName, string entityName, string name, string fieldTitle, string xmlContent)
+        private string CreateFile(string connectionName, Guid formId, string entityName, string name, string fieldTitle, string xmlContent)
         {
             string fileName = EntityFileNameFormatter.GetSystemFormFileName(connectionName, entityName, name, fieldTitle, "xml");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -550,14 +564,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (schemasResources != null)
                         {
-                            xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources);
+                            xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
                         }
                     }
 
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    if (_commonConfig.SetIntellisenseContext)
                     {
-                        xmlContent = doc.ToString();
+                        xmlContent = ContentCoparerHelper.SetIntellisenseContextFormId(xmlContent, formId);
                     }
+
+                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportXmlAttributeOnNewLine);
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
@@ -830,8 +846,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2, false, action).IsEqual)
                     {
-                        string filePath1 = await CreateFileAsync(service1.ConnectionData.Name, linked.Entity1.ObjectTypeCode, linked.Entity1.Name, fieldTitle, xml1);
-                        string filePath2 = await CreateFileAsync(service2.ConnectionData.Name, linked.Entity2.ObjectTypeCode, linked.Entity2.Name, fieldTitle, xml2);
+                        string filePath1 = await CreateFileAsync(service1.ConnectionData.Name, linked.Entity1.Id, linked.Entity1.ObjectTypeCode, linked.Entity1.Name, fieldTitle, xml1);
+                        string filePath2 = await CreateFileAsync(service2.ConnectionData.Name, linked.Entity2.Id, linked.Entity2.ObjectTypeCode, linked.Entity2.Name, fieldTitle, xml2);
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
@@ -1030,7 +1046,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = systemForm.GetAttributeValue<string>(fieldName);
 
-                string filePath = await CreateFileAsync(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, xmlContent);
+                string filePath = await CreateFileAsync(service.ConnectionData.Name, idSystemForm, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, xmlContent);
 
                 this._iWriteToOutput.PerformAction(filePath);
             }
@@ -1329,6 +1345,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 e.Handled = true;
 
                 ShowExistingSystemForms();
+            }
+
+            if (!e.Handled)
+            {
+                if (e.Key == Key.Escape
+                    || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+                    )
+                {
+                    if (_optionsPopup.IsOpen)
+                    {
+                        _optionsPopup.IsOpen = false;
+                        e.Handled = true;
+                    }
+                }
             }
 
             base.OnKeyDown(e);
@@ -1833,6 +1863,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     menuContextConnection2.IsEnabled = true;
                     menuContextConnection2.Visibility = Visibility.Visible;
                 }
+            }
+        }
+
+        private void miOptions_Click(object sender, RoutedEventArgs e)
+        {
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
             }
         }
     }

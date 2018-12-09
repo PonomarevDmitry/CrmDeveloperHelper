@@ -56,7 +56,7 @@
                 <CheckBox x:Name="chBForm" IsChecked="{Binding Path=ExportRibbonXmlForm}" Content="Form" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" />
                 <CheckBox x:Name="chBHomepageGrid" IsChecked="{Binding Path=ExportRibbonXmlHomepageGrid}" Content="HomepageGrid" HorizontalAlignment="Left" Margin="77,10,0,0" VerticalAlignment="Top" />
                 <CheckBox x:Name="chBSubGrid" IsChecked="{Binding Path=ExportRibbonXmlSubGrid}" Content="SubGrid" HorizontalAlignment="Left" Margin="197,10,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding Path=ExportRibbonXmlXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding Path=ExportXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
                 <CheckBox x:Name="chBSetXmlSchemas" IsChecked="{Binding Path=SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" HorizontalAlignment="Left" Margin="10,50,0,0" Height="15" VerticalAlignment="Top"/>
                 <CheckBox x:Name="chBSetIntellisenseContext" IsChecked="{Binding SetIntellisenseContext}" Content="Set Intellisense Context" HorizontalAlignment="Left" Margin="10,70,0,0" Height="15" VerticalAlignment="Top"/>
             </Grid>

@@ -95,7 +95,12 @@
         </ContextMenu>
     </src:WindowBase.Resources>
     <Grid>
-        <Grid Height="25" Margin="10,10,10,0" VerticalAlignment="Top">
+
+        <ToolBar x:Name="toolBarHeader" Margin="0" VerticalAlignment="Top" Height="33">
+            <Button Content="Options" Click="miOptions_Click"/>
+        </ToolBar>
+
+        <Grid Height="25" Margin="10,38,10,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
@@ -109,9 +114,9 @@
             <ComboBox x:Name="cmBConnection2" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0"  Grid.Row="0" Grid.Column="3"/>
         </Grid>
 
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Height="23"/>
-        <TextBox x:Name="txtBFilterEnitity" Height="23" Margin="51,40,10,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center"/>
-        <DataGrid x:Name="lstVwSystemForms" AutoGenerateColumns="False" Margin="10,68,10,93" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Height="23"/>
+        <TextBox x:Name="txtBFilterEnitity" Height="23" Margin="51,68,10,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center"/>
+        <DataGrid x:Name="lstVwSystemForms" AutoGenerateColumns="False" Margin="10,96,10,93" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -136,7 +141,6 @@
         </DataGrid>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,62" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="26" Width="53"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,62" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="254" Height="26" />
-        <CheckBox x:Name="chBSetXmlSchemas" IsChecked="{Binding SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" HorizontalAlignment="Left" Margin="348,0,0,67" Height="15" VerticalAlignment="Bottom"/>
         <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">

@@ -12,9 +12,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public const string NameIntellisenseContextName = "intellisenseContext";
 
         public const string NameIntellisenseContextAttributeEntityName = "entityName";
-        public const string NameIntellisenseContextAttributeSiteMapNameUnique = "siteMapNameUnique";
-        public const string NameIntellisenseContextAttributeSavedQueryId = "savedQueryId";
-        public const string NameIntellisenseContextAttributeFormId = "formId";
+
+        public const string NameIntellisenseContextAttributeSiteMapNameUnique = "sitemapnameunique";
+        public const string NameIntellisenseContextAttributeSavedQueryId = "savedqueryid";
+        public const string NameIntellisenseContextAttributeFormId = "formid";
 
         public static readonly XNamespace IntellisenseContextNamespace = "https://navicongroup.ru/XsdSchemas/IntellisenseContext";
 

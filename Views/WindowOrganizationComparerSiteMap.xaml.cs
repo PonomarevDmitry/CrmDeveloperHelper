@@ -7,6 +7,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Xml.Linq;
@@ -35,6 +37,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private ConnectionConfiguration _connectionConfig;
 
         private ObservableCollection<EntityViewItem> _itemsSource;
+
+        private Popup _optionsPopup;
 
         private bool _controlsEnabled = true;
 
@@ -58,6 +62,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.XmlFull);
+            child.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
+            {
+                Child = child,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
 
             tSDDBConnection1.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection1.Name);
             tSDDBConnection2.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection2.Name);
@@ -90,10 +106,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void LoadFromConfig()
         {
             cmBFileAction.DataContext = _commonConfig;
-
-            chBXmlAttributeOnNewLine.DataContext = _commonConfig;
-
-            chBSetXmlSchemas.DataContext = _commonConfig;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -479,12 +491,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             action(linked, showAllways);
         }
 
-        private Task<string> CreateFileAsync(string connectionName, string name, Guid id, string fieldTitle, string xmlContent)
+        private Task<string> CreateFileAsync(string connectionName, string name, string nameUnique, Guid id, string fieldTitle, string xmlContent)
         {
-            return Task.Run(() => CreateFile(connectionName, name, id, fieldTitle, xmlContent));
+            return Task.Run(() => CreateFile(connectionName, name, nameUnique, id, fieldTitle, xmlContent));
         }
 
-        private string CreateFile(string connectionName, string name, Guid id, string fieldTitle, string xmlContent)
+        private string CreateFile(string connectionName, string name, string nameUnique, Guid id, string fieldTitle, string xmlContent)
         {
             string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionName, name, id, fieldTitle, "xml");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -499,11 +511,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (schemasResources != null)
                         {
-                            xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources);
+                            xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
                         }
                     }
 
-                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportSiteMapXmlAttributeOnNewLine);
+                    if (_commonConfig.SetIntellisenseContext)
+                    {
+                        xmlContent = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(xmlContent, nameUnique);
+                    }
+
+                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportXmlAttributeOnNewLine);
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
@@ -639,12 +656,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
-                        string name1 = !string.IsNullOrEmpty(sitemap1.SiteMapName) ? " " + sitemap1.SiteMapName : string.Empty;
-                        string name2 = !string.IsNullOrEmpty(sitemap2.SiteMapName) ? " " + sitemap2.SiteMapName : string.Empty;
+                        string filePath1 = await CreateFileAsync(service1.ConnectionData.Name, sitemap1.SiteMapName, sitemap1.SiteMapNameUnique, sitemap1.Id, fieldTitle, xml1);
 
-                        string filePath1 = await CreateFileAsync(service1.ConnectionData.Name, name1, sitemap1.Id, fieldTitle, xml1);
-
-                        string filePath2 = await CreateFileAsync(service2.ConnectionData.Name, name2, sitemap2.Id, fieldTitle, xml2);
+                        string filePath2 = await CreateFileAsync(service2.ConnectionData.Name, sitemap2.SiteMapName, sitemap2.SiteMapNameUnique, sitemap2.Id, fieldTitle, xml2);
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
@@ -709,9 +723,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = sitemap.GetAttributeValue<string>(fieldName);
 
-                string name = !string.IsNullOrEmpty(sitemap.SiteMapName) ? " " + sitemap.SiteMapName : string.Empty;
-
-                string filePath = await CreateFileAsync(service.ConnectionData.Name, name, sitemap.Id, fieldTitle, xmlContent);
+                string filePath = await CreateFileAsync(service.ConnectionData.Name, sitemap.SiteMapName, sitemap.SiteMapNameUnique, sitemap.Id, fieldTitle, xmlContent);
 
                 this._iWriteToOutput.PerformAction(filePath);
             }
@@ -759,11 +771,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (showAllways || desc1 != desc2)
                     {
-                        string name1 = !string.IsNullOrEmpty(sitemap1.SiteMapName) ? " " + sitemap1.SiteMapName : string.Empty;
-                        string name2 = !string.IsNullOrEmpty(sitemap2.SiteMapName) ? " " + sitemap2.SiteMapName : string.Empty;
-
-                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData.Name, name1, sitemap1.Id, "EntityDescription", desc1);
-                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData.Name, name2, sitemap2.Id, "EntityDescription", desc2);
+                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData.Name, sitemap1.SiteMapName, sitemap1.Id, "EntityDescription", desc1);
+                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData.Name, sitemap2.SiteMapName, sitemap2.Id, "EntityDescription", desc2);
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
@@ -825,11 +834,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(true));
 
-                string name = !string.IsNullOrEmpty(sitemap.SiteMapName) ? " " + sitemap.SiteMapName : string.Empty;
-
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(sitemap, EntityFileNameFormatter.SiteMapIgnoreFields, service.ConnectionData);
 
-                string filePath = await CreateDescriptionFileAsync(service.ConnectionData.Name, name, sitemap.Id, "EntityDescription", description);
+                string filePath = await CreateDescriptionFileAsync(service.ConnectionData.Name, sitemap.SiteMapName, sitemap.Id, "EntityDescription", description);
 
                 this._iWriteToOutput.PerformAction(filePath);
             }
@@ -892,6 +899,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 e.Handled = true;
 
                 ShowExistingSiteMaps();
+            }
+
+            if (!e.Handled)
+            {
+                if (e.Key == Key.Escape
+                    || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+                    )
+                {
+                    if (_optionsPopup.IsOpen)
+                    {
+                        _optionsPopup.IsOpen = false;
+                        e.Handled = true;
+                    }
+                }
             }
 
             base.OnKeyDown(e);
@@ -992,6 +1013,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     menuContextConnection2.IsEnabled = true;
                     menuContextConnection2.Visibility = Visibility.Visible;
                 }
+            }
+        }
+
+        private void miOptions_Click(object sender, RoutedEventArgs e)
+        {
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
             }
         }
     }

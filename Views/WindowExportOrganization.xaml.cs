@@ -4,6 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Xml.Linq;
@@ -35,11 +37,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
+        private Popup _optionsPopup;
+
         private int _init = 0;
 
         public WindowExportOrganization(
              IWriteToOutput iWriteToOutput
-
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string connectionDataName
@@ -58,6 +61,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.XmlFull);
+            child.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
+            {
+                Child = child,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
 
             LoadFromConfig(commonConfig);
 
@@ -86,10 +101,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFileAction.DataContext = commonConfig;
 
             txtBFolder.DataContext = commonConfig;
-
-            chBXmlAttributeOnNewLine.DataContext = commonConfig;
-
-            chBSetXmlSchemas.DataContext = commonConfig;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -396,12 +407,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             if (schemasResources != null)
                             {
-                                xmlContent = ContentCoparerHelper.ReplaceXsdSchema(xmlContent, schemasResources);
+                                xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
                             }
                         }
                     }
 
-                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportOrganizationXmlAttributeOnNewLine);
+                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportXmlAttributeOnNewLine);
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
@@ -522,7 +533,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 string xmlContent = organization.GetAttributeValue<string>(fieldName);
 
-                xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportOrganizationXmlAttributeOnNewLine);
+                xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportXmlAttributeOnNewLine);
 
                 string filePath = await CreateFileAsync(folder, organization.Name, fieldTitle + " BackUp", xmlContent);
 
@@ -837,6 +848,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ShowExistingOrganizations();
             }
 
+            if (!e.Handled)
+            {
+                if (e.Key == Key.Escape
+                    || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+                    )
+                {
+                    if (_optionsPopup.IsOpen)
+                    {
+                        _optionsPopup.IsOpen = false;
+                        e.Handled = true;
+                    }
+                }
+            }
+
             base.OnKeyDown(e);
         }
 
@@ -978,6 +1003,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ExecuteActionEntity(entity, Organization.Schema.Attributes.slapausestates, "SlaPauseStates", PerformUpdateEntityField);
+        }
+
+        private void miOptions_Click(object sender, RoutedEventArgs e)
+        {
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
+            }
         }
     }
 }
