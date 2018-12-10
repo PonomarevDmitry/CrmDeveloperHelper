@@ -2,9 +2,14 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/sign.snk
-/bin/Debug
-/obj/Debug
-/bin/Release
-/obj/Release
-/bin/Release
+/CrmDeveloperHelper/sign.snk
+/CrmDeveloperHelper/bin/Debug
+/CrmDeveloperHelper/obj/Debug
+/CrmDeveloperHelper/bin/Release
+/CrmDeveloperHelper/obj/Release
+/CrmDeveloperHelper/bin/Release
+/CrmDeveloperHelper/bin
+/CrmDeveloperHelper/obj
+/CompiledVSIXPackages
+/packages
+/CrmDeveloperHelper/Nav.Common.VSPackages.CrmDeveloperHelper.csproj.user
