@@ -302,7 +302,7 @@
     <Compile Include="Controllers\OpenFilesController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
-    <Compile Include="CrmDeveloperHelperPackageCommandTable.cs">
+    <Compile Include="CrmDeveloperHelperPackageCommandTable.vsct.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CrmDeveloperHelperPackageCommandTable.vsct</DependentUpon>
@@ -1189,8 +1189,8 @@
     <VSCTCompile Include="CrmDeveloperHelperPackageCommandTable.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>
-      <LastGenOutput>CrmDeveloperHelperPackageCommandTable1.cs</LastGenOutput>
       <Generator>VsctGenerator</Generator>
+      <LastGenOutput>CrmDeveloperHelperPackageCommandTable.vsct.cs</LastGenOutput>
     </VSCTCompile>
     <Resource Include="Resources\16x16_refresh.ico" />
     <Resource Include="Resources\Add.png" />

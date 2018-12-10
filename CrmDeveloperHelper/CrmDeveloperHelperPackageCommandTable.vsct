@@ -25,7 +25,7 @@
   <Commands package="guidCrmDeveloperHelperPackage">
 
     <Groups>
-      <Group guid="guidGroupAndMenuSet" id="mainGroup" priority="0x6000" />
+      <Group guid="guidGroupAndMenuSet" id="mainGroup" priority="0x6001" />
       <Group guid="guidGroupAndMenuSet" id="mainGroupCode" priority="0x6000" />
       <Group guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" priority="0x6000" />
       <Group guid="guidGroupAndMenuSet" id="mainGroupTools" priority="0x6000" />
