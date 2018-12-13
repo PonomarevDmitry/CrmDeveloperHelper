@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-  <Metadata>
-    <Identity Id="Nav.Common.VSPackages.CrmDeveloperHelper.8ca870d8-491f-445b-9251-1b6528b4fdeb" Version="1.0.0.302" Language="en-US" Publisher="Navicon (Ponomarev Dmitry)" />
-    <DisplayName>CrmDeveloperHelper</DisplayName>
-    <Description xml:space="preserve">Many Tools for work with Microsoft Dynamics CRM.
+    <Metadata>
+        <Identity Id="Nav.Common.VSPackages.CrmDeveloperHelper.8ca870d8-491f-445b-9251-1b6528b4fdeb" Version="1.0.0.303" Language="en-US" Publisher="Navicon (Ponomarev Dmitry)" />
+        <DisplayName>CrmDeveloperHelper</DisplayName>
+        <Description xml:space="preserve">Many Tools for work with Microsoft Dynamics CRM.
 - work with webresources directly from Visual Studio (create, edit, publish)
 - work with reports
 - extract information from CRM
@@ -17,26 +17,26 @@
 - ribbons
 - solutions
 - work with solutions (copy components from one to another, create solution descriptions, export solutions)</Description>
-    <MoreInfo>https://marketplace.visualstudio.com/items?itemName=NaviconPonomarevDmitry.CrmDeveloperHelper</MoreInfo>
-    <Icon>Resources\CrmDeveloperHelperPackage.ico</Icon>
-    <Tags>Microsoft Dynamics 365, Dynamics CRM 2011, Dynamics CRM 2013, Dynamics CRM 2015, Dynamics CRM 2016</Tags>
-  </Metadata>
-  <Installation>
-    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[12.0,]" />
-    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.0,]" />
-    <InstallationTarget Id="Microsoft.VisualStudio.Premium" Version="[12.0,]" />
-    <InstallationTarget Id="Microsoft.VisualStudio.Ultimate" Version="[12.0,]" />
-    <InstallationTarget Id="Microsoft.VisualStudio.Enterprise" Version="[12.0,]" />
-  </Installation>
-  <Dependencies>
-    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
-    <Dependency Id="Microsoft.VisualStudio.MPF.12.0" DisplayName="Visual Studio MPF 12.0" d:Source="Installed" Version="[12.0,)" />
-  </Dependencies>
-  <Prerequisites>
-    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[12.0,)" DisplayName="Visual Studio core editor" />
-  </Prerequisites>
-  <Assets>
-    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
-  </Assets>
+        <MoreInfo>https://marketplace.visualstudio.com/items?itemName=NaviconPonomarevDmitry.CrmDeveloperHelper</MoreInfo>
+        <Icon>Resources\CrmDeveloperHelperPackage.ico</Icon>
+        <Tags>Microsoft Dynamics 365, Dynamics CRM 2011, Dynamics CRM 2013, Dynamics CRM 2015, Dynamics CRM 2016</Tags>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[12.0,]" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.0,]" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Premium" Version="[12.0,]" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Ultimate" Version="[12.0,]" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Enterprise" Version="[12.0,]" />
+    </Installation>
+    <Dependencies>
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+        <Dependency Id="Microsoft.VisualStudio.MPF.12.0" DisplayName="Visual Studio MPF 12.0" d:Source="Installed" Version="[12.0,)" />
+    </Dependencies>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[12.0,)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+    </Assets>
 </PackageManifest>

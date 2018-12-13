@@ -436,7 +436,10 @@
                                 <DataGridTextColumn Header="Entity Name" Width="200" Binding="{Binding LogicalName, Mode=OneTime}" />
                                 <DataGridTextColumn Header="Display Name" Width="200" Binding="{Binding DisplayName, Mode=OneTime}" />
 
-                                <DataGridTemplateColumn Header="Create" Width="SizeToHeader">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="CreateRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="C" Margin="0" Padding="0" ToolTip="Create" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding Path=CreateRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableCreate, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
@@ -444,7 +447,10 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="Read" Width="SizeToHeader">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ReadRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="R" Margin="0" Padding="0" ToolTip="Read" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding Path=ReadRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableRead, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
@@ -452,7 +458,10 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="Update" Width="SizeToHeader">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="UpdateRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="U" Margin="0" Padding="0" ToolTip="Update" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding Path=UpdateRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableUpdate, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
@@ -460,7 +469,10 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="Delete" Width="SizeToHeader">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="DeleteRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="D" Margin="0" Padding="0" ToolTip="Delete" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding Path=DeleteRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableDelete, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
@@ -468,7 +480,10 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="Append" Width="SizeToHeader">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="App" Margin="0" Padding="0" ToolTip="Append" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding Path=AppendRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableAppend, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
@@ -476,7 +491,10 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="AppendTo" Width="SizeToHeader">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendToRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="AppTo" Margin="0" Padding="0" ToolTip="AppendTo" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding Path=AppendToRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableAppendTo, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
@@ -484,7 +502,10 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="Assign" Width="SizeToHeader">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AssignRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="As" Margin="0" Padding="0" ToolTip="Assign"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding Path=AssignRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableAssign, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
@@ -492,7 +513,10 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="Share" Width="SizeToHeader">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ShareRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="Sh" Margin="0" Padding="0" ToolTip="Share" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding Path=ShareRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableShare, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />

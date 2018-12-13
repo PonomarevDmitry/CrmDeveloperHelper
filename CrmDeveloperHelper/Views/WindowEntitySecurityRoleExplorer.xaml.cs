@@ -84,8 +84,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _itemsSourceSecurityRoleList = new ObservableCollection<RolePrivilegeViewItem>();
             lstVwSecurityRoles.ItemsSource = _itemsSourceSecurityRoleList;
 
-            UpdateButtonsEnable();
-
             cmBCurrentConnection.ItemsSource = _connectionConfig.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
@@ -297,10 +295,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat1, results.Count());
 
-            ShowExistingSecurityRoles();
+            ShowEntitySecurityRoles();
         }
 
-        private async Task ShowExistingSecurityRoles()
+        private async Task ShowEntitySecurityRoles()
         {
             if (_init > 0 || !_controlsEnabled)
             {
@@ -376,6 +374,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     .ThenBy(s => s.Role.Id)
                 )
                 {
+                    entity.PropertyChanged -= Entity_PropertyChanged;
+                    entity.PropertyChanged -= Entity_PropertyChanged;
+                    entity.PropertyChanged += Entity_PropertyChanged;
+
                     _itemsSourceSecurityRoleList.Add(entity);
                 }
 
@@ -386,6 +388,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
+        private void Entity_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (string.Equals(e.PropertyName, "IsChanged", StringComparison.InvariantCultureIgnoreCase))
+            {
+                UpdateRoleButtons();
+            }
+        }
 
         private void UpdateStatus(string format, params object[] args)
         {
@@ -410,50 +419,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(cmBCurrentConnection, enabled);
+            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, tSProgressBar, btnRefreshEntites, btnRefreshRoles);
 
-            ToggleProgressBar(enabled);
-
-            UpdateButtonsEnable();
+            UpdateRoleButtons();
         }
 
-        private void ToggleProgressBar(bool enabled)
+        private void UpdateRoleButtons()
         {
-            if (tSProgressBar == null)
-            {
-                return;
-            }
-
-            this.tSProgressBar.Dispatcher.Invoke(() =>
-            {
-                tSProgressBar.IsIndeterminate = !enabled;
-            });
-        }
-
-        private void ToggleControl(Control c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                if (c is TextBox)
-                {
-                    ((TextBox)c).IsReadOnly = !enabled;
-                }
-                else
-                {
-                    c.IsEnabled = enabled;
-                }
-            });
-        }
-
-        private void UpdateButtonsEnable()
-        {
-            this.lstVwEntities.Dispatcher.Invoke(() =>
+            this.lstVwSecurityRoles.Dispatcher.Invoke(() =>
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwEntities != null && this.lstVwEntities.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled
+                        && this._itemsSourceSecurityRoleList != null
+                        && this._itemsSourceSecurityRoleList.Any(e => e.IsChanged)
+                        ;
 
-                    UIElement[] list = { };
+                    UIElement[] list = { btnSaveRoleChanges };
 
                     foreach (var button in list)
                     {
@@ -478,7 +460,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingSecurityRoles();
+                ShowEntitySecurityRoles();
             }
         }
 
@@ -792,7 +774,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
+                var item = ((FrameworkElement)e.OriginalSource).DataContext as EntityMetadataViewItem;
 
+                if (item != null)
+                {
+                    ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+                    if (connectionData != null)
+                    {
+                        connectionData.OpenEntityMetadataInWeb(item.EntityMetadata.MetadataId.Value);
+                    }
+                }
             }
         }
 
@@ -853,9 +845,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowExistingSecurityRoles();
-
-            UpdateButtonsEnable();
+            ShowEntitySecurityRoles();
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -891,11 +881,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void mIOpenSecurityRoleInWeb_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             var role = GetSelectedSecurityRole();
 
-            if (entity == null || role == null)
+            if (role == null)
             {
                 return;
             }
@@ -903,6 +891,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
 
             service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.Role, role.Role.RoleId.Value);
+        }
+
+        private void mIOpenSecurityRoleListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenEntityListInWeb(Role.EntityLogicalName);
+            }
+        }
+
+        private void mICopyEntityInstanceIdToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            var role = GetSelectedSecurityRole();
+
+            if (role == null)
+            {
+                return;
+            }
+
+            Clipboard.SetText(role.Role.Id.ToString());
+        }
+
+        private void mICopyEntityInstanceUrlToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            var role = GetSelectedSecurityRole();
+
+            if (role == null)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                var url = connectionData.GetEntityInstanceUrl(role.Role.LogicalName, role.Role.Id);
+
+                Clipboard.SetText(url);
+            }
         }
 
         private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
@@ -1171,8 +1200,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                UpdateButtonsEnable();
-
                 ShowExistingEntities();
             }
         }
@@ -1190,10 +1217,123 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _cacheEntityMetadata.Remove(connectionData.ConnectionId);
 
-                UpdateButtonsEnable();
-
                 ShowExistingEntities();
             }
+        }
+
+        private void btnRefreshEntites_Click(object sender, RoutedEventArgs e)
+        {
+            ShowExistingEntities();
+        }
+
+        private void btnRefreshRoles_Click(object sender, RoutedEventArgs e)
+        {
+            ShowEntitySecurityRoles();
+        }
+
+        private void lstVwSecurityRoles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton != MouseButton.Left)
+            {
+                return;
+            }
+
+            IInputElement element = e.MouseDevice.DirectlyOver;
+            if (element != null
+                && element is FrameworkElement frameworkElement
+                )
+            {
+                if (frameworkElement.Parent is DataGridCell cell)
+                {
+                    if (cell.Column == colBusinessUnit
+                        || cell.Column == colRoleName
+                        || cell.Column == colRoleTemplate
+                        )
+                    {
+                        var item = ((FrameworkElement)e.OriginalSource).DataContext as RolePrivilegeViewItem;
+
+                        if (item != null)
+                        {
+                            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+                            if (connectionData != null)
+                            {
+                                connectionData.OpenEntityInstanceInWeb(item.Role.LogicalName, item.Role.Id);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private async void mIOpenSecurityRoleExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is RolePrivilegeViewItem role)
+                )
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            IEnumerable<EntityMetadata> entityMetadataList = null;
+
+            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
+            {
+                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
+            }
+
+            WindowHelper.OpenRolesExplorer(_iWriteToOutput, service, _commonConfig, entityMetadataList, role.RoleName);
+        }
+
+        private async void mISaveRoleChanges_Click(object sender, RoutedEventArgs e)
+        {
+            var changedRoles = _itemsSourceSecurityRoleList?.Where(en => en.IsChanged).ToList();
+
+            if (changedRoles == null || !changedRoles.Any())
+            {
+                return;
+            }
+
+            string rolesName = string.Join(", ", changedRoles.Select(r => r.Role.Name).OrderBy(s => s));
+
+            string message = string.Format(Properties.MessageBoxStrings.SaveChangesToRolesFormat1, rolesName);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            ToggleControls(false, Properties.WindowStatusStrings.SavingChangesToRolesFormat2, service.ConnectionData.Name, rolesName);
+
+            var rolePrivileges = new RolePrivilegesRepository(service);
+
+            foreach (var role in changedRoles)
+            {
+                try
+                {
+                    List<RolePrivilege> privilegesAdd = role.GetAddRolePrivilege();
+                    List<RolePrivilege> privilegesRemove = role.GetRemoveRolePrivilege();
+
+                    await rolePrivileges.ModifyRolePrivilegesAsync(role.Role.Id, privilegesAdd, privilegesRemove);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                }
+            }
+
+            ToggleControls(true, Properties.WindowStatusStrings.SavingChangesToRolesCompletedFormat2, service.ConnectionData.Name, rolesName);
+
+            ShowEntitySecurityRoles();
         }
     }
 }

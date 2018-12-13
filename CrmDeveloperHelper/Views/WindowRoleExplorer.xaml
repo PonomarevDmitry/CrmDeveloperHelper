@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         Title="Security Roles Explorer" Height="538.662" Width="1233" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
 
@@ -296,8 +297,10 @@
                                 </StackPanel>
                             </Button>
                             <Separator Margin="20,0" />
+                            <Button x:Name="btnSaveRoleChanges" Content="Save Role Changes" Click="mISaveRoleChanges_Click" />
+                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                                <MenuItem Header="Open Entity Information" VerticalAlignment="Center">
+                                <MenuItem Header="Entity" VerticalAlignment="Center">
                                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
                                     <Separator/>
                                     <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
@@ -322,9 +325,9 @@
                                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
                                 </MenuItem>
                             </Menu>
-                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                                <MenuItem Header="Compare Information with other Organization" VerticalAlignment="Center">
+                                <MenuItem Header="Compare" VerticalAlignment="Center">
                                     <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                                     <Separator/>
                                     <MenuItem Header="Application Ribbon" Click="btnCompareApplicationRibbons_Click"/>
@@ -338,10 +341,10 @@
                                     <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
                                 </MenuItem>
                             </Menu>
-                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                                <MenuItem Header="Clear Entity Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click" VerticalAlignment="Center" />
-                            </Menu>
+                                <MenuItem Header="Clear Cache" Click="mIClearEntityCacheAndRefresh_Click" VerticalAlignment="Center" />
+                            </Menu>                            
                         </ToolBar>
 
                         <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
@@ -367,69 +370,165 @@
                             </DataGrid.ItemContainerStyle>
                             <DataGrid.Columns>
 
-                                <DataGridTextColumn Header="Entity Name" Width="200" Binding="{Binding LogicalName, Mode=OneTime}" />
-                                <DataGridTextColumn Header="Display Name" Width="200" Binding="{Binding DisplayName, Mode=OneTime}" />
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="Ch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Is Changed" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
 
-                                <DataGridTemplateColumn Header="Create" Width="SizeToHeader">
+                                <DataGridTextColumn x:Name="colEntityName" Header="Entity Name" Width="200" Binding="{Binding LogicalName, Mode=OneTime}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn x:Name="colDisplayName" Header="Display Name" Width="200" Binding="{Binding DisplayName, Mode=OneTime}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="CreateRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="C" Margin="0" Padding="0" ToolTip="Create" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding Path=CreateRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableCreate, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
+                                            <ComboBox SelectedItem="{Binding Path=CreateRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableCreate, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableCreate}" ItemsSource="{Binding Path=CreateOptions}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="Read" Width="SizeToHeader">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ReadRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="R" Margin="0" Padding="0" ToolTip="Read" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding Path=ReadRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableRead, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
+                                            <ComboBox SelectedItem="{Binding Path=ReadRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableRead, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableRead}" ItemsSource="{Binding Path=ReadOptions}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="Update" Width="SizeToHeader">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="UpdateRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="U" Margin="0" Padding="0" ToolTip="Update" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding Path=UpdateRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableUpdate, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
+                                            <ComboBox SelectedItem="{Binding Path=UpdateRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableUpdate, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableUpdate}" ItemsSource="{Binding Path=UpdateOptions}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="Delete" Width="SizeToHeader">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="DeleteRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="D" Margin="0" Padding="0" ToolTip="Delete" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding Path=DeleteRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableDelete, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
+                                            <ComboBox SelectedItem="{Binding Path=DeleteRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableDelete, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableDelete}" ItemsSource="{Binding Path=DeleteOptions}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="Append" Width="SizeToHeader">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="App" Margin="0" Padding="0" ToolTip="Append" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding Path=AppendRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableAppend, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
+                                            <ComboBox SelectedItem="{Binding Path=AppendRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableAppend, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableAppend}" ItemsSource="{Binding Path=AppendOptions}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="AppendTo" Width="SizeToHeader">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendToRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="AppTo" Margin="0" Padding="0" ToolTip="AppendTo" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding Path=AppendToRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableAppendTo, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
+                                            <ComboBox SelectedItem="{Binding Path=AppendToRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableAppendTo, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableAppendTo}" ItemsSource="{Binding Path=AppendToOptions}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="Assign" Width="SizeToHeader">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AssignRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="As" Margin="0" Padding="0" ToolTip="Assign"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding Path=AssignRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableAssign, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
+                                            <ComboBox SelectedItem="{Binding Path=AssignRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableAssign, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableAssign}" ItemsSource="{Binding Path=AssignOptions}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="Share" Width="SizeToHeader">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ShareRight">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="Sh" Margin="0" Padding="0" ToolTip="Share" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding Path=ShareRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableShare, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
+                                            <ComboBox SelectedItem="{Binding Path=ShareRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableShare, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableShare}" ItemsSource="{Binding Path=ShareOptions}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>

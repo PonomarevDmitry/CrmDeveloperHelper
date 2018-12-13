@@ -30,6 +30,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public bool SortByName { get; set; }
 
+        public bool SortByIntValue { get; set; }
+
         public EnumBindingSourceExtension() { }
 
         public EnumBindingSourceExtension(Type enumType)
@@ -49,6 +51,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 Array.Sort(enumValues, new EnumSorterByName());
             }
+            else if(this.SortByIntValue)
+            {
+                Array.Sort(enumValues, new EnumSorterByValue());
+            }
 
             if (actualEnumType == this._enumType)
                 return enumValues;
@@ -57,6 +63,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             tempArray[0] = string.Empty;
             enumValues.CopyTo(tempArray, 1);
             return tempArray;
+        }
+
+        private class EnumSorterByValue : IComparer
+        {
+            public int Compare(object x, object y)
+            {
+                int xValue = Convert.ToInt32(x);
+                int yValue = Convert.ToInt32(y);
+
+                return xValue.CompareTo(yValue);
+            }
         }
 
         private class EnumSorterByName : IComparer

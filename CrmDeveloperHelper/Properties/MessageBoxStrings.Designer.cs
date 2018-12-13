@@ -469,6 +469,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save Changes to roles {0}?.
+        /// </summary>
+        internal static string SaveChangesToRolesFormat1 {
+            get {
+                return ResourceManager.GetString("SaveChangesToRolesFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Solution Version text is not valid Version..
         /// </summary>
         internal static string SolutionVersionTextIsNotValidVersion {

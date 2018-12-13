@@ -1167,4 +1167,10 @@
   <data name="AssigningRolesToUsersFormat3" xml:space="preserve">
     <value>{0}. Assigning roles {1} to users {2}...</value>
   </data>
+  <data name="SavingChangesToRolesCompletedFormat2" xml:space="preserve">
+    <value>{0}. Saving Changes to roles {1} completed.</value>
+  </data>
+  <data name="SavingChangesToRolesFormat2" xml:space="preserve">
+    <value>{0}. Saving Changes to roles {1}...</value>
+  </data>
 </root>

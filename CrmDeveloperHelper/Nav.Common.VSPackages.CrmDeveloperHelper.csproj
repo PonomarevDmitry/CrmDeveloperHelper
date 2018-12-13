@@ -788,6 +788,7 @@
     <Compile Include="Model\PluginSearchResult.cs" />
     <Compile Include="Model\PluginStage.cs" />
     <Compile Include="Model\PluginTreeViewItem.cs" />
+    <Compile Include="Model\PrivilegeDepthExtended.cs" />
     <Compile Include="Model\RolePrivilegeViewItem.cs" />
     <Compile Include="Model\SdkMessageRequestTreeViewItem.cs" />
     <Compile Include="Model\SdkMessageSearchResult.cs" />

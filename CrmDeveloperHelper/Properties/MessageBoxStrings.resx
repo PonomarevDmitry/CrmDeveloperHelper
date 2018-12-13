@@ -279,4 +279,7 @@
   <data name="AreYouSureRemoveUsersFromTeamsFormat2" xml:space="preserve">
     <value>Are you sure want to remove users {0} from teams {1}?</value>
   </data>
+  <data name="SaveChangesToRolesFormat1" xml:space="preserve">
+    <value>Save Changes to roles {0}?</value>
+  </data>
 </root>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Crm.Sdk.Messages;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,19 +57,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return _imageNone;
             }
 
-            var depth = (PrivilegeDepth)value;
+            if (value is string)
+            {
+                return _imageNone;
+            }
+
+            if (!(value is PrivilegeDepthExtended depth))
+            {
+                return _imageNone;
+            }
 
             switch (depth)
             {
-                case PrivilegeDepth.Basic:
+                case PrivilegeDepthExtended.Basic:
                     return _imageBasic;
-                case PrivilegeDepth.Local:
+                case PrivilegeDepthExtended.Local:
                     return _imageLocal;
-                case PrivilegeDepth.Deep:
+                case PrivilegeDepthExtended.Deep:
                     return _imageDeep;
-                case PrivilegeDepth.Global:
+                case PrivilegeDepthExtended.Global:
                     return _imageGlobal;
 
+                case PrivilegeDepthExtended.None:
                 default:
                     return _imageNone;
             }
