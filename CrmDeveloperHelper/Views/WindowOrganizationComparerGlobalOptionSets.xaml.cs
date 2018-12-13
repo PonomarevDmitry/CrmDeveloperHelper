@@ -330,43 +330,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.tSDDBShowDifference, enabled);
-            ToggleControl(this.tSDDBConnection1, enabled);
-            ToggleControl(this.tSDDBConnection2, enabled);
-            ToggleControl(this.cmBConnection1, enabled);
-            ToggleControl(this.cmBConnection2, enabled);
-
-            ToggleProgressBar(enabled);
+            ToggleControl(enabled, this.tSProgressBar, this.cmBConnection1, this.cmBConnection2);
 
             UpdateButtonsEnable();
-        }
-
-        private void ToggleProgressBar(bool enabled)
-        {
-            if (tSProgressBar == null)
-            {
-                return;
-            }
-
-            this.tSProgressBar.Dispatcher.Invoke(() =>
-            {
-                tSProgressBar.IsIndeterminate = !enabled;
-            });
-        }
-
-        private void ToggleControl(Control c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                if (c is TextBox)
-                {
-                    ((TextBox)c).IsReadOnly = !enabled;
-                }
-                else
-                {
-                    c.IsEnabled = enabled;
-                }
-            });
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -506,7 +472,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         await task1;
                     }
-                    
+
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service1.ConnectionData.Name, optionSetsName, filePath1);
 
                     if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)

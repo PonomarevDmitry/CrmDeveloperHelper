@@ -135,27 +135,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControl(Control c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                try
-                {
-                    if (c is TextBox)
-                    {
-                        ((TextBox)c).IsReadOnly = !enabled;
-                    }
-                    else
-                    {
-                        c.IsEnabled = enabled;
-                    }
-                }
-                catch (Exception)
-                {
-                }
-            });
-        }
-
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             if (!ConfigIsValid())

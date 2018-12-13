@@ -456,5 +456,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 textBox.Focus();
             }
         }
+
+        protected void ToggleControl(bool enabled, params Control[] controlsArray)
+        {
+            if (controlsArray == null || !controlsArray.Any())
+            {
+                return;
+            }
+
+            foreach (var control in controlsArray)
+            {
+                if (control == null)
+                {
+                    continue;
+                }
+
+                control.Dispatcher.Invoke(() =>
+                {
+                    if (control is TextBox textBox)
+                    {
+                        textBox.IsReadOnly = !enabled;
+                    }
+                    else if (control is ProgressBar progressBar)
+                    {
+                        progressBar.IsIndeterminate = !enabled;
+                    }
+                    else
+                    {
+                        control.IsEnabled = enabled;
+                    }
+                });
+            }
+        }
     }
 }

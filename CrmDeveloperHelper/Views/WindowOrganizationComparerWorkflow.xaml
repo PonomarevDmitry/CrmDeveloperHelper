@@ -11,13 +11,14 @@
         <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
+            <MenuItem x:Uid="menuContextDifference" Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+            <MenuItem x:Uid="menuContextDifference" Header="Xaml" Click="mIShowDifferenceXaml_Click"/>
+            <MenuItem x:Uid="menuContextDifference" Header="InputParameters" Click="mIShowDifferenceInputParameters_Click"/>
+            <MenuItem x:Uid="menuContextDifference" Header="ClientData" Click="mIShowDifferenceClientData_Click"/>
+            <MenuItem x:Uid="menuContextDifference" Header="Corrected Xaml" Click="mIShowDifferenceCorrectedXaml_Click"/>
+            <Separator x:Uid="menuContextDifference"/>
+
             <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
-                <MenuItem Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
-                <MenuItem Header="Xaml" Click="mIShowDifferenceXaml_Click"/>
-                <MenuItem Header="InputParameters" Click="mIShowDifferenceInputParameters_Click"/>
-                <MenuItem Header="ClientData" Click="mIShowDifferenceClientData_Click"/>
-                <MenuItem Header="Corrected Xaml" Click="mIShowDifferenceCorrectedXaml_Click"/>
-                <Separator/>
                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>

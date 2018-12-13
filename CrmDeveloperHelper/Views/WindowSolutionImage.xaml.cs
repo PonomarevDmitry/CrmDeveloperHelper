@@ -220,7 +220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.LoadingSolutionImage);
 
             try
@@ -251,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionImageFailed);
                 return;
             }
-            
+
             ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionImageCompleted);
 
             FilteringSolutionImageComponents();
@@ -265,7 +265,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             this._itemsSource.Clear();
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.FilteringSolutionImageComponents);
 
             IEnumerable<SolutionImageComponent> filter = null;
@@ -313,7 +313,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _itemsSource.Add(component);
             }
-            
+
             ToggleControls(true, Properties.WindowStatusStrings.FilteringSolutionImageComponentsCompletedFormat1, filter.Count());
         }
 
@@ -340,42 +340,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.tSBLoadSolutionImage, enabled);
+            ToggleControl(enabled, this.tSProgressBar, this.tSBLoadSolutionImage);
 
-            ToggleProgressBar(enabled);
-
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
-        }
-
-        private void ToggleProgressBar(bool enabled)
-        {
-            if (tSProgressBar == null)
-            {
-                return;
-            }
-
-            this.tSProgressBar.Dispatcher.Invoke(() =>
-            {
-                tSProgressBar.IsIndeterminate = !enabled;
-            });
-        }
-
-        private void ToggleControl(Control c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                if (c is TextBox)
-                {
-                    ((TextBox)c).IsReadOnly = !enabled;
-                }
-                else
-                {
-                    c.IsEnabled = enabled;
-                }
-            });
+            UpdateButtonsEnable();
         }
 
         private void UpdateButtonsEnable()
@@ -567,7 +534,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.ActivateOutputWindow();
                 return;
             }
-            
+
             foreach (var item in solutionComponents)
             {
                 service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb((ComponentType)item.ComponentType.Value, item.ObjectId.Value);

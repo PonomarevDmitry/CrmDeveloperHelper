@@ -1,10 +1,11 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -14,7 +15,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Collections.ObjectModel;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -183,43 +183,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.tSBLoadPluginConfiguration, enabled);
-            ToggleControl(this.tSBCreateAssemblyDescription, enabled);
+            ToggleControl(enabled, this.tSProgressBar, this.tSBLoadPluginConfiguration, this.tSBCreateAssemblyDescription);
 
-            ToggleProgressBar(enabled);
-
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
-        }
-
-        private void ToggleProgressBar(bool enabled)
-        {
-            if (tSProgressBar == null)
-            {
-                return;
-            }
-
-            this.tSProgressBar.Dispatcher.Invoke(() =>
-            {
-                tSProgressBar.IsIndeterminate = !enabled;
-            });
-        }
-
-        private void ToggleControl(Control c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                if (c is TextBox)
-                {
-                    ((TextBox)c).IsReadOnly = !enabled;
-                }
-                else
-                {
-                    c.IsEnabled = enabled;
-                }
-            });
+            UpdateButtonsEnable();
         }
 
         private void UpdateButtonsEnable()
@@ -228,7 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwPluginAssemblies.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwPluginAssemblies.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSBCreateAssemblyDescription };
 
@@ -331,15 +297,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void tSBLoadPluginConfiguration_Click(object sender, RoutedEventArgs e)
         {
             string selectedPath = string.Empty;
-            var t = new Thread((ThreadStart)(() =>
+            var t = new Thread(() =>
             {
                 try
                 {
-                    var openFileDialog1 = new Microsoft.Win32.OpenFileDialog();
-
-                    openFileDialog1.Filter = "Plugin Configuration (.xml)|*.xml";
-                    openFileDialog1.FilterIndex = 1;
-                    openFileDialog1.RestoreDirectory = true;
+                    var openFileDialog1 = new Microsoft.Win32.OpenFileDialog
+                    {
+                        Filter = "Plugin Configuration (.xml)|*.xml",
+                        FilterIndex = 1,
+                        RestoreDirectory = true
+                    };
 
                     if (openFileDialog1.ShowDialog().GetValueOrDefault())
                     {
@@ -350,7 +317,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     DTEHelper.WriteExceptionToOutput(ex);
                 }
-            }));
+            });
 
             t.SetApartmentState(ApartmentState.STA);
             t.Start();

@@ -397,42 +397,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.tSBCreateCSharpFile, enabled);
-            ToggleControl(this.tSBCreateJavaScriptFile, enabled);
-
-            ToggleControl(cmBCurrentConnection, enabled);
-
-            ToggleProgressBar(enabled);
+            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, this.tSBCreateCSharpFile, this.tSBCreateJavaScriptFile);
 
             UpdateButtonsEnable();
-        }
-
-        private void ToggleProgressBar(bool enabled)
-        {
-            if (tSProgressBar == null)
-            {
-                return;
-            }
-
-            this.tSProgressBar.Dispatcher.Invoke(() =>
-            {
-                tSProgressBar.IsIndeterminate = !enabled;
-            });
-        }
-
-        private void ToggleControl(Control c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                if (c is TextBox)
-                {
-                    ((TextBox)c).IsReadOnly = !enabled;
-                }
-                else
-                {
-                    c.IsEnabled = enabled;
-                }
-            });
         }
 
         private void UpdateStatus(string format, params object[] args)

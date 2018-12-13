@@ -956,42 +956,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.btnExecuteFetchXml, enabled);
-            ToggleControl(this.btnExecuteFetchXml2, enabled);
-
-            ToggleControl(this.dGrParameters, enabled);
-
-            ToggleControl(cmBCurrentConnection, enabled);
-
-            ToggleProgressBar(enabled);
+            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, tSProgressBar, this.btnExecuteFetchXml, this.btnExecuteFetchXml2, this.dGrParameters);
         }
 
-        private void ToggleProgressBar(bool enabled)
+        protected void ToggleControl(bool enabled, params Control[] controlsArray)
         {
-            if (tSProgressBar == null)
+            if (controlsArray == null || !controlsArray.Any())
             {
                 return;
             }
 
-            this.tSProgressBar.Dispatcher.Invoke(() =>
+            foreach (var control in controlsArray)
             {
-                tSProgressBar.IsIndeterminate = !enabled;
-            });
-        }
+                if (control == null)
+                {
+                    continue;
+                }
 
-        private void ToggleControl(Control c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                if (c is TextBox)
+                control.Dispatcher.Invoke(() =>
                 {
-                    ((TextBox)c).IsReadOnly = !enabled;
-                }
-                else
-                {
-                    c.IsEnabled = enabled;
-                }
-            });
+                    if (control is TextBox textBox)
+                    {
+                        textBox.IsReadOnly = !enabled;
+                    }
+                    else if (control is ProgressBar progressBar)
+                    {
+                        progressBar.IsIndeterminate = !enabled;
+                    }
+                    else
+                    {
+                        control.IsEnabled = enabled;
+                    }
+                });
+            }
         }
 
         private void mIOpenEntityInWeb_Click(object sender, RoutedEventArgs e)

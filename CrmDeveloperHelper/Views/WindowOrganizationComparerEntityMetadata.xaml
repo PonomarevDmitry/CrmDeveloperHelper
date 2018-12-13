@@ -11,14 +11,14 @@
         <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
+            <MenuItem x:Uid="menuContextDifference" Header="C# File" Click="btnDifferenceCSharpFile_Click" />
+            <MenuItem x:Uid="menuContextDifference" Header="JavaScript File" Click="btnDifferenceJavaScriptFile_Click"/>
+            <Separator x:Uid="menuContextDifference" />
+            <MenuItem x:Uid="menuContextDifference" Header="Show Difference Entity Ribbon" Click="mIDifferenceEntityRibbon_Click" />
+            <Separator x:Uid="menuContextDifference" />
+            <MenuItem x:Uid="menuContextDifference" Header="Show Difference Entity RibbonDiffXml" Click="mIDifferenceEntityRibbonDiffXml_Click" />
+            <Separator x:Uid="menuContextDifference" />
             <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
-                <MenuItem Header="C# File" Click="btnDifferenceCSharpFile_Click" />
-                <MenuItem Header="JavaScript File" Click="btnDifferenceJavaScriptFile_Click"/>
-                <Separator/>
-                <MenuItem Header="Show Difference Entity Ribbon" Click="mIDifferenceEntityRibbon_Click" />
-                <Separator/>
-                <MenuItem Header="Show Difference Entity RibbonDiffXml" Click="mIDifferenceEntityRibbonDiffXml_Click" />
-                <Separator/>
                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>

@@ -11,12 +11,12 @@
         <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
+            <MenuItem x:Uid="menuContextDifference" Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+            <MenuItem x:Uid="menuContextDifference" Header="Fetch XML" Click="mIShowDifferenceFetchXml_Click"/>
+            <MenuItem x:Uid="menuContextDifference" Header="Layout XML" Click="mIShowDifferenceLayoutXml_Click"/>
+            <MenuItem x:Uid="menuContextDifference" Header="ColumnSet XML" Click="mIShowDifferenceColumnSetXml_Click"/>
+            <Separator x:Uid="menuContextDifference"/>
             <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
-                <MenuItem Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
-                <MenuItem Header="Fetch XML" Click="mIShowDifferenceFetchXml_Click"/>
-                <MenuItem Header="Layout XML" Click="mIShowDifferenceLayoutXml_Click"/>
-                <MenuItem Header="ColumnSet XML" Click="mIShowDifferenceColumnSetXml_Click"/>
-                <Separator/>
                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>

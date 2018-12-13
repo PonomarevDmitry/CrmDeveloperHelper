@@ -253,7 +253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.LoadingOrganizationDifferenceImage);
 
             try
@@ -298,7 +298,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             this._itemsSource?.Clear();
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.FilteringOrganizationDifferenceImageComponents);
 
             IEnumerable<SolutionImageComponent> filter = Enumerable.Empty<SolutionImageComponent>();
@@ -367,7 +367,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _itemsSource?.Add(component);
             }
-            
+
             ToggleControls(true, Properties.WindowStatusStrings.FilteringOrganizationDifferenceImageComponentsCompletedFormat1, filter.Count());
         }
 
@@ -394,44 +394,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.tSBLoadOrganizationDifferenceImage, enabled);
-            ToggleControl(this.cmBComponentLocation, enabled);
-            ToggleControl(this.cmBComponentType, enabled);
+            ToggleControl(enabled, this.tSProgressBar, this.tSBLoadOrganizationDifferenceImage, this.cmBComponentLocation, this.cmBComponentType);
 
-            ToggleProgressBar(enabled);
-
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
-        }
-
-        private void ToggleProgressBar(bool enabled)
-        {
-            if (tSProgressBar == null)
-            {
-                return;
-            }
-
-            this.tSProgressBar.Dispatcher.Invoke(() =>
-            {
-                tSProgressBar.IsIndeterminate = !enabled;
-            });
-        }
-
-        private void ToggleControl(Control c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                if (c is TextBox)
-                {
-                    ((TextBox)c).IsReadOnly = !enabled;
-                }
-                else
-                {
-                    c.IsEnabled = enabled;
-                }
-            });
+            UpdateButtonsEnable();
         }
 
         private void UpdateButtonsEnable()

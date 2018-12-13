@@ -10,10 +10,11 @@
         <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
         <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+
+            <MenuItem x:Uid="menuContextDifference" Header="C# File Single OptionSet" Click="btnDifferenceCSharpFileSingle_Click" />
+            <MenuItem x:Uid="menuContextDifference" Header="JavaScript File Single OptionSet" Click="btnDifferenceJavaScriptFileSingle_Click" />
+            <Separator x:Uid="menuContextDifference" />
             <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
-                <MenuItem Header="C# File Single OptionSet" Click="btnDifferenceCSharpFileSingle_Click" />
-                <MenuItem Header="JavaScript File Single OptionSet" Click="btnDifferenceJavaScriptFileSingle_Click" />
-                <Separator/>
                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>

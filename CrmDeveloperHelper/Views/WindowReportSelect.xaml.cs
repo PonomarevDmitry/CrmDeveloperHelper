@@ -1,18 +1,18 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -91,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.LoadingReports);
 
             this._itemsSource.Clear();
@@ -193,7 +193,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.lstVwReports.SelectedItem = this.lstVwReports.Items[0];
                 }
             });
-            
+
             ToggleControls(true, Properties.WindowStatusStrings.LoadingReportsCompletedFormat1, results.Count());
         }
 
@@ -220,43 +220,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.btnSelectReport, enabled);
-            ToggleControl(this.btnSelectLastLink, enabled);
+            ToggleControl(enabled, this.tSProgressBar, this.btnSelectReport, this.btnSelectLastLink);
 
-            ToggleProgressBar(enabled);
-
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
-        }
-
-        private void ToggleProgressBar(bool enabled)
-        {
-            if (tSProgressBar == null)
-            {
-                return;
-            }
-
-            this.tSProgressBar.Dispatcher.Invoke(() =>
-            {
-                tSProgressBar.IsIndeterminate = !enabled;
-            });
-        }
-
-        private void ToggleControl(Control c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                if (c is TextBox)
-                {
-                    ((TextBox)c).IsReadOnly = !enabled;
-                }
-                else
-                {
-                    c.IsEnabled = enabled;
-                }
-            });
+            UpdateButtonsEnable();
         }
 
         private void UpdateButtonsEnable()
@@ -265,7 +231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwReports.SelectedItems.Count > 0;
+                    bool enabled = this._controlsEnabled && this.lstVwReports.SelectedItems.Count > 0;
 
                     UIElement[] list = { btnSelectReport };
 

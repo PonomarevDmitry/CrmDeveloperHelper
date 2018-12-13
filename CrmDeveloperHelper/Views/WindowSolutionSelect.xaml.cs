@@ -208,43 +208,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.btnSelectSolution, enabled);
-            ToggleControl(this.btnSelectLastSolution, enabled);
+            ToggleControl(enabled, this.tSProgressBar, this.btnSelectSolution, this.btnSelectLastSolution);
 
-            ToggleProgressBar(enabled);
-
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
-        }
-
-        private void ToggleProgressBar(bool enabled)
-        {
-            if (tSProgressBar == null)
-            {
-                return;
-            }
-
-            this.tSProgressBar.Dispatcher.Invoke(() =>
-            {
-                tSProgressBar.IsIndeterminate = !enabled;
-            });
-        }
-
-        private void ToggleControl(Control c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                if (c is TextBox)
-                {
-                    ((TextBox)c).IsReadOnly = !enabled;
-                }
-                else
-                {
-                    c.IsEnabled = enabled;
-                }
-            });
+            UpdateButtonsEnable();
         }
 
         private void UpdateButtonsEnable()

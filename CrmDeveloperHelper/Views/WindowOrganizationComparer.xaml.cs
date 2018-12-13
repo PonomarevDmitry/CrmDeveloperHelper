@@ -85,22 +85,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleProgressBar(enabled);
+            ToggleControl(enabled, tSProgressBar);
 
             UpdateButtonsConnection();
-        }
-
-        private void ToggleProgressBar(bool enabled)
-        {
-            if (tSProgressBar == null)
-            {
-                return;
-            }
-
-            this.tSProgressBar.Dispatcher.Invoke(() =>
-            {
-                tSProgressBar.IsIndeterminate = !enabled;
-            });
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -117,27 +104,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
                 this.stBIStatus.Content = message;
-            });
-        }
-
-        private void ToggleControl(Control c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                try
-                {
-                    if (c is TextBox)
-                    {
-                        ((TextBox)c).IsReadOnly = !enabled;
-                    }
-                    else
-                    {
-                        c.IsEnabled = enabled;
-                    }
-                }
-                catch (Exception)
-                {
-                }
             });
         }
 

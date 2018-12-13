@@ -412,47 +412,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.btnExportAll, enabled);
-            ToggleControl(this.mISolutionInformation, enabled);
-            ToggleControl(this.tSDDBExportSolutionComponent, enabled);
+            ToggleControl(enabled, this.tSProgressBar, this.btnExportAll, this.tSDDBExportSolutionComponent, this.cmBComponentType, this.mISolutionInformation, this.cmBSolutionComponentsType);
 
-            ToggleControl(this.cmBComponentType, enabled);
-            ToggleControl(this.cmBSolutionComponentsType, enabled);
-
-            ToggleProgressBar(enabled);
-
-            if (enabled)
-            {
-                UpdateButtonsEnable();
-            }
-        }
-
-        private void ToggleProgressBar(bool enabled)
-        {
-            if (tSProgressBar == null)
-            {
-                return;
-            }
-
-            this.tSProgressBar.Dispatcher.Invoke(() =>
-            {
-                tSProgressBar.IsIndeterminate = !enabled;
-            });
-        }
-
-        private void ToggleControl(Control c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                if (c is TextBox)
-                {
-                    ((TextBox)c).IsReadOnly = !enabled;
-                }
-                else
-                {
-                    c.IsEnabled = enabled;
-                }
-            });
+            UpdateButtonsEnable();
         }
 
         private void UpdateButtonsEnable()
@@ -1620,7 +1582,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     return;
                 }
-                
+
                 ToggleControls(false, Properties.WindowStatusStrings.LoadingComponentsFromSolutionImage);
 
                 SolutionImage solutionImage = null;
@@ -1641,9 +1603,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionImageFailed);
                     return;
                 }
-                
+
                 UpdateStatus(Properties.WindowStatusStrings.LoadedComponentsFromSolutionImageFormat1, solutionImage.Components.Count);
-                
+
                 if (solutionImage.Components.Count == 0)
                 {
                     ToggleControls(true, Properties.WindowStatusStrings.NoComponentsToAdd);
@@ -1651,7 +1613,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 var solutionComponents = await _descriptor.GetSolutionComponentsListAsync(solutionImage.Components);
-                
+
                 UpdateStatus(Properties.WindowStatusStrings.AddingComponentsIntoSolutionFormat3, _service.ConnectionData.Name, solutionComponents.Count, _solution.UniqueName);
 
                 if (solutionComponents.Count == 0)
@@ -1716,7 +1678,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(false, Properties.WindowStatusStrings.LoadingComponentsFromZipFile);
 
                 List<SolutionComponent> solutionComponents = await _descriptor.LoadSolutionComponentsFromZipFileAsync(selectedPath);
-                
+
                 UpdateStatus(Properties.WindowStatusStrings.LoadedComponentsFromZipFileFormat1, solutionComponents.Count);
 
                 if (solutionComponents.Count == 0)

@@ -532,43 +532,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.tSBCollapseAll, enabled);
-            ToggleControl(this.tSBExpandAll, enabled);
-            ToggleControl(this.menuView, enabled);
-
-            ToggleControl(cmBCurrentConnection, enabled);
-
-            ToggleProgressBar(enabled);
+            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, this.tSBCollapseAll, this.tSBExpandAll, this.menuView);
 
             UpdateButtonsEnable();
-        }
-
-        private void ToggleProgressBar(bool enabled)
-        {
-            if (tSProgressBar == null)
-            {
-                return;
-            }
-
-            this.tSProgressBar.Dispatcher.Invoke(() =>
-            {
-                tSProgressBar.IsIndeterminate = !enabled;
-            });
-        }
-
-        private void ToggleControl(UIElement c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                if (c is TextBox)
-                {
-                    ((TextBox)c).IsReadOnly = !enabled;
-                }
-                else
-                {
-                    c.IsEnabled = enabled;
-                }
-            });
         }
 
         private void UpdateButtonsEnable()

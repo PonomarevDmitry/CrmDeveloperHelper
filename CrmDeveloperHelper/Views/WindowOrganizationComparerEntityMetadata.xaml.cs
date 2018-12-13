@@ -372,37 +372,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleProgressBar(enabled);
+            ToggleControl(enabled, this.tSProgressBar, this.cmBConnection1, this.cmBConnection2);
 
             UpdateButtonsEnable();
-        }
-
-        private void ToggleProgressBar(bool enabled)
-        {
-            if (tSProgressBar == null)
-            {
-                return;
-            }
-
-            this.tSProgressBar.Dispatcher.Invoke(() =>
-            {
-                tSProgressBar.IsIndeterminate = !enabled;
-            });
-        }
-
-        private void ToggleControl(Control c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                if (c is TextBox)
-                {
-                    ((TextBox)c).IsReadOnly = !enabled;
-                }
-                else
-                {
-                    c.IsEnabled = enabled;
-                }
-            });
         }
 
         private void UpdateButtonsEnable()
@@ -1460,6 +1432,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service1.ConnectionData.Name, entityName);
                     filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllText(filePath1, ribbonXml, new UTF8Encoding(false));
                 }
 
                 if (task2 != null)
@@ -1475,6 +1449,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service2.ConnectionData.Name, entityName);
                     filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllText(filePath2, ribbonXml, new UTF8Encoding(false));
                 }
 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service1.ConnectionData.Name, entityName, filePath1);

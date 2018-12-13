@@ -96,27 +96,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControl(Control c, bool enabled)
-        {
-            c.Dispatcher.Invoke(() =>
-            {
-                try
-                {
-                    if (c is TextBox)
-                    {
-                        ((TextBox)c).IsReadOnly = !enabled;
-                    }
-                    else
-                    {
-                        c.IsEnabled = enabled;
-                    }
-                }
-                catch (Exception)
-                {
-                }
-            });
-        }
-
         private bool FieldsIsOk(out string message)
         {
             bool result = true;
@@ -288,23 +267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.btnSave, enabled);
-            ToggleControl(this.btnTestConnection, enabled);
-
-            ToggleProgressBar(enabled);
-        }
-
-        private void ToggleProgressBar(bool enabled)
-        {
-            if (tSProgressBar == null)
-            {
-                return;
-            }
-
-            this.tSProgressBar.Dispatcher.Invoke(() =>
-            {
-                tSProgressBar.IsIndeterminate = !enabled;
-            });
+            ToggleControl(enabled, this.tSProgressBar, this.btnSave, this.btnTestConnection);
         }
     }
 }
