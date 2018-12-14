@@ -269,7 +269,7 @@
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox SelectedItem="{Binding Path=CreateRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableCreate, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableCreate}" ItemsSource="{Binding Path=CreateOptions}">
+                                    <ComboBox SelectedItem="{Binding Path=CreateRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableCreate, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable}" ItemsSource="{Binding Path=CreateOptions}">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
@@ -286,7 +286,7 @@
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox SelectedItem="{Binding Path=ReadRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableRead, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableRead}" ItemsSource="{Binding Path=ReadOptions}">
+                                    <ComboBox SelectedItem="{Binding Path=ReadRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableRead, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable}" ItemsSource="{Binding Path=ReadOptions}">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
@@ -303,7 +303,7 @@
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox SelectedItem="{Binding Path=UpdateRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableUpdate, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableUpdate}" ItemsSource="{Binding Path=UpdateOptions}">
+                                    <ComboBox SelectedItem="{Binding Path=UpdateRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableUpdate, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable}" ItemsSource="{Binding Path=UpdateOptions}">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
@@ -320,7 +320,7 @@
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox SelectedItem="{Binding Path=DeleteRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableDelete, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableDelete}" ItemsSource="{Binding Path=DeleteOptions}">
+                                    <ComboBox SelectedItem="{Binding Path=DeleteRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableDelete, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable}" ItemsSource="{Binding Path=DeleteOptions}">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
@@ -337,7 +337,7 @@
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox SelectedItem="{Binding Path=AppendRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableAppend, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableAppend}" ItemsSource="{Binding Path=AppendOptions}">
+                                    <ComboBox SelectedItem="{Binding Path=AppendRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableAppend, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable}" ItemsSource="{Binding Path=AppendOptions}">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
@@ -354,7 +354,7 @@
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox SelectedItem="{Binding Path=AppendToRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableAppendTo, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableAppendTo}" ItemsSource="{Binding Path=AppendToOptions}">
+                                    <ComboBox SelectedItem="{Binding Path=AppendToRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableAppendTo, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable}" ItemsSource="{Binding Path=AppendToOptions}">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
@@ -371,7 +371,7 @@
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox SelectedItem="{Binding Path=AssignRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableAssign, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableAssign}" ItemsSource="{Binding Path=AssignOptions}">
+                                    <ComboBox SelectedItem="{Binding Path=AssignRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableAssign, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable}" ItemsSource="{Binding Path=AssignOptions}">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
@@ -388,7 +388,7 @@
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox SelectedItem="{Binding Path=ShareRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableShare, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=AvailableShare}" ItemsSource="{Binding Path=ShareOptions}">
+                                    <ComboBox SelectedItem="{Binding Path=ShareRight, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableShare, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable}" ItemsSource="{Binding Path=ShareOptions}">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />

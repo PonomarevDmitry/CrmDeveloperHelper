@@ -31,6 +31,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string DisplayName { get; private set; }
 
+        public bool IsCustomizable  { get; private set; }
+
         private PrivilegeDepthExtended _initialCreate;
         private PrivilegeDepthExtended _initialRead;
         private PrivilegeDepthExtended _initialUpdate;
@@ -49,8 +51,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public bool AvailableShare => _availablePrivilegesTypes.Contains(PrivilegeType.Share);
         public bool AvailableAssign => _availablePrivilegesTypes.Contains(PrivilegeType.Assign);
 
-        public EntityPrivilegeViewItem(EntityMetadata entityMetadata, IEnumerable<RolePrivilege> rolePrivileges)
+        public EntityPrivilegeViewItem(EntityMetadata entityMetadata, IEnumerable<RolePrivilege> rolePrivileges, bool isCustomizable = false)
         {
+            this.IsCustomizable = isCustomizable;
             LoadData(entityMetadata, rolePrivileges);
         }
 

@@ -433,7 +433,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             var privileges = await repository.GetRolePrivilegesAsync(role.Id);
 
-                            list = entityMetadataList.Select(e => new EntityPrivilegeViewItem(e, privileges));
+                            list = entityMetadataList.Select(e => new EntityPrivilegeViewItem(e, privileges, (role.IsCustomizable?.Value).GetValueOrDefault()));
                         }
                     }
                 }
