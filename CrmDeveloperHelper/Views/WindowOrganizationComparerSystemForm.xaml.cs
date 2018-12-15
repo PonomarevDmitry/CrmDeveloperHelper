@@ -510,17 +510,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             action(linked, showAllways);
         }
 
-        private Task<string> CreateFileAsync(string connectionName, Guid formId, string entityName, string name, string fieldTitle, string xmlContent)
+        private Task<string> CreateFileAsync(string connectionName, Guid formId, string entityName, string name, string fieldTitle, string formXml)
         {
-            return Task.Run(() => CreateFile(connectionName, formId, entityName, name, fieldTitle, xmlContent));
+            return Task.Run(() => CreateFile(connectionName, formId, entityName, name, fieldTitle, formXml));
         }
 
-        private string CreateFile(string connectionName, Guid formId, string entityName, string name, string fieldTitle, string xmlContent)
+        private string CreateFile(string connectionName, Guid formId, string entityName, string name, string fieldTitle, string formXml)
         {
             string fileName = EntityFileNameFormatter.GetSystemFormFileName(connectionName, entityName, name, fieldTitle, "xml");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-            if (!string.IsNullOrEmpty(xmlContent))
+            if (!string.IsNullOrEmpty(formXml))
             {
                 try
                 {
@@ -530,18 +530,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (schemasResources != null)
                         {
-                            xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
+                            formXml = ContentCoparerHelper.SetXsdSchema(formXml, schemasResources);
                         }
                     }
 
                     if (_commonConfig.SetIntellisenseContext)
                     {
-                        xmlContent = ContentCoparerHelper.SetIntellisenseContextFormId(xmlContent, formId);
+                        formXml = ContentCoparerHelper.SetIntellisenseContextFormId(formXml, formId);
                     }
 
-                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportXmlAttributeOnNewLine);
+                    formXml = ContentCoparerHelper.FormatXml(formXml, _commonConfig.ExportXmlAttributeOnNewLine);
 
-                    File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
+                    File.WriteAllText(filePath, formXml, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionName, SystemForm.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }

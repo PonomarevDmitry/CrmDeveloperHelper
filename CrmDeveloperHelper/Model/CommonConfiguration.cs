@@ -811,6 +811,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private bool _SortRibbonCommnadsAndRulesById = false;
+        [DataMember]
+        public bool SortRibbonCommnadsAndRulesById
+        {
+            get => _SortRibbonCommnadsAndRulesById;
+            set
+            {
+                this.OnPropertyChanging(nameof(SortRibbonCommnadsAndRulesById));
+                this._SortRibbonCommnadsAndRulesById = value;
+                this.OnPropertyChanged(nameof(SortRibbonCommnadsAndRulesById));
+            }
+        }
+
+        private bool _SortXmlAttributes = false;
+        [DataMember]
+        public bool SortXmlAttributes
+        {
+            get => _SortXmlAttributes;
+            set
+            {
+                this.OnPropertyChanging(nameof(SortXmlAttributes));
+                this._SortXmlAttributes = value;
+                this.OnPropertyChanged(nameof(SortXmlAttributes));
+            }
+        }
+
         [DataMember]
         public ObservableCollection<CrmSvcUtil> Utils { get; private set; }
 

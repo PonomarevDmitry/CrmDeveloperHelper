@@ -17,6 +17,7 @@ using System.Windows;
 using System.Windows.Resources;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using Ude;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
@@ -358,7 +359,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 RemoveEmptyXMLText(doc);
-                SortAttributes(doc);
+                SortAttributesInternal(doc);
+                SortRibbonCommandsAndRulesByIdInternal(doc);
 
                 if (actions != null)
                 {
@@ -439,8 +441,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 RemoveEmptyXMLText(doc1);
                 RemoveEmptyXMLText(doc2);
 
-                SortAttributes(doc1);
-                SortAttributes(doc2);
+                SortAttributesInternal(doc1);
+                SortAttributesInternal(doc2);
+
+                SortRibbonCommandsAndRulesByIdInternal(doc1);
+                SortRibbonCommandsAndRulesByIdInternal(doc2);
 
                 if (action != null)
                 {
@@ -650,6 +655,77 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public static string SortXmlAttributes(string xml)
+        {
+            if (!TryParseXml(xml, out XElement doc))
+            {
+                return xml;
+            }
+
+            SortAttributesInternal(doc);
+
+            return doc.ToString();
+        }
+
+        private static void SortAttributesInternal(XElement doc)
+        {
+            foreach (XElement element in doc.DescendantsAndSelf())
+            {
+                List<XAttribute> attributes = element.Attributes().ToList();
+
+                element.RemoveAttributes();
+
+                foreach (XAttribute attr in attributes.OrderBy(a => a.Name, new XNameComparer()))
+                {
+                    element.Add(attr);
+                }
+            }
+        }
+
+        private static string[] _pathsCommandsAndRules = new[]
+        {
+            "./CommandDefinitions"
+            , "./RibbonDefinition/CommandDefinitions"
+            , "./RuleDefinitions/EnableRules"
+            , "./RibbonDefinition/RuleDefinitions/EnableRules"
+            , "./RuleDefinitions/DisplayRules"
+            , "./RibbonDefinition/RuleDefinitions/DisplayRules"
+        };
+
+        public static string SortRibbonCommandsAndRulesById(string xml)
+        {
+            if (!TryParseXml(xml, out var doc))
+            {
+                return xml;
+            }
+
+            SortRibbonCommandsAndRulesByIdInternal(doc);
+
+            return doc.ToString();
+        }
+
+        private static void SortRibbonCommandsAndRulesByIdInternal(XElement doc)
+        {
+            foreach (var path in _pathsCommandsAndRules)
+            {
+                var elements = doc.XPathSelectElements(path).ToList();
+
+                if (elements.Count == 1)
+                {
+                    var commandDefinitions = elements.FirstOrDefault();
+
+                    var commandList = commandDefinitions.Elements().ToList();
+
+                    foreach (var item in commandList)
+                    {
+                        item.Remove();
+                    }
+
+                    commandDefinitions.Add(commandList.OrderBy(n => (string)n.Attribute("Id")));
+                }
+            }
+        }
+
         public static string FormatXml(string xml, bool xmlAttributeOnNewLine)
         {
             if (!TryParseXml(xml, out XElement doc))
@@ -661,8 +737,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 return doc.ToString();
             }
-
-            SortAttributes(doc);
 
             XmlWriterSettings settings = new XmlWriterSettings
             {
@@ -680,21 +754,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return result.ToString();
-        }
-
-        private static void SortAttributes(XElement doc)
-        {
-            foreach (XElement element in doc.DescendantsAndSelf())
-            {
-                List<XAttribute> attributes = element.Attributes().ToList();
-
-                element.RemoveAttributes();
-
-                foreach (XAttribute attr in attributes.OrderBy(a => a.Name, new XNameComparer()))
-                {
-                    element.Add(attr);
-                }
-            }
         }
 
         public static bool IsEntityDifferentInField(Microsoft.Xrm.Sdk.Entity entity1, Microsoft.Xrm.Sdk.Entity entity2, string fieldName)

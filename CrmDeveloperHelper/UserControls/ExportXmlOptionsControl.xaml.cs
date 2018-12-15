@@ -24,6 +24,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             chBXmlAttributeOnNewLine.Visibility = (controls & XmlOptionsControls.XmlAttributeOnNewLine) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
             chBSetXmlSchemas.Visibility = (controls & XmlOptionsControls.SetXmlSchemas) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
             chBSetIntellisenseContext.Visibility = (controls & XmlOptionsControls.SetIntellisenseContext) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+
+            chBSortRibbonCommnadsAndRulesById.Visibility = (controls & XmlOptionsControls.SortRibbonCommnadsAndRulesById) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            chBSortXmlAttributes.Visibility = (controls & XmlOptionsControls.SortXmlAttributes) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
         }
 
         private void LoadFromConfig()
@@ -31,6 +34,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             chBForm.DataContext = _commonConfig;
             chBHomepageGrid.DataContext = _commonConfig;
             chBSubGrid.DataContext = _commonConfig;
+
+            chBSortRibbonCommnadsAndRulesById.DataContext = _commonConfig;
+            chBSortXmlAttributes.DataContext = _commonConfig;
 
             chBXmlAttributeOnNewLine.DataContext = _commonConfig;
 

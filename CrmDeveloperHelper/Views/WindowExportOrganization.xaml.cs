@@ -351,19 +351,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             action(folder, organization);
         }
 
-        private Task<string> CreateFileAsync(string folder, string name, string fieldTitle, string xmlContent)
+        private Task<string> CreateFileAsync(string folder, string name, string fieldTitle, string siteMapXml)
         {
-            return Task.Run(async () => await CreateFile(folder, name, fieldTitle, xmlContent));
+            return Task.Run(async () => await CreateFile(folder, name, fieldTitle, siteMapXml));
         }
 
-        private async Task<string> CreateFile(string folder, string name, string fieldTitle, string xmlContent)
+        private async Task<string> CreateFile(string folder, string name, string fieldTitle, string siteMapXml)
         {
             var service = await GetService();
 
             string fileName = EntityFileNameFormatter.GetOrganizationFileName(service.ConnectionData.Name, name, fieldTitle, "xml");
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            if (!string.IsNullOrEmpty(xmlContent))
+            if (!string.IsNullOrEmpty(siteMapXml))
             {
                 try
                 {
@@ -377,14 +377,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             if (schemasResources != null)
                             {
-                                xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
+                                siteMapXml = ContentCoparerHelper.SetXsdSchema(siteMapXml, schemasResources);
                             }
                         }
                     }
 
-                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportXmlAttributeOnNewLine);
+                    siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, _commonConfig.ExportXmlAttributeOnNewLine);
 
-                    File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
+                    File.WriteAllText(filePath, siteMapXml, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, Organization.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }

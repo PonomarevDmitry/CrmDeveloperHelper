@@ -15,10 +15,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         Ribbon = 8,
 
+        SortRibbonCommnadsAndRulesById = 16,
+
+        SortXmlAttributes = 32,
+
         XmlSimple = SetIntellisenseContext | SetXmlSchemas,
 
-        XmlFull = SetIntellisenseContext | SetXmlSchemas | XmlAttributeOnNewLine,
+        XmlFull = SetIntellisenseContext | SetXmlSchemas | XmlAttributeOnNewLine | SortXmlAttributes,
 
-        All = Ribbon | SetIntellisenseContext | SetXmlSchemas | XmlAttributeOnNewLine,
+        All = Ribbon | SetIntellisenseContext | SetXmlSchemas | XmlAttributeOnNewLine | SortRibbonCommnadsAndRulesById | SortXmlAttributes,
     }
 }

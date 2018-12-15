@@ -617,14 +617,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            string xmlContent = siteMap.GetAttributeValue<string>(SiteMap.Schema.Attributes.sitemapxml);
+            string siteMapXml = siteMap.GetAttributeValue<string>(SiteMap.Schema.Attributes.sitemapxml);
 
             string fieldTitle = "SiteMapXml";
 
             string fileTitle2 = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, siteMap.SiteMapNameUnique, siteMap.Id, fieldTitle, "xml");
             string filePath2 = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
-            if (!string.IsNullOrEmpty(xmlContent))
+            if (!string.IsNullOrEmpty(siteMapXml))
             {
                 try
                 {
@@ -634,18 +634,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         if (schemasResources != null)
                         {
-                            xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
+                            siteMapXml = ContentCoparerHelper.SetXsdSchema(siteMapXml, schemasResources);
                         }
                     }
 
                     if (commonConfig.SetIntellisenseContext)
                     {
-                        xmlContent = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(xmlContent, siteMap.SiteMapNameUnique);
+                        siteMapXml = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(siteMapXml, siteMap.SiteMapNameUnique);
                     }
 
-                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, commonConfig.ExportXmlAttributeOnNewLine);
+                    siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, commonConfig.ExportXmlAttributeOnNewLine);
 
-                    File.WriteAllText(filePath2, xmlContent, new UTF8Encoding(false));
+                    File.WriteAllText(filePath2, siteMapXml, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, fieldTitle, filePath2);
                 }
@@ -753,14 +753,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             {
-                string xmlContent = siteMap.GetAttributeValue<string>(SiteMap.Schema.Attributes.sitemapxml);
+                string siteMapXml = siteMap.GetAttributeValue<string>(SiteMap.Schema.Attributes.sitemapxml);
 
                 string fieldTitle = "SiteMapXml BackUp";
 
                 string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, siteMap.SiteMapName, siteMap.Id, fieldTitle, "xml");
                 string filePath = Path.Combine(commonConfig.FolderForExport, fileName);
 
-                if (!string.IsNullOrEmpty(xmlContent))
+                if (!string.IsNullOrEmpty(siteMapXml))
                 {
                     try
                     {
@@ -770,18 +770,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             if (schemasResources != null)
                             {
-                                xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
+                                siteMapXml = ContentCoparerHelper.SetXsdSchema(siteMapXml, schemasResources);
                             }
                         }
 
                         if (commonConfig.SetIntellisenseContext)
                         {
-                            xmlContent = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(xmlContent, siteMap.SiteMapNameUnique);
+                            siteMapXml = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(siteMapXml, siteMap.SiteMapNameUnique);
                         }
 
-                        xmlContent = ContentCoparerHelper.FormatXml(xmlContent, commonConfig.ExportXmlAttributeOnNewLine);
+                        siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, commonConfig.ExportXmlAttributeOnNewLine);
 
-                        File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
+                        File.WriteAllText(filePath, siteMapXml, new UTF8Encoding(false));
 
                         this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, fieldTitle, filePath);
                     }
@@ -907,14 +907,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            string xmlContent = savedQuery.GetAttributeValue<string>(SystemForm.Schema.Attributes.formxml);
+            string formXml = savedQuery.GetAttributeValue<string>(SystemForm.Schema.Attributes.formxml);
 
             string fieldTitle = "FormXml";
 
             string fileTitle2 = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, savedQuery.ObjectTypeCode, savedQuery.Name, fieldTitle, "xml");
             string filePath2 = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
-            if (!string.IsNullOrEmpty(xmlContent))
+            if (!string.IsNullOrEmpty(formXml))
             {
                 try
                 {
@@ -924,18 +924,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         if (schemasResources != null)
                         {
-                            xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
+                            formXml = ContentCoparerHelper.SetXsdSchema(formXml, schemasResources);
                         }
                     }
 
                     if (commonConfig.SetIntellisenseContext)
                     {
-                        xmlContent = ContentCoparerHelper.SetIntellisenseContextFormId(xmlContent, savedQuery.Id);
+                        formXml = ContentCoparerHelper.SetIntellisenseContextFormId(formXml, savedQuery.Id);
                     }
 
-                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, commonConfig.ExportXmlAttributeOnNewLine);
+                    formXml = ContentCoparerHelper.FormatXml(formXml, commonConfig.ExportXmlAttributeOnNewLine);
 
-                    File.WriteAllText(filePath2, xmlContent, new UTF8Encoding(false));
+                    File.WriteAllText(filePath2, formXml, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SystemForm.Schema.EntityLogicalName, savedQuery.Name, fieldTitle, filePath2);
                 }
@@ -1058,14 +1058,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             {
-                string xmlContent = savedQuery.GetAttributeValue<string>(SystemForm.Schema.Attributes.formxml);
+                string formXml = savedQuery.GetAttributeValue<string>(SystemForm.Schema.Attributes.formxml);
 
                 string fieldTitle = "FormXml BackUp";
 
                 string fileName = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, savedQuery.ObjectTypeCode, savedQuery.Name, fieldTitle, "xml");
                 string filePath = Path.Combine(commonConfig.FolderForExport, fileName);
 
-                if (!string.IsNullOrEmpty(xmlContent))
+                if (!string.IsNullOrEmpty(formXml))
                 {
                     try
                     {
@@ -1075,18 +1075,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             if (schemasResources != null)
                             {
-                                xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
+                                formXml = ContentCoparerHelper.SetXsdSchema(formXml, schemasResources);
                             }
                         }
 
                         if (commonConfig.SetIntellisenseContext)
                         {
-                            xmlContent = ContentCoparerHelper.SetIntellisenseContextFormId(xmlContent, savedQueryId);
+                            formXml = ContentCoparerHelper.SetIntellisenseContextFormId(formXml, savedQueryId);
                         }
 
-                        xmlContent = ContentCoparerHelper.FormatXml(xmlContent, commonConfig.ExportXmlAttributeOnNewLine);
+                        formXml = ContentCoparerHelper.FormatXml(formXml, commonConfig.ExportXmlAttributeOnNewLine);
 
-                        File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
+                        File.WriteAllText(filePath, formXml, new UTF8Encoding(false));
 
                         this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SystemForm.Schema.EntityLogicalName, savedQuery.Name, fieldTitle, filePath);
                     }

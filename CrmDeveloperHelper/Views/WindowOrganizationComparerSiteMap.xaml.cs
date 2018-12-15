@@ -457,17 +457,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             action(linked, showAllways);
         }
 
-        private Task<string> CreateFileAsync(string connectionName, string name, string nameUnique, Guid id, string fieldTitle, string xmlContent)
+        private Task<string> CreateFileAsync(string connectionName, string name, string nameUnique, Guid id, string fieldTitle, string siteMapXml)
         {
-            return Task.Run(() => CreateFile(connectionName, name, nameUnique, id, fieldTitle, xmlContent));
+            return Task.Run(() => CreateFile(connectionName, name, nameUnique, id, fieldTitle, siteMapXml));
         }
 
-        private string CreateFile(string connectionName, string name, string nameUnique, Guid id, string fieldTitle, string xmlContent)
+        private string CreateFile(string connectionName, string name, string nameUnique, Guid id, string fieldTitle, string siteMapXml)
         {
             string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionName, name, id, fieldTitle, "xml");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-            if (!string.IsNullOrEmpty(xmlContent))
+            if (!string.IsNullOrEmpty(siteMapXml))
             {
                 try
                 {
@@ -477,18 +477,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (schemasResources != null)
                         {
-                            xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
+                            siteMapXml = ContentCoparerHelper.SetXsdSchema(siteMapXml, schemasResources);
                         }
                     }
 
                     if (_commonConfig.SetIntellisenseContext)
                     {
-                        xmlContent = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(xmlContent, nameUnique);
+                        siteMapXml = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(siteMapXml, nameUnique);
                     }
 
-                    xmlContent = ContentCoparerHelper.FormatXml(xmlContent, _commonConfig.ExportXmlAttributeOnNewLine);
+                    siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, _commonConfig.ExportXmlAttributeOnNewLine);
 
-                    File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
+                    File.WriteAllText(filePath, siteMapXml, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionName, SiteMap.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }

@@ -10,7 +10,7 @@
              Focusable="True" 
              BorderThickness="1"
              BorderBrush="Black"
-             Height="265" Width="620">
+             Height="305" Width="620">
     <UserControl.Resources>
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
         <helpers:BoolToOppositeBoolConverter x:Key="BoolInverter"/>
@@ -51,17 +51,19 @@
                 </GroupBox>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Entity Ribbon Options" Height="111" Margin="10,147,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="288">
+        <GroupBox Header="Entity Ribbon Options" Margin="10,147,0,5" HorizontalAlignment="Left" Width="288">
             <Grid>
                 <CheckBox x:Name="chBForm" IsChecked="{Binding Path=ExportRibbonXmlForm}" Content="Form" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" />
                 <CheckBox x:Name="chBHomepageGrid" IsChecked="{Binding Path=ExportRibbonXmlHomepageGrid}" Content="HomepageGrid" HorizontalAlignment="Left" Margin="77,10,0,0" VerticalAlignment="Top" />
                 <CheckBox x:Name="chBSubGrid" IsChecked="{Binding Path=ExportRibbonXmlSubGrid}" Content="SubGrid" HorizontalAlignment="Left" Margin="197,10,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding Path=ExportXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="chBSetXmlSchemas" IsChecked="{Binding Path=SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" HorizontalAlignment="Left" Margin="10,50,0,0" Height="15" VerticalAlignment="Top"/>
-                <CheckBox x:Name="chBSetIntellisenseContext" IsChecked="{Binding SetIntellisenseContext}" Content="Set Intellisense Context" HorizontalAlignment="Left" Margin="10,70,0,0" Height="15" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding Path=ExportXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBSetXmlSchemas" IsChecked="{Binding Path=SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" HorizontalAlignment="Left" Margin="10,90,0,0" Height="15" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBSetIntellisenseContext" IsChecked="{Binding SetIntellisenseContext}" Content="Set Intellisense Context" HorizontalAlignment="Left" Margin="10,110,0,0" Height="15" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBSortRibbonCommnadsAndRulesById" IsChecked="{Binding SortRibbonCommnadsAndRulesById}" Content="Sort Ribbon Commands and Rules by Id" Margin="10,30,0,0" Height="15" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <CheckBox x:Name="chBSortXmlAttributes" IsChecked="{Binding SortXmlAttributes}" Content="Sort Xml Attributes" Margin="10,50,0,0" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Attributes Dependent Components Options" HorizontalAlignment="Left" Height="111" Margin="303,147,0,0" VerticalAlignment="Top" Width="305">
+        <GroupBox Header="Attributes Dependent Components Options" HorizontalAlignment="Left" Margin="303,147,0,5" Width="305">
             <Grid>
                 <RadioButton x:Name="rBAllcomponents" IsChecked="{Binding Path=AllDependentComponentsForAttributes}" Content="All components" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                 <RadioButton x:Name="rBWorkflowPlugin" IsChecked="{Binding Path=AllDependentComponentsForAttributes, Converter={StaticResource BoolInverter}, Mode=OneWay}" Content="Only Workflow, Plugin Step, Plugin Step Image" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
