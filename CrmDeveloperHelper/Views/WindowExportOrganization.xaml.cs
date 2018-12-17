@@ -41,6 +41,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private int _init = 0;
 
+        private readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
+
         public WindowExportOrganization(
              IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -62,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.XmlFull);
+            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -367,22 +369,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
+                    string schemaName = string.Empty;
+
                     if (string.Equals(fieldTitle, Organization.Schema.Attributes.sitemapxml, StringComparison.OrdinalIgnoreCase)
                         || string.Equals(fieldTitle, Organization.Schema.Attributes.referencesitemapxml, StringComparison.OrdinalIgnoreCase)
                         )
                     {
-                        if (_commonConfig.SetXmlSchemasDuringExport)
-                        {
-                            var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaSiteMapXml);
-
-                            if (schemasResources != null)
-                            {
-                                siteMapXml = ContentCoparerHelper.SetXsdSchema(siteMapXml, schemasResources);
-                            }
-                        }
+                        schemaName = CommonExportXsdSchemasCommand.SchemaSiteMapXml;
                     }
 
-                    siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, _commonConfig.ExportXmlAttributeOnNewLine);
+                    siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml, _commonConfig, _xmlOptions
+                        , schemaName: schemaName
+                        );
 
                     File.WriteAllText(filePath, siteMapXml, new UTF8Encoding(false));
 

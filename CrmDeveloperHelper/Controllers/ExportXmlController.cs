@@ -628,22 +628,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    if (commonConfig.SetXmlSchemasDuringExport)
-                    {
-                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaSiteMapXml);
+                    //if (commonConfig.SetXmlSchemasDuringExport)
+                    //{
+                    //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaSiteMapXml);
 
-                        if (schemasResources != null)
-                        {
-                            siteMapXml = ContentCoparerHelper.SetXsdSchema(siteMapXml, schemasResources);
-                        }
-                    }
+                    //    if (schemasResources != null)
+                    //    {
+                    //        siteMapXml = ContentCoparerHelper.SetXsdSchema(siteMapXml, schemasResources);
+                    //    }
+                    //}
 
-                    if (commonConfig.SetIntellisenseContext)
-                    {
-                        siteMapXml = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(siteMapXml, siteMap.SiteMapNameUnique);
-                    }
+                    //if (commonConfig.SetIntellisenseContext)
+                    //{
+                    //    siteMapXml = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(siteMapXml, siteMap.SiteMapNameUnique);
+                    //}
 
-                    siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, commonConfig.ExportXmlAttributeOnNewLine);
+                    //if (commonConfig.SortXmlAttributes)
+                    //{
+                    //    siteMapXml = ContentCoparerHelper.SortXmlAttributes(siteMapXml);
+                    //}
+
+                    //siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, commonConfig.ExportXmlAttributeOnNewLine);
+
+                    siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml, commonConfig, WindowExportSiteMap._xmlOptions
+                       , schemaName: CommonExportXsdSchemasCommand.SchemaSiteMapXml
+                       , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
+                       );
 
                     File.WriteAllText(filePath2, siteMapXml, new UTF8Encoding(false));
 
@@ -764,22 +774,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     try
                     {
-                        if (commonConfig.SetXmlSchemasDuringExport)
-                        {
-                            var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaSiteMapXml);
+                        //if (commonConfig.SetXmlSchemasDuringExport)
+                        //{
+                        //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaSiteMapXml);
 
-                            if (schemasResources != null)
-                            {
-                                siteMapXml = ContentCoparerHelper.SetXsdSchema(siteMapXml, schemasResources);
-                            }
-                        }
+                        //    if (schemasResources != null)
+                        //    {
+                        //        siteMapXml = ContentCoparerHelper.SetXsdSchema(siteMapXml, schemasResources);
+                        //    }
+                        //}
 
-                        if (commonConfig.SetIntellisenseContext)
-                        {
-                            siteMapXml = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(siteMapXml, siteMap.SiteMapNameUnique);
-                        }
+                        //if (commonConfig.SetIntellisenseContext)
+                        //{
+                        //    siteMapXml = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(siteMapXml, siteMap.SiteMapNameUnique);
+                        //}
 
-                        siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, commonConfig.ExportXmlAttributeOnNewLine);
+                        //if (commonConfig.SortXmlAttributes)
+                        //{
+                        //    siteMapXml = ContentCoparerHelper.SortXmlAttributes(siteMapXml);
+                        //}
+
+                        //siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, commonConfig.ExportXmlAttributeOnNewLine);
+
+                        siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml, commonConfig, WindowExportSiteMap._xmlOptions
+                            , schemaName: CommonExportXsdSchemasCommand.SchemaSiteMapXml
+                            , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
+                            );
 
                         File.WriteAllText(filePath, siteMapXml, new UTF8Encoding(false));
 
@@ -875,7 +895,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             if (string.IsNullOrEmpty(attribute.Value)
-                || !Guid.TryParse(attribute.Value, out var savedQueryId)
+                || !Guid.TryParse(attribute.Value, out var systemFormId)
                 )
             {
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
@@ -898,46 +918,56 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repository = new SystemFormRepository(service);
 
-            var savedQuery = await repository.GetByIdAsync(savedQueryId, new ColumnSet(true));
+            var systemForm = await repository.GetByIdAsync(systemFormId, new ColumnSet(true));
 
-            if (savedQuery == null)
+            if (systemForm == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.SystemFormNotFoundedFormat2, connectionData.Name, savedQueryId);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.SystemFormNotFoundedFormat2, connectionData.Name, systemFormId);
                 this._iWriteToOutput.ActivateOutputWindow();
                 return;
             }
 
-            string formXml = savedQuery.GetAttributeValue<string>(SystemForm.Schema.Attributes.formxml);
+            string formXml = systemForm.GetAttributeValue<string>(SystemForm.Schema.Attributes.formxml);
 
             string fieldTitle = "FormXml";
 
-            string fileTitle2 = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, savedQuery.ObjectTypeCode, savedQuery.Name, fieldTitle, "xml");
+            string fileTitle2 = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, "xml");
             string filePath2 = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
             if (!string.IsNullOrEmpty(formXml))
             {
                 try
                 {
-                    if (commonConfig.SetXmlSchemasDuringExport)
-                    {
-                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFormXml);
+                    //if (commonConfig.SetXmlSchemasDuringExport)
+                    //{
+                    //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFormXml);
 
-                        if (schemasResources != null)
-                        {
-                            formXml = ContentCoparerHelper.SetXsdSchema(formXml, schemasResources);
-                        }
-                    }
+                    //    if (schemasResources != null)
+                    //    {
+                    //        formXml = ContentCoparerHelper.SetXsdSchema(formXml, schemasResources);
+                    //    }
+                    //}
 
-                    if (commonConfig.SetIntellisenseContext)
-                    {
-                        formXml = ContentCoparerHelper.SetIntellisenseContextFormId(formXml, savedQuery.Id);
-                    }
+                    //if (commonConfig.SetIntellisenseContext)
+                    //{
+                    //    formXml = ContentCoparerHelper.SetIntellisenseContextFormId(formXml, savedQuery.Id);
+                    //}
 
-                    formXml = ContentCoparerHelper.FormatXml(formXml, commonConfig.ExportXmlAttributeOnNewLine);
+                    //if (commonConfig.SortXmlAttributes)
+                    //{
+                    //    formXml = ContentCoparerHelper.SortXmlAttributes(formXml);
+                    //}
+
+                    //formXml = ContentCoparerHelper.FormatXml(formXml, commonConfig.ExportXmlAttributeOnNewLine);
+
+                    formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExportSystemForm._xmlOptions
+                            , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
+                            , formId: systemForm.Id
+                            );
 
                     File.WriteAllText(filePath2, formXml, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SystemForm.Schema.EntityLogicalName, savedQuery.Name, fieldTitle, filePath2);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, fieldTitle, filePath2);
                 }
                 catch (Exception ex)
                 {
@@ -946,7 +976,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, SystemForm.Schema.EntityLogicalName, savedQuery.Name, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow();
                 return;
             }
@@ -1012,7 +1042,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             if (string.IsNullOrEmpty(attribute.Value)
-                || !Guid.TryParse(attribute.Value, out var savedQueryId)
+                || !Guid.TryParse(attribute.Value, out var formId)
                 )
             {
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
@@ -1048,47 +1078,57 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repositorySystemForm = new SystemFormRepository(service);
 
-            var savedQuery = await repositorySystemForm.GetByIdAsync(savedQueryId, new ColumnSet(true));
+            var systemForm = await repositorySystemForm.GetByIdAsync(formId, new ColumnSet(true));
 
-            if (savedQuery == null)
+            if (systemForm == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.SystemFormNotFoundedFormat2, connectionData.Name, savedQueryId);
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.SystemFormNotFoundedFormat2, connectionData.Name, formId);
                 this._iWriteToOutput.ActivateOutputWindow();
                 return;
             }
 
             {
-                string formXml = savedQuery.GetAttributeValue<string>(SystemForm.Schema.Attributes.formxml);
+                string formXml = systemForm.GetAttributeValue<string>(SystemForm.Schema.Attributes.formxml);
 
                 string fieldTitle = "FormXml BackUp";
 
-                string fileName = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, savedQuery.ObjectTypeCode, savedQuery.Name, fieldTitle, "xml");
+                string fileName = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, "xml");
                 string filePath = Path.Combine(commonConfig.FolderForExport, fileName);
 
                 if (!string.IsNullOrEmpty(formXml))
                 {
                     try
                     {
-                        if (commonConfig.SetXmlSchemasDuringExport)
-                        {
-                            var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFormXml);
+                        //if (commonConfig.SetXmlSchemasDuringExport)
+                        //{
+                        //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFormXml);
 
-                            if (schemasResources != null)
-                            {
-                                formXml = ContentCoparerHelper.SetXsdSchema(formXml, schemasResources);
-                            }
-                        }
+                        //    if (schemasResources != null)
+                        //    {
+                        //        formXml = ContentCoparerHelper.SetXsdSchema(formXml, schemasResources);
+                        //    }
+                        //}
 
-                        if (commonConfig.SetIntellisenseContext)
-                        {
-                            formXml = ContentCoparerHelper.SetIntellisenseContextFormId(formXml, savedQueryId);
-                        }
+                        //if (commonConfig.SetIntellisenseContext)
+                        //{
+                        //    formXml = ContentCoparerHelper.SetIntellisenseContextFormId(formXml, savedQueryId);
+                        //}
 
-                        formXml = ContentCoparerHelper.FormatXml(formXml, commonConfig.ExportXmlAttributeOnNewLine);
+                        //if (commonConfig.SortXmlAttributes)
+                        //{
+                        //    formXml = ContentCoparerHelper.SortXmlAttributes(formXml);
+                        //}
+
+                        //formXml = ContentCoparerHelper.FormatXml(formXml, commonConfig.ExportXmlAttributeOnNewLine);
+
+                        formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExportSystemForm._xmlOptions
+                            , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
+                            , formId: systemForm.Id
+                            );
 
                         File.WriteAllText(filePath, formXml, new UTF8Encoding(false));
 
-                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SystemForm.Schema.EntityLogicalName, savedQuery.Name, fieldTitle, filePath);
+                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, fieldTitle, filePath);
                     }
                     catch (Exception ex)
                     {
@@ -1097,7 +1137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, SystemForm.Schema.EntityLogicalName, savedQuery.Name, fieldTitle);
+                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, fieldTitle);
                     this._iWriteToOutput.ActivateOutputWindow();
                 }
             }
@@ -1106,18 +1146,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var updateEntity = new SystemForm
             {
-                Id = savedQueryId
+                Id = formId
             };
             updateEntity.Attributes[SystemForm.Schema.Attributes.formxml] = newText;
 
             await service.UpdateAsync(updateEntity);
 
-            _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.PublishingSystemFormFormat3, service.ConnectionData.Name, savedQuery.ObjectTypeCode, savedQuery.Name);
+            _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.PublishingSystemFormFormat3, service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name);
 
             {
                 var repositoryPublish = new PublishActionsRepository(service);
 
-                await repositoryPublish.PublishDashboardsAsync(new[] { savedQueryId });
+                await repositoryPublish.PublishDashboardsAsync(new[] { formId });
             }
         }
 
@@ -1224,25 +1264,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    if (commonConfig.SetXmlSchemasDuringExport)
-                    {
-                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFetch);
+                    //if (commonConfig.SetXmlSchemasDuringExport)
+                    //{
+                    //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFetch);
 
-                        if (schemasResources != null)
-                        {
-                            xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
-                        }
-                    }
+                    //    if (schemasResources != null)
+                    //    {
+                    //        xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
+                    //    }
+                    //}
 
-                    if (commonConfig.SetIntellisenseContext)
-                    {
-                        xmlContent = ContentCoparerHelper.SetIntellisenseContextSavedQueryId(xmlContent, savedQuery.Id);
-                    }
+                    //if (commonConfig.SetIntellisenseContext)
+                    //{
+                    //    xmlContent = ContentCoparerHelper.SetIntellisenseContextSavedQueryId(xmlContent, savedQuery.Id);
+                    //}
 
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var docTemp))
-                    {
-                        xmlContent = docTemp.ToString();
-                    }
+                    //if (ContentCoparerHelper.TryParseXml(xmlContent, out var docTemp))
+                    //{
+                    //    xmlContent = docTemp.ToString();
+                    //}
+
+                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExportSavedQuery._xmlOptions
+                        , schemaName: CommonExportXsdSchemasCommand.SchemaFetch
+                        , savedQueryId: savedQueryId
+                        );
 
                     File.WriteAllText(filePath2, xmlContent, new UTF8Encoding(false));
 
@@ -1381,25 +1426,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     try
                     {
-                        if (commonConfig.SetXmlSchemasDuringExport)
-                        {
-                            var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFetch);
+                        //if (commonConfig.SetXmlSchemasDuringExport)
+                        //{
+                        //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFetch);
 
-                            if (schemasResources != null)
-                            {
-                                xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
-                            }
-                        }
+                        //    if (schemasResources != null)
+                        //    {
+                        //        xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
+                        //    }
+                        //}
 
-                        if (commonConfig.SetIntellisenseContext)
-                        {
-                            xmlContent = ContentCoparerHelper.SetIntellisenseContextSavedQueryId(xmlContent, savedQueryId);
-                        }
+                        //if (commonConfig.SetIntellisenseContext)
+                        //{
+                        //    xmlContent = ContentCoparerHelper.SetIntellisenseContextSavedQueryId(xmlContent, savedQueryId);
+                        //}
 
-                        if (ContentCoparerHelper.TryParseXml(xmlContent, out var docTemp))
-                        {
-                            xmlContent = docTemp.ToString();
-                        }
+                        //if (ContentCoparerHelper.TryParseXml(xmlContent, out var docTemp))
+                        //{
+                        //    xmlContent = docTemp.ToString();
+                        //}
+
+                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExportSavedQuery._xmlOptions
+                            , schemaName: CommonExportXsdSchemasCommand.SchemaFetch
+                            , savedQueryId: savedQueryId
+                            );
 
                         File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 

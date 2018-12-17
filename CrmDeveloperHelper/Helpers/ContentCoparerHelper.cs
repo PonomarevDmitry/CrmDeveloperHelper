@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.Xrm.Sdk;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
@@ -726,7 +727,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public static string FormatXml(string xml, bool xmlAttributeOnNewLine)
+        private static string FormatXml(string xml, bool xmlAttributeOnNewLine)
         {
             if (!TryParseXml(xml, out XElement doc))
             {
@@ -756,7 +757,87 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result.ToString();
         }
 
-        public static bool IsEntityDifferentInField(Microsoft.Xrm.Sdk.Entity entity1, Microsoft.Xrm.Sdk.Entity entity2, string fieldName)
+        public static string FormatXmlByConfiguration(string xml
+            , CommonConfiguration commonConfig
+            , XmlOptionsControls xmlOptions
+            , string schemaName = null
+            , string ribbonEntityName = null
+            , string siteMapUniqueName = null
+            , Guid? formId = null
+            , Guid? savedQueryId = null
+            )
+        {
+            var result = xml;
+
+            if ((xmlOptions & XmlOptionsControls.SetXmlSchemas) != 0
+                && commonConfig.SetXmlSchemasDuringExport
+                )
+            {
+                var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(schemaName);
+
+                if (schemasResources != null)
+                {
+                    result = ContentCoparerHelper.SetXsdSchema(result, schemasResources);
+                }
+            }
+
+            if ((xmlOptions & XmlOptionsControls.SetIntellisenseContext) != 0
+                && commonConfig.SetIntellisenseContext
+                )
+            {
+                if (ribbonEntityName != null)
+                {
+                    result = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(result, ribbonEntityName);
+                }
+
+                if (siteMapUniqueName != null)
+                {
+                    result = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(result, siteMapUniqueName);
+                }
+
+                if (savedQueryId.HasValue)
+                {
+                    result = ContentCoparerHelper.SetIntellisenseContextSavedQueryId(result, savedQueryId.Value);
+                }
+
+                if (formId.HasValue)
+                {
+                    result = ContentCoparerHelper.SetIntellisenseContextFormId(result, formId.Value);
+                }
+            }
+
+            if ((xmlOptions & XmlOptionsControls.SortRibbonCommnadsAndRulesById) != 0
+                && commonConfig.SortRibbonCommnadsAndRulesById
+                )
+            {
+                result = ContentCoparerHelper.SortRibbonCommandsAndRulesById(result);
+            }
+
+            if ((xmlOptions & XmlOptionsControls.SortXmlAttributes) != 0
+                && commonConfig.SortXmlAttributes
+                )
+            {
+                result = ContentCoparerHelper.SortXmlAttributes(result);
+            }
+
+            if ((xmlOptions & XmlOptionsControls.XmlAttributeOnNewLine) != 0
+                && commonConfig.ExportXmlAttributeOnNewLine
+                )
+            {
+                return ContentCoparerHelper.FormatXml(result, commonConfig.ExportXmlAttributeOnNewLine);
+            }
+            else if (TryParseXml(result, out XElement doc))
+            {
+                return doc.ToString();
+
+            }
+            else
+            {
+                return result;
+            }
+        }
+
+        public static bool IsEntityDifferentInField(Entity entity1, Entity entity2, string fieldName)
         {
             if (entity1.Contains(fieldName)
                 && entity1.Attributes[fieldName] != null
@@ -961,7 +1042,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public static string SetXsdSchema(string text, string[] fileNamesColl)
+        private static string SetXsdSchema(string text, string[] fileNamesColl)
         {
             if (fileNamesColl == null || !fileNamesColl.Any())
             {
@@ -986,7 +1067,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        public static string SetIntellisenseContextRibbonDiffXmlEntityName(string text, string entityName)
+        private static string SetIntellisenseContextRibbonDiffXmlEntityName(string text, string entityName)
         {
             var newEntityNameAttribute = string.Format(replaceIntellisenseContextEntityNameFormat1, entityName);
 
@@ -1001,7 +1082,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        public static string SetIntellisenseContextFormId(string text, Guid formid)
+        private static string SetIntellisenseContextFormId(string text, Guid formid)
         {
             var newEntityNameAttribute = string.Format(replaceIntellisenseContextFormIdFormat1, formid.ToString());
 
@@ -1016,7 +1097,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        public static string SetIntellisenseContextSavedQueryId(string text, Guid savedQueryId)
+        private static string SetIntellisenseContextSavedQueryId(string text, Guid savedQueryId)
         {
             var newEntityNameAttribute = string.Format(replaceIntellisenseContextSavedQueryIdFormat1, savedQueryId.ToString());
 
@@ -1031,7 +1112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        public static string SetIntellisenseContextSiteMapNameUnique(string text, string siteMapNameUnique)
+        private static string SetIntellisenseContextSiteMapNameUnique(string text, string siteMapNameUnique)
         {
             var newEntityNameAttribute = string.Format(replaceIntellisenseContextSiteMapNameUniqueFormat1, siteMapNameUnique);
 

@@ -20,7 +20,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             LoadFromConfig();
 
-            grBRibbon.Visibility = (controls & XmlOptionsControls.Ribbon) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            grBRibbon.Visibility = (controls & XmlOptionsControls.RibbonFilters) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
             chBXmlAttributeOnNewLine.Visibility = (controls & XmlOptionsControls.XmlAttributeOnNewLine) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
             chBSetXmlSchemas.Visibility = (controls & XmlOptionsControls.SetXmlSchemas) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
             chBSetIntellisenseContext.Visibility = (controls & XmlOptionsControls.SetIntellisenseContext) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;

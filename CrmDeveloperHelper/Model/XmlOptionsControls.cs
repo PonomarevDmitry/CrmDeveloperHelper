@@ -13,7 +13,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         SetIntellisenseContext = 4,
 
-        Ribbon = 8,
+        RibbonFilters = 8,
 
         SortRibbonCommnadsAndRulesById = 16,
 
@@ -23,6 +23,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         XmlFull = SetIntellisenseContext | SetXmlSchemas | XmlAttributeOnNewLine | SortXmlAttributes,
 
-        All = Ribbon | SetIntellisenseContext | SetXmlSchemas | XmlAttributeOnNewLine | SortRibbonCommnadsAndRulesById | SortXmlAttributes,
+        RibbonFull = RibbonFilters | SetIntellisenseContext | SetXmlSchemas | XmlAttributeOnNewLine | SortRibbonCommnadsAndRulesById | SortXmlAttributes,
     }
 }

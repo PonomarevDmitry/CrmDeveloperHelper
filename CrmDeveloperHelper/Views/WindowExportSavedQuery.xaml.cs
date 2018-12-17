@@ -21,10 +21,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Resources;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Schema;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -50,6 +46,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private int _init = 0;
 
+        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlSimple;
+
         public WindowExportSavedQuery(
              IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -74,7 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.XmlSimple);
+            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -449,25 +447,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(extension, "xml", StringComparison.OrdinalIgnoreCase))
                     {
-                        if (_commonConfig.SetXmlSchemasDuringExport)
-                        {
-                            var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFetch);
+                        //if (_commonConfig.SetXmlSchemasDuringExport)
+                        //{
+                        //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFetch);
 
-                            if (schemasResources != null)
-                            {
-                                xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
-                            }
-                        }
+                        //    if (schemasResources != null)
+                        //    {
+                        //        xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
+                        //    }
+                        //}
 
-                        if (_commonConfig.SetIntellisenseContext)
-                        {
-                            xmlContent = ContentCoparerHelper.SetIntellisenseContextSavedQueryId(xmlContent, savedQueryId);
-                        }
+                        //if (_commonConfig.SetIntellisenseContext)
+                        //{
+                        //    xmlContent = ContentCoparerHelper.SetIntellisenseContextSavedQueryId(xmlContent, savedQueryId);
+                        //}
 
-                        if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
-                        {
-                            xmlContent = doc.ToString();
-                        }
+                        //if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                        //{
+                        //    xmlContent = doc.ToString();
+                        //}
+
+                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                           , schemaName: CommonExportXsdSchemasCommand.SchemaFetch
+                           , savedQueryId: savedQueryId
+                           );
                     }
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));

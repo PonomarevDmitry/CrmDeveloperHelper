@@ -49,6 +49,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private int _init = 0;
 
+        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
+
         public WindowExportSystemForm(
              IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -76,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.XmlFull);
+            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -441,22 +443,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    if (_commonConfig.SetXmlSchemasDuringExport)
-                    {
-                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFormXml);
+                    //if (_commonConfig.SetXmlSchemasDuringExport)
+                    //{
+                    //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFormXml);
 
-                        if (schemasResources != null)
-                        {
-                            formXml = ContentCoparerHelper.SetXsdSchema(formXml, schemasResources);
-                        }
-                    }
+                    //    if (schemasResources != null)
+                    //    {
+                    //        formXml = ContentCoparerHelper.SetXsdSchema(formXml, schemasResources);
+                    //    }
+                    //}
 
-                    if (_commonConfig.SetIntellisenseContext)
-                    {
-                        formXml = ContentCoparerHelper.SetIntellisenseContextFormId(formXml, formId);
-                    }
+                    //if (_commonConfig.SetIntellisenseContext)
+                    //{
+                    //    formXml = ContentCoparerHelper.SetIntellisenseContextFormId(formXml, formId);
+                    //}
 
-                    formXml = ContentCoparerHelper.FormatXml(formXml, _commonConfig.ExportXmlAttributeOnNewLine);
+                    //if (_commonConfig.SortXmlAttributes)
+                    //{
+                    //    formXml = ContentCoparerHelper.SortXmlAttributes(formXml);
+                    //}
+
+                    //formXml = ContentCoparerHelper.FormatXml(formXml, _commonConfig.ExportXmlAttributeOnNewLine);
+
+                    formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, _commonConfig, _xmlOptions
+                       , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
+                       , formId: formId
+                       );
 
                     File.WriteAllText(filePath, formXml, new UTF8Encoding(false));
 

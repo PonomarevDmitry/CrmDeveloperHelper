@@ -803,22 +803,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     ribbonDiffXml = ExportSolutionHelper.GetApplicationRibbonDiffXmlFromSolutionBody(solutionBodyBinary);
                 }
 
-                if (commonConfig.SetXmlSchemasDuringExport)
-                {
-                    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
+                //if (commonConfig.SetXmlSchemasDuringExport)
+                //{
+                //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
 
-                    if (schemasResources != null)
-                    {
-                        ribbonDiffXml = ContentCoparerHelper.SetXsdSchema(ribbonDiffXml, schemasResources);
-                    }
-                }
+                //    if (schemasResources != null)
+                //    {
+                //        ribbonDiffXml = ContentCoparerHelper.SetXsdSchema(ribbonDiffXml, schemasResources);
+                //    }
+                //}
 
-                if (commonConfig.SetIntellisenseContext)
-                {
-                    ribbonDiffXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonDiffXml, entityMetadata.LogicalName);
-                }
+                //if (commonConfig.SetIntellisenseContext)
+                //{
+                //    ribbonDiffXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonDiffXml, entityMetadata.LogicalName);
+                //}
 
-                ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, commonConfig.ExportXmlAttributeOnNewLine);
+                //if (commonConfig.SortRibbonCommnadsAndRulesById)
+                //{
+                //    ribbonDiffXml = ContentCoparerHelper.SortRibbonCommandsAndRulesById(ribbonDiffXml);
+                //}
+
+                //if (commonConfig.SortXmlAttributes)
+                //{
+                //    ribbonDiffXml = ContentCoparerHelper.SortXmlAttributes(ribbonDiffXml);
+                //}
+
+                //ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, commonConfig.ExportXmlAttributeOnNewLine);
+
+                ribbonDiffXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonDiffXml, commonConfig, XmlOptionsControls.RibbonFull
+                    , schemaName: CommonExportXsdSchemasCommand.SchemaRibbonXml
+                    , ribbonEntityName: entityMetadata?.LogicalName ?? string.Empty
+                    );
 
                 {
                     string filePath = string.Empty;

@@ -47,6 +47,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private int _init = 0;
 
+        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
+
         public WindowExportSiteMap(
              IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -68,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.XmlFull);
+            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -419,22 +421,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    if (_commonConfig.SetXmlSchemasDuringExport)
-                    {
-                        var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaSiteMapXml);
+                    //if (_commonConfig.SetXmlSchemasDuringExport)
+                    //{
+                    //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaSiteMapXml);
 
-                        if (schemasResources != null)
-                        {
-                            siteMapXml = ContentCoparerHelper.SetXsdSchema(siteMapXml, schemasResources);
-                        }
-                    }
+                    //    if (schemasResources != null)
+                    //    {
+                    //        siteMapXml = ContentCoparerHelper.SetXsdSchema(siteMapXml, schemasResources);
+                    //    }
+                    //}
 
-                    if (_commonConfig.SetIntellisenseContext)
-                    {
-                        siteMapXml = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(siteMapXml, nameUnique);
-                    }
+                    //if (_commonConfig.SetIntellisenseContext)
+                    //{
+                    //    siteMapXml = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(siteMapXml, nameUnique);
+                    //}
 
-                    siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, _commonConfig.ExportXmlAttributeOnNewLine);
+                    //if (_commonConfig.SortXmlAttributes)
+                    //{
+                    //    siteMapXml = ContentCoparerHelper.SortXmlAttributes(siteMapXml);
+                    //}
+
+                    //siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, _commonConfig.ExportXmlAttributeOnNewLine);
+
+                    siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml, _commonConfig, _xmlOptions
+                       , schemaName: CommonExportXsdSchemasCommand.SchemaSiteMapXml
+                       , siteMapUniqueName: nameUnique ?? string.Empty
+                       );
 
                     File.WriteAllText(filePath, siteMapXml, new UTF8Encoding(false));
 

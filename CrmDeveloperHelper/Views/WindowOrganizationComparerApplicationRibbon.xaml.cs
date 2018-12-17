@@ -37,6 +37,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private int _init = 0;
 
+        private readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.RibbonFull;
+
         public WindowOrganizationComparerApplicationRibbon(
             IWriteToOutput iWriteToOutput
             , CommonConfiguration commonConfig
@@ -56,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.All);
+            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -253,12 +255,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     string ribbonXml = await task1;
 
-                    if (_commonConfig.SetIntellisenseContext)
-                    {
-                        ribbonXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonXml, string.Empty);
-                    }
+                    //if (_commonConfig.SetIntellisenseContext)
+                    //{
+                    //    ribbonXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonXml, string.Empty);
+                    //}
 
-                    ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportXmlAttributeOnNewLine);
+                    //if (_commonConfig.SortRibbonCommnadsAndRulesById)
+                    //{
+                    //    ribbonXml = ContentCoparerHelper.SortRibbonCommandsAndRulesById(ribbonXml);
+                    //}
+
+                    //if (_commonConfig.SortXmlAttributes)
+                    //{
+                    //    ribbonXml = ContentCoparerHelper.SortXmlAttributes(ribbonXml);
+                    //}
+
+                    //ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportXmlAttributeOnNewLine);
+
+                    ribbonXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonXml, _commonConfig, _xmlOptions
+                       , ribbonEntityName: string.Empty
+                       );
 
                     string fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(service1.ConnectionData.Name);
                     filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -270,12 +286,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     string ribbonXml = await task2;
 
-                    if (_commonConfig.SetIntellisenseContext)
-                    {
-                        ribbonXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonXml, string.Empty);
-                    }
+                    //if (_commonConfig.SetIntellisenseContext)
+                    //{
+                    //    ribbonXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonXml, string.Empty);
+                    //}
 
-                    ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportXmlAttributeOnNewLine);
+                    //if (_commonConfig.SortRibbonCommnadsAndRulesById)
+                    //{
+                    //    ribbonXml = ContentCoparerHelper.SortRibbonCommandsAndRulesById(ribbonXml);
+                    //}
+
+                    //if (_commonConfig.SortXmlAttributes)
+                    //{
+                    //    ribbonXml = ContentCoparerHelper.SortXmlAttributes(ribbonXml);
+                    //}
+
+                    //ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportXmlAttributeOnNewLine);
+
+                    ribbonXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonXml, _commonConfig, _xmlOptions
+                       , ribbonEntityName: string.Empty
+                       );
 
                     string fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(service2.ConnectionData.Name);
                     filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -375,22 +405,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (!string.IsNullOrEmpty(ribbonDiffXml))
                     {
-                        if (_commonConfig.SetXmlSchemasDuringExport)
-                        {
-                            var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
+                        //if (_commonConfig.SetXmlSchemasDuringExport)
+                        //{
+                        //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
 
-                            if (schemasResources != null)
-                            {
-                                ribbonDiffXml = ContentCoparerHelper.SetXsdSchema(ribbonDiffXml, schemasResources);
-                            }
-                        }
+                        //    if (schemasResources != null)
+                        //    {
+                        //        ribbonDiffXml = ContentCoparerHelper.SetXsdSchema(ribbonDiffXml, schemasResources);
+                        //    }
+                        //}
 
-                        if (_commonConfig.SetIntellisenseContext)
-                        {
-                            ribbonDiffXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonDiffXml, string.Empty);
-                        }
+                        //if (_commonConfig.SetIntellisenseContext)
+                        //{
+                        //    ribbonDiffXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonDiffXml, string.Empty);
+                        //}
 
-                        ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportXmlAttributeOnNewLine);
+                        //if (_commonConfig.SortRibbonCommnadsAndRulesById)
+                        //{
+                        //    ribbonDiffXml = ContentCoparerHelper.SortRibbonCommandsAndRulesById(ribbonDiffXml);
+                        //}
+
+                        //if (_commonConfig.SortXmlAttributes)
+                        //{
+                        //    ribbonDiffXml = ContentCoparerHelper.SortXmlAttributes(ribbonDiffXml);
+                        //}
+
+                        //ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportXmlAttributeOnNewLine);
+
+                        ribbonDiffXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, _xmlOptions
+                           , schemaName: CommonExportXsdSchemasCommand.SchemaRibbonXml
+                           , ribbonEntityName: string.Empty
+                           );
 
                         string fileName1 = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(service1.ConnectionData.Name);
                         filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
@@ -405,22 +450,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (!string.IsNullOrEmpty(ribbonDiffXml))
                     {
-                        if (_commonConfig.SetXmlSchemasDuringExport)
-                        {
-                            var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
+                        //if (_commonConfig.SetXmlSchemasDuringExport)
+                        //{
+                        //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
 
-                            if (schemasResources != null)
-                            {
-                                ribbonDiffXml = ContentCoparerHelper.SetXsdSchema(ribbonDiffXml, schemasResources);
-                            }
-                        }
+                        //    if (schemasResources != null)
+                        //    {
+                        //        ribbonDiffXml = ContentCoparerHelper.SetXsdSchema(ribbonDiffXml, schemasResources);
+                        //    }
+                        //}
 
-                        if (_commonConfig.SetIntellisenseContext)
-                        {
-                            ribbonDiffXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonDiffXml, string.Empty);
-                        }
+                        //if (_commonConfig.SetIntellisenseContext)
+                        //{
+                        //    ribbonDiffXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonDiffXml, string.Empty);
+                        //}
 
-                        ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportXmlAttributeOnNewLine);
+                        //if (_commonConfig.SortRibbonCommnadsAndRulesById)
+                        //{
+                        //    ribbonDiffXml = ContentCoparerHelper.SortRibbonCommandsAndRulesById(ribbonDiffXml);
+                        //}
+
+                        //if (_commonConfig.SortXmlAttributes)
+                        //{
+                        //    ribbonDiffXml = ContentCoparerHelper.SortXmlAttributes(ribbonDiffXml);
+                        //}
+
+                        //ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportXmlAttributeOnNewLine);
+
+                        ribbonDiffXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, _xmlOptions
+                            , schemaName: CommonExportXsdSchemasCommand.SchemaRibbonXml
+                            , ribbonEntityName: string.Empty
+                            );
 
                         string fileName2 = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(service2.ConnectionData.Name);
                         filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
@@ -497,12 +557,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string ribbonXml = await repository.ExportApplicationRibbonAsync();
 
-                if (_commonConfig.SetIntellisenseContext)
-                {
-                    ribbonXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonXml, string.Empty);
-                }
+                //if (_commonConfig.SetIntellisenseContext)
+                //{
+                //    ribbonXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonXml, string.Empty);
+                //}
 
-                ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportXmlAttributeOnNewLine);
+                //if (_commonConfig.SortRibbonCommnadsAndRulesById)
+                //{
+                //    ribbonXml = ContentCoparerHelper.SortRibbonCommandsAndRulesById(ribbonXml);
+                //}
+
+                //if (_commonConfig.SortXmlAttributes)
+                //{
+                //    ribbonXml = ContentCoparerHelper.SortXmlAttributes(ribbonXml);
+                //}
+
+                //ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportXmlAttributeOnNewLine);
+
+                ribbonXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonXml, _commonConfig, _xmlOptions
+                    , ribbonEntityName: string.Empty
+                    );
 
                 {
                     string fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(service.ConnectionData.Name);
@@ -649,22 +723,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                if (_commonConfig.SetXmlSchemasDuringExport)
-                {
-                    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
+                //if (_commonConfig.SetXmlSchemasDuringExport)
+                //{
+                //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
 
-                    if (schemasResources != null)
-                    {
-                        ribbonDiffXml = ContentCoparerHelper.SetXsdSchema(ribbonDiffXml, schemasResources);
-                    }
-                }
+                //    if (schemasResources != null)
+                //    {
+                //        ribbonDiffXml = ContentCoparerHelper.SetXsdSchema(ribbonDiffXml, schemasResources);
+                //    }
+                //}
 
-                if (_commonConfig.SetIntellisenseContext)
-                {
-                    ribbonDiffXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonDiffXml, string.Empty);
-                }
+                //if (_commonConfig.SetIntellisenseContext)
+                //{
+                //    ribbonDiffXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonDiffXml, string.Empty);
+                //}
 
-                ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportXmlAttributeOnNewLine);
+                //if (_commonConfig.SortRibbonCommnadsAndRulesById)
+                //{
+                //    ribbonDiffXml = ContentCoparerHelper.SortRibbonCommandsAndRulesById(ribbonDiffXml);
+                //}
+
+                //if (_commonConfig.SortXmlAttributes)
+                //{
+                //    ribbonDiffXml = ContentCoparerHelper.SortXmlAttributes(ribbonDiffXml);
+                //}
+
+                //ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportXmlAttributeOnNewLine);
+
+                ribbonDiffXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, _xmlOptions
+                   , schemaName: CommonExportXsdSchemasCommand.SchemaRibbonXml
+                   , ribbonEntityName: string.Empty
+                   );
 
                 {
                     string fileName = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(service.ConnectionData.Name);
