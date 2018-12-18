@@ -247,7 +247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            connectionData.ConnectionConfiguration.Save();
+            connectionData.Save();
 
             if (!dictForAdding.Any())
             {
@@ -303,7 +303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             connectionData.AddLastSelectedSolution(solution?.UniqueName);
-            connectionData.ConnectionConfiguration.Save();
+            connectionData.Save();
 
             var solutionRep = new SolutionComponentRepository(service);
 
@@ -432,7 +432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            connectionData.ConnectionConfiguration.Save();
+            connectionData.Save();
 
             if (!dictForAdding.Any())
             {
@@ -488,7 +488,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             connectionData.AddLastSelectedSolution(solution?.UniqueName);
-            connectionData.ConnectionConfiguration.Save();
+            connectionData.Save();
 
             var solutionRep = new SolutionComponentRepository(service);
 
@@ -576,7 +576,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                 }
 
-                service.ConnectionData.ConnectionConfiguration.Save();
+                service.ConnectionData.Save();
 
                 if (!dictForAdding.Any())
                 {
@@ -632,7 +632,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
 
                 service.ConnectionData.AddLastSelectedSolution(solution.UniqueName);
-                service.ConnectionData.ConnectionConfiguration.Save();
+                service.ConnectionData.Save();
 
                 var solutionRep = new SolutionComponentRepository(service);
 
@@ -758,7 +758,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                 }
 
-                service.ConnectionData.ConnectionConfiguration.Save();
+                service.ConnectionData.Save();
 
                 if (!dictForAdding.Any())
                 {
@@ -814,7 +814,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
 
                 service.ConnectionData.AddLastSelectedSolution(solution?.UniqueName);
-                service.ConnectionData.ConnectionConfiguration.Save();
+                service.ConnectionData.Save();
 
                 var solutionRep = new SolutionComponentRepository(service);
 
@@ -984,7 +984,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
 
                 connectionData.AddLastSelectedSolution(solution?.UniqueName);
-                connectionData.ConnectionConfiguration.Save();
+                connectionData.Save();
 
                 var solutionRep = new SolutionComponentRepository(service);
 
@@ -1179,7 +1179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             connectionData.AddLastSelectedSolution(solution?.UniqueName);
-            connectionData.ConnectionConfiguration.Save();
+            connectionData.Save();
 
             var solutionRep = new SolutionComponentRepository(service);
 
@@ -1394,7 +1394,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             connectionData.AddLastSelectedSolution(solution?.UniqueName);
-            connectionData.ConnectionConfiguration.Save();
+            connectionData.Save();
 
             var solutionRep = new SolutionComponentRepository(service);
 

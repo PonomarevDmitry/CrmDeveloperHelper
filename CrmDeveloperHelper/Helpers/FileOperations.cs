@@ -195,6 +195,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return GetConfigurationFilePath(_programConnectionConfigFileName);
         }
 
+        public static string GetConnectionDataFilePath(Guid connectionId)
+        {
+            string directory = Path.Combine(GetConfigurationFolder(), _folderConnectionDataSubdirectoryName);
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            string fileName = string.Format(_programConnectionDataFileNameFormat1, connectionId.ToString());
+
+            string filePath = Path.Combine(directory, fileName);
+
+            return filePath;
+        }
+
         public static Translation GetTranslationLocalCache(string fileName)
         {
             string directory = Path.Combine(GetConfigurationFolder(), _folderTranslationCacheSubdirectoryName);
@@ -309,6 +325,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string _formatWindowConfigFileName = "{0}.xml";
 
+        private const string _folderConnectionDataSubdirectoryName = "ConnectionDataCollection";
+        private const string _programConnectionDataFileNameFormat1 = "ConnectionData.{0}.xml";
+
         private const string _programConnectionConfigFileName = "ConnectionConfiguration.xml";
         private const string _programCommonConfigFileName = "CommonConfiguration.xml";
 
@@ -412,6 +431,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public static Uri GetSiteMapResourceUri(string version)
         {
             return new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/SiteMaps/SiteMap.{0}.xml", version));
+        }
+
+        public static string GetMutexName(string filePath)
+        {
+            StringBuilder result = new StringBuilder("Nav.Common.VSPackages.CrmDeveloperHelper." + filePath.ToLower());
+
+            result.Replace(@"\", "_");
+            result.Replace(":", "_");
+
+            return result.ToString();
         }
     }
 }

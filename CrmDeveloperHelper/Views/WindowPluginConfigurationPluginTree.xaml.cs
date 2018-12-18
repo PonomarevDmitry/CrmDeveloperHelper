@@ -30,7 +30,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private PluginDescription _pluginDescription = null;
 
         private CommonConfiguration _commonConfig;
-        private ConnectionConfiguration _connectionConfig;
 
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
         private bool _controlsEnabled = true;
@@ -62,9 +61,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
-            this._connectionConfig = connectionData.ConnectionConfiguration;
 
-            BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
+            BindingOperations.EnableCollectionSynchronization(connectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
 
@@ -79,7 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             txtBEntityName.Focus();
 
-            cmBCurrentConnection.ItemsSource = _connectionConfig.Connections;
+            cmBCurrentConnection.ItemsSource = connectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = connectionData;
 
             if (!string.IsNullOrEmpty(filePath))
@@ -96,7 +94,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         protected override void OnClosed(EventArgs e)
         {
             _commonConfig.Save();
-            _connectionConfig.Save();
 
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
 

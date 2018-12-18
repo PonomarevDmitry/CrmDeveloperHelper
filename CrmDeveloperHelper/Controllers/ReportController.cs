@@ -168,7 +168,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (isconnectionDataDirty)
             {
                 //Сохранение настроек после публикации
-                connectionData.ConnectionConfiguration.Save();
+                connectionData.Save();
             }
         }
 

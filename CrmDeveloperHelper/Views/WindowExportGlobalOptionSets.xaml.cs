@@ -29,7 +29,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private IWriteToOutput _iWriteToOutput;
 
         private CommonConfiguration _commonConfig;
-        private ConnectionConfiguration _connectionConfig;
 
         private readonly string _filePath;
 
@@ -61,12 +60,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
-            this._connectionConfig = service.ConnectionData.ConnectionConfiguration;
             this._filePath = filePath;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
 
-            BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
+            BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             if (optionSets != null)
             {
@@ -133,7 +131,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 txtBFolder.Text = Path.GetDirectoryName(_filePath);
             }
 
-            cmBCurrentConnection.ItemsSource = _connectionConfig.Connections;
+            cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
             _init--;
@@ -156,7 +154,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         protected override void OnClosed(EventArgs e)
         {
             _commonConfig.Save();
-            _connectionConfig.Save();
+
+            (cmBCurrentConnection.SelectedItem as ConnectionData)?.Save();
 
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
 
@@ -956,6 +955,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            foreach (var removed in e.RemovedItems.OfType<ConnectionData>())
+            {
+                removed.Save();
+            }
+
             this.Dispatcher.Invoke(() =>
             {
                 this._itemsSource?.Clear();

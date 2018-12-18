@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Threading;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
@@ -21,28 +22,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.LocalizedLabels = new List<LocalizedLabel>();
         }
 
-        public static Translation Get(string dataPath)
+        public static Translation Get(string filePath)
         {
             Translation result = null;
 
-            if (File.Exists(dataPath))
+            if (File.Exists(filePath))
             {
                 DataContractSerializer ser = new DataContractSerializer(typeof(Translation));
 
-                try
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
                 {
-                    using (var sr = File.OpenRead(dataPath))
+                    try
                     {
-                        result = ser.ReadObject(sr) as Translation;
+                        mutex.WaitOne();
+
+                        using (var sr = File.OpenRead(filePath))
+                        {
+                            result = ser.ReadObject(sr) as Translation;
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(ex);
 
-                    FileOperations.CreateBackUpFile(dataPath, ex);
+                        FileOperations.CreateBackUpFile(filePath, ex);
 
-                    result = null;
+                        result = null;
+                    }
+                    finally
+                    {
+                        mutex.ReleaseMutex();
+                    }
                 }
             }
 
@@ -80,20 +90,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             if (fileBody != null)
             {
-                try
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
                 {
                     try
                     {
+                        mutex.WaitOne();
 
+                        try
+                        {
+                            using (var stream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                            {
+                                stream.Write(fileBody, 0, fileBody.Length);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToLog(ex);
+                        }
                     }
                     finally
                     {
-                        File.WriteAllBytes(filePath, fileBody);
+                        mutex.ReleaseMutex();
                     }
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToLog(ex);
                 }
             }
         }

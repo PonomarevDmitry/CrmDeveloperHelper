@@ -30,7 +30,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
 
         private CommonConfiguration _commonConfig;
-        private ConnectionConfiguration _connectionConfig;
 
         private ObservableCollection<EntityViewItem> _itemsSource;
 
@@ -51,9 +50,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
-            this._connectionConfig = connection1.ConnectionConfiguration;
 
-            BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
+            BindingOperations.EnableCollectionSynchronization(connection1.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
 
@@ -74,10 +72,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwPluginAssemblies.ItemsSource = _itemsSource;
 
-            cmBConnection1.ItemsSource = _connectionConfig.Connections;
+            cmBConnection1.ItemsSource = connection1.ConnectionConfiguration.Connections;
             cmBConnection1.SelectedItem = connection1;
 
-            cmBConnection2.ItemsSource = _connectionConfig.Connections;
+            cmBConnection2.ItemsSource = connection1.ConnectionConfiguration.Connections;
             cmBConnection2.SelectedItem = connection2;
 
             _init--;
@@ -95,7 +93,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnClosed(e);
 
             _commonConfig.Save();
-            _connectionConfig.Save();
 
             BindingOperations.ClearAllBindings(cmBConnection1);
             cmBConnection1.Items.DetachFromSourceCollection();

@@ -6,8 +6,10 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
 using System.Xml;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
@@ -19,7 +21,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private static readonly object _syncObject = new object();
 
-        private static readonly object _syncObjectFile = new object();
+        private FileSystemWatcher _watcher = null;
 
         /// <summary>
         /// Путь к файлу конфигурации
@@ -891,35 +893,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 string filePath = FileOperations.GetCommonConfigPath();
 
-                CommonConfiguration result = null;
-
-                if (File.Exists(filePath))
-                {
-                    lock (_syncObjectFile)
-                    {
-                        DataContractSerializer ser = new DataContractSerializer(typeof(CommonConfiguration));
-
-                        try
-                        {
-                            using (var sr = File.OpenRead(filePath))
-                            {
-                                result = ser.ReadObject(sr) as CommonConfiguration;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(ex);
-
-                            FileOperations.CreateBackUpFile(filePath, ex);
-
-                            result = null;
-                        }
-                    }
-                }
+                CommonConfiguration result = GetFromPath(filePath);
 
                 result = result ?? new CommonConfiguration();
 
                 result.Path = filePath;
+
+                result.StartWatchFile();
 
                 if (string.IsNullOrEmpty(result.PluginConfigurationFileName))
                 {
@@ -934,6 +914,161 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 _singleton = result;
 
                 return _singleton;
+            }
+        }
+
+        private static CommonConfiguration GetFromPath(string filePath)
+        {
+            CommonConfiguration result = null;
+
+            if (File.Exists(filePath))
+            {
+                DataContractSerializer ser = new DataContractSerializer(typeof(CommonConfiguration));
+
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
+                {
+                    try
+                    {
+                        mutex.WaitOne();
+
+                        using (var sr = File.OpenRead(filePath))
+                        {
+                            result = ser.ReadObject(sr) as CommonConfiguration;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(ex);
+
+                        FileOperations.CreateBackUpFile(filePath, ex);
+
+                        result = null;
+                    }
+                    finally
+                    {
+                        mutex.ReleaseMutex();
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private void StartWatchFile()
+        {
+            if (_watcher != null)
+            {
+                return;
+            }
+
+            _watcher = new FileSystemWatcher()
+            {
+                NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size,
+                Path = System.IO.Path.GetDirectoryName(this.Path),
+                Filter = System.IO.Path.GetFileName(this.Path),
+            };
+
+            _watcher.Changed += _watcher_Changed;
+
+            _watcher.EnableRaisingEvents = true;
+        }
+
+        private void _watcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            var diskData = GetFromPath(this.Path);
+
+            LoadFromDisk(diskData);
+        }
+
+        private static readonly string[] _propertiesToCopy =
+        {
+            nameof(FolderForExport)
+            , nameof(DoNotPropmPublishMessage)
+            , nameof(ClearOutputWindowBeforeCRMOperation)
+            , nameof(CompareProgram)
+            , nameof(TextEditorProgram)
+            , nameof(CompareArgumentsFormat)
+            , nameof(CompareArgumentsThreeWayFormat)
+            , nameof(ExportRibbonXmlForm)
+            , nameof(ExportRibbonXmlHomepageGrid)
+            , nameof(ExportRibbonXmlSubGrid)
+            , nameof(ExportXmlAttributeOnNewLine)
+            , nameof(GenerateAttributes)
+            , nameof(GenerateManyToOne)
+            , nameof(GenerateOneToMany)
+            , nameof(GenerateManyToMany)
+            , nameof(GenerateLocalOptionSet)
+            , nameof(GenerateGlobalOptionSet)
+            , nameof(GenerateStatus)
+            , nameof(GenerateKeys)
+            , nameof(GenerateIntoSchemaClass)
+            , nameof(WithManagedInfo)
+            , nameof(AllDescriptions)
+            , nameof(EntityMetadaOptionSetDependentComponents)
+            , nameof(AllDependentComponentsForAttributes)
+            , nameof(FormsEventsOnlyWithFormLibraries)
+            , nameof(GlobalOptionSetsWithDependentComponents)
+            , nameof(DefaultFileAction)
+            , nameof(ComponentsGroupBy)
+            , nameof(SpaceCount)
+            , nameof(IndentType)
+            , nameof(ConstantType)
+            , nameof(OptionSetExportType)
+            , nameof(PluginConfigurationFileName)
+            , nameof(FormsEventsFileName)
+            , nameof(ExportSolutionExportAutoNumberingSettings)
+            , nameof(ExportSolutionExportCalendarSettings)
+            , nameof(ExportSolutionExportCustomizationSettings)
+            , nameof(ExportSolutionExportEmailTrackingSettings)
+            , nameof(ExportSolutionExportExternalApplications)
+            , nameof(ExportSolutionExportGeneralSettings)
+            , nameof(ExportSolutionExportIsvConfig)
+            , nameof(ExportSolutionExportMarketingSettings)
+            , nameof(ExportSolutionExportOutlookSynchronizationSettings)
+            , nameof(ExportSolutionExportRelationshipRoles)
+            , nameof(ExportSolutionExportSales)
+            , nameof(SetXmlSchemasDuringExport)
+            , nameof(SetIntellisenseContext)
+            , nameof(SortRibbonCommnadsAndRulesById)
+            , nameof(SortXmlAttributes)
+        };
+
+        private void LoadFromDisk(CommonConfiguration diskData)
+        {
+            foreach (var name in _propertiesToCopy)
+            {
+                PropertyInfo propertyInfo = typeof(CommonConfiguration).GetProperty(name);
+
+                if (!propertyInfo.CanRead || !propertyInfo.CanWrite)
+                {
+                    continue;
+                }
+
+                if (propertyInfo.GetSetMethod(true) != null
+                    && propertyInfo.GetSetMethod(true).IsPrivate
+                    )
+                {
+                    continue;
+                }
+
+                if ((propertyInfo.GetSetMethod().Attributes & MethodAttributes.Static) != 0)
+                {
+                    continue;
+                }
+
+                propertyInfo.SetValue(this, propertyInfo.GetValue(diskData, null), null);
+            }
+
+            this.Utils.Clear();
+            foreach (var item in diskData.Utils)
+            {
+                this.Utils.Add(item);
+            }
+
+            this.FileActionsByExtensions.Clear();
+            foreach (var key in diskData.FileActionsByExtensions.Keys)
+            {
+                this.FileActionsByExtensions.TryAdd(key, diskData.FileActionsByExtensions[key]);
             }
         }
 
@@ -1010,22 +1145,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             if (fileBody != null)
             {
-                lock (_syncObjectFile)
+               
+
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
                 {
                     try
                     {
+                        mutex.WaitOne();
+
+                        if (_watcher != null)
+                        {
+                            _watcher.EnableRaisingEvents = false;
+                        }
+
                         try
                         {
-
+                            using (var stream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                            {
+                                stream.Write(fileBody, 0, fileBody.Length);
+                            }
                         }
-                        finally
+                        catch (Exception ex)
                         {
-                            File.WriteAllBytes(filePath, fileBody);
+                            DTEHelper.WriteExceptionToLog(ex);
+                        }
+
+                        if (_watcher != null)
+                        {
+                            _watcher.EnableRaisingEvents = true;
                         }
                     }
-                    catch (Exception ex)
+                    finally
                     {
-                        DTEHelper.WriteExceptionToLog(ex);
+                        mutex.ReleaseMutex();
                     }
                 }
             }

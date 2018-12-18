@@ -36,7 +36,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private BitmapImage _imageStage;
 
         private CommonConfiguration _commonConfig;
-        private ConnectionConfiguration _connectionConfig;
 
         private enum View
         {
@@ -60,11 +59,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
-            this._connectionConfig = service.ConnectionData.ConnectionConfiguration;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
 
-            BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
+            BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
 
@@ -81,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FocusOnComboBoxTextBox(cmBEntityName);
 
-            cmBCurrentConnection.ItemsSource = _connectionConfig.Connections;
+            cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
             _init--;
@@ -100,7 +98,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         protected override void OnClosed(EventArgs e)
         {
             _commonConfig.Save();
-            _connectionConfig.Save();
 
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
 

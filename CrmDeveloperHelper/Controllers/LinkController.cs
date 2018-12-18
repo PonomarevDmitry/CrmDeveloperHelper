@@ -85,7 +85,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (count > 0)
             {
                 //Сохранение настроек после публикации
-                connectionData.ConnectionConfiguration.Save();
+                connectionData.Save();
             }
 
             this._iWriteToOutput.WriteToOutput("Deleted Last Links: {0}", count);
@@ -181,7 +181,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
-                        connectionData.ConnectionConfiguration.Save();
+                        connectionData.Save();
                     }
                     else
                     {
@@ -199,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
             }
 
-            connectionData.ConnectionConfiguration.Save();
+            connectionData.Save();
 
             //if (action == ActionAfterCreatingLink.OpenInWeb)
             //{
@@ -321,7 +321,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
-                            connectionData.ConnectionConfiguration.Save();
+                            connectionData.Save();
                         }
                         else
                         {
@@ -341,7 +341,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             //Сохранение настроек после публикации
-            connectionData.ConnectionConfiguration.Save();
+            connectionData.Save();
         }
 
         #endregion Создание связи веб-ресурсов.
@@ -400,7 +400,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     connectionData.AddMapping(reportEntity.Id, selectedFile.FriendlyFilePath);
 
-                    connectionData.ConnectionConfiguration.Save();
+                    connectionData.Save();
                 }
                 else
                 {
@@ -417,7 +417,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         connectionData.AddMapping(reportEntity.Id, selectedFile.FriendlyFilePath);
 
-                        connectionData.ConnectionConfiguration.Save();
+                        connectionData.Save();
                     }
                     else
                     {
@@ -457,7 +457,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                                 connectionData.AddMapping(reportEntity.Id, selectedFile.FriendlyFilePath);
 
-                                connectionData.ConnectionConfiguration.Save();
+                                connectionData.Save();
                             }
                             else
                             {
@@ -582,7 +582,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
-                    connectionData.ConnectionConfiguration.Save();
+                    connectionData.Save();
                 }
                 else
                 {
@@ -599,7 +599,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
-                        connectionData.ConnectionConfiguration.Save();
+                        connectionData.Save();
                     }
                     else
                     {
@@ -639,7 +639,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                                 connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
-                                connectionData.ConnectionConfiguration.Save();
+                                connectionData.Save();
                             }
                             else
                             {

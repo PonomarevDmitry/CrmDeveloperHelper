@@ -36,7 +36,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private Dictionary<Guid, List<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, List<EntityMetadata>>();
 
         private CommonConfiguration _commonConfig;
-        private ConnectionConfiguration _connectionConfig;
 
         private ObservableCollection<LinkedEntityMetadata> _itemsSource;
 
@@ -58,9 +57,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
-            this._connectionConfig = connection1.ConnectionConfiguration;
 
-            BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
+            BindingOperations.EnableCollectionSynchronization(connection1.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
 
@@ -95,10 +93,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwEntities.ItemsSource = _itemsSource;
 
-            cmBConnection1.ItemsSource = _connectionConfig.Connections;
+            cmBConnection1.ItemsSource = connection1.ConnectionConfiguration.Connections;
             cmBConnection1.SelectedItem = connection1;
 
-            cmBConnection2.ItemsSource = _connectionConfig.Connections;
+            cmBConnection2.ItemsSource = connection1.ConnectionConfiguration.Connections;
             cmBConnection2.SelectedItem = connection2;
 
             _init--;
@@ -117,7 +115,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         protected override void OnClosed(EventArgs e)
         {
             _commonConfig.Save();
-            _connectionConfig.Save();
+
+            (cmBConnection1.SelectedItem as ConnectionData)?.Save();
+            (cmBConnection2.SelectedItem as ConnectionData)?.Save();
 
             BindingOperations.ClearAllBindings(cmBConnection1);
             cmBConnection1.Items.DetachFromSourceCollection();
@@ -812,6 +812,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (_init > 0 || !_controlsEnabled)
             {
                 return;
+            }
+
+            foreach (var removed in e.RemovedItems.OfType<ConnectionData>())
+            {
+                removed.Save();
             }
 
             this.Dispatcher.Invoke(() =>

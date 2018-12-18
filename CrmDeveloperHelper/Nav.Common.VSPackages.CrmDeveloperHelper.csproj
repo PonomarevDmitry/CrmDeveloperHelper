@@ -741,6 +741,7 @@
     <Compile Include="Model\AttributeMetadataViewItem.cs" />
     <Compile Include="Model\CommonConfiguration.cs" />
     <Compile Include="Model\ConnectionConfiguration.cs" />
+    <Compile Include="Model\ConnectionConfigurationBackward.cs" />
     <Compile Include="Model\ConnectionData.cs" />
     <Compile Include="Model\ConnectionData.Urls.cs" />
     <Compile Include="Model\ConnectionDataUrlGenerator.cs" />

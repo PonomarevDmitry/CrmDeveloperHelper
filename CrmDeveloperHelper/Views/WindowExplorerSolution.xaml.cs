@@ -29,7 +29,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private IWriteToOutput _iWriteToOutput;
 
         private CommonConfiguration _commonConfig;
-        private ConnectionConfiguration _connectionConfig;
 
         private EnvDTE.SelectedItem _selectedItem;
 
@@ -66,7 +65,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
             this._selectedItem = selectedItem;
-            this._connectionConfig = service.ConnectionData.ConnectionConfiguration;
             this._objectId = objectId;
             this._componentType = componentType;
 
@@ -77,7 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
+            BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             this._optionsExportSolutionOptionsControl = new ExportSolutionOptionsControl(_commonConfig, cmBCurrentConnection);
             this._optionsExportSolutionOptionsControl.CloseClicked += Child_CloseClicked;
@@ -102,7 +100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwSolutions.ItemsSource = _itemsSource;
 
-            cmBCurrentConnection.ItemsSource = _connectionConfig.Connections;
+            cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
             service.ConnectionData.LastSelectedSolutionsUniqueName.CollectionChanged -= LastSelectedSolutionsUniqueName_CollectionChanged;
@@ -190,9 +188,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         protected override void OnClosed(EventArgs e)
         {
             _commonConfig.Save();
-            _connectionConfig.Save();
 
             _optionsExportSolutionOptionsControl.DetachCollections();
+
+            (cmBCurrentConnection.SelectedItem as ConnectionData)?.Save();
 
             cmBCurrentConnection.DataContext = null;
             cmBFilter.DataContext = null;
@@ -2051,6 +2050,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             foreach (var removed in e.RemovedItems.OfType<ConnectionData>())
             {
+                removed.Save();
+
                 removed.LastSelectedSolutionsUniqueName.CollectionChanged -= LastSelectedSolutionsUniqueName_CollectionChanged;
                 removed.LastSelectedSolutionsUniqueName.CollectionChanged -= LastSelectedSolutionsUniqueName_CollectionChanged;
             }

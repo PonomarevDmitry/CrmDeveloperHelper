@@ -1,12 +1,18 @@
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Xml;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
@@ -27,6 +33,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         private object _syncObjectIntellisense = new object();
 
         private object _syncObjectRequests = new object();
+
+        private FileSystemWatcher _watcher = null;
+
+        private string Path { get; set; }
 
         public ConnectionConfiguration ConnectionConfiguration { get; set; }
 
@@ -870,10 +880,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [DataMember]
         public bool ExportSolutionManaged
         {
-            get
-            {
-                return _ExportSolutionManaged;
-            }
+            get => _ExportSolutionManaged;
             set
             {
                 this.OnPropertyChanging(nameof(ExportSolutionManaged));
@@ -968,7 +975,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         }
 
         [DataMember]
-        public DateTime? OrganizationInformationExpirationDate;
+        public DateTime? OrganizationInformationExpirationDate { get; set; }
 
         private ConnectionUserData _user;
 
@@ -1127,13 +1134,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 this.ConnectionId = Guid.NewGuid();
             }
+        }
 
+        public Task LoadIntellisenseAsync()
+        {
+            return Task.Run(() => LoadIntellisense());
+        }
+
+        private void LoadIntellisense()
+        {
             var data = ConnectionIntellisenseData.Get(this.ConnectionId);
 
             if (data != null)
             {
                 this.IntellisenseData.MergeDataFromDisk(data);
             }
+
+            AppDomain.CurrentDomain.ProcessExit -= CurrentDomain_ProcessExit;
+            AppDomain.CurrentDomain.ProcessExit -= CurrentDomain_ProcessExit;
+            AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
+
+            AppDomain.CurrentDomain.DomainUnload -= CurrentDomain_ProcessExit;
+            AppDomain.CurrentDomain.DomainUnload -= CurrentDomain_ProcessExit;
+            AppDomain.CurrentDomain.DomainUnload += CurrentDomain_ProcessExit;
 
             IntellisenseData.ConnectionId = this.ConnectionId;
         }
@@ -1337,11 +1360,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        /// <summary>
-        /// Добавляем или обновляем идентификатор объекта в CRM
-        /// </summary>
-        /// <param name="crmObjectId"></param>
-        /// <param name="friendlyPath"></param>
         public void AddMapping(Guid crmObjectId, string friendlyPath)
         {
             if (crmObjectId == Guid.Empty)
@@ -1730,9 +1748,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     if (_intellisense == null)
                     {
                         _intellisense = new ConnectionIntellisenseData();
-
-                        AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
-                        AppDomain.CurrentDomain.DomainUnload += CurrentDomain_ProcessExit;
                     }
                 }
 
@@ -1745,6 +1760,303 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
             this.IntellisenseData.Save();
+        }
+
+        public static ConnectionData Get(Guid connectionId)
+        {
+            string filePath = FileOperations.GetConnectionDataFilePath(connectionId);
+
+            ConnectionData result = GetFromPath(filePath);
+
+            if (result != null)
+            {
+                result.Path = filePath;
+            }
+
+            return result;
+        }
+
+        public static ConnectionData GetFromPath(string filePath)
+        {
+            ConnectionData result = null;
+
+            if (File.Exists(filePath))
+            {
+                DataContractSerializer ser = new DataContractSerializer(typeof(ConnectionData));
+
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
+                {
+                    try
+                    {
+                        mutex.WaitOne();
+
+                        using (var sr = File.OpenRead(filePath))
+                        {
+                            result = ser.ReadObject(sr) as ConnectionData;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(ex);
+
+                        FileOperations.CreateBackUpFile(filePath, ex);
+
+                        result = null;
+                    }
+                    finally
+                    {
+                        mutex.ReleaseMutex();
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Сохранение конфигурации в папку
+        /// </summary>
+        /// <param name="filePath"></param>
+        private void Save(string filePath)
+        {
+            this.Path = filePath;
+
+            DataContractSerializer ser = new DataContractSerializer(typeof(ConnectionData));
+
+            byte[] fileBody = null;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                try
+                {
+                    XmlWriterSettings settings = new XmlWriterSettings
+                    {
+                        Indent = true,
+                        Encoding = Encoding.UTF8
+                    };
+
+                    using (XmlWriter xmlWriter = XmlWriter.Create(memoryStream, settings))
+                    {
+                        ser.WriteObject(xmlWriter, this);
+                    }
+
+                    fileBody = memoryStream.ToArray();
+                }
+                catch (Exception ex)
+                {
+                    Helpers.DTEHelper.WriteExceptionToLog(ex);
+
+                    fileBody = null;
+                }
+            }
+
+            if (fileBody != null)
+            {
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
+                {
+                    try
+                    {
+                        mutex.WaitOne();
+
+                        if (_watcher != null)
+                        {
+                            _watcher.EnableRaisingEvents = false;
+                        }
+
+                        try
+                        {
+                            using (var stream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                            {
+                                stream.Write(fileBody, 0, fileBody.Length);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToLog(ex);
+                        }
+
+                        if (_watcher != null)
+                        {
+                            _watcher.EnableRaisingEvents = true;
+                        }
+                    }
+                    finally
+                    {
+                        mutex.ReleaseMutex();
+                    }
+                }
+            }
+        }
+
+        public void Save()
+        {
+            if (string.IsNullOrEmpty(this.Path)
+                && this.ConnectionId != Guid.Empty
+                )
+            {
+                this.Path = FileOperations.GetConnectionDataFilePath(this.ConnectionId);
+            }
+
+            this.Save(this.Path);
+        }
+
+        public void StartWatchFile()
+        {
+            if (_watcher != null)
+            {
+                return;
+            }
+
+            _watcher = new FileSystemWatcher()
+            {
+                NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size,
+                Path = System.IO.Path.GetDirectoryName(this.Path),
+                Filter = System.IO.Path.GetFileName(this.Path),
+            };
+
+            _watcher.Changed += _watcher_Changed;
+
+            _watcher.EnableRaisingEvents = true;
+        }
+
+        public void StopWatchFile()
+        {
+            if (_watcher == null)
+            {
+                return;
+            }
+
+            _watcher.EnableRaisingEvents = false;
+
+            _watcher.Changed -= _watcher_Changed;
+            _watcher.Changed -= _watcher_Changed;
+
+            _watcher.Dispose();
+
+            _watcher = null;
+        }
+
+        private void _watcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            var diskData = Get(this.ConnectionId);
+
+            LoadFromDisk(diskData);
+        }
+
+        private static readonly string[] _propertiesToCopy =
+        {
+            nameof(IsReadOnly)
+            , nameof(Name)
+            , nameof(GroupName)
+            , nameof(DiscoveryUrl)
+            , nameof(UniqueOrgName)
+            , nameof(OrganizationUrl)
+            , nameof(PublicUrl)
+            , nameof(OrganizationVersion)
+            , nameof(FriendlyName)
+            , nameof(OrganizationId)
+            , nameof(OrganizationState)
+            , nameof(UrlName)
+            , nameof(DefaultLanguage)
+            , nameof(InstalledLanguagePacks)
+            , nameof(BaseCurrency)
+            , nameof(NameSpaceClasses)
+            , nameof(NameSpaceOptionSets)
+            , nameof(ServiceContextName)
+            , nameof(InteractiveLogin)
+            , nameof(GenerateActions)
+            , nameof(SelectedCrmSvcUtil)
+            , nameof(SelectSolutionFilter)
+            , nameof(ExplorerSolutionFilter)
+            , nameof(ExportSolutionFolder)
+            , nameof(ExportSolutionIsOverrideSolutionNameAndVersion)
+            , nameof(ExportSolutionIsOverrideSolutionDescription)
+            , nameof(ExportSolutionIsCreateFolderForVersion)
+            , nameof(ExportSolutionIsCopyFileToClipBoard)
+            , nameof(ExportSolutionOverrideUniqueName)
+            , nameof(ExportSolutionOverrideDisplayName)
+            , nameof(ExportSolutionOverrideVersion)
+            , nameof(ExportSolutionOverrideDescription)
+            , nameof(ExportSolutionManaged)
+            , nameof(TraceReaderFilter)
+            , nameof(TraceReaderFolder)
+            , nameof(UserId)
+            , nameof(OrganizationInformationExpirationDate)
+        };
+
+        private void LoadFromDisk(ConnectionData diskData)
+        {
+            foreach (var name in _propertiesToCopy)
+            {
+                PropertyInfo propertyInfo = typeof(ConnectionData).GetProperty(name);
+
+                if (!propertyInfo.CanRead || !propertyInfo.CanWrite)
+                {
+                    continue;
+                }
+
+                if (propertyInfo.GetSetMethod(true) != null
+                    && propertyInfo.GetSetMethod(true).IsPrivate
+                    )
+                {
+                    continue;
+                }
+
+                if ((propertyInfo.GetSetMethod().Attributes & MethodAttributes.Static) != 0)
+                {
+                    continue;
+                }
+
+                propertyInfo.SetValue(this, propertyInfo.GetValue(diskData, null), null);
+            }
+
+            this.Mappings.Clear();
+            this.Mappings.AddRange(diskData.Mappings);
+
+            this.AssemblyMappings.Clear();
+            this.AssemblyMappings.AddRange(diskData.AssemblyMappings);
+
+            this.LastSelectedSolutionsUniqueName.Clear();
+            foreach (var item in diskData.LastSelectedSolutionsUniqueName)
+            {
+                this.LastSelectedSolutionsUniqueName.Add(item);
+            }
+
+            this.LastSolutionExportFolders.Clear();
+            foreach (var item in diskData.LastSolutionExportFolders)
+            {
+                this.LastSolutionExportFolders.Add(item);
+            }
+
+            this.LastExportSolutionOverrideUniqueName.Clear();
+            foreach (var item in diskData.LastExportSolutionOverrideUniqueName)
+            {
+                this.LastExportSolutionOverrideUniqueName.Add(item);
+            }
+
+            this.LastExportSolutionOverrideDisplayName.Clear();
+            foreach (var item in diskData.LastExportSolutionOverrideDisplayName)
+            {
+                this.LastExportSolutionOverrideDisplayName.Add(item);
+            }
+
+            this.LastExportSolutionOverrideVersion.Clear();
+            foreach (var item in diskData.LastExportSolutionOverrideVersion)
+            {
+                this.LastExportSolutionOverrideVersion.Add(item);
+            }
+
+            this.FetchXmlRequestParameterList.Clear();
+            foreach (var item in diskData.FetchXmlRequestParameterList)
+            {
+                this.FetchXmlRequestParameterList.Add(item);
+            }
+
+            //this.Utils.Clear();
+            //foreach (var item in diskData.Utils)
+            //{
+            //    this.Utils.Add(item);
+            //}
         }
     }
 }

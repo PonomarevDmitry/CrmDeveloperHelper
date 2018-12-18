@@ -247,7 +247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string filePath = string.Empty;
 
             connection.AddAssemblyMapping(assemblyName, assemblyPath);
-            connection.ConnectionConfiguration.Save();
+            connection.Save();
 
             HashSet<string> assemblyPlugins = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
             HashSet<string> assemblyWorkflow = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);

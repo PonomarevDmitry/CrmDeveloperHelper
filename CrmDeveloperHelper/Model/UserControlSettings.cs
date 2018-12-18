@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
 using System.Xml;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
@@ -76,20 +77,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 DataContractSerializer ser = new DataContractSerializer(typeof(UserControlSettings));
 
-                try
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
                 {
-                    using (var sr = File.OpenRead(filePath))
+                    try
                     {
-                        result = ser.ReadObject(sr) as UserControlSettings;
+                        mutex.WaitOne();
+
+                        try
+                        {
+                            using (var sr = File.OpenRead(filePath))
+                            {
+                                result = ser.ReadObject(sr) as UserControlSettings;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(ex);
+
+                            FileOperations.CreateBackUpFile(filePath, ex);
+
+                            result = new UserControlSettings();
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(ex);
-
-                    FileOperations.CreateBackUpFile(filePath, ex);
-
-                    result = new UserControlSettings();
+                    finally
+                    {
+                        mutex.ReleaseMutex();
+                    }
                 }
             }
             else
@@ -139,20 +152,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             if (fileBody != null)
             {
-                try
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
                 {
                     try
                     {
+                        mutex.WaitOne();
 
+                        try
+                        {
+                            using (var stream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                            {
+                                stream.Write(fileBody, 0, fileBody.Length);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToLog(ex);
+                        }
                     }
                     finally
                     {
-                        File.WriteAllBytes(filePath, fileBody);
+                        mutex.ReleaseMutex();
                     }
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToLog(ex);
                 }
             }
         }

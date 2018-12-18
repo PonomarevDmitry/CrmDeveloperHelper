@@ -178,6 +178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             SaveConnectionInformation(this.ConnectionData);
 
+            this.ConnectionData.Save();
             this.DialogResult = true;
             this.Close();
         }

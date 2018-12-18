@@ -1,5 +1,6 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,6 +43,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void CmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            foreach (var removed in e.RemovedItems.OfType<ConnectionData>())
+            {
+                removed.Save();
+            }
+
             BindCollections(_cmBCurrentConnection.SelectedItem as ConnectionData);
         }
 

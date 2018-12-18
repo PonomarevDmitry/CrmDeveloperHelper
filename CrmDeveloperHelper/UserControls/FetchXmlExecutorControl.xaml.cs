@@ -28,8 +28,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
     {
         private readonly object sysObjectConnections = new object();
 
-        private ConnectionConfiguration _connectionConfig;
-
         private Dictionary<Guid, object> _syncCacheObjects = new Dictionary<Guid, object>();
 
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
@@ -121,8 +119,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             settings.DictDouble[paramColumnParametersWidth] = columnParameters.Width.Value;
             settings.DictDouble[paramColumnFetchTextWidth] = columnFetchText.Width.Value;
             settings.Save();
-
-            _connectionConfig.Save();
         }
 
         public void SetSource(string filePath, ConnectionData connectionData)
@@ -133,13 +129,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             this.FilePath = filePath;
-            this._connectionConfig = connectionData.ConnectionConfiguration;
 
-            BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
+            BindingOperations.EnableCollectionSynchronization(connectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             BindCollections(connectionData);
 
-            cmBCurrentConnection.ItemsSource = _connectionConfig.Connections;
+            cmBCurrentConnection.ItemsSource = connectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = connectionData;
 
             ClearGridAndTextBox();
@@ -241,7 +236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            _connectionConfig.Save();
+            connectionData.Save();
 
             FillParametersValues(doc, connectionData);
 
@@ -903,6 +898,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            foreach (var removed in e.RemovedItems.OfType<ConnectionData>())
+            {
+                removed.Save();
+            }
+
             cmBCurrentConnection.Dispatcher.Invoke(() =>
             {
                 ClearGridAndTextBox();

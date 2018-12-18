@@ -6,24 +6,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Threading;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 {
     [DataContract]
     public class ConnectionIntellisenseData
     {
-        private static ConcurrentDictionary<Guid, object> _cacheSyncObjectFile = new ConcurrentDictionary<Guid, object>();
-
-        private static object GetFileSyncObject(Guid connectionId)
-        {
-            if (!_cacheSyncObjectFile.ContainsKey(connectionId))
-            {
-                _cacheSyncObjectFile.TryAdd(connectionId, new object());
-            }
-
-            return _cacheSyncObjectFile[connectionId];
-        }
-
         private const int _savePeriodInMinutes = 5;
 
         private string FilePath { get; set; }
@@ -100,12 +89,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
             if (File.Exists(filePath))
             {
-                lock (GetFileSyncObject(connectionId))
-                {
-                    DataContractSerializer ser = new DataContractSerializer(typeof(ConnectionIntellisenseData));
+                DataContractSerializer ser = new DataContractSerializer(typeof(ConnectionIntellisenseData));
 
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
+                {
                     try
                     {
+                        mutex.WaitOne();
+
                         using (var sr = File.OpenRead(filePath))
                         {
                             result = ser.ReadObject(sr) as ConnectionIntellisenseData;
@@ -118,6 +109,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                         DTEHelper.WriteExceptionToOutput(ex);
 
                         FileOperations.CreateBackUpFile(filePath, ex);
+                    }
+                    finally
+                    {
+                        mutex.ReleaseMutex();
                     }
                 }
             }
@@ -172,22 +167,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
                 if (fileBody != null)
                 {
-                    lock (GetFileSyncObject(this.ConnectionId))
+                    using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
                     {
                         try
                         {
+                            mutex.WaitOne();
+
                             try
                             {
-
+                                using (var stream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                                {
+                                    stream.Write(fileBody, 0, fileBody.Length);
+                                }
                             }
-                            finally
+                            catch (Exception ex)
                             {
-                                File.WriteAllBytes(filePath, fileBody);
+                                DTEHelper.WriteExceptionToLog(ex);
                             }
                         }
-                        catch (Exception ex)
+                        finally
                         {
-                            DTEHelper.WriteExceptionToLog(ex);
+                            mutex.ReleaseMutex();
                         }
                     }
                 }

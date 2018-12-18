@@ -27,7 +27,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private IWriteToOutput _iWriteToOutput;
 
         private CommonConfiguration _commonConfig;
-        private ConnectionConfiguration _connectionConfig;
 
         private bool _controlsEnabled = true;
 
@@ -55,11 +54,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
-            this._connectionConfig = service.ConnectionData.ConnectionConfiguration;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
 
-            BindingOperations.EnableCollectionSynchronization(_connectionConfig.Connections, sysObjectConnections);
+            BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             BindCollections(service.ConnectionData);
 
@@ -75,7 +73,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwTraceRecords.ItemsSource = _itemsSource;
 
-            cmBCurrentConnection.ItemsSource = _connectionConfig.Connections;
+            cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
             _init--;
@@ -100,7 +98,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         protected override void OnClosed(EventArgs e)
         {
             _commonConfig.Save();
-            _connectionConfig.Save();
+
+            (cmBCurrentConnection.SelectedItem as ConnectionData)?.Save();
 
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
             BindingOperations.ClearAllBindings(cmBFilter);
@@ -425,6 +424,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (_init > 0 || !_controlsEnabled)
             {
                 return;
+            }
+
+            foreach (var removed in e.RemovedItems.OfType<ConnectionData>())
+            {
+                removed.Save();
             }
 
             ConnectionData connectionData = null;

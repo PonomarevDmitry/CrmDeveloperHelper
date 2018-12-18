@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
 using System.Xml;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
@@ -13,10 +15,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
     [DataContract]
     public class ConnectionConfiguration
     {
-        private static object _syncObject = new object();
-        private static object _syncObjectFile = new object();
+        private static readonly object _syncObject = new object();
 
         private static ConnectionConfiguration _singleton;
+
+        private FileSystemWatcher _watcher = null;
 
         /// <summary>
         /// Путь к файлу конфигурации
@@ -57,14 +60,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        /// <summary>
-        /// Все подключения к CRM
-        /// </summary>
         [DataMember]
-        public ObservableCollection<ConnectionData> Connections { get; private set; }
+        public List<Guid> ConnectionsGuids { get; private set; }
 
         [DataMember]
-        public ObservableCollection<ConnectionData> ArchiveConnections { get; private set; }
+        public List<Guid> ArchiveConnectionsGuids { get; private set; }
 
         [DataMember]
         public ObservableCollection<ConnectionUserData> Users { get; private set; }
@@ -74,6 +74,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         [DataMember]
         public ObservableCollection<VSSolutionConfiguration> Solutions { get; private set; }
+
+        public ObservableCollection<ConnectionData> Connections { get; private set; }
+
+        public ObservableCollection<ConnectionData> ArchiveConnections { get; private set; }
 
         /// <summary>
         /// Конструктор
@@ -86,6 +90,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.ArchiveConnections = new ObservableCollection<ConnectionData>();
             this.Users = new ObservableCollection<ConnectionUserData>();
             this.Solutions = new ObservableCollection<VSSolutionConfiguration>();
+
+            this.ConnectionsGuids = new List<Guid>();
+            this.ArchiveConnectionsGuids = new List<Guid>();
         }
 
         [OnDeserializing]
@@ -115,23 +122,79 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 this.Solutions = new ObservableCollection<VSSolutionConfiguration>();
             }
-        }
 
-        [OnDeserialized]
-        private void AfterDeserialize(StreamingContext context)
-        {
-            foreach (ConnectionData connectionData in this.Connections)
+            if (this.ConnectionsGuids == null)
             {
-                connectionData.ConnectionConfiguration = this;
-
-                connectionData.User = this.Users.FirstOrDefault(u => u.UserId == connectionData.UserId);
+                this.ConnectionsGuids = new List<Guid>();
             }
 
-            foreach (ConnectionData connectionData in this.ArchiveConnections)
+            if (this.ArchiveConnectionsGuids == null)
             {
-                connectionData.ConnectionConfiguration = this;
+                this.ArchiveConnectionsGuids = new List<Guid>();
+            }
+        }
 
-                connectionData.User = this.Users.FirstOrDefault(u => u.UserId == connectionData.UserId);
+        private void LoadConnectionsFromDisk()
+        {
+            List<ConnectionData> loadedConnections = new List<ConnectionData>();
+
+            loadedConnections.AddRange(this.Connections);
+            loadedConnections.AddRange(this.ArchiveConnections);
+
+            foreach (var connection in loadedConnections)
+            {
+                connection.StopWatchFile();
+            }
+
+            this.Connections.Clear();
+            this.ArchiveConnections.Clear();
+
+            foreach (var connectionId in this.ConnectionsGuids)
+            {
+                if (!this.Connections.Any(c => c.ConnectionId == connectionId))
+                {
+                    ConnectionData connectionData = loadedConnections.FirstOrDefault(c => c.ConnectionId == connectionId);
+
+                    if (connectionData == null)
+                    {
+                        connectionData = ConnectionData.Get(connectionId);
+                    }
+
+                    if (connectionData != null)
+                    {
+                        connectionData.ConnectionConfiguration = this;
+                        connectionData.User = this.Users.FirstOrDefault(u => u.UserId == connectionData.UserId);
+
+                        connectionData.LoadIntellisenseAsync();
+                        connectionData.StartWatchFile();
+
+                        this.Connections.Add(connectionData);
+                    }
+                }
+            }
+
+            foreach (var connectionId in this.ArchiveConnectionsGuids)
+            {
+                if (!this.ArchiveConnections.Any(c => c.ConnectionId == connectionId))
+                {
+                    ConnectionData connectionData = loadedConnections.FirstOrDefault(c => c.ConnectionId == connectionId);
+
+                    if (connectionData == null)
+                    {
+                        connectionData = ConnectionData.Get(connectionId);
+                    }
+
+                    if (connectionData != null)
+                    {
+                        connectionData.ConnectionConfiguration = this;
+                        connectionData.User = this.Users.FirstOrDefault(u => u.UserId == connectionData.UserId);
+
+                        connectionData.LoadIntellisenseAsync();
+                        connectionData.StartWatchFile();
+
+                        this.ArchiveConnections.Add(connectionData);
+                    }
+                }
             }
         }
 
@@ -152,16 +215,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     return _singleton;
                 }
 
-                ConnectionConfiguration result = null;
-
                 string filePath = FileOperations.GetConnectionConfigFilePath();
 
-                if (File.Exists(filePath))
-                {
-                    DataContractSerializer ser = new DataContractSerializer(typeof(ConnectionConfiguration));
+                ConnectionConfiguration result = GetFromPath(filePath);
 
+                result = result ?? new ConnectionConfiguration();
+
+                result.Path = filePath;
+
+                if (_singleton == null)
+                {
+                    _singleton = result;
+                    _singleton.LoadConnectionsFromDisk();
+
+                    var applicationObject = CrmDeveloperHelperPackage.ServiceProvider?.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+                    result.SetCurrentSolution(applicationObject?.Solution?.FullName);
+                }
+
+                return _singleton;
+            }
+        }
+
+        private static ConnectionConfiguration GetFromPath(string filePath)
+        {
+            ConnectionConfiguration result = null;
+
+            if (File.Exists(filePath))
+            {
+                DataContractSerializer ser = new DataContractSerializer(typeof(ConnectionConfiguration));
+
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
+                {
                     try
                     {
+                        mutex.WaitOne();
+
                         using (var sr = File.OpenRead(filePath))
                         {
                             result = ser.ReadObject(sr) as ConnectionConfiguration;
@@ -175,22 +263,122 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                         result = null;
                     }
+                    finally
+                    {
+                        mutex.ReleaseMutex();
+                    }
                 }
-
-                result = result ?? new ConnectionConfiguration();
-
-                result.Path = filePath;
-
-                if (_singleton == null)
-                {
-                    _singleton = result;
-
-                    var applicationObject = CrmDeveloperHelperPackage.ServiceProvider?.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-                    result.SetCurrentSolution(applicationObject?.Solution?.FullName);
-                }
-
-                return _singleton;
             }
+
+            if (File.Exists(filePath))
+            {
+                DataContractSerializer ser = new DataContractSerializer(typeof(ConnectionConfigurationBackward));
+
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
+                {
+                    try
+                    {
+                        mutex.WaitOne();
+
+                        using (var sr = File.OpenRead(filePath))
+                        {
+                            var temp = ser.ReadObject(sr) as ConnectionConfigurationBackward;
+
+                            if (temp.ArchiveConnections != null && temp.ArchiveConnections.Any())
+                            {
+                                foreach (var item in temp.ArchiveConnections)
+                                {
+                                    item.Save();
+                                }
+
+                                if (result != null)
+                                {
+                                    result.ArchiveConnectionsGuids.AddRange(temp.ArchiveConnections.Select(c => c.ConnectionId));
+                                }
+                            }
+
+                            if (temp.Connections != null && temp.Connections.Any())
+                            {
+                                foreach (var item in temp.Connections)
+                                {
+                                    item.Save();
+                                }
+
+                                if (result != null)
+                                {
+                                    result.ConnectionsGuids.AddRange(temp.Connections.Select(c => c.ConnectionId));
+                                }
+                            }
+
+                            if (result != null)
+                            {
+                                result.LoadConnectionsFromDisk();
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        //DTEHelper.WriteExceptionToOutput(ex);
+                    }
+                    finally
+                    {
+                        mutex.ReleaseMutex();
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private void StartWatchFile()
+        {
+            if (_watcher != null)
+            {
+                return;
+            }
+
+            _watcher = new FileSystemWatcher()
+            {
+                NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size,
+                Path = System.IO.Path.GetDirectoryName(this.Path),
+                Filter = System.IO.Path.GetFileName(this.Path),
+            };
+
+            _watcher.Changed += _watcher_Changed;
+
+            _watcher.EnableRaisingEvents = true;
+        }
+
+        private void _watcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            var diskData = GetFromPath(this.Path);
+
+            LoadFromDisk(diskData);
+        }
+
+        private void LoadFromDisk(ConnectionConfiguration diskData)
+        {
+            this.ConnectionsGuids.Clear();
+            this.ConnectionsGuids.AddRange(diskData.ConnectionsGuids);
+
+            this.ArchiveConnectionsGuids.Clear();
+            this.ArchiveConnectionsGuids.AddRange(diskData.ArchiveConnectionsGuids);
+
+            this.Solutions.Clear();
+            foreach (var item in diskData.Solutions)
+            {
+                this.Solutions.Add(item);
+            }
+
+            this.Users.Clear();
+            foreach (var item in diskData.Users)
+            {
+                this.Users.Add(item);
+            }
+
+            this.VSSolutionConfigurationWhenNoSolutionLoaded = diskData.VSSolutionConfigurationWhenNoSolutionLoaded;
+
+            LoadConnectionsFromDisk();
         }
 
         /// <summary>
@@ -201,6 +389,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             this.Path = filePath;
 
+            this.ConnectionsGuids.Clear();
+            this.ConnectionsGuids.AddRange(this.Connections.Select(c => c.ConnectionId));
+
+            this.ArchiveConnectionsGuids.Clear();
+            this.ArchiveConnectionsGuids.AddRange(this.ArchiveConnections.Select(c => c.ConnectionId));
+
             DataContractSerializer ser = new DataContractSerializer(typeof(ConnectionConfiguration));
 
             byte[] fileBody = null;
@@ -209,9 +403,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 try
                 {
-                    XmlWriterSettings settings = new XmlWriterSettings();
-                    settings.Indent = true;
-                    settings.Encoding = Encoding.UTF8;
+                    XmlWriterSettings settings = new XmlWriterSettings
+                    {
+                        Indent = true,
+                        Encoding = Encoding.UTF8
+                    };
 
                     using (XmlWriter xmlWriter = XmlWriter.Create(memoryStream, settings))
                     {
@@ -230,22 +426,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             if (fileBody != null)
             {
-                lock (_syncObjectFile)
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
                 {
                     try
                     {
+                        mutex.WaitOne();
+
+                        if (_watcher != null)
+                        {
+                            _watcher.EnableRaisingEvents = false;
+                        }
+
                         try
                         {
-
+                            using (var stream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                            {
+                                stream.Write(fileBody, 0, fileBody.Length);
+                            }
                         }
-                        finally
+                        catch (Exception ex)
                         {
-                            File.WriteAllBytes(filePath, fileBody);
+                            DTEHelper.WriteExceptionToLog(ex);
+                        }
+
+                        if (_watcher != null)
+                        {
+                            _watcher.EnableRaisingEvents = true;
                         }
                     }
-                    catch (Exception ex)
+                    finally
                     {
-                        DTEHelper.WriteExceptionToLog(ex);
+                        mutex.ReleaseMutex();
                     }
                 }
             }

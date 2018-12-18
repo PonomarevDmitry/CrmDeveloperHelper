@@ -189,7 +189,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this.Dispatcher.Invoke(() =>
                 {
+                    connectionData.Save();
                     connectionData.ConnectionConfiguration = this._crmConfig;
+                    connectionData.LoadIntellisenseAsync();
+                    connectionData.StartWatchFile();
                     this._crmConfig.Connections.Add(connectionData);
                 });
             }
@@ -207,6 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 form.ShowDialog();
 
+                connectionData.Save();
                 this._crmConfig.Save();
             }
         }
@@ -225,13 +229,98 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     this.Dispatcher.Invoke(() =>
                     {
+                        connectionData.Save();
                         connectionData.ConnectionConfiguration = this._crmConfig;
+                        connectionData.LoadIntellisenseAsync();
+                        connectionData.StartWatchFile();
                         this._crmConfig.Connections.Add(connectionData);
                     });
                 }
 
                 this._crmConfig.Save();
             }
+        }
+
+        private void tSBLoadFromFile_Click(object sender, RoutedEventArgs e)
+        {
+            string selectedPath = string.Empty;
+            var t = new Thread(() =>
+            {
+                try
+                {
+                    var openFileDialog1 = new Microsoft.Win32.OpenFileDialog
+                    {
+                        Filter = "ConnectionData (.xml)|*.xml",
+                        FilterIndex = 1,
+                        RestoreDirectory = true
+                    };
+
+                    if (openFileDialog1.ShowDialog().GetValueOrDefault())
+                    {
+                        selectedPath = openFileDialog1.FileName;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(ex);
+                    _iWriteToOutput.ActivateOutputWindow();
+                }
+            });
+
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+
+            t.Join();
+
+            if (string.IsNullOrEmpty(selectedPath))
+            {
+                return;
+            }
+
+            ConnectionData connectionData = null;
+
+            try
+            {
+                connectionData = ConnectionData.GetFromPath(selectedPath);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
+                _iWriteToOutput.ActivateOutputWindow();
+
+                connectionData = null;
+            }
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            connectionData.User = this._crmConfig.Users.FirstOrDefault(u => u.UserId == connectionData.UserId);
+
+            if (this._crmConfig.Connections.Any(c => c.ConnectionId == connectionData.ConnectionId)
+                || this._crmConfig.ArchiveConnections.Any(c => c.ConnectionId == connectionData.ConnectionId)
+                || connectionData.ConnectionId == Guid.Empty
+                )
+            {
+                connectionData.ConnectionId = Guid.NewGuid();
+            }
+
+            var form = new WindowCrmConnectionCard(_iWriteToOutput, connectionData, _crmConfig.Users);
+
+            if (form.ShowDialog().GetValueOrDefault())
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    connectionData.Save();
+                    connectionData.ConnectionConfiguration = this._crmConfig;
+                    connectionData.LoadIntellisenseAsync();
+                    connectionData.StartWatchFile();
+                    this._crmConfig.Connections.Add(connectionData);
+                });
+            }
+
+            this._crmConfig.Save();
         }
 
         private async void tSBTestConnection_Click(object sender, RoutedEventArgs e)
@@ -251,6 +340,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     await QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
 
+                    connectionData.Save();
                     this._crmConfig.Save();
 
                     ToggleControls(true, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
@@ -453,7 +543,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckObjectsMarkedToDeleteAndShowDependentComponents_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)

@@ -58,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (crmSvcUtil == null)
             {
                 connectionData.SelectedCrmSvcUtil = null;
-                connectionData.ConnectionConfiguration.Save();
+                connectionData.Save();
 
                 this._iWriteToOutput.WriteToOutput("No Crm Svc Util is selected.");
                 return;
@@ -69,7 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 commonConfig.Utils.Remove(crmSvcUtil);
 
                 connectionData.SelectedCrmSvcUtil = null;
-                connectionData.ConnectionConfiguration.Save();
+                connectionData.Save();
 
                 this._iWriteToOutput.WriteToOutput("Crm Svc Util not exists.");
                 return;

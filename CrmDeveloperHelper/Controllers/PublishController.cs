@@ -158,7 +158,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 allForOther = false;
                             }
 
-                            connectionData.ConnectionConfiguration.Save();
+                            connectionData.Save();
 
                             if (dialogResult.GetValueOrDefault())
                             {
@@ -194,7 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             //Сохранение настроек после публикации
-            connectionData.ConnectionConfiguration.Save();
+            connectionData.Save();
 
             publishHelper.UpdateContentAndPublish();
         }

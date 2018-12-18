@@ -92,6 +92,13 @@
                             </StackPanel>
                         </Button>
                         <Separator />
+                        <Button x:Name="tSBLoadFromFile" HorizontalAlignment="Left" Click="tSBLoadFromFile_Click">
+                            <StackPanel>
+                                <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Load from File</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Separator />
                         <Button x:Name="tSBTestConnection" HorizontalAlignment="Left" IsEnabled="False" Click="tSBTestConnection_Click">
                             <StackPanel>
                                 <Image  Width="16" Height="16"  Source="{StaticResource ImageCheck}" VerticalAlignment="Center" HorizontalAlignment="Center" />

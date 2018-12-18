@@ -123,7 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
-                    connectionData.ConnectionConfiguration.Save();
+                    connectionData.Save();
                 }
                 else
                 {
@@ -140,7 +140,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
-                    connectionData.ConnectionConfiguration.Save();
+                    connectionData.Save();
                 }
                 else
                 {
@@ -157,7 +157,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
-                        connectionData.ConnectionConfiguration.Save();
+                        connectionData.Save();
                     }
                     else
                     {
@@ -197,7 +197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                                 connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
-                                connectionData.ConnectionConfiguration.Save();
+                                connectionData.Save();
                             }
                             else
                             {
@@ -326,7 +326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 connectionData1.AddMapping(webresource1.Id, selectedFile.FriendlyFilePath);
 
-                connectionData1.ConnectionConfiguration.Save();
+                connectionData1.Save();
             }
             else
             {
@@ -342,7 +342,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         connectionData1.AddMapping(webresource1.Id, selectedFile.FriendlyFilePath);
 
-                        connectionData1.ConnectionConfiguration.Save();
+                        connectionData1.Save();
                     }
                 }
             }
@@ -353,7 +353,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 connectionData2.AddMapping(webresource2.Id, selectedFile.FriendlyFilePath);
 
-                connectionData2.ConnectionConfiguration.Save();
+                connectionData2.Save();
             }
             else
             {
@@ -369,7 +369,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         connectionData2.AddMapping(webresource2.Id, selectedFile.FriendlyFilePath);
 
-                        connectionData2.ConnectionConfiguration.Save();
+                        connectionData2.Save();
                     }
                 }
             }
@@ -685,7 +685,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         connectionData.AddMapping(reportEntity.Id, selectedFile.FriendlyFilePath);
 
-                        connectionData.ConnectionConfiguration.Save();
+                        connectionData.Save();
                     }
                     else
                     {
@@ -708,7 +708,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     connectionData.AddMapping(reportEntity.Id, selectedFile.FriendlyFilePath);
 
-                    connectionData.ConnectionConfiguration.Save();
+                    connectionData.Save();
                 }
                 else
                 {
@@ -725,7 +725,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         connectionData.AddMapping(reportEntity.Id, selectedFile.FriendlyFilePath);
 
-                        connectionData.ConnectionConfiguration.Save();
+                        connectionData.Save();
                     }
                     else
                     {
@@ -765,7 +765,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                                 connectionData.AddMapping(reportEntity.Id, selectedFile.FriendlyFilePath);
 
-                                connectionData.ConnectionConfiguration.Save();
+                                connectionData.Save();
                             }
                             else
                             {
@@ -908,7 +908,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 connectionData1.AddMapping(reportEntity1.Id, selectedFile.FriendlyFilePath);
 
-                connectionData1.ConnectionConfiguration.Save();
+                connectionData1.Save();
             }
             else
             {
@@ -924,7 +924,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         connectionData1.AddMapping(reportEntity1.Id, selectedFile.FriendlyFilePath);
 
-                        connectionData1.ConnectionConfiguration.Save();
+                        connectionData1.Save();
                     }
                 }
             }
@@ -935,7 +935,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 connectionData2.AddMapping(reportEntity2.Id, selectedFile.FriendlyFilePath);
 
-                connectionData2.ConnectionConfiguration.Save();
+                connectionData2.Save();
             }
             else
             {
@@ -951,7 +951,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         connectionData2.AddMapping(reportEntity2.Id, selectedFile.FriendlyFilePath);
 
-                        connectionData2.ConnectionConfiguration.Save();
+                        connectionData2.Save();
                     }
                 }
             }

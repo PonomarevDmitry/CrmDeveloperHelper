@@ -48,10 +48,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     connection.SelectedCrmSvcUtil = (cmBCrmSvcUtil.SelectedItem as CrmSvcUtil).Id;
                 }
+
+                connection.Save();
             }
 
             _commonConfig.Save();
-            _crmConfig.Save();
 
             BindingOperations.ClearAllBindings(cmBCrmSvcUtil);
 
