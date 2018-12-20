@@ -26,12 +26,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             this._commonConfig = commonConfig;
             this._cmBCurrentConnection = cmBCurrentConnection;
 
+            BindCollections(_cmBCurrentConnection.SelectedItem as ConnectionData);
+
             LoadFromConfig();
 
             if (_cmBCurrentConnection.SelectedItem is ConnectionData connectionData)
             {
-                BindCollections(connectionData);
-
                 cmBUniqueName.Text = connectionData.ExportSolutionOverrideUniqueName;
                 cmBDisplayName.Text = connectionData.ExportSolutionOverrideDisplayName;
                 cmBVersion.Text = connectionData.ExportSolutionOverrideVersion;
@@ -99,6 +99,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         public void DetachCollections()
         {
+            cmBUniqueName.DataContext = null;
+            cmBDisplayName.DataContext = null;
+            cmBVersion.DataContext = null;
+            cmBExportFolder.DataContext = null;
+
             BindingOperations.ClearAllBindings(cmBUniqueName);
             BindingOperations.ClearAllBindings(cmBDisplayName);
             BindingOperations.ClearAllBindings(cmBVersion);
@@ -108,11 +113,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             cmBDisplayName.Items.DetachFromSourceCollection();
             cmBVersion.Items.DetachFromSourceCollection();
             cmBExportFolder.Items.DetachFromSourceCollection();
-
-            cmBUniqueName.DataContext = null;
-            cmBDisplayName.DataContext = null;
-            cmBVersion.DataContext = null;
-            cmBExportFolder.DataContext = null;
 
             cmBUniqueName.ItemsSource = null;
             cmBDisplayName.ItemsSource = null;

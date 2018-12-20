@@ -849,6 +849,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private int _ExportSolutionOverrideUniqueNameSelectedIndex = -1;
+        [DataMember]
+        public int ExportSolutionOverrideUniqueNameSelectedIndex
+        {
+            get => _ExportSolutionOverrideUniqueNameSelectedIndex;
+            set
+            {
+                if (_ExportSolutionOverrideUniqueNameSelectedIndex == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(ExportSolutionOverrideUniqueNameSelectedIndex));
+                this._ExportSolutionOverrideUniqueNameSelectedIndex = value;
+                this.OnPropertyChanged(nameof(ExportSolutionOverrideUniqueNameSelectedIndex));
+            }
+        }
+
+        private int _ExportSolutionOverrideDisplayNameSelectedIndex = -1;
+        [DataMember]
+        public int ExportSolutionOverrideDisplayNameSelectedIndex
+        {
+            get => _ExportSolutionOverrideDisplayNameSelectedIndex;
+            set
+            {
+                if (_ExportSolutionOverrideDisplayNameSelectedIndex == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(ExportSolutionOverrideDisplayNameSelectedIndex));
+                this._ExportSolutionOverrideDisplayNameSelectedIndex = value;
+                this.OnPropertyChanged(nameof(ExportSolutionOverrideDisplayNameSelectedIndex));
+            }
+        }
+
+        private int _ExportSolutionOverrideVersionSelectedIndex = -1;
+        [DataMember]
+        public int ExportSolutionOverrideVersionSelectedIndex
+        {
+            get => _ExportSolutionOverrideVersionSelectedIndex;
+            set
+            {
+                if (_ExportSolutionOverrideVersionSelectedIndex == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(ExportSolutionOverrideVersionSelectedIndex));
+                this._ExportSolutionOverrideVersionSelectedIndex = value;
+                this.OnPropertyChanged(nameof(ExportSolutionOverrideVersionSelectedIndex));
+            }
+        }
+
         private string _ExportSolutionOverrideDescription;
         [DataMember]
         public string ExportSolutionOverrideDescription
