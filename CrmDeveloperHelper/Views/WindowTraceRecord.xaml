@@ -1,0 +1,30 @@
+﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowTraceRecord"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+        Title="Enter Text" Height="412" Width="638" WindowStartupLocation="Manual">
+    <src:WindowBase.Resources>
+        <BitmapImage x:Key="ImageUp" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/IndexUp.png" />
+        <BitmapImage x:Key="ImageDown" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/IndexDown.png" />
+    </src:WindowBase.Resources>
+    <Grid>
+        <ToolBar VerticalAlignment="Top" >
+            <Button x:Name="tSBUp" HorizontalAlignment="Left" Click="tSBUp_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="16" Height="16"  Source="{StaticResource ImageUp}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Next Record</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button x:Name="tSBDown" HorizontalAlignment="Left" Click="tSBDown_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="16" Height="16"  Source="{StaticResource ImageDown}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Previous Record</TextBlock>
+                </StackPanel>
+            </Button>
+        </ToolBar>
+
+        <Label Content="Description" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" Padding="0"/>
+        <TextBox x:Name="txtBDescription" IsReadOnly="True" IsReadOnlyCaretVisible="True" Margin="10,53,10,43" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrush}}" AcceptsTab="True" AcceptsReturn="True" TextWrapping="NoWrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+        <Button Content="Close" Margin="0,0,10,10" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+    </Grid>
+</src:WindowBase>

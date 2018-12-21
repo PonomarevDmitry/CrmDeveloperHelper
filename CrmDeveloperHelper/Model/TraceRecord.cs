@@ -2,6 +2,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -85,7 +86,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                         switch (parts[0].Trim())
                         {
                             case "LocalTime":
-                                if (DateTime.TryParse(value, out var temp))
+                                if (DateTime.TryParseExact(value, "yyyy-MM-dd HH:mm:ss.fff", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out var temp))
                                 {
                                     traceFile.LocalTime = temp;
                                 }
@@ -126,9 +127,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                         if (line.StartsWith("[") && (indexLast = line.IndexOf("]")) > 0)
                         {
-                            var datePart = line.Substring(1, indexLast - 2);
+                            var datePart = line.Substring(1, indexLast - 1);
 
-                            if (DateTime.TryParse(datePart, out var tempDate))
+                            if (DateTime.TryParseExact(datePart, "yyyy-MM-dd HH:mm:ss.fff", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out var tempDate))
                             {
                                 if (traceRecord != null)
                                 {

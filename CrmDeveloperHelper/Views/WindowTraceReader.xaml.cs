@@ -156,7 +156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.LoadingTraceFiles);
 
             this._itemsSource.Clear();
@@ -195,7 +195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.FilteringTraceFiles);
 
             this._itemsSource.Clear();
@@ -252,7 +252,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             list = await FilterTraceRecordsAsync(list, textName, date);
 
             LoadTraceRecords(list, dictUsers);
-            
+
             ToggleControls(true, Properties.WindowStatusStrings.FilteringTraceFilesCompletedFormat1, list.Count());
         }
 
@@ -528,11 +528,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
-                string windowTitle = string.Format("TraceRecord: {0:yyyy.MM.dd HH:mm:ss.fff}", item.Date);
-
                 try
                 {
-                    var form = new WindowTextField(windowTitle, "Description", item.Description, true);
+                    var form = new WindowTraceRecord();
+
+                    form.SetTraceRecordInformation(item);
+                    form.NextClicked += Form_NextClicked;
+                    form.PreviousClicked += Form_PreviousClicked;
 
                     form.ShowDialog();
                 }
@@ -545,6 +547,88 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.SetApartmentState(System.Threading.ApartmentState.STA);
 
             worker.Start();
+        }
+
+        private void Form_PreviousClicked(object sender, EventArgs e)
+        {
+            if (!(sender is WindowTraceRecord form))
+            {
+                return;
+            }
+
+            if (form.TraceRecord == null)
+            {
+                return;
+            }
+
+            TraceRecord record = null;
+
+            this.Dispatcher.Invoke(() =>
+            {
+                var index = this.lstVwTraceRecords.Items.IndexOf(form.TraceRecord);
+
+                if (index != -1)
+                {
+                    index++;
+
+                    if (index < this.lstVwTraceRecords.Items.Count)
+                    {
+                        record = this.lstVwTraceRecords.Items.GetItemAt(index) as TraceRecord;
+
+                        if (record != null)
+                        {
+                            this.lstVwTraceRecords.SelectedCells.Clear();
+                            this.lstVwTraceRecords.SelectedCells.Add(new DataGridCellInfo(record, this.lstVwTraceRecords.CurrentColumn));
+                        }
+                    }
+                }
+            });
+
+            if (record != null)
+            {
+                form.SetTraceRecordInformation(record);
+            }
+        }
+
+        private void Form_NextClicked(object sender, EventArgs e)
+        {
+            if (!(sender is WindowTraceRecord form))
+            {
+                return;
+            }
+
+            if (form.TraceRecord == null)
+            {
+                return;
+            }
+
+            TraceRecord record = null;
+
+            this.Dispatcher.Invoke(() =>
+            {
+                var index = this.lstVwTraceRecords.Items.IndexOf(form.TraceRecord);
+
+                if (index != -1)
+                {
+                    index--;
+
+                    if (index >= 0)
+                    {
+                        record = this.lstVwTraceRecords.Items.GetItemAt(index) as TraceRecord;
+
+                        if (record != null)
+                        {
+                            this.lstVwTraceRecords.SelectedCells.Clear();
+                            this.lstVwTraceRecords.SelectedCells.Add(new DataGridCellInfo(record, this.lstVwTraceRecords.CurrentColumn));
+                        }
+                    }
+                }
+            });
+
+            if (record != null)
+            {
+                form.SetTraceRecordInformation(record);
+            }
         }
 
         private void btnAddFolderInList_Click(object sender, RoutedEventArgs e)

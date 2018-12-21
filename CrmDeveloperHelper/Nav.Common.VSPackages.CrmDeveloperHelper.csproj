@@ -1117,6 +1117,9 @@
     <Compile Include="Views\WindowTraceReader.xaml.cs">
       <DependentUpon>WindowTraceReader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowTraceRecord.xaml.cs">
+      <DependentUpon>WindowTraceRecord.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowWebResourceCreate.xaml.cs">
       <DependentUpon>WindowWebResourceCreate.xaml</DependentUpon>
     </Compile>
@@ -1708,6 +1711,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowTraceReader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowTraceRecord.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

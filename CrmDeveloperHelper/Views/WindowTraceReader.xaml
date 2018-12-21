@@ -54,10 +54,7 @@
                 <Grid>
                     <Button x:Name="btnAddFolder" Content="Add Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Click="btnAddFolderInList_Click" Height="26" Width="121" />
                     <ComboBox x:Name="cmBFolder" Height="26" Margin="146,10,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.TraceReaderFolder}" ItemsSource="{Binding Path=SelectedItem.TraceReaderLastFolders}" VerticalAlignment="Top" KeyDown="cmBFolder_KeyDown" VerticalContentAlignment="Center"   />
-                    
-                    <Label Content="File Date Change From" Padding="0" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="24"/>
-                    <DatePicker x:Name="dPFileDate" HorizontalAlignment="Left" Margin="146,41,0,0" VerticalAlignment="Top" Width="199" SelectedDateFormat="Long" KeyDown="cmBFilterEnitity_KeyDown" FirstDayOfWeek="Monday"/>
-                    <GroupBox Header="Sources" Margin="10,70,10,0">
+                    <GroupBox Header="Sources" Margin="10,41,10,0">
                         <DockPanel LastChildFill="True">
                             <ToolBar Height="Auto" Width="Auto" VerticalAlignment="Top" DockPanel.Dock="Top" >
                                 <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
@@ -74,8 +71,12 @@
                 <Grid>
                     <Label Content="Filter" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
                     <ComboBox x:Name="cmBFilter" Height="26" Margin="58,10,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.TraceReaderFilter}" ItemsSource="{Binding Path=SelectedItem.TraceReaderLastFilters}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-                    <Label Content="Date From" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="24"/>
-                    <DatePicker x:Name="dPFilterDate" HorizontalAlignment="Left" Margin="89,41,0,0" VerticalAlignment="Top" Width="199" SelectedDateFormat="Long" KeyDown="cmBFilterEnitity_KeyDown" FirstDayOfWeek="Monday"/>
+
+                    <Label Content="File Date Change From" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="24"/>
+                    <DatePicker x:Name="dPFileDate" HorizontalAlignment="Left" Margin="146,41,0,0" VerticalAlignment="Top" Width="199" SelectedDateFormat="Long" KeyDown="cmBFilterEnitity_KeyDown" FirstDayOfWeek="Monday"/>
+
+                    <Label Content="Date From" HorizontalAlignment="Left" Margin="399,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="24"/>
+                    <DatePicker x:Name="dPFilterDate" HorizontalAlignment="Left" Margin="470,42,0,0" VerticalAlignment="Top" Width="199" SelectedDateFormat="Long" KeyDown="cmBFilterEnitity_KeyDown" FirstDayOfWeek="Monday"/>
                     <GroupBox Header="Trace Records" Margin="10,70,10,0">
                         <DataGrid x:Name="lstVwTraceRecords" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="Cell" MouseDoubleClick="lstVwTraceRecords_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Right" Height="Auto" Width="Auto" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
                             <DataGrid.Resources>

@@ -47,7 +47,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         public event EventHandler<EventArgs> CloseClicked;
 
-        public void OnCloseClicked()
+        private void OnCloseClicked()
         {
             CloseClicked?.Invoke(this, new EventArgs());
         }
