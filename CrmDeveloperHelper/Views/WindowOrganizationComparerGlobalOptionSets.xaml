@@ -11,8 +11,8 @@
         <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-            <MenuItem x:Uid="menuContextDifference" Header="C# File Single OptionSet" Click="btnDifferenceCSharpFileSingle_Click" />
-            <MenuItem x:Uid="menuContextDifference" Header="JavaScript File Single OptionSet" Click="btnDifferenceJavaScriptFileSingle_Click" />
+            <MenuItem x:Uid="menuContextDifference" Header="Difference C# File Single OptionSet" Click="btnDifferenceCSharpFileSingle_Click" />
+            <MenuItem x:Uid="menuContextDifference" Header="Difference JavaScript File Single OptionSet" Click="btnDifferenceJavaScriptFileSingle_Click" />
             <Separator x:Uid="menuContextDifference" />
             <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
@@ -42,6 +42,8 @@
                 <Separator/>
                 <MenuItem Header="Entity SecurityRoles Explorer" Click="btnEntitySecurityRolesExplorer1_Click"/>
                 <Separator/>
+                <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer1_Click"/>
+                <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets1_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnSystemForms1_Click"/>
@@ -70,6 +72,8 @@
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer2_Click"/>
                 <Separator/>
                 <MenuItem Header="Entity SecurityRoles Explorer" Click="btnEntitySecurityRolesExplorer2_Click"/>
+                <Separator/>
+                <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer2_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets2_Click"/>
                 <Separator/>

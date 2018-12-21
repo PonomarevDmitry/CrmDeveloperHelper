@@ -13,7 +13,7 @@
 
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
@@ -73,9 +73,9 @@
             <MenuItem Header="Open Role in Web" VerticalAlignment="Center" Click="mIOpenSecurityRoleInWeb_Click" />
             <Separator/>
             <MenuItem Header="Open Role List in Web" VerticalAlignment="Center" Click="mIOpenSecurityRoleListInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Open Role Explorer" VerticalAlignment="Center" Click="mIOpenSecurityRoleExplorer_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy Role Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
                 <MenuItem Header="Copy Role Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />

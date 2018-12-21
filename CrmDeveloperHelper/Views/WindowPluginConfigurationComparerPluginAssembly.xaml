@@ -58,9 +58,9 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="tSBLoadPluginConfiguration1" Content="Load Plugin Configuration 1" Click="tSBLoadPluginConfiguration1_Click" />
-                    <Separator />
+                    <Separator/>
                     <Button x:Name="tSBLoadPluginConfiguration2" Content="Load Plugin Configuration 2" Click="tSBLoadPluginConfiguration2_Click" />
-                    <Separator />
+                    <Separator/>
                     <Menu x:Name="menuActions" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBActions" Header="Actions">
                             <MenuItem x:Name="tSMIShowDifferencePluginAssemblyDescription" Header="Show Difference PluginAssembly Description" Click="tSMIShowDifferencePluginAssemblyDescription_Click" />

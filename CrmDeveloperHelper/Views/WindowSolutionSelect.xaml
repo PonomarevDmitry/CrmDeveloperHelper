@@ -12,11 +12,11 @@
             <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="btnOpenSolutionInWeb_Click"/>
             <Separator/>
             <MenuItem Header="Open Solution List in Web" VerticalAlignment="Center" Click="mIOpenSolutionListInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Open Customization in Web" VerticalAlignment="Center" Click="mIOpenCustomizationInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Clear Unmanaged Solution" Click="ClearUnmanagedSolution_Click"/>
-            <Separator />
+            <Separator/>
             <MenuItem Header="Create New Solution" VerticalAlignment="Center" Click="mICreateNewSolution_Click" />
         </ContextMenu>
     </src:WindowBase.Resources>

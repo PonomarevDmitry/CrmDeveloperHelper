@@ -444,6 +444,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.EntityLogicalName);
         }
 
+        private async void miSecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            IEnumerable<EntityMetadata> entityMetadataList = null;
+
+            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
+            {
+                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
+            }
+
+            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig, entityMetadataList, null);
+        }
+
         private async void miGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();

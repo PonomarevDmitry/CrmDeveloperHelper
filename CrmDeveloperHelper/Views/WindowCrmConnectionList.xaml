@@ -106,21 +106,21 @@
                                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Create Copy</TextBlock>
                                     </StackPanel>
                                 </Button>
-                                <Separator />
+                                <Separator/>
                                 <Button x:Name="tSBLoadFromFile" HorizontalAlignment="Left" Click="tSBLoadFromFile_Click">
                                     <StackPanel>
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Load from File</TextBlock>
                                     </StackPanel>
                                 </Button>
-                                <Separator />
+                                <Separator/>
                                 <Button x:Name="tSBTestConnection" HorizontalAlignment="Left" IsEnabled="False" Click="tSBTestConnection_Click">
                                     <StackPanel>
                                         <Image  Width="16" Height="16"  Source="{StaticResource ImageCheck}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Test Connection</TextBlock>
                                     </StackPanel>
                                 </Button>
-                                <Separator />
+                                <Separator/>
                                 <Button x:Name="tSBUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUp_Click">
                                     <StackPanel>
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageUp}" VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -131,7 +131,7 @@
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageDown}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     </StackPanel>
                                 </Button>
-                                <Separator />
+                                <Separator/>
                                 <Button x:Name="tSBOpenFolder" HorizontalAlignment="Left" Click="tSBOpenFolder_Click" >
                                     <StackPanel>
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageOpenFolder}" VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -299,7 +299,7 @@
                                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Edit User</TextBlock>
                                     </StackPanel>
                                 </Button>
-                                <Separator />
+                                <Separator/>
                                 <Button x:Name="tSBUserUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUserUp_Click" >
                                     <StackPanel>
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageUp}" VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -379,14 +379,14 @@
                                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Edit</TextBlock>
                                     </StackPanel>
                                 </Button>
-                                <Separator />
+                                <Separator/>
                                 <Button x:Name="tSBArchiveTestConnection" HorizontalAlignment="Left" IsEnabled="False" Click="tSBArchiveTestConnection_Click" >
                                     <StackPanel>
                                         <Image   Width="16" Height="16" Source="{StaticResource ImageCheck}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Test Connection</TextBlock>
                                     </StackPanel>
                                 </Button>
-                                <Separator />
+                                <Separator/>
                                 <Button x:Name="tSBArchiveUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBArchiveUp_Click" >
                                     <StackPanel>
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageUp}" VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -397,7 +397,7 @@
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageDown}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     </StackPanel>
                                 </Button>
-                                <Separator />
+                                <Separator/>
                                 <Button x:Name="tSBArchiveReturnToConnectionList" HorizontalAlignment="Left" IsEnabled="False" Click="tSBArchiveReturnToConnectionList_Click" >
                                     <StackPanel>
                                         <Image   Width="16" Height="16" Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />

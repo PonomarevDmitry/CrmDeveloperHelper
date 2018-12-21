@@ -8,7 +8,7 @@
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
@@ -32,6 +32,8 @@
                 <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                 <Separator/>
                 <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                <Separator/>
+                <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click"/>
                 <Separator/>
@@ -91,6 +93,8 @@
                     <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                     <Separator/>
                     <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
                     <Separator/>
                     <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
                     <Separator/>

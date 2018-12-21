@@ -1245,6 +1245,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, _service, _commonConfig, null, null);
         }
 
+        private void miSecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, _service, _commonConfig, null, null);
+        }
+
         private void btnGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();

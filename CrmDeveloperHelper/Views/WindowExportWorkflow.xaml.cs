@@ -1518,6 +1518,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, entity?.PrimaryEntity);
         }
 
+        private async void miSecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, null);
+        }
+
         private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();

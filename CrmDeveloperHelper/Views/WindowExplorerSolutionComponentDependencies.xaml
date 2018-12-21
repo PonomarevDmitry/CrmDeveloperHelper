@@ -17,7 +17,7 @@
             <Separator x:Uid="contMnAddEntityIntoSolution" />
             <MenuItem x:Uid="contMnAddEntityIntoSolution" Header="Linked Entity">
                 <MenuItem Header="Open Linked Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-                <Separator />
+                <Separator/>
                 <MenuItem Header="Open Linked Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
                 <Separator/>
                 <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add Entity into Last Crm Solution" VerticalAlignment="Center"  />

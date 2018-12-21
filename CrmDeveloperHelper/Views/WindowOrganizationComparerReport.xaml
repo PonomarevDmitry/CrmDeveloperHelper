@@ -10,15 +10,15 @@
         <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
         <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            
-            <MenuItem x:Uid="menuContextDifference" Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+
+            <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
             <Separator x:Uid="menuContextDifference"/>
-            <MenuItem x:Uid="menuContextDifference" Header="Body Text" VerticalAlignment="Center" Click="mIShowDifferenceBodyText_Click"/>
-            <MenuItem x:Uid="menuContextDifference" Header="Original Body Text" VerticalAlignment="Center" Click="mIShowDifferenceOriginalBodyText_Click"/>
-            <MenuItem x:Uid="menuContextDifference" Header="Default Filter" VerticalAlignment="Center" Click="mIShowDifferenceDefaultFilter_Click"/>
-            <MenuItem x:Uid="menuContextDifference" Header="Custom Report Xml" VerticalAlignment="Center" Click="mIShowDifferenceCustomReportXml_Click" />
-            <MenuItem x:Uid="menuContextDifference" Header="ScheduleXml" VerticalAlignment="Center" Click="mIShowDifferenceScheduleXml_Click" />
-            <MenuItem x:Uid="menuContextDifference" Header="Query Info" VerticalAlignment="Center" Click="mIShowDifferenceQueryInfo_Click" />
+            <MenuItem x:Uid="menuContextDifference" Header="Difference Body Text" VerticalAlignment="Center" Click="mIShowDifferenceBodyText_Click"/>
+            <MenuItem x:Uid="menuContextDifference" Header="Difference Original Body Text" VerticalAlignment="Center" Click="mIShowDifferenceOriginalBodyText_Click"/>
+            <MenuItem x:Uid="menuContextDifference" Header="Difference Default Filter" VerticalAlignment="Center" Click="mIShowDifferenceDefaultFilter_Click"/>
+            <MenuItem x:Uid="menuContextDifference" Header="Difference Custom Report Xml" VerticalAlignment="Center" Click="mIShowDifferenceCustomReportXml_Click" />
+            <MenuItem x:Uid="menuContextDifference" Header="Difference ScheduleXml" VerticalAlignment="Center" Click="mIShowDifferenceScheduleXml_Click" />
+            <MenuItem x:Uid="menuContextDifference" Header="Difference Query Info" VerticalAlignment="Center" Click="mIShowDifferenceQueryInfo_Click" />
             <Separator x:Uid="menuContextDifference"/>
             <MenuItem x:Uid="menuContextDifference" Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
             <Separator x:Uid="menuContextDifference"/>
@@ -110,7 +110,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIShowDifferenceBodyText" Header="Body Text" VerticalAlignment="Center" Click="mIShowDifferenceBodyText_Click"/>
                             <MenuItem x:Name="mIShowDifferenceOriginalBodyText" Header="Original Body Text" VerticalAlignment="Center" Click="mIShowDifferenceOriginalBodyText_Click"/>

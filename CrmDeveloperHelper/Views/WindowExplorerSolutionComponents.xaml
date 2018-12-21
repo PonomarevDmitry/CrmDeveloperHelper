@@ -22,7 +22,7 @@
             <Separator x:Uid="contMnAddEntityIntoSolution" />
             <MenuItem x:Uid="contMnAddEntityIntoSolution" Header="Linked Entity">
                 <MenuItem Header="Open Linked Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-                <Separator />
+                <Separator/>
                 <MenuItem Header="Open Linked Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
                 <Separator/>
                 <MenuItem x:Uid="contMnAddEntityIntoCurrentSolution" Header="Add Entity into Current Solution" VerticalAlignment="Center" Click="mIAddEntityIntoCurrentCrmSolution_Click" />
@@ -46,9 +46,9 @@
             </MenuItem>
             <Separator/>
             <MenuItem Header="Open Solution in Web" VerticalAlignment="Center" Click="OpenSolutionInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Open Organization DifferenceImage Window" Click="mIOpenOrganizationDifferenceImage_Click" />
         </ContextMenu>
     </src:WindowBase.Resources>
@@ -57,7 +57,7 @@
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem Header="Open Solution Component Windows" VerticalAlignment="Center">
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click" />
-                    <Separator />
+                    <Separator/>
                     <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
                     <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
                     <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
@@ -65,20 +65,22 @@
                     <Separator/>
                     <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
                     <Separator/>
+                    <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
+                    <Separator/>
                     <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
-                    <Separator />
+                    <Separator/>
                     <MenuItem Header="Forms" Click="btnSystemForms_Click" />
                     <MenuItem Header="Views" Click="btnSavedQuery_Click" />
                     <MenuItem Header="Charts" Click="btnSavedChart_Click" />
-                    <Separator />
+                    <Separator/>
                     <MenuItem Header="Workflows" Click="btnWorkflows_Click" />
-                    <Separator />
+                    <Separator/>
                     <MenuItem Header="SiteMap" Click="btnSiteMap_Click"/>
-                    <Separator />
+                    <Separator/>
                     <MenuItem Header="WebResources" Click="btnWebResources_Click"/>
-                    <Separator />
+                    <Separator/>
                     <MenuItem Header="Report" Click="btnExportReport_Click"/>
-                    <Separator />
+                    <Separator/>
                     <MenuItem Header="Pluing Type" Click="btnPluginType_Click"/>
                     <MenuItem Header="Pluing Assembly" Click="btnPluginAssembly_Click"/>
                 </MenuItem>
@@ -170,9 +172,9 @@
                             <Separator/>
                             <MenuItem x:Name="mIMissingComponentsIn" Header="Missing Components" VerticalAlignment="Center" Click="mIMissingComponentsIn_Click" />
                             <MenuItem x:Name="mIUninstallComponentsIn" Header="Uninstall Components" VerticalAlignment="Center" Click="mIUninstallComponentsIn_Click" />
-                            <Separator />
+                            <Separator/>
                             <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
-                            <Separator />
+                            <Separator/>
                             <MenuItem Header="Open Organization DifferenceImage Window" Click="mIOpenOrganizationDifferenceImage_Click" />
                         </MenuItem>
                     </Menu>

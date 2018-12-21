@@ -7,34 +7,34 @@
     <UserControl.Resources>
         <ContextMenu x:Key="listContextMenuEntity">
             <MenuItem Header="Open Fetch Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Open Fetch Entity Metadata Window" Click="mIOpenEntityMetadataWindow_Click"/>
-            <Separator />
+            <Separator/>
             <MenuItem Header="Copy Fetch Entity Id" Click="mICopyEntityId_Click"/>
             <MenuItem Header="Copy Fetch Entity Name" Click="mICopyEntityName_Click"/>
             <MenuItem Header="Copy Fetch Entity Url" Click="mICopyEntityUrl_Click"/>
-            <Separator />
+            <Separator/>
             <MenuItem Header="Create Fetch Entity Description" Click="mICreateEntityDescription_Click"/>
         </ContextMenu>
         <ContextMenu x:Key="listContextMenuEntityReference">
             <MenuItem Header="Open Fetch Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Open Fetch Entity Metadata Window" Click="mIOpenEntityMetadataWindow_Click"/>
-            <Separator />
+            <Separator/>
             <MenuItem Header="Open EntityReference Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityReferenceCustomizationInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Open EntityReference Metadata Window" Click="mIOpenEntityReferenceMetadataWindow_Click"/>
-            <Separator />
+            <Separator/>
             <MenuItem Header="Copy Fetch Entity Id" Click="mICopyEntityId_Click"/>
             <MenuItem Header="Copy Fetch Entity Name" Click="mICopyEntityName_Click"/>
             <MenuItem Header="Copy Fetch Entity Url" Click="mICopyEntityUrl_Click"/>
-            <Separator />
+            <Separator/>
             <MenuItem Header="Create Fetch Entity Description" Click="mICreateEntityDescription_Click"/>
-            <Separator />
+            <Separator/>
             <MenuItem Header="Copy EntityReference Id" Click="mICopyEntityReferenceId_Click"/>
             <MenuItem Header="Copy EntityReference Name" Click="mICopyEntityReferenceName_Click"/>
             <MenuItem Header="Copy EntityReference Url" Click="mICopyEntityReferenceUrl_Click"/>
-            <Separator />
+            <Separator/>
             <MenuItem Header="Create EntityReference Description" Click="mICreateEntityReferenceDescription_Click"/>
         </ContextMenu>
     </UserControl.Resources>
@@ -67,7 +67,7 @@
                         <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true">
                             <ToolBar VerticalAlignment="Top" Height="30" DockPanel.Dock="Top">
                                 <Button x:Name="btnExecuteFetchXml" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click"/>
-                                <Separator />
+                                <Separator/>
                                 <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
                             </ToolBar>
                             <TextBox x:Name="txtBFetchXml" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
@@ -82,7 +82,7 @@
                 <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true">
                     <ToolBar VerticalAlignment="Top" Height="30" DockPanel.Dock="Top">
                         <Button x:Name="btnExecuteFetchXml2" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click"/>
-                        <Separator />
+                        <Separator/>
                         <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
                     </ToolBar>
                     <DataGrid x:Name="dGrResults" Margin="5" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="Cell" MouseDoubleClick="dGrResults_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">

@@ -8,17 +8,17 @@
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open SystemForm in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
-            <Separator />
+            <Separator/>
             <MenuItem Header="Form Description" VerticalAlignment="Center" Click="mIExportSystemFormDescription_Click" />
             <Separator/>
             <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
-            <Separator />
+            <Separator/>
             <MenuItem x:Uid="contMnEntity" Header="Create EntityMetadata JavaScript File based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFile_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
             <Separator/>
@@ -55,6 +55,8 @@
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                 <Separator/>
                 <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                <Separator/>
+                <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
                 <Separator/>
                 <MenuItem Header="Views" Click="btnSavedQuery_Click"/>
                 <MenuItem Header="Charts" Click="btnSavedChart_Click"/>
@@ -139,13 +141,13 @@
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSystemForm" Header="Export Form Information" VerticalAlignment="Center" SubmenuOpened="tSDDBExportSystemForm_SubmenuOpened">
                             <MenuItem Header="Open SystemForm in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
-                            <Separator />
+                            <Separator/>
                             <MenuItem Header="Form Description" VerticalAlignment="Center" Click="mIExportSystemFormDescription_Click" />
                             <Separator/>
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
-                            <Separator />
+                            <Separator/>
                             <MenuItem Header="Create Entity JavaScript File based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFile_Click" />
-                            <Separator />
+                            <Separator/>
                             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
                             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
                             <Separator/>
@@ -177,6 +179,8 @@
                                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                                 <Separator/>
                                 <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                                <Separator/>
+                                <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
                                 <Separator/>
                                 <MenuItem Header="Views" Click="btnSavedQuery_Click"/>
                                 <MenuItem Header="Charts" Click="btnSavedChart_Click"/>

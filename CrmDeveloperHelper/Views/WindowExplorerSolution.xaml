@@ -47,15 +47,15 @@
                             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
                                 <MenuItem Header="Solution Actions" VerticalAlignment="Center" Padding="3" Margin="6,2">
                                     <MenuItem Header="Create New Solution" Click="miCreateNewSolution_Click" />
-                                    <Separator />
+                                    <Separator/>
                                     <MenuItem Header="Open Solution List in Web" Click="mIOpenSolutionListInWeb_Click" />
-                                    <Separator />
+                                    <Separator/>
                                     <MenuItem Header="Open Customization in Web" Click="mIOpenCustomizationInWeb_Click" />
-                                    <Separator />
+                                    <Separator/>
                                     <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
-                                    <Separator />
+                                    <Separator/>
                                     <MenuItem Header="Open Organization DifferenceImage Window" Click="mIOpenOrganizationDifferenceImage_Click" />
-                                    <Separator />
+                                    <Separator/>
                                     <MenuItem Header="Create SolutionImage from Zip-file" Click="mICreateSolutionImageFromZipFile_Click" />
                                 </MenuItem>
                             </Menu>

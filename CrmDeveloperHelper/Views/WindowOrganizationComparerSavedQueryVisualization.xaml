@@ -11,9 +11,9 @@
         <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-            <MenuItem x:Uid="menuContextDifference" Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
-            <MenuItem x:Uid="menuContextDifference" Header="Data Description" Click="mIShowDifferenceDataDescription_Click"/>
-            <MenuItem x:Uid="menuContextDifference" Header="Presentation Description" Click="mIShowDifferencePresentationDescription_Click"/>
+            <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+            <MenuItem x:Uid="menuContextDifference" Header="Difference Data Description" Click="mIShowDifferenceDataDescription_Click"/>
+            <MenuItem x:Uid="menuContextDifference" Header="Difference Presentation Description" Click="mIShowDifferencePresentationDescription_Click"/>
             <Separator x:Uid="menuContextDifference"/>
             <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
@@ -45,6 +45,8 @@
                 <Separator/>
                 <MenuItem Header="Entity SecurityRoles Explorer" Click="btnEntitySecurityRolesExplorer1_Click"/>
                 <Separator/>
+                <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer1_Click"/>
+                <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets1_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnSystemForms1_Click"/>
@@ -74,6 +76,8 @@
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer2_Click"/>
                 <Separator/>
                 <MenuItem Header="Entity SecurityRoles Explorer" Click="btnEntitySecurityRolesExplorer2_Click"/>
+                <Separator/>
+                <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer2_Click"/>
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets2_Click"/>
                 <Separator/>
@@ -154,7 +158,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Create Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                             <Separator/>
                             <MenuItem x:Name="mIShowDifferenceDataDescription" Header="Data Description" Click="mIShowDifferenceDataDescription_Click"/>
                             <MenuItem x:Name="mIShowDifferencePresentationDescription" Header="Presentation Description" Click="mIShowDifferencePresentationDescription_Click"/>

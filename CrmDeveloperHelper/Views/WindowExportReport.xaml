@@ -10,11 +10,11 @@
             <MenuItem Header="Open Report in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
             <Separator/>
             <MenuItem Header="Open Report List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
             <Separator/>
             <MenuItem Header="Create New Report" VerticalAlignment="Center" Click="mICreateNewReport_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
             <Separator/>

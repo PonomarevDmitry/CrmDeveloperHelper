@@ -8,14 +8,14 @@
             <MenuItem Header="Select Entity" VerticalAlignment="Center" Click="btnSelectEntity_Click"/>
             <Separator/>
             <MenuItem Header="Open Entity in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy Entity Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
                 <MenuItem Header="Copy Entity Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
-            <Separator />
+            <Separator/>
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceCustomizationInWeb_Click" />
         </ContextMenu>
     </src:WindowBase.Resources>

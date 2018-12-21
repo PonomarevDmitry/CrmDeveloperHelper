@@ -12,11 +12,11 @@
             <MenuItem Header="Open Workflow List in Web" VerticalAlignment="Center" Click="mIOpenListInWeb_Click" />
             <Separator/>
             <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
-            <Separator />
+            <Separator/>
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
-            <Separator />
+            <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center"  />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
             <Separator/>
@@ -62,6 +62,8 @@
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                 <Separator/>
                 <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                <Separator/>
+                <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
                 <MenuItem Header="Views" Click="btnSavedQuery_Click"/>
@@ -153,11 +155,11 @@
                             <MenuItem Header="Open Workflow in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
                             <Separator/>
                             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-                            <Separator />
+                            <Separator/>
                             <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
-                            <Separator />
+                            <Separator/>
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
-                            <Separator />
+                            <Separator/>
                             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center"  />
                             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
                             <Separator/>
@@ -196,6 +198,8 @@
                                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                                 <Separator/>
                                 <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                                <Separator/>
+                                <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
                                 <Separator/>
                                 <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
                                 <MenuItem Header="Views" Click="btnSavedQuery_Click"/>
