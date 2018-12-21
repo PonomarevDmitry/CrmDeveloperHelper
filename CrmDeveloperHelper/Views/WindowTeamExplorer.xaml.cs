@@ -1539,32 +1539,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repository = new RoleRepository(service);
 
-            Func<string, Task<IEnumerable<Entity>>> getter = null;
+            Func<string, Task<IEnumerable<Role>>> getter = null;
 
             if (teamList.Count() == 1)
             {
                 var team = teamList.First();
 
-                getter = (string filter) => Task.Run(async () => await repository.GetAvailableRolesForTeamAsync(filter, team.Id, new ColumnSet(
+                getter = (string filter) => repository.GetAvailableRolesForTeamAsync(filter, team.Id, new ColumnSet(
                                  Role.Schema.Attributes.name
                                  , Role.Schema.Attributes.businessunitid
                                  , Role.Schema.Attributes.ismanaged
                                  , Role.Schema.Attributes.iscustomizable
-                                 )) as IEnumerable<Entity>);
+                                 ));
             }
             else
             {
-                getter = (string filter) => Task.Run(async () => await repository.GetListAsync(filter, new ColumnSet(
+                getter = (string filter) => repository.GetListAsync(filter, new ColumnSet(
                                  Role.Schema.Attributes.name
                                  , Role.Schema.Attributes.businessunitid
                                  , Role.Schema.Attributes.ismanaged
                                  , Role.Schema.Attributes.iscustomizable
-                                 )) as IEnumerable<Entity>);
+                                 ));
             }
 
             IEnumerable<DataGridColumn> columns = Helpers.SolutionComponentDescription.Implementation.RoleDescriptionBuilder.GetDataGridColumn();
 
-            var form = new WindowEntitySelect(_iWriteToOutput, service.ConnectionData, Role.EntityLogicalName, getter, columns);
+            var form = new WindowEntitySelect<Role>(_iWriteToOutput, service.ConnectionData, Role.EntityLogicalName, getter, columns);
 
             if (!form.ShowDialog().GetValueOrDefault())
             {
@@ -1676,32 +1676,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repository = new SystemUserRepository(service);
 
-            Func<string, Task<IEnumerable<Entity>>> getter = null;
+            Func<string, Task<IEnumerable<SystemUser>>> getter = null;
 
             if (teamList.Count() == 1)
             {
                 var team = teamList.First();
 
-                getter = (string filter) => Task.Run(async () => await repository.GetAvailableUsersForTeamAsync(filter, team.Id, new ColumnSet(
+                getter = (string filter) => repository.GetAvailableUsersForTeamAsync(filter, team.Id, new ColumnSet(
                                 SystemUser.Schema.Attributes.domainname
                                 , SystemUser.Schema.Attributes.fullname
                                 , SystemUser.Schema.Attributes.businessunitid
                                 , SystemUser.Schema.Attributes.isdisabled
-                                )) as IEnumerable<Entity>);
+                                ));
             }
             else
             {
-                getter = (string filter) => Task.Run(async () => await repository.GetActiveUsersAsync(filter, new ColumnSet(
+                getter = (string filter) => repository.GetActiveUsersAsync(filter, new ColumnSet(
                                 SystemUser.Schema.Attributes.domainname
                                 , SystemUser.Schema.Attributes.fullname
                                 , SystemUser.Schema.Attributes.businessunitid
                                 , SystemUser.Schema.Attributes.isdisabled
-                                )) as IEnumerable<Entity>);
+                                ));
             }
 
             IEnumerable<DataGridColumn> columns = SystemUserRepository.GetDataGridColumn();
 
-            var form = new WindowEntitySelect(_iWriteToOutput, service.ConnectionData, SystemUser.EntityLogicalName, getter, columns);
+            var form = new WindowEntitySelect<SystemUser>(_iWriteToOutput, service.ConnectionData, SystemUser.EntityLogicalName, getter, columns);
 
             if (!form.ShowDialog().GetValueOrDefault())
             {

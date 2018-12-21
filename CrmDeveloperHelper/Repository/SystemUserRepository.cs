@@ -616,12 +616,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             };
         }
 
-        public Task<List<SystemUser>> GetActiveUsersAsync(string filter, ColumnSet columnSet)
+        public Task<IEnumerable<SystemUser>> GetActiveUsersAsync(string filter, ColumnSet columnSet)
         {
             return Task.Run(() => GetActiveUsers(filter, columnSet));
         }
 
-        private List<SystemUser> GetActiveUsers(string filter, ColumnSet columnSet)
+        private IEnumerable<SystemUser> GetActiveUsers(string filter, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {

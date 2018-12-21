@@ -13,27 +13,20 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowEntitySelect : WindowBase
+    public abstract partial class WindowEntitySelect : WindowBase
     {
-        private IWriteToOutput _iWriteToOutput;
+        protected IWriteToOutput _iWriteToOutput;
 
-        private bool _controlsEnabled = true;
+        protected bool _controlsEnabled = true;
 
-        private ObservableCollection<Entity> _itemsSource;
+        protected readonly string _entityName;
 
-        private Func<string, Task<IEnumerable<Entity>>> _listGetter;
-
-        private readonly string _entityName;
-
-        private readonly ConnectionData _connectionData;
-
-        public Entity SelectedEntity { get; private set; }
+        protected readonly ConnectionData _connectionData;
 
         public WindowEntitySelect(
             IWriteToOutput outputWindow
             , ConnectionData connectionData
             , string entityName
-            , Func<string, Task<IEnumerable<Entity>>> listGetter
             , IEnumerable<DataGridColumn> columns
         )
         {
@@ -44,7 +37,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Name = string.Format("WindowEntitySelect_{0}", entityName);
             lstVwEntities.Name = string.Format("lstVwEntities{0}", entityName);
 
-            this._listGetter = listGetter;
             this._entityName = entityName;
             this._connectionData = connectionData;
             this._iWriteToOutput = outputWindow;
@@ -56,68 +48,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.tSSLblConnectionName.Content = this._connectionData.Name;
 
-            this._itemsSource = new ObservableCollection<Entity>();
-
-            this.lstVwEntities.ItemsSource = _itemsSource;
-
             txtBFilterEnitity.SelectionStart = txtBFilterEnitity.Text.Length;
             txtBFilterEnitity.SelectionLength = 0;
             txtBFilterEnitity.Focus();
-
-            ShowExistingEntities();
         }
 
-        private async Task ShowExistingEntities()
-        {
-            if (!_controlsEnabled)
-            {
-                return;
-            }
+        protected abstract Task ShowExistingEntities();
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntities);
-
-            this._itemsSource.Clear();
-
-            string filter = string.Empty;
-
-            txtBFilterEnitity.Dispatcher.Invoke(() =>
-            {
-                filter = txtBFilterEnitity.Text.Trim();
-            });
-
-            IEnumerable<Entity> list = Enumerable.Empty<Entity>();
-
-            try
-            {
-                if (_listGetter != null)
-                {
-                    list = await _listGetter(filter);
-                }
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
-
-                list = Enumerable.Empty<Entity>();
-            }
-
-            this.lstVwEntities.Dispatcher.Invoke(() =>
-            {
-                foreach (var entity in list)
-                {
-                    _itemsSource.Add(entity);
-                }
-
-                if (_itemsSource.Count == 1)
-                {
-                    this.lstVwEntities.SelectedItem = this.lstVwEntities.Items[0];
-                }
-            });
-
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat1, list.Count());
-        }
-
-        private void UpdateStatus(string format, params object[] args)
+        protected void UpdateStatus(string format, params object[] args)
         {
             string message = format;
 
@@ -134,7 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
 
@@ -145,7 +83,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private void UpdateButtonsEnable()
+        protected void UpdateButtonsEnable()
         {
             this.lstVwEntities.Dispatcher.Invoke(() =>
             {
@@ -174,12 +112,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private Entity GetSelectedEntity()
-        {
-            return this.lstVwEntities.SelectedItems.OfType<Entity>().Count() == 1
-                ? this.lstVwEntities.SelectedItems.OfType<Entity>().SingleOrDefault() : null;
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -201,36 +133,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private void SelectEntityAction(Entity Entity)
-        {
-            if (!_controlsEnabled)
-            {
-                return;
-            }
+        protected abstract void SelectEntityAction(Entity Entity);
 
-            if (Entity == null)
-            {
-                return;
-            }
-
-            this.SelectedEntity = Entity;
-
-            this.DialogResult = true;
-
-            this.Close();
-        }
-
-        private void btnSelectEntity_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            SelectEntityAction(entity);
-        }
+        protected abstract void btnSelectEntity_Click(object sender, RoutedEventArgs e);
 
         protected override void OnKeyDown(KeyEventArgs e)
         {

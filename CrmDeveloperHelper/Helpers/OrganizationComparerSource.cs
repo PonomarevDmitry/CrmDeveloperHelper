@@ -7,6 +7,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -411,17 +412,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return new SdkMessageProcessingStepImageRepository(service).GetAllImagesAsync();
         }
 
-        public Task<List<Role>> GetRole1Async()
+        public Task<IEnumerable<Role>> GetRole1Async()
         {
             return GetRoleAsync(Service1);
         }
 
-        public Task<List<Role>> GetRole2Async()
+        public Task<IEnumerable<Role>> GetRole2Async()
         {
             return GetRoleAsync(Service2);
         }
 
-        protected virtual Task<List<Role>> GetRoleAsync(IOrganizationServiceExtented service)
+        protected virtual Task<IEnumerable<Role>> GetRoleAsync(IOrganizationServiceExtented service)
         {
             return new RoleRepository(service).GetListAsync(null, new ColumnSet(true));
         }

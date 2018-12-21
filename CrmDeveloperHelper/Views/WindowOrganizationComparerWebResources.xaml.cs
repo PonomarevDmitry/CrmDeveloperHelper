@@ -396,9 +396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
-
-                if (item != null)
+                if (((FrameworkElement)e.OriginalSource).DataContext is EntityViewItem item)
                 {
                     ExecuteAction(item.Link, true, PerformShowingDifferenceContentAsync);
                 }

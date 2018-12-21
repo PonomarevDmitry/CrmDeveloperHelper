@@ -959,6 +959,7 @@
     <Compile Include="Views\WindowEntitySecurityRoleExplorer.xaml.cs">
       <DependentUpon>WindowEntitySecurityRoleExplorer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowEntitySelect.Generic.cs" />
     <Compile Include="Views\WindowEntitySelect.xaml.cs">
       <DependentUpon>WindowEntitySelect.xaml</DependentUpon>
     </Compile>

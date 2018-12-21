@@ -1485,32 +1485,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repository = new SystemUserRepository(service);
 
-            Func<string, Task<IEnumerable<Entity>>> getter = null;
+            Func<string, Task<IEnumerable<SystemUser>>> getter = null;
 
             if (roleList.Count == 1)
             {
                 var role = roleList.First();
 
-                getter = (string filter) => Task.Run(async () => await repository.GetAvailableUsersForRoleAsync(filter, role.Id, new ColumnSet(
+                getter = (string filter) => repository.GetAvailableUsersForRoleAsync(filter, role.Id, new ColumnSet(
                                 SystemUser.Schema.Attributes.domainname
                                 , SystemUser.Schema.Attributes.fullname
                                 , SystemUser.Schema.Attributes.businessunitid
                                 , SystemUser.Schema.Attributes.isdisabled
-                                )) as IEnumerable<Entity>);
+                                ));
             }
             else
             {
-                getter = (string filter) => Task.Run(async () => await repository.GetActiveUsersAsync(filter, new ColumnSet(
+                getter = (string filter) => repository.GetActiveUsersAsync(filter, new ColumnSet(
                                 SystemUser.Schema.Attributes.domainname
                                 , SystemUser.Schema.Attributes.fullname
                                 , SystemUser.Schema.Attributes.businessunitid
                                 , SystemUser.Schema.Attributes.isdisabled
-                                )) as IEnumerable<Entity>);
+                                ));
             }
 
             IEnumerable<DataGridColumn> columns = SystemUserRepository.GetDataGridColumn();
 
-            var form = new WindowEntitySelect(_iWriteToOutput, service.ConnectionData, SystemUser.EntityLogicalName, getter, columns);
+            var form = new WindowEntitySelect<SystemUser>(_iWriteToOutput, service.ConnectionData, SystemUser.EntityLogicalName, getter, columns);
 
             if (!form.ShowDialog().GetValueOrDefault())
             {
@@ -1616,30 +1616,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repository = new TeamRepository(service);
 
-            Func<string, Task<IEnumerable<Entity>>> getter = null;
+            Func<string, Task<IEnumerable<Team>>> getter = null;
 
             if (roleList.Count == 1)
             {
                 var role = roleList.First();
 
-                getter = (string filter) => Task.Run(async () => await repository.GetAvailableTeamsForRoleAsync(filter, role.Id, new ColumnSet(
+                getter = (string filter) => repository.GetAvailableTeamsForRoleAsync(filter, role.Id, new ColumnSet(
                                 Team.Schema.Attributes.name
                                 , Team.Schema.Attributes.businessunitid
                                 , Team.Schema.Attributes.isdefault
-                                )) as IEnumerable<Entity>);
+                                ));
             }
             else
             {
-                getter = (string filter) => Task.Run(async () => await repository.GetOwnerTeamsAsync(filter, new ColumnSet(
+                getter = (string filter) => repository.GetOwnerTeamsAsync(filter, new ColumnSet(
                                 Team.Schema.Attributes.name
                                 , Team.Schema.Attributes.businessunitid
                                 , Team.Schema.Attributes.isdefault
-                                )) as IEnumerable<Entity>);
+                                ));
             }
 
             IEnumerable<DataGridColumn> columns = TeamRepository.GetDataGridColumnOwner();
 
-            var form = new WindowEntitySelect(_iWriteToOutput, service.ConnectionData, Team.EntityLogicalName, getter, columns);
+            var form = new WindowEntitySelect<Team>(_iWriteToOutput, service.ConnectionData, Team.EntityLogicalName, getter, columns);
 
             if (!form.ShowDialog().GetValueOrDefault())
             {

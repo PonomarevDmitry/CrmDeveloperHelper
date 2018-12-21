@@ -64,8 +64,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         Task<List<SdkMessageProcessingStepImage>> GetSdkMessageProcessingStepImage1Async();
         Task<List<SdkMessageProcessingStepImage>> GetSdkMessageProcessingStepImage2Async();
 
-        Task<List<Role>> GetRole1Async();
-        Task<List<Role>> GetRole2Async();
+        Task<IEnumerable<Role>> GetRole1Async();
+        Task<IEnumerable<Role>> GetRole2Async();
 
         Task<List<FieldSecurityProfile>> GetFieldSecurityProfile1Async();
         Task<List<FieldSecurityProfile>> GetFieldSecurityProfile2Async();

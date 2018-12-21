@@ -23,19 +23,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._solutionImage = solutionImage;
         }
 
-        protected override Task<List<Role>> GetRoleAsync(IOrganizationServiceExtented service)
+        protected override Task<IEnumerable<Role>> GetRoleAsync(IOrganizationServiceExtented service)
         {
             var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.Role);
 
             if (!imageComponents.Any())
             {
-                return Task.FromResult(new List<Role>());
+                return Task.FromResult(Enumerable.Empty<Role>());
             }
 
             return Task.Run(async () => await GetRoles(service, imageComponents));
         }
 
-        private async Task<List<Role>> GetRoles(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> roles)
+        private async Task<IEnumerable<Role>> GetRoles(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> roles)
         {
             var descriptor = new SolutionComponentDescriptor(service, false);
 

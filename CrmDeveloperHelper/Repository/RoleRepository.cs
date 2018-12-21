@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<Role>> GetListAsync(string filterRole, ColumnSet columnSet)
+        public Task<IEnumerable<Role>> GetListAsync(string filterRole, ColumnSet columnSet)
         {
             return Task.Run(() => GetList(filterRole, columnSet));
         }
@@ -35,7 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private List<Role> GetList(string filterRole, ColumnSet columnSet)
+        private IEnumerable<Role> GetList(string filterRole, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {

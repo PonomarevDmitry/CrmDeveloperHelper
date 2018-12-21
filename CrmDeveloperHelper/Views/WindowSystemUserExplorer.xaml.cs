@@ -1700,32 +1700,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repository = new RoleRepository(service);
 
-            Func<string, Task<IEnumerable<Entity>>> getter = null;
+            Func<string, Task<IEnumerable<Role>>> getter = null;
 
             if (userList.Count() == 1)
             {
                 var user = userList.First();
 
-                getter = (string filter) => Task.Run(async () => await repository.GetAvailableRolesForUserAsync(filter, user.Id, new ColumnSet(
+                getter = (string filter) => repository.GetAvailableRolesForUserAsync(filter, user.Id, new ColumnSet(
                                  Role.Schema.Attributes.name
                                  , Role.Schema.Attributes.businessunitid
                                  , Role.Schema.Attributes.ismanaged
                                  , Role.Schema.Attributes.iscustomizable
-                                 )) as IEnumerable<Entity>);
+                                 ));
             }
             else
             {
-                getter = (string filter) => Task.Run(async () => await repository.GetListAsync(filter, new ColumnSet(
+                getter = (string filter) => repository.GetListAsync(filter, new ColumnSet(
                                  Role.Schema.Attributes.name
                                  , Role.Schema.Attributes.businessunitid
                                  , Role.Schema.Attributes.ismanaged
                                  , Role.Schema.Attributes.iscustomizable
-                                 )) as IEnumerable<Entity>);
+                                 ));
             }
 
             IEnumerable<DataGridColumn> columns = Helpers.SolutionComponentDescription.Implementation.RoleDescriptionBuilder.GetDataGridColumn();
 
-            var form = new WindowEntitySelect(_iWriteToOutput, service.ConnectionData, Role.EntityLogicalName, getter, columns);
+            var form = new WindowEntitySelect<Role>(_iWriteToOutput, service.ConnectionData, Role.EntityLogicalName, getter, columns);
 
             if (!form.ShowDialog().GetValueOrDefault())
             {
@@ -1829,30 +1829,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repository = new TeamRepository(service);
 
-            Func<string, Task<IEnumerable<Entity>>> getter = null;
+            Func<string, Task<IEnumerable<Team>>> getter = null;
 
             if (userList.Count == 1)
             {
                 var user = userList.First();
 
-                getter = (string filter) => Task.Run(async () => await repository.GetAvailableTeamsForUserAsync(filter, user.Id, new ColumnSet(
+                getter = (string filter) => repository.GetAvailableTeamsForUserAsync(filter, user.Id, new ColumnSet(
                                 Team.Schema.Attributes.name
                                 , Team.Schema.Attributes.businessunitid
                                 , Team.Schema.Attributes.isdefault
-                                )) as IEnumerable<Entity>);
+                                ));
             }
             else
             {
-                getter = (string filter) => Task.Run(async () => await repository.GetNotDefaultTeamsAsync(filter, new ColumnSet(
+                getter = (string filter) => repository.GetNotDefaultTeamsAsync(filter, new ColumnSet(
                                 Team.Schema.Attributes.name
                                 , Team.Schema.Attributes.businessunitid
                                 , Team.Schema.Attributes.isdefault
-                                )) as IEnumerable<Entity>);
+                                ));
             }
 
             IEnumerable<DataGridColumn> columns = TeamRepository.GetDataGridColumn();
 
-            var form = new WindowEntitySelect(_iWriteToOutput, service.ConnectionData, Team.EntityLogicalName, getter, columns);
+            var form = new WindowEntitySelect<Team>(_iWriteToOutput, service.ConnectionData, Team.EntityLogicalName, getter, columns);
 
             if (!form.ShowDialog().GetValueOrDefault())
             {
