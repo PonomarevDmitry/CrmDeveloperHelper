@@ -56,7 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-                WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, commonConfig, selection, null, null);
+                WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, commonConfig, null, selection, null);
             }
             catch (Exception xE)
             {
@@ -411,7 +411,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     var tempService = await QuickConnection.ConnectAsync(connectionData);
 
-                    WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, tempService, commonConfig, selection, null, filePath);
+                    WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, tempService, commonConfig, null, selection, filePath);
                 }
             }
         }

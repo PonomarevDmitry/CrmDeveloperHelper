@@ -1016,7 +1016,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 {
                     var commonConfig = CommonConfiguration.Get();
 
-                    Views.WindowHelper.OpenEntityMetadataWindow(DTEHelper.Singleton, service, commonConfig, entity.LogicalName, null, null);
+                    Views.WindowHelper.OpenEntityMetadataWindow(DTEHelper.Singleton, service, commonConfig, null, entity.LogicalName, null);
                 }
             }
         }
@@ -1139,7 +1139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 {
                     var commonConfig = CommonConfiguration.Get();
 
-                    Views.WindowHelper.OpenEntityMetadataWindow(DTEHelper.Singleton, service, commonConfig, entityName, null, null);
+                    Views.WindowHelper.OpenEntityMetadataWindow(DTEHelper.Singleton, service, commonConfig, null, entityName, null);
                 }
             }
         }

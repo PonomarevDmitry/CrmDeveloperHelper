@@ -1012,7 +1012,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, null);
+            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
         }
 
         private async void btnCompareSavedQuery_Click(object sender, RoutedEventArgs e)
@@ -1022,7 +1022,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, null);
+            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
         }
 
         private async void btnCompareSavedChart_Click(object sender, RoutedEventArgs e)
@@ -1032,7 +1032,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, null);
+            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
         }
 
         private async void btnCompareWorkflows_Click(object sender, RoutedEventArgs e)
@@ -1042,7 +1042,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, null);
+            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
         }
 
         private async void btnEntityAttributeExplorer1_Click(object sender, RoutedEventArgs e)
@@ -1173,6 +1173,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnGlobalOptionSets1_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             var service = await GetService1();
 
             _commonConfig.Save();
@@ -1190,7 +1192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , optionSets
                 , string.Empty
-                , string.Empty
+                , entity?.Name ?? txtBFilter.Text
                 );
         }
 
@@ -1277,6 +1279,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnGlobalOptionSets2_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             var service = await GetService2();
 
             _commonConfig.Save();
@@ -1294,7 +1298,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , optionSets
                 , string.Empty
-                , string.Empty
+                , entity?.Name ?? txtBFilter.Text
                 );
         }
 

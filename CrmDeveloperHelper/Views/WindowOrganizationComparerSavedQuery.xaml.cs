@@ -53,6 +53,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , ConnectionData connection1
             , ConnectionData connection2
             , string filterEntity
+            , string filter
         )
         {
             _init++;
@@ -92,6 +93,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             LoadFromConfig();
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                txtBFilterEnitity.Text = filter;
+            }
 
             txtBFilterEnitity.SelectionLength = 0;
             txtBFilterEnitity.SelectionStart = txtBFilterEnitity.Text.Length;
@@ -1054,7 +1060,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.EntityName);
+            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
         }
 
         private async void btnCompareSystemForms_Click(object sender, RoutedEventArgs e)
@@ -1229,7 +1235,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, null, null);
+            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, null, entity?.EntityName, null);
         }
 
         private async void btnExportApplicationRibbon1_Click(object sender, RoutedEventArgs e)
@@ -1276,7 +1282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, string.Empty);
+            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, entity?.QueryName1 ?? txtBFilterEnitity.Text);
         }
 
         private async void btnSavedChart1_Click(object sender, RoutedEventArgs e)
@@ -1342,7 +1348,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, null, null);
+            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, null, entity?.EntityName, null);
         }
 
         private async void btnExportApplicationRibbon2_Click(object sender, RoutedEventArgs e)
@@ -1391,7 +1397,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, string.Empty);
+            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, entity?.QueryName2 ?? txtBFilterEnitity.Text);
         }
 
         private async void btnSavedChart2_Click(object sender, RoutedEventArgs e)

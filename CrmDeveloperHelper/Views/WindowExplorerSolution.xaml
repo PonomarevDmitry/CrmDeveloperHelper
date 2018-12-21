@@ -16,6 +16,38 @@
     <Grid>
         <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
             <Button Content="Export Solution Options" Click="miExportSolutionOptions_Click"/>
+            <Separator/>
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                <MenuItem Header="Open Solution Component Windows" VerticalAlignment="Center">
+                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click" />
+                    <Separator/>
+                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnSystemForms_Click" />
+                    <MenuItem Header="Views" Click="btnSavedQuery_Click" />
+                    <MenuItem Header="Charts" Click="btnSavedChart_Click" />
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnWorkflows_Click" />
+                    <Separator/>
+                    <MenuItem Header="SiteMap" Click="btnSiteMap_Click"/>
+                    <Separator/>
+                    <MenuItem Header="WebResources" Click="btnWebResources_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Report" Click="btnExportReport_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Pluing Type" Click="btnPluginType_Click"/>
+                    <MenuItem Header="Pluing Assembly" Click="btnPluginAssembly_Click"/>
+                </MenuItem>
+            </Menu>
         </ToolBar>
 
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>

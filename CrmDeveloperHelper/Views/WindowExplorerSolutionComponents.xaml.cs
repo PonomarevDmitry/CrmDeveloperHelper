@@ -1224,8 +1224,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnEntityRelationshipManyToManyExplorer_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             _commonConfig.Save();
 
             WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, _service, _commonConfig, null);

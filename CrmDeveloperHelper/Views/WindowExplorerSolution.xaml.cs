@@ -2245,5 +2245,196 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this.Focus();
             }
         }
+
+        #region Кнопки открытия других форм с информация о сущности.
+
+        private async void btnCreateMetadataFile_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, null, null, null);
+        }
+
+        private async void btnEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, null);
+        }
+
+        private async void btnEntityRelationshipOneToManyExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, _commonConfig, null);
+        }
+
+        private async void btnEntityRelationshipManyToManyExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, null);
+        }
+
+        private async void btnEntityKeyExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, null);
+        }
+
+        private async void miEntitySecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, null);
+        }
+
+        private async void miSecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, null);
+        }
+
+        private async void btnGlobalOptionSets_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenGlobalOptionSetsWindow(
+                this._iWriteToOutput
+                , service
+                , _commonConfig
+                , null
+                , string.Empty
+                , string.Empty
+                );
+        }
+
+        private async void btnSystemForms_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+        }
+
+        private async void btnSavedQuery_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+        }
+
+        private async void btnSavedChart_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+        }
+
+        private async void btnWorkflows_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+        }
+
+        private async void btnPluginTree_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty, string.Empty);
+        }
+
+        private async void btnMessageTree_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+        }
+
+        private async void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+        }
+
+        private async void btnSiteMap_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenExportSiteMapWindow(this._iWriteToOutput, service, _commonConfig);
+        }
+
+        private async void btnWebResources_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenExportWebResourcesWindow(this._iWriteToOutput, service, _commonConfig, string.Empty);
+        }
+
+        private async void btnExportReport_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenExportReportWindow(this._iWriteToOutput, service, _commonConfig, string.Empty);
+        }
+
+        private async void btnPluginAssembly_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenPluginAssemblyWindow(this._iWriteToOutput, service, _commonConfig, null);
+        }
+
+        private async void btnPluginType_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenPluginTypeWindow(this._iWriteToOutput, service, _commonConfig, null);
+        }
+
+        #endregion Кнопки открытия других форм с информация о сущности.
     }
 }

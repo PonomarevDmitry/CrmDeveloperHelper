@@ -966,6 +966,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCompareWebResources_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             _commonConfig.Save();
 
             var service = await GetService();
@@ -975,6 +977,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , service.ConnectionData
                 , service.ConnectionData
+                , entity?.WebResource?.Name ?? txtBFilter.Text
             );
         }
 

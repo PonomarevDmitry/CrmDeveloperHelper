@@ -14,9 +14,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string entityName
             , IEnumerable<EntityMetadata> entityMetadataList
-            , string filePath
+            , string filterEntityName = null
+            , string filePath = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput
                         , service
                         , commonConfig
-                        , entityName
+                        , filterEntityName
                         , entityMetadataList
                         , null
                         );
@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string entityName
+            , string filterEntityName = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput
                         , service
                         , commonConfig
-                        , entityName
+                        , filterEntityName
                         );
 
                     form.ShowDialog();
@@ -80,7 +80,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string entityName
+            , string filterEntityName = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -91,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput
                         , service
                         , commonConfig
-                        , entityName
+                        , filterEntityName
                         );
 
                     form.ShowDialog();
@@ -111,7 +111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string entityName
+            , string filterEntityName = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -122,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput
                         , service
                         , commonConfig
-                        , entityName
+                        , filterEntityName
                         );
 
                     form.ShowDialog();
@@ -142,7 +142,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string entityName
+            , string filterEntityName = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -153,7 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput
                         , service
                         , commonConfig
-                        , entityName
+                        , filterEntityName
                         );
 
                     form.ShowDialog();
@@ -174,7 +174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , IEnumerable<EntityMetadata> entityMetadataList
-            , string entityName
+            , string filterEntityName = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -186,7 +186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , service
                         , commonConfig
                         , entityMetadataList
-                        , entityName
+                        , filterEntityName
                         );
 
                     form.ShowDialog();
@@ -206,7 +206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            )
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -235,8 +235,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string filterEntityName
-            , string selection
+            , string filterEntityName = null
+            , string selection = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -268,8 +268,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string filterEntityName
-            , string selection
+            , string filterEntityName = null
+            , string selection = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -301,8 +301,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string filterEntityName
-            , string selection
+            , string filterEntityName = null
+            , string selection = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -334,8 +334,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string filterEntityName
-            , string selection
+            , string filterEntityName = null
+            , string selection = null
             )
         {
 
@@ -398,9 +398,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string entityFilter
-            , string pluginTypeFilter
-            , string messageFilter
+            , string entityFilter = null
+            , string pluginTypeFilter = null
+            , string messageFilter = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -433,8 +433,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string entityFilter
-            , string messageFilter
+            , string entityFilter = null
+            , string messageFilter = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -466,8 +466,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string entityFilter
-            , string messageFilter
+            , string entityFilter = null
+            , string messageFilter = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -500,7 +500,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , IEnumerable<EntityMetadata> entityMetadataList
-            , string filter
+            , string filter = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -533,7 +533,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , IEnumerable<EntityMetadata> entityMetadataList
-            , string filter
+            , string filter = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -566,7 +566,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , IEnumerable<EntityMetadata> entityMetadataList
-            , string filter
+            , string filter = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -601,7 +601,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , int componentType
             , Guid objectId
-            , string selection
+            , string selection = null
             )
         {
             var worker = new Thread(() =>
@@ -672,7 +672,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , SolutionComponentDescriptor descriptor
             , CommonConfiguration commonConfig
             , string solutionUniqueName
-            , string selection
+            , string selection = null
             )
         {
             var worker = new Thread(() =>
@@ -699,8 +699,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , IEnumerable<OptionSetMetadata> optionSets
-            , string filePath
-            , string selection
+            , string filePath = null
+            , string selection = null
             )
         {
 
@@ -734,7 +734,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string selection
+            , string selection = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -794,7 +794,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string selection
+            , string selection = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -885,7 +885,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string selection
+            , string selection = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -916,7 +916,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string selection
+            , string selection = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -977,7 +977,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
-            , string entityFilter
+            , string entityFilter = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -1041,7 +1041,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
-            , string filter
+            , string filter = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -1074,8 +1074,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
-            , string filterEntity
-            )
+            , string filterEntity = null
+            , string filter = null
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -1087,7 +1088,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , connection1
                         , connection2
                         , filterEntity
-                        );
+                        , filter
+                    );
 
                     form.ShowDialog();
                 }
@@ -1107,8 +1109,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
-            , string filterEntity
-            )
+            , string filterEntity = null
+            , string filter = null
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -1120,7 +1123,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , connection1
                         , connection2
                         , filterEntity
-                        );
+                        , filter
+                    );
 
                     form.ShowDialog();
                 }
@@ -1140,8 +1144,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
-            , string filterEntity
-            )
+            , string filterEntity = null
+            , string filter = null
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -1152,8 +1157,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , connection1
                         , connection2
-                         , filterEntity
-                        );
+                        , filterEntity
+                        , filter
+                    );
 
                     form.ShowDialog();
                 }
@@ -1173,8 +1179,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
-            , string filterEntity
-            )
+            , string filterEntity = null
+            , string filter = null
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -1186,7 +1193,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , connection1
                         , connection2
                         , filterEntity
-                        );
+                        , filter
+                    );
 
                     form.ShowDialog();
                 }
@@ -1206,7 +1214,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
-            )
+            , string filter = null
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -1217,7 +1226,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , connection1
                         , connection2
-                        );
+                        , filter
+                    );
 
                     form.ShowDialog();
                 }
@@ -1237,7 +1247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
-            )
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -1248,7 +1258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , connection1
                         , connection2
-                        );
+                    );
 
                     form.ShowDialog();
                 }
@@ -1268,7 +1278,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
-            )
+            , string filter = null
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -1279,7 +1290,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , connection1
                         , connection2
-                        );
+                        , filter
+                    );
 
                     form.ShowDialog();
                 }
@@ -1299,7 +1311,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
-            )
+            , string filter = null
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -1310,7 +1323,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , connection1
                         , connection2
-                        );
+                        , filter
+                    );
 
                     form.ShowDialog();
                 }

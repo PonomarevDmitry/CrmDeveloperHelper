@@ -43,6 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
+            , string filter
         )
         {
             _init++;
@@ -63,6 +64,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
 
             LoadFromConfig();
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                txtBFilter.Text = filter;
+            }
 
             txtBFilter.SelectionLength = 0;
             txtBFilter.SelectionStart = txtBFilter.Text.Length;
@@ -1144,20 +1150,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnExportReport1_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             _commonConfig.Save();
 
             var service = await GetService1();
 
-            WindowHelper.OpenExportReportWindow(this._iWriteToOutput, service, _commonConfig, string.Empty);
+            WindowHelper.OpenExportReportWindow(this._iWriteToOutput, service, _commonConfig, entity?.ReportName1 ?? txtBFilter.Text);
         }
 
         private async void btnExportReport2_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             _commonConfig.Save();
 
             var service = await GetService2();
 
-            WindowHelper.OpenExportReportWindow(this._iWriteToOutput, service, _commonConfig, string.Empty);
+            WindowHelper.OpenExportReportWindow(this._iWriteToOutput, service, _commonConfig, entity?.ReportName2 ?? txtBFilter.Text);
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

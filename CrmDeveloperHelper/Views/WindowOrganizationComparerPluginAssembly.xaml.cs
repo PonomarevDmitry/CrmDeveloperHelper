@@ -42,7 +42,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
-            )
+            , string filter
+        )
         {
             _init++;
 
@@ -62,6 +63,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
 
             LoadFromConfig();
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                txtBFilter.Text = filter;
+            }
 
             txtBFilter.SelectionLength = 0;
             txtBFilter.SelectionStart = txtBFilter.Text.Length;
@@ -789,20 +795,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnExportPluginAssembly1_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             _commonConfig.Save();
 
             var service = await GetService1();
 
-            WindowHelper.OpenPluginAssemblyWindow(this._iWriteToOutput, service, _commonConfig, null);
+            WindowHelper.OpenPluginAssemblyWindow(this._iWriteToOutput, service, _commonConfig, entity?.AssemblyName ?? txtBFilter.Text);
         }
 
         private async void btnExportPluginAssembly2_Click(object sender, RoutedEventArgs e)
         {
+            var entity = GetSelectedEntity();
+
             _commonConfig.Save();
 
             var service = await GetService2();
 
-            WindowHelper.OpenPluginAssemblyWindow(this._iWriteToOutput, service, _commonConfig, null);
+            WindowHelper.OpenPluginAssemblyWindow(this._iWriteToOutput, service, _commonConfig, entity?.AssemblyName ?? txtBFilter.Text);
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
