@@ -2020,5 +2020,61 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this.Focus();
             }
         }
+
+        private async void miConnection1OpenEntityMetadataInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            var service = await GetService1();
+
+            service.ConnectionData.OpenEntityMetadataInWeb(entity.EntityMetadata1.MetadataId.Value);
+        }
+
+        private async void miConnection2OpenEntityMetadataInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            var service = await GetService2();
+
+            service.ConnectionData.OpenEntityMetadataInWeb(entity.EntityMetadata2.MetadataId.Value);
+        }
+
+        private async void miConnection1OpenEntityInstanceListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            var service = await GetService1();
+
+            service.ConnectionData.OpenEntityInstanceListInWeb(entity.LogicalName);
+        }
+
+        private async void miConnection2OpenEntityInstanceListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            var service = await GetService2();
+
+            service.ConnectionData.OpenEntityInstanceListInWeb(entity.LogicalName);
+        }
     }
 }

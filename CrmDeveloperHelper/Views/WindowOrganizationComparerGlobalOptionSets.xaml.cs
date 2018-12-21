@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -1413,6 +1414,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _optionsPopup.IsOpen = false;
                 this.Focus();
+            }
+        }
+
+        private async void mIConnection1OpenSolutionComponentInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            var service = await GetService1();
+
+            if (service != null)
+            {
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.OptionSet, entity.OptionSetMetadata1.MetadataId.Value);
+            }
+        }
+
+        private async void mIConnection2OpenSolutionComponentInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            var service = await GetService2();
+
+            if (service != null)
+            {
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.Report, entity.OptionSetMetadata2.MetadataId.Value);
             }
         }
     }

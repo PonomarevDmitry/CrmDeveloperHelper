@@ -18,6 +18,9 @@
             <Separator x:Uid="menuContextDifference"/>
 
             <MenuItem Header="{DynamicResource ConnectionName1}">
+                <MenuItem Header="Open SiteMap in Web" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+                <Separator/>
+
                 <MenuItem Header="Create Entity Description" />
                 <MenuItem Header="SiteMap XML" Click="mIExportSiteMap1SiteMapXml_Click" />
                 <Separator/>
@@ -26,6 +29,9 @@
 
             <Separator x:Uid="menuContextConnection2"/>
             <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}">
+                <MenuItem Header="Open SiteMap in Web" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+                <Separator/>
+
                 <MenuItem Header="Create Entity Description" />
                 <MenuItem Header="SiteMap XML" Click="mIExportSiteMap2SiteMapXml_Click" />
                 <Separator/>

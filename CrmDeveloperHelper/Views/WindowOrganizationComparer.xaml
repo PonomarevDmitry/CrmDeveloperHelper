@@ -73,29 +73,35 @@
                         </Style>
                     </DockPanel.Resources>
                     <ToolBarPanel Orientation="Horizontal" >
-                        <Button x:Name="tSBCreate" HorizontalAlignment="Left" Click="tSBCreate_Click">
-                            <StackPanel>
-                                <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Create</TextBlock>
-                            </StackPanel>
-                        </Button>
+                        <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                            <MenuItem Header="Create">
+                                <MenuItem.Icon>
+                                    <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                </MenuItem.Icon>
+
+                                <MenuItem x:Name="tSBCreate" Header="New" Click="tSBCreate_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+
+                                <MenuItem x:Name="tSBCreateCopy" Header="Create Copy" Click="tSBCreateCopy_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageCopy}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+
+                                <MenuItem x:Name="tSBLoadFromFile" Header="Load from File" Click="tSBLoadFromFile_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </MenuItem>
+                        </Menu>
                         <Button x:Name="tSBEdit" HorizontalAlignment="Left" IsEnabled="False" Click="tSBEdit_Click">
                             <StackPanel>
                                 <Image Width="16" Height="16"  Source="{StaticResource ImageEdit}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Edit</TextBlock>
-                            </StackPanel>
-                        </Button>
-                        <Button x:Name="tSBCreateCopy" HorizontalAlignment="Left" IsEnabled="False" Click="tSBCreateCopy_Click">
-                            <StackPanel>
-                                <Image Width="16" Height="16"  Source="{StaticResource ImageCopy}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Create Copy</TextBlock>
-                            </StackPanel>
-                        </Button>
-                        <Separator/>
-                        <Button x:Name="tSBLoadFromFile" HorizontalAlignment="Left" Click="tSBLoadFromFile_Click">
-                            <StackPanel>
-                                <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Load from File</TextBlock>
                             </StackPanel>
                         </Button>
                         <Separator/>
@@ -169,7 +175,7 @@
                                 </MenuItem>
                                 <Separator/>
                                 <MenuItem Header="Entity Metadata"  Click="tSMIExportEntityMetadata_Click"/>
-                                
+
                                 <MenuItem Header="Entity Information" >
                                     <MenuItem Header="Entity Attribute Explorer"  Click="btnEntityAttributeExplorer_Click"/>
                                     <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
@@ -420,7 +426,7 @@
         </DockPanel>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,32" Height="25" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="69,0,0,33" Padding="10,0" Height="25" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="254" />
-        <Button x:Name="btnClose" Content="Close" Margin="0,0,10,38" Click="btnClose_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+        <Button x:Name="btnClose" Content="Close" Margin="0,0,10,33" Click="btnClose_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
         <StatusBar Height="24" VerticalAlignment="Bottom">
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
             <StatusBarItem x:Name="stBIStatus" Content="" VerticalAlignment="Top"/>

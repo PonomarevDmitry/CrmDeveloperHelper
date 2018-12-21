@@ -1005,5 +1005,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this.Focus();
             }
         }
+
+        private async void mIConnection1OpenSolutionComponentInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            var service = await GetService1();
+
+            if (service != null)
+            {
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SiteMap, entity.Link.Entity1.Id);
+            }
+        }
+
+        private async void mIConnection2OpenSolutionComponentInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            var service = await GetService2();
+
+            if (service != null)
+            {
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SiteMap, entity.Link.Entity2.Id);
+            }
+        }
     }
 }

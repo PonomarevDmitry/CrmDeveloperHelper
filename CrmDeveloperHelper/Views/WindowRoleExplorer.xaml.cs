@@ -1137,7 +1137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                connectionData.OpenEntityListInWeb(entity.LogicalName);
+                connectionData.OpenEntityInstanceListInWeb(entity.LogicalName);
             }
         }
 
@@ -1370,7 +1370,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                connectionData.OpenEntityListInWeb(entity.LogicalName);
+                connectionData.OpenEntityInstanceListInWeb(entity.LogicalName);
             }
         }
 

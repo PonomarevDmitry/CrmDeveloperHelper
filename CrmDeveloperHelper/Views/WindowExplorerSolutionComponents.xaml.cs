@@ -1894,7 +1894,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _service.ConnectionData.OpenEntityListInWeb(entityName);
+            _service.ConnectionData.OpenEntityInstanceListInWeb(entityName);
         }
 
         private void btnPublishEntity_Click(object sender, RoutedEventArgs e)

@@ -88,29 +88,35 @@
                                 </Style>
                             </DockPanel.Resources>
                             <ToolBarPanel Orientation="Horizontal" >
-                                <Button x:Name="tSBCreate" HorizontalAlignment="Left" Click="tSBCreate_Click">
-                                    <StackPanel>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Create</TextBlock>
-                                    </StackPanel>
-                                </Button>
+                                <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                                    <MenuItem Header="Create">
+                                        <MenuItem.Icon>
+                                            <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        </MenuItem.Icon>
+
+                                        <MenuItem x:Name="tSBCreate" Header="New" Click="tSBCreate_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+
+                                        <MenuItem x:Name="tSBCreateCopy" Header="Create Copy" Click="tSBCreateCopy_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16"  Source="{StaticResource ImageCopy}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+
+                                        <MenuItem x:Name="tSBLoadFromFile" Header="Load from File" Click="tSBLoadFromFile_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </MenuItem>
+                                </Menu>
                                 <Button x:Name="tSBEdit" HorizontalAlignment="Left" IsEnabled="False" Click="tSBEdit_Click">
                                     <StackPanel>
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageEdit}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Edit</TextBlock>
-                                    </StackPanel>
-                                </Button>
-                                <Button x:Name="tSBCreateCopy" HorizontalAlignment="Left" IsEnabled="False" Click="tSBCreateCopy_Click">
-                                    <StackPanel>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageCopy}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Create Copy</TextBlock>
-                                    </StackPanel>
-                                </Button>
-                                <Separator/>
-                                <Button x:Name="tSBLoadFromFile" HorizontalAlignment="Left" Click="tSBLoadFromFile_Click">
-                                    <StackPanel>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Load from File</TextBlock>
                                     </StackPanel>
                                 </Button>
                                 <Separator/>

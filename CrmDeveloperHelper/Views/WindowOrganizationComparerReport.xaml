@@ -24,6 +24,9 @@
             <Separator x:Uid="menuContextDifference"/>
 
             <MenuItem Header="{DynamicResource ConnectionName1}">
+                <MenuItem Header="Open Report in Web" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+                <Separator/>
+
                 <MenuItem Header="Create Entity Description" Click="mIExportReport1EntityDescription_Click" />
                 <Separator/>
                 <MenuItem Header="Body Text" VerticalAlignment="Center" Click="mIExportReport1BodyText_Click"/>
@@ -40,6 +43,9 @@
 
             <Separator x:Uid="menuContextConnection2"/>
             <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}">
+                <MenuItem Header="Open Report in Web" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+                <Separator/>
+                
                 <MenuItem Header="Create Entity Description" Click="mIExportReport2EntityDescription_Click" />
                 <Separator/>
                 <MenuItem Header="Body Text" VerticalAlignment="Center" Click="mIExportReport2BodyText_Click"/>

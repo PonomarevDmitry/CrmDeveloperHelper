@@ -304,7 +304,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIOpenEntityInstanceListInWeb_Click(object sender, RoutedEventArgs e)
         {
-            _connectionData.OpenEntityListInWeb(_entityName);
+            _connectionData.OpenEntityInstanceListInWeb(_entityName);
         }
     }
 }

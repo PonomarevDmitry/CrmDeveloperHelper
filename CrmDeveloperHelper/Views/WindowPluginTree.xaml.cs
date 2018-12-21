@@ -1529,7 +1529,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                connectionData.OpenEntityListInWeb(nodeItem.EntityLogicalName);
+                connectionData.OpenEntityInstanceListInWeb(nodeItem.EntityLogicalName);
             }
         }
 

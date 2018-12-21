@@ -927,7 +927,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                connectionData.OpenEntityListInWeb(entity.ReturnedTypeCode);
+                connectionData.OpenEntityInstanceListInWeb(entity.ReturnedTypeCode);
             }
         }
 

@@ -40,6 +40,12 @@
                 <MenuItem Header="Export Entity RibbonDiffXml" Click="mIConnection1EntityRibbonDiffXml_Click" />
                 <Separator/>
                 <MenuItem Header="Export Entity Ribbon Archive" Click="mIConnection1EntityRibbonArchive_Click" />
+
+                <Separator/>
+                <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="miConnection1OpenEntityMetadataInWeb_Click" />
+                <Separator/>
+                <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
+
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
                 <Separator/>
@@ -77,6 +83,12 @@
                 <MenuItem Header="Export Entity RibbonDiffXml" Click="mIConnection2EntityRibbonDiffXml_Click" />
                 <Separator/>
                 <MenuItem Header="Export Entity Ribbon Archive" Click="mIConnection2EntityRibbonArchive_Click" />
+
+                <Separator/>
+                <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="miConnection2OpenEntityMetadataInWeb_Click" />
+                <Separator/>
+                <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
+
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
                 <Separator/>

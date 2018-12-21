@@ -92,19 +92,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     return "/tools/systemcustomization/systemCustomization.aspx";
 
                 case OpenCrmWebSiteType.SystemUsers:
-                    return GetEntityListRelativeUrl(SystemUser.EntityLogicalName);
+                    return GetEntityInstanceListRelativeUrl(SystemUser.EntityLogicalName);
 
                 case OpenCrmWebSiteType.Teams:
-                    return GetEntityListRelativeUrl(Team.EntityLogicalName);
+                    return GetEntityInstanceListRelativeUrl(Team.EntityLogicalName);
 
                 case OpenCrmWebSiteType.Roles:
-                    return GetEntityListRelativeUrl(Role.EntityLogicalName);
+                    return GetEntityInstanceListRelativeUrl(Role.EntityLogicalName);
 
                 case OpenCrmWebSiteType.Security:
                     return "/tools/AdminSecurity/adminsecurity_area.aspx";
 
                 case OpenCrmWebSiteType.Workflows:
-                    return GetEntityListRelativeUrl(Workflow.EntityLogicalName);
+                    return GetEntityInstanceListRelativeUrl(Workflow.EntityLogicalName);
 
                 case OpenCrmWebSiteType.SystemJobs:
                     return "/tools/business/home_asyncoperation.aspx";
@@ -267,21 +267,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             return "/main.aspx?etn=" + entityName + "&pagetype=entityrecord&id={0}";
         }
 
-        public void OpenEntityListInWeb(string entityName)
+        public void OpenEntityInstanceListInWeb(string entityName)
         {
-            string uri = GetEntityListUrl(entityName);
+            string uri = GetEntityInstanceListUrl(entityName);
 
             if (!IsValidUri(uri)) return;
 
             System.Diagnostics.Process.Start(uri);
         }
 
-        public string GetEntityListUrl(string entityName)
+        public string GetEntityInstanceListUrl(string entityName)
         {
-            return string.Format(GetEntityListUrlFormat(), entityName);
+            return string.Format(GetEntityInstanceListUrlFormat(), entityName);
         }
 
-        public string GetEntityListUrlFormat()
+        public string GetEntityInstanceListUrlFormat()
         {
             if (!TryGetPublicUrl(out string publicUrl))
             {
@@ -291,7 +291,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             return publicUrl + "/main.aspx?etn={0}&pagetype=entitylist";
         }
 
-        public string GetEntityListRelativeUrl(string entityName)
+        public string GetEntityInstanceListRelativeUrl(string entityName)
         {
             return string.Format("/main.aspx?etn={0}&pagetype=entitylist", entityName);
         }

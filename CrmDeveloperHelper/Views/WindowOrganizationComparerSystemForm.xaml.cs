@@ -1873,5 +1873,107 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this.Focus();
             }
         }
+
+        private async void miConnection1OpenEntityMetadataInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null
+               || string.IsNullOrEmpty(entity.EntityName)
+               || string.Equals(entity.EntityName, "none", StringComparison.InvariantCultureIgnoreCase)
+               )
+            {
+                return;
+            }
+
+            var service = await GetService1();
+
+            service.ConnectionData.OpenEntityMetadataInWeb(entity.EntityName);
+        }
+
+        private async void miConnection2OpenEntityMetadataInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null
+               || string.IsNullOrEmpty(entity.EntityName)
+               || string.Equals(entity.EntityName, "none", StringComparison.InvariantCultureIgnoreCase)
+               )
+            {
+                return;
+            }
+
+            var service = await GetService2();
+
+            service.ConnectionData.OpenEntityMetadataInWeb(entity.EntityName);
+        }
+
+        private async void miConnection1OpenEntityInstanceListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null
+               || string.IsNullOrEmpty(entity.EntityName)
+               || string.Equals(entity.EntityName, "none", StringComparison.InvariantCultureIgnoreCase)
+               )
+            {
+                return;
+            }
+
+            var service = await GetService1();
+
+            service.ConnectionData.OpenEntityInstanceListInWeb(entity.EntityName);
+        }
+
+        private async void miConnection2OpenEntityInstanceListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null
+               || string.IsNullOrEmpty(entity.EntityName)
+               || string.Equals(entity.EntityName, "none", StringComparison.InvariantCultureIgnoreCase)
+               )
+            {
+                return;
+            }
+
+            var service = await GetService2();
+
+            service.ConnectionData.OpenEntityInstanceListInWeb(entity.EntityName);
+        }
+
+        private async void mIConnection1OpenSolutionComponentInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            var service = await GetService1();
+
+            if (service != null)
+            {
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SystemForm, entity.Link.Entity1.Id);
+            }
+        }
+
+        private async void mIConnection2OpenSolutionComponentInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            var service = await GetService2();
+
+            if (service != null)
+            {
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SystemForm, entity.Link.Entity2.Id);
+            }
+        }
     }
 }

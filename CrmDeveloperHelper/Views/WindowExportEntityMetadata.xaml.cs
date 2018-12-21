@@ -1068,7 +1068,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                connectionData.OpenEntityListInWeb(entity.EntityLogicalName);
+                connectionData.OpenEntityInstanceListInWeb(entity.EntityLogicalName);
             }
         }
 
