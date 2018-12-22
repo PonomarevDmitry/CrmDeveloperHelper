@@ -205,6 +205,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exception while {0}.
+        /// </summary>
+        internal static string ExceptionWhileOperationFormat1 {
+            get {
+                return ResourceManager.GetString("ExceptionWhileOperationFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. ApplicationRibbonDiffXml exported to file: {1}.
         /// </summary>
         internal static string ExportedAppliationRibbonDiffXmlForConnectionFormat2 {

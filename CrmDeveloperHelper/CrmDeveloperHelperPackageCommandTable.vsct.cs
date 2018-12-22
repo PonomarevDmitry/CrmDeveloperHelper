@@ -426,8 +426,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu_GroupExport_MenuExportXsdSchemas_GroupOpenFolder = 0x1227;
         public const int commonMenu_GroupExport_MenuExportXsdSchemas_Group = 0x121E;
         public const int commonMenu_GroupSolutions = 0x1199;
+        public const int commonMenu_GroupSolutions_MenuSolutionExplorer = 0x125C;
+        public const int commonMenu_GroupSolutions_MenuSolutionExplorer_Group = 0x125D;
         public const int commonMenu_GroupSolutions_MenuSolutions = 0x119A;
-        public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionExplorer = 0x119B;
+        public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands = 0x119B;
         public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen = 0x10EF;
         public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWeb = 0x1116;
         public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWeb_GroupLastSolution = 0x1117;
@@ -623,6 +625,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlUpdateSystemFormInConnectionGroupCommandId = 0x17D4;
         public const int CodeXmlShowDifferenceSavedQueryInConnectionGroupCommandId = 0x1806;
         public const int CodeXmlUpdateSavedQueryInConnectionGroupCommandId = 0x1838;
+        public const int CommonSolutionExplorerInConnectionCommandId = 0x186A;
         public const int CodeWebResourceUpdateContentPublishCommandId = 0x2000;
         public const int CodeWebResourceShowDifferenceCommandId = 0x2001;
         public const int CodeWebResourceShowDifferenceCustomCommandId = 0x2002;
@@ -724,7 +727,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonExportWebResourceCommandId = 0x203C;
         public const int CommonExportWorkflowCommandId = 0x203D;
         public const int CommonExportReportCommandId = 0x203E;
-        public const int CommonExportSolutionComponentsCommandId = 0x203F;
+        public const int CommonSolutionExplorerCommandId = 0x203F;
         public const int CommonOpenSolutionImageCommandId = 0x2170;
         public const int CommonOpenXsdSchemaFolderCommandId = 0x217A;
         public const int CommonOrganizationComparerCommandId = 0x2040;

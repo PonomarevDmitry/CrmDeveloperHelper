@@ -3725,7 +3725,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleOpenSolutionComponentExplorerWindow()
+        public void HandleOpenSolutionExplorerWindow(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -3734,14 +3734,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null)
+            if (connectionData == null)
+            {
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (crmConfig != null && connectionData != null)
             {
                 ActivateOutputWindow();
                 WriteToOutputEmptyLines(commonConfig);
 
                 try
                 {
-                    Controller.StartOpenSolutionComponentExplorerWindow(null, crmConfig.CurrentConnectionData, commonConfig);
+                    Controller.StartOpenSolutionExplorerWindow(null, connectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {
@@ -4048,7 +4053,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartOpenSolutionComponentExplorerWindow(selectedItem, crmConfig.CurrentConnectionData, commonConfig);
+                    Controller.StartOpenSolutionExplorerWindow(selectedItem, crmConfig.CurrentConnectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {

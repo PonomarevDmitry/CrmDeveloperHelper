@@ -339,4 +339,7 @@
   <data name="SavedQueryNotFoundedFormat2" xml:space="preserve">
     <value>{0}. SavedQuery with id '{1}' not founded.</value>
   </data>
+  <data name="ExceptionWhileOperationFormat1" xml:space="preserve">
+    <value>Exception while {0}</value>
+  </data>
 </root>

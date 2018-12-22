@@ -26,15 +26,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Solution Explorer.
 
-        public async Task ExecuteOpeningSolutionComponentWindow(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningSolutionExlorerWindow(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            string operation = string.Format(Properties.OperationNames.SolutionComponentExplorerFormat1, connectionData?.Name);
+            string operation = string.Format(Properties.OperationNames.SolutionExplorerFormat1, connectionData?.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(operation);
 
             try
             {
-                await OpeningSolutionComponentWindow(selectedItem, connectionData, commonConfig);
+                await OpeningSolutionExlorerWindow(selectedItem, connectionData, commonConfig);
             }
             catch (Exception xE)
             {
@@ -46,7 +46,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpeningSolutionComponentWindow(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task OpeningSolutionExlorerWindow(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             if (connectionData == null)
             {

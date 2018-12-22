@@ -331,10 +331,39 @@
     <value>Entity Maps DIFFERENT Details in {0} and {1}: {2}</value>
   </data>
   <data name="AttributeMapFormat2" xml:space="preserve">
-    <value>{0} -> {1}</value>
+    <value>{0} -&gt; {1}</value>
   </data>
   <data name="AttributeMapsOnlyExistsInConnectionFormat2" xml:space="preserve">
     <value>Attribute Maps ONLY EXISTS in {0}: {1}</value>
   </data>
-  
+  <data name="StatusCodeInConnectionFormat1" xml:space="preserve">
+    <value>StatusCode {0}</value>
+  </data>
+  <data name="WorkflowsToActivationInConnectionFormat2" xml:space="preserve">
+    <value>Workflows to Activation in {0}: {1}</value>
+  </data>
+  <data name="WorkflowsToDeactivationInConnectionFormat2" xml:space="preserve">
+    <value>Workflows to Deactivation in {0}: {1}</value>
+  </data>
+  <data name="PluginStepsCommonFormat3" xml:space="preserve">
+    <value>Common Plugin Steps in {0} and {1}: {2}</value>
+  </data>
+  <data name="PluginStepsInConnectionFormat2" xml:space="preserve">
+    <value>Plugin Steps in {0}: {1}</value>
+  </data>
+  <data name="PluginStepsOnlyExistsInConnectionFormat2" xml:space="preserve">
+    <value>Plugin Steps ONLY EXISTS in {0}: {1}</value>
+  </data>
+  <data name="PluginStepsStatesDifferentFormat3" xml:space="preserve">
+    <value>Plugin Steps States DIFFERENT in {0} and {1}: {2}</value>
+  </data>
+  <data name="PluginStepsStatesNoDifference" xml:space="preserve">
+    <value>No difference in Plugin Steps States.</value>
+  </data>
+  <data name="PluginStepsToActivationInConnectionFormat2" xml:space="preserve">
+    <value>Plugin Steps to Activation in {0}: {1}</value>
+  </data>
+  <data name="PluginStepsToDeactivationInConnectionFormat2" xml:space="preserve">
+    <value>Plugin Steps to Deactivation in {0}: {1}</value>
+  </data>
 </root>

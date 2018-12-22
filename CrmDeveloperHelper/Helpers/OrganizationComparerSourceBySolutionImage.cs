@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return await new RoleRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
         }
 
-        protected override Task<List<Workflow>> GetWorkflowAsync(IOrganizationServiceExtented service)
+        protected override Task<List<Workflow>> GetWorkflowAsync(IOrganizationServiceExtented service, ColumnSet columnSet)
         {
             var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.Workflow);
 
@@ -58,21 +58,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(new List<Workflow>());
             }
 
-            return Task.Run(async () => await GetWorkflows(service, imageComponents));
+            return Task.Run(async () => await GetWorkflows(service, imageComponents, columnSet));
         }
 
-        private async Task<List<Workflow>> GetWorkflows(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> roles)
+        private async Task<List<Workflow>> GetWorkflows(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> workflows, ColumnSet columnSet)
         {
             var descriptor = new SolutionComponentDescriptor(service, false);
 
-            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(roles);
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(workflows);
 
             if (!solutionComponents.Any())
             {
                 return new List<Workflow>();
             }
 
-            return await new WorkflowRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return await new WorkflowRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), columnSet);
         }
 
         protected override Task<List<WebResource>> GetWebResourceAsync(IOrganizationServiceExtented service)

@@ -61,6 +61,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Activating {1} {2}.
+        /// </summary>
+        internal static string ActivatingEntityFormat3 {
+            get {
+                return ResourceManager.GetString("ActivatingEntityFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Adding Components into Solution {1}.
         /// </summary>
         internal static string AddingComponentsIntoSolutionFormat2 {
@@ -466,6 +475,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checking Plugin Steps States in {0} and {1}.
+        /// </summary>
+        internal static string CheckingPluginStepsStatesFormat2 {
+            get {
+                return ResourceManager.GetString("CheckingPluginStepsStatesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking PluginTypes in {0} and {1}.
         /// </summary>
         internal static string CheckingPluginTypesFormat2 {
@@ -570,6 +588,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CheckingWorkflowsFormat2 {
             get {
                 return ResourceManager.GetString("CheckingWorkflowsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Workflow states in {0} and {1}.
+        /// </summary>
+        internal static string CheckingWorkflowsStatusCodesFormat2 {
+            get {
+                return ResourceManager.GetString("CheckingWorkflowsStatusCodesFormat2", resourceCulture);
             }
         }
         
@@ -777,6 +804,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CreatingPluginTypeDescriptionFormat1 {
             get {
                 return ResourceManager.GetString("CreatingPluginTypeDescriptionFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Deactivating {1} {2}.
+        /// </summary>
+        internal static string DeactivatingEntityFormat2 {
+            get {
+                return ResourceManager.GetString("DeactivatingEntityFormat2", resourceCulture);
             }
         }
         
@@ -1465,11 +1501,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Solution Component Explorer.
+        ///   Looks up a localized string similar to {0} - Solution Explorer.
         /// </summary>
-        internal static string SolutionComponentExplorerFormat1 {
+        internal static string SolutionExplorerFormat1 {
             get {
-                return ResourceManager.GetString("SolutionComponentExplorerFormat1", resourceCulture);
+                return ResourceManager.GetString("SolutionExplorerFormat1", resourceCulture);
             }
         }
         
@@ -1483,7 +1519,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Transferfing Data from {0} to {1}.
+        ///   Looks up a localized string similar to Transferfing Audit from {0} to {1}.
         /// </summary>
         internal static string TransferingAuditFormat2 {
             get {
@@ -1497,6 +1533,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string TransferingDataFormat2 {
             get {
                 return ResourceManager.GetString("TransferingDataFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferfing Plugin Steps States from {0} to {1}.
+        /// </summary>
+        internal static string TransferingPluginStepsStatesFormat2 {
+            get {
+                return ResourceManager.GetString("TransferingPluginStepsStatesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferfing Workflows States from {0} to {1}.
+        /// </summary>
+        internal static string TransferingWorkflowsStatesFormat2 {
+            get {
+                return ResourceManager.GetString("TransferingWorkflowsStatesFormat2", resourceCulture);
             }
         }
         

@@ -459,18 +459,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     var item = new LineWithSublines
                     {
                         Line = new string[]
-                    {
-                        step.EventHandler?.Name ?? "Unknown"
-                        , step.PrimaryObjectTypeCodeName
-                        , step.SecondaryObjectTypeCodeName
-                        , step.SdkMessageId?.Name ?? "Unknown"
-                        , SdkMessageProcessingStepRepository.GetStageName(step.Stage.Value, step.Mode.Value)
-                        , step.Rank.ToString()
-                        , step.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
-                        , step.IsHidden.ToString()
-                        , step.IsManaged.ToString()
-                        , step.FilteringAttributesStringsSorted
-                    }
+                        {
+                            step.EventHandler?.Name ?? "Unknown"
+                            , step.PrimaryObjectTypeCodeName
+                            , step.SecondaryObjectTypeCodeName
+                            , step.SdkMessageId?.Name ?? "Unknown"
+                            , SdkMessageProcessingStepRepository.GetStageName(step.Stage.Value, step.Mode.Value)
+                            , step.Rank.ToString()
+                            , step.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
+                            , step.IsHidden.ToString()
+                            , step.IsManaged.ToString()
+                            , step.FilteringAttributesStringsSorted
+                        }
                     };
 
                     var images = listImages1.Where(i => i.SdkMessageProcessingStepId.Id == step.SdkMessageProcessingStepId.Value);
@@ -522,18 +522,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     var item = new LineWithSublines
                     {
                         Line = new string[]
-                    {
-                        step.EventHandler?.Name ?? "Unknown"
-                        , step.PrimaryObjectTypeCodeName
-                        , step.SecondaryObjectTypeCodeName
-                        , step.SdkMessageId?.Name ?? "Unknown"
-                        , SdkMessageProcessingStepRepository.GetStageName(step.Stage.Value, step.Mode.Value)
-                        , step.Rank.ToString()
-                        , step.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
-                        , step.IsHidden.ToString()
-                        , step.IsManaged.ToString()
-                        , step.FilteringAttributesStringsSorted
-                    }
+                        {
+                            step.EventHandler?.Name ?? "Unknown"
+                            , step.PrimaryObjectTypeCodeName
+                            , step.SecondaryObjectTypeCodeName
+                            , step.SdkMessageId?.Name ?? "Unknown"
+                            , SdkMessageProcessingStepRepository.GetStageName(step.Stage.Value, step.Mode.Value)
+                            , step.Rank.ToString()
+                            , step.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
+                            , step.IsHidden.ToString()
+                            , step.IsManaged.ToString()
+                            , step.FilteringAttributesStringsSorted
+                        }
                     };
 
                     var images = listImages2.Where(i => i.SdkMessageProcessingStepId.Id == step.SdkMessageProcessingStepId.Value);
@@ -916,8 +916,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     x.Rank == y.Rank
                     && x.StateCode.Value == y.StateCode.Value
                     && x.StatusCode.Value == y.StatusCode.Value
-                    && x.FilteringAttributesStrings.SequenceEqual(y.FilteringAttributesStrings)
-                    && string.Equals(x.Configuration ?? string.Empty, y.Configuration ?? string.Empty)
+                    && string.Equals(x.Configuration ?? string.Empty, y.Configuration ?? string.Empty, StringComparison.InvariantCultureIgnoreCase)
+                    && string.Equals(x.FilteringAttributesStringsSorted ?? string.Empty, y.FilteringAttributesStringsSorted ?? string.Empty, StringComparison.InvariantCultureIgnoreCase)
                     )
                 {
                     return true;
@@ -930,7 +930,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             public int GetHashCode(SdkMessageProcessingStep obj)
             {
-                return 0;
+                int result = obj.Rank.GetHashCode()
+                    ^ obj.StateCode.Value.GetHashCode()
+                    ^ obj.StatusCode.Value.GetHashCode()
+                    ^ StringComparer.InvariantCultureIgnoreCase.GetHashCode(obj.Configuration ?? string.Empty)
+                    ^ StringComparer.InvariantCultureIgnoreCase.GetHashCode(obj.FilteringAttributesStringsSorted ?? string.Empty)
+                    ;
+
+                return result;
             }
         }
 
@@ -947,10 +954,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     return false;
                 }
                 else if (x.ImageType.Value == y.ImageType.Value
-                    && string.Equals(x.Name ?? string.Empty, y.Name ?? string.Empty)
-                    && string.Equals(x.EntityAlias ?? string.Empty, y.EntityAlias ?? string.Empty)
-                    //&& string.Equals(x.Attributes1 ?? string.Empty, y.Attributes1 ?? string.Empty)
-                    && x.Attributes1Strings.SequenceEqual(y.Attributes1Strings)
+                    && string.Equals(x.Name ?? string.Empty, y.Name ?? string.Empty, StringComparison.InvariantCultureIgnoreCase)
+                    && string.Equals(x.EntityAlias ?? string.Empty, y.EntityAlias ?? string.Empty, StringComparison.InvariantCultureIgnoreCase)
+                    && string.Equals(x.Attributes1StringsSorted ?? string.Empty, y.Attributes1StringsSorted ?? string.Empty, StringComparison.InvariantCultureIgnoreCase)
                     )
                 {
                     return true;
@@ -963,7 +969,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             public int GetHashCode(SdkMessageProcessingStepImage obj)
             {
-                return 0;
+                int result = obj.ImageType.Value.GetHashCode()
+                    ^ StringComparer.InvariantCultureIgnoreCase.GetHashCode(obj.Name ?? string.Empty)
+                    ^ StringComparer.InvariantCultureIgnoreCase.GetHashCode(obj.EntityAlias ?? string.Empty)
+                    ^ StringComparer.InvariantCultureIgnoreCase.GetHashCode(obj.Attributes1StringsSorted ?? string.Empty)
+                    ;
+
+                return result;
             }
         }
 
@@ -1084,18 +1096,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 var item = new LineWithSublines
                 {
                     Line = new string[]
-                {
-                     step1.EventHandler?.Name ?? "Unknown"
-                    , step1.PrimaryObjectTypeCodeName
-                    , step1.SecondaryObjectTypeCodeName
-                    , step1.SdkMessageId?.Name ?? "Unknown"
-                    , SdkMessageProcessingStepRepository.GetStageName(step1.Stage.Value, step1.Mode.Value)
-                    , step1.Rank.ToString()
-                    , step1.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
-                    , step1.IsHidden?.Value.ToString()
-                    , step1.IsManaged.ToString()
-                    , step1.FilteringAttributesStringsSorted
-                }
+                    {
+                         step1.EventHandler?.Name ?? "Unknown"
+                        , step1.PrimaryObjectTypeCodeName
+                        , step1.SecondaryObjectTypeCodeName
+                        , step1.SdkMessageId?.Name ?? "Unknown"
+                        , SdkMessageProcessingStepRepository.GetStageName(step1.Stage.Value, step1.Mode.Value)
+                        , step1.Rank.ToString()
+                        , step1.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
+                        , step1.IsHidden?.Value.ToString()
+                        , step1.IsManaged.ToString()
+                        , step1.FilteringAttributesStringsSorted
+                    }
                 };
 
                 var images = listImages1.Where(i => i.SdkMessageProcessingStepId.Id == step1.SdkMessageProcessingStepId.Value);
@@ -1139,18 +1151,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 var item = new LineWithSublines
                 {
                     Line = new string[]
-                {
-                    step2.EventHandler?.Name ?? "Unknown"
-                    , step2.PrimaryObjectTypeCodeName
-                    , step2.SecondaryObjectTypeCodeName
-                    , step2.SdkMessageId?.Name ?? "Unknown"
-                    , SdkMessageProcessingStepRepository.GetStageName(step2.Stage.Value, step2.Mode.Value)
-                    , step2.Rank.ToString()
-                    , step2.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
-                    , step2.IsHidden?.Value.ToString()
-                    , step2.IsManaged.ToString()
-                    , step2.FilteringAttributesStringsSorted
-                }
+                    {
+                        step2.EventHandler?.Name ?? "Unknown"
+                        , step2.PrimaryObjectTypeCodeName
+                        , step2.SecondaryObjectTypeCodeName
+                        , step2.SdkMessageId?.Name ?? "Unknown"
+                        , SdkMessageProcessingStepRepository.GetStageName(step2.Stage.Value, step2.Mode.Value)
+                        , step2.Rank.ToString()
+                        , step2.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
+                        , step2.IsHidden?.Value.ToString()
+                        , step2.IsManaged.ToString()
+                        , step2.FilteringAttributesStringsSorted
+                    }
                 };
 
                 var images = listImages2.Where(i => i.SdkMessageProcessingStepId.Id == step2.SdkMessageProcessingStepId.Value);
@@ -1619,6 +1631,217 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return result;
+        }
+
+        public Task<string> CheckPluginStepsStatesAsync()
+        {
+            return Task.Run(async () => await CheckPluginStepsStates());
+        }
+
+        private async Task<string> CheckPluginStepsStates()
+        {
+            StringBuilder content = new StringBuilder();
+
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
+
+            string operation = string.Format(Properties.OperationNames.CheckingPluginStepsStatesFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+
+            var task1 = _comparerSource.GetSdkMessageProcessingStep1Async();
+            var task2 = _comparerSource.GetSdkMessageProcessingStep2Async();
+
+            var listSteps1 = await task1;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.PluginStepsInConnectionFormat2, Connection1.Name, listSteps1.Count()));
+
+            var listSteps2 = await task2;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.PluginStepsInConnectionFormat2, Connection2.Name, listSteps2.Count()));
+
+            FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
+            tableOnlyExistsIn1.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "IsHidden", "IsManaged", "FilteringAttributes");
+
+            FormatTextTableHandler tableOnlyExistsIn2 = new FormatTextTableHandler();
+            tableOnlyExistsIn2.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "IsHidden", "IsManaged", "FilteringAttributes");
+
+            var commonStepsList = new List<LinkedEntities<SdkMessageProcessingStep>>();
+
+            foreach (var step1 in listSteps1
+                .OrderBy(s => s.EventHandler?.Name ?? "Unknown")
+                .ThenBy(s => s.PrimaryObjectTypeCodeName)
+                .ThenBy(s => s.SecondaryObjectTypeCodeName)
+                .ThenBy(s => s.SdkMessageId?.Name ?? "Unknown", new MessageComparer())
+                .ThenBy(s => s.Stage.Value)
+                .ThenBy(s => s.Mode.Value)
+                )
+            {
+                {
+                    var step2 = listSteps2.FirstOrDefault(g => g.Id == step1.Id);
+
+                    if (step2 != null)
+                    {
+                        commonStepsList.Add(new LinkedEntities<SdkMessageProcessingStep>(step1, step2));
+
+                        continue;
+                    }
+                }
+
+                tableOnlyExistsIn1.AddLine(
+                    step1.EventHandler?.Name ?? "Unknown"
+                    , step1.PrimaryObjectTypeCodeName
+                    , step1.SecondaryObjectTypeCodeName
+                    , step1.SdkMessageId?.Name ?? "Unknown"
+                    , SdkMessageProcessingStepRepository.GetStageName(step1.Stage.Value, step1.Mode.Value)
+                    , step1.Rank.ToString()
+                    , step1.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
+                    , step1.IsHidden?.Value.ToString()
+                    , step1.IsManaged.ToString()
+                    , step1.FilteringAttributesStringsSorted
+                );
+
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.SdkMessageProcessingStep, step1.Id);
+            }
+
+            foreach (var step2 in listSteps2
+                .OrderBy(s => s.EventHandler?.Name ?? "Unknown")
+                .ThenBy(s => s.PrimaryObjectTypeCodeName)
+                .ThenBy(s => s.SecondaryObjectTypeCodeName)
+                .ThenBy(s => s.SdkMessageId?.Name ?? "Unknown", new MessageComparer())
+                .ThenBy(s => s.Stage.Value)
+                .ThenBy(s => s.Mode.Value)
+                )
+            {
+                {
+                    var step1 = listSteps1.FirstOrDefault(g => g.Id == step2.Id);
+
+                    if (step1 != null)
+                    {
+                        continue;
+                    }
+                }
+
+                tableOnlyExistsIn2.AddLine(new string[]
+                {
+                    step2.EventHandler?.Name ?? "Unknown"
+                    , step2.PrimaryObjectTypeCodeName
+                    , step2.SecondaryObjectTypeCodeName
+                    , step2.SdkMessageId?.Name ?? "Unknown"
+                    , SdkMessageProcessingStepRepository.GetStageName(step2.Stage.Value, step2.Mode.Value)
+                    , step2.Rank.ToString()
+                    , step2.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
+                    , step2.IsHidden?.Value.ToString()
+                    , step2.IsManaged.ToString()
+                    , step2.FilteringAttributesStringsSorted
+                });
+
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.SdkMessageProcessingStep, step2.Id);
+            }
+
+            string headerConnection1 = string.Format(Properties.OrganizationComparerStrings.StatusCodeInConnectionFormat1, Connection1.Name);
+            string headerConnection2 = string.Format(Properties.OrganizationComparerStrings.StatusCodeInConnectionFormat1, Connection2.Name);
+
+            FormatTextTableHandler tableDifference = new FormatTextTableHandler();
+            tableDifference.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", headerConnection1, headerConnection2, "IsHidden", "IsManaged", "FilteringAttributes");
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.PluginStepsCommonFormat3, Connection1.Name, Connection2.Name, commonStepsList.Count()));
+
+            foreach (var commonStep in commonStepsList
+                .OrderBy(s => s.Entity1.EventHandler?.Name ?? "Unknown")
+                .ThenBy(s => s.Entity1.PrimaryObjectTypeCodeName)
+                .ThenBy(s => s.Entity1.SecondaryObjectTypeCodeName)
+                .ThenBy(s => s.Entity1.SdkMessageId?.Name ?? "Unknown", new MessageComparer())
+                .ThenBy(s => s.Entity1.Stage.Value)
+                .ThenBy(s => s.Entity1.Mode.Value)
+                )
+            {
+                if (commonStep.Entity1.StatusCode?.Value != commonStep.Entity2.StatusCode?.Value)
+                {
+                    commonStep.Entity1.FormattedValues.TryGetValue(SdkMessageProcessingStep.Schema.Attributes.statuscode, out string statusCode1);
+                    commonStep.Entity2.FormattedValues.TryGetValue(SdkMessageProcessingStep.Schema.Attributes.statuscode, out string statusCode2);
+
+                    tableDifference.AddLine(
+                        commonStep.Entity1.EventHandler?.Name ?? "Unknown"
+                        , commonStep.Entity1.PrimaryObjectTypeCodeName
+                        , commonStep.Entity1.SecondaryObjectTypeCodeName
+                        , commonStep.Entity1.SdkMessageId?.Name ?? "Unknown"
+                        , SdkMessageProcessingStepRepository.GetStageName(commonStep.Entity1.Stage.Value, commonStep.Entity1.Mode.Value)
+                        , commonStep.Entity1.Rank.ToString()
+                        , statusCode1
+                        , statusCode2
+                        , commonStep.Entity1.IsHidden?.Value.ToString()
+                        , commonStep.Entity1.IsManaged.ToString()
+                        , commonStep.Entity1.FilteringAttributesStringsSorted
+                        );
+
+                    this.ImageBuilder.AddComponentDifferent((int)ComponentType.SdkMessageProcessingStep, commonStep.Entity1.Id, commonStep.Entity2.Id, "StatusCode");
+                }
+            }
+
+            if (tableOnlyExistsIn1.Count > 0)
+            {
+                content
+                      .AppendLine()
+                      .AppendLine()
+                      .AppendLine()
+                      .AppendLine(new string('-', 150))
+                      .AppendLine()
+                      .AppendLine();
+
+                content.AppendLine().AppendLine().AppendFormat(Properties.OrganizationComparerStrings.PluginStepsOnlyExistsInConnectionFormat2, Connection1.Name, tableOnlyExistsIn1.Count);
+
+                tableOnlyExistsIn1.GetFormatedLines(false).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
+            }
+
+            if (tableOnlyExistsIn2.Count > 0)
+            {
+                content
+                      .AppendLine()
+                      .AppendLine()
+                      .AppendLine()
+                      .AppendLine(new string('-', 150))
+                      .AppendLine()
+                      .AppendLine();
+
+                content.AppendLine().AppendLine().AppendFormat(Properties.OrganizationComparerStrings.PluginStepsOnlyExistsInConnectionFormat2, Connection2.Name, tableOnlyExistsIn2.Count);
+
+                tableOnlyExistsIn2.GetFormatedLines(false).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
+            }
+
+            if (tableDifference.Count > 0)
+            {
+                content
+                       .AppendLine()
+                       .AppendLine()
+                       .AppendLine()
+                       .AppendLine(new string('-', 150))
+                       .AppendLine()
+                       .AppendLine();
+
+                content.AppendLine().AppendLine().AppendFormat(Properties.OrganizationComparerStrings.PluginStepsStatesDifferentFormat3, Connection1.Name, Connection2.Name, tableDifference.Count);
+
+                tableDifference.GetFormatedLines(false).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
+            }
+
+            if (tableOnlyExistsIn1.Count == 0
+                && tableOnlyExistsIn2.Count == 0
+                && tableDifference.Count == 0
+                )
+            {
+                content.AppendLine(Properties.OrganizationComparerStrings.PluginStepsStatesNoDifference);
+            }
+            
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Plugin Steps States");
+
+            string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            await SaveOrganizationDifferenceImage();
+
+            return filePath;
         }
     }
 }

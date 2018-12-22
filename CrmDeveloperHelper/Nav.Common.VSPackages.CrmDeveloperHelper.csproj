@@ -200,7 +200,7 @@
     <Compile Include="Commands\CommonExportReportCommand.cs" />
     <Compile Include="Commands\CommonExportApplicationRibbonXmlCommand.cs" />
     <Compile Include="Commands\CommonExportSiteMapCommand.cs" />
-    <Compile Include="Commands\CommonExportSolutionComponentsCommand.cs" />
+    <Compile Include="Commands\CommonSolutionExplorerCommand.cs" />
     <Compile Include="Commands\CommonExportSystemFormXmlCommand.cs" />
     <Compile Include="Commands\CommonExportSystemSavedQueryVisualizationXmlCommand.cs" />
     <Compile Include="Commands\CommonExportSystemSavedQueryXmlCommand.cs" />
@@ -213,6 +213,7 @@
     <Compile Include="Commands\CommonSdkMessageTreeCommand.cs" />
     <Compile Include="Commands\CommonSecurityRolesExplorerCommand.cs" />
     <Compile Include="Commands\CommonSelectCrmConnectionCommand.cs" />
+    <Compile Include="Commands\CommonSolutionExplorerInConnectionCommand.cs" />
     <Compile Include="Commands\CommonSystemUsersExplorerCommand.cs" />
     <Compile Include="Commands\CommonTeamsExplorerCommand.cs" />
     <Compile Include="Commands\CommonTraceReaderCommand.cs" />

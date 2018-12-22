@@ -198,6 +198,13 @@
                                     <MenuItem Header="Message Request Tree" Click="tSMIExportSdkMessageRequestTree_Click" />
                                 </MenuItem>
                                 <Separator/>
+                                <MenuItem Header="Security" >
+                                    <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                                    <MenuItem Header="SystemUsers Explorer"  Click="tSMISystemUsersExplorer_Click"/>
+                                    <MenuItem Header="Teams Explorer" Click="tSMITeamsExplorer_Click" />
+                                    <MenuItem Header="SecurityRoles Explorer" Click="tSMISecurityRolesExplorer_Click" />
+                                </MenuItem>
+                                <Separator/>
                                 <MenuItem Header="ApplicationRibbon"  Click="tSMIExportApplicationRibbon_Click"/>
                                 <Separator/>
                                 <MenuItem Header="Organization" Click="tSMIExportOrganization_Click" />
@@ -243,6 +250,7 @@
                                     <MenuItem Header="Plugin Types" Click="tSMIPluginTypes_Click"/>
                                     <MenuItem Header="Plugin Steps by PluginType Names" Click="tSMIPluginStepsByPluginTypeNames_Click"/>
                                     <MenuItem Header="Plugin Steps by Ids" Click="tSMIPluginStepsByIds_Click"/>
+                                    <MenuItem Header="Plugin Steps States" Click="tSMIPluginStepsStates_Click"/>
                                     <Separator/>
                                     <MenuItem Header="All Plugin Information" Click="tSMICompareAllPluginInformation_Click"/>
                                 </MenuItem>
@@ -280,6 +288,7 @@
                                 <Separator/>
                                 <MenuItem Header="Workflows" Click="tSMIWorkflows_Click" />
                                 <MenuItem Header="Workflows with details" Click="tSMIWorkflowsWithDetails_Click" />
+                                <MenuItem Header="Workflows states" Click="tSMIWorkflowsStates_Click" />
                                 <Separator/>
                                 <MenuItem Header="Security Information">
                                     <MenuItem Header="Security Roles" Click="tSMISecurityRoles_Click" />
@@ -318,6 +327,14 @@
                                 <MenuItem x:Name="tSMITransferAuditFrom1To2" Header="Audit from 1 to 2" Click="tSMITransferAuditFrom1To2_Click"/>
                                 <Separator/>
                                 <MenuItem x:Name="tSMITransferAuditFrom2To1" Header="Audit from 2 to 1" Click="tSMITransferAuditFrom2To1_Click"/>
+                                <Separator/>
+                                <MenuItem x:Name="tSMITransferWorkflowsStatesFrom1To2" Header="Workflows States from 1 to 2" Click="tSMITransferWorkflowsStatesFrom1To2_Click"/>
+                                <Separator/>
+                                <MenuItem x:Name="tSMITransferWorkflowsStatesFrom2To1" Header="Workflows States from 2 to 1" Click="tSMITransferWorkflowsStatesFrom2To1_Click"/>
+                                <Separator/>
+                                <MenuItem x:Name="tSMITransferPluginStepsStatesFrom1To2" Header="Plugin Steps States from 1 to 2" Click="tSMITransferPluginStepsStatesFrom1To2_Click"/>
+                                <Separator/>
+                                <MenuItem x:Name="tSMITransferPluginStepsStatesFrom2To1" Header="Plugin Steps States from 2 to 1" Click="tSMITransferPluginStepsStatesFrom2To1_Click"/>
                             </MenuItem>
                         </Menu>
                     </ToolBarPanel>

@@ -147,6 +147,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        public Task<OrganizationResponse> ExecuteAsync(OrganizationRequest request)
+        {
+            return Task.Run(() => Execute(request));
+        }
+
         public OrganizationResponse Execute(OrganizationRequest request)
         {
             try

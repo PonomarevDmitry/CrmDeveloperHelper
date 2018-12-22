@@ -4,21 +4,21 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CommonExportSolutionComponentsCommand : AbstractCommand
+    internal sealed class CommonSolutionExplorerCommand : AbstractCommand
     {
-        private CommonExportSolutionComponentsCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonExportSolutionComponentsCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CommonSolutionExplorerCommand(Package package)
+           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonSolutionExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
 
-        public static CommonExportSolutionComponentsCommand Instance { get; private set; }
+        public static CommonSolutionExplorerCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CommonExportSolutionComponentsCommand(package);
+            Instance = new CommonSolutionExplorerCommand(package);
         }
 
         private static void ActionExecute(DTEHelper helper)
         {
-            helper.HandleOpenSolutionComponentExplorerWindow();
+            helper.HandleOpenSolutionExplorerWindow(null);
         }
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)

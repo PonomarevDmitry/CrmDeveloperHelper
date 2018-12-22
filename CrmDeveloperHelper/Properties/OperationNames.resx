@@ -348,8 +348,8 @@
   <data name="ShowingSolutionImageWindowFormat1" xml:space="preserve">
     <value>{0} - Showing SolutionImage Window</value>
   </data>
-  <data name="SolutionComponentExplorerFormat1" xml:space="preserve">
-    <value>{0} - Solution Component Explorer</value>
+  <data name="SolutionExplorerFormat1" xml:space="preserve">
+    <value>{0} - Solution Explorer</value>
   </data>
   <data name="TraceReaderFormat1" xml:space="preserve">
     <value>{0} - Trace Reader</value>
@@ -565,7 +565,7 @@
     <value>Checking Workflows with details in {0} and {1}</value>
   </data>
   <data name="TransferingAuditFormat2" xml:space="preserve">
-    <value>Transferfing Data from {0} to {1}</value>
+    <value>Transferfing Audit from {0} to {1}</value>
   </data>
   <data name="CreatingFileWithAttributesDependentComponentsFormat2" xml:space="preserve">
     <value>{0} - Creating File with attributes dependent components for {1}</value>
@@ -629,5 +629,23 @@
   </data>
   <data name="UpdatingSavedQueryFormat1" xml:space="preserve">
     <value>{0} - Updating SavedQuery</value>
+  </data>
+  <data name="CheckingWorkflowsStatusCodesFormat2" xml:space="preserve">
+    <value>Checking Workflow states in {0} and {1}</value>
+  </data>
+  <data name="TransferingWorkflowsStatesFormat2" xml:space="preserve">
+    <value>Transferfing Workflows States from {0} to {1}</value>
+  </data>
+  <data name="ActivatingEntityFormat3" xml:space="preserve">
+    <value>{0} - Activating {1} {2}</value>
+  </data>
+  <data name="DeactivatingEntityFormat2" xml:space="preserve">
+    <value>{0} - Deactivating {1} {2}</value>
+  </data>
+  <data name="CheckingPluginStepsStatesFormat2" xml:space="preserve">
+    <value>Checking Plugin Steps States in {0} and {1}</value>
+  </data>
+  <data name="TransferingPluginStepsStatesFormat2" xml:space="preserve">
+    <value>Transferfing Plugin Steps States from {0} to {1}</value>
   </data>
 </root>

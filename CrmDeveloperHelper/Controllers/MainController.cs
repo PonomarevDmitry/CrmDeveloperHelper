@@ -1170,13 +1170,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpenSolutionComponentExplorerWindow(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartOpenSolutionExplorerWindow(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._solutionController.ExecuteOpeningSolutionComponentWindow(selectedItem, connectionData, commonConfig);
+                    this._solutionController.ExecuteOpeningSolutionExlorerWindow(selectedItem, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

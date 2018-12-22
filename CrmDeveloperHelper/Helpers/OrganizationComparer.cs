@@ -1497,8 +1497,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
-            var task1 = _comparerSource.GetWorkflow1Async();
-            var task2 = _comparerSource.GetWorkflow2Async();
+            var task1 = _comparerSource.GetWorkflow1Async(new ColumnSet(true));
+            var task2 = _comparerSource.GetWorkflow2Async(new ColumnSet(true));
 
             var taskTranslation1 = TranslationRepository.GetDefaultTranslationFromCacheAsync(Connection1.ConnectionId, _comparerSource.Service1);
             var taskTranslation2 = TranslationRepository.GetDefaultTranslationFromCacheAsync(Connection2.ConnectionId, _comparerSource.Service2);
@@ -1518,10 +1518,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, Connection2.Name, list2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
-            tableOnlyExistsIn1.SetHeader("Entity", "Category", "Name", "IsCrmUiWorkflow", "IsManaged", "Id");
+            tableOnlyExistsIn1.SetHeader("Entity", "Category", "Name", "StatusCode", "IsCrmUiWorkflow", "IsManaged", "Id");
 
             FormatTextTableHandler tableOnlyExistsIn2 = new FormatTextTableHandler();
-            tableOnlyExistsIn2.SetHeader("Entity", "Category", "Name", "IsCrmUiWorkflow", "IsManaged", "Id");
+            tableOnlyExistsIn2.SetHeader("Entity", "Category", "Name", "StatusCode", "IsCrmUiWorkflow", "IsManaged", "Id");
 
             List<LinkedEntities<Workflow>> commonList = new List<LinkedEntities<Workflow>>();
 
@@ -1540,13 +1540,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 string entityName1 = workflow1.PrimaryEntity;
-                string categoryName1 = workflow1.FormattedValues[Workflow.Schema.Attributes.category];
+                workflow1.FormattedValues.TryGetValue(Workflow.Schema.Attributes.category, out string categoryName1);
+                workflow1.FormattedValues.TryGetValue(Workflow.Schema.Attributes.statuscode, out string statusCode1);
                 string name1 = workflow1.Name;
 
                 tableOnlyExistsIn1.AddLine(
                     entityName1
                     , categoryName1
                     , name1
+                    , statusCode1
                     , workflow1.IsCrmUIWorkflow.ToString()
                     , workflow1.IsManaged.ToString()
                     , workflow1.Id.ToString()
@@ -1567,13 +1569,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 string entityName2 = workflow2.PrimaryEntity;
-                string categoryName2 = workflow2.FormattedValues[Workflow.Schema.Attributes.category];
+                workflow2.FormattedValues.TryGetValue(Workflow.Schema.Attributes.category, out string categoryName2);
+                workflow2.FormattedValues.TryGetValue(Workflow.Schema.Attributes.statuscode, out string statusCode2);
                 string name2 = workflow2.Name;
 
                 tableOnlyExistsIn2.AddLine(
                     entityName2
                     , categoryName2
                     , name2
+                    , statusCode2
                     , workflow2.IsCrmUIWorkflow.ToString()
                     , workflow2.IsManaged.ToString()
                     , workflow2.Id.ToString()
@@ -1785,6 +1789,217 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, Properties.OrganizationComparerStrings.WorkflowsFileName + (withDetails ? " with details" : string.Empty));
+
+            string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            await SaveOrganizationDifferenceImage();
+
+            return filePath;
+        }
+
+        public Task<string> CheckWorkflowsStatesAsync()
+        {
+            return Task.Run(async () => await CheckWorkflowsStates());
+        }
+
+        private async Task<string> CheckWorkflowsStates()
+        {
+            StringBuilder content = new StringBuilder();
+
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
+
+            string operation = string.Format(Properties.OperationNames.CheckingWorkflowsStatusCodesFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+
+            var columnsSet = new ColumnSet
+            (
+                Workflow.Schema.EntityPrimaryIdAttribute
+                , Workflow.Schema.Attributes.primaryentity
+                , Workflow.Schema.Attributes.category
+                , Workflow.Schema.Attributes.name
+                , Workflow.Schema.Attributes.statecode
+                , Workflow.Schema.Attributes.statuscode
+                , Workflow.Schema.Attributes.iscrmuiworkflow
+                , Workflow.Schema.Attributes.ismanaged
+            );
+
+            var task1 = _comparerSource.GetWorkflow1Async(columnsSet);
+            var task2 = _comparerSource.GetWorkflow2Async(columnsSet);
+
+            List<Workflow> list1 = await task1;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, Connection1.Name, list1.Count()));
+
+            List<Workflow> list2 = await task2;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, Connection2.Name, list2.Count()));
+
+            FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
+            tableOnlyExistsIn1.SetHeader("Entity", "Category", "Name", "StatusCode", "IsCrmUIWorkflow", "IsManaged", "Id");
+
+            FormatTextTableHandler tableOnlyExistsIn2 = new FormatTextTableHandler();
+            tableOnlyExistsIn2.SetHeader("Entity", "Category", "Name", "StatusCode", "IsCrmUIWorkflow", "IsManaged", "Id");
+
+            List<LinkedEntities<Workflow>> commonList = new List<LinkedEntities<Workflow>>();
+
+            string headerConnection1 = string.Format(Properties.OrganizationComparerStrings.StatusCodeInConnectionFormat1, Connection1.Name);
+            string headerConnection2 = string.Format(Properties.OrganizationComparerStrings.StatusCodeInConnectionFormat1, Connection2.Name);
+
+            FormatTextTableHandler tableDifference = new FormatTextTableHandler();
+            tableDifference.SetHeader("Entity", "Category", "Name", headerConnection1, headerConnection2, "Id");
+
+            foreach (Workflow workflow1 in list1)
+            {
+                {
+                    Workflow workflow2 = list2.FirstOrDefault(workflow => workflow.Id == workflow1.Id);
+
+                    if (workflow2 != null)
+                    {
+                        commonList.Add(new LinkedEntities<Workflow>(workflow1, workflow2));
+                        continue;
+                    }
+                }
+
+                string entityName1 = workflow1.PrimaryEntity;
+
+                workflow1.FormattedValues.TryGetValue(Workflow.Schema.Attributes.category, out string categoryName1);
+                workflow1.FormattedValues.TryGetValue(Workflow.Schema.Attributes.statuscode, out string statusCode1);
+
+                string name1 = workflow1.Name;
+
+                tableOnlyExistsIn1.AddLine(
+                    entityName1
+                    , categoryName1
+                    , name1
+                    , statusCode1
+                    , workflow1.IsCrmUIWorkflow.ToString()
+                    , workflow1.IsManaged.ToString()
+                    , workflow1.Id.ToString()
+                    );
+
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.Workflow, workflow1.Id);
+            }
+
+            foreach (Workflow workflow2 in list2)
+            {
+                {
+                    Workflow workflow1 = list1.FirstOrDefault(workflow => workflow.Id == workflow2.Id);
+
+                    if (workflow1 != null)
+                    {
+                        continue;
+                    }
+                }
+
+                string entityName2 = workflow2.PrimaryEntity;
+                workflow2.FormattedValues.TryGetValue(Workflow.Schema.Attributes.category, out string categoryName2);
+                workflow2.FormattedValues.TryGetValue(Workflow.Schema.Attributes.statuscode, out string statusCode2);
+                string name2 = workflow2.Name;
+
+                tableOnlyExistsIn2.AddLine(
+                    entityName2
+                    , categoryName2
+                    , name2
+                    , statusCode2
+                    , workflow2.IsCrmUIWorkflow.ToString()
+                    , workflow2.IsManaged.ToString()
+                    , workflow2.Id.ToString()
+                    );
+
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.Workflow, workflow2.Id);
+            }
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.WorkflowsCommonFormat3, Connection1.Name, Connection2.Name, commonList.Count()));
+
+            {
+                ProgressReporter reporter = new ProgressReporter(_iWriteToOutput, commonList.Count, 5, Properties.OrganizationComparerStrings.WorkflowsProcessingCommon);
+
+                foreach (LinkedEntities<Workflow> workflow in commonList)
+                {
+                    reporter.Increase();
+
+                    if (workflow.Entity1.StatusCode?.Value != workflow.Entity2.StatusCode?.Value)
+                    {
+                        string entityName1 = workflow.Entity1.PrimaryEntity;
+                        workflow.Entity1.FormattedValues.TryGetValue(Workflow.Schema.Attributes.category, out string categoryName1);
+                        string name1 = workflow.Entity1.Name;
+
+                        workflow.Entity1.FormattedValues.TryGetValue(Workflow.Schema.Attributes.statuscode, out string statusCode1);
+                        workflow.Entity2.FormattedValues.TryGetValue(Workflow.Schema.Attributes.statuscode, out string statusCode2);
+
+                        tableDifference.AddLine(
+                            entityName1
+                            , categoryName1
+                            , name1
+                            , statusCode1
+                            , statusCode2
+                            , workflow.Entity1.Id.ToString()
+                            );
+
+                        this.ImageBuilder.AddComponentDifferent((int)ComponentType.Workflow, workflow.Entity1.Id, workflow.Entity2.Id, "StatusCode");
+                    }
+                }
+            }
+
+            if (tableOnlyExistsIn1.Count > 0)
+            {
+                content
+                      .AppendLine()
+                      .AppendLine()
+                      .AppendLine()
+                      .AppendLine(new string('-', 150))
+                      .AppendLine()
+                      .AppendLine();
+
+                content.AppendLine().AppendLine().AppendFormat(Properties.OrganizationComparerStrings.WorkflowsOnlyExistsInConnectionFormat2, Connection1.Name, tableOnlyExistsIn1.Count);
+
+                tableOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
+            }
+
+            if (tableOnlyExistsIn2.Count > 0)
+            {
+                content
+                       .AppendLine()
+                       .AppendLine()
+                       .AppendLine()
+                       .AppendLine(new string('-', 150))
+                       .AppendLine()
+                       .AppendLine();
+
+                content.AppendLine().AppendLine().AppendFormat(Properties.OrganizationComparerStrings.WorkflowsOnlyExistsInConnectionFormat2, Connection2.Name, tableOnlyExistsIn2.Count);
+
+                tableOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
+            }
+
+            if (tableDifference.Count > 0)
+            {
+                content
+                       .AppendLine()
+                       .AppendLine()
+                       .AppendLine()
+                       .AppendLine(new string('-', 150))
+                       .AppendLine()
+                       .AppendLine();
+
+                content.AppendLine().AppendLine().AppendFormat(Properties.OrganizationComparerStrings.WorkflowsDifferentFormat3, Connection1.Name, Connection2.Name, tableDifference.Count);
+
+                tableDifference.GetFormatedLines(true).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
+            }
+
+            if (tableOnlyExistsIn2.Count == 0
+                && tableOnlyExistsIn1.Count == 0
+                && tableDifference.Count == 0
+                )
+            {
+                content.AppendLine(Properties.OrganizationComparerStrings.WorkflowsNoDifference);
+            }
+
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, Properties.OrganizationComparerStrings.WorkflowsFileName + " states");
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 

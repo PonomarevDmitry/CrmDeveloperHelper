@@ -292,19 +292,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return new ReportRepository(service).GetListAllForCompareAsync();
         }
 
-        public Task<List<Workflow>> GetWorkflow1Async()
+        public Task<List<Workflow>> GetWorkflow1Async(ColumnSet columnSet)
         {
-            return GetWorkflowAsync(Service1);
+            return GetWorkflowAsync(Service1, columnSet);
         }
 
-        public Task<List<Workflow>> GetWorkflow2Async()
+        public Task<List<Workflow>> GetWorkflow2Async(ColumnSet columnSet)
         {
-            return GetWorkflowAsync(Service2);
+            return GetWorkflowAsync(Service2, columnSet);
         }
 
-        protected virtual Task<List<Workflow>> GetWorkflowAsync(IOrganizationServiceExtented service)
+        protected virtual Task<List<Workflow>> GetWorkflowAsync(IOrganizationServiceExtented service, ColumnSet columnSet)
         {
-            return new WorkflowRepository(service).GetListAsync(null, null, null, null);
+            return new WorkflowRepository(service).GetListAsync(null, null, null, columnSet);
         }
 
         public Task<List<SystemForm>> GetSystemForm1Async()

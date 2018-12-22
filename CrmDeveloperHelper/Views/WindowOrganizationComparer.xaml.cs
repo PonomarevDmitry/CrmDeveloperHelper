@@ -1,4 +1,3 @@
-﻿using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -9,7 +8,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -157,6 +155,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             tSMITransferAuditFrom1To2.Header = string.Format("Audit from {0} to {1}", connection1.Name, connection2.Name);
                             tSMITransferAuditFrom2To1.Header = string.Format("Audit from {1} to {0}", connection1.Name, connection2.Name);
+
+                            tSMITransferWorkflowsStatesFrom1To2.Header = string.Format("Workflows States from {0} to {1}", connection1.Name, connection2.Name);
+                            tSMITransferWorkflowsStatesFrom2To1.Header = string.Format("Workflows States from {1} to {0}", connection1.Name, connection2.Name);
+
+                            tSMITransferPluginStepsStatesFrom1To2.Header = string.Format("Plugin Steps States from {0} to {1}", connection1.Name, connection2.Name);
+                            tSMITransferPluginStepsStatesFrom2To1.Header = string.Format("Plugin Steps States from {1} to {0}", connection1.Name, connection2.Name);
                         }
                     }
 
@@ -479,7 +483,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckObjectsNamesForPrefix_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
@@ -488,13 +491,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
+                    _commonConfig.Save();
+
                     var backWorker = new Thread(() =>
                     {
                         try
                         {
                             var contr = new CheckController(this._iWriteToOutput);
-
-                            _commonConfig.Save();
 
                             contr.ExecuteCheckingEntitiesNames(connection1, _commonConfig, dialog.Prefix);
                         }
@@ -511,7 +514,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckObjectsNamesForPrefixAndShowDependentComponents_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
@@ -551,13 +553,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
+                    _commonConfig.Save();
+
                     var backWorker = new Thread(() =>
                     {
                         try
                         {
                             var contr = new CheckController(this._iWriteToOutput);
-
-                            _commonConfig.Save();
 
                             contr.ExecuteCheckingMarkedToDelete(connection1, _commonConfig, dialog.Prefix);
                         }
@@ -574,18 +576,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckEntitiesOwnership_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new CheckController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteCheckingEntitiesOwnership(connection1, _commonConfig);
                     }
@@ -600,18 +601,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckGlobalOptionSetDuplicatesOnEntity_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new CheckController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteCheckingGlobalOptionSetDuplicates(connection1, _commonConfig);
                     }
@@ -626,18 +626,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMISolutionComponentTypeEnum_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new CheckController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteCheckingComponentTypeEnum(connection1, _commonConfig);
                     }
@@ -652,18 +651,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICreateAllDependencyNodesDescription_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new CheckController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteCreatingAllDependencyNodesDescription(connection1, _commonConfig);
                     }
@@ -678,18 +676,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckPluginStepsDuplicates_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new CheckPluginController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteCheckingPluginSteps(connection1, _commonConfig);
                     }
@@ -704,18 +701,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckPluginImagesDuplicates_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new CheckPluginController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteCheckingPluginImages(connection1, _commonConfig);
                     }
@@ -730,18 +726,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckPluginStepsRequiredComponents_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new CheckPluginController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteCheckingPluginStepsRequiredComponents(connection1, _commonConfig);
                     }
@@ -756,18 +751,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckPluginImagesRequiredComponents_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new CheckPluginController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteCheckingPluginImagesRequiredComponents(connection1, _commonConfig);
                     }
@@ -782,7 +776,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckWorkflowsUsedEntities_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
@@ -791,13 +784,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
+                    _commonConfig.Save();
+
                     var backWorker = new Thread(() =>
                     {
                         try
                         {
                             var contr = new CheckController(this._iWriteToOutput);
-
-                            _commonConfig.Save();
 
                             contr.ExecuteCheckingWorkflowsUsedEntities(connection1, _commonConfig);
                         }
@@ -814,7 +807,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckWorkflowsUsedNotExistsEntities_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
@@ -823,13 +815,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
+                    _commonConfig.Save();
+
                     var backWorker = new Thread(() =>
                     {
                         try
                         {
                             var contr = new CheckController(this._iWriteToOutput);
-
-                            _commonConfig.Save();
 
                             contr.ExecuteCheckingWorkflowsNotExistingUsedEntities(connection1, _commonConfig);
                         }
@@ -846,7 +838,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIFindEntityObjectsByName_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
@@ -855,13 +846,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
+                    _commonConfig.Save();
+
                     var backWorker = new Thread(() =>
                     {
                         try
                         {
                             var contr = new CheckController(this._iWriteToOutput);
-
-                            _commonConfig.Save();
 
                             contr.ExecuteFindEntityElementsByName(connection1, _commonConfig, dialog.Prefix);
                         }
@@ -878,7 +869,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIFindEntityObjectsContainsString_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
@@ -887,13 +877,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
+                    _commonConfig.Save();
+
                     var backWorker = new Thread(() =>
                     {
                         try
                         {
                             var contr = new CheckController(this._iWriteToOutput);
-
-                            _commonConfig.Save();
 
                             contr.ExecuteFindEntityElementsContainsString(connection1, _commonConfig, dialog.Prefix);
                         }
@@ -910,13 +900,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIFindEntityObjectsById_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
-                _commonConfig.Save();
-
                 var dialog = new WindowSelectEntityIdToFind(_commonConfig, connection1, string.Format("Find Entity in {0} by Id", connection1.Name));
 
                 if (dialog.ShowDialog().GetValueOrDefault())
@@ -924,6 +911,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string entityName = dialog.EntityTypeName;
                     int? entityTypeCode = dialog.EntityTypeCode;
                     Guid entityId = dialog.EntityId;
+
+                    _commonConfig.Save();
 
                     var backWorker = new Thread(() =>
                     {
@@ -946,13 +935,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIFindEntityObjectsByUniqueidentifier_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
-                _commonConfig.Save();
-
                 var dialog = new WindowSelectEntityIdToFind(_commonConfig, connection1, string.Format("Find Entity in {0} by Uniqueidentifier", connection1.Name));
 
                 if (dialog.ShowDialog().GetValueOrDefault())
@@ -960,6 +946,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string entityName = dialog.EntityTypeName;
                     int? entityTypeCode = dialog.EntityTypeCode;
                     Guid entityId = dialog.EntityId;
+
+                    _commonConfig.Save();
 
                     var backWorker = new Thread(() =>
                     {
@@ -982,18 +970,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMICheckManagedEntitiesInCRM_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new CheckManagedEntitiesController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteCheckingManagedEntities(connection1, _commonConfig);
                     }
@@ -1012,18 +999,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSitemap_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         ExportXmlController contr = new ExportXmlController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteExportingSitemapXml(connection1, _commonConfig);
                     }
@@ -1038,18 +1024,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new EntityMetadataController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteCreatingFileWithGlobalOptionSets(connection1, _commonConfig, null);
                     }
@@ -1064,18 +1049,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSystemFormsEvents_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         ExportXmlController contr = new ExportXmlController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteExportingFormsEvents(connection1, _commonConfig);
 
@@ -1091,18 +1075,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportEntityMetadata_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new EntityMetadataController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteCreatingFileWithEntityMetadata(string.Empty, connection1, _commonConfig);
                     }
@@ -1121,13 +1104,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new EntityMetadataController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteOpeningEntityAttributeExplorer(string.Empty, connection1, _commonConfig);
                     }
@@ -1146,13 +1129,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new EntityMetadataController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteOpeningEntityRelationshipOneToManyExplorer(string.Empty, connection1, _commonConfig);
                     }
@@ -1171,13 +1154,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new EntityMetadataController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteOpeningEntityRelationshipManyToManyExplorer(string.Empty, connection1, _commonConfig);
                     }
@@ -1196,13 +1179,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new EntityMetadataController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteOpeningEntityKeyExplorer(string.Empty, connection1, _commonConfig);
                     }
@@ -1221,13 +1204,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new EntityMetadataController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteOpeningEntitySecurityRolesExplorer(string.Empty, connection1, _commonConfig);
                     }
@@ -1240,20 +1223,94 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
+        private void tSMISystemUsersExplorer_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
+                var backWorker = new Thread(() =>
+                {
+                    try
+                    {
+                        var contr = new SecurityController(this._iWriteToOutput);
+
+                        contr.ExecuteShowingSystemUserExplorer(string.Empty, connection1, _commonConfig);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                });
+                backWorker.Start();
+            }
+        }
+
+        private void tSMITeamsExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
+
+            if (connection1 != null && connection2 == null)
+            {
+                _commonConfig.Save();
+
+                var backWorker = new Thread(() =>
+                {
+                    try
+                    {
+                        var contr = new SecurityController(this._iWriteToOutput);
+
+                        contr.ExecuteShowingTeamsExplorer(string.Empty, connection1, _commonConfig);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                });
+                backWorker.Start();
+            }
+        }
+
+        private void tSMISecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
+
+            if (connection1 != null && connection2 == null)
+            {
+                _commonConfig.Save();
+
+                var backWorker = new Thread(() =>
+                {
+                    try
+                    {
+                        var contr = new SecurityController(this._iWriteToOutput);
+
+                        contr.ExecuteShowingSecurityRolesExplorer(string.Empty, connection1, _commonConfig);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(ex);
+                    }
+                });
+                backWorker.Start();
+            }
+        }
+
+        private void tSMIExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
+        {
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
+
+            if (connection1 != null && connection2 == null)
+            {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         ExportXmlController contr = new ExportXmlController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteExportingApplicationRibbonXml(string.Empty, connection1, _commonConfig);
                     }
@@ -1268,18 +1325,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportWorkflows_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         ExportXmlController contr = new ExportXmlController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteExportingWorkflow(string.Empty, connection1, _commonConfig);
                     }
@@ -1294,18 +1350,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSystemForms_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         ExportXmlController contr = new ExportXmlController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteExportingSystemFormXml(string.Empty, connection1, _commonConfig);
                     }
@@ -1320,18 +1375,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSystemViews_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         ExportXmlController contr = new ExportXmlController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteExportingSystemSavedQueryXml(string.Empty, connection1, _commonConfig);
                     }
@@ -1346,18 +1400,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSystemCharts_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         ExportXmlController contr = new ExportXmlController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteExportingSystemSavedQueryVisualizationXml(string.Empty, connection1, _commonConfig);
                     }
@@ -1372,18 +1425,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportWebResources_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         DownloadController contr = new DownloadController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteDownloadCustomWebResources(connection1, _commonConfig, string.Empty);
                     }
@@ -1398,18 +1450,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportReports_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         DownloadController contr = new DownloadController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteDownloadCustomReport(connection1, _commonConfig, string.Empty);
                     }
@@ -1424,20 +1475,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSolutionComponents_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         SolutionController contr = new SolutionController(this._iWriteToOutput);
 
-                        _commonConfig.Save();
-
-                        contr.ExecuteOpeningSolutionComponentWindow(null, connection1, _commonConfig);
+                        contr.ExecuteOpeningSolutionExlorerWindow(null, connection1, _commonConfig);
                     }
                     catch (Exception ex)
                     {
@@ -1450,18 +1500,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportPluginAssemblyDescription_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         PluginTypeDescriptionController contr = new PluginTypeDescriptionController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteExportingPluginAssembly(connection1, _commonConfig, string.Empty);
                     }
@@ -1476,18 +1525,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportPluginTypeDescription_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         PluginTypeDescriptionController contr = new PluginTypeDescriptionController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteCreatingPluginTypeDescription(connection1, _commonConfig, string.Empty);
                     }
@@ -1502,7 +1550,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportPluginTree_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
@@ -1528,7 +1575,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSdkMessageTree_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
@@ -1554,7 +1600,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportSdkMessageRequestTree_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
@@ -1580,17 +1625,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportCreatePluginConfiguration_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
-                _commonConfig.Save();
-
                 var form = new WindowPluginConfiguration(_commonConfig, true);
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {
+                    _commonConfig.Save();
+
                     var backWorker = new Thread(() =>
                     {
                         try
@@ -1611,15 +1655,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportPluginConfigurationAssembly_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 try
                 {
-                    _commonConfig.Save();
-
                     PluginTreeController contr = new PluginTreeController(this._iWriteToOutput);
 
                     contr.ExecuteShowingPluginConfigurationAssemblyDescription(_commonConfig, string.Empty);
@@ -1633,15 +1676,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportPluginConfigurationType_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 try
                 {
-                    _commonConfig.Save();
-
                     PluginTreeController contr = new PluginTreeController(this._iWriteToOutput);
 
                     contr.ExecuteShowingPluginConfigurationTypeDescription(_commonConfig, string.Empty);
@@ -1692,15 +1734,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIExportPluginConfigurationComparer_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 try
                 {
-                    _commonConfig.Save();
-
                     PluginTreeController contr = new PluginTreeController(this._iWriteToOutput);
 
                     contr.ExecuteShowingPluginConfigurationComparer(_commonConfig, string.Empty);
@@ -1718,12 +1759,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
-                        _commonConfig.Save();
-
                         SolutionController contr = new SolutionController(this._iWriteToOutput);
 
                         contr.ExecuteOpeningSolutionImageWindow(connection1, _commonConfig);
@@ -1743,13 +1784,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new ExportXmlController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteExportingOrganizationInformation(connection1, _commonConfig);
                     }
@@ -1768,13 +1809,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection1 != null && connection2 == null)
             {
+                _commonConfig.Save();
+
                 var backWorker = new Thread(() =>
                 {
                     try
                     {
                         var contr = new SolutionController(this._iWriteToOutput);
-
-                        _commonConfig.Save();
 
                         contr.ExecuteOpeningOrganizationDifferenceImageWindow(connection1, _commonConfig);
                     }
@@ -1793,7 +1834,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceSystemSavedQueries_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
@@ -1830,7 +1870,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceSystemCharts_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
@@ -1867,7 +1906,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
@@ -1904,7 +1942,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceSystemForms_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
@@ -1941,7 +1978,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceWebResources_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
@@ -1977,7 +2013,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceEntityMetadata_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
@@ -2049,7 +2084,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceSitemaps_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
@@ -2085,7 +2119,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceWorkflows_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
@@ -2122,7 +2155,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferenceReports_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
@@ -2158,7 +2190,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSMIDifferencePluginAssemblies_Click(object sender, RoutedEventArgs e)
         {
-
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
@@ -2257,7 +2288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Кнопки сравнения сред несколькими процедурами.
 
-        private void tSMICompareAll_Click(object sender, EventArgs e)
+        private void tSMICompareAll_Click(object sender, RoutedEventArgs e)
         {
             var functions = new List<Func<OrganizationComparer, Task>>()
             {
@@ -2307,7 +2338,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteListOperation(functions);
         }
 
-        private void tSMICompareAllEntityMetadata_Click(object sender, EventArgs e)
+        private void tSMICompareAllEntityMetadata_Click(object sender, RoutedEventArgs e)
         {
             var functions = new List<Func<OrganizationComparer, Task>>()
             {
@@ -2319,7 +2350,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteListOperation(functions);
         }
 
-        private void tSMICompareAllEntityObjects_Click(object sender, EventArgs e)
+        private void tSMICompareAllEntityObjects_Click(object sender, RoutedEventArgs e)
         {
             var functions = new List<Func<OrganizationComparer, Task>>()
             {
@@ -2331,7 +2362,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteListOperation(functions);
         }
 
-        private void tSMICompareAllEntityInformation_Click(object sender, EventArgs e)
+        private void tSMICompareAllEntityInformation_Click(object sender, RoutedEventArgs e)
         {
             var functions = new List<Func<OrganizationComparer, Task>>()
             {
@@ -2351,7 +2382,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteListOperation(functions);
         }
 
-        private void tSMICompareAllTranslations_Click(object sender, EventArgs e)
+        private void tSMICompareAllTranslations_Click(object sender, RoutedEventArgs e)
         {
             var functions = new List<Func<OrganizationComparer, Task>>()
             {
@@ -2362,7 +2393,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteListOperation(functions);
         }
 
-        private void tSMICompareAllTemplates_Click(object sender, EventArgs e)
+        private void tSMICompareAllTemplates_Click(object sender, RoutedEventArgs e)
         {
             var functions = new List<Func<OrganizationComparer, Task>>()
             {
@@ -2375,7 +2406,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteListOperation(functions);
         }
 
-        private void tSMICompareAllConnectionInformation_Click(object sender, EventArgs e)
+        private void tSMICompareAllConnectionInformation_Click(object sender, RoutedEventArgs e)
         {
             var functions = new List<Func<OrganizationComparer, Task>>()
             {
@@ -2386,7 +2417,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteListOperation(functions);
         }
 
-        private void tSMICompareAllPluginInformation_Click(object sender, EventArgs e)
+        private void tSMICompareAllPluginInformation_Click(object sender, RoutedEventArgs e)
         {
             var functions = new List<Func<OrganizationComparer, Task>>()
             {
@@ -2399,7 +2430,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteListOperation(functions);
         }
 
-        private void tSMICompareAllSecurity_Click(object sender, EventArgs e)
+        private void tSMICompareAllSecurity_Click(object sender, RoutedEventArgs e)
         {
             var functions = new List<Func<OrganizationComparer, Task>>()
             {
@@ -2486,7 +2517,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #endregion Кнопки сравнения сред несколькими процедурами.
 
-        private void tSMIGlobalOptionSets_Click(object sender, EventArgs e)
+        private void tSMIGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeGlobalOptionSets);
         }
@@ -2509,7 +2540,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMISystemForms_Click(object sender, EventArgs e)
+        private void tSMISystemForms_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeSystemForms);
         }
@@ -2532,7 +2563,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMISystemSavedQueries_Click(object sender, EventArgs e)
+        private void tSMISystemSavedQueries_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeSystemSavedQueries);
         }
@@ -2555,7 +2586,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMISystemCharts_Click(object sender, EventArgs e)
+        private void tSMISystemCharts_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeSystemSavedQueryVisualizations);
         }
@@ -2578,7 +2609,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIConnectionRoles_Click(object sender, EventArgs e)
+        private void tSMIConnectionRoles_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeConnectionRoles);
         }
@@ -2601,7 +2632,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIConnectionRoleCategories_Click(object sender, EventArgs e)
+        private void tSMIConnectionRoleCategories_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeConnectionRoleCategories);
         }
@@ -2624,7 +2655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIRibbons_Click(object sender, EventArgs e)
+        private void tSMIRibbons_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeRibbons);
         }
@@ -2647,7 +2678,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIRibbonsWithDetails_Click(object sender, EventArgs e)
+        private void tSMIRibbonsWithDetails_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeRibbonsWithDetails);
         }
@@ -2670,7 +2701,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIDisplayStrings_Click(object sender, EventArgs e)
+        private void tSMIDisplayStrings_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeDisplayStrings);
         }
@@ -2693,7 +2724,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIWebResources_Click(object sender, EventArgs e)
+        private void tSMIWebResources_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeWebResources);
         }
@@ -2716,7 +2747,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIWebResourcesWithDetails_Click(object sender, EventArgs e)
+        private void tSMIWebResourcesWithDetails_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeWebResourcesWithDetails);
         }
@@ -2739,7 +2770,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMISitemaps_Click(object sender, EventArgs e)
+        private void tSMISitemaps_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeSitemaps);
         }
@@ -2762,7 +2793,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMISecurityRoles_Click(object sender, EventArgs e)
+        private void tSMISecurityRoles_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeSecurityRoles);
         }
@@ -2785,7 +2816,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIWorkflows_Click(object sender, EventArgs e)
+        private void tSMIWorkflows_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeWorkflows);
         }
@@ -2808,7 +2839,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIWorkflowsWithDetails_Click(object sender, EventArgs e)
+        private void tSMIWorkflowsWithDetails_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeWorkflowsWithDetails);
         }
@@ -2831,7 +2862,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIReports_Click(object sender, EventArgs e)
+        private void tSMIWorkflowsStates_Click(object sender, RoutedEventArgs e)
+        {
+            ExecuteOperation(AnalizeWorkflowsStates);
+        }
+
+        private async Task AnalizeWorkflowsStates(OrganizationComparer comparer)
+        {
+            try
+            {
+                UpdateStatus(Properties.WindowStatusStrings.CheckingWorkflowsStatesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+
+                string filePath = await comparer.CheckWorkflowsStatesAsync();
+
+                this._iWriteToOutput.WriteToOutput("Check Workflows states in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
+        }
+
+        private void tSMIReports_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeReports);
         }
@@ -2854,7 +2908,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIEmailTemplate_Click(object sender, EventArgs e)
+        private void tSMIEmailTemplate_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeEmailTemplate);
         }
@@ -2877,7 +2931,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIMailMergeTemplate_Click(object sender, EventArgs e)
+        private void tSMIMailMergeTemplate_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeMailMergeTemplates);
         }
@@ -2900,7 +2954,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIKBArticleTemplate_Click(object sender, EventArgs e)
+        private void tSMIKBArticleTemplate_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeKBArticleTemplates);
         }
@@ -2923,7 +2977,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIContractTemplate_Click(object sender, EventArgs e)
+        private void tSMIContractTemplate_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeContractTemplate);
         }
@@ -2946,7 +3000,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIFieldSecurityProfiles_Click(object sender, EventArgs e)
+        private void tSMIFieldSecurityProfiles_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeFieldSecurityProfiles);
         }
@@ -2969,7 +3023,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIEntities_Click(object sender, EventArgs e)
+        private void tSMIEntities_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeEntities);
         }
@@ -2992,7 +3046,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIEntityLabels_Click(object sender, EventArgs e)
+        private void tSMIEntityLabels_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeEntityLabels);
         }
@@ -3015,7 +3069,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIEntityMaps_Click(object sender, EventArgs e)
+        private void tSMIEntityMaps_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeEntityMaps);
         }
@@ -3038,7 +3092,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIPluginAssemblies_Click(object sender, EventArgs e)
+        private void tSMIPluginAssemblies_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizePluginAssemblies);
         }
@@ -3061,7 +3115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIPluginTypes_Click(object sender, EventArgs e)
+        private void tSMIPluginTypes_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizePluginTypes);
         }
@@ -3084,7 +3138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIPluginStepsByPluginTypeNames_Click(object sender, EventArgs e)
+        private void tSMIPluginStepsByPluginTypeNames_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizePluginStepsByPluginTypeNames);
         }
@@ -3107,7 +3161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIPluginStepsByIds_Click(object sender, EventArgs e)
+        private void tSMIPluginStepsByIds_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizePluginStepsByIds);
         }
@@ -3130,7 +3184,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIDefaultTranslations_Click(object sender, EventArgs e)
+        private void tSMIPluginStepsStates_Click(object sender, RoutedEventArgs e)
+        {
+            ExecuteOperation(AnalizePluginStepsStates);
+        }
+
+        private async Task AnalizePluginStepsStates(OrganizationComparer comparer)
+        {
+            try
+            {
+                UpdateStatus(Properties.WindowStatusStrings.CheckingPluginStepsStatesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+
+                string filePath = await comparer.CheckPluginStepsStatesAsync();
+
+                this._iWriteToOutput.WriteToOutput("Check Plugin Steps States in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
+        }
+
+        private void tSMIDefaultTranslations_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeDefaultTranslations);
         }
@@ -3153,7 +3230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIFieldTranslations_Click(object sender, EventArgs e)
+        private void tSMIFieldTranslations_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeFieldTranslations);
         }
@@ -3176,7 +3253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIOrganizations_Click(object sender, EventArgs e)
+        private void tSMIOrganizations_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeOrganizations);
         }
@@ -3324,6 +3401,62 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string filePath = await handler.TrasnferAuditAsync();
 
                 this._iWriteToOutput.WriteToOutput("Transfer Audit Log from {0} to {1} exported into file {2}", handler.ConnectionSource.Name, handler.ConnectionTarget.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
+        }
+
+        private void tSMITransferWorkflowsStatesFrom1To2_Click(object sender, RoutedEventArgs e)
+        {
+            ExecuteOperationFrom1To2Async(TrasnferWorkflowsStates);
+        }
+
+        private void tSMITransferWorkflowsStatesFrom2To1_Click(object sender, RoutedEventArgs e)
+        {
+            ExecuteOperationFrom2To1Async(TrasnferWorkflowsStates);
+        }
+
+        private async Task TrasnferWorkflowsStates(OrganizationCustomizationTransfer handler)
+        {
+            try
+            {
+                UpdateStatus(Properties.WindowStatusStrings.TransferingWorkflowsStatesFormat2, handler.ConnectionSource.Name, handler.ConnectionTarget.Name);
+
+                string filePath = await handler.TrasnferWorkflowsStatesAsync();
+
+                this._iWriteToOutput.WriteToOutput("Transfer Workflows States from {0} to {1} exported into file {2}", handler.ConnectionSource.Name, handler.ConnectionTarget.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
+        }
+
+        private void tSMITransferPluginStepsStatesFrom1To2_Click(object sender, RoutedEventArgs e)
+        {
+            ExecuteOperationFrom1To2Async(TrasnferPluginStepsStates);
+        }
+
+        private void tSMITransferPluginStepsStatesFrom2To1_Click(object sender, RoutedEventArgs e)
+        {
+            ExecuteOperationFrom2To1Async(TrasnferPluginStepsStates);
+        }
+
+        private async Task TrasnferPluginStepsStates(OrganizationCustomizationTransfer handler)
+        {
+            try
+            {
+                UpdateStatus(Properties.WindowStatusStrings.TransferingPluginStepsStatesFormat2, handler.ConnectionSource.Name, handler.ConnectionTarget.Name);
+
+                string filePath = await handler.TrasnferPluginStepsStatesAsync();
+
+                this._iWriteToOutput.WriteToOutput("Transfer Plugin Steps States from {0} to {1} exported into file {2}", handler.ConnectionSource.Name, handler.ConnectionTarget.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath);
             }

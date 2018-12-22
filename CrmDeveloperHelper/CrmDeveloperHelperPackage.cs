@@ -306,7 +306,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonExportReportCommand.Initialize(this);
             CommonExportApplicationRibbonXmlCommand.Initialize(this);
             CommonExportSiteMapCommand.Initialize(this);
-            CommonExportSolutionComponentsCommand.Initialize(this);
+
+            CommonSolutionExplorerCommand.Initialize(this);
+            CommonSolutionExplorerInConnectionCommand.Initialize(this);
+
             CommonOpenSolutionImageCommand.Initialize(this);
             CommonExportSystemFormXmlCommand.Initialize(this);
             CommonExportSystemSavedQueryVisualizationXmlCommand.Initialize(this);

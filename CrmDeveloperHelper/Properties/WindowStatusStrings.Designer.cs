@@ -358,6 +358,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checking Plugin Steps States in {0} and {1}....
+        /// </summary>
+        internal static string CheckingPluginStepsStatesFormat2 {
+            get {
+                return ResourceManager.GetString("CheckingPluginStepsStatesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking PluginTypes in {0} and {1}....
         /// </summary>
         internal static string CheckingPluginTypesFormat2 {
@@ -412,7 +421,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Checking SystemCharts in {0} and {1}....
+        ///   Looks up a localized string similar to Checking System Charts in {0} and {1}....
         /// </summary>
         internal static string CheckingSystemChartsFormat2 {
             get {
@@ -430,7 +439,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CheckingSystem SavedQueries in {0} and {1}....
+        ///   Looks up a localized string similar to Checking SavedQueries in {0} and {1}....
         /// </summary>
         internal static string CheckingSystemSavedQueriesFormat2 {
             get {
@@ -457,11 +466,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Checking Workflow in {0} and {1}....
+        ///   Looks up a localized string similar to Checking Workflows in {0} and {1}....
         /// </summary>
         internal static string CheckingWorkflowsFormat2 {
             get {
                 return ResourceManager.GetString("CheckingWorkflowsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Workflows states in {0} and {1}....
+        /// </summary>
+        internal static string CheckingWorkflowsStatesFormat2 {
+            get {
+                return ResourceManager.GetString("CheckingWorkflowsStatesFormat2", resourceCulture);
             }
         }
         
@@ -3045,6 +3063,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string TransferingDataFormat2 {
             get {
                 return ResourceManager.GetString("TransferingDataFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferfing Plugin Steps States from {0} to {1}....
+        /// </summary>
+        internal static string TransferingPluginStepsStatesFormat2 {
+            get {
+                return ResourceManager.GetString("TransferingPluginStepsStatesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferfing Workflows States from {0} to {1}....
+        /// </summary>
+        internal static string TransferingWorkflowsStatesFormat2 {
+            get {
+                return ResourceManager.GetString("TransferingWorkflowsStatesFormat2", resourceCulture);
             }
         }
         

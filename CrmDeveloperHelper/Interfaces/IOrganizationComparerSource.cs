@@ -40,8 +40,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         Task<List<Report>> GetReport1Async();
         Task<List<Report>> GetReport2Async();
 
-        Task<List<Workflow>> GetWorkflow1Async();
-        Task<List<Workflow>> GetWorkflow2Async();
+        Task<List<Workflow>> GetWorkflow1Async(ColumnSet columnSet);
+        Task<List<Workflow>> GetWorkflow2Async(ColumnSet columnSet);
 
         Task<List<SystemForm>> GetSystemForm1Async();
         Task<List<SystemForm>> GetSystemForm2Async();

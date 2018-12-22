@@ -493,6 +493,69 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Common Plugin Steps in {0} and {1}: {2}.
+        /// </summary>
+        internal static string PluginStepsCommonFormat3 {
+            get {
+                return ResourceManager.GetString("PluginStepsCommonFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plugin Steps in {0}: {1}.
+        /// </summary>
+        internal static string PluginStepsInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("PluginStepsInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plugin Steps ONLY EXISTS in {0}: {1}.
+        /// </summary>
+        internal static string PluginStepsOnlyExistsInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("PluginStepsOnlyExistsInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plugin Steps States DIFFERENT in {0} and {1}: {2}.
+        /// </summary>
+        internal static string PluginStepsStatesDifferentFormat3 {
+            get {
+                return ResourceManager.GetString("PluginStepsStatesDifferentFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No difference in Plugin Steps States..
+        /// </summary>
+        internal static string PluginStepsStatesNoDifference {
+            get {
+                return ResourceManager.GetString("PluginStepsStatesNoDifference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plugin Steps to Activation in {0}: {1}.
+        /// </summary>
+        internal static string PluginStepsToActivationInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("PluginStepsToActivationInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plugin Steps to Deactivation in {0}: {1}.
+        /// </summary>
+        internal static string PluginStepsToDeactivationInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("PluginStepsToDeactivationInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Associated Connection Roles.
         /// </summary>
         internal static string PrefixAssociatedConnectionRoles {
@@ -646,6 +709,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to StatusCode {0}.
+        /// </summary>
+        internal static string StatusCodeInConnectionFormat1 {
+            get {
+                return ResourceManager.GetString("StatusCodeInConnectionFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Common Workflows in {0} and {1}: {2}.
         /// </summary>
         internal static string WorkflowsCommonFormat3 {
@@ -714,6 +786,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string WorkflowsProcessingCommon {
             get {
                 return ResourceManager.GetString("WorkflowsProcessingCommon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Workflows to Activation in {0}: {1}.
+        /// </summary>
+        internal static string WorkflowsToActivationInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("WorkflowsToActivationInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Workflows to Deactivation in {0}: {1}.
+        /// </summary>
+        internal static string WorkflowsToDeactivationInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("WorkflowsToDeactivationInConnectionFormat2", resourceCulture);
             }
         }
     }
