@@ -744,9 +744,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async void AddIntoSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
-              && menuItem.Tag != null
-              && menuItem.Tag is string solutionUniqueName
-              )
+                && menuItem.Tag != null
+                && menuItem.Tag is string solutionUniqueName
+            )
             {
                 await AddIntoSolution(false, solutionUniqueName);
             }
@@ -774,6 +774,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            await AddComponentsIntoSolution(withSelect, solutionUniqueName, solutionComponents);
+        }
+
+        private async Task AddComponentsIntoSolution(bool withSelect, string solutionUniqueName, IEnumerable<SolutionComponent> solutionComponents)
+        {
+            if (!solutionComponents.Any())
+            {
+                return;
+            }
+
             _commonConfig.Save();
 
             try
@@ -788,72 +798,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIAddEntityIntoCrmSolution_Click(object sender, RoutedEventArgs e)
-        {
-            await AddEntityIntoSolution(true, null);
-        }
-
-        private async void mIAddEntityIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is MenuItem menuItem
-               && menuItem.Tag != null
-               && menuItem.Tag is string solutionUniqueName
-               )
-            {
-                await AddEntityIntoSolution(false, solutionUniqueName);
-            }
-        }
-
-        private async void mIAddEntityIntoCurrentCrmSolution_Click(object sender, RoutedEventArgs e)
-        {
-            if (_solution == null
-                || _solution.IsManaged.GetValueOrDefault()
-                )
-            {
-                return;
-            }
-
-            await AddEntityIntoSolution(false, _solution.UniqueName);
-        }
-
-        private async Task AddEntityIntoSolution(bool withSelect, string solutionUniqueName)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            string entityName = _descriptor.GetLinkedEntityName(entity.SolutionComponent);
-
-            if (string.IsNullOrEmpty(entityName)
-                || string.Equals(entityName, "none", StringComparison.InvariantCultureIgnoreCase)
-                )
-            {
-                return;
-            }
-
-            var entityMetadataId = _service.ConnectionData.GetEntityMetadataId(entityName);
-
-            if (entityMetadataId.HasValue)
-            {
-                _commonConfig.Save();
-
-                try
-                {
-                    this._iWriteToOutput.ActivateOutputWindow();
-
-                    await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, _service, _descriptor, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entityMetadataId.Value }, null, withSelect);
-                }
-                catch (Exception ex)
-                {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
-                }
-            }
-        }
-
-        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
+        private async void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
             if (!(sender is ContextMenu contextMenu))
             {
@@ -873,26 +818,326 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FillLastSolutionItems(_service.ConnectionData, items, true, AddIntoSolutionLast_Click, "contMnAddIntoSolutionLast");
 
-            bool hasLinkedEntity = false;
-
             var entity = GetSelectedEntity();
 
-            if (entity != null)
-            {
-                string entityName = _descriptor.GetLinkedEntityName(entity.SolutionComponent);
+            var hasExplorer = HasExplorer(entity.SolutionComponent.ComponentType?.Value);
 
-                if (!string.IsNullOrEmpty(entityName)
-                    && !string.Equals(entityName, "none", StringComparison.InvariantCultureIgnoreCase)
-                    )
+            ActivateControls(items, hasExplorer, "contMnExplorer");
+
+            if (hasExplorer)
+            {
+                var componentType = (ComponentType)entity.SolutionComponent.ComponentType.Value;
+
+                string componentName = string.Format("{0} Explorer", componentType.ToString());
+
+                SetControlsName(items, componentName, "contMnExplorer");
+            }
+
+            var menuItemLinkedComponent = items.OfType<MenuItem>().FirstOrDefault(i => string.Equals(i.Uid, "contMnLinkedComponents", StringComparison.InvariantCultureIgnoreCase));
+
+            if (menuItemLinkedComponent != null)
+            {
+                menuItemLinkedComponent.Items.Clear();
+
+                var linkedComponents = _descriptor.GetLinkedComponents(entity.SolutionComponent);
+
+                ActivateControls(items, linkedComponents != null && linkedComponents.Any(), "contMnLinkedComponents");
+
+                if (linkedComponents != null && linkedComponents.Any())
                 {
-                    hasLinkedEntity = true;
+                    var componentsWithNames = linkedComponents.Select(c => new { Component = c, Name = _descriptor.GetName(c) }).OrderBy(c => c.Component.ComponentType?.Value).ThenBy(c => c.Name);
+
+                    foreach (var item in componentsWithNames)
+                    {
+                        var menuItem = new MenuItem()
+                        {
+                            Header = string.Format("{0} - {1}", item.Component.ComponentTypeName, item.Name).Replace("_", "__"),
+                        };
+
+                        FillComponentActions(menuItem.Items, item.Component);
+
+                        menuItemLinkedComponent.Items.Add(menuItem);
+                    }
+                }
+            }
+        }
+
+        private void FillComponentActions(ItemCollection itemCollection, SolutionComponent solutionComponent)
+        {
+            MenuItem mILinkedComponentOpenInWeb = new MenuItem()
+            {
+                Header = "Open in Web",
+                Tag = solutionComponent,
+            };
+            mILinkedComponentOpenInWeb.Click += MILinkedComponentOpenInWeb_Click;
+
+            MenuItem mILinkedComponentOpenInstanceListInWindow = new MenuItem()
+            {
+                Header = "Open Entity List in Web",
+                Tag = solutionComponent,
+            };
+            mILinkedComponentOpenInstanceListInWindow.Click += MILinkedComponentOpenInstanceListInWindow_Click;
+
+            MenuItem mILinkedComponentOpenExplorer = new MenuItem()
+            {
+                Header = "Open Explorer",
+                Tag = solutionComponent,
+            };
+            mILinkedComponentOpenExplorer.Click += MILinkedComponentOpenExplorer_Click;
+
+            MenuItem mILinkedComponentAddIntoCurrentSolution = new MenuItem()
+            {
+                Header = "Add into Current Solution",
+                Tag = solutionComponent,
+            };
+            mILinkedComponentAddIntoCurrentSolution.Click += MILinkedComponentAddIntoCurrentSolution_Click;
+
+            MenuItem mILinkedComponentAddIntoSolutionLast = new MenuItem()
+            {
+                Header = "Add into Last Crm Solution",
+                Tag = solutionComponent,
+                Uid = "mILinkedComponentAddIntoSolutionLast",
+            };
+
+            FillLastSolutionItems(_service.ConnectionData, new[] { mILinkedComponentAddIntoSolutionLast }, true, MILinkedComponentAddIntoSolutionLast_Click, "mILinkedComponentAddIntoSolutionLast");
+
+            MenuItem mILinkedComponentAddIntoSolution = new MenuItem()
+            {
+                Header = "Add into Crm Solution",
+                Tag = solutionComponent,
+            };
+            mILinkedComponentAddIntoSolution.Click += MILinkedComponentAddIntoSolution_Click;
+
+            MenuItem mILinkedComponentOpenSolutionsContainingComponentInWindow = new MenuItem()
+            {
+                Header = "Open Solutions Containing Component in Window",
+                Tag = solutionComponent,
+            };
+            mILinkedComponentOpenSolutionsContainingComponentInWindow.Click += MILinkedComponentOpenSolutionsContainingComponentInWindow_Click;
+
+            MenuItem mILinkedComponentOpenDependentComponentsInWeb = new MenuItem()
+            {
+                Header = "Open Dependent Components in Web",
+                Tag = solutionComponent,
+            };
+            mILinkedComponentOpenDependentComponentsInWeb.Click += MILinkedComponentOpenDependentComponentsInWeb_Click;
+
+            MenuItem mILinkedComponentOpenDependentComponentsInWindow = new MenuItem()
+            {
+                Header = "Open Dependent Components in Window",
+                Tag = solutionComponent,
+            };
+            mILinkedComponentOpenDependentComponentsInWindow.Click += MILinkedComponentOpenDependentComponentsInWindow_Click;
+
+            //MenuItem mILinkedComponent = new MenuItem()
+            //{
+            //    Header = "Open Entity List in Web",
+            //    Tag = solutionComponent,
+            //};
+
+            itemCollection.Add(mILinkedComponentOpenInWeb);
+
+            if (solutionComponent.ComponentType?.Value == (int)ComponentType.Entity)
+            {
+                itemCollection.Add(new Separator());
+                itemCollection.Add(mILinkedComponentOpenInstanceListInWindow);
+            }
+
+            if (HasExplorer(solutionComponent.ComponentType?.Value))
+            {
+                itemCollection.Add(new Separator());
+                itemCollection.Add(mILinkedComponentOpenExplorer);
+            }
+
+            itemCollection.Add(new Separator());
+
+            if (this._solution != null && !this._solution.IsManaged.GetValueOrDefault())
+            {
+                itemCollection.Add(mILinkedComponentAddIntoCurrentSolution);
+            }
+
+            itemCollection.Add(mILinkedComponentAddIntoSolutionLast);
+            itemCollection.Add(mILinkedComponentAddIntoSolution);
+
+            itemCollection.Add(new Separator());
+            itemCollection.Add(mILinkedComponentOpenSolutionsContainingComponentInWindow);
+
+            itemCollection.Add(new Separator());
+            itemCollection.Add(mILinkedComponentOpenDependentComponentsInWeb);
+            itemCollection.Add(mILinkedComponentOpenDependentComponentsInWindow);
+        }
+
+        private void MILinkedComponentOpenInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is MenuItem menuItem)
+                || menuItem.Tag == null
+                || !(menuItem.Tag is SolutionComponent solutionComponent)
+                )
+            {
+                return;
+            }
+
+            _service.UrlGenerator.OpenSolutionComponentInWeb((ComponentType)solutionComponent.ComponentType.Value, solutionComponent.ObjectId.Value);
+        }
+
+        private void MILinkedComponentOpenInstanceListInWindow_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is MenuItem menuItem)
+               || menuItem.Tag == null
+               || !(menuItem.Tag is SolutionComponent solutionComponent)
+               )
+            {
+                return;
+            }
+
+            var entityMetadata = _descriptor.MetadataSource.GetEntityMetadata(solutionComponent.ObjectId.Value);
+
+            if (entityMetadata == null
+                || string.IsNullOrEmpty(entityMetadata.LogicalName)
+            )
+            {
+                return;
+            }
+
+            _service.ConnectionData.OpenEntityInstanceListInWeb(entityMetadata.LogicalName);
+        }
+
+        private void MILinkedComponentOpenExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is MenuItem menuItem)
+                || menuItem.Tag == null
+                || !(menuItem.Tag is SolutionComponent solutionComponent)
+                )
+            {
+                return;
+            }
+
+            if (!HasExplorer(solutionComponent.ComponentType?.Value))
+            {
+                return;
+            }
+
+            var componentType = (ComponentType)solutionComponent.ComponentType.Value;
+
+            string parameter = string.Empty;
+
+            if (componentType == ComponentType.EntityRelationship)
+            {
+                var relation = _descriptor.MetadataSource.GetRelationshipMetadata(solutionComponent.ObjectId.Value);
+
+                if (relation != null)
+                {
+                    parameter = relation.GetType().Name;
                 }
             }
 
-            ActivateControls(items, hasLinkedEntity, "contMnAddEntityIntoSolution");
-            ActivateControls(items, hasLinkedEntity && this._solution != null && !this._solution.IsManaged.GetValueOrDefault(), "contMnAddEntityIntoCurrentSolution");
+            var name = _descriptor.GetName(solutionComponent);
 
-            FillLastSolutionItems(_service.ConnectionData, items, hasLinkedEntity, mIAddEntityIntoCrmSolutionLast_Click, "contMnAddEntityIntoSolutionLast");
+            WindowHelper.OpenComponentExplorer(componentType, _iWriteToOutput, _service, _commonConfig, name, parameter);
+        }
+
+        private async void MILinkedComponentAddIntoCurrentSolution_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is MenuItem menuItem)
+                || menuItem.Tag == null
+                || !(menuItem.Tag is SolutionComponent solutionComponent)
+            )
+            {
+                return;
+            }
+
+            if (_solution == null
+                || _solution.IsManaged.GetValueOrDefault()
+                )
+            {
+                return;
+            }
+
+            await AddComponentsIntoSolution(false, _solution.UniqueName, new[] { solutionComponent });
+        }
+
+        private async void MILinkedComponentAddIntoSolutionLast_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is string solutionUniqueName
+                && menuItem.Parent is MenuItem menuItemParent
+                && menuItemParent.Tag != null
+                && menuItemParent.Tag is SolutionComponent solutionComponent
+            )
+            {
+                await AddComponentsIntoSolution(false, solutionUniqueName, new[] { solutionComponent });
+            }
+        }
+
+        private async void MILinkedComponentAddIntoSolution_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is MenuItem menuItem)
+               || menuItem.Tag == null
+               || !(menuItem.Tag is SolutionComponent solutionComponent)
+            )
+            {
+                return;
+            }
+
+            await AddComponentsIntoSolution(true, null, new[] { solutionComponent });
+        }
+
+        private void MILinkedComponentOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is MenuItem menuItem)
+               || menuItem.Tag == null
+               || !(menuItem.Tag is SolutionComponent solutionComponent)
+            )
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenExplorerSolutionWindow(
+                _iWriteToOutput
+                , _service
+                , _commonConfig
+                , solutionComponent.ComponentType.Value
+                , solutionComponent.ObjectId.Value
+                , null
+            );
+        }
+
+        private void MILinkedComponentOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is MenuItem menuItem)
+               || menuItem.Tag == null
+               || !(menuItem.Tag is SolutionComponent solutionComponent)
+            )
+            {
+                return;
+            }
+
+            this._service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb((ComponentType)solutionComponent.ComponentType.Value, solutionComponent.ObjectId.Value);
+        }
+
+        private void MILinkedComponentOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is MenuItem menuItem)
+               || menuItem.Tag == null
+               || !(menuItem.Tag is SolutionComponent solutionComponent)
+            )
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenSolutionComponentDependenciesWindow(
+                _iWriteToOutput
+                , _service
+                , _descriptor
+                , _commonConfig
+                , solutionComponent.ComponentType.Value
+                , solutionComponent.ObjectId.Value
+                , null);
         }
 
         private void cmBComponentType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1848,7 +2093,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenOrganizationDifferenceImageWindow(this._iWriteToOutput, _service.ConnectionData, _commonConfig);
         }
 
-        private void mIOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
+        private void mIOpenExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1857,101 +2102,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string entityName = _descriptor.GetLinkedEntityName(entity.SolutionComponent);
-
-            if (string.IsNullOrEmpty(entityName)
-                || string.Equals(entityName, "none", StringComparison.InvariantCultureIgnoreCase)
-                )
+            if (!HasExplorer(entity.SolutionComponent.ComponentType?.Value))
             {
                 return;
             }
 
-            var entityMetadataId = _service.ConnectionData.GetEntityMetadataId(entityName);
+            var componentType = (ComponentType)entity.SolutionComponent.ComponentType.Value;
 
-            if (entityMetadataId.HasValue)
+            string parameter = string.Empty;
+
+            if (componentType == ComponentType.EntityRelationship)
             {
-                _service.ConnectionData.OpenEntityMetadataInWeb(entityMetadataId.Value);
+                var relation = _descriptor.MetadataSource.GetRelationshipMetadata(entity.SolutionComponent.ObjectId.Value);
+
+                if (relation != null)
+                {
+                    parameter = relation.GetType().Name;
+                }
             }
+
+            WindowHelper.OpenComponentExplorer(componentType, _iWriteToOutput, _service, _commonConfig, entity.Name, parameter);
         }
 
-        private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
+        private bool HasExplorer(int? componentType)
         {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
+            if (!SolutionComponent.IsDefinedComponentType(componentType))
             {
-                return;
+                return false;
             }
 
-            string entityName = _descriptor.GetLinkedEntityName(entity.SolutionComponent);
-
-            if (string.IsNullOrEmpty(entityName)
-                || string.Equals(entityName, "none", StringComparison.InvariantCultureIgnoreCase)
-                )
-            {
-                return;
-            }
-
-            _service.ConnectionData.OpenEntityInstanceListInWeb(entityName);
-        }
-
-        private void btnPublishEntity_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            string entityName = _descriptor.GetLinkedEntityName(entity.SolutionComponent);
-
-            if (string.IsNullOrEmpty(entityName)
-                || string.Equals(entityName, "none", StringComparison.InvariantCultureIgnoreCase)
-                )
-            {
-                return;
-            }
-
-            ExecuteAction(entity, PublishEntityAsync);
-        }
-
-        private async Task PublishEntityAsync(string folder, SolutionComponentViewItem solutionComponentViewItem)
-        {
-            if (_init > 0 || !_controlsEnabled)
-            {
-                return;
-            }
-
-            string entityName = _descriptor.GetLinkedEntityName(solutionComponentViewItem.SolutionComponent);
-
-            if (string.IsNullOrEmpty(entityName)
-                || string.Equals(entityName, "none", StringComparison.InvariantCultureIgnoreCase)
-                )
-            {
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat2, _service.ConnectionData.Name, entityName);
-
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, entityName);
-
-            try
-            {
-                var repository = new PublishActionsRepository(_service);
-
-                await repository.PublishEntitiesAsync(new[] { entityName });
-
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, _service.ConnectionData.Name, entityName);
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(ex);
-
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat2, _service.ConnectionData.Name, entityName);
-            }
-
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat2, _service.ConnectionData.Name, entityName);
+            return WindowHelper.IsDefinedExplorer((ComponentType)componentType);
         }
     }
 }

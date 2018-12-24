@@ -305,11 +305,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return null;
         }
 
-        public string GetLinkedEntityName(SolutionComponent solutionComponent)
-        {
-            return null;
-        }
-
         public string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension)
         {
             if (this.AllManagedProperties.Any())
@@ -328,6 +323,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         public TupleList<string, string> GetComponentColumns()
         {
             return new TupleList<string, string>();
+        }
+
+        public IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            return Enumerable.Empty<SolutionComponent>();
         }
     }
 }

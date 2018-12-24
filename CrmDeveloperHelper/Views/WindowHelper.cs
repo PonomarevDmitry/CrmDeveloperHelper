@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk.Metadata;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -17,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<EntityMetadata> entityMetadataList
             , string filterEntityName = null
             , string filePath = null
-            )
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -50,7 +51,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string filterEntityName = null
-            )
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -348,7 +349,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , service
                         , commonConfig
                         , filterEntityName
-                        , string.Empty
+                        , selection
                         );
 
                     form.ShowDialog();
@@ -713,8 +714,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , service
                         , commonConfig
                         , optionSets
-                        , string.Empty
-                        , string.Empty
+                        , filePath
+                        , selection
                       );
 
                     form.ShowDialog();
@@ -821,66 +822,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSolutionImageWindow(
-            IWriteToOutput iWriteToOutput
-            , ConnectionData connectionData
-            , CommonConfiguration commonConfig
-            )
-        {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowSolutionImage(
-                        iWriteToOutput
-                        , commonConfig
-                        , connectionData
-                        , null
-                        );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
-        }
-
-        public static void OpenOrganizationDifferenceImageWindow(
-            IWriteToOutput iWriteToOutput
-            , ConnectionData connectionData
-            , CommonConfiguration commonConfig
-            )
-        {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowOrganizationDifferenceImage(
-                        iWriteToOutput
-                        , commonConfig
-                        , connectionData
-                        , null
-                        );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
-        }
-
         public static void OpenPluginTypeWindow(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -928,6 +869,95 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , service
                         , commonConfig
                         , selection
+                        );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        public static void OpenOrganizationExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowExportOrganization(
+                        iWriteToOutput
+                        , service
+                        , commonConfig
+                        );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        public static void OpenSolutionImageWindow(
+            IWriteToOutput iWriteToOutput
+            , ConnectionData connectionData
+            , CommonConfiguration commonConfig
+            )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowSolutionImage(
+                        iWriteToOutput
+                        , commonConfig
+                        , connectionData
+                        , null
+                        );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        public static void OpenOrganizationDifferenceImageWindow(
+            IWriteToOutput iWriteToOutput
+            , ConnectionData connectionData
+            , CommonConfiguration commonConfig
+            )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowOrganizationDifferenceImage(
+                        iWriteToOutput
+                        , commonConfig
+                        , connectionData
+                        , null
                         );
 
                     form.ShowDialog();
@@ -1337,6 +1367,166 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.SetApartmentState(System.Threading.ApartmentState.STA);
 
             worker.Start();
+        }
+
+        public static bool IsDefinedExplorer(ComponentType componentType)
+        {
+            switch (componentType)
+            {
+                case ComponentType.Entity:
+                case ComponentType.Attribute:
+                case ComponentType.OptionSet:
+                case ComponentType.EntityRelationship:
+                case ComponentType.EntityKey:
+                case ComponentType.Role:
+                case ComponentType.Organization:
+                case ComponentType.SavedQuery:
+                case ComponentType.SavedQueryVisualization:
+                case ComponentType.SystemForm:
+                case ComponentType.Workflow:
+                case ComponentType.Report:
+                case ComponentType.WebResource:
+                case ComponentType.SiteMap:
+                case ComponentType.PluginType:
+                case ComponentType.PluginAssembly:
+                case ComponentType.SdkMessageProcessingStep:
+                case ComponentType.SdkMessageProcessingStepImage:
+                case ComponentType.SdkMessage:
+                case ComponentType.SdkMessageFilter:
+                case ComponentType.SdkMessagePair:
+                case ComponentType.SdkMessageRequest:
+                case ComponentType.SdkMessageRequestField:
+                case ComponentType.SdkMessageResponse:
+                case ComponentType.SdkMessageResponseField:
+                case ComponentType.RibbonCustomization:
+                    return true;
+            }
+
+            return false;
+        }
+
+        public static void OpenComponentExplorer(
+            ComponentType componentType
+            , IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string componentName
+            , string parameter
+        )
+        {
+            switch (componentType)
+            {
+                case ComponentType.Entity:
+                    OpenEntityMetadataWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    break;
+
+                case ComponentType.Attribute:
+                    OpenEntityAttributeExplorer(iWriteToOutput, service, commonConfig, componentName);
+                    break;
+
+                case ComponentType.OptionSet:
+                    OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    break;
+
+                case ComponentType.EntityRelationship:
+                    if (string.Equals(parameter, typeof(OneToManyRelationshipMetadata).Name, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        OpenEntityRelationshipOneToManyExplorer(iWriteToOutput, service, commonConfig, componentName);
+                    }
+                    else if (string.Equals(parameter, typeof(ManyToManyRelationshipMetadata).Name, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        OpenEntityRelationshipManyToManyExplorer(iWriteToOutput, service, commonConfig, componentName);
+                    }
+                    break;
+
+                case ComponentType.EntityKey:
+                    OpenEntityKeyExplorer(iWriteToOutput, service, commonConfig, componentName);
+                    break;
+
+                case ComponentType.Role:
+                    OpenRolesExplorer(iWriteToOutput, service, commonConfig, null, componentName);
+                    break;
+
+                case ComponentType.Organization:
+                    OpenOrganizationExplorer(iWriteToOutput, service, commonConfig);
+                    break;
+
+                case ComponentType.SavedQuery:
+                    OpenSavedQueryWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    break;
+
+                case ComponentType.SavedQueryVisualization:
+                    OpenSavedQueryVisualizationWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    break;
+
+                case ComponentType.SystemForm:
+                    OpenSystemFormWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    break;
+
+                case ComponentType.Workflow:
+                    OpenWorkflowWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    break;
+
+                case ComponentType.Report:
+                    OpenExportReportWindow(iWriteToOutput, service, commonConfig, componentName);
+                    break;
+
+                case ComponentType.WebResource:
+                    OpenExportWebResourcesWindow(iWriteToOutput, service, commonConfig, componentName);
+                    break;
+
+                case ComponentType.SiteMap:
+                    OpenExportSiteMapWindow(iWriteToOutput, service, commonConfig);
+                    break;
+
+                case ComponentType.PluginType:
+                    OpenPluginTypeWindow(iWriteToOutput, service, commonConfig, componentName);
+                    break;
+
+                case ComponentType.PluginAssembly:
+                    OpenPluginAssemblyWindow(iWriteToOutput, service, commonConfig, componentName);
+                    break;
+
+                case ComponentType.SdkMessageProcessingStep:
+                    OpenPluginTreeWindow(iWriteToOutput, service, commonConfig);
+                    break;
+
+                case ComponentType.SdkMessageProcessingStepImage:
+                    OpenPluginTreeWindow(iWriteToOutput, service, commonConfig);
+                    break;
+
+                case ComponentType.SdkMessage:
+                    OpenSdkMessageTreeWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    break;
+
+                case ComponentType.SdkMessageFilter:
+                    OpenSdkMessageTreeWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    break;
+
+                case ComponentType.SdkMessagePair:
+                    OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    break;
+
+                case ComponentType.SdkMessageRequest:
+                    OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig);
+                    break;
+
+                case ComponentType.SdkMessageRequestField:
+                    OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig);
+                    break;
+
+                case ComponentType.SdkMessageResponse:
+                    OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig);
+                    break;
+
+                case ComponentType.SdkMessageResponseField:
+                    OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig);
+                    break;
+
+                case ComponentType.RibbonCustomization:
+                    OpenApplicationRibbonWindow(iWriteToOutput, service, commonConfig);
+                    break;
+            }
         }
     }
 }

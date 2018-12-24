@@ -352,16 +352,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return descriptionBuilder.GetEntity<T>(idEntity);
         }
 
-        public string GetLinkedEntityName(SolutionComponent solutionComponent)
+        public IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
         {
             if (solutionComponent == null || solutionComponent.ComponentType == null || !solutionComponent.ObjectId.HasValue)
             {
-                return null;
+                return Enumerable.Empty<SolutionComponent>();
             }
 
             var descriptionBuilder = GetDescriptionBuilder(solutionComponent.ComponentType.Value);
 
-            return descriptionBuilder.GetLinkedEntityName(solutionComponent);
+            return descriptionBuilder.GetLinkedComponents(solutionComponent);
         }
     }
 }

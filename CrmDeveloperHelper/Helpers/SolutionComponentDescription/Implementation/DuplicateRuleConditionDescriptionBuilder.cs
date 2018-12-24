@@ -63,7 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             AppendIntoValues(values, entity, withUrls, false, withSolutionInfo);
 
             return values;
-        }
+        }        
 
         public override TupleList<string, string> GetComponentColumns()
         {

@@ -34,6 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return new ColumnSet
             (
                 PluginType.Schema.Attributes.assemblyname
+                , PluginType.Schema.Attributes.pluginassemblyid
                 , PluginType.Schema.Attributes.typename
                 , PluginType.Schema.Attributes.culture
                 , PluginType.Schema.Attributes.version
@@ -155,6 +156,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     }
                 }
             }
+        }
+
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            var result = new List<SolutionComponent>();
+
+            var entity = GetEntity<PluginType>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                if (entity.PluginAssemblyId != null)
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = entity.PluginAssemblyId.Id,
+                        ComponentType = new OptionSetValue((int)ComponentType.PluginAssembly),
+                    });
+                }
+            }
+
+            return result;
         }
 
         public override TupleList<string, string> GetComponentColumns()

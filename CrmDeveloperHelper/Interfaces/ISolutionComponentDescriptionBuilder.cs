@@ -45,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         string GetCustomizableName(SolutionComponent solutionComponent);
 
-        string GetLinkedEntityName(SolutionComponent solutionComponent);
+        IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent);
 
         string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension);
 

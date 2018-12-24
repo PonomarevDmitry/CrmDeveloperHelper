@@ -283,16 +283,62 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return null;
         }
 
-        public string GetLinkedEntityName(SolutionComponent solutionComponent)
+        public IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
         {
+            var result = new List<SolutionComponent>();
+
             AttributeMetadata metaData = _source.GetAttributeMetadata(solutionComponent.ObjectId.Value);
 
             if (metaData != null)
             {
-                return metaData.EntityLogicalName;
+                var entityMetadata = _source.GetEntityMetadata(metaData.EntityLogicalName);
+
+                if (entityMetadata != null)
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = entityMetadata.MetadataId,
+                        ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                    });
+                }
+
+                if (metaData is PicklistAttributeMetadata picklistMetadata
+                    && picklistMetadata.OptionSet != null
+                    && picklistMetadata.OptionSet.IsGlobal.GetValueOrDefault()
+                    )
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = picklistMetadata.OptionSet.MetadataId,
+                        ComponentType = new OptionSetValue((int)ComponentType.OptionSet),
+                    });
+                }
+
+                if (metaData is LookupAttributeMetadata lookupMetadata
+                    && lookupMetadata.Targets != null
+                    && lookupMetadata.Targets.Count() <= 10
+                    )
+                {
+                    foreach (var entityName in lookupMetadata.Targets.OrderBy(s => s))
+                    {
+                        if (!string.Equals(entityName, metaData.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            var targetEntityMetadata = _source.GetEntityMetadata(entityName);
+
+                            if (targetEntityMetadata != null)
+                            {
+                                result.Add(new SolutionComponent()
+                                {
+                                    ObjectId = targetEntityMetadata.MetadataId,
+                                    ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                                });
+                            }
+                        }
+                    }
+                }
             }
 
-            return null;
+            return result;
         }
 
         public string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension)

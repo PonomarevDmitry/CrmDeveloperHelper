@@ -416,11 +416,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return null;
         }
 
-        public virtual string GetLinkedEntityName(SolutionComponent solutionComponent)
-        {
-            return null;
-        }
-
         public virtual void FillSolutionImageComponent(ICollection<SolutionImageComponent> result, SolutionComponent solutionComponent)
         {
             if (solutionComponent == null)
@@ -643,6 +638,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             return result;
+        }
+
+        public virtual IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            return Enumerable.Empty<SolutionComponent>();
         }
     }
 }

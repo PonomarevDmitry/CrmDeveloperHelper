@@ -102,16 +102,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return base.GetDisplayName(component);
         }
 
-        public override string GetLinkedEntityName(SolutionComponent solutionComponent)
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
         {
+            var result = new List<SolutionComponent>();
+
             var entity = GetEntity<Workflow>(solutionComponent.ObjectId.Value);
 
             if (entity != null)
             {
-                return entity.PrimaryEntity;
+                if (!string.IsNullOrEmpty(entity.PrimaryEntity)
+                    && _service.ConnectionData.IntellisenseData != null
+                    && _service.ConnectionData.IntellisenseData.Entities != null
+                    && _service.ConnectionData.IntellisenseData.Entities.ContainsKey(entity.PrimaryEntity)
+                )
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = _service.ConnectionData.IntellisenseData.Entities[entity.PrimaryEntity].MetadataId,
+                        ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                    });
+                }
             }
 
-            return base.GetLinkedEntityName(solutionComponent);
+            return result;
         }
 
         public override TupleList<string, string> GetComponentColumns()

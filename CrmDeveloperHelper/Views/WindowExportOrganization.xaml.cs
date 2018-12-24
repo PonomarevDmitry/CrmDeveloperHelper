@@ -46,7 +46,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
              IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string connectionDataName
             )
         {
             _init++;

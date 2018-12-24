@@ -475,28 +475,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExportOrganization(
-                        this._iWriteToOutput
-                        , service
-                        , commonConfig
-                        , connectionData.Name
-                        );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            WindowHelper.OpenOrganizationExplorer(this._iWriteToOutput, service, commonConfig);
         }
 
         #endregion Экспортирование информации об организации.

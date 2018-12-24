@@ -9,8 +9,13 @@
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
+            
             <Separator/>
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+
+            <Separator x:Uid="contMnExplorer"/>
+            <MenuItem x:Uid="contMnExplorer" Header="Component Explorer" VerticalAlignment="Center" Click="mIOpenExplorer_Click"/>
+
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoCurrentSolution" Header="Add into Current Solution" VerticalAlignment="Center" Click="AddIntoCurrentSolution_Click" />
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
@@ -19,18 +24,8 @@
             <Separator x:Uid="sepRemoveFromSolution" />
             <MenuItem x:Uid="contMnRemoveFromSolution" Header="Remove Component From Solution" VerticalAlignment="Center" Click="RemoveComponentFromSolution_Click" />
 
-            <Separator x:Uid="contMnAddEntityIntoSolution" />
-            <MenuItem x:Uid="contMnAddEntityIntoSolution" Header="Linked Entity">
-                <MenuItem Header="Open Linked Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-                <Separator/>
-                <MenuItem Header="Open Linked Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
-                <Separator/>
-                <MenuItem x:Uid="contMnAddEntityIntoCurrentSolution" Header="Add Entity into Current Solution" VerticalAlignment="Center" Click="mIAddEntityIntoCurrentCrmSolution_Click" />
-                <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add Entity into Last Crm Solution" VerticalAlignment="Center"  />
-                <MenuItem Header="Add Entity into Crm Solution" VerticalAlignment="Center" Click="mIAddEntityIntoCrmSolution_Click" />
-                <Separator/>
-                <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
-            </MenuItem>
+            <Separator x:Uid="contMnLinkedComponents" />
+            <MenuItem x:Uid="contMnLinkedComponents" Header="Linked Components" />
 
             <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />

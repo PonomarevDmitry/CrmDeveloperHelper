@@ -391,27 +391,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return null;
         }
 
-        public string GetLinkedEntityName(SolutionComponent solutionComponent)
+        public IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
         {
+            var result = new List<SolutionComponent>();
+
             RelationshipMetadataBase metaData = _source.GetRelationshipMetadata(solutionComponent.ObjectId.Value);
 
             if (metaData != null)
             {
-                if (metaData is OneToManyRelationshipMetadata)
+                if (metaData is OneToManyRelationshipMetadata oneRelationship)
                 {
-                    var relationship = metaData as OneToManyRelationshipMetadata;
+                    var entityMetadata = _source.GetEntityMetadata(oneRelationship.ReferencedEntity);
 
-                    return relationship.ReferencedEntity;
+                    if (entityMetadata != null)
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityMetadata.MetadataId,
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        });
+                    }
+
+                    entityMetadata = _source.GetEntityMetadata(oneRelationship.ReferencingEntity);
+
+                    if (entityMetadata != null)
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityMetadata.MetadataId,
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        });
+                    }
                 }
-                else if (metaData is ManyToManyRelationshipMetadata)
+                else if (metaData is ManyToManyRelationshipMetadata manyRelationship)
                 {
-                    var relationship = metaData as ManyToManyRelationshipMetadata;
+                    var entityMetadata = _source.GetEntityMetadata(manyRelationship.Entity1LogicalName);
 
-                    return relationship.Entity1LogicalName;
+                    if (entityMetadata != null)
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityMetadata.MetadataId,
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        });
+                    }
+
+                    entityMetadata = _source.GetEntityMetadata(manyRelationship.Entity2LogicalName);
+
+                    if (entityMetadata != null)
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityMetadata.MetadataId,
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        });
+                    }
                 }
             }
 
-            return null;
+            return result;
         }
 
         public string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension)
@@ -447,6 +485,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         public TupleList<string, string> GetComponentColumns()
         {
             return new TupleList<string, string>();
-        }
+        }        
     }
 }

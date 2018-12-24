@@ -144,16 +144,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return values;
         }
 
-        public override string GetLinkedEntityName(SolutionComponent solutionComponent)
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
         {
+            var result = new List<SolutionComponent>();
+
             var entity = GetEntity<SdkMessageProcessingStep>(solutionComponent.ObjectId.Value);
 
-            if (entity != null)
+            if (entity != null )
             {
-                return entity.PrimaryObjectTypeCodeName;
+                if (!string.IsNullOrEmpty(entity.PrimaryObjectTypeCodeName)
+                    && _service.ConnectionData.IntellisenseData != null
+                    && _service.ConnectionData.IntellisenseData.Entities != null
+                    && _service.ConnectionData.IntellisenseData.Entities.ContainsKey(entity.PrimaryObjectTypeCodeName)
+                )
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = _service.ConnectionData.IntellisenseData.Entities[entity.PrimaryObjectTypeCodeName].MetadataId,
+                        ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                    });
+                }
+
+                if (entity.EventHandler != null
+                    && string.Equals(entity.EventHandler.LogicalName, PluginType.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase)
+                    )
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = entity.EventHandler.Id,
+                        ComponentType = new OptionSetValue((int)ComponentType.PluginType),
+                    });
+                }
             }
 
-            return base.GetLinkedEntityName(solutionComponent);
+            return result;
         }
 
         public override TupleList<string, string> GetComponentColumns()

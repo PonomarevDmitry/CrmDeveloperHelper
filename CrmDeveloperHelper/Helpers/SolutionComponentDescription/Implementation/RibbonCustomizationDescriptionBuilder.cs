@@ -144,16 +144,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
-        public override string GetLinkedEntityName(SolutionComponent solutionComponent)
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
         {
+            var result = new List<SolutionComponent>();
+
             var entity = GetEntity<RibbonCustomization>(solutionComponent.ObjectId.Value);
 
             if (entity != null)
             {
-                return entity.Entity;
+                if (!string.IsNullOrEmpty(entity.Entity)
+                    && _service.ConnectionData.IntellisenseData != null
+                    && _service.ConnectionData.IntellisenseData.Entities != null
+                    && _service.ConnectionData.IntellisenseData.Entities.ContainsKey(entity.Entity)
+                )
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = _service.ConnectionData.IntellisenseData.Entities[entity.Entity].MetadataId,
+                        ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                    });
+                }
             }
 
-            return base.GetLinkedEntityName(solutionComponent);
+            return result;
         }
 
         public override TupleList<string, string> GetComponentColumns()

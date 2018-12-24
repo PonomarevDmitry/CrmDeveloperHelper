@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
@@ -144,11 +145,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return null;
         }
 
-        public string GetLinkedEntityName(SolutionComponent solutionComponent)
-        {
-            return null;
-        }
-
         public string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension)
         {
             return string.Format("{0}.DependencyFeature {1} - {2}.{3}", connectionName, objectId, fieldTitle, extension);
@@ -157,6 +153,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         public TupleList<string, string> GetComponentColumns()
         {
             return new TupleList<string, string>();
+        }
+
+        public IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            return Enumerable.Empty<SolutionComponent>();
         }
     }
 }

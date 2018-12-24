@@ -148,6 +148,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return base.GetName(component);
         }
 
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            var result = new List<SolutionComponent>();
+
+            var entity = GetEntity<FieldPermission>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                if (entity.FieldSecurityProfileId != null)
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = entity.FieldSecurityProfileId.Id,
+                        ComponentType = new OptionSetValue((int)ComponentType.FieldSecurityProfile),
+                    });
+                }
+            }
+
+            return result;
+        }
+
         public override TupleList<string, string> GetComponentColumns()
         {
             return new TupleList<string, string>

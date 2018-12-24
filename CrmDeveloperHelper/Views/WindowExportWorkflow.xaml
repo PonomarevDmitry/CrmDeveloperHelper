@@ -10,10 +10,12 @@
             <MenuItem Header="Open Workflow in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
             <Separator/>
             <MenuItem Header="Open Workflow List in Web" VerticalAlignment="Center" Click="mIOpenListInWeb_Click" />
-            <Separator/>
+            
+            <Separator x:Uid="contMnEntity" />
             <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-            <Separator/>
+            <Separator x:Uid="contMnEntity"/>
             <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
+            
             <Separator/>
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
             <Separator/>
@@ -22,7 +24,7 @@
             <Separator/>
 
             <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add Entity into Last Crm Solution" VerticalAlignment="Center"  />
-            <MenuItem x:Uid="contMnEntity"     Header="Add Entity into Crm Solution" VerticalAlignment="Center" Click="mIAddEntityIntoCrmSolution_Click" />
+            <MenuItem x:Uid="contMnEntity" Header="Add Entity into Crm Solution" VerticalAlignment="Center" Click="mIAddEntityIntoCrmSolution_Click" />
             <Separator x:Uid="contMnEntity" />
 
             <MenuItem Header="Xaml" VerticalAlignment="Center" Click="mIExportWorkflowXaml_Click"/>

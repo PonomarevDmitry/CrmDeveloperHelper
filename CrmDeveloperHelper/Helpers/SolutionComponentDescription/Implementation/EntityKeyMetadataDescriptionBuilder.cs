@@ -274,16 +274,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return null;
         }
 
-        public string GetLinkedEntityName(SolutionComponent solutionComponent)
+        public IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
         {
+            var result = new List<SolutionComponent>();
+
             EntityKeyMetadata metaData = _source.GetEntityKeyMetadata(solutionComponent.ObjectId.Value);
 
             if (metaData != null)
             {
-                return metaData.EntityLogicalName;
+                var entityMetadata = _source.GetEntityMetadata(metaData.EntityLogicalName);
+
+                if (entityMetadata != null)
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = entityMetadata.MetadataId,
+                        ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                    });
+                }
             }
 
-            return null;
+            return result;
         }
 
         public string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension)
