@@ -6,6 +6,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -231,30 +232,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return await new TemplateRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
         }
 
-        protected override Task<List<DisplayString>> GetDisplayStringAsync(IOrganizationServiceExtented service)
+        protected override async Task<List<DisplayString>> GetDisplayStringAsync(IOrganizationServiceExtented service)
         {
+            List<DisplayString> result = new List<DisplayString>();
+
+            var descriptor = new SolutionComponentDescriptor(service, false);
+            var repository = new DisplayStringRepository(service);
+
             var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.DisplayString);
 
-            if (!imageComponents.Any())
+            if (imageComponents.Any())
             {
-                return Task.FromResult(new List<DisplayString>());
+                var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+                if (solutionComponents.Any())
+                {
+                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+
+                    result.AddRange(tempList);
+                }
             }
 
-            return Task.Run(async () => await GetDisplayString(service, imageComponents));
-        }
+            var hashSet = new HashSet<Guid>(result.Select(c => c.Id));
 
-        private async Task<List<DisplayString>> GetDisplayString(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
-        {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.Entity);
 
-            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
-
-            if (!solutionComponents.Any())
+            if (imageComponents.Any())
             {
-                return new List<DisplayString>();
+                var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+                if (solutionComponents.Any())
+                {
+                    var entities = solutionComponents
+                        .Where(c => c.RootComponentBehavior?.Value == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
+                        .Where(e => e != null)
+                        .Select(e => e.LogicalName)
+                        .ToArray();
+
+                    if (entities.Any())
+                    {
+                        var tempList = await repository.GetListForEntitiesAsync(entities, new ColumnSet(true));
+
+                        foreach (var item in tempList)
+                        {
+                            if (hashSet.Add(item.Id))
+                            {
+                                result.Add(item);
+                            }
+                        }
+                    }
+                }
             }
 
-            return await new DisplayStringRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return result;
         }
 
         protected override Task<List<FieldSecurityProfile>> GetFieldSecurityProfileAsync(IOrganizationServiceExtented service)
@@ -283,30 +314,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return await new FieldSecurityProfileRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
         }
 
-        protected override Task<List<EntityMap>> GetEntityMapAsync(IOrganizationServiceExtented service)
+        protected override async Task<List<EntityMap>> GetEntityMapAsync(IOrganizationServiceExtented service)
         {
+            List<EntityMap> result = new List<EntityMap>();
+
+            var descriptor = new SolutionComponentDescriptor(service, false);
+            var repository = new EntityMapRepository(service);
+
             var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.EntityMap);
 
-            if (!imageComponents.Any())
+            if (imageComponents.Any())
             {
-                return Task.FromResult(new List<EntityMap>());
+                var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+                if (solutionComponents.Any())
+                {
+                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+
+                    result.AddRange(tempList);
+                }
             }
 
-            return Task.Run(async () => await GetEntityMap(service, imageComponents));
-        }
+            var hashSet = new HashSet<Guid>(result.Select(c => c.Id));
 
-        private async Task<List<EntityMap>> GetEntityMap(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
-        {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.Entity);
 
-            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
-
-            if (!solutionComponents.Any())
+            if (imageComponents.Any())
             {
-                return new List<EntityMap>();
+                var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+                if (solutionComponents.Any())
+                {
+                    var entities = solutionComponents
+                        .Where(c => c.RootComponentBehavior?.Value == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
+                        .Where(e => e != null)
+                        .Select(e => e.LogicalName)
+                        .ToArray();
+
+                    if (entities.Any())
+                    {
+                        var tempList = await repository.GetListForEntitiesAsync(entities, new ColumnSet(true));
+
+                        foreach (var item in tempList)
+                        {
+                            if (hashSet.Add(item.Id))
+                            {
+                                result.Add(item);
+                            }
+                        }
+                    }
+                }
             }
 
-            return await new EntityMapRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return result;
         }
 
         protected override Task<List<PluginAssembly>> GetPluginAssemblyAsync(IOrganizationServiceExtented service)
@@ -439,82 +500,172 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return await new SitemapRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
         }
 
-        protected override Task<List<SavedQuery>> GetSavedQueryAsync(IOrganizationServiceExtented service)
+        protected override async Task<List<SavedQuery>> GetSavedQueryAsync(IOrganizationServiceExtented service)
         {
+            List<SavedQuery> result = new List<SavedQuery>();
+
+            var descriptor = new SolutionComponentDescriptor(service, false);
+            var repository = new SavedQueryRepository(service);
+
             var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.SavedQuery);
 
-            if (!imageComponents.Any())
+            if (imageComponents.Any())
             {
-                return Task.FromResult(new List<SavedQuery>());
+                var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+                if (solutionComponents.Any())
+                {
+                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+
+                    result.AddRange(tempList);
+                }
             }
 
-            return Task.Run(async () => await GetSavedQuery(service, imageComponents));
+            var hashSet = new HashSet<Guid>(result.Select(c => c.Id));
+
+            imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.Entity);
+
+            if (imageComponents.Any())
+            {
+                var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+                if (solutionComponents.Any())
+                {
+                    var entities = solutionComponents
+                        .Where(c => c.RootComponentBehavior?.Value == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
+                        .Where(e => e != null)
+                        .Select(e => e.LogicalName)
+                        .ToArray();
+
+                    if (entities.Any())
+                    {
+                        var tempList = await repository.GetListForEntitiesAsync(entities, new ColumnSet(true));
+
+                        foreach (var item in tempList)
+                        {
+                            if (hashSet.Add(item.Id))
+                            {
+                                result.Add(item);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
 
-        private async Task<List<SavedQuery>> GetSavedQuery(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        protected override async Task<List<SavedQueryVisualization>> GetSavedQueryVisualizationAsync(IOrganizationServiceExtented service)
         {
+            List<SavedQueryVisualization> result = new List<SavedQueryVisualization>();
+
             var descriptor = new SolutionComponentDescriptor(service, false);
+            var repository = new SavedQueryVisualizationRepository(service);
 
-            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.SavedQueryVisualization);
 
-            if (!solutionComponents.Any())
+            if (imageComponents.Any())
             {
-                return new List<SavedQuery>();
+                var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+                if (solutionComponents.Any())
+                {
+                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+
+                    result.AddRange(tempList);
+                }
             }
 
-            return await new SavedQueryRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
-        }
+            var hashSet = new HashSet<Guid>(result.Select(c => c.Id));
 
-        protected override Task<List<SavedQueryVisualization>> GetSavedQueryVisualizationAsync(IOrganizationServiceExtented service)
-        {
-            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.SavedQuery);
+            imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.Entity);
 
-            if (!imageComponents.Any())
+            if (imageComponents.Any())
             {
-                return Task.FromResult(new List<SavedQueryVisualization>());
+                var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+                if (solutionComponents.Any())
+                {
+                    var entities = solutionComponents
+                        .Where(c => c.RootComponentBehavior?.Value == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
+                        .Where(e => e != null)
+                        .Select(e => e.LogicalName)
+                        .ToArray();
+
+                    if (entities.Any())
+                    {
+                        var tempList = await repository.GetListForEntitiesAsync(entities, new ColumnSet(true));
+
+                        foreach (var item in tempList)
+                        {
+                            if (hashSet.Add(item.Id))
+                            {
+                                result.Add(item);
+                            }
+                        }
+                    }
+                }
             }
 
-            return Task.Run(async () => await GetSavedQueryVisualization(service, imageComponents));
+            return result;
         }
 
-        private async Task<List<SavedQueryVisualization>> GetSavedQueryVisualization(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        protected override async Task<List<SystemForm>> GetSystemFormAsync(IOrganizationServiceExtented service)
         {
+            List<SystemForm> result = new List<SystemForm>();
+
             var descriptor = new SolutionComponentDescriptor(service, false);
+            var repository = new SystemFormRepository(service);
 
-            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
-
-            if (!solutionComponents.Any())
-            {
-                return new List<SavedQueryVisualization>();
-            }
-
-            return await new SavedQueryVisualizationRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
-        }
-
-        protected override Task<List<SystemForm>> GetSystemFormAsync(IOrganizationServiceExtented service)
-        {
             var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.SystemForm);
 
-            if (!imageComponents.Any())
+            if (imageComponents.Any())
             {
-                return Task.FromResult(new List<SystemForm>());
+                var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+                if (solutionComponents.Any())
+                {
+                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+
+                    result.AddRange(tempList);
+                }
             }
 
-            return Task.Run(async () => await GetSystemForm(service, imageComponents));
-        }
+            var hashSet = new HashSet<Guid>(result.Select(c => c.Id));
 
-        private async Task<List<SystemForm>> GetSystemForm(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
-        {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.Entity);
 
-            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
-
-            if (!solutionComponents.Any())
+            if (imageComponents.Any())
             {
-                return new List<SystemForm>();
+                var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+                if (solutionComponents.Any())
+                {
+                    var entities = solutionComponents
+                        .Where(c => c.RootComponentBehavior?.Value == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
+                        .Where(e => e != null)
+                        .Select(e => e.LogicalName)
+                        .ToArray();
+
+                    if (entities.Any())
+                    {
+                        var tempList = await repository.GetListForEntitiesAsync(entities, new ColumnSet(true));
+
+                        foreach (var item in tempList)
+                        {
+                            if (hashSet.Add(item.Id))
+                            {
+                                result.Add(item);
+                            }
+                        }
+                    }
+                }
             }
 
-            return await new SystemFormRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return result;
         }
 
         protected override Task<List<OptionSetMetadata>> GetOptionSetMetadataAsync(IOrganizationServiceExtented service)

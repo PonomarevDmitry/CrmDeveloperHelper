@@ -189,5 +189,69 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return result;
         }
+
+        public Task<List<SavedQueryVisualization>> GetListForEntitiesAsync(string[] entities, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListForEntities(entities, columnSet));
+        }
+
+        private List<SavedQueryVisualization> GetListForEntities(string[] entities, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = SavedQueryVisualization.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SavedQueryVisualization.Schema.Attributes.componentstate, ConditionOperator.In, 0, 1),
+                        new ConditionExpression(SavedQueryVisualization.Schema.Attributes.primaryentitytypecode, ConditionOperator.In, entities),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(SavedQueryVisualization.Schema.Attributes.primaryentitytypecode, OrderType.Ascending),
+                    new OrderExpression(SavedQueryVisualization.Schema.Attributes.name, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<SavedQueryVisualization>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _Service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SavedQueryVisualization>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
     }
 }

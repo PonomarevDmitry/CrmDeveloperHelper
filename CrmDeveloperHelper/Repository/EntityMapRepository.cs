@@ -142,5 +142,80 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return result;
         }
+
+        public Task<List<EntityMap>> GetListForEntitiesAsync(string[] entities, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListForEntities(entities, columnSet));
+        }
+
+        private List<EntityMap> GetListForEntities(string[] entities, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = EntityMap.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(EntityMap.Schema.Attributes.componentstate, ConditionOperator.In, 0, 1),
+                    },
+
+                    Filters =
+                    {
+                        new FilterExpression(LogicalOperator.Or)
+                        {
+                            Conditions =
+                            {
+                                new ConditionExpression(EntityMap.Schema.Attributes.sourceentityname, ConditionOperator.In, entities),
+                                new ConditionExpression(EntityMap.Schema.Attributes.targetentityname, ConditionOperator.In, entities),
+                            },
+                        },
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(EntityMap.Schema.Attributes.sourceentityname, OrderType.Ascending),
+                    new OrderExpression(EntityMap.Schema.Attributes.targetentityname, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<EntityMap>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<EntityMap>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
     }
 }

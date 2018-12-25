@@ -180,5 +180,87 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return result;
         }
+
+        public Task<List<DisplayString>> GetListForEntitiesAsync(string[] entities, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListForEntities(entities, columnSet));
+        }
+
+        private List<DisplayString> GetListForEntities(string[] entities, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = DisplayString.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(DisplayString.Schema.Attributes.componentstate, ConditionOperator.In, 0, 1),
+                    },
+                },
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = DisplayString.EntityLogicalName,
+                        LinkFromAttributeName = DisplayString.PrimaryIdAttribute,
+
+                        LinkToEntityName = DisplayStringMap.EntityLogicalName,
+                        LinkToAttributeName = DisplayStringMap.Schema.Attributes.displaystringid,
+
+                        LinkCriteria =
+                        {
+                            Conditions =
+                            {
+                                new ConditionExpression(DisplayStringMap.Schema.Attributes.objecttypecode, ConditionOperator.In, entities),
+                            },
+                        },
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(DisplayString.Schema.Attributes.displaystringkey, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<DisplayString>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<DisplayString>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
     }
 }
