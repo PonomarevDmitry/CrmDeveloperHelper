@@ -113,80 +113,90 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private EntityMetadataCollection _EntityMetadataCollection1;
-        public EntityMetadataCollection GetEntityMetadataCollection1()
+        protected List<EntityMetadata> _EntityMetadataCollection1;
+
+        public Task<List<EntityMetadata>> GetEntityMetadataCollection1Async()
         {
-            if (this._EntityMetadataCollection1 == null)
+            if (_EntityMetadataCollection1 != null)
             {
-                if (this.Service1 == null)
-                {
-                    Task.WaitAll(InitializeConnection(null, null));
-                }
-
-                var entityQueryExpression = new EntityQueryExpression()
-                {
-                    Properties = new MetadataPropertiesExpression() { AllProperties = true },
-                    AttributeQuery = new AttributeQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
-                    RelationshipQuery = new RelationshipQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
-                    LabelQuery = new LabelQueryExpression(),
-                };
-
-                var isEntityKeyExists = this.Service1.IsRequestExists(SdkMessageRequest.Instances.RetrieveEntityKeyRequest);
-
-                if (isEntityKeyExists)
-                {
-                    entityQueryExpression.KeyQuery = new EntityKeyQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } };
-                }
-
-                var response1 = (RetrieveMetadataChangesResponse)this.Service1.Execute(
-                    new RetrieveMetadataChangesRequest()
-                    {
-                        ClientVersionStamp = null,
-                        Query = entityQueryExpression,
-                    }
-                );
-
-                this._EntityMetadataCollection1 = response1.EntityMetadata;
+                return Task.FromResult(_EntityMetadataCollection1);
             }
+
+            return Task.Run(async () => await GetEntityMetadataCollection1InternalAsync());
+        }
+
+        protected virtual async Task<List<EntityMetadata>> GetEntityMetadataCollection1InternalAsync()
+        {
+            await InitializeConnection(null, null);
+
+            var entityQueryExpression = new EntityQueryExpression()
+            {
+                Properties = new MetadataPropertiesExpression() { AllProperties = true },
+                AttributeQuery = new AttributeQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
+                RelationshipQuery = new RelationshipQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
+                LabelQuery = new LabelQueryExpression(),
+            };
+
+            var isEntityKeyExists = this.Service1.IsRequestExists(SdkMessageRequest.Instances.RetrieveEntityKeyRequest);
+
+            if (isEntityKeyExists)
+            {
+                entityQueryExpression.KeyQuery = new EntityKeyQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } };
+            }
+
+            var response = (RetrieveMetadataChangesResponse)this.Service1.Execute(
+                new RetrieveMetadataChangesRequest()
+                {
+                    ClientVersionStamp = null,
+                    Query = entityQueryExpression,
+                }
+            );
+
+            this._EntityMetadataCollection1 = response.EntityMetadata.ToList();
 
             return this._EntityMetadataCollection1;
         }
 
-        private EntityMetadataCollection _EntityMetadataCollection2;
-        public EntityMetadataCollection GetEntityMetadataCollection2()
+        protected List<EntityMetadata> _EntityMetadataCollection2;
+
+        public Task<List<EntityMetadata>> GetEntityMetadataCollection2Async()
         {
-            if (this._EntityMetadataCollection2 == null)
+            if (_EntityMetadataCollection2 != null)
             {
-                if (this.Service2 == null)
-                {
-                    Task.WaitAll(InitializeConnection(null, null));
-                }
-
-                var entityQueryExpression = new EntityQueryExpression()
-                {
-                    Properties = new MetadataPropertiesExpression() { AllProperties = true },
-                    AttributeQuery = new AttributeQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
-                    RelationshipQuery = new RelationshipQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
-                    LabelQuery = new LabelQueryExpression(),
-                };
-
-                var isEntityKeyExists = Service2.IsRequestExists(SdkMessageRequest.Instances.RetrieveEntityKeyRequest);
-
-                if (isEntityKeyExists)
-                {
-                    entityQueryExpression.KeyQuery = new EntityKeyQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } };
-                }
-
-                var response2 = (RetrieveMetadataChangesResponse)Service2.Execute(
-                    new RetrieveMetadataChangesRequest()
-                    {
-                        ClientVersionStamp = null,
-                        Query = entityQueryExpression,
-                    }
-                );
-
-                this._EntityMetadataCollection2 = response2.EntityMetadata;
+                return Task.FromResult(_EntityMetadataCollection2);
             }
+
+            return Task.Run(async () => await GetEntityMetadataCollection2InternalAsync());
+        }
+
+        protected virtual async Task<List<EntityMetadata>> GetEntityMetadataCollection2InternalAsync()
+        {
+            await InitializeConnection(null, null);
+
+            var entityQueryExpression = new EntityQueryExpression()
+            {
+                Properties = new MetadataPropertiesExpression() { AllProperties = true },
+                AttributeQuery = new AttributeQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
+                RelationshipQuery = new RelationshipQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
+                LabelQuery = new LabelQueryExpression(),
+            };
+
+            var isEntityKeyExists = this.Service2.IsRequestExists(SdkMessageRequest.Instances.RetrieveEntityKeyRequest);
+
+            if (isEntityKeyExists)
+            {
+                entityQueryExpression.KeyQuery = new EntityKeyQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } };
+            }
+
+            var response = (RetrieveMetadataChangesResponse)this.Service2.Execute(
+                new RetrieveMetadataChangesRequest()
+                {
+                    ClientVersionStamp = null,
+                    Query = entityQueryExpression,
+                }
+            );
+
+            this._EntityMetadataCollection2 = response.EntityMetadata.ToList();
 
             return this._EntityMetadataCollection2;
         }
@@ -453,17 +463,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<List<FieldPermission>> GetFieldPermission1Async()
         {
-            return new FieldPermissionRepository(Service1).GetListAsync();
+            return GetFieldPermissionAsync(Service1);
         }
 
         public Task<List<FieldPermission>> GetFieldPermission2Async()
         {
-            return new FieldPermissionRepository(Service2).GetListAsync();
+            return GetFieldPermissionAsync(Service2);
         }
 
-        protected virtual Task<List<FieldSecurityProfile>> GetFieldPermissionAsync(IOrganizationServiceExtented service)
+        protected virtual Task<List<FieldPermission>> GetFieldPermissionAsync(IOrganizationServiceExtented service)
         {
-            return new FieldSecurityProfileRepository(service).GetListAsync();
+            return new FieldPermissionRepository(service).GetListAsync();
         }
 
         public Task<List<MailMergeTemplate>> GetMailMergeTemplate1Async()

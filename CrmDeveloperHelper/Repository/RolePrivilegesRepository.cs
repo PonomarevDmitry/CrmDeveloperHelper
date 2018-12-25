@@ -28,6 +28,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         public Task<List<Privilege>> GetListAsync(IEnumerable<Guid> roles)
         {
+            if (!roles.Any())
+            {
+                return Task.FromResult(new List<Privilege>());
+            }
+
             return Task.Run(() => GetList(roles));
         }
 

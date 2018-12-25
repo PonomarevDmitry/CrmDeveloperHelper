@@ -22,6 +22,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly object sysObjectConnections = new object();
         private readonly object sysObjectArchiveConnections = new object();
 
+        private SolutionImage _solutionImage = null;
+
         private IWriteToOutput _iWriteToOutput;
         private ConnectionConfiguration _crmConfig;
 
@@ -2266,7 +2268,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var source = new OrganizationComparerSource(connection1, connection2);
+                var source = CreateOrganizationComparerSource(connection1, connection2);
 
                 OrganizationComparer comparer = new OrganizationComparer(source, this._iWriteToOutput, folder);
 
@@ -2282,6 +2284,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
+        }
+
+        private IOrganizationComparerSource CreateOrganizationComparerSource(ConnectionData connection1, ConnectionData connection2)
+        {
+            if (_solutionImage != null && _solutionImage.Components.Any())
+            {
+                return new OrganizationComparerSourceBySolutionImage(connection1, connection2, _solutionImage);
+            }
+
+            return new OrganizationComparerSource(connection1, connection2);
         }
 
         #region Кнопки сравнения сред.
@@ -2480,7 +2492,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var source = new OrganizationComparerSource(connection1, connection2);
+                var source = CreateOrganizationComparerSource(connection1, connection2);
 
                 ToggleControls(false, Properties.WindowStatusStrings.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
 
@@ -3366,7 +3378,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var source = new OrganizationComparerSource(connectionSource, connectionTarget);
+                var source = CreateOrganizationComparerSource(connectionSource, connectionTarget);
 
                 var trasnferHandler = new OrganizationCustomizationTransfer(source, this._iWriteToOutput, folder);
 
@@ -3466,6 +3478,102 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(ex);
             }
+        }
+
+        private void tSBLoadSolutionImage_Click(object sender, RoutedEventArgs e)
+        {
+            string selectedPath = string.Empty;
+            var t = new Thread(() =>
+            {
+                try
+                {
+                    var openFileDialog1 = new Microsoft.Win32.OpenFileDialog
+                    {
+                        Filter = "SolutionImage (.xml)|*.xml",
+                        FilterIndex = 1,
+                        RestoreDirectory = true
+                    };
+
+                    if (openFileDialog1.ShowDialog().GetValueOrDefault())
+                    {
+                        selectedPath = openFileDialog1.FileName;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+
+            t.Join();
+
+            if (!string.IsNullOrEmpty(selectedPath))
+            {
+                LoadSolutionImage(selectedPath);
+            }
+        }
+
+        private async Task LoadSolutionImage(string filePath)
+        {
+            if (!_controlsEnabled)
+            {
+                return;
+            }
+
+            this._solutionImage = null;
+            txtBFilePath.Text = string.Empty;
+
+            if (string.IsNullOrEmpty(filePath))
+            {
+                return;
+            }
+
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingSolutionImage);
+
+            try
+            {
+                this._solutionImage = await SolutionImage.LoadAsync(filePath);
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(ex);
+
+                this._solutionImage = null;
+            }
+
+            txtBFilePath.Dispatcher.Invoke(() =>
+            {
+                if (this._solutionImage != null)
+                {
+                    txtBFilePath.Text = filePath;
+                }
+                else
+                {
+                    txtBFilePath.Text = string.Empty;
+                }
+            });
+
+            if (this._solutionImage == null)
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionImageFailed);
+                return;
+            }
+
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionImageCompleted);
+        }
+
+        private void tSBClearSolutionImage_Click(object sender, RoutedEventArgs e)
+        {
+            this._solutionImage = null;
+            txtBFilePath.Text = string.Empty;
         }
     }
 }

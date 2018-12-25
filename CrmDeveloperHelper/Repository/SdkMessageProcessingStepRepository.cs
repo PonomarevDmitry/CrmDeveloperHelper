@@ -43,6 +43,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 Distinct = true,
 
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SdkMessageProcessingStep.Schema.Attributes.ishidden, ConditionOperator.Equal, false),
+                    },
+                },
+
                 LinkEntities =
                 {
                     new LinkEntity()
@@ -756,6 +764,95 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
 
             return result.ToString();
+        }
+
+        public Task<List<SdkMessageProcessingStep>> GetListByIdListAsync(IEnumerable<Guid> ids, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListByIdList(ids, columnSet));
+        }
+
+        private List<SdkMessageProcessingStep> GetListByIdList(IEnumerable<Guid> ids, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = SdkMessageProcessingStep.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SdkMessageProcessingStep.Schema.Attributes.ishidden, ConditionOperator.Equal, false),
+                        new ConditionExpression(SdkMessageProcessingStep.Schema.EntityPrimaryIdAttribute, ConditionOperator.In, ids.ToArray()),
+                        new ConditionExpression(SdkMessageProcessingStep.Schema.Attributes.stage, ConditionOperator.In
+                            , (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Pre_validation_10
+                            , (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Pre_operation_20
+                            , (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Post_operation_40
+                        )
+                    },
+                },
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = SdkMessageProcessingStep.EntityLogicalName,
+                        LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
+
+                        LinkToEntityName = SdkMessageFilter.EntityLogicalName,
+                        LinkToAttributeName = SdkMessageFilter.PrimaryIdAttribute,
+
+                        EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
+
+                        JoinOperator = Microsoft.Xrm.Sdk.Query.JoinOperator.LeftOuter,
+
+                        Columns = new ColumnSet(SdkMessageFilter.Schema.Attributes.primaryobjecttypecode, SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(SdkMessageProcessingStep.Schema.Attributes.plugintypeid, OrderType.Ascending),
+                    new OrderExpression(SdkMessageProcessingStep.Schema.Attributes.name, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<SdkMessageProcessingStep>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageProcessingStep>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            FullfillEntitiesSteps(result);
+
+            return result;
         }
     }
 }

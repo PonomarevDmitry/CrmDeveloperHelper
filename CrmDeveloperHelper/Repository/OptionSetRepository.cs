@@ -36,5 +36,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 .OrderBy(e => e.Name)
                 .ToList();
         }
+
+        public Task<List<OptionSetMetadata>> GetListByIdListAsync(IEnumerable<Guid> ids)
+        {
+            return Task.Run(() => GetListByIdList(ids));
+        }
+
+        private List<OptionSetMetadata> GetListByIdList(IEnumerable<Guid> ids)
+        {
+            RetrieveAllOptionSetsRequest request = new RetrieveAllOptionSetsRequest();
+
+            RetrieveAllOptionSetsResponse retrieve = (RetrieveAllOptionSetsResponse)_service.Execute(request);
+
+            var hash = new HashSet<Guid>(ids);
+
+            return retrieve
+                .OptionSetMetadata
+                .OfType<OptionSetMetadata>()
+                .Where(e => e.Options.Any(o => o.Value.HasValue) && hash.Contains(e.MetadataId.Value))
+                .OrderBy(e => e.Name)
+                .ToList();
+        }
     }
 }

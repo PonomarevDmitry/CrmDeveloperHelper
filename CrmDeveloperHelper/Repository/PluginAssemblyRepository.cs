@@ -346,5 +346,68 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return coll.Count == 1 ? coll.Select(e => e.ToEntity<PluginAssembly>()).SingleOrDefault() : null;
         }
+
+        public Task<List<PluginAssembly>> GetListByIdListAsync(IEnumerable<Guid> ids, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListByIdList(ids, columnSet));
+        }
+
+        private List<PluginAssembly> GetListByIdList(IEnumerable<Guid> ids, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = PluginAssembly.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_service)),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(PluginAssembly.Schema.EntityPrimaryIdAttribute, ConditionOperator.In, ids.ToArray()),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(PluginAssembly.Schema.Attributes.name, OrderType.Ascending),
+                    new OrderExpression(PluginAssembly.Schema.Attributes.createdon, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<PluginAssembly>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<PluginAssembly>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
     }
 }

@@ -7,8 +7,8 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
@@ -35,11 +35,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return Task.Run(async () => await GetRoles(service, imageComponents));
         }
 
-        private async Task<IEnumerable<Role>> GetRoles(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> roles)
+        private async Task<IEnumerable<Role>> GetRoles(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service, false);
 
-            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(roles);
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
             if (!solutionComponents.Any())
             {
@@ -61,11 +61,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return Task.Run(async () => await GetWorkflows(service, imageComponents, columnSet));
         }
 
-        private async Task<List<Workflow>> GetWorkflows(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> workflows, ColumnSet columnSet)
+        private async Task<List<Workflow>> GetWorkflows(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents, ColumnSet columnSet)
         {
             var descriptor = new SolutionComponentDescriptor(service, false);
 
-            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(workflows);
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
             if (!solutionComponents.Any())
             {
@@ -87,11 +87,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return Task.Run(async () => await GetWebResources(service, imageComponents));
         }
 
-        private async Task<List<WebResource>> GetWebResources(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> roles)
+        private async Task<List<WebResource>> GetWebResources(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service, false);
 
-            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(roles);
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
             if (!solutionComponents.Any())
             {
@@ -113,11 +113,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return Task.Run(async () => await GetConnectionRoles(service, imageComponents));
         }
 
-        private async Task<List<ConnectionRole>> GetConnectionRoles(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> roles)
+        private async Task<List<ConnectionRole>> GetConnectionRoles(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service, false);
 
-            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(roles);
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
             if (!solutionComponents.Any())
             {
@@ -139,11 +139,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return Task.Run(async () => await GetContractTemplates(service, imageComponents));
         }
 
-        private async Task<List<ContractTemplate>> GetContractTemplates(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> roles)
+        private async Task<List<ContractTemplate>> GetContractTemplates(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service, false);
 
-            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(roles);
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
             if (!solutionComponents.Any())
             {
@@ -151,6 +151,516 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return await new ContractTemplateRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+        }
+
+        protected override Task<List<KbArticleTemplate>> GetKbArticleTemplateAsync(IOrganizationServiceExtented service)
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.KbArticleTemplate);
+
+            if (!imageComponents.Any())
+            {
+                return Task.FromResult(new List<KbArticleTemplate>());
+            }
+
+            return Task.Run(async () => await GetKbArticleTemplate(service, imageComponents));
+        }
+
+        private async Task<List<KbArticleTemplate>> GetKbArticleTemplate(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        {
+            var descriptor = new SolutionComponentDescriptor(service, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                return new List<KbArticleTemplate>();
+            }
+
+            return await new KbArticleTemplateRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+        }
+
+        protected override Task<List<MailMergeTemplate>> GetMailMergeTemplateAsync(IOrganizationServiceExtented service)
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.MailMergeTemplate);
+
+            if (!imageComponents.Any())
+            {
+                return Task.FromResult(new List<MailMergeTemplate>());
+            }
+
+            return Task.Run(async () => await GetMailMergeTemplate(service, imageComponents));
+        }
+
+        private async Task<List<MailMergeTemplate>> GetMailMergeTemplate(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        {
+            var descriptor = new SolutionComponentDescriptor(service, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                return new List<MailMergeTemplate>();
+            }
+
+            return await new MailMergeTemplateRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+        }
+
+        protected override Task<List<Template>> GetTemplateAsync(IOrganizationServiceExtented service)
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.EmailTemplate);
+
+            if (!imageComponents.Any())
+            {
+                return Task.FromResult(new List<Template>());
+            }
+
+            return Task.Run(async () => await GetTemplate(service, imageComponents));
+        }
+
+        private async Task<List<Template>> GetTemplate(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        {
+            var descriptor = new SolutionComponentDescriptor(service, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                return new List<Template>();
+            }
+
+            return await new TemplateRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+        }
+
+        protected override Task<List<DisplayString>> GetDisplayStringAsync(IOrganizationServiceExtented service)
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.DisplayString);
+
+            if (!imageComponents.Any())
+            {
+                return Task.FromResult(new List<DisplayString>());
+            }
+
+            return Task.Run(async () => await GetDisplayString(service, imageComponents));
+        }
+
+        private async Task<List<DisplayString>> GetDisplayString(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        {
+            var descriptor = new SolutionComponentDescriptor(service, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                return new List<DisplayString>();
+            }
+
+            return await new DisplayStringRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+        }
+
+        protected override Task<List<FieldSecurityProfile>> GetFieldSecurityProfileAsync(IOrganizationServiceExtented service)
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.FieldSecurityProfile);
+
+            if (!imageComponents.Any())
+            {
+                return Task.FromResult(new List<FieldSecurityProfile>());
+            }
+
+            return Task.Run(async () => await GetFieldSecurityProfile(service, imageComponents));
+        }
+
+        private async Task<List<FieldSecurityProfile>> GetFieldSecurityProfile(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        {
+            var descriptor = new SolutionComponentDescriptor(service, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                return new List<FieldSecurityProfile>();
+            }
+
+            return await new FieldSecurityProfileRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+        }
+
+        protected override Task<List<EntityMap>> GetEntityMapAsync(IOrganizationServiceExtented service)
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.EntityMap);
+
+            if (!imageComponents.Any())
+            {
+                return Task.FromResult(new List<EntityMap>());
+            }
+
+            return Task.Run(async () => await GetEntityMap(service, imageComponents));
+        }
+
+        private async Task<List<EntityMap>> GetEntityMap(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        {
+            var descriptor = new SolutionComponentDescriptor(service, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                return new List<EntityMap>();
+            }
+
+            return await new EntityMapRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+        }
+
+        protected override Task<List<PluginAssembly>> GetPluginAssemblyAsync(IOrganizationServiceExtented service)
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.PluginAssembly);
+
+            if (!imageComponents.Any())
+            {
+                return Task.FromResult(new List<PluginAssembly>());
+            }
+
+            return Task.Run(async () => await GetPluginAssembly(service, imageComponents));
+        }
+
+        private async Task<List<PluginAssembly>> GetPluginAssembly(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        {
+            var descriptor = new SolutionComponentDescriptor(service, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                return new List<PluginAssembly>();
+            }
+
+            return await new PluginAssemblyRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), null);
+        }
+
+        protected override Task<List<PluginType>> GetPluginTypeAsync(IOrganizationServiceExtented service)
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.PluginType);
+
+            if (!imageComponents.Any())
+            {
+                return Task.FromResult(new List<PluginType>());
+            }
+
+            return Task.Run(async () => await GetPluginType(service, imageComponents));
+        }
+
+        private async Task<List<PluginType>> GetPluginType(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        {
+            var descriptor = new SolutionComponentDescriptor(service, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                return new List<PluginType>();
+            }
+
+            return await new PluginTypeRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+        }
+
+        protected override Task<List<Report>> GetReportAsync(IOrganizationServiceExtented service)
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.Report);
+
+            if (!imageComponents.Any())
+            {
+                return Task.FromResult(new List<Report>());
+            }
+
+            return Task.Run(async () => await GetReport(service, imageComponents));
+        }
+
+        private async Task<List<Report>> GetReport(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        {
+            var descriptor = new SolutionComponentDescriptor(service, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                return new List<Report>();
+            }
+
+            return await new ReportRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+        }
+
+        protected override Task<List<SdkMessageProcessingStep>> GetSdkMessageProcessingStepAsync(IOrganizationServiceExtented service)
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.SdkMessageProcessingStep);
+
+            if (!imageComponents.Any())
+            {
+                return Task.FromResult(new List<SdkMessageProcessingStep>());
+            }
+
+            return Task.Run(async () => await GetSdkMessageProcessingStep(service, imageComponents));
+        }
+
+        private async Task<List<SdkMessageProcessingStep>> GetSdkMessageProcessingStep(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        {
+            var descriptor = new SolutionComponentDescriptor(service, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                return new List<SdkMessageProcessingStep>();
+            }
+
+            return await new SdkMessageProcessingStepRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+        }
+
+        protected override Task<List<SiteMap>> GetSiteMapAsync(IOrganizationServiceExtented service, ColumnSet columnSet = null)
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.SiteMap);
+
+            if (!imageComponents.Any())
+            {
+                return Task.FromResult(new List<SiteMap>());
+            }
+
+            return Task.Run(async () => await GetSiteMap(service, imageComponents));
+        }
+
+        private async Task<List<SiteMap>> GetSiteMap(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        {
+            var descriptor = new SolutionComponentDescriptor(service, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                return new List<SiteMap>();
+            }
+
+            return await new SitemapRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+        }
+
+        protected override Task<List<SavedQuery>> GetSavedQueryAsync(IOrganizationServiceExtented service)
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.SavedQuery);
+
+            if (!imageComponents.Any())
+            {
+                return Task.FromResult(new List<SavedQuery>());
+            }
+
+            return Task.Run(async () => await GetSavedQuery(service, imageComponents));
+        }
+
+        private async Task<List<SavedQuery>> GetSavedQuery(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        {
+            var descriptor = new SolutionComponentDescriptor(service, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                return new List<SavedQuery>();
+            }
+
+            return await new SavedQueryRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+        }
+
+        protected override Task<List<SavedQueryVisualization>> GetSavedQueryVisualizationAsync(IOrganizationServiceExtented service)
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.SavedQuery);
+
+            if (!imageComponents.Any())
+            {
+                return Task.FromResult(new List<SavedQueryVisualization>());
+            }
+
+            return Task.Run(async () => await GetSavedQueryVisualization(service, imageComponents));
+        }
+
+        private async Task<List<SavedQueryVisualization>> GetSavedQueryVisualization(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        {
+            var descriptor = new SolutionComponentDescriptor(service, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                return new List<SavedQueryVisualization>();
+            }
+
+            return await new SavedQueryVisualizationRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+        }
+
+        protected override Task<List<SystemForm>> GetSystemFormAsync(IOrganizationServiceExtented service)
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.SystemForm);
+
+            if (!imageComponents.Any())
+            {
+                return Task.FromResult(new List<SystemForm>());
+            }
+
+            return Task.Run(async () => await GetSystemForm(service, imageComponents));
+        }
+
+        private async Task<List<SystemForm>> GetSystemForm(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        {
+            var descriptor = new SolutionComponentDescriptor(service, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                return new List<SystemForm>();
+            }
+
+            return await new SystemFormRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+        }
+
+        protected override Task<List<OptionSetMetadata>> GetOptionSetMetadataAsync(IOrganizationServiceExtented service)
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.OptionSet);
+
+            if (!imageComponents.Any())
+            {
+                return Task.FromResult(new List<OptionSetMetadata>());
+            }
+
+            return Task.Run(async () => await GetOptionSet(service, imageComponents));
+        }
+
+        private async Task<List<OptionSetMetadata>> GetOptionSet(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        {
+            var descriptor = new SolutionComponentDescriptor(service, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                return new List<OptionSetMetadata>();
+            }
+
+            return await new OptionSetRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value));
+        }
+
+        protected override async Task<List<EntityMetadata>> GetEntityMetadataCollection1InternalAsync()
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.Entity);
+
+            if (!imageComponents.Any())
+            {
+                this._EntityMetadataCollection1 = new List<EntityMetadata>();
+
+                return this._EntityMetadataCollection1;
+            }
+
+            await InitializeConnection(null, null);
+
+            var descriptor = new SolutionComponentDescriptor(this.Service1, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                this._EntityMetadataCollection1 = new List<EntityMetadata>();
+
+                return this._EntityMetadataCollection1;
+            }
+
+            var entityQueryExpression = new EntityQueryExpression()
+            {
+                Properties = new MetadataPropertiesExpression() { AllProperties = true },
+                AttributeQuery = new AttributeQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
+                RelationshipQuery = new RelationshipQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
+                LabelQuery = new LabelQueryExpression(),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new MetadataConditionExpression("MetadataId", MetadataConditionOperator.In, solutionComponents.Select(c => c.ObjectId.Value).ToArray()),
+                    },
+                },
+            };
+
+            var isEntityKeyExists = this.Service1.IsRequestExists(SdkMessageRequest.Instances.RetrieveEntityKeyRequest);
+
+            if (isEntityKeyExists)
+            {
+                entityQueryExpression.KeyQuery = new EntityKeyQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } };
+            }
+
+            var response = (RetrieveMetadataChangesResponse)this.Service1.Execute(
+                new RetrieveMetadataChangesRequest()
+                {
+                    ClientVersionStamp = null,
+                    Query = entityQueryExpression,
+                }
+            );
+
+            this._EntityMetadataCollection1 = response.EntityMetadata.ToList();
+
+            return this._EntityMetadataCollection1;
+        }
+
+        protected override async Task<List<EntityMetadata>> GetEntityMetadataCollection2InternalAsync()
+        {
+            var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.Entity);
+
+            if (!imageComponents.Any())
+            {
+                this._EntityMetadataCollection2 = new List<EntityMetadata>();
+
+                return this._EntityMetadataCollection2;
+            }
+
+            await InitializeConnection(null, null);
+
+            var descriptor = new SolutionComponentDescriptor(this.Service2, false);
+
+            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+            if (!solutionComponents.Any())
+            {
+                this._EntityMetadataCollection2 = new List<EntityMetadata>();
+
+                return this._EntityMetadataCollection2;
+            }
+
+            var entityQueryExpression = new EntityQueryExpression()
+            {
+                Properties = new MetadataPropertiesExpression() { AllProperties = true },
+                AttributeQuery = new AttributeQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
+                RelationshipQuery = new RelationshipQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
+                LabelQuery = new LabelQueryExpression(),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new MetadataConditionExpression("MetadataId", MetadataConditionOperator.In, solutionComponents.Select(c => c.ObjectId.Value).ToArray()),
+                    },
+                },
+            };
+
+            var isEntityKeyExists = this.Service2.IsRequestExists(SdkMessageRequest.Instances.RetrieveEntityKeyRequest);
+
+            if (isEntityKeyExists)
+            {
+                entityQueryExpression.KeyQuery = new EntityKeyQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } };
+            }
+
+            var response = (RetrieveMetadataChangesResponse)this.Service2.Execute(
+                new RetrieveMetadataChangesRequest()
+                {
+                    ClientVersionStamp = null,
+                    Query = entityQueryExpression,
+                }
+            );
+
+            this._EntityMetadataCollection2 = response.EntityMetadata.ToList();
+
+            return this._EntityMetadataCollection2;
         }
     }
 }

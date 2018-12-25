@@ -118,5 +118,67 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return coll.Count == 1 ? coll.Select(e => e.ToEntity<DisplayString>()).SingleOrDefault() : null;
         }
+
+        public Task<List<DisplayString>> GetListByIdListAsync(IEnumerable<Guid> ids, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListByIdList(ids, columnSet));
+        }
+
+        private List<DisplayString> GetListByIdList(IEnumerable<Guid> ids, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = DisplayString.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(DisplayString.Schema.EntityPrimaryIdAttribute, ConditionOperator.In, ids.ToArray()),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(DisplayString.Schema.Attributes.displaystringkey, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<DisplayString>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<DisplayString>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
     }
 }

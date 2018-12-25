@@ -41,9 +41,13 @@
         </ContextMenu>
     </src:WindowBase.Resources>
     <Grid>
-        <Label Content="Folder for Export" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="129,12,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2147483647"/>
-        <DockPanel LastChildFill="True" Margin="10,41,10,63">
+        <Label Content="Folder for Export" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="5,0" Height="25" Width="123"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="148,12,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2147483647"/>
+
+        <Label Content="Loaded Solution Image" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Height="23" VerticalContentAlignment="Center" Padding="5,0"/>
+        <TextBox x:Name="txtBFilePath" Height="23" Margin="148,40,10,0" VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+
+        <DockPanel LastChildFill="True" Margin="10,69,10,63">
             <ToolBar VerticalAlignment="Top" DockPanel.Dock="Top" >
                 <ToolBar.Resources>
                     <Style TargetType="{x:Type ToolBarPanel}">
@@ -123,12 +127,22 @@
                             </StackPanel>
                         </Button>
                         <Separator/>
-                        <Button x:Name="tSBOpenFolder" HorizontalAlignment="Left" Click="tSBOpenFolder_Click" >
-                            <StackPanel>
-                                <Image Width="16" Height="16"  Source="{StaticResource ImageOpenFolder}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Open Folder</TextBlock>
-                            </StackPanel>
-                        </Button>
+                        <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                            <MenuItem Header="Solution Image">
+
+                                <MenuItem x:Name="tSBLoadSolutionImage" Header="Load Solution Image" Click="tSBLoadSolutionImage_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+
+                                <MenuItem x:Name="tSBClearSolutionImage" Header="Clear Solution Image" Click="tSBClearSolutionImage_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </MenuItem>
+                        </Menu>
                         <Separator/>
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                             <MenuItem x:Name="tSDDBCheck" Header="Check">

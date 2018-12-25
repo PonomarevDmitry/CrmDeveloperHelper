@@ -191,5 +191,67 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return errors.Count == 0;
         }
+
+        public Task<List<SiteMap>> GetListByIdListAsync(IEnumerable<Guid> ids, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListByIdList(ids, columnSet));
+        }
+
+        private List<SiteMap> GetListByIdList(IEnumerable<Guid> ids, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = SiteMap.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SiteMap.Schema.EntityPrimaryIdAttribute, ConditionOperator.In, ids.ToArray()),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(SiteMap.Schema.Attributes.sitemapnameunique, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<SiteMap>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _Service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SiteMap>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
     }
 }

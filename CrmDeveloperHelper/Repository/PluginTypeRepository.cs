@@ -365,5 +365,88 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<PluginType>()).SingleOrDefault();
         }
+
+        public Task<List<PluginType>> GetListByIdListAsync(IEnumerable<Guid> ids, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListByIdList(ids, columnSet));
+        }
+
+        private List<PluginType> GetListByIdList(IEnumerable<Guid> ids, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = PluginType.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(PluginType.Schema.EntityPrimaryIdAttribute, ConditionOperator.In, ids.ToArray()),
+                    },
+                },
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = PluginType.EntityLogicalName,
+                        LinkFromAttributeName = PluginType.Schema.Attributes.pluginassemblyid,
+
+                        LinkToEntityName = PluginAssembly.EntityLogicalName,
+                        LinkToAttributeName = PluginAssembly.PrimaryIdAttribute,
+
+                        LinkCriteria =
+                        {
+                            Conditions =
+                            {
+                                new ConditionExpression(PluginAssembly.Schema.Attributes.ishidden, ConditionOperator.Equal, false),
+                            },
+                        },
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(PluginType.Schema.Attributes.typename, OrderType.Ascending),
+                    new OrderExpression(PluginType.Schema.Attributes.createdon, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<PluginType>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<PluginType>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
     }
 }

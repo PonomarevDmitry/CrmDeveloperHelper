@@ -97,8 +97,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         Task<HashSet<string>> GetEntitiesWithRibbonCustomization1Async();
         Task<HashSet<string>> GetEntitiesWithRibbonCustomization2Async();
 
-        EntityMetadataCollection GetEntityMetadataCollection1();
-        EntityMetadataCollection GetEntityMetadataCollection2();
+        Task<List<EntityMetadata>> GetEntityMetadataCollection1Async();
+        Task<List<EntityMetadata>> GetEntityMetadataCollection2Async();
 
         Task<List<ConnectionRole>> GetConnectionRole1Async();
         Task<List<ConnectionRole>> GetConnectionRole2Async();
