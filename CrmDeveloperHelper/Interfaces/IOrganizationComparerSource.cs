@@ -20,7 +20,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         IOrganizationServiceExtented Service2 { get; }
 
-        Task InitializeConnection(IWriteToOutput writeToOutput, StringBuilder content);
+        Task InitializeConnection(IWriteToOutput writeToOutput, StringBuilder content, string messageConnection1 = null, string messageConnection2 = null);
 
         Task<List<EntityMap>> GetEntityMap1Async();
         Task<List<EntityMap>> GetEntityMap2Async();

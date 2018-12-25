@@ -16,9 +16,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public partial class OrganizationCustomizationTransfer
     {
-        public ConnectionData ConnectionSource { get; private set; }
+        private IOrganizationComparerSource _comparerSource;
 
-        public ConnectionData ConnectionTarget { get; private set; }
+        public ConnectionData ConnectionSource => _comparerSource.Connection1;
+
+        public ConnectionData ConnectionTarget => _comparerSource.Connection2;
 
         private string _folder;
 
@@ -26,88 +28,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private IWriteToOutput _iWriteToOutput;
 
-        private IOrganizationServiceExtented _serviceSource;
-        private IOrganizationServiceExtented _serviceTarget;
-
-        public OrganizationCustomizationTransfer(ConnectionData connectionSource, ConnectionData connectionTarget, IWriteToOutput iWriteToOutput, string folder)
+        public OrganizationCustomizationTransfer(IOrganizationComparerSource comparerSource, IWriteToOutput iWriteToOutput, string folder)
         {
-            this.ConnectionSource = connectionSource;
-            this.ConnectionTarget = connectionTarget;
+            this._comparerSource = comparerSource;
             this._iWriteToOutput = iWriteToOutput;
             this._folder = folder;
-        }
-
-        public async Task InitializeConnection(StringBuilder content)
-        {
-            bool service1IsNull = this._serviceSource == null;
-            bool service2IsNull = this._serviceTarget == null;
-
-            {
-                var mess1 = "Connection CRM Source.";
-                var mess2 = ConnectionSource.GetConnectionDescription();
-
-                if (service1IsNull)
-                {
-                    _iWriteToOutput.WriteToOutput(mess1);
-                    _iWriteToOutput.WriteToOutput(mess2);
-                    _serviceSource = await QuickConnection.ConnectAsync(ConnectionSource);
-                }
-
-                var mess3 = string.Format(Properties.OutputStrings.CurrentServiceEndpointFormat1, _serviceSource.CurrentServiceEndpoint);
-
-                if (service1IsNull)
-                {
-                    _iWriteToOutput.WriteToOutput(mess3);
-                }
-
-                if (content != null)
-                {
-                    content.AppendLine(mess1);
-                    content.AppendLine(mess2);
-                    content.AppendLine(mess3);
-                }
-            }
-
-            if (service1IsNull)
-            {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-            }
-
-            if (content != null)
-            {
-                content.AppendLine();
-            }
-
-            {
-                var mess1 = "Connection CRM Target.";
-                var mess2 = ConnectionTarget.GetConnectionDescription();
-
-                if (service2IsNull)
-                {
-                    _iWriteToOutput.WriteToOutput(mess1);
-                    _iWriteToOutput.WriteToOutput(mess2);
-                    _serviceTarget = await QuickConnection.ConnectAsync(ConnectionTarget);
-                }
-
-                var mess3 = string.Format(Properties.OutputStrings.CurrentServiceEndpointFormat1, _serviceTarget.CurrentServiceEndpoint);
-
-                if (service2IsNull)
-                {
-                    _iWriteToOutput.WriteToOutput(mess3);
-                }
-
-                if (content != null)
-                {
-                    content.AppendLine(mess1);
-                    content.AppendLine(mess2);
-                    content.AppendLine(mess3);
-                }
-            }
-
-            if (content != null)
-            {
-                content.AppendLine();
-            }
         }
 
         public Task<string> TrasnferAuditAsync()
@@ -119,14 +44,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content, "Connection CRM Source.", "Connection CRM Target.");
 
             string operation = string.Format(Properties.OperationNames.TransferingAuditFormat2, ConnectionSource.Name, ConnectionTarget.Name);
 
             content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
-            var repositorySource = new EntityMetadataRepository(_serviceSource);
-            var repositoryTarget = new EntityMetadataRepository(_serviceTarget);
+            var repositorySource = new EntityMetadataRepository(_comparerSource.Service1);
+            var repositoryTarget = new EntityMetadataRepository(_comparerSource.Service2);
 
             var taskSource = repositorySource.GetEntitiesWithAttributesForAuditAsync();
             var taskTarget = repositoryTarget.GetEntitiesWithAttributesForAuditAsync();
@@ -254,7 +179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     content.AppendLine(_tabSpacer + item);
                 }
 
-                var repositoryPublish = new PublishActionsRepository(_serviceTarget);
+                var repositoryPublish = new PublishActionsRepository(_comparerSource.Service2);
 
                 try
                 {
@@ -291,7 +216,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content, "Connection CRM Source.", "Connection CRM Target.");
 
             string operation = string.Format(Properties.OperationNames.TransferingWorkflowsStatesFormat2, ConnectionSource.Name, ConnectionTarget.Name);
 
@@ -309,8 +234,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 , Workflow.Schema.Attributes.ismanaged
             );
 
-            var taskSource = new WorkflowRepository(this._serviceSource).GetListAsync(null, null, null, columnsSet);
-            var taskTarget = new WorkflowRepository(this._serviceTarget).GetListAsync(null, null, null, columnsSet);
+            var taskSource = _comparerSource.GetWorkflow1Async(columnsSet);
+            var taskTarget = _comparerSource.GetWorkflow2Async(columnsSet);
 
             List<Workflow> listSource = await taskSource;
 
@@ -397,7 +322,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , workflow.IsCrmUIWorkflow.ToString()
                     , workflow.IsManaged.ToString()
                     , workflow.Id.ToString()
-                    , _serviceTarget.UrlGenerator.GetSolutionComponentUrl(ComponentType.Workflow, workflow.Id)
+                    , _comparerSource.Service2.UrlGenerator.GetSolutionComponentUrl(ComponentType.Workflow, workflow.Id)
                 );
             }
 
@@ -414,7 +339,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , workflow.IsCrmUIWorkflow.ToString()
                     , workflow.IsManaged.ToString()
                     , workflow.Id.ToString()
-                    , _serviceTarget.UrlGenerator.GetSolutionComponentUrl(ComponentType.Workflow, workflow.Id)
+                    , _comparerSource.Service2.UrlGenerator.GetSolutionComponentUrl(ComponentType.Workflow, workflow.Id)
                 );
             }
 
@@ -452,7 +377,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 try
                 {
-                    await _serviceTarget.ExecuteAsync(new SetStateRequest()
+                    await _comparerSource.Service2.ExecuteAsync(new SetStateRequest()
                     {
                         EntityMoniker = workflow.ToEntityReference(),
 
@@ -475,7 +400,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         , workflow.IsCrmUIWorkflow.ToString()
                         , workflow.IsManaged.ToString()
                         , workflow.Id.ToString()
-                        , _serviceTarget.UrlGenerator.GetSolutionComponentUrl(ComponentType.Workflow, workflow.Id)
+                        , _comparerSource.Service2.UrlGenerator.GetSolutionComponentUrl(ComponentType.Workflow, workflow.Id)
                     );
 
                     string operationLocal = string.Format(Properties.OperationNames.DeactivatingEntityFormat2, workflow.LogicalName, ConnectionTarget.Name, workflowDescription);
@@ -492,7 +417,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 try
                 {
-                    await _serviceTarget.ExecuteAsync(new SetStateRequest()
+                    await _comparerSource.Service2.ExecuteAsync(new SetStateRequest()
                     {
                         EntityMoniker = workflow.ToEntityReference(),
 
@@ -515,7 +440,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         , workflow.IsCrmUIWorkflow.ToString()
                         , workflow.IsManaged.ToString()
                         , workflow.Id.ToString()
-                        , _serviceTarget.UrlGenerator.GetSolutionComponentUrl(ComponentType.Workflow, workflow.Id)
+                        , _comparerSource.Service2.UrlGenerator.GetSolutionComponentUrl(ComponentType.Workflow, workflow.Id)
                     );
 
                     string operationLocal = string.Format(Properties.OperationNames.ActivatingEntityFormat3, workflow.LogicalName, ConnectionTarget.Name, workflowDescription);
@@ -558,14 +483,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            await InitializeConnection(content);
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content, "Connection CRM Source.", "Connection CRM Target.");
 
             string operation = string.Format(Properties.OperationNames.TransferingPluginStepsStatesFormat2, ConnectionSource.Name, ConnectionTarget.Name);
 
             content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
 
-            var taskSource = new SdkMessageProcessingStepRepository(this._serviceSource).GetAllSdkMessageProcessingStepAsync(null, null, null);
-            var taskTarget = new SdkMessageProcessingStepRepository(this._serviceTarget).GetAllSdkMessageProcessingStepAsync(null, null, null);
+            var taskSource = _comparerSource.GetSdkMessageProcessingStep1Async();
+            var taskTarget = _comparerSource.GetSdkMessageProcessingStep2Async();
 
             List<SdkMessageProcessingStep> listSource = await taskSource;
 
@@ -712,7 +637,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 try
                 {
-                    await _serviceTarget.ExecuteAsync(new SetStateRequest()
+                    await _comparerSource.Service2.ExecuteAsync(new SetStateRequest()
                     {
                         EntityMoniker = step.ToEntityReference(),
 
@@ -751,7 +676,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 try
                 {
-                    await _serviceTarget.ExecuteAsync(new SetStateRequest()
+                    await _comparerSource.Service2.ExecuteAsync(new SetStateRequest()
                     {
                         EntityMoniker = step.ToEntityReference(),
 

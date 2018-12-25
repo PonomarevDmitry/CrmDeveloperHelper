@@ -3366,7 +3366,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var trasnferHandler = new OrganizationCustomizationTransfer(connectionSource, connectionTarget, this._iWriteToOutput, folder);
+                var source = new OrganizationComparerSource(connectionSource, connectionTarget);
+
+                var trasnferHandler = new OrganizationCustomizationTransfer(source, this._iWriteToOutput, folder);
 
                 await function(trasnferHandler);
 

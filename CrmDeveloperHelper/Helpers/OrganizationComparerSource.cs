@@ -29,13 +29,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this.Connection2 = connection2;
         }
 
-        public async Task InitializeConnection(IWriteToOutput writeToOutput, StringBuilder content)
+        public async Task InitializeConnection(IWriteToOutput writeToOutput, StringBuilder content, string messageConnection1 = null, string messageConnection2 = null)
         {
             bool service1IsNull = this.Service1 == null;
             bool service2IsNull = this.Service2 == null;
 
             {
-                var mess1 = Properties.OutputStrings.ConnectingToCRM;
+                var mess1 = messageConnection1;
+                if (string.IsNullOrEmpty(mess1))
+                {
+                    mess1 = Properties.OutputStrings.ConnectingToCRM;
+                }
+
                 var mess2 = Connection1.GetConnectionDescription();
 
                 if (service1IsNull)
@@ -72,7 +77,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             {
-                var mess1 = Properties.OutputStrings.ConnectingToCRM;
+                var mess1 = messageConnection2;
+                if (string.IsNullOrEmpty(mess1))
+                {
+                    mess1 = Properties.OutputStrings.ConnectingToCRM;
+                }
                 var mess2 = Connection2.GetConnectionDescription();
 
                 if (service2IsNull)
