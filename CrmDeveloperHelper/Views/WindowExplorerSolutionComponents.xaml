@@ -150,23 +150,27 @@
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="mISolutionInformation" Header="Solution Information" VerticalAlignment="Center">
                             <MenuItem Header="Open Solution in Web" VerticalAlignment="Center" Click="OpenSolutionInWeb_Click" />
+                            
                             <Separator x:Name="sepClearUnManagedSolution" Visibility="Collapsed" IsEnabled="False"/>
                             <MenuItem x:Name="miClearUnManagedSolution" Header="Clear UnManaged Solution" VerticalAlignment="Center" Click="miClearUnManagedSolution_Click" Visibility="Collapsed" IsEnabled="False"/>
+                            
                             <Separator x:Name="sepClearUnManagedSolution2" Visibility="Collapsed" IsEnabled="False"/>
                             <MenuItem x:Name="miSelectAsLastSelected" Header="Select Solution as Last Selected" VerticalAlignment="Center" Click="miSelectAsLastSelected_Click" Visibility="Collapsed" IsEnabled="False"/>
+                            
                             <Separator/>
-                            <MenuItem x:Name="mIUsedEntitiesInWorkflows" Header="Used Entities in Workflows" VerticalAlignment="Center" Click="mIUsedEntitiesInWorkflows_Click" />
-                            <MenuItem x:Name="mIUsedNotExistsEntitiesInWorkflows" Header="Used Not Exists Entities in Workflows" VerticalAlignment="Center" Click="mIUsedNotExistsEntitiesInWorkflows_Click" />
+                            <MenuItem Header="Used Entities in Workflows" VerticalAlignment="Center" Click="mIUsedEntitiesInWorkflows_Click" />
+                            <MenuItem Header="Used Not Exists Entities in Workflows" VerticalAlignment="Center" Click="mIUsedNotExistsEntitiesInWorkflows_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mICreateSolutionImage" Header="Create Solution Image" VerticalAlignment="Center" Click="mICreateSolutionImage_Click" />
+                            <MenuItem Header="Create Solution Image" VerticalAlignment="Center" Click="mICreateSolutionImage_Click" />
+                            <MenuItem Header="Create Solution Image and Open Organization Comparer Window" VerticalAlignment="Center" Click="mICreateSolutionImageAndOpenOrganizationComparer_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mILoadSolutionImage" Header="Add Components from Solution Image" VerticalAlignment="Center" Click="mILoadSolutionImage_Click" />
-                            <MenuItem x:Name="mILoadSolutionZip" Header="Add Components from Solution Zip-file" VerticalAlignment="Center" Click="mILoadSolutionZip_Click" />
+                            <MenuItem Header="Add Components from Solution Image" VerticalAlignment="Center" Click="mILoadSolutionImage_Click" />
+                            <MenuItem Header="Add Components from Solution Zip-file" VerticalAlignment="Center" Click="mILoadSolutionZip_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mIComponentsIn" Header="Components" VerticalAlignment="Center" Click="mIComponentsIn_Click" />
+                            <MenuItem Header="Components" VerticalAlignment="Center" Click="mIComponentsIn_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mIMissingComponentsIn" Header="Missing Components" VerticalAlignment="Center" Click="mIMissingComponentsIn_Click" />
-                            <MenuItem x:Name="mIUninstallComponentsIn" Header="Uninstall Components" VerticalAlignment="Center" Click="mIUninstallComponentsIn_Click" />
+                            <MenuItem Header="Missing Components" VerticalAlignment="Center" Click="mIMissingComponentsIn_Click" />
+                            <MenuItem Header="Uninstall Components" VerticalAlignment="Center" Click="mIUninstallComponentsIn_Click" />
                             <Separator/>
                             <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
                             <Separator/>

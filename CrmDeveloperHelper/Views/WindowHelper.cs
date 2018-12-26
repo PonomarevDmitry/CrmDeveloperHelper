@@ -977,6 +977,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , ConnectionConfiguration crmConfig
             , CommonConfiguration commonConfig
+            , string solutionImageFilePath = null
             )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -987,7 +988,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput
                         , crmConfig
                         , commonConfig
-                        );
+                        , solutionImageFilePath
+                    );
 
                     form.ShowDialog();
                 }

@@ -1723,6 +1723,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void mICreateSolutionImageAndOpenOrganizationComparer_Click(object sender, RoutedEventArgs e)
+        {
+            if (_solution != null)
+            {
+                ExecuteActionOnSingleSolution(_solution, PerformCreateSolutionImageAndOpenOrganizationComparer);
+            }
+        }
+
         private void mILoadSolutionImage_Click(object sender, RoutedEventArgs e)
         {
             if (_solution != null)
@@ -1785,6 +1793,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath);
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
+            }
+        }
+
+        private async Task PerformCreateSolutionImageAndOpenOrganizationComparer(string folder, Solution solution)
+        {
+            try
+            {
+                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
+
+                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
+
+                string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                    _service.ConnectionData.Name
+                    , solution.UniqueName
+                    , "SolutionImage"
+                    , "xml"
+                );
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
+
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath);
+
+                _commonConfig.Save();
+
+                WindowHelper.OpenOrganizationComparerWindow(_iWriteToOutput, _service.ConnectionData.ConnectionConfiguration, _commonConfig, filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
             }

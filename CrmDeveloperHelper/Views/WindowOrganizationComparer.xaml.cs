@@ -35,7 +35,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , ConnectionConfiguration crmConfig
             , CommonConfiguration commonConfig
-            )
+            , string solutionImageFilePath
+        )
         {
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -51,6 +52,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             LoadFromConfig();
 
             lstVwConnections.ItemsSource = this._crmConfig.Connections;
+
+            if (!string.IsNullOrEmpty(solutionImageFilePath) && File.Exists(solutionImageFilePath))
+            {
+                LoadSolutionImage(solutionImageFilePath);
+            }
         }
 
         private void LoadFromConfig()

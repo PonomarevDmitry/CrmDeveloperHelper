@@ -724,33 +724,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
             mIUsedNotExistsEntitiesInWorkflows.Click += mIUsedNotExistsEntitiesInWorkflows_Click;
 
-            MenuItem mICreateSolutionImageIn = new MenuItem()
+            MenuItem mICreateSolutionImage = new MenuItem()
             {
                 Header = string.Format("Create Solution Image for {0}", solution.UniqueNameEscapeUnderscore),
                 Tag = solution,
             };
-            mICreateSolutionImageIn.Click += mICreateSolutionImageIn_Click;
+            mICreateSolutionImage.Click += mICreateSolutionImage_Click;
 
-            MenuItem mIComponentsIn = new MenuItem()
+            MenuItem mICreateSolutionImageAndOpenOrganizationComparer = new MenuItem()
+            {
+                Header = string.Format("Create Solution Image for {0} and Open Organization Comparer Window", solution.UniqueNameEscapeUnderscore),
+                Tag = solution,
+            };
+            mICreateSolutionImageAndOpenOrganizationComparer.Click += mICreateSolutionImageAndOpenOrganizationComparer_Click;
+
+            MenuItem mIComponents = new MenuItem()
             {
                 Header = string.Format("Components in {0}", solution.UniqueNameEscapeUnderscore),
                 Tag = solution,
             };
-            mIComponentsIn.Click += mIComponentsIn_Click;
+            mIComponents.Click += mIComponents_Click;
 
-            MenuItem mIMissingComponentsIn = new MenuItem()
+            MenuItem mIMissingComponents = new MenuItem()
             {
                 Header = string.Format("Missing Components for {0}", solution.UniqueNameEscapeUnderscore),
                 Tag = solution,
             };
-            mIMissingComponentsIn.Click += mIMissingComponentsIn_Click;
+            mIMissingComponents.Click += mIMissingComponents_Click;
 
-            MenuItem mIUninstallComponentsIn = new MenuItem()
+            MenuItem mIUninstallComponents = new MenuItem()
             {
                 Header = string.Format("Uninstall Components for {0}", solution.UniqueNameEscapeUnderscore),
                 Tag = solution,
             };
-            mIUninstallComponentsIn.Click += mIUninstallComponentsIn_Click;
+            mIUninstallComponents.Click += mIUninstallComponents_Click;
 
 
 
@@ -776,7 +783,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             itemCollection.Add(mIUsedEntitiesInWorkflows);
             itemCollection.Add(mIUsedNotExistsEntitiesInWorkflows);
             itemCollection.Add(new Separator());
-            itemCollection.Add(mICreateSolutionImageIn);
+            itemCollection.Add(mICreateSolutionImage);
+            itemCollection.Add(mICreateSolutionImageAndOpenOrganizationComparer);
 
             if (solution.IsManaged.GetValueOrDefault() == false)
             {
@@ -792,10 +800,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             itemCollection.Add(new Separator());
-            itemCollection.Add(mIComponentsIn);
+            itemCollection.Add(mIComponents);
             itemCollection.Add(new Separator());
-            itemCollection.Add(mIMissingComponentsIn);
-            itemCollection.Add(mIUninstallComponentsIn);
+            itemCollection.Add(mIMissingComponents);
+            itemCollection.Add(mIUninstallComponents);
         }
 
         private async void mIExportSolution_Click(object sender, RoutedEventArgs e)
@@ -1084,7 +1092,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIComponentsIn_Click(object sender, RoutedEventArgs e)
+        private void mIComponents_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag is Solution solution
@@ -1094,13 +1102,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mICreateSolutionImageIn_Click(object sender, RoutedEventArgs e)
+        private void mICreateSolutionImage_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag is Solution solution
                 )
             {
                 ExecuteActionOnSingleSolution(solution, PerformCreateSolutionImage);
+            }
+        }
+
+        private void mICreateSolutionImageAndOpenOrganizationComparer_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+                )
+            {
+                ExecuteActionOnSingleSolution(solution, PerformCreateSolutionImageAndOpenOrganizationComparer);
             }
         }
 
@@ -1114,7 +1132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIMissingComponentsIn_Click(object sender, RoutedEventArgs e)
+        private void mIMissingComponents_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag is Solution solution
@@ -1124,7 +1142,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIUninstallComponentsIn_Click(object sender, RoutedEventArgs e)
+        private void mIUninstallComponents_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag is Solution solution
@@ -1159,6 +1177,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(filePath);
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
+            }
+        }
+
+        private async Task PerformCreateSolutionImageAndOpenOrganizationComparer(string folder, Solution solution)
+        {
+            try
+            {
+                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
+
+                var service = await GetService();
+                var descriptor = await GetDescriptor();
+
+                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+
+                string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                    service.ConnectionData.Name
+                    , solution.UniqueName
+                    , "SolutionImage"
+                    , "xml"
+                );
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
+
+                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath);
+
+                _commonConfig.Save();
+
+                WindowHelper.OpenOrganizationComparerWindow(_iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig, filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
             }
@@ -1574,9 +1632,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
                             , "SolutionImage Backup"
+                            , "xml"
                         );
-
-                        fileName = fileName.Replace(".txt", ".xml");
 
                         string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
