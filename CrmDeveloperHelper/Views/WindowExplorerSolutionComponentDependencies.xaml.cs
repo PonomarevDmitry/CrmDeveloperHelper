@@ -775,18 +775,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = GetSelectedEntity();
 
-            var hasExplorer = HasExplorer(entity.SolutionComponent.ComponentType?.Value);
+            var hasExplorer = false;
+
+            if (entity != null)
+            {
+                hasExplorer = HasExplorer(entity.SolutionComponent.ComponentType?.Value);
+
+                if (hasExplorer)
+                {
+                    var componentType = (ComponentType)entity.SolutionComponent.ComponentType.Value;
+
+                    string componentName = string.Format("{0} Explorer", componentType.ToString());
+
+                    SetControlsName(items, componentName, "contMnExplorer");
+                }
+            }
 
             ActivateControls(items, hasExplorer, "contMnExplorer");
-
-            if (hasExplorer)
-            {
-                var componentType = (ComponentType)entity.SolutionComponent.ComponentType.Value;
-
-                string componentName = string.Format("{0} Explorer", componentType.ToString());
-
-                SetControlsName(items, componentName, "contMnExplorer");
-            }
 
             var menuItemLinkedComponent = items.OfType<MenuItem>().FirstOrDefault(i => string.Equals(i.Uid, "contMnLinkedComponents", StringComparison.InvariantCultureIgnoreCase));
 
@@ -794,26 +799,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 menuItemLinkedComponent.Items.Clear();
 
-                var linkedComponents = _descriptor.GetLinkedComponents(entity.SolutionComponent);
-
-                ActivateControls(items, linkedComponents != null && linkedComponents.Any(), "contMnLinkedComponents");
-
-                if (linkedComponents != null && linkedComponents.Any())
+                if (entity != null)
                 {
-                    var componentsWithNames = linkedComponents.Select(c => new { Component = c, Name = _descriptor.GetName(c) }).OrderBy(c => c.Component.ComponentType?.Value).ThenBy(c => c.Name);
+                    var linkedComponents = _descriptor.GetLinkedComponents(entity.SolutionComponent);
 
-                    foreach (var item in componentsWithNames)
+                    if (linkedComponents != null && linkedComponents.Any())
                     {
-                        var menuItem = new MenuItem()
+                        var componentsWithNames = linkedComponents.Select(c => new { Component = c, Name = _descriptor.GetName(c) }).OrderBy(c => c.Component.ComponentType?.Value).ThenBy(c => c.Name);
+
+                        foreach (var item in componentsWithNames)
                         {
-                            Header = string.Format("{0} - {1}", item.Component.ComponentTypeName, item.Name).Replace("_", "__"),
-                        };
+                            var menuItem = new MenuItem()
+                            {
+                                Header = string.Format("{0} - {1}", item.Component.ComponentTypeName, item.Name).Replace("_", "__"),
+                            };
 
-                        FillComponentActions(menuItem.Items, item.Component);
+                            FillComponentActions(menuItem.Items, item.Component);
 
-                        menuItemLinkedComponent.Items.Add(menuItem);
+                            menuItemLinkedComponent.Items.Add(menuItem);
+                        }
                     }
                 }
+
+                ActivateControls(items, menuItemLinkedComponent.Items.Count > 0, "contMnLinkedComponents");
             }
         }
 
