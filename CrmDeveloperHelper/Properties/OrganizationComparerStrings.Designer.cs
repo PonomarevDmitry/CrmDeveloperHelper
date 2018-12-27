@@ -61,6 +61,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} in {1}.
+        /// </summary>
+        internal static string AttributeInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("AttributeInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} -&gt; {1}.
         /// </summary>
         internal static string AttributeMapFormat2 {
@@ -84,6 +93,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string AttributeMapsOnlyExistsInConnectionFormat2 {
             get {
                 return ResourceManager.GetString("AttributeMapsOnlyExistsInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attributes DIFFERENT by Audit in {0} and {1}: {2}.
+        /// </summary>
+        internal static string AttributesDifferentByAuditFormat3 {
+            get {
+                return ResourceManager.GetString("AttributesDifferentByAuditFormat3", resourceCulture);
             }
         }
         
@@ -178,6 +196,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entities by Audit.
+        /// </summary>
+        internal static string EntitiesByAuditFileName {
+            get {
+                return ResourceManager.GetString("EntitiesByAuditFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Common Entities in {0} and {1}: {2}.
         /// </summary>
         internal static string EntitiesCommonFormat3 {
@@ -187,7 +214,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entities DIFFERENT in {0} and {1}: {2}.
+        ///   Looks up a localized string similar to Entities DIFFERENT by Audit in {0} and {1}: {2}.
+        /// </summary>
+        internal static string EntitiesDifferentByAuditFormat3 {
+            get {
+                return ResourceManager.GetString("EntitiesDifferentByAuditFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entities DIFFERENT in {0} and {1}: {2} Details.
         /// </summary>
         internal static string EntitiesDifferentDetailsFormat3 {
             get {

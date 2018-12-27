@@ -242,6 +242,7 @@
                                 <Separator/>
                                 <MenuItem Header="Entity Information">
                                     <MenuItem Header="Entities" Click="tSMIEntities_Click"/>
+                                    <MenuItem Header="Entities by Audit" Click="tSMIEntitiesByAudit_Click"/>
                                     <MenuItem Header="Entity Labels" Click="tSMIEntityLabels_Click"/>
                                     <MenuItem Header="Entity Maps" Click="tSMIEntityMaps_Click"/>
                                     <Separator/>

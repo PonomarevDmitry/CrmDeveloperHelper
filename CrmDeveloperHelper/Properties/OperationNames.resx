@@ -648,4 +648,7 @@
   <data name="TransferingPluginStepsStatesFormat2" xml:space="preserve">
     <value>Transferfing Plugin Steps States from {0} to {1}</value>
   </data>
+  <data name="CheckingEntitiesAuditFormat2" xml:space="preserve">
+    <value>Checking Entity Audit in {0} and {1}</value>
+  </data>
 </root>

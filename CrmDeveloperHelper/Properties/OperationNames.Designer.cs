@@ -304,6 +304,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checking Entity Audit in {0} and {1}.
+        /// </summary>
+        internal static string CheckingEntitiesAuditFormat2 {
+            get {
+                return ResourceManager.GetString("CheckingEntitiesAuditFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking Entities in {0} and {1}.
         /// </summary>
         internal static string CheckingEntitiesFormat2 {

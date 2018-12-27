@@ -1185,4 +1185,7 @@
   <data name="TransferingPluginStepsStatesFormat2" xml:space="preserve">
     <value>Transferfing Plugin Steps States from {0} to {1}...</value>
   </data>
+  <data name="CheckingEntitiesByAuditFormat2" xml:space="preserve">
+    <value>Checking Entities by Audit in {0} and {1}...</value>
+  </data>
 </root>

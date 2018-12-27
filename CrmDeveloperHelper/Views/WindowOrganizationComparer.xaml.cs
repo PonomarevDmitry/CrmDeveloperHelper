@@ -3064,6 +3064,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void tSMIEntitiesByAudit_Click(object sender, RoutedEventArgs e)
+        {
+            ExecuteOperation(AnalizeEntitiesByAudit);
+        }
+
+        private async Task AnalizeEntitiesByAudit(OrganizationComparer comparer)
+        {
+            try
+            {
+                UpdateStatus(Properties.WindowStatusStrings.CheckingEntitiesByAuditFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+
+                string filePath = await comparer.CheckEntitiesByAuditAsync();
+
+                this._iWriteToOutput.WriteToOutput("Check Entities by Audit in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(filePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+            }
+        }
+
         private void tSMIEntityLabels_Click(object sender, RoutedEventArgs e)
         {
             ExecuteOperation(AnalizeEntityLabels);

@@ -301,7 +301,7 @@
     <value>Processing Common Entities</value>
   </data>
   <data name="EntitiesDifferentDetailsFormat3" xml:space="preserve">
-    <value>Entities DIFFERENT in {0} and {1}: {2}</value>
+    <value>Entities DIFFERENT in {0} and {1}: {2} Details</value>
   </data>
   <data name="EntityLabelsFileName" xml:space="preserve">
     <value>Entity Labels</value>
@@ -368,5 +368,17 @@
   </data>
   <data name="ThereIsNothingToCompare" xml:space="preserve">
     <value>There is Nothing to compare.</value>
+  </data>
+  <data name="AttributeInConnectionFormat2" xml:space="preserve">
+    <value>{0} in {1}</value>
+  </data>
+  <data name="AttributesDifferentByAuditFormat3" xml:space="preserve">
+    <value>Attributes DIFFERENT by Audit in {0} and {1}: {2}</value>
+  </data>
+  <data name="EntitiesDifferentByAuditFormat3" xml:space="preserve">
+    <value>Entities DIFFERENT by Audit in {0} and {1}: {2}</value>
+  </data>
+  <data name="EntitiesByAuditFileName" xml:space="preserve">
+    <value>Entities by Audit</value>
   </data>
 </root>

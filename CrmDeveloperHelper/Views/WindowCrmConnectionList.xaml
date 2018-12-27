@@ -88,8 +88,8 @@
                                 </Style>
                             </DockPanel.Resources>
                             <ToolBarPanel Orientation="Horizontal" >
-                                <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                                    <MenuItem Header="Create">
+                                <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
+                                    <MenuItem Header="Create" Margin="0">
                                         <MenuItem.Icon>
                                             <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </MenuItem.Icon>

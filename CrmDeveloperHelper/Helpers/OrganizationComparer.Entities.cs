@@ -206,6 +206,241 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, Properties.OrganizationComparerStrings.EntitiesByAuditFileName);
+
+            string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            await SaveOrganizationDifferenceImage();
+
+            return filePath;
+        }
+
+        public Task<string> CheckEntitiesByAuditAsync()
+        {
+            return Task.Run(async () => await CheckEntitiesByAudit());
+        }
+
+        private async Task<string> CheckEntitiesByAudit()
+        {
+            StringBuilder content = new StringBuilder();
+
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
+
+            string operation = string.Format(Properties.OperationNames.CheckingEntitiesAuditFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+
+            var listEntityMetadata1 = await _comparerSource.GetEntityMetadataCollection1Async();
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.EntitiesInConnectionFormat2, Connection1.Name, listEntityMetadata1.Count()));
+
+            var listEntityMetadata2 = await _comparerSource.GetEntityMetadataCollection2Async();
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.EntitiesInConnectionFormat2, Connection2.Name, listEntityMetadata2.Count()));
+
+            if (!listEntityMetadata1.Any() && !listEntityMetadata2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
+            FormatTextTableHandler entityMetadataOnlyExistsIn1 = new FormatTextTableHandler();
+            entityMetadataOnlyExistsIn1.SetHeader("EntityName", "IsManaged", "IsCustomizable", "IsAuditEnabled");
+
+            FormatTextTableHandler entityMetadataOnlyExistsIn2 = new FormatTextTableHandler();
+            entityMetadataOnlyExistsIn2.SetHeader("EntityName", "IsManaged", "IsCustomizable", "IsAuditEnabled");
+
+            FormatTextTableHandler entityMetadataDifference = new FormatTextTableHandler();
+            entityMetadataDifference.SetHeader("EntityName"
+                , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsManaged", Connection1.Name)
+                , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsManaged", Connection2.Name)
+                , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsCustomizable", Connection1.Name)
+                , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsCustomizable", Connection2.Name)
+                , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsAuditEnabled", Connection1.Name)
+                , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsAuditEnabled", Connection2.Name)
+                );
+
+            FormatTextTableHandler attributeDifference = new FormatTextTableHandler();
+            attributeDifference.SetHeader("EntityName", "AttributeName"
+                , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsManaged", Connection1.Name)
+                , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsManaged", Connection2.Name)
+                , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsCustomizable", Connection1.Name)
+                , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsCustomizable", Connection2.Name)
+                , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsAuditEnabled", Connection1.Name)
+                , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsAuditEnabled", Connection2.Name)
+                );
+
+            List<LinkedEntities<EntityMetadata>> commonEntityMetadata = new List<LinkedEntities<EntityMetadata>>();
+
+            foreach (EntityMetadata entityMetadata1 in listEntityMetadata1.OrderBy(e => e.LogicalName))
+            {
+                ImageBuilder.Descriptor1.MetadataSource.StoreEntityMetadata(entityMetadata1);
+
+                {
+                    EntityMetadata entityMetadata2 = listEntityMetadata2.FirstOrDefault(e => e.LogicalName == entityMetadata1.LogicalName);
+
+                    if (entityMetadata2 != null)
+                    {
+                        commonEntityMetadata.Add(new LinkedEntities<EntityMetadata>(entityMetadata1, entityMetadata2));
+                        continue;
+                    }
+                }
+
+                entityMetadataOnlyExistsIn1.AddLine(entityMetadata1.LogicalName
+                    , entityMetadata1.IsManaged.ToString()
+                    , entityMetadata1.IsCustomizable?.Value.ToString()
+                    , entityMetadata1.IsAuditEnabled?.Value.ToString()
+                );
+
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.Entity, entityMetadata1.MetadataId.Value);
+            }
+
+            foreach (EntityMetadata entityMetadata2 in listEntityMetadata2.OrderBy(e => e.LogicalName))
+            {
+                ImageBuilder.Descriptor2.MetadataSource.StoreEntityMetadata(entityMetadata2);
+
+                {
+                    EntityMetadata entityMetadata1 = listEntityMetadata1.FirstOrDefault(e => e.LogicalName == entityMetadata2.LogicalName);
+
+                    if (entityMetadata1 != null)
+                    {
+                        continue;
+                    }
+                }
+
+                entityMetadataOnlyExistsIn2.AddLine(entityMetadata2.LogicalName
+                    , entityMetadata2.IsManaged.ToString()
+                    , entityMetadata2.IsCustomizable?.Value.ToString()
+                    , entityMetadata2.IsAuditEnabled?.Value.ToString()
+                );
+
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.Entity, entityMetadata2.MetadataId.Value);
+            }
+
+            HashSet<string> listNotExists = new HashSet<string>(listEntityMetadata1.Select(e => e.LogicalName).Union(listEntityMetadata2.Select(e => e.LogicalName)), StringComparer.OrdinalIgnoreCase);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.EntitiesCommonFormat3, Connection1.Name, Connection2.Name, commonEntityMetadata.Count()));
+
+            OptionSetComparer optionSetComparer = new OptionSetComparer(tabSpacer, Connection1.Name, Connection2.Name, new StringMapRepository(_comparerSource.Service1), new StringMapRepository(_comparerSource.Service2));
+
+            EntityMetadataComparer comparer = new EntityMetadataComparer(tabSpacer, Connection1.Name, Connection2.Name, optionSetComparer, listNotExists);
+
+            {
+                ProgressReporter reporter = new ProgressReporter(_iWriteToOutput, commonEntityMetadata.Count, 5, Properties.OrganizationComparerStrings.EntitiesProcessingCommon);
+
+                foreach (LinkedEntities<EntityMetadata> commonEntity in commonEntityMetadata.OrderBy(e => e.Entity1.LogicalName))
+                {
+                    reporter.Increase();
+
+                    if (commonEntity.Entity1.IsAuditEnabled?.Value != commonEntity.Entity2.IsAuditEnabled?.Value)
+                    {
+                        entityMetadataDifference.AddLine(commonEntity.Entity1.LogicalName
+                            , commonEntity.Entity1.IsManaged.ToString()
+                            , commonEntity.Entity2.IsManaged.ToString()
+                            , commonEntity.Entity1.IsCustomizable?.Value.ToString()
+                            , commonEntity.Entity2.IsCustomizable?.Value.ToString()
+                            , commonEntity.Entity1.IsAuditEnabled?.Value.ToString()
+                            , commonEntity.Entity2.IsAuditEnabled?.Value.ToString()
+                        );
+                    }
+
+                    foreach (var attribute1 in commonEntity.Entity1.Attributes.OrderBy(a => a.LogicalName))
+                    {
+                        var attribute2 = commonEntity.Entity1.Attributes.FirstOrDefault(a => string.Equals(a.LogicalName, attribute1.LogicalName, StringComparison.InvariantCultureIgnoreCase));
+
+                        if (attribute2 != null)
+                        {
+                            if (attribute1.IsAuditEnabled?.Value != attribute2.IsAuditEnabled?.Value)
+                            {
+                                attributeDifference.AddLine(commonEntity.Entity1.LogicalName
+                                    , attribute1.LogicalName
+                                    , attribute1.IsManaged.ToString()
+                                    , attribute2.IsManaged.ToString()
+                                    , attribute1.IsCustomizable?.Value.ToString()
+                                    , attribute2.IsCustomizable?.Value.ToString()
+                                    , attribute1.IsAuditEnabled?.Value.ToString()
+                                    , attribute2.IsAuditEnabled?.Value.ToString()
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (entityMetadataOnlyExistsIn1.Count > 0)
+            {
+                content
+                     .AppendLine()
+                     .AppendLine()
+                     .AppendLine()
+                     .AppendLine(new string('-', 150))
+                     .AppendLine()
+                     .AppendLine();
+
+                content.AppendFormat(Properties.OrganizationComparerStrings.EntitiesOnlyExistsInConnectionFormat2, Connection1.Name, entityMetadataOnlyExistsIn1.Count);
+
+                entityMetadataOnlyExistsIn1.GetFormatedLines(false).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
+            }
+
+            if (entityMetadataOnlyExistsIn2.Count > 0)
+            {
+                content
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine(new string('-', 150))
+                    .AppendLine()
+                    .AppendLine();
+
+                content.AppendFormat(Properties.OrganizationComparerStrings.EntitiesOnlyExistsInConnectionFormat2, Connection2.Name, entityMetadataOnlyExistsIn2.Count);
+
+                entityMetadataOnlyExistsIn2.GetFormatedLines(false).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
+            }
+
+            if (entityMetadataDifference.Count > 0)
+            {
+                content
+                     .AppendLine()
+                     .AppendLine()
+                     .AppendLine()
+                     .AppendLine(new string('-', 150))
+                     .AppendLine()
+                     .AppendLine();
+
+                content.AppendFormat(Properties.OrganizationComparerStrings.EntitiesDifferentByAuditFormat3, Connection1.Name, Connection2.Name, entityMetadataDifference.Count);
+
+                entityMetadataDifference.GetFormatedLines(false).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
+            }
+
+            if (attributeDifference.Count > 0)
+            {
+                content
+                     .AppendLine()
+                     .AppendLine()
+                     .AppendLine()
+                     .AppendLine(new string('-', 150))
+                     .AppendLine()
+                     .AppendLine();
+
+                content.AppendFormat(Properties.OrganizationComparerStrings.AttributesDifferentByAuditFormat3, Connection1.Name, Connection2.Name, attributeDifference.Count);
+
+                attributeDifference.GetFormatedLines(false).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
+            }
+
+            if (entityMetadataOnlyExistsIn2.Count == 0
+                && entityMetadataOnlyExistsIn1.Count == 0
+                && entityMetadataDifference.Count == 0
+                && attributeDifference.Count == 0
+                )
+            {
+                content.AppendLine(Properties.OrganizationComparerStrings.EntitiesNoDifference);
+            }
+
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, Properties.OrganizationComparerStrings.EntitiesFileName);
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
