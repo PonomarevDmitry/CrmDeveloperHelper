@@ -811,7 +811,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var enabledAdd = GetSolutionComponentsType() != SolutionComponentsType.SolutionComponents && this._solution != null && !this._solution.IsManaged.GetValueOrDefault();
                 var enabledRemove = GetSolutionComponentsType() == SolutionComponentsType.SolutionComponents && this._solution != null && !this._solution.IsManaged.GetValueOrDefault();
 
-                ActivateControls(items, enabledRemove, "sepRemoveFromSolution", "contMnRemoveFromSolution");
+                ActivateControls(items, enabledRemove, "contMnRemoveFromSolution");
 
                 ActivateControls(items, enabledAdd, "contMnAddIntoCurrentSolution");
             }
@@ -1543,6 +1543,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, _service, _commonConfig, null, string.Empty);
+        }
+
+        private void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenApplicationRibbonWindow(this._iWriteToOutput, _service, _commonConfig);
         }
 
         private void btnPluginTree_Click(object sender, RoutedEventArgs e)

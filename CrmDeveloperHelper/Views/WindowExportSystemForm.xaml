@@ -10,23 +10,28 @@
             <MenuItem Header="Open SystemForm in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
             <Separator/>
             <MenuItem Header="Form Description" VerticalAlignment="Center" Click="mIExportSystemFormDescription_Click" />
-            <Separator/>
+            
+            <Separator x:Uid="contMnEntity"/>
             <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-            <Separator/>
+            
+            <Separator x:Uid="contMnEntity"/>
             <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
+            
             <Separator/>
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
-            <Separator/>
+
+            <Separator x:Uid="contMnEntity"/>
             <MenuItem x:Uid="contMnEntity" Header="Create EntityMetadata JavaScript File based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFile_Click" />
+            
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
-            <Separator/>
 
+            <Separator x:Uid="contMnEntity" />
             <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add Entity into Last Crm Solution" VerticalAlignment="Center"  />
             <MenuItem x:Uid="contMnEntity" Header="Add Entity into Crm Solution" VerticalAlignment="Center" Click="mIAddEntityIntoCrmSolution_Click" />
-            <Separator x:Uid="contMnEntity" />
 
+            <Separator/>
             <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIExportSystemFormFormXml_Click" />
             <Separator x:Uid="controlChangeEntityAttribute" />
             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm Attribute" VerticalAlignment="Center">
@@ -75,8 +80,6 @@
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                 <Separator/>
-                <MenuItem Header="Application Ribbon" Click="btnCompareApplicationRibbons_Click"/>
-                <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
@@ -84,6 +87,8 @@
                 <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
                 <Separator/>
                 <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                <Separator/>
+                <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
             </MenuItem>
             <Separator/>
             <MenuItem Header="Export All Form Information" Click="btnExportAll_Click"/>
@@ -199,8 +204,6 @@
                                 <Separator/>
                                 <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                                 <Separator/>
-                                <MenuItem Header="Application Ribbon" Click="btnCompareApplicationRibbons_Click"/>
-                                <Separator/>
                                 <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
                                 <Separator/>
                                 <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
@@ -208,6 +211,8 @@
                                 <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
                                 <Separator/>
                                 <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                                <Separator/>
+                                <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
                             </MenuItem>
                         </MenuItem>
                     </Menu>

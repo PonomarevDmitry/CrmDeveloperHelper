@@ -892,7 +892,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ActivateControls(items, (nodeItem.SavedQueryVisualization.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
 
             bool hasEntity = !string.IsNullOrEmpty(nodeItem.SavedQueryVisualization.PrimaryEntityTypeCode) && !string.Equals(nodeItem.SavedQueryVisualization.PrimaryEntityTypeCode, "none", StringComparison.InvariantCultureIgnoreCase);
-            ActivateControls(items, hasEntity, "contMnAddEntityIntoSolution");
+            ActivateControls(items, hasEntity, "contMnEntity");
             FillLastSolutionItems(connectionData, items, hasEntity, mIAddEntityIntoCrmSolutionLast_Click, "contMnAddEntityIntoSolutionLast");
         }
 

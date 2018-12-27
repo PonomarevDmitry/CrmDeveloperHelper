@@ -124,6 +124,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 ExecuteUserName = Environment.UserName,
 
                 ConnectionSystemUserName = _service.ConnectionData.GetUsername,
+
+                CreatedOn = DateTime.Now,
             };
 
             foreach (var item in imageComponents)

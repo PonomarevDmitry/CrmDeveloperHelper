@@ -98,8 +98,6 @@
                 <Separator/>
                 <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                 <Separator/>
-                <MenuItem Header="Application Ribbon" Click="btnCompareApplicationRibbons_Click"/>
-                <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
@@ -107,6 +105,8 @@
                 <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
                 <Separator/>
                 <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                <Separator/>
+                <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
             </MenuItem>
         </ContextMenu>
 
@@ -324,8 +324,6 @@
                                 <MenuItem Header="Compare Information with other Organization" VerticalAlignment="Center">
                                     <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                                     <Separator/>
-                                    <MenuItem Header="Application Ribbon" Click="btnCompareApplicationRibbons_Click"/>
-                                    <Separator/>
                                     <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
                                     <Separator/>
                                     <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
@@ -333,6 +331,8 @@
                                     <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
                                     <Separator/>
                                     <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                                    <Separator/>
+                                    <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
                                 </MenuItem>
                             </Menu>
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />

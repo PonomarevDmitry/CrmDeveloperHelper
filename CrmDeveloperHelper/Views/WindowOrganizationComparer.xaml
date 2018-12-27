@@ -323,8 +323,6 @@
                                 <MenuItem Header="System Views" Click="tSMIDifferenceSystemSavedQueries_Click" />
                                 <MenuItem Header="System Charts" Click="tSMIDifferenceSystemCharts_Click" />
                                 <Separator/>
-                                <MenuItem Header="ApplicationRibbons" Click="tSMIDifferenceApplicationRibbons_Click" />
-                                <Separator/>
                                 <MenuItem Header="Global OptionSets" Click="tSMIDifferenceGlobalOptionSets_Click" />
                                 <Separator/>
                                 <MenuItem Header="Sitemaps" Click="tSMIDifferenceSitemaps_Click" />
@@ -334,6 +332,8 @@
                                 <Separator/>
                                 <MenuItem Header="Plugin Assemblies" Click="tSMIDifferencePluginAssemblies_Click" />
                                 <MenuItem Header="Workflows" Click="tSMIDifferenceWorkflows_Click" />
+                                <Separator/>
+                                <MenuItem Header="ApplicationRibbons" Click="tSMIDifferenceApplicationRibbons_Click" />
                             </MenuItem>
                         </Menu>
                         <Separator/>

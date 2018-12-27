@@ -1051,7 +1051,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ActivateControls(items, (nodeItem.SavedQuery.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
 
             bool hasEntity = !string.IsNullOrEmpty(nodeItem.SavedQuery.ReturnedTypeCode) && !string.Equals(nodeItem.SavedQuery.ReturnedTypeCode, "none", StringComparison.InvariantCultureIgnoreCase);
-            ActivateControls(items, hasEntity, "contMnAddEntityIntoSolution");
+            ActivateControls(items, hasEntity, "contMnEntity");
             FillLastSolutionItems(connectionData, items, hasEntity, mIAddEntityIntoCrmSolutionLast_Click, "contMnAddEntityIntoSolutionLast");
         }
 

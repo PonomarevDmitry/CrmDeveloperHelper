@@ -2420,6 +2420,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
         }
 
+        private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenApplicationRibbonWindow(this._iWriteToOutput, service, _commonConfig);
+        }
+
         private async void btnPluginTree_Click(object sender, RoutedEventArgs e)
         {
             var service = await GetService();

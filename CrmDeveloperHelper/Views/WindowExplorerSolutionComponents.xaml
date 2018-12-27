@@ -21,7 +21,7 @@
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoSolution_Click" />
 
-            <Separator x:Uid="sepRemoveFromSolution" />
+            <Separator x:Uid="contMnRemoveFromSolution" />
             <MenuItem x:Uid="contMnRemoveFromSolution" Header="Remove Component From Solution" VerticalAlignment="Center" Click="RemoveComponentFromSolution_Click" />
 
             <Separator x:Uid="contMnLinkedComponents" />
@@ -69,6 +69,8 @@
                     <MenuItem Header="Charts" Click="btnSavedChart_Click" />
                     <Separator/>
                     <MenuItem Header="Workflows" Click="btnWorkflows_Click" />
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click" />
                     <Separator/>
                     <MenuItem Header="SiteMap" Click="btnSiteMap_Click"/>
                     <Separator/>

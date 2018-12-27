@@ -38,6 +38,8 @@
                     <Separator/>
                     <MenuItem Header="Workflows" Click="btnWorkflows_Click" />
                     <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click" />
+                    <Separator/>
                     <MenuItem Header="SiteMap" Click="btnSiteMap_Click"/>
                     <Separator/>
                     <MenuItem Header="WebResources" Click="btnWebResources_Click"/>

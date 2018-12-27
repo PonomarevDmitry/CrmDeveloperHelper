@@ -73,13 +73,13 @@
                 <Separator/>
                 <MenuItem Header="Global OptionSets" Click="miCompareGlobalOptionSets_Click"/>
                 <Separator/>
-                <MenuItem Header="ApplicationRibbon" Click="miCompareApplicationRibbon_Click"/>
-                <Separator/>
                 <MenuItem Header="Forms" Click="miCompareSystemForms_Click"/>
                 <MenuItem Header="Views" Click="miCompareSavedQuery_Click"/>
                 <MenuItem Header="Charts" Click="miCompareSavedChart_Click"/>
                 <Separator/>
                 <MenuItem Header="Workflows" Click="miCompareWorkflows_Click"/>
+                <Separator/>
+                <MenuItem Header="ApplicationRibbon" Click="miCompareApplicationRibbon_Click"/>
             </MenuItem>
         </ContextMenu>
     </src:WindowBase.Resources>
@@ -118,13 +118,13 @@
                     <Separator/>
                     <MenuItem Header="Global OptionSets" Click="miCompareGlobalOptionSets_Click"/>
                     <Separator/>
-                    <MenuItem Header="ApplicationRibbon" Click="miCompareApplicationRibbon_Click"/>
-                    <Separator/>
                     <MenuItem Header="Forms" Click="miCompareSystemForms_Click"/>
                     <MenuItem Header="Views" Click="miCompareSavedQuery_Click"/>
                     <MenuItem Header="Charts" Click="miCompareSavedChart_Click"/>
                     <Separator/>
                     <MenuItem Header="Workflows" Click="miCompareWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="miCompareApplicationRibbon_Click"/>
                 </MenuItem>
             </Menu>
         </ToolBar>
