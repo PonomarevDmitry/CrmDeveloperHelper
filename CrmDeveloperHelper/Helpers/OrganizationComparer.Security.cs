@@ -73,6 +73,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var privilegesOnlyIn2 = listPrivilege2.Except(listPrivilege1).ToList();
 
 
+            if (!list1.Any() && !list2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
+
 
             var listRolePrivilege1 = await taskPrivRole1;
 
@@ -579,9 +587,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var task1 = _comparerSource.GetFieldSecurityProfile1Async();
             var task2 = _comparerSource.GetFieldSecurityProfile2Async();
 
-            var taskPerm1 = _comparerSource.GetFieldPermission1Async();
-            var taskPerm2 = _comparerSource.GetFieldPermission2Async();
-
             var list1 = await task1;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Field Security Profiles in {0}: {1}", Connection1.Name, list1.Count()));
@@ -589,6 +594,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var list2 = await task2;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Field Security Profiles in {0}: {1}", Connection2.Name, list2.Count()));
+
+            if (!list1.Any() && !list2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
+            var taskPerm1 = _comparerSource.GetFieldPermission1Async();
+            var taskPerm2 = _comparerSource.GetFieldPermission2Async();
 
             var listPermission1 = await taskPerm1;
 

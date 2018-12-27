@@ -30,9 +30,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var task1 = _comparerSource.GetPluginAssembly1Async();
             var task2 = _comparerSource.GetPluginAssembly2Async();
 
-            var taskTypes1 = _comparerSource.GetPluginType1Async();
-            var taskTypes2 = _comparerSource.GetPluginType2Async();
-
             var list1 = await task1;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Assemblies in {0}: {1}", Connection1.Name, list1.Count()));
@@ -40,6 +37,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var list2 = await task2;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Assemblies in {0}: {1}", Connection2.Name, list2.Count()));
+
+            if (!list1.Any() && !list2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
+            var taskTypes1 = _comparerSource.GetPluginType1Async();
+            var taskTypes2 = _comparerSource.GetPluginType2Async();
 
             var listTypes1 = await taskTypes1;
 
@@ -257,6 +264,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Types in {0}: {1}", Connection2.Name, list2.Count()));
 
+            if (!list1.Any() && !list2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Name", "IsManaged");
 
@@ -385,9 +399,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var task1 = _comparerSource.GetSdkMessageProcessingStep1Async();
             var task2 = _comparerSource.GetSdkMessageProcessingStep2Async();
 
-            var taskImages1 = _comparerSource.GetSdkMessageProcessingStepImage1Async();
-            var taskImages2 = _comparerSource.GetSdkMessageProcessingStepImage2Async();
-
             var listSteps1 = await task1;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps in {0}: {1}", Connection1.Name, listSteps1.Count()));
@@ -395,6 +406,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var listSteps2 = await task2;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps in {0}: {1}", Connection2.Name, listSteps2.Count()));
+
+            if (!listSteps1.Any() && !listSteps2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
+            var taskImages1 = _comparerSource.GetSdkMessageProcessingStepImage1Async();
+            var taskImages2 = _comparerSource.GetSdkMessageProcessingStepImage2Async();
 
             var listImages1 = await taskImages1;
 
@@ -1047,9 +1068,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var task1 = _comparerSource.GetSdkMessageProcessingStep1Async();
             var task2 = _comparerSource.GetSdkMessageProcessingStep2Async();
 
-            var taskImages1 = _comparerSource.GetSdkMessageProcessingStepImage1Async();
-            var taskImages2 = _comparerSource.GetSdkMessageProcessingStepImage2Async();
-
             var listSteps1 = await task1;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps in {0}: {1}", Connection1.Name, listSteps1.Count()));
@@ -1057,6 +1075,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var listSteps2 = await task2;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps in {0}: {1}", Connection2.Name, listSteps2.Count()));
+
+            if (!listSteps1.Any() && !listSteps2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
+            var taskImages1 = _comparerSource.GetSdkMessageProcessingStepImage1Async();
+            var taskImages2 = _comparerSource.GetSdkMessageProcessingStepImage2Async();
 
             var listImages1 = await taskImages1;
 
@@ -1658,6 +1686,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var listSteps2 = await task2;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.PluginStepsInConnectionFormat2, Connection2.Name, listSteps2.Count()));
+
+            if (!listSteps1.Any() && !listSteps2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "IsHidden", "IsManaged", "FilteringAttributes");

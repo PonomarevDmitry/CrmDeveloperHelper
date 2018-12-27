@@ -29,8 +29,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var task1 = _comparerSource.GetDisplayString1Async();
             var task2 = _comparerSource.GetDisplayString2Async();
-            var taskMap1 = _comparerSource.GetDisplayStringMap1Async();
-            var taskMap2 = _comparerSource.GetDisplayStringMap2Async();
 
             var list1 = await task1;
 
@@ -39,6 +37,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var list2 = await task2;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Display Strings in {0}: {1}", Connection2.Name, list2.Count()));
+
+            if (list1.Count == 0 && list2.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
+            var taskMap1 = _comparerSource.GetDisplayStringMap1Async();
+            var taskMap2 = _comparerSource.GetDisplayStringMap2Async();
 
             var listMap1 = await taskMap1;
 

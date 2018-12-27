@@ -60,6 +60,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Mail Merge Templates in {0}: {1}", Connection2.Name, list2.Count()));
 
+            if (list1.Count == 0 && list2.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("AssociatedEntity", "Name", "Language", "File Name", "Mail Merge Type", "Viewable By", "Owner", "Id");
 
@@ -307,6 +314,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             List<Template> list2 = await task2;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("E-Mail Templates in {0}: {1}", Connection2.Name, list2.Count()));
+
+            if (list1.Count == 0 && list2.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("TemplateType", "Title", "ViewableBy", "Owner", "Id");
@@ -571,6 +585,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("KB Article Templates in {0}: {1}", Connection2.Name, list2.Count()));
 
+            if (list1.Count == 0 && list2.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
             List<string> fieldsToCompare = new List<string>()
             {
                 KbArticleTemplate.Schema.Attributes.title
@@ -799,6 +820,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             List<ContractTemplate> list2 = await task2;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Contract Templates in {0}: {1}", Connection2.Name, list2.Count()));
+
+            if (list1.Count == 0 && list2.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
 
             List<string> fieldsToCompare = new List<string>()
             {

@@ -37,6 +37,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.EntitiesInConnectionFormat2, Connection2.Name, listEntityMetadata2.Count()));
 
+            if (!listEntityMetadata1.Any() && !listEntityMetadata2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
             FormatTextTableHandler entityMetadataOnlyExistsIn1 = new FormatTextTableHandler();
             entityMetadataOnlyExistsIn1.SetHeader("EntityName", "IsManaged");
 
@@ -233,6 +240,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.EntitiesInConnectionFormat2, Connection2.Name, listEntityMetadata2.Count()));
 
+            if (!listEntityMetadata1.Any() && !listEntityMetadata2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
             FormatTextTableHandler entityMetadataOnlyExistsIn1 = new FormatTextTableHandler();
             entityMetadataOnlyExistsIn1.SetHeader("EntityName", "IsManaged");
 
@@ -422,9 +436,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             Task<List<EntityMap>> task1 = _comparerSource.GetEntityMap1Async();
             Task<List<EntityMap>> task2 = _comparerSource.GetEntityMap2Async();
 
-            Task<List<AttributeMap>> taskAttr1 = _comparerSource.GetAttributeMap1Async();
-            Task<List<AttributeMap>> taskAttr2 = _comparerSource.GetAttributeMap2Async();
-
             List<EntityMap> list1 = await task1;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.EntityMapsInConnectionFormat2, Connection1.Name, list1.Count()));
@@ -432,6 +443,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             List<EntityMap> list2 = await task2;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.EntityMapsInConnectionFormat2, Connection2.Name, list2.Count()));
+
+            if (!list1.Any() && !list2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
+            Task<List<AttributeMap>> taskAttr1 = _comparerSource.GetAttributeMap1Async();
+            Task<List<AttributeMap>> taskAttr2 = _comparerSource.GetAttributeMap2Async();
 
             //new OrderExpression("sourceentityname", OrderType.Ascending),
             //new OrderExpression("targetentityname", OrderType.Ascending),
@@ -770,6 +791,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var entities2 = await this._comparerSource.GetEntityMetadataCollection2Async();
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("Enitites in {0}: {1}", Connection2.Name, entities2.Count()));
+
+            if (!entities1.Any() && !entities2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
 
             //var list1 = entities1.Select(e => e.LogicalName);
             //var list2 = entities2.Select(e => e.LogicalName);

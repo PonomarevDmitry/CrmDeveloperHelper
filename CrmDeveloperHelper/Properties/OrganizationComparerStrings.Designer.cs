@@ -718,6 +718,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is Nothing to compare..
+        /// </summary>
+        internal static string ThereIsNothingToCompare {
+            get {
+                return ResourceManager.GetString("ThereIsNothingToCompare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Common Workflows in {0} and {1}: {2}.
         /// </summary>
         internal static string WorkflowsCommonFormat3 {

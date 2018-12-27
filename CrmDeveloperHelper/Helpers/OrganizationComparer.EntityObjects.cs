@@ -50,6 +50,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("System Forms in {0}: {1}", Connection2.Name, list2.Count));
 
+            if (!list1.Any() && !list2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Entity", "Type", "Name", "IsManaged", "Id");
 
@@ -345,6 +352,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var list2 = await task2;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Queries in {0}: {1}", Connection2.Name, list2.Count));
+
+            if (!list1.Any() && !list2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Entity", "Name", "QueryType", "IsUserDefined", "IsManaged", "Id");
@@ -649,6 +663,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var list2 = await task2;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Query Visualizations (Charts) in {0}: {1}", Connection2.Name, list2.Count));
+
+            if (!list1.Any() && !list2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Entity", "Name", "IsManaged", "Id");

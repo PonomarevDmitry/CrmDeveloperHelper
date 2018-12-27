@@ -85,6 +85,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.GlobalOptionSetsInConnectionFormat2, Connection2.Name, optionSetMetadata2.Count()));
 
+            if (optionSetMetadata1.Count == 0 && optionSetMetadata2.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
             FormatTextTableHandler optionSetOnlyIn1 = new FormatTextTableHandler();
             optionSetOnlyIn1.SetHeader("Name", "IsCustomOptionSet", "IsManaged");
 
@@ -342,6 +349,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             List<WebResource> list2 = await task2;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput("WebResouces in {0}: {1}", Connection2.Name, list2.Count));
+
+            if (list1.Count == 0 && list2.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Type", "Name", "Id", "IsManaged");
@@ -741,6 +755,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.SiteMapsInConnectionFormat2, Connection2.Name, list2.Count()));
 
+            if (list1.Count == 0 && list2.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Id", "SiteMapName", "SiteMapNameUnique", "IsAppAware");
 
@@ -1107,6 +1128,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             List<Report> list2 = await task2;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ReportsInConnectionFormat2, Connection2.Name, list2.Count()));
+
+            if (list1.Count == 0 && list2.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("ReportName", "FileName", "ReportType", "Viewable By", "Owner", "IsCustomReport", "IsManaged", "ReportId");
@@ -1500,6 +1528,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var task1 = _comparerSource.GetWorkflow1Async(new ColumnSet(true));
             var task2 = _comparerSource.GetWorkflow2Async(new ColumnSet(true));
 
+            List<Workflow> list1 = await task1;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, Connection1.Name, list1.Count()));
+
+            List<Workflow> list2 = await task2;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, Connection2.Name, list2.Count()));
+
+            if (list1.Count == 0 && list2.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
+
             var taskTranslation1 = TranslationRepository.GetDefaultTranslationFromCacheAsync(Connection1.ConnectionId, _comparerSource.Service1);
             var taskTranslation2 = TranslationRepository.GetDefaultTranslationFromCacheAsync(Connection2.ConnectionId, _comparerSource.Service2);
 
@@ -1508,14 +1551,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             LabelReplacer labelReplacer1 = new LabelReplacer(translation1);
             LabelReplacer labelReplacer2 = new LabelReplacer(translation2);
-
-            List<Workflow> list1 = await task1;
-
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, Connection1.Name, list1.Count()));
-
-            List<Workflow> list2 = await task2;
-
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, Connection2.Name, list2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Entity", "Category", "Name", "StatusCode", "IsCrmUiWorkflow", "IsManaged", "Id");
@@ -1836,6 +1871,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             List<Workflow> list2 = await task2;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, Connection2.Name, list2.Count()));
+
+            if (list1.Count == 0 && list2.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Entity", "Category", "Name", "StatusCode", "IsCrmUIWorkflow", "IsManaged", "Id");

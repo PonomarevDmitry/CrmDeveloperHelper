@@ -366,4 +366,7 @@
   <data name="PluginStepsToDeactivationInConnectionFormat2" xml:space="preserve">
     <value>Plugin Steps to Deactivation in {0}: {1}</value>
   </data>
+  <data name="ThereIsNothingToCompare" xml:space="preserve">
+    <value>There is Nothing to compare.</value>
+  </data>
 </root>

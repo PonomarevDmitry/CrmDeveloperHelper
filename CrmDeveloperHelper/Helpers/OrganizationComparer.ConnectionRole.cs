@@ -32,12 +32,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var taskRole1 = _comparerSource.GetConnectionRole1Async();
             var taskRole2 = _comparerSource.GetConnectionRole2Async();
 
-            var taskRoleAssociation1 = _comparerSource.GetConnectionRoleAssociation1Async();
-            var taskRoleAssociation2 = _comparerSource.GetConnectionRoleAssociation2Async();
-
-            var taskRoleObjectTypeCode1 = _comparerSource.GetConnectionRoleObjectTypeCode1Async();
-            var taskRoleObjectTypeCode2 = _comparerSource.GetConnectionRoleObjectTypeCode2Async();
-
 
 
             
@@ -49,10 +43,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ConnectionRolesInConnectionFormat2, Connection2.Name, listRole2.Count));
 
+            if (!listRole1.Any() && !listRole2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                return null;
+            }
 
 
 
-            
+            var taskRoleAssociation1 = _comparerSource.GetConnectionRoleAssociation1Async();
+            var taskRoleAssociation2 = _comparerSource.GetConnectionRoleAssociation2Async();
+
+            var taskRoleObjectTypeCode1 = _comparerSource.GetConnectionRoleObjectTypeCode1Async();
+            var taskRoleObjectTypeCode2 = _comparerSource.GetConnectionRoleObjectTypeCode2Async();
+
+
+
+
+
             var listRoleAssociation1 = await taskRoleAssociation1;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ConnectionRoleAssociationsInConnectionFormat2, Connection1.Name, listRoleAssociation1.Count));
