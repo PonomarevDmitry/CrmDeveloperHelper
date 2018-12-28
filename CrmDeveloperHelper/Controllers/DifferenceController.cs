@@ -230,7 +230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var array = Convert.FromBase64String(contentWebResource);
 
-                filePath2 = FileOperations.GetNewTempFile(webresource.Name, selectedFile.Extension);
+                filePath2 = FileOperations.GetNewTempFilePath(webresource.Name, selectedFile.Extension);
 
                 File.WriteAllBytes(filePath2, array);
 
@@ -405,7 +405,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var array = Convert.FromBase64String(contentWebResource1);
 
-                filePath1 = FileOperations.GetNewTempFile(webresource1.Name, selectedFile.Extension);
+                filePath1 = FileOperations.GetNewTempFilePath(webresource1.Name, selectedFile.Extension);
                 fileTitle1 = connectionData1.Name + "." + selectedFile.FileName + " - " + filePath1;
 
                 File.WriteAllBytes(filePath1, array);
@@ -417,7 +417,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var array = Convert.FromBase64String(contentWebResource2);
 
-                filePath2 = FileOperations.GetNewTempFile(webresource2.Name, selectedFile.Extension);
+                filePath2 = FileOperations.GetNewTempFilePath(webresource2.Name, selectedFile.Extension);
                 fileTitle2 = connectionData2.Name + "." + selectedFile.FileName + " - " + filePath2;
 
                 File.WriteAllBytes(filePath2, array);
@@ -575,7 +575,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     var array = Convert.FromBase64String(contentWebResource);
 
-                    string tempFilePath = FileOperations.GetNewTempFile(webResourceName, selectedFile.Extension);
+                    string tempFilePath = FileOperations.GetNewTempFilePath(webResourceName, selectedFile.Extension);
 
                     File.WriteAllBytes(tempFilePath, array);
 
@@ -789,7 +789,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var reportName = EntityFileNameFormatter.GetReportFileName(connectionData.Name, reportEntity.Name, reportEntity.Id, fieldTitle, selectedFile.Extension);
 
-            string temporaryFilePath = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(reportName), selectedFile.Extension);
+            string temporaryFilePath = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(reportName), selectedFile.Extension);
 
             var textReport = reportEntity.GetAttributeValue<string>(fieldName);
 
@@ -991,7 +991,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var reportName = EntityFileNameFormatter.GetReportFileName(connectionData1.Name, reportEntity1.Name, reportEntity1.Id, fieldTitle, selectedFile.Extension);
 
-                filePath1 = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(reportName), selectedFile.Extension);
+                filePath1 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(reportName), selectedFile.Extension);
                 fileTitle1 = connectionData1.Name + "." + selectedFile.FileName + " - " + filePath1;
 
                 File.WriteAllText(filePath1, textReport, new UTF8Encoding(false));
@@ -1008,7 +1008,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var reportName = EntityFileNameFormatter.GetReportFileName(connectionData2.Name, reportEntity2.Name, reportEntity2.Id, fieldTitle, selectedFile.Extension);
 
-                filePath2 = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(reportName), selectedFile.Extension);
+                filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(reportName), selectedFile.Extension);
                 fileTitle1 = connectionData2.Name + "." + selectedFile.FileName + " - " + filePath2;
 
                 File.WriteAllText(filePath2, textReport, new UTF8Encoding(false));

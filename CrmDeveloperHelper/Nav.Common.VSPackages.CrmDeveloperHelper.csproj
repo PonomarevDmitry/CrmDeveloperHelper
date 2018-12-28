@@ -186,6 +186,7 @@
     <Compile Include="Commands\CommonExportXsdSchemasCommand.cs" />
     <Compile Include="Commands\CommonFindEntityObjectsByIdCommand.cs" />
     <Compile Include="Commands\CommonFindEntityObjectsByUniqueidentifierCommand.cs" />
+    <Compile Include="Commands\CommonOpenConfigFolderCommand.cs" />
     <Compile Include="Commands\CommonOpenCrmWebSiteCommand.cs" />
     <Compile Include="Commands\CommonOpenCurrentConnectionCrmInWebCommand.cs" />
     <Compile Include="Commands\CommonOpenOrganizationDifferenceImageCommand.cs" />

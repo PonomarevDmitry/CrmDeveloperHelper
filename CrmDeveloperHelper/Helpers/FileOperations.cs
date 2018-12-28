@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return Path.Combine(Path.GetTempPath(), _tempFileFolder);
         }
 
-        public static string GetNewTempFile(string fileName, string extension)
+        public static string GetNewTempFilePath(string fileName, string extension)
         {
             string path = string.Empty;
 
@@ -364,12 +364,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return directory;
         }
 
-        public static string GetCommonConfigPath()
+        public static string GetCommonConfigFilePath()
         {
             return GetConfigurationFilePath(_programCommonConfigFileName);
         }
 
-        public static string GetOutputPath()
+        public static string GetOutputFilePath()
         {
             string directory = Path.Combine(GetConfigurationFolder(), _folderOutputSubdirectoryName);
 
@@ -381,7 +381,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return directory;
         }
 
-        public static string GetLogsPath()
+        public static string GetLogsFilePath()
         {
             string directory = Path.Combine(GetConfigurationFolder(), _folderLogsSubdirectoryName);
 

@@ -643,7 +643,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 fileTitle2 = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityName);
 
-                filePath2 = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
+                filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
                 File.WriteAllText(filePath2, ribbonXml, new UTF8Encoding(false));
 
@@ -676,7 +676,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 fileTitle2 = EntityFileNameFormatter.GetApplicationRibbonFileName(service.ConnectionData.Name);
 
-                filePath2 = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
+                filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
                 File.WriteAllText(filePath2, ribbonXml, new UTF8Encoding(false));
 
@@ -820,7 +820,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (entityMetadata != null)
             {
                 fileTitle2 = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service.ConnectionData.Name, entityMetadata.LogicalName);
-                filePath2 = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
+                filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
                 File.WriteAllText(filePath2, ribbonDiffXml, new UTF8Encoding(false));
 
@@ -829,7 +829,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             else if (ribbonCustomization != null)
             {
                 fileTitle2 = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(service.ConnectionData.Name);
-                filePath2 = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
+                filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
                 File.WriteAllText(filePath2, ribbonDiffXml, new UTF8Encoding(false));
 

@@ -601,7 +601,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fieldTitle = "SiteMapXml";
 
             string fileTitle2 = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, siteMap.SiteMapNameUnique, siteMap.Id, fieldTitle, "xml");
-            string filePath2 = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
+            string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
             if (!string.IsNullOrEmpty(siteMapXml))
             {
@@ -911,7 +911,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fieldTitle = "FormXml";
 
             string fileTitle2 = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, "xml");
-            string filePath2 = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
+            string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
             if (!string.IsNullOrEmpty(formXml))
             {
@@ -1237,7 +1237,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
 
             string fileTitle2 = EntityFileNameFormatter.GetSavedQueryFileName(connectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle, "xml");
-            string filePath2 = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
+            string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
             if (!string.IsNullOrEmpty(xmlContent))
             {

@@ -412,24 +412,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSBOpenFolder_Click(object sender, RoutedEventArgs e)
-        {
-            var directory = FileOperations.GetCommonConfigPath();
-
-            if (!string.IsNullOrEmpty(directory))
-            {
-                if (Directory.Exists(directory))
-                {
-                    try
-                    {
-                        Process.Start(directory);
-                    }
-                    catch (Exception)
-                    { }
-                }
-            }
-        }
-
         private void tSBMoveToArchive_Click(object sender, RoutedEventArgs e)
         {
             if (lstVwConnections.SelectedItems.Count == 1)

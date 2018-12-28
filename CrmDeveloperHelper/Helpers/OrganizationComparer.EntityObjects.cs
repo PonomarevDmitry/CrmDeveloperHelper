@@ -162,9 +162,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         }
                     }
 
-                    var entityName1 = form.Entity1.ObjectTypeCode;
-                    var name1 = form.Entity1.Name;
-
                     string typeName1 = form.Entity1.FormattedValues[SystemForm.Schema.Attributes.type];
                     string typeName2 = form.Entity2.FormattedValues[SystemForm.Schema.Attributes.type];
 
@@ -181,26 +178,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             if (!ContentCoparerHelper.CompareXML(formXml1, formXml2).IsEqual)
                             {
-                                string formReason = string.Empty;
                                 string descReason = string.Empty;
-
-                                {
-                                    var compare = ContentCoparerHelper.CompareXML(formXml1.ToLower(), formXml2.ToLower(), true);
-
-                                    if (compare.IsEqual)
-                                    {
-                                        formReason = "InCase";
-                                    }
-                                    else
-                                    {
-                                        formReason = compare.GetCompareDescription();
-                                    }
-                                }
 
                                 if (ContentCoparerHelper.TryParseXml(formXml1, out var doc1) && ContentCoparerHelper.TryParseXml(formXml2, out var doc2))
                                 {
-                                    string desc1 = await handler1.GetFormDescriptionAsync(doc1, entityName1, form.Entity1.Id, name1, typeName1);
-                                    string desc2 = await handler2.GetFormDescriptionAsync(doc2, entityName1, form.Entity2.Id, name1, typeName2);
+                                    string desc1 = await handler1.GetFormDescriptionAsync(doc1, form.Entity1.ObjectTypeCode, form.Entity1.Id, form.Entity1.Name, typeName1);
+                                    string desc2 = await handler2.GetFormDescriptionAsync(doc2, form.Entity2.ObjectTypeCode, form.Entity2.Id, form.Entity2.Name, typeName2);
 
                                     if (!string.Equals(desc1, desc2))
                                     {
@@ -213,6 +196,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                         else
                                         {
                                             descReason = compare.GetCompareDescription();
+                                        }
+                                    }
+                                }
+
+                                string formReason = string.Empty;
+
+                                {
+                                    if (ContentCoparerHelper.TryParseXml(formXml1, out var docCorrected1)
+                                        && ContentCoparerHelper.TryParseXml(formXml2, out var docCorrected2)
+                                        )
+                                    {
+                                        handler1.ReplaceRoleToRoleTemplates(docCorrected1);
+                                        handler2.ReplaceRoleToRoleTemplates(docCorrected2);
+
+                                        if (ContentCoparerHelper.CompareXML(docCorrected1.ToString(), docCorrected2.ToString()).IsEqual)
+                                        {
+                                            formReason = string.Empty;
+                                        }
+                                        else
+                                        {
+                                            var compare = ContentCoparerHelper.CompareXML(docCorrected1.ToString().ToLower(), docCorrected2.ToString().ToLower(), true);
+
+                                            if (compare.IsEqual)
+                                            {
+                                                formReason = "InCase";
+                                            }
+                                            else
+                                            {
+                                                formReason = compare.GetCompareDescription();
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var compare = ContentCoparerHelper.CompareXML(formXml1.ToLower(), formXml2.ToLower(), true);
+
+                                        if (compare.IsEqual)
+                                        {
+                                            formReason = "InCase";
+                                        }
+                                        else
+                                        {
+                                            formReason = compare.GetCompareDescription();
                                         }
                                     }
                                 }
@@ -234,6 +260,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         var diff = tabDiff.GetFormatedLines(false);
                         this.ImageBuilder.AddComponentDifferent((int)ComponentType.SystemForm, form.Entity1.Id, form.Entity2.Id, string.Join(Environment.NewLine, diff));
+
+                        var entityName1 = form.Entity1.ObjectTypeCode;
+                        var name1 = form.Entity1.Name;
 
                         dictDifference.Add(Tuple.Create(entityName1, typeName1, name1, form.Entity1.Id.ToString()), diff);
                     }

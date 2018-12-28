@@ -288,6 +288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonCheckPluginStepsRequiredComponentsCommand.Initialize(this);
             CommonOpenCrmWebSiteCommand.Initialize(this);
             CommonOpenCurrentConnectionCrmInWebCommand.Initialize(this);
+            CommonOpenConfigFolderCommand.Initialize(this);
             CommonConfigCommand.Initialize(this);
             CommonPublishAllInCrmConnectionCommand.Initialize(this);
             CommonCrmConnectionCommand.Initialize(this);

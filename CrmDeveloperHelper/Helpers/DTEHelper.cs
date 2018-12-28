@@ -127,7 +127,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     Encoding = Encoding.UTF8,
                     WriteBom = true,
                     CreateDirs = true,
-                    FileName = Path.Combine(FileOperations.GetOutputPath(), @"Output ${date:format=yyyy-MM-dd}.log"),
+                    FileName = Path.Combine(FileOperations.GetOutputFilePath(), @"Output ${date:format=yyyy-MM-dd}.log"),
                     Layout = "${message}"
                 };
 
@@ -144,7 +144,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     Encoding = Encoding.UTF8,
                     WriteBom = true,
                     CreateDirs = true,
-                    FileName = Path.Combine(FileOperations.GetLogsPath(), @"Log ${date:format=yyyy-MM-dd}.log"),
+                    FileName = Path.Combine(FileOperations.GetLogsFilePath(), @"Log ${date:format=yyyy-MM-dd}.log"),
                     Layout = _logLayout,
                 };
 

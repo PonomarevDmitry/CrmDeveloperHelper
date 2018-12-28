@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             foreach (var filePath in files)
             {
-                var tempFile = FileOperations.GetNewTempFile(Path.GetFileNameWithoutExtension(filePath), Path.GetExtension(filePath));
+                var tempFile = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(filePath), Path.GetExtension(filePath));
 
                 File.Copy(filePath, tempFile);
 
@@ -86,7 +86,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                         switch (parts[0].Trim())
                         {
                             case "LocalTime":
-                                if (DateTime.TryParseExact(value, "yyyy-MM-dd HH:mm:ss.fff", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out var temp))
+                                if (DateTime.TryParseExact(value, "yyyy-MM-dd HH:mm:ss.fff", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out var temp))
                                 {
                                     traceFile.LocalTime = temp;
                                 }
@@ -129,7 +129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                         {
                             var datePart = line.Substring(1, indexLast - 1);
 
-                            if (DateTime.TryParseExact(datePart, "yyyy-MM-dd HH:mm:ss.fff", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out var tempDate))
+                            if (DateTime.TryParseExact(datePart, "yyyy-MM-dd HH:mm:ss.fff", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out var tempDate))
                             {
                                 if (traceRecord != null)
                                 {

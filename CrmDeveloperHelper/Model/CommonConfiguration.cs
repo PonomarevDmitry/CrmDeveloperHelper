@@ -891,7 +891,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     return _singleton;
                 }
 
-                string filePath = FileOperations.GetCommonConfigPath();
+                string filePath = FileOperations.GetCommonConfigFilePath();
 
                 CommonConfiguration result = GetFromPath(filePath);
 

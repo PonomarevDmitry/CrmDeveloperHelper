@@ -732,6 +732,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonOpenXsdSchemaFolderCommandId = 0x217A;
         public const int CommonOrganizationComparerCommandId = 0x2040;
         public const int CommonOpenOrganizationDifferenceImageCommandId = 0x2171;
+        public const int CommonOpenConfigFolderCommandId = 0x2188;
         public const int CommonCrmConnectionCommandId = 0x2041;
         public const int CommonConfigCommandId = 0x2042;
         public const int CommonOpenCurrentConnectionCrmInWebCommandId = 0x214A;

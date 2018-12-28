@@ -358,6 +358,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void ReplaceRoleToRoleTemplates(XElement doc)
+        {
+            var formDisplayConditions = doc.Element("DisplayConditions");
+
+            if (formDisplayConditions != null)
+            {
+                var allRoles = formDisplayConditions.Descendants("Role");
+
+                if (allRoles.Any())
+                {
+                    foreach (var nodeRole in allRoles)
+                    {
+                        var attrId = nodeRole.Attribute("Id");
+
+                        if (attrId != null && !string.IsNullOrEmpty(attrId.Value))
+                        {
+                            Guid tempId = Guid.Empty;
+
+                            if (Guid.TryParse(attrId.Value, out tempId))
+                            {
+                                var role = _descriptor.GetEntity<Role>((int)ComponentType.Role, tempId);
+
+                                if (role.RoleTemplateId != null)
+                                {
+                                    attrId.Value = role.RoleTemplateId.Id.ToString().ToLower();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void AddAttributeLabels(string attribute, List<int> locales, List<string> fields)
         {
             if (string.IsNullOrEmpty(attribute) || _entityMetadata == null)

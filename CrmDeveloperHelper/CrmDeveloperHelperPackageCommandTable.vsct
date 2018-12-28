@@ -4593,11 +4593,11 @@
           <ButtonText>Solution Explorer in Connection Placeholder</ButtonText>
         </Strings>
       </Button>
-        
-          
-        
-      
-      
+
+
+
+
+
       <Button guid="guidCommandSet" id="CommonOpenSolutionImageCommandId" priority="0x012C" type="Button">
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
@@ -4974,7 +4974,11 @@
           <ButtonText>Open Crm WebSite</ButtonText>
         </Strings>
       </Button>
-
+      <Button guid="guidCommandSet" id="CommonOpenConfigFolderCommandId" priority="0x0130" type="Button">
+        <Strings>
+          <ButtonText>Open Config Folder</ButtonText>
+        </Strings>
+      </Button>
 
 
 
@@ -6162,7 +6166,7 @@
     <CommandPlacement guid="guidCommandSet" id="CommonSolutionExplorerCommandId" priority="0x0120">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutionExplorer" priority="0x0121">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions" />
     </CommandPlacement>
@@ -6172,7 +6176,7 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonSolutionExplorerInConnectionCommandId" priority="0x0121">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutionExplorer_Group" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions" priority="0x0122">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions" />
     </CommandPlacement>
@@ -6205,6 +6209,11 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnections_GroupConnections" />
     </CommandPlacement>
 
+
+
+    <CommandPlacement guid="guidCommandSet" id="CommonOpenConfigFolderCommandId" priority="0x0120">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
+    </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite" priority="0x012D">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
@@ -9508,7 +9517,7 @@
 
       <IDSymbol name="CodeXmlShowDifferenceSavedQueryInConnectionGroupCommandId" value="6150" />
       <IDSymbol name="CodeXmlUpdateSavedQueryInConnectionGroupCommandId" value="6200" />
-      
+
       <IDSymbol name="CommonSolutionExplorerInConnectionCommandId" value="6250" />
 
       <!-- 6300 -->
@@ -9759,6 +9768,8 @@
 
       <IDSymbol name="CommonOrganizationComparerCommandId" value="0x2040" />
       <IDSymbol name="CommonOpenOrganizationDifferenceImageCommandId" value="0x2171" />
+
+      <IDSymbol name="CommonOpenConfigFolderCommandId" value="0x2188" />
 
       <IDSymbol name="CommonCrmConnectionCommandId" value="0x2041" />
       <IDSymbol name="CommonConfigCommandId" value="0x2042" />
@@ -10084,7 +10095,7 @@
 
 
 
-      <!-- 0x2188 -->
+      <!-- 0x2189 -->
 
     </GuidSymbol>
 
