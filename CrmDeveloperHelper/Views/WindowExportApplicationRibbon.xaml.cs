@@ -30,7 +30,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private CommonConfiguration _commonConfig;
 
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-        private Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
         private Popup _optionsPopup;
 
@@ -54,7 +53,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._commonConfig = commonConfig;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
-            _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
 
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
@@ -147,30 +145,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async Task<SolutionComponentDescriptor> GetDescriptor()
-        {
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
-
-            if (connectionData != null)
-            {
-                if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
-                {
-                    var service = await GetService();
-
-                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
-                }
-
-                return _descriptorCache[connectionData.ConnectionId];
-            }
-
-            return null;
-        }
-
         private void UpdateStatus(string format, params object[] args)
         {
             string message = format;
@@ -247,7 +221,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async void miGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
             var service = await GetService();
-            var descriptor = await GetDescriptor();
 
             _commonConfig.Save();
 
@@ -449,23 +422,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string ribbonXml = await repository.ExportApplicationRibbonAsync();
 
-                //if (_commonConfig.SetIntellisenseContext)
-                //{
-                //    ribbonXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonXml, string.Empty);
-                //}
-
-                //if (_commonConfig.SortRibbonCommnadsAndRulesById)
-                //{
-                //    ribbonXml = ContentCoparerHelper.SortRibbonCommandsAndRulesById(ribbonXml);
-                //}
-
-                //if (_commonConfig.SortXmlAttributes)
-                //{
-                //    ribbonXml = ContentCoparerHelper.SortXmlAttributes(ribbonXml);
-                //}
-
-                //ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, _commonConfig.ExportXmlAttributeOnNewLine);
-
                 ribbonXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonXml, _commonConfig, _xmlOptions
                     , ribbonEntityName: string.Empty
                     );
@@ -584,33 +540,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlFailed);
                     return;
                 }
-
-                //if (_commonConfig.SetXmlSchemasDuringExport)
-                //{
-                //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
-
-                //    if (schemasResources != null)
-                //    {
-                //        ribbonDiffXml = ContentCoparerHelper.SetXsdSchema(ribbonDiffXml, schemasResources);
-                //    }
-                //}
-
-                //if (_commonConfig.SetIntellisenseContext)
-                //{
-                //    ribbonDiffXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonDiffXml, string.Empty);
-                //}
-
-                //if (_commonConfig.SortRibbonCommnadsAndRulesById)
-                //{
-                //    ribbonDiffXml = ContentCoparerHelper.SortRibbonCommandsAndRulesById(ribbonDiffXml);
-                //}
-
-                //if (_commonConfig.SortXmlAttributes)
-                //{
-                //    ribbonDiffXml = ContentCoparerHelper.SortXmlAttributes(ribbonDiffXml);
-                //}
-
-                //ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, _commonConfig.ExportXmlAttributeOnNewLine);
 
                 ribbonDiffXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, _xmlOptions
                     , schemaName: CommonExportXsdSchemasCommand.SchemaRibbonXml
@@ -826,12 +755,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (ribbonCustomization != null)
             {
-                var descriptor = await GetDescriptor();
-
                 WindowHelper.OpenSolutionComponentDependenciesWindow(
                     _iWriteToOutput
                     , service
-                    , descriptor
+                    , null
                     , _commonConfig
                     , (int)ComponentType.RibbonCustomization
                     , ribbonCustomization.Id
@@ -868,13 +795,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _commonConfig.Save();
 
-                var descriptor = await GetDescriptor();
-
                 try
                 {
                     this._iWriteToOutput.ActivateOutputWindow();
 
-                    await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.RibbonCustomization, new[] { ribbonCustomization.Id }, null, withSelect);
+                    await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.RibbonCustomization, new[] { ribbonCustomization.Id }, null, withSelect);
                 }
                 catch (Exception ex)
                 {

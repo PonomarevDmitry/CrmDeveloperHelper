@@ -56,7 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (_config.WithDependentComponents)
             {
                 this._dependencyRepository = new DependencyRepository(_service);
-                this._descriptorHandler = new DependencyDescriptionHandler(new SolutionComponentDescriptor(_service, false));
+                this._descriptorHandler = new DependencyDescriptionHandler(new SolutionComponentDescriptor(_service));
             }
 
             var repositoryStringMap = new StringMapRepository(_service);

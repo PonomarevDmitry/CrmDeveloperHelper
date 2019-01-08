@@ -18,7 +18,7 @@
     <Grid Background="White">
         <GroupBox Header="Global OptionSets Metadata Options" Margin="10,0,10,10">
             <Grid>
-                <CheckBox x:Name="chBWithManagedInfo" IsChecked="{Binding Path=WithManagedInfo}" Content="With Managed Info" HorizontalAlignment="Left" Margin="131,10,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBWithManagedInfo" IsChecked="{Binding Path=SolutionComponentWithManagedInfo}" Content="With Managed Info" HorizontalAlignment="Left" Margin="131,10,0,0" VerticalAlignment="Top"/>
                 <CheckBox x:Name="chBAllDescriptions" IsChecked="{Binding Path=AllDescriptions}" Content="All descriptions" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                 <CheckBox x:Name="chBWithDependentComponents" IsChecked="{Binding Path=EntityMetadaOptionSetDependentComponents}" Content="With dependent components for Global OptionSets" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
                 <GroupBox HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Width="173" Height="50" Header="Field Type">

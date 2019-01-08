@@ -1655,8 +1655,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             , Workflow.Schema.Attributes.rank
                             , Workflow.Schema.Attributes.runas
                             , Workflow.Schema.Attributes.scope
-                            , Workflow.Schema.Attributes.statecode
-                            , Workflow.Schema.Attributes.statuscode
+                            //, Workflow.Schema.Attributes.statecode
+                            //, Workflow.Schema.Attributes.statuscode
                             , Workflow.Schema.Attributes.subprocess
                             , Workflow.Schema.Attributes.syncworkflowlogonfailure
                             , Workflow.Schema.Attributes.triggeroncreate

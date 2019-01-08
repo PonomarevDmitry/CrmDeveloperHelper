@@ -1199,8 +1199,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnGlobalOptionSets1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             var service = await GetService1();
 
             _commonConfig.Save();
@@ -1314,8 +1312,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnGlobalOptionSets2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             var service = await GetService2();
 
             _commonConfig.Save();

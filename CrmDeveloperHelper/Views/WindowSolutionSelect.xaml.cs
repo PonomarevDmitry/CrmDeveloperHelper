@@ -402,11 +402,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat2, _service.ConnectionData.Name, solution.UniqueName);
 
-                var descriptor = new SolutionComponentDescriptor(_service, true);
+                var commonConfig = CommonConfiguration.Get();
+
+                var descriptor = new SolutionComponentDescriptor(_service);
+                descriptor.SetSettings(commonConfig);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, descriptor);
-
-                var commonConfig = CommonConfiguration.Get();
 
                 this._iWriteToOutput.WriteToOutput(string.Empty);
                 this._iWriteToOutput.WriteToOutput("Creating backup Solution Components in '{0}'.", solution.UniqueName);

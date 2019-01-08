@@ -2,6 +2,7 @@ using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -33,7 +34,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private ObservableCollection<OneToManyRelationshipMetadataViewItem> _itemsSourceEntityRelationshipList;
 
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-        private Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
         private Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
 
@@ -58,7 +58,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._commonConfig = commonConfig;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
-            _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
 
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
@@ -166,30 +165,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 return _connectionCache[connectionData.ConnectionId];
-            }
-
-            return null;
-        }
-
-        private async Task<SolutionComponentDescriptor> GetDescriptor()
-        {
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
-
-            if (connectionData != null)
-            {
-                if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
-                {
-                    var service = await GetService();
-
-                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
-                }
-
-                return _descriptorCache[connectionData.ConnectionId];
             }
 
             return null;
@@ -693,9 +668,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
+            var source = new SolutionComponentMetadataSource(service);
 
-            var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(entity.EntityMetadata.MetadataId.Value);
+            var entityMetadata = source.GetEntityMetadata(entity.EntityMetadata.MetadataId.Value);
 
             IEnumerable<OptionSetMetadata> optionSets =
                 entityMetadata
@@ -1055,13 +1030,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
 
             try
             {
                 this._iWriteToOutput.ActivateOutputWindow();
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Entity, entityList.Select(item => item.EntityMetadata.MetadataId.Value).ToList(), null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, entityList.Select(item => item.EntityMetadata.MetadataId.Value).ToList(), null, withSelect);
             }
             catch (Exception ex)
             {
@@ -1097,13 +1071,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
 
             try
             {
                 this._iWriteToOutput.ActivateOutputWindow();
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.EntityRelationship, entityRelationshipList.Select(item => item.OneToManyRelationshipMetadata.MetadataId.Value).ToList(), null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.EntityRelationship, entityRelationshipList.Select(item => item.OneToManyRelationshipMetadata.MetadataId.Value).ToList(), null, withSelect);
             }
             catch (Exception ex)
             {
@@ -1174,9 +1147,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
 
-            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, descriptor, _commonConfig, (int)ComponentType.Entity, entity.EntityMetadata.MetadataId.Value, null);
+            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Entity, entity.EntityMetadata.MetadataId.Value, null);
         }
 
         private async void mIOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
@@ -1231,9 +1203,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
 
-            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, descriptor, _commonConfig, (int)ComponentType.EntityRelationship, entityRelationship.OneToManyRelationshipMetadata.MetadataId.Value, null);
+            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.EntityRelationship, entityRelationship.OneToManyRelationshipMetadata.MetadataId.Value, null);
         }
 
         private async void mIEntityRelationshipOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)

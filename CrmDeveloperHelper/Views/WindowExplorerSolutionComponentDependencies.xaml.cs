@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -27,10 +29,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private IOrganizationServiceExtented _service;
 
         private readonly SolutionComponentDescriptor _descriptor;
+        private SolutionComponentDescriptor GetDescriptor()
+        {
+            _descriptor.SetSettings(_commonConfig);
+            return _descriptor;
+        }
 
         private readonly SolutionComponentConverter _converter;
 
         private CommonConfiguration _commonConfig;
+
+        private Popup _optionsPopup;
+
+        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.SolutionComponentSettings;
 
         private readonly int _componentType;
         private readonly Guid _objectId;
@@ -66,10 +77,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (this._descriptor == null)
             {
-                this._descriptor = new SolutionComponentDescriptor(_service, true);
+                this._descriptor = new SolutionComponentDescriptor(_service);
+                this._descriptor.SetSettings(_commonConfig);
             }
 
             this._converter = new SolutionComponentConverter(this._descriptor);
+
+            {
+                var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+                child.CloseClicked += Child_CloseClicked;
+                this._optionsPopup = new Popup
+                {
+                    Child = child,
+
+                    PlacementTarget = toolBarHeader,
+                    Placement = PlacementMode.Bottom,
+                    StaysOpen = false,
+                    Focusable = true,
+                };
+            }
 
             this.tSSLblConnectionName.Content = _service.ConnectionData.Name;
 
@@ -277,7 +303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         break;
                 }
 
-                await _descriptor.GetSolutionComponentsDescriptionAsync(list);
+                await GetDescriptor().GetSolutionComponentsDescriptionAsync(list);
             }
             catch (Exception ex)
             {
@@ -508,7 +534,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
-            string fileName = _descriptor.GetFileName(_service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, "EntityDescription", "txt");
+            string fileName = GetDescriptor().GetFileName(_service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, "EntityDescription", "txt");
 
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -523,7 +549,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 stringBuilder.AppendLine(desc);
             }
 
-            var entity = _descriptor.GetEntity<Entity>(solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value);
+            var entity = GetDescriptor().GetEntity<Entity>(solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value);
 
             if (entity != null)
             {
@@ -602,7 +628,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var dependencyRepository = new DependencyRepository(_service);
 
-            var descriptorHandler = new DependencyDescriptionHandler(_descriptor);
+            var descriptorHandler = new DependencyDescriptionHandler(GetDescriptor());
 
             var coll = await dependencyRepository.GetDependentComponentsAsync(solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value);
 
@@ -610,7 +636,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(description))
             {
-                var fileName = _descriptor.GetFileName(this._service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, "Dependent Components", "txt");
+                var fileName = GetDescriptor().GetFileName(this._service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, "Dependent Components", "txt");
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -633,7 +659,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var dependencyRepository = new DependencyRepository(_service);
 
-            var descriptorHandler = new DependencyDescriptionHandler(_descriptor);
+            var descriptorHandler = new DependencyDescriptionHandler(GetDescriptor());
 
             var coll = await dependencyRepository.GetRequiredComponentsAsync(solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value);
 
@@ -641,7 +667,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(description))
             {
-                var fileName = _descriptor.GetFileName(this._service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, "Required Components", "txt");
+                var fileName = GetDescriptor().GetFileName(this._service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, "Required Components", "txt");
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -664,7 +690,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var dependencyRepository = new DependencyRepository(_service);
 
-            var descriptorHandler = new DependencyDescriptionHandler(_descriptor);
+            var descriptorHandler = new DependencyDescriptionHandler(GetDescriptor());
 
             var coll = await dependencyRepository.GetDependenciesForDeleteAsync(solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value);
 
@@ -672,7 +698,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(description))
             {
-                var fileName = _descriptor.GetFileName(this._service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, "Dependencies For Delete", "txt");
+                var fileName = GetDescriptor().GetFileName(this._service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, "Dependencies For Delete", "txt");
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -754,7 +780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow();
 
-                await SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, _service, _descriptor, _commonConfig, solutionUniqueName, solutionComponents, withSelect);
+                await SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, _service, GetDescriptor(), _commonConfig, solutionUniqueName, solutionComponents, withSelect);
             }
             catch (Exception ex)
             {
@@ -1064,7 +1090,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSolutionComponentDependenciesWindow(
                 _iWriteToOutput
                 , _service
-                , _descriptor
+                , GetDescriptor()
                 , _commonConfig
                 , solutionComponent.ComponentType.Value
                 , solutionComponent.ObjectId.Value
@@ -1109,7 +1135,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (category.HasValue)
             {
-                columnsForComponentType = _descriptor.GetComponentColumns(category.Value);
+                columnsForComponentType = GetDescriptor().GetComponentColumns(category.Value);
             }
 
             WindowSettings winConfig = this.GetWindowsSettings();
@@ -1182,7 +1208,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSolutionComponentDependenciesWindow(
                 _iWriteToOutput
                 , _service
-                , _descriptor
+                , GetDescriptor()
                 , _commonConfig
                 , entity.SolutionComponent.ComponentType.Value
                 , entity.SolutionComponent.ObjectId.Value
@@ -1230,7 +1256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (componentType == ComponentType.EntityRelationship)
             {
-                var relation = _descriptor.MetadataSource.GetRelationshipMetadata(entity.SolutionComponent.ObjectId.Value);
+                var relation = GetDescriptor().MetadataSource.GetRelationshipMetadata(entity.SolutionComponent.ObjectId.Value);
 
                 if (relation != null)
                 {
@@ -1249,6 +1275,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             return WindowHelper.IsDefinedExplorer((ComponentType)componentType);
+        }
+
+        private void miDescriptionOptions_Click(object sender, RoutedEventArgs e)
+        {
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+            }
+
+            this.Focus();
         }
     }
 }

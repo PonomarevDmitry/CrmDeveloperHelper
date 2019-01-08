@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private int _init = 0;
 
-        private readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
+        private readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.FormXml;
 
         public WindowOrganizationComparerSystemForm(
             IWriteToOutput iWriteToOutput
@@ -209,7 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service != null)
                 {
-                    _cacheDescription[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, false);
+                    _cacheDescription[connectionData.ConnectionId] = new SolutionComponentDescriptor(service);
                 }
             }
 
@@ -231,9 +231,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service != null)
                 {
-                    _cacheDescription[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, false);
+                    _cacheDescription[connectionData.ConnectionId] = new SolutionComponentDescriptor(service);
                 }
             }
+
+            _cacheDescription[connectionData.ConnectionId].SetSettings(_commonConfig);
 
             return _cacheDescription[connectionData.ConnectionId];
         }
@@ -1614,8 +1616,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnGlobalOptionSets1_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             var service = await GetService1();
 
             _commonConfig.Save();
@@ -1729,8 +1729,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnGlobalOptionSets2_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
-
             var service = await GetService2();
 
             _commonConfig.Save();

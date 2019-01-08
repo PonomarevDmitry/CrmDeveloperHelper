@@ -2,6 +2,7 @@ using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -56,7 +57,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._commonConfig = commonConfig;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
-            _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
 
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
@@ -173,8 +173,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var service = await GetService();
 
-                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
+                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service);
                 }
+
+                _descriptorCache[connectionData.ConnectionId].SetSettings(_commonConfig);
 
                 return _descriptorCache[connectionData.ConnectionId];
             }
@@ -611,9 +613,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
+            var source = new SolutionComponentMetadataSource(service);
 
-            var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(entity.EntityMetadata.MetadataId.Value);
+            var entityMetadata = source.GetEntityMetadata(entity.EntityMetadata.MetadataId.Value);
 
             IEnumerable<OptionSetMetadata> optionSets =
                 entityMetadata

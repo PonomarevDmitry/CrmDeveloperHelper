@@ -7,19 +7,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public class XNameComparer : IComparer<XName>
     {
-        private static List<string> coll = new List<string>()
+        private List<string> _predefinedNames;
+
+        public XNameComparer(List<string> predefinedNames)
         {
-            "Id"
-            , "GroupId"
-            , "Name"
-            , "Entity"
-            , "Command"
-            , "Sequence"
-            , "LabelText"
-            , "Alt"
-            , "ToolTipTitle"
-            , "ToolTipDescription"
-        };
+            this._predefinedNames = predefinedNames ?? throw new ArgumentNullException(nameof(predefinedNames));
+        }
 
         public int Compare(XName name1, XName name2)
         {
@@ -38,25 +31,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return (name1.NamespaceName ?? string.Empty).CompareTo(name2.NamespaceName ?? string.Empty);
             }
 
-            if (coll.Contains(name1.LocalName, StringComparer.InvariantCultureIgnoreCase)
-               && coll.Contains(name2.LocalName, StringComparer.InvariantCultureIgnoreCase)
+            if (_predefinedNames.Contains(name1.LocalName, StringComparer.InvariantCultureIgnoreCase)
+               && _predefinedNames.Contains(name2.LocalName, StringComparer.InvariantCultureIgnoreCase)
                )
             {
-                var item1 = coll.First(i => StringComparer.InvariantCultureIgnoreCase.Equals(i, name1.LocalName));
-                var item2 = coll.First(i => StringComparer.InvariantCultureIgnoreCase.Equals(i, name2.LocalName));
+                var item1 = _predefinedNames.First(i => StringComparer.InvariantCultureIgnoreCase.Equals(i, name1.LocalName));
+                var item2 = _predefinedNames.First(i => StringComparer.InvariantCultureIgnoreCase.Equals(i, name2.LocalName));
 
-                int index1 = coll.IndexOf(item1);
-                int index2 = coll.IndexOf(item2);
+                int index1 = _predefinedNames.IndexOf(item1);
+                int index2 = _predefinedNames.IndexOf(item2);
 
                 return index1.CompareTo(index2);
             }
 
-            if (coll.Contains(name1.LocalName, StringComparer.InvariantCultureIgnoreCase))
+            if (_predefinedNames.Contains(name1.LocalName, StringComparer.InvariantCultureIgnoreCase))
             {
                 return -1;
             }
 
-            if (coll.Contains(name2.LocalName, StringComparer.InvariantCultureIgnoreCase))
+            if (_predefinedNames.Contains(name2.LocalName, StringComparer.InvariantCultureIgnoreCase))
             {
                 return 1;
             }

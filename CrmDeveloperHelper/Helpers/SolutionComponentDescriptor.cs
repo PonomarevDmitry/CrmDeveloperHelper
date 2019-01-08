@@ -28,32 +28,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public bool WithUrls { get; set; } = false;
 
-        public bool WithSolutionsInfo { get; set; } = true;
+        public bool WithSolutionsInfo { get; set; } = false;
 
-        public bool WithManagedInfo { get; set; } = true;
+        public bool WithManagedInfo { get; set; } = false;
 
         public SolutionComponentMetadataSource MetadataSource { get; private set; }
 
-        /// <summary>
-        /// Конструктор репозитория функция по поиску решений.
-        /// </summary>
-        /// <param name="service"></param>
-        public SolutionComponentDescriptor(IOrganizationServiceExtented service, bool withUrls)
-            : this(service, withUrls, null)
-        {
-
-        }
-
-        public SolutionComponentDescriptor(IOrganizationServiceExtented service, bool withUrls, SolutionComponentMetadataSource metadataSource)
+        public SolutionComponentDescriptor(IOrganizationServiceExtented service, SolutionComponentMetadataSource metadataSource = null)
         {
             this._service = service;
-            this.WithUrls = withUrls;
             this.MetadataSource = metadataSource;
 
             if (this.MetadataSource == null)
             {
                 this.MetadataSource = new SolutionComponentMetadataSource(_service);
             }
+        }
+
+        public void SetSettings(CommonConfiguration commonConfig)
+        {
+            this.WithUrls = commonConfig.SolutionComponentWithUrl;
+            this.WithManagedInfo = commonConfig.SolutionComponentWithUrl;
+            this.WithUrls = commonConfig.SolutionComponentWithUrl;
         }
 
         public Task<string> GetSolutionComponentsDescriptionAsync(IEnumerable<SolutionComponent> components)

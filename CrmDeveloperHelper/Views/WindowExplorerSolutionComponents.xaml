@@ -48,7 +48,9 @@
         </ContextMenu>
     </src:WindowBase.Resources>
     <Grid>
-        <ToolBar Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
+        <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
+            <Button Content="Description Options" Click="miDescriptionOptions_Click"/>
+            <Separator/>
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem Header="Open Solution Component Windows" VerticalAlignment="Center">
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click" />

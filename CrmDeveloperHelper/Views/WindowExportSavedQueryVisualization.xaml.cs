@@ -39,7 +39,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private ObservableCollection<EntityViewItem> _itemsSource;
 
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-        private Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
         private Popup _optionsPopup;
 
@@ -64,7 +63,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._filterEntity = filterEntity;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
-            _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
 
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
@@ -158,30 +156,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 return _connectionCache[connectionData.ConnectionId];
-            }
-
-            return null;
-        }
-
-        private async Task<SolutionComponentDescriptor> GetDescriptor()
-        {
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
-
-            if (connectionData != null)
-            {
-                if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
-                {
-                    var service = await GetService();
-
-                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
-                }
-
-                return _descriptorCache[connectionData.ConnectionId];
             }
 
             return null;
@@ -800,13 +774,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
 
             try
             {
                 this._iWriteToOutput.ActivateOutputWindow();
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.SavedQueryVisualization, new[] { entity.Id }, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SavedQueryVisualization, new[] { entity.Id }, null, withSelect);
             }
             catch (Exception ex)
             {
@@ -853,13 +826,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _commonConfig.Save();
 
                     var service = await GetService();
-                    var descriptor = await GetDescriptor();
 
                     try
                     {
                         this._iWriteToOutput.ActivateOutputWindow();
 
-                        await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entityMetadataId.Value }, null, withSelect);
+                        await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entityMetadataId.Value }, null, withSelect);
                     }
                     catch (Exception ex)
                     {
@@ -1162,12 +1134,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
 
             WindowHelper.OpenSolutionComponentDependenciesWindow(
                 _iWriteToOutput
                 , service
-                , descriptor
+                , null
                 , _commonConfig
                 , (int)ComponentType.SavedQueryVisualization
                 , entity.Id

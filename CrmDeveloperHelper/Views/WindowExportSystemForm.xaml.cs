@@ -48,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private int _init = 0;
 
-        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
+        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.FormXml;
 
         public WindowExportSystemForm(
              IWriteToOutput iWriteToOutput
@@ -66,11 +66,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._commonConfig = commonConfig;
             this._filterEntity = filterEntity;
 
-            var descriptor = new SolutionComponentDescriptor(service, true);
-            var formDescriptor = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
-            _descriptorCache[service.ConnectionData.ConnectionId] = descriptor;
 
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
@@ -184,8 +181,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var service = await GetService();
 
-                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
+                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service);
                 }
+
+                _descriptorCache[connectionData.ConnectionId].SetSettings(_commonConfig);
 
                 return _descriptorCache[connectionData.ConnectionId];
             }

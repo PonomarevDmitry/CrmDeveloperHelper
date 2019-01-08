@@ -334,7 +334,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            var descriptor = new SolutionComponentDescriptor(service, true);
+            var descriptor = new SolutionComponentDescriptor(service);
+            descriptor.SetSettings(commonConfig);
 
             foreach (var selFile in selectedFiles)
             {
@@ -374,7 +375,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.AllDescriptions
                             , commonConfig.EntityMetadaOptionSetDependentComponents
                             , commonConfig.GenerateIntoSchemaClass
-                            , commonConfig.WithManagedInfo
+                            , commonConfig.SolutionComponentWithManagedInfo
                             , commonConfig.ConstantType
                             , commonConfig.OptionSetExportType
                             )
@@ -457,7 +458,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            var descriptor = new SolutionComponentDescriptor(service, true);
+            var descriptor = new SolutionComponentDescriptor(service);
+            descriptor.SetSettings(commonConfig);
 
             foreach (var selFile in selectedFiles)
             {
@@ -493,7 +495,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                    , commonConfig.ConstantType
                                    , commonConfig.OptionSetExportType
                                    , commonConfig.GlobalOptionSetsWithDependentComponents
-                                   , commonConfig.WithManagedInfo
+                                   , commonConfig.SolutionComponentWithManagedInfo
                                    , commonConfig.AllDescriptions
                                    ))
                         {
@@ -620,23 +622,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 string ribbonXml = await repositoryRibbon.ExportEntityRibbonAsync(entityName, Microsoft.Crm.Sdk.Messages.RibbonLocationFilters.All);
 
-                //if (commonConfig.SetIntellisenseContext)
-                //{
-                //    ribbonXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonXml, entityName);
-                //}
-
-                //if (commonConfig.SortRibbonCommnadsAndRulesById)
-                //{
-                //    ribbonXml = ContentCoparerHelper.SortRibbonCommandsAndRulesById(ribbonXml);
-                //}
-
-                //if (commonConfig.SortXmlAttributes)
-                //{
-                //    ribbonXml = ContentCoparerHelper.SortXmlAttributes(ribbonXml);
-                //}
-
-                //ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, commonConfig.ExportXmlAttributeOnNewLine);
-
                 ribbonXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonXml, commonConfig, XmlOptionsControls.RibbonFull
                    , ribbonEntityName: entityName ?? string.Empty
                    );
@@ -652,23 +637,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             else
             {
                 string ribbonXml = await repositoryRibbon.ExportApplicationRibbonAsync();
-
-                //if (commonConfig.SetIntellisenseContext)
-                //{
-                //    ribbonXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonXml, string.Empty);
-                //}
-
-                //if (commonConfig.SortRibbonCommnadsAndRulesById)
-                //{
-                //    ribbonXml = ContentCoparerHelper.SortRibbonCommandsAndRulesById(ribbonXml);
-                //}
-
-                //if (commonConfig.SortXmlAttributes)
-                //{
-                //    ribbonXml = ContentCoparerHelper.SortXmlAttributes(ribbonXml);
-                //}
-
-                //ribbonXml = ContentCoparerHelper.FormatXml(ribbonXml, commonConfig.ExportXmlAttributeOnNewLine);
 
                 ribbonXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonXml, commonConfig, XmlOptionsControls.RibbonFull
                    , ribbonEntityName: entityName ?? string.Empty
@@ -784,33 +752,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileTitle2 = string.Empty;
 
             string ribbonDiffXml = await repositoryRibbonCustomization.GetRibbonDiffXmlAsync(_iWriteToOutput, entityMetadata, ribbonCustomization);
-
-            //if (commonConfig.SetXmlSchemasDuringExport)
-            //{
-            //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
-
-            //    if (schemasResources != null)
-            //    {
-            //        ribbonDiffXml = ContentCoparerHelper.SetXsdSchema(ribbonDiffXml, schemasResources);
-            //    }
-            //}
-
-            //if (commonConfig.SetIntellisenseContext)
-            //{
-            //    ribbonDiffXml = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(ribbonDiffXml, entityMetadata.LogicalName);
-            //}
-
-            //if (commonConfig.SortRibbonCommnadsAndRulesById)
-            //{
-            //    ribbonDiffXml = ContentCoparerHelper.SortRibbonCommandsAndRulesById(ribbonDiffXml);
-            //}
-
-            //if (commonConfig.SortXmlAttributes)
-            //{
-            //    ribbonDiffXml = ContentCoparerHelper.SortXmlAttributes(ribbonDiffXml);
-            //}
-
-            //ribbonDiffXml = ContentCoparerHelper.FormatXml(ribbonDiffXml, commonConfig.ExportXmlAttributeOnNewLine);
 
             ribbonDiffXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonDiffXml, commonConfig, XmlOptionsControls.RibbonFull
                 , schemaName: CommonExportXsdSchemasCommand.SchemaRibbonXml

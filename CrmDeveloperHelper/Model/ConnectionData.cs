@@ -1997,72 +1997,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             LoadFromDisk(diskData);
         }
 
-        private static readonly string[] _propertiesToCopy =
-        {
-            nameof(IsReadOnly)
-            , nameof(Name)
-            , nameof(GroupName)
-            , nameof(DiscoveryUrl)
-            , nameof(UniqueOrgName)
-            , nameof(OrganizationUrl)
-            , nameof(PublicUrl)
-            , nameof(OrganizationVersion)
-            , nameof(FriendlyName)
-            , nameof(OrganizationId)
-            , nameof(OrganizationState)
-            , nameof(UrlName)
-            , nameof(DefaultLanguage)
-            , nameof(InstalledLanguagePacks)
-            , nameof(BaseCurrency)
-            , nameof(NameSpaceClasses)
-            , nameof(NameSpaceOptionSets)
-            , nameof(ServiceContextName)
-            , nameof(InteractiveLogin)
-            , nameof(GenerateActions)
-            , nameof(SelectedCrmSvcUtil)
-            , nameof(SelectSolutionFilter)
-            , nameof(ExplorerSolutionFilter)
-            , nameof(ExportSolutionFolder)
-            , nameof(ExportSolutionIsOverrideSolutionNameAndVersion)
-            , nameof(ExportSolutionIsOverrideSolutionDescription)
-            , nameof(ExportSolutionIsCreateFolderForVersion)
-            , nameof(ExportSolutionIsCopyFileToClipBoard)
-            , nameof(ExportSolutionOverrideUniqueName)
-            , nameof(ExportSolutionOverrideDisplayName)
-            , nameof(ExportSolutionOverrideVersion)
-            , nameof(ExportSolutionOverrideDescription)
-            , nameof(ExportSolutionManaged)
-            , nameof(TraceReaderFilter)
-            , nameof(TraceReaderFolder)
-            , nameof(UserId)
-            , nameof(OrganizationInformationExpirationDate)
-        };
-
         private void LoadFromDisk(ConnectionData diskData)
         {
-            foreach (var name in _propertiesToCopy)
-            {
-                PropertyInfo propertyInfo = typeof(ConnectionData).GetProperty(name);
-
-                if (!propertyInfo.CanRead || !propertyInfo.CanWrite)
-                {
-                    continue;
-                }
-
-                if (propertyInfo.GetSetMethod(true) != null
-                    && propertyInfo.GetSetMethod(true).IsPrivate
-                    )
-                {
-                    continue;
-                }
-
-                if ((propertyInfo.GetSetMethod().Attributes & MethodAttributes.Static) != 0)
-                {
-                    continue;
-                }
-
-                propertyInfo.SetValue(this, propertyInfo.GetValue(diskData, null), null);
-            }
+            this.IsReadOnly = diskData.IsReadOnly;
+            this.Name = diskData.Name;
+            this.GroupName = diskData.GroupName;
+            this.DiscoveryUrl = diskData.DiscoveryUrl;
+            this.UniqueOrgName = diskData.UniqueOrgName;
+            this.OrganizationUrl = diskData.OrganizationUrl;
+            this.PublicUrl = diskData.PublicUrl;
+            this.OrganizationVersion = diskData.OrganizationVersion;
+            this.FriendlyName = diskData.FriendlyName;
+            this.OrganizationId = diskData.OrganizationId;
+            this.OrganizationState = diskData.OrganizationState;
+            this.UrlName = diskData.UrlName;
+            this.DefaultLanguage = diskData.DefaultLanguage;
+            this.InstalledLanguagePacks = diskData.InstalledLanguagePacks;
+            this.BaseCurrency = diskData.BaseCurrency;
+            this.NameSpaceClasses = diskData.NameSpaceClasses;
+            this.NameSpaceOptionSets = diskData.NameSpaceOptionSets;
+            this.ServiceContextName = diskData.ServiceContextName;
+            this.InteractiveLogin = diskData.InteractiveLogin;
+            this.GenerateActions = diskData.GenerateActions;
+            this.SelectedCrmSvcUtil = diskData.SelectedCrmSvcUtil;
+            this.SelectSolutionFilter = diskData.SelectSolutionFilter;
+            this.ExplorerSolutionFilter = diskData.ExplorerSolutionFilter;
+            this.ExportSolutionFolder = diskData.ExportSolutionFolder;
+            this.ExportSolutionIsOverrideSolutionNameAndVersion = diskData.ExportSolutionIsOverrideSolutionNameAndVersion;
+            this.ExportSolutionIsOverrideSolutionDescription = diskData.ExportSolutionIsOverrideSolutionDescription;
+            this.ExportSolutionIsCreateFolderForVersion = diskData.ExportSolutionIsCreateFolderForVersion;
+            this.ExportSolutionIsCopyFileToClipBoard = diskData.ExportSolutionIsCopyFileToClipBoard;
+            this.ExportSolutionOverrideUniqueName = diskData.ExportSolutionOverrideUniqueName;
+            this.ExportSolutionOverrideDisplayName = diskData.ExportSolutionOverrideDisplayName;
+            this.ExportSolutionOverrideVersion = diskData.ExportSolutionOverrideVersion;
+            this.ExportSolutionOverrideDescription = diskData.ExportSolutionOverrideDescription;
+            this.ExportSolutionManaged = diskData.ExportSolutionManaged;
+            this.TraceReaderFilter = diskData.TraceReaderFilter;
+            this.TraceReaderFolder = diskData.TraceReaderFolder;
+            this.UserId = diskData.UserId;
+            this.OrganizationInformationExpirationDate = diskData.OrganizationInformationExpirationDate;
 
             this.Mappings.Clear();
             this.Mappings.AddRange(diskData.Mappings);

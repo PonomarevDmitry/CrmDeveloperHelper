@@ -702,8 +702,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         var step2 = grSteps2.FirstOrDefault(
                             i => i.Rank == step1.Rank
-                            && i.StateCode.Value == step1.StateCode.Value
-                            && i.StatusCode.Value == step1.StatusCode.Value
+                            //&& i.StateCode.Value == step1.StateCode.Value
+                            //&& i.StatusCode.Value == step1.StatusCode.Value
                             && i.FilteringAttributesStrings.SequenceEqual(step1.FilteringAttributesStrings)
                             //&& string.Equals(i.FilteringAttributes, step1.FilteringAttributes)
                             && string.Equals(i.Configuration, step1.Configuration)
@@ -717,15 +717,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             tableDifference.AddLine("Rank", step1.Rank.ToString(), step2.Rank.ToString());
                         }
 
-                        if (step1.StateCode.Value != step2.StateCode.Value)
-                        {
-                            tableDifference.AddLine("StateCode", step1.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statecode], step2.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statecode]);
-                        }
+                        //if (step1.StateCode.Value != step2.StateCode.Value)
+                        //{
+                        //    tableDifference.AddLine("StateCode", step1.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statecode], step2.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statecode]);
+                        //}
 
-                        if (step1.StatusCode.Value != step2.StatusCode.Value)
-                        {
-                            tableDifference.AddLine("StatusCode", step1.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode], step2.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]);
-                        }
+                        //if (step1.StatusCode.Value != step2.StatusCode.Value)
+                        //{
+                        //    tableDifference.AddLine("StatusCode", step1.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode], step2.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]);
+                        //}
 
                         if (!step1.FilteringAttributesStrings.SequenceEqual(step2.FilteringAttributesStrings))
                         {
@@ -935,8 +935,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 else if (
                     x.Rank == y.Rank
-                    && x.StateCode.Value == y.StateCode.Value
-                    && x.StatusCode.Value == y.StatusCode.Value
+                    //&& x.StateCode.Value == y.StateCode.Value
+                    //&& x.StatusCode.Value == y.StatusCode.Value
                     && string.Equals(x.Configuration ?? string.Empty, y.Configuration ?? string.Empty, StringComparison.InvariantCultureIgnoreCase)
                     && string.Equals(x.FilteringAttributesStringsSorted ?? string.Empty, y.FilteringAttributesStringsSorted ?? string.Empty, StringComparison.InvariantCultureIgnoreCase)
                     )
@@ -952,8 +952,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             public int GetHashCode(SdkMessageProcessingStep obj)
             {
                 int result = obj.Rank.GetHashCode()
-                    ^ obj.StateCode.Value.GetHashCode()
-                    ^ obj.StatusCode.Value.GetHashCode()
+                    //^ obj.StateCode.Value.GetHashCode()
+                    //^ obj.StatusCode.Value.GetHashCode()
                     ^ StringComparer.InvariantCultureIgnoreCase.GetHashCode(obj.Configuration ?? string.Empty)
                     ^ StringComparer.InvariantCultureIgnoreCase.GetHashCode(obj.FilteringAttributesStringsSorted ?? string.Empty)
                     ;
@@ -1125,7 +1125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     Line = new string[]
                     {
-                         step1.EventHandler?.Name ?? "Unknown"
+                        step1.EventHandler?.Name ?? "Unknown"
                         , step1.PrimaryObjectTypeCodeName
                         , step1.SecondaryObjectTypeCodeName
                         , step1.SdkMessageId?.Name ?? "Unknown"
@@ -1256,8 +1256,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         //, SdkMessageProcessingStep.Schema.Attributes.sdkmessageprocessingstepsecureconfigid
                         //, SdkMessageProcessingStep.Schema.Attributes.solutionid
                         , SdkMessageProcessingStep.Schema.Attributes.stage
-                        , SdkMessageProcessingStep.Schema.Attributes.statecode
-                        , SdkMessageProcessingStep.Schema.Attributes.statuscode
+                        //, SdkMessageProcessingStep.Schema.Attributes.statecode
+                        //, SdkMessageProcessingStep.Schema.Attributes.statuscode
                         , SdkMessageProcessingStep.Schema.Attributes.supporteddeployment
                         //, SdkMessageProcessingStep.Schema.Attributes.supportingsolutionid
                         //, SdkMessageProcessingStep.Schema.Attributes.versionnumber

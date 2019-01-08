@@ -6,6 +6,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,6 +18,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -32,6 +34,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly SolutionComponentConverter _converter;
 
         private readonly CommonConfiguration _commonConfig;
+
+        private Popup _optionsPopup;
+
+        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.SolutionComponentSettings;
 
         private Solution _solution;
 
@@ -65,10 +71,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (this._descriptor == null)
             {
-                this._descriptor = new SolutionComponentDescriptor(_service, true);
+                this._descriptor = new SolutionComponentDescriptor(_service);
             }
 
             this._converter = new SolutionComponentConverter(this._descriptor);
+
+            {
+                var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+                child.CloseClicked += Child_CloseClicked;
+                this._optionsPopup = new Popup
+                {
+                    Child = child,
+
+                    PlacementTarget = toolBarHeader,
+                    Placement = PlacementMode.Bottom,
+                    StaysOpen = false,
+                    Focusable = true,
+                };
+            }
 
             this.tSSLblConnectionName.Content = _service.ConnectionData.Name;
 
@@ -2192,6 +2212,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             return WindowHelper.IsDefinedExplorer((ComponentType)componentType);
+        }
+
+        private void miDescriptionOptions_Click(object sender, RoutedEventArgs e)
+        {
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+            }
+
+            this.Focus();
         }
     }
 }

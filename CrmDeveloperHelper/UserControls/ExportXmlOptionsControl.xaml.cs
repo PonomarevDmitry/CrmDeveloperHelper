@@ -20,13 +20,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             LoadFromConfig();
 
-            grBRibbon.Visibility = (controls & XmlOptionsControls.RibbonFilters) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-            chBXmlAttributeOnNewLine.Visibility = (controls & XmlOptionsControls.XmlAttributeOnNewLine) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-            chBSetXmlSchemas.Visibility = (controls & XmlOptionsControls.SetXmlSchemas) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-            chBSetIntellisenseContext.Visibility = (controls & XmlOptionsControls.SetIntellisenseContext) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            grBRibbon.Visibility = GetVisibilityForAttribute(controls, XmlOptionsControls.RibbonFilters);
 
-            chBSortRibbonCommnadsAndRulesById.Visibility = (controls & XmlOptionsControls.SortRibbonCommnadsAndRulesById) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-            chBSortXmlAttributes.Visibility = (controls & XmlOptionsControls.SortXmlAttributes) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            chBSortRibbonCommnadsAndRulesById.Visibility = GetVisibilityForAttribute(controls, XmlOptionsControls.SortRibbonCommandsAndRulesById);
+            chBSortFormXmlElements.Visibility = GetVisibilityForAttribute(controls, XmlOptionsControls.SortFormXmlElements);
+            chBSortXmlAttributes.Visibility = GetVisibilityForAttribute(controls, XmlOptionsControls.SortXmlAttributes);
+
+            chBXmlAttributeOnNewLine.Visibility = GetVisibilityForAttribute(controls, XmlOptionsControls.XmlAttributeOnNewLine);
+            chBSetXmlSchemas.Visibility = GetVisibilityForAttribute(controls, XmlOptionsControls.SetXmlSchemas);
+            chBSetIntellisenseContext.Visibility = GetVisibilityForAttribute(controls, XmlOptionsControls.SetIntellisenseContext);
+
+            chBSolutionComponentWithManagedInfo.Visibility = GetVisibilityForAttribute(controls, XmlOptionsControls.SolutionComponentWithManagedInfo);
+            chBSolutionComponentWithSolutionInfo.Visibility = GetVisibilityForAttribute(controls, XmlOptionsControls.SolutionComponentWithSolutionInfo);
+            chBSolutionComponentWithUrl.Visibility = GetVisibilityForAttribute(controls, XmlOptionsControls.SolutionComponentWithUrl);
+        }
+
+        private static System.Windows.Visibility GetVisibilityForAttribute(XmlOptionsControls controls, XmlOptionsControls attribute)
+        {
+            return (controls & attribute) != 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
         }
 
         private void LoadFromConfig()
@@ -36,13 +47,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             chBSubGrid.DataContext = _commonConfig;
 
             chBSortRibbonCommnadsAndRulesById.DataContext = _commonConfig;
+            chBSortFormXmlElements.DataContext = _commonConfig;
             chBSortXmlAttributes.DataContext = _commonConfig;
 
             chBXmlAttributeOnNewLine.DataContext = _commonConfig;
-
             chBSetXmlSchemas.DataContext = _commonConfig;
-
             chBSetIntellisenseContext.DataContext = _commonConfig;
+
+            chBSolutionComponentWithManagedInfo.DataContext = _commonConfig;
+            chBSolutionComponentWithSolutionInfo.DataContext = _commonConfig;
+            chBSolutionComponentWithUrl.DataContext = _commonConfig;
         }
 
         public event EventHandler<EventArgs> CloseClicked;

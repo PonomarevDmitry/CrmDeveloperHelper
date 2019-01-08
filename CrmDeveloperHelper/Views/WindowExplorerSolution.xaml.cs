@@ -38,7 +38,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private bool _controlsEnabled = true;
 
         private Popup _optionsPopup;
+
+        private Popup _optionsSolutionPopup;
         private ExportSolutionOptionsControl _optionsExportSolutionOptionsControl;
+
+        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.SolutionComponentSettings;
 
         private ObservableCollection<EntityViewItem> _itemsSource;
 
@@ -68,10 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._objectId = objectId;
             this._componentType = componentType;
 
-            var descriptor = new SolutionComponentDescriptor(service, true);
-
             _connectionCache[service.ConnectionData.ConnectionId] = service;
-            _descriptorCache[service.ConnectionData.ConnectionId] = descriptor;
 
             InitializeComponent();
 
@@ -79,7 +80,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._optionsExportSolutionOptionsControl = new ExportSolutionOptionsControl(_commonConfig, cmBCurrentConnection);
             this._optionsExportSolutionOptionsControl.CloseClicked += Child_CloseClicked;
-            this._optionsPopup = new Popup
+            this._optionsSolutionPopup = new Popup
             {
                 Child = this._optionsExportSolutionOptionsControl,
 
@@ -88,6 +89,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 StaysOpen = false,
                 Focusable = true,
             };
+
+            {
+                var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+                child.CloseClicked += Child_CloseClicked;
+                this._optionsPopup = new Popup
+                {
+                    Child = child,
+
+                    PlacementTarget = toolBarHeader,
+                    Placement = PlacementMode.Bottom,
+                    StaysOpen = false,
+                    Focusable = true,
+                };
+            }
 
             LoadFromConfig();
 
@@ -253,8 +268,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var service = await GetService();
 
-                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
+                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service);
                 }
+
+                _descriptorCache[connectionData.ConnectionId].SetSettings(_commonConfig);
 
                 return _descriptorCache[connectionData.ConnectionId];
             }
@@ -1922,6 +1939,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
                     )
                 {
+                    if (_optionsSolutionPopup.IsOpen)
+                    {
+                        _optionsSolutionPopup.IsOpen = false;
+                        e.Handled = true;
+                    }
+
                     if (_optionsPopup.IsOpen)
                     {
                         _optionsPopup.IsOpen = false;
@@ -2290,17 +2313,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void miExportSolutionOptions_Click(object sender, RoutedEventArgs e)
         {
+            this._optionsSolutionPopup.IsOpen = true;
+            this._optionsSolutionPopup.Child.Focus();
+        }
+
+        private void miDescriptionOptions_Click(object sender, RoutedEventArgs e)
+        {
             this._optionsPopup.IsOpen = true;
             this._optionsPopup.Child.Focus();
         }
 
         private void Child_CloseClicked(object sender, EventArgs e)
         {
+            if (_optionsSolutionPopup.IsOpen)
+            {
+                _optionsSolutionPopup.IsOpen = false;
+            }
+
             if (_optionsPopup.IsOpen)
             {
                 _optionsPopup.IsOpen = false;
-                this.Focus();
             }
+
+            this.Focus();
         }
 
         #region Кнопки открытия других форм с информация о сущности.

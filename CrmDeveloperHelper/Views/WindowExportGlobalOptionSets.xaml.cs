@@ -464,7 +464,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 bool withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
                 bool allDescriptions = _commonConfig.AllDescriptions;
-                bool withManagedInfo = _commonConfig.WithManagedInfo;
+                bool withManagedInfo = _commonConfig.SolutionComponentWithManagedInfo;
 
                 string filePath = null;
 

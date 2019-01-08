@@ -188,8 +188,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var service = await GetService();
 
-                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
+                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service);
                 }
+
+                _descriptorCache[connectionData.ConnectionId].SetSettings(_commonConfig);
 
                 return _descriptorCache[connectionData.ConnectionId];
             }

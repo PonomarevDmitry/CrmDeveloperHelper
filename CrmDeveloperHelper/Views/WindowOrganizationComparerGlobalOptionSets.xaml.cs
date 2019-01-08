@@ -452,7 +452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
                     var allDescriptions = _commonConfig.AllDescriptions;
-                    var withManagedInfo = _commonConfig.WithManagedInfo;
+                    var withManagedInfo = _commonConfig.SolutionComponentWithManagedInfo;
 
                     service1.ConnectionData.NameSpaceOptionSets = nameSpace1;
                     service2.ConnectionData.NameSpaceOptionSets = nameSpace2;
@@ -722,7 +722,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
                 var allDescriptions = _commonConfig.AllDescriptions;
-                var withManagedInfo = _commonConfig.WithManagedInfo;
+                var withManagedInfo = _commonConfig.SolutionComponentWithManagedInfo;
 
                 var service = await getService();
 

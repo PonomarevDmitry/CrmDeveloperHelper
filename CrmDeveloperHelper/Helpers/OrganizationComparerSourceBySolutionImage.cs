@@ -38,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<IEnumerable<Role>> GetRoles(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<List<Workflow>> GetWorkflows(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents, ColumnSet columnSet)
         {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -90,7 +90,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<List<WebResource>> GetWebResources(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -116,7 +116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<List<ConnectionRole>> GetConnectionRoles(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -142,7 +142,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<List<ContractTemplate>> GetContractTemplates(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -168,7 +168,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<List<KbArticleTemplate>> GetKbArticleTemplate(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -194,7 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<List<MailMergeTemplate>> GetMailMergeTemplate(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -220,7 +220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<List<Template>> GetTemplate(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -236,7 +236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             List<DisplayString> result = new List<DisplayString>();
 
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
             var repository = new DisplayStringRepository(service);
 
             var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.DisplayString);
@@ -302,7 +302,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<List<FieldSecurityProfile>> GetFieldSecurityProfile(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -318,7 +318,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             List<EntityMap> result = new List<EntityMap>();
 
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
             var repository = new EntityMapRepository(service);
 
             var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.EntityMap);
@@ -384,7 +384,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<List<PluginAssembly>> GetPluginAssembly(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -410,7 +410,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<List<PluginType>> GetPluginType(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -436,7 +436,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<List<Report>> GetReport(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -462,7 +462,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<List<SdkMessageProcessingStep>> GetSdkMessageProcessingStep(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -488,7 +488,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<List<SiteMap>> GetSiteMap(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -504,7 +504,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             List<SavedQuery> result = new List<SavedQuery>();
 
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
             var repository = new SavedQueryRepository(service);
 
             var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.SavedQuery);
@@ -560,7 +560,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             List<SavedQueryVisualization> result = new List<SavedQueryVisualization>();
 
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
             var repository = new SavedQueryVisualizationRepository(service);
 
             var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.SavedQueryVisualization);
@@ -616,7 +616,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             List<SystemForm> result = new List<SystemForm>();
 
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
             var repository = new SystemFormRepository(service);
 
             var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.SystemForm);
@@ -682,7 +682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<List<OptionSetMetadata>> GetOptionSet(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
-            var descriptor = new SolutionComponentDescriptor(service, false);
+            var descriptor = new SolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -707,7 +707,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(null, null);
 
-            var descriptor = new SolutionComponentDescriptor(this.Service1, false);
+            var descriptor = new SolutionComponentDescriptor(this.Service1);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 
@@ -767,7 +767,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await InitializeConnection(null, null);
 
-            var descriptor = new SolutionComponentDescriptor(this.Service2, false);
+            var descriptor = new SolutionComponentDescriptor(this.Service2);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
 

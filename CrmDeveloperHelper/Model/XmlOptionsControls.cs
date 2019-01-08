@@ -15,14 +15,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         RibbonFilters = 8,
 
-        SortRibbonCommnadsAndRulesById = 16,
+        SortXmlAttributes = 16,
 
-        SortXmlAttributes = 32,
+        SortRibbonCommandsAndRulesById = 32,
+
+        SortFormXmlElements = 64,
+
+        SolutionComponentWithManagedInfo = 128,
+
+        SolutionComponentWithSolutionInfo = 256,
+
+        SolutionComponentWithUrl = 512,
 
         XmlSimple = SetIntellisenseContext | SetXmlSchemas,
 
         XmlFull = SetIntellisenseContext | SetXmlSchemas | XmlAttributeOnNewLine | SortXmlAttributes,
 
-        RibbonFull = RibbonFilters | SetIntellisenseContext | SetXmlSchemas | XmlAttributeOnNewLine | SortRibbonCommnadsAndRulesById | SortXmlAttributes,
+        FormXml = XmlFull | SortFormXmlElements,
+
+        RibbonFull = RibbonFilters | SetIntellisenseContext | SetXmlSchemas | XmlAttributeOnNewLine | SortRibbonCommandsAndRulesById | SortXmlAttributes,
+
+        SolutionComponentSettings = SolutionComponentWithManagedInfo | SolutionComponentWithSolutionInfo | SolutionComponentWithUrl,
     }
 }

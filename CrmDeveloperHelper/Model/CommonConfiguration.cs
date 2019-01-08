@@ -366,19 +366,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _WithManagedInfo;
-        [DataMember]
-        public bool WithManagedInfo
-        {
-            get => _WithManagedInfo;
-            set
-            {
-                this.OnPropertyChanging(nameof(WithManagedInfo));
-                this._WithManagedInfo = value;
-                this.OnPropertyChanged(nameof(WithManagedInfo));
-            }
-        }
-
         private bool _AllDescriptions;
         /// <summary>
         /// Генерировать все описания (description) или только первое по приоритету в файле с метаданными сущности
@@ -813,16 +800,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _SortRibbonCommnadsAndRulesById = false;
+        private bool _SortRibbonCommandsAndRulesById = false;
         [DataMember]
-        public bool SortRibbonCommnadsAndRulesById
+        public bool SortRibbonCommandsAndRulesById
         {
-            get => _SortRibbonCommnadsAndRulesById;
+            get => _SortRibbonCommandsAndRulesById;
             set
             {
-                this.OnPropertyChanging(nameof(SortRibbonCommnadsAndRulesById));
-                this._SortRibbonCommnadsAndRulesById = value;
-                this.OnPropertyChanged(nameof(SortRibbonCommnadsAndRulesById));
+                this.OnPropertyChanging(nameof(SortRibbonCommandsAndRulesById));
+                this._SortRibbonCommandsAndRulesById = value;
+                this.OnPropertyChanged(nameof(SortRibbonCommandsAndRulesById));
+            }
+        }
+
+        private bool _SortFormXmlElements = false;
+        [DataMember]
+        public bool SortFormXmlElements
+        {
+            get => _SortFormXmlElements;
+            set
+            {
+                this.OnPropertyChanging(nameof(SortFormXmlElements));
+                this._SortFormXmlElements = value;
+                this.OnPropertyChanged(nameof(SortFormXmlElements));
             }
         }
 
@@ -836,6 +836,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.OnPropertyChanging(nameof(SortXmlAttributes));
                 this._SortXmlAttributes = value;
                 this.OnPropertyChanged(nameof(SortXmlAttributes));
+            }
+        }
+
+        private bool _SolutionComponentWithUrl = false;
+        [DataMember]
+        public bool SolutionComponentWithUrl
+        {
+            get => _SolutionComponentWithUrl;
+            set
+            {
+                this.OnPropertyChanging(nameof(SolutionComponentWithUrl));
+                this._SolutionComponentWithUrl = value;
+                this.OnPropertyChanged(nameof(SolutionComponentWithUrl));
+            }
+        }
+
+        private bool _SolutionComponentWithSolutionInfo = true;
+        [DataMember]
+        public bool SolutionComponentWithSolutionInfo
+        {
+            get => _SolutionComponentWithSolutionInfo;
+            set
+            {
+                this.OnPropertyChanging(nameof(SolutionComponentWithSolutionInfo));
+                this._SolutionComponentWithSolutionInfo = value;
+                this.OnPropertyChanged(nameof(SolutionComponentWithSolutionInfo));
+            }
+        }
+
+        private bool _SolutionComponentWithManagedInfo = true;
+        [DataMember]
+        public bool SolutionComponentWithManagedInfo
+        {
+            get => _SolutionComponentWithManagedInfo;
+            set
+            {
+                this.OnPropertyChanging(nameof(SolutionComponentWithManagedInfo));
+                this._SolutionComponentWithManagedInfo = value;
+                this.OnPropertyChanged(nameof(SolutionComponentWithManagedInfo));
             }
         }
 
@@ -980,84 +1019,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             LoadFromDisk(diskData);
         }
 
-        private static readonly string[] _propertiesToCopy =
-        {
-            nameof(FolderForExport)
-            , nameof(DoNotPropmPublishMessage)
-            , nameof(ClearOutputWindowBeforeCRMOperation)
-            , nameof(CompareProgram)
-            , nameof(TextEditorProgram)
-            , nameof(CompareArgumentsFormat)
-            , nameof(CompareArgumentsThreeWayFormat)
-            , nameof(ExportRibbonXmlForm)
-            , nameof(ExportRibbonXmlHomepageGrid)
-            , nameof(ExportRibbonXmlSubGrid)
-            , nameof(ExportXmlAttributeOnNewLine)
-            , nameof(GenerateAttributes)
-            , nameof(GenerateManyToOne)
-            , nameof(GenerateOneToMany)
-            , nameof(GenerateManyToMany)
-            , nameof(GenerateLocalOptionSet)
-            , nameof(GenerateGlobalOptionSet)
-            , nameof(GenerateStatus)
-            , nameof(GenerateKeys)
-            , nameof(GenerateIntoSchemaClass)
-            , nameof(WithManagedInfo)
-            , nameof(AllDescriptions)
-            , nameof(EntityMetadaOptionSetDependentComponents)
-            , nameof(AllDependentComponentsForAttributes)
-            , nameof(FormsEventsOnlyWithFormLibraries)
-            , nameof(GlobalOptionSetsWithDependentComponents)
-            , nameof(DefaultFileAction)
-            , nameof(ComponentsGroupBy)
-            , nameof(SpaceCount)
-            , nameof(IndentType)
-            , nameof(ConstantType)
-            , nameof(OptionSetExportType)
-            , nameof(PluginConfigurationFileName)
-            , nameof(FormsEventsFileName)
-            , nameof(ExportSolutionExportAutoNumberingSettings)
-            , nameof(ExportSolutionExportCalendarSettings)
-            , nameof(ExportSolutionExportCustomizationSettings)
-            , nameof(ExportSolutionExportEmailTrackingSettings)
-            , nameof(ExportSolutionExportExternalApplications)
-            , nameof(ExportSolutionExportGeneralSettings)
-            , nameof(ExportSolutionExportIsvConfig)
-            , nameof(ExportSolutionExportMarketingSettings)
-            , nameof(ExportSolutionExportOutlookSynchronizationSettings)
-            , nameof(ExportSolutionExportRelationshipRoles)
-            , nameof(ExportSolutionExportSales)
-            , nameof(SetXmlSchemasDuringExport)
-            , nameof(SetIntellisenseContext)
-            , nameof(SortRibbonCommnadsAndRulesById)
-            , nameof(SortXmlAttributes)
-        };
-
         private void LoadFromDisk(CommonConfiguration diskData)
         {
-            foreach (var name in _propertiesToCopy)
-            {
-                PropertyInfo propertyInfo = typeof(CommonConfiguration).GetProperty(name);
+            this.FolderForExport = diskData.FolderForExport;
+            this.DoNotPropmPublishMessage = diskData.DoNotPropmPublishMessage;
+            this.ClearOutputWindowBeforeCRMOperation = diskData.ClearOutputWindowBeforeCRMOperation;
+            this.CompareProgram = diskData.CompareProgram;
+            this.TextEditorProgram = diskData.TextEditorProgram;
+            this.CompareArgumentsFormat = diskData.CompareArgumentsFormat;
+            this.CompareArgumentsThreeWayFormat = diskData.CompareArgumentsThreeWayFormat;
+            this.ExportRibbonXmlForm = diskData.ExportRibbonXmlForm;
+            this.ExportRibbonXmlHomepageGrid = diskData.ExportRibbonXmlHomepageGrid;
+            this.ExportRibbonXmlSubGrid = diskData.ExportRibbonXmlSubGrid;
+            this.ExportXmlAttributeOnNewLine = diskData.ExportXmlAttributeOnNewLine;
+            this.GenerateAttributes = diskData.GenerateAttributes;
+            this.GenerateManyToOne = diskData.GenerateManyToOne;
+            this.GenerateOneToMany = diskData.GenerateOneToMany;
+            this.GenerateManyToMany = diskData.GenerateManyToMany;
+            this.GenerateLocalOptionSet = diskData.GenerateLocalOptionSet;
+            this.GenerateGlobalOptionSet = diskData.GenerateGlobalOptionSet;
+            this.GenerateStatus = diskData.GenerateStatus;
+            this.GenerateKeys = diskData.GenerateKeys;
+            this.GenerateIntoSchemaClass = diskData.GenerateIntoSchemaClass;
+            this.AllDescriptions = diskData.AllDescriptions;
+            this.EntityMetadaOptionSetDependentComponents = diskData.EntityMetadaOptionSetDependentComponents;
+            this.AllDependentComponentsForAttributes = diskData.AllDependentComponentsForAttributes;
+            this.FormsEventsOnlyWithFormLibraries = diskData.FormsEventsOnlyWithFormLibraries;
+            this.GlobalOptionSetsWithDependentComponents = diskData.GlobalOptionSetsWithDependentComponents;
+            this.DefaultFileAction = diskData.DefaultFileAction;
+            this.ComponentsGroupBy = diskData.ComponentsGroupBy;
+            this.SpaceCount = diskData.SpaceCount;
+            this.IndentType = diskData.IndentType;
+            this.ConstantType = diskData.ConstantType;
+            this.OptionSetExportType = diskData.OptionSetExportType;
+            this.PluginConfigurationFileName = diskData.PluginConfigurationFileName;
+            this.FormsEventsFileName = diskData.FormsEventsFileName;
+            this.ExportSolutionExportAutoNumberingSettings = diskData.ExportSolutionExportAutoNumberingSettings;
+            this.ExportSolutionExportCalendarSettings = diskData.ExportSolutionExportCalendarSettings;
+            this.ExportSolutionExportCustomizationSettings = diskData.ExportSolutionExportCustomizationSettings;
+            this.ExportSolutionExportEmailTrackingSettings = diskData.ExportSolutionExportEmailTrackingSettings;
+            this.ExportSolutionExportExternalApplications = diskData.ExportSolutionExportExternalApplications;
+            this.ExportSolutionExportGeneralSettings = diskData.ExportSolutionExportGeneralSettings;
+            this.ExportSolutionExportIsvConfig = diskData.ExportSolutionExportIsvConfig;
+            this.ExportSolutionExportMarketingSettings = diskData.ExportSolutionExportMarketingSettings;
+            this.ExportSolutionExportOutlookSynchronizationSettings = diskData.ExportSolutionExportOutlookSynchronizationSettings;
+            this.ExportSolutionExportRelationshipRoles = diskData.ExportSolutionExportRelationshipRoles;
+            this.ExportSolutionExportSales = diskData.ExportSolutionExportSales;
+            this.SetXmlSchemasDuringExport = diskData.SetXmlSchemasDuringExport;
+            this.SetIntellisenseContext = diskData.SetIntellisenseContext;
+            this.SortRibbonCommandsAndRulesById = diskData.SortRibbonCommandsAndRulesById;
+            this.SortXmlAttributes = diskData.SortXmlAttributes;
 
-                if (!propertyInfo.CanRead || !propertyInfo.CanWrite)
-                {
-                    continue;
-                }
-
-                if (propertyInfo.GetSetMethod(true) != null
-                    && propertyInfo.GetSetMethod(true).IsPrivate
-                    )
-                {
-                    continue;
-                }
-
-                if ((propertyInfo.GetSetMethod().Attributes & MethodAttributes.Static) != 0)
-                {
-                    continue;
-                }
-
-                propertyInfo.SetValue(this, propertyInfo.GetValue(diskData, null), null);
-            }
+            this.SolutionComponentWithManagedInfo = diskData.SolutionComponentWithManagedInfo;
+            this.SolutionComponentWithSolutionInfo = diskData.SolutionComponentWithSolutionInfo;
+            this.SolutionComponentWithUrl = diskData.SolutionComponentWithUrl;
 
             this.Utils.Clear();
             foreach (var item in diskData.Utils)

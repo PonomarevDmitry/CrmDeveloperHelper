@@ -360,8 +360,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 RemoveEmptyXMLText(doc);
-                SortAttributesInternal(doc);
+                SortXmlAttributesInternal(doc);
                 SortRibbonCommandsAndRulesByIdInternal(doc);
+                SortFormXmlElementsInternal(doc);
 
                 if (actions != null)
                 {
@@ -442,11 +443,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 RemoveEmptyXMLText(doc1);
                 RemoveEmptyXMLText(doc2);
 
-                SortAttributesInternal(doc1);
-                SortAttributesInternal(doc2);
+                SortXmlAttributesInternal(doc1);
+                SortXmlAttributesInternal(doc2);
 
                 SortRibbonCommandsAndRulesByIdInternal(doc1);
                 SortRibbonCommandsAndRulesByIdInternal(doc2);
+
+                SortFormXmlElementsInternal(doc1);
+                SortFormXmlElementsInternal(doc2);
 
                 if (action != null)
                 {
@@ -656,19 +660,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public static string SortXmlAttributes(string xml)
+        private static readonly List<string> _predefinedAttributeOrder = new List<string>()
         {
-            if (!TryParseXml(xml, out XElement doc))
-            {
-                return xml;
-            }
+            "Id"
+            , "GroupId"
+            , "Name"
+            , "Entity"
+            , "Command"
+            , "Sequence"
+            , "LabelText"
+            , "Alt"
+            , "ToolTipTitle"
+            , "ToolTipDescription"
+        };
 
-            SortAttributesInternal(doc);
-
-            return doc.ToString();
-        }
-
-        private static void SortAttributesInternal(XElement doc)
+        private static void SortXmlAttributesInternal(XElement doc)
         {
             foreach (XElement element in doc.DescendantsAndSelf())
             {
@@ -676,14 +682,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 element.RemoveAttributes();
 
-                foreach (XAttribute attr in attributes.OrderBy(a => a.Name, new XNameComparer()))
+                foreach (XAttribute attr in attributes.OrderBy(a => a.Name, new XNameComparer(_predefinedAttributeOrder)))
                 {
                     element.Add(attr);
                 }
             }
         }
 
-        private static string[] _pathsCommandsAndRules = new[]
+        private static readonly string[] _pathsCommandsAndRules = new[]
         {
             "./CommandDefinitions"
             , "./RibbonDefinition/CommandDefinitions"
@@ -692,18 +698,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , "./RuleDefinitions/DisplayRules"
             , "./RibbonDefinition/RuleDefinitions/DisplayRules"
         };
-
-        public static string SortRibbonCommandsAndRulesById(string xml)
-        {
-            if (!TryParseXml(xml, out var doc))
-            {
-                return xml;
-            }
-
-            SortRibbonCommandsAndRulesByIdInternal(doc);
-
-            return doc.ToString();
-        }
 
         private static void SortRibbonCommandsAndRulesByIdInternal(XElement doc)
         {
@@ -727,18 +721,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private static string FormatXml(string xml, bool xmlAttributeOnNewLine)
+        private static readonly List<string> _predefinedFormXmlElementsOrder = new List<string>()
         {
-            if (!TryParseXml(xml, out XElement doc))
+            "ancestor"
+            , "hiddencontrols"
+            , "tabs"
+            , "header"
+            , "footer"
+            , "events"
+            , "formLibraries"
+            , "externaldependencies"
+            , "formparameters"
+            , "clientresources"
+            , "Navigation"
+            , "DisplayConditions"
+            , "RibbonDiffXml"
+        };
+
+        private static void SortFormXmlElementsInternal(XElement doc)
+        {
+            if (!string.Equals(doc.Name.LocalName, "form", StringComparison.InvariantCultureIgnoreCase))
             {
-                return xml;
+                return;
             }
 
-            if (!xmlAttributeOnNewLine)
+            var elementsList = doc.Elements().ToList();
+
+            foreach (var item in elementsList)
             {
-                return doc.ToString();
+                item.Remove();
             }
 
+            doc.Add(elementsList.OrderBy(e => e.Name, new XNameComparer(_predefinedFormXmlElementsOrder)));
+        }
+
+        private static string FormatXmlNewLineOnAttributes(XElement doc)
+        {
             XmlWriterSettings settings = new XmlWriterSettings
             {
                 OmitXmlDeclaration = true,
@@ -806,30 +824,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            if ((xmlOptions & XmlOptionsControls.SortRibbonCommnadsAndRulesById) != 0
-                && commonConfig.SortRibbonCommnadsAndRulesById
-                )
+            if (TryParseXml(result, out XElement doc))
             {
-                result = ContentCoparerHelper.SortRibbonCommandsAndRulesById(result);
-            }
+                var sortRibbonCommandsAndRulesById = (xmlOptions & XmlOptionsControls.SortRibbonCommandsAndRulesById) != 0 && commonConfig.SortRibbonCommandsAndRulesById;
+                var sortFormXmlElements = (xmlOptions & XmlOptionsControls.SortFormXmlElements) != 0 && commonConfig.SortFormXmlElements;
+                var sortXmlAttributes = (xmlOptions & XmlOptionsControls.SortXmlAttributes) != 0 && commonConfig.SortXmlAttributes;
 
-            if ((xmlOptions & XmlOptionsControls.SortXmlAttributes) != 0
-                && commonConfig.SortXmlAttributes
-                )
-            {
-                result = ContentCoparerHelper.SortXmlAttributes(result);
-            }
+                if (sortRibbonCommandsAndRulesById)
+                {
+                    SortRibbonCommandsAndRulesByIdInternal(doc);
+                }
 
-            if ((xmlOptions & XmlOptionsControls.XmlAttributeOnNewLine) != 0
-                && commonConfig.ExportXmlAttributeOnNewLine
-                )
-            {
-                return ContentCoparerHelper.FormatXml(result, commonConfig.ExportXmlAttributeOnNewLine);
-            }
-            else if (TryParseXml(result, out XElement doc))
-            {
-                return doc.ToString();
+                if (sortFormXmlElements)
+                {
+                    SortFormXmlElementsInternal(doc);
+                }
 
+                if (sortXmlAttributes)
+                {
+                    SortXmlAttributesInternal(doc);
+                }
+
+                if ((xmlOptions & XmlOptionsControls.XmlAttributeOnNewLine) != 0 && commonConfig.ExportXmlAttributeOnNewLine)
+                {
+                    return FormatXmlNewLineOnAttributes(doc);
+                }
+                else
+                {
+                    return doc.ToString();
+                }
             }
             else
             {

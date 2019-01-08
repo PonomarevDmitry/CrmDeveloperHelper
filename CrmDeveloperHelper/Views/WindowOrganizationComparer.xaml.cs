@@ -2315,6 +2315,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , AnalizeDefaultTranslations
                 , AnalizeFieldTranslations
 
+                , AnalizeWorkflowsStates
                 , AnalizeWorkflowsWithDetails
 
                 , AnalizeReports
@@ -2329,6 +2330,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 , AnalizePluginAssemblies
                 , AnalizePluginTypes
+
+                , AnalizePluginStepsStates
+
                 , AnalizePluginStepsByPluginTypeNames
                 , AnalizePluginStepsByIds
 
@@ -2423,6 +2427,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 AnalizePluginAssemblies
                 , AnalizePluginTypes
+
+                , AnalizePluginStepsStates
+
                 , AnalizePluginStepsByPluginTypeNames
                 , AnalizePluginStepsByIds
             };

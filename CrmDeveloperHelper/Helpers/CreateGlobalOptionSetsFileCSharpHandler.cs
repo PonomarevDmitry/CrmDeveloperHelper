@@ -51,7 +51,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._iWriteToOutput = iWriteToOutput;
             this._withManagedInfo = withManagedInfo;
 
-            this._descriptor = new SolutionComponentDescriptor(_service, false);
+            this._descriptor = new SolutionComponentDescriptor(_service)
+            {
+                WithManagedInfo = _withManagedInfo,
+            };
             this._dependencyRepository = new DependencyRepository(this._service);
             this._descriptorHandler = new DependencyDescriptionHandler(this._descriptor);
             this._repositoryStringMap = new StringMapRepository(_service);

@@ -301,9 +301,9 @@
                                     <MenuItem Header="All Connection Information" Click="tSMICompareAllConnectionInformation_Click" />
                                 </MenuItem>
                                 <Separator/>
-                                <MenuItem Header="Workflows" Click="tSMIWorkflows_Click" />
-                                <MenuItem Header="Workflows with details" Click="tSMIWorkflowsWithDetails_Click" />
                                 <MenuItem Header="Workflows states" Click="tSMIWorkflowsStates_Click" />
+                                <MenuItem Header="Workflows attributes" Click="tSMIWorkflows_Click" />
+                                <MenuItem Header="Workflows attributes with details" Click="tSMIWorkflowsWithDetails_Click" />
                                 <Separator/>
                                 <MenuItem Header="Security Information">
                                     <MenuItem Header="Security Roles" Click="tSMISecurityRoles_Click" />

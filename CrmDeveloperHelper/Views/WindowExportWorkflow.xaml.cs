@@ -58,7 +58,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._filterEntity = filterEntity;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
-            _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
 
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
@@ -308,8 +307,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var service = await GetService();
 
-                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service, true);
+                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service);
                 }
+
+                _descriptorCache[connectionData.ConnectionId].SetSettings(_commonConfig);
 
                 return _descriptorCache[connectionData.ConnectionId];
             }
@@ -881,7 +882,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, "txt");
                     string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                    var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(service, true));
+                    var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(service));
 
                     var stringBuider = new StringBuilder();
 
@@ -933,7 +934,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, "txt");
                     string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                    WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(service, true));
+                    WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(service));
 
                     var stringBuider = new StringBuilder();
 
@@ -985,7 +986,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, "txt");
                     string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                    WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(service, true));
+                    WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(service));
 
                     var stringBuider = new StringBuilder();
 
