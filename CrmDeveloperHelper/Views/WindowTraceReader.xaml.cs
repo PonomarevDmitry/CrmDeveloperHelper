@@ -575,7 +575,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         record = this.lstVwTraceRecords.Items.GetItemAt(index) as TraceRecord;
 
-                        if (record != null)
+                        if (record != null && this.lstVwTraceRecords.CurrentColumn != null)
                         {
                             this.lstVwTraceRecords.SelectedCells.Clear();
                             this.lstVwTraceRecords.SelectedCells.Add(new DataGridCellInfo(record, this.lstVwTraceRecords.CurrentColumn));
@@ -616,7 +616,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         record = this.lstVwTraceRecords.Items.GetItemAt(index) as TraceRecord;
 
-                        if (record != null)
+                        if (record != null && this.lstVwTraceRecords.CurrentColumn != null)
                         {
                             this.lstVwTraceRecords.SelectedCells.Clear();
                             this.lstVwTraceRecords.SelectedCells.Add(new DataGridCellInfo(record, this.lstVwTraceRecords.CurrentColumn));
