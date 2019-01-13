@@ -487,7 +487,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             if (Guid.TryParse(arg1, out Guid tempGuid) && tempGuid != Guid.Empty)
                             {
-                                var newMatch = string.Format("\"{0}\"", Guid.Empty) + ", " + split[1];
+                                var newMatch = string.Format("\"{0}\"", Guid.Empty) + ", " + split[1].Replace("\"Key\"", "\"UniqueIdentifier\"");
 
                                 var newParameters = "[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.Guid, " + newMatch + " }]";
 
