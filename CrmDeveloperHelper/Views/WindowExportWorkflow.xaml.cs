@@ -3,6 +3,7 @@ using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -37,7 +38,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private ObservableCollection<EntityViewItem> _itemsSource;
 
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-        private Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
         private int _init = 0;
 
@@ -63,8 +63,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var attributeCategory = _descriptorCache[service.ConnectionData.ConnectionId].MetadataSource.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.category);
-            var attributeMode = _descriptorCache[service.ConnectionData.ConnectionId].MetadataSource.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.mode);
+            var source = new SolutionComponentMetadataSource(service);
+
+            var attributeCategory = source.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.category);
+            var attributeMode = source.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.mode);
 
             FillComboBoxCategoryAndMode(attributeCategory, attributeMode);
 
@@ -287,32 +289,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 return _connectionCache[connectionData.ConnectionId];
-            }
-
-            return null;
-        }
-
-        private async Task<SolutionComponentDescriptor> GetDescriptor()
-        {
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
-
-            if (connectionData != null)
-            {
-                if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
-                {
-                    var service = await GetService();
-
-                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service);
-                }
-
-                _descriptorCache[connectionData.ConnectionId].SetSettings(_commonConfig);
-
-                return _descriptorCache[connectionData.ConnectionId];
             }
 
             return null;
@@ -1341,13 +1317,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
 
             try
             {
                 this._iWriteToOutput.ActivateOutputWindow();
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Workflow, new[] { entity.WorkflowId.Value }, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Workflow, new[] { entity.WorkflowId.Value }, null, withSelect);
             }
             catch (Exception ex)
             {
@@ -1394,13 +1369,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _commonConfig.Save();
 
                     var service = await GetService();
-                    var descriptor = await GetDescriptor();
 
                     try
                     {
                         this._iWriteToOutput.ActivateOutputWindow();
 
-                        await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entityMetadataId.Value }, null, withSelect);
+                        await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entityMetadataId.Value }, null, withSelect);
                     }
                     catch (Exception ex)
                     {
@@ -1713,12 +1687,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
 
             WindowHelper.OpenSolutionComponentDependenciesWindow(
                 _iWriteToOutput
                 , service
-                , descriptor
+                , null
                 , _commonConfig
                 , (int)ComponentType.Workflow
                 , entity.Id
@@ -1770,10 +1743,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                var descriptor = await GetDescriptor();
+                var service = await GetService();
 
-                var attributeCategory = descriptor.MetadataSource.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.category);
-                var attributeMode = descriptor.MetadataSource.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.mode);
+                var source = new SolutionComponentMetadataSource(service);
+
+                var attributeCategory = source.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.category);
+                var attributeMode = source.GetAttributeMetadata(Workflow.EntityLogicalName, Workflow.Schema.Attributes.mode);
 
                 FillComboBoxCategoryAndMode(attributeCategory, attributeMode);
 
