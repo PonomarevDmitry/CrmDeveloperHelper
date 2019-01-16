@@ -206,7 +206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, Properties.OrganizationComparerStrings.EntitiesByAuditFileName);
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, Properties.OrganizationComparerStrings.EntitiesFileName);
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -441,7 +441,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
 
-            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, Properties.OrganizationComparerStrings.EntitiesFileName);
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, Properties.OrganizationComparerStrings.EntitiesByAuditFileName);
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
