@@ -135,7 +135,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LastSelectedSolutionsUniqueName_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            this.Dispatcher.Invoke(FillCopyComponentsToLastSelectedSolutionsAsync);
+            this.Dispatcher.Invoke(FillChangeComponentsToLastSelectedSolutionsAsync);
         }
 
         private void LoadFromConfig()
@@ -533,8 +533,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         bool enabled = this._controlsEnabled;
 
                         tSDDBCopyComponents.IsEnabled = enabled;
-
                         tSDDBCopyComponents.Items.Clear();
+
+                        tSDDBRemoveComponents.IsEnabled = enabled;
+                        tSDDBRemoveComponents.Items.Clear();
 
                         if (enabled)
                         {
@@ -552,13 +554,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             if (total > 0)
                             {
                                 FillCopyComponentsMenuItems(tSDDBCopyComponents, listFrom, listTo);
+
+                                FillRemoveComponentsMenuItems(tSDDBRemoveComponents, listFrom, listTo);
                             }
                         }
 
                         tSDDBCopyComponents.IsEnabled = tSDDBCopyComponents.Items.Count > 0;
-
-                        menuItemCopyComponents.IsEnabled = tSDDBCopyComponents.Items.Count > 0 || tSDDBCopyComponentsLastSolution.Items.Count > 0;
+                        tSDDBRemoveComponents.IsEnabled = tSDDBRemoveComponents.Items.Count > 0;
                     }
+
+                    menuItemChangeComponents.IsEnabled = 
+                        tSDDBCopyComponents.Items.Count > 0 
+                        || tSDDBCopyComponentsLastSolution.Items.Count > 0
+                        || tSDDBRemoveComponents.Items.Count > 0 
+                        || tSDDBRemoveComponentsLastSolution.Items.Count > 0
+                        ;
 
                     {
                         bool enabled = this._controlsEnabled;
@@ -601,7 +611,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         tSDDBClearUnmanagedSolution.IsEnabled = tSDDBClearUnmanagedSolution.Items.Count > 0;
                     }
 
-                    FillCopyComponentsToLastSelectedSolutionsAsync();
+                    FillChangeComponentsToLastSelectedSolutionsAsync();
                 }
                 catch (Exception ex)
                 {
@@ -610,13 +620,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private async Task FillCopyComponentsToLastSelectedSolutionsAsync()
+        private async Task FillChangeComponentsToLastSelectedSolutionsAsync()
         {
             bool enabled = this._controlsEnabled;
 
             tSDDBCopyComponentsLastSolution.IsEnabled = enabled;
-
             tSDDBCopyComponentsLastSolution.Items.Clear();
+
+            tSDDBRemoveComponentsLastSolution.IsEnabled = enabled;
+            tSDDBRemoveComponentsLastSolution.Items.Clear();
 
             if (enabled)
             {
@@ -648,13 +660,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         var listTo = listSolutionNames.Where(s => lastSolutions.ContainsKey(s)).Select(s => lastSolutions[s]).ToList();
 
                         FillCopyComponentsMenuItems(tSDDBCopyComponentsLastSolution, listFrom, listTo);
+
+                        FillRemoveComponentsMenuItems(tSDDBRemoveComponentsLastSolution, listFrom, listTo);
                     }
                 }
             }
 
             tSDDBCopyComponentsLastSolution.IsEnabled = tSDDBCopyComponentsLastSolution.Items.Count > 0;
+            tSDDBRemoveComponentsLastSolution.IsEnabled = tSDDBRemoveComponentsLastSolution.Items.Count > 0;
 
-            menuItemCopyComponents.IsEnabled = tSDDBCopyComponents.Items.Count > 0 || tSDDBCopyComponentsLastSolution.Items.Count > 0;
+            menuItemChangeComponents.IsEnabled =
+                tSDDBCopyComponents.Items.Count > 0
+                || tSDDBCopyComponentsLastSolution.Items.Count > 0
+                || tSDDBRemoveComponents.Items.Count > 0
+                || tSDDBRemoveComponentsLastSolution.Items.Count > 0
+                ;
         }
 
         private void FillCopyComponentsMenuItems(MenuItem parentMenuItem, List<Solution> listFrom, List<Solution> listTo)
@@ -700,6 +720,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         Tag = Tuple.Create(solutionFrom, solutionTo),
                     };
                     menuItem.Click += mICopyComponentsFromSolution1ToSolution2_Click;
+
+                    if (menuItemSolution.Items.Count > 0)
+                    {
+                        menuItemSolution.Items.Add(new Separator());
+                    }
+
+                    menuItemSolution.Items.Add(menuItem);
+                }
+            }
+        }
+
+        private void FillRemoveComponentsMenuItems(MenuItem parentMenuItem, List<Solution> listFrom, List<Solution> listTo)
+        {
+            foreach (var solutionTo in listTo)
+            {
+                var listFromFiltered = listFrom.Where(en => !string.Equals(en.UniqueName, solutionTo.UniqueName, StringComparison.InvariantCultureIgnoreCase));
+
+                if (!listFromFiltered.Any())
+                {
+                    continue;
+                }
+
+                MenuItem menuItemSolution = new MenuItem()
+                {
+                    Header = string.Format("Solution {0}", solutionTo.UniqueNameEscapeUnderscore),
+                };
+
+                if (parentMenuItem.Items.Count > 0)
+                {
+                    parentMenuItem.Items.Add(new Separator());
+                }
+
+                parentMenuItem.Items.Add(menuItemSolution);
+
+                if (listFromFiltered.Count() > 1)
+                {
+                    MenuItem menuItem = new MenuItem()
+                    {
+                        Header = string.Format("Remove Components owned by All Selected Solutions from {0}", solutionTo.UniqueNameEscapeUnderscore),
+                        Tag = Tuple.Create(listFromFiltered.ToArray(), solutionTo),
+                    };
+                    menuItem.Click += mIRemoveComponentsOwnedSolutionCollectionFromSolution_Click;
+
+                    menuItemSolution.Items.Add(menuItem);
+                }
+
+                foreach (var solutionFrom in listFromFiltered)
+                {
+                    MenuItem menuItem = new MenuItem()
+                    {
+                        Header = string.Format("Remove Components owned by {0} from {1}", solutionFrom.UniqueNameEscapeUnderscore, solutionTo.UniqueNameEscapeUnderscore),
+                        Tag = Tuple.Create(solutionFrom, solutionTo),
+                    };
+                    menuItem.Click += mIRemoveComponentsOwnedSolution1FromSolution2_Click;
 
                     if (menuItemSolution.Items.Count > 0)
                     {
@@ -1605,6 +1679,57 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void mIRemoveComponentsOwnedSolution1FromSolution2_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag is Tuple<Solution, Solution> solutionPair
+               && solutionPair.Item1 != null
+               && solutionPair.Item2 != null
+               && !string.Equals(solutionPair.Item1.UniqueName, solutionPair.Item2.UniqueName, StringComparison.InvariantCultureIgnoreCase)
+               && solutionPair.Item2.IsManaged.GetValueOrDefault() == false
+               )
+            {
+                string question = string.Format(Properties.MessageBoxStrings.RemoveSolutionComponentsFromToFormat2, solutionPair.Item1.UniqueName, solutionPair.Item2.UniqueName);
+
+                if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
+                {
+                    return;
+                }
+
+                ExecuteActionOnSolutionPair(solutionPair.Item1, solutionPair.Item2, PerformRemoveFromSolution1ToSolution2);
+            }
+        }
+
+        private void mIRemoveComponentsOwnedSolutionCollectionFromSolution_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag is Tuple<Solution[], Solution> solutionPair
+               && solutionPair.Item1 != null
+               && solutionPair.Item2 != null
+               && solutionPair.Item2.IsManaged.GetValueOrDefault() == false
+               )
+            {
+                foreach (var item in solutionPair.Item1)
+                {
+                    if (string.Equals(item.UniqueName, solutionPair.Item2.UniqueName, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        return;
+                    }
+                }
+
+                string sourceName = string.Join(",", solutionPair.Item1.Select(en => en.UniqueName).OrderBy(s => s));
+
+                string question = string.Format(Properties.MessageBoxStrings.RemoveSolutionComponentsFromToFormat2, sourceName, solutionPair.Item2.UniqueName);
+
+                if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
+                {
+                    return;
+                }
+
+                ExecuteActionOnSolutionAndSolutionCollection(solutionPair.Item1, solutionPair.Item2, PerformRemoveFromSolutionCollectionToSolution);
+            }
+        }
+
         private async Task PerformCopyFromSolution1ToSolution2(string folder, Solution solutionSource, Solution solutionTarget)
         {
             try
@@ -1698,6 +1823,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromFailedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
             }
         }
+
         private async Task PerformCopyFromSolutionCollectionToSolution(string folder, Solution[] solutionSourceCollection, Solution solutionTarget)
         {
             string sourceName = string.Join(",", solutionSourceCollection.Select(e => e.UniqueName).OrderBy(s => s));
@@ -1816,6 +1942,221 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromFailedFormat2, solutionTarget.UniqueName, sourceName);
+            }
+        }
+
+        private async Task PerformRemoveFromSolution1ToSolution2(string folder, Solution solutionSource, Solution solutionTarget)
+        {
+            try
+            {
+                ToggleControls(false, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
+
+                var service = await GetService();
+                var descriptor = await GetDescriptor();
+
+                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+
+                SolutionComponentRepository repository = new SolutionComponentRepository(service);
+
+                var componentsSource = await repository.GetSolutionComponentsAsync(solutionSource.Id, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
+
+                var componentsTarget = await repository.GetSolutionComponentsAsync(solutionTarget.Id, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
+
+                var commonComponents = SolutionDescriptor.GetCommonComponents(componentsSource, componentsTarget);
+
+                if (commonComponents.Count > 0)
+                {
+                    this._iWriteToOutput.WriteToOutput(string.Empty);
+                    this._iWriteToOutput.WriteToOutput("Creating backup Solution Components in '{0}'.", solutionTarget.UniqueName);
+
+                    {
+                        string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                            service.ConnectionData.Name
+                            , solutionTarget.UniqueName
+                            , "Components Backup"
+                        );
+
+                        string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                        await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solutionTarget.Id);
+
+                        this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                    }
+
+                    {
+                        string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                            service.ConnectionData.Name
+                            , solutionTarget.UniqueName
+                            , "SolutionImage Backup"
+                            , "xml"
+                        );
+
+                        string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                        await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
+                    }
+
+                    this._iWriteToOutput.WriteToOutput(string.Empty);
+                    this._iWriteToOutput.WriteToOutput("Showing Unique Solution Components in '{0}'.", solutionSource.UniqueName);
+
+                    {
+                        string fileName = EntityFileNameFormatter.GetSolutionMultipleFileName(
+                            service.ConnectionData.Name
+                            , solutionSource.UniqueName
+                            , solutionTarget.UniqueName
+                            , "Unique Components for Removing"
+                            );
+
+                        string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                        await solutionDescriptor.CreateFileWithUniqueComponentsInSolution1Async(filePath, solutionSource.Id, solutionTarget.Id);
+
+                        this._iWriteToOutput.WriteToOutput("Created file with Unique Components in '{0}' for Removing from '{1}': {2}", solutionSource.UniqueName, solutionTarget.UniqueName, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                    }
+
+
+                    this._iWriteToOutput.WriteToOutput(string.Empty);
+                    this._iWriteToOutput.WriteToOutput("Removing Solution Components owned by '{0}' from '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
+
+                    await Controllers.SolutionController.RemoveSolutionComponentsCollectionFromSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionTarget.UniqueName, commonComponents, false);
+
+                    this._iWriteToOutput.WriteToOutput("Removed {0} components.", commonComponents.Count.ToString());
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput("There are No Common Solution Components in '{0}' and '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
+                }
+
+                ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByCompletedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFailedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
+            }
+        }
+
+        private async Task PerformRemoveFromSolutionCollectionToSolution(string folder, Solution[] solutionSourceCollection, Solution solutionTarget)
+        {
+            string sourceName = string.Join(",", solutionSourceCollection.Select(e => e.UniqueName).OrderBy(s => s));
+
+            try
+            {
+                ToggleControls(false, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFormat2, solutionTarget.UniqueName, sourceName);
+
+                var service = await GetService();
+                var descriptor = await GetDescriptor();
+
+                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+
+                SolutionComponentRepository repository = new SolutionComponentRepository(service);
+
+                List<SolutionComponent> componentsSource = new List<SolutionComponent>();
+
+                {
+                    var hash = new HashSet<Tuple<int, Guid>>();
+
+                    var temp = await repository.GetSolutionComponentsForCollectionAsync(solutionSourceCollection.Select(e => e.Id), new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
+
+                    foreach (var item in temp)
+                    {
+                        if (hash.Add(Tuple.Create(item.ComponentType.Value, item.ObjectId.Value)))
+                        {
+                            componentsSource.Add(item);
+                        }
+                    }
+                }
+
+                var componentsTarget = await repository.GetSolutionComponentsAsync(solutionTarget.Id, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
+
+                var componentesOnlyInSource = SolutionDescriptor.GetComponentsInFirstNotSecond(componentsSource, componentsTarget);
+
+                var componentesOnlyInTarget = SolutionDescriptor.GetComponentsInFirstNotSecond(componentsTarget, componentsSource);
+
+                if (componentesOnlyInSource.Count > 0)
+                {
+                    this._iWriteToOutput.WriteToOutput(string.Empty);
+                    this._iWriteToOutput.WriteToOutput("Creating backup Solution Components in '{0}'.", solutionTarget.UniqueName);
+
+
+                    {
+                        string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                            service.ConnectionData.Name
+                            , solutionTarget.UniqueName
+                            , "Components Backup"
+                            , "txt"
+                        );
+
+                        string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                        await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solutionTarget.Id);
+
+                        this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                    }
+
+                    {
+                        string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                            service.ConnectionData.Name
+                            , solutionTarget.UniqueName
+                            , "SolutionImage Backup"
+                            , "xml"
+                        );
+
+                        string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                        await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
+                    }
+
+                    this._iWriteToOutput.WriteToOutput(string.Empty);
+                    this._iWriteToOutput.WriteToOutput("Showing Unique Solution Components in '{0}'.", sourceName);
+
+                    {
+                        string fileName = EntityFileNameFormatter.GetSolutionMultipleFileName(
+                            service.ConnectionData.Name
+                            , sourceName
+                            , solutionTarget.UniqueName
+                            , "Unique Components for Removing"
+                            );
+
+                        string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                        await solutionDescriptor.CreateFileWithComponentsInSolution1Async(
+                            filePath
+                            , sourceName
+                            , solutionTarget.UniqueName
+                            , componentsSource.Count
+                            , componentsTarget.Count
+                            , componentesOnlyInSource
+                            , componentesOnlyInTarget.Count
+                            );
+
+                        this._iWriteToOutput.WriteToOutput("Created file with Unique Components in '{0}' for Removing from '{1}': {2}", sourceName, solutionTarget.UniqueName, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                    }
+
+                    this._iWriteToOutput.WriteToOutput(string.Empty);
+                    this._iWriteToOutput.WriteToOutput("Removing Solution Components owned by '{0}' from '{1}'.", sourceName, solutionTarget.UniqueName);
+
+                    await Controllers.SolutionController.RemoveSolutionComponentsCollectionFromSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionTarget.UniqueName, componentesOnlyInSource, false);
+
+                    this._iWriteToOutput.WriteToOutput("Removed {0} components.", componentesOnlyInSource.Count.ToString());
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput("There are No Common Solution Components in '{0}' and '{1}'.", sourceName, solutionTarget.UniqueName);
+                }
+
+                ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByCompletedFormat2, solutionTarget.UniqueName, sourceName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFailedFormat2, solutionTarget.UniqueName, sourceName);
             }
         }
 
@@ -2159,7 +2500,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                FillCopyComponentsToLastSelectedSolutionsAsync();
+                FillChangeComponentsToLastSelectedSolutionsAsync();
 
                 ShowExistingSolutions();
             }

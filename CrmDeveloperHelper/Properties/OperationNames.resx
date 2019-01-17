@@ -651,4 +651,7 @@
   <data name="CheckingEntitiesAuditFormat2" xml:space="preserve">
     <value>Checking Entity Audit in {0} and {1}</value>
   </data>
+  <data name="RemovingComponentsFromSolutionFormat2" xml:space="preserve">
+    <value>{0} - Removing Components from Solution {1}</value>
+  </data>
 </root>

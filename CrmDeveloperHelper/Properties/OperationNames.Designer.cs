@@ -1411,6 +1411,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Removing Components from Solution {1}.
+        /// </summary>
+        internal static string RemovingComponentsFromSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("RemovingComponentsFromSolutionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Removing Roles {1} from Teams {2}.
         /// </summary>
         internal static string RemovingRolesFromTeamsFormat3 {

@@ -870,6 +870,121 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Добавление компонентов в решение.
 
+        public static async Task RemoveSolutionComponentsCollectionFromSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SolutionComponent> components, bool withSelect)
+        {
+            string operation = string.Format(Properties.OperationNames.RemovingComponentsFromSolutionFormat2, service?.ConnectionData?.Name, solutionUniqueName);
+
+            iWriteToOutput.WriteToOutputStartOperation(operation);
+
+            try
+            {
+                if (!components.Any())
+                {
+                    iWriteToOutput.WriteToOutput("No Objects to remove.");
+                    return;
+                }
+
+                if (descriptor == null)
+                {
+                    descriptor = new SolutionComponentDescriptor(service);
+                    descriptor.SetSettings(commonConfig);
+                }
+
+                service.ConnectionData.Save();
+
+                Solution solution = null;
+
+                if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
+                {
+                    var repositorySolution = new SolutionRepository(service);
+
+                    solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
+
+                    if (solution != null && solution.IsManaged.GetValueOrDefault())
+                    {
+                        solution = null;
+                    }
+                }
+
+                if (solution == null)
+                {
+                    var t = new Thread(() =>
+                    {
+                        try
+                        {
+                            var formSelectSolution = new WindowSolutionSelect(iWriteToOutput, service);
+
+                            formSelectSolution.ShowDialog().GetValueOrDefault();
+
+                            solution = formSelectSolution.SelectedSolution;
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(ex);
+                        }
+                    });
+                    t.SetApartmentState(ApartmentState.STA);
+                    t.Start();
+
+                    t.Join();
+                }
+                else
+                {
+                    iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData, solution.UniqueName, solution.Id);
+                }
+
+                if (solution == null)
+                {
+                    iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionNotSelected);
+                    return;
+                }
+
+                service.ConnectionData.AddLastSelectedSolution(solution?.UniqueName);
+                service.ConnectionData.Save();
+
+                var solutionRep = new SolutionComponentRepository(service);
+
+                var dictForRemoving = new HashSet<Tuple<int, Guid>>(components.Select(c => Tuple.Create(c.ComponentType.Value, c.ObjectId.Value)));
+
+                {
+                    var solutionComponents = await solutionRep.GetSolutionComponentsAsync(solution.Id, new ColumnSet(SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.componenttype));
+
+                    var currentComponents = new HashSet<Tuple<int, Guid>>(solutionComponents.Select(c => Tuple.Create(c.ComponentType.Value, c.ObjectId.Value)));
+
+                    dictForRemoving.IntersectWith(currentComponents);
+                }
+
+                if (!dictForRemoving.Any())
+                {
+                    iWriteToOutput.WriteToOutput("No Objects to remove from {0}.", solution.UniqueName);
+                    return;
+                }
+
+                var componentsForRemoving = new List<SolutionComponent>();
+
+                componentsForRemoving.AddRange(components.Where(en => en.ComponentType != null && en.ObjectId.HasValue && dictForRemoving.Contains(Tuple.Create(en.ComponentType.Value, en.ObjectId.Value))));
+
+                iWriteToOutput.WriteToOutput("Components removed from Solution {0}: {1}", solution.UniqueName, componentsForRemoving.Count);
+
+                var desc = await descriptor.GetSolutionComponentsDescriptionAsync(componentsForRemoving);
+
+                if (!string.IsNullOrEmpty(desc))
+                {
+                    iWriteToOutput.WriteToOutput(desc);
+                }
+
+                await solutionRep.RemoveSolutionComponentsAsync(solution.UniqueName, componentsForRemoving);
+            }
+            catch (Exception xE)
+            {
+                iWriteToOutput.WriteErrorToOutput(xE);
+            }
+            finally
+            {
+                iWriteToOutput.WriteToOutputEndOperation(operation);
+            }
+        }
+
         #region Добавление сборки в решение по имени.
 
         public async Task ExecuteAddingPluginAssemblyIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)

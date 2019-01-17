@@ -282,4 +282,7 @@
   <data name="SaveChangesToRolesFormat1" xml:space="preserve">
     <value>Save Changes to roles {0}?</value>
   </data>
+  <data name="RemoveSolutionComponentsFromToFormat2" xml:space="preserve">
+    <value>Are you sure want to remove components owned by {0} from {1}?</value>
+  </data>
 </root>

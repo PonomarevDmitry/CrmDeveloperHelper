@@ -101,12 +101,20 @@
                             </Menu>
                         </ToolBarPanel>
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                            
                             <MenuItem x:Name="tSDDBClearUnmanagedSolution" Header="Clear Unmanaged Solution" VerticalAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Padding="3" Margin="2" IsEnabled="False"/>
+                            
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-                            <MenuItem x:Name="menuItemCopyComponents" Header="Copy Components" VerticalAlignment="Center" Padding="3" Margin="6,2">
+                            
+                            <MenuItem x:Name="menuItemChangeComponents" Header="Change Solution Components" VerticalAlignment="Center" Padding="3" Margin="6,2">
                                 <MenuItem x:Name="tSDDBCopyComponents" Header="Copy Components to Selected Solutions" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Padding="3" Margin="2" IsEnabled="False"/>
                                 <Separator/>
                                 <MenuItem x:Name="tSDDBCopyComponentsLastSolution" Header="Copy Components to Last Selected Solutions" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Padding="3" Margin="2" IsEnabled="False"/>
+
+                                <Separator/>
+                                <MenuItem x:Name="tSDDBRemoveComponents" Header="Remove Components from Selected Solutions" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Padding="3" Margin="2" IsEnabled="False"/>
+                                <Separator/>
+                                <MenuItem x:Name="tSDDBRemoveComponentsLastSolution" Header="Remove Components from Last Selected Solutions" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Padding="3" Margin="2" IsEnabled="False"/>
                             </MenuItem>
                         </Menu>
                     </DockPanel>

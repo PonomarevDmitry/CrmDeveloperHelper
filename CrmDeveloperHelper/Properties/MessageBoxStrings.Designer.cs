@@ -460,6 +460,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure want to remove components owned by {0} from {1}?.
+        /// </summary>
+        internal static string RemoveSolutionComponentsFromToFormat2 {
+            get {
+                return ResourceManager.GetString("RemoveSolutionComponentsFromToFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Return CRM Connection &apos;{0}&apos; to Connection List?.
         /// </summary>
         internal static string ReturnCRMConnectionToConnectionListFormat1 {

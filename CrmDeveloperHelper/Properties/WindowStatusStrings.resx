@@ -1188,4 +1188,13 @@
   <data name="CheckingEntitiesByAuditFormat2" xml:space="preserve">
     <value>Checking Entities by Audit in {0} and {1}...</value>
   </data>
+  <data name="RemovingSolutionComponentsFromOwnedByCompletedFormat2" xml:space="preserve">
+    <value>Removing solution components from {0} owned by {1} completed</value>
+  </data>
+  <data name="RemovingSolutionComponentsFromOwnedByFailedFormat2" xml:space="preserve">
+    <value>Removing solution components from {0} owned by {1} failed.</value>
+  </data>
+  <data name="RemovingSolutionComponentsFromOwnedByFormat2" xml:space="preserve">
+    <value>Removing solution components from {0} owned by {1}...</value>
+  </data>
 </root>

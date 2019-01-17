@@ -2599,6 +2599,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Removing solution components from {0} owned by {1} completed.
+        /// </summary>
+        internal static string RemovingSolutionComponentsFromOwnedByCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("RemovingSolutionComponentsFromOwnedByCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing solution components from {0} owned by {1} failed..
+        /// </summary>
+        internal static string RemovingSolutionComponentsFromOwnedByFailedFormat2 {
+            get {
+                return ResourceManager.GetString("RemovingSolutionComponentsFromOwnedByFailedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing solution components from {0} owned by {1}....
+        /// </summary>
+        internal static string RemovingSolutionComponentsFromOwnedByFormat2 {
+            get {
+                return ResourceManager.GetString("RemovingSolutionComponentsFromOwnedByFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. Removing solution components from {1} completed..
         /// </summary>
         internal static string RemovingSolutionComponentsFromSolutionCompletedFormat2 {

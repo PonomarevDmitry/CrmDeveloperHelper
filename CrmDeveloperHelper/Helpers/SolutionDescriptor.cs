@@ -265,6 +265,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
+        public static List<SolutionComponent> GetCommonComponents(IEnumerable<SolutionComponent> componentsSource, IEnumerable<SolutionComponent> componentsTarget)
+        {
+            List<SolutionComponent> result = new List<SolutionComponent>();
+
+            HashSet<Tuple<int, Guid>> hashTarget = new HashSet<Tuple<int, Guid>>(componentsTarget.Where(e => e.ComponentType != null && e.ObjectId.HasValue).Select(e => Tuple.Create(e.ComponentType.Value, e.ObjectId.Value)));
+
+            HashSet<Tuple<int, Guid>> hashAdded = new HashSet<Tuple<int, Guid>>();
+
+            foreach (var entityInSource in componentsSource)
+            {
+                int componentType1 = entityInSource.ComponentType.Value;
+                Guid objectId1 = entityInSource.ObjectId.Value;
+
+                var key = Tuple.Create(componentType1, objectId1);
+
+                if (hashTarget.Contains(key) && hashAdded.Add(key))
+                {
+                    result.Add(entityInSource);
+                }
+            }
+
+            return result;
+        }
+
         public Task FindUniqueComponentsInSolutionsAsync(Guid idSolution1, Guid idSolution2)
         {
             return Task.Run(async () => await FindUniqueComponentsInSolutions(idSolution1, idSolution2));
