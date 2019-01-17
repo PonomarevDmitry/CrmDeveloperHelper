@@ -14,6 +14,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.ToolWindowPanes
 
         public string FilePath => this._control.FilePath;
 
+        public ConnectionData ConnectionData => this._control.ConnectionData;
+
         public FetchXmlExecutorToolWindowPane()
         {
             this.Caption = Properties.CommandNames.FetchXmlExecutorDefaultName;

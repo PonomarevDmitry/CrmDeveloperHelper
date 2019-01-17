@@ -109,7 +109,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             FormatTextTableHandler handlerUnknowed = new FormatTextTableHandler();
 
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("AttributeName", "IsCustomizable", "Behavior");
+            handler.SetHeader("AttributeName", "DisplayName", "IsCustomizable", "Behavior");
 
             if (withManaged)
             {
@@ -134,6 +134,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     values.AddRange(new[]
                     {
                         string.Format("{0}.{1}", metaData.EntityLogicalName, metaData.LogicalName)
+                        , metaData.DisplayName?.UserLocalizedLabel?.Label
                         , metaData.IsCustomizable?.Value.ToString()
                         , behavior
                     });
@@ -184,7 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 string behavior = SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior?.Value);
 
                 FormatTextTableHandler handler = new FormatTextTableHandler();
-                handler.SetHeader("AttributeName", "IsCustomizable", "Behavior");
+                handler.SetHeader("AttributeName", "DisplayName", "IsCustomizable", "Behavior");
 
                 if (withManaged)
                 {
@@ -201,6 +202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 values.AddRange(new[]
                 {
                     string.Format("{0}.{1}", metaData.EntityLogicalName, metaData.LogicalName)
+                    , metaData.DisplayName?.UserLocalizedLabel?.Label
                     , metaData.IsCustomizable?.Value.ToString()
                     , behavior
                 });

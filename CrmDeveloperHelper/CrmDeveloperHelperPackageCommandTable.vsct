@@ -503,8 +503,8 @@
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch_MenuConnection" priority="0x0204" type="Menu">
         <Strings>
-          <ButtonText>Execute FetchXml in Connection</ButtonText>
-          <MenuText>Execute FetchXml in Connection</MenuText>
+          <ButtonText>Execute Fetch Xml in Connection</ButtonText>
+          <MenuText>Execute Fetch Xml in Connection</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x0204" type="Menu">
@@ -1639,7 +1639,7 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Execute FetchXml</ButtonText>
+          <ButtonText>Execute Fetch Xml</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeXmlExecuteFetchXmlRequestInConnectionsCommandId" priority="0x00FE" type="Button">
@@ -1648,14 +1648,14 @@
         <CommandFlag>TextChanges</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Execute FetchXml In Connection Placeholder</ButtonText>
+          <ButtonText>Execute Fetch Xml In Connection Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlConvertFetchXmlToJavaScriptCodeCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Copy JavaScript FetchXml to Clipboard</ButtonText>
+          <ButtonText>Copy JavaScript Fetch Xml to Clipboard</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlOpenXsdSchemaFolderCommandId" priority="0x0100" type="Button">

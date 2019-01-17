@@ -953,6 +953,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 table.AddEntityMetadataString("CascadeConfiguration.Reparent", relationship.CascadeConfiguration.Reparent);
                 table.AddEntityMetadataString("CascadeConfiguration.Share", relationship.CascadeConfiguration.Share);
                 table.AddEntityMetadataString("CascadeConfiguration.Unshare", relationship.CascadeConfiguration.Unshare);
+                table.AddEntityMetadataString("CascadeConfiguration.RollupView", relationship.CascadeConfiguration.RollupView);
             }
 
             if (relationship.AssociatedMenuConfiguration != null)

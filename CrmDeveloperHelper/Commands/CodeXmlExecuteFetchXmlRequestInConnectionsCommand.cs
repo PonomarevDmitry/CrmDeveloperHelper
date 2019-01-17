@@ -58,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var connectionConfig = ConnectionConfiguration.Get();
 
-                    var connections = connectionConfig.GetConnectionsWithoutCurrent();
+                    var connections = connectionConfig.Connections;
 
                     if (0 <= index && index < connections.Count)
                     {
@@ -98,7 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var connectionConfig = ConnectionConfiguration.Get();
 
-                var connections = connectionConfig.GetConnectionsWithoutCurrent();
+                var connections = connectionConfig.Connections;
 
                 if (0 <= index && index < connections.Count)
                 {
@@ -124,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                         }
                     }
 
-                    helper.HandleExecutingFetchXml(connectionData, selectedFile);
+                    helper.HandleExecutingFetchXml(connectionData, selectedFile, true);
                 }
             }
             catch (Exception ex)

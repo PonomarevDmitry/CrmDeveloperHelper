@@ -1,15 +1,15 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using System;
-using System.Linq;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.InteropServices;
+using Microsoft.VisualStudio.Threading;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.ToolWindowPanes;
+using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Threading;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper
 {
@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
     [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
     public sealed class CrmDeveloperHelperPackage : Package
     {
-        public static IServiceProvider ServiceProvider => (IServiceProvider)Singleton;
+        public static IServiceProvider ServiceProvider => Singleton;
 
         public static CrmDeveloperHelperPackage Singleton { get; private set; }
 
@@ -370,59 +370,72 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             //Repository.ConnectionIntellisenseDataRepository.LoadIntellisenseCache();
         }
 
-        internal void ExecuteFetchXmlQueryAsync(string filePath, ConnectionData connectionData)
+        internal void ExecuteFetchXmlQueryAsync(string filePath, ConnectionData connectionData, bool strictConnection)
         {
-            FetchXmlExecutorToolWindowPane paneForFileAndConnection = FindOrCreateFetchXmlExecutorToolWindowPane(filePath, connectionData);
+            var panes = FindOrCreateFetchXmlExecutorToolWindowPane(filePath);
 
-            if (paneForFileAndConnection != null)
+            var connectionPane = panes.FirstOrDefault(p => p.ConnectionData.ConnectionId == connectionData.ConnectionId);
+
+            if (!panes.Any() || (strictConnection && connectionPane == null))
             {
-                paneForFileAndConnection.Execute();
+                connectionPane = FindToolWindow(typeof(FetchXmlExecutorToolWindowPane), GetNextPaneId(), true) as FetchXmlExecutorToolWindowPane;
+                connectionPane.SetSource(filePath, connectionData);
 
-                (paneForFileAndConnection.Frame as IVsWindowFrame).Show();
+                panes.Add(connectionPane);
+            }
+
+            foreach (var item in panes)
+            {
+                item.Execute();
+            }
+
+            if (connectionPane != null)
+            {
+                (connectionPane.Frame as IVsWindowFrame)?.Show();
+            }
+            else
+            {
+                (panes.FirstOrDefault()?.Frame as IVsWindowFrame)?.Show();
             }
         }
 
-        private const int countPanes = 100;
+        private const int countPanes = 500;
 
-        private FetchXmlExecutorToolWindowPane FindOrCreateFetchXmlExecutorToolWindowPane(string filePath, ConnectionData connectionData)
+        private List<FetchXmlExecutorToolWindowPane> FindOrCreateFetchXmlExecutorToolWindowPane(string filePath)
         {
-            int? num = null;
-
             List<FetchXmlExecutorToolWindowPane> panes = new List<FetchXmlExecutorToolWindowPane>();
 
             for (int i = 0; i < countPanes; i++)
             {
                 var pane = FindToolWindow(typeof(FetchXmlExecutorToolWindowPane), i, false) as FetchXmlExecutorToolWindowPane;
 
-                if (pane == null)
-                {
-                    if (!num.HasValue)
-                    {
-                        num = i;
-                    }
-
-                    continue;
-                }
-
-                if (pane.Frame != null)
+                if (pane != null && pane.Frame != null)
                 {
                     if (string.Equals(pane.FilePath, filePath, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        return pane;
+                        panes.Add(pane);
                     }
                 }
             }
 
-            if (num.HasValue)
+            return panes;
+        }
+
+        private int GetNextPaneId()
+        {
+            int num = 0;
+
+            while (true)
             {
-                FetchXmlExecutorToolWindowPane paneForFileAndConnection = FindToolWindow(typeof(FetchXmlExecutorToolWindowPane), num.Value, true) as FetchXmlExecutorToolWindowPane;
+                var pane = FindToolWindow(typeof(FetchXmlExecutorToolWindowPane), num, false) as FetchXmlExecutorToolWindowPane;
 
-                paneForFileAndConnection.SetSource(filePath, connectionData);
+                if (pane == null)
+                {
+                    return num;
+                }
 
-                return paneForFileAndConnection;
+                num++;
             }
-
-            return null;
         }
 
         #endregion

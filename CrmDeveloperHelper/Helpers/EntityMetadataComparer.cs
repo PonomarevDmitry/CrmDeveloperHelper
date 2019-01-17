@@ -332,6 +332,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 table.AddLineIfNotEqual("CascadeConfiguration.Reparent", config1.Reparent, config2.Reparent);
                 table.AddLineIfNotEqual("CascadeConfiguration.Share", config1.Share, config2.Share);
                 table.AddLineIfNotEqual("CascadeConfiguration.Unshare", config1.Unshare, config2.Unshare);
+                table.AddLineIfNotEqual("CascadeConfiguration.RollupView", config1.RollupView, config2.RollupView);
             }
         }
 

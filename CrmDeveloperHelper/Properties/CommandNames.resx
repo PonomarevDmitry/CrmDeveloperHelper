@@ -172,7 +172,7 @@
     <value>Publish File</value>
   </data>
   <data name="CodeXmlExecuteFetchXmlRequestCommand" xml:space="preserve">
-    <value>Execute Fetch Xml</value>
+    <value>Execute Fetch Xml All</value>
   </data>
   <data name="CodeXmlShowDifferenceApplicationRibbonCommand" xml:space="preserve">
     <value>Show Difference ApplicationRibbon</value>

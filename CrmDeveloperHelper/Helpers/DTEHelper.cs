@@ -1469,7 +1469,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleExecutingFetchXml(ConnectionData connectionData, SelectedFile selectedFile)
+        public void HandleExecutingFetchXml(ConnectionData connectionData, SelectedFile selectedFile, bool strictConnection)
         {
             if (selectedFile == null || !File.Exists(selectedFile.FilePath))
             {
@@ -1488,7 +1488,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData != null)
             {
-                CrmDeveloperHelperPackage.Singleton?.ExecuteFetchXmlQueryAsync(selectedFile.FilePath, connectionData);
+                CrmDeveloperHelperPackage.Singleton?.ExecuteFetchXmlQueryAsync(selectedFile.FilePath, connectionData, strictConnection);
             }
         }
 

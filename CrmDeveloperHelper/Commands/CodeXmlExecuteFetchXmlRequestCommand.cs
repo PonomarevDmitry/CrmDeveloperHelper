@@ -37,7 +37,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 }
             }
 
-            helper.HandleExecutingFetchXml(null, selectedFile);
+            helper.HandleExecutingFetchXml(null, selectedFile, false);
         }
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)

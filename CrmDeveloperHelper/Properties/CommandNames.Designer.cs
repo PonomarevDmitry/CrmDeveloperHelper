@@ -223,7 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Execute Fetch Xml.
+        ///   Looks up a localized string similar to Execute Fetch Xml All.
         /// </summary>
         internal static string CodeXmlExecuteFetchXmlRequestCommand {
             get {
