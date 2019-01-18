@@ -242,6 +242,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var isManaged = this._solution?.IsManaged ?? false;
 
+                    var description = this._solution?.Description;
+
+                    var hasDescription = !string.IsNullOrEmpty(description);
+
                     this.Dispatcher.Invoke(() =>
                     {
                         miClearUnManagedSolution.IsEnabled = sepClearUnManagedSolution.IsEnabled = !isManaged;
@@ -249,6 +253,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         miSelectAsLastSelected.IsEnabled = sepClearUnManagedSolution2.IsEnabled = !isManaged;
                         miSelectAsLastSelected.Visibility = sepClearUnManagedSolution2.Visibility = !isManaged ? Visibility.Visible : Visibility.Collapsed;
+
+                        miSolutionDescription.IsEnabled = sepSolutionDescription.IsEnabled = hasDescription;
+                        miSolutionDescription.Visibility = sepSolutionDescription.Visibility = hasDescription ? Visibility.Visible : Visibility.Collapsed;
+
+                        miSolutionDescription.ToolTip = description;
                     });
                 }
 
@@ -2228,6 +2237,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             this.Focus();
+        }
+
+        private void miSolutionDescription_Click(object sender, RoutedEventArgs e)
+        {
+            if (_solution == null || string.IsNullOrEmpty(_solution.Description))
+            {
+                return;
+            }
+
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var title = _solution.UniqueName + " Description";
+
+                    var form = new WindowTextField(title, title, _solution.Description, true);
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
         }
     }
 }

@@ -128,11 +128,12 @@
                     <DataGrid.ItemContainerStyle>
                         <Style TargetType="{x:Type DataGridRow}">
                             <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                            <Setter Property="ToolTip" Value="{Binding Description}" />
                         </Style>
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Solution Name" Width="150" Binding="{Binding SolutionName}" />
+                        <DataGridTextColumn Header="Solution Name" Width="150" Binding="{Binding SolutionName}"/>
 
                         <DataGridTextColumn Header="Display Name" Width="150" Binding="{Binding DisplayName}" />
 
@@ -145,6 +146,12 @@
                         <DataGridTextColumn Header="Publisher Name" Width="200" Binding="{Binding PublisherName}" />
 
                         <DataGridTextColumn Header="Prefix" Width="70" Binding="{Binding Prefix}" />
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding HasDescription, Mode=OneTime}">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Description" />
+                            </DataGridCheckBoxColumn.Header>
+                        </DataGridCheckBoxColumn>
 
                     </DataGrid.Columns>
                 </DataGrid>
