@@ -338,9 +338,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            if (orgUri == null && !string.IsNullOrEmpty(connectionData.OrganizationUrl))
+            if (!string.IsNullOrEmpty(connectionData.OrganizationUrl) 
+                && Uri.TryCreate(connectionData.OrganizationUrl, UriKind.RelativeOrAbsolute, out Uri custromOrgUri)
+            )
             {
-                orgUri = new Uri(connectionData.OrganizationUrl);
+                orgUri = custromOrgUri;
             }
 
             if (orgUri != null)
