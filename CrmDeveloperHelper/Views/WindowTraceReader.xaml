@@ -8,7 +8,7 @@
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         mc:Ignorable="d" 
         x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowTraceReader"
-        Title="Trace Reader" Height="538.662" Width="803" WindowStartupLocation="Manual">
+        Title="Trace Reader" Height="540.662" Width="904" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu">
             <MenuItem Header="Open Trace File" VerticalAlignment="Center" Click="mIOpenTraceFile_Click"/>
@@ -72,11 +72,15 @@
                     <Label Content="Filter" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
                     <ComboBox x:Name="cmBFilter" Height="26" Margin="58,10,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.TraceReaderFilter}" ItemsSource="{Binding Path=SelectedItem.TraceReaderLastFilters}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
 
-                    <Label Content="File Date Change From" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="24"/>
-                    <DatePicker x:Name="dPFileDate" HorizontalAlignment="Left" Margin="146,41,0,0" VerticalAlignment="Top" Width="199" SelectedDateFormat="Long" KeyDown="cmBFilterEnitity_KeyDown" FirstDayOfWeek="Monday"/>
+                    <Label Content="File Date Change From" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="24" Padding="0"/>
+                    <DatePicker x:Name="dPFileDate" HorizontalAlignment="Left" Margin="136,41,0,0" VerticalAlignment="Top" Height="24" Width="140" SelectedDateFormat="Long" KeyDown="cmBFilterEnitity_KeyDown" FirstDayOfWeek="Monday"/>
 
-                    <Label Content="Date From" HorizontalAlignment="Left" Margin="399,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="24"/>
-                    <DatePicker x:Name="dPFilterDate" HorizontalAlignment="Left" Margin="470,42,0,0" VerticalAlignment="Top" Width="199" SelectedDateFormat="Long" KeyDown="cmBFilterEnitity_KeyDown" FirstDayOfWeek="Monday"/>
+                    <Label Content="Request Id" HorizontalAlignment="Left" Margin="303,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="24" Padding="0"/>
+                    <TextBox x:Name="txtBRequestId" HorizontalAlignment="Left" Margin="364,41,0,0" VerticalAlignment="Top" Width="199" KeyDown="cmBFilterEnitity_KeyDown" Height="24"/>
+
+                    <Label Content="Thread" HorizontalAlignment="Left" Margin="587,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="24" Padding="0"/>
+                    <TextBox x:Name="txtBThread" HorizontalAlignment="Left" Margin="629,41,0,0" VerticalAlignment="Top" Width="93" KeyDown="cmBFilterEnitity_KeyDown" Height="24"/>
+
                     <GroupBox Header="Trace Records" Margin="10,70,10,0">
                         <DataGrid x:Name="lstVwTraceRecords" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="Cell" MouseDoubleClick="lstVwTraceRecords_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Right" Height="Auto" Width="Auto" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
                             <DataGrid.Resources>
@@ -93,7 +97,7 @@
 
                                 <DataGridTextColumn Header="Num" Width="60" Binding="{Binding RecordNumber, Mode=OneTime}" />
 
-                                <DataGridTextColumn Header="Date" Width="170" Binding="{Binding Date, Mode=OneTime, StringFormat={}{0:yyyy.MM.dd HH:mm:ss.fff}}" />
+                                <DataGridTextColumn Header="DateTime" Width="170" Binding="{Binding Date, Mode=OneTime, StringFormat={}{0:yyyy.MM.dd HH:mm:ss.fff}}" />
 
                                 <DataGridTextColumn Header="Operation" Width="270" Binding="{Binding Operation, Mode=OneTime}" />
 

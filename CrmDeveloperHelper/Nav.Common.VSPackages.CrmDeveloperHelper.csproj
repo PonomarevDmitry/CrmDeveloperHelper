@@ -803,6 +803,7 @@
     <Compile Include="Model\SolutionImageComponent.cs" />
     <Compile Include="Model\TraceFile.cs" />
     <Compile Include="Model\TraceRecord.cs" />
+    <Compile Include="Model\TraceRecordLevel.cs" />
     <Compile Include="Model\Translation.cs" />
     <Compile Include="Model\TranslationDisplayString.cs" />
     <Compile Include="Model\TreeNodeEntity.cs" />

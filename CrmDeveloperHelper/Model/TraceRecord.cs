@@ -18,15 +18,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string Operation { get; set; }
 
-        public Guid RequestId { get; set; }
+        public Guid? RequestId { get; set; }
 
         public string Process { get; set; }
 
-        public string Thread { get; set; }
+        public int Thread { get; set; }
 
         public string Category { get; set; }
 
-        public string Level { get; set; }
+        public TraceRecordLevel Level { get; set; }
 
         public Guid? UserId { get; set; }
 
@@ -191,16 +191,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                                         break;
 
                                     case "Organization":
+                                        if (Guid.TryParse(value, out var organizationGuid)
+                                            && organizationGuid != Guid.Empty
+                                            )
                                         {
-                                            if (Guid.TryParse(value, out var tempGuid))
-                                            {
-                                                traceRecord.Organization = tempGuid;
-                                            }
+                                            traceRecord.Organization = organizationGuid;
                                         }
                                         break;
 
                                     case "Thread":
-                                        traceRecord.Thread = value;
+                                        if (int.TryParse(value, out var threadNumber))
+                                        {
+                                            traceRecord.Thread = threadNumber;
+                                        }
                                         break;
 
                                     case "Category":
@@ -208,23 +211,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                                         break;
 
                                     case "User":
+                                        if (Guid.TryParse(value, out var userGuid)
+                                            && userGuid != Guid.Empty
+                                            )
                                         {
-                                            if (Guid.TryParse(value, out var tempGuid))
-                                            {
-                                                traceRecord.UserId = tempGuid;
-                                            }
+                                            traceRecord.UserId = userGuid;
                                         }
                                         break;
 
                                     case "Level":
-                                        traceRecord.Level = value;
+                                        traceRecord.Level = ParseTraceRecordLevel(value);
                                         break;
 
                                     case "ReqId":
                                         {
-                                            if (Guid.TryParse(value, out var tempGuid))
+                                            if (Guid.TryParse(value, out var requestGuid)
+                                                && requestGuid != Guid.Empty
+                                                )
                                             {
-                                                traceRecord.RequestId = tempGuid;
+                                                traceRecord.RequestId = requestGuid;
                                             }
                                         }
                                         break;
@@ -238,7 +243,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                             if (string.Equals(traceRecord.Process, "OUTLOOK", StringComparison.InvariantCultureIgnoreCase))
                             {
                                 traceRecord.Organization = null;
-                                traceRecord.RequestId = Guid.Empty;
+                                traceRecord.RequestId = null;
                                 traceRecord.Operation = string.Empty;
                             }
                         }
@@ -252,6 +257,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
 
             return result;
+        }
+
+        private static TraceRecordLevel ParseTraceRecordLevel(string value)
+        {
+            if (string.Equals(value, "Off", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return TraceRecordLevel.Off;
+            }
+            else if (string.Equals(value, "Error", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return TraceRecordLevel.Error;
+            }
+            else if (string.Equals(value, "Warning", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return TraceRecordLevel.Warning;
+            }
+            else if (string.Equals(value, "Info", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return TraceRecordLevel.Info;
+            }
+            else if (string.Equals(value, "Verbose", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return TraceRecordLevel.Verbose;
+            }
+
+            return TraceRecordLevel.Unknown;
         }
     }
 }

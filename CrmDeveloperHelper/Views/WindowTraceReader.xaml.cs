@@ -232,12 +232,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             string textName = string.Empty;
-
-            DateTime? date = null;
+            Guid? requestId = null;
+            int? threadNumber = null;
 
             this.Dispatcher.Invoke(() =>
             {
-                textName = cmBFilter.Text?.Trim().ToLower();
+                textName = cmBFilter.Text;
 
                 if (cmBCurrentConnection.SelectedItem is ConnectionData connectionData)
                 {
@@ -246,33 +246,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 cmBFilter.Text = textName;
 
-                date = dPFilterDate.SelectedDate;
+                if (Guid.TryParse(txtBRequestId.Text, out var tempGuid)
+                    && tempGuid != Guid.Empty
+                )
+                {
+                    requestId = tempGuid;
+                }
+
+                if (int.TryParse(txtBRequestId.Text, out var tempInt))
+                {
+                    threadNumber = tempInt;
+                }
             });
 
-            list = await FilterTraceRecordsAsync(list, textName, date);
+            list = await FilterTraceRecordsAsync(list, textName, requestId, threadNumber);
 
             LoadTraceRecords(list, dictUsers);
 
             ToggleControls(true, Properties.WindowStatusStrings.FilteringTraceFilesCompletedFormat1, list.Count());
         }
 
-        private Task<IEnumerable<TraceRecord>> FilterTraceRecordsAsync(IEnumerable<TraceRecord> list, string textName, DateTime? date)
+        private Task<IEnumerable<TraceRecord>> FilterTraceRecordsAsync(IEnumerable<TraceRecord> list, string textName, Guid? requestId, int? threadNumber)
         {
-            if (string.IsNullOrEmpty(textName) && !date.HasValue)
+            if (string.IsNullOrEmpty(textName) && !requestId.HasValue && !threadNumber.HasValue)
             {
                 return Task.FromResult(list);
             }
 
-            return Task.Run(() => FilterTraceRecords(list, textName, date));
+            return Task.Run(() => FilterTraceRecords(list, textName, requestId, threadNumber));
         }
 
-        private IEnumerable<TraceRecord> FilterTraceRecords(IEnumerable<TraceRecord> list, string textName, DateTime? date)
+        private IEnumerable<TraceRecord> FilterTraceRecords(IEnumerable<TraceRecord> list, string textName, Guid? requestId, int? threadNumber)
         {
-            var result = new List<TraceRecord>();
-
-            if (date.HasValue)
+            if (requestId.HasValue)
             {
-                list = list.Where(e => e.Date >= date.Value);
+                list = list.Where(t => t.RequestId.HasValue && t.RequestId.Value == requestId.Value);
+            }
+
+            if (threadNumber.HasValue)
+            {
+                list = list.Where(t => t.Thread == threadNumber.Value);
             }
 
             if (!string.IsNullOrEmpty(textName))
@@ -283,27 +296,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (item.Description.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
                     {
-                        if (item.RequestId != Guid.Empty)
+                        if (item.RequestId.HasValue && item.RequestId != Guid.Empty)
                         {
-                            hash.Add(item.RequestId);
+                            hash.Add(item.RequestId.Value);
                         }
                     }
                 }
 
-                foreach (var item in list)
-                {
-                    if (hash.Contains(item.RequestId))
-                    {
-                        result.Add(item);
-                    }
-                }
-            }
-            else
-            {
-                result.AddRange(list);
+                list = list.Where(t => (t.RequestId.HasValue && hash.Contains(t.RequestId.Value)) || t.Description.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1);
             }
 
-            return result;
+            return list.ToList();
         }
 
         private void LoadTraceRecords(IEnumerable<TraceRecord> results, Dictionary<Guid, SystemUser> dictUsers)
