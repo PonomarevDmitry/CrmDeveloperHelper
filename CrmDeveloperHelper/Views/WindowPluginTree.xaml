@@ -4,7 +4,7 @@
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="Plugin Tree" Height="538.662" Width="717" WindowStartupLocation="Manual">
+        Title="Plugin Tree" Height="538.662" Width="746" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <BitmapImage x:Key="ImagePluginAssembly" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/assembly.gif" />
         <BitmapImage x:Key="ImageEntity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Entity.png" />
@@ -14,8 +14,14 @@
         <BitmapImage x:Key="ImageStage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Stage.gif" />
         <BitmapImage x:Key="ImageStep" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Step.gif" />
         <BitmapImage x:Key="ImageStepDisabled" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/stepdisabled.gif" />
+        <BitmapImage x:Key="ImageBusinessRule" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/BusinessRule.png" />
+        <BitmapImage x:Key="ImageBusinessProcess" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/BusinessProcess.png" />
 
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+
+            <MenuItem x:Uid="contMnOpenInWeb" Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
+            <Separator x:Uid="contMnOpenInWeb" />
+
             <MenuItem x:Uid="contMnCreateDescription" Header="Create Description" VerticalAlignment="Center" Click="mICreateDescription_Click"/>
             <Separator x:Uid="contMnCreateDescription" />
             
@@ -47,10 +53,13 @@
             <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Request Tree" VerticalAlignment="Center" Click="mIOpenSdkMessageRequestTree_Click" />
             <Separator x:Uid="contMnSdkMessage" />
 
+            <MenuItem x:Uid="contMnWorkflowExlorer" Header="Open Workflow Explorer" VerticalAlignment="Center" Click="mIOpenWorkflowExplorer_Click" />
+            <Separator x:Uid="contMnWorkflowExlorer" />
+
             <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
             <Separator x:Uid="contMnEntity" />
             
-            <MenuItem Header="Dependent Components">
+            <MenuItem x:Uid="contMnDependentComponents" Header="Dependent Components">
                 <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
@@ -69,6 +78,7 @@
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="10*"/>
+
             </Grid.ColumnDefinitions>
             
             <Label Content="Entity Name" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
@@ -89,11 +99,16 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <CheckBox x:Name="chBStagePreValidation" Grid.Column="0" Grid.Row="0" Content="10 - Pre Validation" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" />
             <CheckBox x:Name="chBStagePre" Grid.Column="1" Grid.Row="0" Content="20 - Pre" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" />
             <CheckBox x:Name="chBStagePostSync" Grid.Column="2" Grid.Row="0" Content="40 - Post Sync" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" />
             <CheckBox x:Name="chBStagePostAsync" Grid.Column="3" Grid.Row="0" Content="40 - Post Async" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+
+            <CheckBox x:Name="chBBusinessRules" Grid.Column="4" Grid.Row="0" Content="Business Rules" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+            <CheckBox x:Name="chBBusinessProcesses" Grid.Column="5" Grid.Row="0" Content="Business Processes" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" />
         </Grid>
         <GroupBox Header="Plugin Tree" Margin="10,71,10,69">
             <DockPanel LastChildFill="True">

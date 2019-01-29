@@ -758,7 +758,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             result.Append(name);
 
-            if (mode == 1)
+            if (mode == (int)SdkMessageProcessingStep.Schema.OptionSets.mode.Asynchronous_1)
             {
                 result.Append(" Asynch");
             }

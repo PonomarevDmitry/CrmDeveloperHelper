@@ -1184,6 +1184,7 @@
     <Resource Include="Resources\Schemas\VisualizationDataDescription.xsd">
       <SubType>Designer</SubType>
     </Resource>
+    <None Include="Resources\TraceEnable.reg" />
     <None Include="sign.snk" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
@@ -1229,6 +1230,8 @@
     <Resource Include="Resources\step.gif" />
     <Resource Include="Resources\stepdisabled.gif" />
     <None Include="DebugConfiguration.txt" />
+    <Resource Include="Resources\BusinessRule.png" />
+    <Resource Include="Resources\BusinessProcess.png" />
     <Content Include="Resources\CrmDeveloperHelperPackage.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>

@@ -32,6 +32,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public Guid? StepImage { get; set; }
 
+        public Guid? Workflow { get; set; }
+
         public ComponentType? ComponentType { get; private set; }
 
         public ObservableCollection<PluginTreeViewItem> Items { get; private set; }
@@ -68,6 +70,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             if (this.StepImage.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageProcessingStepImage)
             {
                 return this.StepImage.Value;
+            }
+
+            if (this.Workflow.HasValue && this.ComponentType == Entities.ComponentType.Workflow)
+            {
+                return this.Workflow.Value;
             }
 
             return null;
