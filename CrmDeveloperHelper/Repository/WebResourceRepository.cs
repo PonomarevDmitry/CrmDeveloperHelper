@@ -232,12 +232,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
         }
 
-        public Task<List<WebResource>> GetListAsync(string name)
+        public Task<List<WebResource>> GetListAsync(string name, ColumnSet columnSet = null)
         {
             return Task.Run(() => GetList(name));
         }
 
-        private List<WebResource> GetList(string name)
+        private List<WebResource> GetList(string name, ColumnSet columnSet = null)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -245,7 +245,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = WebResource.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(GetAttributes(_Service)),
+                ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_Service)),
 
                 PageInfo = new PagingInfo()
                 {
@@ -304,68 +304,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<WebResource> GetListSupportsText(string name, ColumnSet columnSet)
         {
-            QueryExpression query = new QueryExpression()
-            {
-                NoLock = true,
+            //Criteria =
+            //    {
+            //    Conditions =
+            //        {
+            //        new ConditionExpression(WebResource.Schema.Attributes.webresourcetype, ConditionOperator.In
+            //            , || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1
+            //            , || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_CSS_2
+            //            , || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3
+            //            , || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Data_XML_4
+            //            , || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_XSL_9
+            //        ),
+            //        }
+            //},
 
-                EntityName = WebResource.EntityLogicalName,
-
-                ColumnSet = columnSet ?? new ColumnSet(true),
-
-                Criteria =
-                {
-                    Conditions =
-                    {
-                        new ConditionExpression(WebResource.Schema.Attributes.webresourcetype, ConditionOperator.In
-                            , (int)WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1
-                            , (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_CSS_2
-                            , (int)WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3
-                            , (int)WebResource.Schema.OptionSets.webresourcetype.Data_XML_4
-                            , (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_XSL_9
-                        ),
-                    }
-                },
-
-                Orders =
-                {
-                    new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
-                },
-
-                PageInfo =
-                {
-                    Count = 5000,
-                    PageNumber = 1,
-                },
-            };
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                query.Criteria.AddCondition(WebResource.Schema.Attributes.name, ConditionOperator.Like, "%" + name + "%");
-            }
-
-            List<WebResource> result = new List<WebResource>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _Service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<WebResource>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
-            }
+            var result = GetList(name, columnSet).Where(w => w.WebResourceType != null && 
+                (
+                w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1
+                || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_CSS_2
+                || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3
+                || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Data_XML_4
+                || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_XSL_9
+                || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.SVG_format_11
+                )
+            ).ToList();
 
             return result;
         }
