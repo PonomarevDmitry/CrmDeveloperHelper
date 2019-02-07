@@ -423,6 +423,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public static Uri GetResourceUri(string fileName)
+        {
+            return new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/{0}", fileName));
+        }
+
         public static Uri GetSchemaResourceUri(string fileName)
         {
             return new Uri(string.Format("pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Schemas/{0}", fileName));

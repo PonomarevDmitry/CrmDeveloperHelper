@@ -436,8 +436,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWindow = 0x1118;
         public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWindow_GroupLastSolution = 0x1119;
         public const int commonMenu_GroupTraceReader = 0x11D9;
-        public const int commonMenu_GroupTraceReader_MenuConnections = 0x11DA;
-        public const int commonMenu_GroupTraceReader_MenuConnections_GroupConnections = 0x11DB;
+        public const int commonMenu_GroupTraceReader_Menu = 0x11DA;
+        public const int commonMenu_GroupTraceReader_Menu_GroupTraceFile = 0x125E;
+        public const int commonMenu_GroupTraceReader_Menu_GroupConnections = 0x11DB;
         public const int commonMenu_GroupOrganizationComparer = 0x10F0;
         public const int commonMenu_GroupPublishAll = 0x1196;
         public const int commonMenu_GroupPublishAll_MenuConnections = 0x1197;
@@ -730,6 +731,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonSolutionExplorerCommandId = 0x203F;
         public const int CommonOpenSolutionImageCommandId = 0x2170;
         public const int CommonOpenXsdSchemaFolderCommandId = 0x217A;
+        public const int CommonTraceExportFileCommandId = 0x2189;
         public const int CommonOrganizationComparerCommandId = 0x2040;
         public const int CommonOpenOrganizationDifferenceImageCommandId = 0x2171;
         public const int CommonOpenConfigFolderCommandId = 0x2188;

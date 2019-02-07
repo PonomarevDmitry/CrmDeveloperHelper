@@ -217,6 +217,7 @@
     <Compile Include="Commands\CommonSolutionExplorerInConnectionCommand.cs" />
     <Compile Include="Commands\CommonSystemUsersExplorerCommand.cs" />
     <Compile Include="Commands\CommonTeamsExplorerCommand.cs" />
+    <Compile Include="Commands\CommonTraceExportFileCommand.cs" />
     <Compile Include="Commands\CommonTraceReaderCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyAddIntoSolutionCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
@@ -1134,6 +1135,8 @@
     <Content Include="app.config">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Resources\serviceendpoint.png" />
+    <Resource Include="Resources\workflowactivity.gif" />
     <Resource Include="Resources\PrivilegeDepths\ico_18_role_B.gif" />
     <Resource Include="Resources\PrivilegeDepths\ico_18_role_D.gif" />
     <Resource Include="Resources\PrivilegeDepths\ico_18_role_G.gif" />
@@ -1185,7 +1188,7 @@
     <Resource Include="Resources\Schemas\VisualizationDataDescription.xsd">
       <SubType>Designer</SubType>
     </Resource>
-    <None Include="Resources\TraceEnable.reg" />
+    <Resource Include="Resources\TraceEnable.reg" />
     <None Include="sign.snk" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>

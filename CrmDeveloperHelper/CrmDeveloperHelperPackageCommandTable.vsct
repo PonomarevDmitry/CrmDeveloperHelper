@@ -412,7 +412,8 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWindow_GroupLastSolution" priority="0x0610" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader" priority="0x0605" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_MenuConnections_GroupConnections" priority="0x0605" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu_GroupTraceFile" priority="0x0605" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu_GroupConnections" priority="0x0605" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupOrganizationComparer" priority="0x0605" />
 
@@ -977,7 +978,7 @@
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_MenuConnections" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Trace Reader</ButtonText>
           <MenuText>Trace Reader</MenuText>
@@ -4648,7 +4649,12 @@
       </Button>
 
 
-
+      
+      <Button guid="guidCommandSet" id="CommonTraceExportFileCommandId" priority="0x0100" type="Button">
+        <Strings>
+          <ButtonText>Export TraceEnable.reg file</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidDynamicCommandSet" id="CommonTraceReaderCommandId" priority="0x012D" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -6182,14 +6188,22 @@
     </CommandPlacement>
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_MenuConnections" priority="0x0109">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu" priority="0x0109">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_MenuConnections_GroupConnections" priority="0x0109">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_MenuConnections" />
+    
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu_GroupTraceFile" priority="0x0108">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu" />
+    </CommandPlacement>  
+    <CommandPlacement guid="guidCommandSet" id="CommonTraceExportFileCommandId" priority="0x0108">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu_GroupTraceFile" />
+    </CommandPlacement>
+    
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu_GroupConnections" priority="0x0109">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonTraceReaderCommandId" priority="0x0108">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_MenuConnections_GroupConnections" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu_GroupConnections" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="CommonOrganizationComparerCommandId" priority="0x0108">
@@ -9197,8 +9211,9 @@
 
       <IDSymbol name="commonMenu_GroupTraceReader" value="0x11D9" />
 
-      <IDSymbol name="commonMenu_GroupTraceReader_MenuConnections" value="0x11DA" />
-      <IDSymbol name="commonMenu_GroupTraceReader_MenuConnections_GroupConnections" value="0x11DB" />
+      <IDSymbol name="commonMenu_GroupTraceReader_Menu" value="0x11DA" />
+      <IDSymbol name="commonMenu_GroupTraceReader_Menu_GroupTraceFile" value="0x125E" />
+      <IDSymbol name="commonMenu_GroupTraceReader_Menu_GroupConnections" value="0x11DB" />
 
       <IDSymbol name="commonMenu_GroupOrganizationComparer" value="0x10F0" />
 
@@ -9326,7 +9341,7 @@
 
 
 
-      <!-- 0x125E -->
+      <!-- 0x125F -->
 
 
     </GuidSymbol>
@@ -9765,6 +9780,8 @@
       <IDSymbol name="CommonOpenSolutionImageCommandId" value="0x2170" />
 
       <IDSymbol name="CommonOpenXsdSchemaFolderCommandId" value="0x217A" />
+      
+      <IDSymbol name="CommonTraceExportFileCommandId" value="0x2189" />      
 
       <IDSymbol name="CommonOrganizationComparerCommandId" value="0x2040" />
       <IDSymbol name="CommonOpenOrganizationDifferenceImageCommandId" value="0x2171" />
@@ -10095,7 +10112,7 @@
 
 
 
-      <!-- 0x2189 -->
+      <!-- 0x218A -->
 
     </GuidSymbol>
 

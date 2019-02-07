@@ -108,7 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private const string loggerOutput = "OutputLogger";
         private const string loggerErrors = "ErrorLogger";
 
-        private readonly static string _logLayout = new string('-', 150) + "${newline}${newline}${newline}${newline}${newline}${newline}${longdate}|${level}${newline}${message}${newline}${newline}${exception}${newline}${newline}${stacktrace:format=Raw:topFrames=10}${newline}" + new string('-', 150);
+        private static readonly string _logLayout = new string('-', 150) + "${newline}${newline}${newline}${newline}${newline}${newline}${longdate}|${level}${newline}${message}${newline}${newline}${exception}${newline}${newline}${stacktrace:format=Raw:topFrames=10}${newline}" + new string('-', 150);
 
         static DTEHelper()
         {
@@ -3094,7 +3094,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
         }
-        
+
         public void HandleOpenTeamsExplorer()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
@@ -3509,7 +3509,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
         }
-        
+
         public void HandleExportFormEvents()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
@@ -4298,6 +4298,72 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             PerformAction(filePath, true);
                         }
+                    }
+                    catch (Exception xE)
+                    {
+                        WriteErrorToOutput(xE);
+                    }
+                }
+            }
+        }
+
+        public void HandleExportTraceEnableFile()
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (commonConfig != null)
+            {
+                string fileName = "TraceEnable.reg";
+
+                var dialog = new Microsoft.Win32.SaveFileDialog()
+                {
+                    DefaultExt = ".reg",
+
+                    Filter = "Registry Edit (.reg)|*.reg",
+                    FilterIndex = 1,
+
+                    RestoreDirectory = true,
+                    FileName = fileName,
+                };
+
+                if (!string.IsNullOrEmpty(commonConfig.FolderForExport))
+                {
+                    dialog.InitialDirectory = commonConfig.FolderForExport;
+                }
+
+                if (dialog.ShowDialog().GetValueOrDefault())
+                {
+                    ActivateOutputWindow();
+                    WriteToOutputEmptyLines(commonConfig);
+
+                    try
+                    {
+                        Uri uri = FileOperations.GetResourceUri(fileName);
+                        StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                        var filePath = dialog.FileName;
+
+                        byte[] buffer = new byte[16345];
+                        using (FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                        {
+                            int read;
+                            while ((read = info.Stream.Read(buffer, 0, buffer.Length)) > 0)
+                            {
+                                fs.Write(buffer, 0, read);
+                            }
+                        }
+
+                        this.WriteToOutput(string.Empty);
+                        this.WriteToOutput(string.Empty);
+                        this.WriteToOutput(string.Empty);
+
+                        this.WriteToOutput("{0} exported.", fileName);
+
+                        this.WriteToOutput(string.Empty);
+
+                        this.WriteToOutputFilePathUri(filePath);
+
+                        SelectFileInFolder(filePath);
                     }
                     catch (Exception xE)
                     {
