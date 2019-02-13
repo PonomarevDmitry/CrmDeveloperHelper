@@ -247,6 +247,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_Service)),
 
+                Orders =
+                {
+                    new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
+                },
+
                 PageInfo = new PagingInfo()
                 {
                     PageNumber = 1,
@@ -261,14 +266,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 query.Criteria.AddCondition(WebResource.Schema.Attributes.name, ConditionOperator.Like, "%" + name + "%");
             }
-
-            query.AddOrder(WebResource.Schema.Attributes.name, OrderType.Ascending);
-
-            query.PageInfo = new PagingInfo()
-            {
-                PageNumber = 1,
-                Count = 5000,
-            };
 
             List<WebResource> result = new List<WebResource>();
 
@@ -380,15 +377,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     },
                 },
 
+                Orders =
+                {
+                    new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
+                },
+
                 PageInfo =
                 {
                     Count = 5000,
                     PageNumber = 1,
-                },
-
-                Orders =
-                {
-                    new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
                 },
             };
 
@@ -442,15 +439,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_Service)),
 
+                Orders =
+                {
+                    new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
+                },
+
                 PageInfo =
                 {
                     Count = 5000,
                     PageNumber = 1,
-                },
-
-                Orders =
-                {
-                    new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
                 },
             };
 
@@ -501,15 +498,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 ColumnSet = new ColumnSet(true),
 
+                Orders =
+                {
+                    new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
+                },
+
                 PageInfo =
                 {
                     Count = 5000,
                     PageNumber = 1,
-                },
-
-                Orders =
-                {
-                    new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
                 },
             };
 

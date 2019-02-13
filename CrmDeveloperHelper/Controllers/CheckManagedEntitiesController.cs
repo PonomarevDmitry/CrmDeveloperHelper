@@ -1378,6 +1378,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             QueryExpression query = GetQuery(entityName);
 
+            query.PageInfo = new PagingInfo()
+            {
+                PageNumber = 1,
+                Count = 5000,
+            };
+
             var result = new List<Entity>();
 
             try

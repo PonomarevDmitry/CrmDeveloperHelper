@@ -129,7 +129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(PluginAssembly.Schema.Attributes.createdon, OrderType.Ascending),
                 },
 
-                PageInfo =
+                PageInfo = new PagingInfo()
                 {
                     Count = 5000,
                     PageNumber = 1,
@@ -231,7 +231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(PluginAssembly.Schema.Attributes.createdon, OrderType.Ascending),
                 },
 
-                PageInfo =
+                PageInfo = new PagingInfo()
                 {
                     Count = 5000,
                     PageNumber = 1,

@@ -26,53 +26,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<Privilege>> GetListAsync(IEnumerable<Guid> roles)
+        public Task<List<RolePrivileges>> GetListAsync(IEnumerable<Guid> roles)
         {
             if (!roles.Any())
             {
-                return Task.FromResult(new List<Privilege>());
+                return Task.FromResult(new List<RolePrivileges>());
             }
 
             return Task.Run(() => GetList(roles));
         }
 
-        private List<Privilege> GetList(IEnumerable<Guid> roles)
+        private List<RolePrivileges> GetList(IEnumerable<Guid> roles)
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = Privilege.EntityLogicalName,
+                EntityName = RolePrivileges.EntityLogicalName,
 
                 NoLock = true,
 
                 ColumnSet = new ColumnSet(true),
 
-                LinkEntities =
+                Criteria =
                 {
-                    new LinkEntity()
+                    Conditions =
                     {
-                        LinkFromEntityName = Privilege.EntityLogicalName,
-                        LinkFromAttributeName = Privilege.PrimaryIdAttribute,
-
-                        LinkToEntityName = RolePrivileges.EntityLogicalName,
-                        LinkToAttributeName = RolePrivileges.Schema.Attributes.privilegeid,
-
-                        EntityAlias = RolePrivileges.EntityLogicalName,
-
-                        Columns = new ColumnSet(RolePrivileges.Schema.Attributes.roleid, RolePrivileges.Schema.Attributes.privilegedepthmask),
-
-                        LinkCriteria =
-                        {
-                            Conditions =
-                            {
-                                new ConditionExpression(RolePrivileges.Schema.Attributes.roleid, ConditionOperator.In, roles.ToArray()),
-                            },
-                        },
+                        new ConditionExpression(RolePrivileges.Schema.Attributes.roleid, ConditionOperator.In, roles.ToArray()),
                     },
-                },
-
-                Orders =
-                {
-                    new OrderExpression(Privilege.Schema.Attributes.name, OrderType.Ascending),
                 },
 
                 PageInfo = new PagingInfo()
@@ -82,7 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             };
 
-            var result = new List<Privilege>();
+            var result = new List<RolePrivileges>();
 
             try
             {
@@ -90,7 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     var coll = _service.RetrieveMultiple(query);
 
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Privilege>()));
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<RolePrivileges>()));
 
                     if (!coll.MoreRecords)
                     {
@@ -334,6 +313,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         },
                     },
                 },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                }
             };
 
             List<EntityReference> result = new List<EntityReference>();
@@ -422,6 +407,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         },
                     },
                 },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                }
             };
 
             List<EntityReference> result = new List<EntityReference>();
@@ -532,6 +523,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         },
                     },
                 },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                }
             };
 
             List<EntityReference> result = new List<EntityReference>();
@@ -642,6 +639,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         },
                     },
                 },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                }
             };
 
             List<EntityReference> result = new List<EntityReference>();

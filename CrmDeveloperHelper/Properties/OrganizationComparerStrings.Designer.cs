@@ -691,6 +691,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Common Roles in {0} and {1}: {2}.
+        /// </summary>
+        internal static string RolesCommonFormat3 {
+            get {
+                return ResourceManager.GetString("RolesCommonFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Common SiteMaps in {0} and {1}: {2}.
         /// </summary>
         internal static string SiteMapsCommonFormat3 {
