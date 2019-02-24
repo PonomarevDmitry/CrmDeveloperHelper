@@ -786,6 +786,7 @@
     <Compile Include="Model\OptionItem.cs" />
     <Compile Include="Model\OptionSetExportType.cs" />
     <Compile Include="Model\OptionSetMetadataListViewItem.cs" />
+    <Compile Include="Model\OrganizationDetailViewItem.cs" />
     <Compile Include="Model\OrganizationDifferenceImage.cs" />
     <Compile Include="Model\OrganizationDifferenceImageComponent.cs" />
     <Compile Include="Model\OrganizationServiceExtentedProxy.cs" />
@@ -865,6 +866,7 @@
     <Compile Include="Repository\ContractTemplateRepository.cs" />
     <Compile Include="Repository\DependencyNodeRepository.cs" />
     <Compile Include="Repository\DependencyRepository.cs" />
+    <Compile Include="Repository\DiscoveryServiceRepository.cs" />
     <Compile Include="Repository\DisplayStringMapRepository.cs" />
     <Compile Include="Repository\DisplayStringRepository.cs" />
     <Compile Include="Repository\EntityMapRepository.cs" />

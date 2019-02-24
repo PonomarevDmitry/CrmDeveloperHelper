@@ -1,11 +1,16 @@
+using Microsoft.Xrm.Sdk.Client;
+using Microsoft.Xrm.Sdk.Discovery;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +27,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly ConnectionConfiguration _crmConfig;
         private readonly IWriteToOutput _iWriteToOutput;
+
+        private readonly ObservableCollection<OrganizationDetailViewItem> _itemsSource;
 
         public WindowCrmConnectionList(IWriteToOutput iWriteToOutput, ConnectionConfiguration crmConfig)
         {
@@ -42,7 +49,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             lstVwUsers.ItemsSource = this._crmConfig.Users;
 
+            lstVwOrganizations.ItemsSource = this._itemsSource = new ObservableCollection<OrganizationDetailViewItem>();
+
             UpdateCurrentConnectionInfo();
+
+            LoadConfiguration();
+
+            UpdateButtonsConnection();
+            UpdateButtonsConnectionArchive();
+            UpdateButtonsUsers();
+            UpdateButtonsDiscoveryOrganization();
         }
 
         protected override void OnClosed(EventArgs e)
@@ -62,6 +78,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             lstVwUsers.ItemsSource = null;
 
             base.OnClosed(e);
+        }
+
+        private const string paramDiscoveryServiceUrl = "DiscoveryServiceUrl";
+        private const string paramDiscoveryServiceUser = "DiscoveryServiceUser";
+
+        private void LoadConfiguration()
+        {
+            WindowSettings winConfig = this.GetWindowsSettings();
+
+            this.cmBDiscoveryServiceUrl.Text = winConfig.GetValueString(paramDiscoveryServiceUrl);
+
+            {
+                var temp = winConfig.GetValueString(paramDiscoveryServiceUser);
+
+                if (!string.IsNullOrEmpty(temp)
+                    && Guid.TryParse(temp, out Guid userId)
+                )
+                {
+                    var user = this._crmConfig.Users.FirstOrDefault(u => u.UserId == userId);
+
+                    if (user != null)
+                    {
+                        if (cmBDiscoveryServiceUser.Items.Contains(user))
+                        {
+                            cmBDiscoveryServiceUser.SelectedItem = user;
+                        }
+                    }
+                }
+            }
+        }
+
+        protected override void SaveConfigurationInternal(WindowSettings winConfig)
+        {
+            base.SaveConfigurationInternal(winConfig);
+
+            winConfig.DictString[paramDiscoveryServiceUrl] = this.cmBDiscoveryServiceUrl.Text?.Trim();
+            winConfig.DictString[paramDiscoveryServiceUser] = (this.cmBDiscoveryServiceUser.SelectedItem as ConnectionUserData)?.UserId.ToString();
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -179,11 +232,73 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 txtBCurrentConnection.Text = name;
             });
+
+            UpdateDiscoveryServiceUrls();
+
+            UpdateDiscoveryUsers();
+        }
+
+        private void UpdateDiscoveryServiceUrls()
+        {
+            var services = new HashSet<string>(this._crmConfig.Connections.Where(c => !string.IsNullOrEmpty(c.DiscoveryUrl)).Select(c => c.DiscoveryUrl), StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var item in this._crmConfig.ArchiveConnections)
+            {
+                if (!string.IsNullOrEmpty(item.DiscoveryUrl))
+                {
+                    services.Add(item.DiscoveryUrl);
+                }
+            }
+
+            cmBDiscoveryServiceUrl.Dispatcher.Invoke(() =>
+            {
+                var text = cmBDiscoveryServiceUrl.Text;
+
+                cmBDiscoveryServiceUrl.Items.Clear();
+
+                foreach (var item in services.OrderBy(s => s))
+                {
+                    cmBDiscoveryServiceUrl.Items.Add(item);
+                }
+
+                cmBDiscoveryServiceUrl.Text = text;
+            });
+        }
+
+        private void UpdateDiscoveryUsers()
+        {
+            cmBDiscoveryServiceUser.Dispatcher.Invoke(() =>
+            {
+                var selectedUser = cmBDiscoveryServiceUser.SelectedItem as ConnectionUserData;
+
+                cmBDiscoveryServiceUser.Items.Clear();
+
+                cmBDiscoveryServiceUser.Items.Add(string.Empty);
+
+                foreach (var item in this._crmConfig.Users)
+                {
+                    cmBDiscoveryServiceUser.Items.Add(item);
+                }
+
+                if (selectedUser != null
+                    && cmBDiscoveryServiceUser.Items.Contains(selectedUser)
+                )
+                {
+                    cmBDiscoveryServiceUser.SelectedItem = selectedUser;
+                }
+                else
+                {
+                    cmBDiscoveryServiceUser.SelectedIndex = 0;
+                }
+            });
         }
 
         private void tSBCreate_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connectionData = new ConnectionData();
+            ConnectionData connectionData = new ConnectionData()
+            {
+                ConnectionConfiguration = _crmConfig,
+            };
 
             var form = new WindowCrmConnectionCard(_iWriteToOutput, connectionData, _crmConfig.Users);
 
@@ -769,6 +884,162 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this.Close();
                 }
+            }
+        }
+
+        private void lstVwOrganizations_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.lstVwOrganizations.Dispatcher.Invoke(() =>
+            {
+                try
+                {
+                    bool enabled = this.lstVwOrganizations.SelectedItems.Count > 0;
+
+                    UIElement[] list = { tSBCreateConnectionFromOrganization };
+
+                    foreach (var button in list)
+                    {
+                        button.IsEnabled = enabled;
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            });
+        }
+
+        private void tSBCreateConnectionFromOrganization_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateButtonsDiscoveryOrganization();
+        }
+
+        private void UpdateButtonsDiscoveryOrganization()
+        {
+            if (lstVwOrganizations.SelectedItems.Count == 1)
+            {
+                OrganizationDetailViewItem detail = lstVwOrganizations.SelectedItems[0] as OrganizationDetailViewItem;
+
+                if (detail != null)
+                {
+                    OpenConnectionFormForOrganizationDetail(detail);
+                }
+            }
+        }
+
+        private void bntCreateConnectionFromOrganization_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                if (((FrameworkElement)e.OriginalSource).DataContext is OrganizationDetailViewItem detail)
+                {
+                    OpenConnectionFormForOrganizationDetail(detail);
+                }
+            }
+        }
+
+        private void OpenConnectionFormForOrganizationDetail(OrganizationDetailViewItem detail)
+        {
+            ConnectionData connectionData = new ConnectionData()
+            {
+                ConnectionId = Guid.NewGuid(),
+
+                ConnectionConfiguration = _crmConfig,
+
+                DiscoveryUrl = detail.DiscoveryUri.ToString(),
+                OrganizationUrl = detail.OrganizationServiceEndpoint,
+                PublicUrl = detail.WebApplicationEndpoint,
+                UniqueOrgName = detail.UniqueName,
+
+                User = detail.User,
+
+                OrganizationId = detail.OrganizationId,
+                FriendlyName = detail.FriendlyName,
+                OrganizationVersion = detail.OrganizationVersion,
+                OrganizationState = detail.State.ToString(),
+                UrlName = detail.UrlName,
+            };
+
+            var form = new WindowCrmConnectionCard(_iWriteToOutput, connectionData, _crmConfig.Users);
+
+            if (form.ShowDialog().GetValueOrDefault())
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    connectionData.Save();
+                    connectionData.ConnectionConfiguration = this._crmConfig;
+                    connectionData.LoadIntellisenseAsync();
+                    connectionData.StartWatchFile();
+                    this._crmConfig.Connections.Add(connectionData);
+                });
+            }
+
+            UpdateCurrentConnectionInfo();
+
+            this._crmConfig.Save();
+        }
+
+        private async void CmBDiscoveryServiceUrl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter)
+            {
+                return;
+            }
+
+            string discoveryServiceUrl = cmBDiscoveryServiceUrl.Text?.Trim();
+
+            if (string.IsNullOrEmpty(discoveryServiceUrl))
+            {
+                return;
+            }
+
+            if (!discoveryServiceUrl.EndsWith(Properties.MessageBoxStrings.DefaultDiscoveryServiceUrlSuffix, StringComparison.InvariantCultureIgnoreCase))
+            {
+                discoveryServiceUrl = discoveryServiceUrl.TrimEnd('/') + Properties.MessageBoxStrings.DefaultDiscoveryServiceUrlSuffix;
+            }
+
+            if (!Uri.TryCreate(discoveryServiceUrl, UriKind.Absolute, out Uri discoveryServiceUri))
+            {
+                return;
+            }
+
+            try
+            {
+                this._itemsSource.Clear();
+
+                var serviceManagement = ServiceConfigurationFactory.CreateManagement<IDiscoveryService>(discoveryServiceUri);
+
+                if (serviceManagement == null)
+                {
+                    _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.DiscoveryServiceConfigurationCouldNotBeReceived);
+                    _iWriteToOutput.ActivateOutputWindow();
+                    return;
+                }
+
+                var user = cmBDiscoveryServiceUser.SelectedItem as ConnectionUserData;
+
+                var discoveryService = QuickConnection.CreateDiscoveryService(serviceManagement, user?.Username, user?.Password);
+
+                if (discoveryService == null)
+                {
+                    _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.DiscoveryServiceCouldNotBeReceived);
+                    _iWriteToOutput.ActivateOutputWindow();
+                    return;
+                }
+
+                var repository = new DiscoveryServiceRepository(discoveryService);
+
+                var orgs = await repository.DiscoverOrganizationsAsync();
+
+                foreach (var org in orgs.OrderBy(o => o.UniqueName).ThenBy(o => o.OrganizationId))
+                {
+                    var viewItem = new OrganizationDetailViewItem(discoveryServiceUri, user, org);
+
+                    this._itemsSource.Add(viewItem);
+                }
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(ex);
             }
         }
     }

@@ -142,6 +142,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /XRMServices/2011/Discovery.svc.
+        /// </summary>
+        internal static string DefaultDiscoveryServiceUrlSuffix {
+            get {
+                return ResourceManager.GetString("DefaultDiscoveryServiceUrlSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http:///XRMServices/2011/Discovery.svc.
         /// </summary>
         internal static string DefaultDiscoveryServiceUrlTemplate {

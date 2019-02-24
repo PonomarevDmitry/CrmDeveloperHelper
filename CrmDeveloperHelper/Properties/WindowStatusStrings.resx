@@ -1197,4 +1197,10 @@
   <data name="RemovingSolutionComponentsFromOwnedByFormat2" xml:space="preserve">
     <value>Removing solution components from {0} owned by {1}...</value>
   </data>
+  <data name="DiscoveryServiceConfigurationCouldNotBeReceived" xml:space="preserve">
+    <value>DiscoveryService Configuration could not be received.</value>
+  </data>
+  <data name="DiscoveryServiceCouldNotBeReceived" xml:space="preserve">
+    <value>DiscoveryService could not be received.</value>
+  </data>
 </root>

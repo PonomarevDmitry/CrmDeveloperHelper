@@ -32,11 +32,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             try
             {
-                var management = ServiceConfigurationFactory.CreateManagement<IDiscoveryService>(uri);
+                var serviceManagement = ServiceConfigurationFactory.CreateManagement<IDiscoveryService>(uri);
 
                 if (!_cacheDiscoveryServiceManagement.ContainsKey(uri))
                 {
-                    _cacheDiscoveryServiceManagement.TryAdd(uri, management);
+                    _cacheDiscoveryServiceManagement.TryAdd(uri, serviceManagement);
                 }
 
                 return _cacheDiscoveryServiceManagement[uri];
@@ -304,7 +304,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             Uri orgUri = null;
 
             if ((withDiscoveryRequest || string.IsNullOrEmpty(connectionData.OrganizationUrl))
-                && !string.IsNullOrEmpty(connectionData.DiscoveryUrl) && Uri.TryCreate(connectionData.DiscoveryUrl, UriKind.Absolute, out var discoveryUri)
+                && !string.IsNullOrEmpty(connectionData.DiscoveryUrl)
+                && Uri.TryCreate(connectionData.DiscoveryUrl, UriKind.Absolute, out var discoveryUri)
                 )
             {
                 var disco = CreateDiscoveryService(discoveryUri, connectionData.User?.Username, connectionData.User?.Password);
@@ -313,7 +314,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     using (disco)
                     {
-                        var orgs = DiscoverOrganizations(disco);
+                        var repository = new DiscoveryServiceRepository(disco);
+
+                        var orgs = repository.DiscoverOrganizations();
 
                         if (orgs.Count == 1)
                         {
@@ -338,7 +341,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            if (!string.IsNullOrEmpty(connectionData.OrganizationUrl) 
+            if (!string.IsNullOrEmpty(connectionData.OrganizationUrl)
                 && Uri.TryCreate(connectionData.OrganizationUrl, UriKind.RelativeOrAbsolute, out Uri custromOrgUri)
             )
             {
@@ -386,26 +389,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (serviceManagement != null)
                 {
-                    var credentials = GetCredentials(serviceManagement, username, password);
-
-                    DiscoveryServiceProxy service = null;
-
-                    if (serviceManagement.AuthenticationType != AuthenticationProviderType.ActiveDirectory
-                           && serviceManagement.AuthenticationType != AuthenticationProviderType.None
-                    )
-                    {
-                        AuthenticationCredentials tokenCredentials = serviceManagement.Authenticate(credentials);
-
-                        service = new DiscoveryServiceProxy(serviceManagement, tokenCredentials.SecurityTokenResponse);
-                    }
-                    else
-                    {
-                        service = new DiscoveryServiceProxy(serviceManagement, credentials.ClientCredentials);
-                    }
-
-                    service.Timeout = TimeSpan.FromMinutes(30);
-
-                    return service;
+                    return CreateDiscoveryService(serviceManagement, username, password);
                 }
             }
             catch (Exception ex)
@@ -416,12 +400,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return null;
         }
 
+        public static DiscoveryServiceProxy CreateDiscoveryService(IServiceManagement<IDiscoveryService> serviceManagement, string username, string password)
+        {
+            DiscoveryServiceProxy service = null;
+
+            var credentials = GetCredentials(serviceManagement, username, password);
+
+            if (serviceManagement.AuthenticationType != AuthenticationProviderType.ActiveDirectory
+                && serviceManagement.AuthenticationType != AuthenticationProviderType.None
+            )
+            {
+                AuthenticationCredentials tokenCredentials = serviceManagement.Authenticate(credentials);
+
+                service = new DiscoveryServiceProxy(serviceManagement, tokenCredentials.SecurityTokenResponse);
+            }
+            else
+            {
+                service = new DiscoveryServiceProxy(serviceManagement, credentials.ClientCredentials);
+            }
+
+            service.Timeout = TimeSpan.FromMinutes(30);
+
+            return service;
+        }
+
         /// <summary>
         /// получение всех организаций
         /// </summary>
         /// <param name="service"></param>
         /// <returns></returns>
-        private static OrganizationDetailCollection DiscoverOrganizations(DiscoveryServiceProxy service)
+        private static OrganizationDetailCollection DiscoverOrganizations(IDiscoveryService service)
         {
             RetrieveOrganizationsRequest request = new RetrieveOrganizationsRequest();
             RetrieveOrganizationsResponse response = (RetrieveOrganizationsResponse)service.Execute(request);

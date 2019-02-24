@@ -1123,6 +1123,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DiscoveryService Configuration could not be received..
+        /// </summary>
+        internal static string DiscoveryServiceConfigurationCouldNotBeReceived {
+            get {
+                return ResourceManager.GetString("DiscoveryServiceConfigurationCouldNotBeReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DiscoveryService could not be received..
+        /// </summary>
+        internal static string DiscoveryServiceCouldNotBeReceived {
+            get {
+                return ResourceManager.GetString("DiscoveryServiceCouldNotBeReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Downloading SystemForm&apos;s WebResources for {0} - {1} completed..
         /// </summary>
         internal static string DownloadingSystemFormWebResourcesCompletedFormat2 {

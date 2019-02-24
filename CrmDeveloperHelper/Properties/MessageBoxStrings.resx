@@ -285,4 +285,7 @@
   <data name="RemoveSolutionComponentsFromToFormat2" xml:space="preserve">
     <value>Are you sure want to remove components owned by {0} from {1}?</value>
   </data>
+  <data name="DefaultDiscoveryServiceUrlSuffix" xml:space="preserve">
+    <value>/XRMServices/2011/Discovery.svc</value>
+  </data>
 </root>

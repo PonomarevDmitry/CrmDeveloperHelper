@@ -497,6 +497,145 @@
                     </ListView>
                 </DockPanel>
             </TabItem>
+
+            <TabItem Header="Discovery Service">
+                <DockPanel LastChildFill="True">
+
+                    <Grid VerticalAlignment="Top" DockPanel.Dock="Top" Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="25*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Discovery Service" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0" />
+                        <ComboBox x:Name="cmBDiscoveryServiceUrl" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" StaysOpenOnEdit="True" IsTabStop="True" Height="23" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" KeyDown="CmBDiscoveryServiceUrl_KeyDown" />
+
+                        <Label Content="User" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="2" />
+                        <ComboBox x:Name="cmBDiscoveryServiceUser" IsReadOnly="True" Grid.Row="0" Grid.Column="3" Height="23" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+                    </Grid>
+
+                    <ToolBar VerticalAlignment="Top" DockPanel.Dock="Top" >
+                        <Button x:Name="tSBCreateConnectionFromOrganization" HorizontalAlignment="Left" IsEnabled="False" Click="tSBCreateConnectionFromOrganization_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Image  Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Create Connection to Organization</TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </ToolBar>
+                    <ListView x:Name="lstVwOrganizations" SelectionMode="Single" SelectionChanged="lstVwOrganizations_SelectionChanged" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Right" Height="Auto" Width="Auto" MouseDoubleClick="lstVwConnections_MouseDoubleClick"  >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalContentAlignment"  Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="Auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <Button ToolTip="Create Connection" Margin="6,3" VerticalAlignment="Center" Click="bntCreateConnectionFromOrganization_Click" Background="{x:Null}" BorderThickness="0">
+                                                    <Button.Content>
+                                                        <Image Width="16" Height="16" Source="{StaticResource ImageAdd}"/>
+                                                    </Button.Content>
+                                                </Button>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="UniqueName" Width="95">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding UniqueName}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="FriendlyName" Width="95">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding FriendlyName}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="UrlName" Width="95">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding UrlName}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="State" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding State}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                               
+                                <GridViewColumn Header="Ver" Width="75">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding OrganizationVersion}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="OrganizationId" Width="115">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding OrganizationId}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="OrganizationServiceEndpoint" Width="410">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding OrganizationServiceEndpoint}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="OrganizationDataServiceEndpoint" Width="410">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding OrganizationDataServiceEndpoint}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="WebApplicationEndpoint" Width="410">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding WebApplicationEndpoint}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </DockPanel>
+            </TabItem>
         </TabControl>
 
         <Button Content="Close" Margin="0,0,10,29" Click="btnClose_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
