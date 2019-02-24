@@ -16,6 +16,8 @@
             <Separator/>
             <MenuItem Header="Open User List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
             <Separator/>
+            <MenuItem Header="Create User Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
+            <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy User Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
                 <MenuItem Header="Copy User Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
@@ -28,6 +30,8 @@
             <MenuItem Header="Open Role List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
             <Separator/>
             <MenuItem Header="Open Role Explorer" VerticalAlignment="Center" Click="mIOpenEntityExplorer_Click" />
+            <Separator/>
+            <MenuItem Header="Create Role Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
             <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy Role Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
@@ -47,6 +51,8 @@
             <Separator/>
             <MenuItem Header="Open Role Explorer" VerticalAlignment="Center" Click="mIOpenEntityExplorer_Click" />
             <Separator/>
+            <MenuItem Header="Create Role Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
+            <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy Role Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
                 <MenuItem Header="Copy Role Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
@@ -56,6 +62,8 @@
                 <MenuItem Header="Open Team in Web" VerticalAlignment="Center" Click="mIOpenRoleTeamInWeb_Click" />
                 <Separator/>
                 <MenuItem Header="Open Team Explorer" VerticalAlignment="Center" Click="mIOpenRoleTeamExplorer_Click" />
+                <Separator/>
+                <MenuItem Header="Create Team Entity Description" VerticalAlignment="Center" Click="mICreateRoleTeamEntityDescription_Click" />
                 <Separator/>
                 <MenuItem Header="Copy Team Id to Clipboard" VerticalAlignment="Center" Click="mICopyRoleTeamIdToClipboard_Click" />
                 <MenuItem Header="Copy Team Url to Clipboard" VerticalAlignment="Center" Click="mICopyRoleTeamUrlToClipboard_Click" />
@@ -71,6 +79,8 @@
             <MenuItem Header="Open Team List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
             <Separator/>
             <MenuItem Header="Open Team Explorer" VerticalAlignment="Center" Click="mIOpenEntityExplorer_Click" />
+            <Separator/>
+            <MenuItem Header="Create Team Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
             <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy Team Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />

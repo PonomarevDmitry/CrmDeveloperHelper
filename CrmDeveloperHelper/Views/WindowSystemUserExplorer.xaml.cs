@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -1401,6 +1402,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private async void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
+                )
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            var entityFull = service.RetrieveByQuery<Entity>(entity.LogicalName, entity.Id, new ColumnSet(true));
+
+            string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, "EntityDescription", "txt");
+            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, null, service.ConnectionData);
+
+            DTEHelper.Singleton?.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                   , service.ConnectionData.Name
+                   , entityFull.LogicalName
+                   , filePath);
+
+            DTEHelper.Singleton?.PerformAction(filePath);
+        }
+
         private void mIOpenEntityInstanceListInWeb_Click(object sender, RoutedEventArgs e)
         {
             if (!(e.OriginalSource is MenuItem menuItem))
@@ -1514,6 +1546,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             WindowHelper.OpenTeamsExplorer(_iWriteToOutput, service, _commonConfig, entityMetadataList, role.TeamName);
+        }
+
+        private async void mICreateRoleTeamEntityDescription_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Role role)
+                || !role.TeamId.HasValue
+                )
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            var entityFull = service.RetrieveByQuery<Entity>(Role.EntityLogicalName, role.TeamId.Value, new ColumnSet(true));
+
+            string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, "EntityDescription", "txt");
+            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, null, service.ConnectionData);
+
+            DTEHelper.Singleton?.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                   , service.ConnectionData.Name
+                   , entityFull.LogicalName
+                   , filePath);
+
+            DTEHelper.Singleton?.PerformAction(filePath);
         }
 
         private void ContextMenuRole_Opened(object sender, RoutedEventArgs e)
