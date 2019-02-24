@@ -2,15 +2,21 @@
 using System.Globalization;
 using System.IO;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowSelectFolderForExport : WindowBase
     {
+        private readonly object sysObjectConnections = new object();
+
         public string SelectedFolder => txtBFolder.Text.Trim();
 
-        public WindowSelectFolderForExport(string folder, FileAction fileAction)
+        public WindowSelectFolderForExport(ConnectionData connectionData
+            , string folder
+            , FileAction fileAction
+        )
         {
             InitializeComponent();
 
@@ -19,6 +25,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBFolder.Text = folder;
 
             cmBFileAction.SelectedItem = fileAction;
+
+            if (connectionData != null)
+            {
+                BindingOperations.EnableCollectionSynchronization(connectionData.ConnectionConfiguration.Connections, sysObjectConnections);
+
+                cmBConnection.ItemsSource = connectionData.ConnectionConfiguration.Connections;
+                cmBConnection.SelectedItem = connectionData;
+            }
+            else
+            {
+                lblConnection.IsEnabled = cmBConnection.IsEnabled = false;
+                lblConnection.Visibility = cmBConnection.Visibility = Visibility.Collapsed;
+            }
 
             txtBFolder.Focus();
         }
@@ -50,6 +69,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             return FileAction.None;
+        }
+
+        public ConnectionData GetConnectionData()
+        {
+            return cmBConnection.SelectedItem as ConnectionData;
         }
 
         private void btnExport_Click(object sender, RoutedEventArgs e)

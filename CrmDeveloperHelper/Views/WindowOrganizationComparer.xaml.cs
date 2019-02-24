@@ -770,27 +770,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection1 != null && connection2 == null)
             {
-                var dialog = new WindowSelectFolderForExport(_commonConfig.FolderForExport, _commonConfig.DefaultFileAction);
+                var dialog = new WindowSelectFolderForExport(connection1, _commonConfig.FolderForExport, _commonConfig.DefaultFileAction);
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
-                    _commonConfig.Save();
+                    var connectionData = dialog.GetConnectionData();
 
-                    var backWorker = new Thread(() =>
+                    if (connectionData != null)
                     {
-                        try
-                        {
-                            var contr = new CheckController(this._iWriteToOutput);
+                        _commonConfig.Save();
 
-                            contr.ExecuteCheckingWorkflowsUsedEntities(connection1, _commonConfig);
-                        }
-                        catch (Exception ex)
+                        var backWorker = new Thread(() =>
                         {
-                            this._iWriteToOutput.WriteErrorToOutput(ex);
-                        }
-                    });
+                            try
+                            {
+                                var contr = new CheckController(this._iWriteToOutput);
 
-                    backWorker.Start();
+                                contr.ExecuteCheckingWorkflowsUsedEntities(connectionData, _commonConfig);
+                            }
+                            catch (Exception ex)
+                            {
+                                this._iWriteToOutput.WriteErrorToOutput(ex);
+                            }
+                        });
+
+                        backWorker.Start();
+                    }
                 }
             }
         }
@@ -801,27 +806,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection1 != null && connection2 == null)
             {
-                var dialog = new WindowSelectFolderForExport(_commonConfig.FolderForExport, _commonConfig.DefaultFileAction);
+                var dialog = new WindowSelectFolderForExport(connection1, _commonConfig.FolderForExport, _commonConfig.DefaultFileAction);
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
-                    _commonConfig.Save();
+                    var connectionData = dialog.GetConnectionData();
 
-                    var backWorker = new Thread(() =>
+                    if (connectionData != null)
                     {
-                        try
-                        {
-                            var contr = new CheckController(this._iWriteToOutput);
+                        _commonConfig.Save();
 
-                            contr.ExecuteCheckingWorkflowsNotExistingUsedEntities(connection1, _commonConfig);
-                        }
-                        catch (Exception ex)
+                        var backWorker = new Thread(() =>
                         {
-                            this._iWriteToOutput.WriteErrorToOutput(ex);
-                        }
-                    });
+                            try
+                            {
+                                var contr = new CheckController(this._iWriteToOutput);
 
-                    backWorker.Start();
+                                contr.ExecuteCheckingWorkflowsNotExistingUsedEntities(connectionData, _commonConfig);
+                            }
+                            catch (Exception ex)
+                            {
+                                this._iWriteToOutput.WriteErrorToOutput(ex);
+                            }
+                        });
+
+                        backWorker.Start();
+                    }
                 }
             }
         }
@@ -902,23 +912,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     int? entityTypeCode = dialog.EntityTypeCode;
                     Guid entityId = dialog.EntityId;
 
-                    _commonConfig.Save();
+                    var connectionData = dialog.GetConnectionData();
 
-                    var backWorker = new Thread(() =>
+                    if (connectionData != null)
                     {
-                        try
-                        {
-                            var contr = new CheckController(this._iWriteToOutput);
+                        _commonConfig.Save();
 
-                            contr.ExecuteFindEntityById(connection1, _commonConfig, entityName, entityTypeCode, entityId);
-                        }
-                        catch (Exception ex)
+                        var backWorker = new Thread(() =>
                         {
-                            this._iWriteToOutput.WriteErrorToOutput(ex);
-                        }
-                    });
+                            try
+                            {
+                                var contr = new CheckController(this._iWriteToOutput);
 
-                    backWorker.Start();
+                                contr.ExecuteFindEntityById(connectionData, _commonConfig, entityName, entityTypeCode, entityId);
+                            }
+                            catch (Exception ex)
+                            {
+                                this._iWriteToOutput.WriteErrorToOutput(ex);
+                            }
+                        });
+
+                        backWorker.Start();
+                    }
                 }
             }
         }
@@ -937,23 +952,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     int? entityTypeCode = dialog.EntityTypeCode;
                     Guid entityId = dialog.EntityId;
 
-                    _commonConfig.Save();
+                    var connectionData = dialog.GetConnectionData();
 
-                    var backWorker = new Thread(() =>
+                    if (connectionData != null)
                     {
-                        try
-                        {
-                            var contr = new CheckController(this._iWriteToOutput);
+                        _commonConfig.Save();
 
-                            contr.ExecuteFindEntityByUniqueidentifier(connection1, _commonConfig, entityName, entityTypeCode, entityId);
-                        }
-                        catch (Exception ex)
+                        var backWorker = new Thread(() =>
                         {
-                            this._iWriteToOutput.WriteErrorToOutput(ex);
-                        }
-                    });
+                            try
+                            {
+                                var contr = new CheckController(this._iWriteToOutput);
 
-                    backWorker.Start();
+                                contr.ExecuteFindEntityByUniqueidentifier(connectionData, _commonConfig, entityName, entityTypeCode, entityId);
+                            }
+                            catch (Exception ex)
+                            {
+                                this._iWriteToOutput.WriteErrorToOutput(ex);
+                            }
+                        });
+
+                        backWorker.Start();
+                    }
                 }
             }
         }

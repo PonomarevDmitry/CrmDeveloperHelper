@@ -536,33 +536,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateSaveRoleChangesButtons();
         }
 
-        private void ToggleControl(bool enabled, params Control[] controlsArray)
-        {
-            foreach (var control in controlsArray)
-            {
-                if (control == null)
-                {
-                    continue;
-                }
-
-                control.Dispatcher.Invoke(() =>
-                {
-                    if (control is TextBox textBox)
-                    {
-                        textBox.IsReadOnly = !enabled;
-                    }
-                    else if (control is ProgressBar progressBar)
-                    {
-                        progressBar.IsIndeterminate = !enabled;
-                    }
-                    else
-                    {
-                        control.IsEnabled = enabled;
-                    }
-                });
-            }
-        }
-
         private void txtBFilterSystemUser_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)

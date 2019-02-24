@@ -365,10 +365,19 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" priority="0x0603" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupFindEntity" priority="0x0603" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" priority="0x0604" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_Menu_Group" priority="0x0604" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" priority="0x0605" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicate_Group" priority="0x0605" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuComponentTypeEnum_Group" priority="0x0605" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescription_Group" priority="0x0605" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities" priority="0x0606" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_Menu_Group" priority="0x0606" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates" priority="0x0607" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginSteps_Group" priority="0x0607" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginImages_Group" priority="0x0607" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents" priority="0x0608" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginSteps_Group" priority="0x0608" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImages_Group" priority="0x0608" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupPluginConfiguration" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupPluginConfiguration_MenuPluginConfiguration_GroupCreate" priority="0x0608" />
@@ -898,6 +907,73 @@
           <MenuText>Check</MenuText>
         </Strings>
       </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_Menu" priority="0x0101" type="Menu">
+        <Strings>
+          <ButtonText>Entities Ownership</ButtonText>
+          <MenuText>Entities Ownership</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicate" priority="0x0111" type="Menu">
+        <Strings>
+          <ButtonText>Global OptionSet Duplicates on Entity</ButtonText>
+          <MenuText>Global OptionSet Duplicates on Entity</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuComponentTypeEnum" priority="0x0111" type="Menu">
+        <Strings>
+          <ButtonText>Solution ComponentType Enum</ButtonText>
+          <MenuText>Solution ComponentType Enum</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescription" priority="0x0111" type="Menu">
+        <Strings>
+          <ButtonText>Create All Dependency Nodes Description</ButtonText>
+          <MenuText>Create All Dependency Nodes Description</MenuText>
+        </Strings>
+      </Menu>
+
+
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_Menu" priority="0x0112" type="Menu">
+        <Strings>
+          <ButtonText>Check Managed Entities in CRM</ButtonText>
+          <MenuText>Check Managed Entities in CRM</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginSteps" priority="0x0113" type="Menu">
+        <Strings>
+          <ButtonText>Plugin Steps Duplicates</ButtonText>
+          <MenuText>Plugin Steps Duplicates</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginImages" priority="0x0114" type="Menu">
+        <Strings>
+          <ButtonText>Plugin Images Duplicates</ButtonText>
+          <MenuText>Plugin Images Duplicates</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginSteps" priority="0x0115" type="Menu">
+        <Strings>
+          <ButtonText>Plugin Steps Required Components</ButtonText>
+          <MenuText>Plugin Steps Required Components</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImages" priority="0x0116" type="Menu">
+        <Strings>
+          <ButtonText>Plugin Images Required Components</ButtonText>
+          <MenuText>Plugin Images Required Components</MenuText>
+        </Strings>
+      </Menu>
+
+
+
+
+
+
+
 
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupPluginConfiguration_MenuPluginConfiguration" priority="0x0104" type="Menu">
         <Strings>
@@ -4342,54 +4418,90 @@
 
 
 
-      <Button guid="guidCommandSet" id="CommonCheckEntitiesOwnerShipsCommandId" priority="0x0110" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CommonCheckEntitiesOwnerShipsCommandId" priority="0x0110" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Entities Ownership</ButtonText>
+          <ButtonText>Entities Ownership Placeholder</ButtonText>
         </Strings>
       </Button>
 
-      <Button guid="guidCommandSet" id="CommonCheckGlobalOptionSetDuplicateCommandId" priority="0x0111" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CommonCheckGlobalOptionSetDuplicateCommandId" priority="0x0111" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Global OptionSet Duplicates on Entity</ButtonText>
+          <ButtonText>Global OptionSet Duplicates on Entity Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CommonCheckComponentTypeEnumCommandId" priority="0x0111" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CommonCheckComponentTypeEnumCommandId" priority="0x0111" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Solution ComponentType Enum</ButtonText>
+          <ButtonText>Solution ComponentType Enum Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CommonCreateAllDependencyNodeDescriptionCommandId" priority="0x0111" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CommonCreateAllDependencyNodeDescriptionCommandId" priority="0x0111" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Create All Dependency Nodes Description</ButtonText>
-        </Strings>
-      </Button>
-
-
-      <Button guid="guidCommandSet" id="CommonCheckManagedElementsCommandId" priority="0x0112" type="Button">
-        <Strings>
-          <ButtonText>Check Managed Entities in CRM</ButtonText>
-        </Strings>
-      </Button>
-
-      <Button guid="guidCommandSet" id="CommonCheckPluginStepsCommandId" priority="0x0113" type="Button">
-        <Strings>
-          <ButtonText>Plugin Steps Duplicates</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="CommonCheckPluginImagesCommandId" priority="0x0114" type="Button">
-        <Strings>
-          <ButtonText>Plugin Images Duplicates</ButtonText>
+          <ButtonText>Create All Dependency Nodes Description Placeholder</ButtonText>
         </Strings>
       </Button>
 
-      <Button guid="guidCommandSet" id="CommonCheckPluginStepsRequiredComponentsCommandId" priority="0x0115" type="Button">
+
+      <Button guid="guidDynamicCommandSet" id="CommonCheckManagedElementsCommandId" priority="0x0112" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Steps Required Components</ButtonText>
+          <ButtonText>Check Managed Entities in CRM Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CommonCheckPluginImagesRequiredComponentsCommandId" priority="0x0116" type="Button">
+
+      <Button guid="guidDynamicCommandSet" id="CommonCheckPluginStepsCommandId" priority="0x0113" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Images Required Components</ButtonText>
+          <ButtonText>Plugin Steps Duplicates Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CommonCheckPluginImagesCommandId" priority="0x0114" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Plugin Images Duplicates Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidDynamicCommandSet" id="CommonCheckPluginStepsRequiredComponentsCommandId" priority="0x0115" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Plugin Steps Required Components Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CommonCheckPluginImagesRequiredComponentsCommandId" priority="0x0116" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Plugin Images Required Components Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4649,7 +4761,7 @@
       </Button>
 
 
-      
+
       <Button guid="guidCommandSet" id="CommonTraceExportFileCommandId" priority="0x0100" type="Button">
         <Strings>
           <ButtonText>Export TraceEnable.reg file</ButtonText>
@@ -6191,14 +6303,14 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu" priority="0x0109">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu_GroupTraceFile" priority="0x0108">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu" />
-    </CommandPlacement>  
+    </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CommonTraceExportFileCommandId" priority="0x0108">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu_GroupTraceFile" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu_GroupConnections" priority="0x0109">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu" />
     </CommandPlacement>
@@ -6692,37 +6804,105 @@
 
 
 
-    <CommandPlacement guid="guidCommandSet" id="CommonCheckEntitiesOwnerShipsCommandId" priority="0x0110">
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_Menu" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" />
     </CommandPlacement>
-
-    <CommandPlacement guid="guidCommandSet" id="CommonCheckGlobalOptionSetDuplicateCommandId" priority="0x0111">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_Menu_Group" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCheckComponentTypeEnumCommandId" priority="0x0111">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCreateAllDependencyNodeDescriptionCommandId" priority="0x0111">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" />
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCheckEntitiesOwnerShipsCommandId" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_Menu_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CommonCheckManagedElementsCommandId" priority="0x0112">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicate" priority="0x0111">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicate_Group" priority="0x0111">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicate" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCheckGlobalOptionSetDuplicateCommandId" priority="0x0111">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicate_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuComponentTypeEnum" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuComponentTypeEnum_Group" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuComponentTypeEnum" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCheckComponentTypeEnumCommandId" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuComponentTypeEnum_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescription" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescription_Group" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescription" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCreateAllDependencyNodeDescriptionCommandId" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescription_Group" />
+    </CommandPlacement>
+
+
+
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_Menu" priority="0x0112">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities" />
     </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_Menu_Group" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_Menu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCheckManagedElementsCommandId" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_Menu_Group" />
+    </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CommonCheckPluginStepsCommandId" priority="0x0113">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginSteps" priority="0x0113">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCheckPluginImagesCommandId" priority="0x0114">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginSteps_Group" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginSteps" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCheckPluginStepsCommandId" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginSteps_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CommonCheckPluginStepsRequiredComponentsCommandId" priority="0x0115">
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginImages" priority="0x0114">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginImages_Group" priority="0x0114">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginImages" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCheckPluginImagesCommandId" priority="0x0114">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginImages_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginSteps" priority="0x0115">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCheckPluginImagesRequiredComponentsCommandId" priority="0x0116">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginSteps_Group" priority="0x0115">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginSteps" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCheckPluginStepsRequiredComponentsCommandId" priority="0x0115">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginSteps_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImages" priority="0x0116">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents" />
     </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImages_Group" priority="0x0116">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImages" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCheckPluginImagesRequiredComponentsCommandId" priority="0x0116">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImages_Group" />
+    </CommandPlacement>
+
+
+
+
+
 
     <CommandPlacement guid="guidCommandSet" id="CommonPluginConfigurationCreateCommandId" priority="0x0117">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPluginConfiguration_MenuPluginConfiguration_GroupCreate" />
@@ -9147,11 +9327,35 @@
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupCrmObjects" value="0x10D4" />
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" value="0x1213" />
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupFindEntity" value="0x10D5" />
+
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" value="0x10D6"/>
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_Menu" value="0x125F"/>
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_Menu_Group" value="0x1260"/>
+
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" value="0x10D7" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicate" value="0x1261" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicate_Group" value="0x1262" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuComponentTypeEnum" value="0x1263" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuComponentTypeEnum_Group" value="0x1264" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescription" value="0x1265" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescription_Group" value="0x1266" />
+
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities" value="0x10D8" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_Menu" value="0x1267" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_Menu_Group" value="0x1268" />
+
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates" value="0x10D9" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginSteps" value="0x1269" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginSteps_Group" value="0x126A" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginImages" value="0x126B" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginImages_Group" value="0x126C" />
+
+
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents" value="0x10DA" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginSteps" value="0x126D" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginSteps_Group" value="0x126E" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImages" value="0x126F" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImages_Group" value="0x1270" />
 
 
       <IDSymbol name="commonMenu_GroupEntityInformation" value="0x10DB" />
@@ -9341,7 +9545,7 @@
 
 
 
-      <!-- 0x125F -->
+      <!-- 0x1271 -->
 
 
     </GuidSymbol>
@@ -9535,7 +9739,21 @@
 
       <IDSymbol name="CommonSolutionExplorerInConnectionCommandId" value="6250" />
 
-      <!-- 6300 -->
+      <IDSymbol name="CommonCheckEntitiesOwnerShipsCommandId" value="6300" />
+
+      <IDSymbol name="CommonCheckGlobalOptionSetDuplicateCommandId" value="6350" />
+      <IDSymbol name="CommonCheckComponentTypeEnumCommandId" value="6400" />
+      <IDSymbol name="CommonCreateAllDependencyNodeDescriptionCommandId" value="6450" />
+
+      <IDSymbol name="CommonCheckManagedElementsCommandId" value="6500" />
+
+      <IDSymbol name="CommonCheckPluginStepsCommandId" value="6550" />
+      <IDSymbol name="CommonCheckPluginImagesCommandId" value="6600" />
+
+      <IDSymbol name="CommonCheckPluginStepsRequiredComponentsCommandId" value="6650" />
+      <IDSymbol name="CommonCheckPluginImagesRequiredComponentsCommandId" value="6700" />
+
+      <!-- 6750 -->
 
     </GuidSymbol>
 
@@ -9706,20 +9924,6 @@
       <IDSymbol name="CommonFindEntityObjectsByIdCommandId" value="0x20FD" />
       <IDSymbol name="CommonFindEntityObjectsByUniqueidentifierCommandId" value="0x2149" />
 
-      <IDSymbol name="CommonCheckEntitiesOwnerShipsCommandId" value="0x2023" />
-
-      <IDSymbol name="CommonCheckGlobalOptionSetDuplicateCommandId" value="0x2024" />
-      <IDSymbol name="CommonCheckComponentTypeEnumCommandId" value="0x2148" />
-      <IDSymbol name="CommonCreateAllDependencyNodeDescriptionCommandId" value="0x2162" />
-
-      <IDSymbol name="CommonCheckManagedElementsCommandId" value="0x2025" />
-
-      <IDSymbol name="CommonCheckPluginStepsCommandId" value="0x2026" />
-      <IDSymbol name="CommonCheckPluginImagesCommandId" value="0x2027" />
-
-      <IDSymbol name="CommonCheckPluginStepsRequiredComponentsCommandId" value="0x2028" />
-      <IDSymbol name="CommonCheckPluginImagesRequiredComponentsCommandId" value="0x2029" />
-
 
 
       <IDSymbol name="CommonPluginConfigurationCreateCommandId" value="0x202A" />
@@ -9780,8 +9984,8 @@
       <IDSymbol name="CommonOpenSolutionImageCommandId" value="0x2170" />
 
       <IDSymbol name="CommonOpenXsdSchemaFolderCommandId" value="0x217A" />
-      
-      <IDSymbol name="CommonTraceExportFileCommandId" value="0x2189" />      
+
+      <IDSymbol name="CommonTraceExportFileCommandId" value="0x2189" />
 
       <IDSymbol name="CommonOrganizationComparerCommandId" value="0x2040" />
       <IDSymbol name="CommonOpenOrganizationDifferenceImageCommandId" value="0x2171" />

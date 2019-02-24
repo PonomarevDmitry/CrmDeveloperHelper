@@ -7,11 +7,14 @@ using System.Text;
 using System.Web;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Data;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowSelectEntityIdToFind : WindowBase
     {
+        private readonly object sysObjectConnections = new object();
+
         private CommonConfiguration _commonConfig;
 
         public Guid EntityId { get; private set; }
@@ -20,17 +23,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public int? EntityTypeCode { get; private set; }
 
-        public WindowSelectEntityIdToFind(CommonConfiguration commonConfig, ConnectionData connectionData, string windowTitle)
+        public WindowSelectEntityIdToFind(
+            CommonConfiguration commonConfig
+            , ConnectionData connectionData
+            , string windowTitle
+        )
         {
             InitializeComponent();
 
             this.Title = windowTitle;
+            this._commonConfig = commonConfig;
+
+            BindingOperations.EnableCollectionSynchronization(connectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._commonConfig = commonConfig;
+            LoadConfigs(commonConfig);
 
-            LoadConfigs(commonConfig, connectionData);
+            LoadEntityNames(connectionData);
+
+            cmBConnection.ItemsSource = connectionData.ConnectionConfiguration.Connections;
+            cmBConnection.SelectedItem = connectionData;
 
             txtBEntityId.Focus();
         }
@@ -49,13 +62,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void LoadConfigs(CommonConfiguration commonConfig, ConnectionData connectionData)
+        private void LoadConfigs(CommonConfiguration commonConfig)
         {
             txtBFolder.DataContext = commonConfig;
 
             cmBFileAction.DataContext = commonConfig;
+        }
 
-            if (connectionData.IntellisenseData != null
+        private void LoadEntityNames(ConnectionData connectionData)
+        {
+            cmBEntityTypeNameOrCode.Items.Clear();
+
+            if (connectionData != null
+                && connectionData.IntellisenseData != null
                 && connectionData.IntellisenseData.Entities != null
                 )
             {
@@ -227,6 +246,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnCreateFile_Click(object sender, RoutedEventArgs e)
         {
             MakeOkClick();
+        }
+
+        public ConnectionData GetConnectionData()
+        {
+            return cmBConnection.SelectedItem as ConnectionData;
+        }
+
+        private void cmBConnection_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            LoadEntityNames(GetConnectionData());
         }
     }
 }

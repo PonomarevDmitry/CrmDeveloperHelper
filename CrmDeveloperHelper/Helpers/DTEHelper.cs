@@ -2313,25 +2313,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null && selectedFiles.Count > 0)
             {
-                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.DefaultFileAction);
+                var form = new WindowSelectFolderForExport(crmConfig.CurrentConnectionData, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {
                     commonConfig.FolderForExport = form.SelectedFolder;
                     commonConfig.DefaultFileAction = form.GetFileAction();
 
-                    commonConfig.Save();
+                    var connectionData = form.GetConnectionData();
 
-                    ActivateOutputWindow();
-                    WriteToOutputEmptyLines(commonConfig);
+                    if (connectionData != null)
+                    {
+                        commonConfig.Save();
 
-                    try
-                    {
-                        Controller.ShowingWebResourcesDependentComponents(selectedFiles, crmConfig.CurrentConnectionData, commonConfig);
-                    }
-                    catch (Exception xE)
-                    {
-                        WriteErrorToOutput(xE);
+                        ActivateOutputWindow();
+                        WriteToOutputEmptyLines(commonConfig);
+
+                        try
+                        {
+                            Controller.ShowingWebResourcesDependentComponents(selectedFiles, connectionData, commonConfig);
+                        }
+                        catch (Exception xE)
+                        {
+                            WriteErrorToOutput(xE);
+                        }
                     }
                 }
             }
@@ -2348,25 +2353,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
             {
-                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.DefaultFileAction);
+                var form = new WindowSelectFolderForExport(crmConfig.CurrentConnectionData, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {
                     commonConfig.FolderForExport = form.SelectedFolder;
                     commonConfig.DefaultFileAction = form.GetFileAction();
 
-                    commonConfig.Save();
+                    var connectionData = form.GetConnectionData();
 
-                    ActivateOutputWindow();
-                    WriteToOutputEmptyLines(commonConfig);
+                    if (connectionData != null)
+                    {
+                        commonConfig.Save();
 
-                    try
-                    {
-                        Controller.ExecuteCheckingWorkflowsUsedEntities(crmConfig.CurrentConnectionData, commonConfig);
-                    }
-                    catch (Exception xE)
-                    {
-                        WriteErrorToOutput(xE);
+                        ActivateOutputWindow();
+                        WriteToOutputEmptyLines(commonConfig);
+
+                        try
+                        {
+                            Controller.ExecuteCheckingWorkflowsUsedEntities(connectionData, commonConfig);
+                        }
+                        catch (Exception xE)
+                        {
+                            WriteErrorToOutput(xE);
+                        }
                     }
                 }
             }
@@ -2383,25 +2393,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
             {
-                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.DefaultFileAction);
+                var form = new WindowSelectFolderForExport(crmConfig.CurrentConnectionData, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {
                     commonConfig.FolderForExport = form.SelectedFolder;
                     commonConfig.DefaultFileAction = form.GetFileAction();
 
-                    commonConfig.Save();
+                    var connectionData = form.GetConnectionData();
 
-                    ActivateOutputWindow();
-                    WriteToOutputEmptyLines(commonConfig);
+                    if (connectionData != null)
+                    {
+                        commonConfig.Save();
 
-                    try
-                    {
-                        Controller.ExecuteCheckingWorkflowsNotExistingUsedEntities(crmConfig.CurrentConnectionData, commonConfig);
-                    }
-                    catch (Exception xE)
-                    {
-                        WriteErrorToOutput(xE);
+                        ActivateOutputWindow();
+                        WriteToOutputEmptyLines(commonConfig);
+
+                        try
+                        {
+                            Controller.ExecuteCheckingWorkflowsNotExistingUsedEntities(connectionData, commonConfig);
+                        }
+                        catch (Exception xE)
+                        {
+                            WriteErrorToOutput(xE);
+                        }
                     }
                 }
             }
@@ -2557,20 +2572,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
             {
-                var dialog = new WindowSelectFolderAndText(commonConfig, "Select Entity Name Prefix", "Entity Name Prefix");
+                var dialog = new WindowSelectFolderAndText(commonConfig, crmConfig.CurrentConnectionData, "Select Entity Name Prefix", "Entity Name Prefix");
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
-                    ActivateOutputWindow();
-                    WriteToOutputEmptyLines(commonConfig);
+                    var connectionData = crmConfig.CurrentConnectionData;
 
-                    try
+                    if (connectionData != null)
                     {
-                        Controller.StartCheckEntitiesNames(crmConfig.CurrentConnectionData, commonConfig, dialog.GetText());
-                    }
-                    catch (Exception xE)
-                    {
-                        WriteErrorToOutput(xE);
+                        ActivateOutputWindow();
+                        WriteToOutputEmptyLines(commonConfig);
+
+                        try
+                        {
+                            Controller.StartCheckEntitiesNames(connectionData, commonConfig, dialog.GetText());
+                        }
+                        catch (Exception xE)
+                        {
+                            WriteErrorToOutput(xE);
+                        }
                     }
                 }
             }
@@ -2587,20 +2607,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
             {
-                var dialog = new WindowSelectFolderAndText(commonConfig, "Select Entity Name Prefix", "Entity Name Prefix");
+                var dialog = new WindowSelectFolderAndText(commonConfig, crmConfig.CurrentConnectionData, "Select Entity Name Prefix", "Entity Name Prefix");
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
-                    ActivateOutputWindow();
-                    WriteToOutputEmptyLines(commonConfig);
+                    var connectionData = crmConfig.CurrentConnectionData;
 
-                    try
+                    if (connectionData != null)
                     {
-                        Controller.StartCheckEntitiesNamesAndShowDependentComponents(crmConfig.CurrentConnectionData, commonConfig, dialog.GetText());
-                    }
-                    catch (Exception xE)
-                    {
-                        WriteErrorToOutput(xE);
+                        ActivateOutputWindow();
+                        WriteToOutputEmptyLines(commonConfig);
+
+                        try
+                        {
+                            Controller.StartCheckEntitiesNamesAndShowDependentComponents(connectionData, commonConfig, dialog.GetText());
+                        }
+                        catch (Exception xE)
+                        {
+                            WriteErrorToOutput(xE);
+                        }
                     }
                 }
             }
@@ -2617,42 +2642,52 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
             {
-                var dialog = new WindowSelectFolderAndText(commonConfig, "Select mark to delete", "Mark to delete");
+                var dialog = new WindowSelectFolderAndText(commonConfig, crmConfig.CurrentConnectionData, "Select mark to delete", "Mark to delete");
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
-                    ActivateOutputWindow();
-                    WriteToOutputEmptyLines(commonConfig);
+                    var connectionData = crmConfig.CurrentConnectionData;
 
-                    try
+                    if (connectionData != null)
                     {
-                        Controller.StartCheckMarkedToDeleteAndShowDependentComponents(crmConfig.CurrentConnectionData, commonConfig, dialog.GetText());
+                        ActivateOutputWindow();
+                        WriteToOutputEmptyLines(commonConfig);
+
+                        try
+                        {
+                            Controller.StartCheckMarkedToDeleteAndShowDependentComponents(connectionData, commonConfig, dialog.GetText());
+                        }
+                        catch (Exception xE)
+                        {
+                            WriteErrorToOutput(xE);
+                        }
                     }
-                    catch (Exception xE)
-                    {
-                        WriteErrorToOutput(xE);
-                    }
                 }
             }
         }
 
-        public void HandleCheckEntitiesOwnership()
+        public void HandleCheckEntitiesOwnership(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
 
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow();
                 WriteToOutputEmptyLines(commonConfig);
 
                 try
                 {
-                    Controller.StartCheckEntitiesOwnership(crmConfig.CurrentConnectionData, commonConfig);
+                    Controller.StartCheckEntitiesOwnership(connectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {
@@ -2661,23 +2696,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleCheckGlobalOptionSetDuplicates()
+        public void HandleCheckGlobalOptionSetDuplicates(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
 
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow();
                 WriteToOutputEmptyLines(commonConfig);
 
                 try
                 {
-                    Controller.StartCheckGlobalOptionSetDuplicates(crmConfig.CurrentConnectionData, commonConfig);
+                    Controller.StartCheckGlobalOptionSetDuplicates(connectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {
@@ -2686,23 +2726,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleCheckComponentTypeEnum()
+        public void HandleCheckComponentTypeEnum(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
 
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow();
                 WriteToOutputEmptyLines(commonConfig);
 
                 try
                 {
-                    Controller.StartCheckComponentTypeEnum(crmConfig.CurrentConnectionData, commonConfig);
+                    Controller.StartCheckComponentTypeEnum(connectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {
@@ -2711,23 +2756,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleCreateAllDependencyNodesDescription()
+        public void HandleCreateAllDependencyNodesDescription(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
 
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow();
                 WriteToOutputEmptyLines(commonConfig);
 
                 try
                 {
-                    Controller.StartCreateAllDependencyNodesDescription(crmConfig.CurrentConnectionData, commonConfig);
+                    Controller.StartCreateAllDependencyNodesDescription(connectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {
@@ -2736,23 +2786,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleCheckManagedEntities()
+        public void HandleCheckManagedEntities(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
 
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow();
                 WriteToOutputEmptyLines(commonConfig);
 
                 try
                 {
-                    Controller.StartCheckManagedEntities(crmConfig.CurrentConnectionData, commonConfig);
+                    Controller.StartCheckManagedEntities(connectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {
@@ -2761,23 +2816,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleCheckPluginSteps()
+        public void HandleCheckPluginSteps(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
 
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow();
                 WriteToOutputEmptyLines(commonConfig);
 
                 try
                 {
-                    Controller.StartCheckPluginSteps(crmConfig.CurrentConnectionData, commonConfig);
+                    Controller.StartCheckPluginSteps(connectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {
@@ -2786,23 +2846,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleCheckPluginImages()
+        public void HandleCheckPluginImages(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
 
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow();
                 WriteToOutputEmptyLines(commonConfig);
 
                 try
                 {
-                    Controller.StartCheckPluginImages(crmConfig.CurrentConnectionData, commonConfig);
+                    Controller.StartCheckPluginImages(connectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {
@@ -2811,23 +2876,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleCheckPluginStepsRequiredComponents()
+        public void HandleCheckPluginStepsRequiredComponents(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
 
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow();
                 WriteToOutputEmptyLines(commonConfig);
 
                 try
                 {
-                    Controller.StartCheckPluginStepsRequiredComponents(crmConfig.CurrentConnectionData, commonConfig);
+                    Controller.StartCheckPluginStepsRequiredComponents(connectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {
@@ -2836,23 +2906,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleCheckPluginImagesRequiredComponents()
+        public void HandleCheckPluginImagesRequiredComponents(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
 
-            if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
+            if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow();
                 WriteToOutputEmptyLines(commonConfig);
 
                 try
                 {
-                    Controller.StartCheckPluginImagesRequiredComponents(crmConfig.CurrentConnectionData, commonConfig);
+                    Controller.StartCheckPluginImagesRequiredComponents(connectionData, commonConfig);
                 }
                 catch (Exception xE)
                 {
@@ -2872,20 +2947,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
             {
-                var dialog = new WindowSelectFolderAndText(commonConfig, "Select Element Name", "Element Name");
+                var dialog = new WindowSelectFolderAndText(commonConfig, crmConfig.CurrentConnectionData, "Select Element Name", "Element Name");
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
-                    ActivateOutputWindow();
-                    WriteToOutputEmptyLines(commonConfig);
+                    var connectionData = crmConfig.CurrentConnectionData;
 
-                    try
+                    if (connectionData != null)
                     {
-                        Controller.StartFindEntityElementsByName(crmConfig.CurrentConnectionData, commonConfig, dialog.GetText());
-                    }
-                    catch (Exception xE)
-                    {
-                        WriteErrorToOutput(xE);
+                        ActivateOutputWindow();
+                        WriteToOutputEmptyLines(commonConfig);
+
+                        try
+                        {
+                            Controller.StartFindEntityElementsByName(connectionData, commonConfig, dialog.GetText());
+                        }
+                        catch (Exception xE)
+                        {
+                            WriteErrorToOutput(xE);
+                        }
                     }
                 }
             }
@@ -2902,20 +2982,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && crmConfig.CurrentConnectionData != null && commonConfig != null)
             {
-                var dialog = new WindowSelectFolderAndText(commonConfig, "Select String for contain", "String for contain");
+                var dialog = new WindowSelectFolderAndText(commonConfig, crmConfig.CurrentConnectionData, "Select String for contain", "String for contain");
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
-                    ActivateOutputWindow();
-                    WriteToOutputEmptyLines(commonConfig);
+                    var connectionData = crmConfig.CurrentConnectionData;
 
-                    try
+                    if (connectionData != null)
                     {
-                        Controller.StartFindEntityElementsContainsString(crmConfig.CurrentConnectionData, commonConfig, dialog.GetText());
-                    }
-                    catch (Exception xE)
-                    {
-                        WriteErrorToOutput(xE);
+                        ActivateOutputWindow();
+                        WriteToOutputEmptyLines(commonConfig);
+
+                        try
+                        {
+                            Controller.StartFindEntityElementsContainsString(connectionData, commonConfig, dialog.GetText());
+                        }
+                        catch (Exception xE)
+                        {
+                            WriteErrorToOutput(xE);
+                        }
                     }
                 }
             }
@@ -2945,7 +3030,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     try
                     {
-                        Controller.StartFindEntityById(crmConfig.CurrentConnectionData, commonConfig, entityName, entityTypeCode, entityId);
+                        Controller.StartFindEntityById(dialog.GetConnectionData(), commonConfig, entityName, entityTypeCode, entityId);
                     }
                     catch (Exception xE)
                     {
@@ -2979,7 +3064,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     try
                     {
-                        Controller.StartFindEntityByUniqueidentifier(crmConfig.CurrentConnectionData, commonConfig, entityName, entityTypeCode, entityId);
+                        Controller.StartFindEntityByUniqueidentifier(dialog.GetConnectionData(), commonConfig, entityName, entityTypeCode, entityId);
                     }
                     catch (Exception xE)
                     {
@@ -4160,13 +4245,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (commonConfig != null)
             {
-                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.DefaultFileAction);
+                string fileName = string.Format("SiteMap.{0}.xml", selectedSitemap);
 
-                if (form.ShowDialog().GetValueOrDefault())
+                var dialog = new Microsoft.Win32.SaveFileDialog()
                 {
-                    commonConfig.FolderForExport = form.SelectedFolder;
-                    commonConfig.DefaultFileAction = form.GetFileAction();
+                    DefaultExt = ".xml",
 
+                    Filter = "SiteMap (.xml)|*.xml",
+                    FilterIndex = 1,
+
+                    RestoreDirectory = true,
+                    FileName = fileName,
+
+                    InitialDirectory = commonConfig.FolderForExport,
+                };
+
+                if (dialog.ShowDialog().GetValueOrDefault())
+                {
                     commonConfig.Save();
 
                     ActivateOutputWindow();
@@ -4179,9 +4274,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         var doc = XDocument.Load(info.Stream);
                         info.Stream.Dispose();
-
-                        string fileName = string.Format("SiteMap.{0}.xml", selectedSitemap);
-                        var filePath = Path.Combine(commonConfig.FolderForExport, fileName);
+                       
+                        var filePath = dialog.FileName;
 
                         doc.Save(filePath, SaveOptions.OmitDuplicateNamespaces);
 
@@ -4260,7 +4354,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (commonConfig != null)
             {
-                var form = new WindowSelectFolderForExport(commonConfig.FolderForExport, commonConfig.DefaultFileAction);
+                var form = new WindowSelectFolderForExport(null, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {

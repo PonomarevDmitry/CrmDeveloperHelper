@@ -3,30 +3,45 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowSelectFolderAndText : WindowBase
     {
+        private readonly object sysObjectConnections = new object();
+
         private CommonConfiguration _commonConfig;
         private readonly Func<string, bool> _checker;
         private readonly string _message;
 
-        public WindowSelectFolderAndText(CommonConfiguration commonConfig, string windowTitle, string labelTitle, Func<string, bool> checker = null, string message = null)
+        public WindowSelectFolderAndText(
+            CommonConfiguration commonConfig
+            , ConnectionData connectionData
+            , string windowTitle
+            , string labelTitle
+            , Func<string, bool> checker = null
+            , string message = null
+        )
         {
             InitializeComponent();
 
             this.Title = windowTitle;
             this._checker = checker;
             this._message = message;
-            lblText.Content = labelTitle;
+            this._commonConfig = commonConfig;
+
+            BindingOperations.EnableCollectionSynchronization(connectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._commonConfig = commonConfig;
-
             LoadConfigs(commonConfig);
+
+            cmBConnection.ItemsSource = connectionData.ConnectionConfiguration.Connections;
+            cmBConnection.SelectedItem = connectionData;
+
+            lblText.Content = labelTitle;
 
             txtBText.Focus();
         }
@@ -101,6 +116,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         public string GetText()
         {
             return txtBText.Text.Trim();
+        }
+
+        public ConnectionData GetConnectionData()
+        {
+            return cmBConnection.SelectedItem as ConnectionData;
         }
     }
 }
