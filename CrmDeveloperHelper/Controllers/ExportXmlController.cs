@@ -1203,7 +1203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 )
             {
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
-                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId.ToString()
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId.ToString()
                     , attribute.Value
                     , selectedFile.FilePath
                     );
@@ -1332,12 +1332,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId);
+            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId);
 
             if (attribute == null)
             {
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
-                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId.ToString()
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId.ToString()
                     , selectedFile.FilePath
                     );
 
@@ -1349,7 +1349,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 )
             {
                 this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
-                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId.ToString()
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId.ToString()
                     , attribute.Value
                     , selectedFile.FilePath
                     );
