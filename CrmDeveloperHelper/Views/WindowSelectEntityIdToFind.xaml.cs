@@ -71,6 +71,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadEntityNames(ConnectionData connectionData)
         {
+            string text = cmBEntityTypeNameOrCode.Text;
+
             cmBEntityTypeNameOrCode.Items.Clear();
 
             if (connectionData != null
@@ -83,6 +85,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     cmBEntityTypeNameOrCode.Items.Add(item);
                 }
             }
+
+            cmBEntityTypeNameOrCode.Text = text;
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
