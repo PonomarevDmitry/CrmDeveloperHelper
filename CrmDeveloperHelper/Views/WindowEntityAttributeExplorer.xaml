@@ -380,6 +380,8 @@
 
                         <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName}" IsReadOnly="True" />
 
+                        <DataGridTextColumn Header="Attribute Type" Width="260" Binding="{Binding AttributeTypeName}" IsReadOnly="True" />
+
                         <DataGridComboBoxColumn Width="Auto" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type sdk:AttributeRequiredLevel}}}" SelectedItemBinding="{Binding RequiredLevel, UpdateSourceTrigger=PropertyChanged}">
                             <DataGridComboBoxColumn.Header>
                                 <Label Content="Req" Margin="0" Padding="0" ToolTip="Required Level" />

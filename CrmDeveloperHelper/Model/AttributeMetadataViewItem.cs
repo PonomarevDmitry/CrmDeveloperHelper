@@ -60,6 +60,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string DisplayName { get; private set; }
 
+        public string AttributeTypeName => AttributeMetadata.AttributeType.ToString();
+
         private bool? _initialIsAuditEnabled;
         private bool? _initialIsGlobalFilterEnabled;
         private bool? _initialIsSortableEnabled;
