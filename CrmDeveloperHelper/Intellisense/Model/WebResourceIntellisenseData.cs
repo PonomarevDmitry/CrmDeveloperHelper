@@ -9,8 +9,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 {
     public class WebResourceIntellisenseData
     {
-        private const int _loadPeriodInMinutes = 5;
-
         private string FilePath { get; set; }
 
         public DateTime? NextLoadFileDate { get; set; }
@@ -29,7 +27,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         public WebResourceIntellisenseData()
         {
-            ClearData();
+            this.WebResourcesHtml = new ConcurrentDictionary<Guid, WebResource>();
+            this.WebResourcesIcon = new ConcurrentDictionary<Guid, WebResource>();
+            this.WebResourcesJavaScript = new ConcurrentDictionary<Guid, WebResource>();
         }
 
         [OnDeserializing]
@@ -51,21 +51,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             }
         }
 
-        public void ClearData()
-        {
-            this.WebResourcesHtml = new ConcurrentDictionary<Guid, WebResource>();
-            this.WebResourcesIcon = new ConcurrentDictionary<Guid, WebResource>();
-            this.WebResourcesJavaScript = new ConcurrentDictionary<Guid, WebResource>();
-        }
-
         public void LoadWebResources(IEnumerable<WebResource> webResources, ConcurrentDictionary<Guid, WebResource> container)
         {
+            container.Clear();
+
             if (!webResources.Any())
             {
                 return;
             }
-
-            this.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
 
             foreach (var item in webResources)
             {

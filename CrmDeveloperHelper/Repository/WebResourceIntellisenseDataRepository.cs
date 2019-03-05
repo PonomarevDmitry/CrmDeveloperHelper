@@ -13,10 +13,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
     public class WebResourceIntellisenseDataRepository : IDisposable
     {
+        private const int _loadPeriodInMinutes = 5;
+
         private readonly object _syncObjectService = new object();
 
-        private readonly object _syncObjectTaskGettingSitemInformation = new object();
-        private Task _taskGettingSitemInformation;
+        private readonly object _syncObjectTaskGettingWebResources = new object();
+        private Task _taskGettingWebResources;
 
         private IOrganizationServiceExtented _service;
 
@@ -34,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             _cancellationTokenSource = new CancellationTokenSource();
 
-            Task.Run(() => StartGettingSiteMaps(), _cancellationTokenSource.Token);
+            Task.Run(async () => await StartGettingWebResources(), _cancellationTokenSource.Token);
         }
 
         private async Task<IOrganizationServiceExtented> GetServiceAsync()
@@ -80,48 +82,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!_WebResourceIntellisenseData.NextLoadFileDate.HasValue || _WebResourceIntellisenseData.NextLoadFileDate < DateTime.Now)
             {
-                StartGettingSiteMapsAsync();
+                StartGettingWebResourcesAsync();
             }
 
             return _WebResourceIntellisenseData;
         }
 
-        private void StartGettingSiteMapsAsync()
+        private void StartGettingWebResourcesAsync()
         {
             if (_cancellationTokenSource.IsCancellationRequested)
             {
                 return;
             }
 
-            lock (_syncObjectTaskGettingSitemInformation)
+            lock (_syncObjectTaskGettingWebResources)
             {
-                if (_taskGettingSitemInformation != null)
+                if (_taskGettingWebResources != null)
                 {
-                    if (_taskGettingSitemInformation.Status == TaskStatus.RanToCompletion)
+                    if (_taskGettingWebResources.Status == TaskStatus.RanToCompletion)
                     {
-                        _taskGettingSitemInformation = null;
+                        _taskGettingWebResources = null;
                     }
-                    else if (_taskGettingSitemInformation.Status == TaskStatus.Faulted)
+                    else if (_taskGettingWebResources.Status == TaskStatus.Faulted)
                     {
-                        DTEHelper.WriteExceptionToLog(_taskGettingSitemInformation.Exception);
+                        DTEHelper.WriteExceptionToLog(_taskGettingWebResources.Exception);
 
-                        _taskGettingSitemInformation = Task.Run(() => StartGettingSiteMaps(), _cancellationTokenSource.Token);
+                        _taskGettingWebResources = Task.Run(async () => await StartGettingWebResources(), _cancellationTokenSource.Token);
                     }
                 }
                 else
                 {
-                    _taskGettingSitemInformation = Task.Run(() => StartGettingSiteMaps(), _cancellationTokenSource.Token);
+                    _taskGettingWebResources = Task.Run(async () => await StartGettingWebResources(), _cancellationTokenSource.Token);
                 }
             }
         }
 
-        private async Task StartGettingSiteMaps()
+        private async Task StartGettingWebResources()
         {
             try
             {
                 var service = await GetServiceAsync();
-
-                _WebResourceIntellisenseData.ClearData();
 
                 {
                     var repository = new WebResourceRepository(service);
@@ -138,6 +138,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         );
 
                         _WebResourceIntellisenseData.LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesHtml);
+
+                        _WebResourceIntellisenseData.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
                     }
 
                     {
@@ -152,6 +154,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         );
 
                         _WebResourceIntellisenseData.LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesJavaScript);
+
+                        _WebResourceIntellisenseData.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
                     }
 
                     {
@@ -175,6 +179,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         );
 
                         _WebResourceIntellisenseData.LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesIcon);
+
+                        _WebResourceIntellisenseData.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
                     }
                 }
             }
@@ -184,9 +190,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             finally
             {
-                lock (_syncObjectTaskGettingSitemInformation)
+                lock (_syncObjectTaskGettingWebResources)
                 {
-                    _taskGettingSitemInformation = null;
+                    _taskGettingWebResources = null;
                 }
             }
         }

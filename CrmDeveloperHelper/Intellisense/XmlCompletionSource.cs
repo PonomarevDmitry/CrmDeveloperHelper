@@ -7,6 +7,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -50,6 +51,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         private readonly ImageSource _defaultGlyph;
         private readonly ImageSource _builtInGlyph;
         private readonly IGlyphService _glyphService;
+
+        private static ConcurrentDictionary<string, ImageSource> _cachedImages = new ConcurrentDictionary<string, ImageSource>();
 
         public XmlCompletionSource(XmlCompletionSourceProvider sourceProvider, ITextBuffer buffer, IClassifierAggregatorService classifier, ITextStructureNavigatorSelectorService navigator, IGlyphService glyphService)
         {
@@ -187,6 +190,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                 if (!string.IsNullOrEmpty(resource.Content))
                 {
+                    if (_cachedImages.ContainsKey(resource.Content))
+                    {
+                        _cachedImages.TryGetValue(resource.Content, out image);
+
+                        if (image != null)
+                        {
+                            str.AppendFormat(" - {0}x{1}", Convert.ToInt32(image.Width), Convert.ToInt32(image.Height));
+                        }
+                        else
+                        {
+                            image = _defaultGlyph;
+                        }
+                    }
+
                     try
                     {
                         var array = Convert.FromBase64String(resource.Content);
@@ -221,6 +238,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                             if (image != null)
                             {
+                                _cachedImages.TryAdd(resource.Content, image);
+
                                 str.AppendFormat(" - {0}x{1}", Convert.ToInt32(image.Width), Convert.ToInt32(image.Height));
                             }
                         }
