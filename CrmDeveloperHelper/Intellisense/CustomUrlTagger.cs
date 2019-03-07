@@ -1,16 +1,16 @@
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 {
     public class CustomUrlTagger : ITagger<UrlTag>
     {
-        ITextBuffer _buffer;
+        private readonly ITextBuffer _buffer;
 
         internal CustomUrlTagger(ITextBuffer buffer)
         {
@@ -23,11 +23,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             remove { }
         }
 
-        private char[] _trimChars = "_.,!@#%:;&*()[]{}?'\"".ToArray();
+        private readonly char[] _trimChars = "_.,!@#%:;&*()[]{}?'\"".ToArray();
 
-        private const string patternUrl = @"(openinvisualstudio|openinvisualstudiopath|openintexteditor|selectfileinfolder|showdifference|opensolution)\:\/\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9:;@!=&%#_\*\-\.\,\?\/\\\+\$\(\)\[\]\{\}]*)?";
+        private static readonly string patternUrl = "("
+            + UrlCommandFilter.PrefixOpenInVisualStudio
+            + "|" + UrlCommandFilter.PrefixOpenInVisualStudioRelativePath
+            + "|" + UrlCommandFilter.PrefixOpenInTextEditor
+            + "|" + UrlCommandFilter.PrefixShowDifference
+            + "|" + UrlCommandFilter.PrefixSelectFileInFolder
+            + "|" + UrlCommandFilter.PrefixOpenSolution
+            + "|" + UrlCommandFilter.PrefixOpenSolutionList
+            + @")\:\/\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9:;@!=&%#_\*\-\.\,\?\/\\\+\$\(\)\[\]\{\}]*)?";
 
-        private Regex regexUrl = new Regex(patternUrl, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex regexUrl = new Regex(patternUrl, RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public IEnumerable<ITagSpan<UrlTag>> GetTags(NormalizedSnapshotSpanCollection spans)
         {

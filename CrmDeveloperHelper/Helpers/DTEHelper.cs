@@ -4548,14 +4548,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 , HttpUtility.UrlEncode(solutionUniqueName)
                 );
 
+            string urlOpenSolutionList = string.Format("{0}:///crm.com?ConnectionId={1}"
+                , UrlCommandFilter.PrefixOpenSolutionList
+                , connectionData.ConnectionId.ToString()
+                );
+
+
             this.WriteToOutput(string.Empty);
-            this.WriteToOutput("Selected Solution        : {0}", solutionUniqueName);
+            this.WriteToOutput("Selected Solution            : {0}", solutionUniqueName);
+
             this.WriteToOutput(string.Empty);
-            this.WriteToOutput("Solution List in Web     : {0}", connectionData.GetOpenCrmWebSiteUrl(OpenCrmWebSiteType.Solutions));
+            this.WriteToOutput("Open Solution List in Web    : {0}", connectionData.GetOpenCrmWebSiteUrl(OpenCrmWebSiteType.Solutions));
+
             this.WriteToOutput(string.Empty);
-            this.WriteToOutput("Open Solution in Web     : {0}", solutionUrl);
+            this.WriteToOutput("Open Solution in Web         : {0}", solutionUrl);
+
             this.WriteToOutput(string.Empty);
-            this.WriteToOutput("Open Solution in Windows : {0}", urlOpenSolution);
+            this.WriteToOutput("Open Solution Explorer       : {0}", urlOpenSolutionList);
+
+            this.WriteToOutput(string.Empty);
+            this.WriteToOutput("Open Solution in Windows     : {0}", urlOpenSolution);
+
             this.WriteToOutput(string.Empty);
         }
 
@@ -4851,6 +4864,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (connectionData != null && !string.IsNullOrEmpty(solutionUniqueName))
             {
                 this.HandleOpenLastSelectedSolution(connectionData, solutionUniqueName, ActionOpenComponent.OpenInWindow);
+            }
+        }
+
+        public void OpenSolutionList(Uri uri)
+        {
+            ConnectionData connectionData = null;
+
+            if (!string.IsNullOrEmpty(uri.Query))
+            {
+                var queryDictionary = HttpUtility.ParseQueryString(uri.Query);
+
+                if (!string.IsNullOrEmpty(queryDictionary["ConnectionId"]))
+                {
+                    var idStr = queryDictionary["ConnectionId"];
+
+                    if (Guid.TryParse(idStr, out var tempGuid))
+                    {
+                        var connectionConfig = Model.ConnectionConfiguration.Get();
+
+                        connectionData = connectionConfig.Connections.FirstOrDefault(c => c.ConnectionId == tempGuid);
+                    }
+                }
+            }
+
+            if (connectionData == null)
+            {
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null)
+            {
+                this.HandleOpenSolutionExplorerWindow(connectionData);
             }
         }
 

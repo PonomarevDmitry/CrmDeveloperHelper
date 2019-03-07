@@ -24,6 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         public const string PrefixShowDifference = "showdifference";
         public const string PrefixSelectFileInFolder = "selectfileinfolder";
         public const string PrefixOpenSolution = "opensolution";
+        public const string PrefixOpenSolutionList = "opensolutionlist";
 
         private IOleCommandTarget _nextCommandHandler;
         private ITextView _textView;
@@ -198,6 +199,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             if (string.Equals(uri.Scheme, PrefixOpenSolution, StringComparison.InvariantCultureIgnoreCase))
             {
                 DTEHelper.Singleton?.OpenSolution(uri);
+
+                return true;
+            }
+
+            if (string.Equals(uri.Scheme, PrefixOpenSolutionList, StringComparison.InvariantCultureIgnoreCase))
+            {
+                DTEHelper.Singleton?.OpenSolutionList(uri);
 
                 return true;
             }
