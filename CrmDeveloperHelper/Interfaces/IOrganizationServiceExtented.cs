@@ -26,6 +26,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         Task DeleteAsync(string entityName, Guid id);
 
+        Task<Guid> UpsertAsync(Entity entity);
+
         Task<OrganizationResponse> ExecuteAsync(OrganizationRequest request);
     }
 }

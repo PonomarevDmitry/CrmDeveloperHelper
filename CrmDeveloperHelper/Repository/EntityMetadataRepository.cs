@@ -150,6 +150,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return response.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
         }
 
+        public Task<EntityMetadata> GetEntityMetadataAsync(string entityName)
+        {
+            return Task.Run(() => GetEntityMetadata(entityName));
+        }
+
         public EntityMetadata GetEntityMetadata(string entityName)
         {
             try

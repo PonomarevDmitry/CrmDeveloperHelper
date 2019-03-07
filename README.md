@@ -50,4 +50,4 @@ Download this extension from the [VS Marketplace](https://marketplace.visualstud
 
 
 ## License
-[Apache 2.0](LICENSE)
+[GNU GENERAL PUBLIC LICENSE](LICENSE.md)

@@ -1203,4 +1203,46 @@
   <data name="DiscoveryServiceCouldNotBeReceived" xml:space="preserve">
     <value>DiscoveryService could not be received.</value>
   </data>
+  <data name="DeletingSdkMessageProcessingStepSecureConfigCompletedFormat1" xml:space="preserve">
+    <value>{0}. Deleting Plugin Step SecureConfiguration completed.</value>
+  </data>
+  <data name="DeletingSdkMessageProcessingStepSecureConfigFailedFormat1" xml:space="preserve">
+    <value>{0}. Deleting Plugin Step SecureConfiguration failed.</value>
+  </data>
+  <data name="DeletingSdkMessageProcessingStepSecureConfigFormat1" xml:space="preserve">
+    <value>{0}. Deleting Plugin Step SecureConfiguration...</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepCompletedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step completed.</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepFailedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step failed.</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step...</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepSecureConfigCompletedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step SecureConfiguration completed.</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepSecureConfigFailedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step SecureConfiguration failed.</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepSecureConfigFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step SecureConfiguration...</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepImageCompletedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step Image completed.</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepImageFailedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step Image failed.</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepImageFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step Image...</value>
+  </data>
+  <data name="GettingMessages" xml:space="preserve">
+    <value>Getting messages...</value>
+  </data>
+  <data name="GettingMessagesCompleted" xml:space="preserve">
+    <value>Getting messages completed.</value>
+  </data>
 </root>

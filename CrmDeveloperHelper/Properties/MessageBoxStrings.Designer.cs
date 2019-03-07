@@ -79,6 +79,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure want to delete {0} {1}?.
+        /// </summary>
+        internal static string AreYouSureDeleteSdkObjectFormat2 {
+            get {
+                return ResourceManager.GetString("AreYouSureDeleteSdkObjectFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure want to remove roles {0} from teams {1}?.
         /// </summary>
         internal static string AreYouSureRemoveRolesFromTeamsFormat2 {
@@ -358,6 +367,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MessageFilter not finded for Message &quot;{0}&quot; and entities &quot;{1}&quot; and &quot;{2}&quot;.
+        /// </summary>
+        internal static string MessageFilterNotFindedForMessageNameAndEntitiesFormat3 {
+            get {
+                return ResourceManager.GetString("MessageFilterNotFindedForMessageNameAndEntitiesFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message name is empty..
+        /// </summary>
+        internal static string MessageNameIsEmpty {
+            get {
+                return ResourceManager.GetString("MessageNameIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move CRM Connection &apos;{0}&apos; to Archive?.
         /// </summary>
         internal static string MoveConnectionToArchiveFormat1 {
@@ -501,6 +528,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string SolutionVersionTextIsNotValidVersion {
             get {
                 return ResourceManager.GetString("SolutionVersionTextIsNotValidVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text &quot;{0}&quot; cannot be parsed to int..
+        /// </summary>
+        internal static string TextCannotBeParsedToIntFormat1 {
+            get {
+                return ResourceManager.GetString("TextCannotBeParsedToIntFormat1", resourceCulture);
             }
         }
         

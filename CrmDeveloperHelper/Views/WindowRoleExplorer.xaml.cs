@@ -1507,7 +1507,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                getter = (string filter) => repository.GetActiveUsersAsync(filter, new ColumnSet(
+                getter = (string filter) => repository.GetUsersAsync(filter, new ColumnSet(
                                 SystemUser.Schema.Attributes.domainname
                                 , SystemUser.Schema.Attributes.fullname
                                 , SystemUser.Schema.Attributes.businessunitid

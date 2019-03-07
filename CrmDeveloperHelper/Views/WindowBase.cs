@@ -346,6 +346,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        protected void CheckSeparatorVisible(IEnumerable<Control> items)
+        {
+            int index = 0;
+
+            foreach (var item in items)
+            {
+                if (item is Separator separator
+                    && separator.Visibility == Visibility.Visible
+                )
+                {
+                    bool hasNextVisible = items.Skip(index + 1).Any(c => c.Visibility == Visibility.Visible);
+
+                    if (!hasNextVisible)
+                    {
+                        separator.Visibility = Visibility.Collapsed;
+                    }
+                }
+
+                index++;
+            }
+        }
+
         protected void SetControlsName(IEnumerable<Control> items, string name, params string[] uidList)
         {
             if (uidList == null || uidList.Length == 0)

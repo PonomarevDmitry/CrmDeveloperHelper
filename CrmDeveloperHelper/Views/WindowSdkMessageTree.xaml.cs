@@ -437,6 +437,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void AddTreeNode(PluginTreeViewItem node, PluginTreeViewItem childNode)
         {
             node.Items.Add(childNode);
+            childNode.Parent = node;
         }
 
         private void ExpandNode(PluginTreeViewItem node)
@@ -464,9 +465,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Name = message,
                 Image = _imageMessage,
 
-                Message = steps.Where(s => s.SdkMessageId.HasValue).Select(s => s.SdkMessageId.Value).Distinct().ToList(),
+                MessageList = steps.Where(s => s.SdkMessageId.HasValue).Select(s => s.SdkMessageId.Value).Distinct().ToList(),
 
-                MessageFilter = steps.Where(s => s.SdkMessageFilterId.HasValue).Select(s => s.SdkMessageFilterId.Value).Distinct().ToList(),
+                MessageFilterList = steps.Where(s => s.SdkMessageFilterId.HasValue).Select(s => s.SdkMessageFilterId.Value).Distinct().ToList(),
             };
 
             return nodeMessage;
@@ -479,7 +480,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Name = entityName,
                 Image = _imageEntity,
 
-                MessageFilter = steps.Where(s => s.SdkMessageFilterId.HasValue).Select(s => s.SdkMessageFilterId.Value).Distinct().ToList(),
+                MessageFilterList = steps.Where(s => s.SdkMessageFilterId.HasValue).Select(s => s.SdkMessageFilterId.Value).Distinct().ToList(),
             };
 
             return nodeMessage;
@@ -577,12 +578,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return "Create Plugin Type Description";
             }
 
-            if (item.Message != null && item.Message.Any())
+            if (item.MessageList != null && item.MessageList.Any())
             {
                 return "Create Message Description";
             }
 
-            if (item.MessageFilter != null && item.MessageFilter.Any())
+            if (item.MessageFilterList != null && item.MessageFilterList.Any())
             {
                 return "Create Message Filter Description";
             }
@@ -604,8 +605,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             return item.PluginAssembly.HasValue
                 || item.PluginType.HasValue
-                || (item.Message != null && item.Message.Any())
-                || (item.MessageFilter != null && item.MessageFilter.Any())
+                || (item.MessageList != null && item.MessageList.Any())
+                || (item.MessageFilterList != null && item.MessageFilterList.Any())
                 || item.Step.HasValue
                 || item.StepImage.HasValue
                 ;
@@ -747,10 +748,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string fileName = string.Empty;
 
-            if (node.Message != null && node.Message.Any())
+            if (node.MessageList != null && node.MessageList.Any())
             {
                 var repository = new SdkMessageRepository(service);
-                List<SdkMessage> listMessages = await repository.GetMessageByIdsAsync(node.Message.ToArray());
+                List<SdkMessage> listMessages = await repository.GetMessageByIdsAsync(node.MessageList.ToArray());
 
                 fileName = EntityFileNameFormatter.GetMessageFileName(service.ConnectionData.Name, node.Name, "Description");
 
@@ -771,10 +772,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            if (node.MessageFilter != null && node.MessageFilter.Any())
+            if (node.MessageFilterList != null && node.MessageFilterList.Any())
             {
                 var repository = new SdkMessageFilterRepository(service);
-                List<SdkMessageFilter> listMessages = await repository.GetMessageFiltersByIdsAsync(node.MessageFilter.ToArray());
+                List<SdkMessageFilter> listMessages = await repository.GetMessageFiltersByIdsAsync(node.MessageFilterList.ToArray());
 
                 fileName = EntityFileNameFormatter.GetMessageFilterFileName(service.ConnectionData.Name, node.Name, "Description");
 

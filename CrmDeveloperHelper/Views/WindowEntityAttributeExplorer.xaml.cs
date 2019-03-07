@@ -357,9 +357,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     list = list
                     .Where(ent =>
                         ent.LogicalName.ToLower().Contains(textName)
-                        || (ent.DisplayName != null && ent.AttributeMetadata.DisplayName.LocalizedLabels
-                            .Where(l => !string.IsNullOrEmpty(l.Label))
-                            .Any(lbl => lbl.Label.ToLower().Contains(textName)))
+                        || (
+                            ent.AttributeMetadata.DisplayName != null 
+                            && ent.AttributeMetadata.DisplayName.LocalizedLabels != null
+                            && ent.AttributeMetadata.DisplayName.LocalizedLabels
+                                .Where(l => !string.IsNullOrEmpty(l.Label))
+                                .Any(lbl => lbl.Label.ToLower().Contains(textName))
+                        )
 
                     //|| (ent.Description != null && ent.Description.LocalizedLabels
                     //    .Where(l => !string.IsNullOrEmpty(l.Label))

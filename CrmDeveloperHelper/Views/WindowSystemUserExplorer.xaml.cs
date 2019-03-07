@@ -561,7 +561,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     bool enabled = this._controlsEnabled
                         && this.lstVwSystemUsers != null
-                        && this.lstVwSystemUsers.SelectedItems.OfType<SystemUser>().Any(u => !u.IsDisabled.GetValueOrDefault());
+                        && this.lstVwSystemUsers.SelectedItems.OfType<SystemUser>().Any();
 
                     UIElement[] list = { btnAssignRoleToUser, btnAddUserToTeam };
 
@@ -627,7 +627,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             lstVwSystemUsers.Dispatcher.Invoke(() =>
             {
-                result = this.lstVwSystemUsers.SelectedItems.OfType<SystemUser>().Where(u => !u.IsDisabled.GetValueOrDefault()).ToList();
+                result = this.lstVwSystemUsers.SelectedItems.OfType<SystemUser>().ToList();
             });
 
             return result;

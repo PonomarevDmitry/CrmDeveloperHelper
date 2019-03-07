@@ -1105,6 +1105,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Deleting Plugin Step SecureConfiguration completed..
+        /// </summary>
+        internal static string DeletingSdkMessageProcessingStepSecureConfigCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("DeletingSdkMessageProcessingStepSecureConfigCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Deleting Plugin Step SecureConfiguration failed..
+        /// </summary>
+        internal static string DeletingSdkMessageProcessingStepSecureConfigFailedFormat1 {
+            get {
+                return ResourceManager.GetString("DeletingSdkMessageProcessingStepSecureConfigFailedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Deleting Plugin Step SecureConfiguration....
+        /// </summary>
+        internal static string DeletingSdkMessageProcessingStepSecureConfigFormat1 {
+            get {
+                return ResourceManager.GetString("DeletingSdkMessageProcessingStepSecureConfigFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deleting solution {0} failed..
         /// </summary>
         internal static string DeletingSolutionFailedFormat1 {
@@ -1542,6 +1569,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FilteringTraceFilesCompletedFormat1 {
             get {
                 return ResourceManager.GetString("FilteringTraceFilesCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting messages....
+        /// </summary>
+        internal static string GettingMessages {
+            get {
+                return ResourceManager.GetString("GettingMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting messages completed..
+        /// </summary>
+        internal static string GettingMessagesCompleted {
+            get {
+                return ResourceManager.GetString("GettingMessagesCompleted", resourceCulture);
             }
         }
         
@@ -3243,6 +3288,87 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string UpdatingRibbonDiffXmlForEntityFormat2 {
             get {
                 return ResourceManager.GetString("UpdatingRibbonDiffXmlForEntityFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Updating Plugin Step completed..
+        /// </summary>
+        internal static string UpdatingSdkMessageProcessingStepCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingSdkMessageProcessingStepCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Updating Plugin Step failed..
+        /// </summary>
+        internal static string UpdatingSdkMessageProcessingStepFailedFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingSdkMessageProcessingStepFailedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Updating Plugin Step....
+        /// </summary>
+        internal static string UpdatingSdkMessageProcessingStepFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingSdkMessageProcessingStepFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Updating Plugin Step Image completed..
+        /// </summary>
+        internal static string UpdatingSdkMessageProcessingStepImageCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingSdkMessageProcessingStepImageCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Updating Plugin Step Image failed..
+        /// </summary>
+        internal static string UpdatingSdkMessageProcessingStepImageFailedFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingSdkMessageProcessingStepImageFailedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Updating Plugin Step Image....
+        /// </summary>
+        internal static string UpdatingSdkMessageProcessingStepImageFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingSdkMessageProcessingStepImageFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Updating Plugin Step SecureConfiguration completed..
+        /// </summary>
+        internal static string UpdatingSdkMessageProcessingStepSecureConfigCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingSdkMessageProcessingStepSecureConfigCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Updating Plugin Step SecureConfiguration failed..
+        /// </summary>
+        internal static string UpdatingSdkMessageProcessingStepSecureConfigFailedFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingSdkMessageProcessingStepSecureConfigFailedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Updating Plugin Step SecureConfiguration....
+        /// </summary>
+        internal static string UpdatingSdkMessageProcessingStepSecureConfigFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingSdkMessageProcessingStepSecureConfigFormat1", resourceCulture);
             }
         }
         

@@ -36,8 +36,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 NoLock = true,
 
-                Distinct = true,
-
                 EntityName = SdkMessageFilter.EntityLogicalName,
 
                 ColumnSet = new ColumnSet(true),
@@ -96,6 +94,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             catch (Exception ex)
             {
                 Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+            }
+
+            return result;
+        }
+
+        public Task<List<SdkMessageFilter>> GetAllAsync(ColumnSet columnSet)
+        {
+            return Task.Run(() => GetAll(columnSet));
+        }
+
+        private List<SdkMessageFilter> GetAll(ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = SdkMessageFilter.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<SdkMessageFilter>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageFilter>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ex);
             }
 
             return result;

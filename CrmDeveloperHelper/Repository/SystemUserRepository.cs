@@ -339,14 +339,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
 
-                Criteria =
-                {
-                    Conditions =
-                    {
-                        new ConditionExpression(SystemUser.Schema.Attributes.isdisabled, ConditionOperator.Equal, false),
-                    },
-                },
-
                 LinkEntities =
                 {
                     new LinkEntity()
@@ -459,7 +451,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SystemUser.Schema.Attributes.isdisabled, ConditionOperator.Equal, false),
                         new ConditionExpression(TeamMembership.Schema.EntityLogicalName, TeamMembership.Schema.Attributes.teammembershipid, ConditionOperator.Null),
                     },
                 },
@@ -616,12 +607,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             };
         }
 
-        public Task<IEnumerable<SystemUser>> GetActiveUsersAsync(string filter, ColumnSet columnSet)
+        public Task<IEnumerable<SystemUser>> GetUsersAsync(string filter, ColumnSet columnSet)
         {
-            return Task.Run(() => GetActiveUsers(filter, columnSet));
+            return Task.Run(() => GetUsers(filter, columnSet));
         }
 
-        private IEnumerable<SystemUser> GetActiveUsers(string filter, ColumnSet columnSet)
+        private IEnumerable<SystemUser> GetUsers(string filter, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -630,14 +621,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 EntityName = SystemUser.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
-
-                Criteria =
-                {
-                    Conditions =
-                    {
-                        new ConditionExpression(SystemUser.Schema.Attributes.isdisabled, ConditionOperator.Equal, false),
-                    },
-                },
 
                 Orders =
                 {

@@ -444,6 +444,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             entity1 = EntityExtensions.Merge(entity1, entity2, entity3);
 
+            SdkMessageProcessingStepRepository.FullfillEntitiesSteps(entity1);
+
             return entity1;
         }
 

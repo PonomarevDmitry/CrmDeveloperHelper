@@ -288,4 +288,16 @@
   <data name="DefaultDiscoveryServiceUrlSuffix" xml:space="preserve">
     <value>/XRMServices/2011/Discovery.svc</value>
   </data>
+  <data name="AreYouSureDeleteSdkObjectFormat2" xml:space="preserve">
+    <value>Are you sure want to delete {0} {1}?</value>
+  </data>
+  <data name="MessageFilterNotFindedForMessageNameAndEntitiesFormat3" xml:space="preserve">
+    <value>MessageFilter not finded for Message "{0}" and entities "{1}" and "{2}"</value>
+  </data>
+  <data name="MessageNameIsEmpty" xml:space="preserve">
+    <value>Message name is empty.</value>
+  </data>
+  <data name="TextCannotBeParsedToIntFormat1" xml:space="preserve">
+    <value>Text "{0}" cannot be parsed to int.</value>
+  </data>
 </root>

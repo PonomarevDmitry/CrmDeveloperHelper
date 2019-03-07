@@ -1725,7 +1725,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                getter = (string filter) => repository.GetActiveUsersAsync(filter, new ColumnSet(
+                getter = (string filter) => repository.GetUsersAsync(filter, new ColumnSet(
                                 SystemUser.Schema.Attributes.domainname
                                 , SystemUser.Schema.Attributes.fullname
                                 , SystemUser.Schema.Attributes.businessunitid
@@ -1747,7 +1747,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var user = form.SelectedEntity.ToEntity<SystemUser>();
+            var user = form.SelectedEntity;
 
             string usersName = string.Format("{0} - {1}", user.DomainName, user.FullName);
             string teamsName = string.Join(", ", teamList.Select(r => r.Name).OrderBy(s => s));

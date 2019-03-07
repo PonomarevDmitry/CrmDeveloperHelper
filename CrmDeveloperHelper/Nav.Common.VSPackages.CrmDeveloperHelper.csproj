@@ -343,6 +343,7 @@
     <Compile Include="Entities\ProcessTrigger.Generated.cs" />
     <Compile Include="Entities\RoleTemplate.Generated.cs" />
     <Compile Include="Entities\SdkMessage.Additional.cs" />
+    <Compile Include="Entities\SdkMessageFilter.Additional.cs" />
     <Compile Include="Entities\SdkMessagePair.cs" />
     <Compile Include="Entities\SdkMessagePair.Generated.cs" />
     <Compile Include="Entities\SdkMessageRequest.Additional.cs" />
@@ -931,6 +932,9 @@
     <Compile Include="UserControls\FetchXmlExecutorControl.xaml.cs">
       <DependentUpon>FetchXmlExecutorControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowAttributesSelect.xaml.cs">
+      <DependentUpon>WindowAttributesSelect.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowBase.cs" />
     <Compile Include="Views\WindowCommonConfiguration.xaml.cs">
       <DependentUpon>WindowCommonConfiguration.xaml</DependentUpon>
@@ -1080,6 +1084,12 @@
     </Compile>
     <Compile Include="Views\WindowRoleExplorer.xaml.cs">
       <DependentUpon>WindowRoleExplorer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowSdkMessageProcessingStep.xaml.cs">
+      <DependentUpon>WindowSdkMessageProcessingStep.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowSdkMessageProcessingStepImage.xaml.cs">
+      <DependentUpon>WindowSdkMessageProcessingStepImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowSdkMessageRequestTree.xaml.cs">
       <DependentUpon>WindowSdkMessageRequestTree.xaml</DependentUpon>
@@ -1473,6 +1483,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\WindowAttributesSelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\WindowCommonConfiguration.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1666,6 +1680,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowRoleExplorer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowSdkMessageProcessingStep.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowSdkMessageProcessingStepImage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

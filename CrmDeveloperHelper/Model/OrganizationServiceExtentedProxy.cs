@@ -147,6 +147,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        public async Task<Guid> UpsertAsync(Entity entity)
+        {
+            if (entity.Id == Guid.Empty)
+            {
+                return await CreateAsync(entity);
+            }
+            else
+            {
+                var exists = await RetrieveByQueryAsync<Entity>(entity.LogicalName, entity.Id, new ColumnSet(false));
+
+                if (exists != null)
+                {
+                    await UpdateAsync(entity);
+
+                    return entity.Id;
+                }
+                else
+                {
+                    return await CreateAsync(entity);
+                }
+            }
+        }
+
         public Task<OrganizationResponse> ExecuteAsync(OrganizationRequest request)
         {
             return Task.Run(() => Execute(request));

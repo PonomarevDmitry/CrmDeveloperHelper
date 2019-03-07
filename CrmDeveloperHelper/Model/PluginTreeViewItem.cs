@@ -1,26 +1,153 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Media.Imaging;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    public class PluginTreeViewItem
+    public class PluginTreeViewItem : INotifyPropertyChanging, INotifyPropertyChanged
     {
-        public string Name { get; set; }
+        private string _Name;
+        public string Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.Trim();
+                }
 
-        public BitmapImage Image { get; set; }
+                if (_Name == value)
+                {
+                    return;
+                }
 
-        public bool IsExpanded { get; set; }
+                this.OnPropertyChanging(nameof(Name));
+                this._Name = value;
+                this.OnPropertyChanged(nameof(Name));
+            }
+        }
 
-        public bool IsSelected { get; set; }
+        private BitmapImage _Image;
+        public BitmapImage Image
+        {
+            get
+            {
+                return _Image;
+            }
+            set
+            {
+                if (_Image == value)
+                {
+                    return;
+                }
 
-        public string Tooltip { get; set; }
+                this.OnPropertyChanging(nameof(Image));
+                this._Image = value;
+                this.OnPropertyChanged(nameof(Image));
+            }
+        }
 
-        public List<Guid> Message { get; set; }
+        private bool _IsExpanded;
+        public bool IsExpanded
+        {
+            get
+            {
+                return _IsExpanded;
+            }
+            set
+            {
+                if (_IsExpanded == value)
+                {
+                    return;
+                }
 
-        public List<Guid> MessageFilter { get; set; }
+                this.OnPropertyChanging(nameof(IsExpanded));
+                this._IsExpanded = value;
+                this.OnPropertyChanged(nameof(IsExpanded));
+            }
+        }
+
+        private bool _IsSelected;
+        public bool IsSelected
+        {
+            get
+            {
+                return _IsSelected;
+            }
+            set
+            {
+                if (_IsSelected == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(IsSelected));
+                this._IsSelected = value;
+                this.OnPropertyChanged(nameof(IsSelected));
+            }
+        }
+
+        private bool _IsActive;
+        public bool IsActive
+        {
+            get
+            {
+                return _IsActive;
+            }
+            set
+            {
+                if (_IsActive == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(IsActive));
+                this._IsActive = value;
+                this.OnPropertyChanged(nameof(IsActive));
+            }
+        }
+
+        private string _Tooltip;
+        public string Tooltip
+        {
+            get
+            {
+                return _Tooltip;
+            }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.Trim();
+                }
+
+                if (_Tooltip == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(Tooltip));
+                this._Tooltip = value;
+                this.OnPropertyChanged(nameof(Tooltip));
+            }
+        }
+
+        public BitmapImage ImageActive { get; set; }
+
+        public BitmapImage ImageInactive { get; set; }
+
+        public string MessageName { get; set; }
+
+        public List<Guid> MessageList { get; set; }
+
+        public List<Guid> MessageFilterList { get; set; }
 
         public string EntityLogicalName { get; set; }
 
@@ -36,7 +163,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public ComponentType? ComponentType { get; private set; }
 
+        public PluginTreeViewItem Parent { get; set; }
+
         public ObservableCollection<PluginTreeViewItem> Items { get; private set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void OnPropertyChanging(string propertyName)
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+            }
+        }
 
         public PluginTreeViewItem(ComponentType? componentType)
         {
@@ -78,6 +227,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
 
             return null;
+        }
+
+        public void CorrectImage()
+        {
+            if (this.IsActive && this.ImageActive != null)
+            {
+                this.Image = ImageActive;
+            }
+            else if (!this.IsActive && this.ImageInactive != null)
+            {
+                this.Image = ImageInactive;
+            }
         }
     }
 }

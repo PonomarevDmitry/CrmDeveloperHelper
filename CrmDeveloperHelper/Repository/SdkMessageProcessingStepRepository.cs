@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(pluginName))
             {
-                linkPluginType.LinkCriteria.Conditions.Add(new ConditionExpression(PluginType.Schema.Attributes.typename, ConditionOperator.Like, pluginName + "%"));
+                linkPluginType.LinkCriteria.Conditions.Add(new ConditionExpression(PluginType.Schema.Attributes.typename, ConditionOperator.Like, "%" + pluginName + "%"));
             }
 
             query.LinkEntities.Add(linkPluginType);
@@ -202,20 +202,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             foreach (var item in result)
             {
-                if (!item.Contains(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode))
-                {
-                    item.Attributes.Add(
-                        SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode
-                        , new AliasedValue(SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid, SdkMessageFilter.Schema.Attributes.primaryobjecttypecode, "none")
-                        );
-                }
+                FullfillEntitiesSteps(item);
+            }
+        }
 
-                if (!item.Contains(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode))
-                {
-                    item.Attributes.Add(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode
-                        , new AliasedValue(SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid, SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode, "none")
-                        );
-                }
+        public static void FullfillEntitiesSteps(Entity item)
+        {
+            if (!item.Contains(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode))
+            {
+                item.Attributes.Add(
+                    SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode
+                    , new AliasedValue(SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid, SdkMessageFilter.Schema.Attributes.primaryobjecttypecode, "none")
+                    );
+            }
+
+            if (!item.Contains(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode))
+            {
+                item.Attributes.Add(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode
+                    , new AliasedValue(SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid, SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode, "none")
+                    );
             }
         }
 
@@ -504,6 +509,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             SdkMessageProcessingStep entity2 = GetLinked2(id);
 
             entity1 = EntityExtensions.Merge(entity1, entity2);
+
+            FullfillEntitiesSteps(entity1);
 
             return entity1;
         }

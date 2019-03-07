@@ -17,6 +17,8 @@
         <BitmapImage x:Key="ImageBusinessRule" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/BusinessRule.png" />
         <BitmapImage x:Key="ImageBusinessProcess" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/BusinessProcess.png" />
 
+        <BitmapImage x:Key="ImageWorkflowActivity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/workflowactivity.gif" />
+
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
             <MenuItem x:Uid="contMnOpenInWeb" Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
@@ -24,13 +26,28 @@
 
             <MenuItem x:Uid="contMnCreateDescription" Header="Create Description" VerticalAlignment="Center" Click="mICreateDescription_Click"/>
             <Separator x:Uid="contMnCreateDescription" />
-            
+
+            <MenuItem x:Uid="contMnAddPluginStep" Header="Add Plugin Step" VerticalAlignment="Center" Click="mIAddPluginStep_Click" />
+            <Separator x:Uid="contMnAddPluginStep" />
+
+            <MenuItem x:Uid="contMnAddPluginStepImage" Header="Add Plugin Step Image" VerticalAlignment="Center" Click="mIAddPluginStepImage_Click" />
+            <Separator x:Uid="contMnAddPluginStepImage" />
+
+            <MenuItem x:Uid="contMnUpdate" Header="Update" VerticalAlignment="Center" Click="mIUpdateSdkObject_Click" />
+            <Separator x:Uid="contMnUpdate" />
+
+            <MenuItem x:Uid="contMnChangeState" Header="ChangeState" VerticalAlignment="Center" Click="mIChangeStateSdkObject_Click" />
+            <Separator x:Uid="contMnChangeState" />
+
+            <MenuItem x:Uid="contMnDelete" Header="Delete" VerticalAlignment="Center" Click="mIDeleteSdkObject_Click" />
+            <Separator x:Uid="contMnDelete" />
+
             <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-            <Separator x:Uid="contMnEntity" />
-            
             <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
+            <MenuItem x:Uid="contMnEntity" Header="Open Entity Explorer" VerticalAlignment="Center" Click="mIOpenEntityExplorer_Click" />
+            <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
             <Separator x:Uid="contMnEntity" />
-            
+
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem x:Uid="contMnAddIntoSolution"     Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
             <Separator x:Uid="contMnAddIntoSolution"/>
@@ -48,17 +65,12 @@
             <Separator x:Uid="contMnAddPluginAssemblyStepsIntoSolution"/>
 
             <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Tree" VerticalAlignment="Center" Click="mIOpenSdkMessageTree_Click" />
-            <Separator x:Uid="contMnSdkMessage" />
-
             <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Request Tree" VerticalAlignment="Center" Click="mIOpenSdkMessageRequestTree_Click" />
             <Separator x:Uid="contMnSdkMessage" />
 
             <MenuItem x:Uid="contMnWorkflowExlorer" Header="Open Workflow Explorer" VerticalAlignment="Center" Click="mIOpenWorkflowExplorer_Click" />
             <Separator x:Uid="contMnWorkflowExlorer" />
 
-            <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
-            <Separator x:Uid="contMnEntity" />
-            
             <MenuItem x:Uid="contMnDependentComponents" Header="Dependent Components">
                 <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                 <Separator/>
@@ -149,7 +161,7 @@
                 <TreeView x:Name="trVPluginTree" SelectedItemChanged="trVPluginTree_SelectedItemChanged">
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate DataType="{x:Type model:PluginTreeViewItem}" ItemsSource="{Binding Path=Items}">
-                            <Grid>
+                            <Grid ToolTip="{Binding Tooltip}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
@@ -163,7 +175,6 @@
                         <Style TargetType="TreeViewItem">
                             <Setter Property="IsSelected" Value="{Binding IsSelected}" />
                             <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
-                            <Setter Property="ToolTip" Value="{Binding Tooltip}" />
                             <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
                         </Style>
                     </TreeView.ItemContainerStyle>
