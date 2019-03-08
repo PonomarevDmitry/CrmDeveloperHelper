@@ -385,6 +385,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Connection.
+        /// </summary>
+        internal static string CommonCurrentConnectionCommand {
+            get {
+                return ResourceManager.GetString("CommonCurrentConnectionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entity Attribute Explorer.
         /// </summary>
         internal static string CommonEntityAttributeExplorerCommand {
@@ -462,15 +471,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CommonExportSolutionComponentsCommand {
             get {
                 return ResourceManager.GetString("CommonExportSolutionComponentsCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open Crm WebSite.
-        /// </summary>
-        internal static string CommonOpenCurrentConnectionCrmInWebCommand {
-            get {
-                return ResourceManager.GetString("CommonOpenCurrentConnectionCrmInWebCommand", resourceCulture);
             }
         }
         

@@ -385,6 +385,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int listForPublishMenu_GroupPerformPublishList_MenuPublish_GroupConnectionGroup = 0x11FA;
         public const int listForPublishMenu_GroupPerformPublishList_MenuPublishEqualByText = 0x11FB;
         public const int listForPublishMenu_GroupPerformPublishList_MenuPublishEqualByText_GroupConnectionGroup = 0x11FC;
+        public const int openCrmSiteMenu = 0x218A;
+        public const int openCrmSiteMenu_Group = 0x218B;
         public const int commonMenu = 0x10D1;
         public const int commonMenu_GroupCheck = 0x10D2;
         public const int commonMenu_GroupCheck_MenuCheck = 0x10D3;
@@ -755,7 +757,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonOpenConfigFolderCommandId = 0x2188;
         public const int CommonCrmConnectionCommandId = 0x2041;
         public const int CommonConfigCommandId = 0x2042;
-        public const int CommonOpenCurrentConnectionCrmInWebCommandId = 0x214A;
+        public const int CommonCurrentConnectionCommandId = 0x214A;
         public const int FileWebResourceUpdateContentPublishCommandId = 0x2043;
         public const int FileWebResourceShowDifferenceCommandId = 0x2045;
         public const int FileWebResourceShowDifferenceCustomCommandId = 0x2046;

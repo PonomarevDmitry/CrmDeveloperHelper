@@ -357,7 +357,7 @@
 
 
 
-
+      <Group guid="guidGroupAndMenuSet" id="openCrmSiteMenu_Group" priority="0x0601" />
 
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck" priority="0x0601" />
@@ -891,7 +891,12 @@
 
 
 
-
+      <Menu guid="guidGroupAndMenuSet" id="openCrmSiteMenu" priority="0x020B" type="Menu">
+        <Strings>
+          <ButtonText>Open Crm WebSite</ButtonText>
+          <MenuText>Open Crm WebSite</MenuText>
+        </Strings>
+      </Menu>
 
 
       <Menu guid="guidGroupAndMenuSet" id="commonMenu" priority="0x020B" type="Menu">
@@ -5086,10 +5091,10 @@
           <ButtonText>Common Configuration</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CommonOpenCurrentConnectionCrmInWebCommandId" priority="0x0130" type="Button">
+      <Button guid="guidCommandSet" id="CommonCurrentConnectionCommandId" priority="0x0130" type="Button">
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Crm WebSite</ButtonText>
+          <ButtonText>Current Connection</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CommonOpenConfigFolderCommandId" priority="0x0130" type="Button">
@@ -5183,17 +5188,26 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x109">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonOpenCurrentConnectionCrmInWebCommandId" priority="0x10A">
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="openCrmSiteMenu" priority="0x10A">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x10B">
+    <CommandPlacement guid="guidCommandSet" id="CommonCurrentConnectionCommandId" priority="0x10B">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x10C">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
 
 
 
 
-
+    <CommandPlacement guid="guidGroupAndMenuSet" id="openCrmSiteMenu_Group" priority="0x10A">
+      <Parent guid="guidGroupAndMenuSet" id="openCrmSiteMenu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenCrmWebSiteCommandId" priority="0x10A">
+      <Parent guid="guidGroupAndMenuSet" id="openCrmSiteMenu_Group" />
+    </CommandPlacement>
 
 
 
@@ -5520,10 +5534,13 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x020A">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonOpenCurrentConnectionCrmInWebCommandId" priority="0x020B">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="openCrmSiteMenu" priority="0x020B">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x020C">
+    <CommandPlacement guid="guidCommandSet" id="CommonCurrentConnectionCommandId" priority="0x020C">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x020D">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
 
@@ -5800,10 +5817,13 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x020A">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupTools" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonOpenCurrentConnectionCrmInWebCommandId" priority="0x020B">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="openCrmSiteMenu" priority="0x020B">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupTools" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x020C">
+    <CommandPlacement guid="guidCommandSet" id="CommonCurrentConnectionCommandId" priority="0x020C">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupTools" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x020D">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupTools" />
     </CommandPlacement>
 
@@ -5904,10 +5924,13 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x020A">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonOpenCurrentConnectionCrmInWebCommandId" priority="0x020B">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="openCrmSiteMenu" priority="0x020B">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x020C">
+    <CommandPlacement guid="guidCommandSet" id="CommonCurrentConnectionCommandId" priority="0x020C">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x020D">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
 
@@ -9317,6 +9340,8 @@
 
 
 
+      <IDSymbol name="openCrmSiteMenu" value="0x218A" />
+      <IDSymbol name="openCrmSiteMenu_Group" value="0x218B" />
 
 
       <IDSymbol name="commonMenu" value="0x10D1" />
@@ -9995,7 +10020,7 @@
       <IDSymbol name="CommonCrmConnectionCommandId" value="0x2041" />
       <IDSymbol name="CommonConfigCommandId" value="0x2042" />
 
-      <IDSymbol name="CommonOpenCurrentConnectionCrmInWebCommandId" value="0x214A" />
+      <IDSymbol name="CommonCurrentConnectionCommandId" value="0x214A" />
 
 
 
@@ -10316,7 +10341,7 @@
 
 
 
-      <!-- 0x218A -->
+      <!-- 0x218C -->
 
     </GuidSymbol>
 

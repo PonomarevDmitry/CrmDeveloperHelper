@@ -225,6 +225,9 @@
   <data name="CommonCrmConnectionTestCommand" xml:space="preserve">
     <value>Test Connection</value>
   </data>
+  <data name="CommonCurrentConnectionCommand" xml:space="preserve">
+    <value>Current Connection</value>
+  </data>
   <data name="CommonEntityAttributeExplorerCommand" xml:space="preserve">
     <value>Entity Attribute Explorer</value>
   </data>
@@ -251,9 +254,6 @@
   </data>
   <data name="CommonExportSolutionComponentsCommand" xml:space="preserve">
     <value>Solution Explorer</value>
-  </data>
-  <data name="CommonOpenCurrentConnectionCrmInWebCommand" xml:space="preserve">
-    <value>Open Crm WebSite</value>
   </data>
   <data name="CommonOpenOrganizationDifferenceImageCommand" xml:space="preserve">
     <value>Open Organization Difference Image</value>
