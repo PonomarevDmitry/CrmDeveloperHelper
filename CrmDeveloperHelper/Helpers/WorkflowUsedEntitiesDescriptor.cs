@@ -45,10 +45,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var solution = await repositorySolution.GetSolutionByIdAsync(idSolution);
 
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
 
-                strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.AnalyzingSolutionWorkflowsFormat2, _service.ConnectionData.Name, solution.UniqueName));
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(_service.ConnectionData, Properties.OperationNames.AnalyzingSolutionWorkflowsFormat2, _service.ConnectionData.Name, solution.UniqueName));
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
 
@@ -149,11 +149,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 await FillDescriptionUsedEntities(strFile, workflowsWithEntities, list);
 
-                strFile.AppendLine(this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.AnalyzingSolutionWorkflowsFormat2, _service.ConnectionData.Name, solution.UniqueName));
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputEndOperation(_service.ConnectionData, Properties.OperationNames.AnalyzingSolutionWorkflowsFormat2, _service.ConnectionData.Name, solution.UniqueName));
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
 
@@ -170,10 +170,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var solution = await repositorySolution.GetSolutionByIdAsync(idSolution);
 
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
 
-                strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.AnalyzingSolutionWorkflowsFormat2, _service.ConnectionData.Name, solution.UniqueName));
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(_service.ConnectionData, Properties.OperationNames.AnalyzingSolutionWorkflowsFormat2, _service.ConnectionData.Name, solution.UniqueName));
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
 
@@ -269,11 +269,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 await FillDescriptionNotExistsEntities(strFile, workflowsWithEntities, list);
 
-                strFile.AppendLine(this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.AnalyzingSolutionWorkflowsFormat2, _service.ConnectionData.Name, solution.UniqueName));
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputEndOperation(_service.ConnectionData, Properties.OperationNames.AnalyzingSolutionWorkflowsFormat2, _service.ConnectionData.Name, solution.UniqueName));
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
 
@@ -286,10 +286,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             try
             {
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
 
-                strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.AnalyzingWorkflowsFormat1, _service.ConnectionData.Name));
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(_service.ConnectionData, Properties.OperationNames.AnalyzingWorkflowsFormat1, _service.ConnectionData.Name));
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
 
@@ -344,11 +344,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 await FillDescriptionUsedEntities(strFile, workflowsWithEntities, list);
 
-                strFile.AppendLine(this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.AnalyzingWorkflowsFormat1, _service.ConnectionData.Name));
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputEndOperation(_service.ConnectionData, Properties.OperationNames.AnalyzingWorkflowsFormat1, _service.ConnectionData.Name));
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
 
@@ -362,7 +362,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                        .AppendLine()
                        .AppendLine()
                        .AppendLine()
-                       .AppendLine(this._iWriteToOutput.WriteToOutput("No used entities in workflows."))
+                       .AppendLine(this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "No used entities in workflows."))
                        ;
                 return;
             }
@@ -370,7 +370,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             strFile
                 .AppendLine()
                 .AppendLine()
-                .AppendFormat(this._iWriteToOutput.WriteToOutput("Used Entities {0}", list.Count)).AppendLine()
+                .AppendFormat(this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Used Entities {0}", list.Count)).AppendLine()
                 ;
 
             var orderedList = list.Keys.OrderBy(i => i.LogicalName).ThenBy(i => i.Name).ThenBy(i => i.Id);
@@ -527,10 +527,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             try
             {
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
 
-                strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.AnalyzingWorkflowsFormat1, _service.ConnectionData.Name));
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(_service.ConnectionData, Properties.OperationNames.AnalyzingWorkflowsFormat1, _service.ConnectionData.Name));
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
 
@@ -580,11 +580,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 await FillDescriptionNotExistsEntities(strFile, workflowsWithEntities, list);
 
-                strFile.AppendLine(this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.AnalyzingWorkflowsFormat1, _service.ConnectionData.Name));
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputEndOperation(_service.ConnectionData, Properties.OperationNames.AnalyzingWorkflowsFormat1, _service.ConnectionData.Name));
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
 
@@ -638,7 +638,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                        .AppendLine()
                        .AppendLine()
                        .AppendLine()
-                       .AppendLine(this._iWriteToOutput.WriteToOutput("No used not exists entities in workflows."))
+                       .AppendLine(this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "No used not exists entities in workflows."))
                        ;
                 return;
             }
@@ -646,7 +646,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             strFile
                 .AppendLine()
                 .AppendLine()
-                .AppendFormat(this._iWriteToOutput.WriteToOutput("Used Not Exists Entities {0}", list.Count)).AppendLine()
+                .AppendFormat(this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Used Not Exists Entities {0}", list.Count)).AppendLine()
                 ;
 
             var orderedList = list.Keys.OrderBy(i => i.LogicalName).ThenBy(i => i.Name).ThenBy(i => i.Id);
@@ -776,7 +776,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
 
@@ -812,7 +812,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
 
@@ -907,7 +907,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
     }

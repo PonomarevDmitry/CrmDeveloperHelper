@@ -43,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(null, ex);
             }
 
             return null;
@@ -69,7 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(null, ex);
             }
 
             return null;
@@ -114,11 +114,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static async Task<bool> TestConnect(ConnectionData connectionData, IWriteToOutput iWriteToOutput)
         {
-            iWriteToOutput.ActivateOutputWindow();
+            iWriteToOutput.ActivateOutputWindow(connectionData);
 
-            iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             try
             {
@@ -131,28 +131,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     WhoAmIResponse whoresponse = (WhoAmIResponse)service.Execute(new WhoAmIRequest());
 
-                    iWriteToOutput.WriteToOutput(Properties.OutputStrings.WhoAmIRequestExecutedSuccessfully);
+                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WhoAmIRequestExecutedSuccessfully);
 
-                    iWriteToOutput.WriteToOutput(Properties.OutputStrings.QuickConnectionOrganizationIdFormat1, whoresponse.OrganizationId);
-                    iWriteToOutput.WriteToOutput(Properties.OutputStrings.QuickConnectionBusinessUnitIdFormat1, whoresponse.BusinessUnitId);
-                    iWriteToOutput.WriteToOutput(Properties.OutputStrings.QuickConnectionUserIdFormat1, whoresponse.UserId);
+                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.QuickConnectionOrganizationIdFormat1, whoresponse.OrganizationId);
+                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.QuickConnectionBusinessUnitIdFormat1, whoresponse.BusinessUnitId);
+                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.QuickConnectionUserIdFormat1, whoresponse.UserId);
                 }
 
                 var result = new OrganizationServiceExtentedProxy(service, connectionData);
 
                 await LoadOrganizationDataAsync(result, organizationDetail);
 
-                iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, result.CurrentServiceEndpoint);
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, result.CurrentServiceEndpoint);
 
-                iWriteToOutput.WriteToOutput(Properties.OutputStrings.SuccessfullyConnectedFormat1, connectionData.Name);
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SuccessfullyConnectedFormat1, connectionData.Name);
 
                 return true;
             }
             catch (Exception ex)
             {
-                iWriteToOutput.WriteErrorToOutput(ex);
+                iWriteToOutput.WriteErrorToOutput(connectionData, ex);
 
-                iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
 
                 return false;
             }
@@ -289,7 +289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
             }
         }
 

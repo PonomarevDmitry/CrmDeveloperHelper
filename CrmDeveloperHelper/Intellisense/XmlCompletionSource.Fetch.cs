@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 {
     public sealed partial class XmlCompletionSource
     {
-        private void FillSessionForFetchXml(ICompletionSession session, IList<CompletionSet> completionSets, ITextSnapshot snapshot, XElement doc, ConnectionIntellisenseDataRepository repository)
+        private void FillSessionForFetchXml(ICompletionSession session
+            , IList<CompletionSet> completionSets
+            , ITextSnapshot snapshot
+            , XElement doc
+            , ConnectionData connectionData
+            , ConnectionIntellisenseDataRepository repository
+        )
         {
             {
                 HashSet<string> usedEntities = GetUsedEntities(doc);
@@ -184,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     }
                     catch (Exception ex)
                     {
-                        DTEHelper.WriteExceptionToOutput(ex);
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
                     }
                 }
             }
@@ -259,7 +266,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private void FillSessionForGridXml(ICompletionSession session, IList<CompletionSet> completionSets, ITextSnapshot snapshot, XElement doc, ConnectionIntellisenseDataRepository repository)
+        private void FillSessionForGridXml(ICompletionSession session
+            , IList<CompletionSet> completionSets
+            , ITextSnapshot snapshot
+            , XElement doc
+            , ConnectionData connectionData
+            , ConnectionIntellisenseDataRepository repository
+        )
         {
             {
                 HashSet<int> usedEntityCodes = GetUsedEntityObjectTypeCodes(doc);
@@ -397,7 +410,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(connectionData, ex);
             }
         }
 

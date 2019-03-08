@@ -5,23 +5,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 {
     public interface IWriteToOutput
     {
-        string WriteToOutput(string format, params object[] args);
+        string WriteToOutput(ConnectionData connectionData, string format, params object[] args);
 
-        string WriteToOutputStartOperation(string format, params object[] args);
+        string WriteToOutputStartOperation(ConnectionData connectionData, string format, params object[] args);
 
-        string WriteToOutputEndOperation(string format, params object[] args);
+        string WriteToOutputEndOperation(ConnectionData connectionData, string format, params object[] args);
 
-        void WriteToOutputFilePathUri(string filePath);
+        void WriteToOutputFilePathUri(ConnectionData connectionData, string filePath);
 
         void WriteToOutputSolutionUri(ConnectionData connectionData, string solutionUniqueName, Guid solutionId);
 
-        void WriteErrorToOutput(Exception ex, string message = null, params object[] args);
+        void WriteErrorToOutput(ConnectionData connectionData, Exception ex, string message = null, params object[] args);
 
-        void ActivateOutputWindow();
+        void ActivateOutputWindow(ConnectionData connectionData);
 
         void ActivateVisualStudioWindow();
 
-        void PerformAction(string filePath, bool hideFilePathUri = false);
+        void PerformAction(ConnectionData connectionData, string filePath, bool hideFilePathUri = false);
 
         void OpenFile(string filePath);
 

@@ -25,23 +25,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingDisplayStringsFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var task1 = _comparerSource.GetDisplayString1Async();
             var task2 = _comparerSource.GetDisplayString2Async();
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Display Strings in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Display Strings in {0}: {1}", Connection1.Name, list1.Count()));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Display Strings in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Display Strings in {0}: {1}", Connection2.Name, list2.Count()));
 
             if (list1.Count == 0 && list2.Count == 0)
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -50,11 +50,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listMap1 = await taskMap1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Display Strings Maps in {0}: {1}", Connection1.Name, listMap1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Display Strings Maps in {0}: {1}", Connection1.Name, listMap1.Count()));
 
             var listMap2 = await taskMap2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Display Strings Maps in {0}: {1}", Connection1.Name, listMap2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Display Strings Maps in {0}: {1}", Connection1.Name, listMap2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Key", "LanguageCode", "Published", "Custom", "CustomComment", "FormatParameters");
@@ -256,7 +256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Display Strings.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Display Strings");
 
@@ -282,7 +282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingDefaultTranslationsFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var task1 = TranslationRepository.GetDefaultTranslationFromCacheAsync(Connection1.ConnectionId, _comparerSource.Service1);
             var task2 = TranslationRepository.GetDefaultTranslationFromCacheAsync(Connection2.ConnectionId, _comparerSource.Service2);
@@ -291,23 +291,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (translation1 != null)
             {
-                content.AppendLine(_iWriteToOutput.WriteToOutput("Display Strings in {0}: {1}", Connection1.Name, translation1.DisplayStrings.Count()));
-                content.AppendLine(_iWriteToOutput.WriteToOutput("Localized Labels in {0}: {1}", Connection1.Name, translation1.LocalizedLabels.Count()));
+                content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Display Strings in {0}: {1}", Connection1.Name, translation1.DisplayStrings.Count()));
+                content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Localized Labels in {0}: {1}", Connection1.Name, translation1.LocalizedLabels.Count()));
             }
 
             var translation2 = await task2;
 
             if (translation2 != null)
             {
-                content.AppendLine(_iWriteToOutput.WriteToOutput("Display Strings in {0}: {1}", Connection2.Name, translation2.DisplayStrings.Count()));
-                content.AppendLine(_iWriteToOutput.WriteToOutput("Localized Labels in {0}: {1}", Connection2.Name, translation2.LocalizedLabels.Count()));
+                content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Display Strings in {0}: {1}", Connection2.Name, translation2.DisplayStrings.Count()));
+                content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Localized Labels in {0}: {1}", Connection2.Name, translation2.LocalizedLabels.Count()));
             }
 
             if (translation1 != null && translation2 != null)
             {
                 CompareTranslations(content, translation1, translation2);
 
-                content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+                content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
                 string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Default Translations");
 
@@ -334,7 +334,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingFieldTranslationsFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var task1 = TranslationRepository.GetFieldTranslationFromCacheAsync(Connection1.ConnectionId, _comparerSource.Service1);
             var task2 = TranslationRepository.GetFieldTranslationFromCacheAsync(Connection2.ConnectionId, _comparerSource.Service2);
@@ -343,24 +343,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (translation1 != null)
             {
-                content.AppendLine(_iWriteToOutput.WriteToOutput("Display Strings in {0}: {1}", Connection1.Name, translation1.DisplayStrings.Count()));
-                content.AppendLine(_iWriteToOutput.WriteToOutput("Localized Labels in {0}: {1}", Connection1.Name, translation1.LocalizedLabels.Count()));
+                content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Display Strings in {0}: {1}", Connection1.Name, translation1.DisplayStrings.Count()));
+                content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Localized Labels in {0}: {1}", Connection1.Name, translation1.LocalizedLabels.Count()));
             }
             else
             {
-                content.AppendLine(_iWriteToOutput.WriteToOutput("Field Translations not finded in {0}", Connection1.Name));
+                content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Field Translations not finded in {0}", Connection1.Name));
             }
 
             var translation2 = await task2;
 
             if (translation2 != null)
             {
-                content.AppendLine(_iWriteToOutput.WriteToOutput("Display Strings in {0}: {1}", Connection2.Name, translation2.DisplayStrings.Count()));
-                content.AppendLine(_iWriteToOutput.WriteToOutput("Localized Labels in {0}: {1}", Connection2.Name, translation2.LocalizedLabels.Count()));
+                content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Display Strings in {0}: {1}", Connection2.Name, translation2.DisplayStrings.Count()));
+                content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Localized Labels in {0}: {1}", Connection2.Name, translation2.LocalizedLabels.Count()));
             }
             else
             {
-                content.AppendLine(_iWriteToOutput.WriteToOutput("Field Translations not finded in {0}", Connection2.Name));
+                content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Field Translations not finded in {0}", Connection2.Name));
             }
 
             if (translation1 != null && translation2 != null)
@@ -368,7 +368,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 CompareTranslations(content, translation1, translation2);
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Field Translations");
 

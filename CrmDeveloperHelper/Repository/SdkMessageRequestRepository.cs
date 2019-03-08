@@ -14,7 +14,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// <summary>
         /// Сервис CRM
         /// </summary>
-        private IOrganizationServiceExtented _Service { get; set; }
+        private readonly IOrganizationServiceExtented _service;
 
         /// <summary>
         /// Конструктор репозитория
@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// <param name="service"></param>
         public SdkMessageRequestRepository(IOrganizationServiceExtented service)
         {
-            _Service = service ?? throw new ArgumentNullException(nameof(service));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
         public Task<List<SdkMessageRequest>> GetListAsync(string filterEntity, string messageName, ColumnSet columnSet)
@@ -97,7 +97,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageRequest>()));
 
@@ -112,7 +112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             if (!string.IsNullOrEmpty(filterEntity))
@@ -183,7 +183,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageRequest>()).SingleOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageRequest>()).SingleOrDefault();
         }
 
         public Task<SdkMessageRequest> FindByRequestNameAsync(string requestName, ColumnSet columnSet)
@@ -210,7 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 ColumnSet = columnSet ?? new ColumnSet(true),
             };
 
-            var coll = _Service.RetrieveMultiple(query).Entities;
+            var coll = _service.RetrieveMultiple(query).Entities;
 
             return coll.Count == 1 ? coll.Select(e => e.ToEntity<SdkMessageRequest>()).SingleOrDefault() : null;
         }

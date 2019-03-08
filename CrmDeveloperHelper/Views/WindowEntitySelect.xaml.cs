@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(_connectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {

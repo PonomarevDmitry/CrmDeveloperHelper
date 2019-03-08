@@ -45,8 +45,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (service1IsNull)
                 {
-                    writeToOutput.WriteToOutput(mess1);
-                    writeToOutput.WriteToOutput(mess2);
+                    writeToOutput.WriteToOutput(null, mess1);
+                    writeToOutput.WriteToOutput(null, mess2);
 
                     this.Service1 = await QuickConnection.ConnectAsync(Connection1);
                 }
@@ -55,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (service1IsNull)
                 {
-                    writeToOutput.WriteToOutput(mess3);
+                    writeToOutput.WriteToOutput(null, mess3);
                 }
 
                 if (content != null)
@@ -68,7 +68,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (service1IsNull)
             {
-                writeToOutput.WriteToOutput(string.Empty);
+                writeToOutput.WriteToOutput(null, string.Empty);
             }
 
             if (content != null)
@@ -86,8 +86,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (service2IsNull)
                 {
-                    writeToOutput.WriteToOutput(mess1);
-                    writeToOutput.WriteToOutput(mess2);
+                    writeToOutput.WriteToOutput(null, mess1);
+                    writeToOutput.WriteToOutput(null, mess2);
 
                     this.Service2 = await QuickConnection.ConnectAsync(Connection2);
                 }
@@ -96,7 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (service2IsNull)
                 {
-                    writeToOutput.WriteToOutput(mess3);
+                    writeToOutput.WriteToOutput(null, mess3);
                 }
 
                 if (content != null)

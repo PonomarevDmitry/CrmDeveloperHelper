@@ -33,29 +33,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.ClearingLastLinkFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutput, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 }
 
                 ClearingWebResourcesLinks(selectedFiles, connectionData);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -63,14 +63,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput("Connection to CRM:        {0}", connectionData.GetDescription());
-            this._iWriteToOutput.WriteToOutput("DiscoveryService:         {0}", connectionData.DiscoveryUrl);
+            this._iWriteToOutput.WriteToOutput(connectionData, "Connection to CRM:        {0}", connectionData.GetDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, "DiscoveryService:         {0}", connectionData.DiscoveryUrl);
 
             int count = 0;
 
@@ -88,7 +88,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 connectionData.Save();
             }
 
-            this._iWriteToOutput.WriteToOutput("Deleted Last Links: {0}", count);
+            this._iWriteToOutput.WriteToOutput(connectionData, "Deleted Last Links: {0}", count);
         }
 
         #endregion Очищение связей.
@@ -99,29 +99,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CreatingLastLinkForReportFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutput, new List<SelectedFile>() { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
 
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 }
 
                 await CreatingLastLinkReport(selectedFile, connectionData);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -129,18 +129,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             if (File.Exists(selectedFile.FilePath))
             {
@@ -161,7 +161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     catch (Exception ex)
                     {
-                        DTEHelper.WriteExceptionToOutput(ex);
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
                     }
                 }));
                 t.SetApartmentState(ApartmentState.STA);
@@ -175,7 +175,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         ReportRepository reportRepository = new ReportRepository(service);
 
-                        this._iWriteToOutput.WriteToOutput("Report is selected.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Report is selected.");
 
                         var webresource = await reportRepository.GetByIdAsync(selectedReportId.Value);
 
@@ -185,18 +185,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput("!Warning. Report not exists. name: {0}.", selectedFile.Name);
+                        this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. Report not exists. name: {0}.", selectedFile.Name);
                     }
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput("Creating Last Link was cancelled.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Creating Last Link was cancelled.");
                     return;
                 }
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
             }
 
             connectionData.Save();
@@ -229,29 +229,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CreatingLastLinkForWebResourcesFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutput, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 }
 
                 await CreatingLastLinkWebResourceMultiple(selectedFiles, connectionData);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -259,7 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
@@ -268,14 +268,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
@@ -303,7 +303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         }
                         catch (Exception ex)
                         {
-                            DTEHelper.WriteExceptionToOutput(ex);
+                            DTEHelper.WriteExceptionToOutput(connectionData, ex);
                         }
                     }));
                     t.SetApartmentState(ApartmentState.STA);
@@ -315,7 +315,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         if (selectedWebResourceId.HasValue)
                         {
-                            this._iWriteToOutput.WriteToOutput("Web-resource is selected.");
+                            this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource is selected.");
 
                             var webresource = await webResourceRepository.FindByIdAsync(selectedWebResourceId.Value);
 
@@ -325,18 +325,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         }
                         else
                         {
-                            this._iWriteToOutput.WriteToOutput("!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
+                            this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
                         }
                     }
                     else if (!showNext)
                     {
-                        this._iWriteToOutput.WriteToOutput("Creating Last Link was cancelled.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Creating Last Link was cancelled.");
                         return;
                     }
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                 }
             }
 
@@ -352,19 +352,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.OpeningReportFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await OpeningReport(commonConfig, connectionData, selectedFile, action);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -372,18 +372,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
             ReportRepository reportRepository = new ReportRepository(service);
@@ -396,7 +396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (reportEntity != null)
                 {
-                    this._iWriteToOutput.WriteToOutput("Report founded by name.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Report founded by name.");
 
                     connectionData.AddMapping(reportEntity.Id, selectedFile.FriendlyFilePath);
 
@@ -413,7 +413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (reportEntity != null)
                     {
-                        this._iWriteToOutput.WriteToOutput("Report not founded by name. Last link report is selected for opening.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Report not founded by name. Last link report is selected for opening.");
 
                         connectionData.AddMapping(reportEntity.Id, selectedFile.FriendlyFilePath);
 
@@ -421,8 +421,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput("Report not founded by name and has not Last link.");
-                        this._iWriteToOutput.WriteToOutput("Starting Custom Report selection form.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Report not founded by name and has not Last link.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom Report selection form.");
 
                         bool? dialogResult = null;
                         Guid? selectedReportId = null;
@@ -439,7 +439,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             }
                             catch (Exception ex)
                             {
-                                DTEHelper.WriteExceptionToOutput(ex);
+                                DTEHelper.WriteExceptionToOutput(connectionData, ex);
                             }
                         }));
                         t.SetApartmentState(ApartmentState.STA);
@@ -451,7 +451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         {
                             if (selectedReportId.HasValue)
                             {
-                                this._iWriteToOutput.WriteToOutput("Custom report is selected.");
+                                this._iWriteToOutput.WriteToOutput(connectionData, "Custom report is selected.");
 
                                 reportEntity = await reportRepository.GetByIdAsync(selectedReportId.Value);
 
@@ -461,12 +461,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             }
                             else
                             {
-                                this._iWriteToOutput.WriteToOutput("!Warning. Report not exists. name: {0}.", selectedFile.Name);
+                                this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. Report not exists. name: {0}.", selectedFile.Name);
                             }
                         }
                         else
                         {
-                            this._iWriteToOutput.WriteToOutput("Opening was cancelled.");
+                            this._iWriteToOutput.WriteToOutput(connectionData, "Opening was cancelled.");
                             return;
                         }
                     }
@@ -474,7 +474,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
             }
 
             if (reportEntity != null)
@@ -512,7 +512,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ReportNotFoundedInConnectionFormat2, connectionData.Name, selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ReportNotFoundedInConnectionFormat2, connectionData.Name, selectedFile.FileName);
             }
         }
 
@@ -524,29 +524,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.OpeningWebResourceFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutput, new List<SelectedFile>() { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
 
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 }
 
                 await OpeningWebResource(commonConfig, connectionData, selectedFile, action);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -554,18 +554,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             WebResource webresource = null;
 
@@ -578,7 +578,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (webresource != null)
                 {
-                    this._iWriteToOutput.WriteToOutput("Web-resource founded by name.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource founded by name.");
 
                     connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
@@ -595,7 +595,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (webresource != null)
                     {
-                        this._iWriteToOutput.WriteToOutput("Web-resource not founded by name. Last link web-resource is selected for opening.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name. Last link web-resource is selected for opening.");
 
                         connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
@@ -603,8 +603,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput("Web-resource not founded by name and has not Last link.");
-                        this._iWriteToOutput.WriteToOutput("Starting Custom Web-resource selection form.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name and has not Last link.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom Web-resource selection form.");
 
                         bool? dialogResult = null;
                         Guid? selectedWebResourceId = null;
@@ -621,7 +621,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             }
                             catch (Exception ex)
                             {
-                                DTEHelper.WriteExceptionToOutput(ex);
+                                DTEHelper.WriteExceptionToOutput(connectionData, ex);
                             }
                         }));
                         t.SetApartmentState(ApartmentState.STA);
@@ -633,7 +633,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         {
                             if (selectedWebResourceId.HasValue)
                             {
-                                this._iWriteToOutput.WriteToOutput("Custom Web-resource is selected.");
+                                this._iWriteToOutput.WriteToOutput(connectionData, "Custom Web-resource is selected.");
 
                                 webresource = await webResourceRepository.FindByIdAsync(selectedWebResourceId.Value);
 
@@ -643,12 +643,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             }
                             else
                             {
-                                this._iWriteToOutput.WriteToOutput("!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
+                                this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
                             }
                         }
                         else
                         {
-                            this._iWriteToOutput.WriteToOutput("Opening was cancelled.");
+                            this._iWriteToOutput.WriteToOutput(connectionData, "Opening was cancelled.");
                             return;
                         }
                     }
@@ -656,7 +656,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
             }
 
             if (webresource != null)
@@ -694,7 +694,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("Web-resource not founded in CRM: {0}", selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded in CRM: {0}", selectedFile.FileName);
             }
         }
 
@@ -704,7 +704,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.OpeningSolutionFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
@@ -712,11 +712,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -724,18 +724,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var repository = new SolutionRepository(service);
 

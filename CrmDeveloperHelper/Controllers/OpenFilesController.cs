@@ -1,7 +1,7 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
     public class OpenFilesController
     {
-        private IWriteToOutput _iWriteToOutput = null;
+        private readonly IWriteToOutput _iWriteToOutput = null;
 
         public OpenFilesController(IWriteToOutput iWriteToOutput)
         {
@@ -27,29 +27,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.OpeningFilesFormat2, connectionData?.Name, openFilesType.ToString());
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutput, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 }
 
                 await OpenFiles(selectedFiles, openFilesType, inTextEditor, connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
@@ -73,7 +73,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     foreach (var item in orderEnumrator)
                     {
-                        this._iWriteToOutput.WriteToOutputFilePathUri(item.FilePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, item.FilePath);
                         this._iWriteToOutput.OpenFileInTextEditor(item.FilePath);
                     }
                 }
@@ -81,16 +81,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     foreach (var item in orderEnumrator)
                     {
-                        this._iWriteToOutput.WriteToOutputFilePathUri(item.FilePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, item.FilePath);
                         this._iWriteToOutput.OpenFileInVisualStudio(item.FilePath);
                     }
                 }
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("No files for open.");
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.WriteToOutput(connectionData, "No files for open.");
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
-        }       
+        }
     }
 }

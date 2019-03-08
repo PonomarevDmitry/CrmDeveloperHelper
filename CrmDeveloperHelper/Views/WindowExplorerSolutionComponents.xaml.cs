@@ -339,7 +339,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
 
             var convertedList = new List<SolutionComponentViewItem>();
@@ -427,7 +427,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(_service.ConnectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -593,9 +593,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput("{0} {1} Entity Description exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
+            this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "{0} {1} Entity Description exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 
-            this._iWriteToOutput.PerformAction(filePath);
+            this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
             ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
         }
@@ -650,7 +650,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformCreatingFileWithDependentComponents(string folder, SolutionComponentViewItem solutionComponentViewItem)
         {
-            this._iWriteToOutput.WriteToOutput("Starting downloading {0} {1}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
+            this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Starting downloading {0} {1}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
 
             var dependencyRepository = new DependencyRepository(_service);
 
@@ -668,20 +668,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("{0} {1} Dependent Components exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "{0} {1} Dependent Components exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("{0} {1} has no Dependent Components.", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "{0} {1} has no Dependent Components.", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
+                this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
             }
         }
 
         private async Task PerformCreatingFileWithRequiredComponents(string folder, SolutionComponentViewItem solutionComponentViewItem)
         {
-            this._iWriteToOutput.WriteToOutput("Starting downloading {0} {1}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
+            this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Starting downloading {0} {1}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
 
             var dependencyRepository = new DependencyRepository(_service);
 
@@ -699,20 +699,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("{0} {1} Required Components exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "{0} {1} Required Components exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("{0} {1} has no Required Components.", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "{0} {1} has no Required Components.", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
+                this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
             }
         }
 
         private async Task PerformCreatingFileWithDependenciesForDelete(string folder, SolutionComponentViewItem solutionComponentViewItem)
         {
-            this._iWriteToOutput.WriteToOutput("Starting downloading {0} {1}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
+            this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Starting downloading {0} {1}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
 
             var dependencyRepository = new DependencyRepository(_service);
 
@@ -730,14 +730,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("{0} {1} Dependencies For Delete exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "{0} {1} Dependencies For Delete exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("{0} {1} has no Dependencies For Delete.", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "{0} {1} has no Dependencies For Delete.", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
+                this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
             }
         }
 
@@ -817,13 +817,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
 
                 await SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, _service, _descriptor, _commonConfig, solutionUniqueName, solutionComponents, withSelect);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
 
@@ -1366,8 +1366,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, _solution.Id);
 
-                    this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", _solution.UniqueName, filePath);
-                    this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                    this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Created backup Solution Components in '{0}': {1}", _solution.UniqueName, filePath);
+                    this._iWriteToOutput.WriteToOutputFilePathUri(_service.ConnectionData, filePath);
                 }
 
                 {
@@ -1399,7 +1399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromSolutionFailedFormat2, _service.ConnectionData.Name, _solution.UniqueName);
             }
@@ -1433,8 +1433,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, _solution.Id);
 
-                    this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", _solution.UniqueName, filePath);
-                    this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                    this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Created backup Solution Components in '{0}': {1}", _solution.UniqueName, filePath);
+                    this._iWriteToOutput.WriteToOutputFilePathUri(_service.ConnectionData, filePath);
                 }
 
                 {
@@ -1463,7 +1463,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat2, _service.ConnectionData.Name, _solution.UniqueName);
             }
@@ -1667,7 +1667,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
 
@@ -1709,15 +1709,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("Solution Used Entities was export into file '{0}'", filePath);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Solution Used Entities was export into file '{0}'", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
             }
@@ -1745,15 +1745,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("Solution Used Not Exists Entities was export into file '{0}'", filePath);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Solution Used Not Exists Entities was export into file '{0}'", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
             }
@@ -1834,15 +1834,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
             }
@@ -1867,9 +1867,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
                 _commonConfig.Save();
 
@@ -1879,7 +1879,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
             }
@@ -1908,7 +1908,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                     catch (Exception ex)
                     {
-                        DTEHelper.WriteExceptionToOutput(ex);
+                        _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                     }
                 });
 
@@ -1932,7 +1932,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                     solutionImage = null;
                 }
@@ -1963,7 +1963,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 _commonConfig.Save();
 
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
 
                 await SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, _service, _descriptor, _commonConfig, _solution.UniqueName, solutionComponents, false);
 
@@ -1971,7 +1971,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.LoadingComponentsFromSolutionImageFailed);
             }
@@ -2000,7 +2000,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                     catch (Exception ex)
                     {
-                        DTEHelper.WriteExceptionToOutput(ex);
+                        _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                     }
                 });
 
@@ -2028,7 +2028,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 UpdateStatus(Properties.WindowStatusStrings.AddingComponentsIntoSolutionFormat3, _service.ConnectionData.Name, solutionComponents.Count, _solution.UniqueName);
 
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
 
                 await SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, _service, _descriptor, _commonConfig, _solution.UniqueName, solutionComponents, false);
 
@@ -2036,7 +2036,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.LoadingComponentsFromZipFileFailed);
             }
@@ -2060,15 +2060,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solution.Id);
 
-                this._iWriteToOutput.WriteToOutput("Solution Components was export into file '{0}'", filePath);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Solution Components was export into file '{0}'", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsFailedFormat1, solution.UniqueName);
             }
@@ -2107,15 +2107,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.CreateFileWithSolutionMissingDependenciesAsync(filePath, solution.Id, showComponents, showString);
 
-                this._iWriteToOutput.WriteToOutput("Solution {0} was export into file '{1}'", showString, filePath);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Solution {0} was export into file '{1}'", showString, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesFailedFormat1, solution.UniqueName);
             }
@@ -2154,15 +2154,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.CreateFileWithSolutionDependenciesForUninstallAsync(filePath, solution.Id, showComponents, showString);
 
-                this._iWriteToOutput.WriteToOutput("Solution {0} was export into file '{1}'", showString, filePath);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Solution {0} was export into file '{1}'", showString, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallFailedFormat1, solution.UniqueName);
             }
@@ -2258,7 +2258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                 }
             });
 

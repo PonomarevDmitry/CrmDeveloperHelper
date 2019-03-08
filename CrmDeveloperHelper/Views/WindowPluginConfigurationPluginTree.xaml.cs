@@ -230,7 +230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
 
                 this._pluginDescription = null;
             }
@@ -257,7 +257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginConfiguration);
+            ToggleControls(null, false, Properties.WindowStatusStrings.LoadingPluginConfiguration);
 
             this.trVPluginTree.ItemsSource = null;
             this.trVPluginTree.Items.Clear();
@@ -276,7 +276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 });
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginConfigurationCompleted);
+            ToggleControls(null, true, Properties.WindowStatusStrings.LoadingPluginConfigurationCompleted);
         }
 
         public List<PluginStage> GetStages()
@@ -322,10 +322,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -998,7 +998,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             node.IsExpanded = true;
         }
 
-        private void UpdateStatus(string format, params object[] args)
+        private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {
             string message = format;
 
@@ -1007,7 +1007,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(connectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -1015,11 +1015,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
 
-            UpdateStatus(statusFormat, args);
+            UpdateStatus(connectionData, statusFormat, args);
 
             ToggleControl(enabled, this.tSProgressBar, this.tSBCollapseAll, this.tSBExpandAll, this.menuView, this.tSBLoadPluginConfiguraion);
 
@@ -1211,9 +1211,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithDescription);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CreatingFileWithDescription);
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingDescription);
+            ToggleControls(null, false, Properties.WindowStatusStrings.CreatingDescription);
 
             StringBuilder result = new StringBuilder();
 
@@ -1250,12 +1250,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, result.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(null, filePath);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
+            ToggleControls(null, true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithDescription);
+            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithDescription);
         }
 
         private void tSBLoadPluginConfiguraion_Click(object sender, RoutedEventArgs e)
@@ -1279,7 +1279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    _iWriteToOutput.WriteErrorToOutput(null, ex);
                 }
             });
 
@@ -1347,11 +1347,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData.IsReadOnly)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectionIsReadOnlyFormat1, connectionData.Name);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsReadOnlyFormat1, connectionData.Name);
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.RegisteringPluginStepsFormat1, connectionData.Name);
+            ToggleControls(connectionData, false, Properties.WindowStatusStrings.RegisteringPluginStepsFormat1, connectionData.Name);
 
             if (connectionData != null && connectionData.IsReadOnly == false)
             {
@@ -1378,16 +1378,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (File.Exists(filePath))
                     {
-                        this._iWriteToOutput.PerformAction(filePath);
+                        this._iWriteToOutput.PerformAction(null, filePath);
                     }
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                    this._iWriteToOutput.WriteErrorToOutput(null, ex);
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.RegisteringPluginStepsCompletedFormat1, connectionData.Name);
+            ToggleControls(connectionData, true, Properties.WindowStatusStrings.RegisteringPluginStepsCompletedFormat1, connectionData.Name);
         }
     }
 }

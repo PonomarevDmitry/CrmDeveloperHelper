@@ -136,7 +136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(connectionConfig.CurrentConnectionData, ex);
             }
         }
 

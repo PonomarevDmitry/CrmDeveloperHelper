@@ -32,8 +32,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
             else
             {
-                helper.WriteToOutput(Properties.OutputStrings.PublishListIsEmpty);
-                helper.ActivateOutputWindow();
+                helper.WriteToOutput(null, Properties.OutputStrings.PublishListIsEmpty);
+                helper.ActivateOutputWindow(null);
             }
         }
 

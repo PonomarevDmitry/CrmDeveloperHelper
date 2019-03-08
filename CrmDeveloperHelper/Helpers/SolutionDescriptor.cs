@@ -51,16 +51,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 message = string.Format("Analyzing Solution Components '{0}' at {1}.", solution.UniqueName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(message);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, message);
 
                 strFile.AppendLine(message);
 
                 message = string.Format("Solution '{0}' has {1} components:", solution.UniqueName, components.Count().ToString());
 
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(message);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, message);
 
                 strFile.AppendLine().AppendLine(message);
 
@@ -72,7 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
 
@@ -97,7 +97,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
 
@@ -156,9 +156,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 message = string.Format("Analyzing Solution '{0}' {1} at {2}.", solution.UniqueName, showString, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(message);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, message);
 
                 StringBuilder strFile = new StringBuilder();
 
@@ -170,8 +170,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 message = string.Format("Solution '{0}' {1} {2}:", solution.UniqueName, showString, listComponents.Count.ToString());
 
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(message);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, message);
 
                 strFile
                     .AppendLine()
@@ -186,7 +186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
 
@@ -207,9 +207,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 message = string.Format("Analyzing Solution '{0}' {1} at {2}.", solution.UniqueName, showString, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(message);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, message);
 
                 StringBuilder strFile = new StringBuilder();
 
@@ -221,8 +221,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 message = string.Format("Solution '{0}' {1} {2}:", solution.UniqueName, showString, listComponents.Count.ToString());
 
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(message);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, message);
 
                 strFile
                     .AppendLine()
@@ -237,7 +237,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
 
@@ -308,9 +308,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var componentsOnlyIn1 = GetComponentsInFirstNotSecond(components1, components2);
             var componentsOnlyIn2 = GetComponentsInFirstNotSecond(components2, components1);
-            
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionComponentsCountAndUniqueFormat4, solution1.UniqueName, components1.Count.ToString(), componentsOnlyIn1.Count.ToString(), solution2.UniqueName);
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionComponentsCountAndUniqueFormat4, solution2.UniqueName, components2.Count.ToString(), componentsOnlyIn2.Count.ToString(), solution1.UniqueName);
+
+            this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.SolutionComponentsCountAndUniqueFormat4, solution1.UniqueName, components1.Count.ToString(), componentsOnlyIn1.Count.ToString(), solution2.UniqueName);
+            this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.SolutionComponentsCountAndUniqueFormat4, solution2.UniqueName, components2.Count.ToString(), componentsOnlyIn2.Count.ToString(), solution1.UniqueName);
         }
 
         public Task CreateFileWithUniqueComponentsInSolution1Async(
@@ -347,7 +347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
 
@@ -388,25 +388,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 message = string.Format("Analyzing Solution Components '{0}' and '{1}' as {2}.", sourceName, solutionTargetUniqueName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture));
 
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(message);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, message);
                 strFile.AppendLine(message);
 
                 message = string.Format(Properties.OutputStrings.SolutionComponentsCountAndUniqueFormat4, sourceName, componentsSourceCount, componentesOnlyInSource.Count, solutionTargetUniqueName);
 
-                this._iWriteToOutput.WriteToOutput(message);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, message);
                 strFile.AppendLine(message);
 
                 message = string.Format(Properties.OutputStrings.SolutionComponentsCountAndUniqueFormat4, solutionTargetUniqueName, componentsTargetCount, componentesOnlyInTargetCount, sourceName);
 
-                this._iWriteToOutput.WriteToOutput(message);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, message);
                 strFile.AppendLine(message);
 
                 message = string.Format("Unique Solution Components '{0}': {1}", sourceName, componentesOnlyInSource.Count.ToString());
 
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(message);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, message);
                 strFile.AppendLine().AppendLine(message);
 
                 message = await _descriptor.GetSolutionComponentsDescriptionAsync(componentesOnlyInSource);
@@ -417,7 +417,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
     }

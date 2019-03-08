@@ -25,23 +25,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingPluginAssembliesFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var task1 = _comparerSource.GetPluginAssembly1Async();
             var task2 = _comparerSource.GetPluginAssembly2Async();
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Assemblies in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Assemblies in {0}: {1}", Connection1.Name, list1.Count()));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Assemblies in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Assemblies in {0}: {1}", Connection2.Name, list2.Count()));
 
             if (!list1.Any() && !list2.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -50,11 +50,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listTypes1 = await taskTypes1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Types in {0}: {1}", Connection1.Name, listTypes1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Types in {0}: {1}", Connection1.Name, listTypes1.Count()));
 
             var listTypes2 = await taskTypes2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Types in {0}: {1}", Connection2.Name, listTypes2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Types in {0}: {1}", Connection2.Name, listTypes2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Name", "IsHidden", "IsManaged");
@@ -225,7 +225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Assemblies.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Plugin Assemblies");
 
@@ -251,23 +251,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingPluginTypesFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var task1 = _comparerSource.GetPluginType1Async();
             var task2 = _comparerSource.GetPluginType2Async();
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Types in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Types in {0}: {1}", Connection1.Name, list1.Count()));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Types in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Types in {0}: {1}", Connection2.Name, list2.Count()));
 
             if (!list1.Any() && !list2.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -346,7 +346,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Types.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Plugin Types");
 
@@ -394,23 +394,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingPluginStepsByPluginTypeNamesFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var task1 = _comparerSource.GetSdkMessageProcessingStep1Async();
             var task2 = _comparerSource.GetSdkMessageProcessingStep2Async();
 
             var listSteps1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps in {0}: {1}", Connection1.Name, listSteps1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps in {0}: {1}", Connection1.Name, listSteps1.Count()));
 
             var listSteps2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps in {0}: {1}", Connection2.Name, listSteps2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps in {0}: {1}", Connection2.Name, listSteps2.Count()));
 
             if (!listSteps1.Any() && !listSteps2.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -419,11 +419,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listImages1 = await taskImages1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", Connection1.Name, listImages1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps Images in {0}: {1}", Connection1.Name, listImages1.Count()));
 
             var listImages2 = await taskImages2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", Connection2.Name, listImages2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps Images in {0}: {1}", Connection2.Name, listImages2.Count()));
 
             var groups1 = listSteps1.GroupBy(e => new PluginTypeStep()
             {
@@ -910,7 +910,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Steps by Plugin Type Names.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Plugin Steps by Plugin Type Names");
 
@@ -1063,23 +1063,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingPluginStepsByIdsFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var task1 = _comparerSource.GetSdkMessageProcessingStep1Async();
             var task2 = _comparerSource.GetSdkMessageProcessingStep2Async();
 
             var listSteps1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps in {0}: {1}", Connection1.Name, listSteps1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps in {0}: {1}", Connection1.Name, listSteps1.Count()));
 
             var listSteps2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps in {0}: {1}", Connection2.Name, listSteps2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps in {0}: {1}", Connection2.Name, listSteps2.Count()));
 
             if (!listSteps1.Any() && !listSteps2.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -1088,11 +1088,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listImages1 = await taskImages1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", Connection1.Name, listImages1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps Images in {0}: {1}", Connection1.Name, listImages1.Count()));
 
             var listImages2 = await taskImages2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Plugin Steps Images in {0}: {1}", Connection2.Name, listImages2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps Images in {0}: {1}", Connection2.Name, listImages2.Count()));
 
             var stepsOnlyIn1 = new List<LineWithSublines>();
             var stepsOnlyIn2 = new List<LineWithSublines>();
@@ -1213,7 +1213,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.ImageBuilder.AddComponentSolution2((int)ComponentType.SdkMessageProcessingStep, step2.Id);
             }
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Plugin Steps by Ids in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonStepsList.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Common Plugin Steps by Ids in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonStepsList.Count()));
 
             foreach (var commonStep in commonStepsList)
             {
@@ -1459,7 +1459,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Plugin Steps by Ids.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Plugin Steps by Ids");
 
@@ -1674,23 +1674,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingPluginStepsStatesFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var task1 = _comparerSource.GetSdkMessageProcessingStep1Async();
             var task2 = _comparerSource.GetSdkMessageProcessingStep2Async();
 
             var listSteps1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.PluginStepsInConnectionFormat2, Connection1.Name, listSteps1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginStepsInConnectionFormat2, Connection1.Name, listSteps1.Count()));
 
             var listSteps2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.PluginStepsInConnectionFormat2, Connection2.Name, listSteps2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginStepsInConnectionFormat2, Connection2.Name, listSteps2.Count()));
 
             if (!listSteps1.Any() && !listSteps2.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -1779,7 +1779,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             FormatTextTableHandler tableDifference = new FormatTextTableHandler();
             tableDifference.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", headerConnection1, headerConnection2, "IsHidden", "IsManaged", "FilteringAttributes");
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.PluginStepsCommonFormat3, Connection1.Name, Connection2.Name, commonStepsList.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginStepsCommonFormat3, Connection1.Name, Connection2.Name, commonStepsList.Count()));
 
             foreach (var commonStep in commonStepsList
                 .OrderBy(s => s.Entity1.EventHandler?.Name ?? "Unknown")
@@ -1866,7 +1866,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine(Properties.OrganizationComparerStrings.PluginStepsStatesNoDifference);
             }
             
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Plugin Steps States");
 

@@ -14,7 +14,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// <summary>
         /// Сервис CRM
         /// </summary>
-        private IOrganizationServiceExtented _Service { get; set; }
+        private readonly IOrganizationServiceExtented _service;
 
         /// <summary>
         /// Конструктор репозитория функция по поиску издателей.
@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// <param name="service"></param>
         public PublisherRepository(IOrganizationServiceExtented service)
         {
-            _Service = service ?? throw new ArgumentNullException(nameof(service));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
         private Task<List<Publisher>> GetSolutionPublisherAsync(Guid solutionId)
@@ -73,7 +73,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<Publisher>()));
 
@@ -88,7 +88,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -101,7 +101,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private Publisher GetDefaultPublisher()
         {
-            var organization = _Service.Retrieve(Organization.EntityLogicalName, _Service.ConnectionData.OrganizationId.Value, new ColumnSet(Organization.Schema.Attributes.name)).ToEntity<Organization>();
+            var organization = _service.Retrieve(Organization.EntityLogicalName, _service.ConnectionData.OrganizationId.Value, new ColumnSet(Organization.Schema.Attributes.name)).ToEntity<Organization>();
 
             var defaultPublisherName = "DefaultPublisher" + organization.Name;
 
@@ -129,7 +129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            var coll = _Service.RetrieveMultiple(query).Entities;
+            var coll = _service.RetrieveMultiple(query).Entities;
 
             var result = coll.Count == 1 ? coll.Select(e => e.ToEntity<Publisher>()).SingleOrDefault() : null;
 
@@ -162,7 +162,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Publisher>()).FirstOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Publisher>()).FirstOrDefault();
         }
     }
 }

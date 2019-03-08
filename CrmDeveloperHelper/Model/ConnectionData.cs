@@ -1197,7 +1197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private void LoadIntellisense()
         {
-            var data = ConnectionIntellisenseData.Get(this.ConnectionId);
+            var data = ConnectionIntellisenseData.Get(this);
 
             if (data != null)
             {
@@ -1851,7 +1851,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     }
                     catch (Exception ex)
                     {
-                        DTEHelper.WriteExceptionToOutput(ex);
+                        DTEHelper.WriteExceptionToOutput(null, ex);
 
                         FileOperations.CreateBackUpFile(filePath, ex);
 

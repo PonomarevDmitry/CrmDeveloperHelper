@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingConnectionRolesFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var taskRole1 = _comparerSource.GetConnectionRole1Async();
             var taskRole2 = _comparerSource.GetConnectionRole2Async();
@@ -37,16 +37,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             
             var listRole1 = await taskRole1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ConnectionRolesInConnectionFormat2, Connection1.Name, listRole1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ConnectionRolesInConnectionFormat2, Connection1.Name, listRole1.Count));
 
             var listRole2 = await taskRole2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ConnectionRolesInConnectionFormat2, Connection2.Name, listRole2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ConnectionRolesInConnectionFormat2, Connection2.Name, listRole2.Count));
 
             if (!listRole1.Any() && !listRole2.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -64,11 +64,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listRoleAssociation1 = await taskRoleAssociation1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ConnectionRoleAssociationsInConnectionFormat2, Connection1.Name, listRoleAssociation1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ConnectionRoleAssociationsInConnectionFormat2, Connection1.Name, listRoleAssociation1.Count));
 
             var listRoleAssociation2 = await taskRoleAssociation2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ConnectionRoleAssociationsInConnectionFormat2, Connection2.Name, listRoleAssociation2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ConnectionRoleAssociationsInConnectionFormat2, Connection2.Name, listRoleAssociation2.Count));
 
 
 
@@ -76,11 +76,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             
             var listRoleObjectTypeCode1 = await taskRoleObjectTypeCode1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ConnectionRoleObjectTypeCodesInConnectionFormat2, Connection1.Name, listRoleObjectTypeCode1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ConnectionRoleObjectTypeCodesInConnectionFormat2, Connection1.Name, listRoleObjectTypeCode1.Count));
 
             var listRoleObjectTypeCode2 = await taskRoleObjectTypeCode2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ConnectionRoleObjectTypeCodesInConnectionFormat2, Connection2.Name, listRoleObjectTypeCode2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ConnectionRoleObjectTypeCodesInConnectionFormat2, Connection2.Name, listRoleObjectTypeCode2.Count));
 
 
 
@@ -141,7 +141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.ImageBuilder.AddComponentSolution2((int)ComponentType.ConnectionRole, role2.Id);
             }
             
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ConnectionRolesCommonFormat3, Connection1.Name, Connection2.Name, commonRolesList.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ConnectionRolesCommonFormat3, Connection1.Name, Connection2.Name, commonRolesList.Count()));
 
             foreach (var commonItem in commonRolesList)
             {
@@ -309,7 +309,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine(Properties.OrganizationComparerStrings.ConnectionRolesNoDifference);
             }
             
-            content.AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
             
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, Properties.OrganizationComparerStrings.ConnectionRolesFileName);
 
@@ -365,7 +365,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingConnectionRoleCategoriesFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             const string optionSetName = "connectionrole_category";
 
@@ -419,7 +419,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
             
-            content.AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
             
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, Properties.OrganizationComparerStrings.ConnectionRoleCategoryFileName);
 

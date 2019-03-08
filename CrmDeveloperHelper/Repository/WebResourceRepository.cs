@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// <summary>
         /// Сервис CRM
         /// </summary>
-        private readonly IOrganizationServiceExtented _Service;
+        private readonly IOrganizationServiceExtented _service;
 
         /// <summary>
         /// Конструктор репозитория функция по поиску веб-ресурсов.
@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// <param name="service"></param>
         public WebResourceRepository(IOrganizationServiceExtented service)
         {
-            _Service = service ?? throw new ArgumentNullException(nameof(service));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
         public Task<WebResource> FindByNameAsync(string friendlyPath, string extension)
@@ -132,7 +132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<WebResource>()).SingleOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<WebResource>()).SingleOrDefault();
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             while (true)
             {
-                var coll = _Service.RetrieveMultiple(query);
+                var coll = _service.RetrieveMultiple(query);
 
                 foreach (var item in coll.Entities.Select(e => e.ToEntity<WebResource>()))
                 {
@@ -245,7 +245,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = WebResource.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_Service)),
+                ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_service)),
 
                 Orders =
                 {
@@ -273,7 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<WebResource>()));
 
@@ -288,7 +288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -342,7 +342,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = WebResource.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_Service)),
+                ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_service)),
 
                 LinkEntities =
                 {
@@ -403,7 +403,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<WebResource>()));
 
@@ -418,7 +418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -437,7 +437,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = WebResource.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_Service)),
+                ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_service)),
 
                 Orders =
                 {
@@ -462,7 +462,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<WebResource>()));
 
@@ -477,7 +477,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -524,7 +524,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<WebResource>()));
 
@@ -539,7 +539,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -575,7 +575,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             };
 
             request.Parameters.Add("SolutionUniqueName", solutionUniqueName);
-            CreateResponse response = (CreateResponse)_Service.Execute(request);
+            CreateResponse response = (CreateResponse)_service.Execute(request);
 
             return response.id;
         }
@@ -743,7 +743,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<WebResource>()).SingleOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<WebResource>()).SingleOrDefault();
         }
 
         public static IEnumerable<string> GetSplitedNames(string friendlyPath, string extension)
@@ -855,7 +855,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<WebResource>()));
 
@@ -870,7 +870,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;

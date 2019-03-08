@@ -26,19 +26,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.ShowingPluginTreeFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await ShowingPluginTree(connectionData, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -46,18 +46,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
         }
@@ -70,19 +70,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.ShowingSdkMessageTreeFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await ShowingSdkMessageTree(connectionData, commonConfig, entityFilter, messageFilter);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -90,18 +90,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, commonConfig, entityFilter, messageFilter);
         }
@@ -114,19 +114,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.ShowingSdkMessageRequestTreeFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await ShowingSdkMessageRequestTree(connectionData, commonConfig, entityFilter, messageFilter);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -134,18 +134,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, commonConfig, entityFilter, messageFilter);
         }
@@ -158,19 +158,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.ShowingPluginConfigurationTreeFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 ShowingPluginConfigurationTree(connectionData, commonConfig, filePath);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -178,11 +178,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -199,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -214,19 +214,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public void ExecuteShowingPluginConfigurationAssemblyDescription(CommonConfiguration commonConfig, string filePath)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PluginConfigurationAssemblyDescription);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.PluginConfigurationAssemblyDescription);
 
             try
             {
                 ShowingPluginConfigurationAssemblyDescription(commonConfig, filePath);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PluginConfigurationAssemblyDescription);
+                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.PluginConfigurationAssemblyDescription);
             }
         }
 
@@ -246,7 +246,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
                 }
             });
 
@@ -261,19 +261,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public void ExecuteShowingPluginConfigurationTypeDescription(CommonConfiguration commonConfig, string filePath)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PluginConfigurationTypeDescription);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.PluginConfigurationTypeDescription);
 
             try
             {
                 ShowingPluginConfigurationTypeDescription(commonConfig, filePath);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PluginConfigurationTypeDescription);
+                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.PluginConfigurationTypeDescription);
             }
         }
 
@@ -293,7 +293,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
                 }
             });
 
@@ -308,19 +308,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public void ExecuteShowingPluginConfigurationComparer(CommonConfiguration commonConfig, string filePath)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PluginConfigurationComparer);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.PluginConfigurationComparer);
 
             try
             {
                 ShowingPluginConfigurationComparer(commonConfig, filePath);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PluginConfigurationComparer);
+                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.PluginConfigurationComparer);
             }
         }
 
@@ -340,7 +340,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
                 }
             });
 

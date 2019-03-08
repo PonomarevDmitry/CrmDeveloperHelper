@@ -97,21 +97,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
 
-                FillSessionForFetchXml(session, completionSets, snapshot, doc, repository);
+                FillSessionForFetchXml(session, completionSets, snapshot, doc, connectionConfig.CurrentConnectionData, repository);
             }
             else if (string.Equals(doc.Name.ToString(), "grid", StringComparison.InvariantCultureIgnoreCase))
             {
                 var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
 
-                FillSessionForGridXml(session, completionSets, snapshot, doc, repository);
+                FillSessionForGridXml(session, completionSets, snapshot, doc, connectionConfig.CurrentConnectionData, repository);
             }
             else if (string.Equals(doc.Name.ToString(), "savedquery", StringComparison.InvariantCultureIgnoreCase))
             {
                 var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
 
-                FillSessionForFetchXml(session, completionSets, snapshot, doc, repository);
+                FillSessionForFetchXml(session, completionSets, snapshot, doc, connectionConfig.CurrentConnectionData, repository);
 
-                FillSessionForGridXml(session, completionSets, snapshot, doc, repository);
+                FillSessionForGridXml(session, completionSets, snapshot, doc, connectionConfig.CurrentConnectionData, repository);
             }
             else if (string.Equals(doc.Name.ToString(), "SiteMap", StringComparison.InvariantCultureIgnoreCase))
             {
@@ -119,7 +119,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 var repositorySiteMap = SiteMapIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
                 var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
 
-                FillSessionForSiteMap(triggerPoint.Value, session, completionSets, snapshot, doc, repositoryEntities, repositorySiteMap, repositoryWebResource);
+                FillSessionForSiteMap(triggerPoint.Value, session, completionSets, snapshot, doc, connectionConfig.CurrentConnectionData, repositoryEntities, repositorySiteMap, repositoryWebResource);
             }
             else if (string.Equals(doc.Name.ToString(), "RibbonDiffXml", StringComparison.InvariantCultureIgnoreCase)
                 || string.Equals(doc.Name.ToString(), "RibbonDefinitions", StringComparison.InvariantCultureIgnoreCase)
@@ -130,7 +130,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                 var repositoryRibbon = RibbonIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
 
-                FillSessionForRibbonDiffXml(triggerPoint.Value, session, completionSets, snapshot, doc, repositoryEntities, repositoryWebResource, repositoryRibbon);
+                FillSessionForRibbonDiffXml(triggerPoint.Value, session, completionSets, snapshot, doc, connectionConfig.CurrentConnectionData, repositoryEntities, repositoryWebResource, repositoryRibbon);
             }
         }
 

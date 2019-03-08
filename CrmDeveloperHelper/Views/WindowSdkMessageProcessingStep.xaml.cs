@@ -568,8 +568,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     ToggleControls(true, Properties.WindowStatusStrings.UpdatingSdkMessageProcessingStepSecureConfigFailedFormat1, _service.ConnectionData.Name);
 
-                    _iWriteToOutput.WriteErrorToOutput(ex);
-                    _iWriteToOutput.ActivateOutputWindow();
+                    _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+                    _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
                 }
 
                 if (config.Id != Guid.Empty)
@@ -598,8 +598,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         ToggleControls(true, Properties.WindowStatusStrings.DeletingSdkMessageProcessingStepSecureConfigFailedFormat1, _service.ConnectionData.Name);
 
-                        _iWriteToOutput.WriteErrorToOutput(ex);
-                        _iWriteToOutput.ActivateOutputWindow();
+                        _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+                        _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
                     }
                 }
 
@@ -613,8 +613,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingSdkMessageProcessingStepFailedFormat1, _service.ConnectionData.Name);
 
-                _iWriteToOutput.WriteErrorToOutput(ex);
-                _iWriteToOutput.ActivateOutputWindow();
+                _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+                _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
             }
         }
 
@@ -814,7 +814,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(_service.ConnectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {

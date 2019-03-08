@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingSecurityRolesFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var task1 = _comparerSource.GetRole1Async();
             var task2 = _comparerSource.GetRole2Async();
@@ -36,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var taskPriv1 = new PrivilegeRepository(_comparerSource.Service1).GetListAsync();
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Security Roles in {0}: {1}", Connection1.Name, list1.Count()));
 
 
 
@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var taskPriv2 = new PrivilegeRepository(_comparerSource.Service2).GetListAsync();
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Security Roles in {0}: {1}", Connection2.Name, list2.Count()));
 
 
 
@@ -52,7 +52,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var taskPrivRole1 = new RolePrivilegesRepository(_comparerSource.Service1).GetListAsync(list1.Select(e => e.RoleId.Value));
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Privileges in {0}: {1}", Connection1.Name, dictPrivilege1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Security Privileges in {0}: {1}", Connection1.Name, dictPrivilege1.Count()));
 
 
 
@@ -61,13 +61,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var taskPrivRole2 = new RolePrivilegesRepository(_comparerSource.Service2).GetListAsync(list2.Select(e => e.RoleId.Value));
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Privileges in {0}: {1}", Connection2.Name, dictPrivilege2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Security Privileges in {0}: {1}", Connection2.Name, dictPrivilege2.Count()));
 
 
 
             var commonPrivileges = new HashSet<string>(dictPrivilege1.Keys.Intersect(dictPrivilege2.Keys), StringComparer.InvariantCultureIgnoreCase);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Common Security Privileges in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonPrivileges.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Common Security Privileges in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonPrivileges.Count()));
 
             var privilegesOnlyIn1 = dictPrivilege1.Keys.Except(dictPrivilege2.Keys, StringComparer.InvariantCultureIgnoreCase).ToList();
             var privilegesOnlyIn2 = dictPrivilege2.Keys.Except(dictPrivilege1.Keys, StringComparer.InvariantCultureIgnoreCase).ToList();
@@ -78,18 +78,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listRolePrivilege1 = await taskPrivRole1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles Privileges in {0}: {1}", Connection1.Name, listRolePrivilege1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Security Roles Privileges in {0}: {1}", Connection1.Name, listRolePrivilege1.Count()));
 
             var listRolePrivilege2 = await taskPrivRole2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Security Roles Privileges in {0}: {1}", Connection2.Name, listRolePrivilege2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Security Roles Privileges in {0}: {1}", Connection2.Name, listRolePrivilege2.Count()));
 
 
 
             if (!list1.Any() && !list2.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -211,7 +211,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.ImageBuilder.AddComponentSolution2((int)ComponentType.Role, role2.Id);
             }
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.RolesCommonFormat3, Connection1.Name, Connection2.Name, commonList.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.RolesCommonFormat3, Connection1.Name, Connection2.Name, commonList.Count()));
 
             foreach (var commonRole in commonList)
             {
@@ -366,7 +366,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Security Roles.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Security Roles");
 
@@ -523,23 +523,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingFieldSecurityProfilesFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var task1 = _comparerSource.GetFieldSecurityProfile1Async();
             var task2 = _comparerSource.GetFieldSecurityProfile2Async();
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Field Security Profiles in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Field Security Profiles in {0}: {1}", Connection1.Name, list1.Count()));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Field Security Profiles in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Field Security Profiles in {0}: {1}", Connection2.Name, list2.Count()));
 
             if (!list1.Any() && !list2.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -548,11 +548,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listPermission1 = await taskPerm1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Field Security Profiles Permissions in {0}: {1}", Connection1.Name, listPermission1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Field Security Profiles Permissions in {0}: {1}", Connection1.Name, listPermission1.Count()));
 
             var listPermission2 = await taskPerm2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Field Security Profiles Permissions in {0}: {1}", Connection2.Name, listPermission2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Field Security Profiles Permissions in {0}: {1}", Connection2.Name, listPermission2.Count()));
 
             var group1 = listPermission1.GroupBy(e => e.FieldSecurityProfileId.Id);
             var group2 = listPermission2.GroupBy(e => e.FieldSecurityProfileId.Id);
@@ -721,7 +721,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Field Security Profiles.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Field Security Profiles");
 

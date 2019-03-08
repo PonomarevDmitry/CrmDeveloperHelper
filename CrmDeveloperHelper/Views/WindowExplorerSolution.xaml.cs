@@ -1,4 +1,4 @@
-﻿using Microsoft.Xrm.Sdk.Query;
+using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -239,10 +239,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -286,7 +286,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingSolutions);
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingSolutions);
 
             this._itemsSource.Clear();
 
@@ -301,8 +303,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var service = await GetService();
-
                 if (service != null)
                 {
                     SolutionRepository repository = new SolutionRepository(service);
@@ -312,12 +312,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
             LoadSolutions(list);
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionsCompletedFormat1, list.Count());
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingSolutionsCompletedFormat1, list.Count());
         }
 
         private class EntityViewItem
@@ -366,7 +366,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void UpdateStatus(string format, params object[] args)
+        private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {
             string message = format;
 
@@ -375,7 +375,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(connectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -383,11 +383,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
 
-            UpdateStatus(statusFormat, args);
+            UpdateStatus(connectionData, statusFormat, args);
 
             ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection);
 
@@ -619,7 +619,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                    this._iWriteToOutput.WriteErrorToOutput(null, ex);
                 }
             });
         }
@@ -1031,12 +1031,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ExportFolder = fileExportFolder,
             };
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingSolutionFormat1, solution.UniqueName);
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExportingSolutionFormat1, solution.UniqueName);
 
             try
             {
-                var service = await GetService();
-
                 if (service != null)
                 {
                     _iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData, solution.UniqueName, solution.Id);
@@ -1076,7 +1076,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     });
 
-                    this._iWriteToOutput.WriteToOutput("Solution {0} exported to {1}", solution.UniqueName, filePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Solution {0} exported to {1}", solution.UniqueName, filePath);
 
                     if (this._selectedItem != null)
                     {
@@ -1109,17 +1109,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput("Cannot get Service.");
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Cannot get Service.");
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingSolutionCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingSolutionCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingSolutionFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingSolutionFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -1196,7 +1196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
         }
 
@@ -1220,7 +1220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
         }
 
@@ -1297,11 +1297,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformCreateSolutionImage(string folder, Solution solution)
         {
+            var service = await GetService();
+
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
-
-                var service = await GetService();
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
                 var descriptor = await GetDescriptor();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
@@ -1317,27 +1317,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
             }
         }
 
         private async Task PerformCreateSolutionImageAndOpenOrganizationComparer(string folder, Solution solution)
         {
+            var service = await GetService();
+
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
-
-                var service = await GetService();
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
                 var descriptor = await GetDescriptor();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
@@ -1353,31 +1353,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
                 _commonConfig.Save();
 
                 WindowHelper.OpenOrganizationComparerWindow(_iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
             }
         }
 
         private async Task PerformCreateFileWithSolutionComponents(string folder, Solution solution)
         {
+            var service = await GetService();
+
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingTextFileWithComponentsFormat1, solution.UniqueName);
-
-                var service = await GetService();
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingTextFileWithComponentsFormat1, solution.UniqueName);
                 var descriptor = await GetDescriptor();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
@@ -1392,34 +1392,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solution.Id);
 
-                this._iWriteToOutput.WriteToOutput("Solution Components was export into file '{0}'", filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Solution Components was export into file '{0}'", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsFailedFormat1, solution.UniqueName);
             }
         }
 
         private async Task PerformOpenSolutionComponentsInWindow(string folder, Solution solution)
         {
+            var service = await GetService();
+
             try
             {
                 _commonConfig.Save();
-
-                var service = await GetService();
                 var descriptor = await GetDescriptor();
 
                 WindowHelper.OpenSolutionComponentDependenciesWindow(this._iWriteToOutput, service, descriptor, _commonConfig, solution.UniqueName, null);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
         }
 
@@ -1442,7 +1442,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
                 }
             });
 
@@ -1453,11 +1453,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformShowingMissingDependencies(string folder, Solution solution)
         {
+            var service = await GetService();
+
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesFormat1, solution.UniqueName);
-
-                var service = await GetService();
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesFormat1, solution.UniqueName);
                 var descriptor = await GetDescriptor();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
@@ -1487,27 +1487,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.CreateFileWithSolutionMissingDependenciesAsync(filePath, solution.Id, showComponents, showString);
 
-                this._iWriteToOutput.WriteToOutput("Solution {0} was export into file '{1}'", showString, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Solution {0} was export into file '{1}'", showString, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesFailedFormat1, solution.UniqueName);
             }
         }
 
         private async Task PerformShowingDependenciesForUninstall(string folder, Solution solution)
         {
+            var service = await GetService();
+
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallFormat1, solution.UniqueName);
-
-                var service = await GetService();
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallFormat1, solution.UniqueName);
                 var descriptor = await GetDescriptor();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
@@ -1537,17 +1537,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.CreateFileWithSolutionDependenciesForUninstallAsync(filePath, solution.Id, showComponents, showString);
 
-                this._iWriteToOutput.WriteToOutput("Solution {0} was export into file '{1}'", showString, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Solution {0} was export into file '{1}'", showString, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -1607,7 +1607,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
         }
 
@@ -1641,44 +1641,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
         }
 
         private async Task PerformAnalizeSolutions(string folder, Solution solution1, Solution solution2)
         {
+            var service = await GetService();
+
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.AnalizingSolutionsFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AnalizingSolutionsFormat2, solution1.UniqueName, solution2.UniqueName);
 
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput("Analyzing Solution Components '{0}' and '{1}'.", solution1.UniqueName, solution2.UniqueName);
-
-                var service = await GetService();
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Analyzing Solution Components '{0}' and '{1}'.", solution1.UniqueName, solution2.UniqueName);
                 var descriptor = await GetDescriptor();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
                 await solutionDescriptor.FindUniqueComponentsInSolutionsAsync(solution1.Id, solution2.Id);
 
-                ToggleControls(true, Properties.WindowStatusStrings.AnalizingSolutionsCompletedFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AnalizingSolutionsCompletedFormat2, solution1.UniqueName, solution2.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.AnalizingSolutionsFailedFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AnalizingSolutionsFailedFormat2, solution1.UniqueName, solution2.UniqueName);
             }
         }
 
         private async Task PerformAnalizeSolutionsAndShowUnique(string folder, Solution solution1, Solution solution2)
         {
+            var service = await GetService();
+
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.AnalizingSolutionsFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AnalizingSolutionsFormat2, solution1.UniqueName, solution2.UniqueName);
 
-                var service = await GetService();
                 var descriptor = await GetDescriptor();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
@@ -1694,17 +1695,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.CreateFileWithUniqueComponentsInSolution1Async(filePath, solution1.Id, solution2.Id);
 
-                this._iWriteToOutput.WriteToOutput("Unique Solution Components '{0}' was export into file '{1}'", solution1.UniqueName, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Unique Solution Components '{0}' was export into file '{1}'", solution1.UniqueName, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.AnalizingSolutionsCompletedFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AnalizingSolutionsCompletedFormat2, solution1.UniqueName, solution2.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.AnalizingSolutionsFailedFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AnalizingSolutionsFailedFormat2, solution1.UniqueName, solution2.UniqueName);
             }
         }
 
@@ -1812,11 +1813,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformCopyFromSolution1ToSolution2(string folder, Solution solutionSource, Solution solutionTarget)
         {
+            var service = await GetService();
+
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CopingSolutionComponentsToFromFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CopingSolutionComponentsToFromFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
 
-                var service = await GetService();
                 var descriptor = await GetDescriptor();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
@@ -1831,8 +1833,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (componentesOnlyInSource.Count > 0)
                 {
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput("Creating backup Solution Components in '{0}'.", solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Creating backup Solution Components in '{0}'.", solutionTarget.UniqueName);
 
                     {
                         string fileName = EntityFileNameFormatter.GetSolutionFileName(
@@ -1845,8 +1847,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solutionTarget.Id);
 
-                        this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
                     }
 
                     {
@@ -1862,8 +1864,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
                     }
 
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput("Showing Unique Solution Components in '{0}'.", solutionSource.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Showing Unique Solution Components in '{0}'.", solutionSource.UniqueName);
 
                     {
                         string fileName = EntityFileNameFormatter.GetSolutionMultipleFileName(
@@ -1877,42 +1879,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         await solutionDescriptor.CreateFileWithUniqueComponentsInSolution1Async(filePath, solutionSource.Id, solutionTarget.Id);
 
-                        this._iWriteToOutput.WriteToOutput("Created file with Unique Components in '{0}' for Adding to '{1}': {2}", solutionSource.UniqueName, solutionTarget.UniqueName, filePath);
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Created file with Unique Components in '{0}' for Adding to '{1}': {2}", solutionSource.UniqueName, solutionTarget.UniqueName, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
                     }
 
 
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput("Coping Solution Components from '{0}' into '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Coping Solution Components from '{0}' into '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
 
                     await Controllers.SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionTarget.UniqueName, componentesOnlyInSource, false);
 
-                    this._iWriteToOutput.WriteToOutput("Copied {0} components.", componentesOnlyInSource.Count.ToString());
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Copied {0} components.", componentesOnlyInSource.Count.ToString());
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput("All Solution Components '{0}' already added into '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "All Solution Components '{0}' already added into '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromCompletedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromCompletedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromFailedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromFailedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
             }
         }
 
         private async Task PerformCopyFromSolutionCollectionToSolution(string folder, Solution[] solutionSourceCollection, Solution solutionTarget)
         {
+            var service = await GetService();
+
             string sourceName = string.Join(",", solutionSourceCollection.Select(e => e.UniqueName).OrderBy(s => s));
 
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CopingSolutionComponentsToFromFormat2, solutionTarget.UniqueName, sourceName);
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CopingSolutionComponentsToFromFormat2, solutionTarget.UniqueName, sourceName);
 
-                var service = await GetService();
                 var descriptor = await GetDescriptor();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
@@ -1943,8 +1946,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (componentesOnlyInSource.Count > 0)
                 {
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput("Creating backup Solution Components in '{0}'.", solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Creating backup Solution Components in '{0}'.", solutionTarget.UniqueName);
 
 
                     {
@@ -1959,8 +1962,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solutionTarget.Id);
 
-                        this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
                     }
 
                     {
@@ -1976,8 +1979,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
                     }
 
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput("Showing Unique Solution Components in '{0}'.", sourceName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Showing Unique Solution Components in '{0}'.", sourceName);
 
                     {
                         string fileName = EntityFileNameFormatter.GetSolutionMultipleFileName(
@@ -1999,39 +2002,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , componentesOnlyInTarget.Count
                             );
 
-                        this._iWriteToOutput.WriteToOutput("Created file with Unique Components in '{0}' for Adding to '{1}': {2}", sourceName, solutionTarget.UniqueName, filePath);
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Created file with Unique Components in '{0}' for Adding to '{1}': {2}", sourceName, solutionTarget.UniqueName, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
                     }
 
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput("Coping Solution Components from '{0}' into '{1}'.", sourceName, solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Coping Solution Components from '{0}' into '{1}'.", sourceName, solutionTarget.UniqueName);
 
                     await Controllers.SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionTarget.UniqueName, componentesOnlyInSource, false);
 
-                    this._iWriteToOutput.WriteToOutput("Copied {0} components.", componentesOnlyInSource.Count.ToString());
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Copied {0} components.", componentesOnlyInSource.Count.ToString());
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput("All Solution Components '{0}' already added into '{1}'.", sourceName, solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "All Solution Components '{0}' already added into '{1}'.", sourceName, solutionTarget.UniqueName);
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromCompletedFormat2, solutionTarget.UniqueName, sourceName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromCompletedFormat2, solutionTarget.UniqueName, sourceName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromFailedFormat2, solutionTarget.UniqueName, sourceName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromFailedFormat2, solutionTarget.UniqueName, sourceName);
             }
         }
 
         private async Task PerformRemoveFromSolution1ToSolution2(string folder, Solution solutionSource, Solution solutionTarget)
         {
+            var service = await GetService();
+
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
 
-                var service = await GetService();
                 var descriptor = await GetDescriptor();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
@@ -2046,8 +2050,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (commonComponents.Count > 0)
                 {
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput("Creating backup Solution Components in '{0}'.", solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Creating backup Solution Components in '{0}'.", solutionTarget.UniqueName);
 
                     {
                         string fileName = EntityFileNameFormatter.GetSolutionFileName(
@@ -2060,8 +2064,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solutionTarget.Id);
 
-                        this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
                     }
 
                     {
@@ -2077,8 +2081,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
                     }
 
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput("Showing Unique Solution Components in '{0}'.", solutionSource.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Showing Unique Solution Components in '{0}'.", solutionSource.UniqueName);
 
                     {
                         string fileName = EntityFileNameFormatter.GetSolutionMultipleFileName(
@@ -2092,30 +2096,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         await solutionDescriptor.CreateFileWithUniqueComponentsInSolution1Async(filePath, solutionSource.Id, solutionTarget.Id);
 
-                        this._iWriteToOutput.WriteToOutput("Created file with Unique Components in '{0}' for Removing from '{1}': {2}", solutionSource.UniqueName, solutionTarget.UniqueName, filePath);
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Created file with Unique Components in '{0}' for Removing from '{1}': {2}", solutionSource.UniqueName, solutionTarget.UniqueName, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
                     }
 
 
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput("Removing Solution Components owned by '{0}' from '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Removing Solution Components owned by '{0}' from '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
 
                     await Controllers.SolutionController.RemoveSolutionComponentsCollectionFromSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionTarget.UniqueName, commonComponents, false);
 
-                    this._iWriteToOutput.WriteToOutput("Removed {0} components.", commonComponents.Count.ToString());
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Removed {0} components.", commonComponents.Count.ToString());
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput("There are No Common Solution Components in '{0}' and '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "There are No Common Solution Components in '{0}' and '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByCompletedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByCompletedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFailedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFailedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
             }
         }
 
@@ -2123,11 +2127,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string sourceName = string.Join(",", solutionSourceCollection.Select(e => e.UniqueName).OrderBy(s => s));
 
+            var service = await GetService();
+
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFormat2, solutionTarget.UniqueName, sourceName);
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFormat2, solutionTarget.UniqueName, sourceName);
 
-                var service = await GetService();
                 var descriptor = await GetDescriptor();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
@@ -2158,8 +2163,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (componentesOnlyInSource.Count > 0)
                 {
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput("Creating backup Solution Components in '{0}'.", solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Creating backup Solution Components in '{0}'.", solutionTarget.UniqueName);
 
 
                     {
@@ -2174,8 +2179,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solutionTarget.Id);
 
-                        this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Created backup Solution Components in '{0}': {1}", solutionTarget.UniqueName, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
                     }
 
                     {
@@ -2191,8 +2196,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
                     }
 
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput("Showing Unique Solution Components in '{0}'.", sourceName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Showing Unique Solution Components in '{0}'.", sourceName);
 
                     {
                         string fileName = EntityFileNameFormatter.GetSolutionMultipleFileName(
@@ -2214,29 +2219,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , componentesOnlyInTarget.Count
                             );
 
-                        this._iWriteToOutput.WriteToOutput("Created file with Unique Components in '{0}' for Removing from '{1}': {2}", sourceName, solutionTarget.UniqueName, filePath);
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Created file with Unique Components in '{0}' for Removing from '{1}': {2}", sourceName, solutionTarget.UniqueName, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
                     }
 
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput("Removing Solution Components owned by '{0}' from '{1}'.", sourceName, solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Removing Solution Components owned by '{0}' from '{1}'.", sourceName, solutionTarget.UniqueName);
 
                     await Controllers.SolutionController.RemoveSolutionComponentsCollectionFromSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionTarget.UniqueName, componentesOnlyInSource, false);
 
-                    this._iWriteToOutput.WriteToOutput("Removed {0} components.", componentesOnlyInSource.Count.ToString());
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Removed {0} components.", componentesOnlyInSource.Count.ToString());
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput("There are No Common Solution Components in '{0}' and '{1}'.", sourceName, solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "There are No Common Solution Components in '{0}' and '{1}'.", sourceName, solutionTarget.UniqueName);
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByCompletedFormat2, solutionTarget.UniqueName, sourceName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByCompletedFormat2, solutionTarget.UniqueName, sourceName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFailedFormat2, solutionTarget.UniqueName, sourceName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFailedFormat2, solutionTarget.UniqueName, sourceName);
             }
         }
 
@@ -2295,12 +2300,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat2, service.ConnectionData.Name, solution.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ClearingSolutionFormat2, service.ConnectionData.Name, solution.UniqueName);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput("Creating backup Solution Components in '{0}'.", solution.UniqueName);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Creating backup Solution Components in '{0}'.", solution.UniqueName);
 
                 {
                     string fileName = EntityFileNameFormatter.GetSolutionFileName(
@@ -2314,8 +2319,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solution.Id);
 
-                    this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solution.UniqueName, filePath);
-                    this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Created backup Solution Components in '{0}': {1}", solution.UniqueName, filePath);
+                    this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
                 }
 
                 {
@@ -2335,13 +2340,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 SolutionComponentRepository repository = new SolutionComponentRepository(service);
                 await repository.ClearSolutionAsync(solution.UniqueName);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat2, service.ConnectionData.Name, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat2, service.ConnectionData.Name, solution.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat2, service.ConnectionData.Name, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat2, service.ConnectionData.Name, solution.UniqueName);
             }
         }
 
@@ -2414,11 +2419,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformCreateFileWithUsedEntitiesInWorkflows(string folder, Solution solution)
         {
+            var service = await GetService();
+
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsFormat1, solution.UniqueName);
 
-                var service = await GetService();
                 var descriptor = await GetDescriptor();
 
                 var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
@@ -2437,27 +2443,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("Solution Used Entities was export into file '{0}'", filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Solution Used Entities was export into file '{0}'", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
             }
         }
 
         private async Task PerformCreateFileWithUsedNotExistsEntitiesInWorkflows(string folder, Solution solution)
         {
+            var service = await GetService();
+
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFormat1, solution.UniqueName);
 
-                var service = await GetService();
                 var descriptor = await GetDescriptor();
 
                 var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
@@ -2476,17 +2483,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("Solution Used Not Exists Entities was export into file '{0}'", filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Solution Used Not Exists Entities was export into file '{0}'", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -2663,9 +2670,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            string selectedPath = string.Empty;
+
             try
             {
-                string selectedPath = string.Empty;
                 var t = new Thread(() =>
                 {
                     try
@@ -2684,7 +2692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                     catch (Exception ex)
                     {
-                        DTEHelper.WriteExceptionToOutput(ex);
+                        DTEHelper.WriteExceptionToOutput(null, ex);
                     }
                 });
 
@@ -2697,10 +2705,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     return;
                 }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
 
-                ToggleControls(false, _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.CreatingSolutionImageFromZipFile));
+            var service = await GetService();
 
-                var service = await GetService();
+            try
+            {
+                ToggleControls(service.ConnectionData, false, _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFile));
+
                 var descriptor = await GetDescriptor();
 
                 var components = await descriptor.LoadSolutionComponentsFromZipFileAsync(selectedPath);
@@ -2718,17 +2734,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, components);
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFileCompleted);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFileCompleted);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFileFailed);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFileFailed);
             }
         }
 

@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             , IList<CompletionSet> completionSets
             , ITextSnapshot snapshot
             , XElement doc
+            , ConnectionData connectionData
             , ConnectionIntellisenseDataRepository repositoryEntities
             , SiteMapIntellisenseDataRepository repositorySiteMap
             , WebResourceIntellisenseDataRepository repositoryWebResource
@@ -294,7 +296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(connectionData, ex);
             }
         }
 

@@ -143,10 +143,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -164,7 +164,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntities);
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingEntities);
 
             _itemsSourceEntityList.Clear();
             _itemsSourceEntityRelationshipList.Clear();
@@ -173,8 +175,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var service = await GetService();
-
                 if (service != null)
                 {
                     if (!_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
             string textName = string.Empty;
@@ -204,6 +204,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             list = FilterEntityList(list, textName);
 
             LoadEntities(list);
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat1, list.Count());
+
+            ShowExistingEntityRelationships();
         }
 
         private static IEnumerable<EntityMetadataViewItem> FilterEntityList(IEnumerable<EntityMetadataViewItem> list, string textName)
@@ -260,10 +264,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.lstVwEntities.SelectedItem = this.lstVwEntities.Items[0];
                 }
             });
-
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat1, results.Count());
-
-            ShowExistingEntityRelationships();
         }
 
         private async Task ShowExistingEntityRelationships()
@@ -273,7 +273,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingManyToManyRelationships);
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingManyToManyRelationships);
 
             string entityLogicalName = string.Empty;
 
@@ -290,8 +292,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var service = await GetService();
-
                     if (service != null)
                     {
                         if (!_cacheEntityManyToMany.ContainsKey(service.ConnectionData.ConnectionId))
@@ -328,7 +328,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                    this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                 }
             }
 
@@ -342,6 +342,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             list = FilterEntityRelationshipList(list, textName);
 
             LoadEntityRelationships(list);
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingManyToManyRelationshipsCompletedFormat1, list.Count());
         }
 
         private static IEnumerable<ManyToManyRelationshipMetadataViewItem> FilterEntityRelationshipList(IEnumerable<ManyToManyRelationshipMetadataViewItem> list, string textName)
@@ -402,12 +404,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.lstVwEntityRelationships.SelectedItem = this.lstVwEntityRelationships.Items[0];
                 }
             });
-
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingManyToManyRelationshipsCompletedFormat1, results.Count());
         }
 
 
-        private void UpdateStatus(string format, params object[] args)
+        private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {
             string message = format;
 
@@ -416,7 +416,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(connectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -424,11 +424,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
 
-            UpdateStatus(statusFormat, args);
+            UpdateStatus(connectionData, statusFormat, args);
 
             ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection);
 
@@ -842,9 +842,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entityNamesOrdered = string.Join(",", entityNames.OrderBy(s => s));
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
 
             try
             {
@@ -852,16 +852,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishEntitiesAsync(entityNames);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityNamesOrdered);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityNamesOrdered);
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityNamesOrdered);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityNamesOrdered);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -969,13 +969,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, entityList.Select(item => item.EntityMetadata.MetadataId.Value).ToList(), null, withSelect);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
         }
 
@@ -1010,13 +1010,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.EntityRelationship, entityRelationshipList.Select(item => item.ManyToManyRelationshipMetadata.MetadataId.Value).ToList(), null, withSelect);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
         }
 

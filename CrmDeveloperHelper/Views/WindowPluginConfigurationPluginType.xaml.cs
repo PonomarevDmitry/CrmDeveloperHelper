@@ -106,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
 
                 this._pluginDescription = null;
             }
@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(null, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -348,13 +348,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("PluginType {0} description exported to {1}", pluginType.PluginType.TypeName, filePath);
+                this._iWriteToOutput.WriteToOutput(null, "PluginType {0} description exported to {1}", pluginType.PluginType.TypeName, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(null, filePath);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("PluginType {0} description is empty.", pluginType.PluginType.TypeName);
+                this._iWriteToOutput.WriteToOutput(null, "PluginType {0} description is empty.", pluginType.PluginType.TypeName);
             }
         }
 
@@ -379,7 +379,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    _iWriteToOutput.WriteErrorToOutput(null, ex);
                 }
             });
 

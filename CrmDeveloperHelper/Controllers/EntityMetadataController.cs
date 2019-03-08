@@ -37,34 +37,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 if (connectionData == null)
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-                this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, commonConfig, null, selection, null);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -76,34 +76,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.OpeningEntityAttributeExplorerFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 if (connectionData == null)
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-                this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, commonConfig, selection);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -111,34 +111,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.OpeningEntityKeyExplorerFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 if (connectionData == null)
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-                this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, commonConfig, selection);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -146,34 +146,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.OpeningEntityRelationshipOneToManyFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 if (connectionData == null)
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-                this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, commonConfig, selection);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -181,34 +181,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.OpeningEntityRelationshipManyToManyFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 if (connectionData == null)
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-                this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, commonConfig, selection);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -216,34 +216,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.OpeningEntitySecurityRolesFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 if (connectionData == null)
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-                this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, commonConfig, null, selection);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -255,24 +255,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 if (connectionData == null)
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                     return;
                 }
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-                this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenGlobalOptionSetsWindow(
                     this._iWriteToOutput
@@ -283,13 +283,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , selection
                     );
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -301,19 +301,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.UpdatingFileWithEntityMetadataFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await UpdatingFileWithEntityMetadata(selectedFiles, connectionData, commonConfig, selectEntity);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -321,18 +321,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var descriptor = new SolutionComponentDescriptor(service);
             descriptor.SetSettings(commonConfig);
@@ -343,7 +343,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!File.Exists(filePath))
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, filePath);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, filePath);
                     continue;
                 }
 
@@ -385,7 +385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, connectionData?.Name, config.EntityName);
 
-                        this._iWriteToOutput.WriteToOutputStartOperation(operation);
+                        this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
                         using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
                         {
@@ -394,11 +394,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             await handler.CreateFileAsync(fileName);
                         }
 
-                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, config.EntityName, filePath);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, config.EntityName, filePath);
 
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, filePath);
 
-                        this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                        this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
 
                         continue;
                     }
@@ -425,19 +425,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.UpdatingFileWithGlobalOptionSetsFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await UpdatingFileWithGlobalOptionSets(connectionData, commonConfig, selectedFiles, withSelect);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -445,18 +445,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var descriptor = new SolutionComponentDescriptor(service);
             descriptor.SetSettings(commonConfig);
@@ -467,7 +467,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!File.Exists(filePath))
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, filePath);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, filePath);
                     continue;
                 }
 
@@ -484,7 +484,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat2, connectionData?.Name, metadata.Name);
 
-                        this._iWriteToOutput.WriteToOutputStartOperation(operation);
+                        this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
                         string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
 
@@ -502,11 +502,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             await handler.CreateFileAsync(filePath, new[] { metadata });
                         }
 
-                        this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, metadata.Name, filePath);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, metadata.Name, filePath);
 
-                        this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, filePath);
 
-                        this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                        this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
 
                         continue;
                     }
@@ -538,7 +538,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.DifferenceRibbonFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
@@ -546,11 +546,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -558,13 +558,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             if (!File.Exists(selectedFile.FilePath))
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                 return;
             }
 
@@ -572,7 +572,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!ContentCoparerHelper.TryParseXml(fileText, out var doc))
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 return;
             }
 
@@ -580,20 +580,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (attribute == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), selectedFile.FilePath);
                 return;
             }
 
             string entityName = attribute.Value;
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             if (!string.IsNullOrEmpty(entityName))
             {
@@ -603,7 +603,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (entityMetadata == null)
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, connectionData.Name);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, connectionData.Name);
                     return;
                 }
 
@@ -632,7 +632,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath2, ribbonXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service.ConnectionData.Name, entityName, filePath2);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service.ConnectionData.Name, entityName, filePath2);
             }
             else
             {
@@ -648,7 +648,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath2, ribbonXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath2);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath2);
             }
 
             this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, fileTitle1, fileTitle2);
@@ -658,7 +658,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.DifferenceRibbonDiffXmlFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
@@ -666,11 +666,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -678,13 +678,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             if (!File.Exists(selectedFile.FilePath))
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                 return;
             }
 
@@ -692,7 +692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!ContentCoparerHelper.TryParseXml(fileText, out var doc))
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 return;
             }
 
@@ -700,20 +700,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (attribute == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), selectedFile.FilePath);
                 return;
             }
 
             string entityName = attribute.Value;
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var repositoryRibbonCustomization = new RibbonCustomizationRepository(service);
 
@@ -728,8 +728,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (entityMetadata == null)
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, connectionData.Name);
-                    _iWriteToOutput.ActivateOutputWindow();
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, connectionData.Name);
+                    _iWriteToOutput.ActivateOutputWindow(connectionData);
                     return;
                 }
             }
@@ -739,8 +739,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (ribbonCustomization == null)
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.NotFoundedApplicationRibbonRibbonCustomization);
-                    _iWriteToOutput.ActivateOutputWindow();
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.NotFoundedApplicationRibbonRibbonCustomization);
+                    _iWriteToOutput.ActivateOutputWindow(connectionData);
                     return;
                 }
             }
@@ -765,7 +765,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath2, ribbonDiffXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath2);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath2);
             }
             else if (ribbonCustomization != null)
             {
@@ -774,7 +774,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath2, ribbonDiffXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath2);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath2);
             }
 
             this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, fileTitle1, fileTitle2);
@@ -784,7 +784,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.UpdatingRibbonFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
@@ -792,11 +792,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -804,13 +804,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             if (!File.Exists(selectedFile.FilePath))
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                 return;
             }
 
@@ -818,12 +818,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             //fileText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(fileText);
 
-            this._iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.ValidatingRibbonDiffXml);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingRibbonDiffXml);
 
             if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                _iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
+                _iWriteToOutput.ActivateOutputWindow(connectionData);
                 return;
             }
 
@@ -831,29 +831,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (attribute == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), selectedFile.FilePath);
                 return;
             }
 
-            bool validateResult = await RibbonCustomizationRepository.ValidateXmlDocumentAsync(_iWriteToOutput, doc);
+            bool validateResult = await RibbonCustomizationRepository.ValidateXmlDocumentAsync(connectionData, _iWriteToOutput, doc);
 
             if (!validateResult)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.ValidatingRibbonDiffXmlFailed);
-                _iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingRibbonDiffXmlFailed);
+                _iWriteToOutput.ActivateOutputWindow(connectionData);
                 return;
             }
 
             string entityName = attribute.Value;
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             EntityMetadata entityMetadata = null;
             RibbonCustomization ribbonCustomization = null;
@@ -868,8 +868,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (entityMetadata == null)
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, connectionData.Name);
-                    _iWriteToOutput.ActivateOutputWindow();
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, connectionData.Name);
+                    _iWriteToOutput.ActivateOutputWindow(connectionData);
                     return;
                 }
             }
@@ -879,8 +879,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (ribbonCustomization == null)
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.NotFoundedApplicationRibbonRibbonCustomization);
-                    _iWriteToOutput.ActivateOutputWindow();
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.NotFoundedApplicationRibbonRibbonCustomization);
+                    _iWriteToOutput.ActivateOutputWindow(connectionData);
                     return;
                 }
             }

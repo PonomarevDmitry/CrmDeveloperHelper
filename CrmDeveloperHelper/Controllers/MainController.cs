@@ -76,7 +76,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -98,7 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -120,7 +120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -137,7 +137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -154,7 +154,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -171,7 +171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -188,7 +188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -212,7 +212,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -229,7 +229,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -246,7 +246,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -263,7 +263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -280,7 +280,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -297,7 +297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -314,7 +314,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -331,7 +331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -348,7 +348,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -365,7 +365,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -382,7 +382,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
                 }
             });
 
@@ -399,7 +399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -416,7 +416,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -440,7 +440,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -457,7 +457,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
                 }
             });
 
@@ -474,7 +474,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -491,7 +491,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -508,7 +508,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -530,7 +530,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -547,7 +547,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -564,7 +564,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -585,7 +585,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -602,7 +602,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -619,7 +619,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -636,7 +636,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -653,7 +653,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -670,7 +670,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -687,7 +687,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -704,7 +704,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -721,7 +721,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -738,7 +738,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -755,7 +755,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -772,7 +772,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -789,7 +789,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -806,7 +806,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -823,7 +823,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -840,7 +840,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -857,7 +857,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -874,7 +874,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -891,7 +891,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -908,7 +908,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -925,7 +925,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -942,7 +942,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -959,7 +959,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -976,7 +976,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -993,7 +993,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1010,7 +1010,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1027,7 +1027,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1044,7 +1044,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1061,7 +1061,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1078,7 +1078,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1095,7 +1095,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1112,7 +1112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1129,7 +1129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1146,7 +1146,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1163,7 +1163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1180,7 +1180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1197,7 +1197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1214,7 +1214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1231,7 +1231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1248,7 +1248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1265,7 +1265,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1282,7 +1282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1299,7 +1299,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1316,7 +1316,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1333,7 +1333,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1350,7 +1350,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1367,7 +1367,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1384,7 +1384,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1401,7 +1401,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1418,7 +1418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1435,7 +1435,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1452,7 +1452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
                 }
             });
 
@@ -1469,7 +1469,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
                 }
             });
 
@@ -1486,7 +1486,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
                 }
             });
 
@@ -1503,7 +1503,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
                 }
             });
 
@@ -1520,7 +1520,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
                 }
             });
 
@@ -1537,7 +1537,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
                 }
             });
 
@@ -1554,7 +1554,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1571,7 +1571,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1588,7 +1588,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1605,7 +1605,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1622,7 +1622,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1639,7 +1639,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1656,7 +1656,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1673,7 +1673,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 
@@ -1690,7 +1690,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 

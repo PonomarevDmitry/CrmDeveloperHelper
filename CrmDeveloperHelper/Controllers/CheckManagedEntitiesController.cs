@@ -123,7 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , "processtrigger"
         };
 
-        private IWriteToOutput _iWriteToOutput = null;
+        private readonly IWriteToOutput _iWriteToOutput = null;
 
         public CheckManagedEntitiesController(IWriteToOutput iWriteToOutput)
         {
@@ -136,19 +136,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CheckingManagedEntitiesFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await CheckingManagedEntities(connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -156,20 +156,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             var hasInfo = false;
 
@@ -203,13 +203,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoObjectsInCRMWereFounded);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
             }
         }
 
@@ -1109,8 +1109,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (wrongOptionValue.Any())
             {
-                var table = new FormatTextTableHandler(true);
-                table.Separator = "        ";
+                var table = new FormatTextTableHandler(true)
+                {
+                    Separator = "        "
+                };
                 foreach (var option in wrongOptionValue.Keys)
                 {
                     table.CalculateLineLengths(GetOptionSetValueInfo(option));
@@ -1192,7 +1194,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     hasInfo = true;
 
-                    ComponentType componentType;
 
                     var componentTypeName = entityName;
 
@@ -1201,7 +1202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         componentTypeName = "EmailTemplate";
                     }
 
-                    if (Enum.TryParse<ComponentType>(componentTypeName, true, out componentType))
+                    if (Enum.TryParse<ComponentType>(componentTypeName, true, out ComponentType componentType))
                     {
                         content
                             .AppendLine()
@@ -1405,8 +1406,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteToOutput(entityName);
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, entityName);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
             return result;

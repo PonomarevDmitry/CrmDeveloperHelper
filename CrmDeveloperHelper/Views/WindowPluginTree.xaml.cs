@@ -258,10 +258,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -279,7 +279,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingPlugins);
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingPlugins);
 
             this.trVPluginTree.ItemsSource = null;
 
@@ -305,8 +307,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var service = await GetService();
-
                 if (service != null)
                 {
                     PluginSearchRepository repository = new PluginSearchRepository(service);
@@ -340,7 +340,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
             if (list != null)
@@ -355,7 +355,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 });
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginsCompleted);
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingPluginsCompleted);
         }
 
         private async Task GetSdkMessageFiltersAsync(IOrganizationServiceExtented service)
@@ -1122,7 +1122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void UpdateStatus(string format, params object[] args)
+        private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {
             string message = format;
 
@@ -1131,7 +1131,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(connectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -1139,11 +1139,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
 
-            UpdateStatus(statusFormat, args);
+            UpdateStatus(connectionData, statusFormat, args);
 
             ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, this.tSBCollapseAll, this.tSBExpandAll, this.menuView);
 
@@ -1448,9 +1448,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithDescriptionFormat1, service.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithDescriptionFormat1, service.ConnectionData.Name);
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingDescription);
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingDescription);
 
             StringBuilder result = new StringBuilder();
 
@@ -1720,12 +1720,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, result.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithDescriptionFormat1, service.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithDescriptionFormat1, service.ConnectionData.Name);
         }
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -2029,9 +2029,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
 
             try
             {
@@ -2039,16 +2039,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishEntitiesAsync(new[] { entityName });
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityName);
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
@@ -2170,13 +2170,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 try
                 {
-                    this._iWriteToOutput.ActivateOutputWindow();
+                    this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                     await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, componentType.Value, new[] { id.Value }, null, withSelect);
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                    this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                 }
             }
         }
@@ -2228,13 +2228,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
         }
 
@@ -2276,13 +2276,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.PluginAssembly, new[] { idPluginAssembly }, null, withSelect);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
         }
 
@@ -2339,13 +2339,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
         }
 
@@ -2380,11 +2380,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId] = GetSdkMessageFiltersAsync(service);
                 }
 
-                ToggleControls(false, Properties.WindowStatusStrings.GettingMessages);
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.GettingMessages);
 
                 await _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId];
 
-                ToggleControls(true, Properties.WindowStatusStrings.GettingMessagesCompleted);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.GettingMessagesCompleted);
             }
 
             filters = _cacheMessageFilters[service.ConnectionData.ConnectionId];
@@ -2569,10 +2569,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && status.HasValue
             )
             {
+                var service = await GetService();
+
                 try
                 {
-                    var service = await GetService();
-
                     await service.ExecuteAsync(new Microsoft.Crm.Sdk.Messages.SetStateRequest()
                     {
                         EntityMoniker = referenceToChangeState,
@@ -2586,8 +2586,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    _iWriteToOutput.WriteErrorToOutput(ex);
-                    _iWriteToOutput.ActivateOutputWindow();
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
             }
         }
@@ -2640,18 +2640,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
+                    var service = await GetService();
+
                     try
                     {
-                        var service = await GetService();
-
                         await service.DeleteAsync(referenceToDelete.LogicalName, referenceToDelete.Id);
 
                         nodeItem.Parent.Items.Remove(nodeItem);
                     }
                     catch (Exception ex)
                     {
-                        _iWriteToOutput.WriteErrorToOutput(ex);
-                        _iWriteToOutput.ActivateOutputWindow();
+                        _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                        _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                     }
                 }
             }

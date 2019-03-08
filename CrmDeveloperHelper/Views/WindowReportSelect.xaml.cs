@@ -134,7 +134,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 list = new List<Report>();
             }
@@ -206,7 +206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(_service.ConnectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {

@@ -28,29 +28,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.DifferenceWebResourceFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutput, new List<SelectedFile>() { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
 
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 }
 
                 await DifferenceWebResources(selectedFile, isCustom, connectionData, commonConfig);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -58,24 +58,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             if (!File.Exists(selectedFile.FilePath))
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
             WebResourceRepository webResourceRepository = new WebResourceRepository(service);
@@ -101,7 +101,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     catch (Exception ex)
                     {
-                        DTEHelper.WriteExceptionToOutput(ex);
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
                     }
                 });
                 t.SetApartmentState(ApartmentState.STA);
@@ -111,13 +111,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (dialogResult.GetValueOrDefault() == false)
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.DifferenceWasCancelled);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.DifferenceWasCancelled);
                     return;
                 }
 
                 if (selectedWebResourceId.HasValue)
                 {
-                    this._iWriteToOutput.WriteToOutput("Custom Web-resource is selected.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Custom Web-resource is selected.");
 
                     webresource = await webResourceRepository.FindByIdAsync(selectedWebResourceId.Value);
 
@@ -127,7 +127,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput("!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
+                    this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
                 }
             }
             else
@@ -136,7 +136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (webresource != null)
                 {
-                    this._iWriteToOutput.WriteToOutput("Web-resource founded by name.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource founded by name.");
 
                     connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
@@ -153,7 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (webresource != null)
                     {
-                        this._iWriteToOutput.WriteToOutput("Web-resource not founded by name. Last link web-resource is selected for difference.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name. Last link web-resource is selected for difference.");
 
                         connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
@@ -161,8 +161,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput("Web-resource not founded by name and has not Last link.");
-                        this._iWriteToOutput.WriteToOutput("Starting Custom Web-resource selection form.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name and has not Last link.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom Web-resource selection form.");
 
                         bool? dialogResult = null;
                         Guid? selectedWebResourceId = null;
@@ -179,7 +179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             }
                             catch (Exception ex)
                             {
-                                DTEHelper.WriteExceptionToOutput(ex);
+                                DTEHelper.WriteExceptionToOutput(connectionData, ex);
                             }
                         });
                         t.SetApartmentState(ApartmentState.STA);
@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         {
                             if (selectedWebResourceId.HasValue)
                             {
-                                this._iWriteToOutput.WriteToOutput("Custom Web-resource is selected.");
+                                this._iWriteToOutput.WriteToOutput(connectionData, "Custom Web-resource is selected.");
 
                                 webresource = await webResourceRepository.FindByIdAsync(selectedWebResourceId.Value);
 
@@ -201,12 +201,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             }
                             else
                             {
-                                this._iWriteToOutput.WriteToOutput("!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
+                                this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
                             }
                         }
                         else
                         {
-                            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.DifferenceWasCancelled);
+                            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.DifferenceWasCancelled);
                             return;
                         }
                     }
@@ -215,7 +215,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (webresource == null)
             {
-                this._iWriteToOutput.WriteToOutput("Web-resource not founded in CRM: {0}", selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded in CRM: {0}", selectedFile.FileName);
                 return;
             }
 
@@ -248,27 +248,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.DifferenceLocalFileAndTwoWebResourcesFormat3, differenceType, connectionData1?.Name, connectionData2?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, operation);
 
             try
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OperationNames.CheckingFilesEncoding);
 
                 CheckController.CheckingFilesEncoding(this._iWriteToOutput, new List<SelectedFile>() { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
 
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(string.Empty);
+                this._iWriteToOutput.WriteToOutput(null, string.Empty);
+                this._iWriteToOutput.WriteToOutput(null, string.Empty);
+                this._iWriteToOutput.WriteToOutput(null, string.Empty);
 
                 await ThreeFileDifferenceWebResources(selectedFile, connectionData1, connectionData2, differenceType, commonConfig);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(null, operation);
             }
         }
 
@@ -276,13 +276,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData1 == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCRMConnection1);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.NoCRMConnection1);
                 return;
             }
 
             if (connectionData2 == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCRMConnection2);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.NoCRMConnection2);
                 return;
             }
 
@@ -290,16 +290,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (!File.Exists(selectedFile.FilePath))
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                     return;
                 }
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-            this._iWriteToOutput.WriteToOutput(string.Empty);
-            this._iWriteToOutput.WriteToOutput(connectionData1.GetConnectionDescription());
-            this._iWriteToOutput.WriteToOutput(string.Empty);
-            this._iWriteToOutput.WriteToOutput(connectionData2.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(null, string.Empty);
+            this._iWriteToOutput.WriteToOutput(null, connectionData1.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(null, string.Empty);
+            this._iWriteToOutput.WriteToOutput(null, connectionData2.GetConnectionDescription());
 
             var task1 = QuickConnection.ConnectAsync(connectionData1);
             var task2 = QuickConnection.ConnectAsync(connectionData2);
@@ -307,8 +307,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var service1 = await task1;
             var service2 = await task2;
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData1.Name, service1.CurrentServiceEndpoint);
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData2.Name, service2.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData1.Name, service1.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData2.Name, service2.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
             WebResourceRepository webResourceRepository1 = new WebResourceRepository(service1);
@@ -322,7 +322,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (webresource1 != null)
             {
-                this._iWriteToOutput.WriteToOutput("{0}: WebResource founded by name.", connectionData1.Name);
+                this._iWriteToOutput.WriteToOutput(null, "{0}: WebResource founded by name.", connectionData1.Name);
 
                 connectionData1.AddMapping(webresource1.Id, selectedFile.FriendlyFilePath);
 
@@ -338,7 +338,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (webresource1 != null)
                     {
-                        this._iWriteToOutput.WriteToOutput("{0}: WebResource not founded by name. Last link WebResource is selected for difference.", connectionData1.Name);
+                        this._iWriteToOutput.WriteToOutput(null, "{0}: WebResource not founded by name. Last link WebResource is selected for difference.", connectionData1.Name);
 
                         connectionData1.AddMapping(webresource1.Id, selectedFile.FriendlyFilePath);
 
@@ -349,7 +349,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (webresource2 != null)
             {
-                this._iWriteToOutput.WriteToOutput("{0}: WebResource founded by name.", connectionData2.Name);
+                this._iWriteToOutput.WriteToOutput(null, "{0}: WebResource founded by name.", connectionData2.Name);
 
                 connectionData2.AddMapping(webresource2.Id, selectedFile.FriendlyFilePath);
 
@@ -365,7 +365,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (webresource2 != null)
                     {
-                        this._iWriteToOutput.WriteToOutput("{0}: WebResource not founded by name. Last link WebResource is selected for difference.", connectionData2.Name);
+                        this._iWriteToOutput.WriteToOutput(null, "{0}: WebResource not founded by name. Last link WebResource is selected for difference.", connectionData2.Name);
 
                         connectionData2.AddMapping(webresource2.Id, selectedFile.FriendlyFilePath);
 
@@ -376,17 +376,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!File.Exists(selectedFile.FilePath))
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
             }
-            
+
             if (webresource1 == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.WebResourceNotFoundedInConnectionFormat2, connectionData1.Name, selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.WebResourceNotFoundedInConnectionFormat2, connectionData1.Name, selectedFile.FileName);
             }
 
             if (webresource2 == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.WebResourceNotFoundedInConnectionFormat2, connectionData2.Name, selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.WebResourceNotFoundedInConnectionFormat2, connectionData2.Name, selectedFile.FileName);
             }
 
             // string fileLocalPath, string fileLocalTitle, string filePath1, string fileTitle1, string filePath2, string fileTitle2,
@@ -445,7 +445,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (!File.Exists(fileLocalPath))
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, fileLocalPath);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FileNotExistsFormat1, fileLocalPath);
                 return;
             }
 
@@ -492,13 +492,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (total == 1)
             {
-                _iWriteToOutput.WriteToOutputFilePathUri(fileLocalPath);
+                _iWriteToOutput.WriteToOutputFilePathUri(null, fileLocalPath);
                 _iWriteToOutput.OpenFile(fileLocalPath);
 
-                _iWriteToOutput.WriteToOutputFilePathUri(fileLocalPath);
+                _iWriteToOutput.WriteToOutputFilePathUri(null, fileLocalPath);
                 _iWriteToOutput.OpenFile(filePath1);
 
-                _iWriteToOutput.WriteToOutputFilePathUri(fileLocalPath);
+                _iWriteToOutput.WriteToOutputFilePathUri(null, fileLocalPath);
                 _iWriteToOutput.OpenFile(filePath2);
             }
         }
@@ -511,27 +511,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.MultiDifferenceFormat2, connectionData?.Name, openFilesType.ToString());
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
 
                 CheckController.CheckingFilesEncoding(this._iWriteToOutput, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput(string.Empty);
+                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
 
                 await MultiDifferenceFiles(selectedFiles, openFilesType, connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -539,13 +539,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             if (openFilesType == OpenFilesType.All)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ShowingDifferenceIsNotAllowedForFormat1, openFilesType.ToString());
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ShowingDifferenceIsNotAllowedForFormat1, openFilesType.ToString());
                 return;
             }
 
@@ -555,12 +555,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!listFilesToDifference.Any())
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoFilesForDifference);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoFilesForDifference);
                 return;
             }
-            
-            this._iWriteToOutput.WriteToOutput(string.Empty);
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.StartingCompareProgramForCountFilesFormat1, listFilesToDifference.Count());
+
+            this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.StartingCompareProgramForCountFilesFormat1, listFilesToDifference.Count());
 
             foreach (var item in listFilesToDifference.OrderBy(file => file.Item1.FilePath))
             {
@@ -598,19 +598,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.DifferenceReportFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await DifferenceReport(selectedFile, fieldName, fieldTitle, isCustom, connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -618,13 +618,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             if (!File.Exists(selectedFile.FilePath))
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                 return;
             }
 
@@ -634,14 +634,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 fieldTitle = "OriginalBodyText";
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
             ReportRepository reportRepository = new ReportRepository(service);
@@ -667,7 +667,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     catch (Exception ex)
                     {
-                        DTEHelper.WriteExceptionToOutput(ex);
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
                     }
                 });
                 t.SetApartmentState(ApartmentState.STA);
@@ -679,7 +679,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     if (selectedReportId.HasValue)
                     {
-                        this._iWriteToOutput.WriteToOutput("Custom report is selected.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Custom report is selected.");
 
                         reportEntity = await reportRepository.GetByIdAsync(selectedReportId.Value);
 
@@ -689,12 +689,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput("!Warning. Report not exists. name: {0}.", selectedFile.Name);
+                        this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. Report not exists. name: {0}.", selectedFile.Name);
                     }
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.DifferenceWasCancelled);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.DifferenceWasCancelled);
                     return;
                 }
             }
@@ -704,7 +704,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (reportEntity != null)
                 {
-                    this._iWriteToOutput.WriteToOutput("Report founded by name.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Report founded by name.");
 
                     connectionData.AddMapping(reportEntity.Id, selectedFile.FriendlyFilePath);
 
@@ -721,7 +721,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (reportEntity != null)
                     {
-                        this._iWriteToOutput.WriteToOutput("Report not founded by name. Last link report is selected for difference.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Report not founded by name. Last link report is selected for difference.");
 
                         connectionData.AddMapping(reportEntity.Id, selectedFile.FriendlyFilePath);
 
@@ -729,8 +729,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput("Report not founded by name and has not Last link.");
-                        this._iWriteToOutput.WriteToOutput("Starting Custom Report selection form.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Report not founded by name and has not Last link.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom Report selection form.");
 
                         bool? dialogResult = null;
                         Guid? selectedReportId = null;
@@ -747,7 +747,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             }
                             catch (Exception ex)
                             {
-                                DTEHelper.WriteExceptionToOutput(ex);
+                                DTEHelper.WriteExceptionToOutput(connectionData, ex);
                             }
                         });
                         t.SetApartmentState(ApartmentState.STA);
@@ -759,7 +759,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         {
                             if (selectedReportId.HasValue)
                             {
-                                this._iWriteToOutput.WriteToOutput("Custom report is selected.");
+                                this._iWriteToOutput.WriteToOutput(connectionData, "Custom report is selected.");
 
                                 reportEntity = await reportRepository.GetByIdAsync(selectedReportId.Value);
 
@@ -769,21 +769,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             }
                             else
                             {
-                                this._iWriteToOutput.WriteToOutput("!Warning. Report not exists. name: {0}.", selectedFile.Name);
+                                this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. Report not exists. name: {0}.", selectedFile.Name);
                             }
                         }
                         else
                         {
-                            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.DifferenceWasCancelled);
+                            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.DifferenceWasCancelled);
                             return;
                         }
                     }
                 }
             }
-            
+
             if (reportEntity == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ReportNotFoundedInConnectionFormat2, connectionData.Name, selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ReportNotFoundedInConnectionFormat2, connectionData.Name, selectedFile.FileName);
                 return;
             }
 
@@ -813,7 +813,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             //    reportDefinitionFile.Close();
             //}
 
-            this._iWriteToOutput.WriteToOutput("Starting Compare Program for {0} and {1}", selectedFile.FriendlyFilePath, reportName);
+            this._iWriteToOutput.WriteToOutput(connectionData, "Starting Compare Program for {0} and {1}", selectedFile.FriendlyFilePath, reportName);
 
             string file1 = selectedFile.FilePath;
             string file2 = temporaryFilePath;
@@ -832,19 +832,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.DifferenceLocalFileAndTwoReportsFormat3, differenceType, connectionData1?.Name, connectionData2?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, operation);
 
             try
             {
                 await ThreeFileDifferenceReport(selectedFile, fieldName, fieldTitle, connectionData1, connectionData2, differenceType, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(null, operation);
             }
         }
 
@@ -852,13 +852,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData1 == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCRMConnection1);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.NoCRMConnection1);
                 return;
             }
 
             if (connectionData2 == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCRMConnection2);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.NoCRMConnection2);
                 return;
             }
 
@@ -866,7 +866,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (!File.Exists(selectedFile.FilePath))
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                     return;
                 }
             }
@@ -877,11 +877,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 fieldTitle = "OriginalBodyText";
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-            this._iWriteToOutput.WriteToOutput(string.Empty);
-            this._iWriteToOutput.WriteToOutput(connectionData1.GetConnectionDescription());
-            this._iWriteToOutput.WriteToOutput(string.Empty);
-            this._iWriteToOutput.WriteToOutput(connectionData2.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(null, string.Empty);
+            this._iWriteToOutput.WriteToOutput(null, connectionData1.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(null, string.Empty);
+            this._iWriteToOutput.WriteToOutput(null, connectionData2.GetConnectionDescription());
 
             var task1 = QuickConnection.ConnectAsync(connectionData1);
             var task2 = QuickConnection.ConnectAsync(connectionData2);
@@ -889,8 +889,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var service1 = await task1;
             var service2 = await task2;
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData1.Name, service1.CurrentServiceEndpoint);
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData2.Name, service2.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData1.Name, service1.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData2.Name, service2.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
             ReportRepository reportRepository1 = new ReportRepository(service1);
@@ -904,7 +904,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (reportEntity1 != null)
             {
-                this._iWriteToOutput.WriteToOutput("{0}: Report founded by name.", connectionData1.Name);
+                this._iWriteToOutput.WriteToOutput(null, "{0}: Report founded by name.", connectionData1.Name);
 
                 connectionData1.AddMapping(reportEntity1.Id, selectedFile.FriendlyFilePath);
 
@@ -920,7 +920,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (reportEntity1 != null)
                     {
-                        this._iWriteToOutput.WriteToOutput("{0}: Report not founded by name. Last link report is selected for difference.", connectionData1.Name);
+                        this._iWriteToOutput.WriteToOutput(null, "{0}: Report not founded by name. Last link report is selected for difference.", connectionData1.Name);
 
                         connectionData1.AddMapping(reportEntity1.Id, selectedFile.FriendlyFilePath);
 
@@ -931,7 +931,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (reportEntity2 != null)
             {
-                this._iWriteToOutput.WriteToOutput("{0}: Report founded by name.", connectionData2.Name);
+                this._iWriteToOutput.WriteToOutput(null, "{0}: Report founded by name.", connectionData2.Name);
 
                 connectionData2.AddMapping(reportEntity2.Id, selectedFile.FriendlyFilePath);
 
@@ -947,7 +947,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (reportEntity2 != null)
                     {
-                        this._iWriteToOutput.WriteToOutput("{0}: Report not founded by name. Last link report is selected for difference.", connectionData2.Name);
+                        this._iWriteToOutput.WriteToOutput(null, "{0}: Report not founded by name. Last link report is selected for difference.", connectionData2.Name);
 
                         connectionData2.AddMapping(reportEntity2.Id, selectedFile.FriendlyFilePath);
 
@@ -958,17 +958,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!File.Exists(selectedFile.FilePath))
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
             }
 
             if (reportEntity1 == null)
             {
-                this._iWriteToOutput.WriteToOutput("{0}: Report not founded in CRM: {1}", connectionData1.Name, selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(null, "{0}: Report not founded in CRM: {1}", connectionData1.Name, selectedFile.FileName);
             }
 
             if (reportEntity2 == null)
             {
-                this._iWriteToOutput.WriteToOutput("{0}: Report not founded in CRM: {1}", connectionData2.Name, selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(null, "{0}: Report not founded in CRM: {1}", connectionData2.Name, selectedFile.FileName);
             }
 
             string fileLocalPath = selectedFile.FilePath;

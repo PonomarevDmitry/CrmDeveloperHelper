@@ -124,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
 
                 pluginDescription = null;
             }
@@ -233,7 +233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(null, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -357,9 +357,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 else
                 {
-                    this._iWriteToOutput.PerformAction(filePath1);
+                    this._iWriteToOutput.PerformAction(null, filePath1);
 
-                    this._iWriteToOutput.PerformAction(filePath2);
+                    this._iWriteToOutput.PerformAction(null, filePath2);
                 }
             }
 
@@ -382,19 +382,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput(filePathConfiguration);
-                    this._iWriteToOutput.WriteToOutput("Plugin Assembly {0} Description exported to {1}", name, filePath);
+                    this._iWriteToOutput.WriteToOutput(null, filePathConfiguration);
+                    this._iWriteToOutput.WriteToOutput(null, "Plugin Assembly {0} Description exported to {1}", name, filePath);
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                    this._iWriteToOutput.WriteErrorToOutput(null, ex);
                 }
             }
             else
             {
                 filePath = string.Empty;
-                this._iWriteToOutput.WriteToOutput(filePathConfiguration);
-                this._iWriteToOutput.WriteToOutput("PluginAssembly {0} Description is empty.", name);
+                this._iWriteToOutput.WriteToOutput(null, filePathConfiguration);
+                this._iWriteToOutput.WriteToOutput(null, "PluginAssembly {0} Description is empty.", name);
             }
 
             return filePath;
@@ -421,7 +421,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    _iWriteToOutput.WriteErrorToOutput(null, ex);
                 }
             });
 
@@ -457,7 +457,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    _iWriteToOutput.WriteErrorToOutput(null, ex);
                 }
             });
 
@@ -535,7 +535,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string filePath = await CreateDescriptionFileAsync(folder, pluginDescription.FilePath, assembly.Name, description);
 
-            this._iWriteToOutput.PerformAction(filePath);
+            this._iWriteToOutput.PerformAction(null, filePath);
 
             ToggleControls(true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
         }

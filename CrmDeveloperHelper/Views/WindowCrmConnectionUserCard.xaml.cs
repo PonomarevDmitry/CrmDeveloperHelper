@@ -84,17 +84,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     this.User.UserId = Guid.NewGuid();
                 }
+
+                this.DialogResult = true;
+
+                this.Close();
             }
             catch (Exception ex)
             {
                 string textError = string.Format(Properties.MessageBoxStrings.UnableSaveConnectionFormat1, ex.Message);
 
-                DTEHelper.WriteExceptionToOutput(ex);
-
-                MessageBox.Show(textError, Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                DTEHelper.WriteExceptionToOutput(null, ex);
             }
-
-            this.DialogResult = true;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

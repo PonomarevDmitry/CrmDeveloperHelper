@@ -322,7 +322,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                    Helpers.DTEHelper.WriteExceptionToOutput(null, ex);
 #if DEBUG
                     if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
 #endif

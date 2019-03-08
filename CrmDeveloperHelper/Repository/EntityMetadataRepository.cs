@@ -21,7 +21,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// <summary>
         /// Сервис CRM
         /// </summary>
-        private IOrganizationServiceExtented _Service { get; set; }
+        private readonly IOrganizationServiceExtented _service;
 
         /// <summary>
         /// Конструктор репозитория функция по поиску издателей.
@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// <param name="service"></param>
         public EntityMetadataRepository(IOrganizationServiceExtented service)
         {
-            _Service = service ?? throw new ArgumentNullException(nameof(service));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
         public Task<List<EntityMetadata>> GetEntitiesDisplayNameAsync()
@@ -54,7 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Query = entityQueryExpression,
             };
 
-            RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_Service.Execute(request);
+            RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_service.Execute(request);
 
             return response.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
         }
@@ -94,7 +94,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            var isEntityKeyExists = _Service.IsRequestExists(SdkMessageRequest.Instances.RetrieveEntityKeyRequest);
+            var isEntityKeyExists = _service.IsRequestExists(SdkMessageRequest.Instances.RetrieveEntityKeyRequest);
 
             if (isEntityKeyExists)
             {
@@ -106,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Query = entityQueryExpression,
             };
 
-            RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_Service.Execute(request);
+            RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_service.Execute(request);
 
             var result = response.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
 
@@ -145,7 +145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Query = entityQueryExpression,
             };
 
-            RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_Service.Execute(request);
+            RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_service.Execute(request);
 
             return response.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
         }
@@ -172,14 +172,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Criteria = entityFilter,
                 };
 
-                var isEntityKeyExists = _Service.IsRequestExists(SdkMessageRequest.Instances.RetrieveEntityKeyRequest);
+                var isEntityKeyExists = _service.IsRequestExists(SdkMessageRequest.Instances.RetrieveEntityKeyRequest);
 
                 if (isEntityKeyExists)
                 {
                     entityQueryExpression.KeyQuery = new EntityKeyQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } };
                 }
 
-                var response = (RetrieveMetadataChangesResponse)_Service.Execute(
+                var response = (RetrieveMetadataChangesResponse)_service.Execute(
                     new RetrieveMetadataChangesRequest()
                     {
                         ClientVersionStamp = null,
@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
 
                 return null;
             }
@@ -209,7 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Criteria = entityFilter,
                 };
 
-                var response = (RetrieveMetadataChangesResponse)_Service.Execute(
+                var response = (RetrieveMetadataChangesResponse)_service.Execute(
                     new RetrieveMetadataChangesRequest()
                     {
                         ClientVersionStamp = null,
@@ -221,7 +221,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
 
                 return false;
             }
@@ -271,7 +271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Query = entityQueryExpression,
             };
 
-            RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_Service.Execute(request);
+            RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_service.Execute(request);
 
             if (response.EntityMetadata.Any())
             {
@@ -295,7 +295,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             var request = new OrganizationRequest("RetrieveEntityXml");
             request.Parameters["EntityName"] = entityName;
 
-            var response = _Service.Execute(request);
+            var response = _service.Execute(request);
 
             if (response.Results.ContainsKey("EntityXml"))
             {
@@ -325,13 +325,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     EntityFilters = filters,
                 };
 
-                var response = (RetrieveEntityResponse)_Service.Execute(request);
+                var response = (RetrieveEntityResponse)_service.Execute(request);
 
                 return response.EntityMetadata;
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
 
                 return null;
             }
@@ -351,13 +351,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     MetadataId = idAttributeMetadata,
                 };
 
-                var response = (RetrieveAttributeResponse)_Service.Execute(request);
+                var response = (RetrieveAttributeResponse)_service.Execute(request);
 
                 return response.AttributeMetadata;
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
 
                 return null;
             }
@@ -378,13 +378,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     EntityFilters = filters,
                 };
 
-                var response = (RetrieveEntityResponse)_Service.Execute(request);
+                var response = (RetrieveEntityResponse)_service.Execute(request);
 
                 return response.EntityMetadata;
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
 
                 return null;
             }
@@ -399,7 +399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             RetrieveAllEntitiesRequest raer = new RetrieveAllEntitiesRequest() { EntityFilters = filters };
 
-            RetrieveAllEntitiesResponse resp = (RetrieveAllEntitiesResponse)_Service.Execute(raer);
+            RetrieveAllEntitiesResponse resp = (RetrieveAllEntitiesResponse)_service.Execute(raer);
 
             return resp.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
         }
@@ -436,7 +436,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Query = entityQueryExpression,
             };
 
-            RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_Service.Execute(request);
+            RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_service.Execute(request);
 
             return response.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
         }
@@ -453,7 +453,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Entity = entityMetadata,
             };
 
-            var response = (UpdateEntityResponse)_Service.Execute(request);
+            var response = (UpdateEntityResponse)_service.Execute(request);
         }
 
         public Task UpdateAttributeMetadataAsync(AttributeMetadata attributeMetadata)
@@ -470,7 +470,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 MergeLabels = false,
             };
 
-            var response = (UpdateAttributeResponse)_Service.Execute(request);
+            var response = (UpdateAttributeResponse)_service.Execute(request);
         }
 
         public Task UpdateRelationshipMetadataAsync(RelationshipMetadataBase relationshipMetadataBase)
@@ -486,7 +486,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 MergeLabels = false,
             };
 
-            var response = (UpdateRelationshipResponse)_Service.Execute(request);
+            var response = (UpdateRelationshipResponse)_service.Execute(request);
         }
     }
 }

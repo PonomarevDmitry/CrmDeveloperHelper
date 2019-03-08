@@ -138,10 +138,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_cacheService.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }
@@ -165,10 +165,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_cacheService.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }
@@ -245,7 +245,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
 
             var textName = string.Empty;
@@ -355,7 +355,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(null, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -456,14 +456,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             action(linked, showAllways);
         }
 
-        private Task<string> CreateFileAsync(string connectionName, string name, string nameUnique, Guid id, string fieldTitle, string siteMapXml)
+        private Task<string> CreateFileAsync(ConnectionData connectionData, string name, string nameUnique, Guid id, string fieldTitle, string siteMapXml)
         {
-            return Task.Run(() => CreateFile(connectionName, name, nameUnique, id, fieldTitle, siteMapXml));
+            return Task.Run(() => CreateFile(connectionData, name, nameUnique, id, fieldTitle, siteMapXml));
         }
 
-        private string CreateFile(string connectionName, string name, string nameUnique, Guid id, string fieldTitle, string siteMapXml)
+        private string CreateFile(ConnectionData connectionData, string name, string nameUnique, Guid id, string fieldTitle, string siteMapXml)
         {
-            string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionName, name, id, fieldTitle, "xml");
+            string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, name, id, fieldTitle, "xml");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(siteMapXml))
@@ -499,30 +499,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, siteMapXml, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionName, SiteMap.Schema.EntityLogicalName, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SiteMap.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
                 }
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionName, SiteMap.Schema.EntityLogicalName, name, fieldTitle);
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, SiteMap.Schema.EntityLogicalName, name, fieldTitle);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
 
             return filePath;
         }
 
-        private Task<string> CreateDescriptionFileAsync(string connectionName, string name, Guid id, string fieldTitle, string description)
+        private Task<string> CreateDescriptionFileAsync(ConnectionData connectionData, string name, Guid id, string fieldTitle, string description)
         {
-            return Task.Run(() => CreateDescriptionFile(connectionName, name, id, fieldTitle, description));
+            return Task.Run(() => CreateDescriptionFile(connectionData, name, id, fieldTitle, description));
         }
 
-        private string CreateDescriptionFile(string connectionName, string name, Guid id, string fieldTitle, string description)
+        private string CreateDescriptionFile(ConnectionData connectionData, string name, Guid id, string fieldTitle, string description)
         {
-            string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionName, name, id, fieldTitle, "txt");
+            string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, name, id, fieldTitle, "txt");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(description))
@@ -531,18 +531,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionName, SiteMap.Schema.EntityLogicalName, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SiteMap.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
                 }
             }
             else
             {
                 filePath = string.Empty;
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionName, SiteMap.Schema.EntityLogicalName, name, fieldTitle);
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, SiteMap.Schema.EntityLogicalName, name, fieldTitle);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
 
             return filePath;
@@ -631,9 +631,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
-                        string filePath1 = await CreateFileAsync(service1.ConnectionData.Name, sitemap1.SiteMapName, sitemap1.SiteMapNameUnique, sitemap1.Id, fieldTitle, xml1);
+                        string filePath1 = await CreateFileAsync(service1.ConnectionData, sitemap1.SiteMapName, sitemap1.SiteMapNameUnique, sitemap1.Id, fieldTitle, xml1);
 
-                        string filePath2 = await CreateFileAsync(service2.ConnectionData.Name, sitemap2.SiteMapName, sitemap2.SiteMapNameUnique, sitemap2.Id, fieldTitle, xml2);
+                        string filePath2 = await CreateFileAsync(service2.ConnectionData, sitemap2.SiteMapName, sitemap2.SiteMapNameUnique, sitemap2.Id, fieldTitle, xml2);
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
@@ -641,9 +641,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                         else
                         {
-                            this._iWriteToOutput.PerformAction(filePath1);
+                            this._iWriteToOutput.PerformAction(service1.ConnectionData, filePath1);
 
-                            this._iWriteToOutput.PerformAction(filePath2);
+                            this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
                         }
                     }
                 }
@@ -653,7 +653,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFailedFormat1, fieldName);
             }
@@ -698,9 +698,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = sitemap.GetAttributeValue<string>(fieldName);
 
-                string filePath = await CreateFileAsync(service.ConnectionData.Name, sitemap.SiteMapName, sitemap.SiteMapNameUnique, sitemap.Id, fieldTitle, xmlContent);
+                string filePath = await CreateFileAsync(service.ConnectionData, sitemap.SiteMapName, sitemap.SiteMapNameUnique, sitemap.Id, fieldTitle, xmlContent);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
@@ -746,8 +746,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (showAllways || desc1 != desc2)
                     {
-                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData.Name, sitemap1.SiteMapName, sitemap1.Id, "EntityDescription", desc1);
-                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData.Name, sitemap2.SiteMapName, sitemap2.Id, "EntityDescription", desc2);
+                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData, sitemap1.SiteMapName, sitemap1.Id, "EntityDescription", desc1);
+                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData, sitemap2.SiteMapName, sitemap2.Id, "EntityDescription", desc2);
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
@@ -755,9 +755,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                         else
                         {
-                            this._iWriteToOutput.PerformAction(filePath1);
+                            this._iWriteToOutput.PerformAction(service1.ConnectionData, filePath1);
 
-                            this._iWriteToOutput.PerformAction(filePath2);
+                            this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
                         }
                     }
                 }
@@ -766,7 +766,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionFailed);
             }
@@ -811,9 +811,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(sitemap, EntityFileNameFormatter.SiteMapIgnoreFields, service.ConnectionData);
 
-                string filePath = await CreateDescriptionFileAsync(service.ConnectionData.Name, sitemap.SiteMapName, sitemap.Id, "EntityDescription", description);
+                string filePath = await CreateDescriptionFileAsync(service.ConnectionData, sitemap.SiteMapName, sitemap.Id, "EntityDescription", description);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);

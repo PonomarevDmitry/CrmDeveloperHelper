@@ -47,23 +47,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingMailMergeTemplatesFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             Task<List<MailMergeTemplate>> task1 = _comparerSource.GetMailMergeTemplate1Async();
             Task<List<MailMergeTemplate>> task2 = _comparerSource.GetMailMergeTemplate2Async();
 
             List<MailMergeTemplate> list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Mail Merge Templates in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Mail Merge Templates in {0}: {1}", Connection1.Name, list1.Count()));
 
             List<MailMergeTemplate> list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Mail Merge Templates in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Mail Merge Templates in {0}: {1}", Connection2.Name, list2.Count()));
 
             if (list1.Count == 0 && list2.Count == 0)
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -276,7 +276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Mail Merge Templates.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Mail Merge Templates");
 
@@ -302,23 +302,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingEMailTemplatesFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             Task<List<Template>> task1 = _comparerSource.GetTemplate1Async();
             Task<List<Template>> task2 = _comparerSource.GetTemplate2Async();
 
             List<Template> list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("E-Mail Templates in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "E-Mail Templates in {0}: {1}", Connection1.Name, list1.Count()));
 
             List<Template> list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("E-Mail Templates in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "E-Mail Templates in {0}: {1}", Connection2.Name, list2.Count()));
 
             if (list1.Count == 0 && list2.Count == 0)
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -546,7 +546,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in E-Mail Templates.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "E-Mail Templates");
 
@@ -572,23 +572,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingKBArticleTemplatesFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             Task<List<KbArticleTemplate>> task1 = _comparerSource.GetKbArticleTemplate1Async();
             Task<List<KbArticleTemplate>> task2 = _comparerSource.GetKbArticleTemplate2Async();
 
             List<KbArticleTemplate> list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("KB Article Templates in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "KB Article Templates in {0}: {1}", Connection1.Name, list1.Count()));
 
             List<KbArticleTemplate> list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("KB Article Templates in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "KB Article Templates in {0}: {1}", Connection2.Name, list2.Count()));
 
             if (list1.Count == 0 && list2.Count == 0)
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -782,7 +782,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in KB Article Templates.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "KB Article Templates");
 
@@ -808,23 +808,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingContractTemplatesFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             Task<List<ContractTemplate>> task1 = _comparerSource.GetContractTemplate1Async();
             Task<List<ContractTemplate>> task2 = _comparerSource.GetContractTemplate2Async();
 
             List<ContractTemplate> list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Contract Templates in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Contract Templates in {0}: {1}", Connection1.Name, list1.Count()));
 
             List<ContractTemplate> list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Contract Templates in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Contract Templates in {0}: {1}", Connection2.Name, list2.Count()));
 
             if (list1.Count == 0 && list2.Count == 0)
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -1041,7 +1041,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in Contract Templates.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Contract Templates");
 

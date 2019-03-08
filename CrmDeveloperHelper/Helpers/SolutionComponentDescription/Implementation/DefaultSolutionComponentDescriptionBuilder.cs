@@ -128,7 +128,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.Singleton.WriteErrorToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
                 }
             }
 

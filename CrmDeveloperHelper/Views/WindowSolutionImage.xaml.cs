@@ -159,10 +159,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -220,7 +220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingSolutionImage);
+            ToggleControls(null, false, Properties.WindowStatusStrings.LoadingSolutionImage);
 
             try
             {
@@ -228,7 +228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
 
                 this._solutionImage = null;
             }
@@ -247,11 +247,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (this._solutionImage == null)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionImageFailed);
+                ToggleControls(null, true, Properties.WindowStatusStrings.LoadingSolutionImageFailed);
                 return;
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionImageCompleted);
+            ToggleControls(null, true, Properties.WindowStatusStrings.LoadingSolutionImageCompleted);
 
             FilteringSolutionImageComponents();
         }
@@ -265,7 +265,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._itemsSource.Clear();
 
-            ToggleControls(false, Properties.WindowStatusStrings.FilteringSolutionImageComponents);
+            ToggleControls(null, false, Properties.WindowStatusStrings.FilteringSolutionImageComponents);
 
             IEnumerable<SolutionImageComponent> filter = null;
 
@@ -313,10 +313,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _itemsSource.Add(component);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.FilteringSolutionImageComponentsCompletedFormat1, filter.Count());
+            ToggleControls(null, true, Properties.WindowStatusStrings.FilteringSolutionImageComponentsCompletedFormat1, filter.Count());
         }
 
-        private void UpdateStatus(string format, params object[] args)
+        private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {
             string message = format;
 
@@ -325,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(connectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -333,11 +333,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
 
-            UpdateStatus(statusFormat, args);
+            UpdateStatus(connectionData, statusFormat, args);
 
             ToggleControl(enabled, this.tSProgressBar, this.tSBLoadSolutionImage);
 
@@ -462,7 +462,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    _iWriteToOutput.WriteErrorToOutput(null, ex);
                 }
             });
 
@@ -529,8 +529,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionComponentNotFoundInConnectionFormat1, service.ConnectionData.Name);
-                _iWriteToOutput.ActivateOutputWindow();
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SolutionComponentNotFoundInConnectionFormat1, service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
 
@@ -558,8 +558,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionComponentNotFoundInConnectionFormat1, service.ConnectionData.Name);
-                _iWriteToOutput.ActivateOutputWindow();
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SolutionComponentNotFoundInConnectionFormat1, service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
 
@@ -592,8 +592,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionComponentNotFoundInConnectionFormat1, service.ConnectionData.Name);
-                _iWriteToOutput.ActivateOutputWindow();
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SolutionComponentNotFoundInConnectionFormat1, service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
 
@@ -624,8 +624,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionComponentNotFoundInConnectionFormat1, service.ConnectionData.Name);
-                _iWriteToOutput.ActivateOutputWindow();
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SolutionComponentNotFoundInConnectionFormat1, service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
 
@@ -674,8 +674,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!solutionComponents.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.SolutionComponentNotFoundInConnectionFormat1, service.ConnectionData.Name);
-                _iWriteToOutput.ActivateOutputWindow();
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SolutionComponentNotFoundInConnectionFormat1, service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
 
@@ -683,13 +683,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 await SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, solutionComponents, withSelect);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
         }
     }

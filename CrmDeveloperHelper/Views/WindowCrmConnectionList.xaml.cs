@@ -131,7 +131,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(null, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -390,8 +390,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    _iWriteToOutput.WriteErrorToOutput(ex);
-                    _iWriteToOutput.ActivateOutputWindow();
+                    _iWriteToOutput.WriteErrorToOutput(null, ex);
+                    _iWriteToOutput.ActivateOutputWindow(null);
                 }
             });
 
@@ -413,8 +413,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
-                _iWriteToOutput.ActivateOutputWindow();
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
 
                 connectionData = null;
             }
@@ -474,7 +474,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    _iWriteToOutput.WriteErrorToOutput(ex);
+                    _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
 
                     UpdateStatus(Properties.WindowStatusStrings.ConnectionFailedFormat1, connectionData.Name);
                 }
@@ -559,8 +559,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._crmConfig.Save();
 
-                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
-                _iWriteToOutput.ActivateOutputWindow();
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(null);
 
                 this.DialogResult = true;
 
@@ -582,8 +582,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         _crmConfig.SetCurrentConnection(null);
 
-                        _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.ConnectionIsNotSelected);
-                        _iWriteToOutput.ActivateOutputWindow();
+                        _iWriteToOutput.WriteToOutput(null, Properties.WindowStatusStrings.ConnectionIsNotSelected);
+                        _iWriteToOutput.ActivateOutputWindow(null);
                     }
 
                     this.Dispatcher.Invoke(() =>
@@ -762,7 +762,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    _iWriteToOutput.WriteErrorToOutput(ex);
+                    _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
 
                     UpdateStatus(Properties.WindowStatusStrings.ConnectionFailedFormat1, connectionData.Name);
                 }
@@ -877,8 +877,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._crmConfig.Save();
 
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentConnectionFormat1, item.Name);
-                    _iWriteToOutput.ActivateOutputWindow();
+                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, item.Name);
+                    _iWriteToOutput.ActivateOutputWindow(null);
 
                     this.DialogResult = true;
 
@@ -1010,8 +1010,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (serviceManagement == null)
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.DiscoveryServiceConfigurationCouldNotBeReceived);
-                    _iWriteToOutput.ActivateOutputWindow();
+                    _iWriteToOutput.WriteToOutput(null, Properties.WindowStatusStrings.DiscoveryServiceConfigurationCouldNotBeReceived);
+                    _iWriteToOutput.ActivateOutputWindow(null);
                     return;
                 }
 
@@ -1021,8 +1021,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (discoveryService == null)
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.WindowStatusStrings.DiscoveryServiceCouldNotBeReceived);
-                    _iWriteToOutput.ActivateOutputWindow();
+                    _iWriteToOutput.WriteToOutput(null, Properties.WindowStatusStrings.DiscoveryServiceCouldNotBeReceived);
+                    _iWriteToOutput.ActivateOutputWindow(null);
                     return;
                 }
 
@@ -1039,7 +1039,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
             }
         }
     }

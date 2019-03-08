@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
     {
         private const string tabSpacer = "    ";
 
-        private IWriteToOutput _iWriteToOutput = null;
+        private readonly IWriteToOutput _iWriteToOutput = null;
 
         public CheckController(IWriteToOutput iWriteToOutput)
         {
@@ -38,19 +38,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string operation = string.Format(Properties.OperationNames.CheckingCRMObjectsNamesForPrefixFormat2, connectionData?.Name, prefix);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await CheckingEntitiesNames(connectionData, commonConfig, prefix);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -58,20 +58,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             List<string> wrongEntityNames = new List<string>();
             List<string> wrongEntityAttributes = new List<string>();
@@ -187,13 +187,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoObjectsInCRMWereFounded);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
             }
         }
 
@@ -208,19 +208,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string operation = string.Format(Properties.OperationNames.CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat2, connectionData?.Name, prefix);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await CheckingEntitiesNamesAndShowDependentComponents(connectionData, commonConfig, prefix);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -228,20 +228,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             Dictionary<string, string> wrongEntityNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
             Dictionary<string, string> wrongEntityAttributes = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
@@ -385,13 +385,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("Created file with CRM Objects names for prefix '{0}' and show dependent components: {1}", prefix, filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with CRM Objects names for prefix '{0}' and show dependent components: {1}", prefix, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("No information about web-resource dependent components.");
+                this._iWriteToOutput.WriteToOutput(connectionData, "No information about web-resource dependent components.");
             }
         }
 
@@ -403,19 +403,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat2, connectionData?.Name, prefix);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await CheckingMarkedToDelete(connectionData, commonConfig, prefix);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -423,20 +423,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             Dictionary<string, string> wrongEntityNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
             Dictionary<string, string> wrongEntityAttributes = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
@@ -549,13 +549,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("Created file with CRM Objects marked to delete by '{0}' and show dependent components: {1}", prefix, filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with CRM Objects marked to delete by '{0}' and show dependent components: {1}", prefix, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("No CRM Objects marked to delete by '{0}' and show dependent components.", prefix);
+                this._iWriteToOutput.WriteToOutput(connectionData, "No CRM Objects marked to delete by '{0}' and show dependent components.", prefix);
             }
         }
 
@@ -588,19 +588,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CheckingCRMEntityOwnershipFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await CheckingEntitiesOwnership(connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -608,20 +608,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
 
@@ -658,9 +658,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput("Created file with Entities with Ownership: {0}", filePath);
+            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Entities with Ownership: {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath);
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         #endregion Проверка уровня собственности сущностей.
@@ -669,19 +669,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         internal void ExecuteCheckingFilesEncoding(List<SelectedFile> selectedFiles)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingFilesEncoding);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CheckingFilesEncoding);
 
             try
             {
                 CheckingFilesEncoding(this._iWriteToOutput, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingFilesEncoding);
+                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CheckingFilesEncoding);
             }
         }
 
@@ -771,72 +771,72 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (listNotHaveBOM.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(string.Empty);
-                iWriteToOutput.WriteToOutput("File does not have encoding: {0}", listNotHaveBOM.Count);
+                iWriteToOutput.WriteToOutput(null, string.Empty);
+                iWriteToOutput.WriteToOutput(null, "File does not have encoding: {0}", listNotHaveBOM.Count);
 
                 listNotHaveBOM.Sort();
 
-                listNotHaveBOM.ForEach(item => iWriteToOutput.WriteToOutput(item));
+                listNotHaveBOM.ForEach(item => iWriteToOutput.WriteToOutput(null, item));
             }
 
             if (listWrongEncoding.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(string.Empty);
-                iWriteToOutput.WriteToOutput("File has wrong Encoding: {0}", listWrongEncoding.Count);
+                iWriteToOutput.WriteToOutput(null, string.Empty);
+                iWriteToOutput.WriteToOutput(null, "File has wrong Encoding: {0}", listWrongEncoding.Count);
 
                 listWrongEncoding.Sort();
 
-                listWrongEncoding.ForEach(item => iWriteToOutput.WriteToOutput(item));
+                listWrongEncoding.ForEach(item => iWriteToOutput.WriteToOutput(null, item));
             }
 
             if (listMultipleEncodingHasUTF8.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(string.Empty);
-                iWriteToOutput.WriteToOutput("File complies multiple Encoding with UTF8 in list: {0}", listMultipleEncodingHasUTF8.Count);
+                iWriteToOutput.WriteToOutput(null, string.Empty);
+                iWriteToOutput.WriteToOutput(null, "File complies multiple Encoding with UTF8 in list: {0}", listMultipleEncodingHasUTF8.Count);
 
                 listMultipleEncodingHasUTF8.Sort();
 
-                listMultipleEncodingHasUTF8.ForEach(item => iWriteToOutput.WriteToOutput(item));
+                listMultipleEncodingHasUTF8.ForEach(item => iWriteToOutput.WriteToOutput(null, item));
             }
 
             if (listMultipleEncodingHasNotUTF8.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(string.Empty);
-                iWriteToOutput.WriteToOutput("File complies multiple Encoding WITHOUT UTF8 in list: {0}", listMultipleEncodingHasNotUTF8.Count);
+                iWriteToOutput.WriteToOutput(null, string.Empty);
+                iWriteToOutput.WriteToOutput(null, "File complies multiple Encoding WITHOUT UTF8 in list: {0}", listMultipleEncodingHasNotUTF8.Count);
 
                 listMultipleEncodingHasNotUTF8.Sort();
 
-                listMultipleEncodingHasNotUTF8.ForEach(item => iWriteToOutput.WriteToOutput(item));
+                listMultipleEncodingHasNotUTF8.ForEach(item => iWriteToOutput.WriteToOutput(null, item));
             }
 
             if (listNotExistsOnDisk.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(string.Empty);
-                iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, listNotExistsOnDisk.Count);
+                iWriteToOutput.WriteToOutput(null, string.Empty);
+                iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FileNotExistsFormat1, listNotExistsOnDisk.Count);
 
                 listNotExistsOnDisk.Sort();
 
-                listNotExistsOnDisk.ForEach(item => iWriteToOutput.WriteToOutput(item));
+                listNotExistsOnDisk.ForEach(item => iWriteToOutput.WriteToOutput(null, item));
             }
 
             if (countWithUTF8Encoding > 0)
             {
                 if (countWithUTF8Encoding == selectedFiles.Count())
                 {
-                    iWriteToOutput.WriteToOutput(string.Empty);
-                    iWriteToOutput.WriteToOutput("All Files has UTF8 Encoding: {0}", countWithUTF8Encoding);
+                    iWriteToOutput.WriteToOutput(null, string.Empty);
+                    iWriteToOutput.WriteToOutput(null, "All Files has UTF8 Encoding: {0}", countWithUTF8Encoding);
                 }
                 else
                 {
-                    iWriteToOutput.WriteToOutput(string.Empty);
-                    iWriteToOutput.WriteToOutput("Files has UTF8 Encoding: {0}", countWithUTF8Encoding);
+                    iWriteToOutput.WriteToOutput(null, string.Empty);
+                    iWriteToOutput.WriteToOutput(null, "Files has UTF8 Encoding: {0}", countWithUTF8Encoding);
                 }
             }
         }
 
         public void ExecuteOpenFilesWithoutUTF8Encoding(IEnumerable<SelectedFile> selectedFiles)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.OpeningFilesWithoutUTF8Encoding);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.OpeningFilesWithoutUTF8Encoding);
 
             try
             {
@@ -846,18 +846,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     foreach (var item in filesWithoutUTF8Encoding)
                     {
-                        this._iWriteToOutput.WriteToOutputFilePathUri(item.FilePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(null, item.FilePath);
                         this._iWriteToOutput.OpenFileInVisualStudio(item.FilePath);
                     }
                 }
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.OpeningFilesWithoutUTF8Encoding);
+                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.OpeningFilesWithoutUTF8Encoding);
             }
         }
 
@@ -867,29 +867,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteShowingWebResourcesDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CheckingCRMObjectsNamesAndShowDependentComponents);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, Properties.OperationNames.CheckingCRMObjectsNamesAndShowDependentComponents);
 
             try
             {
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutput, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
-                    this._iWriteToOutput.WriteToOutput(string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 }
 
                 await ShowingWebResourcesDependentComponents(connectionData, commonConfig, selectedFiles);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CheckingCRMObjectsNamesAndShowDependentComponents);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, Properties.OperationNames.CheckingCRMObjectsNamesAndShowDependentComponents);
             }
         }
 
@@ -897,20 +897,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             var descriptor = new SolutionComponentDescriptor(service);
             descriptor.SetSettings(commonConfig);
@@ -1029,13 +1029,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("Created file with web-resources dependent components: {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with web-resources dependent components: {0}", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("No information about web-resource dependent components.");
+                this._iWriteToOutput.WriteToOutput(connectionData, "No information about web-resource dependent components.");
             }
         }
 
@@ -1047,19 +1047,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CheckingGlobalOptionSetDuplicatesOnEntityFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await CheckingGlobalOptionSetDuplicates(connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -1067,20 +1067,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             var entityMetadataSource = new SolutionComponentMetadataSource(service);
 
@@ -1153,9 +1153,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("Created file with Checking Global OptionSet Duplicates on Entity: {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Global OptionSet Duplicates on Entity: {0}", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
         }
 
@@ -1167,19 +1167,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.FindingCRMObjectsNamesFormat2, connectionData?.Name, name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await FindindEntityElementsByName(connectionData, commonConfig, name);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -1187,20 +1187,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             List<string> listEntityAttributes = new List<string>();
             List<string> listEntityRelationshipsManyToOne = new List<string>();
@@ -1289,13 +1289,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoObjectsInCRMWereFounded);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
             }
         }
 
@@ -1307,19 +1307,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.FindingCRMObjectscontainsNameFormat2, connectionData?.Name, name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await FindindEntityElementsContainsString(connectionData, commonConfig, name);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -1327,20 +1327,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             List<string> listEntityAttributes = new List<string>();
             List<string> listEntityRelationshipsManyToOne = new List<string>();
@@ -1429,13 +1429,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoObjectsInCRMWereFounded);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
             }
         }
 
@@ -1447,19 +1447,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.FindingCRMObjectsByIdEntityNameEntityTypeCodeFormat4, connectionData?.Name, entityId, entityName, entityTypeCode);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await FindEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -1467,20 +1467,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             EntityMetadataRepository repository = new EntityMetadataRepository(service);
 
@@ -1526,15 +1526,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-                
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
-                
-                this._iWriteToOutput.PerformAction(filePath);
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoObjectsInCRMWereFounded);
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
         }
 
@@ -1546,19 +1546,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCodeFormat4, connectionData?.Name, entityId, entityName, entityTypeCode);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await FindEntityByUniqueidentifier(connectionData, commonConfig, entityName, entityTypeCode, entityId);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -1566,20 +1566,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             EntityMetadataRepository repository = new EntityMetadataRepository(service);
 
@@ -1627,14 +1627,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoObjectsInCRMWereFounded);
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
         }
 
@@ -1646,19 +1646,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CheckingComponentTypeEnumFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await CheckingComponentTypeEnum(connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -1666,20 +1666,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             var hash = new HashSet<Tuple<int, Guid>>();
 
@@ -1765,14 +1765,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("New ComponentTypes were exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, "New ComponentTypes were exported to {0}", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput("No New ComponentTypes in CRM were founded.");
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.WriteToOutput(connectionData, "No New ComponentTypes in CRM were founded.");
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
         }
 
@@ -1784,19 +1784,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CreatingAllDependencyNodesDescriptionFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await CreatingAllDependencyNodesDescription(connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -1804,20 +1804,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             var hash = new HashSet<Tuple<int, Guid>>();
 
@@ -1866,9 +1866,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput("Dependency Nodes Description were exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Dependency Nodes Description were exported to {0}", filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
         }
 
@@ -1878,19 +1878,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CheckingWorkflowsUsedEntitiesFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await CheckingWorkflowsUsedEntities(connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -1898,20 +1898,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             string fileName = string.Format("{0}.Workflows Used Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
@@ -1932,28 +1932,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput("Created file with Workflows Used Entities: {0}", filePath);
+            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Workflows Used Entities: {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath);
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         public async Task ExecuteCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             string operation = string.Format(Properties.OperationNames.CheckingWorkflowsUsedNotExistingEntitiesFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await CheckingWorkflowsNotExistingUsedEntities(connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -1961,20 +1961,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             string fileName = string.Format("{0}.Workflows Used Not Existing Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
@@ -1995,9 +1995,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput("Created file with Workflows Used Not Existing Entities: {0}", filePath);
+            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Workflows Used Not Existing Entities: {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath);
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         private void WriteToContentDictionary(StringBuilder content, Dictionary<string, string> dict, string formatList)

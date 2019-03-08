@@ -35,19 +35,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.UpdatingReportFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await UpdatingReport(selectedFile, connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -55,24 +55,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             if (connectionData.IsReadOnly)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectionIsReadOnlyFormat1, connectionData.Name);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsReadOnlyFormat1, connectionData.Name);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             bool isconnectionDataDirty = false;
 
@@ -87,7 +87,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (reportEntity != null)
                 {
-                    this._iWriteToOutput.WriteToOutput("Report founded by name.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Report founded by name.");
 
                     isconnectionDataDirty = true;
                     connectionData.AddMapping(reportEntity.Id, selectedFile.FriendlyFilePath);
@@ -96,7 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     Guid? lastReportId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
-                    this._iWriteToOutput.WriteToOutput("Starting Custom Report selection form.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom Report selection form.");
 
                     bool? dialogResult = null;
                     Guid? selectedReportId = null;
@@ -113,7 +113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         }
                         catch (Exception ex)
                         {
-                            DTEHelper.WriteExceptionToOutput(ex);
+                            DTEHelper.WriteExceptionToOutput(connectionData, ex);
                         }
                     }));
                     t.SetApartmentState(ApartmentState.STA);
@@ -125,7 +125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         if (selectedReportId.HasValue)
                         {
-                            this._iWriteToOutput.WriteToOutput("Custom report is selected.");
+                            this._iWriteToOutput.WriteToOutput(connectionData, "Custom report is selected.");
 
                             reportEntity = await reportRepository.GetByIdAsync(selectedReportId.Value);
 
@@ -134,12 +134,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         }
                         else
                         {
-                            this._iWriteToOutput.WriteToOutput("!Warning. Report not exists. name: {0}.", selectedFile.Name);
+                            this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. Report not exists. name: {0}.", selectedFile.Name);
                         }
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput("Updating was cancelled.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Updating was cancelled.");
                         return;
                     }
                 }
@@ -153,16 +153,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     await service.UpdateAsync(update);
 
-                    this._iWriteToOutput.WriteToOutput("Report updated in CRM: {0} - {1} - {2}", reportEntity.Name, reportEntity.FileName, reportEntity.ReportNameOnSRS);
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Report updated in CRM: {0} - {1} - {2}", reportEntity.Name, reportEntity.FileName, reportEntity.ReportNameOnSRS);
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ReportNotFoundedInConnectionFormat2, connectionData.Name, selectedFile.FileName);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ReportNotFoundedInConnectionFormat2, connectionData.Name, selectedFile.FileName);
                 }
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
             }
 
             if (isconnectionDataDirty)

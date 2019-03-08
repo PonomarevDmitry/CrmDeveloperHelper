@@ -11,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -118,10 +117,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -165,7 +164,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginAssemblies);
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingPluginAssemblies);
 
             this._itemsSource.Clear();
 
@@ -180,8 +181,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var service = await GetService();
-
                 if (service != null)
                 {
                     var repository = new PluginAssemblyRepository(service);
@@ -190,12 +189,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
             LoadPluginAssemblies(list);
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat1, list.Count());
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat1, list.Count());
         }
 
         private class EntityViewItem
@@ -229,7 +228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void UpdateStatus(string format, params object[] args)
+        private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {
             string message = format;
 
@@ -238,7 +237,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(connectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -246,11 +245,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
 
-            UpdateStatus(statusFormat, args);
+            UpdateStatus(connectionData, statusFormat, args);
 
             ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection);
 
@@ -345,7 +344,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
             }
         }
 
@@ -406,9 +405,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportAssemblyDescription(string folder, Guid idPluginAssembly, string name)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionFormat1, name);
-
             var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionFormat1, name);
 
             string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, name, "Description", "txt");
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -417,18 +416,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await handler.CreateFileWithDescriptionAsync(filePath, idPluginAssembly, name, DateTime.Now);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginAssembly.Schema.EntityLogicalName, name, "Description", filePath);
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginAssembly.Schema.EntityLogicalName, name, "Description", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath);
-            
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionCompletedFormat1, name);
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionCompletedFormat1, name);
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idPluginAssembly, string name)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
-
             var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
             var repository = new PluginAssemblyRepository(service);
 
@@ -439,21 +438,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, assembly, EntityFileNameFormatter.PluginAssemblyIgnoreFields, service.ConnectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                 , service.ConnectionData.Name
                 , assembly.LogicalName
                 , filePath);
 
-            this._iWriteToOutput.PerformAction(filePath);
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
         }
 
         private async Task ExecuteExportAssembly(string folder, Guid idAssembly, string name)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryFormat1, name);
-
             var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryFormat1, name);
 
             var repository = new PluginAssemblyRepository(service);
 
@@ -466,7 +465,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             File.WriteAllBytes(filePath, array);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginAssembly.Schema.EntityLogicalName, name, "Content", filePath);
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginAssembly.Schema.EntityLogicalName, name, "Content", filePath);
 
             if (File.Exists(filePath))
             {
@@ -475,8 +474,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.SelectFileInFolder(filePath);
                 }
             }
-            
-            ToggleControls(true, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryCompletedFormat1, name);
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryCompletedFormat1, name);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -540,13 +539,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.PluginAssembly, new[] { entity.Id }, null, withSelect);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
         }
 
@@ -590,13 +589,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
         }
 
@@ -614,17 +613,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformComparingAssembly(string folder, Guid idPluginAssembly, string name)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyFormat1, name);
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyFormat1, name);
 
             var controller = new PluginTypeDescriptionController(_iWriteToOutput);
 
-            var service = await GetService();
-
             string filePath = await controller.CreateFileWithAssemblyComparing(folder, service.ConnectionData, service, idPluginAssembly, name, null);
 
-            this._iWriteToOutput.PerformAction(filePath);
-            
-            ToggleControls(true, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyCompletedFormat1, name);
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyCompletedFormat1, name);
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

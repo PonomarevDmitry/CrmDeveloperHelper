@@ -96,7 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         builder.AppendLine().AppendLine("Exception");
                         builder.AppendLine().AppendLine(DTEHelper.GetExceptionDescription(ex)).AppendLine();
 
-                        DTEHelper.WriteExceptionToOutput(ex);
+                        DTEHelper.WriteExceptionToOutput(_descriptor.ConnectionData, ex);
 
 #if DEBUG
                         if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
@@ -159,7 +159,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         builder.AppendLine().AppendLine("Exception");
                         builder.AppendLine().AppendLine(DTEHelper.GetExceptionDescription(ex)).AppendLine();
 
-                        DTEHelper.WriteExceptionToOutput(ex);
+                        DTEHelper.WriteExceptionToOutput(_descriptor.ConnectionData, ex);
 
 #if DEBUG
                         if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();

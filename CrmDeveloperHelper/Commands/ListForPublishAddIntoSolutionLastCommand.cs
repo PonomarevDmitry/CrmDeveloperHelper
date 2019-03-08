@@ -85,7 +85,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(null, ex);
             }
         }
 
@@ -129,15 +129,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                         }
                         else
                         {
-                            helper.WriteToOutput(Properties.OutputStrings.PublishListIsEmpty);
-                            helper.ActivateOutputWindow();
+                            helper.WriteToOutput(null, Properties.OutputStrings.PublishListIsEmpty);
+                            helper.ActivateOutputWindow(null);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(null, ex);
             }
         }
     }

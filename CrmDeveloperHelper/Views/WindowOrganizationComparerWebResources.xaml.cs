@@ -112,10 +112,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_cacheService.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }
@@ -139,10 +139,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_cacheService.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }
@@ -227,7 +227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
 
             list = FilterList(list, textName);
@@ -334,7 +334,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(null, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -433,14 +433,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             action(linked, showAllways);
         }
 
-        private Task<string> CreateDescriptionFileAsync(string connectionName, string name, string fieldTitle, string description)
+        private Task<string> CreateDescriptionFileAsync(ConnectionData connectionData, string name, string fieldTitle, string description)
         {
-            return Task.Run(() => CreateDescriptionFile(connectionName, name, fieldTitle, description));
+            return Task.Run(() => CreateDescriptionFile(connectionData, name, fieldTitle, description));
         }
 
-        private string CreateDescriptionFile(string connectionName, string name, string fieldTitle, string description)
+        private string CreateDescriptionFile(ConnectionData connectionData, string name, string fieldTitle, string description)
         {
-            string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionName, name, fieldTitle, "txt");
+            string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, name, fieldTitle, "txt");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(description))
@@ -449,18 +449,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     File.WriteAllText(filePath, description, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionName, WebResource.Schema.EntityLogicalName, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
                 }
             }
             else
             {
                 filePath = string.Empty;
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionName, WebResource.Schema.EntityLogicalName, name, fieldTitle);
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
 
             return filePath;
@@ -548,8 +548,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (showAllways || desc1 != desc2)
                 {
-                    string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData.Name, webResource1.Name, "EntityDescription", desc1);
-                    string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData.Name, webResource2.Name, "EntityDescription", desc2);
+                    string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData, webResource1.Name, "EntityDescription", desc1);
+                    string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData, webResource2.Name, "EntityDescription", desc2);
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
                     {
@@ -557,9 +557,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                     else
                     {
-                        this._iWriteToOutput.PerformAction(filePath1);
+                        this._iWriteToOutput.PerformAction(service1.ConnectionData, filePath1);
 
-                        this._iWriteToOutput.PerformAction(filePath2);
+                        this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
                     }
                 }
             }
@@ -606,9 +606,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(webresource, EntityFileNameFormatter.WebResourceIgnoreFields, service.ConnectionData);
 
-                string filePath = await CreateDescriptionFileAsync(service.ConnectionData.Name, webresource.Name, "EntityDescription", description);
+                string filePath = await CreateDescriptionFileAsync(service.ConnectionData, webresource.Name, "EntityDescription", description);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
@@ -679,13 +679,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
 
-                this._iWriteToOutput.WriteToOutput("Starting downloading {0}", webresource.Name);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Starting downloading {0}", webresource.Name);
 
                 string filePath = await CreateFileWithContentAsync(service.ConnectionData.Name, webresource);
 
-                this._iWriteToOutput.WriteToOutput("Web-resource '{0}' has downloaded to {1}.", webresource.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Web-resource '{0}' has downloaded to {1}.", webresource.Name, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.ExportingWebResourceContentCompletedFormat1, name);
@@ -735,7 +735,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceWebResourcesFormat1, linked.Entity1.Name);
 
             var service1 = await GetService1();
@@ -760,9 +760,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                     else
                     {
-                        this._iWriteToOutput.PerformAction(filePath1);
+                        this._iWriteToOutput.PerformAction(service1.ConnectionData, filePath1);
 
-                        this._iWriteToOutput.PerformAction(filePath2);
+                        this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
                     }
                 }
             }

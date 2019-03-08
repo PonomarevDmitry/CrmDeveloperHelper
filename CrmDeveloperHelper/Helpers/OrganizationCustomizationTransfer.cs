@@ -48,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.TransferingAuditFormat2, ConnectionSource.Name, ConnectionTarget.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var repositorySource = new EntityMetadataRepository(_comparerSource.Service1);
             var repositoryTarget = new EntityMetadataRepository(_comparerSource.Service2);
@@ -58,11 +58,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listEntityMetadataSource = await taskSource;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Entities in {0}: {1}", ConnectionSource.Name, listEntityMetadataSource.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Entities in {0}: {1}", ConnectionSource.Name, listEntityMetadataSource.Count()));
 
             var listEntityMetadataTarget = await taskTarget;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("Entities in {0}: {1}", ConnectionTarget.Name, listEntityMetadataTarget.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Entities in {0}: {1}", ConnectionTarget.Name, listEntityMetadataTarget.Count()));
 
             var commonEntityMetadata = new List<LinkedEntities<EntityMetadata>>();
 
@@ -193,7 +193,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = string.Format("OrgTransfer Audit from {0} to {1} at {2}.txt"
                 , this.ConnectionSource.Name
@@ -220,7 +220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.TransferingWorkflowsStatesFormat2, ConnectionSource.Name, ConnectionTarget.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var columnsSet = new ColumnSet
             (
@@ -239,11 +239,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             List<Workflow> listSource = await taskSource;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, ConnectionSource.Name, listSource.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, ConnectionSource.Name, listSource.Count()));
 
             List<Workflow> listTarget = await taskTarget;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, ConnectionTarget.Name, listTarget.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, ConnectionTarget.Name, listTarget.Count()));
 
             List<LinkedEntities<Workflow>> commonList = new List<LinkedEntities<Workflow>>();
 
@@ -258,7 +258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.WorkflowsCommonFormat3, ConnectionSource.Name, ConnectionTarget.Name, commonList.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.WorkflowsCommonFormat3, ConnectionSource.Name, ConnectionTarget.Name, commonList.Count()));
 
             List<Workflow> workflowsToActivate = new List<Workflow>();
             List<Workflow> workflowsToDeactivate = new List<Workflow>();
@@ -460,7 +460,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine(Properties.OrganizationComparerStrings.WorkflowsNoDifference);
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = string.Format("OrgTransfer Workflows States from {0} to {1} at {2}.txt"
                 , this.ConnectionSource.Name
@@ -487,18 +487,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.TransferingPluginStepsStatesFormat2, ConnectionSource.Name, ConnectionTarget.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var taskSource = _comparerSource.GetSdkMessageProcessingStep1Async();
             var taskTarget = _comparerSource.GetSdkMessageProcessingStep2Async();
 
             List<SdkMessageProcessingStep> listSource = await taskSource;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.PluginStepsInConnectionFormat2, ConnectionSource.Name, listSource.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginStepsInConnectionFormat2, ConnectionSource.Name, listSource.Count()));
 
             List<SdkMessageProcessingStep> listTarget = await taskTarget;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.PluginStepsInConnectionFormat2, ConnectionTarget.Name, listTarget.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginStepsInConnectionFormat2, ConnectionTarget.Name, listTarget.Count()));
 
             List<LinkedEntities<SdkMessageProcessingStep>> commonList = new List<LinkedEntities<SdkMessageProcessingStep>>();
 
@@ -513,7 +513,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.PluginStepsCommonFormat3, ConnectionSource.Name, ConnectionTarget.Name, commonList.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginStepsCommonFormat3, ConnectionSource.Name, ConnectionTarget.Name, commonList.Count()));
 
             List<SdkMessageProcessingStep> pluginStepsToActivate = new List<SdkMessageProcessingStep>();
             List<SdkMessageProcessingStep> pluginStepsToDeactivate = new List<SdkMessageProcessingStep>();
@@ -718,7 +718,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine(Properties.OrganizationComparerStrings.PluginStepsStatesNoDifference);
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = string.Format("OrgTransfer Plugin Steps States from {0} to {1} at {2}.txt"
                 , this.ConnectionSource.Name

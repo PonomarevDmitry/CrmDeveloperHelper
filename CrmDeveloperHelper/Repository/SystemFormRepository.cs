@@ -4,6 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// <summary>
         /// Сервис CRM
         /// </summary>
-        private IOrganizationServiceExtented _Service { get; set; }
+        private readonly IOrganizationServiceExtented _service;
 
         /// <summary>
         /// Конструктор репозитория
@@ -30,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// <param name="service"></param>
         public SystemFormRepository(IOrganizationServiceExtented service)
         {
-            _Service = service ?? throw new ArgumentNullException(nameof(service));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
         public Task<List<SystemForm>> GetListAsync(string filterEntity = null, ColumnSet columnSet = null)
@@ -86,7 +87,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<SystemForm>()));
 
@@ -101,7 +102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             result = result.Where(ent =>
@@ -137,7 +138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SystemForm>()).SingleOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SystemForm>()).SingleOrDefault();
         }
 
         public Task<List<SystemForm>> GetListByTypeAsync(int formType, ColumnSet columnSet )
@@ -192,7 +193,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<SystemForm>()));
 
@@ -207,7 +208,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -260,12 +261,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return string.Empty;
         }
 
-        public static Task<bool> ValidateXmlDocumentAsync(IWriteToOutput iWriteToOutput, XDocument doc)
+        public static Task<bool> ValidateXmlDocumentAsync(ConnectionData connectionData, IWriteToOutput iWriteToOutput, XDocument doc)
         {
-            return Task.Run(() => ValidateXmlDocument(iWriteToOutput, doc));
+            return Task.Run(() => ValidateXmlDocument(connectionData, iWriteToOutput, doc));
         }
 
-        private static bool ValidateXmlDocument(IWriteToOutput iWriteToOutput, XDocument doc)
+        private static bool ValidateXmlDocument(ConnectionData connectionData, IWriteToOutput iWriteToOutput, XDocument doc)
         {
             XmlSchemaSet schemas = new XmlSchemaSet();
 
@@ -296,17 +297,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (errors.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(Properties.OutputStrings.TextIsNotValidForFieldFormat1, "FormXml");
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.TextIsNotValidForFieldFormat1, "FormXml");
 
                 foreach (var item in errors)
                 {
-                    iWriteToOutput.WriteToOutput(string.Empty);
-                    iWriteToOutput.WriteToOutput(string.Empty);
-                    iWriteToOutput.WriteToOutput(Properties.OutputStrings.XmlValidationMessageFormat2, item.Severity, item.Message);
-                    iWriteToOutput.WriteErrorToOutput(item.Exception);
+                    iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlValidationMessageFormat2, item.Severity, item.Message);
+                    iWriteToOutput.WriteErrorToOutput(connectionData, item.Exception);
                 }
 
-                iWriteToOutput.ActivateOutputWindow();
+                iWriteToOutput.ActivateOutputWindow(connectionData);
             }
 
             return errors.Count == 0;
@@ -355,7 +356,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<SystemForm>()));
 
@@ -370,7 +371,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -419,7 +420,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<SystemForm>()));
 
@@ -434,7 +435,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;

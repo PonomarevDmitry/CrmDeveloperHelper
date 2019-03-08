@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -81,9 +82,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             }
         }
 
-        public static ConnectionIntellisenseData Get(Guid connectionId)
+        public static ConnectionIntellisenseData Get(ConnectionData connectionData)
         {
-            var filePath = GetFilePath(connectionId);
+            var filePath = GetFilePath(connectionData.ConnectionId);
 
             ConnectionIntellisenseData result = null;
 
@@ -101,12 +102,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                         {
                             result = ser.ReadObject(sr) as ConnectionIntellisenseData;
                             result.FilePath = filePath;
-                            result.ConnectionId = connectionId;
+                            result.ConnectionId = connectionData.ConnectionId;
                         }
                     }
                     catch (Exception ex)
                     {
-                        DTEHelper.WriteExceptionToOutput(ex);
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
 
                         FileOperations.CreateBackUpFile(filePath, ex);
                     }

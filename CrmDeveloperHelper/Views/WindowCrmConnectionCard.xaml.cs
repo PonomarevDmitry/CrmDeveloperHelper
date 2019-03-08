@@ -79,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void UpdateStatus(string format, params object[] args)
+        private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {
             string message = format;
 
@@ -88,7 +88,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(connectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -244,7 +244,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnTestConnection_Click(object sender, RoutedEventArgs e)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.StartTestingConnectionFormat1, this.ConnectionData.Name);
+            ToggleControls(this.ConnectionData, false, Properties.WindowStatusStrings.StartTestingConnectionFormat1, this.ConnectionData.Name);
 
             try
             {
@@ -254,19 +254,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 LoadConnectionData(this.ConnectionData);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, this.ConnectionData.Name);
+                ToggleControls(this.ConnectionData, true, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, this.ConnectionData.Name);
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(this.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ConnectionFailedFormat1, this.ConnectionData.Name);
+                ToggleControls(this.ConnectionData, true, Properties.WindowStatusStrings.ConnectionFailedFormat1, this.ConnectionData.Name);
             }
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
-            UpdateStatus(statusFormat, args);
+            UpdateStatus(connectionData, statusFormat, args);
 
             ToggleControl(enabled, this.tSProgressBar, this.btnSave, this.btnTestConnection);
         }

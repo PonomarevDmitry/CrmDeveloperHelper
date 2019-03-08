@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -105,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -255,12 +256,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             throw new ArgumentException(string.Format("Unknown xml root node name - {0}", rootNodeName));
         }
 
-        public static Task<bool> ValidateXmlDocumentAsync(IWriteToOutput iWriteToOutput, XDocument doc, string fieldTitle)
+        public static Task<bool> ValidateXmlDocumentAsync(ConnectionData connectionData, IWriteToOutput iWriteToOutput, XDocument doc, string fieldTitle)
         {
-            return Task.Run(() => ValidateXmlDocument(iWriteToOutput, doc, fieldTitle));
+            return Task.Run(() => ValidateXmlDocument(connectionData, iWriteToOutput, doc, fieldTitle));
         }
 
-        private static bool ValidateXmlDocument(IWriteToOutput iWriteToOutput, XDocument doc, string fieldTitle)
+        private static bool ValidateXmlDocument(ConnectionData connectionData, IWriteToOutput iWriteToOutput, XDocument doc, string fieldTitle)
         {
             XmlSchemaSet schemas = new XmlSchemaSet();
 
@@ -291,17 +292,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (errors.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(Properties.OutputStrings.TextIsNotValidForFieldFormat1, fieldTitle);
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.TextIsNotValidForFieldFormat1, fieldTitle);
 
                 foreach (var item in errors)
                 {
-                    iWriteToOutput.WriteToOutput(string.Empty);
-                    iWriteToOutput.WriteToOutput(string.Empty);
-                    iWriteToOutput.WriteToOutput(Properties.OutputStrings.XmlValidationMessageFormat2, item.Severity, item.Message);
-                    iWriteToOutput.WriteErrorToOutput(item.Exception);
+                    iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlValidationMessageFormat2, item.Severity, item.Message);
+                    iWriteToOutput.WriteErrorToOutput(connectionData, item.Exception);
                 }
 
-                iWriteToOutput.ActivateOutputWindow();
+                iWriteToOutput.ActivateOutputWindow(connectionData);
             }
 
             return errors.Count == 0;
@@ -364,7 +365,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -428,7 +429,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;

@@ -166,7 +166,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
 
 #if DEBUG
                     if (System.Diagnostics.Debugger.IsAttached)
@@ -376,7 +376,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(null, ex);
 
 #if DEBUG
                 if (System.Diagnostics.Debugger.IsAttached)
@@ -480,7 +480,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(null, ex);
 
 #if DEBUG
                 if (System.Diagnostics.Debugger.IsAttached)
@@ -585,7 +585,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(null, ex);
 
 #if DEBUG
                 if (System.Diagnostics.Debugger.IsAttached)
@@ -1003,7 +1003,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(null, ex);
             }
 
             return result.ToString();

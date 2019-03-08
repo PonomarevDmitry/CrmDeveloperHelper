@@ -135,7 +135,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 list = new List<Solution>();
             }
@@ -194,7 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(_service.ConnectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -409,8 +409,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, descriptor);
 
-                this._iWriteToOutput.WriteToOutput(string.Empty);
-                this._iWriteToOutput.WriteToOutput("Creating backup Solution Components in '{0}'.", solution.UniqueName);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Creating backup Solution Components in '{0}'.", solution.UniqueName);
 
                 {
                     string fileName = EntityFileNameFormatter.GetSolutionFileName(
@@ -423,8 +423,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solution.Id);
 
-                    this._iWriteToOutput.WriteToOutput("Created backup Solution Components in '{0}': {1}", solution.UniqueName, filePath);
-                    this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+                    this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Created backup Solution Components in '{0}': {1}", solution.UniqueName, filePath);
+                    this._iWriteToOutput.WriteToOutputFilePathUri(_service.ConnectionData, filePath);
                 }
 
                 {
@@ -447,7 +447,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat2, _service.ConnectionData.Name, solution.UniqueName);
             }

@@ -77,7 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(null, ex);
             }
         }
 
@@ -119,7 +119,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(null, ex);
             }
         }
     }

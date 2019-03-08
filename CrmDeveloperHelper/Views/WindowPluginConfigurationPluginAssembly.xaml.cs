@@ -95,7 +95,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginAssemblies);
+            ToggleControls(null, false, Properties.WindowStatusStrings.LoadingPluginAssemblies);
 
             try
             {
@@ -103,7 +103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
 
                 this._pluginDescription = null;
             }
@@ -127,7 +127,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._itemsSource.Clear();
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginAssemblies);
+            ToggleControls(null, false, Properties.WindowStatusStrings.LoadingPluginAssemblies);
 
             IEnumerable<PluginAssembly> filter = null;
 
@@ -157,10 +157,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _itemsSource.Add(assembly);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat1, filter.Count());
+            ToggleControls(null, true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat1, filter.Count());
         }
 
-        private void UpdateStatus(string format, params object[] args)
+        private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {
             string message = format;
 
@@ -169,7 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(connectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -177,11 +177,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
 
-            UpdateStatus(statusFormat, args);
+            UpdateStatus(connectionData, statusFormat, args);
 
             ToggleControl(enabled, this.tSProgressBar, this.tSBLoadPluginConfiguration, this.tSBCreateAssemblyDescription);
 
@@ -289,9 +289,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             File.WriteAllText(filePath, content, new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput("Assembly {0} Description exported to {1}", pluginAssembly.Name, filePath);
+            this._iWriteToOutput.WriteToOutput(null, "Assembly {0} Description exported to {1}", pluginAssembly.Name, filePath);
 
-            this._iWriteToOutput.PerformAction(filePath);
+            this._iWriteToOutput.PerformAction(null, filePath);
         }
 
         private void tSBLoadPluginConfiguration_Click(object sender, RoutedEventArgs e)
@@ -315,7 +315,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    _iWriteToOutput.WriteErrorToOutput(null, ex);
                 }
             });
 

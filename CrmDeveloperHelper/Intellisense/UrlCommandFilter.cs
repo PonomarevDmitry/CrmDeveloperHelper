@@ -181,8 +181,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 if (File.Exists(uri.LocalPath))
                 {
-                    var commonConfig = CommonConfiguration.Get();
-
                     DTEHelper.Singleton?.OpenFileInTextEditor(uri.LocalPath);
                 }
 

@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
 
                     result = false;
                 }
@@ -87,7 +87,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
 
                     result = false;
                 }
@@ -147,7 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
 
                     result = false;
                 }
@@ -193,7 +193,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
 
                     result = false;
                 }
@@ -239,7 +239,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         }
                         catch (Exception ex)
                         {
-                            DTEHelper.WriteExceptionToOutput(ex);
+                            DTEHelper.WriteExceptionToOutput(null, ex);
 
                             result = false;
                         }
@@ -273,7 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         }
                         catch (Exception ex)
                         {
-                            DTEHelper.WriteExceptionToOutput(ex);
+                            DTEHelper.WriteExceptionToOutput(null, ex);
 
                             return false;
                         }
@@ -283,7 +283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
 
                     result = false;
                 }
@@ -315,7 +315,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         }
                         catch (Exception ex)
                         {
-                            DTEHelper.WriteExceptionToOutput(ex);
+                            DTEHelper.WriteExceptionToOutput(null, ex);
 
                             return false;
                         }
@@ -323,7 +323,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
 
                     result = false;
                 }
@@ -944,7 +944,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
 
                     result = false;
                 }
@@ -969,7 +969,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
 
                     result = false;
                 }
@@ -1080,7 +1080,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                helper.WriteToOutput(Properties.OutputStrings.PublishListIsEmpty);
+                helper.WriteToOutput(null, Properties.OutputStrings.PublishListIsEmpty);
             }
 
             return selectedFiles;

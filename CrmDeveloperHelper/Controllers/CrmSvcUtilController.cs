@@ -23,19 +23,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.UpdatingProxyClassesFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await UpdatingProxyClasses(filePath, connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -43,13 +43,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             if (!connectionData.SelectedCrmSvcUtil.HasValue)
             {
-                this._iWriteToOutput.WriteToOutput("No Crm Svc Util is selected.");
+                this._iWriteToOutput.WriteToOutput(connectionData, "No Crm Svc Util is selected.");
                 return;
             }
 
@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 connectionData.SelectedCrmSvcUtil = null;
                 connectionData.Save();
 
-                this._iWriteToOutput.WriteToOutput("No Crm Svc Util is selected.");
+                this._iWriteToOutput.WriteToOutput(connectionData, "No Crm Svc Util is selected.");
                 return;
             }
 
@@ -71,18 +71,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 connectionData.SelectedCrmSvcUtil = null;
                 connectionData.Save();
 
-                this._iWriteToOutput.WriteToOutput("Crm Svc Util not exists.");
+                this._iWriteToOutput.WriteToOutput(connectionData, "Crm Svc Util not exists.");
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             StringBuilder arguments = new StringBuilder("/language:CS");
 
@@ -117,8 +117,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 arguments.AppendFormat(" /username:\"{0}\"", connectionData.User.Username);
             }
 
-            _iWriteToOutput.WriteToOutput(crmSvcUtil.ToString());
-            _iWriteToOutput.WriteToOutput(arguments.ToString());
+            _iWriteToOutput.WriteToOutput(connectionData, crmSvcUtil.ToString());
+            _iWriteToOutput.WriteToOutput(connectionData, arguments.ToString());
 
             if (!isInteractive)
             {
@@ -138,16 +138,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             info.RedirectStandardOutput = true;
             info.RedirectStandardError = true;
 
-            //_iWriteToOutput.WriteToOutput(info.FileName);
-            //_iWriteToOutput.WriteToOutput(info.Arguments);
+            //_iWriteToOutput.WriteToOutput(connectionData, info.FileName);
+            //_iWriteToOutput.WriteToOutput(connectionData, info.Arguments);
 
             try
             {
                 var process = new Process();
                 process.StartInfo = info;
 
-                process.OutputDataReceived += process_OutputDataReceived;
-                process.ErrorDataReceived += process_OutputDataReceived;
+                DataReceivedEventHandler handler = (object sender, DataReceivedEventArgs e) =>
+                {
+                    if (e != null)
+                    {
+                        _iWriteToOutput.WriteToOutput(connectionData, e.Data ?? string.Empty);
+                    }
+                };
+
+                process.OutputDataReceived += handler;
+                process.ErrorDataReceived += handler;
 
                 process.Start();
                 process.BeginOutputReadLine();
@@ -156,15 +164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
-            }
-        }
-
-        private void process_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (e != null)
-            {
-                _iWriteToOutput.WriteToOutput(e.Data ?? string.Empty);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
         }
     }

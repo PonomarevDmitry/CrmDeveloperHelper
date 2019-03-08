@@ -30,29 +30,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.ComparingFilesAndWebResourcesFormat1, connectionData?.Name);
 
-            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(operation);
+            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 {
-                    this._iWriteToOutputAndPublishList.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
+                    this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
                     
                     CheckController.CheckingFilesEncoding(this._iWriteToOutputAndPublishList, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
-                    this._iWriteToOutputAndPublishList.WriteToOutput(string.Empty);
-                    this._iWriteToOutputAndPublishList.WriteToOutput(string.Empty);
-                    this._iWriteToOutputAndPublishList.WriteToOutput(string.Empty);
+                    this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, string.Empty);
                 }
 
                 var compareResult = await ComparingFilesAndWebResourcesAsync(this._iWriteToOutputAndPublishList, selectedFiles, connectionData, withDetails);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutputAndPublishList.WriteErrorToOutput(xE);
+                this._iWriteToOutputAndPublishList.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(operation);
+                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -77,21 +77,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return null;
             }
 
             var dictFilesEqualByTextNotContent = new List<Tuple<SelectedFile, WebResource>>();
             var dictFilesNotEqualByText = new List<Tuple<SelectedFile, WebResource, ContentCopareResult>>();
 
-            _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             bool isconnectionDataDirty = false;
 
@@ -417,172 +417,172 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (tableDifferent.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File and web-resource are DIFFERENT by content: {0}", tableDifferent.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content: {0}", tableDifferent.Count);
 
-                tableDifferent.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableDifferent.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (tableDifferentOnlyInserts.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File and web-resource are DIFFERENT by content WITH ONLY INSERTS: {0}", tableDifferentOnlyInserts.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH ONLY INSERTS: {0}", tableDifferentOnlyInserts.Count);
 
-                tableDifferentOnlyInserts.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableDifferentOnlyInserts.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (tableDifferentOnlyDeletes.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File and web-resource are DIFFERENT by content WITH ONLY DELETES: {0}", tableDifferentOnlyDeletes.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH ONLY DELETES: {0}", tableDifferentOnlyDeletes.Count);
 
-                tableDifferentOnlyDeletes.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableDifferentOnlyDeletes.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (tableDifferentComplexChanges.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File and web-resource are DIFFERENT by content WITH COMPLEX CHANGES: {0}", tableDifferentComplexChanges.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH COMPLEX CHANGES: {0}", tableDifferentComplexChanges.Count);
 
-                tableDifferentComplexChanges.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableDifferentComplexChanges.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (tableDifferentMirror.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File and web-resource are DIFFERENT by content WITH MIRROR CHANGES: {0}", tableDifferentMirror.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH MIRROR CHANGES: {0}", tableDifferentMirror.Count);
 
-                tableDifferentMirror.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableDifferentMirror.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (tableDifferentMirrorWithInserts.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File and web-resource are DIFFERENT by content WITH MIRROR CHANGES AND INSERTS: {0}", tableDifferentMirrorWithInserts.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH MIRROR CHANGES AND INSERTS: {0}", tableDifferentMirrorWithInserts.Count);
 
-                tableDifferentMirrorWithInserts.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableDifferentMirrorWithInserts.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (tableDifferentMirrorWithDeletes.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File and web-resource are DIFFERENT by content WITH MIRROR CHANGES AND DELETES: {0}", tableDifferentMirrorWithDeletes.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH MIRROR CHANGES AND DELETES: {0}", tableDifferentMirrorWithDeletes.Count);
 
-                tableDifferentMirrorWithDeletes.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableDifferentMirrorWithDeletes.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (listNotFoundedInCRMNoLink.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File NOT FOUNDED in CRM: {0}", listNotFoundedInCRMNoLink.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM: {0}", listNotFoundedInCRMNoLink.Count);
 
                 listNotFoundedInCRMNoLink.Sort();
 
-                listNotFoundedInCRMNoLink.ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                listNotFoundedInCRMNoLink.ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (tableLastLinkDifferent.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT: {0}", tableLastLinkDifferent.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT: {0}", tableLastLinkDifferent.Count);
 
-                tableLastLinkDifferent.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableLastLinkDifferent.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
 
             if (tableLastLinkDifferentOnlyInserts.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH ONLY INSERTS: {0}", tableLastLinkDifferentOnlyInserts.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH ONLY INSERTS: {0}", tableLastLinkDifferentOnlyInserts.Count);
 
-                tableLastLinkDifferentOnlyInserts.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableLastLinkDifferentOnlyInserts.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (tableLastLinkDifferentOnlyDeletes.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH ONLY DELETES: {0}", tableLastLinkDifferentOnlyDeletes.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH ONLY DELETES: {0}", tableLastLinkDifferentOnlyDeletes.Count);
 
-                tableLastLinkDifferentOnlyDeletes.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableLastLinkDifferentOnlyDeletes.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (tableLastLinkDifferentComplexChanges.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH COMPLEX CHANGES: {0}", tableLastLinkDifferentComplexChanges.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH COMPLEX CHANGES: {0}", tableLastLinkDifferentComplexChanges.Count);
 
-                tableLastLinkDifferentComplexChanges.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableLastLinkDifferentComplexChanges.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (tableLastLinkDifferentMirror.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES: {0}", tableLastLinkDifferentMirror.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES: {0}", tableLastLinkDifferentMirror.Count);
 
-                tableLastLinkDifferentMirror.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableLastLinkDifferentMirror.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (tableLastLinkDifferentMirrorWithInserts.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES AND INSERTS: {0}", tableLastLinkDifferentMirrorWithInserts.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES AND INSERTS: {0}", tableLastLinkDifferentMirrorWithInserts.Count);
 
-                tableLastLinkDifferentMirrorWithInserts.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableLastLinkDifferentMirrorWithInserts.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (tableLastLinkDifferentMirrorWithDeletes.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES AND DELETES: {0}", tableLastLinkDifferentMirrorWithDeletes.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES AND DELETES: {0}", tableLastLinkDifferentMirrorWithDeletes.Count);
 
-                tableLastLinkDifferentMirrorWithDeletes.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableLastLinkDifferentMirrorWithDeletes.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (listLastLinkEqualByText.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File NOT FOUNDED in CRM, but has Last Link, files EQUALS BY TEXT: {0}", listLastLinkEqualByText.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files EQUALS BY TEXT: {0}", listLastLinkEqualByText.Count);
 
-                listLastLinkEqualByText.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                listLastLinkEqualByText.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (tableLastLinkEqualByContent.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File NOT FOUNDED in CRM, but has Last Link, files EQUALS BY CONTENT: {0}", tableLastLinkEqualByContent.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files EQUALS BY CONTENT: {0}", tableLastLinkEqualByContent.Count);
 
-                tableLastLinkEqualByContent.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableLastLinkEqualByContent.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (listNotExistsOnDisk.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, listNotExistsOnDisk.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, listNotExistsOnDisk.Count);
 
                 listNotExistsOnDisk.Sort();
 
-                listNotExistsOnDisk.ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                listNotExistsOnDisk.ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (tableEqualByText.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File and web-resource EQUALS BY TEXT: {0}", tableEqualByText.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File and web-resource EQUALS BY TEXT: {0}", tableEqualByText.Count);
 
-                tableEqualByText.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableEqualByText.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (countEqualByContent > 0)
             {
                 if (countEqualByContent == selectedFiles.Count)
                 {
-                    _iWriteToOutput.WriteToOutput(string.Empty);
-                    _iWriteToOutput.WriteToOutput("All files and web-resources EQUALS BY CONTENT: {0}", countEqualByContent);
+                    _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    _iWriteToOutput.WriteToOutput(connectionData, "All files and web-resources EQUALS BY CONTENT: {0}", countEqualByContent);
                 }
                 else
                 {
-                    _iWriteToOutput.WriteToOutput(string.Empty);
-                    _iWriteToOutput.WriteToOutput("File and web-resource EQUALS BY CONTENT: {0}", countEqualByContent);
+                    _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    _iWriteToOutput.WriteToOutput(connectionData, "File and web-resource EQUALS BY CONTENT: {0}", countEqualByContent);
                 }
             }
 
@@ -690,29 +690,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.AddingIntoPublishListFilesFormat2, connectionData?.Name, openFilesType.ToString());
 
-            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(operation);
+            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 {
-                    this._iWriteToOutputAndPublishList.WriteToOutput(Properties.OperationNames.CheckingFilesEncoding);
+                    this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
 
                     CheckController.CheckingFilesEncoding(this._iWriteToOutputAndPublishList, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
-                    this._iWriteToOutputAndPublishList.WriteToOutput(string.Empty);
-                    this._iWriteToOutputAndPublishList.WriteToOutput(string.Empty);
-                    this._iWriteToOutputAndPublishList.WriteToOutput(string.Empty);
+                    this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, string.Empty);
                 }
 
                 await AddingIntoPublishListFilesByType(selectedFiles, openFilesType, connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutputAndPublishList.WriteErrorToOutput(xE);
+                this._iWriteToOutputAndPublishList.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(operation);
+                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -720,7 +720,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutputAndPublishList.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
@@ -734,7 +734,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutputAndPublishList.WriteToOutput("No files for adding into Publish List.");
+                this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, "No files for adding into Publish List.");
             }
         }
 
@@ -744,23 +744,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.ComparingFilesWithWrongEncodingAndWebResourcesFormat1, connectionData?.Name);
 
-            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(operation);
+            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 CheckController.CheckingFilesEncoding(this._iWriteToOutputAndPublishList, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
-                this._iWriteToOutputAndPublishList.WriteToOutput(string.Empty);
+                this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, string.Empty);
 
                 await ComparingFilesAndWebResourcesAsync(this._iWriteToOutputAndPublishList, filesWithoutUTF8Encoding, connectionData, withDetails);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutputAndPublishList.WriteErrorToOutput(xE);
+                this._iWriteToOutputAndPublishList.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(operation);
+                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -768,19 +768,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public void ExecuteOrganizationComparer(ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(Properties.OperationNames.ShowingOrganizationComparer);
+            this._iWriteToOutputAndPublishList.WriteToOutputStartOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
 
             try
             {
                 WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutputAndPublishList, crmConfig, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutputAndPublishList.WriteErrorToOutput(xE);
+                this._iWriteToOutputAndPublishList.WriteErrorToOutput(null, ex);
             }
             finally
             {
-                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(Properties.OperationNames.ShowingOrganizationComparer);
+                this._iWriteToOutputAndPublishList.WriteToOutputEndOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
             }
         }
 
@@ -806,18 +806,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return null;
             }
 
-            _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             bool isconnectionDataDirty = false;
 
@@ -900,41 +900,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (listNotFoundedInCrmNoLink.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File NOT FOUNDED in CRM: {0}", listNotFoundedInCrmNoLink.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM: {0}", listNotFoundedInCrmNoLink.Count);
 
                 listNotFoundedInCrmNoLink.Sort();
 
-                listNotFoundedInCrmNoLink.ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                listNotFoundedInCrmNoLink.ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (listNotFoundedInCrmWithLink.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("File NOT FOUNDED in CRM, but has Last Link: {0}", listNotFoundedInCrmWithLink.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link: {0}", listNotFoundedInCrmWithLink.Count);
 
                 FormatTextTableHandler tableLastLinkDifferent = new FormatTextTableHandler();
                 tableLastLinkDifferent.SetHeader("FriendlyFilePath", "WebResourceName");
 
                 listNotFoundedInCrmWithLink.ForEach(i => tableLastLinkDifferent.AddLine(i.Item1.FriendlyFilePath, i.Item2.Name));
 
-                tableLastLinkDifferent.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                tableLastLinkDifferent.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (listNotExistsOnDisk.Count > 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput(Properties.OutputStrings.FileNotExistsFormat1, listNotExistsOnDisk.Count);
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, listNotExistsOnDisk.Count);
 
                 listNotExistsOnDisk.Sort();
 
-                listNotExistsOnDisk.ForEach(item => _iWriteToOutput.WriteToOutput(tabSpacer + item));
+                listNotExistsOnDisk.ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
 
             if (listNotFoundedInCrmNoLink.Count + listNotFoundedInCrmWithLink.Count == 0)
             {
-                _iWriteToOutput.WriteToOutput(string.Empty);
-                _iWriteToOutput.WriteToOutput("No files not exists in Crm");
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "No files not exists in Crm");
             }
 
             return Tuple.Create(service, listNotFoundedInCrmNoLink, listNotFoundedInCrmWithLink);

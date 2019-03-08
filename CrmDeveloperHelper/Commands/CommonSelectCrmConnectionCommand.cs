@@ -69,7 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(null, ex);
             }
         }
 
@@ -102,13 +102,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     connectionConfig.Save();
                     
                     var helper = DTEHelper.Create(applicationObject);
-                    helper.WriteToOutput(Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
-                    helper.ActivateOutputWindow();
+                    helper.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
+                    helper.ActivateOutputWindow(null);
                 }
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(ex);
+                DTEHelper.WriteExceptionToOutput(null, ex);
             }
         }
     }

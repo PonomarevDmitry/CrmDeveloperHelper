@@ -169,7 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 list = new List<WebResource>();
             }
@@ -296,7 +296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(_service.ConnectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -497,11 +497,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingNewWebResourceCompletedFormat1, name);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingNewWebResourceFailed, name);
 
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
 

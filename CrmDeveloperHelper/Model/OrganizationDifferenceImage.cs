@@ -111,7 +111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
 
                     result = null;
                 }

@@ -13,7 +13,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// <summary>
         /// Сервис CRM
         /// </summary>
-        private IOrganizationServiceExtented _Service { get; set; }
+        private readonly IOrganizationServiceExtented _service;
 
         /// <summary>
         /// Конструктор репозитория функция по поиску решений.
@@ -21,7 +21,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// <param name="service"></param>
         public SolutionRepository(IOrganizationServiceExtented service)
         {
-            _Service = service ?? throw new ArgumentNullException(nameof(service));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
         public Task<List<Solution>> FindSolutionsVisibleUnmanagedAsync(string name = null)
@@ -83,7 +83,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<Solution>()));
 
@@ -98,7 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -145,7 +145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Solution>()).First();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Solution>()).First();
         }
 
         public Task<Solution> GetSolutionByUniqueNameAsync(string uniqueName)
@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _Service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Solution>()).SingleOrDefault();
+            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Solution>()).SingleOrDefault();
         }
 
         public Task<List<Solution>> GetSolutionsAllAsync(string name = null, int? componentType = null, Guid? objectId = null)
@@ -281,7 +281,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<Solution>()));
 
@@ -296,7 +296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -336,7 +336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<Solution>()));
 
@@ -351,7 +351,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -415,7 +415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 while (true)
                 {
-                    var coll = _Service.RetrieveMultiple(query);
+                    var coll = _service.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<Solution>()));
 
@@ -430,7 +430,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.DTEHelper.WriteExceptionToOutput(ex);
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;

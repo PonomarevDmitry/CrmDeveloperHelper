@@ -110,19 +110,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CheckingPluginImagesDuplicatesFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await CheckingPluginImages(connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -130,20 +130,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             var repository = new PluginSearchRepository(service);
 
@@ -223,7 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!hasInfo)
             {
-                content.AppendLine(this._iWriteToOutput.WriteToOutput("No duplicates were found."));
+                content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No duplicates were found."));
             }
 
             string fileName = string.Format("{0}.Checking Plugin Images Duplicates at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
@@ -237,9 +237,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput("Created file with Checking Plugin Images Duplicates: {0}", filePath);
+            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Images Duplicates: {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath);
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         #endregion Проверка образов шагов плагинов на дубликаты.
@@ -250,19 +250,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CheckingPluginStepsDuplicatesFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await CheckingPluginSteps(connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -270,20 +270,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             var repository = new PluginSearchRepository(service);
 
@@ -373,7 +373,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!hasInfo)
             {
-                content.AppendLine(this._iWriteToOutput.WriteToOutput("No duplicates were found."));
+                content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No duplicates were found."));
             }
 
             string fileName = string.Format("{0}.Checking Plugin Steps Duplicates at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
@@ -387,9 +387,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput("Created file with Checking Plugin Steps Duplicates: {0}", filePath);
+            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Steps Duplicates: {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath);
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         #endregion Проверка шагов плагинов на дубликаты.
@@ -400,19 +400,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CheckingPluginStepsRequiredComponentsFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await CheckingPluginStepsRequiredComponents(connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -420,20 +420,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             var repository = new PluginSearchRepository(service);
 
@@ -584,7 +584,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!hasInfo)
             {
-                content.AppendLine(this._iWriteToOutput.WriteToOutput("No conflicts were found."));
+                content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No conflicts were found."));
             }
 
             string fileName = string.Format("{0}.Checking Plugin Steps Required Components at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
@@ -598,9 +598,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput("Created file with Checking Plugin Steps Required Components: {0}", filePath);
+            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Steps Required Components: {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath);
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         private SortedSet<string> GetSetEntites(Entity entity)
@@ -661,19 +661,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CheckingPluginImagesRequiredComponentsFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await CheckingPluginImagesRequiredComponents(connectionData, commonConfig);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -681,20 +681,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription()));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             var repository = new PluginSearchRepository(service);
             var repositoryImage = new SdkMessageProcessingStepImageRepository(service);
@@ -861,7 +861,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!hasInfo)
             {
-                content.AppendLine(this._iWriteToOutput.WriteToOutput("No conflicts were found."));
+                content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No conflicts were found."));
             }
 
             string fileName = string.Format("{0}.Checking Plugin Images Required Components at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
@@ -875,9 +875,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput("Created file with Checking Plugin Images Required Components: {0}", filePath);
+            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Images Required Components: {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(filePath);
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         private SortedSet<string> GetSetImageAttributes(SdkMessageProcessingStepImage image)

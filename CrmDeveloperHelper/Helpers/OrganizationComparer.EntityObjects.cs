@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingSystemFormsFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             FormDescriptionHandler handler1 = new FormDescriptionHandler(ImageBuilder.Descriptor1, new DependencyRepository(_comparerSource.Service1))
             {
@@ -44,16 +44,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("System Forms in {0}: {1}", Connection1.Name, list1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "System Forms in {0}: {1}", Connection1.Name, list1.Count));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("System Forms in {0}: {1}", Connection2.Name, list2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "System Forms in {0}: {1}", Connection2.Name, list2.Count));
 
             if (!list1.Any() && !list2.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -343,7 +343,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in System Forms.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "System Forms");
 
@@ -369,23 +369,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingSystemSavedQueriesFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var task1 = _comparerSource.GetSavedQuery1Async();
             var task2 = _comparerSource.GetSavedQuery2Async();
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Queries in {0}: {1}", Connection1.Name, list1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "System Saved Queries in {0}: {1}", Connection1.Name, list1.Count));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Queries in {0}: {1}", Connection2.Name, list2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "System Saved Queries in {0}: {1}", Connection2.Name, list2.Count));
 
             if (!list1.Any() && !list2.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -654,7 +654,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in System Saved Queries.");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "System Saved Queries");
 
@@ -680,23 +680,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string operation = string.Format(Properties.OperationNames.CheckingSystemChartsFormat2, Connection1.Name, Connection2.Name);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(operation));
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
             var task1 = _comparerSource.GetSavedQueryVisualization1Async();
             var task2 = _comparerSource.GetSavedQueryVisualization2Async();
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Query Visualizations (Charts) in {0}: {1}", Connection1.Name, list1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "System Saved Query Visualizations (Charts) in {0}: {1}", Connection1.Name, list1.Count));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput("System Saved Query Visualizations (Charts) in {0}: {1}", Connection2.Name, list2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "System Saved Query Visualizations (Charts) in {0}: {1}", Connection2.Name, list2.Count));
 
             if (!list1.Any() && !list2.Any())
             {
-                _iWriteToOutput.WriteToOutput(Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
-                _iWriteToOutput.WriteToOutputEndOperation(operation);
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
 
@@ -923,7 +923,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine("No difference in System Saved Query Visualizations (Charts).");
             }
 
-            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(operation));
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
 
             string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, "Saved Query Visualizations (Charts)");
 

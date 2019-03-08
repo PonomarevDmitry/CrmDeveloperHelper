@@ -33,19 +33,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.CreatingPluginTypeDescriptionFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await CreatingPluginTypeDescription(connectionData, commonConfig, selection);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -53,18 +53,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             WindowHelper.OpenPluginTypeWindow(
                 this._iWriteToOutput
@@ -82,19 +82,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.ExportingPluginAssemblyFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await ExportingPluginAssembly(connectionData, commonConfig, selection);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -102,18 +102,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             WindowHelper.OpenPluginAssemblyWindow(
                 this._iWriteToOutput
@@ -131,19 +131,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             string operation = string.Format(Properties.OperationNames.ComparingCrmPluginAssemblyAndLocalAssemblyFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
                 await ComparingAssemblyAndCrmSolution(connectionData, commonConfig, projectName, defaultFolder);
             }
-            catch (Exception xE)
+            catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(xE);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
 
@@ -151,24 +151,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (connectionData == null)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NoCurrentCRMConnection);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             if (string.IsNullOrEmpty(projectName))
             {
-                this._iWriteToOutput.WriteToOutput("Project Name is empty.");
+                this._iWriteToOutput.WriteToOutput(connectionData, "Project Name is empty.");
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
-            this._iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var repositoryAssembly = new PluginAssemblyRepository(service);
 
@@ -176,7 +176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (assembly == null)
             {
-                this._iWriteToOutput.WriteToOutput("PluginAssembly not founded by name {0}.", projectName);
+                this._iWriteToOutput.WriteToOutput(connectionData, "PluginAssembly not founded by name {0}.", projectName);
 
                 WindowHelper.OpenPluginAssemblyWindow(
                     this._iWriteToOutput
@@ -190,16 +190,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string filePath = await CreateFileWithAssemblyComparing(commonConfig.FolderForExport, connectionData, service, assembly.Id, assembly.Name, defaultFolder);
 
-            this._iWriteToOutput.PerformAction(filePath);
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
-        public async Task<string> CreateFileWithAssemblyComparing(string folder, ConnectionData connection, IOrganizationServiceExtented service, Guid idPluginAssembly, string assemblyName, string defaultFolder)
+        public async Task<string> CreateFileWithAssemblyComparing(string folder, ConnectionData connectionData, IOrganizationServiceExtented service, Guid idPluginAssembly, string assemblyName, string defaultFolder)
         {
             var repositoryType = new PluginTypeRepository(service);
 
             var task = repositoryType.GetPluginTypesAsync(idPluginAssembly);
 
-            string assemblyPath = connection.GetLastAssemblyPath(assemblyName);
+            string assemblyPath = connectionData.GetLastAssemblyPath(assemblyName);
             bool showDialog = false;
 
             var t = new Thread((ThreadStart)(() =>
@@ -230,7 +230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             }));
 
@@ -246,8 +246,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string filePath = string.Empty;
 
-            connection.AddAssemblyMapping(assemblyName, assemblyPath);
-            connection.Save();
+            connectionData.AddAssemblyMapping(assemblyName, assemblyPath);
+            connectionData.Save();
 
             HashSet<string> assemblyPlugins = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
             HashSet<string> assemblyWorkflow = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
@@ -283,7 +283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var content = new StringBuilder();
 
-            content.AppendLine(connection.GetConnectionInfo()).AppendLine();
+            content.AppendLine(connectionData.GetConnectionInfo()).AppendLine();
             content.AppendFormat("Description for PluginAssembly '{0}' at {1}", assemblyName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)).AppendLine();
 
             content.AppendFormat("Local Assembly '{0}'", assemblyPath).AppendLine();
@@ -317,13 +317,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             FillInformation(content, "Plugins in Local Assembly {0}", assemblyPlugins, tabspacer);
             FillInformation(content, "Workflows in Local Assembly {0}", assemblyWorkflow, tabspacer);
 
-            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(connection.Name, assemblyName, "Comparing", "txt");
+            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(connectionData.Name, assemblyName, "Comparing", "txt");
             filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput("Assembly {0} Comparing exported to {1}", assemblyName, filePath);
-            this._iWriteToOutput.WriteToOutputFilePathUri(filePath);
+            this._iWriteToOutput.WriteToOutput(connectionData, "Assembly {0} Comparing exported to {1}", assemblyName, filePath);
+            this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, filePath);
 
             return filePath;
         }

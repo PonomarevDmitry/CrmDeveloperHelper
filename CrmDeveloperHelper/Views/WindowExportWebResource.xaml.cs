@@ -139,10 +139,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -186,7 +186,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingWebResources);
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingWebResources);
 
             this.trVWebResources.ItemsSource = null;
 
@@ -201,8 +203,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var service = await GetService();
-
                 if (service != null)
                 {
                     WebResourceRepository repository = new WebResourceRepository(service);
@@ -211,12 +211,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
             LoadWebResources(list);
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingWebResourcesCompletedFormat1, list.Count());
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingWebResourcesCompletedFormat1, list.Count());
         }
 
         private void LoadWebResources(IEnumerable<WebResource> results)
@@ -327,7 +327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void UpdateStatus(string format, params object[] args)
+        private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {
             string message = format;
 
@@ -336,7 +336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(connectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -344,11 +344,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
 
-            UpdateStatus(statusFormat, args);
+            UpdateStatus(connectionData, statusFormat, args);
 
             ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection);
 
@@ -483,12 +483,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityDescription(string folder, Guid idWebResource, string name)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
             try
             {
-                var service = await GetService();
-
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
                 var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
@@ -498,20 +498,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webresource, EntityFileNameFormatter.WebResourceIgnoreFields, service.ConnectionData);
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData
+                    , Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                     , service.ConnectionData.Name
                     , webresource.LogicalName
-                    , filePath);
+                    , filePath
+                );
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
             }
         }
 
@@ -544,19 +546,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportWebResourceContent(string folder, Guid idWebResource, string name)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingWebResourceContentFormat1, name);
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExportingWebResourceContentFormat1, name);
 
             try
             {
-                var service = await GetService();
-
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
                 var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(WebResource.Schema.Attributes.content, WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.webresourcetype));
 
                 if (webresource != null && !string.IsNullOrEmpty(webresource.Content))
                 {
-                    this._iWriteToOutput.WriteToOutput("Starting downloading {0}", name);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Starting downloading {0}", name);
 
                     string webResourceFileName = WebResourceRepository.GetWebResourceFileName(webresource);
 
@@ -569,22 +571,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllBytes(filePath, array);
 
-                    this._iWriteToOutput.WriteToOutput("Web-resource '{0}' has downloaded to {1}.", name, filePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Web-resource '{0}' has downloaded to {1}.", name, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath);
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput("Web-resource not founded in CRM: {0}", name);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Web-resource not founded in CRM: {0}", name);
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingWebResourceContentCompletedFormat1, name);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingWebResourceContentCompletedFormat1, name);
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingWebResourceContentFailedFormat1, name);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingWebResourceContentFailedFormat1, name);
             }
         }
 
@@ -607,13 +609,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
 
             try
             {
-
-                var service = await GetService();
-
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
                 var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(fieldName));
@@ -622,15 +623,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = await CreateFileAsync(folder, name, fieldTitle, xmlContent);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldTitle);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldTitle);
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat1, fieldTitle);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat1, fieldTitle);
             }
         }
 
@@ -643,11 +644,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.UpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
 
             try
             {
-                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
+                WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
                 var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
 
@@ -694,7 +695,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialogResult.GetValueOrDefault() == false)
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat2, service.ConnectionData.Name, fieldName);
+                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat2, service.ConnectionData.Name, fieldName);
                     return;
                 }
 
@@ -722,7 +723,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await service.UpdateAsync(updateEntity);
 
-                UpdateStatus(Properties.WindowStatusStrings.PublishingWebResourceFormat2, service.ConnectionData.Name, name);
+                UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.PublishingWebResourceFormat2, service.ConnectionData.Name, name);
 
                 {
                     var repositoryPublish = new PublishActionsRepository(service);
@@ -730,13 +731,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await repositoryPublish.PublishWebResourcesAsync(new[] { idWebResource });
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat2, service.ConnectionData.Name, fieldName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat2, service.ConnectionData.Name, fieldName);
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat2, service.ConnectionData.Name, fieldName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat2, service.ConnectionData.Name, fieldName);
             }
         }
 
@@ -775,17 +776,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
                 }
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle);
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
 
             return filePath;
@@ -921,13 +922,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                this._iWriteToOutput.ActivateOutputWindow();
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.WebResource, new[] { entity.WebResourceId.Value }, null, withSelect);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
         }
 
@@ -1070,9 +1071,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingWebResourceFormat2, service.ConnectionData.Name, name);
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingWebResourceFormat2, service.ConnectionData.Name, name);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingWebResourceFormat2, service.ConnectionData.Name, name);
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.PublishingWebResourceFormat2, service.ConnectionData.Name, name);
 
             try
             {
@@ -1080,16 +1081,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishWebResourcesAsync(new[] { idWebResource });
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingWebResourceCompletedFormat2, service.ConnectionData.Name, name);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingWebResourceCompletedFormat2, service.ConnectionData.Name, name);
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingWebResourceFailedFormat2, service.ConnectionData.Name, name);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingWebResourceFailedFormat2, service.ConnectionData.Name, name);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingWebResourceFormat2, service.ConnectionData.Name, name);
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingWebResourceFormat2, service.ConnectionData.Name, name);
         }
     }
 }

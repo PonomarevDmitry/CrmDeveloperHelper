@@ -1,4 +1,3 @@
-using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
@@ -131,10 +130,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -145,7 +144,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private void UpdateStatus(string format, params object[] args)
+        private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {
             string message = format;
 
@@ -154,7 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(connectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -162,11 +161,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
 
-            UpdateStatus(statusFormat, args);
+            UpdateStatus(connectionData, statusFormat, args);
 
             ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection);
         }
@@ -412,9 +411,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingApplicationRibbon);
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExportingApplicationRibbon);
 
             try
             {
@@ -432,19 +431,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, ribbonXml, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath);
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonCompleted);
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingApplicationRibbonCompleted);
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
         }
 
         private void miExportApplicationRibbonArchive_Click(object sender, RoutedEventArgs e)
@@ -461,9 +460,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingApplicationRibbon);
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExportingApplicationRibbon);
 
             try
             {
@@ -477,19 +476,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllBytes(filePath, ribbonBody);
 
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath);
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonCompleted);
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingApplicationRibbonCompleted);
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
         }
 
         private void miExportApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -506,17 +505,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXml);
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXml);
 
             var repositoryPublisher = new PublisherRepository(service);
             var publisherDefault = await repositoryPublisher.GetDefaultPublisherAsync();
 
             if (publisherDefault == null)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.NotFoundedDefaultPublisher);
-                _iWriteToOutput.ActivateOutputWindow();
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.NotFoundedDefaultPublisher);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
 
@@ -526,8 +525,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (ribbonCustomization == null)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.NotFoundedApplicationRibbonRibbonCustomization);
-                _iWriteToOutput.ActivateOutputWindow();
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.NotFoundedApplicationRibbonRibbonCustomization);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
 
@@ -537,7 +536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (string.IsNullOrEmpty(ribbonDiffXml))
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlFailed);
+                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlFailed);
                     return;
                 }
 
@@ -552,21 +551,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath);
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlCompleted);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlCompleted);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlFailed);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingApplicationRibbonDiffXmlFailed);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
         }
 
         private void miUpdateApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -583,9 +582,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.UpdatingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.UpdatingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
 
             var newText = string.Empty;
             bool? dialogResult = false;
@@ -603,27 +602,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (dialogResult.GetValueOrDefault() == false)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlCanceledFormat1, service.ConnectionData.Name);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlCanceledFormat1, service.ConnectionData.Name);
                 return;
             }
 
             newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
 
-            UpdateStatus(Properties.WindowStatusStrings.ValidatingApplicationRibbonDiffXml);
+            UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.ValidatingApplicationRibbonDiffXml);
 
             if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
             {
-                ToggleControls(true, Properties.WindowStatusStrings.TextIsNotValidXml);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.TextIsNotValidXml);
 
-                _iWriteToOutput.ActivateOutputWindow();
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
 
-            bool validateResult = await RibbonCustomizationRepository.ValidateXmlDocumentAsync(_iWriteToOutput, doc);
+            bool validateResult = await RibbonCustomizationRepository.ValidateXmlDocumentAsync(service.ConnectionData, _iWriteToOutput, doc);
 
             if (!validateResult)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.ValidatingApplicationRibbonDiffXmlFailed);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ValidatingApplicationRibbonDiffXmlFailed);
                 return;
             }
 
@@ -633,8 +632,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (publisherDefault == null)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.NotFoundedDefaultPublisher);
-                _iWriteToOutput.ActivateOutputWindow();
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.NotFoundedDefaultPublisher);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
 
@@ -644,8 +643,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (ribbonCustomization == null)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.NotFoundedApplicationRibbonRibbonCustomization);
-                _iWriteToOutput.ActivateOutputWindow();
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.NotFoundedApplicationRibbonRibbonCustomization);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
 
@@ -653,16 +652,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 await repositoryRibbonCustomization.PerformUpdateRibbonDiffXml(_iWriteToOutput, _commonConfig, doc, null, ribbonCustomization);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlCompletedFormat1, service.ConnectionData.Name);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlCompletedFormat1, service.ConnectionData.Name);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlFailedFormat1, service.ConnectionData.Name);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlFailedFormat1, service.ConnectionData.Name);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.UpdatingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.UpdatingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
         }
 
         private async void miPublishApplicationRibbon_Click(object sender, RoutedEventArgs e)
@@ -674,9 +673,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.PublishingApplicationRibbonFormat1, service.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingApplicationRibbonFormat1, service.ConnectionData.Name);
 
-            ToggleControls(false, Properties.WindowStatusStrings.PublishingApplicationRibbonFormat1, service.ConnectionData.Name);
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.PublishingApplicationRibbonFormat1, service.ConnectionData.Name);
 
             try
             {
@@ -684,16 +683,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishApplicationRibbonAsync();
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingApplicationRibbonCompletedFormat1, service.ConnectionData.Name);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingApplicationRibbonCompletedFormat1, service.ConnectionData.Name);
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.PublishingApplicationRibbonFailedFormat1, service.ConnectionData.Name);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingApplicationRibbonFailedFormat1, service.ConnectionData.Name);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.PublishingApplicationRibbonFormat1, service.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingApplicationRibbonFormat1, service.ConnectionData.Name);
         }
 
         private void miApplicationRibbon_SubmenuOpened(object sender, RoutedEventArgs e)
@@ -797,13 +796,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 try
                 {
-                    this._iWriteToOutput.ActivateOutputWindow();
+                    this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                     await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.RibbonCustomization, new[] { ribbonCustomization.Id }, null, withSelect);
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                    this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                 }
             }
         }

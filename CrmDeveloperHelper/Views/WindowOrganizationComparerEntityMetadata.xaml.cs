@@ -146,10 +146,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_cacheService.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }
@@ -173,10 +173,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_cacheService.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _cacheService[connectionData.ConnectionId] = service;
                 }
@@ -260,7 +260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
 
             string textName = string.Empty;
@@ -359,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(null, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -467,7 +467,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, entityName, service1.ConnectionData.Name, service2.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, entityName, service1.ConnectionData.Name, service2.ConnectionData.Name);
 
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityFormat1, entityName);
 
@@ -491,11 +491,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 filePath1 = await task1;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, config.EntityName, filePath1);
+            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, config.EntityName, filePath1);
 
             if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service2.ConnectionData.Name, config.EntityName, filePath2);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service2.ConnectionData.Name, config.EntityName, filePath2);
             }
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -504,14 +504,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.PerformAction(filePath1);
+                this._iWriteToOutput.PerformAction(service1.ConnectionData, filePath1);
 
-                this._iWriteToOutput.PerformAction(filePath2);
+                this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityCompletedFormat1, entityName);
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, entityName, service1.ConnectionData.Name, service2.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, entityName, service1.ConnectionData.Name, service2.ConnectionData.Name);
         }
 
         private CreateFileWithEntityMetadataCSharpConfiguration GetCSharpConfig(string entityName)
@@ -575,7 +575,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service2 = await GetService2();
 
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, entityName, service1.ConnectionData.Name, service2.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, entityName, service1.ConnectionData.Name, service2.ConnectionData.Name);
 
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataJavaScriptForEntityFormat1, entityName);
 
@@ -598,11 +598,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 filePath1 = await task1;
             }
 
-            this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, config.EntityName, filePath1);
+            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, config.EntityName, filePath1);
 
             if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service2.ConnectionData.Name, config.EntityName, filePath2);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service2.ConnectionData.Name, config.EntityName, filePath2);
             }
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -611,14 +611,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.PerformAction(filePath1);
+                this._iWriteToOutput.PerformAction(service1.ConnectionData, filePath1);
 
-                this._iWriteToOutput.PerformAction(filePath2);
+                this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataJavaScriptForEntityCompletedFormat1, entityName);
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, entityName, service1.ConnectionData.Name, service2.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, entityName, service1.ConnectionData.Name, service2.ConnectionData.Name);
         }
 
         private CreateFileWithEntityMetadataJavaScriptConfiguration GetJavaScriptConfig(string entityName)
@@ -678,7 +678,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await getService();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityName);
 
             ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityName);
 
@@ -692,21 +692,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     string filePath = await handler.CreateFileAsync();
 
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath);
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityName);
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityName);
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityName);
         }
 
         private void btnConnection1JavaScript_Click(object sender, RoutedEventArgs e)
@@ -752,7 +752,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await getService();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityName);
 
             ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityName);
 
@@ -764,21 +764,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     string filePath = await handler.CreateFileAsync();
 
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath);
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityName);
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(ex);
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityName);
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityName);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -1434,7 +1434,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingEntityRibbonConnectionFormat3, entityName, service1.ConnectionData.Name, service1.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ExportingEntityRibbonConnectionFormat3, entityName, service1.ConnectionData.Name, service1.ConnectionData.Name);
 
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityFormat1, entityName);
 
@@ -1485,10 +1485,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     File.WriteAllText(filePath2, ribbonXml, new UTF8Encoding(false));
                 }
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service1.ConnectionData.Name, entityName, filePath1);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service1.ConnectionData.Name, entityName, filePath1);
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service2.ConnectionData.Name, entityName, filePath2);
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service2.ConnectionData.Name, entityName, filePath2);
                 }
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -1497,21 +1497,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 else
                 {
-                    this._iWriteToOutput.PerformAction(filePath1);
+                    this._iWriteToOutput.PerformAction(service1.ConnectionData, filePath1);
 
-                    this._iWriteToOutput.PerformAction(filePath2);
+                    this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityCompletedFormat1, entityName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonForEntityFailedFormat1, entityName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingEntityRibbonConnectionFormat3, entityName, service1.ConnectionData.Name, service1.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ExportingEntityRibbonConnectionFormat3, entityName, service1.ConnectionData.Name, service1.ConnectionData.Name);
         }
 
         private void mIDifferenceEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -1546,7 +1546,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingEntityRibbonDiffXmlConnectionFormat3, entity.LogicalName, service1.ConnectionData.Name, service1.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ExportingEntityRibbonDiffXmlConnectionFormat3, entity.LogicalName, service1.ConnectionData.Name, service1.ConnectionData.Name);
 
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityFormat1, entity.LogicalName);
 
@@ -1607,10 +1607,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service1.ConnectionData.Name, entity.LogicalName, filePath1);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service1.ConnectionData.Name, entity.LogicalName, filePath1);
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service2.ConnectionData.Name, entity.LogicalName, filePath2);
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service2.ConnectionData.Name, entity.LogicalName, filePath2);
                 }
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -1619,21 +1619,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 else
                 {
-                    this._iWriteToOutput.PerformAction(filePath1);
+                    this._iWriteToOutput.PerformAction(service1.ConnectionData, filePath1);
 
-                    this._iWriteToOutput.PerformAction(filePath2);
+                    this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityCompletedFormat1, entity.LogicalName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceRibbonDiffXmlForEntityFailedFormat1, entity.LogicalName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingEntityRibbonDiffXmlConnectionFormat3, entity.LogicalName, service1.ConnectionData.Name, service1.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ExportingEntityRibbonDiffXmlConnectionFormat3, entity.LogicalName, service1.ConnectionData.Name, service1.ConnectionData.Name);
         }
 
         private void mIConnection1EntityRibbon_Click(object sender, RoutedEventArgs e)
@@ -1679,7 +1679,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await getService();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingRibbonForEntityFormat2, service.ConnectionData.Name, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonForEntityFormat2, service.ConnectionData.Name, entityName);
 
             ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonForEntityFormat1, entityName);
 
@@ -1698,20 +1698,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, ribbonXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service.ConnectionData.Name, entityName, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service.ConnectionData.Name, entityName, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityCompletedFormat1, entityName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityFailedFormat1, entityName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingRibbonForEntityFormat2, service.ConnectionData.Name, entityName);
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonForEntityFormat2, service.ConnectionData.Name, entityName);
         }
 
         private void mIConnection1EntityRibbonArchive_Click(object sender, RoutedEventArgs e)
@@ -1757,7 +1757,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await getService();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingRibbonForEntityFormat2, service.ConnectionData.Name, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonForEntityFormat2, service.ConnectionData.Name, entityName);
 
             ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonForEntityFormat1, entityName);
 
@@ -1772,20 +1772,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllBytes(filePath, ribbonBody);
 
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonArchiveForConnectionFormat3, service.ConnectionData.Name, entityName, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityRibbonArchiveForConnectionFormat3, service.ConnectionData.Name, entityName, filePath);
 
-                this._iWriteToOutput.PerformAction(filePath);
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityCompletedFormat1, entityName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonForEntityFailedFormat1, entityName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingRibbonForEntityFormat2, service.ConnectionData.Name, entityName);
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonForEntityFormat2, service.ConnectionData.Name, entityName);
         }
 
         private void mIConnection1EntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -1831,7 +1831,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await getService();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
 
             ToggleControls(false, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFormat1, entityMetadata.LogicalName);
 
@@ -1852,21 +1852,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 
-                    this._iWriteToOutput.PerformAction(filePath);
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityCompletedFormat1, entityMetadata.LogicalName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ExportingRibbonDiffXmlForEntityFailedFormat1, entityMetadata.LogicalName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
         }
 
         private void miExportEntityMetadataOptions_Click(object sender, RoutedEventArgs e)

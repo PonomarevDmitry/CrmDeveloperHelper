@@ -34,6 +34,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public SolutionComponentMetadataSource MetadataSource { get; private set; }
 
+        public ConnectionData ConnectionData => _service.ConnectionData;
+
         public SolutionComponentDescriptor(IOrganizationServiceExtented service, SolutionComponentMetadataSource metadataSource = null)
         {
             this._service = service;
@@ -90,7 +92,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     builder.AppendLine().AppendLine(DTEHelper.GetExceptionDescription(ex)).AppendLine();
 
-                    DTEHelper.Singleton.WriteErrorToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
                 }
             }
 
@@ -121,7 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.Singleton.WriteErrorToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
                 }
             }
 
@@ -154,7 +156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.Singleton.WriteErrorToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
                 }
             }
 
@@ -199,7 +201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.Singleton.WriteErrorToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
                 }
             }
 

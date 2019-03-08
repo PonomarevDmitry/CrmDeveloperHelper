@@ -136,10 +136,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData.GetConnectionDescription());
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -157,7 +157,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingTraceFiles);
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingTraceFiles);
 
             this._itemsSource.Clear();
 
@@ -167,8 +169,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
 
             var taskFiles = TraceRecord.ParseFilesAsync(files);
-
-            var service = await GetService();
 
             if (service != null)
             {
@@ -184,7 +184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _loadedRecords = await taskFiles;
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingTraceFilesCompletedFormat1, _loadedRecords.Count());
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingTraceFilesCompletedFormat1, _loadedRecords.Count());
 
             await FilterExistingTraceRecords();
         }
@@ -196,19 +196,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.FilteringTraceFiles);
-
             this._itemsSource.Clear();
 
-            Guid connectionId = Guid.Empty;
+            ConnectionData connectionData = null;
 
             cmBCurrentConnection.Dispatcher.Invoke(() =>
             {
-                if (cmBCurrentConnection.SelectedItem is ConnectionData connectionData)
-                {
-                    connectionId = connectionData.ConnectionId;
-                }
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
+
+            ToggleControls(connectionData, false, Properties.WindowStatusStrings.FilteringTraceFiles);
 
             IEnumerable<TraceRecord> list = Enumerable.Empty<TraceRecord>();
 
@@ -221,14 +218,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     list = this._loadedRecords;
                 }
 
-                if (_systemUserCache.ContainsKey(connectionId))
+                if (connectionData != null && _systemUserCache.ContainsKey(connectionData.ConnectionId))
                 {
-                    dictUsers = _systemUserCache[connectionId];
+                    dictUsers = _systemUserCache[connectionData.ConnectionId];
                 }
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             string textName = string.Empty;
@@ -239,10 +236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 textName = cmBFilter.Text;
 
-                if (cmBCurrentConnection.SelectedItem is ConnectionData connectionData)
-                {
-                    connectionData.AddTraceFilter(textName);
-                }
+                connectionData?.AddTraceFilter(textName);
 
                 cmBFilter.Text = textName;
 
@@ -263,7 +257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadTraceRecords(list, dictUsers);
 
-            ToggleControls(true, Properties.WindowStatusStrings.FilteringTraceFilesCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.WindowStatusStrings.FilteringTraceFilesCompletedFormat1, list.Count());
         }
 
         private Task<IEnumerable<TraceRecord>> FilterTraceRecordsAsync(IEnumerable<TraceRecord> list, string textName, Guid? requestId, int? threadNumber)
@@ -341,7 +335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void UpdateStatus(string format, params object[] args)
+        private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {
             string message = format;
 
@@ -350,7 +344,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(message);
+            _iWriteToOutput.WriteToOutput(connectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -358,11 +352,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this._controlsEnabled = enabled;
 
-            UpdateStatus(statusFormat, args);
+            UpdateStatus(connectionData, statusFormat, args);
 
             ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, this.miOpenFolder, this.miOpenFilesInFolders);
 
@@ -379,7 +373,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteErrorToOutput(ex);
+                    this._iWriteToOutput.WriteErrorToOutput(cmBCurrentConnection.SelectedItem as ConnectionData, ex);
                 }
             });
         }
@@ -543,7 +537,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(ex);
+                    DTEHelper.WriteExceptionToOutput(cmBCurrentConnection.SelectedItem as ConnectionData, ex);
                 }
             });
 
@@ -715,7 +709,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (File.Exists(record.TraceFile.FilePath))
             {
-                this._iWriteToOutput.PerformAction(record.TraceFile.FilePath);
+                this._iWriteToOutput.PerformAction(null, record.TraceFile.FilePath);
             }
         }
     }

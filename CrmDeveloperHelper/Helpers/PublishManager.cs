@@ -16,7 +16,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         private IWriteToOutput _iWriteToOutput;
 
-        private readonly IOrganizationServiceExtented _Service;
+        private readonly IOrganizationServiceExtented _service;
 
         /// <summary>
         /// Конструктор для менеджера
@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public PublishManager(IWriteToOutput outputWindow, IOrganizationServiceExtented service)
         {
             _iWriteToOutput = outputWindow;
-            _Service = service;
+            _service = service;
         }
 
         /// <summary>
@@ -55,17 +55,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             if (_Elements.Count == 0)
             {
-                this._iWriteToOutput.WriteToOutput(Properties.OutputStrings.NothingToPublish);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.NothingToPublish);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput("Updating WebResources content...");
+            this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Updating WebResources content...");
 
             UpdateContent();
 
-            this._iWriteToOutput.WriteToOutput("Publishing WebResources...");
+            this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Publishing WebResources...");
 
-            PublishActionsRepository repository = new PublishActionsRepository(_Service);
+            PublishActionsRepository repository = new PublishActionsRepository(_service);
             repository.PublishWebResources(_Elements.Keys);
 
             FormatTextTableHandler table = new FormatTextTableHandler();
@@ -77,10 +77,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 table.AddLine(element.WebResource.Name, webresourcetype);
             }
 
-            this._iWriteToOutput.WriteToOutput("Published web-resources: {0}", this._Elements.Values.Count);
+            this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Published web-resources: {0}", this._Elements.Values.Count);
 
             var lines = table.GetFormatedLines(false);
-            lines.ForEach(item => _iWriteToOutput.WriteToOutput("    {0}", item));
+            lines.ForEach(item => _iWriteToOutput.WriteToOutput(_service.ConnectionData, "    {0}", item));
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         resource.WebResourceId = resource.Id = element.WebResource.Id;
                         resource.Content = contentFile;
 
-                        this._Service.Update(resource);
+                        this._service.Update(resource);
 
                         tableUpdated.AddLine(element.SelectedFile.FileName, element.WebResource.Name, webresourcetype);
                     }
@@ -135,29 +135,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (tableEqual.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput("WebResources equal to file content:");
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "WebResources equal to file content:");
 
                 var lines = tableEqual.GetFormatedLines(false);
 
-                lines.ForEach(item => _iWriteToOutput.WriteToOutput("    {0}", item));
+                lines.ForEach(item => _iWriteToOutput.WriteToOutput(_service.ConnectionData, "    {0}", item));
             }
 
             if (tableNotCustomizable.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput("WebResources are NOT Customizable, can't change WebResource's content:");
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "WebResources are NOT Customizable, can't change WebResource's content:");
 
                 var lines = tableNotCustomizable.GetFormatedLines(false);
 
-                lines.ForEach(item => _iWriteToOutput.WriteToOutput("    {0}", item));
+                lines.ForEach(item => _iWriteToOutput.WriteToOutput(_service.ConnectionData, "    {0}", item));
             }
 
             if (tableUpdated.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput("Updated WebResources:");
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Updated WebResources:");
 
                 var lines = tableUpdated.GetFormatedLines(false);
 
-                lines.ForEach(item => _iWriteToOutput.WriteToOutput("    {0}", item));
+                lines.ForEach(item => _iWriteToOutput.WriteToOutput(_service.ConnectionData, "    {0}", item));
             }
         }
     }

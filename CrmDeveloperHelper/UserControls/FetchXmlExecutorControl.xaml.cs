@@ -739,10 +739,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
                 {
-                    DTEHelper.Singleton?.WriteToOutput(Properties.OutputStrings.ConnectingToCRM);
-                    DTEHelper.Singleton?.WriteToOutput(connectionData.GetConnectionDescription());
+                    DTEHelper.Singleton?.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    DTEHelper.Singleton?.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    DTEHelper.Singleton?.WriteToOutput(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    DTEHelper.Singleton?.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
@@ -1040,12 +1040,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, null, service.ConnectionData);
 
-                DTEHelper.Singleton?.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                DTEHelper.Singleton?.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                     , service.ConnectionData.Name
                     , entityFull.LogicalName
                     , filePath);
 
-                DTEHelper.Singleton?.PerformAction(filePath);
+                DTEHelper.Singleton?.PerformAction(service.ConnectionData, filePath);
             }
         }
 
@@ -1171,12 +1171,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, null, service.ConnectionData);
 
-                DTEHelper.Singleton?.WriteToOutput(Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                DTEHelper.Singleton?.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                     , service.ConnectionData.Name
                     , entityFull.LogicalName
                     , filePath);
 
-                DTEHelper.Singleton?.PerformAction(filePath);
+                DTEHelper.Singleton?.PerformAction(service.ConnectionData, filePath);
             }
         }
 
