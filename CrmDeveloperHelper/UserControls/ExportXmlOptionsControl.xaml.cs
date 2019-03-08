@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             grBRibbon.Visibility = GetVisibilityForAttribute(controls, XmlOptionsControls.RibbonFilters);
 
-            chBSortRibbonCommnadsAndRulesById.Visibility = GetVisibilityForAttribute(controls, XmlOptionsControls.SortRibbonCommandsAndRulesById);
+            chBSortRibbonCommandsAndRulesById.Visibility = GetVisibilityForAttribute(controls, XmlOptionsControls.SortRibbonCommandsAndRulesById);
             chBSortFormXmlElements.Visibility = GetVisibilityForAttribute(controls, XmlOptionsControls.SortFormXmlElements);
             chBSortXmlAttributes.Visibility = GetVisibilityForAttribute(controls, XmlOptionsControls.SortXmlAttributes);
 
@@ -46,7 +46,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             chBHomepageGrid.DataContext = _commonConfig;
             chBSubGrid.DataContext = _commonConfig;
 
-            chBSortRibbonCommnadsAndRulesById.DataContext = _commonConfig;
+            chBSortRibbonCommandsAndRulesById.DataContext = _commonConfig;
             chBSortFormXmlElements.DataContext = _commonConfig;
             chBSortXmlAttributes.DataContext = _commonConfig;
 

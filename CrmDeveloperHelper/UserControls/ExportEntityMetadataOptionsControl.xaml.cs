@@ -59,7 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             chBHomepageGrid.DataContext = _commonConfig;
             chBSubGrid.DataContext = _commonConfig;
 
-            chBSortRibbonCommnadsAndRulesById.DataContext = _commonConfig;
+            chBSortRibbonCommandsAndRulesById.DataContext = _commonConfig;
             chBSortXmlAttributes.DataContext = _commonConfig;
 
             chBXmlAttributeOnNewLine.DataContext = _commonConfig;

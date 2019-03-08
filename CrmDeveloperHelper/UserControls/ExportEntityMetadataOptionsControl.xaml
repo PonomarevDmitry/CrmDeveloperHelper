@@ -59,7 +59,7 @@
                 <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding Path=ExportXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
                 <CheckBox x:Name="chBSetXmlSchemas" IsChecked="{Binding Path=SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" HorizontalAlignment="Left" Margin="10,90,0,0" Height="15" VerticalAlignment="Top"/>
                 <CheckBox x:Name="chBSetIntellisenseContext" IsChecked="{Binding SetIntellisenseContext}" Content="Set Intellisense Context" HorizontalAlignment="Left" Margin="10,110,0,0" Height="15" VerticalAlignment="Top"/>
-                <CheckBox x:Name="chBSortRibbonCommnadsAndRulesById" IsChecked="{Binding SortRibbonCommnadsAndRulesById}" Content="Sort Ribbon Commands and Rules by Id" Margin="10,30,0,0" Height="15" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <CheckBox x:Name="chBSortRibbonCommandsAndRulesById" IsChecked="{Binding SortRibbonCommandsAndRulesById}" Content="Sort Ribbon Commands and Rules by Id" Margin="10,30,0,0" Height="15" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <CheckBox x:Name="chBSortXmlAttributes" IsChecked="{Binding SortXmlAttributes}" Content="Sort Xml Attributes" Margin="10,50,0,0" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>

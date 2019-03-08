@@ -19,8 +19,8 @@
                 <CheckBox x:Name="chBSubGrid" IsChecked="{Binding Path=ExportRibbonXmlSubGrid}" Content="SubGrid" HorizontalAlignment="Left" Margin="5" />
             </StackPanel>
         </GroupBox>
-        
-        <CheckBox x:Name="chBSortRibbonCommnadsAndRulesById" IsChecked="{Binding Path=SortRibbonCommnadsAndRulesById}" Content="Sort Ribbon Commands and Rules by Id" Margin="5"/>
+
+        <CheckBox x:Name="chBSortRibbonCommandsAndRulesById" IsChecked="{Binding Path=SortRibbonCommandsAndRulesById}" Content="Sort Ribbon Commands and Rules by Id" Margin="5"/>
         <CheckBox x:Name="chBSortFormXmlElements" IsChecked="{Binding Path=SortFormXmlElements}" Content="Sort FormXml Elements" Margin="5"/>
         <CheckBox x:Name="chBSortXmlAttributes" IsChecked="{Binding Path=SortXmlAttributes}" Content="Sort Xml Attributes" Margin="5"/>
         
