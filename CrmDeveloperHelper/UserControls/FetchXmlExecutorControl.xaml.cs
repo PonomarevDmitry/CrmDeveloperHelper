@@ -923,7 +923,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, tSProgressBar, this.btnExecuteFetchXml, this.btnExecuteFetchXml2, this.dGrParameters);
+            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, tSProgressBar, this.btnExecuteFetchXml, this.btnExecuteFetchXml2, this.stBtnExecuteFetchXml, this.dGrParameters);
         }
 
         protected void ToggleControl(bool enabled, params Control[] controlsArray)

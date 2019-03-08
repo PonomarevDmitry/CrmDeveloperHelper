@@ -43,6 +43,7 @@
         <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
             <ComboBox x:Name="cmBCurrentConnection" Height="20" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
+            <Button x:Name="stBtnExecuteFetchXml" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click" Margin="18,3" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
             <StatusBarItem x:Name="stBIStatus" Content="" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
