@@ -155,6 +155,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuReport_GroupAddIntoSolution_MenuLastSolution_GroupLastSolution = 0x110F;
         public const int codeMenuCSharp = 0x1102;
         public const int codeMenuCSharp_GroupPluginDescription = 0x10FF;
+        public const int codeMenuCSharp_GroupAddPluginStep = 0x1274;
+        public const int codeMenuCSharp_GroupAddPluginStep_MenuConnection = 0x1275;
+        public const int codeMenuCSharp_GroupAddPluginStep_MenuConnection_Group = 0x1276;
         public const int codeMenuCSharp_GroupProxyClasses = 0x1008;
         public const int codeMenuCSharp_GroupEntityMetadata = 0x1009;
         public const int codeMenuCSharp_GroupGlobalOptionSets = 0x100A;
@@ -289,6 +292,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int fileMenuReport_GroupLastLink = 0x1029;
         public const int fileMenuCSharp = 0x102A;
         public const int fileMenuCSharp_GroupPluginDescription = 0x1100;
+        public const int fileMenuCSharp_GroupAddPluginStep = 0x1271;
+        public const int fileMenuCSharp_GroupAddPluginStep_MenuConnection = 0x1272;
+        public const int fileMenuCSharp_GroupAddPluginStep_MenuConnection_Group = 0x1273;
         public const int fileMenuCSharp_GroupProxyClasses = 0x102B;
         public const int fileMenuCSharp_GroupEntityMetadata = 0x102C;
         public const int fileMenuCSharp_GroupGlobalOptionSets = 0x102D;
@@ -656,6 +662,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonCheckPluginImagesCommandId = 0x19C8;
         public const int CommonCheckPluginStepsRequiredComponentsCommandId = 0x19FA;
         public const int CommonCheckPluginImagesRequiredComponentsCommandId = 0x1A2C;
+        public const int CodeCSharpAddPluginStepInConnectionCommandId = 0x1A5E;
+        public const int FileCSharpAddPluginStepInConnectionCommandId = 0x1A90;
         public const int CodeWebResourceUpdateContentPublishCommandId = 0x2000;
         public const int CodeWebResourceShowDifferenceCommandId = 0x2001;
         public const int CodeWebResourceShowDifferenceCustomCommandId = 0x2002;
@@ -976,5 +984,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int DocumentsAddIntoPublishListFilesWithMirrorInsertsCommandId = 0x20FA;
         public const int DocumentsAddIntoPublishListFilesWithMirrorDeletesCommandId = 0x20FB;
         public const int DocumentsAddIntoPublishListFilesWithMirrorComplexCommandId = 0x20FC;
+        public const int CodeCSharpAddPluginStepCommandId = 0x218C;
+        public const int FileCSharpAddPluginStepCommandId = 0x218D;
     }
 }

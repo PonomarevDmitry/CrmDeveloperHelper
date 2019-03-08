@@ -1,8 +1,8 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
@@ -32,21 +32,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             {
                 var list = helper.GetListSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
 
-                var files = new List<string>();
+                var pluginTypeNames = new List<string>();
+
+                helper.ActivateOutputWindow(null);
 
                 foreach (var item in list)
                 {
-                    var typeNam = await PropertiesHelper.GetTypeFullNameAsync(item);
+                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, item?.ProjectItem?.FileNames[1]);
+                    var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
 
-                    if (!string.IsNullOrEmpty(typeNam))
+                    if (!string.IsNullOrEmpty(typeName))
                     {
-                        files.Add(typeNam);
+                        pluginTypeNames.Add(typeName);
                     }
                 }
 
-                if (files.Any())
+                if (pluginTypeNames.Any())
                 {
-                    helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, true, files.ToArray());
+                    helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, true, pluginTypeNames.ToArray());
                 }
             }
             catch (Exception ex)

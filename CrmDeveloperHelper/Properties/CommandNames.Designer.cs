@@ -61,6 +61,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Plugin Step.
+        /// </summary>
+        internal static string CodeCSharpAddPluginStepCommand {
+            get {
+                return ResourceManager.GetString("CodeCSharpAddPluginStepCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Compare with Crm PluginAssembly.
         /// </summary>
         internal static string CodeCSharpProjectCompareToCrmAssemblyCommand {
@@ -588,6 +597,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FetchXmlExecutorNameFormat2 {
             get {
                 return ResourceManager.GetString("FetchXmlExecutorNameFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Plugin Step.
+        /// </summary>
+        internal static string FileCSharpAddPluginStepCommand {
+            get {
+                return ResourceManager.GetString("FileCSharpAddPluginStepCommand", resourceCulture);
             }
         }
         

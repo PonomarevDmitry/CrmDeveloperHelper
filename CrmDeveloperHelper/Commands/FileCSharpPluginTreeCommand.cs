@@ -32,6 +32,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 if (item != null)
                 {
+                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, item?.ProjectItem?.FileNames[1]);
+                    helper.ActivateOutputWindow(null);
                     string fileType = await PropertiesHelper.GetTypeFullNameAsync(item);
 
                     helper.HandleOpenPluginTree(string.Empty, fileType, string.Empty);

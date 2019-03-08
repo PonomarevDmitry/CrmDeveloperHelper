@@ -3853,6 +3853,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleAddPluginStep(string pluginTypeName, ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            if (connectionData == null)
+            {
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (crmConfig != null && connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                try
+                {
+                    Controller.StartAddPluginStep(pluginTypeName, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
         public void HandleExportReport()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();

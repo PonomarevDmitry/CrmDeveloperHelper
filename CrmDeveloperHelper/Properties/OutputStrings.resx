@@ -342,4 +342,7 @@
   <data name="ExceptionWhileOperationFormat1" xml:space="preserve">
     <value>Exception while {0}</value>
   </data>
+  <data name="GettingClassFullNameFromFileFormat1" xml:space="preserve">
+    <value>Getting class FullName from file: {0}</value>
+  </data>
 </root>

@@ -267,7 +267,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return coll.Count == 1 ? coll.Select(e => e.ToEntity<PluginType>()).SingleOrDefault() : null;
         }
 
-        internal PluginType FindPluginType(string name)
+        public Task<PluginType> FindPluginTypeAsync(string name)
+        {
+            return Task.Run(() => FindPluginType(name));
+        }
+
+        public PluginType FindPluginType(string name)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -293,7 +298,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return coll.Count == 1 ? coll.Select(e => e.ToEntity<PluginType>()).SingleOrDefault() : null;
         }
 
-        internal Task<PluginType> FindPluginTypeByLikeNameAsync(string name)
+        public Task<PluginType> FindPluginTypeByLikeNameAsync(string name)
         {
             return Task.Run(() => FindPluginTypeByLikeName(name));
         }

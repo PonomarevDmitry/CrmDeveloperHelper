@@ -412,6 +412,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Getting class FullName from file: {0}.
+        /// </summary>
+        internal static string GettingClassFullNameFromFileFormat1 {
+            get {
+                return ResourceManager.GetString("GettingClassFullNameFromFileFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No CRM Connection 1..
         /// </summary>
         internal static string NoCRMConnection1 {

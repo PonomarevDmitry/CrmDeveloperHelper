@@ -29,21 +29,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             var list = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType);
 
-            var files = new List<string>();
+            var pluginTypeNames = new List<string>();
+
+            helper.ActivateOutputWindow(null);
 
             foreach (var item in list)
             {
-                var typeNam = await PropertiesHelper.GetTypeFullNameAsync(item);
+                helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, item?.FullName);
+                var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
 
-                if (!string.IsNullOrEmpty(typeNam))
+                if (!string.IsNullOrEmpty(typeName))
                 {
-                    files.Add(typeNam);
+                    pluginTypeNames.Add(typeName);
                 }
             }
 
-            if (files.Any())
+            if (pluginTypeNames.Any())
             {
-                helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, true, files.ToArray());
+                helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, true, pluginTypeNames.ToArray());
             }
         }
     }

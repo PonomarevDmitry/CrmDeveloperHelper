@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
@@ -32,6 +33,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private ObservableCollection<EntityViewItem> _itemsSource;
 
         private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
+
+        private Dictionary<Guid, Task> _cacheTaskGettingMessageFilters = new Dictionary<Guid, Task>();
+
+        private Dictionary<Guid, List<SdkMessageFilter>> _cacheMessageFilters = new Dictionary<Guid, List<SdkMessageFilter>>();
 
         private int _init = 0;
 
@@ -724,6 +729,76 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , entity.TypeName
                 , null
             );
+        }
+
+        private void mIAddPluginStep_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.TypeName, PerformAddingPluginStep);
+        }
+
+        private async Task PerformAddingPluginStep(string folder, Guid idPluginType, string name)
+        {
+            var service = await GetService();
+
+            List<SdkMessageFilter> filters = null;
+
+            if (!_cacheMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
+            {
+                if (!_cacheTaskGettingMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
+                {
+                    _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId] = GetSdkMessageFiltersAsync(service);
+                }
+
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.GettingMessages);
+
+                await _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId];
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.GettingMessagesCompleted);
+            }
+
+            filters = _cacheMessageFilters[service.ConnectionData.ConnectionId];
+
+            var step = new SdkMessageProcessingStep()
+            {
+                EventHandler = new EntityReference(PluginType.EntityLogicalName, idPluginType),
+            };
+
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowSdkMessageProcessingStep(_iWriteToOutput, service, filters, step);
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        private async Task GetSdkMessageFiltersAsync(IOrganizationServiceExtented service)
+        {
+            var repository = new SdkMessageFilterRepository(service);
+
+            var filters = await repository.GetAllAsync(new ColumnSet(SdkMessageFilter.Schema.Attributes.sdkmessageid, SdkMessageFilter.Schema.Attributes.primaryobjecttypecode, SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode, SdkMessageFilter.Schema.Attributes.availability));
+
+            if (!_cacheMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
+            {
+                _cacheMessageFilters.Add(service.ConnectionData.ConnectionId, filters);
+            }
         }
     }
 }

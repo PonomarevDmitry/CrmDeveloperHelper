@@ -91,6 +91,8 @@
   <ItemGroup>
     <Compile Include="Commands\AbstractCommand.Generic.cs" />
     <Compile Include="Commands\AddFilesIntoListForPublishCommand.cs" />
+    <Compile Include="Commands\CodeCSharpAddPluginStepCommand.cs" />
+    <Compile Include="Commands\CodeCSharpAddPluginStepInConnectionCommand.cs" />
     <Compile Include="Commands\CodeCSharpPluginTreeCommand.cs" />
     <Compile Include="Commands\CodeCSharpProjectCompareToCrmAssemblyInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceInConnectionGroupCommand.cs" />
@@ -243,6 +245,8 @@
     <Compile Include="Commands\DocumentsCSharpUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
+    <Compile Include="Commands\FileCSharpAddPluginStepCommand.cs" />
+    <Compile Include="Commands\FileCSharpAddPluginStepInConnectionCommand.cs" />
     <Compile Include="Commands\FileCSharpPluginAssemblyDescriptionCommand.cs" />
     <Compile Include="Commands\FileCSharpPluginTreeCommand.cs" />
     <Compile Include="Commands\FileCSharpPluginTypeDescriptionCommand.cs" />

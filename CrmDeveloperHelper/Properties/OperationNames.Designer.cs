@@ -106,6 +106,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Adding Plugin Step.
+        /// </summary>
+        internal static string AddingPluginStepFormat1 {
+            get {
+                return ResourceManager.GetString("AddingPluginStepFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Adding PluginType Processing Steps into Solution {1}.
         /// </summary>
         internal static string AddingPluginTypeProcessingStepsIntoSolutionFormat2 {

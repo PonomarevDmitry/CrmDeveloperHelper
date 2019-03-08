@@ -2365,10 +2365,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var step = new SdkMessageProcessingStep()
             {
-                EventHandler = new EntityReference(PluginType.EntityLogicalName, nodePluginType.PluginType.Value)
-                {
-                    Name = nodePluginType.Name,
-                },
+                EventHandler = new EntityReference(PluginType.EntityLogicalName, nodePluginType.PluginType.Value),
             };
 
             List<SdkMessageFilter> filters = null;
@@ -2503,7 +2500,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (!_cacheMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
                 {
-                    await GetSdkMessageFiltersAsync(service);
+                    if (!_cacheTaskGettingMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
+                    {
+                        _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId] = GetSdkMessageFiltersAsync(service);
+                    }
+
+                    ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.GettingMessages);
+
+                    await _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId];
+
+                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.GettingMessagesCompleted);
                 }
 
                 filters = _cacheMessageFilters[service.ConnectionData.ConnectionId];

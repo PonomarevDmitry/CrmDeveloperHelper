@@ -5,16 +5,16 @@ using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class FileCSharpPluginTypeDescriptionCommand : AbstractCommand
+    internal sealed class FileCSharpAddPluginStepCommand : AbstractCommand
     {
-        private FileCSharpPluginTypeDescriptionCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileCSharpPluginTypeDescriptionCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileCSharpAddPluginStepCommand(Package package)
+            : base(package, PackageGuids.guidCommandSet, PackageIds.FileCSharpAddPluginStepCommandId, ActionExecute, ActionBeforeQueryStatus) { }
 
-        public static FileCSharpPluginTypeDescriptionCommand Instance { get; private set; }
+        public static FileCSharpAddPluginStepCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new FileCSharpPluginTypeDescriptionCommand(package);
+            Instance = new FileCSharpAddPluginStepCommand(package);
         }
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(command, menuCommand, FileOperations.SupportsCSharpType);
         }
 
-        private async static void ActionExecute(DTEHelper helper)
+        private static async void ActionExecute(DTEHelper helper)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     helper.ActivateOutputWindow(null);
                     string fileType = await PropertiesHelper.GetTypeFullNameAsync(item);
 
-                    helper.HandleExportPluginTypeDescription(fileType);
+                    helper.HandleAddPluginStep(fileType, null);
                 }
             }
             catch (Exception ex)

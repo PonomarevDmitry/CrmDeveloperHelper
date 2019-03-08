@@ -129,6 +129,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeCSharpPluginAssemblyDescriptionCommand.Initialize(this);
             CodeCSharpPluginTreeCommand.Initialize(this);
 
+            CodeCSharpAddPluginStepCommand.Initialize(this);
+            CodeCSharpAddPluginStepInConnectionCommand.Initialize(this);
+
             CodeCSharpProjectPluginAssemblyAddIntoSolutionCommand.Initialize(this);
             CodeCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.Initialize(this);
             CodeCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand.Initialize(this);
@@ -180,6 +183,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileCSharpProjectCompareToCrmAssemblyInConnectionGroupCommand.Initialize(this);
             FileCSharpPluginTypeDescriptionCommand.Initialize(this);
             FileCSharpPluginTreeCommand.Initialize(this);
+
+            FileCSharpAddPluginStepCommand.Initialize(this);
+            FileCSharpAddPluginStepInConnectionCommand.Initialize(this);
 
             FileCSharpProjectPluginAssemblyAddIntoSolutionCommand.Initialize(this);
             FileCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.Initialize(this);

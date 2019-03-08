@@ -9,6 +9,8 @@
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
             <Separator/>
+            <MenuItem Header="Add Plugin Step" VerticalAlignment="Center" Click="mIAddPluginStep_Click" />
+            <Separator/>
             <MenuItem Header="Open Plugin Tree" VerticalAlignment="Center" Click="mIOpenPluginTree_Click" />
             <Separator/>
             <MenuItem x:Uid="contMnAddPluginTypeStepsIntoSolutionLast" Header="Add Steps for PluginType into Last Crm Solution" VerticalAlignment="Center"  />

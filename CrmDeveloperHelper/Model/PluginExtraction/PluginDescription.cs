@@ -59,14 +59,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction
             {
                 try
                 {
-                    XmlWriterSettings settings = new XmlWriterSettings();
-                    settings.Indent = true;
-                    settings.Encoding = Encoding.UTF8;
-
-                    using (XmlWriter xmlWriter = XmlWriter.Create(memoryStream, settings))
+                    XmlWriterSettings settings = new XmlWriterSettings
                     {
-                        ser.WriteObject(xmlWriter, this);
-                    }
+                        Indent = true,
+                        Encoding = Encoding.UTF8
+                    };
+
+                    XmlWriter xmlWriter = XmlWriter.Create(memoryStream, settings);
+                    ser.WriteObject(xmlWriter, this);
 
                     fileBody = memoryStream.ToArray();
                 }

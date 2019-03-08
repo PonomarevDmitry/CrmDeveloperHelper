@@ -108,21 +108,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         var list = helper.GetListSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
 
-                        var files = new List<string>();
+                        var pluginTypeNames = new List<string>();
+
+                        helper.ActivateOutputWindow(null);
 
                         foreach (var item in list)
                         {
-                            var typeNam = await PropertiesHelper.GetTypeFullNameAsync(item);
+                            helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, item?.ProjectItem?.FileNames[1]);
+                            var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
 
-                            if (!string.IsNullOrEmpty(typeNam))
+                            if (!string.IsNullOrEmpty(typeName))
                             {
-                                files.Add(typeNam);
+                                pluginTypeNames.Add(typeName);
                             }
                         }
 
-                        if (files.Any())
+                        if (pluginTypeNames.Any())
                         {
-                            helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(solutionUniqueName, false, files.ToArray());
+                            helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(solutionUniqueName, false, pluginTypeNames.ToArray());
                         }
                     }
                 }

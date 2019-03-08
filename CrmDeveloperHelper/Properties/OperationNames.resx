@@ -654,4 +654,7 @@
   <data name="RemovingComponentsFromSolutionFormat2" xml:space="preserve">
     <value>{0} - Removing Components from Solution {1}</value>
   </data>
+  <data name="AddingPluginStepFormat1" xml:space="preserve">
+    <value>{0} - Adding Plugin Step</value>
+  </data>
 </root>

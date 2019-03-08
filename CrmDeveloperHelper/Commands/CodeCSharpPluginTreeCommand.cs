@@ -22,6 +22,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             {
                 var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
 
+                helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, document?.FullName);
+                helper.ActivateOutputWindow(null);
                 string fileType = await PropertiesHelper.GetTypeFullNameAsync(document);
 
                 helper.HandleOpenPluginTree(string.Empty, fileType, string.Empty);

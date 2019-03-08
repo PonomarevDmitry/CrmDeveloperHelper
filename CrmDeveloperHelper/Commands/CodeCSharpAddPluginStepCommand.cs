@@ -1,20 +1,24 @@
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CodeCSharpProjectPluginTypeStepsAddIntoSolutionCommand : AbstractCommand
+    internal sealed class CodeCSharpAddPluginStepCommand : AbstractCommand
     {
-        private CodeCSharpProjectPluginTypeStepsAddIntoSolutionCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeCSharpProjectPluginTypeStepsAddIntoSolutionCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeCSharpAddPluginStepCommand(Package package)
+            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeCSharpAddPluginStepCommandId, ActionExecute, ActionBeforeQueryStatus) { }
 
-        public static CodeCSharpProjectPluginTypeStepsAddIntoSolutionCommand Instance { get; private set; }
+        public static CodeCSharpAddPluginStepCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CodeCSharpProjectPluginTypeStepsAddIntoSolutionCommand(package);
+            Instance = new CodeCSharpAddPluginStepCommand(package);
         }
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
@@ -23,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(command, menuCommand, FileOperations.SupportsCSharpType);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeCSharpProjectPluginTypeStepsAddIntoSolutionCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeCSharpAddPluginStepCommand);
         }
 
         private static async void ActionExecute(DTEHelper helper)
@@ -36,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 helper.ActivateOutputWindow(null);
                 string fileType = await PropertiesHelper.GetTypeFullNameAsync(document);
 
-                helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, true, fileType);
+                helper.HandleAddPluginStep(fileType, null);
             }
             catch (Exception ex)
             {

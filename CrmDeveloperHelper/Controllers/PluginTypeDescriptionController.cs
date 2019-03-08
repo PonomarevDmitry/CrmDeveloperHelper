@@ -1,22 +1,24 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Xrm.Sdk;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
     public class PluginTypeDescriptionController
     {
-        private IWriteToOutput _iWriteToOutput = null;
+        private readonly IWriteToOutput _iWriteToOutput = null;
 
         /// <summary>
         /// Конструктор контроллера
@@ -202,15 +204,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string assemblyPath = connectionData.GetLastAssemblyPath(assemblyName);
             bool showDialog = false;
 
-            var t = new Thread((ThreadStart)(() =>
+            var t = new Thread(() =>
             {
                 try
                 {
-                    var openFileDialog1 = new Microsoft.Win32.OpenFileDialog();
-
-                    openFileDialog1.Filter = "Plugin Assebmly (.dll)|*.dll";
-                    openFileDialog1.FilterIndex = 1;
-                    openFileDialog1.RestoreDirectory = true;
+                    var openFileDialog1 = new Microsoft.Win32.OpenFileDialog
+                    {
+                        Filter = "Plugin Assebmly (.dll)|*.dll",
+                        FilterIndex = 1,
+                        RestoreDirectory = true
+                    };
 
                     if (!string.IsNullOrEmpty(assemblyPath))
                     {
@@ -232,7 +235,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
-            }));
+            });
 
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
@@ -383,5 +386,107 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Сравнение сборки плагинов и локальной сборки.
+
+        #region Добавление шага плагина.
+
+        public async Task ExecuteAddingPluginStepForType(ConnectionData connectionData, CommonConfiguration commonConfig, string pluginTypeName)
+        {
+            string operation = string.Format(Properties.OperationNames.AddingPluginStepFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await AddingPluginStepForType(connectionData, commonConfig, pluginTypeName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task AddingPluginStepForType(ConnectionData connectionData, CommonConfiguration commonConfig, string pluginTypeName)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(pluginTypeName))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "PluginType Name is empty.");
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            var repository = new PluginTypeRepository(service);
+
+            var pluginType = await repository.FindPluginTypeAsync(pluginTypeName);
+
+            if (pluginType == null)
+            {
+                pluginType = await repository.FindPluginTypeByLikeNameAsync(pluginTypeName);
+            }
+
+            if (pluginType == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "PluginType not founded by name {0}.", pluginTypeName);
+
+                WindowHelper.OpenPluginTypeWindow(
+                    this._iWriteToOutput
+                    , service
+                    , commonConfig
+                    , pluginTypeName
+                );
+
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.GettingMessages);
+
+            var repositoryFilters = new SdkMessageFilterRepository(service);
+
+            List<SdkMessageFilter> filters = await repositoryFilters.GetAllAsync(new ColumnSet(SdkMessageFilter.Schema.Attributes.sdkmessageid, SdkMessageFilter.Schema.Attributes.primaryobjecttypecode, SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode, SdkMessageFilter.Schema.Attributes.availability));
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.GettingMessagesCompleted);
+
+            var step = new SdkMessageProcessingStep()
+            {
+                EventHandler = pluginType.ToEntityReference(),
+            };
+
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowSdkMessageProcessingStep(_iWriteToOutput, service, filters, step);
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        #endregion Добавление шага плагина.
     }
 }

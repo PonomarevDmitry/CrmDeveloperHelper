@@ -138,6 +138,10 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginTypeStepsIntoSolution_MenuLastSolution_GroupLastSolution" priority="0x0600" />
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginDescription" priority="0x0601" />
+
+      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep" priority="0x0601" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep_MenuConnection_Group" priority="0x0601" />
+
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupProxyClasses" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupGlobalOptionSets" priority="0x0603" />
@@ -262,6 +266,10 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginTypeStepsIntoSolution_MenuLastSolution_GroupLastSolution" priority="0x0600" />
 
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginDescription" priority="0x0601" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" priority="0x0601" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep_MenuConnection_Group" priority="0x0601" />
+
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupProxyClasses" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" priority="0x0603" />
@@ -1327,6 +1335,16 @@
         </Strings>
       </Menu>
 
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep_MenuConnection" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Add Plugin Step in Connection</ButtonText>
+          <MenuText>Add Plugin Step in Connection</MenuText>
+        </Strings>
+      </Menu>
+
+
+
+
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuReport_GroupAddIntoSolution_MenuLastSolution" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Add Opened Reports into Last Crm Solution</ButtonText>
@@ -1410,6 +1428,13 @@
         <Strings>
           <ButtonText>Add Steps for PluginType into Last Crm Solution</ButtonText>
           <MenuText>Add Steps for PluginType into Last Crm Solution</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep_MenuConnection" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Add Plugin Step in Connection</ButtonText>
+          <MenuText>Add Plugin Step in Connection</MenuText>
         </Strings>
       </Menu>
 
@@ -2409,6 +2434,22 @@
         </Strings>
       </Button>
 
+      <Button guid="guidCommandSet" id="CodeCSharpAddPluginStepCommandId" priority="0x0101" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Add Plugin Step</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CodeCSharpAddPluginStepInConnectionCommandId" priority="0x0101" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Add Plugin Step Placeholder</ButtonText>
+        </Strings>
+      </Button>
 
 
       <Button guid="guidCommandSet" id="CodeCSharpUpdateProxyClassesCommandId" priority="0x0100" type="Button">
@@ -3198,7 +3239,22 @@
         </Strings>
       </Button>
 
-
+      <Button guid="guidCommandSet" id="FileCSharpAddPluginStepCommandId" priority="0x0101" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Add Plugin Step</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileCSharpAddPluginStepInConnectionCommandId" priority="0x0101" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Add Plugin Step Placeholder</ButtonText>
+        </Strings>
+      </Button>
 
 
 
@@ -5355,13 +5411,16 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginDescription" priority="0x0604">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupProxyClasses" priority="0x0605">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep" priority="0x0605">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata" priority="0x0606">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupProxyClasses" priority="0x0606">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupGlobalOptionSets" priority="0x0607">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata" priority="0x0607">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupGlobalOptionSets" priority="0x0608">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
 
@@ -5673,13 +5732,16 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginDescription" priority="0x0604">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupProxyClasses" priority="0x0605">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" priority="0x0605">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" priority="0x0606">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupProxyClasses" priority="0x0606">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" priority="0x0607">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" priority="0x0607">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" priority="0x0608">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
 
@@ -7654,7 +7716,20 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginDescription" />
     </CommandPlacement>
 
-
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpAddPluginStepCommandId" priority="0x0103">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep_MenuConnection" priority="0x0104">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep_MenuConnection_Group" priority="0x0104">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep_MenuConnection" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeCSharpAddPluginStepInConnectionCommandId" priority="0x0104">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep_MenuConnection_Group" />
+    </CommandPlacement>
+    
+      
 
     <CommandPlacement guid="guidCommandSet" id="CodeCSharpUpdateProxyClassesCommandId" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupProxyClasses" />
@@ -8409,6 +8484,20 @@
     <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginTreeCommandId" priority="0x0113">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginDescription" />
     </CommandPlacement>
+    
+    
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpAddPluginStepCommandId" priority="0x0114">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep_MenuConnection" priority="0x0115">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep_MenuConnection_Group" priority="0x0115">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep_MenuConnection" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileCSharpAddPluginStepInConnectionCommandId" priority="0x0115">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep_MenuConnection_Group" />
+    </CommandPlacement>    
 
 
 
@@ -8949,6 +9038,11 @@
 
       <IDSymbol name="codeMenuCSharp" value="0x1102" />
       <IDSymbol name="codeMenuCSharp_GroupPluginDescription" value="0x10FF" />
+
+      <IDSymbol name="codeMenuCSharp_GroupAddPluginStep" value="0x1274" />
+      <IDSymbol name="codeMenuCSharp_GroupAddPluginStep_MenuConnection" value="0x1275" />
+      <IDSymbol name="codeMenuCSharp_GroupAddPluginStep_MenuConnection_Group" value="0x1276" />
+
       <IDSymbol name="codeMenuCSharp_GroupProxyClasses" value="0x1008" />
       <IDSymbol name="codeMenuCSharp_GroupEntityMetadata" value="0x1009" />
       <IDSymbol name="codeMenuCSharp_GroupGlobalOptionSets" value="0x100A" />
@@ -9179,6 +9273,11 @@
 
       <IDSymbol name="fileMenuCSharp" value="0x102A" />
       <IDSymbol name="fileMenuCSharp_GroupPluginDescription" value="0x1100" />
+
+      <IDSymbol name="fileMenuCSharp_GroupAddPluginStep" value="0x1271" />
+      <IDSymbol name="fileMenuCSharp_GroupAddPluginStep_MenuConnection" value="0x1272" />
+      <IDSymbol name="fileMenuCSharp_GroupAddPluginStep_MenuConnection_Group" value="0x1273" />
+
       <IDSymbol name="fileMenuCSharp_GroupProxyClasses" value="0x102B" />
       <IDSymbol name="fileMenuCSharp_GroupEntityMetadata" value="0x102C" />
       <IDSymbol name="fileMenuCSharp_GroupGlobalOptionSets" value="0x102D" />
@@ -9570,7 +9669,7 @@
 
 
 
-      <!-- 0x1271 -->
+      <!-- 0x1277 -->
 
 
     </GuidSymbol>
@@ -9778,7 +9877,10 @@
       <IDSymbol name="CommonCheckPluginStepsRequiredComponentsCommandId" value="6650" />
       <IDSymbol name="CommonCheckPluginImagesRequiredComponentsCommandId" value="6700" />
 
-      <!-- 6750 -->
+      <IDSymbol name="CodeCSharpAddPluginStepInConnectionCommandId" value="6750" />
+      <IDSymbol name="FileCSharpAddPluginStepInConnectionCommandId" value="6800" />
+
+      <!-- 6850 -->
 
     </GuidSymbol>
 
@@ -10326,6 +10428,8 @@
       <IDSymbol name="DocumentsAddIntoPublishListFilesWithMirrorDeletesCommandId" value="0x20FB" />
       <IDSymbol name="DocumentsAddIntoPublishListFilesWithMirrorComplexCommandId" value="0x20FC" />
 
+      <IDSymbol name="CodeCSharpAddPluginStepCommandId" value="0x218C" />
+      <IDSymbol name="FileCSharpAddPluginStepCommandId" value="0x218D" />
 
 
 
@@ -10340,8 +10444,7 @@
 
 
 
-
-      <!-- 0x218C -->
+      <!-- 0x218E -->
 
     </GuidSymbol>
 

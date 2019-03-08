@@ -898,6 +898,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartAddPluginStep(string pluginTypeName, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._pluginTypeDescriptionController.ExecuteAddingPluginStepForType(connectionData, commonConfig, pluginTypeName);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartExportPluginAssembly(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
