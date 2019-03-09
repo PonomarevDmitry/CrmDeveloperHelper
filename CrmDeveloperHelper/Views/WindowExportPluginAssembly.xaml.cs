@@ -471,7 +471,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (_commonConfig.DefaultFileAction != FileAction.None)
                 {
-                    this._iWriteToOutput.SelectFileInFolder(filePath);
+                    this._iWriteToOutput.SelectFileInFolder(service.ConnectionData, filePath);
                 }
             }
 

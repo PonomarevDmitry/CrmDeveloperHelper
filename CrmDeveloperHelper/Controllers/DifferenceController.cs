@@ -493,13 +493,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (total == 1)
             {
                 _iWriteToOutput.WriteToOutputFilePathUri(null, fileLocalPath);
-                _iWriteToOutput.OpenFile(fileLocalPath);
+                _iWriteToOutput.OpenFile(null, fileLocalPath);
 
                 _iWriteToOutput.WriteToOutputFilePathUri(null, fileLocalPath);
-                _iWriteToOutput.OpenFile(filePath1);
+                _iWriteToOutput.OpenFile(null, filePath1);
 
                 _iWriteToOutput.WriteToOutputFilePathUri(null, fileLocalPath);
-                _iWriteToOutput.OpenFile(filePath2);
+                _iWriteToOutput.OpenFile(null, filePath2);
             }
         }
 

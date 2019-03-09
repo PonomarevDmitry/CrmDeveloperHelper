@@ -4637,7 +4637,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         this.WriteToOutputFilePathUri(null, filePath);
 
-                        SelectFileInFolder(filePath);
+                        SelectFileInFolder(null, filePath);
                     }
                     catch (Exception ex)
                     {
@@ -4743,25 +4743,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 );
 
 
-            this.WriteToOutput(null, string.Empty);
-            this.WriteToOutput(null, "Selected Solution            : {0}", solutionUniqueName);
+            this.WriteToOutput(connectionData, string.Empty);
+            this.WriteToOutput(connectionData, "Selected Solution            : {0}", solutionUniqueName);
 
-            this.WriteToOutput(null, string.Empty);
-            this.WriteToOutput(null, "Open Solution List in Web    : {0}", connectionData.GetOpenCrmWebSiteUrl(OpenCrmWebSiteType.Solutions));
+            this.WriteToOutput(connectionData, string.Empty);
+            this.WriteToOutput(connectionData, "Open Solution List in Web    : {0}", connectionData.GetOpenCrmWebSiteUrl(OpenCrmWebSiteType.Solutions));
 
-            this.WriteToOutput(null, string.Empty);
-            this.WriteToOutput(null, "Open Solution in Web         : {0}", solutionUrl);
+            this.WriteToOutput(connectionData, string.Empty);
+            this.WriteToOutput(connectionData, "Open Solution in Web         : {0}", solutionUrl);
 
-            this.WriteToOutput(null, string.Empty);
-            this.WriteToOutput(null, "Open Solution Explorer       : {0}", urlOpenSolutionList);
+            this.WriteToOutput(connectionData, string.Empty);
+            this.WriteToOutput(connectionData, "Open Solution Explorer       : {0}", urlOpenSolutionList);
 
-            this.WriteToOutput(null, string.Empty);
-            this.WriteToOutput(null, "Open Solution in Windows     : {0}", urlOpenSolution);
+            this.WriteToOutput(connectionData, string.Empty);
+            this.WriteToOutput(connectionData, "Open Solution in Windows     : {0}", urlOpenSolution);
 
-            this.WriteToOutput(null, string.Empty);
+            this.WriteToOutput(connectionData, string.Empty);
         }
 
-        public void SelectFileInFolder(string filePath)
+        public void SelectFileInFolder(ConnectionData connectionData, string filePath)
         {
             if (File.Exists(filePath))
             {
@@ -4790,7 +4790,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    this.WriteErrorToOutput(null, ex);
+                    this.WriteErrorToOutput(connectionData, ex);
 
 #if DEBUG
                     if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
@@ -4858,15 +4858,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (fileAction == FileAction.OpenFileInTextEditor || fileAction == FileAction.OpenFileInVisualStudio)
             {
-                OpenFile(filePath);
+                OpenFile(connectionData, filePath);
             }
             else if (fileAction == FileAction.SelectFileInFolder)
             {
-                SelectFileInFolder(filePath);
+                SelectFileInFolder(connectionData, filePath);
             }
         }
 
-        public void OpenFile(string filePath)
+        public void OpenFile(ConnectionData connectionData, string filePath)
         {
             if (!File.Exists(filePath))
             {
@@ -4879,21 +4879,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (fileAction == FileAction.OpenFileInTextEditor && File.Exists(commonConfig.TextEditorProgram))
             {
-                OpenFileInTextEditor(filePath);
+                OpenFileInTextEditor(connectionData, filePath);
             }
             else
             {
-                OpenFileInVisualStudio(filePath);
+                OpenFileInVisualStudio(connectionData, filePath);
             }
         }
 
-        public void OpenFileInVisualStudio(string filePath)
+        public void OpenFileInVisualStudio(ConnectionData connectionData, string filePath)
         {
             if (File.Exists(filePath))
             {
                 if (ApplicationObject != null)
                 {
-                    this.WriteToOutput(null, "Opening in Visual Studio file {0}", filePath);
+                    this.WriteToOutput(connectionData, "Opening in Visual Studio file {0}", filePath);
 
                     ApplicationObject.ItemOperations.OpenFile(filePath);
                     ApplicationObject.MainWindow.Activate();
@@ -4901,7 +4901,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void OpenFileInVisualStudioRelativePath(string filePath)
+        public void OpenFileInVisualStudioRelativePath(ConnectionData connectionData, string filePath)
         {
             if (ApplicationObject == null || string.IsNullOrEmpty(filePath))
             {
@@ -4924,7 +4924,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (File.Exists(filePath))
             {
-                this.WriteToOutput(null, "Opening in Visual Studio file {0}", filePath);
+                this.WriteToOutput(connectionData, "Opening in Visual Studio file {0}", filePath);
 
                 ApplicationObject.ItemOperations.OpenFile(filePath);
                 ApplicationObject.MainWindow.Activate();
@@ -5093,13 +5093,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void OpenFileInTextEditor(string filePath)
+        public void OpenFileInTextEditor(ConnectionData connectionData, string filePath)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
             if (File.Exists(filePath) && File.Exists(commonConfig.TextEditorProgram))
             {
-                this.WriteToOutput(null, "Opening in Text Editor file {0}", filePath);
+                this.WriteToOutput(connectionData, "Opening in Text Editor file {0}", filePath);
 
                 ProcessStartInfo info = new ProcessStartInfo
                 {
@@ -5124,7 +5124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 catch (Exception ex)
                 {
-                    this.WriteErrorToOutput(null, ex);
+                    this.WriteErrorToOutput(connectionData, ex);
                 }
             }
         }
@@ -5217,9 +5217,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                this.OpenFile(filePath1);
+                this.OpenFile(null, filePath1);
 
-                this.OpenFile(filePath2);
+                this.OpenFile(null, filePath2);
             }
         }
 
@@ -5295,11 +5295,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                this.OpenFile(fileLocalPath);
+                this.OpenFile(null, fileLocalPath);
 
-                this.OpenFile(filePath1);
+                this.OpenFile(null, filePath1);
 
-                this.OpenFile(filePath2);
+                this.OpenFile(null, filePath2);
             }
         }
     }

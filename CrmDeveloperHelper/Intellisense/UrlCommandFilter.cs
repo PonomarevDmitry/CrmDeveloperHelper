@@ -100,8 +100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
         private bool TryOpenUrlAtPoint(int line, int column)
         {
-            ITagSpan<IUrlTag> tagSpan;
-            if (!TryGetUrlSpan(line, column, out tagSpan))
+            if (!TryGetUrlSpan(line, column, out ITagSpan<IUrlTag> tagSpan))
                 return false;
 
             if (!IsUrlSpanValid(tagSpan))
@@ -114,8 +113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         {
             urlSpan = null;
 
-            SnapshotPoint point;
-            if (!TryToSnapshotPoint(_textView.TextSnapshot, line, column, out point))
+            if (!TryToSnapshotPoint(_textView.TextSnapshot, line, column, out SnapshotPoint point))
                 return false;
 
             SnapshotSpan span = new SnapshotSpan(point, 0);
@@ -164,7 +162,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 if (File.Exists(uri.LocalPath))
                 {
-                    DTEHelper.Singleton?.OpenFileInVisualStudio(uri.LocalPath);
+                    DTEHelper.Singleton?.OpenFileInVisualStudio(null, uri.LocalPath);
                 }
 
                 return true;
@@ -172,7 +170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             if (string.Equals(uri.Scheme, PrefixOpenInVisualStudioRelativePath, StringComparison.InvariantCultureIgnoreCase))
             {
-                DTEHelper.Singleton?.OpenFileInVisualStudioRelativePath(uri.LocalPath);
+                DTEHelper.Singleton?.OpenFileInVisualStudioRelativePath(null, uri.LocalPath);
 
                 return true;
             }
@@ -181,7 +179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 if (File.Exists(uri.LocalPath))
                 {
-                    DTEHelper.Singleton?.OpenFileInTextEditor(uri.LocalPath);
+                    DTEHelper.Singleton?.OpenFileInTextEditor(null, uri.LocalPath);
                 }
 
                 return true;
@@ -212,7 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 if (File.Exists(uri.LocalPath))
                 {
-                    DTEHelper.Singleton?.SelectFileInFolder(uri.LocalPath);
+                    DTEHelper.Singleton?.SelectFileInFolder(null, uri.LocalPath);
                 }
 
                 return true;

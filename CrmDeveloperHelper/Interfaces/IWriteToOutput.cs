@@ -23,13 +23,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         void PerformAction(ConnectionData connectionData, string filePath, bool hideFilePathUri = false);
 
-        void OpenFile(string filePath);
+        void OpenFile(ConnectionData connectionData, string filePath);
 
-        void OpenFileInVisualStudio(string filePath);
+        void OpenFileInVisualStudio(ConnectionData connectionData, string filePath);
 
-        void OpenFileInTextEditor(string filePath);
+        void OpenFileInTextEditor(ConnectionData connectionData, string filePath);
 
-        void SelectFileInFolder(string filePath);
+        void SelectFileInFolder(ConnectionData connectionData, string filePath);
 
         void ProcessStartProgramComparer(string file1, string file2, string fileTitle1, string fileTitle2);
 

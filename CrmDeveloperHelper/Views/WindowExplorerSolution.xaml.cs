@@ -1105,7 +1105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         });
                     }
 
-                    this._iWriteToOutput.SelectFileInFolder(filePath);
+                    this._iWriteToOutput.SelectFileInFolder(service.ConnectionData, filePath);
                 }
                 else
                 {

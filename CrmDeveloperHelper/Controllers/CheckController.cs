@@ -847,7 +847,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     foreach (var item in filesWithoutUTF8Encoding)
                     {
                         this._iWriteToOutput.WriteToOutputFilePathUri(null, item.FilePath);
-                        this._iWriteToOutput.OpenFileInVisualStudio(item.FilePath);
+                        this._iWriteToOutput.OpenFileInVisualStudio(null, item.FilePath);
                     }
                 }
             }

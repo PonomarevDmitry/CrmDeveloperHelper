@@ -74,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     foreach (var item in orderEnumrator)
                     {
                         this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, item.FilePath);
-                        this._iWriteToOutput.OpenFileInTextEditor(item.FilePath);
+                        this._iWriteToOutput.OpenFileInTextEditor(connectionData, item.FilePath);
                     }
                 }
                 else
@@ -82,7 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     foreach (var item in orderEnumrator)
                     {
                         this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, item.FilePath);
-                        this._iWriteToOutput.OpenFileInVisualStudio(item.FilePath);
+                        this._iWriteToOutput.OpenFileInVisualStudio(connectionData, item.FilePath);
                     }
                 }
             }
