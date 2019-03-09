@@ -364,6 +364,7 @@
     <Compile Include="Entities\TeamMembership.Generated.cs" />
     <Compile Include="Entities\TeamRoles.Generated.cs" />
     <Compile Include="Entities\TeamTemplate.Generated.cs" />
+    <Compile Include="Entities\WebResource.Additional.cs" />
     <Compile Include="Entities\WebWizard.Generated.cs" />
     <Compile Include="Helpers\BoolToOppositeBoolConverter.cs" />
     <Compile Include="Helpers\CommonHandlers.cs" />

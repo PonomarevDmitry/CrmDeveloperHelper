@@ -79,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             List<string> wrongEntityRelationshipsManyToMany = new List<string>();
 
             var wrongWebResourceNames = new FormatTextTableHandler();
-            wrongWebResourceNames.SetHeader("WebResourceType", "Name");
+            wrongWebResourceNames.SetHeader(WebResource.Schema.Headers.webresourcetype, WebResource.Schema.Headers.name);
 
             {
                 EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
@@ -147,16 +147,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                 }
             }
+            
+            WriteToContentList(wrongEntityNames, content, Properties.OutputStrings.EntityNamesWithPrefixFormat2, prefix);
 
-            WriteToContentList(wrongEntityNames, content, "Entity names with prefix '" + prefix + "': {0}");
+            WriteToContentList(wrongEntityAttributes, content, Properties.OutputStrings.EntityAttributesNamesWithPrefixFormat2, prefix);
 
-            WriteToContentList(wrongEntityAttributes, content, "Entity Attributes names with prefix '" + prefix + "': {0}");
+            WriteToContentList(wrongEntityRelationshipsManyToOne, content, Properties.OutputStrings.ManyToOneRelationshipsNamesWithPrefixFormat2, prefix);
 
-            WriteToContentList(wrongEntityRelationshipsManyToOne, content, "Many to One Relationships names with prefix '" + prefix + "': {0}");
+            WriteToContentList(wrongEntityRelationshipsManyToMany, content, Properties.OutputStrings.ManyToManyRelationshipsNamesWithPrefixFormat2, prefix);
 
-            WriteToContentList(wrongEntityRelationshipsManyToMany, content, "Many to Many Relationships names with prefix '" + prefix + "': {0}");
-
-            WriteToContentList(wrongWebResourceNames.GetFormatedLines(true), content, "WebResounce names with prefix '" + prefix + "': {0}");
+            WriteToContentList(wrongWebResourceNames.GetFormatedLines(true), content, Properties.OutputStrings.WebResourcesWithPrefixFormat2, prefix);
 
             int totalErrors =
                 wrongEntityNames.Count
@@ -169,7 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (totalErrors == 0)
             {
                 content.AppendLine();
-                content.AppendFormat("No Objects in CRM founded with prefix '{0}'.", prefix).AppendLine();
+                content.AppendFormat(Properties.OutputStrings.NoObjectsInCRMFoundedWithPrefixFormat1, prefix).AppendLine();
             }
 
             string filePath = string.Empty;
@@ -513,15 +513,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            WriteToContentDictionary(content, wrongEntityNames, "Entity names with prefix '" + prefix + "': {0}");
+            WriteToContentDictionary(content, wrongEntityNames, Properties.OutputStrings.EntityNamesWithPrefixFormat2, prefix);
 
-            WriteToContentDictionary(content, wrongEntityAttributes, "Entity Attributes names with prefix '" + prefix + "': {0}");
+            WriteToContentDictionary(content, wrongEntityAttributes, Properties.OutputStrings.EntityAttributesNamesWithPrefixFormat2, prefix);
 
-            WriteToContentDictionary(content, wrongEntityRelationshipsManyToOne, "Many to One Relationships names with prefix '" + prefix + "': {0}");
+            WriteToContentDictionary(content, wrongEntityRelationshipsManyToOne, Properties.OutputStrings.ManyToOneRelationshipsNamesWithPrefixFormat2, prefix);
 
-            WriteToContentDictionary(content, wrongEntityRelationshipsManyToMany, "Many to Many Relationships names with prefix '" + prefix + "': {0}");
+            WriteToContentDictionary(content, wrongEntityRelationshipsManyToMany, Properties.OutputStrings.ManyToManyRelationshipsNamesWithPrefixFormat2, prefix);
 
-            WriteToContentDictionary(content, wrongWebResourceNames, "WebResounce names with prefix '" + prefix + "': {0}");
+            WriteToContentDictionary(content, wrongWebResourceNames, Properties.OutputStrings.WebResourcesWithPrefixFormat2, prefix);
 
             int totalErrors = wrongEntityAttributes.Count
                 + wrongEntityNames.Count
@@ -533,7 +533,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (totalErrors == 0)
             {
                 content.AppendLine();
-                content.AppendFormat("No Objects in CRM founded with prefix '{0}'.", prefix).AppendLine();
+                content.AppendFormat(Properties.OutputStrings.NoObjectsInCRMFoundedWithPrefixFormat1, prefix).AppendLine();
             }
 
             if (content.Length > 0)
@@ -2000,13 +2000,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
-        private void WriteToContentDictionary(StringBuilder content, Dictionary<string, string> dict, string formatList)
+        private void WriteToContentDictionary(StringBuilder content, Dictionary<string, string> dict, string formatList, params object[] args)
         {
             if (dict.Count > 0)
             {
                 if (content.Length > 0) { content.AppendLine(); }
 
-                content.AppendFormat(formatList, dict.Count).AppendLine();
+                List<object> temp = new List<object>(args);
+                temp.Add(dict.Count);
+
+                content.AppendFormat(formatList, temp.ToArray()).AppendLine();
 
                 var query = dict.Keys.OrderBy(s => s);
 
@@ -2028,13 +2031,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private static void WriteToContentList(List<string> list, StringBuilder content, string formatList)
+        private static void WriteToContentList(List<string> list, StringBuilder content, string formatList, params object[] args)
         {
             if (list.Count > 0)
             {
                 if (content.Length > 0) { content.AppendLine(); }
 
-                content.AppendFormat(formatList, list.Count).AppendLine();
+                List<object> temp = new List<object>(args);
+                temp.Add(list.Count);
+
+                content.AppendFormat(formatList, temp.ToArray()).AppendLine();
 
                 list.Sort();
 

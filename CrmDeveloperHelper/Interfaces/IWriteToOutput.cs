@@ -5,6 +5,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 {
     public interface IWriteToOutput
     {
+        // \.WriteToOutput\(.*, "
         string WriteToOutput(ConnectionData connectionData, string format, params object[] args);
 
         string WriteToOutputStartOperation(ConnectionData connectionData, string format, params object[] args);

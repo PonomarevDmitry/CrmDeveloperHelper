@@ -178,6 +178,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entity Attributes names with prefix &apos;{0}&apos;: {1}.
+        /// </summary>
+        internal static string EntityAttributesNamesWithPrefixFormat2 {
+            get {
+                return ResourceManager.GetString("EntityAttributesNamesWithPrefixFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. {1} {2} {3} exported to file: {4}.
         /// </summary>
         internal static string EntityFieldExportedToFormat5 {
@@ -192,6 +201,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string EntityFieldIsEmptyFormat4 {
             get {
                 return ResourceManager.GetString("EntityFieldIsEmptyFormat4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity names with prefix &apos;{0}&apos;: {1}.
+        /// </summary>
+        internal static string EntityNamesWithPrefixFormat2 {
+            get {
+                return ResourceManager.GetString("EntityNamesWithPrefixFormat2", resourceCulture);
             }
         }
         
@@ -421,6 +439,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Many to Many Relationships names with prefix &apos;{0}&apos;: {1}.
+        /// </summary>
+        internal static string ManyToManyRelationshipsNamesWithPrefixFormat2 {
+            get {
+                return ResourceManager.GetString("ManyToManyRelationshipsNamesWithPrefixFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Many to One Relationships names with prefix &apos;{0}&apos;: {1}.
+        /// </summary>
+        internal static string ManyToOneRelationshipsNamesWithPrefixFormat2 {
+            get {
+                return ResourceManager.GetString("ManyToOneRelationshipsNamesWithPrefixFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No CRM Connection 1..
         /// </summary>
         internal static string NoCRMConnection1 {
@@ -453,6 +489,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string NoFilesForDifference {
             get {
                 return ResourceManager.GetString("NoFilesForDifference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Objects in CRM founded with prefix &apos;{0}&apos;..
+        /// </summary>
+        internal static string NoObjectsInCRMFoundedWithPrefixFormat1 {
+            get {
+                return ResourceManager.GetString("NoObjectsInCRMFoundedWithPrefixFormat1", resourceCulture);
             }
         }
         
@@ -714,6 +759,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string WebResourceNotFoundedInConnectionFormat2 {
             get {
                 return ResourceManager.GetString("WebResourceNotFoundedInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebResources names with prefix &apos;{0}&apos;: {1}.
+        /// </summary>
+        internal static string WebResourcesWithPrefixFormat2 {
+            get {
+                return ResourceManager.GetString("WebResourcesWithPrefixFormat2", resourceCulture);
             }
         }
         

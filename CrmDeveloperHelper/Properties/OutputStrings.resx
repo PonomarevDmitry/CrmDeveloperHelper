@@ -345,4 +345,22 @@
   <data name="GettingClassFullNameFromFileFormat1" xml:space="preserve">
     <value>Getting class FullName from file: {0}</value>
   </data>
+  <data name="EntityAttributesNamesWithPrefixFormat2" xml:space="preserve">
+    <value>Entity Attributes names with prefix '{0}': {1}</value>
+  </data>
+  <data name="EntityNamesWithPrefixFormat2" xml:space="preserve">
+    <value>Entity names with prefix '{0}': {1}</value>
+  </data>
+  <data name="ManyToManyRelationshipsNamesWithPrefixFormat2" xml:space="preserve">
+    <value>Many to Many Relationships names with prefix '{0}': {1}</value>
+  </data>
+  <data name="ManyToOneRelationshipsNamesWithPrefixFormat2" xml:space="preserve">
+    <value>Many to One Relationships names with prefix '{0}': {1}</value>
+  </data>
+  <data name="NoObjectsInCRMFoundedWithPrefixFormat1" xml:space="preserve">
+    <value>No Objects in CRM founded with prefix '{0}'.</value>
+  </data>
+  <data name="WebResourcesWithPrefixFormat2" xml:space="preserve">
+    <value>WebResources names with prefix '{0}': {1}</value>
+  </data>
 </root>
