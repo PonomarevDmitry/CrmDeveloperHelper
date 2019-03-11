@@ -94,7 +94,7 @@
     <Compile Include="Commands\CodeCSharpAddPluginStepCommand.cs" />
     <Compile Include="Commands\CodeCSharpAddPluginStepInConnectionCommand.cs" />
     <Compile Include="Commands\CodeCSharpPluginTreeCommand.cs" />
-    <Compile Include="Commands\CodeCSharpProjectCompareToCrmAssemblyInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\CodeWebResourceAddIntoSolutionCommand.cs" />
@@ -251,7 +251,7 @@
     <Compile Include="Commands\FileCSharpPluginTreeCommand.cs" />
     <Compile Include="Commands\FileCSharpPluginTypeDescriptionCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectCompareToCrmAssemblyCommand.cs" />
-    <Compile Include="Commands\FileCSharpProjectCompareToCrmAssemblyInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectCompareToCrmAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectPluginAssemblyAddIntoSolutionCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand.cs" />
@@ -296,7 +296,7 @@
     <Compile Include="Commands\ListForPublishPerformPublishGroupConnectionCommand.cs" />
     <Compile Include="Commands\MultiDifferenceCommand.cs" />
     <Compile Include="Commands\OpenFilesCommand.cs" />
-    <Compile Include="Commands\ProjectCompareToCrmAssemblyInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\ProjectCompareToCrmAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\ProjectPluginAssemblyAddIntoSolutionCommand.cs" />
     <Compile Include="Commands\ProjectCompareToCrmAssemblyCommand.cs" />
     <Compile Include="Commands\ProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />

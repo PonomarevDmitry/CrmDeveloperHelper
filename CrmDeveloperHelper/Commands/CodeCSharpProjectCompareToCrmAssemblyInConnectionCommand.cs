@@ -7,15 +7,15 @@ using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CodeCSharpProjectCompareToCrmAssemblyInConnectionGroupCommand : IServiceProviderOwner
+    internal sealed class CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.CodeCSharpProjectCompareToCrmAssemblyInConnectionGroupCommandId;
+        private const int _baseIdStart = PackageIds.CodeCSharpProjectCompareToCrmAssemblyInConnectionCommandId;
 
-        private CodeCSharpProjectCompareToCrmAssemblyInConnectionGroupCommand(Package package)
+        private CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -38,11 +38,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static CodeCSharpProjectCompareToCrmAssemblyInConnectionGroupCommand Instance { get; private set; }
+        public static CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CodeCSharpProjectCompareToCrmAssemblyInConnectionGroupCommand(package);
+            Instance = new CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var connectionConfig = ConnectionConfiguration.Get();
 
-                    var list = connectionConfig.GetConnectionsByGroupWithoutCurrent();
+                    var list = connectionConfig.GetConnectionsWithoutCurrent();
 
                     if (0 <= index && index < list.Count)
                     {
@@ -99,7 +99,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var connectionConfig = Model.ConnectionConfiguration.Get();
 
-                var list = connectionConfig.GetConnectionsByGroupWithoutCurrent();
+                var list = connectionConfig.GetConnectionsWithoutCurrent();
 
                 if (0 <= index && index < list.Count)
                 {

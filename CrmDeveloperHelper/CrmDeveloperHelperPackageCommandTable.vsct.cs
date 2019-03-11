@@ -573,9 +573,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeWebResourceShowDifferenceInConnectionGroupCommandId = 0x0096;
         public const int CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId = 0x0258;
         public const int FileWebResourceShowDifferenceInConnectionGroupCommandId = 0x028A;
-        public const int CodeCSharpProjectCompareToCrmAssemblyInConnectionGroupCommandId = 0x02BC;
-        public const int FileCSharpProjectCompareToCrmAssemblyInConnectionGroupCommandId = 0x02EE;
-        public const int ProjectCompareToCrmAssemblyInConnectionGroupCommandId = 0x0320;
+        public const int CodeCSharpProjectCompareToCrmAssemblyInConnectionCommandId = 0x02BC;
+        public const int FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId = 0x02EE;
+        public const int ProjectCompareToCrmAssemblyInConnectionCommandId = 0x0320;
         public const int CodeWebResourceOpenInWebCommandId = 0x0352;
         public const int CodeWebResourceOpenDependentInWebCommandId = 0x0384;
         public const int CodeWebResourceOpenDependentInWindowCommandId = 0x03B6;

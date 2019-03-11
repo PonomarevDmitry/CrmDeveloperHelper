@@ -123,7 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeCSharpUpdateProxyClassesCommand.Initialize(this);
 
             CodeCSharpProjectCompareToCrmAssemblyCommand.Initialize(this);
-            CodeCSharpProjectCompareToCrmAssemblyInConnectionGroupCommand.Initialize(this);
+            CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand.Initialize(this);
 
             CodeCSharpPluginTypeDescriptionCommand.Initialize(this);
             CodeCSharpPluginAssemblyDescriptionCommand.Initialize(this);
@@ -180,7 +180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileCSharpUpdateProxyClassesCommand.Initialize(this);
             FileCSharpPluginAssemblyDescriptionCommand.Initialize(this);
             FileCSharpProjectCompareToCrmAssemblyCommand.Initialize(this);
-            FileCSharpProjectCompareToCrmAssemblyInConnectionGroupCommand.Initialize(this);
+            FileCSharpProjectCompareToCrmAssemblyInConnectionCommand.Initialize(this);
             FileCSharpPluginTypeDescriptionCommand.Initialize(this);
             FileCSharpPluginTreeCommand.Initialize(this);
 
@@ -254,7 +254,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
 
             ProjectCompareToCrmAssemblyCommand.Initialize(this);
-            ProjectCompareToCrmAssemblyInConnectionGroupCommand.Initialize(this);
+            ProjectCompareToCrmAssemblyInConnectionCommand.Initialize(this);
 
             ProjectPluginAssemblyAddIntoSolutionCommand.Initialize(this);
             ProjectPluginAssemblyAddIntoSolutionLastCommand.Initialize(this);

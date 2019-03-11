@@ -7,15 +7,15 @@ using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class ProjectCompareToCrmAssemblyInConnectionGroupCommand : IServiceProviderOwner
+    internal sealed class FileCSharpProjectCompareToCrmAssemblyInConnectionCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.ProjectCompareToCrmAssemblyInConnectionGroupCommandId;
+        private const int _baseIdStart = PackageIds.FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId;
 
-        private ProjectCompareToCrmAssemblyInConnectionGroupCommand(Package package)
+        private FileCSharpProjectCompareToCrmAssemblyInConnectionCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -38,11 +38,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static ProjectCompareToCrmAssemblyInConnectionGroupCommand Instance { get; private set; }
+        public static FileCSharpProjectCompareToCrmAssemblyInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new ProjectCompareToCrmAssemblyInConnectionGroupCommand(package);
+            Instance = new FileCSharpProjectCompareToCrmAssemblyInConnectionCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var connectionConfig = Model.ConnectionConfiguration.Get();
 
-                    var list = connectionConfig.GetConnectionsByGroupWithoutCurrent();
+                    var list = connectionConfig.GetConnectionsWithoutCurrent();
 
                     if (0 <= index && index < list.Count)
                     {
@@ -67,7 +67,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActiveSolutionExplorerProjectSingle(this, menuCommand);
+                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(this, menuCommand);
+
+                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType);
                     }
                 }
             }
@@ -97,7 +99,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var connectionConfig = Model.ConnectionConfiguration.Get();
 
-                var list = connectionConfig.GetConnectionsByGroupWithoutCurrent();
+                var list = connectionConfig.GetConnectionsWithoutCurrent();
 
                 if (0 <= index && index < list.Count)
                 {
@@ -105,9 +107,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    var project = helper.GetSelectedProject();
+                    EnvDTE.SelectedItem item = helper.GetSingleSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
 
-                    helper.HandleComparingPluginAssemblyAndLocalAssemblyCommand(connectionData, project);
+                    if (item != null)
+                    {
+                        if (item.ProjectItem != null && item.ProjectItem.ContainingProject != null)
+                        {
+                            helper.HandleComparingPluginAssemblyAndLocalAssemblyCommand(connectionData, item.ProjectItem.ContainingProject);
+                        }
+                    }
                 }
             }
             catch (Exception ex)

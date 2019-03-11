@@ -2421,7 +2421,7 @@
           <ButtonText>Compare with Crm PluginAssembly</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeCSharpProjectCompareToCrmAssemblyInConnectionGroupCommandId" priority="0x0100" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeCSharpProjectCompareToCrmAssemblyInConnectionCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
@@ -3236,7 +3236,7 @@
           <ButtonText>Compare with Crm PluginAssembly</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileCSharpProjectCompareToCrmAssemblyInConnectionGroupCommandId" priority="0x0100" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
@@ -4128,7 +4128,7 @@
           <ButtonText>Compare with Crm PluginAssembly</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="ProjectCompareToCrmAssemblyInConnectionGroupCommandId" priority="0x0100" type="Button">
+      <Button guid="guidDynamicCommandSet" id="ProjectCompareToCrmAssemblyInConnectionCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
@@ -7745,7 +7745,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup_GroupConnectionGroup" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeCSharpProjectCompareToCrmAssemblyInConnectionGroupCommandId" priority="0x0101">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeCSharpProjectCompareToCrmAssemblyInConnectionCommandId" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup_GroupConnectionGroup" />
     </CommandPlacement>
 
@@ -8543,7 +8543,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup_GroupConnectionGroup" priority="0x0111">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileCSharpProjectCompareToCrmAssemblyInConnectionGroupCommandId" priority="0x0111">
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId" priority="0x0111">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup_GroupConnectionGroup" />
     </CommandPlacement>
 
@@ -8925,7 +8925,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionGroup_GroupConnectionGroup" priority="0x0121">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="ProjectCompareToCrmAssemblyInConnectionGroupCommandId" priority="0x0121">
+    <CommandPlacement guid="guidDynamicCommandSet" id="ProjectCompareToCrmAssemblyInConnectionCommandId" priority="0x0121">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionGroup_GroupConnectionGroup" />
     </CommandPlacement>
 
@@ -9890,9 +9890,9 @@
       <IDSymbol name="CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId" value="600" />
       <IDSymbol name="FileWebResourceShowDifferenceInConnectionGroupCommandId" value="650" />
 
-      <IDSymbol name="CodeCSharpProjectCompareToCrmAssemblyInConnectionGroupCommandId" value="700" />
-      <IDSymbol name="FileCSharpProjectCompareToCrmAssemblyInConnectionGroupCommandId" value="750" />
-      <IDSymbol name="ProjectCompareToCrmAssemblyInConnectionGroupCommandId" value="800" />
+      <IDSymbol name="CodeCSharpProjectCompareToCrmAssemblyInConnectionCommandId" value="700" />
+      <IDSymbol name="FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId" value="750" />
+      <IDSymbol name="ProjectCompareToCrmAssemblyInConnectionCommandId" value="800" />
 
       <IDSymbol name="CodeWebResourceOpenInWebCommandId" value="850" />
       <IDSymbol name="CodeWebResourceOpenDependentInWebCommandId" value="900" />
