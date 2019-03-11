@@ -251,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection);
+            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, btnNewPluginAssembly);
 
             UpdateButtonsEnable();
         }
@@ -626,6 +626,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyCompletedFormat1, name);
         }
 
+        private async void mIUpdatePluginAssembly_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            var repository = new PluginAssemblyRepository(service);
+
+            var assembly = await repository.GetAssemblyByIdAsync(entity.Id);
+
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowPluginAssembly(_iWriteToOutput, service, assembly, null);
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
             if (sender is ContextMenu contextMenu)
@@ -759,6 +793,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , entity.Name
                 , null
             );
+        }
+
+        private async void btnNewPluginAssembly_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            var assembly = new PluginAssembly();
+
+            var form = new WindowPluginAssembly(_iWriteToOutput, service, assembly, null);
+
+            if (form.ShowDialog().GetValueOrDefault())
+            {
+                ShowExistingPluginAssemblies();
+            }
         }
     }
 }

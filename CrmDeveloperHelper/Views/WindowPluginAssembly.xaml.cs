@@ -251,6 +251,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 updateAssembly.Name = _assemblyLoad.Name;
             }
 
+            _service.ConnectionData.AddAssemblyMapping(_assemblyLoad.Name, _assemblyLoad.FilePath);
+            _service.ConnectionData.Save();
+
             ToggleControls(false, Properties.WindowStatusStrings.UpdatingPluginAssemblyFormat1, _service.ConnectionData.Name);
 
             try

@@ -9,8 +9,13 @@
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
             <Separator/>
+            
             <MenuItem Header="Open Plugin Tree" VerticalAlignment="Center" Click="mIOpenPluginTree_Click" />
             <Separator/>
+
+            <MenuItem Header="Update Plugin Assembly" VerticalAlignment="Center" Click="mIUpdatePluginAssembly_Click" />
+            <Separator/>
+            
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add PluginAssembly into Last Crm Solution" VerticalAlignment="Center"  />
             <MenuItem Header="Add PluginAssembly into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
             <Separator/>
@@ -97,6 +102,8 @@
                             </MenuItem>
                         </MenuItem>
                     </Menu>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Button x:Name="btnNewPluginAssembly" Content="Register Plugin Assembly" Click="btnNewPluginAssembly_Click" />
                 </ToolBarPanel>
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
