@@ -1472,21 +1472,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public void AddAssemblyMapping(string assemblyName, string localAssemblyPath)
         {
-            if (string.IsNullOrEmpty(assemblyName))
+            if (string.IsNullOrEmpty(assemblyName)
+                || string.IsNullOrEmpty(localAssemblyPath)
+            )
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(localAssemblyPath))
             {
-                return;
+                var mappingList = this.AssemblyMappings.Where(
+                    x => string.Equals(x.AssemblyName, assemblyName, StringComparison.InvariantCultureIgnoreCase)
+                        && string.Equals(x.LocalAssemblyPath, localAssemblyPath, StringComparison.InvariantCultureIgnoreCase)
+                ).ToList();
+
+                while (mappingList.Count > 1)
+                {
+                    this.AssemblyMappings.Remove(mappingList[mappingList.Count - 1]);
+                }
             }
 
-            var mapping = this.AssemblyMappings.FirstOrDefault(x => x.AssemblyName.Equals(assemblyName, StringComparison.InvariantCultureIgnoreCase));
+            var mapping = this.AssemblyMappings.FirstOrDefault(
+                x => string.Equals(x.AssemblyName, assemblyName, StringComparison.InvariantCultureIgnoreCase)
+                    && string.Equals(x.LocalAssemblyPath, localAssemblyPath, StringComparison.InvariantCultureIgnoreCase)
+                );
 
             if (mapping != null)
             {
-                mapping.LocalAssemblyPath = localAssemblyPath;
+                this.AssemblyMappings.Remove(mapping);
+                this.AssemblyMappings.Insert(0, mapping);
             }
             else
             {
@@ -1498,26 +1511,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        public bool RemoveAssemblyMapping(string assemblyName)
+        public string GetLastAssemblyPath(string assemblyName)
         {
-            bool result = false;
-
             if (string.IsNullOrEmpty(assemblyName))
             {
-                return result;
+                return null;
             }
 
             var mapping = this.AssemblyMappings.FirstOrDefault(x => x.AssemblyName.Equals(assemblyName, StringComparison.InvariantCultureIgnoreCase));
 
-            if (mapping != null)
-            {
-                this.AssemblyMappings.Remove(mapping);
+            return mapping?.LocalAssemblyPath;
+        }
 
-                result = true;
+        public IEnumerable<string> GetAssemblyPaths(string assemblyName)
+        {
+            if (string.IsNullOrEmpty(assemblyName))
+            {
+                yield break;
             }
 
-            return result;
+            var mapping = this.AssemblyMappings.Where(x => x.AssemblyName.Equals(assemblyName, StringComparison.InvariantCultureIgnoreCase));
+
+            foreach (var item in mapping.OrderBy(a => a.LocalAssemblyPath))
+            {
+                yield return item.LocalAssemblyPath;
+            }
         }
+
+        //public bool RemoveAssemblyMapping(string assemblyName)
+        //{
+        //    bool result = false;
+
+        //    if (string.IsNullOrEmpty(assemblyName))
+        //    {
+        //        return result;
+        //    }
+
+        //    var mapping = this.AssemblyMappings.FirstOrDefault(x => x.AssemblyName.Equals(assemblyName, StringComparison.InvariantCultureIgnoreCase));
+
+        //    if (mapping != null)
+        //    {
+        //        this.AssemblyMappings.Remove(mapping);
+
+        //        result = true;
+        //    }
+
+        //    return result;
+        //}
 
         public HashSet<string> GetEntityAttributes(string entityName)
         {
@@ -1578,18 +1618,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 _knownRequests[requestName] = isRequestExists;
             }
-        }
-
-        public string GetLastAssemblyPath(string assemblyName)
-        {
-            if (string.IsNullOrEmpty(assemblyName))
-            {
-                return null;
-            }
-
-            var mapping = this.AssemblyMappings.FirstOrDefault(x => x.AssemblyName.Equals(assemblyName, StringComparison.InvariantCultureIgnoreCase));
-
-            return mapping?.LocalAssemblyPath;
         }
 
         private bool GetGuidByPath(string friendlyPath, out Guid webResourceId)

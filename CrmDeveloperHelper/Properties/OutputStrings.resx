@@ -363,4 +363,10 @@
   <data name="WebResourcesWithPrefixFormat2" xml:space="preserve">
     <value>WebResources names with prefix '{0}': {1}</value>
   </data>
+  <data name="AssemblyNameIsEmpty" xml:space="preserve">
+    <value>Assembly Name is empty.</value>
+  </data>
+  <data name="PluginAssemblyNotFoundedByNameFormat1" xml:space="preserve">
+    <value>PluginAssembly not founded by name '{0}'.</value>
+  </data>
 </root>

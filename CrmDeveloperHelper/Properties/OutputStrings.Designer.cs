@@ -70,6 +70,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assembly Name is empty..
+        /// </summary>
+        internal static string AssemblyNameIsEmpty {
+            get {
+                return ResourceManager.GetString("AssemblyNameIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connecting to CRM....
         /// </summary>
         internal static string ConnectingToCRM {
@@ -543,6 +552,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ObjectsInCRMWereExportedToFormat1 {
             get {
                 return ResourceManager.GetString("ObjectsInCRMWereExportedToFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PluginAssembly not founded by name &apos;{0}&apos;..
+        /// </summary>
+        internal static string PluginAssemblyNotFoundedByNameFormat1 {
+            get {
+                return ResourceManager.GetString("PluginAssemblyNotFoundedByNameFormat1", resourceCulture);
             }
         }
         

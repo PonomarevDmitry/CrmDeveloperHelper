@@ -1,28 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
-    public class PluginsAndWorkflowLoader
+    public sealed class PluginsAndWorkflowLoader
     {
-        private string _assemblyPath;
         private string _assemblyDirectory;
 
-        public Tuple<HashSet<string>, HashSet<string>> LoadAssembly(string assemblyPath)
+        public PluginsAndWorkflowLoader()
         {
-            this._assemblyPath = assemblyPath;
-            this._assemblyDirectory = Path.GetDirectoryName(assemblyPath);
 
-            HashSet<string> assemblyPlugins = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-            HashSet<string> assemblyWorkflow = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+        }
+
+        public AssemblyReaderResult LoadAssembly(string assemblyPath)
+        {
+            this._assemblyDirectory = Path.GetDirectoryName(assemblyPath);
 
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= Domain_ReflectionOnlyAssemblyResolve;
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= Domain_ReflectionOnlyAssemblyResolve;
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += Domain_ReflectionOnlyAssemblyResolve;
 
             var assembly = Assembly.ReflectionOnlyLoadFrom(assemblyPath);
+
+            var assemblyName = assembly.GetName();
+
+            AssemblyReaderResult result = new AssemblyReaderResult()
+            {
+                FilePath = assemblyPath,
+                FileName = Path.GetFileName(assemblyPath),
+
+                Name = assemblyName.Name,
+                FullName = assemblyName.FullName,
+
+                Version = assemblyName.Version.ToString(),
+            };
+
+            if (assemblyName.CultureInfo.LCID == System.Globalization.CultureInfo.InvariantCulture.LCID)
+            {
+                result.Culture = "neutral";
+            }
+            else
+            {
+                result.Culture = assemblyName.CultureInfo.Name;
+            }
+
+            byte[] tokenBytes = assemblyName.GetPublicKeyToken();
+            if (tokenBytes == null || tokenBytes.Length == 0)
+            {
+                result.PublicKeyToken = null;
+            }
+            else
+            {
+                result.PublicKeyToken = string.Join(string.Empty, tokenBytes.Select(b => b.ToString("X2")));
+            }
+
+            HashSet<string> assemblyPlugins = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+            HashSet<string> assemblyWorkflow = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
             Type[] loadedAssemblyTypes = assembly.GetTypes();
 
@@ -35,30 +71,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         continue;
                     }
 
-                    var interfaces = assemblyType.GetInterfaces();
-
-                    foreach (var item in interfaces)
+                    if (IsPluginClass(assemblyType))
                     {
-                        if (item.FullName.Equals("Microsoft.Xrm.Sdk.IPlugin")
-                            || item.FullName.Equals("Microsoft.Xrm.Sdk.IPluginExecutionContext")
-                            )
-                        {
-                            assemblyPlugins.Add(assemblyType.FullName);
-                            break;
-                        }
+                        assemblyPlugins.Add(assemblyType.FullName);
                     }
-
-                    if (IsSubClassOfCodeActivity(assemblyType))
+                    else if (IsSubClassOfCodeActivity(assemblyType))
                     {
                         assemblyWorkflow.Add(assemblyType.FullName);
                     }
                 }
             }
 
+            result.Plugins = new List<string>(assemblyPlugins.OrderBy(s => s));
+            result.Workflows = new List<string>(assemblyWorkflow.OrderBy(s => s));
+
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= Domain_ReflectionOnlyAssemblyResolve;
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= Domain_ReflectionOnlyAssemblyResolve;
 
-            return Tuple.Create(assemblyPlugins, assemblyWorkflow);
+            return result;
         }
 
         private static readonly string[] _knownCrmAssemblies = { "Microsoft.Xrm.Sdk", "Microsoft.Xrm.Sdk.Workflow", "Microsoft.Crm.Sdk.Proxy", "Microsoft.Xrm.Sdk.Data", "Microsoft.Xrm.Sdk.Deployment" };
@@ -89,16 +119,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return Assembly.ReflectionOnlyLoadFrom(Assembly.Load(args.Name).CodeBase);
         }
 
-        private bool IsSubClassOfCodeActivity(Type item)
+        private static bool IsPluginClass(Type assemblyType)
         {
-            if (item.BaseType != null)
+            var interfaces = assemblyType.GetInterfaces();
+
+            foreach (var item in interfaces)
             {
-                if (item.BaseType.FullName.Equals("System.Activities.CodeActivity"))
+                if (string.Equals(item.FullName, "Microsoft.Xrm.Sdk.IPlugin")
+                    || string.Equals(item.FullName, "Microsoft.Xrm.Sdk.IPluginExecutionContext")
+                )
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool IsSubClassOfCodeActivity(Type assemblyType)
+        {
+            if (assemblyType.BaseType != null)
+            {
+                if (string.Equals(assemblyType.BaseType.FullName, "System.Activities.CodeActivity"))
                 {
                     return true;
                 }
 
-                return IsSubClassOfCodeActivity(item.BaseType);
+                return IsSubClassOfCodeActivity(assemblyType.BaseType);
             }
 
             return false;

@@ -27,6 +27,9 @@
             <MenuItem x:Uid="contMnCreateDescription" Header="Create Description" VerticalAlignment="Center" Click="mICreateDescription_Click"/>
             <Separator x:Uid="contMnCreateDescription" />
 
+            <MenuItem x:Uid="contMnCompareWithLocalAssembly" Header="Compare with Local Assembly" VerticalAlignment="Center" Click="mICompareWithLocalAssembly_Click"/>
+            <Separator x:Uid="contMnCompareWithLocalAssembly" />
+
             <MenuItem x:Uid="contMnAddPluginStep" Header="Add Plugin Step" VerticalAlignment="Center" Click="mIAddPluginStep_Click" />
             <Separator x:Uid="contMnAddPluginStep" />
 
@@ -153,12 +156,14 @@
                         </Menu>
                         <Button x:Name="tSBCreateDescription" HorizontalAlignment="Left" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False"  />
                         <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                        <Button x:Name="tSBRegisterAssembly" HorizontalAlignment="Left" Content="Register New Assembly" Click="tSBRegisterAssembly_Click" />
+                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                         <Button x:Name="tSBCollapseAll" HorizontalAlignment="Left" Content="Collapse All" Click="tSBCollapseAll_Click" IsEnabled="False" />
                         <Button x:Name="tSBExpandAll" HorizontalAlignment="Left" Content="Expand All" Click="tSBExpandAll_Click" IsEnabled="False" />
                     </ToolBarPanel>
 
                 </ToolBar>
-                <TreeView x:Name="trVPluginTree" SelectedItemChanged="trVPluginTree_SelectedItemChanged">
+                <TreeView x:Name="trVPluginTree" SelectedItemChanged="trVPluginTree_SelectedItemChanged" >
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate DataType="{x:Type model:PluginTreeViewItem}" ItemsSource="{Binding Path=Items}">
                             <Grid ToolTip="{Binding Tooltip}">

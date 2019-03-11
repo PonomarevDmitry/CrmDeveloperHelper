@@ -366,6 +366,8 @@
     <Compile Include="Entities\TeamTemplate.Generated.cs" />
     <Compile Include="Entities\WebResource.Additional.cs" />
     <Compile Include="Entities\WebWizard.Generated.cs" />
+    <Compile Include="Helpers\AssemblyReader.cs" />
+    <Compile Include="Helpers\AssemblyReaderResult.cs" />
     <Compile Include="Helpers\BoolToOppositeBoolConverter.cs" />
     <Compile Include="Helpers\CommonHandlers.cs" />
     <Compile Include="Commands\CodeWebResourceCompareWithDetailsCommand.cs" />
@@ -1072,6 +1074,9 @@
     <Compile Include="Views\WindowOrganizationDifferenceImage.xaml.cs">
       <DependentUpon>WindowOrganizationDifferenceImage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowPluginAssembly.xaml.cs">
+      <DependentUpon>WindowPluginAssembly.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowPluginConfiguration.xaml.cs">
       <DependentUpon>WindowPluginConfiguration.xaml</DependentUpon>
     </Compile>
@@ -1661,6 +1666,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowOrganizationDifferenceImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowPluginAssembly.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

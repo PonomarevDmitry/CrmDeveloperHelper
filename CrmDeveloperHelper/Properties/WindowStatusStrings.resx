@@ -1245,4 +1245,19 @@
   <data name="GettingMessagesCompleted" xml:space="preserve">
     <value>Getting messages completed.</value>
   </data>
+  <data name="UpdatingPluginAssemblyCompletedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Assembly completed.</value>
+  </data>
+  <data name="UpdatingPluginAssemblyFailedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Assembly failed.</value>
+  </data>
+  <data name="UpdatingPluginAssemblyFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Assembly...</value>
+  </data>
+  <data name="RegisteringPluginTypeFailedFormat2" xml:space="preserve">
+    <value>{0}. Registering PluginType {1} failed.</value>
+  </data>
+  <data name="RegisteringPluginTypeFormat2" xml:space="preserve">
+    <value>{0}. Registering PluginType {1}...</value>
+  </data>
 </root>

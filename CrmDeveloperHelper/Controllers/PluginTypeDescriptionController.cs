@@ -20,6 +20,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
     {
         private readonly IWriteToOutput _iWriteToOutput = null;
 
+        private const string _tabspacer = "      ";
+
         /// <summary>
         /// Конструктор контроллера
         /// </summary>
@@ -159,7 +161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (string.IsNullOrEmpty(projectName))
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "Project Name is empty.");
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AssemblyNameIsEmpty);
                 return;
             }
 
@@ -178,7 +180,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (assembly == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "PluginAssembly not founded by name {0}.", projectName);
+
+            }
+
+            if (assembly == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, projectName);
 
                 WindowHelper.OpenPluginAssemblyWindow(
                     this._iWriteToOutput
@@ -190,19 +197,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            string filePath = await CreateFileWithAssemblyComparing(commonConfig.FolderForExport, connectionData, service, assembly.Id, assembly.Name, defaultFolder);
+            string filePath = await CreateFileWithAssemblyComparing(commonConfig.FolderForExport, service, assembly.Id, assembly.Name, defaultFolder);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
-        public async Task<string> CreateFileWithAssemblyComparing(string folder, ConnectionData connectionData, IOrganizationServiceExtented service, Guid idPluginAssembly, string assemblyName, string defaultFolder)
+        public async Task<string> CreateFileWithAssemblyComparing(string folder, IOrganizationServiceExtented service, Guid idPluginAssembly, string assemblyName, string defaultFolder)
         {
             var repositoryType = new PluginTypeRepository(service);
 
             var task = repositoryType.GetPluginTypesAsync(idPluginAssembly);
 
-            string assemblyPath = connectionData.GetLastAssemblyPath(assemblyName);
-            bool showDialog = false;
+            string assemblyPath = service.ConnectionData.GetLastAssemblyPath(assemblyName);
+            List<string> lastPaths = service.ConnectionData.GetAssemblyPaths(assemblyName).ToList();
+
+            bool isSuccess = false;
 
             var t = new Thread(() =>
             {
@@ -225,15 +234,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         openFileDialog1.InitialDirectory = defaultFolder;
                     }
 
+                    if (lastPaths.Any())
+                    {
+                        openFileDialog1.CustomPlaces = new List<Microsoft.Win32.FileDialogCustomPlace>(lastPaths.Select(p => new Microsoft.Win32.FileDialogCustomPlace(Path.GetDirectoryName(p))));
+                    }
+
                     if (openFileDialog1.ShowDialog() == true)
                     {
-                        showDialog = true;
+                        isSuccess = true;
                         assemblyPath = openFileDialog1.FileName;
                     }
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
                 }
             });
 
@@ -242,41 +256,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             t.Join();
 
-            if (!showDialog)
+            if (!isSuccess)
             {
                 return string.Empty;
             }
 
             string filePath = string.Empty;
 
-            connectionData.AddAssemblyMapping(assemblyName, assemblyPath);
-            connectionData.Save();
+            service.ConnectionData.AddAssemblyMapping(assemblyName, assemblyPath);
+            service.ConnectionData.Save();
 
-            HashSet<string> assemblyPlugins = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-            HashSet<string> assemblyWorkflow = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+            AssemblyReaderResult assemblyCheck = null;
 
-            AppDomain childDomain = CreateChildDomain();
-
-            try
+            using (var reader = new AssemblyReader())
             {
-                childDomain.SetData(_assemblyKey, assemblyPath);
-                childDomain.DoCallBack(new CrossAppDomainDelegate(CheckAssembly));
-
-                var check = childDomain.GetData(_resultKey);
-
-                if (check is Tuple<HashSet<string>, HashSet<string>> paths)
-                {
-                    assemblyPlugins = paths.Item1;
-                    assemblyWorkflow = paths.Item2;
-                }
+                assemblyCheck = reader.ReadAssembly(assemblyPath);
             }
-            catch (Exception)
+
+            if (assemblyCheck == null)
             {
-                throw;
-            }
-            finally
-            {
-                AppDomain.Unload(childDomain);
+                return string.Empty;
             }
 
             var pluginTypes = await task;
@@ -286,28 +285,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var content = new StringBuilder();
 
-            content.AppendLine(connectionData.GetConnectionInfo()).AppendLine();
+            content.AppendLine(service.ConnectionData.GetConnectionInfo()).AppendLine();
             content.AppendFormat("Description for PluginAssembly '{0}' at {1}", assemblyName, DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)).AppendLine();
 
             content.AppendFormat("Local Assembly '{0}'", assemblyPath).AppendLine();
 
-            var pluginsInCrm = crmPlugins.Except(assemblyPlugins, StringComparer.InvariantCultureIgnoreCase);
-            var workflowInCrm = crmWorkflows.Except(assemblyWorkflow, StringComparer.InvariantCultureIgnoreCase);
+            HashSet<string> assemblyPlugins = new HashSet<string>(assemblyCheck.Plugins, StringComparer.InvariantCultureIgnoreCase);
+            HashSet<string> assemblyWorkflows = new HashSet<string>(assemblyCheck.Workflows, StringComparer.InvariantCultureIgnoreCase);
 
-            var pluginsInLocalAssembly = assemblyPlugins.Except(crmPlugins, StringComparer.InvariantCultureIgnoreCase);
-            var workflowInLocalAssembly = assemblyWorkflow.Except(crmWorkflows, StringComparer.InvariantCultureIgnoreCase);
+            var pluginsOnlyInCrm = crmPlugins.Except(assemblyPlugins, StringComparer.InvariantCultureIgnoreCase);
+            var workflowOnlyInCrm = crmWorkflows.Except(assemblyWorkflows, StringComparer.InvariantCultureIgnoreCase);
 
-            const string tabspacer = "      ";
+            var pluginsOnlyInLocalAssembly = assemblyPlugins.Except(crmPlugins, StringComparer.InvariantCultureIgnoreCase);
+            var workflowOnlyInLocalAssembly = assemblyWorkflows.Except(crmWorkflows, StringComparer.InvariantCultureIgnoreCase);
 
-            FillInformation(content, "Plugins ONLY in Crm Assembly {0}", pluginsInCrm, tabspacer);
-            FillInformation(content, "Workflows ONLY in Crm Assembly {0}", workflowInCrm, tabspacer);
-            FillInformation(content, "Plugins ONLY in Local Assembly {0}", pluginsInLocalAssembly, tabspacer);
-            FillInformation(content, "Workflows ONLY in Local Assembly {0}", workflowInLocalAssembly, tabspacer);
 
-            if (!pluginsInCrm.Any()
-                && !workflowInCrm.Any()
-                && !pluginsInLocalAssembly.Any()
-                && !workflowInLocalAssembly.Any()
+
+            FillInformation(content, "Plugins ONLY in Crm Assembly {0}", pluginsOnlyInCrm);
+            FillInformation(content, "Workflows ONLY in Crm Assembly {0}", workflowOnlyInCrm);
+            FillInformation(content, "Plugins ONLY in Local Assembly {0}", pluginsOnlyInLocalAssembly);
+            FillInformation(content, "Workflows ONLY in Local Assembly {0}", workflowOnlyInLocalAssembly);
+
+            if (!pluginsOnlyInCrm.Any()
+                && !workflowOnlyInCrm.Any()
+                && !pluginsOnlyInLocalAssembly.Any()
+                && !workflowOnlyInLocalAssembly.Any()
                 )
             {
                 content.AppendLine().AppendLine().AppendLine();
@@ -315,61 +317,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendLine("No difference in Assemblies.");
             }
 
-            FillInformation(content, "Plugins in Crm Assembly {0}", crmPlugins, tabspacer);
-            FillInformation(content, "Workflows in Crm Assembly {0}", crmWorkflows, tabspacer);
-            FillInformation(content, "Plugins in Local Assembly {0}", assemblyPlugins, tabspacer);
-            FillInformation(content, "Workflows in Local Assembly {0}", assemblyWorkflow, tabspacer);
+            FillInformation(content, "Plugins in Crm Assembly {0}", crmPlugins);
+            FillInformation(content, "Workflows in Crm Assembly {0}", crmWorkflows);
+            FillInformation(content, "Plugins in Local Assembly {0}", assemblyPlugins);
+            FillInformation(content, "Workflows in Local Assembly {0}", assemblyWorkflows);
 
-            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(connectionData.Name, assemblyName, "Comparing", "txt");
+            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, assemblyName, "Comparing", "txt");
             filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput(connectionData, "Assembly {0} Comparing exported to {1}", assemblyName, filePath);
-            this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, filePath);
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Assembly {0} Comparing exported to {1}", assemblyName, filePath);
+            this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
 
             return filePath;
         }
 
-        private static AppDomain CreateChildDomain()
-        {
-            string path = typeof(PluginsAndWorkflowLoader).Assembly.Location;
-
-            string directory = Path.GetDirectoryName(path);
-
-            var setup = new AppDomainSetup
-            {
-                ApplicationBase = directory,
-                CachePath = directory,
-                LoaderOptimization = LoaderOptimization.MultiDomain,
-            };
-
-            AppDomain childDomain = AppDomain.CreateDomain(Guid.NewGuid().ToString(), AppDomain.CurrentDomain.Evidence.Clone(), setup);
-
-            return childDomain;
-        }
-
-        private const string _assemblyKey = "Assembly";
-        private const string _resultKey = "Result";
-
-        public static void CheckAssembly()
-        {
-            try
-            {
-                var path = (string)AppDomain.CurrentDomain.GetData(_assemblyKey);
-
-                var temp = new PluginsAndWorkflowLoader();
-                var result = temp.LoadAssembly(path);
-
-                AppDomain.CurrentDomain.SetData(_resultKey, result);
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private static void FillInformation(StringBuilder content, string format, IEnumerable<string> collection, string tabspacer)
+        private static void FillInformation(StringBuilder content, string format, IEnumerable<string> collection)
         {
             if (collection.Any())
             {
@@ -380,7 +344,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendFormat(format, collection.Count()).AppendLine();
                 foreach (var item in collection.OrderBy(s => s))
                 {
-                    content.AppendLine(tabspacer + item);
+                    content.AppendLine(_tabspacer + item);
                 }
             }
         }

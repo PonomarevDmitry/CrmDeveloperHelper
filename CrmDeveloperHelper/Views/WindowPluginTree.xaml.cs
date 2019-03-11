@@ -716,7 +716,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 PluginTreeViewItem nodeAssembly = CreateNodeAssembly(assemblyGroup.Key.Name, assemblyGroup.Key.Id);
                 result.Add(nodeAssembly);
 
-                foreach (var pluginType in assemblyGroup.OrderBy(p => p.TypeName))
+                foreach (var pluginType in assemblyGroup.OrderBy(p => p.IsWorkflowActivity.GetValueOrDefault()).ThenBy(p => p.TypeName))
                 {
                     PluginTreeViewItem nodePluginType = CreateNodePluginType(pluginType.TypeName, pluginType.Id, assemblyGroup.Key.Id, pluginType.IsWorkflowActivity.GetValueOrDefault());
                     nodeAssembly.Items.Add(nodePluginType);
@@ -811,7 +811,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private PluginTreeViewItem CreateNodeAssembly(string assemblyName, Guid? idPluginAssembly)
         {
-            var nodeMessage = new PluginTreeViewItem(ComponentType.PluginAssembly)
+            var nodeAssembly = new PluginTreeViewItem(ComponentType.PluginAssembly)
             {
                 Name = assemblyName,
                 Image = _imagePluginAssembly,
@@ -819,7 +819,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 PluginAssembly = idPluginAssembly,
             };
 
-            return nodeMessage;
+            return nodeAssembly;
         }
 
         private PluginTreeViewItem CreateNodePluginType(string pluginTypeName, Guid? idPluginType, Guid? idPluginAssembly, bool isWorkflowActivity)
@@ -831,6 +831,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 PluginType = idPluginType,
                 PluginAssembly = idPluginAssembly,
+
+                IsWorkflowActivity = isWorkflowActivity,
             };
 
             return nodeType;
@@ -1145,7 +1147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, this.tSBCollapseAll, this.tSBExpandAll, this.menuView);
+            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, tSBCollapseAll, tSBExpandAll, tSBRegisterAssembly, menuView);
 
             UpdateButtonsEnable();
         }
@@ -1394,8 +1396,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ChangeExpandedAll(bool isExpanded)
         {
-            trVPluginTree.BeginInit();
-
             if (trVPluginTree.Items != null)
             {
                 foreach (PluginTreeViewItem item in trVPluginTree.Items)
@@ -1403,8 +1403,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     RecursiveExpandedAll(item, isExpanded);
                 }
             }
-
-            trVPluginTree.EndInit();
         }
 
         private void RecursiveExpandedAll(PluginTreeViewItem item, bool isExpanded)
@@ -1825,7 +1823,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ActivateControls(items, nodeItem.PluginAssembly.HasValue && nodeItem.ComponentType != ComponentType.PluginAssembly, "contMnAddPluginAssemblyIntoSolution", "contMnAddPluginAssemblyIntoSolutionLast");
 
-            ActivateControls(items, nodeItem.PluginAssembly.HasValue, "contMnAddPluginAssemblyStepsIntoSolution", "contMnAddPluginAssemblyStepsIntoSolutionLast");
+            ActivateControls(items, nodeItem.PluginAssembly.HasValue, "contMnAddPluginAssemblyStepsIntoSolution", "contMnAddPluginAssemblyStepsIntoSolutionLast", "contMnCompareWithLocalAssembly");
 
             ActivateControls(items, nodeItem.ComponentType == ComponentType.SdkMessage && !string.IsNullOrEmpty(nodeItem.Name), "contMnSdkMessage");
 
@@ -2396,16 +2394,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this.trVPluginTree.Dispatcher.Invoke(() =>
                 {
-                    this.trVPluginTree.BeginInit();
-
                     PluginTreeViewItem nodeStep = new PluginTreeViewItem(ComponentType.SdkMessageProcessingStep);
 
                     FillNodeStepInformation(nodeStep, step);
 
                     nodePluginType.Items.Add(nodeStep);
                     nodeStep.Parent = nodePluginType;
-
-                    this.trVPluginTree.EndInit();
                 });
             }
         }
@@ -2441,16 +2435,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this.trVPluginTree.Dispatcher.Invoke(() =>
                 {
-                    this.trVPluginTree.BeginInit();
-
                     PluginTreeViewItem nodeImage = new PluginTreeViewItem(ComponentType.SdkMessageProcessingStepImage);
 
                     FillNodeImageInformation(nodeImage, image, nodeStep.EntityLogicalName, nodeStep.MessageName, nodeStep.PluginType, nodeStep.PluginAssembly);
 
                     nodeStep.Items.Add(nodeImage);
                     nodeImage.Parent = nodeStep;
-
-                    this.trVPluginTree.EndInit();
                 });
             }
         }
@@ -2482,14 +2472,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this.trVPluginTree.Dispatcher.Invoke(() =>
                     {
-                        this.trVPluginTree.BeginInit();
-
                         FillNodeImageInformation(nodeItem, image, nodeItem.EntityLogicalName, nodeItem.MessageName, nodeItem.PluginType, nodeItem.PluginAssembly);
 
                         this.trVPluginTree.UpdateLayout();
-
-                        this.trVPluginTree.EndInit();
                     });
+                }
+            }
+            else if (nodeItem.ComponentType == ComponentType.PluginAssembly
+                && nodeItem.PluginAssembly.HasValue
+            )
+            {
+                var repository = new PluginAssemblyRepository(service);
+
+                var pluginAssembly = await repository.GetAssemblyByIdAsync(nodeItem.PluginAssembly.Value);
+
+                var form = new WindowPluginAssembly(_iWriteToOutput, service, pluginAssembly, null);
+
+                if (form.ShowDialog().GetValueOrDefault())
+                {
+                    ShowExistingPlugins();
                 }
             }
             else if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStep
@@ -2526,13 +2527,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this.trVPluginTree.Dispatcher.Invoke(() =>
                     {
-                        this.trVPluginTree.BeginInit();
-
                         FillNodeStepInformation(nodeItem, step);
 
                         this.trVPluginTree.UpdateLayout();
-
-                        this.trVPluginTree.EndInit();
                     });
                 }
             }
@@ -2652,7 +2649,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         await service.DeleteAsync(referenceToDelete.LogicalName, referenceToDelete.Id);
 
-                        nodeItem.Parent.Items.Remove(nodeItem);
+                        if (nodeItem.Parent != null)
+                        {
+                            nodeItem.Parent.Items.Remove(nodeItem);
+                            CheckChildNodes(nodeItem.Parent);
+                        }
+                        else if (trVPluginTree.ItemsSource != null
+                            && trVPluginTree.ItemsSource is ObservableCollection<PluginTreeViewItem> list
+                            && list.Contains(nodeItem)
+                        )
+                        {
+                            var index = list.IndexOf(nodeItem) - 1;
+                            list.Remove(nodeItem);
+
+                            if (0 <= index && index < list.Count)
+                            {
+                                list[index].IsSelected = true;
+                            }
+                        }
+
+                        trVPluginTree.UpdateLayout();
                     }
                     catch (Exception ex)
                     {
@@ -2660,6 +2676,73 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                     }
                 }
+            }
+        }
+
+        private void CheckChildNodes(PluginTreeViewItem nodeItem)
+        {
+            if (nodeItem == null
+                || nodeItem.ComponentType == ComponentType.PluginAssembly
+                || nodeItem.ComponentType == ComponentType.PluginType
+                || nodeItem.ComponentType == ComponentType.SdkMessageProcessingStep
+            )
+            {
+                return;
+            }
+
+            if (nodeItem.Items.Count == 0 && nodeItem.Parent != null)
+            {
+                nodeItem.Parent.Items.Remove(nodeItem);
+
+                CheckChildNodes(nodeItem.Parent);
+            }
+        }
+
+        private async void mICompareWithLocalAssembly_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null || !nodeItem.PluginAssembly.HasValue)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(_commonConfig.FolderForExport))
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyFormat1, nodeItem.Name);
+
+            var controller = new PluginTypeDescriptionController(_iWriteToOutput);
+
+            string filePath = await controller.CreateFileWithAssemblyComparing(_commonConfig.FolderForExport, service, nodeItem.PluginAssembly.Value, nodeItem.Name, null);
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyCompletedFormat1, nodeItem.Name);
+        }
+
+        private async void tSBRegisterAssembly_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            var pluginAssembly = new PluginAssembly()
+            {
+            };
+
+            var form = new WindowPluginAssembly(_iWriteToOutput, service, pluginAssembly, null);
+
+            if (form.ShowDialog().GetValueOrDefault())
+            {
+                ShowExistingPlugins();
             }
         }
     }

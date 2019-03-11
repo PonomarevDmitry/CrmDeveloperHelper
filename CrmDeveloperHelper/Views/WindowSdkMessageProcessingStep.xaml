@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowSdkMessageProcessingStep"
-        Title="Plugin Step" Height="537.27" Width="916" WindowStartupLocation="Manual">
+        Title="Plugin Step" Height="554.27" Width="916" WindowStartupLocation="Manual">
     <DockPanel LastChildFill="True">
 
         <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
@@ -141,7 +141,7 @@
                             <Style TargetType="{x:Type RadioButton}">
                                 <Setter Property="GroupName" Value="Stage"/>
                                 <Setter Property="Padding" Value="5"/>
-                                <Setter Property="Margin" Value="5,0"/>
+                                <Setter Property="Margin" Value="5"/>
                                 <Setter Property="HorizontalAlignment" Value="Left"/>
                                 <Setter Property="VerticalAlignment" Value="Stretch"/>
                                 <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -153,13 +153,13 @@
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox HorizontalAlignment="Left" Margin="10,315,0,0" VerticalAlignment="Top" Header="Mode">
+                <GroupBox HorizontalAlignment="Left" Margin="10,325,0,0" VerticalAlignment="Top" Header="Mode">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
                         <StackPanel.Resources>
                             <Style TargetType="{x:Type RadioButton}">
                                 <Setter Property="GroupName" Value="Mode"/>
                                 <Setter Property="Padding" Value="5"/>
-                                <Setter Property="Margin" Value="5,0"/>
+                                <Setter Property="Margin" Value="5"/>
                                 <Setter Property="HorizontalAlignment" Value="Left"/>
                                 <Setter Property="VerticalAlignment" Value="Stretch"/>
                                 <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -170,13 +170,13 @@
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox HorizontalAlignment="Left" Margin="10,358,0,0" VerticalAlignment="Top" Header="Deployment">
+                <GroupBox HorizontalAlignment="Left" Margin="10,378,0,0" VerticalAlignment="Top" Header="Deployment">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
                         <StackPanel.Resources>
                             <Style TargetType="{x:Type RadioButton}">
                                 <Setter Property="GroupName" Value="Deployment"/>
                                 <Setter Property="Padding" Value="5"/>
-                                <Setter Property="Margin" Value="5,0"/>
+                                <Setter Property="Margin" Value="5"/>
                                 <Setter Property="HorizontalAlignment" Value="Left"/>
                                 <Setter Property="VerticalAlignment" Value="Stretch"/>
                                 <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -188,13 +188,13 @@
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox HorizontalAlignment="Left" Margin="207,358,0,0" VerticalAlignment="Top" Header="Triggering Pipeline">
+                <GroupBox HorizontalAlignment="Left" Margin="207,378,0,0" VerticalAlignment="Top" Header="Triggering Pipeline">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
                         <StackPanel.Resources>
                             <Style TargetType="{x:Type RadioButton}">
                                 <Setter Property="GroupName" Value="TriggeringPipeline"/>
                                 <Setter Property="Padding" Value="5"/>
-                                <Setter Property="Margin" Value="5,0"/>
+                                <Setter Property="Margin" Value="5"/>
                                 <Setter Property="HorizontalAlignment" Value="Left"/>
                                 <Setter Property="VerticalAlignment" Value="Stretch"/>
                                 <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -205,7 +205,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <CheckBox x:Name="chBDeleteAsyncOperationIfSuccessful" Content="Delete AsyncOperation if StatusCode = Successful" HorizontalAlignment="Left" Margin="10,411,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBDeleteAsyncOperationIfSuccessful" Content="Delete AsyncOperation if StatusCode = Successful" HorizontalAlignment="Left" Margin="10,440,0,0" VerticalAlignment="Top"/>
 
             </Grid>
 

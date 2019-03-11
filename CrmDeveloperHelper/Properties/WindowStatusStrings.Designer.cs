@@ -2626,6 +2626,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Registering PluginType {1} failed..
+        /// </summary>
+        internal static string RegisteringPluginTypeFailedFormat2 {
+            get {
+                return ResourceManager.GetString("RegisteringPluginTypeFailedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Registering PluginType {1}....
+        /// </summary>
+        internal static string RegisteringPluginTypeFormat2 {
+            get {
+                return ResourceManager.GetString("RegisteringPluginTypeFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. Removing roles {1} from team {2} completed..
         /// </summary>
         internal static string RemovingRolesFromTeamsCompletedFormat3 {
@@ -3252,6 +3270,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string UpdatingFieldFormat2 {
             get {
                 return ResourceManager.GetString("UpdatingFieldFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Updating Plugin Assembly completed..
+        /// </summary>
+        internal static string UpdatingPluginAssemblyCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingPluginAssemblyCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Updating Plugin Assembly failed..
+        /// </summary>
+        internal static string UpdatingPluginAssemblyFailedFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingPluginAssemblyFailedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Updating Plugin Assembly....
+        /// </summary>
+        internal static string UpdatingPluginAssemblyFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingPluginAssemblyFormat1", resourceCulture);
             }
         }
         

@@ -54,6 +54,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private bool _IsChecked;
+        public bool IsChecked
+        {
+            get
+            {
+                return _IsChecked;
+            }
+            set
+            {
+                if (_IsChecked == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(IsChecked));
+                this._IsChecked = value;
+                this.OnPropertyChanged(nameof(IsChecked));
+            }
+        }
+
         private bool _IsExpanded;
         public bool IsExpanded
         {
@@ -111,6 +131,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.OnPropertyChanging(nameof(IsActive));
                 this._IsActive = value;
                 this.OnPropertyChanged(nameof(IsActive));
+            }
+        }
+
+        private bool _IsWorkflowActivity;
+        public bool IsWorkflowActivity
+        {
+            get
+            {
+                return _IsWorkflowActivity;
+            }
+            set
+            {
+                if (_IsWorkflowActivity == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(IsWorkflowActivity));
+                this._IsWorkflowActivity = value;
+                this.OnPropertyChanged(nameof(IsWorkflowActivity));
             }
         }
 
