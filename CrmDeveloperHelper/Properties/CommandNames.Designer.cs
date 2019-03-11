@@ -106,20 +106,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update EntityMetadata File.
+        ///   Looks up a localized string similar to Update EntityMetadata File with Select Entity.
         /// </summary>
-        internal static string CodeCSharpUpdateEntityMetadataFileCommand {
+        internal static string CodeCSharpUpdateEntityMetadataFileWithSelectCommand {
             get {
-                return ResourceManager.GetString("CodeCSharpUpdateEntityMetadataFileCommand", resourceCulture);
+                return ResourceManager.GetString("CodeCSharpUpdateEntityMetadataFileWithSelectCommand", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update Global OptionSets File.
+        ///   Looks up a localized string similar to Update Global OptionSets File with Select.
         /// </summary>
-        internal static string CodeCSharpUpdateGlobalOptionSetsFileCommand {
+        internal static string CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand {
             get {
-                return ResourceManager.GetString("CodeCSharpUpdateGlobalOptionSetsFileCommand", resourceCulture);
+                return ResourceManager.GetString("CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand", resourceCulture);
             }
         }
         
@@ -529,24 +529,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update EntityMetadata File.
-        /// </summary>
-        internal static string DocumentsCSharpUpdateEntityMetadataFileCommand {
-            get {
-                return ResourceManager.GetString("DocumentsCSharpUpdateEntityMetadataFileCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update Global OptionSets File.
-        /// </summary>
-        internal static string DocumentsCSharpUpdateGlobalOptionSetsFileCommand {
-            get {
-                return ResourceManager.GetString("DocumentsCSharpUpdateGlobalOptionSetsFileCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add Opened Reports into Crm Solution.
         /// </summary>
         internal static string DocumentsReportAddIntoSolutionCommand {
@@ -646,20 +628,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update EntityMetadata File.
+        ///   Looks up a localized string similar to Update EntityMetadata File with Select Entity.
         /// </summary>
-        internal static string FileCSharpUpdateEntityMetadataFileCommand {
+        internal static string FileCSharpUpdateEntityMetadataFileWithSelectCommand {
             get {
-                return ResourceManager.GetString("FileCSharpUpdateEntityMetadataFileCommand", resourceCulture);
+                return ResourceManager.GetString("FileCSharpUpdateEntityMetadataFileWithSelectCommand", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update Global OptionSets File.
+        ///   Looks up a localized string similar to Update Global OptionSets File with Select.
         /// </summary>
-        internal static string FileCSharpUpdateGlobalOptionSetsFileCommand {
+        internal static string FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand {
             get {
-                return ResourceManager.GetString("FileCSharpUpdateGlobalOptionSetsFileCommand", resourceCulture);
+                return ResourceManager.GetString("FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand", resourceCulture);
             }
         }
         
@@ -777,24 +759,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FolderAddSolutionFileCommand {
             get {
                 return ResourceManager.GetString("FolderAddSolutionFileCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update EntityMetadata File (Recursive).
-        /// </summary>
-        internal static string FolderCSharpUpdateEntityMetadataFileCommand {
-            get {
-                return ResourceManager.GetString("FolderCSharpUpdateEntityMetadataFileCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update Global OptionSets Files (Recursive).
-        /// </summary>
-        internal static string FolderCSharpUpdateGlobalOptionSetsFileCommand {
-            get {
-                return ResourceManager.GetString("FolderCSharpUpdateGlobalOptionSetsFileCommand", resourceCulture);
             }
         }
         

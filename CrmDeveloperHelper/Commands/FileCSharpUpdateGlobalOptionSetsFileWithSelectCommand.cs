@@ -1,5 +1,6 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     internal sealed class FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand : AbstractCommand
     {
         private FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileCSharpUpdateGlobalOptionSetsFileWithSelectCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle) { }
+            : base(package, PackageGuids.guidCommandSet, PackageIds.FileCSharpUpdateGlobalOptionSetsFileWithSelectCommandId, ActionExecute, ActionBeforeQueryStatus) { }
 
         public static FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand Instance { get; private set; }
 
@@ -21,7 +22,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsCSharpType, false);
 
-            helper.HandleUpdateGlobalOptionSetsFile(selectedFiles, true);
+            helper.HandleUpdateGlobalOptionSetsFile(null, selectedFiles, true);
+        }
+
+        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(command, menuCommand);
+
+            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand);
         }
     }
 }

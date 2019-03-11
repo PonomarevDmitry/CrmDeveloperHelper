@@ -132,11 +132,11 @@
   <data name="CodeCSharpProjectPluginTypeStepsAddIntoSolutionCommand" xml:space="preserve">
     <value>Add Steps for PluginType into Crm Solution</value>
   </data>
-  <data name="CodeCSharpUpdateEntityMetadataFileCommand" xml:space="preserve">
-    <value>Update EntityMetadata File</value>
+  <data name="CodeCSharpUpdateEntityMetadataFileWithSelectCommand" xml:space="preserve">
+    <value>Update EntityMetadata File with Select Entity</value>
   </data>
-  <data name="CodeCSharpUpdateGlobalOptionSetsFileCommand" xml:space="preserve">
-    <value>Update Global OptionSets File</value>
+  <data name="CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand" xml:space="preserve">
+    <value>Update Global OptionSets File with Select</value>
   </data>
   <data name="CodeCSharpUpdateProxyClassesCommand" xml:space="preserve">
     <value>Update Proxy Classes</value>
@@ -273,12 +273,6 @@
   <data name="DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionCommand" xml:space="preserve">
     <value>Add Steps for PluginType into Crm Solution</value>
   </data>
-  <data name="DocumentsCSharpUpdateEntityMetadataFileCommand" xml:space="preserve">
-    <value>Update EntityMetadata File</value>
-  </data>
-  <data name="DocumentsCSharpUpdateGlobalOptionSetsFileCommand" xml:space="preserve">
-    <value>Update Global OptionSets File</value>
-  </data>
   <data name="DocumentsReportAddIntoSolutionCommand" xml:space="preserve">
     <value>Add Opened Reports into Crm Solution</value>
   </data>
@@ -312,11 +306,11 @@
   <data name="FileCSharpProjectPluginTypeStepsAddIntoSolutionCommand" xml:space="preserve">
     <value>Add Steps for PluginType into Crm Solution</value>
   </data>
-  <data name="FileCSharpUpdateEntityMetadataFileCommand" xml:space="preserve">
-    <value>Update EntityMetadata File</value>
+  <data name="FileCSharpUpdateEntityMetadataFileWithSelectCommand" xml:space="preserve">
+    <value>Update EntityMetadata File with Select Entity</value>
   </data>
-  <data name="FileCSharpUpdateGlobalOptionSetsFileCommand" xml:space="preserve">
-    <value>Update Global OptionSets File</value>
+  <data name="FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand" xml:space="preserve">
+    <value>Update Global OptionSets File with Select</value>
   </data>
   <data name="FileCSharpUpdateProxyClassesCommand" xml:space="preserve">
     <value>Update Proxy Classes</value>
@@ -356,12 +350,6 @@
   </data>
   <data name="FolderAddSolutionFileCommand" xml:space="preserve">
     <value>Crm Solution BackUp</value>
-  </data>
-  <data name="FolderCSharpUpdateEntityMetadataFileCommand" xml:space="preserve">
-    <value>Update EntityMetadata File (Recursive)</value>
-  </data>
-  <data name="FolderCSharpUpdateGlobalOptionSetsFileCommand" xml:space="preserve">
-    <value>Update Global OptionSets Files (Recursive)</value>
   </data>
   <data name="FolderWebResourceAddIntoSolutionCommand" xml:space="preserve">
     <value>Add WebResources in Crm Solution (Recursive)</value>

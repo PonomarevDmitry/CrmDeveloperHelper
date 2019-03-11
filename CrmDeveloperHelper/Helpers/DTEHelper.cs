@@ -1533,7 +1533,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleUpdateGlobalOptionSetsFile(List<SelectedFile> selectedFiles, bool withSelect)
+        public void HandleUpdateGlobalOptionSetsFile(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withSelect)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -1542,7 +1542,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+            if (connectionData == null)
+            {
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (crmConfig != null && connectionData != null && selectedFiles.Count > 0)
             {
@@ -1560,7 +1563,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleUpdateEntityMetadataFile(List<SelectedFile> selectedFiles, bool selectEntity)
+        public void HandleUpdateEntityMetadataFile(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool selectEntity)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -1569,7 +1572,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+            if (connectionData == null)
+            {
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (crmConfig != null && connectionData != null && selectedFiles.Count > 0)
             {

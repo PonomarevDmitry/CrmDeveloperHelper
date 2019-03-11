@@ -117,7 +117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeReportAddIntoSolutionLastCommand.Initialize(this);
 
             CodeCSharpUpdateEntityMetadataFileCommand.Initialize(this);
-            CodeCSharpUpdateEntityMetadataFileWithEntitySelectCommand.Initialize(this);
+            CodeCSharpUpdateEntityMetadataFileWithSelectCommand.Initialize(this);
             CodeCSharpUpdateGlobalOptionSetsFileCommand.Initialize(this);
             CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand.Initialize(this);
             CodeCSharpUpdateProxyClassesCommand.Initialize(this);
@@ -174,7 +174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileReportAddIntoSolutionLastCommand.Initialize(this);
 
             FileCSharpUpdateEntityMetadataFileCommand.Initialize(this);
-            FileCSharpUpdateEntityMetadataFileWithEntitySelectCommand.Initialize(this);
+            FileCSharpUpdateEntityMetadataFileWithSelectCommand.Initialize(this);
             FileCSharpUpdateGlobalOptionSetsFileCommand.Initialize(this);
             FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand.Initialize(this);
             FileCSharpUpdateProxyClassesCommand.Initialize(this);

@@ -128,7 +128,7 @@
     <Compile Include="Commands\CodeReportDownloadCommand.cs" />
     <Compile Include="Commands\CodeWebResourceShowDependentComponentsCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileCommand.cs" />
-    <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileWithEntitySelectCommand.cs" />
+    <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileWithSelectCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateProxyClassesCommand.cs" />
@@ -396,7 +396,7 @@
     <Compile Include="Commands\FileWebResourceUpdateContentPublishCommand.cs" />
     <Compile Include="Commands\FileWebResourceUpdateContentPublishEqualByTextCommand.cs" />
     <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileCommand.cs" />
-    <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileWithEntitySelectCommand.cs" />
+    <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileWithSelectCommand.cs" />
     <Compile Include="Commands\FileCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand.cs" />
     <Compile Include="Commands\FileCSharpUpdateProxyClassesCommand.cs" />
