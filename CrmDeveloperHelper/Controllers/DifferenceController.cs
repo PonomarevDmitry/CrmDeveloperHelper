@@ -35,7 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
 
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, new List<SelectedFile>() { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
+                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, new List<SelectedFile>() { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
 
                     this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                     this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
@@ -254,7 +254,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(null, Properties.OperationNames.CheckingFilesEncoding);
 
-                CheckController.CheckingFilesEncoding(this._iWriteToOutput, new List<SelectedFile>() { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
+                CheckController.CheckingFilesEncoding(this._iWriteToOutput, null, new List<SelectedFile>() { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
 
                 this._iWriteToOutput.WriteToOutput(null, string.Empty);
                 this._iWriteToOutput.WriteToOutput(null, string.Empty);
@@ -517,7 +517,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
 
-                CheckController.CheckingFilesEncoding(this._iWriteToOutput, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
+                CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);

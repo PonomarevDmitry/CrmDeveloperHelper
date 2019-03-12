@@ -1260,4 +1260,19 @@
   <data name="RegisteringPluginTypeFormat2" xml:space="preserve">
     <value>{0}. Registering PluginType {1}...</value>
   </data>
+  <data name="RegisteringNewPluginTypesCompletedFormat2" xml:space="preserve">
+    <value>{0}. Registering {1} New PluginTypes completed.</value>
+  </data>
+  <data name="RegisteringNewPluginTypesFormat2" xml:space="preserve">
+    <value>{0}. Registering {1} New PluginTypes...</value>
+  </data>
+  <data name="LoadingAssemblyFromPathCompletedFormat1" xml:space="preserve">
+    <value>Loading Assembly completed from path {0}</value>
+  </data>
+  <data name="LoadingAssemblyFromPathFailedFormat1" xml:space="preserve">
+    <value>Loading Assembly failed from path {0}</value>
+  </data>
+  <data name="LoadingAssemblyFromPathFormat1" xml:space="preserve">
+    <value>Loading Assembly from path {0}</value>
+  </data>
 </root>

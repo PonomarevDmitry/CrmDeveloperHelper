@@ -147,7 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                 }
             }
-            
+
             WriteToContentList(wrongEntityNames, content, Properties.OutputStrings.EntityNamesWithPrefixFormat2, prefix);
 
             WriteToContentList(wrongEntityAttributes, content, Properties.OutputStrings.EntityAttributesNamesWithPrefixFormat2, prefix);
@@ -673,7 +673,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                CheckingFilesEncoding(this._iWriteToOutput, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
+                CheckingFilesEncoding(this._iWriteToOutput, null, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
             }
             catch (Exception ex)
             {
@@ -685,7 +685,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public static void CheckingFilesEncoding(IWriteToOutput iWriteToOutput, IEnumerable<SelectedFile> selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding)
+        public static void CheckingFilesEncoding(IWriteToOutput iWriteToOutput, ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding)
         {
             filesWithoutUTF8Encoding = new List<SelectedFile>();
 
@@ -771,65 +771,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (listNotHaveBOM.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(null, string.Empty);
-                iWriteToOutput.WriteToOutput(null, "File does not have encoding: {0}", listNotHaveBOM.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "File does not have encoding: {0}", listNotHaveBOM.Count);
 
                 listNotHaveBOM.Sort();
 
-                listNotHaveBOM.ForEach(item => iWriteToOutput.WriteToOutput(null, item));
+                listNotHaveBOM.ForEach(item => iWriteToOutput.WriteToOutput(connectionData, item));
             }
 
             if (listWrongEncoding.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(null, string.Empty);
-                iWriteToOutput.WriteToOutput(null, "File has wrong Encoding: {0}", listWrongEncoding.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "File has wrong Encoding: {0}", listWrongEncoding.Count);
 
                 listWrongEncoding.Sort();
 
-                listWrongEncoding.ForEach(item => iWriteToOutput.WriteToOutput(null, item));
+                listWrongEncoding.ForEach(item => iWriteToOutput.WriteToOutput(connectionData, item));
             }
 
             if (listMultipleEncodingHasUTF8.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(null, string.Empty);
-                iWriteToOutput.WriteToOutput(null, "File complies multiple Encoding with UTF8 in list: {0}", listMultipleEncodingHasUTF8.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "File complies multiple Encoding with UTF8 in list: {0}", listMultipleEncodingHasUTF8.Count);
 
                 listMultipleEncodingHasUTF8.Sort();
 
-                listMultipleEncodingHasUTF8.ForEach(item => iWriteToOutput.WriteToOutput(null, item));
+                listMultipleEncodingHasUTF8.ForEach(item => iWriteToOutput.WriteToOutput(connectionData, item));
             }
 
             if (listMultipleEncodingHasNotUTF8.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(null, string.Empty);
-                iWriteToOutput.WriteToOutput(null, "File complies multiple Encoding WITHOUT UTF8 in list: {0}", listMultipleEncodingHasNotUTF8.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "File complies multiple Encoding WITHOUT UTF8 in list: {0}", listMultipleEncodingHasNotUTF8.Count);
 
                 listMultipleEncodingHasNotUTF8.Sort();
 
-                listMultipleEncodingHasNotUTF8.ForEach(item => iWriteToOutput.WriteToOutput(null, item));
+                listMultipleEncodingHasNotUTF8.ForEach(item => iWriteToOutput.WriteToOutput(connectionData, item));
             }
 
             if (listNotExistsOnDisk.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(null, string.Empty);
-                iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FileNotExistsFormat1, listNotExistsOnDisk.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, listNotExistsOnDisk.Count);
 
                 listNotExistsOnDisk.Sort();
 
-                listNotExistsOnDisk.ForEach(item => iWriteToOutput.WriteToOutput(null, item));
+                listNotExistsOnDisk.ForEach(item => iWriteToOutput.WriteToOutput(connectionData, item));
             }
 
             if (countWithUTF8Encoding > 0)
             {
                 if (countWithUTF8Encoding == selectedFiles.Count())
                 {
-                    iWriteToOutput.WriteToOutput(null, string.Empty);
-                    iWriteToOutput.WriteToOutput(null, "All Files has UTF8 Encoding: {0}", countWithUTF8Encoding);
+                    iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    iWriteToOutput.WriteToOutput(connectionData, "All Files has UTF8 Encoding: {0}", countWithUTF8Encoding);
                 }
                 else
                 {
-                    iWriteToOutput.WriteToOutput(null, string.Empty);
-                    iWriteToOutput.WriteToOutput(null, "Files has UTF8 Encoding: {0}", countWithUTF8Encoding);
+                    iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    iWriteToOutput.WriteToOutput(connectionData, "Files has UTF8 Encoding: {0}", countWithUTF8Encoding);
                 }
             }
         }
@@ -840,7 +840,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                CheckingFilesEncoding(this._iWriteToOutput, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
+                CheckingFilesEncoding(this._iWriteToOutput, null, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
                 if (filesWithoutUTF8Encoding.Count > 0)
                 {
@@ -874,7 +874,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
 
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
+                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
                     this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                     this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
@@ -2006,8 +2006,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (content.Length > 0) { content.AppendLine(); }
 
-                List<object> temp = new List<object>(args);
-                temp.Add(dict.Count);
+                List<object> temp = new List<object>(args)
+                {
+                    dict.Count
+                };
 
                 content.AppendFormat(formatList, temp.ToArray()).AppendLine();
 
@@ -2037,8 +2039,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (content.Length > 0) { content.AppendLine(); }
 
-                List<object> temp = new List<object>(args);
-                temp.Add(list.Count);
+                List<object> temp = new List<object>(args)
+                {
+                    list.Count
+                };
 
                 content.AppendFormat(formatList, temp.ToArray()).AppendLine();
 

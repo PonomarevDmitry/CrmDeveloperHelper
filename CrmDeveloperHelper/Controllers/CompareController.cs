@@ -37,7 +37,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
                     
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutputAndPublishList, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
+                    CheckController.CheckingFilesEncoding(this._iWriteToOutputAndPublishList, connectionData, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
                     this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, string.Empty);
                     this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, string.Empty);
@@ -697,7 +697,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
 
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutputAndPublishList, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
+                    CheckController.CheckingFilesEncoding(this._iWriteToOutputAndPublishList, connectionData, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
                     this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, string.Empty);
                     this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, string.Empty);
@@ -748,7 +748,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                CheckController.CheckingFilesEncoding(this._iWriteToOutputAndPublishList, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
+                CheckController.CheckingFilesEncoding(this._iWriteToOutputAndPublishList, connectionData, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
                 this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, string.Empty);
 

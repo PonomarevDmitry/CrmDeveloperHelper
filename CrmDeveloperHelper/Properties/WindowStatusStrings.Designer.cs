@@ -1618,6 +1618,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading Assembly completed from path {0}.
+        /// </summary>
+        internal static string LoadingAssemblyFromPathCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingAssemblyFromPathCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Assembly failed from path {0}.
+        /// </summary>
+        internal static string LoadingAssemblyFromPathFailedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingAssemblyFromPathFailedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Assembly from path {0}.
+        /// </summary>
+        internal static string LoadingAssemblyFromPathFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingAssemblyFromPathFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading attributes....
         /// </summary>
         internal static string LoadingAttributes {
@@ -2604,6 +2631,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string PublishingWebResourceFormat2 {
             get {
                 return ResourceManager.GetString("PublishingWebResourceFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Registering {1} New PluginTypes completed..
+        /// </summary>
+        internal static string RegisteringNewPluginTypesCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("RegisteringNewPluginTypesCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Registering {1} New PluginTypes....
+        /// </summary>
+        internal static string RegisteringNewPluginTypesFormat2 {
+            get {
+                return ResourceManager.GetString("RegisteringNewPluginTypesFormat2", resourceCulture);
             }
         }
         

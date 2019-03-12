@@ -152,6 +152,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 rBDatabase.IsChecked = true;
             }
 
+            if (!string.IsNullOrEmpty(_defaultAssemblyPath))
+            {
+                cmBAssemblyToLoad.Items.Add(_defaultAssemblyPath);
+            }
+
             if (!string.IsNullOrEmpty(this.PluginAssembly.Name))
             {
                 List<string> lastPaths = _service.ConnectionData.GetAssemblyPaths(this.PluginAssembly.Name).ToList();
@@ -251,6 +256,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 updateAssembly.Name = _assemblyLoad.Name;
             }
 
+            var listToRegister = _listLocalAssembly.Where(p => p.IsChecked).ToList();
+
             _service.ConnectionData.AddAssemblyMapping(_assemblyLoad.Name, _assemblyLoad.FilePath);
             _service.ConnectionData.Save();
 
@@ -260,35 +267,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this.PluginAssembly.Id = await _service.UpsertAsync(updateAssembly);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingPluginAssemblyCompletedFormat1, _service.ConnectionData.Name);
-
-                var assemblyRef = this.PluginAssembly.ToEntityReference();
-
-                foreach (var pluginType in _listLocalAssembly.Where(p => p.IsChecked))
+                if (listToRegister.Any())
                 {
-                    var pluginTypeEntity = new PluginType()
+                    var assemblyRef = this.PluginAssembly.ToEntityReference();
+
+                    ToggleControls(false, Properties.WindowStatusStrings.RegisteringNewPluginTypesFormat2, _service.ConnectionData.Name, listToRegister.Count);
+
+                    foreach (var pluginType in listToRegister)
                     {
-                        Name = pluginType.Name,
-                        TypeName = pluginType.Name,
-                        FriendlyName = pluginType.Name,
+                        var pluginTypeEntity = new PluginType()
+                        {
+                            Name = pluginType.Name,
+                            TypeName = pluginType.Name,
+                            FriendlyName = pluginType.Name,
 
-                        PluginAssemblyId = assemblyRef,
-                    };
+                            PluginAssemblyId = assemblyRef,
+                        };
 
-                    ToggleControls(true, Properties.WindowStatusStrings.RegisteringPluginTypeFormat2, _service.ConnectionData.Name, pluginType);
+                        ToggleControls(true, Properties.WindowStatusStrings.RegisteringPluginTypeFormat2, _service.ConnectionData.Name, pluginType);
 
-                    try
-                    {
-                        pluginTypeEntity.Id = await _service.CreateAsync(pluginTypeEntity);
+                        try
+                        {
+                            pluginTypeEntity.Id = await _service.CreateAsync(pluginTypeEntity);
+                        }
+                        catch (Exception ex)
+                        {
+                            ToggleControls(true, Properties.WindowStatusStrings.RegisteringPluginTypeFailedFormat2, _service.ConnectionData.Name, pluginType);
+
+                            _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+                            _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        ToggleControls(true, Properties.WindowStatusStrings.RegisteringPluginTypeFailedFormat2, _service.ConnectionData.Name, pluginType);
 
-                        _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
-                        _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
-                    }
+                    ToggleControls(false, Properties.WindowStatusStrings.RegisteringNewPluginTypesCompletedFormat2, _service.ConnectionData.Name, listToRegister.Count);
                 }
+
+                ToggleControls(true, Properties.WindowStatusStrings.UpdatingPluginAssemblyCompletedFormat1, _service.ConnectionData.Name);
 
                 this.DialogResult = true;
 
@@ -316,7 +330,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, trVPluginTreeNew, trVPluginTreeMissing, btnSave, btnClose);
+            ToggleControl(enabled, this.tSProgressBar, trVPluginTreeNew, trVPluginTreeMissing, btnClose);
+
+            ToggleControl(enabled && _assemblyLoad != null, btnSave);
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -428,8 +444,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                || !File.Exists(assemblyPath)
             )
             {
+                UpdateStatus(Properties.WindowStatusStrings.FileNotExists);
                 return;
             }
+
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingAssemblyFromPathFormat1, assemblyPath);
 
             AssemblyReaderResult assemblyCheck = null;
 
@@ -440,6 +459,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (assemblyCheck == null)
             {
+                ToggleControls(true, Properties.WindowStatusStrings.LoadingAssemblyFromPathFailedFormat1, assemblyPath);
                 return;
             }
 
@@ -546,6 +566,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 this.trVPluginTreeMissing.UpdateLayout();
             });
+
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingAssemblyFromPathCompletedFormat1, assemblyPath);
         }
     }
 }

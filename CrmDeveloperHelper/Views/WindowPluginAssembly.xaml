@@ -36,7 +36,7 @@
                 </ToolBarPanel>
                 <Button x:Name="btnClose" Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
                 <Separator Margin="20,0" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-                <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
+                <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" />
             </DockPanel>
         </ToolBar>
 
@@ -100,7 +100,6 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <CheckBox x:Name="chBUpdateContent" Content="Update Assembly Properties and Content" Grid.Row="0" Grid.Column="0" />
                             <Button x:Name="btnLoadAssembly" Content="Load Assembly" Grid.Row="0" Grid.Column="2" Click="btnLoadAssembly_Click"  />
                         </Grid>
 
