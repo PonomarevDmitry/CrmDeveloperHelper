@@ -122,6 +122,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand.Initialize(this);
             CodeCSharpUpdateProxyClassesCommand.Initialize(this);
 
+            CodeCSharpProjectUpdatePluginAssemblyCommand.Initialize(this);
+            CodeCSharpProjectUpdatePluginAssemblyInConnectionCommand.Initialize(this);
+
             CodeCSharpProjectCompareToCrmAssemblyCommand.Initialize(this);
             CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand.Initialize(this);
 
@@ -179,6 +182,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand.Initialize(this);
             FileCSharpUpdateProxyClassesCommand.Initialize(this);
             FileCSharpPluginAssemblyDescriptionCommand.Initialize(this);
+            FileCSharpProjectUpdatePluginAssemblyCommand.Initialize(this);
+            FileCSharpProjectUpdatePluginAssemblyInConnectionCommand.Initialize(this);
             FileCSharpProjectCompareToCrmAssemblyCommand.Initialize(this);
             FileCSharpProjectCompareToCrmAssemblyInConnectionCommand.Initialize(this);
             FileCSharpPluginTypeDescriptionCommand.Initialize(this);
@@ -252,6 +257,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderCSharpUpdateEntityMetadataFileCommand.Initialize(this);
             FolderCSharpUpdateGlobalOptionSetsFileCommand.Initialize(this);
 
+
+            ProjectUpdatePluginAssemblyCommand.Initialize(this);
+            ProjectUpdatePluginAssemblyInConnectionCommand.Initialize(this);
 
             ProjectCompareToCrmAssemblyCommand.Initialize(this);
             ProjectCompareToCrmAssemblyInConnectionCommand.Initialize(this);

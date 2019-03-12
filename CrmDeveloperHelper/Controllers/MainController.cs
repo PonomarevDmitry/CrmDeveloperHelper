@@ -1323,6 +1323,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultFolder)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._pluginTypeDescriptionController.ExecuteUpdatingPluginAssembly(connectionData, commonConfig, projectName, defaultFolder);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartAddingReportsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
             var worker = new Thread(() =>

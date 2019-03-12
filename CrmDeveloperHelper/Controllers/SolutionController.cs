@@ -1040,6 +1040,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 var assembly = await repository.FindAssemblyAsync(projectName);
 
+                if (assembly == null)
+                {
+                    assembly = await repository.FindAssemblyByLikeNameAsync(projectName);
+                }
+
                 if (assembly != null)
                 {
                     if (!knownAssemblies.ContainsKey(assembly.Id))
@@ -1216,6 +1221,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             foreach (var projectName in projectNames)
             {
                 var assembly = await repository.FindAssemblyAsync(projectName);
+
+                if (assembly == null)
+                {
+                    assembly = await repository.FindAssemblyByLikeNameAsync(projectName);
+                }
 
                 if (assembly != null)
                 {

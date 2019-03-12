@@ -132,6 +132,9 @@
   <data name="CodeCSharpProjectPluginTypeStepsAddIntoSolutionCommand" xml:space="preserve">
     <value>Add Steps for PluginType into Crm Solution</value>
   </data>
+  <data name="CodeCSharpProjectUpdatePluginAssemblyCommand" xml:space="preserve">
+    <value>Update PluginAssembly</value>
+  </data>
   <data name="CodeCSharpUpdateEntityMetadataFileWithSelectCommand" xml:space="preserve">
     <value>Update EntityMetadata File with Select Entity</value>
   </data>
@@ -306,6 +309,9 @@
   <data name="FileCSharpProjectPluginTypeStepsAddIntoSolutionCommand" xml:space="preserve">
     <value>Add Steps for PluginType into Crm Solution</value>
   </data>
+  <data name="FileCSharpProjectUpdatePluginAssemblyCommand" xml:space="preserve">
+    <value>Update PluginAssembly</value>
+  </data>
   <data name="FileCSharpUpdateEntityMetadataFileWithSelectCommand" xml:space="preserve">
     <value>Update EntityMetadata File with Select Entity</value>
   </data>
@@ -386,5 +392,8 @@
   </data>
   <data name="ProjectPluginAssemblyStepsAddIntoSolutionCommand" xml:space="preserve">
     <value>Add Steps for PluginAssembly into Crm Solution</value>
+  </data>
+  <data name="ProjectUpdatePluginAssemblyCommand" xml:space="preserve">
+    <value>Update PluginAssembly</value>
   </data>
 </root>

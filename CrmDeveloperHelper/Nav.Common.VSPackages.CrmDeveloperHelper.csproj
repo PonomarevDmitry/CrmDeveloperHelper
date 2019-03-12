@@ -95,6 +95,8 @@
     <Compile Include="Commands\CodeCSharpAddPluginStepInConnectionCommand.cs" />
     <Compile Include="Commands\CodeCSharpPluginTreeCommand.cs" />
     <Compile Include="Commands\CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectUpdatePluginAssemblyCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\CodeWebResourceAddIntoSolutionCommand.cs" />
@@ -258,6 +260,8 @@
     <Compile Include="Commands\FileCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectPluginTypeStepsAddIntoSolutionCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectUpdatePluginAssemblyCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\FileReportAddIntoSolutionCommand.cs" />
     <Compile Include="Commands\FileReportAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FileReportOpenInWebCommand.cs" />
@@ -305,6 +309,8 @@
     <Compile Include="Commands\ProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\ProjectPluginTreeCommand.cs" />
     <Compile Include="Commands\ProjectPluginTypeDescriptionCommand.cs" />
+    <Compile Include="Commands\ProjectUpdatePluginAssemblyCommand.cs" />
+    <Compile Include="Commands\ProjectUpdatePluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Controllers\OpenFilesController.cs" />
     <Compile Include="Controllers\ReportController.cs" />

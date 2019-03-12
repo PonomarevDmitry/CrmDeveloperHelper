@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 foreach (var pluginType in assembly.PluginTypes)
                 {
-                    var entPluginType = repositoryType.FindPluginType(pluginType.TypeName);
+                    var entPluginType = await repositoryType.FindPluginTypeAsync(pluginType.TypeName);
 
                     if (entPluginType == null)
                     {
@@ -198,7 +198,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 log.AppendFormat("Assembly {0} founded in CRM with ID {1}", assemblyName, entAssembly.Id).AppendLine();
 
-                var entPluginType = repositoryType.FindPluginType(pluginType.TypeName);
+                var entPluginType = await repositoryType.FindPluginTypeAsync(pluginType.TypeName);
 
                 if (entPluginType != null)
                 {
@@ -252,7 +252,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 log.AppendFormat("Assembly {0} founded in CRM with ID {1}", assemblyName, entAssembly.Id).AppendLine();
 
-                var entPluginType = repositoryType.FindPluginType(pluginType);
+                var entPluginType = await repositoryType.FindPluginTypeAsync(pluginType);
 
                 if (entPluginType != null)
                 {

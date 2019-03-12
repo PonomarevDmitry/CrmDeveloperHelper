@@ -1510,6 +1510,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleUpdatingPluginAssemblyCommand(ConnectionData connectionData, EnvDTE.Project project)
+        {
+            if (project == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(project.Name))
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                var defaultFolder = PropertiesHelper.GetOutputPath(project);
+
+                try
+                {
+                    Controller.StartUpdatingPluginAssembly(connectionData, commonConfig, project.Name, defaultFolder);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
         public void HandleExecutingFetchXml(ConnectionData connectionData, SelectedFile selectedFile, bool strictConnection)
         {
             if (selectedFile == null || !File.Exists(selectedFile.FilePath))

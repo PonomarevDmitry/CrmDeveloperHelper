@@ -106,6 +106,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update PluginAssembly.
+        /// </summary>
+        internal static string CodeCSharpProjectUpdatePluginAssemblyCommand {
+            get {
+                return ResourceManager.GetString("CodeCSharpProjectUpdatePluginAssemblyCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update EntityMetadata File with Select Entity.
         /// </summary>
         internal static string CodeCSharpUpdateEntityMetadataFileWithSelectCommand {
@@ -628,6 +637,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update PluginAssembly.
+        /// </summary>
+        internal static string FileCSharpProjectUpdatePluginAssemblyCommand {
+            get {
+                return ResourceManager.GetString("FileCSharpProjectUpdatePluginAssemblyCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update EntityMetadata File with Select Entity.
         /// </summary>
         internal static string FileCSharpUpdateEntityMetadataFileWithSelectCommand {
@@ -867,6 +885,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ProjectPluginAssemblyStepsAddIntoSolutionCommand {
             get {
                 return ResourceManager.GetString("ProjectPluginAssemblyStepsAddIntoSolutionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update PluginAssembly.
+        /// </summary>
+        internal static string ProjectUpdatePluginAssemblyCommand {
+            get {
+                return ResourceManager.GetString("ProjectUpdatePluginAssemblyCommand", resourceCulture);
             }
         }
     }

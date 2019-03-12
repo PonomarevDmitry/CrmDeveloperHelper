@@ -180,7 +180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (assembly == null)
             {
-
+                assembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(projectName);
             }
 
             if (assembly == null)
@@ -452,5 +452,94 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Добавление шага плагина.
+
+        #region Обновление сборки плагинов.
+
+        public async Task ExecuteUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultFolder)
+        {
+            string operation = string.Format(Properties.OperationNames.UpdatingPluginAssemblyFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await UpdatingPluginAssembly(connectionData, commonConfig, projectName, defaultFolder);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task UpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultFolder)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(projectName))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AssemblyNameIsEmpty);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            var repositoryAssembly = new PluginAssemblyRepository(service);
+
+            var assembly = await repositoryAssembly.FindAssemblyAsync(projectName);
+
+            if (assembly == null)
+            {
+                assembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(projectName);
+            }
+
+            if (assembly == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, projectName);
+
+                WindowHelper.OpenPluginAssemblyWindow(
+                    this._iWriteToOutput
+                    , service
+                    , commonConfig
+                    , projectName
+                    );
+
+                return;
+            }
+
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowPluginAssembly(_iWriteToOutput, service, assembly, defaultFolder);
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        #endregion Обновление сборки плагинов.
     }
 }

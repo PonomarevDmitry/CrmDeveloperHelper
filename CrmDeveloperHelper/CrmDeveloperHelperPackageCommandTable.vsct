@@ -124,9 +124,11 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupAddIntoSolution_MenuLastSolution_GroupLastSolution" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupLastLink" priority="0x0603" />
 
+      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate" priority="0x0600" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection_Group" priority="0x0600" />
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare" priority="0x0600" />
-      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup_GroupConnectionGroup" priority="0x0600" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnection_Group" priority="0x0600" />
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginAssemblyIntoSolution" priority="0x0600" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginAssemblyIntoSolution_MenuLastSolution_GroupLastSolution" priority="0x0600" />
@@ -259,8 +261,11 @@
 
 
 
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate" priority="0x0600" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection_Group" priority="0x0600" />
+
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare" priority="0x0600" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup_GroupConnectionGroup" priority="0x0600" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnection_Group" priority="0x0600" />
 
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginAssemblyIntoSolution" priority="0x0600" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginAssemblyIntoSolution_MenuLastSolution_GroupLastSolution" priority="0x0600" />
@@ -327,8 +332,11 @@
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupFolder" priority="0x060B" />
 
+      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate" priority="0x060B" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnection_Group" priority="0x060B" />
+
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare" priority="0x060B" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionGroup_GroupConnectionGroup" priority="0x060B" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnection_Group" priority="0x060B" />
 
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddAssemblyIntoSolution" priority="0x060C" />
@@ -1594,22 +1602,41 @@
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnection" priority="0x0107" type="Menu">
         <Strings>
-          <ButtonText>Compare with Crm PluginAssembly in Connection Group</ButtonText>
-          <MenuText>Compare with Crm PluginAssembly in Connection Group</MenuText>
+          <ButtonText>Compare with Crm PluginAssembly in Connection</ButtonText>
+          <MenuText>Compare with Crm PluginAssembly in Connection</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnection" priority="0x0107" type="Menu">
         <Strings>
-          <ButtonText>Compare with Crm PluginAssembly in Connection Group</ButtonText>
-          <MenuText>Compare with Crm PluginAssembly in Connection Group</MenuText>
+          <ButtonText>Compare with Crm PluginAssembly in Connection</ButtonText>
+          <MenuText>Compare with Crm PluginAssembly in Connection</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionGroup" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnection" priority="0x0107" type="Menu">
         <Strings>
-          <ButtonText>Compare with Crm PluginAssembly in Connection Group</ButtonText>
-          <MenuText>Compare with Crm PluginAssembly in Connection Group</MenuText>
+          <ButtonText>Compare with Crm PluginAssembly in Connection</ButtonText>
+          <MenuText>Compare with Crm PluginAssembly in Connection</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Update PluginAssembly in Connection</ButtonText>
+          <MenuText>Update PluginAssembly in Connection</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Update PluginAssembly in Connection</ButtonText>
+          <MenuText>Update PluginAssembly in Connection</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnection" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Update PluginAssembly in Connection</ButtonText>
+          <MenuText>Update PluginAssembly in Connection</MenuText>
         </Strings>
       </Menu>
 
@@ -2413,6 +2440,23 @@
         </Strings>
       </Button>
 
+      <Button guid="guidCommandSet" id="CodeCSharpProjectUpdatePluginAssemblyCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Update PluginAssembly</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CodeCSharpProjectUpdatePluginAssemblyInConnectionCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Update in Connection Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
 
       <Button guid="guidCommandSet" id="CodeCSharpProjectCompareToCrmAssemblyCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -2427,7 +2471,7 @@
         <CommandFlag>TextChanges</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Compare with Crm PluginAssembly in Connection Group Placeholder</ButtonText>
+          <ButtonText>Compare with Crm PluginAssembly in Connection Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3229,6 +3273,27 @@
       </Button>
 
 
+
+
+
+
+      <Button guid="guidCommandSet" id="FileCSharpProjectUpdatePluginAssemblyCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Update PluginAssembly</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileCSharpProjectUpdatePluginAssemblyInConnectionCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Update PluginAssembly in Connection Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="guidCommandSet" id="FileCSharpProjectCompareToCrmAssemblyCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
@@ -3242,7 +3307,7 @@
         <CommandFlag>TextChanges</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Compare with Crm PluginAssembly in Connection Group Placeholder</ButtonText>
+          <ButtonText>Compare with Crm PluginAssembly in Connection Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4121,6 +4186,23 @@
         </Strings>
       </Button>
 
+      <Button guid="guidCommandSet" id="ProjectUpdatePluginAssemblyCommandId" priority="0x0121" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Update PluginAssembly</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="ProjectUpdatePluginAssemblyInConnectionCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Update PluginAssembly in Connection Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="guidCommandSet" id="ProjectCompareToCrmAssemblyCommandId" priority="0x0121" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
@@ -4134,7 +4216,7 @@
         <CommandFlag>TextChanges</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Compare with Crm PluginAssembly in Connection Group Placeholder</ButtonText>
+          <ButtonText>Compare with Crm PluginAssembly in Connection Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5481,6 +5563,9 @@
 
 
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate" priority="0x05FF">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
+    </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
@@ -5802,6 +5887,10 @@
     </CommandPlacement>
 
 
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate" priority="0x05FF">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
+    </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
@@ -6095,6 +6184,9 @@
     </CommandPlacement>
 
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate" priority="0x060A">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
+    </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare" priority="0x060B">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
@@ -7736,17 +7828,31 @@
 
 
 
+
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpProjectUpdatePluginAssemblyCommandId" priority="0x0100">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection" priority="0x0101">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection_Group" priority="0x0101">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeCSharpProjectUpdatePluginAssemblyInConnectionCommandId" priority="0x0101">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection_Group" />
+    </CommandPlacement>
+
     <CommandPlacement guid="guidCommandSet" id="CodeCSharpProjectCompareToCrmAssemblyCommandId" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup" priority="0x0101">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnection" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup_GroupConnectionGroup" priority="0x0101">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnection_Group" priority="0x0101">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnection" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CodeCSharpProjectCompareToCrmAssemblyInConnectionCommandId" priority="0x0101">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup_GroupConnectionGroup" />
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnection_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginAssemblyIntoSolution_MenuLastSolution" priority="0x0100">
@@ -8534,17 +8640,32 @@
 
 
 
+
+
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpProjectUpdatePluginAssemblyCommandId" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection" priority="0x0111">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection_Group" priority="0x0111">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileCSharpProjectUpdatePluginAssemblyInConnectionCommandId" priority="0x0111">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection_Group" />
+    </CommandPlacement>
+
     <CommandPlacement guid="guidCommandSet" id="FileCSharpProjectCompareToCrmAssemblyCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup" priority="0x0111">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnection" priority="0x0111">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup_GroupConnectionGroup" priority="0x0111">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnection_Group" priority="0x0111">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnection" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId" priority="0x0111">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup_GroupConnectionGroup" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnection_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginAssemblyIntoSolution_MenuLastSolution" priority="0x0100">
@@ -8915,18 +9036,34 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderCSharpUpdateGlobalOptionSetsFileCommandId" priority="0x0120">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSets_Group" />
     </CommandPlacement>
+    
+    
+      
+    
+    <CommandPlacement guid="guidCommandSet" id="ProjectUpdatePluginAssemblyCommandId" priority="0x0120">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnection" priority="0x0121">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnection_Group" priority="0x0121">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnection" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="ProjectUpdatePluginAssemblyInConnectionCommandId" priority="0x0121">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnection_Group" />
+    </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="ProjectCompareToCrmAssemblyCommandId" priority="0x0120">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionGroup" priority="0x0121">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnection" priority="0x0121">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionGroup_GroupConnectionGroup" priority="0x0121">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionGroup" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnection_Group" priority="0x0121">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnection" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="ProjectCompareToCrmAssemblyInConnectionCommandId" priority="0x0121">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionGroup_GroupConnectionGroup" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnection_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddAssemblyIntoSolution_MenuLastSolution" priority="0x0121">
@@ -9191,9 +9328,13 @@
       <IDSymbol name="codeMenuCSharp_GroupGlobalOptionSets_MenuConnection" value="0x1279" />
       <IDSymbol name="codeMenuCSharp_GroupGlobalOptionSets_MenuConnection_Group" value="0x127A" />
 
+      <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyUpdate" value="0x1287" />
+      <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection" value="0x1288" />
+      <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection_Group" value="0x1289" />
+
       <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyCompare" value="0x111A" />
-      <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup" value="0x1136" />
-      <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup_GroupConnectionGroup" value="0x1137" />
+      <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnection" value="0x1136" />
+      <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyCompare_MenuConnection_Group" value="0x1137" />
 
       <IDSymbol name="codeMenuCSharp_GroupAddPluginAssemblyIntoSolution" value="0x111B" />
       <IDSymbol name="codeMenuCSharp_GroupAddPluginAssemblyIntoSolution_MenuLastSolution" value="0x111C" />
@@ -9438,9 +9579,13 @@
       <IDSymbol name="fileMenuCSharp_GroupGlobalOptionSets_MenuConnection" value="0x127D" />
       <IDSymbol name="fileMenuCSharp_GroupGlobalOptionSets_MenuConnection_Group" value="0x127E" />
 
+      <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyUpdate" value="0x128A" />
+      <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection" value="0x128B" />
+      <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnection_Group" value="0x128C" />
+
       <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyCompare" value="0x1126" />
-      <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup" value="0x1138" />
-      <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionGroup_GroupConnectionGroup" value="0x1139" />
+      <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnection" value="0x1138" />
+      <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnection_Group" value="0x1139" />
 
       <IDSymbol name="fileMenuCSharp_GroupAddPluginAssemblyIntoSolution" value="0x1127" />
       <IDSymbol name="fileMenuCSharp_GroupAddPluginAssemblyIntoSolution_MenuLastSolution" value="0x1128" />
@@ -9528,9 +9673,13 @@
 
       <IDSymbol name="folderMenuProject" value="0x10F9" />
 
+      <IDSymbol name="folderMenuProject_GroupUpdate" value="0x128D" />
+      <IDSymbol name="folderMenuProject_GroupUpdate_MenuConnection" value="0x128E" />
+      <IDSymbol name="folderMenuProject_GroupUpdate_MenuConnection_Group" value="0x128F" />
+
       <IDSymbol name="folderMenuProject_GroupCompare" value="0x10FB" />
-      <IDSymbol name="folderMenuProject_GroupCompare_MenuConnectionGroup" value="0x113A" />
-      <IDSymbol name="folderMenuProject_GroupCompare_MenuConnectionGroup_GroupConnectionGroup" value="0x113B" />
+      <IDSymbol name="folderMenuProject_GroupCompare_MenuConnection" value="0x113A" />
+      <IDSymbol name="folderMenuProject_GroupCompare_MenuConnection_Group" value="0x113B" />
 
       <IDSymbol name="folderMenuProject_GroupAddAssemblyIntoSolution" value="0x10FA" />
       <IDSymbol name="folderMenuProject_GroupAddAssemblyIntoSolution_MenuLastSolution" value="0x1112" />
@@ -9831,7 +9980,7 @@
 
 
 
-      <!-- 0x1287 -->
+      <!-- 0x1290 -->
 
 
     </GuidSymbol>
@@ -10052,7 +10201,11 @@
       <IDSymbol name="FileCSharpUpdateGlobalOptionSetsFileCommandId" value="7150" />
       <IDSymbol name="FolderCSharpUpdateGlobalOptionSetsFileCommandId" value="7200" />
 
-      <!-- 7250 -->
+      <IDSymbol name="CodeCSharpProjectUpdatePluginAssemblyInConnectionCommandId" value="7250" />
+      <IDSymbol name="FileCSharpProjectUpdatePluginAssemblyInConnectionCommandId" value="7300" />
+      <IDSymbol name="ProjectUpdatePluginAssemblyInConnectionCommandId" value="7350" />
+
+      <!-- 7400 -->
 
     </GuidSymbol>
 
@@ -10140,6 +10293,8 @@
       <IDSymbol name="CodeReportAddIntoSolutionCommandId" value="0x211E" />
 
       <IDSymbol name="CodeReportUpdateCommandId" value="0x2128" />
+
+      <IDSymbol name="CodeCSharpProjectUpdatePluginAssemblyCommandId" value="0x2192" />
 
       <IDSymbol name="CodeCSharpProjectCompareToCrmAssemblyCommandId" value="0x2140" />
 
@@ -10342,6 +10497,8 @@
       <IDSymbol name="FileReportLinkClearCommandId" value="0x2057" />
 
 
+      <IDSymbol name="FileCSharpProjectUpdatePluginAssemblyCommandId" value="0x2193" />
+
       <IDSymbol name="FileCSharpProjectCompareToCrmAssemblyCommandId" value="0x2141" />
 
       <IDSymbol name="FileCSharpProjectPluginAssemblyAddIntoSolutionCommandId" value="0x214E" />
@@ -10380,6 +10537,11 @@
       <IDSymbol name="FolderAddSolutionFileCommandId" value="0x206E" />
       <IDSymbol name="FolderAddPluginConfigurationFileCommandId" value="0x206F" />
 
+
+
+
+
+      <IDSymbol name="ProjectUpdatePluginAssemblyCommandId" value="0x2194" />
 
       <IDSymbol name="ProjectCompareToCrmAssemblyCommandId" value="0x2126" />
 
@@ -10607,7 +10769,7 @@
 
 
 
-      <!-- 0x2192 -->
+      <!-- 0x2195 -->
 
     </GuidSymbol>
 

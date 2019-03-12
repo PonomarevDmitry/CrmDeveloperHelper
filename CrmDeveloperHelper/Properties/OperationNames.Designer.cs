@@ -1627,6 +1627,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Updating PluginAssembly.
+        /// </summary>
+        internal static string UpdatingPluginAssemblyFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingPluginAssemblyFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Updating Proxy Classes.
         /// </summary>
         internal static string UpdatingProxyClassesFormat1 {

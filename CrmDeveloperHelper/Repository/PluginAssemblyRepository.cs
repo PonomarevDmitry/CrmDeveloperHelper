@@ -297,6 +297,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return coll.Count == 1 ? coll.Select(e => e.ToEntity<PluginAssembly>()).SingleOrDefault() : null;
         }
 
+        public Task<PluginAssembly> FindAssemblyByLikeNameAsync(string name)
+        {
+            return Task.Run(() => FindAssemblyByLikeName(name));
+        }
+
+        private PluginAssembly FindAssemblyByLikeName(string name)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = PluginAssembly.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(GetAttributes(_service)),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(PluginAssembly.Schema.Attributes.ishidden, ConditionOperator.Equal, false),
+                        new ConditionExpression(PluginAssembly.Schema.Attributes.name, ConditionOperator.Like, "%" + name + "%"),
+                    },
+                },
+            };
+
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<PluginAssembly>()).SingleOrDefault() : null;
+        }
+
         public Task<PluginAssembly> GetAssemblyByIdAsync(Guid id, ColumnSet columnSet = null)
         {
             return Task.Run(() => GetAssemblyById(id, columnSet));

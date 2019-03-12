@@ -657,4 +657,7 @@
   <data name="AddingPluginStepFormat1" xml:space="preserve">
     <value>{0} - Adding Plugin Step</value>
   </data>
+  <data name="UpdatingPluginAssemblyFormat1" xml:space="preserve">
+    <value>{0} - Updating PluginAssembly</value>
+  </data>
 </root>

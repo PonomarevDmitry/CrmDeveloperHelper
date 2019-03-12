@@ -272,7 +272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return Task.Run(() => FindPluginType(name));
         }
 
-        public PluginType FindPluginType(string name)
+        private PluginType FindPluginType(string name)
         {
             QueryExpression query = new QueryExpression()
             {
