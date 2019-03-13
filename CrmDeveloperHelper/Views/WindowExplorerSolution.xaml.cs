@@ -1078,6 +1078,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Solution {0} exported to {1}", solution.UniqueName, filePath);
 
+                    this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
+
                     if (this._selectedItem != null)
                     {
                         if (_selectedItem.ProjectItem != null)

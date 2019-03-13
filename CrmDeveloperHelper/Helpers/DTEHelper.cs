@@ -4813,7 +4813,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             if (File.Exists(filePath))
             {
-                this.WriteToOutput(null, "Selecting file in folder {0}", filePath);
+                this.WriteToOutput(connectionData, "Selecting file in folder {0}", filePath);
 
                 ProcessStartInfo info = new ProcessStartInfo
                 {
