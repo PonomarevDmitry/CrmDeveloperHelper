@@ -2266,5 +2266,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             worker.Start();
         }
+
+        private void miOpenSolutionExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenExplorerSolutionWindow(
+                _iWriteToOutput
+                , _service
+                , _commonConfig
+                , null
+                , null
+                , null
+            );
+        }
     }
 }
