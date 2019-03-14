@@ -1480,10 +1480,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
 
             {
-                var mappingList = this.AssemblyMappings.Where(
-                    x => string.Equals(x.AssemblyName, assemblyName, StringComparison.InvariantCultureIgnoreCase)
-                        && string.Equals(x.LocalAssemblyPath, localAssemblyPath, StringComparison.InvariantCultureIgnoreCase)
-                ).ToList();
+                var mappingList = this.AssemblyMappings.Where(x => string.Equals(x.AssemblyName, assemblyName, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
                 while (mappingList.Count > 1)
                 {
@@ -1491,22 +1488,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
             }
 
-            var mapping = this.AssemblyMappings.FirstOrDefault(
-                x => string.Equals(x.AssemblyName, assemblyName, StringComparison.InvariantCultureIgnoreCase)
-                    && string.Equals(x.LocalAssemblyPath, localAssemblyPath, StringComparison.InvariantCultureIgnoreCase)
-                );
+            var mapping = this.AssemblyMappings.FirstOrDefault(x => x.AssemblyName.Equals(assemblyName, StringComparison.InvariantCultureIgnoreCase));
 
-            if (mapping != null)
+            if (mapping == null)
             {
-                this.AssemblyMappings.Remove(mapping);
-                this.AssemblyMappings.Insert(0, mapping);
+                var indexItem = 0;
+
+                while (indexItem != -1 && mapping.LocalAssemblyPathList.Contains(localAssemblyPath, StringComparer.InvariantCultureIgnoreCase))
+                {
+                    indexItem = mapping.LocalAssemblyPathList.FindIndex(s => string.Equals(s, localAssemblyPath, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (indexItem != -1)
+                    {
+                        mapping.LocalAssemblyPathList.RemoveAt(indexItem);
+                    }
+                }
+
+                mapping.LocalAssemblyPathList.Insert(0, localAssemblyPath);
             }
             else
             {
                 this.AssemblyMappings.Add(new AssemblyMapping()
                 {
                     AssemblyName = assemblyName,
-                    LocalAssemblyPath = localAssemblyPath,
+                    LocalAssemblyPathList =
+                    {
+                        localAssemblyPath
+                    },
                 });
             }
         }
@@ -1520,7 +1528,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             var mapping = this.AssemblyMappings.FirstOrDefault(x => x.AssemblyName.Equals(assemblyName, StringComparison.InvariantCultureIgnoreCase));
 
-            return mapping?.LocalAssemblyPath;
+            return mapping?.LocalAssemblyPathList?.FirstOrDefault();
         }
 
         public IEnumerable<string> GetAssemblyPaths(string assemblyName)
@@ -1530,11 +1538,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 yield break;
             }
 
-            var mapping = this.AssemblyMappings.Where(x => x.AssemblyName.Equals(assemblyName, StringComparison.InvariantCultureIgnoreCase));
+            var mapping = this.AssemblyMappings.FirstOrDefault(x => x.AssemblyName.Equals(assemblyName, StringComparison.InvariantCultureIgnoreCase));
 
-            foreach (var item in mapping.OrderBy(a => a.LocalAssemblyPath))
+            if (mapping != null)
             {
-                yield return item.LocalAssemblyPath;
+                foreach (var path in mapping.LocalAssemblyPathList.OrderBy(s => s))
+                {
+                    yield return path;
+                }
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
@@ -10,7 +11,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public string AssemblyName { get; set; }
 
         [DataMember]
-        public string LocalAssemblyPath { get; set; }
+        public List<string> LocalAssemblyPathList { get; set; }
+
+        public AssemblyMapping()
+        {
+            this.LocalAssemblyPathList = new List<string>();
+        }
+
+        [OnDeserializing]
+        private void BeforeDeserialize(StreamingContext context)
+        {
+            if (this.LocalAssemblyPathList == null)
+            {
+                this.LocalAssemblyPathList = new List<string>();
+            }
+        }
 
         public override string ToString()
         {
@@ -23,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             if (str.Length > 0) { str.Append(" - "); }
 
-            str.Append(LocalAssemblyPath);
+            str.Append(LocalAssemblyPathList.Count);
 
             if (str.Length > 0)
             {

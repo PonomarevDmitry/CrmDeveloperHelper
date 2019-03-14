@@ -211,6 +211,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string assemblyPath = service.ConnectionData.GetLastAssemblyPath(assemblyName);
             List<string> lastPaths = service.ConnectionData.GetAssemblyPaths(assemblyName).ToList();
 
+            if (!string.IsNullOrEmpty(defaultFolder)
+                && !lastPaths.Contains(defaultFolder, StringComparer.InvariantCultureIgnoreCase)
+            )
+            {
+                lastPaths.Insert(0, defaultFolder);
+            }
+
             bool isSuccess = false;
 
             var t = new Thread(() =>

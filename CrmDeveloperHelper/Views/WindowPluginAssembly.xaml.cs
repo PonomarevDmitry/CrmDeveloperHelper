@@ -31,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private AssemblyReaderResult _assemblyLoad;
 
-        private string _defaultAssemblyPath;
+        private string _defaultAssemblyFolder;
 
         private int _init = 0;
 
@@ -42,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , PluginAssembly pluginAssembly
-            , string defaultAssemblyPath
+            , string defaultAssemblyFolder
         )
         {
             _init++;
@@ -51,7 +51,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._service = service;
-            this._defaultAssemblyPath = defaultAssemblyPath;
+            this._defaultAssemblyFolder = defaultAssemblyFolder;
 
             this.PluginAssembly = pluginAssembly;
 
@@ -150,11 +150,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             else
             {
                 rBDatabase.IsChecked = true;
-            }
-
-            if (!string.IsNullOrEmpty(_defaultAssemblyPath))
-            {
-                cmBAssemblyToLoad.Items.Add(_defaultAssemblyPath);
             }
 
             if (!string.IsNullOrEmpty(this.PluginAssembly.Name))
@@ -360,7 +355,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (!string.IsNullOrEmpty(this.PluginAssembly.Name))
             {
                 lastAssemblyPath = _service.ConnectionData.GetLastAssemblyPath(this.PluginAssembly.Name);
-                lastPaths = _service.ConnectionData.GetAssemblyPaths(this.PluginAssembly.Name).ToList();
+                var tempList = _service.ConnectionData.GetAssemblyPaths(this.PluginAssembly.Name).ToList();
+
+                if (!string.IsNullOrEmpty(_defaultAssemblyFolder)
+                    && !tempList.Contains(_defaultAssemblyFolder, StringComparer.InvariantCultureIgnoreCase)
+                )
+                {
+                    tempList.Insert(0, _defaultAssemblyFolder);
+                }
+
+                lastPaths = tempList;
             }
 
             bool isSuccess = false;
@@ -380,10 +384,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     openFileDialog1.InitialDirectory = Path.GetDirectoryName(lastAssemblyPath);
                     openFileDialog1.FileName = Path.GetFileName(lastAssemblyPath);
                 }
-                else if (!string.IsNullOrEmpty(_defaultAssemblyPath))
+                else if (!string.IsNullOrEmpty(_defaultAssemblyFolder))
                 {
-                    openFileDialog1.InitialDirectory = Path.GetDirectoryName(_defaultAssemblyPath);
-                    openFileDialog1.FileName = Path.GetFileName(_defaultAssemblyPath);
+                    openFileDialog1.InitialDirectory = _defaultAssemblyFolder;
                 }
 
                 if (lastPaths.Any())
