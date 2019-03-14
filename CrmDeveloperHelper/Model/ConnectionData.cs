@@ -1490,7 +1490,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             var mapping = this.AssemblyMappings.FirstOrDefault(x => x.AssemblyName.Equals(assemblyName, StringComparison.InvariantCultureIgnoreCase));
 
-            if (mapping == null)
+            if (mapping != null)
             {
                 var indexItem = 0;
 
