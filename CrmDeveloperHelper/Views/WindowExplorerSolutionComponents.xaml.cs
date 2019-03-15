@@ -2280,5 +2280,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , null
             );
         }
+
+        private void btnOpenInWebCustomization_Click(object sender, RoutedEventArgs e)
+        {
+            _service.ConnectionData.OpenCrmWebSite(OpenCrmWebSiteType.Customization);
+        }
+
+        private void btnOpenInWebSolutionList_Click(object sender, RoutedEventArgs e)
+        {
+            _service.ConnectionData.OpenCrmWebSite(OpenCrmWebSiteType.Solutions);
+        }
+
+        private async void btnOpenInWebDefaultSolution_Click(object sender, RoutedEventArgs e)
+        {
+            var repository = new SolutionRepository(_service);
+
+            var solution = await repository.GetSolutionByUniqueNameAsync(Solution.InstancesUniqueNames.Default);
+
+            if (solution != null)
+            {
+                _service.ConnectionData.OpenSolutionInWeb(solution.Id);
+            }
+        }
     }
 }

@@ -88,6 +88,8 @@
                                     <Separator/>
                                     <MenuItem Header="Open Customization in Web" Click="mIOpenCustomizationInWeb_Click" />
                                     <Separator/>
+                                    <MenuItem Header="Open Default Solution in Web" Click="mIOpenDefaultSolutionInWeb_Click" />
+                                    <Separator/>
                                     <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
                                     <Separator/>
                                     <MenuItem Header="Open Organization DifferenceImage Window" Click="mIOpenOrganizationDifferenceImage_Click" />

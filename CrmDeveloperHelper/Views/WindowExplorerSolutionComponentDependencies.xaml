@@ -40,6 +40,20 @@
     <Grid>
         <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
             <Button Content="Description Options" Click="miDescriptionOptions_Click"/>
+
+            <Separator/>
+            <Button Content="Open Solution Explorer" Click="miOpenSolutionExplorer_Click" />
+
+            <Separator/>
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                <MenuItem Header="Open in Web" VerticalAlignment="Center">
+                    <MenuItem Header="Customization" Click="btnOpenInWebCustomization_Click" />
+                    <Separator/>
+                    <MenuItem Header="Solution List" Click="btnOpenInWebSolutionList_Click" />
+                    <Separator/>
+                    <MenuItem Header="Default Solution" Click="btnOpenInWebDefaultSolution_Click"/>
+                </MenuItem>
+            </Menu>
         </ToolBar>
 
         <TextBox x:Name="txtBComponentDescription" Height="50" Margin="10,38,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" />

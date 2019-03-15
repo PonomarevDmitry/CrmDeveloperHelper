@@ -88,6 +88,17 @@
             <Separator/>
             <Button Content="Open Solution Explorer" Click="miOpenSolutionExplorer_Click" />
 
+            <Separator/>
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                <MenuItem Header="Open in Web" VerticalAlignment="Center">
+                    <MenuItem Header="Customization" Click="btnOpenInWebCustomization_Click" />
+                    <Separator/>
+                    <MenuItem Header="Solution List" Click="btnOpenInWebSolutionList_Click" />
+                    <Separator/>
+                    <MenuItem Header="Default Solution" Click="btnOpenInWebDefaultSolution_Click"/>
+                </MenuItem>
+            </Menu>
+
             <Separator x:Name="sepSolutionDescription" Visibility="Collapsed"/>
             <Button x:Name="miSolutionDescription" Content="Solution Description" Visibility="Collapsed" Click="miSolutionDescription_Click" />
         </ToolBar>

@@ -2277,6 +2277,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private async void mIOpenDefaultSolutionInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            var repository = new SolutionRepository(service);
+
+            var solution = await repository.GetSolutionByUniqueNameAsync(Solution.InstancesUniqueNames.Default);
+
+            if (solution != null)
+            {
+                service.ConnectionData.OpenSolutionInWeb(solution.Id);
+            }
+        }
+
         private void mIClearUnmanagedSolution_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
