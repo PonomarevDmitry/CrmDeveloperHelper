@@ -44,7 +44,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(Workflow.Schema.Attributes.componentstate, ConditionOperator.In, 0, 1),
+                        new ConditionExpression(Workflow.Schema.Attributes.componentstate, ConditionOperator.In
+                            , (int)ComponentState.Published
+                            , (int)ComponentState.Unpublished
+                        ),
                         new ConditionExpression(Workflow.Schema.Attributes.parentworkflowid, ConditionOperator.Null),
                     },
                 },
@@ -123,7 +126,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(Workflow.Schema.Attributes.componentstate, ConditionOperator.In, 0, 1),
+                        new ConditionExpression(Workflow.Schema.Attributes.componentstate, ConditionOperator.In
+                            , (int)ComponentState.Published
+                            , (int)ComponentState.Unpublished
+                        ),
                         new ConditionExpression(Workflow.Schema.Attributes.parentworkflowid, ConditionOperator.Null),
 
                         new ConditionExpression(Workflow.Schema.EntityPrimaryIdAttribute, ConditionOperator.In, ids.ToArray()),
@@ -224,6 +230,76 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             var coll = _service.RetrieveMultiple(query).Entities;
 
             return coll.Count == 1 ? coll.Select(e => e.ToEntity<Workflow>()).SingleOrDefault() : null;
+        }
+
+        public Task<List<Workflow>> GetListForEntitiesAsync(string[] entities, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListForEntities(entities, columnSet));
+        }
+
+        private List<Workflow> GetListForEntities(string[] entities, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = Workflow.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Workflow.Schema.Attributes.parentworkflowid, ConditionOperator.Null),
+                        new ConditionExpression(Workflow.Schema.Attributes.componentstate, ConditionOperator.In
+                            , (int)ComponentState.Published
+                            , (int)ComponentState.Unpublished
+                        ),
+                        new ConditionExpression(Workflow.Schema.Attributes.primaryentity, ConditionOperator.In, entities),
+
+                        new ConditionExpression(Workflow.Schema.Attributes.category, ConditionOperator.Equal, (int)Workflow.Schema.OptionSets.category.Business_Rule_2),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(Workflow.Schema.Attributes.primaryentity, OrderType.Ascending),
+                    new OrderExpression(Workflow.Schema.Attributes.name, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<Workflow>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Workflow>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+            }
+
+            return result;
         }
     }
 }

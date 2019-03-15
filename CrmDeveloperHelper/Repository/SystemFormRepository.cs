@@ -58,7 +58,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SystemForm.Schema.Attributes.componentstate, ConditionOperator.In, 0, 1),
+                        new ConditionExpression(SystemForm.Schema.Attributes.componentstate, ConditionOperator.In
+                            , (int)ComponentState.Published
+                            , (int)ComponentState.Unpublished
+                        ),
                     },
                 },
 
@@ -165,7 +168,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SystemForm.Schema.Attributes.componentstate, ConditionOperator.In, 0, 1),
+                        new ConditionExpression(SystemForm.Schema.Attributes.componentstate, ConditionOperator.In
+                            , (int)ComponentState.Published
+                            , (int)ComponentState.Unpublished
+                        ),
                         new ConditionExpression(SystemForm.Schema.Attributes.type, ConditionOperator.Equal, formType),
                         new ConditionExpression(SystemForm.Schema.Attributes.formactivationstate, ConditionOperator.Equal, (int)SystemForm.Schema.OptionSets.formactivationstate.Active_1),
 
@@ -396,7 +402,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SystemForm.Schema.Attributes.componentstate, ConditionOperator.In, 0, 1),
+                        new ConditionExpression(SystemForm.Schema.Attributes.componentstate, ConditionOperator.In
+                            , (int)ComponentState.Published
+                            , (int)ComponentState.Unpublished
+                        ),
                         new ConditionExpression(SystemForm.Schema.Attributes.objecttypecode, ConditionOperator.In, entities),
                     },
                 },

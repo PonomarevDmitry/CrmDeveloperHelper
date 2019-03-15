@@ -49,7 +49,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(DisplayStringMap.Schema.Attributes.componentstate, ConditionOperator.In, 0, 1),
+                        new ConditionExpression(DisplayStringMap.Schema.Attributes.componentstate, ConditionOperator.In
+                            , (int)ComponentState.Published
+                            , (int)ComponentState.Unpublished
+                        ),
                     },
                 },
 

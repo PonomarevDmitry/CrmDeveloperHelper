@@ -105,7 +105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 Orders =
                 {
-                     new OrderExpression(MailMergeTemplate.Schema.Attributes.templatetypecode, OrderType.Ascending),
+                    new OrderExpression(MailMergeTemplate.Schema.Attributes.templatetypecode, OrderType.Ascending),
                     new OrderExpression(MailMergeTemplate.Schema.Attributes.name, OrderType.Ascending),
                 },
 

@@ -162,7 +162,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(EntityMap.Schema.Attributes.componentstate, ConditionOperator.In, 0, 1),
+                        new ConditionExpression(EntityMap.Schema.Attributes.componentstate, ConditionOperator.In
+                            , (int)ComponentState.Published
+                            , (int)ComponentState.Unpublished
+                        ),
                     },
 
                     Filters =
