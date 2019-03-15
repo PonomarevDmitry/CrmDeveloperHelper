@@ -510,6 +510,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization = 0x11AE;
         public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutions = 0x119E;
         public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutions_Group = 0x119F;
+        public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuDefaultSolution = 0x1297;
+        public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuDefaultSolution_Group = 0x1298;
         public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuWorkflows = 0x11AA;
         public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuWorkflows_Group = 0x11AB;
         public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSystemJobs = 0x11AF;
