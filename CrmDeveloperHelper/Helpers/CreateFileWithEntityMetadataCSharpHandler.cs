@@ -390,22 +390,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine();
             WriteLine("#region Picklist OptionSet OptionSets.");
 
-            foreach (var attrib in picklists
-                .Where(p => (!p.OptionSet.IsGlobal.GetValueOrDefault() && this._config.GenerateLocalOptionSet))
-                .OrderBy(attr => attr.LogicalName))
+            if (this._config.GenerateLocalOptionSet)
             {
-                if (first) { first = false; } else { WriteLine(); }
+                foreach (var attrib in picklists
+                    .Where(p => !p.OptionSet.IsGlobal.GetValueOrDefault())
+                    .OrderBy(attr => attr.LogicalName)
+                )
+                {
+                    if (first) { first = false; } else { WriteLine(); }
 
-                await GenerateOptionSetEnums(attrib, attrib.OptionSet);
+                    await GenerateOptionSetEnums(new[] { attrib }, attrib.OptionSet);
+                }
             }
 
-            foreach (var attrib in picklists
-               .Where(p => (p.OptionSet.IsGlobal.GetValueOrDefault() && this._config.GenerateGlobalOptionSet))
-               .OrderBy(attr => attr.LogicalName))
+            if (this._config.GenerateGlobalOptionSet)
             {
-                if (first) { first = false; } else { WriteLine(); }
+                var groups = picklists.Where(p => p.OptionSet.IsGlobal.GetValueOrDefault()).GroupBy(p => p.OptionSet.MetadataId, (k, g) => new { g.First().OptionSet, Attributes = g }).OrderBy(e => e.OptionSet.Name);
 
-                await GenerateOptionSetEnums(attrib, attrib.OptionSet);
+                foreach (var optionSet in groups)
+                {
+                    if (first) { first = false; } else { WriteLine(); }
+
+                    await GenerateOptionSetEnums(optionSet.Attributes.OrderBy(a => a.LogicalName), optionSet.OptionSet);
+                }
             }
 
             WriteLine();
@@ -624,11 +631,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("#endregion Attributes.");
         }
 
-        private async Task GenerateOptionSetEnums(AttributeMetadata attrib, OptionSetMetadata optionSet)
+        private async Task GenerateOptionSetEnums(IEnumerable<AttributeMetadata> attributeList, OptionSetMetadata optionSet)
         {
-            List<string> lines = new List<string>();
+            List<string> lines = new List<string>
+            {
+                "Attribute:"
+            };
 
-            lines.Add(string.Format("Attribute: {0}", attrib.LogicalName));
+            foreach (var attr in attributeList.OrderBy(a => a.LogicalName))
+            {
+                lines.Add(_tabSpacer + attr.LogicalName);
+            }
 
             if (optionSet.IsGlobal.GetValueOrDefault())
             {
@@ -636,7 +649,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                CreateFileHandler.FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, attrib.DisplayName, attrib.Description, _config.TabSpacer);
+                CreateFileHandler.FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, attributeList.First().DisplayName, attributeList.First().Description, _config.TabSpacer);
             }
 
             lines.Add(string.Empty);
@@ -659,7 +672,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (optionSet.IsGlobal.GetValueOrDefault())
             {
-                CreateFileHandler.FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, attrib.DisplayName, attrib.Description, _config.TabSpacer);
+                foreach (var attr in attributeList.OrderBy(a => a.LogicalName))
+                {
+                    CreateFileHandler.FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, attr.DisplayName, attr.Description, _config.TabSpacer);
+                }
             }
             else
             {
@@ -687,7 +703,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            var options = GetOptionItems(attrib.EntityLogicalName, attrib.LogicalName, optionSet, await this._listStringMap);
+            var options = GetOptionItems(attributeList.First().EntityLogicalName, attributeList.First().LogicalName, optionSet, await this._listStringMap);
 
             if (!options.Any())
             {
@@ -697,7 +713,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteSummaryStrings(lines);
 
             {
-                bool ignore = IgnoreAttribute(_entityMetadata.LogicalName, attrib.LogicalName);
+                bool ignore = attributeList.Any(a => IgnoreAttribute(_entityMetadata.LogicalName, a.LogicalName));
 
                 string str = "";
 
@@ -706,11 +722,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     str += "//";
                 }
 
-                var enumName = attrib.LogicalName;
+                var enumName = string.Empty;
 
                 if (optionSet.IsGlobal.GetValueOrDefault())
                 {
                     enumName = optionSet.Name;
+                }
+                else
+                {
+                    enumName = attributeList.First().LogicalName;
                 }
 
                 if (_config.OptionSetExportType == OptionSetExportType.Enums)
@@ -790,8 +810,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (first) { first = false; } else { WriteLine(); }
 
-                List<string> lines = new List<string>();
-                lines.Add(string.Format("{0} - Relationship {1}", relationTypeName, relationship.SchemaName));
+                List<string> lines = new List<string>
+                {
+                    string.Format("{0} - Relationship {1}", relationTypeName, relationship.SchemaName)
+                };
 
                 {
                     List<string> footers = GetRelationshipMetadataOneToManyDescription(relationship);
@@ -1078,8 +1100,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (first) { first = false; } else { WriteLine(); }
 
-                List<string> lines = new List<string>();
-                lines.Add(string.Format("N:N - Relationship {0}", relationship.SchemaName));
+                List<string> lines = new List<string>
+                {
+                    string.Format("N:N - Relationship {0}", relationship.SchemaName)
+                };
 
                 {
                     List<string> footers = GetRelationshipMetadataManyToManyDescription(relationship);

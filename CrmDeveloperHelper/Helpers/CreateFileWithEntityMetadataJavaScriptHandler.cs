@@ -16,9 +16,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     public class CreateFileWithEntityMetadataJavaScriptHandler : CreateFileHandler
     {
         private EntityMetadata _entityMetadata;
-
-        DependencyDescriptionHandler _descriptorHandler;
-        DependencyRepository _dependencyRepository;
+        private DependencyDescriptionHandler _descriptorHandler;
+        private DependencyRepository _dependencyRepository;
 
         public IOrganizationServiceExtented _service;
         private CreateFileWithEntityMetadataJavaScriptConfiguration _config;
@@ -45,10 +44,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<string> CreateFile(string fileName = null)
         {
-            RetrieveEntityRequest request = new RetrieveEntityRequest();
-            request.LogicalName = _config.EntityName.ToLower();
+            RetrieveEntityRequest request = new RetrieveEntityRequest
+            {
+                LogicalName = _config.EntityName.ToLower(),
 
-            request.EntityFilters = EntityFilters.All;
+                EntityFilters = EntityFilters.All
+            };
 
             RetrieveEntityResponse response = (RetrieveEntityResponse)_service.Execute(request);
             this._entityMetadata = response.EntityMetadata;
@@ -159,14 +160,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task WriteRegularOptionSets()
         {
-            var pickLists = _entityMetadata.Attributes
+            var picklists = _entityMetadata.Attributes
                 .OfType<PicklistAttributeMetadata>()
                 .Where(e => e.OptionSet.Options.Any(o => o.Value.HasValue))
-                .OrderBy(attr => attr.LogicalName);
+                ;
 
-            foreach (var attrib in pickLists)
+            foreach (var attrib in picklists
+                    .Where(p => !p.OptionSet.IsGlobal.GetValueOrDefault())
+                    .OrderBy(attr => attr.LogicalName)
+            )
             {
-                await GenerateOptionSetEnums(attrib, attrib.OptionSet);
+                await GenerateOptionSetEnums(new[] { attrib }, attrib.OptionSet);
+            }
+
+            {
+                var groups = picklists.Where(p => p.OptionSet.IsGlobal.GetValueOrDefault()).GroupBy(p => p.OptionSet.MetadataId, (k, g) => new { g.First().OptionSet, Attributes = g }).OrderBy(e => e.OptionSet.Name);
+
+                foreach (var optionSet in groups)
+                {
+                    await GenerateOptionSetEnums(optionSet.Attributes.OrderBy(a => a.LogicalName), optionSet.OptionSet);
+                }
             }
         }
 
@@ -231,9 +244,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("};");
         }
 
-        private async Task GenerateOptionSetEnums(AttributeMetadata attrib, OptionSetMetadata optionSet)
+        private async Task GenerateOptionSetEnums(IEnumerable<AttributeMetadata> attributeList, OptionSetMetadata optionSet)
         {
-            var options = CreateFileHandler.GetOptionItems(attrib.EntityLogicalName, attrib.LogicalName, optionSet, this._listStringMap);
+            var options = CreateFileHandler.GetOptionItems(attributeList.First().EntityLogicalName, attributeList.First().LogicalName, optionSet, this._listStringMap);
 
             if (!options.Any())
             {
@@ -242,10 +255,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
 
+            WriteLine("// Attribute:");
+            foreach (var attr in attributeList.OrderBy(a => a.LogicalName))
+            {
+                WriteLine("// " + _tabSpacer + attr.LogicalName);
+            }
+
             if (optionSet.IsGlobal.GetValueOrDefault() && this._config.WithDependentComponents)
             {
-                List<string> lines = new List<string>();
-
                 var coll = await _dependencyRepository.GetDependentComponentsAsync((int)ComponentType.OptionSet, optionSet.MetadataId.Value);
 
                 var desc = await _descriptorHandler.GetDescriptionDependentAsync(coll);
@@ -254,26 +271,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (split.Any())
                 {
-                    foreach (var item in split)
-                    {
-                        lines.Add(item);
-                    }
+                    WriteSummaryStrings(split);
                 }
-
-                WriteSummaryStrings(lines);
             }
 
-            if (CreateFileHandler.IgnoreAttribute(_entityMetadata.LogicalName, attrib.LogicalName))
+            bool ignore = attributeList.Any(a => IgnoreAttribute(_entityMetadata.LogicalName, a.LogicalName));
+
+            if (ignore)
             {
-                WriteLine("//var {0}Enum", attrib.LogicalName);
+                foreach (var attr in attributeList.OrderBy(a => a.LogicalName))
+                {
+                    WriteLine("//var {0}Enum", attr.LogicalName);
+                }
                 return;
             }
 
-            var enumName = attrib.LogicalName;
+            var enumName = string.Empty;
 
             if (optionSet.IsGlobal.GetValueOrDefault())
             {
                 enumName = optionSet.Name;
+            }
+            else
+            {
+                enumName = attributeList.First().LogicalName;
             }
 
             WriteLine(string.Format("var {0}Enum =", enumName) + " {");
@@ -289,9 +310,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("};");
         }
 
-        private void WriteSummaryStrings(List<string> lines)
+        private void WriteSummaryStrings(IEnumerable<string> lines)
         {
-            if (lines.Count > 0)
+            if (lines.Any())
             {
                 foreach (var item in lines)
                 {

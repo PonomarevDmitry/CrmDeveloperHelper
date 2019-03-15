@@ -434,7 +434,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var isValidForAdvancedFind = string.Format("IsValidForAdvancedFind: {0}", attrib.IsValidForAdvancedFind.Value);
 
-                AddStringIntoList(result, tabSpacer, isValidForCreate, isValidForRead, isValidForUpdate, isValidForAdvancedFind);
+                AddStringIntoList(result, tabSpacer, isValidForCreate, isValidForUpdate);
+                AddStringIntoList(result, tabSpacer, isValidForRead, isValidForAdvancedFind);
             }
 
             {
@@ -1128,7 +1129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         //    return t0;
         //}
 
-        private static string[] _lat_up_ =
+        private static readonly string[] _lat_up_ =
         {
             "A", "B", "V", "G", "D", "E", "E", "Zh"
             , "Z", "I", "I", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "F", "Kh"
@@ -1136,7 +1137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , "Y", "", "E", "Iu", "Ia"
         };
 
-        private static string[] _lat_low =
+        private static readonly string[] _lat_low =
         {
             "a", "b", "v", "g", "d", "e", "e", "zh"
             , "z", "i", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "f", "kh"
@@ -1144,7 +1145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , "y", "", "e", "iu", "ia"
         };
 
-        private static string[] _rus_up_ =
+        private static readonly string[] _rus_up_ =
         {
             "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж"
             , "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х"
@@ -1152,7 +1153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , "Ы", "Ь", "Э", "Ю", "Я"
         };
 
-        private static string[] _rus_low =
+        private static readonly string[] _rus_low =
         {
             "а", "б", "в", "г", "д", "е", "ё", "ж"
             , "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф", "х"
