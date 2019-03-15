@@ -442,10 +442,15 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutionExplorer_Group" priority="0x0604" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" priority="0x0604" />
+
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuSolutionListInWeb_Group" priority="0x0604" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWeb_Group" priority="0x0604" />
+
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen" priority="0x0604" />
 
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWeb_GroupLastSolution" priority="0x0610" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWindow_GroupLastSolution" priority="0x0610" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenDefaultSolutionInWeb_Group" priority="0x0604" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWeb_Group" priority="0x0610" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWindow_Group" priority="0x0610" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader" priority="0x0605" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader_Menu_GroupTraceFile" priority="0x0605" />
@@ -460,23 +465,23 @@
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite" priority="0x0606" />
 
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuAdvancedFind_GroupConnections" priority="0x0606" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuWebApplication_GroupConnections" priority="0x0606" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuAdvancedFind_Group" priority="0x0606" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuWebApplication_Group" priority="0x0606" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization" priority="0x0606" />
 
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutions_GroupConnections" priority="0x0606" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuWorkflows_GroupConnections" priority="0x0606" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSystemJobs_GroupConnections" priority="0x0606" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuCustomization_GroupConnections" priority="0x0606" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutions_Group" priority="0x0606" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuWorkflows_Group" priority="0x0606" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSystemJobs_Group" priority="0x0606" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuCustomization_Group" priority="0x0606" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity" priority="0x0606" />
 
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSystemUsers_GroupConnections" priority="0x0606" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuTeams_GroupConnections" priority="0x0606" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuRoles_GroupConnections" priority="0x0606" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSecurity_GroupConnections" priority="0x0606" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuAdministration_GroupConnections" priority="0x0606" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSystemUsers_Group" priority="0x0606" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuTeams_Group" priority="0x0606" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuRoles_Group" priority="0x0606" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSecurity_Group" priority="0x0606" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuAdministration_Group" priority="0x0606" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupEngagementHub" priority="0x0606" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupEngagementHub_MenuEngagementHub_GroupConnections" priority="0x0606" />
@@ -1102,16 +1107,36 @@
           <MenuText>Solutions</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWeb" priority="0x0107" type="Menu">
+
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuSolutionListInWeb" priority="0x0107" type="Menu">
         <Strings>
-          <ButtonText>Open Solution in Web</ButtonText>
-          <MenuText>Open Solution in Web</MenuText>
+          <ButtonText>Solution List in Web</ButtonText>
+          <MenuText>Solution List in Web</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWindow" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWeb" priority="0x0107" type="Menu">
         <Strings>
-          <ButtonText>Open Solution in Window</ButtonText>
-          <MenuText>Open Solution in Window</MenuText>
+          <ButtonText>Customization in Web</ButtonText>
+          <MenuText>Customization in Web</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenDefaultSolutionInWeb" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Open Default Solution in Web</ButtonText>
+          <MenuText>Open Default Solution in Web</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWeb" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Open Last Solution in Web</ButtonText>
+          <MenuText>Open Last Solution in Web</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWindow" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Open Last Solution in Window</ButtonText>
+          <MenuText>Open Last Solution in Window</MenuText>
         </Strings>
       </Menu>
 
@@ -5073,6 +5098,17 @@
           <ButtonText>Customization Placeholder</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidDynamicCommandSet" id="CommonOpenDefaultSolutionInWebCommandId" priority="0x012E" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Default Solution Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+
 
 
       <Button guid="guidDynamicCommandSet" id="CommonOpenSystemUsersCommandId" priority="0x012E" type="Button">
@@ -6642,61 +6678,61 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuWebApplication" priority="0x012D">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuWebApplication_GroupConnections" priority="0x012D">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuWebApplication_Group" priority="0x012D">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuWebApplication" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenCrmWebSiteCommandId" priority="0x012D">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuWebApplication_GroupConnections" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuWebApplication_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuAdvancedFind" priority="0x012E">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuAdvancedFind_GroupConnections" priority="0x012E">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuAdvancedFind_Group" priority="0x012E">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuAdvancedFind" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenAdvancedFindCommandId" priority="0x012E">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuAdvancedFind_GroupConnections" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuAdvancedFind_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutions" priority="1">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutions_GroupConnections" priority="1">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutions_Group" priority="1">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutions" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenSolutionsCommandId" priority="1">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutions_GroupConnections" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutions_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuWorkflows" priority="2">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuWorkflows_GroupConnections" priority="2">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuWorkflows_Group" priority="2">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuWorkflows" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenWorkflowsCommandId" priority="2">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuWorkflows_GroupConnections" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuWorkflows_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSystemJobs" priority="3">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSystemJobs_GroupConnections" priority="3">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSystemJobs_Group" priority="3">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSystemJobs" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenSystemJobsCommandId" priority="3">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSystemJobs_GroupConnections" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSystemJobs_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuCustomization" priority="4">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuCustomization_GroupConnections" priority="4">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuCustomization_Group" priority="4">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuCustomization" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenCustomizationCommandId" priority="4">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuCustomization_GroupConnections" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuCustomization_Group" />
     </CommandPlacement>
 
 
@@ -6708,51 +6744,51 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSystemUsers" priority="0x0131">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSystemUsers_GroupConnections" priority="0x0131">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSystemUsers_Group" priority="0x0131">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSystemUsers" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenSystemUsersCommandId" priority="0x0131">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSystemUsers_GroupConnections" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSystemUsers_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuTeams" priority="0x0132">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuTeams_GroupConnections" priority="0x0132">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuTeams_Group" priority="0x0132">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuTeams" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenTeamsCommandId" priority="0x0132">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuTeams_GroupConnections" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuTeams_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuRoles" priority="0x0133">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuRoles_GroupConnections" priority="0x0133">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuRoles_Group" priority="0x0133">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuRoles" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenRolesCommandId" priority="0x0133">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuRoles_GroupConnections" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuRoles_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuAdministration" priority="0x0134">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuAdministration_GroupConnections" priority="0x0134">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuAdministration_Group" priority="0x0134">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuAdministration" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenAdministrationCommandId" priority="0x0134">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuAdministration_GroupConnections" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuAdministration_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSecurity" priority="0x0135">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSecurity_GroupConnections" priority="0x0135">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSecurity_Group" priority="0x0135">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSecurity" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenSecurityCommandId" priority="0x0135">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSecurity_GroupConnections" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSecurity_Group" />
     </CommandPlacement>
 
 
@@ -7281,28 +7317,56 @@
     <CommandPlacement guid="guidCommandSet" id="CommonOpenSolutionImageCommandId" priority="0x0120">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutions" priority="0x0121">
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuSolutionListInWeb" priority="0x0121">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" />
     </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuSolutionListInWeb_Group" priority="0x0121">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuSolutionListInWeb" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenSolutionsCommandId" priority="0x0121">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuSolutionListInWeb_Group" />
+    </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWindow" priority="0x012D">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWeb" priority="0x0122">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWeb_Group" priority="0x0122">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWeb" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenCustomizationCommandId" priority="0x0122">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWeb_Group" />
+    </CommandPlacement>
+
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenDefaultSolutionInWeb" priority="0x0123">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWindow_GroupLastSolution" priority="0x012D">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWindow" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenDefaultSolutionInWeb_Group" priority="0x0123">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenDefaultSolutionInWeb" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenDefaultSolutionInWebCommandId" priority="0x0123">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenDefaultSolutionInWeb_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWindow" priority="0x012D">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWindow_Group" priority="0x012D">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWindow" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonExportOpenLastSelectedSolutionInWindowCommandId" priority="0x012D">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWindow_GroupLastSolution" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWindow_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWeb" priority="0x012E">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWeb" priority="0x012E">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWeb_GroupLastSolution" priority="0x012E">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWeb" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWeb_Group" priority="0x012E">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWeb" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonExportOpenLastSelectedSolutionInWebCommandId" priority="0x012E">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWeb_GroupLastSolution" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWeb_Group" />
     </CommandPlacement>
 
 
@@ -9036,10 +9100,10 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderCSharpUpdateGlobalOptionSetsFileCommandId" priority="0x0120">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSets_Group" />
     </CommandPlacement>
-    
-    
-      
-    
+
+
+
+
     <CommandPlacement guid="guidCommandSet" id="ProjectUpdatePluginAssemblyCommandId" priority="0x0120">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate" />
     </CommandPlacement>
@@ -9840,13 +9904,22 @@
 
       <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" value="0x119B" />
 
+      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuSolutionListInWeb" value="0x1290" />
+      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuSolutionListInWeb_Group" value="0x1291" />
+
+      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWeb" value="0x1292" />
+      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWeb_Group" value="0x1293" />
+
       <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen" value="0x10EF" />
 
-      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWeb" value="0x1116" />
-      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWeb_GroupLastSolution" value="0x1117" />
+      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenDefaultSolutionInWeb" value="0x1295" />
+      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenDefaultSolutionInWeb_Group" value="0x1296" />
 
-      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWindow" value="0x1118" />
-      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenInWindow_GroupLastSolution" value="0x1119" />
+      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWeb" value="0x1116" />
+      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWeb_Group" value="0x1117" />
+
+      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWindow" value="0x1118" />
+      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWindow_Group" value="0x1119" />
 
       <IDSymbol name="commonMenu_GroupTraceReader" value="0x11D9" />
 
@@ -9867,45 +9940,45 @@
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite" value="0x115D" />
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuWebApplication" value="0x119C" />
-      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuWebApplication_GroupConnections" value="0x119D" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuWebApplication_Group" value="0x119D" />
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuAdvancedFind" value="0x115E" />
-      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuAdvancedFind_GroupConnections" value="0x115F" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuAdvancedFind_Group" value="0x115F" />
 
 
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization" value="0x11AE" />
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutions" value="0x119E" />
-      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutions_GroupConnections" value="0x119F" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutions_Group" value="0x119F" />
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuWorkflows" value="0x11AA" />
-      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuWorkflows_GroupConnections" value="0x11AB" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuWorkflows_Group" value="0x11AB" />
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSystemJobs" value="0x11AF" />
-      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSystemJobs_GroupConnections" value="0x11B0" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSystemJobs_Group" value="0x11B0" />
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuCustomization" value="0x11A0" />
-      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuCustomization_GroupConnections" value="0x11A1" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuCustomization_Group" value="0x11A1" />
 
 
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity" value="0x11B3" />
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSystemUsers" value="0x11A2" />
-      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSystemUsers_GroupConnections" value="0x11A3" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSystemUsers_Group" value="0x11A3" />
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuTeams" value="0x11A4" />
-      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuTeams_GroupConnections" value="0x11A5" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuTeams_Group" value="0x11A5" />
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuRoles" value="0x11A6" />
-      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuRoles_GroupConnections" value="0x11A7" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuRoles_Group" value="0x11A7" />
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSecurity" value="0x11A8" />
-      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSecurity_GroupConnections" value="0x11A9" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuSecurity_Group" value="0x11A9" />
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuAdministration" value="0x11B1" />
-      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuAdministration_GroupConnections" value="0x11B2" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity_MenuAdministration_Group" value="0x11B2" />
 
 
 
@@ -9980,7 +10053,7 @@
 
 
 
-      <!-- 0x1290 -->
+      <!-- 0x1297 -->
 
 
     </GuidSymbol>
@@ -10205,7 +10278,9 @@
       <IDSymbol name="FileCSharpProjectUpdatePluginAssemblyInConnectionCommandId" value="7300" />
       <IDSymbol name="ProjectUpdatePluginAssemblyInConnectionCommandId" value="7350" />
 
-      <!-- 7400 -->
+      <IDSymbol name="CommonOpenDefaultSolutionInWebCommandId" value="7400" />
+
+      <!-- 7450 -->
 
     </GuidSymbol>
 

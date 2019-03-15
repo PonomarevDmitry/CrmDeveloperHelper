@@ -193,6 +193,7 @@
     <Compile Include="Commands\CommonOpenConfigFolderCommand.cs" />
     <Compile Include="Commands\CommonOpenCrmWebSiteCommand.cs" />
     <Compile Include="Commands\CommonCurrentConnectionCommand.cs" />
+    <Compile Include="Commands\CommonOpenDefaultSolutionInWebCommand.cs" />
     <Compile Include="Commands\CommonOpenOrganizationDifferenceImageCommand.cs" />
     <Compile Include="Commands\CommonOpenSolutionImageCommand.cs" />
     <Compile Include="Commands\CommonOpenXsdSchemaFolderCommand.cs" />

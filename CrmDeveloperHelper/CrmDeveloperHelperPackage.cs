@@ -359,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonExportOpenLastSelectedSolutionCommand.Initialize(this);
             CommonCheckComponentTypeEnumCommand.Initialize(this);
             CommonCreateAllDependencyNodeDescriptionCommand.Initialize(this);
-
+            CommonOpenDefaultSolutionInWebCommand.Initialize(this);
 
 
 
