@@ -50,30 +50,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return await new RoleRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
         }
 
-        protected override Task<List<Workflow>> GetWorkflowAsync(IOrganizationServiceExtented service, ColumnSet columnSet)
+        protected override async Task<List<Workflow>> GetWorkflowAsync(IOrganizationServiceExtented service, ColumnSet columnSet)
         {
+            List<Workflow> result = new List<Workflow>();
+
+            var descriptor = new SolutionComponentDescriptor(service);
+            var repository = new WorkflowRepository(service);
+
             var imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.Workflow);
 
-            if (!imageComponents.Any())
+            if (imageComponents.Any())
             {
-                return Task.FromResult(new List<Workflow>());
+                var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+                if (solutionComponents.Any())
+                {
+                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), columnSet);
+
+                    result.AddRange(tempList);
+                }
             }
 
-            return Task.Run(async () => await GetWorkflows(service, imageComponents, columnSet));
-        }
+            var hashSet = new HashSet<Guid>(result.Select(c => c.Id));
 
-        private async Task<List<Workflow>> GetWorkflows(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents, ColumnSet columnSet)
-        {
-            var descriptor = new SolutionComponentDescriptor(service);
+            imageComponents = _solutionImage.Components.Where(c => c.ComponentType == (int)ComponentType.Entity);
 
-            var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
-
-            if (!solutionComponents.Any())
+            if (imageComponents.Any())
             {
-                return new List<Workflow>();
+                var solutionComponents = await descriptor.GetSolutionComponentsListAsync(imageComponents);
+
+                if (solutionComponents.Any())
+                {
+                    var entities = solutionComponents
+                        .Where(c => (c.RootComponentBehavior?.Value ?? (int)RootComponentBehavior.IncludeSubcomponents) == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
+                        .Where(e => e != null)
+                        .Select(e => e.LogicalName)
+                        .ToArray();
+
+                    if (entities.Any())
+                    {
+                        var tempList = await repository.GetListForEntitiesAsync(entities, columnSet);
+
+                        foreach (var item in tempList)
+                        {
+                            if (hashSet.Add(item.Id))
+                            {
+                                result.Add(item);
+                            }
+                        }
+                    }
+                }
             }
 
-            return await new WorkflowRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), columnSet);
+            return result;
         }
 
         protected override Task<List<WebResource>> GetWebResourceAsync(IOrganizationServiceExtented service)
@@ -264,7 +294,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (solutionComponents.Any())
                 {
                     var entities = solutionComponents
-                        .Where(c => c.RootComponentBehavior?.Value == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Where(c => (c.RootComponentBehavior?.Value ?? (int)RootComponentBehavior.IncludeSubcomponents) == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
                         .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
                         .Where(e => e != null)
                         .Select(e => e.LogicalName)
@@ -346,7 +376,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (solutionComponents.Any())
                 {
                     var entities = solutionComponents
-                        .Where(c => c.RootComponentBehavior?.Value == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Where(c => (c.RootComponentBehavior?.Value ?? (int)RootComponentBehavior.IncludeSubcomponents) == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
                         .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
                         .Where(e => e != null)
                         .Select(e => e.LogicalName)
@@ -532,7 +562,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (solutionComponents.Any())
                 {
                     var entities = solutionComponents
-                        .Where(c => c.RootComponentBehavior?.Value == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Where(c => (c.RootComponentBehavior?.Value ?? (int)RootComponentBehavior.IncludeSubcomponents) == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
                         .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
                         .Where(e => e != null)
                         .Select(e => e.LogicalName)
@@ -588,7 +618,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (solutionComponents.Any())
                 {
                     var entities = solutionComponents
-                        .Where(c => c.RootComponentBehavior?.Value == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Where(c => (c.RootComponentBehavior?.Value ?? (int)RootComponentBehavior.IncludeSubcomponents) == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
                         .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
                         .Where(e => e != null)
                         .Select(e => e.LogicalName)
@@ -644,7 +674,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (solutionComponents.Any())
                 {
                     var entities = solutionComponents
-                        .Where(c => c.RootComponentBehavior?.Value == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Where(c => (c.RootComponentBehavior?.Value ?? (int)RootComponentBehavior.IncludeSubcomponents) == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
                         .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
                         .Where(e => e != null)
                         .Select(e => e.LogicalName)
