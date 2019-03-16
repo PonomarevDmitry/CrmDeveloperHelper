@@ -8,6 +8,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -38,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Dictionary<Guid, IEnumerable<EntityMetadataViewItem>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadataViewItem>>();
 
-        private Dictionary<Guid, Dictionary<string, IEnumerable<AttributeMetadataViewItem>>> _cacheAttributeMetadata = new Dictionary<Guid, Dictionary<string, IEnumerable<AttributeMetadataViewItem>>>();
+        private Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<AttributeMetadataViewItem>>> _cacheAttributeMetadata = new Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<AttributeMetadataViewItem>>>();
 
         private int _init = 0;
 
@@ -299,7 +300,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         if (!_cacheAttributeMetadata.ContainsKey(service.ConnectionData.ConnectionId))
                         {
-                            _cacheAttributeMetadata.Add(service.ConnectionData.ConnectionId, new Dictionary<string, IEnumerable<AttributeMetadataViewItem>>(StringComparer.InvariantCultureIgnoreCase));
+                            _cacheAttributeMetadata.Add(service.ConnectionData.ConnectionId, new ConcurrentDictionary<string, IEnumerable<AttributeMetadataViewItem>>(StringComparer.InvariantCultureIgnoreCase));
                         }
 
                         var cacheAttribute = _cacheAttributeMetadata[service.ConnectionData.ConnectionId];
@@ -312,7 +313,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             if (metadata != null && metadata.Attributes != null)
                             {
-                                cacheAttribute.Add(entityLogicalName, metadata.Attributes.Where(e => string.IsNullOrEmpty(e.AttributeOf)).Select(e => new AttributeMetadataViewItem(e)).ToList());
+                                if (!cacheAttribute.ContainsKey(entityLogicalName))
+                                {
+                                    cacheAttribute.TryAdd(entityLogicalName, metadata.Attributes.Where(e => string.IsNullOrEmpty(e.AttributeOf)).Select(e => new AttributeMetadataViewItem(e)).ToList());
+                                }
                             }
                         }
 
@@ -419,7 +423,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection);
+            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, mISaveChanges, mIClearEntityCacheAndRefresh, mIClearAttributeCacheAndRefresh);
 
             UpdateButtonsEnable();
         }
@@ -1202,7 +1206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mISaveChanges(object sender, RoutedEventArgs e)
+        private async void mISaveChanges_Click(object sender, RoutedEventArgs e)
         {
             if (_init > 0 || !_controlsEnabled)
             {

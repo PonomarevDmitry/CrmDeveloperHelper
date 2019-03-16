@@ -6,6 +6,9 @@
         xmlns:sdk="clr-namespace:Microsoft.Xrm.Sdk;assembly=Microsoft.Xrm.Sdk"
         Title="Entity EntityRelationship OneToMany Explorer" Height="538.662" Width="1233" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
+
+        <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
+
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
             <Separator/>
@@ -110,7 +113,11 @@
                     <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
                 </MenuItem>
-                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem Header="Compare Information with other Organization" VerticalAlignment="Center">
                     <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                     <Separator/>
@@ -124,11 +131,23 @@
                     <Separator/>
                     <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
                 </MenuItem>
-                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                <MenuItem Header="Clear Entity Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click" VerticalAlignment="Center" />
-                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                <MenuItem Header="Clear EntityRelationship Cache and Refresh" Click="mIClearEntityRelationshipCacheAndRefresh_Click" VerticalAlignment="Center" />
             </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+            <Button x:Name="mIClearEntityCacheAndRefresh" HorizontalAlignment="Left" Click="mIClearEntityCacheAndRefresh_Click">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Clear Entity Cache and Refresh</TextBlock>
+                </StackPanel>
+            </Button>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+            <Button x:Name="mIClearEntityRelationshipCacheAndRefresh" HorizontalAlignment="Left" Click="mIClearEntityRelationshipCacheAndRefresh_Click">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Clear EntityRelationship Cache and Refresh</TextBlock>
+                </StackPanel>
+            </Button>
         </ToolBar>
         <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
@@ -154,7 +173,7 @@
                     <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
                     <TextBox x:Name="txtBFilterEnitity"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
                 </Grid>
-                
+
                 <DataGrid x:Name="lstVwEntities" Margin="5" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Top">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -213,7 +232,7 @@
                         <DataGridCheckBoxColumn Header="IsCustomizable" Width="120" Binding="{Binding IsCustomizable, Mode=OneTime}" />
                         <DataGridCheckBoxColumn Header="Custom" Width="120" Binding="{Binding IsCustomRelationship, Mode=OneTime}" />
                         <DataGridCheckBoxColumn Header="IsValidForAdvancedFind" Width="120" Binding="{Binding IsValidForAdvancedFind, Mode=OneTime}" />
-                        
+
                         <DataGridTextColumn Header="SecurityTypes" Width="120" Binding="{Binding SecurityTypes, Mode=OneTime}" />
                         <DataGridTextColumn Header="RelationshipType" Width="120" Binding="{Binding RelationshipType, Mode=OneTime}" />
 

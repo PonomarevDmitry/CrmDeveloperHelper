@@ -494,7 +494,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection);
+            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, cmBRelationType, mIClearEntityCacheAndRefresh, mIClearEntityRelationshipCacheAndRefresh);
 
             UpdateButtonsEnable();
         }

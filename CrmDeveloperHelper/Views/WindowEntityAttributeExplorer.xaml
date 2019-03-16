@@ -7,6 +7,9 @@
         xmlns:sdk="clr-namespace:Microsoft.Xrm.Sdk.Metadata;assembly=Microsoft.Xrm.Sdk"
         Title="Entity Attribute Explorer" Height="538.662" Width="1233" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
+
+        <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
+
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
             <Separator/>
@@ -111,7 +114,9 @@
                     <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
                 </MenuItem>
-                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+            </Menu>
+            <Separator />
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem Header="Compare Information with other Organization" VerticalAlignment="Center">
                     <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                     <Separator/>
@@ -125,13 +130,18 @@
                     <Separator/>
                     <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
                 </MenuItem>
-                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                <MenuItem Header="Clear Entity Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click"  VerticalAlignment="Center"/>
-                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                <MenuItem Header="Clear Attribute Cache and Refresh" Click="mIClearAttributeCacheAndRefresh_Click"  VerticalAlignment="Center"/>
-                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                <MenuItem Header="Save Changes" Click="mISaveChanges"  VerticalAlignment="Center"/>
             </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+            <Button x:Name="mIClearEntityCacheAndRefresh" HorizontalAlignment="Left" Click="mIClearEntityCacheAndRefresh_Click">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Clear Entity Cache and Refresh</TextBlock>
+                </StackPanel>
+            </Button>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+            <MenuItem x:Name="mISaveChanges" Header="Save Changes" Click="mISaveChanges_Click"  VerticalAlignment="Center"/>
         </ToolBar>
         <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
@@ -177,7 +187,7 @@
                     <TextBox x:Name="txtBFilterEnitity"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
                 </Grid>
 
-                
+
                 <DataGrid x:Name="lstVwEntities" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Top">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -222,7 +232,7 @@
             <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
 
             <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true" Grid.Column="2">
-                
+
                 <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem Header="Select Attributes" VerticalAlignment="Center">
@@ -285,8 +295,11 @@
                                 <MenuItem Header="True"  Click="miSelectAttributeIsGlobalFilterEnabledWithTrue_Click"/>
                             </MenuItem>
                         </MenuItem>
+                    </Menu>
 
-                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+
+                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
 
                         <MenuItem Header="Set Attribute Property">
                             <MenuItem Header="Required Level to">
@@ -345,6 +358,14 @@
                             </MenuItem>
                         </MenuItem>
                     </Menu>
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Button x:Name="mIClearAttributeCacheAndRefresh" HorizontalAlignment="Left" Click="mIClearAttributeCacheAndRefresh_Click">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Clear Attribute Cache and Refresh</TextBlock>
+                        </StackPanel>
+                    </Button>
                 </ToolBar>
 
                 <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
