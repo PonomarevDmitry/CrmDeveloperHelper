@@ -7,6 +7,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -38,7 +39,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
 
-        private Dictionary<Guid, Dictionary<string, IEnumerable<EntityKeyMetadataViewItem>>> _cacheEntityKeyMetadata = new Dictionary<Guid, Dictionary<string, IEnumerable<EntityKeyMetadataViewItem>>>();
+        private Dictionary<Guid, ConcurrentDictionary<string, Task>> _cacheMetadataTask = new Dictionary<Guid, ConcurrentDictionary<string, Task>>();
+
+        private Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<EntityKeyMetadataViewItem>>> _cacheEntityKeyMetadata = new Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<EntityKeyMetadataViewItem>>>();
 
         private int _init = 0;
 
@@ -323,21 +326,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         if (!_cacheEntityKeyMetadata.ContainsKey(service.ConnectionData.ConnectionId))
                         {
-                            _cacheEntityKeyMetadata.Add(service.ConnectionData.ConnectionId, new Dictionary<string, IEnumerable<EntityKeyMetadataViewItem>>(StringComparer.InvariantCultureIgnoreCase));
+                            _cacheEntityKeyMetadata.Add(service.ConnectionData.ConnectionId, new ConcurrentDictionary<string, IEnumerable<EntityKeyMetadataViewItem>>(StringComparer.InvariantCultureIgnoreCase));
+                        }
+
+                        if (!_cacheMetadataTask.ContainsKey(service.ConnectionData.ConnectionId))
+                        {
+                            _cacheMetadataTask.Add(service.ConnectionData.ConnectionId, new ConcurrentDictionary<string, Task>(StringComparer.InvariantCultureIgnoreCase));
                         }
 
                         var cacheEntityKey = _cacheEntityKeyMetadata[service.ConnectionData.ConnectionId];
+                        var cacheMetadataTask = _cacheMetadataTask[service.ConnectionData.ConnectionId];
 
                         if (!cacheEntityKey.ContainsKey(entityLogicalName))
                         {
-                            var repository = new EntityMetadataRepository(service);
-
-                            var metadata = await repository.GetEntityMetadataAttributesAsync(entityLogicalName, EntityFilters.All);
-
-                            if (metadata != null && metadata.Keys != null)
+                            if (cacheMetadataTask.ContainsKey(entityLogicalName))
                             {
-                                cacheEntityKey.Add(entityLogicalName, metadata.Keys.Select(e => new EntityKeyMetadataViewItem(e)).ToList());
+                                if (cacheMetadataTask.TryGetValue(entityLogicalName, out var task))
+                                {
+                                    await task;
+                                }
                             }
+                            else
+                            {
+                                var task = GetEntityMetadataInformationAsync(service, entityLogicalName, cacheEntityKey, cacheMetadataTask);
+
+                                cacheMetadataTask.TryAdd(entityLogicalName, task);
+
+                                await task;
+                            }
+
+
+
                         }
 
                         if (cacheEntityKey.ContainsKey(entityLogicalName))
@@ -364,6 +383,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             LoadEntityKeys(list);
 
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingEntityKeysCompletedFormat1, list.Count());
+        }
+
+        private static async Task GetEntityMetadataInformationAsync(IOrganizationServiceExtented service, string entityLogicalName, ConcurrentDictionary<string, IEnumerable<EntityKeyMetadataViewItem>> cacheEntityKey, ConcurrentDictionary<string, Task> cacheMetadataTask)
+        {
+            var repository = new EntityMetadataRepository(service);
+
+            var metadata = await repository.GetEntityMetadataAttributesAsync(entityLogicalName, EntityFilters.All);
+
+            if (metadata != null && metadata.Keys != null)
+            {
+                if (!cacheEntityKey.ContainsKey(entityLogicalName))
+                {
+                    cacheEntityKey.TryAdd(entityLogicalName, metadata.Keys.Select(e => new EntityKeyMetadataViewItem(e)).ToList());
+                }
+            }
+
+            if (cacheMetadataTask.ContainsKey(entityLogicalName))
+            {
+                cacheMetadataTask.TryRemove(entityLogicalName, out _);
+            }
         }
 
         private static IEnumerable<EntityKeyMetadataViewItem> FilterEntityKeyList(IEnumerable<EntityKeyMetadataViewItem> list, string textName)

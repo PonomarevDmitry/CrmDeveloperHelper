@@ -39,6 +39,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Dictionary<Guid, IEnumerable<EntityMetadataViewItem>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadataViewItem>>();
 
+        private Dictionary<Guid, ConcurrentDictionary<string, Task>> _cacheMetadataTask = new Dictionary<Guid, ConcurrentDictionary<string, Task>>();
+
         private Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<AttributeMetadataViewItem>>> _cacheAttributeMetadata = new Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<AttributeMetadataViewItem>>>();
 
         private int _init = 0;
@@ -303,20 +305,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             _cacheAttributeMetadata.Add(service.ConnectionData.ConnectionId, new ConcurrentDictionary<string, IEnumerable<AttributeMetadataViewItem>>(StringComparer.InvariantCultureIgnoreCase));
                         }
 
+                        if (!_cacheMetadataTask.ContainsKey(service.ConnectionData.ConnectionId))
+                        {
+                            _cacheMetadataTask.Add(service.ConnectionData.ConnectionId, new ConcurrentDictionary<string, Task>(StringComparer.InvariantCultureIgnoreCase));
+                        }
+
                         var cacheAttribute = _cacheAttributeMetadata[service.ConnectionData.ConnectionId];
+                        var cacheMetadataTask = _cacheMetadataTask[service.ConnectionData.ConnectionId];
 
                         if (!cacheAttribute.ContainsKey(entityLogicalName))
                         {
-                            var repository = new EntityMetadataRepository(service);
-
-                            var metadata = await repository.GetEntityMetadataAttributesAsync(entityLogicalName, EntityFilters.Attributes);
-
-                            if (metadata != null && metadata.Attributes != null)
+                            if (cacheMetadataTask.ContainsKey(entityLogicalName))
                             {
-                                if (!cacheAttribute.ContainsKey(entityLogicalName))
+                                if (cacheMetadataTask.TryGetValue(entityLogicalName, out var task))
                                 {
-                                    cacheAttribute.TryAdd(entityLogicalName, metadata.Attributes.Where(e => string.IsNullOrEmpty(e.AttributeOf)).Select(e => new AttributeMetadataViewItem(e)).ToList());
+                                    await task;
                                 }
+                            }
+                            else
+                            {
+                                var task = GetEntityMetadataInformationAsync(service, entityLogicalName, cacheAttribute, cacheMetadataTask);
+
+                                cacheMetadataTask.TryAdd(entityLogicalName, task);
+
+                                await task;
                             }
                         }
 
@@ -344,6 +356,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             LoadAttributes(list);
 
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingAttributesCompletedFormat1, list.Count());
+        }
+
+        private static async Task GetEntityMetadataInformationAsync(IOrganizationServiceExtented service, string entityLogicalName, ConcurrentDictionary<string, IEnumerable<AttributeMetadataViewItem>> cacheAttribute, ConcurrentDictionary<string, Task> cacheMetadataTask)
+        {
+            var repository = new EntityMetadataRepository(service);
+
+            var metadata = await repository.GetEntityMetadataAttributesAsync(entityLogicalName, EntityFilters.Attributes);
+
+            if (metadata != null && metadata.Attributes != null)
+            {
+                if (!cacheAttribute.ContainsKey(entityLogicalName))
+                {
+                    cacheAttribute.TryAdd(entityLogicalName, metadata.Attributes.Where(e => string.IsNullOrEmpty(e.AttributeOf)).Select(e => new AttributeMetadataViewItem(e)).ToList());
+                }
+            }
+
+            if (cacheMetadataTask.ContainsKey(entityLogicalName))
+            {
+                cacheMetadataTask.TryRemove(entityLogicalName, out _);
+            }
         }
 
         private static IEnumerable<AttributeMetadataViewItem> FilterAttributeList(IEnumerable<AttributeMetadataViewItem> list, string textName)

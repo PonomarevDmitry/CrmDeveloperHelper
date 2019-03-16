@@ -7,6 +7,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -37,9 +38,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
 
-        private Dictionary<Guid, Dictionary<string, IEnumerable<OneToManyRelationshipMetadataViewItem>>> _cacheEntityOneToMany = new Dictionary<Guid, Dictionary<string, IEnumerable<OneToManyRelationshipMetadataViewItem>>>();
+        private Dictionary<Guid, ConcurrentDictionary<string, Task>> _cacheMetadataTask = new Dictionary<Guid, ConcurrentDictionary<string, Task>>();
 
-        private Dictionary<Guid, Dictionary<string, IEnumerable<OneToManyRelationshipMetadataViewItem>>> _cacheEntityManyToOne = new Dictionary<Guid, Dictionary<string, IEnumerable<OneToManyRelationshipMetadataViewItem>>>();
+        private Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<OneToManyRelationshipMetadataViewItem>>> _cacheEntityOneToMany = new Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<OneToManyRelationshipMetadataViewItem>>>();
+
+        private Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<OneToManyRelationshipMetadataViewItem>>> _cacheEntityManyToOne = new Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<OneToManyRelationshipMetadataViewItem>>>();
 
         private int _init = 0;
 
@@ -331,36 +334,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         if (!_cacheEntityOneToMany.ContainsKey(service.ConnectionData.ConnectionId))
                         {
-                            _cacheEntityOneToMany.Add(service.ConnectionData.ConnectionId, new Dictionary<string, IEnumerable<OneToManyRelationshipMetadataViewItem>>(StringComparer.InvariantCultureIgnoreCase));
+                            _cacheEntityOneToMany.Add(service.ConnectionData.ConnectionId, new ConcurrentDictionary<string, IEnumerable<OneToManyRelationshipMetadataViewItem>>(StringComparer.InvariantCultureIgnoreCase));
                         }
 
                         if (!_cacheEntityManyToOne.ContainsKey(service.ConnectionData.ConnectionId))
                         {
-                            _cacheEntityManyToOne.Add(service.ConnectionData.ConnectionId, new Dictionary<string, IEnumerable<OneToManyRelationshipMetadataViewItem>>(StringComparer.InvariantCultureIgnoreCase));
+                            _cacheEntityManyToOne.Add(service.ConnectionData.ConnectionId, new ConcurrentDictionary<string, IEnumerable<OneToManyRelationshipMetadataViewItem>>(StringComparer.InvariantCultureIgnoreCase));
+                        }
+
+                        if (!_cacheMetadataTask.ContainsKey(service.ConnectionData.ConnectionId))
+                        {
+                            _cacheMetadataTask.Add(service.ConnectionData.ConnectionId, new ConcurrentDictionary<string, Task>(StringComparer.InvariantCultureIgnoreCase));
                         }
 
                         var connectionEntityOneToMany = _cacheEntityOneToMany[service.ConnectionData.ConnectionId];
                         var connectionEntityManyToOne = _cacheEntityManyToOne[service.ConnectionData.ConnectionId];
+                        var cacheMetadataTask = _cacheMetadataTask[service.ConnectionData.ConnectionId];
 
                         if (!connectionEntityOneToMany.ContainsKey(entityLogicalName)
                             || !connectionEntityManyToOne.ContainsKey(entityLogicalName)
                             )
                         {
-                            var repository = new EntityMetadataRepository(service);
-
-                            var metadata = await repository.GetEntityMetadataAttributesAsync(entityLogicalName, EntityFilters.Relationships);
-
-                            if (metadata != null)
+                            if (cacheMetadataTask.ContainsKey(entityLogicalName))
                             {
-                                if (metadata.OneToManyRelationships != null && !connectionEntityOneToMany.ContainsKey(entityLogicalName))
+                                if (cacheMetadataTask.TryGetValue(entityLogicalName, out var task))
                                 {
-                                    connectionEntityOneToMany.Add(entityLogicalName, metadata.OneToManyRelationships.Select(e => new OneToManyRelationshipMetadataViewItem(e)).ToList());
+                                    await task;
                                 }
+                            }
+                            else
+                            {
+                                var task = GetEntityMetadataInformationAsync(service, entityLogicalName, connectionEntityOneToMany, connectionEntityManyToOne, cacheMetadataTask);
 
-                                if (metadata.ManyToOneRelationships != null && !connectionEntityManyToOne.ContainsKey(entityLogicalName))
-                                {
-                                    connectionEntityManyToOne.Add(entityLogicalName, metadata.ManyToOneRelationships.Select(e => new OneToManyRelationshipMetadataViewItem(e)).ToList());
-                                }
+                                cacheMetadataTask.TryAdd(entityLogicalName, task);
+
+                                await task;
                             }
                         }
 
@@ -412,6 +420,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             LoadEntityRelationships(list);
 
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingOneToManyRelationshipsCompletedFormat1, list.Count());
+        }
+
+        private static async Task GetEntityMetadataInformationAsync(IOrganizationServiceExtented service
+            , string entityLogicalName
+            , ConcurrentDictionary<string, IEnumerable<OneToManyRelationshipMetadataViewItem>> connectionEntityOneToMany
+            , ConcurrentDictionary<string, IEnumerable<OneToManyRelationshipMetadataViewItem>> connectionEntityManyToOne
+            , ConcurrentDictionary<string, Task> cacheMetadataTask
+        )
+        {
+            var repository = new EntityMetadataRepository(service);
+
+            var metadata = await repository.GetEntityMetadataAttributesAsync(entityLogicalName, EntityFilters.Relationships);
+
+            if (metadata != null)
+            {
+                if (metadata.OneToManyRelationships != null && !connectionEntityOneToMany.ContainsKey(entityLogicalName))
+                {
+                    connectionEntityOneToMany.TryAdd(entityLogicalName, metadata.OneToManyRelationships.Select(e => new OneToManyRelationshipMetadataViewItem(e)).ToList());
+                }
+
+                if (metadata.ManyToOneRelationships != null && !connectionEntityManyToOne.ContainsKey(entityLogicalName))
+                {
+                    connectionEntityManyToOne.TryAdd(entityLogicalName, metadata.ManyToOneRelationships.Select(e => new OneToManyRelationshipMetadataViewItem(e)).ToList());
+                }
+            }
+
+            if (cacheMetadataTask.ContainsKey(entityLogicalName))
+            {
+                cacheMetadataTask.TryRemove(entityLogicalName, out _);
+            }
         }
 
         private static IEnumerable<OneToManyRelationshipMetadataViewItem> FilterEntityRelationshipList(IEnumerable<OneToManyRelationshipMetadataViewItem> list, string textName)
