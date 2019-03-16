@@ -826,6 +826,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Creating Role backup {1}.
+        /// </summary>
+        internal static string CreatingRoleBackupFormat2 {
+            get {
+                return ResourceManager.GetString("CreatingRoleBackupFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Deactivating {1} {2}.
         /// </summary>
         internal static string DeactivatingEntityFormat2 {

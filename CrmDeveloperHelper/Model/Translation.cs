@@ -78,6 +78,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     ser.WriteObject(memoryStream, translation);
 
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+
                     fileBody = memoryStream.ToArray();
                 }
                 catch (Exception ex)

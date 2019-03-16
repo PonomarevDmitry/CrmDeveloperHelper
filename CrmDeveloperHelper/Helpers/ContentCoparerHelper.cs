@@ -770,6 +770,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             using (XmlWriter xmlWriter = XmlWriter.Create(result, settings))
             {
                 doc.Save(xmlWriter);
+                xmlWriter.Flush();
             }
 
             return result.ToString();

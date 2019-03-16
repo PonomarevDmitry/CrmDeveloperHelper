@@ -71,10 +71,16 @@
 
         <ContextMenu x:Key="listContextMenuSecurityRole" Opened="ContextMenuSecurityRole_Opened">
             <MenuItem Header="Open Role in Web" VerticalAlignment="Center" Click="mIOpenSecurityRoleInWeb_Click" />
+            
             <Separator/>
             <MenuItem Header="Open Role List in Web" VerticalAlignment="Center" Click="mIOpenSecurityRoleListInWeb_Click" />
+            
             <Separator/>
             <MenuItem Header="Open Role Explorer" VerticalAlignment="Center" Click="mIOpenSecurityRoleExplorer_Click" />
+
+            <Separator/>
+            <MenuItem Header="Create Role Backup" VerticalAlignment="Center" Click="mICreateSecurityRoleBackup_Click" />
+
             <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy Role Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />

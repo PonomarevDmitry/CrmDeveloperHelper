@@ -78,5 +78,79 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return result;
         }
+
+        public Task<List<Privilege>> GetListForRoleAsync(Guid idRole)
+        {
+            return Task.Run(() => GetListForRole(idRole));
+        }
+
+        private List<Privilege> GetListForRole(Guid idRole)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = Privilege.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = new ColumnSet(true),
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = Privilege.EntityLogicalName,
+                        LinkFromAttributeName = Privilege.PrimaryIdAttribute,
+
+                        LinkToEntityName = RolePrivileges.EntityLogicalName,
+                        LinkToAttributeName = RolePrivileges.Schema.Attributes.privilegeid,
+
+                        LinkCriteria =
+                        {
+                            Conditions =
+                            {
+                                new ConditionExpression(RolePrivileges.Schema.Attributes.roleid, ConditionOperator.Equal, idRole),
+                            },
+                        },
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(Privilege.Schema.Attributes.name, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                }
+            };
+
+            var result = new List<Privilege>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Privilege>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+            }
+
+            return result;
+        }
     }
 }

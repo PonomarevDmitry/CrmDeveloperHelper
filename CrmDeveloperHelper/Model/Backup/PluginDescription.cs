@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup
 {
     [DataContract]
     public class PluginDescription
@@ -65,8 +65,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction
                         Encoding = Encoding.UTF8
                     };
 
-                    XmlWriter xmlWriter = XmlWriter.Create(memoryStream, settings);
-                    ser.WriteObject(xmlWriter, this);
+                    using (XmlWriter xmlWriter = XmlWriter.Create(memoryStream, settings))
+                    {
+                        ser.WriteObject(xmlWriter, this);
+                        xmlWriter.Flush();
+                    }
+
+                    memoryStream.Seek(0, SeekOrigin.Begin);
 
                     fileBody = memoryStream.ToArray();
                 }

@@ -1,4 +1,4 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -67,14 +67,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 try
                 {
-                    XmlWriterSettings settings = new XmlWriterSettings();
-                    settings.Indent = true;
-                    settings.Encoding = Encoding.UTF8;
+                    XmlWriterSettings settings = new XmlWriterSettings
+                    {
+                        Indent = true,
+                        Encoding = Encoding.UTF8
+                    };
 
                     using (XmlWriter xmlWriter = XmlWriter.Create(memoryStream, settings))
                     {
                         ser.WriteObject(xmlWriter, this);
+                        xmlWriter.Flush();
                     }
+
+                    memoryStream.Seek(0, SeekOrigin.Begin);
 
                     fileBody = memoryStream.ToArray();
                 }

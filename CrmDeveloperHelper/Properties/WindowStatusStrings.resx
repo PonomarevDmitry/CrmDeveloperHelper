@@ -1275,4 +1275,10 @@
   <data name="LoadingAssemblyFromPathFormat1" xml:space="preserve">
     <value>Loading Assembly from path {0}</value>
   </data>
+  <data name="CreatingRoleBackupCompletedFormat2" xml:space="preserve">
+    <value>{0}. Creating Role backup {1} completed.</value>
+  </data>
+  <data name="CreatingRoleBackupFormat2" xml:space="preserve">
+    <value>{0}. Creating Role backup {1}...</value>
+  </data>
 </root>

@@ -7,42 +7,45 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup
 {
     [DataContract]
-    public class OrganizationDifferenceImage
+    public class Role
     {
-        [DataMember]
-        public DateTime CreatedOn { get; set; }
+        [DataMember(Order = 10)]
+        public Guid Id { get; set; }
 
-        [DataMember]
-        public SolutionImage Connection1Image { get; set; }
+        [DataMember(Order = 20)]
+        public Guid? TemplateId { get; set; }
 
-        [DataMember]
-        public SolutionImage Connection2Image { get; set; }
+        [DataMember(Order = 30)]
+        public string Name { get; set; }
 
-        [DataMember]
-        public string MachineName { get; set; }
+        [DataMember(Order = 40)]
+        public List<RolePrivilege> RolePrivileges { get; set; }
 
-        [DataMember]
-        public string ExecuteUserDomainName { get; set; }
-
-        [DataMember]
-        public string ExecuteUserName { get; set; }
-
-        [DataMember]
-        public List<OrganizationDifferenceImageComponent> DifferentComponents { get; set; }
-
-        public string FilePath { get; set; }
-
-        public OrganizationDifferenceImage()
+        public Role()
         {
-            this.DifferentComponents = new List<OrganizationDifferenceImageComponent>();
+            this.RolePrivileges = new List<RolePrivilege>();
         }
 
-        public void Save(string filePath)
+        [OnDeserializing]
+        private void BeforeDeserialize(StreamingContext context)
         {
-            DataContractSerializer ser = new DataContractSerializer(typeof(OrganizationDifferenceImage));
+            if (this.RolePrivileges == null)
+            {
+                this.RolePrivileges = new List<RolePrivilege>();
+            }
+        }
+
+        public Task SaveAsync(string filePath)
+        {
+            return Task.Run(() => Save(filePath));
+        }
+
+        private void Save(string filePath)
+        {
+            DataContractSerializer ser = new DataContractSerializer(typeof(Role));
 
             byte[] fileBody = null;
 
@@ -53,7 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     XmlWriterSettings settings = new XmlWriterSettings
                     {
                         Indent = true,
-                        Encoding = Encoding.UTF8
+                        Encoding = Encoding.UTF8,
                     };
 
                     using (XmlWriter xmlWriter = XmlWriter.Create(memoryStream, settings))
@@ -78,14 +81,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 try
                 {
-                    try
-                    {
-
-                    }
-                    finally
-                    {
-                        File.WriteAllBytes(filePath, fileBody);
-                    }
+                    File.WriteAllBytes(filePath, fileBody);
                 }
                 catch (Exception ex)
                 {
@@ -94,24 +90,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        public static Task<OrganizationDifferenceImage> LoadAsync(string filePath)
+        public static Task<Role> LoadAsync(string filePath)
         {
             return Task.Run(() => Load(filePath));
         }
 
-        private static OrganizationDifferenceImage Load(string filePath)
+        private static Role Load(string filePath)
         {
-            OrganizationDifferenceImage result = null;
+            Role result = null;
 
             if (File.Exists(filePath))
             {
-                DataContractSerializer ser = new DataContractSerializer(typeof(OrganizationDifferenceImage));
+                DataContractSerializer ser = new DataContractSerializer(typeof(Role));
 
                 try
                 {
                     using (var sr = File.OpenRead(filePath))
                     {
-                        result = ser.ReadObject(sr) as OrganizationDifferenceImage;
+                        result = ser.ReadObject(sr) as Role;
                     }
                 }
                 catch (Exception ex)

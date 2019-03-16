@@ -757,6 +757,8 @@
     <Compile Include="Model\ActionOpenComponent.cs" />
     <Compile Include="Model\AssemblyMapping.cs" />
     <Compile Include="Model\AttributeMetadataViewItem.cs" />
+    <Compile Include="Model\Backup\Role.cs" />
+    <Compile Include="Model\Backup\RolePrivilege.cs" />
     <Compile Include="Model\CommonConfiguration.cs" />
     <Compile Include="Model\ConnectionConfiguration.cs" />
     <Compile Include="Model\ConnectionConfigurationBackward.cs" />
@@ -829,11 +831,11 @@
     <Compile Include="Model\VSSolutionConfiguration.cs" />
     <Compile Include="Model\WindowSettings.cs" />
     <Compile Include="Helpers\XNameComparer.cs" />
-    <Compile Include="Model\PluginExtraction\PluginAssembly.cs" />
-    <Compile Include="Model\PluginExtraction\PluginDescription.cs" />
-    <Compile Include="Model\PluginExtraction\PluginImage.cs" />
-    <Compile Include="Model\PluginExtraction\PluginStep.cs" />
-    <Compile Include="Model\PluginExtraction\PluginType.cs" />
+    <Compile Include="Model\Backup\PluginAssembly.cs" />
+    <Compile Include="Model\Backup\PluginDescription.cs" />
+    <Compile Include="Model\Backup\PluginImage.cs" />
+    <Compile Include="Model\Backup\PluginStep.cs" />
+    <Compile Include="Model\Backup\PluginType.cs" />
     <Compile Include="Model\WorkflowAnalysis.cs" />
     <Compile Include="Model\WorkflowCreateUpdateEntityStep.cs" />
     <Compile Include="Model\WorkflowCreateUpdateEntityStepType.cs" />

@@ -19,7 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._service = service;
         }
 
-        public async Task<string> RegisterPluginsForAssemblyAsync(string folder, PluginExtraction.PluginAssembly assembly)
+        public async Task<string> RegisterPluginsForAssemblyAsync(string folder, Model.Backup.PluginAssembly assembly)
         {
             if (_service.ConnectionData.IsReadOnly)
             {
@@ -75,7 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return filePath;
         }
 
-        private async Task RegisterSingleStep(StringBuilder log, SdkMessageRepository repositoryMessage, SdkMessageFilterRepository repositoryFilter, SystemUserRepository repositorySystemUser, Entities.PluginType entPluginType, PluginExtraction.PluginStep step)
+        private async Task RegisterSingleStep(StringBuilder log, SdkMessageRepository repositoryMessage, SdkMessageFilterRepository repositoryFilter, SystemUserRepository repositorySystemUser, Entities.PluginType entPluginType, Model.Backup.PluginStep step)
         {
             var entMessage = await repositoryMessage.FindMessageAsync(step.Message);
 
@@ -170,7 +170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             });
         }
 
-        public async Task<string> RegisterPluginsForPluginTypeAsync(string folder, string assemblyName, Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginType pluginType)
+        public async Task<string> RegisterPluginsForPluginTypeAsync(string folder, string assemblyName, Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginType pluginType)
         {
             if (_service.ConnectionData.IsReadOnly)
             {
@@ -224,7 +224,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return filePath;
         }
 
-        public async Task<string> RegisterPluginsForPluginStepAsync(string folder, string assemblyName, string pluginType, Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginStep step)
+        public async Task<string> RegisterPluginsForPluginStepAsync(string folder, string assemblyName, string pluginType, Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginStep step)
         {
             if (_service.ConnectionData.IsReadOnly)
             {

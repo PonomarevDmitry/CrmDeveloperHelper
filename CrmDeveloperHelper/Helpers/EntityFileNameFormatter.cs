@@ -254,6 +254,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(SdkMessageResponseFormatFileTxt, connectionName, name, fieldTitle, GetDateString());
         }
 
+        private const string RoleFormatFileTxt = "{0}.Role {1} - {2} at {3}.{4}";
+
+        internal static string GetRoleFileName(string connectionName, string name, string fieldTitle, string extension)
+        {
+            return string.Format(RoleFormatFileTxt, connectionName, name, fieldTitle, GetDateString(), extension.Trim('.'));
+        }
+
+        private const string SystemUserFormatFileTxt = "{0}.SystemUser {1} - {2} at {3}.{4}";
+
+        internal static string GetSystemUserFileName(string connectionName, string name, string fieldTitle, string extension)
+        {
+            return string.Format(SystemUserFormatFileTxt, connectionName, name, fieldTitle, GetDateString(), extension.Trim('.'));
+        }
+
+        private const string TeamFormatFileTxt = "{0}.Team {1} - {2} at {3}.{4}";
+
+        internal static string GetTeamFileName(string connectionName, string name, string fieldTitle, string extension)
+        {
+            return string.Format(TeamFormatFileTxt, connectionName, name, fieldTitle, GetDateString(), extension.Trim('.'));
+        }
+
         internal static string GetEntityName(string connectionName, Entity entity, string fieldTitle, string extension)
         {
             switch (entity.LogicalName.ToLower())
@@ -339,7 +360,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         var ent = entity.ToEntity<SavedQueryVisualization>();
 
-                        return GetSavedQueryFileName(connectionName, ent.PrimaryEntityTypeCode, ent.Name, fieldTitle, extension.Trim('.'));
+                        return GetSavedQueryVisualizationFileName(connectionName, ent.PrimaryEntityTypeCode, ent.Name, fieldTitle, extension.Trim('.'));
                     }
 
                 case SdkMessage.EntityLogicalName:
@@ -384,11 +405,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         return GetSdkMessageResponseFileName(connectionName, ent.Id.ToString(), fieldTitle);
                     }
 
-                //case SdkMessageResponse.EntityLogicalName:
-                //    {
-                //        var ent = entity.ToEntity<SdkMessageResponse>();
+                case Solution.EntityLogicalName:
+                    {
+                        var ent = entity.ToEntity<Solution>();
 
-                //        return get(connectionName, ent.Id.ToString(), fieldTitle);
+                        return GetSolutionFileName(connectionName, ent.UniqueName, fieldTitle, extension.Trim('.'));
+                    }
+
+                case Role.EntityLogicalName:
+                    {
+                        var ent = entity.ToEntity<Role>();
+
+                        return GetRoleFileName(connectionName, ent.Name, fieldTitle, extension.Trim('.'));
+                    }
+
+                case SystemUser.EntityLogicalName:
+                    {
+                        var ent = entity.ToEntity<SystemUser>();
+
+                        return GetSystemUserFileName(connectionName, ent.FullName, fieldTitle, extension.Trim('.'));
+                    }
+
+                case Team.EntityLogicalName:
+                    {
+                        var ent = entity.ToEntity<Team>();
+
+                        return GetTeamFileName(connectionName, ent.Name, fieldTitle, extension.Trim('.'));
+                    }
+
+                //case SdkEntity.EntityLogicalName:
+                //    {
+                //        var ent = entity.ToEntity<SdkEntity>();
+
+                //        return GetSavedQueryVisualizationFileName(connectionName, ent, fieldTitle, extension.Trim('.'));
                 //    }
 
                 default:
@@ -418,7 +467,5 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             return string.Format(CheckEntityNamesForPrefixFileNameFormat3, connectionName, prefix, GetDateString());
         }
-
-        
     }
 }

@@ -69,7 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task<string> CreatePluginDescription(ConnectionData connectionData, IOrganizationServiceExtented service, string fileFolder, string fileNameFormat, string connectionDataName)
         {
-            Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginDescription description = await GetPluginDescription(service);
+            Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginDescription description = await GetPluginDescription(service);
 
             if (connectionData.User != null)
             {
@@ -111,7 +111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return filePath;
         }
 
-        private async Task<Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginDescription> GetPluginDescription(IOrganizationServiceExtented service)
+        private async Task<Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginDescription> GetPluginDescription(IOrganizationServiceExtented service)
         {
             var repositoryAssembly = new PluginAssemblyRepository(service);
             var repositoryType = new PluginTypeRepository(service);
@@ -123,7 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repositoryStep = new SdkMessageProcessingStepRepository(service);
 
-            var result = new Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginDescription();
+            var result = new Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginDescription();
 
             result.CreatedOn = DateTime.Now;
 
@@ -134,7 +134,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             foreach (var entAssembly in listAssemblies)
             {
-                var assembly = Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginAssembly.GetObject(entAssembly);
+                var assembly = Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginAssembly.GetObject(entAssembly);
 
                 result.PluginAssemblies.Add(assembly);
 
@@ -142,13 +142,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 foreach (var entPluginType in listTypes)
                 {
-                    var pluginType = Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginType.GetObject(entPluginType);
+                    var pluginType = Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginType.GetObject(entPluginType);
 
                     assembly.PluginTypes.Add(pluginType);
 
                     var listSteps = await repositoryStep.GetPluginStepsByPluginTypeIdAsync(entPluginType.Id);
 
-                    var listStepsToAdd = new List<Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginStep>();
+                    var listStepsToAdd = new List<Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginStep>();
 
                     foreach (var entStep in listSteps)
                     {
@@ -174,7 +174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             entSecure = listSecure.FirstOrDefault(s => s.SdkMessageProcessingStepSecureConfigId == refSecure.Id);
                         }
 
-                        var step = Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginStep.GetObject(entStep, entMessage, entFilter, entSecure);
+                        var step = Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginStep.GetObject(entStep, entMessage, entFilter, entSecure);
 
                         listStepsToAdd.Add(step);
 
@@ -182,7 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         foreach (var entImage in listImages)
                         {
-                            var image = Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction.PluginImage.GetObject(entImage);
+                            var image = Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginImage.GetObject(entImage);
 
                             step.PluginImages.Add(image);
                         }

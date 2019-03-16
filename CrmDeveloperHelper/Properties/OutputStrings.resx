@@ -369,4 +369,7 @@
   <data name="PluginAssemblyNotFoundedByNameFormat1" xml:space="preserve">
     <value>PluginAssembly not founded by name '{0}'.</value>
   </data>
+  <data name="ExportedRoleBackupForConnectionFormat3" xml:space="preserve">
+    <value>{0}. Role backup {1} exported to file: {2}</value>
+  </data>
 </root>

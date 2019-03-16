@@ -1,10 +1,9 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
@@ -412,7 +411,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     using (XmlWriter xmlWriter = XmlWriter.Create(memoryStream, settings))
                     {
                         ser.WriteObject(xmlWriter, this);
+                        xmlWriter.Flush();
                     }
+
+                    memoryStream.Seek(0, SeekOrigin.Begin);
 
                     fileBody = memoryStream.ToArray();
                 }

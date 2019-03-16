@@ -1,5 +1,4 @@
-﻿using Microsoft.Crm.Sdk.Messages;
-using Microsoft.Xrm.Sdk;
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -210,6 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             using (XmlWriter xmlWriter = XmlWriter.Create(streamPart, settings))
                             {
                                 doc.Save(xmlWriter);
+                                xmlWriter.Flush();
                             }
                         }
                     }
@@ -407,6 +407,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             using (XmlWriter xmlWriter = XmlWriter.Create(streamPart, settings))
                             {
                                 doc.Save(xmlWriter);
+                                xmlWriter.Flush();
                             }
                         }
                     }
@@ -457,6 +458,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             using (XmlWriter xmlWriter = XmlWriter.Create(streamPart, settings))
                             {
                                 doc.Save(xmlWriter);
+                                xmlWriter.Flush();
                             }
                         }
                     }

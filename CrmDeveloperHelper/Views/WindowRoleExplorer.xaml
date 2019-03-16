@@ -31,10 +31,16 @@
 
         <ContextMenu x:Key="listContextMenuRole" Opened="ContextMenuRole_Opened">
             <MenuItem Header="Open Role in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" />
+            
             <Separator/>
             <MenuItem Header="Open Role List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
+            
             <Separator/>
             <MenuItem Header="Create Role Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
+
+            <Separator/>
+            <MenuItem Header="Create Role Backup" VerticalAlignment="Center" Click="mICreateRoleBackup_Click" />
+
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddRoleIntoCrmSolution_Click" />

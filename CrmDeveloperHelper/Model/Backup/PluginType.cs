@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup
 {
     [DataContract]
     public class PluginType

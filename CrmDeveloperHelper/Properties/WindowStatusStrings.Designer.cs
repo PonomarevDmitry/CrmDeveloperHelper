@@ -970,6 +970,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Creating Role backup {1} completed..
+        /// </summary>
+        internal static string CreatingRoleBackupCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("CreatingRoleBackupCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Creating Role backup {1}....
+        /// </summary>
+        internal static string CreatingRoleBackupFormat2 {
+            get {
+                return ResourceManager.GetString("CreatingRoleBackupFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating Solution Image from zip-file....
         /// </summary>
         internal static string CreatingSolutionImageFromZipFile {

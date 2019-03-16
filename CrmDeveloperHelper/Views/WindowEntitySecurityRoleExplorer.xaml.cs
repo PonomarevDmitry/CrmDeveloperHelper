@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -1258,6 +1259,78 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             WindowHelper.OpenRolesExplorer(_iWriteToOutput, service, _commonConfig, entityMetadataList, role.RoleName);
+        }
+
+        private async void mICreateSecurityRoleBackup_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is RolePrivilegeViewItem role)
+                )
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            string operationName = string.Format(Properties.OperationNames.CreatingRoleBackupFormat2, service.ConnectionData.Name, role.Role.Name);
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingRoleBackupFormat2, service.ConnectionData.Name, role.Role.Name);
+
+            var repositoryRolePrivileges = new RolePrivilegesRepository(service);
+            var repositoryPrivileges = new PrivilegeRepository(service);
+
+            var rolePrivileges = await repositoryRolePrivileges.GetRolePrivilegesAsync(role.Role.Id);
+            var privileges = await repositoryPrivileges.GetListForRoleAsync(role.Role.Id);
+
+            var temp = new List<Model.Backup.RolePrivilege>();
+
+            foreach (var rolePriv in rolePrivileges)
+            {
+                var priv = privileges.FirstOrDefault(p => p.Id == rolePriv.PrivilegeId);
+
+                if (priv != null)
+                {
+                    temp.Add(new Model.Backup.RolePrivilege()
+                    {
+                        Name = priv.Name,
+                        Level = rolePriv.Depth,
+                    });
+                }
+            }
+
+            Model.Backup.Role roleBackup = new Model.Backup.Role()
+            {
+                Id = role.Role.Id,
+                TemplateId = role.Role.RoleTemplateId?.Id,
+                Name = role.Role.Name,
+            };
+
+            roleBackup.RolePrivileges.AddRange(temp.OrderBy(p => p.Name));
+
+            string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, role.Role.Name, "Backup", "xml");
+            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            await roleBackup.SaveAsync(filePath);
+
+            _iWriteToOutput.WriteToOutput(service.ConnectionData
+                , Properties.OutputStrings.ExportedRoleBackupForConnectionFormat3
+                , service.ConnectionData.Name
+                , role.Role.Name
+                , filePath
+            );
+
+            _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingRoleBackupCompletedFormat2, service.ConnectionData.Name, role.Role.Name);
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
 
         private async void mISaveRoleChanges_Click(object sender, RoutedEventArgs e)

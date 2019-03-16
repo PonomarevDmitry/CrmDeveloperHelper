@@ -304,6 +304,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Role backup {1} exported to file: {2}.
+        /// </summary>
+        internal static string ExportedRoleBackupForConnectionFormat3 {
+            get {
+                return ResourceManager.GetString("ExportedRoleBackupForConnectionFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. SolutionImage exported to file: {1}.
         /// </summary>
         internal static string ExportedSolutionImageForConnectionFormat2 {

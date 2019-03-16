@@ -10,6 +10,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
     [DataContract]
     public class OrganizationDifferenceImageComponent : SolutionImageComponent
     {
+        [DataMember]
+        public string DescriptionSecond { get; set; }
+
+        [DataMember]
+        public string DescriptionDifference { get; set; }
+
         public OrganizationDifferenceImageComponent()
         {
 
@@ -24,11 +30,5 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.ParentSchemaName = component.ParentSchemaName;
             this.Description = component.Description;
         }
-
-        [DataMember]
-        public string DescriptionSecond { get; set; }
-
-        [DataMember]
-        public string DescriptionDifference { get; set; }
     }
 }

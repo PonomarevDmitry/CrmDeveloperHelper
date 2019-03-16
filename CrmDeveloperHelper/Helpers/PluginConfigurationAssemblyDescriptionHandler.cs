@@ -13,7 +13,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._connectionInfo = connectionInfo;
         }
 
-        public async Task<string> CreateDescriptionAsync(PluginExtraction.PluginAssembly pluginAssembly)
+        public async Task<string> CreateDescriptionAsync(Model.Backup.PluginAssembly pluginAssembly)
         {
             var content = new StringBuilder();
 

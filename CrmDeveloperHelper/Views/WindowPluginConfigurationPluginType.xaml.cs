@@ -2,7 +2,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using Nav.Common.VSPackages.CrmDeveloperHelper.PluginExtraction;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

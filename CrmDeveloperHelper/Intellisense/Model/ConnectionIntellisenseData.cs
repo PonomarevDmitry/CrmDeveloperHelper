@@ -156,6 +156,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
                         ser.WriteObject(memoryStream, this);
 
+                        memoryStream.Seek(0, SeekOrigin.Begin);
+
                         fileBody = memoryStream.ToArray();
                     }
                     catch (Exception ex)
