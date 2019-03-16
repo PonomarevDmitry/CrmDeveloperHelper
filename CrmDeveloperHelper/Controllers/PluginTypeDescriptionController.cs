@@ -131,7 +131,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Сравнение сборки плагинов и локальной сборки.
 
-        public async Task ExecuteComparingAssemblyAndCrmSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultFolder)
+        public async Task ExecuteComparingAssemblyAndCrmSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultOutputFilePath)
         {
             string operation = string.Format(Properties.OperationNames.ComparingCrmPluginAssemblyAndLocalAssemblyFormat1, connectionData?.Name);
 
@@ -139,7 +139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await ComparingAssemblyAndCrmSolution(connectionData, commonConfig, projectName, defaultFolder);
+                await ComparingAssemblyAndCrmSolution(connectionData, commonConfig, projectName, defaultOutputFilePath);
             }
             catch (Exception ex)
             {
@@ -151,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ComparingAssemblyAndCrmSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultFolder)
+        private async Task ComparingAssemblyAndCrmSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultOutputFilePath)
         {
             if (connectionData == null)
             {
@@ -197,12 +197,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            string filePath = await CreateFileWithAssemblyComparing(commonConfig.FolderForExport, service, assembly.Id, assembly.Name, defaultFolder);
+            string filePath = await CreateFileWithAssemblyComparing(commonConfig.FolderForExport, service, assembly.Id, assembly.Name, defaultOutputFilePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
-        public async Task<string> CreateFileWithAssemblyComparing(string folder, IOrganizationServiceExtented service, Guid idPluginAssembly, string assemblyName, string defaultFolder)
+        public async Task<string> CreateFileWithAssemblyComparing(string folder, IOrganizationServiceExtented service, Guid idPluginAssembly, string assemblyName, string defaultOutputFilePath)
         {
             var repositoryType = new PluginTypeRepository(service);
 
@@ -211,11 +211,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string assemblyPath = service.ConnectionData.GetLastAssemblyPath(assemblyName);
             List<string> lastPaths = service.ConnectionData.GetAssemblyPaths(assemblyName).ToList();
 
-            if (!string.IsNullOrEmpty(defaultFolder)
-                && !lastPaths.Contains(defaultFolder, StringComparer.InvariantCultureIgnoreCase)
+            if (!string.IsNullOrEmpty(defaultOutputFilePath)
+                && !lastPaths.Contains(defaultOutputFilePath, StringComparer.InvariantCultureIgnoreCase)
             )
             {
-                lastPaths.Insert(0, defaultFolder);
+                lastPaths.Insert(0, defaultOutputFilePath);
             }
 
             bool isSuccess = false;
@@ -236,9 +236,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         openFileDialog1.InitialDirectory = Path.GetDirectoryName(assemblyPath);
                         openFileDialog1.FileName = Path.GetFileName(assemblyPath);
                     }
-                    else if (!string.IsNullOrEmpty(defaultFolder))
+                    else if (!string.IsNullOrEmpty(defaultOutputFilePath))
                     {
-                        openFileDialog1.InitialDirectory = defaultFolder;
+                        openFileDialog1.InitialDirectory = Path.GetDirectoryName(defaultOutputFilePath);
+                        openFileDialog1.FileName = Path.GetFileName(defaultOutputFilePath);
                     }
 
                     if (lastPaths.Any())
@@ -462,7 +463,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Обновление сборки плагинов.
 
-        public async Task ExecuteUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultFolder)
+        public async Task ExecuteUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultOutputFilePath)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingPluginAssemblyFormat1, connectionData?.Name);
 
@@ -470,7 +471,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdatingPluginAssembly(connectionData, commonConfig, projectName, defaultFolder);
+                await UpdatingPluginAssembly(connectionData, commonConfig, projectName, defaultOutputFilePath);
             }
             catch (Exception ex)
             {
@@ -482,7 +483,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultFolder)
+        private async Task UpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultOutputFilePath)
         {
             if (connectionData == null)
             {
@@ -532,7 +533,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    var form = new WindowPluginAssembly(_iWriteToOutput, service, assembly, defaultFolder);
+                    var form = new WindowPluginAssembly(_iWriteToOutput, service, assembly, defaultOutputFilePath);
 
                     form.ShowDialog();
                 }

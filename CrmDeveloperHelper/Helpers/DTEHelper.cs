@@ -1497,11 +1497,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
 
-                var defaultFolder = PropertiesHelper.GetOutputPath(project);
+                var defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
 
                 try
                 {
-                    Controller.StartComparingPluginAssemblyAndLocalAssembly(connectionData, commonConfig, project.Name, defaultFolder);
+                    Controller.StartComparingPluginAssemblyAndLocalAssembly(connectionData, commonConfig, project.Name, defaultOutputFilePath);
                 }
                 catch (Exception ex)
                 {
@@ -1539,11 +1539,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
 
-                var defaultFolder = PropertiesHelper.GetOutputPath(project);
+                var defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
 
                 try
                 {
-                    Controller.StartUpdatingPluginAssembly(connectionData, commonConfig, project.Name, defaultFolder);
+                    Controller.StartUpdatingPluginAssembly(connectionData, commonConfig, project.Name, defaultOutputFilePath);
                 }
                 catch (Exception ex)
                 {

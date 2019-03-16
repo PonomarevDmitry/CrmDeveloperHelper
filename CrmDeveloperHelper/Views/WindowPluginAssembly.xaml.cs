@@ -31,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private AssemblyReaderResult _assemblyLoad;
 
-        private string _defaultAssemblyFolder;
+        private string _defaultOutputFilePath;
 
         private int _init = 0;
 
@@ -42,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , PluginAssembly pluginAssembly
-            , string defaultAssemblyFolder
+            , string defaultOutputFilePath
         )
         {
             _init++;
@@ -51,7 +51,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._service = service;
-            this._defaultAssemblyFolder = defaultAssemblyFolder;
+            this._defaultOutputFilePath = defaultOutputFilePath;
 
             this.PluginAssembly = pluginAssembly;
 
@@ -154,11 +154,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(this.PluginAssembly.Name))
             {
+                string lastAssemblyPath = _service.ConnectionData.GetLastAssemblyPath(this.PluginAssembly.Name);
                 List<string> lastPaths = _service.ConnectionData.GetAssemblyPaths(this.PluginAssembly.Name).ToList();
+
+                if (!string.IsNullOrEmpty(_defaultOutputFilePath)
+                    && !lastPaths.Contains(_defaultOutputFilePath, StringComparer.InvariantCultureIgnoreCase)
+                )
+                {
+                    lastPaths.Insert(0, _defaultOutputFilePath);
+                }
 
                 foreach (var path in lastPaths)
                 {
                     cmBAssemblyToLoad.Items.Add(path);
+                }
+
+                if (!string.IsNullOrEmpty(lastAssemblyPath))
+                {
+                    cmBAssemblyToLoad.Text = lastAssemblyPath;
+                }
+                else if (!string.IsNullOrEmpty(_defaultOutputFilePath))
+                {
+                    cmBAssemblyToLoad.Text = _defaultOutputFilePath;
                 }
             }
         }
@@ -357,11 +374,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 lastAssemblyPath = _service.ConnectionData.GetLastAssemblyPath(this.PluginAssembly.Name);
                 var tempList = _service.ConnectionData.GetAssemblyPaths(this.PluginAssembly.Name).ToList();
 
-                if (!string.IsNullOrEmpty(_defaultAssemblyFolder)
-                    && !tempList.Contains(_defaultAssemblyFolder, StringComparer.InvariantCultureIgnoreCase)
+                if (!string.IsNullOrEmpty(_defaultOutputFilePath)
+                    && !tempList.Contains(_defaultOutputFilePath, StringComparer.InvariantCultureIgnoreCase)
                 )
                 {
-                    tempList.Insert(0, _defaultAssemblyFolder);
+                    tempList.Insert(0, _defaultOutputFilePath);
                 }
 
                 lastPaths = tempList;
@@ -384,9 +401,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     openFileDialog1.InitialDirectory = Path.GetDirectoryName(lastAssemblyPath);
                     openFileDialog1.FileName = Path.GetFileName(lastAssemblyPath);
                 }
-                else if (!string.IsNullOrEmpty(_defaultAssemblyFolder))
+                else if (!string.IsNullOrEmpty(_defaultOutputFilePath))
                 {
-                    openFileDialog1.InitialDirectory = _defaultAssemblyFolder;
+                    openFileDialog1.InitialDirectory = Path.GetDirectoryName(_defaultOutputFilePath);
+                    openFileDialog1.FileName = Path.GetFileName(_defaultOutputFilePath);
                 }
 
                 if (lastPaths.Any())

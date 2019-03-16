@@ -1306,13 +1306,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartComparingPluginAssemblyAndLocalAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultFolder)
+        public void StartComparingPluginAssemblyAndLocalAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultOutputFilePath)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._pluginTypeDescriptionController.ExecuteComparingAssemblyAndCrmSolution(connectionData, commonConfig, projectName, defaultFolder);
+                    this._pluginTypeDescriptionController.ExecuteComparingAssemblyAndCrmSolution(connectionData, commonConfig, projectName, defaultOutputFilePath);
                 }
                 catch (Exception ex)
                 {
@@ -1323,13 +1323,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultFolder)
+        public void StartUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultOutputFilePath)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._pluginTypeDescriptionController.ExecuteUpdatingPluginAssembly(connectionData, commonConfig, projectName, defaultFolder);
+                    this._pluginTypeDescriptionController.ExecuteUpdatingPluginAssembly(connectionData, commonConfig, projectName, defaultOutputFilePath);
                 }
                 catch (Exception ex)
                 {

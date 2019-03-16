@@ -74,10 +74,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return string.Empty;
             }
 
-            if (TryGetPropertyByName(proj.Properties, "OutputFileName", out var fileNameProp) == false)
-            {
-                return string.Empty;
-            }
+            Property fileNameProp;
+
+            TryGetPropertyByName(proj.Properties, "OutputFileName", out fileNameProp);
 
             if (fileNameProp == null)
             {
