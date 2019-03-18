@@ -30,7 +30,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return Task.Run(() => GetSolutionComponents(solutionId, columnSet));
         }
 
-        private List<SolutionComponent> GetSolutionComponents(Guid solutionId, ColumnSet columnSet)
+        internal List<SolutionComponent> GetSolutionComponents(Guid solutionId, ColumnSet columnSet)
         {
             var query = new QueryExpression
             {

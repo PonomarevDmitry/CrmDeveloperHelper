@@ -595,43 +595,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSolutionComponentDependenciesWindow(
-            IWriteToOutput iWriteToOutput
-            , IOrganizationServiceExtented service
-            , SolutionComponentDescriptor descriptor
-            , CommonConfiguration commonConfig
-            , int componentType
-            , Guid objectId
-            , string selection = null
-            )
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerSolutionComponentDependencies(
-                        iWriteToOutput
-                        , service
-                        , descriptor
-                        , commonConfig
-                        , componentType
-                        , objectId
-                        , selection
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
-        }
-
         public static void OpenExplorerSolutionWindow(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -681,6 +644,72 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 try
                 {
                     var form = new WindowExplorerSolutionComponents(iWriteToOutput, service, descriptor, commonConfig, solutionUniqueName, selection);
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        public static void OpenSolutionComponentDependenciesWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , SolutionComponentDescriptor descriptor
+            , CommonConfiguration commonConfig
+            , int componentType
+            , Guid objectId
+            , string selection = null
+            )
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowExplorerSolutionComponentDependencies(
+                        iWriteToOutput
+                        , service
+                        , descriptor
+                        , commonConfig
+                        , componentType
+                        , objectId
+                        , selection
+                    );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        public static void OpenExplorerComponentsWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , SolutionComponentDescriptor descriptor
+            , CommonConfiguration commonConfig
+            , IEnumerable<SolutionComponent> solutionComponents
+            , string solutionUniqueName
+            , string selection = null
+            )
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowExplorerComponents(iWriteToOutput, service, descriptor, commonConfig, solutionComponents, solutionUniqueName, selection);
 
                     form.ShowDialog();
                 }

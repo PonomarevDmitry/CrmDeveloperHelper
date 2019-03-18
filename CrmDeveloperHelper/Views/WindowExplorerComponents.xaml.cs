@@ -24,7 +24,7 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExplorerSolutionComponents : WindowBase
+    public partial class WindowExplorerComponents : WindowBase
     {
         private readonly IWriteToOutput _iWriteToOutput;
 
@@ -45,16 +45,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private ObservableCollection<SolutionComponentViewItem> _itemsSource;
 
+        private readonly IEnumerable<SolutionComponent> _solutionComponents;
+
         private int _init = 0;
 
-        public WindowExplorerSolutionComponents(
+        public WindowExplorerComponents(
              IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , SolutionComponentDescriptor descriptor
             , CommonConfiguration commonConfig
+            , IEnumerable<SolutionComponent> solutionComponents
             , string solutionUniqueName
             , string selection
-            )
+        )
         {
             BeginLoadConfig();
 
@@ -66,8 +69,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._service = service;
             this._commonConfig = commonConfig;
             this._descriptor = descriptor;
+            this._solutionComponents = solutionComponents;
 
-            this.Title = string.Format("{0} Solution Components", solutionUniqueName);
+            this.Title = string.Format("{0} All Required Components", solutionUniqueName);
 
             if (this._descriptor == null)
             {
@@ -116,7 +120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (_service != null)
             {
-                ShowExistingSolutionComponents(solutionUniqueName);
+                ShowExistingComponents(solutionUniqueName);
             }
         }
 
@@ -178,29 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
         }
 
-        private enum SolutionComponentsType
-        {
-            SolutionComponents = 0,
-            MissingComponents = 1,
-            UninstallComponents = 2,
-        }
-
-        private SolutionComponentsType GetSolutionComponentsType()
-        {
-            var result = SolutionComponentsType.SolutionComponents;
-
-            cmBSolutionComponentsType.Dispatcher.Invoke(() =>
-            {
-                if (cmBSolutionComponentsType.SelectedIndex != -1)
-                {
-                    result = (SolutionComponentsType)cmBSolutionComponentsType.SelectedIndex;
-                }
-            });
-
-            return result;
-        }
-
-        private async Task ShowExistingSolutionComponents(string solutionUniqueName = null)
+        private async Task ShowExistingComponents(string solutionUniqueName = null)
         {
             if (_init > 0 || !_controlsEnabled)
             {
@@ -208,6 +190,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             this._itemsSource.Clear();
+
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingRequiredComponents);
 
             int? category = null;
 
@@ -219,11 +203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            var solutionComponents = GetSolutionComponentsType();
-
-            var list = new List<SolutionComponent>();
-
-            string formatResult = Properties.WindowStatusStrings.LoadingRequiredComponentsCompletedFormat1;
+            IEnumerable<SolutionComponent> list = _solutionComponents;
 
             try
             {
@@ -241,12 +221,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this.Dispatcher.Invoke(() =>
                     {
-                        miClearUnManagedSolution.IsEnabled = sepClearUnManagedSolution.IsEnabled = !isManaged;
-                        miClearUnManagedSolution.Visibility = sepClearUnManagedSolution.Visibility = !isManaged ? Visibility.Visible : Visibility.Collapsed;
-
-                        miSelectAsLastSelected.IsEnabled = sepClearUnManagedSolution2.IsEnabled = !isManaged;
-                        miSelectAsLastSelected.Visibility = sepClearUnManagedSolution2.Visibility = !isManaged ? Visibility.Visible : Visibility.Collapsed;
-
                         miSolutionDescription.IsEnabled = sepSolutionDescription.IsEnabled = hasDescription;
                         miSolutionDescription.Visibility = sepSolutionDescription.Visibility = hasDescription ? Visibility.Visible : Visibility.Collapsed;
 
@@ -254,81 +228,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     });
                 }
 
-                if (this._solution != null)
+                if (category.HasValue)
                 {
-                    switch (solutionComponents)
-                    {
-                        case SolutionComponentsType.SolutionComponents:
-                        default:
-                            {
-                                ToggleControls(false, Properties.WindowStatusStrings.LoadingSolutionComponents);
-                                formatResult = Properties.WindowStatusStrings.LoadingSolutionComponentsCompletedFormat1;
-
-                                var repository = new SolutionComponentRepository(this._service);
-
-                                list = await repository.GetSolutionComponentsByTypeAsync(_solution.Id, category, new ColumnSet(SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
-                            }
-                            break;
-
-                        case SolutionComponentsType.MissingComponents:
-                            {
-                                ToggleControls(false, Properties.WindowStatusStrings.LoadingMissingComponents);
-                                formatResult = Properties.WindowStatusStrings.LoadingMissingComponentsCompletedFormat1;
-
-                                var repository = new DependencyRepository(this._service);
-
-                                var temp = (await repository.GetSolutionMissingDependenciesAsync(_solution.UniqueName)).Select(e => e.RequiredToSolutionComponent());
-
-                                temp = temp.Where(en => en.ComponentType != null && en.ObjectId.HasValue);
-
-                                if (category.HasValue)
-                                {
-                                    temp = temp.Where(en => en.ComponentType?.Value == category.Value);
-                                }
-
-                                var hash = new HashSet<Tuple<int, Guid>>();
-
-                                foreach (var item in temp)
-                                {
-                                    if (hash.Add(Tuple.Create(item.ComponentType.Value, item.ObjectId.Value)))
-                                    {
-                                        list.Add(item);
-                                    }
-                                }
-                            }
-                            break;
-
-                        case SolutionComponentsType.UninstallComponents:
-                            {
-                                ToggleControls(false, Properties.WindowStatusStrings.LoadingUninstallComponents);
-                                formatResult = Properties.WindowStatusStrings.LoadingUninstallComponentsCompletedFormat1;
-
-                                var repository = new DependencyRepository(this._service);
-
-                                var temp = (await repository.GetSolutionDependenciesForUninstallAsync(_solution.UniqueName)).Select(en => en.RequiredToSolutionComponent());
-
-                                temp = temp.Where(en => en.ComponentType != null && en.ObjectId.HasValue);
-
-                                if (category.HasValue)
-                                {
-                                    temp = temp.Where(en => en.ComponentType?.Value == category.Value);
-                                }
-
-                                var hash = new HashSet<Tuple<int, Guid>>();
-
-                                foreach (var item in temp)
-                                {
-                                    if (hash.Add(Tuple.Create(item.ComponentType.Value, item.ObjectId.Value)))
-                                    {
-                                        list.Add(item);
-                                    }
-                                }
-                            }
-                            break;
-                    }
-
-                    await _descriptor.GetSolutionComponentsDescriptionAsync(list);
+                    list = list.Where(en => en.ComponentType?.Value == category.Value);
                 }
+
+                await _descriptor.GetSolutionComponentsDescriptionAsync(_solutionComponents);
             }
             catch (Exception ex)
             {
@@ -365,7 +270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSolutionComponents(enumerable);
 
-            ToggleControls(true, formatResult, enumerable.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingRequiredComponentsCompletedFormat1, enumerable.Count());
         }
 
         private static IEnumerable<SolutionComponentViewItem> FilterList(IEnumerable<SolutionComponentViewItem> list, string textName)
@@ -441,7 +346,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, this.btnExportAll, this.tSDDBExportSolutionComponent, this.cmBComponentType, this.mISolutionInformation, this.cmBSolutionComponentsType);
+            ToggleControl(enabled, this.tSProgressBar, this.btnExportAll, this.tSDDBExportSolutionComponent, this.cmBComponentType, this.mISolutionInformation);
 
             UpdateButtonsEnable();
         }
@@ -471,7 +376,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingSolutionComponents();
+                ShowExistingComponents();
             }
         }
 
@@ -538,10 +443,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity, PerformExportAllXml);
+            ExecuteAction(entity, PerformExportAll);
         }
 
-        private async Task PerformExportAllXml(string folder, SolutionComponentViewItem solutionComponentViewItem)
+        private async Task PerformExportAll(string folder, SolutionComponentViewItem solutionComponentViewItem)
         {
             await PerformExportEntityDescription(folder, solutionComponentViewItem);
         }
@@ -606,7 +511,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 e.Handled = true;
 
-                ShowExistingSolutionComponents();
+                ShowExistingComponents();
             }
 
             base.OnKeyDown(e);
@@ -783,14 +688,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void AddIntoCurrentSolution_Click(object sender, RoutedEventArgs e)
         {
-            if (GetSolutionComponentsType() == SolutionComponentsType.SolutionComponents
-                || _solution == null
-                || _solution.IsManaged.GetValueOrDefault()
-                )
-            {
-                return;
-            }
-
             await AddIntoSolution(false, _solution.UniqueName);
         }
 
@@ -837,10 +734,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var items = contextMenu.Items.OfType<Control>();
 
             {
-                var enabledAdd = GetSolutionComponentsType() != SolutionComponentsType.SolutionComponents && this._solution != null && !this._solution.IsManaged.GetValueOrDefault();
-                var enabledRemove = GetSolutionComponentsType() == SolutionComponentsType.SolutionComponents && this._solution != null && !this._solution.IsManaged.GetValueOrDefault();
-
-                ActivateControls(items, enabledRemove, "contMnRemoveFromSolution");
+                var enabledAdd = this._solution != null && !this._solution.IsManaged.GetValueOrDefault();
 
                 ActivateControls(items, enabledAdd, "contMnAddIntoCurrentSolution");
             }
@@ -1186,7 +1080,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FillDataGridColumns();
 
-            ShowExistingSolutionComponents();
+            ShowExistingComponents();
         }
 
         private void cmBSolutionComponentType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1196,7 +1090,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ShowExistingSolutionComponents();
+            ShowExistingComponents();
         }
 
         private void FillDataGridColumns()
@@ -1321,151 +1215,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (_solution != null)
             {
                 _service.ConnectionData.OpenSolutionInWeb(_solution.Id);
-            }
-        }
-
-        private async void RemoveComponentFromSolution_Click(object sender, RoutedEventArgs e)
-        {
-            if (GetSolutionComponentsType() != SolutionComponentsType.SolutionComponents)
-            {
-                return;
-            }
-
-            var componentsToRemove = lstVSolutionComponents.SelectedItems.OfType<SolutionComponentViewItem>().ToList();
-
-            var solutionComponents = componentsToRemove.Select(en => en.SolutionComponent).ToList();
-
-            if (!solutionComponents.Any())
-            {
-                return;
-            }
-
-            string question = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteComponentsFormat2, solutionComponents.Count, _solution.UniqueName);
-
-            if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
-            {
-                return;
-            }
-
-            try
-            {
-                ToggleControls(false, Properties.WindowStatusStrings.RemovingSolutionComponentsFromSolutionFormat2, _service.ConnectionData.Name, _solution.UniqueName);
-
-                _commonConfig.Save();
-
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
-
-                {
-                    string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                        _service.ConnectionData.Name
-                        , _solution.UniqueName
-                        , "Components Backup"
-                    );
-
-                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                    await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, _solution.Id);
-
-                    this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Created backup Solution Components in '{0}': {1}", _solution.UniqueName, filePath);
-                    this._iWriteToOutput.WriteToOutputFilePathUri(_service.ConnectionData, filePath);
-                }
-
-                {
-                    string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                        _service.ConnectionData.Name
-                        , _solution.UniqueName
-                        , "SolutionImage Backup"
-                        , "xml"
-                    );
-
-                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, _solution.Id);
-                }
-
-                SolutionComponentRepository repository = new SolutionComponentRepository(this._service);
-
-                await repository.RemoveSolutionComponentsAsync(_solution.UniqueName, solutionComponents);
-
-                lstVSolutionComponents.Dispatcher.Invoke(() =>
-                {
-                    foreach (var item in componentsToRemove)
-                    {
-                        _itemsSource.Remove(item);
-                    }
-                });
-
-                ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromSolutionCompletedFormat2, _service.ConnectionData.Name, _solution.UniqueName);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
-
-                ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromSolutionFailedFormat2, _service.ConnectionData.Name, _solution.UniqueName);
-            }
-        }
-
-        private async void miClearUnManagedSolution_Click(object sender, RoutedEventArgs e)
-        {
-            string question = string.Format(Properties.MessageBoxStrings.ClearSolutionFormat1, _solution.UniqueName);
-
-            if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
-            {
-                return;
-            }
-
-            try
-            {
-                ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat2, _service.ConnectionData.Name, _solution.UniqueName);
-
-                _commonConfig.Save();
-
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
-
-                {
-                    string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                        _service.ConnectionData.Name
-                        , _solution.UniqueName
-                        , "Components Backup"
-                    );
-
-                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                    await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, _solution.Id);
-
-                    this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Created backup Solution Components in '{0}': {1}", _solution.UniqueName, filePath);
-                    this._iWriteToOutput.WriteToOutputFilePathUri(_service.ConnectionData, filePath);
-                }
-
-                {
-                    string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                        _service.ConnectionData.Name
-                        , _solution.UniqueName
-                        , "SolutionImage Backup"
-                        , "xml"
-                    );
-
-                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, _solution.Id);
-                }
-
-                SolutionComponentRepository repository = new SolutionComponentRepository(this._service);
-
-                await repository.ClearSolutionAsync(_solution.UniqueName);
-
-                lstVSolutionComponents.Dispatcher.Invoke(() =>
-                {
-                    _itemsSource.Clear();
-                });
-
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat2, _service.ConnectionData.Name, _solution.UniqueName);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
-
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat2, _service.ConnectionData.Name, _solution.UniqueName);
             }
         }
 
@@ -1671,100 +1420,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIUsedEntitiesInWorkflows_Click(object sender, RoutedEventArgs e)
-        {
-            if (_solution != null)
-            {
-                ExecuteActionOnSingleSolution(_solution, PerformCreateFileWithUsedEntitiesInWorkflows);
-            }
-        }
-
-        private void mIUsedNotExistsEntitiesInWorkflows_Click(object sender, RoutedEventArgs e)
-        {
-            if (_solution != null)
-            {
-                ExecuteActionOnSingleSolution(_solution, PerformCreateFileWithUsedNotExistsEntitiesInWorkflows);
-            }
-        }
-
-        private async Task PerformCreateFileWithUsedEntitiesInWorkflows(string folder, Solution solution)
-        {
-            try
-            {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsFormat1, solution.UniqueName);
-
-                var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, _service, _descriptor);
-
-                string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                    _service.ConnectionData.Name
-                    , solution.UniqueName
-                    , "UsedEntitiesInWorkflows"
-                    );
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                var stringBuider = new StringBuilder();
-
-                await workflowDescriptor.GetDescriptionWithUsedEntitiesInSolutionWorkflowsAsync(stringBuider, solution.Id);
-
-                File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Solution Used Entities was export into file '{0}'", filePath);
-
-                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
-
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
-
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
-            }
-        }
-
-        private async Task PerformCreateFileWithUsedNotExistsEntitiesInWorkflows(string folder, Solution solution)
-        {
-            try
-            {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFormat1, solution.UniqueName);
-
-                var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, _service, _descriptor);
-
-                string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                    _service.ConnectionData.Name
-                    , solution.UniqueName
-                    , "UsedNotExistsEntitiesInWorkflows"
-                    );
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                var stringBuider = new StringBuilder();
-
-                await workflowDescriptor.GetDescriptionWithUsedNotExistsEntitiesInSolutionWorkflowsAsync(stringBuider, solution.Id);
-
-                File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Solution Used Not Exists Entities was export into file '{0}'", filePath);
-
-                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
-
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
-
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
-            }
-        }
-
         private void mICreateSolutionImage_Click(object sender, RoutedEventArgs e)
         {
-            if (_solution != null)
-            {
-                ExecuteActionOnSingleSolution(_solution, PerformCreateSolutionImage);
-            }
+            ExecuteActionOnSingleSolution(_solution, PerformCreateSolutionImage);
         }
 
         private void mICreateSolutionImageAndOpenOrganizationComparer_Click(object sender, RoutedEventArgs e)
@@ -1772,22 +1430,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (_solution != null)
             {
                 ExecuteActionOnSingleSolution(_solution, PerformCreateSolutionImageAndOpenOrganizationComparer);
-            }
-        }
-
-        private void mILoadSolutionImage_Click(object sender, RoutedEventArgs e)
-        {
-            if (_solution != null)
-            {
-                ExecuteActionOnSingleSolution(_solution, PerformLoadFromSolutionImage);
-            }
-        }
-
-        private void mILoadSolutionZip_Click(object sender, RoutedEventArgs e)
-        {
-            if (_solution != null)
-            {
-                ExecuteActionOnSingleSolution(_solution, PerformLoadFromSolutionZipFile);
             }
         }
 
@@ -1799,26 +1441,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIMissingComponentsIn_Click(object sender, RoutedEventArgs e)
-        {
-            if (_solution != null)
-            {
-                ExecuteActionOnSingleSolution(_solution, PerformShowingMissingDependencies);
-            }
-        }
-
-        private void mIUninstallComponentsIn_Click(object sender, RoutedEventArgs e)
-        {
-            if (_solution != null)
-            {
-                ExecuteActionOnSingleSolution(_solution, PerformShowingDependenciesForUninstall);
-            }
-        }
-
         private async Task PerformCreateSolutionImage(string folder, Solution solution)
         {
             try
             {
+                var list = _itemsSource.Select(e => e.SolutionComponent);
+
+                if (!list.Any())
+                {
+                    return;
+                }
+
                 ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
@@ -1826,13 +1459,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string fileName = EntityFileNameFormatter.GetSolutionFileName(
                     _service.ConnectionData.Name
                     , solution.UniqueName
-                    , "SolutionImage"
+                    , "AllMissingDependencies SolutionImage"
                     , "xml"
                 );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
+                await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, list);
 
                 this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
 
@@ -1852,6 +1485,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
+                var list = _itemsSource.Select(e => e.SolutionComponent);
+
+                if (!list.Any())
+                {
+                    return;
+                }
+
                 ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
@@ -1859,13 +1499,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string fileName = EntityFileNameFormatter.GetSolutionFileName(
                     _service.ConnectionData.Name
                     , solution.UniqueName
-                    , "SolutionImage"
+                    , "AllMissingDependencies SolutionImage"
                     , "xml"
                 );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
+                await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, list);
 
                 this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
 
@@ -1885,229 +1525,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformLoadFromSolutionImage(string folder, Solution solution)
-        {
-            try
-            {
-                string selectedPath = string.Empty;
-                var t = new Thread(() =>
-                {
-                    try
-                    {
-                        var openFileDialog1 = new Microsoft.Win32.OpenFileDialog
-                        {
-                            Filter = "SolutionImage (.xml)|*.xml",
-                            FilterIndex = 1,
-                            RestoreDirectory = true
-                        };
-
-                        if (openFileDialog1.ShowDialog().GetValueOrDefault())
-                        {
-                            selectedPath = openFileDialog1.FileName;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
-                    }
-                });
-
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
-
-                t.Join();
-
-                if (string.IsNullOrEmpty(selectedPath) || !File.Exists(selectedPath))
-                {
-                    return;
-                }
-
-                ToggleControls(false, Properties.WindowStatusStrings.LoadingComponentsFromSolutionImage);
-
-                SolutionImage solutionImage = null;
-
-                try
-                {
-                    solutionImage = await SolutionImage.LoadAsync(selectedPath);
-                }
-                catch (Exception ex)
-                {
-                    _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
-
-                    solutionImage = null;
-                }
-
-                if (solutionImage == null)
-                {
-                    ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionImageFailed);
-                    return;
-                }
-
-                UpdateStatus(Properties.WindowStatusStrings.LoadedComponentsFromSolutionImageFormat1, solutionImage.Components.Count);
-
-                if (solutionImage.Components.Count == 0)
-                {
-                    ToggleControls(true, Properties.WindowStatusStrings.NoComponentsToAdd);
-                    return;
-                }
-
-                var solutionComponents = await _descriptor.GetSolutionComponentsListAsync(solutionImage.Components);
-
-                UpdateStatus(Properties.WindowStatusStrings.AddingComponentsIntoSolutionFormat3, _service.ConnectionData.Name, solutionComponents.Count, _solution.UniqueName);
-
-                if (solutionComponents.Count == 0)
-                {
-                    ToggleControls(true, Properties.WindowStatusStrings.NoComponentsToAdd);
-                    return;
-                }
-
-                _commonConfig.Save();
-
-                this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
-
-                await SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, _service, _descriptor, _commonConfig, _solution.UniqueName, solutionComponents, false);
-
-                ToggleControls(true, Properties.WindowStatusStrings.LoadingComponentsFromSolutionImageCompleted);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
-
-                ToggleControls(true, Properties.WindowStatusStrings.LoadingComponentsFromSolutionImageFailed);
-            }
-        }
-
-        private async Task PerformLoadFromSolutionZipFile(string folder, Solution solution)
-        {
-            try
-            {
-                string selectedPath = string.Empty;
-                var t = new Thread(() =>
-                {
-                    try
-                    {
-                        var openFileDialog1 = new Microsoft.Win32.OpenFileDialog
-                        {
-                            Filter = "Solution (.zip)|*.zip",
-                            FilterIndex = 1,
-                            RestoreDirectory = true
-                        };
-
-                        if (openFileDialog1.ShowDialog().GetValueOrDefault())
-                        {
-                            selectedPath = openFileDialog1.FileName;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
-                    }
-                });
-
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
-
-                t.Join();
-
-                if (string.IsNullOrEmpty(selectedPath) || !File.Exists(selectedPath))
-                {
-                    return;
-                }
-
-                ToggleControls(false, Properties.WindowStatusStrings.LoadingComponentsFromZipFile);
-
-                List<SolutionComponent> solutionComponents = await _descriptor.LoadSolutionComponentsFromZipFileAsync(selectedPath);
-
-                UpdateStatus(Properties.WindowStatusStrings.LoadedComponentsFromZipFileFormat1, solutionComponents.Count);
-
-                if (solutionComponents.Count == 0)
-                {
-                    ToggleControls(true, Properties.WindowStatusStrings.NoComponentsToAdd);
-                    return;
-                }
-
-                UpdateStatus(Properties.WindowStatusStrings.AddingComponentsIntoSolutionFormat3, _service.ConnectionData.Name, solutionComponents.Count, _solution.UniqueName);
-
-                this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
-
-                await SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, _service, _descriptor, _commonConfig, _solution.UniqueName, solutionComponents, false);
-
-                ToggleControls(true, Properties.WindowStatusStrings.LoadingComponentsFromZipFileCompleted);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
-
-                ToggleControls(true, Properties.WindowStatusStrings.LoadingComponentsFromZipFileFailed);
-            }
-        }
-
         private async Task PerformCreateFileWithSolutionComponents(string folder, Solution solution)
         {
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingTextFileWithComponentsFormat1, solution.UniqueName);
+                var list = _itemsSource.Select(e => e.SolutionComponent);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
+                if (!list.Any())
+                {
+                    return;
+                }
 
-                string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                    _service.ConnectionData.Name
-                    , solution.UniqueName
-                    , "Components"
-                );
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                await solutionDescriptor.CreateFileWithSolutionComponentsAsync(filePath, solution.Id);
-
-                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Solution Components was export into file '{0}'", filePath);
-
-                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
-
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsCompletedFormat1, solution.UniqueName);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
-
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsFailedFormat1, solution.UniqueName);
-            }
-        }
-
-        private async Task PerformShowingMissingDependencies(string folder, Solution solution)
-        {
-            try
-            {
                 ToggleControls(false, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesFormat1, solution.UniqueName);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
 
-                ComponentsGroupBy showComponents = _commonConfig.ComponentsGroupBy;
-
-                string showString = null;
-
-                if (showComponents == ComponentsGroupBy.DependentComponents)
-                {
-                    showString = "dependent";
-                }
-                else
-                {
-                    showString = "required";
-                }
-
-                showString = string.Format("Missing Dependencies {0}", showString);
-
                 string fileName = EntityFileNameFormatter.GetSolutionFileName(
                     _service.ConnectionData.Name
                     , solution.UniqueName
-                    , showString
-                    );
+                    , "AllMissingDependencies"
+                );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await solutionDescriptor.CreateFileWithSolutionMissingDependenciesAsync(filePath, solution.Id, showComponents, showString);
+                await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, list);
 
-                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Solution {0} was export into file '{1}'", showString, filePath);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Solution All Missing Dependencies was export into file '{0}'", filePath);
 
                 this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
@@ -2118,53 +1561,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesFailedFormat1, solution.UniqueName);
-            }
-        }
-
-        private async Task PerformShowingDependenciesForUninstall(string folder, Solution solution)
-        {
-            try
-            {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallFormat1, solution.UniqueName);
-
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
-
-                ComponentsGroupBy showComponents = _commonConfig.ComponentsGroupBy;
-
-                string showString = null;
-
-                if (showComponents == ComponentsGroupBy.DependentComponents)
-                {
-                    showString = "dependent";
-                }
-                else
-                {
-                    showString = "required";
-                }
-
-                showString = string.Format("Dependencies for Uninstall {0}", showString);
-
-                string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                    _service.ConnectionData.Name
-                    , solution.UniqueName
-                    , showString
-                    );
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                await solutionDescriptor.CreateFileWithSolutionDependenciesForUninstallAsync(filePath, solution.Id, showComponents, showString);
-
-                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Solution {0} was export into file '{1}'", showString, filePath);
-
-                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
-
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallCompletedFormat1, solution.UniqueName);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
-
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallFailedFormat1, solution.UniqueName);
             }
         }
 

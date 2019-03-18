@@ -1281,4 +1281,19 @@
   <data name="CreatingRoleBackupFormat2" xml:space="preserve">
     <value>{0}. Creating Role backup {1}...</value>
   </data>
+  <data name="GettingAllRequiredComponentsCompletedFormat1" xml:space="preserve">
+    <value>Getting all required components for solution {0} completed.</value>
+  </data>
+  <data name="GettingAllRequiredComponentsFormat1" xml:space="preserve">
+    <value>Getting all required components for solution {0}...</value>
+  </data>
+  <data name="AllRequiredComponentsExistsInTargetFormat1" xml:space="preserve">
+    <value>All required components exists in {0}.</value>
+  </data>
+  <data name="RemovingComponentsExistingInTargetCompletedFormat1" xml:space="preserve">
+    <value>Removing components existing in {0} completed.</value>
+  </data>
+  <data name="RemovingComponentsExistingInTargetFormat1" xml:space="preserve">
+    <value>Removing components existing in {0}...</value>
+  </data>
 </root>

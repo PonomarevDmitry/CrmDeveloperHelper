@@ -989,6 +989,9 @@
     <Compile Include="Views\WindowEntitySelect.xaml.cs">
       <DependentUpon>WindowEntitySelect.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowExplorerComponents.xaml.cs">
+      <DependentUpon>WindowExplorerComponents.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowExplorerSolutionComponentDependencies.xaml.cs">
       <DependentUpon>WindowExplorerSolutionComponentDependencies.xaml</DependentUpon>
     </Compile>
@@ -1551,6 +1554,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowEntitySelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExplorerComponents.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

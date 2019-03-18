@@ -106,6 +106,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All required components exists in {0}..
+        /// </summary>
+        internal static string AllRequiredComponentsExistsInTargetFormat1 {
+            get {
+                return ResourceManager.GetString("AllRequiredComponentsExistsInTargetFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Analizing solutions {0} and {1} completed..
         /// </summary>
         internal static string AnalizingSolutionsCompletedFormat2 {
@@ -1591,6 +1600,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Getting all required components for solution {0} completed..
+        /// </summary>
+        internal static string GettingAllRequiredComponentsCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("GettingAllRequiredComponentsCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting all required components for solution {0}....
+        /// </summary>
+        internal static string GettingAllRequiredComponentsFormat1 {
+            get {
+                return ResourceManager.GetString("GettingAllRequiredComponentsFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Getting messages....
         /// </summary>
         internal static string GettingMessages {
@@ -2703,6 +2730,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string RegisteringPluginTypeFormat2 {
             get {
                 return ResourceManager.GetString("RegisteringPluginTypeFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing components existing in {0} completed..
+        /// </summary>
+        internal static string RemovingComponentsExistingInTargetCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("RemovingComponentsExistingInTargetCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing components existing in {0}....
+        /// </summary>
+        internal static string RemovingComponentsExistingInTargetFormat1 {
+            get {
+                return ResourceManager.GetString("RemovingComponentsExistingInTargetFormat1", resourceCulture);
             }
         }
         

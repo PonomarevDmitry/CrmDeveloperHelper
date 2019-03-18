@@ -87,16 +87,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return listComponent;
         }
 
-        public Task<List<Dependency>> GetSolutionMissingDependenciesAsync(string name)
+        public Task<List<Dependency>> GetSolutionMissingDependenciesAsync(string solutionUniqueName)
         {
-            return Task.Run(() => GetSolutionMissingDependencies(name));
+            return Task.Run(() => GetSolutionMissingDependencies(solutionUniqueName));
         }
 
-        private List<Dependency> GetSolutionMissingDependencies(string name)
+        private List<Dependency> GetSolutionMissingDependencies(string solutionUniqueName)
         {
             var request = new RetrieveMissingDependenciesRequest
             {
-                SolutionUniqueName = name
+                SolutionUniqueName = solutionUniqueName
             };
 
             var response = (RetrieveMissingDependenciesResponse)_service.Execute(request);
@@ -106,16 +106,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return listComponent;
         }
 
-        public Task<List<Dependency>> GetSolutionDependenciesForUninstallAsync(string name)
+        public Task<List<Dependency>> GetSolutionDependenciesForUninstallAsync(string solutionUniqueName)
         {
-            return Task.Run(() => GetSolutionDependenciesForUninstall(name));
+            return Task.Run(() => GetSolutionDependenciesForUninstall(solutionUniqueName));
         }
 
-        private List<Dependency> GetSolutionDependenciesForUninstall(string name)
+        private List<Dependency> GetSolutionDependenciesForUninstall(string solutionUniqueName)
         {
             var request = new RetrieveDependenciesForUninstallRequest
             {
-                SolutionUniqueName = name
+                SolutionUniqueName = solutionUniqueName
             };
 
             var response = (RetrieveDependenciesForUninstallResponse)_service.Execute(request);
@@ -156,6 +156,124 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             };
 
             List<Dependency> result = new List<Dependency>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Dependency>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+            }
+
+            return result;
+        }
+
+        public Task<List<SolutionComponent>> GetSolutionAllRequiredComponentsAsync(Guid solutionId, string solutionUniqueName)
+        {
+            return Task.Run(() => GetSolutionAllRequiredComponents(solutionId, solutionUniqueName));
+        }
+
+        private List<SolutionComponent> GetSolutionAllRequiredComponents(Guid solutionId, string solutionUniqueName)
+        {
+            var request = new RetrieveMissingDependenciesRequest
+            {
+                SolutionUniqueName = solutionUniqueName,
+            };
+
+            var response = (RetrieveMissingDependenciesResponse)_service.Execute(request);
+
+            var listComponent = response.EntityCollection.Entities.Select(e => e.ToEntity<Dependency>()).ToList();
+
+            GetAllRequiredComponents(listComponent);
+
+            HashSet<Tuple<int, Guid>> result = new HashSet<Tuple<int, Guid>>();
+
+            foreach (var item in listComponent.Where(d => d.RequiredComponentObjectId.HasValue && d.RequiredComponentType != null))
+            {
+                result.Add(Tuple.Create(item.RequiredComponentType.Value, item.RequiredComponentObjectId.Value));
+            }
+
+            var repository = new SolutionComponentRepository(_service);
+
+            var components = repository.GetSolutionComponents(solutionId, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
+
+            foreach (var item in components.Where(c => c.ObjectId.HasValue && c.ComponentType != null))
+            {
+                var key = Tuple.Create(item.ComponentType.Value, item.ObjectId.Value);
+
+                result.Remove(key);
+            }
+
+            return result.Select(c => new SolutionComponent()
+            {
+                ComponentType = new OptionSetValue(c.Item1),
+                ObjectId = c.Item2,
+            }).ToList();
+        }
+
+        private void GetAllRequiredComponents(List<Dependency> listComponent)
+        {
+            var currentList = new HashSet<Guid>(listComponent.Where(c => c.RequiredComponentNodeId != null).Select(c => c.RequiredComponentNodeId.Id));
+
+            HashSet<Guid> componentsToRequest = new HashSet<Guid>(currentList);
+
+            while (componentsToRequest.Any())
+            {
+                var requiredForItemList = this.GetRequiredComponents(componentsToRequest.ToArray());
+
+                componentsToRequest.Clear();
+
+                foreach (var item in requiredForItemList.Where(d => d.RequiredComponentNodeId != null))
+                {
+                    if (currentList.Add(item.RequiredComponentNodeId.Id))
+                    {
+                        listComponent.Add(item);
+                        componentsToRequest.Add(item.RequiredComponentNodeId.Id);
+                    }
+                }
+            }
+        }
+
+        private List<Dependency> GetRequiredComponents(Guid[] idNodes)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = Dependency.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Dependency.Schema.Attributes.dependentcomponentnodeid, ConditionOperator.In, idNodes),
+                    },
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<Dependency>();
 
             try
             {

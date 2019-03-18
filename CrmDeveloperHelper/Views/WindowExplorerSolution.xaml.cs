@@ -235,6 +235,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
+            return await GetService(connectionData);
+        }
+
+        private async Task<IOrganizationServiceExtented> GetService(ConnectionData connectionData)
+        {
             if (connectionData != null)
             {
                 if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
@@ -262,11 +267,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
+            return await GetDescriptor(connectionData);
+        }
+
+        private async Task<SolutionComponentDescriptor> GetDescriptor(ConnectionData connectionData)
+        {
             if (connectionData != null)
             {
                 if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
                 {
-                    var service = await GetService();
+                    var service = await GetService(connectionData);
 
                     _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service);
                 }
@@ -840,6 +850,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
             mIComponents.Click += mIComponents_Click;
 
+
+
+
             MenuItem mIMissingComponents = new MenuItem()
             {
                 Header = string.Format("Missing Components for {0}", solution.UniqueNameEscapeUnderscore),
@@ -905,6 +918,68 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 itemCollection.Add(new Separator());
                 itemCollection.Add(mIExportSolution);
+
+                var connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+                if (connectionData != null)
+                {
+                    var otherConnections = connectionData.ConnectionConfiguration.Connections.Where(c => c.ConnectionId != connectionData.ConnectionId).ToList();
+
+                    if (otherConnections.Any())
+                    {
+                        MenuItem mICheckImportPossibility = new MenuItem()
+                        {
+                            Header = string.Format("Check Possibility to Import {0} into", solution.UniqueNameEscapeUnderscore),
+                            Tag = solution,
+                        };
+
+                        foreach (var connection in otherConnections)
+                        {
+                            MenuItem menuItem = new MenuItem()
+                            {
+                                Header = connection.Name,
+                                Tag = connection,
+                            };
+                            menuItem.Click += mICheckImportPossibility_Click;
+
+                            if (mICheckImportPossibility.Items.Count > 0)
+                            {
+                                mICheckImportPossibility.Items.Add(new Separator());
+                            }
+
+                            mICheckImportPossibility.Items.Add(menuItem);
+                        }
+
+                        MenuItem mICheckImportPossibilityAndExportSolution = new MenuItem()
+                        {
+                            Header = string.Format("Check Possibility to Import {0} into Connection and Export Solution", solution.UniqueNameEscapeUnderscore),
+                            Tag = solution,
+                        };
+
+                        foreach (var connection in otherConnections)
+                        {
+                            MenuItem menuItem = new MenuItem()
+                            {
+                                Header = connection.Name,
+                                Tag = connection,
+                            };
+                            menuItem.Click += mICheckImportPossibilityAndExportSolution_Click;
+
+                            if (mICheckImportPossibilityAndExportSolution.Items.Count > 0)
+                            {
+                                mICheckImportPossibilityAndExportSolution.Items.Add(new Separator());
+                            }
+
+                            mICheckImportPossibilityAndExportSolution.Items.Add(menuItem);
+                        }
+
+                        itemCollection.Add(new Separator());
+                        itemCollection.Add(mICheckImportPossibility);
+
+                        itemCollection.Add(new Separator());
+                        itemCollection.Add(mICheckImportPossibilityAndExportSolution);
+                    }
+                }
             }
 
             itemCollection.Add(new Separator());
@@ -914,6 +989,122 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             itemCollection.Add(mIUninstallComponents);
         }
 
+        private async void mICheckImportPossibility_Click(object sender, RoutedEventArgs e)
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            if (!(sender is MenuItem menuItem)
+                || menuItem.Tag == null
+                || !(menuItem.Tag is ConnectionData targetConnectionData)
+                || menuItem.Parent == null
+                || !(menuItem.Parent is MenuItem parentMenuItem)
+                || parentMenuItem.Tag == null
+                || !(parentMenuItem.Tag is Solution solution)
+                || solution.IsManaged.GetValueOrDefault()
+            )
+            {
+                return;
+            }
+
+            await CheckImportPossibility(targetConnectionData, solution);
+        }
+
+        private async void mICheckImportPossibilityAndExportSolution_Click(object sender, RoutedEventArgs e)
+        {
+            if (_init > 0 || !_controlsEnabled)
+            {
+                return;
+            }
+
+            if (!(sender is MenuItem menuItem)
+                || menuItem.Tag == null
+                || !(menuItem.Tag is ConnectionData targetConnectionData)
+                || menuItem.Parent == null
+                || !(menuItem.Parent is MenuItem parentMenuItem)
+                || parentMenuItem.Tag == null
+                || !(parentMenuItem.Tag is Solution solution)
+                || solution.IsManaged.GetValueOrDefault()
+            )
+            {
+                return;
+            }
+
+            if (await CheckImportPossibility(targetConnectionData, solution))
+            {
+                await PerformExportSolution(solution);
+            }
+        }
+
+        private async Task<bool> CheckImportPossibility(ConnectionData targetConnectionData, Solution solution)
+        {
+            var service = await GetService();
+            var descriptor = await GetDescriptor();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.GettingAllRequiredComponentsFormat1, solution.UniqueName);
+
+            DependencyRepository repository = new DependencyRepository(service);
+
+            var fullMissingComponents = await repository.GetSolutionAllRequiredComponentsAsync(solution.Id, solution.UniqueName);
+
+            await descriptor.GetSolutionImageComponentsListAsync(fullMissingComponents);
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.GettingAllRequiredComponentsCompletedFormat1, solution.UniqueName);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.RemovingComponentsExistingInTargetFormat1, targetConnectionData.Name);
+
+            var targetService = await GetService(targetConnectionData);
+            var targetDescription = await GetDescriptor(targetConnectionData);
+
+            List<SolutionComponent> existingComponentsInTarget = new List<SolutionComponent>();
+
+            foreach (var item in fullMissingComponents)
+            {
+                var imageList = await descriptor.GetSolutionImageComponentsListAsync(new[] { item });
+
+                bool allExists = true;
+
+                foreach (var imageItem in imageList)
+                {
+                    var targetComponents = await targetDescription.GetSolutionComponentsListAsync(new[] { imageItem });
+
+                    if (!targetComponents.Any())
+                    {
+                        allExists = false;
+                        break;
+                    }
+                }
+
+                if (allExists)
+                {
+                    existingComponentsInTarget.Add(item);
+                }
+            }
+
+            foreach (var item in existingComponentsInTarget)
+            {
+                fullMissingComponents.Remove(item);
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.RemovingComponentsExistingInTargetCompletedFormat1, targetConnectionData.Name);
+
+            if (!fullMissingComponents.Any())
+            {
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.AllRequiredComponentsExistsInTargetFormat1, targetConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                return true;
+            }
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenExplorerComponentsWindow(_iWriteToOutput, service, descriptor, _commonConfig, fullMissingComponents, solution.UniqueName, null);
+
+            return false;
+        }
+
         private async void mIExportSolution_Click(object sender, RoutedEventArgs e)
         {
             if (_init > 0 || !_controlsEnabled)
@@ -921,19 +1112,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!(sender is MenuItem menuItem
-                && menuItem.Tag is Solution solution
-                && solution.IsManaged.GetValueOrDefault() == false
-                ))
+            if (!(sender is MenuItem menuItem)
+                || menuItem.Tag == null
+                || !(menuItem.Tag is Solution solution)
+                || solution.IsManaged.GetValueOrDefault()
+            )
             {
                 return;
             }
 
-            if (solution == null)
-            {
-                return;
-            }
+            await PerformExportSolution(solution);
+        }
 
+        private async Task PerformExportSolution(Solution solution)
+        {
             ConnectionData connectionData = null;
 
             cmBCurrentConnection.Dispatcher.Invoke(() =>
