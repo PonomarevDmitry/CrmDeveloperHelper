@@ -229,12 +229,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var updateAssembly = new PluginAssembly()
-            {
-                Id = PluginAssembly.Id,
-            };
+            var updateAssembly = new PluginAssembly();
 
-            //updateAssembly.Name = txtBName.Text.Trim();
+            if (PluginAssembly.PluginAssemblyId.HasValue)
+            {
+                updateAssembly.Id = PluginAssembly.PluginAssemblyId.Value;
+                updateAssembly.PluginAssemblyId = PluginAssembly.PluginAssemblyId;
+            }
+            else
+            {
+                updateAssembly.Name = _assemblyLoad.Name;
+            }
+
             updateAssembly.Description = txtBDescription.Text.Trim();
 
             var isolationMode = GetIsolationMode();
@@ -261,11 +267,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             else
             {
                 updateAssembly.Path = string.Empty;
-            }
-
-            if (updateAssembly.Id == Guid.Empty)
-            {
-                updateAssembly.Name = _assemblyLoad.Name;
             }
 
             var listToRegister = _listLocalAssembly.Where(p => p.IsChecked).ToList();
