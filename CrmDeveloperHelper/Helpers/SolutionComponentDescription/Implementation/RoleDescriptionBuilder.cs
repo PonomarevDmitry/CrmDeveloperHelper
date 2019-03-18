@@ -33,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         protected override ColumnSet GetColumnSet()
         {
-            return new ColumnSet(Role.Schema.Attributes.name, Role.Schema.Attributes.businessunitid, Role.Schema.Attributes.ismanaged, Role.Schema.Attributes.iscustomizable);
+            return new ColumnSet(Role.Schema.Attributes.name, Role.Schema.Attributes.roletemplateid, Role.Schema.Attributes.businessunitid, Role.Schema.Attributes.ismanaged, Role.Schema.Attributes.iscustomizable);
         }
 
         protected override QueryExpression GetQuery(List<Guid> idsNotCached)

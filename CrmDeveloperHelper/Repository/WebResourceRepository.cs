@@ -315,7 +315,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             //        }
             //},
 
-            var result = GetList(name, columnSet).Where(w => w.WebResourceType != null && 
+            var result = GetList(name, columnSet).Where(w => w.WebResourceType != null &&
                 (
                 w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1
                 || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_CSS_2
@@ -743,7 +743,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<WebResource>()).SingleOrDefault();
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<WebResource>()).SingleOrDefault() : null;
         }
 
         public static IEnumerable<string> GetSplitedNames(string friendlyPath, string extension)
