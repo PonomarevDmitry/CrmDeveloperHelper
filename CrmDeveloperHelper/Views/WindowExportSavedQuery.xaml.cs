@@ -188,7 +188,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     var repository = new SavedQueryRepository(service);
-                    list = await repository.GetListAsync(this._filterEntity, new ColumnSet(SavedQuery.Schema.Attributes.name, SavedQuery.Schema.Attributes.returnedtypecode, SavedQuery.Schema.Attributes.querytype, SavedQuery.Schema.Attributes.iscustomizable));
+                    list = await repository.GetListAsync(this._filterEntity
+                        , new ColumnSet(
+                            SavedQuery.Schema.Attributes.name
+                            , SavedQuery.Schema.Attributes.returnedtypecode
+                            , SavedQuery.Schema.Attributes.querytype
+                            , SavedQuery.Schema.Attributes.iscustomizable
+                            , SavedQuery.Schema.Attributes.statuscode
+                        ));
                 }
             }
             catch (Exception ex)
@@ -236,14 +243,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public string QueryType { get; private set; }
 
+            public string QueryStatus { get; private set; }
+
             public SavedQuery SavedQuery { get; private set; }
 
-            public EntityViewItem(string entityName, string queryName, string queryType, SavedQuery savedQuery)
+            public EntityViewItem(string entityName, string queryName, string queryType, string queryStatus, SavedQuery savedQuery)
             {
                 this.EntityName = entityName;
                 this.QueryName = queryName;
                 this.QueryType = queryType;
                 this.SavedQuery = savedQuery;
+                this.QueryStatus = queryStatus;
             }
         }
 
@@ -261,7 +271,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string queryTypeName = SavedQueryRepository.GetQueryTypeName(queryType);
 
-                    var item = new EntityViewItem(entity.ReturnedTypeCode, entity.Name, queryTypeName, entity);
+                    entity.FormattedValues.TryGetValue(SavedQuery.Schema.Attributes.statuscode, out var queryStatus);
+
+                    var item = new EntityViewItem(entity.ReturnedTypeCode, entity.Name, queryTypeName, queryStatus, entity);
 
                     this._itemsSource.Add(item);
                 }

@@ -108,10 +108,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
-            result = result.Where(ent =>
-                !ent.Contains(SystemForm.Schema.Attributes.formactivationstate) || (ent.Contains(SystemForm.Schema.Attributes.formactivationstate) && ent.GetAttributeValue<OptionSetValue>(SystemForm.Schema.Attributes.formactivationstate).Value == 1)
-                ).ToList();
-
             return result;
         }
 

@@ -201,7 +201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.LoadingSavedQueries);
 
             this._itemsSource.Clear();
@@ -215,7 +215,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service1 != null && service2 != null)
                 {
-                    var columnsSet = new ColumnSet(SavedQuery.Schema.Attributes.name, SavedQuery.Schema.Attributes.returnedtypecode, SavedQuery.Schema.Attributes.querytype);
+                    var columnsSet = new ColumnSet(
+                        SavedQuery.Schema.Attributes.name
+                        , SavedQuery.Schema.Attributes.returnedtypecode
+                        , SavedQuery.Schema.Attributes.querytype
+                        , SavedQuery.Schema.Attributes.statuscode
+                    );
 
                     var temp = new List<LinkedEntities<SavedQuery>>();
 
@@ -274,7 +279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             list = FilterList(list, textName);
 
             LoadEntities(list);
-            
+
             ToggleControls(true, Properties.WindowStatusStrings.LoadingSavedQueriesCompletedFormat1, list.Count());
         }
 
@@ -325,15 +330,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public string QueryName2 { get; private set; }
 
+            public string QueryStatus1 { get; private set; }
+
+            public string QueryStatus2 { get; private set; }
+
             public LinkedEntities<SavedQuery> Link { get; private set; }
 
-            public EntityViewItem(string entityName, string queryType, LinkedEntities<SavedQuery> link, string queryName1, string queryName2)
+            public EntityViewItem(string entityName, string queryType, LinkedEntities<SavedQuery> link
+                , string queryName1, string queryName2
+                , string queryStatus1, string queryStatus2
+            )
             {
                 this.EntityName = entityName;
                 this.QueryName1 = queryName1;
                 this.QueryName2 = queryName2;
                 this.QueryType = queryType;
                 this.Link = link;
+                this.QueryStatus1 = queryStatus1;
+                this.QueryStatus2 = queryStatus2;
             }
         }
 
@@ -350,7 +364,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     string queryTypeName = SavedQueryRepository.GetQueryTypeName(link.Entity1.QueryType.Value);
 
-                    var item = new EntityViewItem(link.Entity1.ReturnedTypeCode, queryTypeName, link, link.Entity1.Name, link.Entity2?.Name);
+                    link.Entity1.FormattedValues.TryGetValue(SavedQuery.Schema.Attributes.statuscode, out var queryStatus1);
+
+                    var queryStatus2 = string.Empty;
+
+                    if (link.Entity2 != null)
+                    {
+                        link.Entity2.FormattedValues.TryGetValue(SavedQuery.Schema.Attributes.statuscode, out queryStatus2);
+                    }
+
+                    var item = new EntityViewItem(link.Entity1.ReturnedTypeCode, queryTypeName, link
+                        , link.Entity1.Name, link.Entity2?.Name
+                        , queryStatus1, queryStatus2
+                    );
 
                     this._itemsSource.Add(item);
                 }
@@ -696,7 +722,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.WriteErrorToOutput(null, ex);
 
                 ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFailedFormat1, fieldName);
-            }            
+            }
         }
 
         private void mIExportSavedQuery1FetchXml_Click(object sender, RoutedEventArgs e)

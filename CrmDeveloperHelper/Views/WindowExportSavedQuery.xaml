@@ -127,6 +127,8 @@
 
                 <DataGridTextColumn Header="Query Name" Width="200" Binding="{Binding QueryName}" />
 
+                <DataGridTextColumn Header="Query Status" Width="150" Binding="{Binding QueryStatus}" />
+
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="25" Width="53"/>

@@ -209,7 +209,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     var repository = new SystemFormRepository(service);
-                    list = await repository.GetListAsync(this._filterEntity, new ColumnSet(SystemForm.Schema.Attributes.name, SystemForm.Schema.Attributes.objecttypecode, SystemForm.Schema.Attributes.type, SystemForm.Schema.Attributes.iscustomizable));
+                    list = await repository.GetListAsync(this._filterEntity
+                        , new ColumnSet(
+                            SystemForm.Schema.Attributes.name
+                            , SystemForm.Schema.Attributes.objecttypecode
+                            , SystemForm.Schema.Attributes.type
+                            , SystemForm.Schema.Attributes.iscustomizable
+                            , SystemForm.Schema.Attributes.formactivationstate
+                        ));
                 }
             }
             catch (Exception ex)
@@ -264,14 +271,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public string FormName { get; private set; }
 
+            public string FormState { get; private set; }
+
             public SystemForm SystemForm { get; private set; }
 
-            public EntityViewItem(string entityName, string formName, string formType, SystemForm systemForm)
+            public EntityViewItem(string entityName, string formName, string formType, string formState, SystemForm systemForm)
             {
                 this.EntityName = entityName;
                 this.FormName = formName;
                 this.SystemForm = systemForm;
                 this.FormType = formType;
+                this.FormState = formState;
             }
         }
 
@@ -285,7 +295,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     .ThenBy(ent => ent.Name)
                 )
                 {
-                    var item = new EntityViewItem(entity.ObjectTypeCode, entity.Name, entity.FormattedValues[SystemForm.Schema.Attributes.type], entity);
+                    entity.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.type, out var formType);
+                    entity.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.formactivationstate, out var formState);
+
+                    var item = new EntityViewItem(entity.ObjectTypeCode, entity.Name, formType, formState, entity);
 
                     this._itemsSource.Add(item);
                 }

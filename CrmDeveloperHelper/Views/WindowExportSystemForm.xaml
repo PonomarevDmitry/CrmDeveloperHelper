@@ -123,6 +123,8 @@
 
                 <DataGridTextColumn Header="Form Name" Width="260" Binding="{Binding FormName}" />
 
+                <DataGridTextColumn Header="Form State" Width="150" Binding="{Binding FormState}" />
+
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" VerticalAlignment="Bottom" Height="25" Padding="10,0" VerticalContentAlignment="Center"/>

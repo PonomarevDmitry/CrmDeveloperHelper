@@ -66,7 +66,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                             , (int)ComponentState.Published
                             , (int)ComponentState.Unpublished
                         ),
-                        new ConditionExpression(SavedQuery.Schema.Attributes.statecode, ConditionOperator.Equal, (int)SavedQuery.Schema.OptionSets.statecode.Active_0),
                     },
                 },
 

@@ -260,7 +260,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service1 != null && service2 != null)
                 {
-                    var columnSet = new ColumnSet(SystemForm.Schema.Attributes.name, SystemForm.Schema.Attributes.objecttypecode, SystemForm.Schema.Attributes.type);
+                    var columnSet = new ColumnSet(SystemForm.Schema.Attributes.name
+                        , SystemForm.Schema.Attributes.objecttypecode
+                        , SystemForm.Schema.Attributes.type
+                        , SystemForm.Schema.Attributes.formactivationstate
+                    );
 
                     var temp = new List<LinkedEntities<SystemForm>>();
 
@@ -372,13 +376,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public string FormName2 { get; private set; }
 
+            public string FormState1 { get; private set; }
+
+            public string FormState2 { get; private set; }
+
             public LinkedEntities<SystemForm> Link { get; private set; }
 
-            public EntityViewItem(string entityName, string formType, LinkedEntities<SystemForm> link, string formName1, string formName2)
+            public EntityViewItem(string entityName, string formType, LinkedEntities<SystemForm> link
+                , string formName1, string formName2
+                , string formState1, string formState2
+            )
             {
                 this.EntityName = entityName;
                 this.FormName1 = formName1;
                 this.FormName2 = formName2;
+                this.FormState1 = formState1;
+                this.FormState2 = formState2;
                 this.FormType = formType;
                 this.Link = link;
             }
@@ -395,7 +408,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                       .ThenBy(ent => ent.Entity1.Name)
                   )
                 {
-                    var item = new EntityViewItem(link.Entity1.ObjectTypeCode, link.Entity1.FormattedValues[SystemForm.Schema.Attributes.type], link, link.Entity1.Name, link.Entity2?.Name);
+                    link.Entity1.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.type, out var formType);
+
+                    var formState2 = string.Empty;
+
+                    link.Entity1.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.formactivationstate, out var formState1);
+
+                    if (link.Entity2 != null)
+                    {
+                        link.Entity2.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.formactivationstate, out formState2);
+                    }
+
+                    var item = new EntityViewItem(link.Entity1.ObjectTypeCode, formType, link
+                        , link.Entity1.Name, link.Entity2?.Name
+                        , formState1, formState2
+                    );
 
                     this._itemsSource.Add(item);
                 }

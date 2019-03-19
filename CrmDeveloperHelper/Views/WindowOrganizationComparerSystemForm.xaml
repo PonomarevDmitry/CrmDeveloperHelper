@@ -159,6 +159,10 @@
 
                 <DataGridTextColumn Header="Form Name 2" Width="240" Binding="{Binding FormName2}" />
 
+                <DataGridTextColumn Header="Form State 1" Width="150" Binding="{Binding FormState1}" />
+
+                <DataGridTextColumn Header="Form State 2" Width="150" Binding="{Binding FormState2}" />
+
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,62" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="26" Width="53"/>
