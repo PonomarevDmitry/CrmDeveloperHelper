@@ -559,7 +559,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._crmConfig.Save();
 
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
                 _iWriteToOutput.ActivateOutputWindow(null);
 
                 this.DialogResult = true;

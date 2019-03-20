@@ -32,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
             if (list.Any())
             {
-                helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, true, list.ToArray());
+                helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, null, true, list.ToArray());
             }
         }
     }

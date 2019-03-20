@@ -111,7 +111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         if (list.Any())
                         {
-                            helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(solutionUniqueName, false, list.ToArray());
+                            helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(null, solutionUniqueName, false, list.ToArray());
                         }
                     }
                 }

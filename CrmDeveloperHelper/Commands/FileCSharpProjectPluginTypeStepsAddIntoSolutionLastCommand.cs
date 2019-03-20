@@ -125,7 +125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         if (pluginTypeNames.Any())
                         {
-                            helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(solutionUniqueName, false, pluginTypeNames.ToArray());
+                            helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, solutionUniqueName, false, pluginTypeNames.ToArray());
                         }
                     }
                 }

@@ -121,7 +121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         List<SelectedFile> selectedFiles = helper.GetOpenedDocuments(FileOperations.SupportsReportType);
 
-                        helper.HandleAddingReportsIntoSolutionCommand(selectedFiles, false, solutionUniqueName);
+                        helper.HandleAddingReportsIntoSolutionCommand(null, solutionUniqueName, false, selectedFiles);
                     }
                 }
             }

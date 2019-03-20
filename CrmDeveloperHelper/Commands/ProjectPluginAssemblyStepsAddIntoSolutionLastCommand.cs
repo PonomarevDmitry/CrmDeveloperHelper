@@ -122,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         if (projects.Any())
                         {
-                            helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(solutionUniqueName, false, projects.Select(p => p.Name).ToArray());
+                            helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(null, solutionUniqueName, false, projects.Select(p => p.Name).ToArray());
                         }
                     }
                 }

@@ -121,7 +121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceType, false);
 
-                        helper.HandleAddingWebResourcesIntoSolutionCommand(selectedFiles, false, solutionUniqueName);
+                        helper.HandleAddingWebResourcesIntoSolutionCommand(null, solutionUniqueName, false, selectedFiles);
                     }
                 }
             }

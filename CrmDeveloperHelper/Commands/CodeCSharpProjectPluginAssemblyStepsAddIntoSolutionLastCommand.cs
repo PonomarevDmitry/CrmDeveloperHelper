@@ -114,7 +114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                             && document.ProjectItem.ContainingProject != null
                             )
                         {
-                            helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(solutionUniqueName, false, document.ProjectItem.ContainingProject.Name);
+                            helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(null, solutionUniqueName, false, document.ProjectItem.ContainingProject.Name);
                         }
                     }
                 }

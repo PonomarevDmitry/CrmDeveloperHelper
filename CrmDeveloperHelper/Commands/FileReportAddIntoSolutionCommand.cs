@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsReportType, false);
 
-            helper.HandleAddingReportsIntoSolutionCommand(selectedFiles, true, null);
+            helper.HandleAddingReportsIntoSolutionCommand(null, null, true, selectedFiles);
         }
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)

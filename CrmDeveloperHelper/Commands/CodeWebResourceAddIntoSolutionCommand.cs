@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsWebResourceType);
 
-            helper.HandleAddingWebResourcesIntoSolutionCommand(selectedFiles, true, null);
+            helper.HandleAddingWebResourcesIntoSolutionCommand(null, null, true, selectedFiles);
         }
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)

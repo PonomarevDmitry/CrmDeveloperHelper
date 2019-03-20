@@ -125,7 +125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                         {
                             helper.ShowListForPublish();
 
-                            helper.HandleAddingWebResourcesIntoSolutionCommand(selectedFiles, false, solutionUniqueName);
+                            helper.HandleAddingWebResourcesIntoSolutionCommand(null, solutionUniqueName, false, selectedFiles);
                         }
                         else
                         {

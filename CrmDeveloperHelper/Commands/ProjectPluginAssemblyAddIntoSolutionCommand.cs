@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
             if (projects.Any())
             {
-                helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, true, projects.Select(p => p.Name).ToArray());
+                helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, null, true, projects.Select(p => p.Name).ToArray());
             }
         }
 

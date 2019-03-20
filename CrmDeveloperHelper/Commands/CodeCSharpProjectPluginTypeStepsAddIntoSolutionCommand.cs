@@ -36,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 helper.ActivateOutputWindow(null);
                 string fileType = await PropertiesHelper.GetTypeFullNameAsync(document);
 
-                helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, true, fileType);
+                helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, null, true, fileType);
             }
             catch (Exception ex)
             {

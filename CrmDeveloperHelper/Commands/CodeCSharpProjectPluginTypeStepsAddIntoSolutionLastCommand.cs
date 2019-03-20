@@ -113,7 +113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                         helper.ActivateOutputWindow(null);
                         string fileType = await PropertiesHelper.GetTypeFullNameAsync(document);
 
-                        helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(solutionUniqueName, false, fileType);
+                        helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, solutionUniqueName, false, fileType);
                     }
                 }
             }

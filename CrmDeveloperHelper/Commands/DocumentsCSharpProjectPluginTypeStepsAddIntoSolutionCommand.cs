@@ -46,7 +46,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
             if (pluginTypeNames.Any())
             {
-                helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, true, pluginTypeNames.ToArray());
+                helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, null, true, pluginTypeNames.ToArray());
             }
         }
     }
